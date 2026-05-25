@@ -86,12 +86,12 @@ tbody tr:last-child td{border-bottom:none}
 .qoq-down{color:var(--down);font-weight:600}
 .qoq-new{color:var(--new);font-weight:600}
 .qoq-flat{color:var(--text-lighter)}
-.bar-wrap{width:80px;height:6px;background:#e8e6e0;border-radius:3px;overflow:hidden;display:inline-block;vertical-align:middle}
+.bar-wrap{position:relative;width:100%;height:18px;background:#e8e6e0;border-radius:4px;overflow:visible;display:inline-block}
 .bar-fill{height:100%;background:linear-gradient(90deg,var(--navy),var(--gold));border-radius:3px}
 .sector-tag{display:inline-block;font-size:.7rem;padding:2px 8px;border-radius:4px;background:var(--cream);color:var(--text-light);font-weight:500}
 .chart-wrap{background:var(--cream);border:1px solid var(--border-light);border-radius:8px;padding:20px}
 .chart-wrap canvas{width:100%!important;height:340px!important}
-.count-badge{display:inline-block;font-size:.72rem;padding:2px 10px;border-radius:20px;background:rgba(255,255,255,.12);color:rgba(255,255,255,.7);font-weight:500;margin-left:8px;vertical-align:middle}
+.count-badge{display:inline-block;font-size:.72rem;padding:2px 10px;border-radius:20px;background:var(--navy);color:var(--gold);font-weight:600;margin-left:6px;vertical-align:middle}
 .insights-box{margin-top:24px;padding:20px 24px;background:var(--cream);border-radius:8px;border-left:3px solid var(--gold)}
 .insights-box h3{font-family:var(--serif);font-size:.95rem;color:var(--navy);margin-bottom:12px;font-weight:600}
 .insights-box ul{list-style:none}
@@ -247,14 +247,12 @@ th .info-wrap{position:relative;display:inline-flex}
       <button class="tab-btn active" onclick="switchTab('current')"><span data-i18n="tabCurrent">持仓明细</span><span style="display:none" data-i18n="tabCurrent">持仓明细</span></button>
       <button class="tab-btn" onclick="switchTab('changes')"><span data-i18n="tabChanges">季度变化</span><span style="display:none" data-i18n="tabChanges">季度变化</span></button>
       <button class="tab-btn" onclick="switchTab('history')"><span data-i18n="tabHistory">历史趋势</span><span style="display:none" data-i18n="tabHistory">历史趋势</span></button>
-      <button class="tab-btn" onclick="switchTab('timeline')"><span data-i18n="tabTimeline">⏳ 时间轴</span></button>
     </div>
     <div id="tab-current">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
-        <span style="font-size:.82rem;color:var(--text-lighter)">共 <span class="count-badge" id="countBadge">-</span> 项持仓</span>
       </div>
       <div class="table-wrap"><table><thead><tr>
-        <th>#</th><th data-i18n="thTicker">代码</th><th data-i18n="thCompany">公司</th><th data-i18n="thSector">行业</th><th data-i18n="thShares">持股数</th><th data-i18n="thPrice" data-i18n="thPrice">参考股价 <span class="info-badge" title="由 GitHub Action 每周更新，非实时行情">ⓘ</span></th><th>估算成本 <span class="info-wrap"><span class="info-badge" onclick="this.parentElement.querySelector('.info-popover').classList.toggle('show')">ⓘ</span><span class="info-popover">最近成本：最近一次建仓的买入估算<br>· 偏向季度最低价（低价×0.7+均价×0.3）<br>· 数据源 Yahoo K线 或 13F 市值/股数<br>· 新进→本季度，已有→上季度<br><br>历史均价：全周期持有季度的中位数<br>· 基于 13F 每季度实际市值/股数</span></span></th><th>市值 (USD)</th><th>权重</th><th>占比</th>
+        <th>#</th><th data-i18n="thTicker">代码</th><th data-i18n="thCompany">公司</th><th data-i18n="thSector">行业</th><th data-i18n="thShares">持股数</th><th data-i18n="thPrice" data-i18n="thPrice">参考股价 <span class="info-badge" title="由 GitHub Action 每周更新，非实时行情">ⓘ</span></th><th>估算成本 <span class="info-wrap"><span class="info-badge" onclick="this.parentElement.querySelector('.info-popover').classList.toggle('show')">ⓘ</span><span class="info-popover">最近成本：最近一次建仓的买入估算<br>· 偏向季度最低价（低价×0.7+均价×0.3）<br>· 数据源 Yahoo K线 或 13F 市值/股数<br>· 新进→本季度，已有→上季度<br><br>历史均价：全周期持有季度的中位数<br>· 基于 13F 每季度实际市值/股数</span></span></th><th>市值 (USD)</th><th>权重</th>
       </tr></thead><tbody id="holdingsBody"></tbody></table>
       <div id="priceFoot" class="price-note">
         💡 <strong>参考股价</strong> = Finnhub 每周拉取（非实时） | <strong>最近成本</strong> = 最近一次建仓买入估算 | <strong>历史均价</strong> = 全周期持仓季度中位数 | 无法获取历史数据时以 <code>13F 市值/股数</code> 代替
@@ -267,11 +265,10 @@ th .info-wrap{position:relative;display:inline-flex}
     </div>
     <div id="tab-history" class="d-none">
       <div class="chart-wrap"><canvas id="historyChart"></canvas></div>
-    </div>
-    <div id="tab-timeline" class="d-none">
-      <h3 style="font-family:var(--serif);font-size:1.05rem;color:var(--navy);margin-bottom:16px;font-weight:600;"><span data-i18n="tlTitle">持仓时间轴</span></h3>
-      <p style="font-size:.82rem;color:var(--text-lighter);margin-bottom:16px;"><span data-i18n="tlSub">每行展示一只股票在投资组合中的持有时间与仓位变化</span>表示一只股票在投资组合中的持有时间，颜色代表行业板块。</p>
-      <div id="timelineCanvas" class="chart-wrap" style="padding:16px;"></div>
+      <div style="margin-top:36px;">
+        <h3 style="font-family:var(--serif);font-size:1.05rem;color:var(--navy);margin-bottom:12px;font-weight:600;"><span data-i18n="tlTitle">持仓时间轴</span></h3>
+        <div id="timelineCanvas" class="chart-wrap" style="padding:16px;"></div>
+      </div>
       <div style="margin-top:36px;">
         <h3 style="font-family:var(--serif);font-size:1.05rem;color:var(--navy);margin-bottom:8px;font-weight:600;">🇭🇰 <span data-i18n="hkTitle">港股持仓</span></h3>
         <p style="font-size:.82rem;color:var(--text-lighter);margin-bottom:16px;">13F 仅披露美股多头持仓。以下港股数据来源于公开报道、港交所权益披露等，不代表实时准确数据。</p>
@@ -413,7 +410,7 @@ th .info-wrap{position:relative;display:inline-flex}
   </div>
 </footer>
 
-<script src="app.js?v=13"></script>
+<script src="app.js?v=26"></script>
 <script>
 const nav=document.getElementById('mainNav');
 window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',window.scrollY>60));

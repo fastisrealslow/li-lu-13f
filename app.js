@@ -46,8 +46,9 @@ const T = {
   tlOngoing: ['持续管理喜马拉雅资本，坚守价值投资','Managing Himalaya Capital, value investing'],
 
   aboutP1: ['李录（Li Lu），1966 年生于唐山，美籍华裔价值投资者，喜马拉雅资本创始人。','Li Lu (b. 1966), Chinese-American value investor, founder of Himalaya Capital.'],
-  aboutP2: ['1997 年创立喜马拉雅资本，专注长期价值投资。','Founded Himalaya Capital in 1997, focused on long-term value investing.'],
-  aboutP3: ['除投资外，李录也热心公益。','Active in philanthropy and humanitarian causes.'],
+  aboutP2: ['李录（Li Lu），1966 年生于唐山，美籍华裔价值投资者，喜马拉雅资本创始人。','Li Lu (b. 1966), Chinese-American value investor and founder of Himalaya Capital.'],
+  aboutP3: ['1997 年创立喜马拉雅资本，专注长期价值投资。','Founded Himalaya Capital in 1997, focused on long-term value investing.'],
+  aboutP4: ['除投资外，李录也热心公益，设立了人道主义基金会，关注人权、教育和救灾。','Active in philanthropy: humanitarian foundation focused on human rights, education, and disaster relief.'],
   philDBody: ['全面尽职调查——财务报表、行业动态、竞争地位，确保充分了解企业基本面。','Thorough due diligence on financials, industry dynamics, and competitive positioning.'],
   philFBody1: ['不追求广泛分散，资金集中在少数高确信度投资上。','Concentrated in a few high-conviction investments.'],
   philFBody2: ['只持仓。',' holdings.'],
@@ -161,8 +162,24 @@ const T = {
   metaReport: ['报告期','Report Period'],
   metaFiling: ['提交日','Filed'],
   metaPeriod: ['截至','as of'],
+  // Company name translations (Chinese display names)
+  cnName: {
+    'APPLE INC':'苹果','ALPHABET INC':'Alphabet','BK OF AMERICA CORP':'美国银行',
+    'BERKSHIRE HATHAWAY INC DEL':'伯克希尔·哈撒韦','CROCS INC':'Crocs',
+    'EAST WEST BANCORP INC':'华美银行','BLOCK H & R INC':'H&R Block',
+    'MOODYS CORP':'穆迪','MSCI INC':'MSCI','OCCIDENTAL PETE CORP':'西方石油',
+    'PDD HOLDINGS INC':'拼多多','S&P GLOBAL INC':'标普全球',
+    'TENCENT MUSIC ENTMT GROUP':'腾讯音乐','SABLE OFFSHORE CORP':'Sable Offshore',
+    'MICRON TECHNOLOGY INC':'美光科技','FACEBOOK INC':'Facebook',
+    'META PLATFORMS INC':'Meta','PINDUODUO INC':'拼多多',
+    'ALIBABA GROUP HLDG LTD':'阿里巴巴','Sina Corp':'新浪',
+    'Baidu Inc':'百度','Weibo Corp':'微博',
+    'BERKSHIRE HATHAWAY INC':'伯克希尔·哈撒韦',
+  },
+
 };
 function t(key) { const v = T[key]; return v ? v[lang==='en'?1:0] : key; }
+function cn(name) { return lang==='zh' ? (T.cnName[name] || name) : name; }
 function ts(s) {
   const sm = {'科技':'secTech','互联网':'secInternet','电商':'secEcom','金融':'secFinance',
     '综合金融':'secConglomerate','消费':'secConsumer','能源':'secEnergy','娱乐':'secEntertain',
@@ -179,7 +196,7 @@ function switchLang() {
     if (el.childElementCount === 0) el.textContent = v;
   });
   renderAll();
-  renderTimeline();
+
 }
 
 // ========== FORMAT HELPERS ==========
@@ -446,7 +463,7 @@ function renderHKHoldings() {
     html += `<div style="padding:16px;border:1px solid var(--border-light);border-radius:8px;margin-bottom:12px;background:var(--bg);">
       <div style="display:flex;align-items:center;gap:12px;margin-bottom:8px;">
         <span style="font-weight:700;color:var(--navy);font-size:1rem;">${h.ticker}</span>
-        <span style="font-size:.88rem;color:var(--text);">${h.name}</span>
+        <span style="font-size:.88rem;color:var(--text);">${cn(h.name)}</span>
         <span class="tag">${h.sector}</span>
         ${qualityTag}
         ${statusTag}
@@ -505,7 +522,7 @@ function renderHoldings() {
   const d = data.current;
   const quotes = prices?.quotes || {};
   const costBasis = prices?.costBasis || {};
-  document.getElementById('countBadge').textContent = `${d.holdings.length} 项持仓`;
+  // countBadge removed
   document.getElementById('holdingsBody').innerHTML = d.holdings.map((h,i)=>{
     const pct=(h.value/d.totalValue*100).toFixed(2);
     const q = quotes[h.ticker];
@@ -530,7 +547,7 @@ function renderHoldings() {
       if (at) costHtml += `<div style="font-size:.6rem;color:var(--text-lighter);">${t('costAllTime')} (${at.quarters}季)</div>`;
       costHtml += `</div>`;
     }
-    return `<tr><td>${i+1}</td><td>${fmtTicker(h.ticker)}</td><td>${h.name} <small>${h.cls}</small></td><td><span class="tag">${ts(h.sector)}</span></td><td>${fmtNum(h.shares)}</td><td class="price-cell">${priceHtml}</td><td class="cost-cell">${costHtml}</td><td>$${h.value.toLocaleString()}</td><td><strong>${pct}%</strong></td><td style="width:100px;"><div class="bar-wrap"><div class="bar-fill" style="width:${pct*3}%"></div></div></td></tr>`;
+    return `<tr><td>${i+1}</td><td>${fmtTicker(h.ticker)}</td><td>${cn(h.name)}</td><td><span class="tag">${ts(h.sector)}</span></td><td>${fmtNum(h.shares)}</td><td class="price-cell">${priceHtml}</td><td class="cost-cell">${costHtml}</td><td>$${h.value.toLocaleString()}</td><td style="width:100px;"><div class="bar-wrap"><div class="bar-fill" style="width:${pct*3.5}%"></div><span style="font-size:.7rem;font-weight:600;color:var(--navy);margin-left:6px;">${pct}%</span></div></td></tr>`;
   }).join('');
 }
 
@@ -541,18 +558,18 @@ function renderChanges() {
     const sc=h.prevShares===0?'qoq-new':(sd>0?'qoq-up':(sd<0?'qoq-down':'qoq-flat'));
     const vc=h.prevValue===0?'qoq-new':(vd>0?'qoq-up':(vd<0?'qoq-down':'qoq-flat'));
     const ss=sd>0?'+':'', vs=vd>0?'+':'';
-    return `<tr><td>${fmtTicker(h.ticker)}</td><td>${h.name}</td><td>${h.prevShares===0?'-':fmtNum(h.prevShares)}</td><td>${fmtNum(h.shares)}</td><td>${fmtShareChg(h.shares,h.prevShares)}</td><td>${h.prevValue===0?'-':'$'+fmtVal(h.prevValue)}</td><td>$${fmtVal(h.value)}</td><td class="${vc}">${h.prevValue===0?'新进':`${vs}$${fmtVal(Math.abs(vd))} (${fmtPct(h.value,h.prevValue)})`}</td></tr>`;
+    return `<tr><td>${fmtTicker(h.ticker)}</td><td>${cn(h.name)}</td><td>${h.prevShares===0?'-':fmtNum(h.prevShares)}</td><td>${fmtNum(h.shares)}</td><td>${fmtShareChg(h.shares,h.prevShares)}</td><td>${h.prevValue===0?'-':'$'+fmtVal(h.prevValue)}</td><td>$${fmtVal(h.value)}</td><td class="${vc}">${h.prevValue===0?'新进':`${vs}$${fmtVal(Math.abs(vd))} (${fmtPct(h.value,h.prevValue)})`}</td></tr>`;
   }).join('');
 }
 
 function renderInsights() {
   const d = data.current, ins = [];
   const np = d.holdings.filter(h=>!h.prevShares);
-  if (np.length) ins.push(`${t('insNew')} ${np.length} ${t('insNew2')}: ${np.map(h=>h.ticker).join('、')}, ${t('insExpand')}。`);
+  if (np.length) ins.push(`${t('insNew')} ${np.length} ${t('insNew2')} ${np.map(h=>h.ticker).join('、')}, ${t('insExpand')}。`);
   const bs = d.holdings.filter(h=>h.prevShares&&h.shares<h.prevShares*0.5);
-  bs.forEach(h=>{ const p=((h.prevShares-h.shares)/h.prevShares*100).toFixed(0); ins.push(`${h.ticker}(${h.name})${t('insSell')} ${p}%, ${t('insSell2')} ${fmtNum(h.prevShares-h.shares)} ${t('insSell3')}。`); });
+  bs.forEach(h=>{ const p=((h.prevShares-h.shares)/h.prevShares*100).toFixed(0); ins.push(`${h.ticker}(${cn(h.name)})${t('insSell')} ${p}%, ${t('insSell2')} ${fmtNum(h.prevShares-h.shares)} ${t('insSell3')}。`); });
   const inc = d.holdings.filter(h=>h.prevShares&&h.shares>h.prevShares*1.1);
-  inc.forEach(h=>{ const p=((h.shares-h.prevShares)/h.prevShares*100).toFixed(0); ins.push(`${h.ticker}(${h.name})${t('insBuy')} ${p}%, ${t('insBuy2')} ${fmtNum(h.shares-h.prevShares)} ${t('insBuy3')}。`); });
+  inc.forEach(h=>{ const p=((h.shares-h.prevShares)/h.prevShares*100).toFixed(0); ins.push(`${h.ticker}(${cn(h.name)})${t('insBuy')} ${p}%, ${t('insBuy2')} ${fmtNum(h.shares-h.prevShares)} ${t('insBuy3')}。`); });
   const unch = d.holdings.filter(h=>h.prevShares&&h.shares===h.prevShares);
   if (unch.length) ins.push(`${unch.map(h=>h.ticker).join('、')} ${t('insUnchanged')}。`);
   const t3p = (d.holdings.slice(0,3).reduce((s,h)=>s+h.value,0)/d.totalValue*100).toFixed(0);
@@ -664,7 +681,7 @@ async function renderTimeline() {
     }
     html += `<tr>
       <td>${fmtTicker(e.ticker)}</td>
-      <td>${e.name}</td>
+      <td>${cn(e.name)}</td>
       <td><span class="tag">${ts(e.sector)}</span></td>
       <td>${e.first}</td>
       <td>${e.last}</td>
@@ -699,7 +716,7 @@ async function renderHKHoldings() {
         return `
         <tr>
           <td>${fmtTicker(h.ticker)}</td>
-          <td>${h.name}</td>
+          <td>${cn(h.name)}</td>
           <td><span class="tag">${h.sector}</span></td>
           <td style="font-size:.75rem;">${h.entity}</td>
           <td>${h.first_disclosure}</td>
@@ -718,14 +735,13 @@ async function renderHKHoldings() {
 }
 
 function switchTab(name) {
-  ['current','changes','history','timeline'].forEach(t=>{
+  ['current','changes','history'].forEach(t=>{
     document.getElementById('tab-'+t).classList.toggle('d-none',t!==name);
   });
   document.querySelectorAll('.tab-btn').forEach((b,i)=>{
-    b.classList.toggle('active',['current','changes','history','timeline'][i]===name);
+    b.classList.toggle('active',['current','changes','history'][i]===name);
   });
-  if (name==='history') renderHistoryChart();
-  if (name==='timeline') renderTimeline();
+  if (name==='history') { renderHistoryChart(); renderTimeline(); }
 }
 
 function renderAll() {
@@ -747,7 +763,7 @@ function renderAll() {
   const philP = document.querySelector('[data-i18n="philFBody1"]');
   if (philP && lang === 'en') philP.innerHTML = `Concentrated in a few high-conviction investments. Currently only <span id="philoCount">${d.holdings.length}</span> holdings.`;
   renderSummary(); renderHoldings(); renderChanges(); renderInsights();
-  renderTimeline();
+
   renderHKHoldings();
   // Update price note
   const pf = document.getElementById('priceFoot');
