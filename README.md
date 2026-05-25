@@ -1,10 +1,10 @@
 # 喜马拉雅资本 · 李录 13F 持仓追踪
 
-[![Update 13F Data](https://github.com/guoziyuan/li-lu-13f/actions/workflows/update.yml/badge.svg)](https://github.com/guoziyuan/li-lu-13f/actions/workflows/update.yml)
+[![Update 13F Data](https://github.com/fastisrealslow/li-lu-13f/actions/workflows/update.yml/badge.svg)](https://github.com/fastisrealslow/li-lu-13f/actions/workflows/update.yml)
 
 自动追踪李录（Li Lu）旗下喜马拉雅资本（Himalaya Capital Management）每季度向 SEC 提交的 13F 持仓报告。
 
-👉 **[在线查看](https://guoziyuan.github.io/li-lu-13f/)**
+👉 **[在线查看](https://fastisrealslow.github.io/li-lu-13f/)**
 
 ## 功能
 
