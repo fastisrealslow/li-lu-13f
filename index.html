@@ -212,6 +212,7 @@ th .info-wrap{position:relative;display:inline-flex}
       <li><a href="#readings" data-i18n="navReadings">阅读材料</a></li>
     </ul>
     <button id="langBtn" class="lang-btn" onclick="switchLang()">EN</button>
+    <button id="investorBtn" class="lang-btn" onclick="switchInvestor()" style="margin-left:4px;border-color:rgba(212,168,83,.4);color:var(--gold);">李录</button>
     <div class="nav-hamburger" id="hamburger" onclick="document.getElementById('navLinks').classList.toggle('open')">
       <span></span><span></span><span></span>
     </div>
@@ -252,10 +253,10 @@ th .info-wrap{position:relative;display:inline-flex}
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
       </div>
       <div class="table-wrap"><table><thead><tr>
-        <th>#</th><th data-i18n="thTicker">代码</th><th data-i18n="thCompany">公司</th><th data-i18n="thSector">行业</th><th data-i18n="thShares">持股数</th><th data-i18n="thPrice" data-i18n="thPrice">参考股价 <span class="info-badge" title="由 GitHub Action 每周更新，非实时行情">ⓘ</span></th><th>估算成本 <span class="info-wrap"><span class="info-badge" onclick="this.parentElement.querySelector('.info-popover').classList.toggle('show')">ⓘ</span><span class="info-popover">最近成本：最近一次建仓的买入估算<br>· 偏向季度最低价（低价×0.7+均价×0.3）<br>· 数据源 Yahoo K线 或 13F 市值/股数<br>· 新进→本季度，已有→上季度<br><br>历史均价：全周期持有季度的中位数<br>· 基于 13F 每季度实际市值/股数</span></span></th><th>市值 (USD)</th><th>权重</th>
+        <th>#</th><th data-i18n="thTicker">代码</th><th data-i18n="thCompany">公司</th><th data-i18n="thSector">行业</th><th data-i18n="thShares">持股数</th><th data-i18n="thPrice" data-i18n="thPrice">参考股价 <span class="info-badge" title="由 GitHub Action 每日更新，非实时行情">ⓘ</span></th><th>估算成本 <span class="info-wrap"><span class="info-badge" onclick="this.parentElement.querySelector('.info-popover').classList.toggle('show')">ⓘ</span><span class="info-popover"><b>最近成本</b> = 最近一次建仓估算买入价<br>· 有Yahoo K线: 0.7×最低价 + 0.3×均价<br>· 无K线: SEC 13F 市值÷股数<br>· 新进→本季，已有→上季<br><br><b>历史均价</b> = 全周期中位数<br>· 每季度 13F 市值÷股数<br>· 取所有持有季度的中位值<br>· 排除异常离群值<br><br><b>市值</b> = SEC 13F 直接披露<br>· 报告期末持仓市场价值</span></span></th><th>市值 (USD)</th><th>权重</th>
       </tr></thead><tbody id="holdingsBody"></tbody></table>
       <div id="priceFoot" class="price-note">
-        💡 <strong>参考股价</strong> = Finnhub 每周拉取（非实时） | <strong>最近成本</strong> = 最近一次建仓买入估算 | <strong>历史均价</strong> = 全周期持仓季度中位数 | 无法获取历史数据时以 <code>13F 市值/股数</code> 代替
+        💡 <strong>参考股价</strong> = Finnhub 每日拉取（非实时） | <strong>最近成本</strong> = 最近一次建仓买入估算 | <strong>历史均价</strong> = 全周期持仓季度中位数 | 无法获取历史数据时以 <code>13F 市值/股数</code> 代替
       </div></div>
     </div>
     <div id="tab-changes" class="d-none">
@@ -288,8 +289,8 @@ th .info-wrap{position:relative;display:inline-flex}
 <!-- ========== ABOUT ========== -->
 <section class="ref-section" id="about">
   <div class="ref-inner">
-    <div class="ref-label">About Li Lu</div>
-    <div class="ref-title"><span data-i18n="aboutTitle">关于李录与喜马拉雅资本</span></div>
+    <div class="ref-label" id="aboutLabel">About Li Lu</div>
+    <div class="ref-title" id="aboutTitle"><span data-i18n="aboutTitle">关于李录与喜马拉雅资本</span></div>
     <div class="ref-divider"></div>
     <div class="ref-grid">
       <div>
@@ -317,8 +318,8 @@ th .info-wrap{position:relative;display:inline-flex}
 <!-- ========== PHILOSOPHY ========== -->
 <section class="ref-section ref-alt" id="philosophy">
   <div class="ref-inner">
-    <div class="ref-label">Philosophy</div>
-    <div class="ref-title"><span data-i18n="philTitle">投资理念 — 格雷厄姆 → 巴菲特 → 芒格 → 李录</span></div>
+    <div class="ref-label" id="philLabel">Philosophy</div>
+    <div class="ref-title" id="philTitle"><span data-i18n="philTitle">投资理念 — 格雷厄姆 → 巴菲特 → 芒格 → 李录</span></div>
     <div class="ref-divider"></div>
     <div class="phil-grid">
       <div class="phil-card">
@@ -358,8 +359,8 @@ th .info-wrap{position:relative;display:inline-flex}
 <!-- ========== READINGS ========== -->
 <section class="ref-section" id="readings">
   <div class="ref-inner">
-    <div class="ref-label">Readings</div>
-    <div class="ref-title"><span data-i18n="readTitle">学习材料</span></div>
+    <div class="ref-label" id="readLabel">Readings</div>
+    <div class="ref-title" id="readTitle"><span data-i18n="readTitle">学习材料</span></div>
     <div class="ref-divider"></div>
     <div class="articles-grid">
       <a class="article-card" href="https://cdn.prod.website-files.com/5ef3c7300432b40ed865991a/67a4f75703627bd3a927077e_Global%20Value%20Investing%20in%20Our%20Era%20(2024-12-07).pdf" target="_blank">
@@ -406,11 +407,11 @@ th .info-wrap{position:relative;display:inline-flex}
       <a href="https://www.himcap.com/" target="_blank">Himalaya Capital</a>
       <a href="https://github.com/fastisrealslow/li-lu-13f" target="_blank">GitHub</a>
     </div>
-    <p>数据更新：<span id="updateTime"></span> · GitHub Actions 每周一自动更新</p>
+    <p>数据更新：<span id="updateTime"></span> · GitHub Actions 每日自动更新</p>
   </div>
 </footer>
 
-<script src="app.js?v=26"></script>
+<script src="app.js?v=39"></script>
 <script>
 const nav=document.getElementById('mainNav');
 window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',window.scrollY>60));
