@@ -111,7 +111,7 @@ def main():
 
     for h in holdings:
         tk = h["ticker"]
-        buy_q = quarter if h.get("prevShares", 0) == 0 else prev_quarter
+        buy_q = quarter  # always use current quarter for most recent cost
         from_ts, to_ts = quarter_ts(buy_q)
         print(f"  Cost basis {tk} ({buy_q})...", end=" ", flush=True)
 
