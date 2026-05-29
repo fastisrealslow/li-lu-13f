@@ -221,7 +221,7 @@ function ts(s) {
   const sm = {'科技':'secTech','互联网':'secInternet','电商':'secEcom','金融':'secFinance',
     '综合金融':'secConglomerate','消费':'secConsumer','能源':'secEnergy','娱乐':'secEntertain',
     '金融服务':'secFinSvc','半导体':'secSemi','社交':'secSocial','汽车/新能源':'secAuto',
-    '工业/轨交':'secIndustrial','金融/银行':'secBanking'};
+    '工业/轨交':'secIndustrial','金融/银行':'secBanking','煤炭':'secEnergy','油气钻探':'secEnergy','冶金/煤炭':'secEnergy','油气':'secEnergy','航空':'secConsumer','汽车':'secConsumer','航空租赁':'secFinSvc','航运':'secConsumer','资管':'secFinSvc','汽车零售':'secConsumer','钢铁':'secConsumer','工业':'secConsumer','房地产':'secConsumer'};
   return t(sm[s] || 'secOther');
 }
 function switchLang() {
@@ -800,7 +800,9 @@ function renderAll() {
     <span>📬 ${t('metaFiling')}: ${d.filingDate}</span>
     <span>📍 Seattle, WA</span>
   `;
-  document.getElementById('dataSource').textContent = data._live ? t('srcLive') : t('srcAuto');
+    document.getElementById('dataSource').textContent = data._live ? t('srcLive') : (prices?.updated 
+    ? '📡 数据更新于 ' + new Date(prices.updated).toLocaleString('zh-CN',{timeZone:'Asia/Shanghai',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit'})
+    : '📡 使用缓存数据');
   document.getElementById('updateTime').innerHTML = `13F: ${new Date(data.meta?.lastUpdated || Date.now()).toLocaleString('zh-CN',{timeZone:'Asia/Shanghai'})} | 股价: <span id="priceUpdate">加载中...</span>`;
   // update dynamic content
   const pcEl = document.getElementById('philoCount');
@@ -814,7 +816,7 @@ function renderAll() {
   // Update price note
   const pf = document.getElementById('priceFoot');
   if (pf) pf.innerHTML = lang === 'zh'
-    ? '💡 <strong>市值</strong> = SEC 13F 报告期末直接披露 | <strong>最近成本</strong> = 偏低价加权(0.7×低+0.3×均) 或 13F 市值/股数 | <strong>历史均价</strong> = 全周期持有季度中位数去异常值'
+    ? '💡 <strong>参考股价</strong> = Finnhub 每日拉取（非实时） | <strong>最近成本</strong> = 智能选季度（新进→本季，加仓→最近增持季，未变→首次建仓季），有Yahoo K线则 0.7×最低价+0.3×均价，无K线则 13F 市值÷股数 | <strong>历史均价</strong> = 全周期持有季度中位数（去异常值） | <strong>市值</strong> = SEC 13F 报告期末直接披露'
     : '💡 <strong>Price</strong> = Finnhub daily (not real-time) | <strong>Recent Cost</strong> = latest buy-in estimate | <strong>All-Time Avg</strong> = median across quarters | <code>13F value/share</code> as fallback';
 }
 
