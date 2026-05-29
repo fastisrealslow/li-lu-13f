@@ -52,6 +52,12 @@ SECTORS = {
     "META PLATFORMS INC": "社交", "MICRON TECHNOLOGY INC": "半导体",
     "SABLE OFFSHORE CORP": "能源", "Baidu Inc": "互联网",
     "Sina Corp": "互联网", "Weibo Corp": "互联网",
+    # Pabrai (Dalal Street)
+    "WARRIOR MET COAL INC": "煤炭", "TRANSOCEAN LTD": "油气钻探",
+    "ALPHA METALLURGICAL RESOUR I": "冶金/煤炭", "CITIGROUP INC": "金融",
+    "GENERAL MTRS CO": "汽车", "BANK OF AMERICA CORPORATION": "金融",
+    "CHESAPEAKE ENERGY CORP": "油气", "GOLDMAN SACHS GROUP INC": "金融",
+    "HORSEHEAD HLDG CORP": "工业",
 }
 
 
