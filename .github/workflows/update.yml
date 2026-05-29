@@ -28,15 +28,41 @@ jobs:
           FINNHUB_KEY: ${{ secrets.FINNHUB_KEY }}
         run: python3 fetch_prices.py
 
-      - name: Commit and push if changed
+      
+      - name: Fetch Pabrai stock prices
+        env:
+          FINNHUB_KEY: ${{ secrets.FINNHUB_KEY }}
+        run: |
+          python3 -c "
+import json, urllib.request, time
+from datetime import datetime
+KEY = '\$FINNHUB_KEY'
+# Get pabrai holdings
+with open('pabrai.json') as f: d = json.load(f)
+tickers = [h['ticker'] for h in d['current']['holdings']]
+quotes = {}
+for tk in tickers:
+    url = f'https://finnhub.io/api/v1/quote?symbol={tk}&token={KEY}'
+    req = urllib.request.Request(url, headers={'User-Agent':'13F-Tracker/1.0'})
+    with urllib.request.urlopen(req, timeout=15) as resp:
+        q = json.loads(resp.read().decode())
+    if q.get('c',0) > 0: quotes[tk] = {'c':round(q['c'],2)}
+    time.sleep(0.2)
+with open('pabrai_prices.json') as f: pr = json.load(f)
+pr['quotes'] = quotes
+pr['updated'] = datetime.utcnow().isoformat() + 'Z'
+with open('pabrai_prices.json','w') as f: json.dump(pr, f, indent=2)
+print(f'Pabrai prices: {len(quotes)} tickers')
+"
+- name: Commit and push if changed
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          if git diff --quiet data.json prices.json hk_holdings.json; then
+          if git diff --quiet data.json prices.json hk_holdings.json pabrai_prices.json; then
             echo "No changes"
           else
-            git add data.json prices.json hk_holdings.json
-            git commit -m "auto: update 13F data & prices"
+            git add data.json prices.json hk_holdings.json pabrai_prices.json
+            git commit -m "auto: update 13F data & prices (Li Lu + Pabrai)"
             git push
             echo "Changes pushed!"
           fi
