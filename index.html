@@ -195,7 +195,7 @@ tbody tr:last-child td{border-bottom:none}
 .info-popover::before{content:'';position:absolute;top:-6px;left:50%;transform:translateX(-50%);border-left:6px solid transparent;border-right:6px solid transparent;border-bottom:6px solid var(--navy)}
 .info-popover.show{display:block}
 th .info-wrap{position:relative;display:inline-flex}
-.price-note{font-size:.72rem;color:var(--text-lighter);margin-top:8px;padding:6px 12px;background:#f8f6f0;border-radius:6px;display:flex;align-items:center;gap:6px}
+.price-note{font-size:.72rem;flex-wrap:wrap;line-height:1.8;color:var(--text-lighter);margin-top:8px;padding:6px 12px;background:#f8f6f0;border-radius:6px;display:flex;align-items:center;gap:6px}
 .price-note code{background:#e8e0d0;padding:1px 6px;border-radius:3px;font-size:.68rem}
 </style>
 </head>
@@ -253,10 +253,10 @@ th .info-wrap{position:relative;display:inline-flex}
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
       </div>
       <div class="table-wrap"><table><thead><tr>
-        <th>#</th><th data-i18n="thTicker">代码</th><th data-i18n="thCompany">公司</th><th data-i18n="thSector">行业</th><th data-i18n="thShares">持股数</th><th data-i18n="thPrice" data-i18n="thPrice">参考股价 <span class="info-badge" title="由 GitHub Action 每日更新，非实时行情">ⓘ</span></th><th>估算成本 <span class="info-wrap"><span class="info-badge" onclick="this.parentElement.querySelector('.info-popover').classList.toggle('show')">ⓘ</span><span class="info-popover"><b>最近成本</b> = 最近一次建仓估算买入价<br>· 有Yahoo K线: 0.7×最低价 + 0.3×均价<br>· 无K线: SEC 13F 市值÷股数<br>· 新进→本季，已有→上季<br><br><b>历史均价</b> = 全周期中位数<br>· 每季度 13F 市值÷股数<br>· 取所有持有季度的中位值<br>· 排除异常离群值<br><br><b>市值</b> = SEC 13F 直接披露<br>· 报告期末持仓市场价值</span></span></th><th>市值 (USD)</th><th>权重</th>
+        <th>#</th><th data-i18n="thTicker">代码</th><th data-i18n="thCompany">公司</th><th data-i18n="thSector">行业</th><th data-i18n="thShares">持股数</th><th data-i18n="thPrice" data-i18n="thPrice">参考股价 <span class="info-badge" title="Finnhub 每日拉取，非实时行情">ⓘ</span></th><th>估算成本 <span class="info-wrap"><span class="info-badge" onclick="this.parentElement.querySelector('.info-popover').classList.toggle('show')">ⓘ</span><span class="info-popover">计算方法详见👇备注栏</span></span></th><th>市值 (USD)</th><th>权重</th>
       </tr></thead><tbody id="holdingsBody"></tbody></table>
       <div id="priceFoot" class="price-note">
-        💡 <strong>参考股价</strong> = Finnhub 每日拉取（非实时） | <strong>最近成本</strong> = 最近一次建仓买入估算 | <strong>历史均价</strong> = 全周期持仓季度中位数 | 无法获取历史数据时以 <code>13F 市值/股数</code> 代替
+        
       </div></div>
     </div>
     <div id="tab-changes" class="d-none">
