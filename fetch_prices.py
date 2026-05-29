@@ -111,7 +111,20 @@ def main():
 
     for h in holdings:
         tk = h["ticker"]
-        buy_q = quarter  # always use current quarter for most recent cost
+        # Smart buy quarter: new→current, find last buy quarter for existing, fallback→first quarter
+        buy_q = quarter
+        if h.get("prevShares", 0) > 0 and h["shares"] <= h["prevShares"]:
+            # No new shares this quarter - find last quarter where shares went up
+            prev_qs = sorted(hist_holdings.keys())
+            prev_shares = None
+            for q in prev_qs:
+                for qh in hist_holdings.get(q, []):
+                    if qh["ticker"] == tk and qh.get("shares", 0) > 0:
+                        if prev_shares is None:
+                            buy_q = q  # first appearance
+                        elif qh["shares"] > prev_shares:
+                            buy_q = q  # shares increased = bought
+                        prev_shares = qh["shares"]
         from_ts, to_ts = quarter_ts(buy_q)
         print(f"  Cost basis {tk} ({buy_q})...", end=" ", flush=True)
 
