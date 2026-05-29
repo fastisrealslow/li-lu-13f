@@ -221,7 +221,7 @@ function ts(s) {
   const sm = {'科技':'secTech','互联网':'secInternet','电商':'secEcom','金融':'secFinance',
     '综合金融':'secConglomerate','消费':'secConsumer','能源':'secEnergy','娱乐':'secEntertain',
     '金融服务':'secFinSvc','半导体':'secSemi','社交':'secSocial','汽车/新能源':'secAuto',
-    '工业/轨交':'secIndustrial','金融/银行':'secBanking','煤炭':'secEnergy','油气钻探':'secEnergy','冶金/煤炭':'secEnergy','油气':'secEnergy','航空':'secConsumer','汽车':'secConsumer','航空租赁':'secFinSvc','航运':'secConsumer','资管':'secFinSvc','汽车零售':'secConsumer','钢铁':'secConsumer','工业':'secConsumer','房地产':'secConsumer'};
+    '工业/轨交':'secIndustrial','金融/银行':'secBanking','煤炭':'secCoal','油气钻探':'secOilDrill','冶金/煤炭':'secMetCoal','油气':'secEnergy','航空':'secConsumer','汽车':'secAuto','航空租赁':'secFinSvc','航运':'secConsumer','资管':'secFinSvc','汽车零售':'secConsumer','钢铁':'secConsumer','工业':'secIndustrial','房地产':'secConsumer'};
   return t(sm[s] || 'secOther');
 }
 function switchLang() {
