@@ -816,8 +816,8 @@ function renderAll() {
   // Update price note
   const pf = document.getElementById('priceFoot');
   if (pf) pf.innerHTML = lang === 'zh'
-    ? '💡 <strong>参考股价</strong> = Finnhub 每日拉取（非实时） | <strong>最近成本</strong> = 智能选季度（新进→本季，加仓→最近增持季，未变→首次建仓季），有Yahoo K线则 0.7×最低价+0.3×均价，无K线则 13F 市值÷股数 | <strong>历史均价</strong> = 全周期持有季度中位数（去异常值） | <strong>市值</strong> = SEC 13F 报告期末直接披露'
-    : '💡 <strong>Price</strong> = Finnhub daily (not real-time) | <strong>Recent Cost</strong> = latest buy-in estimate | <strong>All-Time Avg</strong> = median across quarters | <code>13F value/share</code> as fallback';
+    ? '💡 <strong>参考股价</strong> = Finnhub 每日拉取（非实时） | <strong>最近成本</strong> = 智能选季度（新进→本季，加仓→最近增持季，未变→首次建仓季），有Yahoo K线则 0.7×最低价+0.3×均价，无K线则 13F 市值÷股数 | <strong>历史均价</strong> = 每季度成本×股数加权平均（同最近成本公式，Σ投入÷Σ股数） | <strong>市值</strong> = SEC 13F 报告期末直接披露'
+    : '💡 <strong>Price</strong> = Finnhub daily (not real-time) | <strong>Recent Cost</strong> = latest buy-in estimate | <strong>All-Time Avg</strong> = weighted avg of quarterly cost × shares (same formula, total spent ÷ total shares)';
 }
 
 
