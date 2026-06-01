@@ -148,37 +148,39 @@ def main():
             recent = {"buy": est_price, "low": est_price, "high": est_price, "quarter": buy_q, "source": "13f-estimate"}
             print(f"estim=${est_price} (13F fallback)")
 
-        # --- All-time cost (median of quarterly 13F prices, filtering outliers) ---
+        # --- All-time cost: weighted avg (price per quarter × shares) / total shares ---
+        # Same buy-side formula as recent cost, applied to EVERY quarter the holding was held
         all_time = None
-        quarterly_prices = []
+        quarterly_data = []
         for q_key, q_holdings in sorted(hist_holdings.items()):
             for qh in q_holdings:
                 if qh["ticker"] == tk and qh.get("shares", 0) > 0:
-                    price = qh["value"] / qh["shares"]
-                    quarterly_prices.append({"quarter": q_key, "price": round(price, 2), "shares": qh["shares"]})
-        if quarterly_prices:
-            # Filter outliers: price below 10% of max probably has unit issue
-            prices_only = [p["price"] for p in quarterly_prices]
-            max_p = max(prices_only)
-            valid = [p for p in quarterly_prices if p["price"] >= max_p * 0.1]
-            if not valid:
-                valid = quarterly_prices  # fallback
-            prices_v = [p["price"] for p in valid]
-            prices_v.sort()
-            mid = len(prices_v) // 2
-            if len(prices_v) % 2 == 0:
-                all_avg = round((prices_v[mid-1] + prices_v[mid]) / 2, 2)
-            else:
-                all_avg = prices_v[mid]
-            all_low = min(prices_v)
-            all_high = max(prices_v)
+                    quarterly_data.append({"quarter": q_key, "shares": qh["shares"], "value": qh["value"]})
+        if quarterly_data:
+            total_weighted_cost = 0.0
+            total_shares_sum = 0
+            valid_q = 0
+            for qd in quarterly_data:
+                q_from, q_to = quarter_ts(qd["quarter"])
+                c = yahoo_chart(tk, q_from, q_to)
+                if c and c["closes"]:
+                    avg = sum(c["closes"]) / len(c["closes"])
+                    low = min(c["lows"])
+                    q_price = low * 0.7 + avg * 0.3
+                else:
+                    q_price = qd["value"] / qd["shares"]  # fallback: 13F quarter-end
+                total_weighted_cost += q_price * qd["shares"]
+                total_shares_sum += qd["shares"]
+                valid_q += 1
+                time.sleep(0.05)
+            all_avg = round(total_weighted_cost / total_shares_sum, 2)
             all_time = {
-                "avg": all_avg, "low": all_low, "high": all_high,
-                "quarters": len(valid),
-                "first": valid[0]["quarter"],
-                "last": valid[-1]["quarter"],
+                "avg": all_avg,
+                "quarters": valid_q,
+                "first": quarterly_data[0]["quarter"],
+                "last": quarterly_data[-1]["quarter"],
             }
-            print(f"| all-time med=${all_avg} ({len(valid)}/{len(quarterly_prices)}q)")
+            print(f"| all-time wavg=${all_avg} ({valid_q}q, {total_shares_sum} total shares)")
 
         cost_basis[tk] = {"recent": recent, "allTime": all_time}
         time.sleep(0.15)
