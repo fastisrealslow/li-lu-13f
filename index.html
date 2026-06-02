@@ -212,7 +212,7 @@ th .info-wrap{position:relative;display:inline-flex}
       <li><a href="#readings" data-i18n="navReadings">阅读材料</a></li>
     </ul>
     <button id="langBtn" class="lang-btn" onclick="switchLang()">EN</button>
-    <button id="investorBtn" class="lang-btn" onclick="switchInvestor()" style="margin-left:4px;border-color:rgba(212,168,83,.4);color:var(--gold);">李录</button>
+    <select id="investorBtn" class="lang-btn" onchange="switchInvestor(this.value)" style="margin-left:4px;border-color:rgba(212,168,83,.4);color:var(--gold);background:transparent;cursor:pointer;padding:3px 8px;font-size:.7rem;font-weight:600;border-radius:4px;appearance:none;-webkit-appearance:none;text-align:center"><option value="lilu">李录</option><option value="pabrai">帕伯莱</option><option value="duan">段永平</option><option value="tepper">大卫·泰珀</option><option value="spier">盖伊·斯皮尔</option></select>
     <div class="nav-hamburger" id="hamburger" onclick="document.getElementById('navLinks').classList.toggle('open')">
       <span></span><span></span><span></span>
     </div>

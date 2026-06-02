@@ -41,15 +41,31 @@ jobs:
           FINNHUB_KEY: ${{ secrets.FINNHUB_KEY }}
         run: python3 fetch_prices_duan.py
 
+      - name: Fetch David Tepper 13F from SEC EDGAR
+        run: python3 fetch_13f_tepper.py --full
+
+      - name: Fetch David Tepper stock prices
+        env:
+          FINNHUB_KEY: ${{ secrets.FINNHUB_KEY }}
+        run: python3 fetch_prices_tepper.py
+
+      - name: Fetch Guy Spier 13F from SEC EDGAR
+        run: python3 fetch_13f_spier.py --full
+
+      - name: Fetch Guy Spier stock prices
+        env:
+          FINNHUB_KEY: ${{ secrets.FINNHUB_KEY }}
+        run: python3 fetch_prices_spier.py
+
       - name: Commit and push if changed
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          if git diff --quiet data.json prices.json hk_holdings.json pabrai_prices.json duan.json prices_duan.json duan_hk.json; then
+          if git diff --quiet data.json prices.json hk_holdings.json pabrai_prices.json duan.json prices_duan.json duan_hk.json tepper.json prices_tepper.json tepper_hk.json spier.json prices_spier.json spier_hk.json; then
             echo "No changes"
           else
-            git add data.json prices.json hk_holdings.json pabrai_prices.json duan.json prices_duan.json duan_hk.json
-            git commit -m "auto: update 13F data & prices (Li Lu + Pabrai + Duan)"
+            git add data.json prices.json hk_holdings.json pabrai_prices.json duan.json prices_duan.json duan_hk.json tepper.json prices_tepper.json tepper_hk.json spier.json prices_spier.json spier_hk.json
+            git commit -m "auto: update 13F data & prices (Li Lu + Pabrai + Duan + Tepper + Spier)"
             git push
             echo "Changes pushed!"
           fi
