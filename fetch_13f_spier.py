@@ -23,6 +23,11 @@ DATA_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), "spier.json
 NS = {"ns": "http://www.sec.gov/edgar/document/thirteenf/informationtable"}
 
 TICKER_MAP = {
+    ("BERKSHIRE HATHAWAY INC DEL", True): "BRK.A",
+    ("BERKSHIRE HATHAWAY INC", True): "BRK.A",
+    ("BERKSHIRE HATHAWAY IN", True): "BRK.A",
+    ("BERKSHIRE HATHAWAY INC DEL", True): "BRK.A",
+    ("BERKSHIRE HATHAWAY INC", True): "BRK.A",
     "BERKSHIRE HATHAWAY INC DEL": "BRK.B",
     "BERKSHIRE HATHAWAY INC": "BRK.B",
     "BERKSHIRE HATHAWAY IN": "BRK.B",
@@ -191,7 +196,7 @@ TICKER_MAP = {
 }
 
 SECTORS = {
-    "BRK.B": "综合金融", "AAPL": "科技", "BAC": "金融/银行", "AXP": "金融",
+    "BRK.A": "综合金融", "BRK.B": "综合金融", "AAPL": "科技", "BAC": "金融/银行", "AXP": "金融",
     "KO": "消费", "CVX": "能源", "OXY": "能源", "DVA": "医药", "MKL": "金融服务",
     "WMT": "消费", "MA": "金融服务", "V": "金融服务", "UNH": "保险",
     "JNJ": "医药", "PG": "消费", "COST": "消费", "MSFT": "科技",

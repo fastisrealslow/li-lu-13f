@@ -57,6 +57,11 @@ jobs:
           FINNHUB_KEY: ${{ secrets.FINNHUB_KEY }}
         run: python3 fetch_prices_spier.py
 
+      - name: Fetch David Webb stock prices
+        env:
+          FINNHUB_KEY: ${{ secrets.FINNHUB_KEY }}
+        run: python3 fetch_prices_webb.py
+
       - name: Fetch Buffett 13F from SEC EDGAR
         run: python3 fetch_13f_buffett.py --full
 

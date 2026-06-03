@@ -1,16 +1,10 @@
-#!/usr/bin/env python3
-"""Fetch Pabrai (Dalal Street) stock prices & estimated buy-in costs.
+"""Fetch stock prices & estimated buy-in costs for David Webb (HK stocks) 13F holdings.
 Depends only on Python stdlib.
 
-Usage: python3 fetch_pabrai_prices.py
+Usage: python3 fetch_prices_webb.py [--key FINNHUB_KEY]
 """
 import json, os, sys, time, urllib.request, urllib.error
-from datetime import datetime, timezone
-
-KEY = os.environ.get("FINNHUB_KEY", "")
-if not KEY:
-    print("ERROR: No Finnhub API key. Set FINNHUB_KEY env.", file=sys.stderr)
-    sys.exit(1)
+from datetime import datetime
 
 YAHOO_HEADERS = {
     "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
@@ -20,10 +14,23 @@ YAHOO_HEADERS = {
     "Referer": "https://finance.yahoo.com/",
 }
 
-def finnhub_quote(symbol):
-    url = f"https://finnhub.io/api/v1/quote?symbol={symbol}&token={KEY}"
-    req = urllib.request.Request(url, headers={"User-Agent": "13F-Tracker/1.0"})
+def get_key():
+    for i, a in enumerate(sys.argv):
+        if a == "--key" and i + 1 < len(sys.argv):
+            return sys.argv[i + 1]
+    key = os.environ.get("FINNHUB_KEY", "")
+    if not key:
+        print("ERROR: No Finnhub API key. Pass --key or set FINNHUB_KEY env.", file=sys.stderr)
+        sys.exit(1)
+    return key
+
+API_KEY = get_key()
+
+def finnhub(path):
+    sep = "&" if "?" in path else "?"
+    url = f"https://finnhub.io/api/v1{path}{sep}token={API_KEY}"
     try:
+        req = urllib.request.Request(url, headers={"User-Agent": "13F-Tracker/1.0"})
         with urllib.request.urlopen(req, timeout=15) as resp:
             return json.loads(resp.read().decode())
     except Exception as e:
@@ -31,6 +38,7 @@ def finnhub_quote(symbol):
         return None
 
 def yahoo_chart(symbol, from_ts, to_ts):
+    """Fetch K-line data from Yahoo Finance. Supports HK stocks with .HK suffix."""
     url = f"https://query1.finance.yahoo.com/v8/finance/chart/{symbol}?period1={from_ts}&period2={to_ts}&interval=1d"
     try:
         req = urllib.request.Request(url, headers=YAHOO_HEADERS)
@@ -60,35 +68,39 @@ def quarter_ts(q_str):
     return from_ts, to_ts
 
 def main():
-    with open("pabrai.json") as f:
-        d = json.load(f)
+    try:
+        with open("webb.json") as f:
+            data = json.load(f)
+    except FileNotFoundError:
+        print("ERROR: webb.json not found.", file=sys.stderr)
+        sys.exit(1)
 
-    current = d["current"]
+    current = data["current"]
     holdings = current["holdings"]
     quarter = current["quarter"]
     prev_quarter = current.get("prevQuarter", quarter)
-    hist_holdings = d.get("history", {}).get("holdings", {})
 
-    print(f"Fetching Pabrai Prices: {len(holdings)} tickers ({quarter})")
+    print(f"Fetching Prices for David Webb: {len(holdings)} tickers ({quarter})")
 
-    # Fetch Finnhub quotes
     quotes = {}
     for h in holdings:
         tk = h["ticker"]
         print(f"  Quote {tk}...", end=" ", flush=True)
-        q = finnhub_quote(tk)
+        # Finnhub supports HK stocks with .HK suffix
+        q = finnhub(f"/quote?symbol={tk}")
         if q and q.get("c", 0) > 0:
-            quotes[tk] = {"c": round(q["c"], 2), "h": round(q.get("h",0),2),
-                          "l": round(q.get("l",0),2), "o": round(q.get("o",0),2),
-                          "pc": round(q.get("pc",0),2), "t": q.get("t",0)}
-            print(f"${q['c']:.2f}")
+            quotes[tk] = {"c": round(q["c"], 2), "h": round(q["h"], 2),
+                          "l": round(q["l"], 2), "o": round(q["o"], 2),
+                          "pc": round(q["pc"], 2), "t": q["t"]}
+            print(f"HK${q['c']:.2f}")
         else:
-            print("")
+            print("✗")
             quotes[tk] = {"error": True}
-        time.sleep(0.2)
+        time.sleep(0.12)
 
-    # Calculate cost basis with Yahoo K-line
     cost_basis = {}
+    hist_holdings = data.get("history", {}).get("holdings", {})
+
     for h in holdings:
         tk = h["ticker"]
         buy_q = quarter
@@ -114,7 +126,7 @@ def main():
             high = max(c["highs"])
             buy_est = round(low * 0.7 + avg * 0.3, 2)
             recent = {"buy": buy_est, "low": round(low,2), "high": round(high,2), "quarter": buy_q, "source": "yahoo"}
-            print(f"buy≈${buy_est} [{low:.2f}-{high:.2f}]")
+            print(f"buy≈HK${buy_est} [{low:.2f}-{high:.2f}]")
         else:
             est_price = round(h["value"] / h["shares"], 2)
             if h.get("prevValue", 0) > 0 and h.get("prevShares", 0) > 0:
@@ -122,7 +134,7 @@ def main():
                 if buy_q == prev_quarter:
                     est_price = prev_price
             recent = {"buy": est_price, "low": est_price, "high": est_price, "quarter": buy_q, "source": "13f-estimate"}
-            print(f"estim=${est_price} (13F fallback)")
+            print(f"estim=HK${est_price} (13F fallback)")
 
         all_time = None
         quarterly_data = []
@@ -154,19 +166,19 @@ def main():
                 "first": quarterly_data[0]["quarter"],
                 "last": quarterly_data[-1]["quarter"],
             }
-            print(f"| all-time wavg=${all_avg} ({valid_q}q, {total_shares_sum} total shares)")
+            print(f"| all-time wavg=HK${all_avg} ({valid_q}q, {total_shares_sum} total shares)")
 
         cost_basis[tk] = {"recent": recent, "allTime": all_time}
         time.sleep(0.15)
 
     prices = {
-        "updated": datetime.now(timezone.utc).isoformat() + "Z",
+        "updated": datetime.utcnow().isoformat() + "Z",
         "quotes": quotes,
         "costBasis": cost_basis,
     }
-    with open("pabrai_prices.json", "w") as f:
+    with open("prices_webb.json", "w") as f:
         json.dump(prices, f, indent=2)
-    print(f"\n✅ pabrai_prices.json written ({len(quotes)} quotes, {len(cost_basis)} cost basis)")
+    print(f"\n✅ prices_webb.json written ({len(quotes)} quotes, {len(cost_basis)} cost basis)")
 
 if __name__ == "__main__":
     main()
