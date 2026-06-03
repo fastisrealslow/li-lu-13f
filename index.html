@@ -89,6 +89,7 @@ tbody tr:last-child td{border-bottom:none}
 .bar-wrap{position:relative;width:100%;height:18px;background:#e8e6e0;border-radius:4px;overflow:visible;display:inline-block}
 .bar-fill{height:100%;background:linear-gradient(90deg,var(--navy),var(--gold));border-radius:3px}
 .sector-tag{display:inline-block;font-size:.7rem;padding:2px 8px;border-radius:4px;background:var(--cream);color:var(--text-light);font-weight:500}
+.sector-badge{display:inline-block;font-size:.65rem;padding:2px 8px;border-radius:4px;background:rgba(232,227,209,0.7);color:#854d0e;font-weight:600;margin-top:3px;align-self:flex-start}
 .chart-wrap{background:var(--cream);border:1px solid var(--border-light);border-radius:8px;padding:20px}
 .chart-wrap canvas{width:100%!important;height:340px!important}
 .count-badge{display:inline-block;font-size:.72rem;padding:2px 10px;border-radius:20px;background:var(--navy);color:var(--gold);font-weight:600;margin-left:6px;vertical-align:middle}
@@ -189,6 +190,12 @@ tbody tr:last-child td{border-bottom:none}
   /* Articles grid */
   .articles-grid{grid-template-columns:1fr}
 }
+.idx-cell{line-height:1.3;vertical-align:middle;text-align:center;min-width:42px}
+.idx-num{display:block;font-weight:700;font-size:.82rem;color:var(--navy)}
+.idx-cell .tag{font-size:.55rem;padding:1px 3px;margin-top:2px;display:inline-block}
+.stock-cell{line-height:1.4;vertical-align:middle}
+.ticker-line{display:block;font-weight:700;font-size:.82rem;color:var(--navy)}
+.name-line{display:block;font-size:.72rem;color:var(--text-secondary);margin-top:2px}
 .info-badge{cursor:pointer;font-size:.75rem;opacity:.6;transition:opacity .2s}
 .info-badge:hover{opacity:1}
 .info-popover{display:none;position:absolute;top:100%;left:50%;transform:translateX(-50%);margin-top:6px;background:var(--navy);color:#f7f5f0;padding:12px 16px;border-radius:8px;font-size:.75rem;line-height:1.6;white-space:nowrap;z-index:100;box-shadow:0 4px 16px rgba(0,0,0,.2);font-weight:400}
@@ -212,7 +219,7 @@ th .info-wrap{position:relative;display:inline-flex}
       <li><a href="#readings" data-i18n="navReadings">阅读材料</a></li>
     </ul>
     <button id="langBtn" class="lang-btn" onclick="switchLang()">EN</button>
-    <select id="investorBtn" class="lang-btn" onchange="switchInvestor(this.value)" style="margin-left:4px;border-color:rgba(212,168,83,.4);color:var(--gold);background:transparent;cursor:pointer;padding:3px 8px;font-size:.7rem;font-weight:600;border-radius:4px;appearance:none;-webkit-appearance:none;text-align:center"><option value="lilu">李录</option><option value="pabrai">帕伯莱</option><option value="duan">段永平</option><option value="tepper">大卫·泰珀</option><option value="spier">盖伊·斯皮尔</option></select>
+    <select id="investorBtn" class="lang-btn" onchange="switchInvestor(this.value)" style="margin-left:4px;border-color:rgba(212,168,83,.4);color:var(--gold);background:transparent;cursor:pointer;padding:3px 8px;font-size:.7rem;font-weight:600;border-radius:4px;appearance:none;-webkit-appearance:none;text-align:center"><option value="lilu">李录</option><option value="pabrai">帕伯莱</option><option value="duan">段永平</option><option value="buffett">巴菲特</option><option value="tepper">大卫·泰珀</option><option value="spier">盖伊·斯皮尔</option><option value="webb">大卫·韦伯</option><option value="akre">查克·阿克雷</option><option value="greenberg">格伦·格林伯格</option></select>
     <div class="nav-hamburger" id="hamburger" onclick="document.getElementById('navLinks').classList.toggle('open')">
       <span></span><span></span><span></span>
     </div>
@@ -253,7 +260,7 @@ th .info-wrap{position:relative;display:inline-flex}
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
       </div>
       <div class="table-wrap"><table><thead><tr>
-        <th>#</th><th data-i18n="thTicker">代码</th><th data-i18n="thCompany">公司</th><th data-i18n="thSector">行业</th><th data-i18n="thShares">持股数</th><th data-i18n="thPrice" data-i18n="thPrice">参考股价 <span class="info-badge" title="Finnhub 每日拉取，非实时行情">ⓘ</span></th><th>估算成本 <span class="info-wrap"><span class="info-badge" onclick="this.parentElement.querySelector('.info-popover').classList.toggle('show')">ⓘ</span><span class="info-popover">计算方法详见👇备注栏</span></span></th><th>市值 (USD)</th><th>权重</th>
+        <th>#</th><th>股票</th><th>持股 / 市值</th><th data-i18n="thPrice">参考股价 <span class="info-badge" title="Finnhub 每日拉取，非实时行情">ⓘ</span></th><th>估算成本 <span class="info-wrap"><span class="info-badge" onclick="this.parentElement.querySelector('.info-popover').classList.toggle('show')">ⓘ</span><span class="info-popover">计算方法详见👇备注栏</span></span></th><th>权重</th><th>安全边际</th>
       </tr></thead><tbody id="holdingsBody"></tbody></table>
       <div id="priceFoot" class="price-note">
         
@@ -261,7 +268,7 @@ th .info-wrap{position:relative;display:inline-flex}
     </div>
     <div id="tab-changes" class="d-none">
       <div class="table-wrap"><table><thead><tr>
-        <th>代码</th><th>公司</th><th id="chPS">上季 持股</th><th id="chCS">本季 持股</th><th>股数变化</th><th id="chPV">上季 市值</th><th id="chCV">本季 市值</th><th>市值变化</th>
+        <th>股票</th><th id="chPS">上季 持股</th><th id="chCS">本季 持股</th><th>股数变化</th><th id="chPV">上季 市值</th><th id="chCV">本季 市值</th><th>市值变化</th>
       </tr></thead><tbody id="changesBody"></tbody></table></div>
     </div>
     <div id="tab-history" class="d-none">
@@ -294,7 +301,7 @@ th .info-wrap{position:relative;display:inline-flex}
     <div class="ref-divider"></div>
     <div class="ref-grid">
       <div>
-        <div class="ref-text">
+        <div class="ref-text" id="aboutText">
           <p data-i18n="aboutP2">李录（Li Lu），1966 年生于唐山，美籍华裔价值投资者，喜马拉雅资本创始人。1989 年赴美，在哥伦比亚大学同时取得经济学学士、法学博士 (JD) 和 MBA 三个学位——哥大罕见的"三学位"成就者。</p>
           <p data-i18n="aboutP3">1997 年创立喜马拉雅资本，专注长期价值投资。2002 年向查理·芒格推荐比亚迪，后由伯克希尔 2008 年投资 2.3 亿美元。芒格曾公开赞誉："李录是一个天才，我们一起赚了很多钱。"</p>
           <p data-i18n="aboutP4">除投资外，李录也热心公益，设立了人道主义基金会，关注人权、教育和救灾。</p>

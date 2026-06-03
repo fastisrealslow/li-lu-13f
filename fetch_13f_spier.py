@@ -27,6 +27,7 @@ TICKER_MAP = {
     "BERKSHIRE HATHAWAY INC": "BRK.B",
     "BERKSHIRE HATHAWAY IN": "BRK.B",
     "APPLE INC": "AAPL",
+    "BK OF AMERICA CORP": "BAC",
     "BANK OF AMERICA CORP": "BAC",
     "AMERICAN EXPRESS CO": "AXP",
     "COCA COLA CO": "KO",
@@ -37,6 +38,7 @@ TICKER_MAP = {
     "MARKEL GROUP INC": "MKL",
     "MARKEL CORP": "MKL",
     "WALMART INC": "WMT",
+    "MASTERCARD INCORPORATED": "MA",
     "MASTERCARD INC": "MA",
     "VISA INC": "MA",
     "VISA INC": "V",
@@ -183,6 +185,9 @@ TICKER_MAP = {
     "HALLIBURTON CO": "HAL",
     "SCHLUMBERGER LTD": "SLB",
     "BAKER HUGHES CO": "BKR",
+    "FERRARI N V": "RACE",
+    "DAILY JOURNAL CORP": "DJCO",
+    "SERITAGE GROWTH PPTYS": "SRG",
 }
 
 SECTORS = {
@@ -296,6 +301,12 @@ def parse_holdings(xml_bytes: bytes) -> list[dict]:
             "sector": SECTORS.get(tk, "其他"),
         })
     holdings.sort(key=lambda h: h["value"], reverse=True)
+    # SEC 13F values are in thousands ($1,000 units).
+    # If total appears too small (< 10M), multiply by 1000 to convert to actual dollars.
+    total_val = sum(h["value"] for h in holdings)
+    if total_val < 10_000_000:
+        for h in holdings:
+            h["value"] *= 1000
     return holdings
 
 
