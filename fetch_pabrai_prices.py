@@ -30,23 +30,33 @@ def finnhub_quote(symbol):
         print(f"  [Finnhub error] {e}", file=sys.stderr)
         return None
 
-def yahoo_chart(symbol, from_ts, to_ts):
+def yahoo_chart(symbol, from_ts, to_ts, _retries=[0]):
     url = f"https://query1.finance.yahoo.com/v8/finance/chart/{symbol}?period1={from_ts}&period2={to_ts}&interval=1d"
-    try:
-        req = urllib.request.Request(url, headers=YAHOO_HEADERS)
-        with urllib.request.urlopen(req, timeout=20) as resp:
-            data = json.loads(resp.read().decode())
-        result = data["chart"]["result"][0]
-        quote = result["indicators"]["quote"][0]
-        closes = [c for c in quote.get("close", []) if c is not None]
-        highs = [h for h in quote.get("high", []) if h is not None]
-        lows = [l for l in quote.get("low", []) if l is not None]
-        if not closes:
+    for attempt in range(3):
+        try:
+            req = urllib.request.Request(url, headers=YAHOO_HEADERS)
+            with urllib.request.urlopen(req, timeout=20) as resp:
+                data = json.loads(resp.read().decode())
+            result = data["chart"]["result"][0]
+            quote = result["indicators"]["quote"][0]
+            closes = [c for c in quote.get("close", []) if c is not None]
+            highs = [h for h in quote.get("high", []) if h is not None]
+            lows = [l for l in quote.get("low", []) if l is not None]
+            if not closes:
+                return None
+            return {"closes": closes, "highs": highs, "lows": lows}
+        except urllib.error.HTTPError as e:
+            if e.code == 429 and attempt < 2:
+                wait = 2 ** (attempt + 1)
+                print(f"  [Yahoo 429] retry in {wait}s...", file=__import__('sys').stderr)
+                time.sleep(wait)
+                continue
+            print(f"  [Yahoo error] HTTP {e.code}", file=__import__('sys').stderr)
             return None
-        return {"closes": closes, "highs": highs, "lows": lows}
-    except Exception as e:
-        print(f"  [Yahoo error] {e}", file=sys.stderr)
-        return None
+        except Exception as e:
+            print(f"  [Yahoo error] {e}", file=__import__('sys').stderr)
+            return None
+    return None
 
 def quarter_ts(q_str):
     parts = q_str.split(" Q")
@@ -146,7 +156,7 @@ def main():
                 total_weighted_cost += q_price * qd["shares"]
                 total_shares_sum += qd["shares"]
                 valid_q += 1
-                time.sleep(0.05)
+                time.sleep(0.5)
             all_avg = round(total_weighted_cost / total_shares_sum, 2)
             all_time = {
                 "avg": all_avg,
@@ -157,7 +167,7 @@ def main():
             print(f"| all-time wavg=${all_avg} ({valid_q}q, {total_shares_sum} total shares)")
 
         cost_basis[tk] = {"recent": recent, "allTime": all_time}
-        time.sleep(0.15)
+        time.sleep(0.3)
 
     prices = {
         "updated": datetime.now(timezone.utc).isoformat() + "Z",
