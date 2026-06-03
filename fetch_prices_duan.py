@@ -31,9 +31,17 @@ def finnhub(path):
 
 def yahoo_chart(symbol, from_ts, to_ts):
     url = f"https://query1.finance.yahoo.com/v8/finance/chart/{symbol}?period1={from_ts}&period2={to_ts}&interval=1d"
+    headers = {
+        "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
+        "Accept-Language": "en-US,en;q=0.5",
+        "Accept-Encoding": "identity",
+        "Referer": "https://finance.yahoo.com/",
+        "Connection": "keep-alive",
+    }
     try:
-        req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0"})
-        with urllib.request.urlopen(req, timeout=15) as resp:
+        req = urllib.request.Request(url, headers=headers)
+        with urllib.request.urlopen(req, timeout=20) as resp:
             data = json.loads(resp.read().decode())
         result = data["chart"]["result"][0]
         quote = result["indicators"]["quote"][0]

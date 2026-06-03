@@ -57,15 +57,31 @@ jobs:
           FINNHUB_KEY: ${{ secrets.FINNHUB_KEY }}
         run: python3 fetch_prices_spier.py
 
+      - name: Fetch Buffett 13F from SEC EDGAR
+        run: python3 fetch_13f_buffett.py --full
+
+      - name: Fetch Akre & Greenberg 13F from SEC EDGAR
+        run: python3 fetch_13f_akre_greenberg.py --full
+
+      - name: Fetch Buffett stock prices
+        env:
+          FINNHUB_KEY: ${{ secrets.FINNHUB_KEY }}
+        run: python3 fetch_prices_buffett.py
+
+      - name: Fetch Akre & Greenberg stock prices
+        env:
+          FINNHUB_KEY: ${{ secrets.FINNHUB_KEY }}
+        run: python3 fetch_prices_akre_greenberg.py
+
       - name: Commit and push if changed
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          if git diff --quiet data.json prices.json hk_holdings.json pabrai_prices.json duan.json prices_duan.json duan_hk.json tepper.json prices_tepper.json tepper_hk.json spier.json prices_spier.json spier_hk.json; then
+          if git diff --quiet data.json prices.json hk_holdings.json pabrai_prices.json duan.json prices_duan.json duan_hk.json tepper.json prices_tepper.json tepper_hk.json spier.json prices_spier.json spier_hk.json akre.json prices_akre.json greenberg.json prices_greenberg.json buffett.json prices_buffett.json webb.json prices_webb.json; then
             echo "No changes"
           else
-            git add data.json prices.json hk_holdings.json pabrai_prices.json duan.json prices_duan.json duan_hk.json tepper.json prices_tepper.json tepper_hk.json spier.json prices_spier.json spier_hk.json
-            git commit -m "auto: update 13F data & prices (Li Lu + Pabrai + Duan + Tepper + Spier)"
+            git add data.json prices.json hk_holdings.json pabrai_prices.json duan.json prices_duan.json duan_hk.json tepper.json prices_tepper.json tepper_hk.json spier.json prices_spier.json spier_hk.json akre.json prices_akre.json greenberg.json prices_greenberg.json buffett.json prices_buffett.json webb.json prices_webb.json
+            git commit -m "auto: update 13F data & prices (all investors)"
             git push
             echo "Changes pushed!"
           fi
