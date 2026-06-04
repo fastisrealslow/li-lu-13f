@@ -17,7 +17,7 @@ import urllib.request
 import xml.etree.ElementTree as ET
 from datetime import datetime, timezone
 
-CIK = "1294614"
+CIK = "1549575"
 USER_AGENT = "13F-Tracker guoziyuan@xiaohongshu.com"
 DATA_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), "pabrai_data.json")
 NS = {"ns": "http://www.sec.gov/edgar/document/thirteenf/informationtable"}
