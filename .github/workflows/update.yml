@@ -31,6 +31,9 @@ jobs:
           FINNHUB_KEY: ${{ secrets.FINNHUB_KEY }}
         run: python3 fetch_prices.py
 
+      - name: Fetch Pabrai 13F from SEC EDGAR
+        run: python3 fetch_13f_pabrai.py --full
+
       - name: Fetch Pabrai stock prices
         env:
           FINNHUB_KEY: ${{ secrets.FINNHUB_KEY }}
