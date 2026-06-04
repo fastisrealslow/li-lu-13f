@@ -12,7 +12,9 @@ YAHOO_HEADERS = {
     "Referer": "https://finance.yahoo.com/",
 }
 
-def yahoo_chart(symbol, from_ts, to_ts, max_retries=3):
+import random
+
+def yahoo_chart(symbol, from_ts, to_ts, max_retries=4):
     """Fetch K-line data from Yahoo Finance with 429 retry + exponential backoff."""
     url = f"https://query1.finance.yahoo.com/v8/finance/chart/{symbol}?period1={from_ts}&period2={to_ts}&interval=1d"
     for attempt in range(max_retries):
@@ -30,7 +32,8 @@ def yahoo_chart(symbol, from_ts, to_ts, max_retries=3):
             return {"closes": closes, "highs": highs, "lows": lows}
         except urllib.error.HTTPError as e:
             if e.code == 429 and attempt < max_retries - 1:
-                wait = 2 ** (attempt + 1)  # 2, 4, 8 seconds
+                # Aggressive backoff: 8, 20, 45, 90 seconds + jitter
+                wait = min(8 * (3 ** attempt) + random.randint(2, 8), 90)
                 print(f"  [Yahoo 429] retry in {wait}s...", file=__import__('sys').stderr)
                 time.sleep(wait)
                 continue
@@ -53,7 +56,7 @@ def quarter_ts(q_str):
     return from_ts, to_ts
 
 def calc_cost_basis(ticker, holdings, current_quarter, prev_quarter, hist_holdings,
-                    existing_cost_basis=None, yahoo_sleep=0.5):
+                    existing_cost_basis=None, yahoo_sleep=4.0):
     """Calculate cost basis for a single ticker with incremental caching.
     
     Args:
@@ -152,7 +155,7 @@ def calc_cost_basis(ticker, holdings, current_quarter, prev_quarter, hist_holdin
                 total_weighted_cost += q_price * qd["shares"]
                 total_shares_sum += qd["shares"]
                 valid_q += 1
-                time.sleep(yahoo_sleep)
+                time.sleep(yahoo_sleep + random.uniform(0, 2))
             all_avg = round(total_weighted_cost / total_shares_sum, 2)
             all_time = {
                 "avg": all_avg,
@@ -162,5 +165,5 @@ def calc_cost_basis(ticker, holdings, current_quarter, prev_quarter, hist_holdin
             }
             print(f"| all-time wavg=${all_avg} ({valid_q}q, {total_shares_sum} total shares)")
     
-    time.sleep(yahoo_sleep)
+    time.sleep(yahoo_sleep + random.uniform(0, 2))
     return {"recent": recent, "allTime": all_time}

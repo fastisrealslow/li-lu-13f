@@ -6,7 +6,7 @@ Depends only on Python stdlib.
 Usage: python3 fetch_prices.py [--key FINNHUB_KEY]
 If --key is omitted, reads FINNHUB_KEY from env.
 """
-import json, os, sys, time, urllib.request, urllib.error
+import json, os, sys, time, random, urllib.request, urllib.error
 from datetime import datetime
 
 YAHOO_HEADERS = {
@@ -41,9 +41,26 @@ def finnhub(path):
         print(f"  [Finnhub error] {e}", file=sys.stderr)
         return None
 
+
+def should_skip_recent(ticker, buy_q, existing_cb):
+    """Skip Yahoo request if we already have cached yahoo data for this quarter."""
+    if not existing_cb or ticker not in existing_cb:
+        return False
+    r = existing_cb[ticker].get("recent", {})
+    return r.get("source") == "yahoo" and r.get("quarter") == buy_q
+
+def should_skip_alltime(ticker, existing_cb, quarters_list):
+    """Skip allTime Yahoo requests if we have complete cached data."""
+    if not existing_cb or ticker not in existing_cb:
+        return False
+    a = existing_cb[ticker].get("allTime")
+    if not a or not quarters_list:
+        return False
+    return a.get("first") == quarters_list[0] and a.get("last") == quarters_list[-1] and a.get("quarters", 0) >= len(quarters_list)
+
 def yahoo_chart(symbol, from_ts, to_ts, _retries=[0]):
     url = f"https://query1.finance.yahoo.com/v8/finance/chart/{symbol}?period1={from_ts}&period2={to_ts}&interval=1d"
-    for attempt in range(3):
+    for attempt in range(4):
         try:
             req = urllib.request.Request(url, headers=YAHOO_HEADERS)
             with urllib.request.urlopen(req, timeout=20) as resp:
@@ -57,8 +74,8 @@ def yahoo_chart(symbol, from_ts, to_ts, _retries=[0]):
                 return None
             return {"closes": closes, "highs": highs, "lows": lows}
         except urllib.error.HTTPError as e:
-            if e.code == 429 and attempt < 2:
-                wait = 2 ** (attempt + 1)
+            if e.code == 429 and attempt < 3:
+                wait = min(8 * (3 ** attempt) + random.randint(2, 8), 90)
                 print(f"  [Yahoo 429] retry in {wait}s...", file=__import__('sys').stderr)
                 time.sleep(wait)
                 continue
@@ -115,6 +132,15 @@ def main():
     # ── Part 2: Estimated buy-in costs ──
     # Recent: Yahoo Finance (or 13F fallback), skewed toward buy-side (lower end)
     # All-time: average of 13F quarter-end prices across entire holding history
+    # Load existing prices for incremental caching
+    existing_cb = {}
+    try:
+        with open("prices.json") as _f:
+            existing_prices = json.load(_f)
+            existing_cb = existing_prices.get("costBasis", {})
+            print(f"  Loaded {len(existing_cb)} cached cost basis (incremental)")
+    except FileNotFoundError:
+        pass
     cost_basis = {}
 
     # Pre-load history holdings for all-time computation
@@ -168,12 +194,17 @@ def main():
                 if qh["ticker"] == tk and qh.get("shares", 0) > 0:
                     quarterly_data.append({"quarter": q_key, "shares": qh["shares"], "value": qh["value"]})
         if quarterly_data:
-            total_weighted_cost = 0.0
-            total_shares_sum = 0
-            valid_q = 0
-            for qd in quarterly_data:
-                q_from, q_to = quarter_ts(qd["quarter"])
-                c = yahoo_chart(tk, q_from, q_to)
+            # Incremental: skip allTime if we have complete cached data
+            if should_skip_alltime(tk, existing_cb, [q["quarter"] for q in quarterly_data]):
+                all_time = existing_cb[tk]["allTime"]
+                print(f"| all-time wavg=${existing_cb[tk]['allTime']['avg']} ({existing_cb[tk]['allTime']['quarters']}q, cached)")
+            else:
+                total_weighted_cost = 0.0
+                total_shares_sum = 0
+                valid_q = 0
+                for qd in quarterly_data:
+                    q_from, q_to = quarter_ts(qd["quarter"])
+                    c = yahoo_chart(tk, q_from, q_to)
                 if c and c["closes"]:
                     avg = sum(c["closes"]) / len(c["closes"])
                     low = min(c["lows"])
