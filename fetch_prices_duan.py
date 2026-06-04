@@ -1,11 +1,14 @@
-import random
-"""Fetch stock prices & estimated buy-in costs for Duan Yongping (H&H) 13F holdings.
+"""Fetch stock prices & estimated buy-in costs for 13F holdings.
 Depends only on Python stdlib.
+- Live quotes: Finnhub (requires API key)
+- Historical cost basis: Yahoo Finance (free, no auth)
 
-Usage: python3 fetch_prices_duan.py [--key FINNHUB_KEY]
+Usage: python3 fetch_prices.py [--key FINNHUB_KEY]
+If --key is omitted, reads FINNHUB_KEY from env.
 """
-import json, os, sys, time, urllib.request, urllib.error
+import json, os, sys, time, random, urllib.request, urllib.error
 from datetime import datetime
+
 YAHOO_HEADERS = {
     "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
     "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
@@ -13,6 +16,7 @@ YAHOO_HEADERS = {
     "Accept-Encoding": "identity",
     "Referer": "https://finance.yahoo.com/",
 }
+# ── Finnhub API key ──
 def get_key():
     for i, a in enumerate(sys.argv):
         if a == "--key" and i + 1 < len(sys.argv):
@@ -22,31 +26,41 @@ def get_key():
         print("ERROR: No Finnhub API key. Pass --key or set FINNHUB_KEY env.", file=sys.stderr)
         sys.exit(1)
     return key
+
 API_KEY = get_key()
+
 def finnhub(path):
+    """Call Finnhub API."""
     sep = "&" if "?" in path else "?"
     url = f"https://finnhub.io/api/v1{path}{sep}token={API_KEY}"
     try:
         req = urllib.request.Request(url, headers={"User-Agent": "13F-Tracker/1.0"})
-        with urllib.request.urlopen(req, timeout=15) as resp:
+        with urllib.request.urlopen(req, timeout=20) as resp:
             return json.loads(resp.read().decode())
     except Exception as e:
         print(f"  [Finnhub error] {e}", file=sys.stderr)
         return None
+
+
 def should_skip_recent(ticker, buy_q, existing_cb):
     """Skip Yahoo request if we already have cached yahoo data for this quarter."""
     if not existing_cb or ticker not in existing_cb:
         return False
     r = existing_cb[ticker].get("recent", {})
     return r.get("source") == "yahoo" and r.get("quarter") == buy_q
+
 def should_skip_alltime(ticker, existing_cb, quarters_list):
     """Skip allTime Yahoo requests if we have complete cached data."""
+    if not existing_cb or ticker not in existing_cb:
+        return False
     a = existing_cb[ticker].get("allTime")
     if not a or not quarters_list:
+        return False
     return a.get("first") == quarters_list[0] and a.get("last") == quarters_list[-1] and a.get("quarters", 0) >= len(quarters_list)
+
 def yahoo_chart(symbol, from_ts, to_ts, _retries=[0]):
     url = f"https://query1.finance.yahoo.com/v8/finance/chart/{symbol}?period1={from_ts}&period2={to_ts}&interval=1d"
-    for attempt in range(3):
+    for attempt in range(4):
         try:
             req = urllib.request.Request(url, headers=YAHOO_HEADERS)
             with urllib.request.urlopen(req, timeout=20) as resp:
@@ -69,8 +83,11 @@ def yahoo_chart(symbol, from_ts, to_ts, _retries=[0]):
             return None
         except Exception as e:
             print(f"  [Yahoo error] {e}", file=__import__('sys').stderr)
+            return None
     return None
+
 def quarter_ts(q_str):
+    """Parse '2026 Q1' → (from_unix, to_unix)."""
     parts = q_str.split(" Q")
     y, qn = int(parts[0]), int(parts[1])
     start_m = (qn - 1) * 3 + 1
@@ -80,16 +97,23 @@ def quarter_ts(q_str):
     from_ts = int(datetime(y, start_m, 1).timestamp())
     to_ts = int(datetime(y, end_m, month_days[end_m], 23, 59, 59).timestamp())
     return from_ts, to_ts
+
 def main():
+    try:
         with open("duan.json") as f:
             data = json.load(f)
     except FileNotFoundError:
         print("ERROR: duan.json not found. Run fetch_13f_duan.py first.", file=sys.stderr)
+        sys.exit(1)
+
     current = data["current"]
     holdings = current["holdings"]
     quarter = current["quarter"]
     prev_quarter = current.get("prevQuarter", quarter)
-    print(f"Fetching Prices for Duan: {len(holdings)} tickers ({quarter} ← {prev_quarter})")
+
+    print(f"Fetching Prices for Duan {len(holdings)} tickers ({quarter} ← {prev_quarter})")
+
+    # ── Part 1: Live quotes (Finnhub) ──
     quotes = {}
     for h in holdings:
         tk = h["ticker"]
@@ -106,43 +130,57 @@ def main():
             print(f"${q['c']:.2f}")
         else:
             print("✗")
+            quotes[tk] = {"error": True}
         time.sleep(0.2)
+
+    # ── Part 2: Estimated buy-in costs ──
+    # Recent: Yahoo Finance (or 13F fallback), skewed toward buy-side (lower end)
+    # All-time: average of 13F quarter-end prices across entire holding history
     # Load existing prices for incremental caching
     existing_cb = {}
+    try:
         with open("prices_duan.json") as _f:
             existing_prices = json.load(_f)
             existing_cb = existing_prices.get("costBasis", {})
             print(f"  Loaded {len(existing_cb)} cached cost basis (incremental)")
+    except FileNotFoundError:
         pass
     cost_basis = {}
+
+    # Pre-load history holdings for all-time computation
     hist_holdings = data.get("history", {}).get("holdings", {})
-            cost_basis[tk] = {"recent": {"buy": 0, "low": 0, "high": 0, "quarter": quarter, "source": "unavailable"}, "allTime": None}
+
+    for h in holdings:
+        tk = h["ticker"]
+        # Smart buy quarter: new→current, find last buy quarter for existing, fallback→first quarter
         buy_q = quarter
         if h.get("prevShares", 0) > 0 and h["shares"] <= h["prevShares"]:
+            # No new shares this quarter - find last quarter where shares went up
             prev_qs = sorted(hist_holdings.keys())
             prev_shares = None
             for q in prev_qs:
                 for qh in hist_holdings.get(q, []):
                     if qh["ticker"] == tk and qh.get("shares", 0) > 0:
                         if prev_shares is None:
-                            buy_q = q
+                            buy_q = q  # first appearance
                         elif qh["shares"] > prev_shares:
+                            buy_q = q  # shares increased = bought
                         prev_shares = qh["shares"]
         from_ts, to_ts = quarter_ts(buy_q)
         print(f"  Cost basis {tk} ({buy_q})...", end=" ", flush=True)
-        # Incremental: skip if already have cached Yahoo data
-        if should_skip_recent(tk, buy_q, existing_cb):
-            recent = existing_cb[tk]["recent"]
-            print("skip (cached yahoo)")
-            recent = None
-            c = yahoo_chart(tk, from_ts, to_ts)
+
+        # --- Recent cost (skewed toward low end = buy-side estimate) ---
+        recent = None
+        c = yahoo_chart(tk, from_ts, to_ts)
         if c and c["closes"]:
             avg = sum(c["closes"]) / len(c["closes"])
             low = min(c["lows"])
             high = max(c["highs"])
+            # Skew toward low end: 70% weight on low, 30% on avg
             buy_est = round(low * 0.7 + avg * 0.3, 2)
             recent = {"buy": buy_est, "low": round(low,2), "high": round(high,2), "quarter": buy_q, "source": "yahoo"}
             print(f"buy≈${buy_est} [{low:.2f}-{high:.2f}]")
+        else:
             est_price = round(h["value"] / h["shares"], 2)
             if h.get("prevValue", 0) > 0 and h.get("prevShares", 0) > 0:
                 prev_price = round(h["prevValue"] / h["prevShares"], 2)
@@ -150,6 +188,9 @@ def main():
                     est_price = prev_price
             recent = {"buy": est_price, "low": est_price, "high": est_price, "quarter": buy_q, "source": "13f-estimate"}
             print(f"estim=${est_price} (13F fallback)")
+
+        # --- All-time cost: weighted avg (price per quarter × shares) / total shares ---
+        # Same buy-side formula as recent cost, applied to EVERY quarter the holding was held
         all_time = None
         quarterly_data = []
         for q_key, q_holdings in sorted(hist_holdings.items()):
@@ -173,11 +214,11 @@ def main():
                     low = min(c["lows"])
                     q_price = low * 0.7 + avg * 0.3
                 else:
-                    q_price = qd["value"] / qd["shares"]
+                    q_price = qd["value"] / qd["shares"]  # fallback: 13F quarter-end
                 total_weighted_cost += q_price * qd["shares"]
                 total_shares_sum += qd["shares"]
                 valid_q += 1
-                time.sleep(4.0 + random.uniform(0, 2))
+                time.sleep(0.5)
             all_avg = round(total_weighted_cost / total_shares_sum, 2)
             all_time = {
                 "avg": all_avg,
@@ -186,8 +227,11 @@ def main():
                 "last": quarterly_data[-1]["quarter"],
             }
             print(f"| all-time wavg=${all_avg} ({valid_q}q, {total_shares_sum} total shares)")
+
         cost_basis[tk] = {"recent": recent, "allTime": all_time}
         time.sleep(0.3)
+
+    # ── Write prices.json ──
     prices = {
         "updated": datetime.utcnow().isoformat() + "Z",
         "quotes": quotes,
@@ -195,6 +239,7 @@ def main():
     }
     with open("prices_duan.json", "w") as f:
         json.dump(prices, f, indent=2)
-    print(f"\n✅ prices_duan.json written ({len(quotes)} quotes, {len(cost_basis)} cost basis)")
+    print(f"\n✅ prices.json written ({len(quotes)} quotes, {len(cost_basis)} cost basis)")
+
 if __name__ == "__main__":
     main()

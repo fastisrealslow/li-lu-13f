@@ -58,33 +58,26 @@ def should_skip_alltime(ticker, existing_cb, quarters_list):
         return False
     return a.get("first") == quarters_list[0] and a.get("last") == quarters_list[-1] and a.get("quarters", 0) >= len(quarters_list)
 
-def yahoo_chart(symbol, from_ts, to_ts, _retries=[0]):
-    url = f"https://query1.finance.yahoo.com/v8/finance/chart/{symbol}?period1={from_ts}&period2={to_ts}&interval=1d"
-    for attempt in range(4):
-        try:
-            req = urllib.request.Request(url, headers=YAHOO_HEADERS)
-            with urllib.request.urlopen(req, timeout=20) as resp:
-                data = json.loads(resp.read().decode())
-            result = data["chart"]["result"][0]
-            quote = result["indicators"]["quote"][0]
-            closes = [c for c in quote.get("close", []) if c is not None]
-            highs = [h for h in quote.get("high", []) if h is not None]
-            lows = [l for l in quote.get("low", []) if l is not None]
-            if not closes:
-                return None
-            return {"closes": closes, "highs": highs, "lows": lows}
-        except urllib.error.HTTPError as e:
-            if e.code == 429 and attempt < 3:
-                wait = min(8 * (3 ** attempt) + random.randint(2, 8), 90)
-                print(f"  [Yahoo 429] retry in {wait}s...", file=__import__('sys').stderr)
-                time.sleep(wait)
-                continue
-            print(f"  [Yahoo error] HTTP {e.code}", file=__import__('sys').stderr)
+def yahoo_chart(symbol, from_ts, to_ts):
+    """Fetch K-line data from Yahoo Finance using yfinance library."""
+    try:
+        import yfinance as yf
+        from datetime import datetime, timezone
+        start_dt = datetime.fromtimestamp(from_ts, tz=timezone.utc).strftime('%Y-%m-%d')
+        end_dt = datetime.fromtimestamp(to_ts, tz=timezone.utc).strftime('%Y-%m-%d')
+        ticker = yf.Ticker(symbol)
+        hist = ticker.history(start=start_dt, end=end_dt)
+        if hist is None or len(hist) == 0:
             return None
-        except Exception as e:
-            print(f"  [Yahoo error] {e}", file=__import__('sys').stderr)
+        closes = hist['Close'].dropna().tolist()
+        highs = hist['High'].dropna().tolist()
+        lows = hist['Low'].dropna().tolist()
+        if not closes:
             return None
-    return None
+        return {"closes": closes, "highs": highs, "lows": lows}
+    except Exception as e:
+        print(f"  [yfinance error] {e}", file=__import__('sys').stderr)
+        return None
 
 def quarter_ts(q_str):
     """Parse '2026 Q1' → (from_unix, to_unix)."""

@@ -1,48 +1,30 @@
 """Shared utilities for fetch_prices_*.py scripts.
-Provides Yahoo chart fetching with rate-limit handling and incremental caching.
+Provides Yahoo chart fetching via yfinance and incremental caching.
 """
-import json, time, urllib.request, urllib.error
+import json, time, random
 from datetime import datetime
 
-YAHOO_HEADERS = {
-    "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
-    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
-    "Accept-Language": "en-US,en;q=0.5",
-    "Accept-Encoding": "identity",
-    "Referer": "https://finance.yahoo.com/",
-}
 
-import random
-
-def yahoo_chart(symbol, from_ts, to_ts, max_retries=4):
-    """Fetch K-line data from Yahoo Finance with 429 retry + exponential backoff."""
-    url = f"https://query1.finance.yahoo.com/v8/finance/chart/{symbol}?period1={from_ts}&period2={to_ts}&interval=1d"
-    for attempt in range(max_retries):
-        try:
-            req = urllib.request.Request(url, headers=YAHOO_HEADERS)
-            with urllib.request.urlopen(req, timeout=20) as resp:
-                data = json.loads(resp.read().decode())
-            result = data["chart"]["result"][0]
-            quote = result["indicators"]["quote"][0]
-            closes = [c for c in quote.get("close", []) if c is not None]
-            highs = [h for h in quote.get("high", []) if h is not None]
-            lows = [l for l in quote.get("low", []) if l is not None]
-            if not closes:
-                return None
-            return {"closes": closes, "highs": highs, "lows": lows}
-        except urllib.error.HTTPError as e:
-            if e.code == 429 and attempt < max_retries - 1:
-                # Aggressive backoff: 8, 20, 45, 90 seconds + jitter
-                wait = min(8 * (3 ** attempt) + random.randint(2, 8), 90)
-                print(f"  [Yahoo 429] retry in {wait}s...", file=__import__('sys').stderr)
-                time.sleep(wait)
-                continue
-            print(f"  [Yahoo error] HTTP {e.code}", file=__import__('sys').stderr)
+def yahoo_chart(symbol, from_ts, to_ts, max_retries=2):
+    """Fetch K-line data from Yahoo Finance using yfinance library."""
+    try:
+        import yfinance as yf
+        from datetime import datetime, timezone
+        start_dt = datetime.fromtimestamp(from_ts, tz=timezone.utc).strftime('%Y-%m-%d')
+        end_dt = datetime.fromtimestamp(to_ts, tz=timezone.utc).strftime('%Y-%m-%d')
+        ticker = yf.Ticker(symbol)
+        hist = ticker.history(start=start_dt, end=end_dt)
+        if hist is None or len(hist) == 0:
             return None
-        except Exception as e:
-            print(f"  [Yahoo error] {e}", file=__import__('sys').stderr)
+        closes = hist['Close'].dropna().tolist()
+        highs = hist['High'].dropna().tolist()
+        lows = hist['Low'].dropna().tolist()
+        if not closes:
             return None
-    return None
+        return {"closes": closes, "highs": highs, "lows": lows}
+    except Exception as e:
+        print(f"  [yfinance error] {e}", file=__import__('sys').stderr)
+        return None
 
 def quarter_ts(q_str):
     parts = q_str.split(" Q")
@@ -57,16 +39,7 @@ def quarter_ts(q_str):
 
 def calc_cost_basis(ticker, holdings, current_quarter, prev_quarter, hist_holdings,
                     existing_cost_basis=None, yahoo_sleep=4.0):
-    """Calculate cost basis for a single ticker with incremental caching.
-    
-    Args:
-        existing_cost_basis: dict from existing prices file, or None
-        yahoo_sleep: seconds to sleep between Yahoo requests
-    
-    Returns:
-        dict with 'recent' and 'allTime' keys
-    """
-    # Determine buy quarter
+    """Calculate cost basis for a single ticker with incremental caching."""
     buy_q = current_quarter
     h = None
     for holding in holdings:
@@ -75,7 +48,7 @@ def calc_cost_basis(ticker, holdings, current_quarter, prev_quarter, hist_holdin
             break
     if h is None:
         return None
-    
+
     if h.get("prevShares", 0) > 0 and h["shares"] <= h["prevShares"]:
         prev_qs = sorted(hist_holdings.keys())
         prev_shares = None
@@ -87,8 +60,7 @@ def calc_cost_basis(ticker, holdings, current_quarter, prev_quarter, hist_holdin
                     elif qh["shares"] > prev_shares:
                         buy_q = q
                     prev_shares = qh["shares"]
-    
-    # Incremental: skip if existing data is already from Yahoo
+
     existing = None
     if existing_cost_basis and ticker in existing_cost_basis:
         existing = existing_cost_basis[ticker]
@@ -96,10 +68,10 @@ def calc_cost_basis(ticker, holdings, current_quarter, prev_quarter, hist_holdin
         if existing_recent.get("source") == "yahoo" and existing_recent.get("quarter") == buy_q:
             print(f"  Cost basis {ticker} ({buy_q})... skip (cached)", flush=True)
             return existing
-    
+
     from_ts, to_ts = quarter_ts(buy_q)
     print(f"  Cost basis {ticker} ({buy_q})...", end=" ", flush=True)
-    
+
     recent = None
     c = yahoo_chart(ticker, from_ts, to_ts)
     if c and c["closes"]:
@@ -117,32 +89,28 @@ def calc_cost_basis(ticker, holdings, current_quarter, prev_quarter, hist_holdin
                 est_price = prev_price
         recent = {"buy": est_price, "low": est_price, "high": est_price, "quarter": buy_q, "source": "13f-estimate"}
         print(f"estim=${est_price} (13F fallback)")
-    
-    # allTime: check which quarters need fresh Yahoo data
+
     quarterly_data = []
     for q_key, q_holdings in sorted(hist_holdings.items()):
         for qh in q_holdings:
             if qh["ticker"] == ticker and qh.get("shares", 0) > 0:
                 quarterly_data.append({"quarter": q_key, "shares": qh["shares"], "value": qh["value"]})
-    
+
     all_time = None
     if quarterly_data:
-        total_weighted_cost = 0.0
-        total_shares_sum = 0
-        valid_q = 0
-        
-        # Check if we can reuse existing allTime data
         existing_all = existing.get("allTime") if existing else None
         existing_first_q = existing_all.get("first") if existing_all else None
         existing_last_q = existing_all.get("last") if existing_all else None
         existing_quarters_count = existing_all.get("quarters") if existing_all else 0
-        
-        # If existing allTime covers all quarters and is from Yahoo, reuse it
+
         if (existing_all and existing_first_q == quarterly_data[0]["quarter"] and
             existing_last_q == quarterly_data[-1]["quarter"] and existing_quarters_count >= len(quarterly_data)):
             all_time = existing_all
             print(f"| all-time wavg=${existing_all.get('avg','?')} ({existing_quarters_count}q, cached)")
         else:
+            total_weighted_cost = 0.0
+            total_shares_sum = 0
+            valid_q = 0
             for qd in quarterly_data:
                 q_from, q_to = quarter_ts(qd["quarter"])
                 c = yahoo_chart(qd["ticker"] if "ticker" in qd else ticker, q_from, q_to)
@@ -164,6 +132,6 @@ def calc_cost_basis(ticker, holdings, current_quarter, prev_quarter, hist_holdin
                 "last": quarterly_data[-1]["quarter"],
             }
             print(f"| all-time wavg=${all_avg} ({valid_q}q, {total_shares_sum} total shares)")
-    
+
     time.sleep(yahoo_sleep + random.uniform(0, 2))
     return {"recent": recent, "allTime": all_time}

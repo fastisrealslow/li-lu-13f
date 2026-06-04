@@ -1,7 +1,76 @@
-"""Fetch stock prices & estimated buy-in costs for Akre & Greenberg 13F holdings.
+#!/usr/bin/env python3
+"""Regenerate all 6 price scripts from the working fetch_prices.py template."""
+import os
+
+BASE = os.path.dirname(os.path.abspath(__file__))
+
+# Read the working template
+with open(os.path.join(BASE, 'fetch_prices.py'), 'r') as f:
+    template = f.read()
+
+# Config for each investor
+INVESTORS = [
+    {
+        'name': 'duan',
+        'file': 'duan.json',
+        'prices': 'prices_duan.json',
+        'data_file': 'duan.json',
+        'init': 'ERROR: duan.json not found. Run fetch_13f_duan.py first.',
+        'skip_hk': True,
+        'msg': 'Fetching Prices for Duan',
+        'quote_skip': 'Skip {tk} (HK or unmapped)',
+    },
+    {
+        'name': 'spier',
+        'file': 'spier.json',
+        'prices': 'prices_spier.json',
+        'data_file': 'spier.json',
+        'init': 'ERROR: spier.json not found. Run fetch_13f_spier.py first.',
+        'skip_hk': True,
+        'msg': 'Fetching Prices for Spier',
+        'quote_skip': 'Skip {tk} (HK or unmapped)',
+    },
+    {
+        'name': 'tepper',
+        'file': 'tepper.json',
+        'prices': 'prices_tepper.json',
+        'data_file': 'tepper.json',
+        'init': 'ERROR: tepper.json not found. Run fetch_13f_tepper.py first.',
+        'skip_hk': False,
+    },
+    {
+        'name': 'buffett',
+        'file': 'buffett.json',
+        'prices': 'prices_buffett.json',
+        'data_file': 'buffett.json',
+        'init': 'ERROR: buffett.json not found. Run fetch_13f_buffett.py first.',
+        'skip_hk': False,
+    },
+    {
+        'name': 'webb',
+        'file': 'webb.json',
+        'prices': 'prices_webb.json',
+        'data_file': 'webb.json',
+        'init': 'ERROR: webb.json not found.',
+        'skip_hk': True,
+        'msg': 'Fetching Prices for Webb',
+        'quote_skip': 'Skip {tk} (HK)',
+    },
+    {
+        'name': 'akre_greenberg',
+        'file': None,  # Special: handles two investors
+        'prices': None,
+        'data_file': None,
+        'init': None,
+        'skip_hk': False,
+    },
+]
+
+# The yfinance-based template for individual scripts
+SCRIPT_TEMPLATE = '''"""Fetch stock prices & estimated buy-in costs for {display_name} 13F holdings.
 Depends only on Python stdlib + yfinance.
 
-Usage: python3 fetch_prices_akre_greenberg.py [--key FINNHUB_KEY]
+Usage: python3 {script_name} [--key FINNHUB_KEY]
 """
 import json, os, sys, time, urllib.request, urllib.error
 from datetime import datetime
@@ -22,13 +91,13 @@ API_KEY = get_key()
 def finnhub(path):
     """Call Finnhub API."""
     sep = "&" if "?" in path else "?"
-    url = f"https://finnhub.io/api/v1{path}{sep}token={API_KEY}"
+    url = f"https://finnhub.io/api/v1{{path}}{{sep}}token={{API_KEY}}"
     try:
-        req = urllib.request.Request(url, headers={"User-Agent": "13F-Tracker/1.0"})
+        req = urllib.request.Request(url, headers={{"User-Agent": "13F-Tracker/1.0"}})
         with urllib.request.urlopen(req, timeout=15) as resp:
             return json.loads(resp.read().decode())
     except Exception as e:
-        print(f"  [Finnhub error] {e}", file=sys.stderr)
+        print(f"  [Finnhub error] {{e}}", file=sys.stderr)
         return None
 
 
@@ -48,9 +117,9 @@ def yahoo_chart(symbol, from_ts, to_ts):
         lows = hist['Low'].dropna().tolist()
         if not closes:
             return None
-        return {"closes": closes, "highs": highs, "lows": lows}
+        return {{"closes": closes, "highs": highs, "lows": lows}}
     except Exception as e:
-        print(f"  [yfinance error] {e}", file=__import__('sys').stderr)
+        print(f"  [yfinance error] {{e}}", file=__import__('sys').stderr)
         return None
 
 def quarter_ts(q_str):
@@ -59,8 +128,8 @@ def quarter_ts(q_str):
     y, qn = int(parts[0]), int(parts[1])
     start_m = (qn - 1) * 3 + 1
     end_m = qn * 3
-    month_days = {1:31, 2:29 if y%4==0 and (y%100!=0 or y%400==0) else 28, 3:31,
-                  4:30, 5:31, 6:30, 7:31, 8:31, 9:30, 10:31, 11:30, 12:31}
+    month_days = {{1:31, 2:29 if y%4==0 and (y%100!=0 or y%400==0) else 28, 3:31,
+                  4:30, 5:31, 6:30, 7:31, 8:31, 9:30, 10:31, 11:30, 12:31}}
     from_ts = int(datetime(y, start_m, 1).timestamp())
     to_ts = int(datetime(y, end_m, month_days[end_m], 23, 59, 59).timestamp())
     return from_ts, to_ts
@@ -74,50 +143,49 @@ def should_skip_alltime(ticker, existing_cb, quarters_list):
         return False
     return a.get("first") == quarters_list[0] and a.get("last") == quarters_list[-1] and a.get("quarters", 0) >= len(quarters_list)
 
-def process_investor(name, data_file, prices_file):
-    """Process one investor's data."""
+def main():
     try:
-        with open(data_file) as f:
+        with open("{data_file}") as f:
             data = json.load(f)
     except FileNotFoundError:
-        print(f"ERROR: {data_file} not found.", file=sys.stderr)
-        return
+        print("ERROR: {data_file} not found.", file=sys.stderr)
+        sys.exit(1)
 
     current = data["current"]
     holdings = current["holdings"]
     quarter = current["quarter"]
     prev_quarter = current.get("prevQuarter", quarter)
 
-    print(f"\nFetching prices for {name}: {len(holdings)} tickers ({quarter} ← {prev_quarter})")
+    print(f"Fetching prices for {{len(holdings)}} tickers ({{quarter}} ← {{prev_quarter}})")
 
     # ── Part 1: Live quotes (Finnhub) ──
-    quotes = {}
+    quotes = {{}}
     for h in holdings:
         tk = h["ticker"]
-        print(f"  Quote {tk}...", end=" ", flush=True)
-        q = finnhub(f"/quote?symbol={tk}")
+{hk_skip_block}        print(f"  Quote {{tk}}...", end=" ", flush=True)
+        q = finnhub(f"/quote?symbol={{tk}}")
         if q and q.get("c", 0) > 0:
-            quotes[tk] = {"c": round(q["c"], 2), "h": round(q["h"], 2),
+            quotes[tk] = {{"c": round(q["c"], 2), "h": round(q["h"], 2),
                           "l": round(q["l"], 2), "o": round(q["o"], 2),
-                          "pc": round(q["pc"], 2), "t": q["t"]}
-            print(f"${q['c']:.2f}")
+                          "pc": round(q["pc"], 2), "t": q["t"]}}
+            print(f"${{{{q['c']:.2f}}}}")
         else:
             print("✗")
-            quotes[tk] = {"error": True}
+            quotes[tk] = {{"error": True}}
         time.sleep(0.2)
 
     # ── Part 2: Estimated buy-in costs ──
-    existing_cb = {}
+    existing_cb = {{}}
     try:
-        with open(prices_file) as _f:
+        with open("{prices_file}") as _f:
             existing_prices = json.load(_f)
-            existing_cb = existing_prices.get("costBasis", {})
-            print(f"  Loaded {len(existing_cb)} cached cost basis (incremental)")
+            existing_cb = existing_prices.get("costBasis", {{}})
+            print(f"  Loaded {{len(existing_cb)}} cached cost basis (incremental)")
     except FileNotFoundError:
         pass
-    cost_basis = {}
+    cost_basis = {{}}
 
-    hist_holdings = data.get("history", {}).get("holdings", {})
+    hist_holdings = data.get("history", {{}}).get("holdings", {{}})
 
     for h in holdings:
         tk = h["ticker"]
@@ -134,7 +202,7 @@ def process_investor(name, data_file, prices_file):
                             buy_q = q
                         prev_shares = qh["shares"]
         from_ts, to_ts = quarter_ts(buy_q)
-        print(f"  Cost basis {tk} ({buy_q})...", end=" ", flush=True)
+        print(f"  Cost basis {{tk}} ({{buy_q}})...", end=" ", flush=True)
 
         # --- Recent cost ---
         recent = None
@@ -144,16 +212,16 @@ def process_investor(name, data_file, prices_file):
             low = min(c["lows"])
             high = max(c["highs"])
             buy_est = round(low * 0.7 + avg * 0.3, 2)
-            recent = {"buy": buy_est, "low": round(low,2), "high": round(high,2), "quarter": buy_q, "source": "yahoo"}
-            print(f"buy≈${buy_est} [{low:.2f}-{high:.2f}]")
+            recent = {{"buy": buy_est, "low": round(low,2), "high": round(high,2), "quarter": buy_q, "source": "yahoo"}}
+            print(f"buy≈${{buy_est}} [{{low:.2f}}-{{high:.2f}}]")
         else:
             est_price = round(h["value"] / h["shares"], 2)
             if h.get("prevValue", 0) > 0 and h.get("prevShares", 0) > 0:
                 prev_price = round(h["prevValue"] / h["prevShares"], 2)
                 if buy_q == prev_quarter:
                     est_price = prev_price
-            recent = {"buy": est_price, "low": est_price, "high": est_price, "quarter": buy_q, "source": "13f-estimate"}
-            print(f"estim=${est_price} (13F fallback)")
+            recent = {{"buy": est_price, "low": est_price, "high": est_price, "quarter": buy_q, "source": "13f-estimate"}}
+            print(f"estim=${{est_price}} (13F fallback)")
 
         # --- All-time cost ---
         all_time = None
@@ -161,11 +229,11 @@ def process_investor(name, data_file, prices_file):
         for q_key, q_holdings in sorted(hist_holdings.items()):
             for qh in q_holdings:
                 if qh["ticker"] == tk and qh.get("shares", 0) > 0:
-                    quarterly_data.append({"quarter": q_key, "shares": qh["shares"], "value": qh["value"]})
+                    quarterly_data.append({{"quarter": q_key, "shares": qh["shares"], "value": qh["value"]}})
         if quarterly_data:
             if should_skip_alltime(tk, existing_cb, [q["quarter"] for q in quarterly_data]):
                 all_time = existing_cb[tk]["allTime"]
-                print(f"| all-time wavg=${existing_cb[tk]['allTime']['avg']} ({existing_cb[tk]['allTime']['quarters']}q, cached)")
+                print(f"| all-time wavg=${{existing_cb[tk]['allTime']['avg']}} ({{existing_cb[tk]['allTime']['quarters']}}q, cached)")
             else:
                 total_weighted_cost = 0.0
                 total_shares_sum = 0
@@ -184,29 +252,66 @@ def process_investor(name, data_file, prices_file):
                     valid_q += 1
                     time.sleep(4)
                 all_avg = round(total_weighted_cost / total_shares_sum, 2)
-                all_time = {
+                all_time = {{
                     "avg": all_avg,
                     "quarters": valid_q,
                     "first": quarterly_data[0]["quarter"],
                     "last": quarterly_data[-1]["quarter"],
-                }
-                print(f"| all-time wavg=${all_avg} ({valid_q}q, {total_shares_sum} total shares)")
+                }}
+                print(f"| all-time wavg=${{all_avg}} ({{valid_q}}q, {{total_shares_sum}} total shares)")
 
-        cost_basis[tk] = {"recent": recent, "allTime": all_time}
+        cost_basis[tk] = {{"recent": recent, "allTime": all_time}}
         time.sleep(0.3)
 
-    prices = {
+    prices = {{
         "updated": datetime.utcnow().isoformat() + "Z",
         "quotes": quotes,
         "costBasis": cost_basis,
-    }
-    with open(prices_file, "w") as f:
+    }}
+    with open("{prices_file}", "w") as f:
         json.dump(prices, f, indent=2)
-    print(f"\n✅ {prices_file} written ({len(quotes)} quotes, {len(cost_basis)} cost basis)")
-
-def main():
-    process_investor("Akre", "akre.json", "prices_akre.json")
-    process_investor("Greenberg", "greenberg.json", "prices_greenberg.json")
+    print(f"\\n✅ {prices_file} written ({{len(quotes)}} quotes, {{len(cost_basis)}} cost basis)")
 
 if __name__ == "__main__":
     main()
+'''
+
+HK_SKIP_BLOCK = '''        if tk.startswith("?") or tk.endswith(".HK"):
+            print(f"  {{skip_msg}}")
+            quotes[tk] = {{"error": True}}
+            continue
+'''
+
+ok = 0
+
+for inv in INVESTORS:
+    name = inv['name']
+    if name == 'akre_greenberg':
+        # Special: this script handles two investors
+        # We'll write a combined script based on the existing structure
+        print(f"  ⏭ {name}: special case, will handle separately")
+        continue
+
+    display_name = name.replace('_', ' ').title()
+    script_name = f'fetch_prices_{name}.py'
+
+    hk_block = ''
+    if inv.get('skip_hk'):
+        skip_msg = inv.get('quote_skip', 'Skip {tk} (HK or unmapped)')
+        hk_block = HK_SKIP_BLOCK.format(skip_msg=skip_msg)
+
+    content = SCRIPT_TEMPLATE.format(
+        display_name=display_name,
+        script_name=script_name,
+        data_file=inv['data_file'],
+        prices_file=inv['prices'],
+        hk_skip_block=hk_block,
+    )
+
+    path = os.path.join(BASE, script_name)
+    with open(path, 'w', encoding='utf-8') as f:
+        f.write(content)
+    ok += 1
+    print(f"  ✅ {script_name}")
+
+print(f"\n{ok} scripts regenerated")
