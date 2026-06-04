@@ -20,6 +20,9 @@ jobs:
         with:
           python-version: '3.12'
 
+      - name: Install dependencies
+        run: pip install yfinance
+
       - name: Fetch Li Lu 13F from SEC EDGAR
         run: python3 fetch_13f.py --full
 
