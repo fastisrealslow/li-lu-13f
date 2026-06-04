@@ -1,0 +1,52 @@
+name: Test Yahoo Finance API
+
+on:
+  workflow_dispatch:
+
+jobs:
+  test-yahoo:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Test Yahoo Finance
+        run: |
+          echo "=== Step 1: Check our IP ==="
+          curl -s ifconfig.me
+          echo ""
+
+          echo "=== Step 2: Fetch Yahoo Finance homepage (get cookies) ==="
+          HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" \
+            -H "User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36" \
+            "https://finance.yahoo.com/" 2>&1)
+          echo "Homepage HTTP code: $HTTP_CODE"
+
+          echo "=== Step 3: Get crumb ==="
+          CRUMB=$(curl -s -b cookies.txt -c cookies.txt \
+            -H "User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36" \
+            "https://query2.finance.yahoo.com/v1/test/getcrumb" 2>&1)
+          echo "Crumb: $CRUMB"
+
+          echo "=== Step 4: Fetch AAPL chart data ==="
+          CHART_CODE=$(curl -s -o /dev/null -w "%{http_code}" \
+            -b cookies.txt -c cookies.txt \
+            -H "User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36" \
+            "https://query1.finance.yahoo.com/v8/finance/chart/AAPL?period1=1735689600&period2=1743465600&interval=1d&crumb=${CRUMB}" 2>&1)
+          echo "Chart HTTP code: $CHART_CODE"
+
+          echo "=== Step 5: Try without crumb ==="
+          NOCRUMB_CODE=$(curl -s -o /dev/null -w "%{http_code}" \
+            -H "User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36" \
+            "https://query1.finance.yahoo.com/v8/finance/chart/AAPL?period1=1735689600&period2=1743465600&interval=1d" 2>&1)
+          echo "Chart (no crumb) HTTP code: $NOCRUMB_CODE"
+
+          echo "=== Step 6: Fetch actual chart data ==="
+          curl -s -b cookies.txt -c cookies.txt \
+            -H "User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36" \
+            "https://query1.finance.yahoo.com/v8/finance/chart/AAPL?period1=1735689600&period2=1743465600&interval=1d&crumb=${CRUMB}" | python3 -c "
+          import sys, json
+          data = json.load(sys.stdin)
+          if data.get('chart', {}).get('result'):
+              closes = [c for c in data['chart']['result'][0]['indicators']['quote'][0].get('close', []) if c]
+              print(f'✅ SUCCESS! {len(closes)} data points, last close: \${closes[-1]:.2f}')
+          else:
+              print(f'❌ FAILED: {json.dumps(data)[:200]}')
+          " 2>&1 || echo "Failed to parse response"
