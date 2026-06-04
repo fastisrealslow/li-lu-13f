@@ -255,6 +255,74 @@ const T = {
     'DAILY JOURNAL CORP':'Daily Journal',
     'SERITAGE GROWTH PPTYS':'Seritage',
     'MOODYS CORP':'穆迪','MCO':'穆迪',
+    // Akre Capital
+    'VISA INC':'Visa','V':'Visa',
+    'KKR & CO L P DEL':'KKR','KKR':'KKR',
+    'ROPER TECHNOLOGIES INC':'Roper科技',
+    'COSTAR GROUP INC':'CoStar集团',
+    'FAIR ISAAC CORP':'FICO',
+    'TYLER TECHNOLOGIES INC':'Tyler科技',
+    'CONSTELLATION SOFTWARE INC':'Constellation软件',
+    'VEEVA SYSTEMS INC':'Veeva',
+    'IDEXX LABORATORIES INC':'IDEXX',
+    'DANAHER CORPORATION':'丹纳赫',
+    // Greenberg (Brave Warrior)
+    'TD SYNNEX CORPORATION':'TD SYNNEX',
+    'ONEMAIN HLDGS INC':'OneMain金融',
+    'ICON PLC':'ICON',
+    'ELEVANCE HEALTH INC FORMERLY':'Elevance健康',
+    'AUTONATION INC':'AutoNation',
+    'SLM CORP':'SLM',
+    'GLOBE LIFE INC':'Globe Life',
+    'CHARLES SCHWAB CORP':'嘉信理财',
+    'AMERICAN EXPRESS CO':'美国运通','AXP':'美国运通',
+    'LIBERTY MEDIA CORP DEL':'Liberty媒体',
+    // Buffett (Berkshire)
+    'COCA COLA CO':'可口可乐','KO':'可口可乐',
+    'CHEVRON CORPORATION':'雪佛龙',
+    'BANK AMERICA CORP':'美国银行',
+    'CHUBB LTD SWITZ':'Chubb',
+    'KRAFT HEINZ CO':'卡夫亨氏',
+    'OCCIDENTAL PETROLEUM CORP':'西方石油',
+    'MOODY S CORP':'穆迪',
+    'DAVITA INC':'达维塔',
+    'HP INC':'惠普',
+    'LIBERTY LATIN AMERICA LTD':'Liberty拉美',
+    'VERISIGN INC':'VeriSign',
+    'AMAZON COM INC':'亚马逊','AMZN':'亚马逊',
+    'SIRIUS XM HLDGS INC':'Sirius XM',
+    'CHARTER COMMUNICATIONS INC N':'Charter通信',
+    'SNOWFLAKE INC':'Snowflake',
+    'VERIZON COMMUNICATIONS INC':'Verizon',
+    'DIAGEO PLC':'帝亚吉欧',
+    'NU HOLDINGS LTD CO':'Nu Holdings',
+    'LIBERTY MEDIA CORP NEW':'Liberty媒体',
+    'LOUISIANA PAC CORP':'LP建材',
+    'FLOOR DECOR HLDGS INC':'Floor & Decor',
+    'PILOT CORP':'Pilot',
+    'VISA INC':'Visa',
+    // Pabrai
+    'SERITAGE GROWTH PPTYS':'Seritage',
+    'MICRON TECHNOLOGY INC':'美光科技','MU':'美光科技',
+    'INTEL CORP':'英特尔','INTC':'英特尔',
+    'WELLS FARGO & CO NEW':'富国银行','WFC':'富国银行',
+    'JOHNSON & JOHNSON':'强生',
+    'PFIZER INC':'辉瑞',
+    'ABBVIE INC':'艾伯维',
+    'UNITEDHEALTH GROUP INC':'联合健康','UNH':'联合健康',
+    'JPMORGAN CHASE & CO':'摩根大通','JPM':'摩根大通',
+    'GOLDMAN SACHS GROUP INC':'高盛','GS':'高盛',
+    'CITIGROUP INC':'花旗集团','C':'花旗集团',
+    'GENERAL MOTORS CO':'通用汽车','GM':'通用汽车',
+    'BANK OF AMERICA CORP':'美国银行','BAC':'美国银行',
+    'FREEPORT MCMORAN INC':'自由港矿业','FCX':'自由港矿业',
+    'SERVISFIRST BANCSHARES INC':'ServisFirst银行','SFBS':'ServisFirst银行',
+    // Webb (HK stocks - using HK names)
+    '0700.HK':'腾讯控股','0005.HK':'汇丰控股','0016.HK':'新鸿基地产',
+    '0388.HK':'香港交易所','0011.HK':'恒生银行','0941.HK':'中国移动',
+    '1299.HK':'友邦保险','2318.HK':'中国平安','0001.HK':'长和',
+    '0003.HK':'香港中华煤气','0006.HK':'电能实业','0012.HK':'恒基地产',
+    '0013.HK':'和黄','0017.HK':'新世界发展','0019.HK':'太古股份公司',
   },
 
 };
@@ -269,7 +337,7 @@ async function switchInvestor(v) {
   try {
     var f, pf;
     if (investor === 'lilu') { f = 'data.json'; pf = 'prices.json'; }
-    else if (investor === 'pabrai') { f = 'pabrai.json'; pf = 'pabrai_prices.json'; }
+    else if (investor === 'pabrai') { f = 'pabrai_data.json'; pf = 'pabrai_prices.json'; }
     else if (investor === 'duan') { f = 'duan.json'; pf = 'prices_duan.json'; }
     else if (investor === 'tepper') { f = 'tepper.json'; pf = 'prices_tepper.json'; }
     else if (investor === 'spier') { f = 'spier.json'; pf = 'prices_spier.json'; }
@@ -319,6 +387,11 @@ function fmtNum(n) {
   if (n >= 1e3) return (n/1e3).toFixed(1)+'K';
   return n.toLocaleString();
 }
+function currSymbol(ticker) {
+  // HK stocks use HKD
+  return (ticker && ticker.endsWith('.HK')) ? 'HK$' : '$';
+}
+
 function fmtPct(cur, prev) {
   if (prev===0) return '<span class="qoq-new">新进</span>';
   const p=((cur-prev)/prev*100);
@@ -641,7 +714,7 @@ function renderHoldings() {
     const q = quotes[h.ticker];
     const cb = costBasis[h.ticker];
     const currentPrice = (q && !q.error) ? q.c : (h.value / h.shares);
-    const priceHtml = (q && !q.error) ? `$${q.c.toFixed(2)}` : '<span style="color:var(--text-lighter)">--</span>';
+    const priceHtml = (q && !q.error) ? `${currSymbol(h.ticker)}${q.c.toFixed(2)}` : '<span style="color:var(--text-lighter)">--</span>';
     
     let mosHtml = '';
     let costHtml = '<span style="color:var(--text-lighter)">--</span>';
@@ -665,10 +738,11 @@ function renderHoldings() {
         mosHtml = `<span title="${t('mosWatch')}: ${mos.toFixed(1)}%" style="display:inline-flex;align-items:center;gap:3px;padding:2px 6px;background:rgba(245,158,11,0.1);border:1px solid rgba(245,158,11,0.25);border-radius:4px;font-size:.65rem;color:#d97706;font-weight:600;white-space:nowrap;">⚡${mos.toFixed(0)}%</span>`;
       }
       
-      costHtml = `<div title="近期 ${rc.quarter}: 买入估算 $${rc.buy} [$${rc.low}-$${rc.high}]\n${isYahoo?'Yahoo历史K线, 偏低价加权':'13F 市值/股数'}`;
+      const cur$ = currSymbol(h.ticker);
+      costHtml = `<div title="近期 ${rc.quarter}: 买入估算 ${cur$}${rc.buy} [${cur$}${rc.low}-${cur$}${rc.high}]\n${isYahoo?'Yahoo历史K线, 偏低价加权':'13F 市值/股数'}`;
       if (at) costHtml += `\n\n全周期 (${at.first}~${at.last}, ${at.quarters}季): 均价 $${at.avg}`;
       costHtml += `" style="cursor:help">`;
-      costHtml += `<div style="font-weight:600">$${rc.buy}</div>`;
+      costHtml += `<div style="font-weight:600">${cur$}${rc.buy}</div>`;
       costHtml += `<div style="font-size:.65rem;color:var(--text-lighter);">${t('costRecent')} ${srcBadge} <span class="${pnlClass}" style="font-weight:500;">${pnlSign}${pnl}%</span></div>`;
       if (at) costHtml += `<div style="font-weight:500;color:var(--navy);margin-top:3px;">$${at.avg}</div>`;
       if (at) costHtml += `<div style="font-size:.6rem;color:var(--text-lighter);">${t('costAllTime')} (${at.quarters}季)</div>`;
@@ -685,7 +759,7 @@ function renderHoldings() {
   let mosSummaryHtml = '';
   if (greenItems.length > 0) {
     const listHtml = greenItems.map(m => 
-      `<span style="display:inline-flex;align-items:center;gap:4px;padding:4px 10px;background:rgba(16,185,129,0.08);border:1px solid rgba(16,185,129,0.2);border-radius:6px;font-size:.8rem;"><span style="font-weight:600;color:#059669;">${m.ticker}</span><span style="color:#6b7280;font-size:.7rem;">安全边际 ${m.mos}%</span><span style="color:#9ca3af;font-size:.65rem;">成本 $${m.cost} → 现价 $${m.price}</span></span>`
+      `<span style="display:inline-flex;align-items:center;gap:4px;padding:4px 10px;background:rgba(16,185,129,0.08);border:1px solid rgba(16,185,129,0.2);border-radius:6px;font-size:.8rem;"><span style="font-weight:600;color:#059669;">${m.ticker}</span><span style="color:#6b7280;font-size:.7rem;">安全边际 ${m.mos}%</span><span style="color:#9ca3af;font-size:.65rem;">成本 ${currSymbol(m.ticker)}${m.cost} → 现价 ${currSymbol(m.ticker)}${m.price}</span></span>`
     ).join('');
     mosSummaryHtml = `<div style="padding:16px;background:linear-gradient(135deg,rgba(16,185,129,0.06),rgba(16,185,129,0.02));border:1px solid rgba(16,185,129,0.2);border-radius:10px;margin-bottom:16px;">
       <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;">

@@ -230,6 +230,15 @@ def parse_holdings(xml_bytes: bytes) -> list[dict]:
             "value": int(val_el.text) if val_el is not None and val_el.text else 0,
         })
 
+    # Auto-detect value unit: SEC changed from kUSD to USD around 2022 Q4.
+    # Heuristic: if avg value/shares < $1, values are in thousands of USD → scale ×1000.
+    valid = [e for e in raw_entries if e["shares"] > 0 and e["value"] > 0]
+    if valid:
+        avg_price = sum(e["value"] / e["shares"] for e in valid) / len(valid)
+        if avg_price < 1.0:  # clearly in kUSD
+            for e in raw_entries:
+                e["value"] = e["value"] * 1000
+
     # Resolve tickers
     for entry in raw_entries:
         entry["ticker"] = resolve_ticker(entry["name"], entry["cls"])

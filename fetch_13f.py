@@ -139,6 +139,14 @@ def parse_holdings(xml_bytes: bytes) -> list[dict]:
             "value": int(val_el.text) if val_el is not None and val_el.text else 0,
             "sector": SECTORS.get(tk, "其他"),
         })
+    # Auto-detect value unit: SEC changed from kUSD to USD around 2022 Q4.
+    # If avg value/shares < $1, values are in kUSD → scale ×1000.
+    _valid = [h for h in holdings if h["shares"] > 0 and h["value"] > 0]
+    if _valid:
+        _avg = sum(h["value"] / h["shares"] for h in _valid) / len(_valid)
+        if _avg < 1.0:
+            for h in holdings:
+                h["value"] *= 1000
     holdings.sort(key=lambda h: h["value"], reverse=True)
     return holdings
 
