@@ -1,0 +1,50 @@
+name: Test yfinance on GitHub Actions
+
+on:
+  workflow_dispatch:
+
+jobs:
+  test-yfinance:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install yfinance
+        run: pip install yfinance
+
+      - name: Test Yahoo Finance via yfinance
+        run: |
+          python3 -c "
+          import yfinance as yf
+          print('Testing yfinance with AAPL...')
+          ticker = yf.Ticker('AAPL')
+          hist = ticker.history(period='6mo')
+          if hist is not None and len(hist) > 0:
+              print(f'✅ SUCCESS! {len(hist)} data points')
+              print(f'   Latest close: \${hist[\"Close\"].iloc[-1]:.2f}')
+              print(f'   Date range: {hist.index[0].date()} to {hist.index[-1].date()}')
+          else:
+              print('❌ FAILED - no data returned')
+          "
+
+      - name: Test multiple tickers (simulate real usage)
+        run: |
+          python3 -c "
+          import yfinance as yf, time
+          tickers = ['AAPL', 'GOOGL', 'MSFT', 'BRK-B', 'BAC']
+          for t in tickers:
+              print(f'Fetching {t}...', end=' ', flush=True)
+              try:
+                  hist = yf.Ticker(t).history(period='3mo')
+                  if len(hist) > 0:
+                      print(f'✅ {len(hist)} days, last: \${hist[\"Close\"].iloc[-1]:.2f}')
+                  else:
+                      print('❌ no data')
+              except Exception as e:
+                  print(f'❌ {e}')
+              time.sleep(1)
+          "
