@@ -9,13 +9,6 @@ If --key is omitted, reads FINNHUB_KEY from env.
 import json, os, sys, time, random, urllib.request, urllib.error
 from datetime import datetime
 
-YAHOO_HEADERS = {
-    "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
-    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
-    "Accept-Language": "en-US,en;q=0.5",
-    "Accept-Encoding": "identity",
-    "Referer": "https://finance.yahoo.com/",
-}
 # ── Finnhub API key ──
 def get_key():
     for i, a in enumerate(sys.argv):
@@ -58,33 +51,26 @@ def should_skip_alltime(ticker, existing_cb, quarters_list):
         return False
     return a.get("first") == quarters_list[0] and a.get("last") == quarters_list[-1] and a.get("quarters", 0) >= len(quarters_list)
 
-def yahoo_chart(symbol, from_ts, to_ts, _retries=[0]):
-    url = f"https://query1.finance.yahoo.com/v8/finance/chart/{symbol}?period1={from_ts}&period2={to_ts}&interval=1d"
-    for attempt in range(4):
-        try:
-            req = urllib.request.Request(url, headers=YAHOO_HEADERS)
-            with urllib.request.urlopen(req, timeout=20) as resp:
-                data = json.loads(resp.read().decode())
-            result = data["chart"]["result"][0]
-            quote = result["indicators"]["quote"][0]
-            closes = [c for c in quote.get("close", []) if c is not None]
-            highs = [h for h in quote.get("high", []) if h is not None]
-            lows = [l for l in quote.get("low", []) if l is not None]
-            if not closes:
-                return None
-            return {"closes": closes, "highs": highs, "lows": lows}
-        except urllib.error.HTTPError as e:
-            if e.code == 429 and attempt < 3:
-                wait = min(8 * (3 ** attempt) + random.randint(2, 8), 90)
-                print(f"  [Yahoo 429] retry in {wait}s...", file=__import__('sys').stderr)
-                time.sleep(wait)
-                continue
-            print(f"  [Yahoo error] HTTP {e.code}", file=__import__('sys').stderr)
+def yahoo_chart(symbol, from_ts, to_ts):
+    """Fetch K-line data from Yahoo Finance using yfinance library."""
+    try:
+        import yfinance as yf
+        from datetime import datetime, timezone
+        start_dt = datetime.fromtimestamp(from_ts, tz=timezone.utc).strftime('%Y-%m-%d')
+        end_dt = datetime.fromtimestamp(to_ts, tz=timezone.utc).strftime('%Y-%m-%d')
+        ticker = yf.Ticker(symbol)
+        hist = ticker.history(start=start_dt, end=end_dt)
+        if hist is None or len(hist) == 0:
             return None
-        except Exception as e:
-            print(f"  [Yahoo error] {e}", file=__import__('sys').stderr)
+        closes = hist['Close'].dropna().tolist()
+        highs = hist['High'].dropna().tolist()
+        lows = hist['Low'].dropna().tolist()
+        if not closes:
             return None
-    return None
+        return {"closes": closes, "highs": highs, "lows": lows}
+    except Exception as e:
+        print(f"  [yfinance error] {e}", file=__import__('sys').stderr)
+        return None
 
 def quarter_ts(q_str):
     """Parse '2026 Q1' → (from_unix, to_unix)."""
@@ -111,14 +97,14 @@ def main():
     quarter = current["quarter"]
     prev_quarter = current.get("prevQuarter", quarter)
 
-    print(f"Fetching Prices for Duan {len(holdings)} tickers ({quarter} ← {prev_quarter})")
+    print(f"Fetching prices for {len(holdings)} tickers ({quarter} ← {prev_quarter})")
 
     # ── Part 1: Live quotes (Finnhub) ──
     quotes = {}
     for h in holdings:
         tk = h["ticker"]
         if tk.startswith("?") or tk.endswith(".HK"):
-            print(f"  Skip {tk} (HK or unmapped)")
+            print(f"  Skip {tk} (unmapped or HK stock)")
             quotes[tk] = {"error": True}
             continue
         print(f"  Quote {tk}...", end=" ", flush=True)
@@ -218,7 +204,7 @@ def main():
                     total_weighted_cost += q_price * qd["shares"]
                     total_shares_sum += qd["shares"]
                     valid_q += 1
-                    time.sleep(4)
+                    time.sleep(0.5)
                 all_avg = round(total_weighted_cost / total_shares_sum, 2)
                 all_time = {
                     "avg": all_avg,
