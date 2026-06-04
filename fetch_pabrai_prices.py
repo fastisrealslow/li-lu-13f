@@ -103,7 +103,7 @@ def main():
         with open("pabrai_data.json") as f:
             data = json.load(f)
     except FileNotFoundError:
-        print("ERROR: pabrai_data.json not found. Run fetch_13f.py first. Run fetch_13f_duan.py first.", file=sys.stderr)
+        print("ERROR: pabrai_data.json not found. Run fetch_13f_pabrai.py first. Run fetch_13f_duan.py first.", file=sys.stderr)
         sys.exit(1)
 
     current = data["current"]
@@ -117,6 +117,10 @@ def main():
     quotes = {}
     for h in holdings:
         tk = h["ticker"]
+        if tk.startswith("?"):
+            print(f"  Skip {tk} (unmapped)")
+            quotes[tk] = {"error": True}
+            continue
         print(f"  Quote {tk}...", end=" ", flush=True)
         q = finnhub(f"/quote?symbol={tk}")
         if q and q.get("c", 0) > 0:
