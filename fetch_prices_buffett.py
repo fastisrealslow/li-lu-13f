@@ -205,24 +205,24 @@ def main():
                 for qd in quarterly_data:
                     q_from, q_to = quarter_ts(qd["quarter"])
                     c = yahoo_chart(tk, q_from, q_to)
-                if c and c["closes"]:
-                    avg = sum(c["closes"]) / len(c["closes"])
-                    low = min(c["lows"])
-                    q_price = low * 0.7 + avg * 0.3
-                else:
-                    q_price = qd["value"] / qd["shares"]  # fallback: 13F quarter-end
-                total_weighted_cost += q_price * qd["shares"]
-                total_shares_sum += qd["shares"]
-                valid_q += 1
-                time.sleep(0.5)
-            all_avg = round(total_weighted_cost / total_shares_sum, 2)
-            all_time = {
-                "avg": all_avg,
-                "quarters": valid_q,
-                "first": quarterly_data[0]["quarter"],
-                "last": quarterly_data[-1]["quarter"],
-            }
-            print(f"| all-time wavg=${all_avg} ({valid_q}q, {total_shares_sum} total shares)")
+                    if c and c["closes"]:
+                        avg = sum(c["closes"]) / len(c["closes"])
+                        low = min(c["lows"])
+                        q_price = low * 0.7 + avg * 0.3
+                    else:
+                        q_price = qd["value"] / qd["shares"]  # fallback: 13F quarter-end
+                    total_weighted_cost += q_price * qd["shares"]
+                    total_shares_sum += qd["shares"]
+                    valid_q += 1
+                    time.sleep(4)
+                all_avg = round(total_weighted_cost / total_shares_sum, 2)
+                all_time = {
+                    "avg": all_avg,
+                    "quarters": valid_q,
+                    "first": quarterly_data[0]["quarter"],
+                    "last": quarterly_data[-1]["quarter"],
+                }
+                print(f"| all-time wavg=${all_avg} ({valid_q}q, {total_shares_sum} total shares)")
 
         cost_basis[tk] = {"recent": recent, "allTime": all_time}
         time.sleep(0.3)
