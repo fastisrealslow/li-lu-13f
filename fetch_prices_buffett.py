@@ -104,7 +104,13 @@ def main():
     for h in holdings:
         tk = h["ticker"]
         print(f"  Quote {tk}...", end=" ", flush=True)
-        q = finnhub(f"/quote?symbol={tk}")
+        # BRK.B/BRK.A: Finnhub sometimes marks as delisted, retry with alternate symbol
+        sym = tk
+        if tk == "BRK.B": sym = "BRK%2EB"
+        elif tk == "BRK.A": sym = "BRK%2EA"
+        q = finnhub(f"/quote?symbol={sym}")
+        if (not q or q.get("c", 0) == 0) and sym != tk:
+            q = finnhub(f"/quote?symbol={tk}")  # fallback to original
         if q and q.get("c", 0) > 0:
             quotes[tk] = {"c": round(q["c"], 2), "h": round(q["h"], 2),
                           "l": round(q["l"], 2), "o": round(q["o"], 2),
