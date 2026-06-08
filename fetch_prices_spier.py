@@ -99,7 +99,16 @@ def main():
 
     print(f"Fetching prices for {len(holdings)} tickers ({quarter} ← {prev_quarter})")
 
-    # ── Part 1: Live quotes (Finnhub) ──
+    # ── Part 1: Live quotes (Finnhub) with same-day cache ──
+    existing_quotes = {}
+    try:
+        with open("prices_spier.json") as _f:
+            _ep = json.load(_f)
+            existing_quotes = _ep.get("quotes", {})
+    except FileNotFoundError:
+        pass
+    from datetime import date as _date
+    today_str = _date.today().isoformat()
     quotes = {}
     for h in holdings:
         tk = h["ticker"]
@@ -107,6 +116,15 @@ def main():
             print(f"  Skip {tk} (unmapped or HK stock)")
             quotes[tk] = {"error": True}
             continue
+        if tk in existing_quotes:
+            eq = existing_quotes[tk]
+            if not eq.get("error") and eq.get("t"):
+                import datetime as _dt
+                qt_date = _dt.datetime.utcfromtimestamp(eq["t"]).date().isoformat()
+                if qt_date == today_str:
+                    quotes[tk] = eq
+                    print(f"  Quote {tk}... ${eq['c']:.2f} (cached)")
+                    continue
         print(f"  Quote {tk}...", end=" ", flush=True)
         # BRK.B/BRK.A: Finnhub sometimes marks as delisted, retry with alternate symbol
         sym = tk
@@ -123,7 +141,7 @@ def main():
         else:
             print("✗")
             quotes[tk] = {"error": True}
-        time.sleep(0.2)
+        time.sleep(1.1)
 
     # ── Part 2: Estimated buy-in costs ──
     # Recent: Yahoo Finance (or 13F fallback), skewed toward buy-side (lower end)

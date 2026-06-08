@@ -99,10 +99,22 @@ def main():
 
     print(f"Fetching prices for {len(holdings)} tickers ({quarter} ← {prev_quarter})")
 
-    # ── Part 1: Live quotes (Finnhub) ──
+    # ── Part 1: Live quotes (Finnhub) with same-day cache ──
     quotes = {}
+    from datetime import date
+    today_str = date.today().isoformat()
     for h in holdings:
         tk = h["ticker"]
+        # Same-day cache: skip if we already have a fresh quote from today
+        if tk in existing_quotes:
+            eq = existing_quotes[tk]
+            if not eq.get("error") and eq.get("t"):
+                import datetime as _dt
+                qt_date = _dt.datetime.utcfromtimestamp(eq["t"]).date().isoformat()
+                if qt_date == today_str:
+                    quotes[tk] = eq
+                    print(f"  Quote {tk}... ${eq['c']:.2f} (cached)")
+                    continue
         print(f"  Quote {tk}...", end=" ", flush=True)
         # BRK.B/BRK.A: Finnhub sometimes marks as delisted, retry with alternate symbol
         sym = tk
@@ -119,7 +131,7 @@ def main():
         else:
             print("✗")
             quotes[tk] = {"error": True}
-        time.sleep(0.2)
+        time.sleep(1.1)
 
     # ── Part 2: Estimated buy-in costs ──
     # Recent: Yahoo Finance (or 13F fallback), skewed toward buy-side (lower end)
@@ -130,9 +142,12 @@ def main():
         with open("prices_buffett.json") as _f:
             existing_prices = json.load(_f)
             existing_cb = existing_prices.get("costBasis", {})
+            existing_quotes = existing_prices.get("quotes", {})
             print(f"  Loaded {len(existing_cb)} cached cost basis (incremental)")
     except FileNotFoundError:
         pass
+    if "existing_quotes" not in dir():
+        existing_quotes = {}
     cost_basis = {}
 
     # Pre-load history holdings for all-time computation
