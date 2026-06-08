@@ -100,6 +100,13 @@ def main():
     print(f"Fetching prices for {len(holdings)} tickers ({quarter} ← {prev_quarter})")
 
     # ── Part 1: Live quotes (Finnhub) with same-day cache ──
+    existing_quotes = {}
+    try:
+        with open("prices.json") as _f:
+            _ep = json.load(_f)
+            existing_quotes = _ep.get("quotes", {})
+    except FileNotFoundError:
+        pass
     quotes = {}
     from datetime import date
     today_str = date.today().isoformat()
@@ -146,7 +153,7 @@ def main():
             print(f"  Loaded {len(existing_cb)} cached cost basis (incremental)")
     except FileNotFoundError:
         pass
-    if "existing_quotes" not in dir():
+    if not existing_quotes:
         existing_quotes = {}
     cost_basis = {}
 
