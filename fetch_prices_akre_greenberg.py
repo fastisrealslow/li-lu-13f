@@ -91,6 +91,13 @@ def process_investor(name, data_file, prices_file):
     print(f"\nFetching prices for {name}: {len(holdings)} tickers ({quarter} ← {prev_quarter})")
 
     # ── Part 1: Live quotes (Finnhub) with same-day cache ──
+    existing_quotes = {}
+    try:
+        with open("prices_akre.json") as _f:
+            _ep = __import__("json").load(_f)
+            existing_quotes = _ep.get("quotes", {})
+    except FileNotFoundError:
+        pass
     quotes = {}
     from datetime import date
     today_str = date.today().isoformat()
@@ -134,7 +141,7 @@ def process_investor(name, data_file, prices_file):
             print(f"  Loaded {len(existing_cb)} cached cost basis (incremental)")
     except FileNotFoundError:
         pass
-    if "existing_quotes" not in dir():
+    if not existing_quotes:
         existing_quotes = {}
     cost_basis = {}
 
