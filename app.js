@@ -727,7 +727,7 @@ function renderHoldings() {
       const pnl = ((currentPrice - rc.buy) / rc.buy * 100).toFixed(1);
       const pnlClass = pnl >= 0 ? 'qoq-up' : 'qoq-down';
       const pnlSign = pnl >= 0 ? '+' : '';
-      const isYahoo = rc.source === 'yahoo';
+      const isYahoo = rc.source === 'yahoo' || rc.source === 'yfinance';
       const srcBadge = isYahoo ? '<span style="color:#10b981;font-size:.55rem;">K线</span>' : '<span style="color:#f59e0b;font-size:.55rem;">13F估</span>';
       
       // Margin of Safety calculation
