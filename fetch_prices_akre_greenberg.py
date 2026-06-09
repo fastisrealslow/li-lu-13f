@@ -39,7 +39,9 @@ def yahoo_chart(symbol, from_ts, to_ts):
         from datetime import datetime, timezone
         start_dt = datetime.fromtimestamp(from_ts, tz=timezone.utc).strftime('%Y-%m-%d')
         end_dt = datetime.fromtimestamp(to_ts, tz=timezone.utc).strftime('%Y-%m-%d')
-        ticker = yf.Ticker(symbol)
+        # yfinance uses BRK-B/BRK-A instead of BRK.B/BRK.A
+        yf_symbol = symbol.replace('.B', '-B').replace('.A', '-A') if symbol.startswith('BRK') else symbol
+        ticker = yf.Ticker(yf_symbol)
         hist = ticker.history(start=start_dt, end=end_dt)
         if hist is None or len(hist) == 0:
             return None
