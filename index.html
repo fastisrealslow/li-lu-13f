@@ -156,26 +156,41 @@ tbody tr:last-child td{border-bottom:none}
   .hero{padding:48px 16px 28px}
   .ref-section{padding:32px 16px}
   .data-wrap{padding:12px 8px}
-  /* Stat line: stack */
-  .stat-line{flex-direction:column;align-items:flex-start;gap:8px}
+  /* Stat line: 2-col grid on mobile */
+  .stat-line{display:grid;grid-template-columns:1fr 1fr;gap:8px;align-items:start}
   .stat-sep{display:none}
   .stat-item{width:100%}
-  /* Tabs: scrollable */
-  .tab-row{overflow-x:auto;white-space:nowrap;-webkit-overflow-scrolling:touch}
-  .tab{font-size:.7rem;padding:8px 12px}
-  /* Tables: scroll + compact */
-  .table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
-  .table-wrap table{font-size:.68rem;min-width:600px}
+  /* Tabs: scrollable with scroll indicator shadow */
+  .tabs{overflow-x:auto;white-space:nowrap;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding-bottom:2px;
+    -webkit-mask-image:linear-gradient(to right,black 80%,transparent 100%);
+    mask-image:linear-gradient(to right,black 80%,transparent 100%)}
+  .tabs::-webkit-scrollbar{display:none}
+  .tab-btn{font-size:.72rem;padding:8px 12px;white-space:nowrap}
+  /* Tables: scroll with momentum */
+  .table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;
+    border-radius:6px;
+    /* scroll hint shadow on right */
+    background:linear-gradient(to right,white 30%,rgba(255,255,255,0)),
+               linear-gradient(to left,white 30%,rgba(255,255,255,0)) 100% 0,
+               radial-gradient(farthest-side at 0%  50%,rgba(0,0,0,.12),transparent),
+               radial-gradient(farthest-side at 100% 50%,rgba(0,0,0,.12),transparent) 100% 0;
+    background-repeat:no-repeat;
+    background-size:40px 100%,40px 100%,14px 100%,14px 100%;
+    background-attachment:local,local,scroll,scroll}
+  .table-wrap table{font-size:.68rem;min-width:560px}
   .ticker{font-size:.68rem}
+  /* Hide weight column on mobile (5th td/th = weight bar) */
+  .table-wrap table th:nth-child(6),
+  .table-wrap table td:nth-child(6){display:none}
   /* Hero */
   .hero-top{flex-direction:column;gap:8px}
   .hero-title{font-size:1.4rem}
-  .hero-meta{font-size:.7rem;gap:12px}
+  .hero-meta{font-size:.7rem;gap:12px;flex-wrap:wrap}
   /* Cost cell simpler */
   .cost-cell{font-size:.7rem}
   .price-cell{font-size:.72rem}
-  /* Hide bar percentage column on mobile */
-  .table-wrap td:last-child,.table-wrap th:last-child{display:none}
+  /* Keep MOS column but narrower */
+  .table-wrap td:last-child,.table-wrap th:last-child{min-width:70px}
   /* Info popover keep on screen */
   .info-popover{position:fixed!important;left:50%!important;right:auto!important;transform:translateX(-50%)!important;top:auto!important;bottom:80px!important;margin:0!important;white-space:normal;max-width:calc(100vw - 32px);width:280px;font-size:.75rem;z-index:9999}
   .info-popover::before{left:50%;right:auto;transform:translateX(-50%)}
@@ -189,6 +204,14 @@ tbody tr:last-child td{border-bottom:none}
   .phil-grid{grid-template-columns:1fr}
   /* Articles grid */
   .articles-grid{grid-template-columns:1fr}
+  /* Investor selector on mobile: full width prominent */
+  #investorBtn{width:100%;max-width:100%;font-size:.85rem;padding:8px 12px;border-radius:8px;
+    border:1px solid rgba(212,168,83,.5);color:var(--gold);background:rgba(212,168,83,.05);
+    appearance:auto;-webkit-appearance:auto;text-align:left;margin:0}
+  /* Homework table: compact */
+  #homeworkContent .table-wrap table{min-width:480px;font-size:.66rem}
+  #homeworkContent .table-wrap table th:nth-child(4),
+  #homeworkContent .table-wrap table td:nth-child(4){display:none}
 }
 .idx-cell{line-height:1.3;vertical-align:middle;text-align:center;min-width:42px}
 .idx-num{display:block;font-weight:700;font-size:.82rem;color:var(--navy)}
@@ -260,6 +283,7 @@ th .info-wrap{position:relative;display:inline-flex}
     <div id="tab-current">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
       </div>
+      <div class="scroll-hint-mobile" style="display:none;text-align:right;font-size:.65rem;color:var(--text-lighter);margin-bottom:4px;padding-right:4px;">← 左右滑动查看更多 →</div>
       <div class="table-wrap"><table><thead><tr>
         <th>#</th><th>股票</th><th>持股 / 市值</th><th data-i18n="thPrice">参考股价 <span class="info-wrap"><span class="info-badge" onclick="this.parentElement.querySelector('.info-popover').classList.toggle('show')">ⓘ</span><span class="info-popover">Finnhub 每日拉取，非实时行情，仅供参考</span></span></th><th>估算成本 <span class="info-wrap"><span class="info-badge" onclick="this.parentElement.querySelector('.info-popover').classList.toggle('show')">ⓘ</span><span class="info-popover">基于 13F 首次建仓季度的历史 K 线估算，取该季度 低价×70%+均价×30%，仅供参考，非实际成本</span></span></th><th>权重</th><th>安全边际</th>
       </tr></thead><tbody id="holdingsBody"></tbody></table>
