@@ -1437,9 +1437,12 @@ async function init() {
   renderHKHoldings();
   document.getElementById('investorBtn').value = investor;
   document.getElementById('langBtn').textContent = lang === 'zh' ? 'EN' : '中';
+  _homeworkCache = null; // clear so homework tab re-renders in new language
   document.querySelectorAll('[data-i18n]').forEach(el => {
     if (el.childElementCount === 0) el.textContent = t(el.dataset.i18n);
   });
+  // If homework tab is currently active, re-render it
+  if (!document.getElementById('tab-homework').classList.contains('d-none')) renderHomework();
 }
 
 init();
