@@ -1115,6 +1115,11 @@ async function renderHomework() {
     score += (c.investors.length - 1) * 40; // multi-investor consensus bonus
     const hasNew = c.investors.some(inv => inv.chg === 'new');
     const hasAdded = c.investors.some(inv => inv.chg === 'added');
+    const rowChgTag = hasNew
+      ? `<span style="display:inline-flex;align-items:center;gap:2px;padding:1px 6px;background:rgba(59,130,246,0.12);border:1px solid rgba(59,130,246,0.3);border-radius:4px;font-size:.6rem;color:#3b82f6;font-weight:600;margin-top:3px;">🆕 ${isEn2?'New':'新开仓'}</span>`
+      : hasAdded
+      ? `<span style="display:inline-flex;align-items:center;gap:2px;padding:1px 6px;background:rgba(16,185,129,0.1);border:1px solid rgba(16,185,129,0.25);border-radius:4px;font-size:.6rem;color:#10b981;font-weight:600;margin-top:3px;">📈 ${isEn2?'Added':'加仓'}</span>`
+      : '';
     if (hasNew) score += 15;
     else if (hasAdded) score += 8;
     c._score = score;
@@ -1151,6 +1156,7 @@ async function renderHomework() {
         <span class="ticker-line">${fmtTicker(c.ticker)}</span>
         <span class="name-line">${cn(c.name)}</span>
         <span class="sector-badge">${ts(c.sector)}</span>
+        ${rowChgTag}
       </td>
       <td style="text-align:center;">
         <div style="display:inline-flex;flex-direction:column;align-items:center;gap:2px;padding:5px 10px;background:${mosBg};border:1px solid ${mosBorder};border-radius:8px;">
