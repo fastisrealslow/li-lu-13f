@@ -276,21 +276,11 @@ th .info-wrap{position:relative;display:inline-flex}
 <!-- ========== DATA SECTION ========== -->
 <div class="data-wrap">
   <div class="data-inner">
-    <div id="summaryCards" class="stat-line" style="margin-bottom:20px"></div>
-    <div id="investorSelectorBar" style="margin-bottom:14px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+    <div id="investorSelectorBar" style="margin-bottom:16px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
       <span style="font-size:.72rem;color:var(--text-lighter);white-space:nowrap;" data-i18n="selLabel">切换投资者：</span>
-      <select id="investorBtn" onchange="switchInvestor(this.value)" style="border:1px solid rgba(212,168,83,.4);color:var(--gold);background:transparent;cursor:pointer;padding:5px 10px;font-size:.78rem;font-weight:600;border-radius:6px;appearance:none;-webkit-appearance:none;min-width:120px;">
-        <option value="lilu">李录</option>
-        <option value="pabrai">帕伯莱</option>
-        <option value="duan">段永平</option>
-        <option value="buffett">巴菲特</option>
-        <option value="tepper">大卫·泰珀</option>
-        <option value="spier">盖伊·斯皮尔</option>
-        <option value="webb">大卫·韦伯</option>
-        <option value="akre">查克·阿克雷</option>
-        <option value="greenberg">格伦·格林伯格</option>
-      </select>
+      <div id="investorBtn" style="display:flex;flex-wrap:wrap;gap:6px;"></div>
     </div>
+    <div id="summaryCards" class="stat-line" style="margin-bottom:20px"></div>
     <div class="tabs">
       <button class="tab-btn active" onclick="switchTab('current')"><span data-i18n="tabCurrent">持仓明细</span><span style="display:none" data-i18n="tabCurrent">持仓明细</span></button>
       <button class="tab-btn" onclick="switchTab('changes')"><span data-i18n="tabChanges">季度变化</span><span style="display:none" data-i18n="tabChanges">季度变化</span></button>
