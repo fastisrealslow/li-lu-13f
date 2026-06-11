@@ -209,6 +209,9 @@ def process_investor(name, data_file, prices_file):
                         q_price = low * 0.7 + avg * 0.3
                     else:
                         q_price = qd["value"] / qd["shares"]
+                        # SEC pre-2023 value field is in thousands; detect and correct
+                        if q_price > 5000:
+                            q_price = q_price / 1000
                     total_weighted_cost += q_price * qd["shares"]
                     total_shares_sum += qd["shares"]
                     valid_q += 1
