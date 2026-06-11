@@ -157,9 +157,12 @@ tbody tr:last-child td{border-bottom:none}
   .ref-section{padding:32px 16px}
   .data-wrap{padding:12px 8px}
   /* Stat line: 2-col grid on mobile */
-  .stat-line{display:grid;grid-template-columns:1fr 1fr;gap:8px;align-items:start}
+  .stat-line{display:grid;grid-template-columns:1fr 1fr;gap:10px;align-items:stretch}
   .stat-sep{display:none}
-  .stat-item{width:100%}
+  .stat-item{width:100%;padding:10px 12px;background:rgba(255,255,255,0.5);border:1px solid var(--border-light);border-radius:8px;display:flex;flex-direction:column;gap:4px}
+  .stat-num{font-size:1.15rem!important}
+  .stat-desc{font-size:.65rem}
+  .stat-change{font-size:.7rem}
   /* Tabs: scrollable with scroll indicator shadow */
   .tabs{overflow-x:auto;white-space:nowrap;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding-bottom:2px;
     -webkit-mask-image:linear-gradient(to right,black 80%,transparent 100%);
