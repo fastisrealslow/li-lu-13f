@@ -1140,6 +1140,13 @@ async function renderHomework() {
     const mosBg = c.mos >= 20 ? 'rgba(16,185,129,0.1)' : 'rgba(245,158,11,0.08)';
     const mosBorder = c.mos >= 20 ? 'rgba(16,185,129,0.3)' : 'rgba(245,158,11,0.2)';
     const mosIcon = c.mos >= 20 ? '🟢' : '⚡';
+    const _hasNew = c.investors.some(inv => inv.chg === 'new');
+    const _hasAdded = c.investors.some(inv => inv.chg === 'added');
+    const rowChgTag = _hasNew
+      ? `<span style="display:inline-flex;align-items:center;gap:2px;padding:1px 6px;background:rgba(59,130,246,0.12);border:1px solid rgba(59,130,246,0.3);border-radius:4px;font-size:.6rem;color:#3b82f6;font-weight:600;margin-top:3px;">🆕 ${isEn2?'New':'新开仓'}</span>`
+      : _hasAdded
+      ? `<span style="display:inline-flex;align-items:center;gap:2px;padding:1px 6px;background:rgba(16,185,129,0.1);border:1px solid rgba(16,185,129,0.25);border-radius:4px;font-size:.6rem;color:#10b981;font-weight:600;margin-top:3px;">📈 ${isEn2?'Added':'加仓'}</span>`
+      : '';
     const invBadges = c.investors.map(inv => {
       const wLabel = inv.weight < 0.1 ? '<0.1%' : inv.weight + '%';
       let chgBadge = '';
