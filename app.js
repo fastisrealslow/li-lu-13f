@@ -13,6 +13,7 @@ const T = {
   tabCurrent: ['持仓明细','Holdings'],
   tabChanges: ['季度变化','QoQ Changes'],
   tabHistory: ['历史趋势','History'],
+  tabHomework: ['📋 价值筛选','📋 Value Picks'],
   tabTimeline: ['⏳ 时间轴','⏳ Timeline'],
   // Table headers
   thTicker: ['代码','Ticker'],
@@ -1085,42 +1086,65 @@ async function renderHomework() {
         const mos = (buy - price) / buy * 100;
         if (mos < 10) continue;
         const weight = totalVal > 0 ? h.value / totalVal * 100 : 0;
+        // Detect position change for this investor
+        const prev = h.prevShares || 0; const cur2 = h.shares || 0;
+        let chg = 'hold';
+        if (prev === 0 && cur2 > 0) chg = 'new';
+        else if (prev > 0 && cur2 > prev * 1.05) chg = 'added';
+        else if (prev > 0 && cur2 < prev * 0.95) chg = 'trimmed';
+        const invEntry = {name: lang==='en'?cfg.nameEn:cfg.name, id:cfg.id, weight:round1(weight), chg};
         // Check if ticker already in candidates (multiple investors)
         const existing = candidates.find(x => x.ticker === tk);
         if (existing) {
-          existing.investors.push({name: lang==='en'?cfg.nameEn:cfg.name, id:cfg.id, weight:round1(weight)});
+          existing.investors.push(invEntry);
         } else {
           candidates.push({
             ticker: tk, name: h.name, sector: h.sector,
             mos: round1(mos), price, buy,
             atAvg: c.allTime?.avg || null,
-            investors: [{name: lang==='en'?cfg.nameEn:cfg.name, id:cfg.id, weight:round1(weight)}],
+            investors: [invEntry],
           });
         }
       }
     } catch(e) { console.warn(cfg.id, e); }
   }
 
-  candidates.sort((a,b) => b.investors.length - a.investors.length || b.mos - a.mos);
+  // Score: consensus count (weight 40) + MOS (weight 1) + change bonus (new=15, added=8)
+  candidates.forEach(c => {
+    let score = c.mos;
+    score += (c.investors.length - 1) * 40; // multi-investor consensus bonus
+    const hasNew = c.investors.some(inv => inv.chg === 'new');
+    const hasAdded = c.investors.some(inv => inv.chg === 'added');
+    if (hasNew) score += 15;
+    else if (hasAdded) score += 8;
+    c._score = score;
+  });
+  candidates.sort((a,b) => b._score - a._score);
 
   if (candidates.length === 0) {
-    el.innerHTML = '<p style="padding:32px;text-align:center;color:var(--text-lighter);">暂无安全边际 ≥ 10% 的标的</p>';
+    el.innerHTML = `<p style="padding:32px;text-align:center;color:var(--text-lighter);">${lang==='en'?'No stocks with MOS ≥ 10%':'暂无安全边际 ≥ 10% 的标的'}</p>`;
     return;
   }
 
+  const isEn2 = lang === 'en';
   const cur$ = '$';
   const rows = candidates.map((c,i) => {
     const mosColor = c.mos >= 20 ? '#059669' : '#d97706';
     const mosBg = c.mos >= 20 ? 'rgba(16,185,129,0.1)' : 'rgba(245,158,11,0.08)';
     const mosBorder = c.mos >= 20 ? 'rgba(16,185,129,0.3)' : 'rgba(245,158,11,0.2)';
     const mosIcon = c.mos >= 20 ? '🟢' : '⚡';
-    const invBadges = c.investors.map(inv =>
-      `<span onclick="switchInvestor('${inv.id}');switchTab('current');" style="cursor:pointer;display:inline-flex;align-items:center;gap:3px;padding:2px 8px;background:var(--navy-light);border:1px solid var(--border-light);border-radius:10px;font-size:.6rem;color:var(--text-light);white-space:nowrap;" title="${inv.weight}%仓位">${inv.name} <span style="color:var(--gold);font-size:.55rem;">${inv.weight}%</span></span>`
-    ).join(' ');
+    const invBadges = c.investors.map(inv => {
+      const wLabel = inv.weight < 0.1 ? '<0.1%' : inv.weight + '%';
+      let chgBadge = '';
+      if (inv.chg === 'new') chgBadge = `<span style="font-size:.5rem;padding:0 3px;background:rgba(59,130,246,0.2);border-radius:3px;color:#3b82f6;">🆕</span>`;
+      else if (inv.chg === 'added') chgBadge = `<span style="font-size:.5rem;padding:0 3px;background:rgba(16,185,129,0.15);border-radius:3px;color:#10b981;">📈</span>`;
+      else if (inv.chg === 'trimmed') chgBadge = `<span style="font-size:.5rem;padding:0 3px;background:rgba(245,158,11,0.15);border-radius:3px;color:#d97706;">📉</span>`;
+      return `<span onclick="switchInvestor('${inv.id}');switchTab('current');" style="cursor:pointer;display:inline-flex;align-items:center;gap:3px;padding:2px 8px;background:var(--navy-light);border:1px solid var(--border-light);border-radius:10px;font-size:.6rem;color:var(--text-light);white-space:nowrap;" title="${isEn2?'Position':'仓位'}: ${wLabel}">${inv.name}${chgBadge} <span style="color:var(--gold);font-size:.55rem;">${wLabel}</span></span>`;
+    }).join(' ');
     const consensus = c.investors.length >= 2
-      ? `<span style="padding:1px 6px;background:rgba(251,191,36,0.15);border:1px solid rgba(251,191,36,0.4);border-radius:8px;font-size:.58rem;color:#b45309;font-weight:700;">👥 ${c.investors.length}人共识</span> `
+      ? `<span style="padding:1px 6px;background:rgba(251,191,36,0.15);border:1px solid rgba(251,191,36,0.4);border-radius:8px;font-size:.58rem;color:#b45309;font-weight:700;">👥 ${c.investors.length}${isEn2?'investors':'人共识'}</span> `
       : '';
-    const atRow = c.atAvg ? `<div style="font-size:.6rem;color:var(--text-lighter);margin-top:1px;">历史均价 ${cur$}${c.atAvg}</div>` : '';
+    const atRow = c.atAvg ? `<div style="font-size:.6rem;color:var(--text-lighter);margin-top:1px;">${isEn2?'Hist.avg':'历史均价'} ${cur$}${c.atAvg}</div>` : '';
     return `<tr>
       <td class="idx-cell"><span class="idx-num">${i+1}</span></td>
       <td class="stock-cell">
@@ -1131,11 +1155,11 @@ async function renderHomework() {
       <td style="text-align:center;">
         <div style="display:inline-flex;flex-direction:column;align-items:center;gap:2px;padding:5px 10px;background:${mosBg};border:1px solid ${mosBorder};border-radius:8px;">
           <span style="font-size:1rem;font-weight:700;color:${mosColor};">${mosIcon} ${c.mos}%</span>
-          <span style="font-size:.58rem;color:var(--text-lighter);">安全边际</span>
+          <span style="font-size:.58rem;color:var(--text-lighter);">${isEn2?'MOS':'安全边际'}</span>
         </div>
       </td>
-      <td><div style="font-weight:600;">${cur$}${c.price.toFixed(2)}</div><div style="font-size:.65rem;color:var(--text-lighter);">现价</div></td>
-      <td><div style="font-weight:600;color:#059669;">${cur$}${c.buy.toFixed(2)}</div><div style="font-size:.65rem;color:var(--text-lighter);">买入估算</div>${atRow}</td>
+      <td><div style="font-weight:600;">${cur$}${c.price.toFixed(2)}</div><div style="font-size:.65rem;color:var(--text-lighter);">${isEn2?'Price':'现价'}</div></td>
+      <td><div style="font-weight:600;color:#059669;">${cur$}${c.buy.toFixed(2)}</div><div style="font-size:.65rem;color:var(--text-lighter);">${isEn2?'Est. Cost':'买入估算'}</div>${atRow}</td>
       <td><div style="display:flex;flex-wrap:wrap;gap:4px;align-items:center;">${consensus}${invBadges}</div></td>
     </tr>`;
   }).join('');
@@ -1143,18 +1167,18 @@ async function renderHomework() {
   el.innerHTML = `
     <div style="margin-bottom:16px;padding:12px 16px;background:rgba(212,168,83,0.08);border:1px solid rgba(212,168,83,0.2);border-radius:8px;">
       <p style="font-size:.8rem;color:var(--text-light);line-height:1.6;">
-        📋 <strong style="color:var(--gold);">${lang==='en'?'Homework List':'抄作业单'}</strong> — 
-        ${lang==='en'?'Stocks with Margin of Safety ≥ 10% held by value investors. Cost basis estimated from historical K-line data.':'汇总所有大佬持仓中安全边际 ≥ 10% 的标的，成本基于历史 K 线估算。点击投资者名称可跳转查看其完整持仓。'}
+        📋 <strong style="color:var(--gold);">${isEn2?'Value Picks':'抄作业单'}</strong> &mdash;
+        ${isEn2?'Stocks with MOS &ge; 10% held by tracked investors. Sorted by consensus + MOS + recent activity (🆕 new / 📈 added). Click an investor badge to view full portfolio.':'所有投资者持仓中安全边际 &ge; 10% 的标的。按多人共识 + 安全边际 + 最近动态（🆕新开仓 / 📈加仓）综合排序。点击投资者名称可跳转完整持仓。'}
       </p>
     </div>
     <div class="table-wrap"><table>
       <thead><tr>
         <th>#</th>
-        <th>${lang==='en'?'Stock':'股票'}</th>
-        <th style="text-align:center;">${lang==='en'?'Margin of Safety':'安全边际'}</th>
-        <th>${lang==='en'?'Current Price':'现价'}</th>
-        <th>${lang==='en'?'Est. Cost':'估算成本'}</th>
-        <th>${lang==='en'?'Held By':'持有者'}</th>
+        <th>${isEn2?'Stock':'股票'}</th>
+        <th style="text-align:center;">${isEn2?'MOS':'安全边际'}</th>
+        <th>${isEn2?'Price':'现价'}</th>
+        <th>${isEn2?'Est. Cost':'估算成本'}</th>
+        <th>${isEn2?'Held By':'持有者'}</th>
       </tr></thead>
       <tbody>${rows}</tbody>
     </table></div>
