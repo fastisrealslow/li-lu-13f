@@ -1112,6 +1112,7 @@ async function renderHomework() {
   }
 
   // Score: consensus count (weight 40) + MOS (weight 1) + change bonus (new=15, added=8)
+  const isEn2 = lang === 'en';
   candidates.forEach(c => {
     let score = c.mos;
     score += (c.investors.length - 1) * 40; // multi-investor consensus bonus
@@ -1133,7 +1134,6 @@ async function renderHomework() {
     return;
   }
 
-  const isEn2 = lang === 'en';
   const cur$ = '$';
   const rows = candidates.map((c,i) => {
     const mosColor = c.mos >= 20 ? '#059669' : '#d97706';
