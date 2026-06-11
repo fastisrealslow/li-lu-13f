@@ -1218,10 +1218,15 @@ function renderAll() {
   const pq = d.prevQuarter||'上季', cq = d.quarter||'本季';
   ['chPS','chPV'].forEach(id=>{const el=document.getElementById(id);if(el)el.textContent=pq;});
   ['chCS','chCV'].forEach(id=>{const el=document.getElementById(id);if(el)el.textContent=cq;});
+  const invLocation = {
+    lilu:'Seattle, WA', pabrai:'Irvine, CA', duan:'Hong Kong',
+    tepper:'Miami, FL', spier:'Zurich, Switzerland', webb:'Hong Kong',
+    akre:'Middleburg, VA', greenberg:'New York, NY', buffett:'Omaha, NE'
+  };
   document.getElementById('metaRow').innerHTML = `
     <span>📅 ${t('metaReport')}: ${d.quarter} (${t('metaPeriod')} ${d.periodEnd})</span>
     <span>📬 ${t('metaFiling')}: ${d.filingDate}</span>
-    <span>📍 Seattle, WA</span>
+    <span>📍 ${invLocation[investor] || 'USA'}</span>
   `;
     document.getElementById('dataSource').textContent = data._live ? t('srcLive') : (prices?.updated 
     ? '📡 数据更新于 ' + new Date(prices.updated).toLocaleString('zh-CN',{timeZone:'Asia/Shanghai',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit'})
@@ -1249,14 +1254,8 @@ function updateInvestorContent() {
   // Hero
   var ht = document.querySelector('[data-i18n="heroTitle"]');
   if (ht) ht.textContent = isB ? (en?'Buffett 13F Tracker':'巴菲特 13F 持仓追踪') : (isW ? (en?'David Webb HK Holdings':'大卫·韦伯 港股持仓') : (isP ? 'Pabrai 13F Tracker' : (isD ? (en?'Duan Yongping 13F Tracker':'段永平 13F 持仓追踪') : (isT ? (en?'David Tepper 13F Tracker':'大卫·泰珀 13F 持仓追踪') : (isS ? (en?'Guy Spier 13F Tracker':'盖伊·斯皮尔 13F 持仓追踪') : (isA ? (en?'Chuck Akre 13F Tracker':'查克·阿克雷 13F 持仓追踪') : (isG ? (en?'Glenn Greenberg 13F Tracker':'格伦·格林伯格 13F 持仓追踪') : (en?'Li Lu 13F Tracker':'李录 13F 持仓追踪'))))))));
-  var hs = document.querySelector('.hero-meta');
   var hsub = document.querySelector('.hero-title .sub');
   if (hsub) hsub.textContent = isB ? (en ? 'Berkshire Hathaway · SEC 13F · Largest 13F Filer' : '伯克希尔·哈撒韦 · SEC 13F · 最大 13F 申报人') : (isW ? (en ? 'Webb-site.com · HKEX Disclosures · Activist Investor' : 'Webb-site.com · 港股披露 · 维权投资者') : (isP ? (en ? 'Dalal Street, LLC — Tracking Master Moves' : 'Dalal Street, LLC — 学习大师持仓变化') : (isD ? (en ? 'H&H International Investment · Value Investing' : 'H&H International Investment · 价值投资') : (isT ? (en ? 'Appaloosa LP · SEC 13F · Macro & Concentrated Bets' : 'Appaloosa LP · SEC 13F · 宏观与集中持仓') : (isS ? (en ? 'Aquamarine Capital · Deep Value Investing' : 'Aquamarine Capital · 深度价值投资') : (isA ? (en ? 'Akre Capital Management · Compounding Machines' : 'Akre Capital Management · 复利机器') : (isG ? (en ? 'Brave Warrior Advisors · Concentrated Value' : 'Brave Warrior Advisors · 集中价值投资') : (en ? 'Himalaya Capital — Tracking Master Moves' : 'Himalaya Capital Management — 学习大师持仓变化'))))))));
-  if (hs) hs.innerHTML = isB
-    ? (en?'<strong>Berkshire Hathaway</strong> · SEC 13F · Warren Buffett':'<strong>伯克希尔·哈撒韦</strong> · SEC 13F · 沃伦·巴菲特')
-    : (isP
-    ? '<strong>Dalal Street, LLC</strong> · SEC 13F · Mohnish Pabrai'
-    : (isD ? (en?'<strong>H&H International Investment</strong> · SEC 13F · Duan Yongping':'<strong>H&H International Investment</strong> · SEC 13F · 段永平') : (isT ? (en?'<strong>Appaloosa LP</strong> · SEC 13F · David Tepper':'<strong>Appaloosa LP</strong> · SEC 13F · 大卫·泰珀') : (isS ? (en?'<strong>Aquamarine Capital</strong> · SEC 13F · Guy Spier':'<strong>Aquamarine Capital</strong> · SEC 13F · 盖伊·斯皮尔') : (isW ? (en?'<strong>Webb-site.com</strong> · HKEX · David Webb':'<strong>Webb-site.com</strong> · 港股披露 · 大卫·韦伯') : (isA ? (en?'<strong>Akre Capital Management</strong> · SEC 13F · Chuck Akre':'<strong>Akre Capital Management</strong> · SEC 13F · 查克·阿克雷') : (isG ? (en?'<strong>Brave Warrior Advisors</strong> · SEC 13F · Glenn Greenberg':'<strong>Brave Warrior Advisors</strong> · SEC 13F · 格伦·格林伯格') : (en?'<strong>Himalaya Capital</strong> · SEC 13F · Value Investing':'<strong>Himalaya Capital</strong> · SEC 13F · 价值投资'))))))));
   // Quote
   var qb = document.querySelector('.quote-block blockquote');
   if (qb) qb.textContent = isB
