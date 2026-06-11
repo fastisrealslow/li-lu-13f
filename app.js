@@ -332,10 +332,20 @@ function t(key) { const v = T[key]; return v ? v[lang==='en'?1:0] : key; }
 let investor = 'lilu';
 const INVESTORS = ['lilu', 'pabrai', 'duan', 'tepper', 'spier', 'webb', 'buffett', 'akre', 'greenberg'];
 const INVESTOR_LABELS = { lilu: '李录', pabrai: '帕伯莱', duan: '段永平', tepper: '大卫·泰珀', spier: '盖伊·斯皮尔', webb: '大卫·韦伯', buffett: '巴菲特', akre: '查克·阿克雷', greenberg: '格伦·格林伯格' };
+const INVESTOR_LABELS_EN = { lilu: 'Li Lu', pabrai: 'Pabrai', duan: 'Duan', tepper: 'Tepper', spier: 'Spier', webb: 'Webb', buffett: 'Buffett', akre: 'Akre', greenberg: 'Greenberg' };
+function renderInvestorBtns() {
+  const bar = document.getElementById('investorBtn');
+  if (!bar) return;
+  const labels = lang === 'en' ? INVESTOR_LABELS_EN : INVESTOR_LABELS;
+  bar.innerHTML = INVESTORS.map(id => {
+    const active = id === investor;
+    return `<button onclick="switchInvestor('${id}')" style="padding:5px 11px;border:1px solid ${active ? 'var(--gold)' : 'rgba(212,168,83,.3)'};border-radius:16px;background:${active ? 'rgba(212,168,83,.15)' : 'transparent'};color:${active ? 'var(--gold)' : 'var(--text-light)'};font-size:.72rem;font-weight:${active ? '700' : '500'};cursor:pointer;white-space:nowrap;transition:all .15s;">${labels[id]}</button>`;
+  }).join('');
+}
 async function switchInvestor(v) {
   if (v && INVESTORS.includes(v)) { investor = v; }
   else { const idx = INVESTORS.indexOf(investor); investor = INVESTORS[(idx + 1) % INVESTORS.length]; }
-  document.getElementById('investorBtn').value = investor;
+  renderInvestorBtns();
   try {
     var f, pf;
     if (investor === 'lilu') { f = 'data.json'; pf = 'prices.json'; }
@@ -366,7 +376,7 @@ function ts(s) {
 function switchLang() {
   lang = lang === 'zh' ? 'en' : 'zh';
   localStorage.setItem('lang', lang);
-  document.getElementById('investorBtn').value = investor;
+  renderInvestorBtns();
   document.getElementById('langBtn').textContent = lang === 'zh' ? 'EN' : '中';
   document.querySelectorAll('[data-i18n]').forEach(el => {
     const v = t(el.dataset.i18n);
@@ -1431,13 +1441,14 @@ async function init() {
     if (!e.target.closest('.info-wrap'))
       document.querySelectorAll('.info-popover.show').forEach(p => p.classList.remove('show'));
   });
+  renderInvestorBtns();
   renderAll();
   const initPf = investor === 'lilu' ? 'prices.json' : investor === 'pabrai' ? 'pabrai_prices.json' : investor === 'duan' ? 'prices_duan.json' : investor === 'tepper' ? 'prices_tepper.json' : investor === 'spier' ? 'prices_spier.json' : investor === 'webb' ? 'prices_webb.json' : investor === 'buffett' ? 'prices_buffett.json' : investor === 'akre' ? 'prices_akre.json' : 'prices_greenberg.json';
   await loadPrices(initPf);
   await loadHKHoldings();
   renderHoldings();
   renderHKHoldings();
-  document.getElementById('investorBtn').value = investor;
+  renderInvestorBtns();
   document.getElementById('langBtn').textContent = lang === 'zh' ? 'EN' : '中';
   _homeworkCache = null; // clear so homework tab re-renders in new language
   document.querySelectorAll('[data-i18n]').forEach(el => {
