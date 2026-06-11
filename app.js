@@ -374,7 +374,8 @@ function switchLang() {
   renderAll();
   updateInvestorContent();
   renderTimeline();
-
+  _homeworkCache = null;
+  if (!document.getElementById('tab-homework').classList.contains('d-none')) renderHomework();
 }
 
 // ========== FORMAT HELPERS ==========
