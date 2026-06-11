@@ -690,7 +690,6 @@ function renderSummary() {
   const cls = tc>=0?'up':'down', sign=tc>=0?'+':'';
   const t3 = d.holdings.slice(0,3);
   document.getElementById('summaryCards').innerHTML = `
-    <div class="stat-line">
       <div class="stat-item">
         <span class="stat-num" style="font-size:1.5rem;">$${fmtVal(d.totalValue)}</span>
         <span class="stat-change ${cls}">${sign}${tp.toFixed(1)}%</span>
@@ -711,7 +710,6 @@ function renderSummary() {
         <span class="stat-num">${d.quarter}</span>
         <span class="stat-desc">${t('statQuarter')} · ${t('metaPeriod')} ${d.periodEnd}</span>
       </div>
-    </div>
   `;
 }
 
