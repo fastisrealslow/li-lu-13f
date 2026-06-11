@@ -1446,4 +1446,9 @@ async function init() {
   if (!document.getElementById('tab-homework').classList.contains('d-none')) renderHomework();
 }
 
+// Show scroll hint on mobile
+if (window.innerWidth <= 640) {
+  document.querySelectorAll('.scroll-hint-mobile').forEach(el => el.style.display = 'block');
+}
+
 init();
