@@ -14,6 +14,7 @@ const T = {
   tabChanges: ['季度变化','QoQ Changes'],
   tabHistory: ['历史趋势','History'],
   tabHomework: ['📋 价值筛选','📋 Value Picks'],
+  selLabel: ['切换投资者：','Investor:'],
   tabTimeline: ['⏳ 时间轴','⏳ Timeline'],
   // Table headers
   thTicker: ['代码','Ticker'],
