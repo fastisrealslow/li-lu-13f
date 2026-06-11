@@ -204,10 +204,11 @@ tbody tr:last-child td{border-bottom:none}
   .phil-grid{grid-template-columns:1fr}
   /* Articles grid */
   .articles-grid{grid-template-columns:1fr}
-  /* Investor selector on mobile: full width prominent */
-  #investorBtn{width:100%;max-width:100%;font-size:.85rem;padding:8px 12px;border-radius:8px;
+  /* Investor selector bar on mobile */
+  #investorSelectorBar{flex-direction:column;align-items:flex-start;gap:6px}
+  #investorBtn{width:100%;font-size:.88rem;padding:9px 12px;border-radius:8px;
     border:1px solid rgba(212,168,83,.5);color:var(--gold);background:rgba(212,168,83,.05);
-    appearance:auto;-webkit-appearance:auto;text-align:left;margin:0}
+    appearance:auto;-webkit-appearance:auto;text-align:left}
   /* Homework table: compact */
   #homeworkContent .table-wrap table{min-width:480px;font-size:.66rem}
   #homeworkContent .table-wrap table th:nth-child(4),
@@ -242,7 +243,6 @@ th .info-wrap{position:relative;display:inline-flex}
       <li><a href="#readings" data-i18n="navReadings">阅读材料</a></li>
     </ul>
     <button id="langBtn" class="lang-btn" onclick="switchLang()">EN</button>
-    <select id="investorBtn" class="lang-btn" onchange="switchInvestor(this.value)" style="margin-left:4px;border-color:rgba(212,168,83,.4);color:var(--gold);background:transparent;cursor:pointer;padding:3px 8px;font-size:.7rem;font-weight:600;border-radius:4px;appearance:none;-webkit-appearance:none;text-align:center"><option value="lilu">李录</option><option value="pabrai">帕伯莱</option><option value="duan">段永平</option><option value="buffett">巴菲特</option><option value="tepper">大卫·泰珀</option><option value="spier">盖伊·斯皮尔</option><option value="webb">大卫·韦伯</option><option value="akre">查克·阿克雷</option><option value="greenberg">格伦·格林伯格</option></select>
     <div class="nav-hamburger" id="hamburger" onclick="document.getElementById('navLinks').classList.toggle('open')">
       <span></span><span></span><span></span>
     </div>
@@ -274,6 +274,20 @@ th .info-wrap{position:relative;display:inline-flex}
 <div class="data-wrap">
   <div class="data-inner">
     <div id="summaryCards" class="stat-line" style="margin-bottom:20px"></div>
+    <div id="investorSelectorBar" style="margin-bottom:14px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+      <span style="font-size:.72rem;color:var(--text-lighter);white-space:nowrap;" data-i18n="selLabel">切换投资者：</span>
+      <select id="investorBtn" onchange="switchInvestor(this.value)" style="border:1px solid rgba(212,168,83,.4);color:var(--gold);background:transparent;cursor:pointer;padding:5px 10px;font-size:.78rem;font-weight:600;border-radius:6px;appearance:none;-webkit-appearance:none;min-width:120px;">
+        <option value="lilu">李录</option>
+        <option value="pabrai">帕伯莱</option>
+        <option value="duan">段永平</option>
+        <option value="buffett">巴菲特</option>
+        <option value="tepper">大卫·泰珀</option>
+        <option value="spier">盖伊·斯皮尔</option>
+        <option value="webb">大卫·韦伯</option>
+        <option value="akre">查克·阿克雷</option>
+        <option value="greenberg">格伦·格林伯格</option>
+      </select>
+    </div>
     <div class="tabs">
       <button class="tab-btn active" onclick="switchTab('current')"><span data-i18n="tabCurrent">持仓明细</span><span style="display:none" data-i18n="tabCurrent">持仓明细</span></button>
       <button class="tab-btn" onclick="switchTab('changes')"><span data-i18n="tabChanges">季度变化</span><span style="display:none" data-i18n="tabChanges">季度变化</span></button>
