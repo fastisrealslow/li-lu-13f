@@ -835,7 +835,15 @@ function renderHoldings() {
   }
   document.getElementById('holdingsBody').innerHTML = rows;
   const priceFoot = document.getElementById('priceFoot');
-  if (priceFoot) priceFoot.innerHTML = legendHtml;
+  if (priceFoot) {
+    // Remove existing legend if any, then append
+    const existingLegend = priceFoot.querySelector('.holdings-legend');
+    if (existingLegend) existingLegend.remove();
+    const legendDiv = document.createElement('div');
+    legendDiv.className = 'holdings-legend';
+    legendDiv.innerHTML = legendHtml;
+    priceFoot.appendChild(legendDiv);
+  }
 }
 
 function renderChanges() {
