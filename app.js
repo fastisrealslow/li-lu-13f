@@ -1035,14 +1035,133 @@ async function renderHKHoldings() {
 }
 
 function switchTab(name) {
-  ['current','changes','history'].forEach(t=>{
+  ['current','changes','history','homework'].forEach(t=>{
     document.getElementById('tab-'+t).classList.toggle('d-none',t!==name);
   });
   document.querySelectorAll('.tab-btn').forEach((b,i)=>{
-    b.classList.toggle('active',['current','changes','history'][i]===name);
+    b.classList.toggle('active',['current','changes','history','homework'][i]===name);
   });
   if (name==='history') { renderHistoryChart(); renderTimeline(); }
+  if (name==='homework') { renderHomework(); }
 }
+
+async function renderHomework() {
+  const el = document.getElementById('homeworkContent');
+  if (!el) return;
+  el.innerHTML = '<p style="padding:24px;color:var(--text-lighter);">加载中...</p>';
+
+  // Load all investor data
+  const INVESTORS_CFG = [
+    {id:'lilu',   df:'data.json',        pf:'prices.json',          name:'李录',     nameEn:'Li Lu'},
+    {id:'pabrai', df:'pabrai_data.json', pf:'pabrai_prices.json',   name:'帕伯莱',   nameEn:'Pabrai'},
+    {id:'duan',   df:'duan.json',        pf:'prices_duan.json',     name:'段永平',   nameEn:'Duan'},
+    {id:'tepper', df:'tepper.json',      pf:'prices_tepper.json',   name:'Tepper',   nameEn:'Tepper'},
+    {id:'spier',  df:'spier.json',       pf:'prices_spier.json',    name:'Spier',    nameEn:'Spier'},
+    {id:'akre',   df:'akre.json',        pf:'prices_akre.json',     name:'Akre',     nameEn:'Akre'},
+    {id:'greenberg',df:'greenberg.json', pf:'prices_greenberg.json',name:'Greenberg',nameEn:'Greenberg'},
+    {id:'buffett',df:'buffett.json',     pf:'prices_buffett.json',  name:'巴菲特',   nameEn:'Buffett'},
+  ];
+
+  const candidates = [];
+  for (const cfg of INVESTORS_CFG) {
+    try {
+      const [dr, pr] = await Promise.all([
+        fetch(cfg.df+'?t='+Date.now()).then(r=>r.json()),
+        fetch(cfg.pf+'?t='+Date.now()).then(r=>r.json()),
+      ]);
+      const holdings = dr.current.holdings;
+      const totalVal = dr.current.totalValue;
+      const quotes = pr.quotes || {};
+      const cb = pr.costBasis || {};
+      for (const h of holdings) {
+        const tk = h.ticker;
+        if (tk.startsWith('?') || tk.endsWith('.HK')) continue;
+        const q = quotes[tk]; const c = cb[tk];
+        if (!q || q.error || !c) continue;
+        const rc = c.recent;
+        if (!rc || !rc.buy) continue;
+        const price = q.c; const buy = rc.buy;
+        if (price <= 0 || buy <= 0) continue;
+        const mos = (buy - price) / buy * 100;
+        if (mos < 10) continue;
+        const weight = totalVal > 0 ? h.value / totalVal * 100 : 0;
+        // Check if ticker already in candidates (multiple investors)
+        const existing = candidates.find(x => x.ticker === tk);
+        if (existing) {
+          existing.investors.push({name: lang==='en'?cfg.nameEn:cfg.name, id:cfg.id, weight:round1(weight)});
+        } else {
+          candidates.push({
+            ticker: tk, name: h.name, sector: h.sector,
+            mos: round1(mos), price, buy,
+            atAvg: c.allTime?.avg || null,
+            investors: [{name: lang==='en'?cfg.nameEn:cfg.name, id:cfg.id, weight:round1(weight)}],
+          });
+        }
+      }
+    } catch(e) { console.warn(cfg.id, e); }
+  }
+
+  candidates.sort((a,b) => b.investors.length - a.investors.length || b.mos - a.mos);
+
+  if (candidates.length === 0) {
+    el.innerHTML = '<p style="padding:32px;text-align:center;color:var(--text-lighter);">暂无安全边际 ≥ 10% 的标的</p>';
+    return;
+  }
+
+  const cur$ = '$';
+  const rows = candidates.map((c,i) => {
+    const mosColor = c.mos >= 20 ? '#059669' : '#d97706';
+    const mosBg = c.mos >= 20 ? 'rgba(16,185,129,0.1)' : 'rgba(245,158,11,0.08)';
+    const mosBorder = c.mos >= 20 ? 'rgba(16,185,129,0.3)' : 'rgba(245,158,11,0.2)';
+    const mosIcon = c.mos >= 20 ? '🟢' : '⚡';
+    const invBadges = c.investors.map(inv =>
+      `<span onclick="switchInvestor('${inv.id}');switchTab('current');" style="cursor:pointer;display:inline-flex;align-items:center;gap:3px;padding:2px 8px;background:var(--navy-light);border:1px solid var(--border-light);border-radius:10px;font-size:.6rem;color:var(--text-light);white-space:nowrap;" title="${inv.weight}%仓位">${inv.name} <span style="color:var(--gold);font-size:.55rem;">${inv.weight}%</span></span>`
+    ).join(' ');
+    const consensus = c.investors.length >= 2
+      ? `<span style="padding:1px 6px;background:rgba(251,191,36,0.15);border:1px solid rgba(251,191,36,0.4);border-radius:8px;font-size:.58rem;color:#b45309;font-weight:700;">👥 ${c.investors.length}人共识</span> `
+      : '';
+    const atRow = c.atAvg ? `<div style="font-size:.6rem;color:var(--text-lighter);margin-top:1px;">历史均价 ${cur$}${c.atAvg}</div>` : '';
+    return `<tr>
+      <td class="idx-cell"><span class="idx-num">${i+1}</span></td>
+      <td class="stock-cell">
+        <span class="ticker-line">${fmtTicker(c.ticker)}</span>
+        <span class="name-line">${cn(c.name)}</span>
+        <span class="sector-badge">${ts(c.sector)}</span>
+      </td>
+      <td style="text-align:center;">
+        <div style="display:inline-flex;flex-direction:column;align-items:center;gap:2px;padding:5px 10px;background:${mosBg};border:1px solid ${mosBorder};border-radius:8px;">
+          <span style="font-size:1rem;font-weight:700;color:${mosColor};">${mosIcon} ${c.mos}%</span>
+          <span style="font-size:.58rem;color:var(--text-lighter);">安全边际</span>
+        </div>
+      </td>
+      <td><div style="font-weight:600;">${cur$}${c.price.toFixed(2)}</div><div style="font-size:.65rem;color:var(--text-lighter);">现价</div></td>
+      <td><div style="font-weight:600;color:#059669;">${cur$}${c.buy.toFixed(2)}</div><div style="font-size:.65rem;color:var(--text-lighter);">买入估算</div>${atRow}</td>
+      <td><div style="display:flex;flex-wrap:wrap;gap:4px;align-items:center;">${consensus}${invBadges}</div></td>
+    </tr>`;
+  }).join('');
+
+  el.innerHTML = `
+    <div style="margin-bottom:16px;padding:12px 16px;background:rgba(212,168,83,0.08);border:1px solid rgba(212,168,83,0.2);border-radius:8px;">
+      <p style="font-size:.8rem;color:var(--text-light);line-height:1.6;">
+        📋 <strong style="color:var(--gold);">${lang==='en'?'Homework List':'抄作业单'}</strong> — 
+        ${lang==='en'?'Stocks with Margin of Safety ≥ 10% held by value investors. Cost basis estimated from historical K-line data.':'汇总所有大佬持仓中安全边际 ≥ 10% 的标的，成本基于历史 K 线估算。点击投资者名称可跳转查看其完整持仓。'}
+      </p>
+    </div>
+    <div class="table-wrap"><table>
+      <thead><tr>
+        <th>#</th>
+        <th>${lang==='en'?'Stock':'股票'}</th>
+        <th style="text-align:center;">${lang==='en'?'Margin of Safety':'安全边际'}</th>
+        <th>${lang==='en'?'Current Price':'现价'}</th>
+        <th>${lang==='en'?'Est. Cost':'估算成本'}</th>
+        <th>${lang==='en'?'Held By':'持有者'}</th>
+      </tr></thead>
+      <tbody>${rows}</tbody>
+    </table></div>
+    <p style="margin-top:12px;font-size:.72rem;color:var(--text-lighter);text-align:center;">成本为历史 K 线估算，仅供参考，不构成投资建议。</p>
+  `;
+}
+function round1(n) { return Math.round(n*10)/10; }
 
 function renderAll() {
   const d = data.current;
