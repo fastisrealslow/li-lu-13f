@@ -1046,9 +1046,11 @@ function switchTab(name) {
   if (name==='homework') { renderHomework(); }
 }
 
+let _homeworkCache = null;
 async function renderHomework() {
   const el = document.getElementById('homeworkContent');
   if (!el) return;
+  if (_homeworkCache) { el.innerHTML = _homeworkCache; return; }
   el.innerHTML = '<p style="padding:24px;color:var(--text-lighter);">加载中...</p>';
 
   // Load all investor data
@@ -1067,8 +1069,8 @@ async function renderHomework() {
   for (const cfg of INVESTORS_CFG) {
     try {
       const [dr, pr] = await Promise.all([
-        fetch(cfg.df+'?t='+Date.now()).then(r=>r.json()),
-        fetch(cfg.pf+'?t='+Date.now()).then(r=>r.json()),
+        fetch(cfg.df).then(r=>r.json()),
+        fetch(cfg.pf).then(r=>r.json()),
       ]);
       const holdings = dr.current.holdings;
       const totalVal = dr.current.totalValue;
@@ -1190,6 +1192,7 @@ async function renderHomework() {
     </table></div>
     <p style="margin-top:12px;font-size:.72rem;color:var(--text-lighter);text-align:center;">成本为历史 K 线估算，仅供参考，不构成投资建议。</p>
   `;
+  _homeworkCache = el.innerHTML;
 }
 function round1(n) { return Math.round(n*10)/10; }
 
