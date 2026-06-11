@@ -255,6 +255,7 @@ th .info-wrap{position:relative;display:inline-flex}
       <button class="tab-btn active" onclick="switchTab('current')"><span data-i18n="tabCurrent">持仓明细</span><span style="display:none" data-i18n="tabCurrent">持仓明细</span></button>
       <button class="tab-btn" onclick="switchTab('changes')"><span data-i18n="tabChanges">季度变化</span><span style="display:none" data-i18n="tabChanges">季度变化</span></button>
       <button class="tab-btn" onclick="switchTab('history')"><span data-i18n="tabHistory">历史趋势</span><span style="display:none" data-i18n="tabHistory">历史趋势</span></button>
+      <button class="tab-btn" onclick="switchTab('homework')" style="position:relative;"><span data-i18n="tabHomework">📋 抄作业</span></button>
     </div>
     <div id="tab-current">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
@@ -270,6 +271,9 @@ th .info-wrap{position:relative;display:inline-flex}
       <div class="table-wrap"><table><thead><tr>
         <th>股票</th><th id="chPS">上季 持股</th><th id="chCS">本季 持股</th><th>股数变化</th><th id="chPV">上季 市值</th><th id="chCV">本季 市值</th><th>市值变化</th>
       </tr></thead><tbody id="changesBody"></tbody></table></div>
+    </div>
+    <div id="tab-homework" class="d-none">
+      <div id="homeworkContent"></div>
     </div>
     <div id="tab-history" class="d-none">
       <div class="chart-wrap"><canvas id="historyChart"></canvas></div>
