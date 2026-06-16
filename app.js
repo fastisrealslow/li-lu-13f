@@ -1220,7 +1220,14 @@ async function renderHomework() {
         ${isEn2?'Stocks with MOS &ge; 10% held by tracked investors. Sorted by consensus + MOS + recent activity (🆕 new / 📈 added). Click an investor badge to view full portfolio.':'所有投资者持仓中安全边际 &ge; 10% 的标的。按多人共识 + 安全边际 + 最近动态（🆕新开仓 / 📈加仓）综合排序。点击投资者名称可跳转完整持仓。'}
       </p>
     </div>
-    <div class="table-wrap"><table>
+    <div class="table-wrap"><table style="table-layout:fixed;width:100%;">
+      <colgroup>
+        <col style="width:28px">
+        <col style="width:25%">
+        <col style="width:35%">
+        <col style="width:20%">
+        <col style="width:20%">
+      </colgroup>
       <thead><tr>
         <th>#</th>
         <th>${isEn2?'Stock':'股票'}</th>
