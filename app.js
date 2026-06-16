@@ -1208,9 +1208,8 @@ async function renderHomework() {
           <span style="font-size:.58rem;color:var(--text-lighter);">${isEn2?'MOS':'安全边际'}</span>
         </div>
       </td>
-      <td><div style="font-weight:600;">${cur$}${c.price.toFixed(2)}</div><div style="font-size:.65rem;color:var(--text-lighter);">${isEn2?'Price':'现价'}</div></td>
-      <td><div style="font-weight:600;color:#059669;">${cur$}${c.buy.toFixed(2)}</div><div style="font-size:.65rem;color:var(--text-lighter);">${isEn2?'Est. Cost':'买入估算'}</div>${atRow}</td>
       <td><div style="display:flex;flex-direction:column;gap:4px;">${consensusLabel}<div style="display:flex;flex-wrap:wrap;gap:4px;">${invBadges}</div></div></td>
+      <td><div style="font-weight:600;color:#059669;">${cur$}${c.buy.toFixed(2)}</div><div style="font-size:.65rem;color:var(--text-lighter);">${isEn2?'Est. Cost':'买入估算'}</div>${atRow}</td>
     </tr>`;
   }).join('');
 
@@ -1225,10 +1224,9 @@ async function renderHomework() {
       <thead><tr>
         <th>#</th>
         <th>${isEn2?'Stock':'股票'}</th>
-        <th style="text-align:center;">${isEn2?'MOS':'安全边际'}</th>
-        <th>${isEn2?'Price':'现价'}</th>
-        <th>${isEn2?'Est. Cost':'估算成本'}</th>
         <th>${isEn2?'Held By':'持有者'}</th>
+        <th style="text-align:center;">${isEn2?'MOS':'安全边际'}</th>
+        <th>${isEn2?'Est. Cost':'估算成本'}</th>
       </tr></thead>
       <tbody>${rows}</tbody>
     </table></div>
