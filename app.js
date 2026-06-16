@@ -1188,10 +1188,11 @@ async function renderHomework() {
       else if (inv.chg === 'trimmed') chgBadge = `<span style="font-size:.5rem;padding:0 3px;background:rgba(245,158,11,0.15);border-radius:3px;color:#d97706;">📉</span>`;
       return `<span onclick="switchInvestor('${inv.id}');switchTab('current');" style="cursor:pointer;display:inline-flex;align-items:center;gap:3px;padding:3px 9px;background:#2a3f5f;border:1px solid #d4a853;border-radius:10px;font-size:.62rem;color:#ffffff;font-weight:600;white-space:nowrap;" title="${isEn2?'Position':'仓位'}: ${wLabel}">${inv.name}${chgBadge} <span style="color:#d4a853;font-size:.6rem;font-weight:700;">${wLabel}</span></span>`;
     }).join(' ');
-    const consensus = c.totalHolders >= 2
-      ? `<span style="padding:1px 6px;background:rgba(251,191,36,0.15);border:1px solid rgba(251,191,36,0.4);border-radius:8px;font-size:.58rem;color:#b45309;font-weight:700;">👥 ${c.totalHolders}${isEn2?' investors':' 人持有'}</span> `
-      : '';
     const atRow = c.atAvg ? `<div style="font-size:.6rem;color:var(--text-lighter);margin-top:1px;">${isEn2?'Hist.avg':'历史均价'} ${cur$}${c.atAvg}</div>` : '';
+    // Consensus label + investor badges combined
+    const consensusLabel = c.totalHolders >= 2
+      ? `<div style="font-size:.6rem;color:#d4a853;font-weight:700;margin-bottom:4px;">👥 ${c.totalHolders}${isEn2?' investors holding':' 人持有'}</div>`
+      : '';
     return `<tr>
       <td class="idx-cell"><span class="idx-num">${i+1}</span></td>
       <td class="stock-cell">
@@ -1208,7 +1209,7 @@ async function renderHomework() {
       </td>
       <td><div style="font-weight:600;">${cur$}${c.price.toFixed(2)}</div><div style="font-size:.65rem;color:var(--text-lighter);">${isEn2?'Price':'现价'}</div></td>
       <td><div style="font-weight:600;color:#059669;">${cur$}${c.buy.toFixed(2)}</div><div style="font-size:.65rem;color:var(--text-lighter);">${isEn2?'Est. Cost':'买入估算'}</div>${atRow}</td>
-      <td><div style="display:flex;flex-wrap:wrap;gap:4px;align-items:center;">${consensus}${invBadges}</div></td>
+      <td><div style="display:flex;flex-direction:column;gap:4px;">${consensusLabel}<div style="display:flex;flex-wrap:wrap;gap:4px;">${invBadges}</div></div></td>
     </tr>`;
   }).join('');
 
