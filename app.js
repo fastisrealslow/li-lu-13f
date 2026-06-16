@@ -1186,7 +1186,7 @@ async function renderHomework() {
       if (inv.chg === 'new') chgBadge = `<span style="font-size:.5rem;padding:0 3px;background:rgba(59,130,246,0.2);border-radius:3px;color:#3b82f6;">🆕</span>`;
       else if (inv.chg === 'added') chgBadge = `<span style="font-size:.5rem;padding:0 3px;background:rgba(16,185,129,0.15);border-radius:3px;color:#10b981;">📈</span>`;
       else if (inv.chg === 'trimmed') chgBadge = `<span style="font-size:.5rem;padding:0 3px;background:rgba(245,158,11,0.15);border-radius:3px;color:#d97706;">📉</span>`;
-      return `<span onclick="switchInvestor('${inv.id}');switchTab('current');" style="cursor:pointer;display:inline-flex;align-items:center;gap:3px;padding:2px 8px;background:var(--navy-light);border:1px solid var(--border-light);border-radius:10px;font-size:.6rem;color:var(--text-light);white-space:nowrap;" title="${isEn2?'Position':'仓位'}: ${wLabel}">${inv.name}${chgBadge} <span style="color:var(--gold);font-size:.55rem;">${wLabel}</span></span>`;
+      return `<span onclick="switchInvestor('${inv.id}');switchTab('current');" style="cursor:pointer;display:inline-flex;align-items:center;gap:3px;padding:3px 9px;background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.35);border-radius:10px;font-size:.62rem;color:#e2e8f0;font-weight:500;white-space:nowrap;" title="${isEn2?'Position':'仓位'}: ${wLabel}">${inv.name}${chgBadge} <span style="color:#fbbf24;font-size:.58rem;font-weight:600;">${wLabel}</span></span>`;
     }).join(' ');
     const consensus = c.totalHolders >= 2
       ? `<span style="padding:1px 6px;background:rgba(251,191,36,0.15);border:1px solid rgba(251,191,36,0.4);border-radius:8px;font-size:.58rem;color:#b45309;font-weight:700;">👥 ${c.totalHolders}${isEn2?' investors':' 人持有'}</span> `
