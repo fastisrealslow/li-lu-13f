@@ -1076,12 +1076,28 @@ async function renderHomework() {
   ];
 
   const candidates = [];
+  // Pass 1: count ALL holders per ticker (regardless of MOS), for true consensus
+  const allHoldersMap = {}; // ticker -> Set of investor ids
+  const allDataCache = [];
   for (const cfg of INVESTORS_CFG) {
     try {
       const [dr, pr] = await Promise.all([
         fetch(cfg.df).then(r=>r.json()),
         fetch(cfg.pf).then(r=>r.json()),
       ]);
+      allDataCache.push({cfg, dr, pr});
+      for (const h of (dr.current.holdings||[])) {
+        const tk = h.ticker;
+        if (tk.startsWith('?') || tk.endsWith('.HK')) continue;
+        if (!allHoldersMap[tk]) allHoldersMap[tk] = new Set();
+        allHoldersMap[tk].add(cfg.id);
+      }
+    } catch(e) { console.warn(cfg.id, e); }
+  }
+
+  // Pass 2: build candidates (MOS >= 10% filter applies here)
+  for (const {cfg, dr, pr} of allDataCache) {
+    try {
       const holdings = dr.current.holdings;
       const totalVal = dr.current.totalValue;
       const quotes = pr.quotes || {};
@@ -1098,15 +1114,12 @@ async function renderHomework() {
         const mos = (buy - price) / buy * 100;
         if (mos < 10) continue;
         const weight = totalVal > 0 ? h.value / totalVal * 100 : 0;
-        // Detect position change for this investor
         const prev = h.prevShares || 0; const cur2 = h.shares || 0;
         let chg = 'hold';
         if (prev === 0 && cur2 > 0) chg = 'new';
         else if (prev > 0 && cur2 > prev * 1.05) chg = 'added';
         else if (prev > 0 && cur2 < prev * 0.95) chg = 'trimmed';
         const invEntry = {name: lang==='en'?cfg.nameEn:cfg.name, id:cfg.id, weight:round1(weight), chg};
-        // Check if ticker already in candidates (multiple investors)
-        // Deduplicate: same investor id should only appear once per ticker
         const existing = candidates.find(x => x.ticker === tk);
         if (existing) {
           if (!existing.investors.find(x => x.id === cfg.id)) {
@@ -1118,6 +1131,7 @@ async function renderHomework() {
             mos: round1(mos), price, buy,
             atAvg: c.allTime?.avg || null,
             investors: [invEntry],
+            totalHolders: allHoldersMap[tk]?.size || 1,
           });
         }
       }
@@ -1128,7 +1142,7 @@ async function renderHomework() {
   const isEn2 = lang === 'en';
   candidates.forEach(c => {
     let score = c.mos;
-    score += (c.investors.length - 1) * 40; // multi-investor consensus bonus
+    score += (c.totalHolders - 1) * 40; // multi-investor consensus bonus (all holders, not just MOS>=10%)
     const hasNew = c.investors.some(inv => inv.chg === 'new');
     const hasAdded = c.investors.some(inv => inv.chg === 'added');
     const rowChgTag = hasNew
@@ -1174,8 +1188,8 @@ async function renderHomework() {
       else if (inv.chg === 'trimmed') chgBadge = `<span style="font-size:.5rem;padding:0 3px;background:rgba(245,158,11,0.15);border-radius:3px;color:#d97706;">📉</span>`;
       return `<span onclick="switchInvestor('${inv.id}');switchTab('current');" style="cursor:pointer;display:inline-flex;align-items:center;gap:3px;padding:2px 8px;background:var(--navy-light);border:1px solid var(--border-light);border-radius:10px;font-size:.6rem;color:var(--text-light);white-space:nowrap;" title="${isEn2?'Position':'仓位'}: ${wLabel}">${inv.name}${chgBadge} <span style="color:var(--gold);font-size:.55rem;">${wLabel}</span></span>`;
     }).join(' ');
-    const consensus = c.investors.length >= 2
-      ? `<span style="padding:1px 6px;background:rgba(251,191,36,0.15);border:1px solid rgba(251,191,36,0.4);border-radius:8px;font-size:.58rem;color:#b45309;font-weight:700;">👥 ${c.investors.length}${isEn2?'investors':'人共识'}</span> `
+    const consensus = c.totalHolders >= 2
+      ? `<span style="padding:1px 6px;background:rgba(251,191,36,0.15);border:1px solid rgba(251,191,36,0.4);border-radius:8px;font-size:.58rem;color:#b45309;font-weight:700;">👥 ${c.totalHolders}${isEn2?' investors':' 人持有'}</span> `
       : '';
     const atRow = c.atAvg ? `<div style="font-size:.6rem;color:var(--text-lighter);margin-top:1px;">${isEn2?'Hist.avg':'历史均价'} ${cur$}${c.atAvg}</div>` : '';
     return `<tr>
