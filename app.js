@@ -1200,6 +1200,7 @@ async function renderHomework() {
         <span class="name-line">${cn(c.name)}</span>
         <span class="sector-badge">${ts(c.sector)}</span>
         ${rowChgTag}
+        <div class="hw-inv-mobile" style="display:none;margin-top:5px;flex-wrap:wrap;gap:3px;">${consensusLabel.replace('margin-bottom:4px','margin-bottom:2px')}${invBadges}</div>
       </td>
       <td style="text-align:center;">
         <div style="display:inline-flex;flex-direction:column;align-items:center;gap:2px;padding:5px 10px;background:${mosBg};border:1px solid ${mosBorder};border-radius:8px;">
