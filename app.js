@@ -1106,9 +1106,12 @@ async function renderHomework() {
         else if (prev > 0 && cur2 < prev * 0.95) chg = 'trimmed';
         const invEntry = {name: lang==='en'?cfg.nameEn:cfg.name, id:cfg.id, weight:round1(weight), chg};
         // Check if ticker already in candidates (multiple investors)
+        // Deduplicate: same investor id should only appear once per ticker
         const existing = candidates.find(x => x.ticker === tk);
         if (existing) {
-          existing.investors.push(invEntry);
+          if (!existing.investors.find(x => x.id === cfg.id)) {
+            existing.investors.push(invEntry);
+          }
         } else {
           candidates.push({
             ticker: tk, name: h.name, sector: h.sector,
@@ -1135,7 +1138,11 @@ async function renderHomework() {
       : '';
     if (hasNew) score += 15;
     else if (hasAdded) score += 8;
+    // Penalize if ALL investors are trimming (net exit signal)
+    const allTrimming = c.investors.length > 0 && c.investors.every(inv => inv.chg === 'trimmed');
+    if (allTrimming) score -= 20;
     c._score = score;
+    c._allTrimming = allTrimming;
   });
   candidates.sort((a,b) => b._score - a._score);
 
@@ -1156,6 +1163,8 @@ async function renderHomework() {
       ? `<span style="display:inline-flex;align-items:center;gap:2px;padding:1px 6px;background:rgba(59,130,246,0.12);border:1px solid rgba(59,130,246,0.3);border-radius:4px;font-size:.6rem;color:#3b82f6;font-weight:600;margin-top:3px;">🆕 ${isEn2?'New':'新开仓'}</span>`
       : _hasAdded
       ? `<span style="display:inline-flex;align-items:center;gap:2px;padding:1px 6px;background:rgba(16,185,129,0.1);border:1px solid rgba(16,185,129,0.25);border-radius:4px;font-size:.6rem;color:#10b981;font-weight:600;margin-top:3px;">📈 ${isEn2?'Added':'加仓'}</span>`
+      : c._allTrimming
+      ? `<span style="display:inline-flex;align-items:center;gap:2px;padding:1px 6px;background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.25);border-radius:4px;font-size:.6rem;color:#ef4444;font-weight:600;margin-top:3px;">⚠️ ${isEn2?'Trimming':'减仓中'}</span>`
       : '';
     const invBadges = c.investors.map(inv => {
       const wLabel = inv.weight < 0.1 ? '<0.1%' : inv.weight + '%';
