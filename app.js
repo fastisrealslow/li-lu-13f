@@ -1124,6 +1124,12 @@ async function renderHomework() {
         if (existing) {
           if (!existing.investors.find(x => x.id === cfg.id)) {
             existing.investors.push(invEntry);
+            // Use lowest cost basis across all holders (most conservative)
+            if (buy < existing.buy) {
+              existing.buy = buy;
+              existing.mos = round1(mos);
+              existing.atAvg = c.allTime?.avg || existing.atAvg;
+            }
           }
         } else {
           candidates.push({
@@ -1180,19 +1186,29 @@ async function renderHomework() {
       : c._allTrimming
       ? `<span style="display:inline-flex;align-items:center;gap:2px;padding:1px 6px;background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.25);border-radius:4px;font-size:.6rem;color:#ef4444;font-weight:600;margin-top:3px;">⚠️ ${isEn2?'Trimming':'减仓中'}</span>`
       : '';
-    const invBadges = c.investors.map(inv => {
-      const wLabel = inv.weight < 0.1 ? '<0.1%' : inv.weight + '%';
-      let chgBadge = '';
-      if (inv.chg === 'new') chgBadge = `<span style="font-size:.5rem;padding:0 3px;background:rgba(59,130,246,0.2);border-radius:3px;color:#3b82f6;">🆕</span>`;
-      else if (inv.chg === 'added') chgBadge = `<span style="font-size:.5rem;padding:0 3px;background:rgba(16,185,129,0.15);border-radius:3px;color:#10b981;">📈</span>`;
-      else if (inv.chg === 'trimmed') chgBadge = `<span style="font-size:.5rem;padding:0 3px;background:rgba(245,158,11,0.15);border-radius:3px;color:#d97706;">📉</span>`;
-      return `<span onclick="switchInvestor('${inv.id}');switchTab('current');" style="cursor:pointer;display:inline-flex;align-items:center;gap:3px;padding:3px 9px;background:#2a3f5f;border:1px solid #d4a853;border-radius:10px;font-size:.62rem;color:#ffffff;font-weight:600;white-space:nowrap;" title="${isEn2?'Position':'仓位'}: ${wLabel}">${inv.name}${chgBadge} <span style="color:#d4a853;font-size:.6rem;font-weight:700;">${wLabel}</span></span>`;
-    }).join(' ');
+    const wLabel = inv => inv.weight < 0.1 ? '<0.1%' : inv.weight + '%';
+    const chgBadge = inv => {
+      if (inv.chg === 'new') return `<span style="font-size:.5rem;padding:0 3px;background:rgba(59,130,246,0.2);border-radius:3px;color:#3b82f6;">🆕</span>`;
+      if (inv.chg === 'added') return `<span style="font-size:.5rem;padding:0 3px;background:rgba(16,185,129,0.15);border-radius:3px;color:#10b981;">📈</span>`;
+      if (inv.chg === 'trimmed') return `<span style="font-size:.5rem;padding:0 3px;background:rgba(245,158,11,0.15);border-radius:3px;color:#d97706;">📉</span>`;
+      return '';
+    };
+    const mkBadge = (inv, compact) => {
+      const w = wLabel(inv);
+      const cb = chgBadge(inv);
+      const style = compact
+        ? `cursor:pointer;display:inline-flex;align-items:center;gap:2px;padding:2px 6px;background:#2a3f5f;border:1px solid #d4a853;border-radius:8px;font-size:.55rem;color:#fff;font-weight:600;white-space:nowrap;`
+        : `cursor:pointer;display:inline-flex;align-items:center;gap:3px;padding:3px 9px;background:#2a3f5f;border:1px solid #d4a853;border-radius:10px;font-size:.62rem;color:#fff;font-weight:600;white-space:nowrap;`;
+      return `<span onclick="switchInvestor('${inv.id}');switchTab('current');" style="${style}" title="${isEn2?'Position':'仓位'}: ${w}">${inv.name}${cb} <span style="color:#d4a853;font-size:.55rem;font-weight:700;">${w}</span></span>`;
+    };
+    const invBadges = c.investors.map(inv => mkBadge(inv, false)).join(' ');
+    const invBadgesCompact = c.investors.map(inv => mkBadge(inv, true)).join(' ');
     const atRow = c.atAvg ? `<div style="font-size:.6rem;color:var(--text-lighter);margin-top:1px;">${isEn2?'Hist.avg':'历史均价'} ${cur$}${c.atAvg}</div>` : '';
-    // Consensus label + investor badges combined
-    const consensusLabel = c.totalHolders >= 2
-      ? `<div style="font-size:.6rem;color:#d4a853;font-weight:700;margin-bottom:4px;">👥 ${c.totalHolders}${isEn2?' investors holding':' 人持有'}</div>`
+    const consensusPrefix = c.totalHolders >= 2
+      ? `<span style="font-size:.6rem;color:#d4a853;font-weight:700;margin-right:4px;">👥 ${c.totalHolders}${isEn2?' held':' 人'}</span>`
       : '';
+    const invCellHtml = `<div style="display:flex;flex-wrap:wrap;align-items:center;gap:4px;">${consensusPrefix}${invBadges}</div>`;
+    const invMobileHtml = `<div style="display:flex;flex-wrap:wrap;align-items:center;gap:3px;margin-top:4px;">${consensusPrefix}${invBadgesCompact}</div>`;
     return `<tr>
       <td class="idx-cell"><span class="idx-num">${i+1}</span></td>
       <td class="stock-cell">
@@ -1200,16 +1216,16 @@ async function renderHomework() {
         <span class="name-line">${cn(c.name)}</span>
         <span class="sector-badge">${ts(c.sector)}</span>
         ${rowChgTag}
-        <div class="hw-inv-mobile" style="display:none;margin-top:5px;flex-wrap:wrap;gap:3px;">${consensusLabel.replace('margin-bottom:4px','margin-bottom:2px')}${invBadges}</div>
+        <div class="hw-inv-mobile" style="display:none;">${invMobileHtml}</div>
       </td>
+      <td><div style="font-weight:600;color:#059669;">${cur$}${c.buy.toFixed(2)}</div><div style="font-size:.65rem;color:var(--text-lighter);">${isEn2?'Est. Cost':'买入估算'}</div>${atRow}</td>
       <td style="text-align:center;">
-        <div style="display:inline-flex;flex-direction:column;align-items:center;gap:2px;padding:5px 10px;background:${mosBg};border:1px solid ${mosBorder};border-radius:8px;">
-          <span style="font-size:1rem;font-weight:700;color:${mosColor};">${mosIcon} ${c.mos}%</span>
-          <span style="font-size:.58rem;color:var(--text-lighter);">${isEn2?'MOS':'安全边际'}</span>
+        <div style="display:inline-flex;flex-direction:column;align-items:center;gap:2px;padding:5px 8px;background:${mosBg};border:1px solid ${mosBorder};border-radius:8px;">
+          <span style="font-size:.95rem;font-weight:700;color:${mosColor};">${mosIcon} ${c.mos}%</span>
+          <span style="font-size:.55rem;color:var(--text-lighter);">${isEn2?'MOS':'安全边际'}</span>
         </div>
       </td>
-      <td><div style="display:flex;flex-direction:column;gap:4px;">${consensusLabel}<div style="display:flex;flex-wrap:wrap;gap:4px;">${invBadges}</div></div></td>
-      <td><div style="font-weight:600;color:#059669;">${cur$}${c.buy.toFixed(2)}</div><div style="font-size:.65rem;color:var(--text-lighter);">${isEn2?'Est. Cost':'买入估算'}</div>${atRow}</td>
+      <td>${invCellHtml}</td>
     </tr>`;
   }).join('');
 
@@ -1220,24 +1236,21 @@ async function renderHomework() {
         ${isEn2?'Stocks with MOS &ge; 10% held by tracked investors. Sorted by consensus + MOS + recent activity (🆕 new / 📈 added). Click an investor badge to view full portfolio.':'所有投资者持仓中安全边际 &ge; 10% 的标的。按多人共识 + 安全边际 + 最近动态（🆕新开仓 / 📈加仓）综合排序。点击投资者名称可跳转完整持仓。'}
       </p>
     </div>
-    <div class="table-wrap"><table style="table-layout:fixed;width:100%;">
-      <colgroup>
-        <col style="width:28px">
-        <col style="width:25%">
-        <col style="width:35%">
-        <col style="width:20%">
-        <col style="width:20%">
-      </colgroup>
+    <div class="table-wrap"><table style="width:100%;">
       <thead><tr>
-        <th>#</th>
-        <th>${isEn2?'Stock':'股票'}</th>
-        <th>${isEn2?'Held By':'持有者'}</th>
-        <th style="text-align:center;">${isEn2?'MOS':'安全边际'}</th>
-        <th>${isEn2?'Est. Cost':'估算成本'}</th>
+        <th style="width:4%">#</th>
+        <th style="width:16%">${isEn2?'Stock':'股票'}</th>
+        <th style="width:13%;white-space:nowrap">${isEn2?'Est. Cost':'估算成本'} <span class="info-wrap"><span class="info-badge" onclick="this.parentElement.querySelector('.info-popover').classList.toggle('show')">ⓘ</span><span class="info-popover">${isEn2?'Multiple holders: shows the lowest cost basis (most conservative). Single holder: that investor\'s estimated cost from historical K-line data (low×70%+avg×30%).':'多人持有时取最低估算成本（最保守）；单人持有时为该投资者历史 K 线估算（低价×70%+均价×30%）。'}</span></span></th>
+        <th style="width:13%;text-align:center;white-space:nowrap">${isEn2?'MOS':'安全边际'}</th>
+        <th style="width:54%">${isEn2?'Held By':'持有者'}</th>
       </tr></thead>
       <tbody>${rows}</tbody>
     </table></div>
-    <p style="margin-top:12px;font-size:.72rem;color:var(--text-lighter);text-align:center;">成本为历史 K 线估算，仅供参考，不构成投资建议。</p>
+    <p style="margin-top:12px;font-size:.72rem;color:var(--text-lighter);text-align:center;line-height:1.8;">
+      ${isEn2
+        ? '💡 <strong>Est. Cost</strong>: estimated from historical K-line (low×70%+avg×30%). Multiple holders → lowest cost shown (most conservative). MOS = (Cost−Price)/Cost. Not investment advice.'
+        : '💡 <strong>估算成本</strong>：基于历史 K 线（低价×70%+均价×30%）估算买入价。多人持有时取最低成本（最保守）。安全边际 = (成本−现价)÷成本。仅供参考，不构成投资建议。'}
+    </p>
   `;
   _homeworkCache = el.innerHTML;
 }
