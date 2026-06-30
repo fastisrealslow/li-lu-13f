@@ -178,11 +178,22 @@ def merge_by_company(all_items):
     # 每家公司公告按日期倒序
     for c in companies.values():
         c["announcements"].sort(key=lambda x: x["date"], reverse=True)
-        # 自动生成脉络摘要
+        # 自动生成脉络摘要（包含分拆标的）
         n = len(c["announcements"])
+        # 尝试提取分拆子公司名称
+        sub = ""
+        for a in c["announcements"]:
+            t = a.get("title", "")
+            import re
+            m1 = re.search(r"分拆\s*([^\s，,。（(【]{3,20})\s*(?:並於|并于|至|在|于|to|upon)", t)
+            m2 = re.search(r"子公司\s*([^\s，,。（(]{4,20})\s*(?:至|在|于|to)", t)
+            if m1: sub = m1.group(1).strip(); break
+            if m2: sub = m2.group(1).strip(); break
+        c["spinTarget"] = sub
+        span = f"（{c['firstDate']} ~ {c['latestDate']}）" if c["firstDate"] != c["latestDate"] else f"（{c['latestDate']}）"
         c["summary"] = (
-            f"自 {c['firstDate']} 起共发布 {n} 条分拆相关公告，"
-            f"最新公告为 {c['latestDate']}。"
+            f"{'分拆标的：' + sub + '。' if sub else ''}"
+            f"共 {n} 条相关公告{span}"
         )
 
     # 按最新公告日期排序

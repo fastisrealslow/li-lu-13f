@@ -1277,196 +1277,289 @@ async function renderHomework() {
 
 // ========== Spin-off Tab ==========
 let _spinoffCache = null;
+
+// 进度状态识别（精确版，按优先级排列）
+function _soProgress(ann, isEn) {
+  if (!ann || !ann.length) return {label:'',color:'#9ca3af',bg:'#f3f4f6',pct:0};
+  const t = (ann[0].title||'') + (ann.length>1 ? ann[1].title : '');
+  // 1. 终止（最高优先级）
+  if (/終止|终止|撤回|撤销|withdraw|cancel/i.test(t))
+    return {label:isEn?'✕ Cancelled':'✕ 已终止',  color:'#dc2626',bg:'#fee2e2',pct:0};
+  // 2. 真正上市（强信号：开始买卖 / 持续督导 / 行使超额）
+  if (/開始買賣|开始买卖|股份開始|股份开始|持續督導|持续督导|行使超額|行使超额/i.test(t))
+    return {label:isEn?'✅ Listed':'✅ 已上市',    color:'#059669',bg:'#d1fae5',pct:100};
+  // 3. 招股书阶段
+  if (/刊發招股|招股書|招股章程|招股说明|prospectus/i.test(t))
+    return {label:isEn?'📋 IPO Filing':'📋 招股书', color:'#0891b2',bg:'#cffafe',pct:88};
+  // 4. 已批准
+  if (/批準|批准|approved|聯交所批准|获批/i.test(t))
+    return {label:isEn?'✓ Approved':'✓ 已批准',   color:'#2563eb',bg:'#dbeafe',pct:75};
+  // 5. 进行中（有进展更新）
+  if (/進展|进展|最新情況|最新情况|update|progress/i.test(t))
+    return {label:isEn?'⏳ In Progress':'⏳ 进行中', color:'#d97706',bg:'#fef3c7',pct:50};
+  // 6. 初步建议
+  if (/建議|建议|擬議|拟议|propose|擬|拟/i.test(t))
+    return {label:isEn?'💡 Proposed':'💡 建议中',  color:'#7c3aed',bg:'#ede9fe',pct:25};
+  return   {label:isEn?'📢 Announced':'📢 已公告', color:'#6b7280',bg:'#f3f4f6',pct:15};
+}
+
+// 清理标题：去掉常见前缀噪音
+function _soCleanTitle(t) {
+  return (t||'')
+    .replace(/^(内幕消息|內幕消息)\s*[-—–]\s*/i,'')
+    .replace(/^(海外監管公告|海外监管公告)\s*[-—–]\s*/i,'')
+    .replace(/^(自願性公告|自願公告|自愿公告)\s*[-—–]\s*/i,'')
+    .replace(/^(公告及通告)\s*[-—–]\s*/i,'')
+    .replace(/\s+/g,' ').trim();
+}
+
+// 派生分拆子公司名称（从标题提取）
+function _soExtractSpinSub(company) {
+  const ann = company.announcements || [];
+  for (const a of ann) {
+    const t = a.title || '';
+    // 「建議分拆 XXX 並於...」
+    const m1 = t.match(/分拆\s*([^\s，,。\u3002（(（\[\]【】]{3,25})\s*(?:並於|并于|at|to|upon)/i);
+    if (m1) return m1[1].trim();
+    // 「建議分拆所屬子公司 XXX」
+    const m2 = t.match(/子公司\s*([^\s，,。（(]{4,25})\s*(?:至|在|于|to)/i);
+    if (m2) return m2[1].trim();
+  }
+  return '';
+}
+
 async function renderSpinoff() {
   const el = document.getElementById('spinoffContent');
   if (!el) return;
   if (_spinoffCache) { el.innerHTML = _spinoffCache; return; }
-  el.innerHTML = '<p style="padding:16px;color:var(--text-lighter);">加载中…</p>';
+  el.innerHTML = '<div style="padding:40px;text-align:center;color:var(--text-lighter);font-size:.9rem;">⏳ 加载分拆数据…</div>';
   const isEn = lang === 'en';
 
   try {
     const resp = await fetch('spinoff.json?t=' + Date.now());
+    if (!resp.ok) throw new Error(resp.status);
     const data = await resp.json();
-    const companies = data.companies || [];
+    const companies = (data.companies || []);
 
     if (!companies.length) {
-      el.innerHTML = `<div style="padding:32px;text-align:center;color:var(--text-lighter);">📭 ${isEn?'No data':'暂无数据'}</div>`;
+      el.innerHTML = `<div style="padding:40px;text-align:center;color:var(--text-lighter);">
+        <div style="font-size:2rem;margin-bottom:12px;">📭</div>
+        <div>${isEn?'No spin-off announcements in the past 12 months.':'近12个月内暂无分拆公告数据。'}</div>
+      </div>`;
       _spinoffCache = el.innerHTML; return;
     }
 
-    // 日期格式化 YYYYMMDD → YYYY-MM-DD
     const fd = s => s && s.length===8 ? s.slice(0,4)+'-'+s.slice(4,6)+'-'+s.slice(6,8) : (s||'');
 
-    // 分拆进度识别（根据最新公告标题关键词）
-    const progressOf = (ann) => {
-      if (!ann || !ann.length) return {label:'', color:'#9ca3af', pct:0};
-      const t = (ann[0].title||'').toLowerCase();
-      if (/上市|ipo|刊發招股|開始買賣|開始交易|listed/.test(t))
-        return {label: isEn?'Listed':'已上市',   color:'#059669', pct:100};
-      if (/批準|批准|approved|接纳/.test(t))
-        return {label: isEn?'Approved':'已批准', color:'#2563eb', pct:75};
-      if (/進展|进展|update|最新情況|progress/.test(t))
-        return {label: isEn?'In progress':'进行中', color:'#d97706', pct:50};
-      if (/終止|终止|撤回|withdraw|cancel/.test(t))
-        return {label: isEn?'Cancelled':'已终止', color:'#dc2626', pct:0};
-      if (/建議|建议|propose|擬/.test(t))
-        return {label: isEn?'Proposed':'初步建议', color:'#7c3aed', pct:25};
-      return {label: isEn?'Announced':'已公告', color:'#6b7280', pct:10};
-    };
+    // 统计各状态数量
+    const statCount = {listed:0,approved:0,progress:0,proposed:0,cancelled:0,other:0};
+    companies.forEach(c => {
+      const p = _soProgress(c.announcements, true);
+      if (p.pct===100) statCount.listed++;
+      else if (p.pct===0 && p.color==='#dc2626') statCount.cancelled++;
+      else if (p.pct>=75) statCount.approved++;
+      else if (p.pct>=40) statCount.progress++;
+      else if (p.pct>=15) statCount.proposed++;
+      else statCount.other++;
+    });
 
+    // ── 顶部 KPI 栏 ──────────────────────────────────────────────
     let html = `
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:8px;">
-      <div>
-        <span style="font-size:.95rem;font-weight:600;color:var(--navy);">
-          ${isEn?'Spin-off Tracker':'分拆进展追踪'}
-        </span>
-        <span style="font-size:.75rem;color:var(--text-lighter);margin-left:10px;">
-          ${companies.length} ${isEn?'companies':'家公司'} &nbsp;·&nbsp;
-          ${fd(data.dateFrom)} ~ ${fd(data.dateTo)} &nbsp;·&nbsp;
-          ${isEn?'Updated':'更新'} ${(data.updatedAt||'').slice(0,10)}
+    <div style="margin-bottom:20px;">
+      <!-- 标题行 -->
+      <div style="display:flex;align-items:baseline;gap:12px;margin-bottom:14px;flex-wrap:wrap;">
+        <h3 style="font-family:var(--serif);font-size:1.05rem;color:var(--navy);margin:0;font-weight:700;">
+          ${isEn?'HK Spin-off Tracker':'港股分拆进展追踪'}
+        </h3>
+        <span style="font-size:.72rem;color:var(--text-lighter);">
+          ${fd(data.dateFrom)} ~ ${fd(data.dateTo)} &nbsp;·&nbsp; ${isEn?'Updated':'更新'} ${(data.updatedAt||'').slice(0,10)}
         </span>
       </div>
-      <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
-        <div style="display:flex;gap:6px;font-size:.68rem;">
-          ${[
-            ['#059669', isEn?'Listed':'已上市'],
-            ['#2563eb', isEn?'Approved':'已批准'],
-            ['#d97706', isEn?'In progress':'进行中'],
-            ['#7c3aed', isEn?'Proposed':'建议中'],
-            ['#dc2626', isEn?'Cancelled':'已终止'],
-          ].map(([c,l])=>`<span style="display:flex;align-items:center;gap:3px;">
-            <span style="width:8px;height:8px;border-radius:50%;background:${c};display:inline-block;"></span>${l}</span>`).join('')}
-        </div>
+
+      <!-- KPI 卡片 -->
+      <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-bottom:18px;">
+        ${[
+          ['#059669','#d1fae5', isEn?'Listed':'已上市',    statCount.listed],
+          ['#2563eb','#dbeafe', isEn?'Approved':'已批准',  statCount.approved],
+          ['#d97706','#fef3c7', isEn?'In Progress':'进行中',statCount.progress],
+          ['#7c3aed','#ede9fe', isEn?'Proposed':'建议中',  statCount.proposed],
+          ['#dc2626','#fee2e2', isEn?'Cancelled':'已终止',  statCount.cancelled],
+        ].map(([color,bg,label,count])=>`
+          <div style="background:${bg};border:1px solid ${color}30;border-radius:8px;padding:8px 10px;text-align:center;">
+            <div style="font-size:1.4rem;font-weight:700;color:${color};font-family:var(--serif);">${count}</div>
+            <div style="font-size:.65rem;color:${color};font-weight:600;margin-top:2px;">${label}</div>
+          </div>`).join('')}
+      </div>
+
+      <!-- 表头 -->
+      <div style="display:grid;grid-template-columns:126px 130px 1fr 96px 44px;
+                  gap:0;padding:8px 14px;
+                  background:var(--navy);border-radius:8px 8px 0 0;
+                  font-size:.67rem;font-weight:600;color:rgba(255,255,255,.55);
+                  letter-spacing:.6px;text-transform:uppercase;align-items:center;">
+        <span>${isEn?'COMPANY':'公司'}</span>
+        <span>${isEn?'STATUS':'进度'}</span>
+        <span>${isEn?'LATEST ANNOUNCEMENT':'最新公告'}</span>
+        <span style="text-align:right;">${isEn?'DATE':'日期'}</span>
+        <span style="text-align:center;">${isEn?'N':'条'}</span>
       </div>
     </div>
 
-    <!-- 表头 -->
-    <div style="display:grid;grid-template-columns:110px 100px 1fr 110px 80px 60px;gap:8px;
-                padding:6px 14px;background:#0c1e3a;border-radius:8px 8px 0 0;
-                font-size:.67rem;font-weight:600;color:rgba(255,255,255,.6);letter-spacing:.5px;text-transform:uppercase;">
-      <span>${isEn?'Ticker':'代码'}</span>
-      <span>${isEn?'Status':'进度'}</span>
-      <span>${isEn?'Latest Announcement':'最新公告'}</span>
-      <span>${isEn?'Latest Date':'最新日期'}</span>
-      <span style="text-align:center;">${isEn?'Filings':'公告数'}</span>
-      <span></span>
-    </div>
-
-    <!-- 数据行 -->
-    <div id="spinoffList" style="border:1px solid #e5e0d8;border-top:none;border-radius:0 0 8px 8px;overflow:hidden;">`;
+    <!-- 数据列表 -->
+    <div id="soList" style="border:1px solid var(--border);border-radius:0 0 10px 10px;overflow:hidden;margin-top:-20px;">`;
 
     companies.forEach((c, idx) => {
       const ann  = c.announcements || [];
-      const prog = progressOf(ann);
+      const prog = _soProgress(ann, isEn);
       const latest = ann[0] || {};
-      const latestTitle = (latest.title||'').slice(0,55) + ((latest.title||'').length>55?'…':'');
+      const sub  = c.spinTarget || _soExtractSpinSub(c);
+      const cleanLatest = _soCleanTitle(latest.title||'');
+      const isEven = idx % 2 === 0;
 
-      // 进度条（小）
-      const progressBar = `
-        <div style="display:flex;align-items:center;gap:5px;">
-          <div style="width:60px;height:5px;background:#e5e7eb;border-radius:3px;overflow:hidden;flex-shrink:0;">
-            <div style="width:${prog.pct}%;height:100%;background:${prog.color};border-radius:3px;transition:width .3s;"></div>
+      // 进度进度条
+      const bar = `
+        <div style="display:flex;align-items:center;gap:5px;flex-wrap:nowrap;">
+          <div style="width:48px;height:4px;background:#e5e7eb;border-radius:2px;overflow:hidden;flex-shrink:0;">
+            <div style="width:${prog.pct}%;height:100%;background:${prog.color};border-radius:2px;"></div>
           </div>
-          <span style="font-size:.67rem;color:${prog.color};font-weight:600;white-space:nowrap;">${prog.label}</span>
+          <span style="font-size:.68rem;color:${prog.color};font-weight:600;white-space:nowrap;
+                       background:${prog.bg};padding:1px 6px;border-radius:10px;">
+            ${prog.label}
+          </span>
         </div>`;
 
-      // 公告数 dots
-      const dotCount = Math.min(ann.length, 12);
-      const dots = Array.from({length:dotCount}, (_,i)=>`
-        <div style="width:6px;height:6px;border-radius:50%;background:${prog.color};opacity:${1-i*0.06};flex-shrink:0;"></div>`
-      ).join('');
-
       html += `
-      <!-- 主行 -->
-      <div onclick="spinoffToggle(${idx})" style="
-            display:grid;grid-template-columns:110px 100px 1fr 110px 80px 60px;gap:8px;
-            padding:10px 14px;cursor:pointer;
-            background:${idx%2===0?'#fff':'#faf9f7'};
-            border-bottom:1px solid #f0ece4;
-            transition:background .12s;align-items:center;"
-           onmouseover="this.style.background='#f5f0e8'"
-           onmouseout="this.style.background='${idx%2===0?'#fff':'#faf9f7'}'">
-        <!-- ticker + name -->
-        <div>
-          <div style="font-weight:700;font-size:.82rem;color:var(--navy);">${fmtTicker(c.ticker)}</div>
-          <div style="font-size:.68rem;color:var(--text-lighter);margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${c.stockName}</div>
+      <!-- row ${idx} -->
+      <div>
+        <div onclick="soToggle(${idx})" style="
+              display:grid;grid-template-columns:126px 130px 1fr 96px 44px;
+              gap:0;padding:10px 14px;
+              background:${isEven?'#fff':'#faf9f7'};
+              border-bottom:1px solid var(--border-light);
+              cursor:pointer;align-items:center;
+              transition:background .1s;"
+             onmouseover="this.style.background='#f5f0e6'"
+             onmouseout="this.style.background='${isEven?'#fff':'#faf9f7'}'">
+          <!-- 公司 -->
+          <div>
+            <div style="font-weight:700;font-size:.82rem;color:var(--navy);letter-spacing:.3px;">${fmtTicker(c.ticker)}</div>
+            <div style="font-size:.68rem;color:var(--text-lighter);margin-top:1px;
+                        white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:118px;"
+                 title="${c.stockName}">${c.stockName}</div>
+            ${sub?`<div style="font-size:.62rem;color:var(--gold);margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:118px;" title="${sub}">↳ ${sub}</div>`:''}
+          </div>
+          <!-- 进度 -->
+          <div>${bar}</div>
+          <!-- 最新公告 -->
+          <div style="padding:0 10px;overflow:hidden;">
+            ${latest.docUrl
+              ? `<a href="${latest.docUrl}" target="_blank" rel="noopener"
+                    onclick="event.stopPropagation()"
+                    style="font-size:.78rem;color:var(--navy);text-decoration:none;
+                           display:block;line-height:1.4;
+                           white-space:nowrap;overflow:hidden;text-overflow:ellipsis;"
+                    title="${cleanLatest}">${cleanLatest.slice(0,62)}${cleanLatest.length>62?'…':''}</a>`
+              : `<span style="font-size:.78rem;color:var(--text);">${cleanLatest.slice(0,62)}</span>`}
+            ${ann.length>1?`<div style="font-size:.62rem;color:var(--text-lighter);margin-top:2px;">
+              共 ${ann.length} 条公告 · 首次 ${c.firstDate}
+            </div>`:''}
+          </div>
+          <!-- 日期 -->
+          <div style="font-size:.72rem;color:var(--text-light);text-align:right;white-space:nowrap;">${c.latestDate}</div>
+          <!-- 展开箭头 -->
+          <div id="so-arr-${idx}" style="text-align:center;font-size:.72rem;color:var(--gold);
+               transition:transform .2s;">▶</div>
         </div>
-        <!-- 进度 -->
-        <div>${progressBar}</div>
-        <!-- 最新标题 -->
-        <div style="font-size:.78rem;color:var(--text);line-height:1.4;overflow:hidden;">
-          ${latest.docUrl
-            ? `<a href="${latest.docUrl}" target="_blank" rel="noopener"
-                  onclick="event.stopPropagation()"
-                  style="color:var(--navy);text-decoration:none;"
-                  title="${(latest.title||'')}">
-                  ${latestTitle}
-               </a>`
-            : latestTitle}
-        </div>
-        <!-- 最新日期 -->
-        <div style="font-size:.75rem;color:var(--text-light);white-space:nowrap;">${c.latestDate}</div>
-        <!-- 公告数 dots -->
-        <div style="display:flex;flex-wrap:wrap;gap:2px;align-items:center;">
-          ${dots}
-          ${ann.length>12?`<span style="font-size:.6rem;color:var(--text-lighter);">+${ann.length-12}</span>`:''}
-        </div>
-        <!-- 展开箭头 -->
-        <div style="text-align:center;font-size:.7rem;color:var(--gold);" id="so-arrow-${idx}">▶</div>
-      </div>
 
-      <!-- 展开的时间线 -->
-      <div id="so-body-${idx}" style="display:none;background:#f8f6f0;border-bottom:1px solid #e5e0d8;">
-        <div style="padding:6px 14px 4px;font-size:.7rem;color:var(--text-lighter);">
-          ${c.summary||''}
-        </div>
-        <!-- 时间线 -->
-        <div style="padding:0 14px 12px;position:relative;">
-          <!-- 竖线 -->
-          <div style="position:absolute;left:29px;top:0;bottom:12px;width:2px;background:linear-gradient(180deg,${prog.color}88,${prog.color}22);"></div>
-          ${ann.map((a,ai)=>`
-          <div style="display:flex;gap:10px;align-items:flex-start;padding:5px 0 5px 0;position:relative;">
-            <!-- 时间轴圆点 -->
-            <div style="width:10px;height:10px;border-radius:50%;background:${ai===0?prog.color:'#d1d5db'};
-                        border:2px solid ${ai===0?prog.color:'#e5e7eb'};
-                        flex-shrink:0;margin-top:3px;position:relative;z-index:1;
-                        box-shadow:${ai===0?`0 0 0 3px ${prog.color}22`:''};"></div>
-            <!-- 内容 -->
-            <div style="flex:1;display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
-              <span style="font-size:.68rem;color:var(--text-lighter);white-space:nowrap;min-width:82px;font-variant-numeric:tabular-nums;">${a.date}</span>
-              <a href="${a.docUrl}" target="_blank" rel="noopener"
-                 style="font-size:.78rem;color:var(--navy);text-decoration:none;flex:1;line-height:1.45;"
-                 title="${a.title}">${a.title.slice(0,80)}${a.title.length>80?'…':''}</a>
-              <a href="${a.docUrl}" target="_blank" rel="noopener" onclick="event.stopPropagation()"
-                 style="font-size:.65rem;padding:2px 8px;border:1px solid var(--gold);color:var(--gold);border-radius:4px;white-space:nowrap;text-decoration:none;flex-shrink:0;">PDF↗</a>
-            </div>
-          </div>`).join('')}
+        <!-- 时间线展开区 -->
+        <div id="so-body-${idx}" style="display:none;background:#f8f6f0;border-bottom:1px solid var(--border);">
+          ${sub?`<div style="padding:8px 14px 4px;font-size:.72rem;color:var(--text-light);">
+            <span style="color:var(--gold);font-weight:600;">分拆标的：</span>${sub}
+            &nbsp;&nbsp;
+            <span style="color:var(--text-lighter);">${c.summary||''}</span>
+          </div>`:`<div style="padding:6px 14px 2px;font-size:.7rem;color:var(--text-lighter);">${c.summary||''}</div>`}
+
+          <!-- 进度条（完整版） -->
+          <div style="margin:6px 14px 0;background:#e5e7eb;border-radius:4px;height:6px;overflow:hidden;">
+            <div style="width:${prog.pct}%;height:100%;background:linear-gradient(90deg,${prog.color}99,${prog.color});border-radius:4px;transition:width .5s;"></div>
+          </div>
+
+          <!-- 时间线 -->
+          <div style="padding:10px 14px 14px;position:relative;">
+            <div style="position:absolute;left:21px;top:10px;bottom:14px;width:2px;
+                        background:linear-gradient(180deg,${prog.color}80 0%,${prog.color}15 100%);"></div>
+            ${ann.map((a,ai)=>{
+              const ct = _soCleanTitle(a.title);
+              const isLatest = ai===0;
+              return `
+              <div style="display:grid;grid-template-columns:14px 88px 1fr auto;
+                           gap:8px;align-items:flex-start;padding:5px 0;position:relative;z-index:1;">
+                <!-- 圆点 -->
+                <div style="width:10px;height:10px;border-radius:50%;margin-top:3px;flex-shrink:0;
+                             background:${isLatest?prog.color:'#d1d5db'};
+                             border:2px solid ${isLatest?prog.color:'#e5e7eb'};
+                             ${isLatest?'box-shadow:0 0 0 3px '+prog.color+'28;':''}"></div>
+                <!-- 日期 -->
+                <span style="font-size:.68rem;color:${isLatest?prog.color:'var(--text-lighter)'};
+                              font-variant-numeric:tabular-nums;white-space:nowrap;
+                              font-weight:${isLatest?'600':'400'};padding-top:2px;">${a.date}</span>
+                <!-- 标题 -->
+                <a href="${a.docUrl}" target="_blank" rel="noopener"
+                   onclick="event.stopPropagation()"
+                   style="font-size:.78rem;line-height:1.45;text-decoration:none;
+                          color:${isLatest?'var(--navy)':'var(--text-light)'};
+                          font-weight:${isLatest?'500':'400'};"
+                   title="${ct}">${ct.slice(0,85)}${ct.length>85?'…':''}</a>
+                <!-- PDF按钮 -->
+                <a href="${a.docUrl}" target="_blank" rel="noopener" onclick="event.stopPropagation()"
+                   style="font-size:.63rem;padding:2px 7px;flex-shrink:0;
+                          border:1px solid ${isLatest?'var(--gold)':'#d1d5db'};
+                          color:${isLatest?'var(--gold)':'var(--text-lighter)'};
+                          border-radius:4px;text-decoration:none;white-space:nowrap;
+                          transition:all .15s;"
+                   onmouseover="this.style.borderColor='var(--gold)';this.style.color='var(--gold)'"
+                   onmouseout="this.style.borderColor='${isLatest?'var(--gold)':'#d1d5db'}';this.style.color='${isLatest?'var(--gold)':'var(--text-lighter)'}'">
+                   PDF ↗</a>
+              </div>`;
+            }).join('')}
+          </div>
         </div>
       </div>`;
     });
 
     html += `</div>
-    <div style="font-size:.66rem;color:var(--text-lighter);margin-top:12px;padding:6px 12px;background:#f8f6f0;border-radius:6px;line-height:1.7;">
-      📋 ${isEn
-        ? 'Source: HKEXnews · Keywords: 分拆 / spin-off / demerger · Auto-updated daily · Stocks &lt; HK$0.5 excluded'
-        : '数据来源：港交所新闻 · 关键词：分拆 / spin-off / demerger · 每日自动更新 · 现价低于 HK$0.5 已过滤'}
+    <div style="font-size:.65rem;color:var(--text-lighter);margin-top:12px;padding:6px 12px;
+                background:#f8f6f0;border-radius:6px;line-height:1.7;display:flex;justify-content:space-between;flex-wrap:wrap;gap:4px;">
+      <span>📋 ${isEn
+        ? 'Source: HKEXnews · Keywords: 分拆 / spin-off / demerger · Stocks &lt; HK$0.5 excluded'
+        : '数据来源：港交所新闻 · 关键词：分拆/spin-off/demerger · 现价低于HK$0.5已过滤'}</span>
+      <span>${isEn?'Auto-updated daily via GitHub Actions':'每日通过 GitHub Actions 自动更新'}</span>
     </div>`;
 
     el.innerHTML = html;
     _spinoffCache = el.innerHTML;
 
   } catch(e) {
-    el.innerHTML = `<p style="padding:16px;color:var(--text-lighter);">${lang==='en'?'Spin-off data unavailable':'分拆数据加载失败，请刷新'}</p>`;
+    console.error('spinoff error:', e);
+    el.innerHTML = `<div style="padding:24px;text-align:center;color:var(--text-lighter);">
+      ${lang==='en'?'Spin-off data unavailable. Try refreshing.':'分拆数据加载失败，请刷新页面。'}
+    </div>`;
   }
 }
 
-function spinoffToggle(idx) {
+function soToggle(idx) {
   const body  = document.getElementById('so-body-' + idx);
-  const arrow = document.getElementById('so-arrow-' + idx);
+  const arrow = document.getElementById('so-arr-'  + idx);
   if (!body) return;
   const open = body.style.display !== 'none';
   body.style.display = open ? 'none' : 'block';
-  if (arrow) arrow.textContent = open ? '▶' : '▼';
+  if (arrow) {
+    arrow.textContent  = open ? '▶' : '▼';
+    arrow.style.color  = open ? 'var(--gold)' : 'var(--navy)';
+  }
 }
+
+// 兼容旧调用
+function spinoffToggle(idx) { soToggle(idx); }
 
 
