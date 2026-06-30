@@ -14,6 +14,7 @@ const T = {
   tabChanges: ['季度变化','QoQ Changes'],
   tabHistory: ['历史趋势','History'],
   tabHomework: ['📋 价值筛选','📋 Value Picks'],
+  tabSpinoff:  ['🔀 分拆研究','🔀 Spin-offs'],
   selLabel: ['切换投资者：','Investor:'],
   tabTimeline: ['⏳ 时间轴','⏳ Timeline'],
   // Table headers
@@ -357,14 +358,32 @@ async function switchInvestor(v) {
     else if (investor === 'buffett') { f = 'buffett.json'; pf = 'prices_buffett.json'; }
     else if (investor === 'akre') { f = 'akre.json'; pf = 'prices_akre.json'; }
     else { f = 'greenberg.json'; pf = 'prices_greenberg.json'; }
-    var r = await fetch(f + '?t=' + Date.now()); data = await r.json();
+    var r = await fetch(f + '?t=' + Date.now());
+    if (!r.ok) throw new Error(f + ' HTTP ' + r.status);
+    var newData = await r.json();
+    if (!newData || !newData.current) throw new Error(f + ' invalid');
+    data = newData;
     await loadPrices(pf);
     renderAll(); renderHoldings(); renderHistoryChart(); renderTimeline();
     updateInvestorContent();
   renderTimeline();
-  } catch(e) { console.log('Switch:', e); }
+  } catch(e) { 
+    console.warn('switchInvestor error:', e);
+    // Show non-blocking toast instead of white screen
+    const toast = document.createElement('div');
+    toast.style.cssText = 'position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#dc2626;color:#fff;padding:10px 20px;border-radius:8px;font-size:.85rem;z-index:9999;';
+    toast.textContent = '数据加载失败，请稍后重试';
+    document.body.appendChild(toast);
+    setTimeout(() => toast.remove(), 3000);
+  }
 }
-function cn(name) { return lang==='zh' ? (T.cnName[name] || name) : name; }
+function cn(name, h) {
+  if (lang==='zh') {
+    if (h && h.cnName) return h.cnName;
+    return T.cnName[name] || name;
+  }
+  return name;
+}
 function ts(s) {
   const sm = {'科技':'secTech','互联网':'secInternet','电商':'secEcom','金融':'secFinance',
     '综合金融':'secConglomerate','消费':'secConsumer','能源':'secEnergy','娱乐':'secEntertain',
@@ -661,7 +680,7 @@ function renderHKHoldings() {
     html += `<div style="padding:16px;border:1px solid var(--border-light);border-radius:8px;margin-bottom:12px;background:var(--bg);">
       <div style="display:flex;align-items:center;gap:12px;margin-bottom:8px;">
         <span style="font-weight:700;color:var(--navy);font-size:1rem;">${h.ticker}</span>
-        <span style="font-size:.88rem;color:var(--text);">${cn(h.name)}</span>
+        <span style="font-size:.88rem;color:var(--text);">${cn(h.name, h)}</span>
         <span class="tag">${h.sector}</span>
         ${qualityTag}
         ${statusTag}
@@ -744,10 +763,10 @@ function renderHoldings() {
       // Margin of Safety calculation
       const mos = ((rc.buy - currentPrice) / rc.buy * 100);
       if (mos >= 20) {
-        mosItems.push({ ticker: h.ticker, name: h.name, mos: mos.toFixed(1), cost: rc.buy, price: currentPrice });
+        mosItems.push({ ticker: h.ticker, name: h.name, cnName: h.cnName||'', mos: mos.toFixed(1), cost: rc.buy, price: currentPrice });
         mosHtml = `<span title="${t('mosBadge')}: ${mos.toFixed(1)}%" style="display:inline-flex;align-items:center;gap:3px;padding:2px 6px;background:rgba(16,185,129,0.12);border:1px solid rgba(16,185,129,0.3);border-radius:4px;font-size:.65rem;color:#059669;font-weight:600;white-space:nowrap;animation:mosPulse 2s ease-in-out infinite;">🟢${mos.toFixed(0)}%</span>`;
       } else if (mos >= 10) {
-        mosItems.push({ ticker: h.ticker, name: h.name, mos: mos.toFixed(1), cost: rc.buy, price: currentPrice });
+        mosItems.push({ ticker: h.ticker, name: h.name, cnName: h.cnName||'', mos: mos.toFixed(1), cost: rc.buy, price: currentPrice });
         mosHtml = `<span title="${t('mosWatch')}: ${mos.toFixed(1)}%" style="display:inline-flex;align-items:center;gap:3px;padding:2px 6px;background:rgba(245,158,11,0.1);border:1px solid rgba(245,158,11,0.25);border-radius:4px;font-size:.65rem;color:#d97706;font-weight:600;white-space:nowrap;">⚡${mos.toFixed(0)}%</span>`;
       }
       
@@ -780,7 +799,7 @@ function renderHoldings() {
     }
     const mosCellHtml = `<div style="display:flex;flex-direction:column;align-items:center;gap:2px;">${mosHtml || '<span style="color:var(--text-lighter);font-size:.7rem;">--</span>'}${chgTag}</div>`;
     
-    return `<tr><td class="idx-cell"><span class="idx-num">${i+1}</span></td><td class="stock-cell"><span class="ticker-line">${fmtTicker(h.ticker)}</span><span class="name-line">${cn(h.name)}</span><span class="sector-badge">${ts(h.sector)}</span></td><td class="shares-value-cell"><div style="font-weight:600">${fmtNum(h.shares)}</div><div style="font-size:.68rem;color:var(--text-lighter);margin-top:2px;">$${h.value.toLocaleString()}</div></td><td class="price-cell">${priceHtml}</td><td class="cost-cell">${costHtml}</td><td style="width:100px;"><div class="bar-wrap"><div class="bar-fill" style="width:${pct*3.5}%"></div><span style="font-size:.7rem;font-weight:600;color:var(--navy);margin-left:6px;">${pct}%</span></div></td><td style="width:80px;text-align:center;">${mosCellHtml}</td></tr>`;
+    return `<tr><td class="idx-cell"><span class="idx-num">${i+1}</span></td><td class="stock-cell"><span class="ticker-line">${fmtTicker(h.ticker)}</span><span class="name-line">${cn(h.name, h)}</span><span class="sector-badge">${ts(h.sector)}</span></td><td class="shares-value-cell"><div style="font-weight:600">${fmtNum(h.shares)}</div><div style="font-size:.68rem;color:var(--text-lighter);margin-top:2px;">$${h.value.toLocaleString()}</div></td><td class="price-cell">${priceHtml}</td><td class="cost-cell">${costHtml}</td><td style="width:100px;"><div class="bar-wrap"><div class="bar-fill" style="width:${pct*3.5}%"></div><span style="font-size:.7rem;font-weight:600;color:var(--navy);margin-left:6px;">${pct}%</span></div></td><td style="width:80px;text-align:center;">${mosCellHtml}</td></tr>`;
   }).join('');
   
   // Legend for tags
@@ -801,7 +820,7 @@ function renderHoldings() {
   let mosSummaryHtml = '';
   if (greenItems.length > 0) {
     const listHtml = greenItems.map(m => 
-      `<span style="display:inline-flex;align-items:center;gap:4px;padding:4px 10px;background:rgba(16,185,129,0.08);border:1px solid rgba(16,185,129,0.2);border-radius:6px;font-size:.8rem;"><span style="font-weight:600;color:#059669;">${m.ticker}</span><span style="color:#6b7280;font-size:.7rem;">安全边际 ${m.mos}%</span><span style="color:#9ca3af;font-size:.65rem;">成本 ${currSymbol(m.ticker)}${m.cost} → 现价 ${currSymbol(m.ticker)}${m.price}</span></span>`
+      `<span style="display:inline-flex;align-items:center;gap:4px;padding:4px 10px;background:rgba(16,185,129,0.08);border:1px solid rgba(16,185,129,0.2);border-radius:6px;font-size:.8rem;"><span style="font-weight:600;color:#059669;">${m.ticker}</span><span style="color:#4b5563;font-size:.68rem;">${cn(m.name,m)}</span><span style="color:#6b7280;font-size:.7rem;">MOS ${m.mos}%</span><span style="color:#9ca3af;font-size:.65rem;">${currSymbol(m.ticker)}${m.cost} → ${currSymbol(m.ticker)}${m.price}</span></span>`
     ).join('');
     mosSummaryHtml = `<div style="padding:16px;background:linear-gradient(135deg,rgba(16,185,129,0.06),rgba(16,185,129,0.02));border:1px solid rgba(16,185,129,0.2);border-radius:10px;margin-bottom:16px;">
       <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;">
@@ -814,7 +833,7 @@ function renderHoldings() {
     </div>`;
   } else if (watchItems.length > 0) {
     const listHtml = watchItems.map(m => 
-      `<span style="display:inline-flex;align-items:center;gap:4px;padding:4px 10px;background:rgba(245,158,11,0.06);border:1px solid rgba(245,158,11,0.15);border-radius:6px;font-size:.8rem;"><span style="font-weight:600;color:#d97706;">${m.ticker}</span><span style="color:#6b7280;font-size:.7rem;">安全边际 ${m.mos}%</span></span>`
+      `<span style="display:inline-flex;align-items:center;gap:4px;padding:4px 10px;background:rgba(245,158,11,0.06);border:1px solid rgba(245,158,11,0.15);border-radius:6px;font-size:.8rem;"><span style="font-weight:600;color:#d97706;">${m.ticker}</span><span style="color:#4b5563;font-size:.68rem;">${cn(m.name,m)}</span><span style="color:#6b7280;font-size:.7rem;">MOS ${m.mos}%</span></span>`
     ).join('');
     mosSummaryHtml = `<div style="padding:14px;background:rgba(245,158,11,0.04);border:1px solid rgba(245,158,11,0.15);border-radius:10px;margin-bottom:16px;">
       <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
@@ -870,7 +889,7 @@ function renderChanges() {
     const sc=h.prevShares===0?'qoq-new':(sd>0?'qoq-up':(sd<0?'qoq-down':'qoq-flat'));
     const vc=h.prevValue===0?'qoq-new':(vd>0?'qoq-up':(vd<0?'qoq-down':'qoq-flat'));
     const ss=sd>0?'+':'', vs=vd>0?'+':'';
-    return `<tr><td class="stock-cell"><span class="ticker-line">${fmtTicker(h.ticker)}</span><span class="name-line">${cn(h.name)}</span><span class="sector-badge">${ts(h.sector)}</span></td><td>${h.prevShares===0?'-':fmtNum(h.prevShares)}</td><td>${fmtNum(h.shares)}</td><td>${fmtShareChg(h.shares,h.prevShares)}</td><td>${h.prevValue===0?'-':'$'+fmtVal(h.prevValue)}</td><td>$${fmtVal(h.value)}</td><td class="${vc}">${h.prevValue===0?'新进':`${vs}$${fmtVal(Math.abs(vd))} (${fmtPct(h.value,h.prevValue)})`}</td></tr>`;
+    return `<tr><td class="stock-cell"><span class="ticker-line">${fmtTicker(h.ticker)}</span><span class="name-line">${cn(h.name, h)}</span><span class="sector-badge">${ts(h.sector)}</span></td><td>${h.prevShares===0?'-':fmtNum(h.prevShares)}</td><td>${fmtNum(h.shares)}</td><td>${fmtShareChg(h.shares,h.prevShares)}</td><td>${h.prevValue===0?'-':'$'+fmtVal(h.prevValue)}</td><td>$${fmtVal(h.value)}</td><td class="${vc}">${h.prevValue===0?'新进':`${vs}$${fmtVal(Math.abs(vd))} (${fmtPct(h.value,h.prevValue)})`}</td></tr>`;
   }).join('');
 }
 
@@ -879,9 +898,9 @@ function renderInsights() {
   const np = d.holdings.filter(h=>!h.prevShares);
   if (np.length) ins.push(`${t('insNew')} ${np.length} ${t('insNew2')} ${np.map(h=>h.ticker).join('、')}, ${t('insExpand')}。`);
   const bs = d.holdings.filter(h=>h.prevShares&&h.shares<h.prevShares*0.5);
-  bs.forEach(h=>{ const p=((h.prevShares-h.shares)/h.prevShares*100).toFixed(0); ins.push(`${h.ticker}(${cn(h.name)})${t('insSell')} ${p}%, ${t('insSell2')} ${fmtNum(h.prevShares-h.shares)} ${t('insSell3')}。`); });
+  bs.forEach(h=>{ const p=((h.prevShares-h.shares)/h.prevShares*100).toFixed(0); ins.push(`${h.ticker}(${cn(h.name, h)})${t('insSell')} ${p}%, ${t('insSell2')} ${fmtNum(h.prevShares-h.shares)} ${t('insSell3')}。`); });
   const inc = d.holdings.filter(h=>h.prevShares&&h.shares>h.prevShares*1.1);
-  inc.forEach(h=>{ const p=((h.shares-h.prevShares)/h.prevShares*100).toFixed(0); ins.push(`${h.ticker}(${cn(h.name)})${t('insBuy')} ${p}%, ${t('insBuy2')} ${fmtNum(h.shares-h.prevShares)} ${t('insBuy3')}。`); });
+  inc.forEach(h=>{ const p=((h.shares-h.prevShares)/h.prevShares*100).toFixed(0); ins.push(`${h.ticker}(${cn(h.name, h)})${t('insBuy')} ${p}%, ${t('insBuy2')} ${fmtNum(h.shares-h.prevShares)} ${t('insBuy3')}。`); });
   const unch = d.holdings.filter(h=>h.prevShares&&h.shares===h.prevShares);
   if (unch.length) ins.push(`${unch.map(h=>h.ticker).join('、')} ${t('insUnchanged')}。`);
   const t3p = (d.holdings.slice(0,3).reduce((s,h)=>s+h.value,0)/d.totalValue*100).toFixed(0);
@@ -948,7 +967,7 @@ async function renderTimeline() {
   for (const q of quarters) {
     for (const h of hdata[q]) {
       const tk = h.ticker;
-      if (!tickerInfo[tk]) tickerInfo[tk] = {first: q, last: q, quarters: [], sector: h.sector, name: h.name, maxShares: 0, curShares: 0};
+      if (!tickerInfo[tk]) tickerInfo[tk] = {first: q, last: q, quarters: [], sector: h.sector, name: h.name, cnName: h.cnName||'', maxShares: 0, curShares: 0};
       else tickerInfo[tk].last = q;
       tickerInfo[tk].quarters.push(q);
       if (h.shares > tickerInfo[tk].maxShares) tickerInfo[tk].maxShares = h.shares;
@@ -992,7 +1011,7 @@ async function renderTimeline() {
       status = '<span style="color:var(--text-lighter);">○ 已清仓</span>';
     }
     html += `<tr>
-      <td class="stock-cell"><span class="ticker-line">${fmtTicker(e.ticker)}</span><span class="name-line">${cn(e.name)}</span><span class="sector-badge">${ts(e.sector)}</span></td>
+      <td class="stock-cell"><span class="ticker-line">${fmtTicker(e.ticker)}</span><span class="name-line">${cn(e.name, e)}</span><span class="sector-badge">${ts(e.sector)}</span></td>
       <td>${e.first}</td>
       <td>${e.last}</td>
       <td>${e.qCount}</td>
@@ -1027,7 +1046,7 @@ async function renderHKHoldings() {
         return `
         <tr>
           <td>${fmtTicker(h.ticker)}</td>
-          <td>${cn(h.name)}</td>
+          <td>${cn(h.name, h)}</td>
           <td><span class="tag">${h.sector}</span></td>
           <td style="font-size:.75rem;">${h.entity}</td>
           <td>${h.first_disclosure}</td>
@@ -1046,14 +1065,15 @@ async function renderHKHoldings() {
 }
 
 function switchTab(name) {
-  ['current','changes','history','homework'].forEach(t=>{
+  ['current','changes','history','homework','spinoff'].forEach(t=>{
     document.getElementById('tab-'+t).classList.toggle('d-none',t!==name);
   });
   document.querySelectorAll('.tab-btn').forEach((b,i)=>{
-    b.classList.toggle('active',['current','changes','history','homework'][i]===name);
+    b.classList.toggle('active',['current','changes','history','homework','spinoff'][i]===name);
   });
   if (name==='history') { renderHistoryChart(); renderTimeline(); }
   if (name==='homework') { renderHomework(); }
+  if (name==='spinoff') { renderSpinoff(); }
 }
 
 let _homeworkCache = null;
@@ -1133,7 +1153,7 @@ async function renderHomework() {
           }
         } else {
           candidates.push({
-            ticker: tk, name: h.name, sector: h.sector,
+            ticker: tk, name: h.name, cnName: h.cnName||'', sector: h.sector,
             mos: round1(mos), price, buy,
             atAvg: c.allTime?.avg || null,
             investors: [invEntry],
@@ -1213,7 +1233,7 @@ async function renderHomework() {
       <td class="idx-cell"><span class="idx-num">${i+1}</span></td>
       <td class="stock-cell">
         <span class="ticker-line">${fmtTicker(c.ticker)}</span>
-        <span class="name-line">${cn(c.name)}</span>
+        <span class="name-line">${cn(c.name, c)}</span>
         <span class="sector-badge">${ts(c.sector)}</span>
         ${rowChgTag}
         <div class="hw-inv-mobile" style="display:none;">${invMobileHtml}</div>
@@ -1254,6 +1274,92 @@ async function renderHomework() {
   `;
   _homeworkCache = el.innerHTML;
 }
+
+// ========== Spin-off Tab ==========
+let _spinoffCache = null;
+async function renderSpinoff() {
+  const el = document.getElementById('spinoffContent');
+  if (!el) return;
+  if (_spinoffCache) { el.innerHTML = _spinoffCache; return; }
+
+  el.innerHTML = '<p style="padding:16px;color:var(--text-lighter);">加载中…</p>';
+  const isEn = lang === 'en';
+
+  try {
+    const resp = await fetch('spinoff.json?t=' + Date.now());
+    const data = await resp.json();
+    const items = data.items || [];
+
+    if (items.length === 0) {
+      el.innerHTML = `<div style="padding:24px;text-align:center;color:var(--text-lighter);">
+        <p style="font-size:1.1rem;">📭 ${isEn ? 'No spin-off announcements found' : '暂无分拆公告数据'}</p>
+        <p style="font-size:.8rem;margin-top:8px;">${isEn ? 'Data updated automatically via GitHub Actions' : '数据通过 GitHub Actions 自动更新（每日）'}</p>
+      </div>`;
+      _spinoffCache = el.innerHTML;
+      return;
+    }
+
+    // 按年份分组
+    const grouped = {};
+    items.forEach(item => {
+      const year = (item.date || '').slice(0,4) || '未知';
+      if (!grouped[year]) grouped[year] = [];
+      grouped[year].push(item);
+    });
+
+    const years = Object.keys(grouped).sort((a,b) => b.localeCompare(a));
+
+    let html = `
+      <div style="padding:0 0 8px;">
+        <p style="font-size:.8rem;color:var(--text-lighter);margin-bottom:16px;">
+          ${isEn
+            ? `📋 ${items.length} spin-off announcements from HKEX · ${data.dateFrom} ~ ${data.dateTo} · Updated: ${(data.updatedAt||'').slice(0,10)}`
+            : `📋 港交所分拆公告 ${items.length} 条 · ${data.dateFrom} ~ ${data.dateTo} · 更新时间: ${(data.updatedAt||'').slice(0,10)}`}
+        </p>`;
+
+    years.forEach(year => {
+      html += `<h4 style="font-family:var(--serif);color:var(--navy);margin:20px 0 10px;border-bottom:1px solid #e5e0d8;padding-bottom:6px;">${year} 年</h4>
+        <div style="overflow-x:auto;"><table style="width:100%;font-size:.82rem;border-collapse:collapse;">
+        <thead><tr style="background:#f8f6f0;">
+          <th style="padding:8px 10px;text-align:left;white-space:nowrap;">${isEn ? 'Code' : '代码'}</th>
+          <th style="padding:8px 10px;text-align:left;">${isEn ? 'Announcement Title' : '公告标题'}</th>
+          <th style="padding:8px 10px;text-align:left;white-space:nowrap;">${isEn ? 'Date' : '日期'}</th>
+          <th style="padding:8px 10px;text-align:left;">${isEn ? 'Doc' : '文件'}</th>
+        </tr></thead><tbody>`;
+
+      grouped[year].forEach((item, i) => {
+        const bg = i % 2 === 0 ? '#fff' : '#faf9f6';
+        const ticker = item.ticker || item.stockCode || '—';
+        html += `<tr style="background:${bg};border-bottom:1px solid #f0ece4;">
+          <td style="padding:8px 10px;white-space:nowrap;">${fmtTicker ? fmtTicker(ticker) : ticker}</td>
+          <td style="padding:8px 10px;line-height:1.5;max-width:480px;">${item.title||'—'}</td>
+          <td style="padding:8px 10px;white-space:nowrap;color:var(--text-light);">${item.date||'—'}</td>
+          <td style="padding:8px 10px;">
+            <a href="${item.docUrl}" target="_blank" style="color:var(--gold);text-decoration:none;font-size:.75rem;border:1px solid var(--gold);padding:2px 8px;border-radius:4px;">
+              ${isEn ? 'PDF ↗' : '查看 ↗'}
+            </a>
+          </td>
+        </tr>`;
+      });
+
+      html += `</tbody></table></div>`;
+    });
+
+    html += `</div>
+      <div style="font-size:.68rem;color:var(--text-lighter);margin-top:12px;padding:6px 12px;background:#f8f6f0;border-radius:6px;">
+        📋 ${isEn
+          ? 'Source: HKEX News Search (www1.hkexnews.hk). Keywords: 分拆 / spin-off / demerger. Auto-updated daily via GitHub Actions.'
+          : '数据来源：港交所新闻搜索平台（www1.hkexnews.hk）。关键词：分拆 / spin-off / demerger。每日通过 GitHub Actions 自动更新。'}
+      </div>`;
+
+    el.innerHTML = html;
+    _spinoffCache = el.innerHTML;
+
+  } catch(e) {
+    el.innerHTML = `<p style="padding:16px;color:var(--text-lighter);">${lang==='en' ? 'Spin-off data unavailable' : '分拆数据加载失败，请稍后刷新'}</p>`;
+  }
+}
+
 function round1(n) { return Math.round(n*10)/10; }
 
 function renderAll() {
@@ -1480,9 +1586,17 @@ function updateInvestorContent() {
 async function init() {
   try {
     const resp = await fetch('data.json?t=' + Date.now());
+    if (!resp.ok) throw new Error('HTTP ' + resp.status);
     data = await resp.json();
+    if (!data || !data.current) throw new Error('invalid data');
   } catch(e) {
-    document.body.innerHTML = '<div style="text-align:center;padding:100px;"><h2 style="color:#dc2626;">⚠ Data load failed</h2><p style="color:#6b7280;margin-top:12px;">data.json not found.</p></div>';
+    document.body.innerHTML = `<div style="text-align:center;padding:80px 20px;">
+      <div style="font-size:2rem;margin-bottom:16px;">⚠️</div>
+      <h2 style="color:#dc2626;font-family:serif;">数据加载失败</h2>
+      <p style="color:#6b7280;margin-top:12px;font-size:.9rem;">持仓数据暂时无法加载，可能正在更新中，请稍后刷新重试。</p>
+      <p style="color:#9ca3af;margin-top:6px;font-size:.8rem;">${e.message}</p>
+      <button onclick="location.reload()" style="margin-top:24px;padding:8px 20px;background:#1e3a5f;color:#fff;border:none;border-radius:6px;cursor:pointer;font-size:.9rem;">🔄 刷新重试</button>
+    </div>`;
     return;
   }
   document.addEventListener('click', e => {
@@ -1498,7 +1612,8 @@ async function init() {
   renderHKHoldings();
   renderInvestorBtns();
   document.getElementById('langBtn').textContent = lang === 'zh' ? 'EN' : '中';
-  _homeworkCache = null; // clear so homework tab re-renders in new language
+  _homeworkCache = null; // clear so tabs re-render in new language
+  _spinoffCache = null;
   document.querySelectorAll('[data-i18n]').forEach(el => {
     if (el.childElementCount === 0) el.textContent = t(el.dataset.i18n);
   });

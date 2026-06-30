@@ -24,74 +24,166 @@ jobs:
         run: pip install yfinance
 
       - name: Fetch Li Lu 13F from SEC EDGAR
+        continue-on-error: true
         run: python3 fetch_13f.py --full
 
       - name: Fetch Li Lu stock prices
+        continue-on-error: true
         env:
           FINNHUB_KEY: ${{ secrets.FINNHUB_KEY }}
         run: python3 fetch_prices.py
 
       - name: Fetch Pabrai 13F from SEC EDGAR
+        continue-on-error: true
         run: python3 fetch_13f_pabrai.py --full
 
       - name: Fetch Pabrai stock prices
+        continue-on-error: true
         env:
           FINNHUB_KEY: ${{ secrets.FINNHUB_KEY }}
         run: python3 fetch_pabrai_prices.py
 
       - name: Fetch Duan Yongping 13F from SEC EDGAR
+        continue-on-error: true
         run: python3 fetch_13f_duan.py --full
 
       - name: Fetch Duan Yongping stock prices
+        continue-on-error: true
         env:
           FINNHUB_KEY: ${{ secrets.FINNHUB_KEY }}
         run: python3 fetch_prices_duan.py
 
       - name: Fetch David Tepper 13F from SEC EDGAR
+        continue-on-error: true
         run: python3 fetch_13f_tepper.py --full
 
       - name: Fetch David Tepper stock prices
+        continue-on-error: true
         env:
           FINNHUB_KEY: ${{ secrets.FINNHUB_KEY }}
         run: python3 fetch_prices_tepper.py
 
       - name: Fetch Guy Spier 13F from SEC EDGAR
+        continue-on-error: true
         run: python3 fetch_13f_spier.py --full
 
       - name: Fetch Guy Spier stock prices
+        continue-on-error: true
         env:
           FINNHUB_KEY: ${{ secrets.FINNHUB_KEY }}
         run: python3 fetch_prices_spier.py
 
       - name: Fetch David Webb stock prices
+        continue-on-error: true
         env:
           FINNHUB_KEY: ${{ secrets.FINNHUB_KEY }}
         run: python3 fetch_prices_webb.py
 
+      - name: Fetch David Webb HK holdings (webbsite.0xmd.com)
+        continue-on-error: true
+        run: python3 fetch_webb_holdings.py
+
       - name: Fetch Buffett 13F from SEC EDGAR
+        continue-on-error: true
         run: python3 fetch_13f_buffett.py --full
 
       - name: Fetch Akre & Greenberg 13F from SEC EDGAR
+        continue-on-error: true
         run: python3 fetch_13f_akre_greenberg.py --full
 
       - name: Fetch Buffett stock prices
+        continue-on-error: true
         env:
           FINNHUB_KEY: ${{ secrets.FINNHUB_KEY }}
         run: python3 fetch_prices_buffett.py
 
       - name: Fetch Akre & Greenberg stock prices
+        continue-on-error: true
         env:
           FINNHUB_KEY: ${{ secrets.FINNHUB_KEY }}
         run: python3 fetch_prices_akre_greenberg.py
+
+      - name: Enrich metadata (cnName + sector)
+        continue-on-error: true
+        run: python3 enrich_metadata.py
+
+      - name: Monitor HK disclosure of interests (Duan Yongping)
+        continue-on-error: true
+        run: python3 monitor_hk_disclosures.py
+
+      - name: Fetch HK spin-off announcements
+        continue-on-error: true
+        run: python3 fetch_spinoff.py
+
+      - name: Validate JSON files before commit
+        run: |
+          python3 << 'EOF'
+          import json, sys, os
+          files = [
+            'data.json','prices.json','hk_holdings.json',
+            'pabrai_data.json','pabrai_prices.json',
+            'duan.json','prices_duan.json','duan_hk.json',
+            'tepper.json','prices_tepper.json','tepper_hk.json',
+            'spier.json','prices_spier.json','spier_hk.json',
+            'akre.json','prices_akre.json',
+            'greenberg.json','prices_greenberg.json',
+            'buffett.json','prices_buffett.json',
+            'webb.json','prices_webb.json',
+          ]
+          bad = []
+          for f in files:
+            if not os.path.exists(f):
+              print(f'MISSING: {f}')
+              bad.append(f)
+              continue
+            if os.path.getsize(f) == 0:
+              print(f'EMPTY: {f}')
+              bad.append(f)
+              continue
+            try:
+              json.load(open(f))
+              print(f'OK: {f}')
+            except Exception as e:
+              print(f'INVALID JSON: {f} - {e}')
+              bad.append(f)
+          if bad:
+            print(f'\n⚠️  {len(bad)} files have issues: {bad}')
+            print('These files will NOT be committed.')
+          else:
+            print('\n✅ All JSON files valid')
+          EOF
 
       - name: Commit and push if changed
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          if git diff --quiet data.json prices.json hk_holdings.json pabrai_data.json pabrai_prices.json duan.json prices_duan.json duan_hk.json tepper.json prices_tepper.json tepper_hk.json spier.json prices_spier.json spier_hk.json akre.json prices_akre.json greenberg.json prices_greenberg.json buffett.json prices_buffett.json webb.json prices_webb.json; then
-            echo "No changes"
+
+          # Only add files that exist and are valid JSON
+          VALID_FILES=""
+          for f in data.json prices.json hk_holdings.json pabrai_data.json pabrai_prices.json duan.json prices_duan.json duan_hk.json tepper.json prices_tepper.json tepper_hk.json spier.json prices_spier.json spier_hk.json akre.json prices_akre.json greenberg.json prices_greenberg.json buffett.json prices_buffett.json webb.json prices_webb.json; do
+            if [ -f "$f" ] && [ -s "$f" ] && python3 -c "import json; json.load(open('$f'))" 2>/dev/null; then
+              VALID_FILES="$VALID_FILES $f"
+            else
+              echo "Skipping invalid/missing file: $f"
+            fi
+          done
+
+          # Also add metadata cache and HK alerts if exists
+          for extra in metadata_cache.json alerts_hk_persons.json spinoff.json; do
+            if [ -f "$extra" ] && [ -s "$extra" ]; then
+              VALID_FILES="$VALID_FILES $extra"
+            fi
+          done
+
+          if [ -z "$VALID_FILES" ]; then
+            echo "No valid files to commit"
+            exit 0
+          fi
+
+          git add $VALID_FILES
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
           else
-            git add data.json prices.json hk_holdings.json pabrai_data.json pabrai_prices.json duan.json prices_duan.json duan_hk.json tepper.json prices_tepper.json tepper_hk.json spier.json prices_spier.json spier_hk.json akre.json prices_akre.json greenberg.json prices_greenberg.json buffett.json prices_buffett.json webb.json prices_webb.json
             git commit -m "auto: update 13F data & prices (all investors)"
             git push
             echo "Changes pushed!"

@@ -1,0 +1,249 @@
+#!/usr/bin/env python3
+"""
+enrich_metadata.py
+------------------
+Actions 跑完 13F 抓取后执行：
+1. 扫描所有持仓 JSON，找出缺少 cnName 的 ticker
+2. 用 yfinance 查 longName / sector
+3. 把 cnName、sector 写回各 JSON 文件
+4. 同时维护一个全局缓存 metadata_cache.json，避免重复请求
+"""
+
+import json, os, time, glob
+
+try:
+    import yfinance as yf
+except ImportError:
+    print("yfinance not installed, skipping enrich")
+    raise SystemExit(0)
+
+CACHE_FILE = "metadata_cache.json"
+
+# 行业映射：yfinance sector -> 中文标签
+SECTOR_MAP = {
+    "Technology": "科技",
+    "Communication Services": "传媒",
+    "Consumer Cyclical": "消费",
+    "Consumer Defensive": "消费",
+    "Financial Services": "金融",
+    "Healthcare": "医药",
+    "Industrials": "工业",
+    "Basic Materials": "材料",
+    "Energy": "能源",
+    "Real Estate": "地产",
+    "Utilities": "公用事业",
+    "Financial": "金融",
+    "Consumer Discretionary": "消费",
+    "Consumer Staples": "消费",
+    "Information Technology": "科技",
+    "Telecommunication Services": "传媒",
+    "Materials": "材料",
+}
+
+# 手动覆盖（yfinance 拿不到或分类不准的）
+MANUAL_CN_NAME = {
+    "BRK.B": "伯克希尔·哈撒韦B",
+    "BRK.A": "伯克希尔·哈撒韦A",
+    "BABA": "阿里巴巴",
+    "PDD": "拼多多",
+    "JD": "京东",
+    "BIDU": "百度",
+    "TME": "腾讯音乐",
+    "NIO": "蔚来",
+    "XPEV": "小鹏汽车",
+    "LI": "理想汽车",
+    "KWEB": "中概互联ETF",
+    "SPGI": "标普全球",
+    "HRB": "H&R Block",
+    "HCC": "冶金煤业",
+    "RIG": "越洋钻探",
+    "AMR": "阿尔法金属",
+    "SRG": "Seritage成长地产",
+    "RACE": "法拉利",
+    "GSHD": "Goosehead保险",
+    "CSGP": "CoStar集团",
+    "BLDR": "建筑商FirstSource",
+    "ORLY": "奥莱利汽车",
+    "MCO": "穆迪",
+    "KKR": "KKR集团",
+    "BN": "布鲁克菲尔德",
+    "MA": "万事达卡",
+    "V": "Visa",
+    "GOOGL": "谷歌A",
+    "GOOG": "谷歌C",
+    "MSFT": "微软",
+    "AAPL": "苹果",
+    "AMZN": "亚马逊",
+    "NVDA": "英伟达",
+    "META": "Meta",
+    "TSLA": "特斯拉",
+    "CROX": "卡骆驰",
+    "KHC": "卡夫亨氏",
+    "STZ": "星座品牌",
+    "CVX": "雪佛龙",
+    "OXY": "西方石油",
+    "BAC": "美国银行",
+    "AXP": "美国运通",
+    "KO": "可口可乐",
+    "MCK": "麦克森",
+    "DVA": "达维塔",
+    "CB": "丘博保险",
+    "DAL": "达美航空",
+    "ALLY": "Ally金融",
+    "LEN": "莱纳建筑",
+    "SLM": "萨利美",
+    "PRI": "Primerica",
+    "ICLR": "ICON临床",
+    "ELV": "信诺健康",
+    "MPLX": "MPLX管道",
+    "WHR": "惠而浦",
+    "MU": "美光科技",
+    "UBER": "优步",
+    "TSM": "台积电",
+    "LRCX": "拉姆研究",
+    "AMD": "超微半导体",
+    "QCOM": "高通",
+    "LYFT": "Lyft",
+    "ET": "能源传输",
+    "NRG": "NRG能源",
+    "GLW": "康宁",
+    "LHX": "L3哈里斯",
+    "RTX": "雷神技术",
+    "BALL": "鲍尔公司",
+    "UNH": "联合健康",
+    "EWBC": "华美银行",
+    "TEM": "Tempus AI",
+}
+
+MANUAL_SECTOR = {
+    "KWEB": "电商",
+    "PDD": "电商",
+    "BABA": "电商",
+    "JD": "电商",
+    "TME": "娱乐",
+    "BIDU": "科技",
+    "NIO": "科技",
+    "BRK.B": "金融",
+    "BRK.A": "金融",
+    "SRG": "地产",
+    "AMR": "能源",
+    "HCC": "能源",
+    "RIG": "能源",
+}
+
+def load_cache():
+    if os.path.exists(CACHE_FILE):
+        try:
+            return json.load(open(CACHE_FILE))
+        except:
+            pass
+    return {}
+
+def save_cache(cache):
+    with open(CACHE_FILE, 'w') as f:
+        json.dump(cache, f, ensure_ascii=False, indent=2)
+
+def fetch_yf_info(ticker, cache):
+    """查 yfinance，返回 (longName, sector_zh)，优先用缓存"""
+    if ticker in cache:
+        return cache[ticker].get('cnName',''), cache[ticker].get('sector','')
+
+    # 手动覆盖优先
+    cn = MANUAL_CN_NAME.get(ticker, '')
+    sec = MANUAL_SECTOR.get(ticker, '')
+
+    if not cn or not sec:
+        try:
+            yf_ticker = ticker.replace('BRK.B','BRK-B').replace('BRK.A','BRK-A')
+            info = yf.Ticker(yf_ticker).info
+            if not cn:
+                cn = info.get('longName','') or info.get('shortName','')
+            if not sec:
+                yf_sec = info.get('sector','')
+                sec = SECTOR_MAP.get(yf_sec, sec)
+            time.sleep(0.4)
+        except Exception as e:
+            print(f"    yfinance error {ticker}: {e}")
+            # 限流/失败时用 ticker 本身作为 fallback，避免前端显示空白
+            if not cn:
+                cn = ticker
+
+    cache[ticker] = {'cnName': cn, 'sector': sec}
+    return cn, sec
+
+def enrich_holdings(holdings, cache, changed_tickers):
+    """给 holdings 列表里缺失 cnName/sector 的条目补全"""
+    for h in holdings:
+        tk = h.get('ticker','')
+        if not tk or tk.startswith('?'):
+            continue
+
+        need_cn = not h.get('cnName','')
+        need_sec = not h.get('sector','') or h.get('sector') == '其他'
+
+        if need_cn or need_sec:
+            cn, sec = fetch_yf_info(tk, cache)
+            if need_cn and cn:
+                h['cnName'] = cn
+                changed_tickers.add(tk)
+                print(f"    {tk} cnName → {cn}")
+            if need_sec and sec:
+                h['sector'] = sec
+                changed_tickers.add(tk)
+                print(f"    {tk} sector → {sec}")
+
+def process_file(filepath, cache):
+    """处理单个数据 JSON 文件"""
+    try:
+        d = json.load(open(filepath))
+    except Exception as e:
+        print(f"  ⚠️  {filepath} load error: {e}")
+        return
+
+    changed = set()
+
+    # current holdings
+    cur = d.get('current', {}).get('holdings', [])
+    if cur:
+        enrich_holdings(cur, cache, changed)
+
+    # history holdings
+    hist = d.get('history', {})
+    # 支持两种结构：{quarter: [holdings]} 或 {holdings: {quarter: [holdings]}}
+    hist_qs = hist.get('holdings', hist) if isinstance(hist, dict) else {}
+    if isinstance(hist_qs, dict):
+        for q, hs in hist_qs.items():
+            if isinstance(hs, list):
+                enrich_holdings(hs, cache, changed)
+
+    if changed:
+        with open(filepath, 'w') as f:
+            json.dump(d, f, ensure_ascii=False, indent=2)
+        print(f"  ✅ {filepath} 更新了 {len(changed)} 个 ticker")
+    else:
+        print(f"  ⏭  {filepath} 无需更新")
+
+def main():
+    print("=== enrich_metadata.py 开始 ===")
+    cache = load_cache()
+    print(f"缓存已有 {len(cache)} 个 ticker")
+
+    data_files = [
+        'data.json', 'pabrai_data.json', 'duan.json', 'tepper.json',
+        'spier.json', 'akre.json', 'greenberg.json', 'buffett.json', 'webb.json',
+        'hk_holdings.json', 'duan_hk.json', 'tepper_hk.json', 'spier_hk.json',
+        'buffett_hk.json', 'akre_hk.json', 'greenberg_hk.json', 'pabrai_hk.json',
+    ]
+
+    for f in data_files:
+        if os.path.exists(f):
+            print(f"\n处理 {f}...")
+            process_file(f, cache)
+        else:
+            print(f"\n跳过 {f}（不存在）")
+
+    save_cache(cache)
+    print(f"\n=== 完成，缓存更新为 {len(cache)} 个 ticker ===")
+
+if __name__ == '__main__':
+    main()

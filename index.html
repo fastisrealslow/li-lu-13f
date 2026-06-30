@@ -290,6 +290,7 @@ th .info-wrap{position:relative;display:inline-flex}
       <button class="tab-btn" onclick="switchTab('changes')"><span data-i18n="tabChanges">季度变化</span><span style="display:none" data-i18n="tabChanges">季度变化</span></button>
       <button class="tab-btn" onclick="switchTab('history')"><span data-i18n="tabHistory">历史趋势</span><span style="display:none" data-i18n="tabHistory">历史趋势</span></button>
       <button class="tab-btn" onclick="switchTab('homework')" style="position:relative;"><span data-i18n="tabHomework">📋 价値筛选</span></button>
+      <button class="tab-btn" onclick="switchTab('spinoff')" style="position:relative;"><span data-i18n="tabSpinoff">🔀 分拆研究</span></button>
     </div>
     <div id="tab-current">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
@@ -309,6 +310,9 @@ th .info-wrap{position:relative;display:inline-flex}
     </div>
     <div id="tab-homework" class="d-none">
       <div id="homeworkContent"></div>
+    </div>
+    <div id="tab-spinoff" class="d-none">
+      <div id="spinoffContent"></div>
     </div>
     <div id="tab-history" class="d-none">
       <div class="chart-wrap"><canvas id="historyChart"></canvas></div>
