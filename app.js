@@ -1285,8 +1285,8 @@ function _soProgress(ann, isEn) {
   // 1. 终止（最高优先级）
   if (/終止|终止|撤回|撤销|withdraw|cancel/i.test(t))
     return {label:isEn?'✕ Cancelled':'✕ 已终止',  color:'#dc2626',bg:'#fee2e2',pct:0};
-  // 2. 真正上市（强信号：开始买卖 / 持续督导 / 行使超额）
-  if (/開始買賣|开始买卖|股份開始|股份开始|持續督導|持续督导|行使超額|行使超额/i.test(t))
+  // 2. 真正上市（强信号：开始买卖 / 持续督导 / 行使超额 / 生效日期）
+  if (/開始買賣|开始买卖|股份開始|股份开始|持續督導|持续督导|行使超額|行使超额|律師事務所關於.*上市.*核查|实物分派.*保证/i.test(t))
     return {label:isEn?'✅ Listed':'✅ 已上市',    color:'#059669',bg:'#d1fae5',pct:100};
   // 3. 招股书阶段
   if (/刊發招股|招股書|招股章程|招股说明|prospectus/i.test(t))
@@ -1300,6 +1300,9 @@ function _soProgress(ann, isEn) {
   // 6. 初步建议
   if (/建議|建议|擬議|拟议|propose|擬|拟/i.test(t))
     return {label:isEn?'💡 Proposed':'💡 建议中',  color:'#7c3aed',bg:'#ede9fe',pct:25};
+  // 生效/完成
+  if (/生效日期|生效|completion|effective|以實物分派|实物分派/i.test(t))
+    return {label:isEn?'✅ Completed':'✅ 已完成', color:'#059669',bg:'#d1fae5',pct:100};
   return   {label:isEn?'📢 Announced':'📢 已公告', color:'#6b7280',bg:'#f3f4f6',pct:15};
 }
 

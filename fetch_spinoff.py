@@ -254,6 +254,24 @@ def main():
     companies = merge_by_company(raw_items)
     print(f"合并后共 {len(companies)} 家公司")
 
+    # 剔除纯拆股（拆股/合股，无子公司上市）
+    def is_pure_split(c):
+        """剔除仅有股份拆分（非业务分拆）的公告"""
+        all_titles = " ".join(a.get("title","") for a in c.get("announcements",[]))
+        # 判断是否包含子公司/上市等关键词
+        has_spinoff_kw = re.search(r"建議分拆|建议分拆|擬議分拆|拟议分拆|獨立上市|独立上市|spin.?off|demerger", all_titles, re.I)
+        # 判断是否是纯股份分拆/拆股
+        is_share_split = re.search(r"股份分拆|股份分割|share.?split|免費換領股票|免费换领", all_titles, re.I)
+        # 如果只有拆股信号、没有子公司上市信号，则过滤
+        if is_share_split and not has_spinoff_kw:
+            return True
+        return False
+
+    before_filter = len(companies)
+    companies = [c for c in companies if not is_pure_split(c)]
+    if before_filter != len(companies):
+        print(f"  ⛔ 过滤纯拆股: {before_filter - len(companies)} 家")
+
     # 价格过滤
     print("\n价格过滤（排除 <0.5 HKD 仙股）...")
     companies = filter_low_price(companies)
