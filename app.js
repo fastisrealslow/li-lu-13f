@@ -1397,7 +1397,30 @@ async function renderSpinoff() {
           </div>`).join('')}
       </div>
 
-      <!-- 表头 -->
+      <!-- 搜索过滤 -->
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;flex-wrap:wrap;">
+      <input id="soSearch" type="text" placeholder="${isEn?'Search company / target…':'搜索公司/分拆标的…'}"
+             oninput="soFilter(this.value)"
+             style="flex:1;min-width:180px;max-width:320px;padding:6px 12px;font-size:.78rem;
+                    border:1px solid var(--border);border-radius:6px;color:var(--text);
+                    background:#fff;outline:none;transition:border-color .15s;"
+             onfocus="this.style.borderColor='var(--gold)'"
+             onblur="this.style.borderColor='var(--border)'" />
+      <div style="display:flex;gap:6px;flex-wrap:wrap;">
+        ${['all','progress','proposed','approved','listed','cancelled'].map(s=>`
+          <button onclick="soFilterStatus('${s}')"
+                  id="soBtn-${s}"
+                  style="font-size:.65rem;padding:2px 9px;border-radius:12px;cursor:pointer;
+                         border:1px solid ${s==='all'?'var(--navy)':'var(--border)'};
+                         background:${s==='all'?'var(--navy)':'#fff'};
+                         color:${s==='all'?'#fff':'var(--text-light)'};
+                         transition:all .15s;">
+            ${{all:isEn?'All':'全部',progress:isEn?'In Progress':'进行中',proposed:isEn?'Proposed':'建议中',approved:isEn?'Approved':'批准',listed:isEn?'Listed':'上市',cancelled:isEn?'Cancelled':'终止'}[s]}
+          </button>`).join('')}
+      </div>
+    </div>
+
+    <!-- 表头 -->
       <div style="display:grid;grid-template-columns:126px 130px 1fr 96px 44px;
                   gap:0;padding:8px 14px;
                   background:var(--navy);border-radius:8px 8px 0 0;
@@ -1551,6 +1574,47 @@ async function renderSpinoff() {
       ${lang==='en'?'Spin-off data unavailable. Try refreshing.':'分拆数据加载失败，请刷新页面。'}
     </div>`;
   }
+}
+
+function soFilter(q) {
+  const rows = document.querySelectorAll('#soList > div');
+  const kw = q.toLowerCase().trim();
+  rows.forEach(row => {
+    const text = row.textContent.toLowerCase();
+    row.style.display = (!kw || text.includes(kw)) ? '' : 'none';
+  });
+}
+
+let _soStatusFilter = 'all';
+function soFilterStatus(status) {
+  _soStatusFilter = status;
+  // 更新按钮样式
+  ['all','progress','proposed','approved','listed','cancelled'].forEach(s => {
+    const btn = document.getElementById('soBtn-' + s);
+    if (!btn) return;
+    const active = s === status;
+    btn.style.background    = active ? 'var(--navy)' : '#fff';
+    btn.style.color         = active ? '#fff' : 'var(--text-light)';
+    btn.style.borderColor   = active ? 'var(--navy)' : 'var(--border)';
+  });
+  const rows = document.querySelectorAll('#soList > div');
+  rows.forEach(row => {
+    if (status === 'all') { row.style.display = ''; return; }
+    // 根据进度条颜色或状态 badge 文本判断
+    const badge = row.querySelector('[id^="so-body-"]');
+    const headerDiv = row.children[0];
+    if (!headerDiv) return;
+    const badgeSpan = headerDiv.querySelector('span[style*="background"]');
+    const text = (badgeSpan ? badgeSpan.textContent : headerDiv.textContent).toLowerCase();
+    const match = {
+      progress: ['进行中','in progress','生效'],
+      proposed: ['建议中','proposed'],
+      approved: ['批准','approved'],
+      listed:   ['上市','listed','完成','招股书','ipo'],
+      cancelled:['终止','cancelled'],
+    }[status] || [];
+    row.style.display = match.some(m => text.includes(m)) ? '' : 'none';
+  });
 }
 
 function soToggle(idx) {
