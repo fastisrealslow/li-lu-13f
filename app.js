@@ -1448,11 +1448,11 @@ async function renderSpinoff() {
              onmouseout="this.style.background='${isEven?'#fff':'#faf9f7'}'">
           <!-- 公司 -->
           <div>
-            <div style="font-weight:700;font-size:.82rem;color:var(--navy);letter-spacing:.3px;">${fmtTicker(c.ticker)}</div>
-            <div style="font-size:.68rem;color:var(--text-lighter);margin-top:1px;
+            <div style="font-weight:700;font-size:.84rem;color:var(--navy);letter-spacing:.3px;line-height:1.2;">${fmtTicker(c.ticker)}</div>
+            <div style="font-size:.7rem;color:var(--text-light);margin-top:2px;
                         white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:118px;"
                  title="${c.stockName}">${c.stockName}</div>
-            ${sub?`<div style="font-size:.62rem;color:var(--gold);margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:118px;" title="${sub}">↳ ${sub}</div>`:''}
+            ${sub?`<div style="font-size:.65rem;color:var(--gold);margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:120px;font-weight:500;" title="${sub}">↗ ${sub}</div>`:''}
           </div>
           <!-- 进度 -->
           <div>${bar}</div>
@@ -1558,10 +1558,24 @@ function soToggle(idx) {
   const arrow = document.getElementById('so-arr-'  + idx);
   if (!body) return;
   const open = body.style.display !== 'none';
-  body.style.display = open ? 'none' : 'block';
+  // 带过渡的展开/收起
+  if (!open) {
+    body.style.display   = 'block';
+    body.style.opacity   = '0';
+    body.style.transform = 'translateY(-4px)';
+    setTimeout(() => {
+      body.style.transition = 'opacity .18s ease, transform .18s ease';
+      body.style.opacity    = '1';
+      body.style.transform  = 'translateY(0)';
+    }, 10);
+  } else {
+    body.style.transition = 'opacity .15s ease';
+    body.style.opacity    = '0';
+    setTimeout(() => { body.style.display = 'none'; body.style.transition = ''; }, 150);
+  }
   if (arrow) {
-    arrow.textContent  = open ? '▶' : '▼';
-    arrow.style.color  = open ? 'var(--gold)' : 'var(--navy)';
+    arrow.textContent = open ? '▶' : '▼';
+    arrow.style.color = open ? 'var(--gold)' : 'var(--navy)';
   }
 }
 
