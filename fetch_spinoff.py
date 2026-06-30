@@ -181,6 +181,33 @@ def main():
 
         time.sleep(2)
 
+    # 过滤：股价极低的公司（<0.5 HKD）通常是合股/仙股，不是真正的分拆投资标的
+    if all_items:
+        print("\n过滤低价股...")
+        try:
+            import yfinance as yf
+            filtered = []
+            for item in all_items:
+                ticker = item.get("ticker", "")
+                if not ticker or not ticker.endswith(".HK"):
+                    filtered.append(item)
+                    continue
+                try:
+                    info = yf.Ticker(ticker).fast_info
+                    price = getattr(info, "last_price", None) or getattr(info, "regularMarketPrice", None)
+                    if price is None or price >= 0.5:
+                        item["lastPrice"] = round(price, 3) if price else None
+                        filtered.append(item)
+                    else:
+                        print(f"  ⛔ 过滤低价股: {ticker} 现价={price:.3f} HKD")
+                except Exception:
+                    filtered.append(item)  # 查不到价格就保留
+                time.sleep(0.3)
+            all_items = filtered
+            print(f"  过滤后剩余: {len(all_items)} 条")
+        except ImportError:
+            print("  yfinance 未安装，跳过价格过滤")
+
     # 按日期降序
     all_items.sort(key=lambda x: x["date"], reverse=True)
 
