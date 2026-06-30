@@ -364,9 +364,10 @@ async function switchInvestor(v) {
     if (!newData || !newData.current) throw new Error(f + ' invalid');
     data = newData;
     await loadPrices(pf);
-    renderAll(); renderHoldings(); renderHistoryChart(); renderTimeline();
+    renderSummary(); renderHoldings(); renderHistoryChart();
+    renderInsights();
+    renderTimeline();
     updateInvestorContent();
-  renderTimeline();
   } catch(e) { 
     console.warn('switchInvestor error:', e);
     // Show non-blocking toast instead of white screen
@@ -401,7 +402,7 @@ function switchLang() {
     const v = t(el.dataset.i18n);
     if (el.childElementCount === 0) el.textContent = v;
   });
-  renderAll();
+  renderSummary(); renderHoldings(); renderInsights(); renderHistoryChart();
   updateInvestorContent();
   renderTimeline();
   _homeworkCache = null;
@@ -449,13 +450,15 @@ async function loadPrices(pf) {
   try {
     const resp = await fetch(file + '?t=' + Date.now());
     prices = await resp.json();
-    document.getElementById('priceUpdate').textContent =
+    const el = document.getElementById('priceUpdate');
+    if (el) el.textContent =
       prices.updatedAt ? new Date(prices.updatedAt).toLocaleString('zh-CN',{timeZone:'Asia/Shanghai'})
       : prices.updated ? new Date(prices.updated).toLocaleString('zh-CN',{timeZone:'Asia/Shanghai'}) : '待更新';
   } catch(e) {
     console.log('prices unavailable:', file);
     prices = { quotes: {}, costBasis: {} };
-    document.getElementById('priceUpdate').textContent = '暂不可用';
+    const el2 = document.getElementById('priceUpdate');
+    if (el2) el2.textContent = '暂不可用';
   }
 }
 
@@ -543,7 +546,7 @@ async function refreshLive() {
     setTimeout(()=>ctrl.abort(), 30000);
     const live = await tryLiveFetch();
     data.current = live; data._live = true;
-    renderAll();
+    renderSummary(); renderHoldings(); renderInsights(); renderHistoryChart();
     src.textContent = '✅ SEC 实时数据';
   } catch(e) {
     src.textContent = '⚠ SEC 不可达,显示缓存数据';
@@ -1566,3 +1569,11 @@ function soToggle(idx) {
 function spinoffToggle(idx) { soToggle(idx); }
 
 
+
+// ========== AUTO-INIT ==========
+// 页面加载完成后自动初始化
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', () => switchInvestor('lilu'));
+} else {
+  switchInvestor('lilu');
+}
