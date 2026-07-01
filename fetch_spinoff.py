@@ -183,12 +183,18 @@ def _classify_spinoff_type(titles):
                     label_zh='REIT上市', label_en='REIT Listing', is_reit=True)
 
     # 介绍上市（实物分派，不发行新股不融资）——优先于港交所判断
+    # 排除条件：标题同时含「建議分拆...並於...獨立上市」= 主体是IPO，实物分派只是附加安排
     is_introduction = any(kw in combined for kw in [
-        '介绍方式', '以介绍式', '实物分派', 'listing by introduction',
+        '介绍方式', '以介绍式', 'listing by introduction',
         'distribution in specie', '实物分配',
-        '實物分派', '以介紹方式', '介紹上市',   # 繁体
+        '以介紹方式', '介紹上市',   # 繁体
     ])
-    if is_introduction:
+    # 「实物分派」单独出现才算介绍上市；若同时有「建議分拆...獨立上市」= IPO+附加实物分派
+    has_ipo_spinoff = bool(re.search(r'建[議议]分拆.{0,50}(?:獨立上市|独立上市|獨立上市)', combined))
+    if is_introduction and not has_ipo_spinoff:
+        return dict(code='intro_hk', exchange_zh='港交所', exchange_en='HKEX',
+                    label_zh='介紹上市', label_en='Intro Listing', is_reit=False)
+    if '實物分派' in combined and not has_ipo_spinoff:
         return dict(code='intro_hk', exchange_zh='港交所', exchange_en='HKEX',
                     label_zh='介紹上市', label_en='Intro Listing', is_reit=False)
 
