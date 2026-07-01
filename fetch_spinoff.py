@@ -29,7 +29,7 @@ BASE_URL = "https://www1.hkexnews.hk"
 
 today     = datetime.now()
 date_to   = today.strftime("%Y%m%d")
-date_from = (today - timedelta(days=730)).strftime("%Y%m%d")
+date_from = (today - timedelta(days=365)).strftime("%Y%m%d")
 
 KEYWORDS = ["分拆", "spin-off", "demerger", "實物分派", "以介紹方式"]
 
@@ -487,6 +487,12 @@ def main():
         is_capital_reorg = re.search(r"削減.{0,10}股份.{0,10}資本|削减.{0,10}股份.{0,10}资本", all_titles, re.I)
         has_unissued_split = re.search(r"分拆未發行股份|分拆未发行股份", all_titles, re.I)
         if is_capital_reorg and has_unissued_split and not has_spinoff_kw:
+            return True
+        # 迁册重组：把境外注册的控股公司換成香港注册，不涉及业务分拆
+        # 典型：「重组安排计划方式」+「变更.*控股公司」
+        is_redomicile = re.search(r'重組安排計劃|重组安排计划|redomicil|scheme of arrangement', all_titles, re.I)
+        has_change_holding = re.search(r'變更.*控股公司|更改.*注册地|change.*holding.*compan|將.*控股公司.*變更為|将.*控股公司.*变更为', all_titles, re.I)
+        if is_redomicile and has_change_holding:
             return True
         return False
 

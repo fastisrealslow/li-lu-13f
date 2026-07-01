@@ -10,6 +10,7 @@ import json
 import os
 import re
 import sys
+import time
 import urllib.request
 import xml.etree.ElementTree as ET
 from datetime import datetime, timezone
@@ -235,11 +236,22 @@ SECTORS = {
 }
 
 
-def sec_fetch(path: str) -> bytes:
+def sec_fetch(path: str, retries: int = 3) -> bytes:
     url = f"https://www.sec.gov{path}" if path.startswith("/") else f"https://data.sec.gov/{path}"
     req = urllib.request.Request(url, headers={"User-Agent": USER_AGENT})
-    with urllib.request.urlopen(req, timeout=30) as resp:
-        return resp.read()
+    for attempt in range(retries):
+        try:
+            time.sleep(0.15)  # SEC EDGAR: max 10 req/s
+            with urllib.request.urlopen(req, timeout=30) as resp:
+                return resp.read()
+        except urllib.error.HTTPError as e:
+            if e.code == 429:
+                wait = 60 * (attempt + 1)  # 60s / 120s / 180s
+                print(f"  429 rate limited, waiting {wait}s...", file=sys.stderr)
+                time.sleep(wait)
+            else:
+                raise
+    raise RuntimeError(f"sec_fetch failed after {retries} retries: {url}")
 
 
 def get_recent_filings(cik: str) -> list[dict]:
@@ -264,11 +276,19 @@ def quarter_label(date_str: str) -> str:
 
 
 def find_info_table_xml(cik: str, accession: str, accession_dashed: str) -> str:
-    html = sec_fetch(
-        f"/Archives/edgar/data/{cik}/{accession}/{accession_dashed}-index.html"
-    ).decode("utf-8", errors="replace")
+    # 老文件用 .htm，新文件用 .html，两个都试
+    index_html = None
+    for ext in ["-index.html", "-index.htm"]:
+        try:
+            raw = sec_fetch(f"/Archives/edgar/data/{cik}/{accession}/{accession_dashed}{ext}")
+            index_html = raw.decode("utf-8", errors="replace")
+            break
+        except Exception:
+            continue
+    if index_html is None:
+        raise RuntimeError(f"Cannot fetch index for {accession_dashed}")
     pattern = r'<a\s+href="([^"]+)"[^>]*>([^<]+\.xml)</a>\s*</td>\s*<td[^>]*>\s*INFORMATION TABLE'
-    for m in re.finditer(pattern, html, re.IGNORECASE):
+    for m in re.finditer(pattern, index_html, re.IGNORECASE):
         href = m.group(1)
         if "xslForm13F" not in href:
             return href

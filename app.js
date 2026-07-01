@@ -1076,6 +1076,7 @@ function switchTab(name) {
   document.querySelectorAll('.tab-btn').forEach((b,i)=>{
     b.classList.toggle('active',['current','changes','history','homework','spinoff'][i]===name);
   });
+  if (name==='changes') { renderChanges(); renderInsights(); }
   if (name==='history') { renderHistoryChart(); renderTimeline(); }
   if (name==='homework') { renderHomework(); }
   if (name==='spinoff') { renderSpinoff(); }
@@ -1144,7 +1145,7 @@ async function renderHomework() {
         if (prev === 0 && cur2 > 0) chg = 'new';
         else if (prev > 0 && cur2 > prev * 1.05) chg = 'added';
         else if (prev > 0 && cur2 < prev * 0.95) chg = 'trimmed';
-        const invEntry = {name: lang==='en'?cfg.nameEn:cfg.name, id:cfg.id, weight:round1(weight), chg};
+        const invEntry = {name: lang==='en'?cfg.nameEn:cfg.name, id:cfg.id, weight:Math.round((weight)*10)/10, chg};
         const existing = candidates.find(x => x.ticker === tk);
         if (existing) {
           if (!existing.investors.find(x => x.id === cfg.id)) {
@@ -1152,14 +1153,14 @@ async function renderHomework() {
             // Use lowest cost basis across all holders (most conservative)
             if (buy < existing.buy) {
               existing.buy = buy;
-              existing.mos = round1(mos);
+              existing.mos = Math.round((mos)*10)/10;
               existing.atAvg = c.allTime?.avg || existing.atAvg;
             }
           }
         } else {
           candidates.push({
             ticker: tk, name: h.name, cnName: h.cnName||'', sector: h.sector,
-            mos: round1(mos), price, buy,
+            mos: Math.round((mos)*10)/10, price, buy,
             atAvg: c.allTime?.avg || null,
             investors: [invEntry],
             totalHolders: allHoldersMap[tk]?.size || 1,
@@ -1601,6 +1602,8 @@ function _soTypeBadge(st, isEn) {
     ipo_a_sh:     { bg:'#fef9c3', color:'#854d0e', border:'#fde68a' },
     ipo_a_sz:     { bg:'#fef9c3', color:'#854d0e', border:'#fde68a' },
     ipo_a:        { bg:'#fef9c3', color:'#854d0e', border:'#fde68a' },
+    ipo_us:        { bg:'#fff7ed', color:'#9a3412', border:'#fed7aa' },
+    ipo_th:        { bg:'#fdf4ff', color:'#7e22ce', border:'#e9d5ff' },
     ipo_other:    { bg:'#f3f4f6', color:'#6b7280', border:'#e5e7eb' },
     reit_sz:      { bg:'#f0fdf4', color:'#166534', border:'#bbf7d0' },
     reit_sh:      { bg:'#f0fdf4', color:'#166534', border:'#bbf7d0' },
