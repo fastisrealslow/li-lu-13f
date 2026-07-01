@@ -321,6 +321,71 @@ def _pdf_check_intro(doc_url, opener):
         return False
 
 
+def _pdf_check_reit(doc_url, opener):
+    """读 PDF 前2页，检测是否是 REIT 分拆。返回 (is_reit, exchange) 元组。"""
+    try:
+        from pdfminer.high_level import extract_text_to_fp
+        from pdfminer.layout import LAParams
+        from io import StringIO, BytesIO
+        req = Request(doc_url, headers={"User-Agent": "Mozilla/5.0"})
+        data = opener.open(req, timeout=20).read()
+        out = StringIO()
+        extract_text_to_fp(BytesIO(data), out, laparams=LAParams(), page_numbers=[0, 1])
+        text = out.getvalue()
+        is_reit = bool(re.search(
+            r'不動產投資信託|房地產投資信託|基礎設施基金|基礎設施REITs?|Infrastructure REITs?|'
+            r'不动产投资信托|房地产投资信托|基础设施基金|基础设施REITs?|REIT',
+            text, re.I))
+        if not is_reit:
+            return False, None
+        # 判断交易所
+        if re.search(r'深圳證券交易所|深交所|SZSE|Shenzhen Stock Exchange', text, re.I):
+            return True, 'sz'
+        if re.search(r'上海證券交易所|上交所|SSE|Shanghai Stock Exchange', text, re.I):
+            return True, 'sh'
+        return True, None
+    except Exception as e:
+        print(f"    REIT PDF检测失败 ({doc_url[-40:]}): {e}", file=sys.stderr)
+        return False, None
+
+
+def refine_reit_type(companies, opener):
+    """
+    对被判为 ipo_hk / ipo_other 的公司，读 PDF 确认是否实为 REIT 分拆。
+    命中 → 改为 reit_sz / reit_sh / reit。
+    典型误判案例：阿里巴巴（公告标题无 REIT 字样，正文才提到）。
+    """
+    for c in companies:
+        code = c.get('spinType', {}).get('code', '')
+        if code not in ('ipo_hk', 'ipo_other'):
+            continue
+        # 公告标题里有没有任何 REIT 相关词 → 有则已被正确识别，跳过
+        all_titles = ' '.join(a.get('title', '') for a in c.get('announcements', []))
+        if re.search(r'REIT|不動產投資信託|房地產投資信託|基礎設施基金|基礎設施REITs?', all_titles, re.I):
+            continue  # 标题已命中，_classify_spinoff_type 应该已处理，跳过
+        # 拿最新（第一条）公告的 PDF
+        doc_url = c['announcements'][0].get('docUrl', '') if c.get('announcements') else ''
+        if not doc_url.endswith('.pdf'):
+            continue
+        print(f"  🔍 REIT PDF检测: {c['stockCode']} {c['stockName'][:12]} ...", end=' ', flush=True)
+        time.sleep(1)
+        is_reit, exchange = _pdf_check_reit(doc_url, opener)
+        if is_reit:
+            if exchange == 'sz':
+                c['spinType'] = dict(code='reit_sz', exchange_zh='深交所', exchange_en='SZSE',
+                                     label_zh='REIT·深交所', label_en='REIT·SZSE', is_reit=True)
+            elif exchange == 'sh':
+                c['spinType'] = dict(code='reit_sh', exchange_zh='上交所', exchange_en='SSE',
+                                     label_zh='REIT·上交所', label_en='REIT·SSE', is_reit=True)
+            else:
+                c['spinType'] = dict(code='reit', exchange_zh='REITs', exchange_en='REITs',
+                                     label_zh='REIT上市', label_en='REIT Listing', is_reit=True)
+            print(f'✅ REIT ({c["spinType"]["code"]}) 确认')
+        else:
+            print('— 非REIT')
+    return companies
+
+
 def refine_intro_type(companies, opener):
     """
     对被判为 ipo_hk 但存在实物分派远项的公司，读 PDF 正文确认是否介绍上市。
@@ -331,12 +396,8 @@ def refine_intro_type(companies, opener):
     for c in companies:
         if c.get('spinType', {}).get('code') != 'ipo_hk':
             continue
-        # 远项信号：公告标题或搜索来源含实物分派相关词，但未自动识别为 intro_hk
-        all_titles = ' '.join(a.get('title', '') for a in c.get('announcements', []))
-        if not re.search(r'實物分派|实物分配', all_titles):
-            continue  # 标题没有任何实物分派相关词，跳过
-        # 拿最新公告的 PDF
-        doc_url = c['announcements'][0].get('docUrl', '')
+        # 对所有 ipo_hk 公司都做 PDF 检测（介绍上市不一定在标题里体现）
+        doc_url = c['announcements'][0].get('docUrl', '') if c.get('announcements') else ''
         if not doc_url.endswith('.pdf'):
             continue
         print(f"  🔍 PDF检测: {c['stockCode']} {c['stockName'][:12]} ...", end=' ', flush=True)
@@ -506,9 +567,13 @@ def main():
     if before_filter != len(companies):
         print(f"  ⛔ 过滤纯拆股: {before_filter - len(companies)} 家")
 
-    # PDF 检测：对远项山岚的 ipo_hk 公司确认是否是介绍上市
+    # PDF 检测：对边缘案例的 ipo_hk 公司确认是否是介绍上市
     print("\nPDF 检测介绍上市...")
     companies = refine_intro_type(companies, opener)
+
+    # PDF 检测：对标题无 REIT 字样的 ipo_hk/ipo_other 公司确认是否是 REIT 分拆
+    print("\nPDF 检测 REIT...")
+    companies = refine_reit_type(companies, opener)
 
     # 状态驱动过滤：已上市>6个月 / 已终止 → 移除
     print("\n状态驱动过滤...")
