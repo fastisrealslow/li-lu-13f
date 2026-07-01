@@ -134,6 +134,69 @@ def parse_rows(html):
     return items
 
 
+def _classify_spinoff_type(titles):
+    """
+    识别分拆类型，返回 dict:
+      { code, exchange_zh, exchange_en, label_zh, label_en, is_reit }
+
+    类型优先级：
+      1. REIT / 基础设施基金（子公司分拆为基金上市，非普通股）
+      2. 港交所主板 IPO
+      3. A股深交所 IPO
+      4. A股上交所 IPO
+      5. A股（未明确交易所）
+      6. 其他交易所
+      7. 直接分拆（无独立上市）
+    """
+    combined = ' '.join(titles)
+
+    # REIT 判断：分拆目标明确是基金/REITs，而非子公司股票
+    is_reit = any(kw in combined for kw in [
+        '不動產投資信託基金', '基礎設施證券投資基金', '商業不動產證券投資基金',
+        'REITs', 'REIT', '公募基金', '基礎設施基金',
+    ])
+    # 同时包含「子公司」「独立上市」等关键词时优先按 IPO 处理（非 REIT）
+    has_subsidiary_ipo = any(kw in combined for kw in ['子公司', '獨立上市', '独立上市']) and \
+                         not any(kw in combined for kw in ['信託基金', '證券投資基金'])
+    if has_subsidiary_ipo:
+        is_reit = False
+
+    if is_reit:
+        if '深圳證券' in combined or '深交所' in combined:
+            return dict(code='reit_sz', exchange_zh='深交所', exchange_en='SZSE',
+                        label_zh='REIT·深交所', label_en='REIT·SZSE', is_reit=True)
+        if '上海證券' in combined or '上交所' in combined:
+            return dict(code='reit_sh', exchange_zh='上交所', exchange_en='SSE',
+                        label_zh='REIT·上交所', label_en='REIT·SSE', is_reit=True)
+        return dict(code='reit', exchange_zh='REITs', exchange_en='REITs',
+                    label_zh='REIT上市', label_en='REIT Listing', is_reit=True)
+
+    # 港交所
+    if any(kw in combined for kw in ['聯交所', '香港聯合交易所', '港交所', '香港主板']):
+        return dict(code='ipo_hk', exchange_zh='港交所', exchange_en='HKEX',
+                    label_zh='分拆·港股IPO', label_en='Spinoff·HKEX IPO', is_reit=False)
+
+    # A股
+    if '深圳證券' in combined or '深交所' in combined:
+        return dict(code='ipo_a_sz', exchange_zh='深交所', exchange_en='SZSE',
+                    label_zh='分拆·A股深交所', label_en='Spinoff·A-Share SZSE', is_reit=False)
+    if '上海證券' in combined or '上交所' in combined:
+        return dict(code='ipo_a_sh', exchange_zh='上交所', exchange_en='SSE',
+                    label_zh='分拆·A股上交所', label_en='Spinoff·A-Share SSE', is_reit=False)
+    if 'A股' in combined:
+        return dict(code='ipo_a', exchange_zh='A股', exchange_en='A-Share',
+                    label_zh='分拆·A股上市', label_en='Spinoff·A-Share IPO', is_reit=False)
+
+    # 有上市迹象但交易所不明
+    if any(kw in combined for kw in ['獨立上市', '独立上市', '上市', 'IPO', '挂牌']):
+        return dict(code='ipo_other', exchange_zh='待定', exchange_en='TBD',
+                    label_zh='分拆·独立上市', label_en='Spinoff·IPO', is_reit=False)
+
+    # 直接分拆（无独立上市）
+    return dict(code='split_direct', exchange_zh='直接分拆', exchange_en='Direct Split',
+                label_zh='直接分拆', label_en='Direct Spinoff', is_reit=False)
+
+
 def merge_by_company(all_items):
     """
     按股票代码合并，每家公司汇总为一个事件：
@@ -190,6 +253,8 @@ def merge_by_company(all_items):
             if m1: sub = m1.group(1).strip(); break
             if m2: sub = m2.group(1).strip(); break
         c["spinTarget"] = sub
+        # 分拆类型识别
+        c["spinType"] = _classify_spinoff_type([a["title"] for a in c["announcements"]])
         span = f"（{c['firstDate']} ~ {c['latestDate']}）" if c["firstDate"] != c["latestDate"] else f"（{c['latestDate']}）"
         c["summary"] = (
             f"{'分拆标的：' + sub + '。' if sub else ''}"

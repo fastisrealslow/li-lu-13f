@@ -1423,13 +1423,14 @@ async function renderSpinoff() {
     </div>
 
     <!-- 表头 -->
-      <div style="display:grid;grid-template-columns:126px 130px 1fr 96px 44px;
+      <div style="display:grid;grid-template-columns:120px 118px 88px 1fr 88px 44px;
                   gap:0;padding:8px 14px;
                   background:var(--navy);border-radius:8px 8px 0 0;
                   font-size:.67rem;font-weight:600;color:rgba(255,255,255,.55);
                   letter-spacing:.6px;text-transform:uppercase;align-items:center;">
         <span>${isEn?'COMPANY':'公司'}</span>
         <span>${isEn?'STATUS':'进度'}</span>
+        <span>${isEn?'TYPE':'类型'}</span>
         <span>${isEn?'LATEST ANNOUNCEMENT':'最新公告'}</span>
         <span style="text-align:right;">${isEn?'DATE':'日期'}</span>
         <span style="text-align:center;">${isEn?'N':'条'}</span>
@@ -1463,7 +1464,7 @@ async function renderSpinoff() {
       <!-- row ${idx} -->
       <div>
         <div onclick="soToggle(${idx})" style="
-              display:grid;grid-template-columns:126px 130px 1fr 96px 44px;
+              display:grid;grid-template-columns:120px 118px 88px 1fr 88px 44px;
               gap:0;padding:10px 14px;
               background:${isEven?'#fff':'#faf9f7'};
               border-bottom:1px solid var(--border-light);
@@ -1481,6 +1482,8 @@ async function renderSpinoff() {
           </div>
           <!-- 进度 -->
           <div>${bar}</div>
+          <!-- 类型 -->
+          <div style="padding:0 4px;">${_soTypeBadge(c.spinType, isEn)}</div>
           <!-- 最新公告 -->
           <div style="padding:0 10px;overflow:hidden;">
             ${latest.docUrl
@@ -1576,6 +1579,29 @@ async function renderSpinoff() {
       ${lang==='en'?'Spin-off data unavailable. Try refreshing.':'分拆数据加载失败，请刷新页面。'}
     </div>`;
   }
+}
+
+function _soTypeBadge(st, isEn) {
+  if (!st) return '';
+  const code  = st.code  || 'unknown';
+  const label = isEn ? (st.label_en || 'Spinoff') : (st.label_zh || '\u5206\u62c6');
+  const palettes = {
+    ipo_hk:       { bg:'#e0f2fe', color:'#0369a1', border:'#bae6fd' },
+    ipo_a_sh:     { bg:'#fef9c3', color:'#854d0e', border:'#fde68a' },
+    ipo_a_sz:     { bg:'#fef9c3', color:'#854d0e', border:'#fde68a' },
+    ipo_a:        { bg:'#fef9c3', color:'#854d0e', border:'#fde68a' },
+    ipo_other:    { bg:'#f3f4f6', color:'#6b7280', border:'#e5e7eb' },
+    reit_sz:      { bg:'#f0fdf4', color:'#166534', border:'#bbf7d0' },
+    reit_sh:      { bg:'#f0fdf4', color:'#166534', border:'#bbf7d0' },
+    reit:         { bg:'#f0fdf4', color:'#166534', border:'#bbf7d0' },
+    split_direct: { bg:'#fdf2f8', color:'#9d174d', border:'#fbcfe8' },
+    unknown:      { bg:'#f9fafb', color:'#9ca3af', border:'#e5e7eb' },
+  };
+  const p = palettes[code] || palettes.unknown;
+  return '<span style="display:inline-block;font-size:.62rem;padding:2px 7px;' +
+    'border-radius:10px;font-weight:600;white-space:nowrap;line-height:1.5;' +
+    'background:' + p.bg + ';color:' + p.color + ';border:1px solid ' + p.border + ';">' +
+    label + '</span>';
 }
 
 function soFilter(q) {
