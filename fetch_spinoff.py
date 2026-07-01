@@ -171,6 +171,15 @@ def _classify_spinoff_type(titles):
         return dict(code='reit', exchange_zh='REITs', exchange_en='REITs',
                     label_zh='REIT上市', label_en='REIT Listing', is_reit=True)
 
+    # 介绍上市（实物分派，不发行新股不融资）——优先于港交所判断
+    is_introduction = any(kw in combined for kw in [
+        '介绍方式', '以介绍式', '实物分派', 'listing by introduction',
+        'distribution in specie', '实物分配',
+    ])
+    if is_introduction:
+        return dict(code='intro_hk', exchange_zh='港交所', exchange_en='HKEX',
+                    label_zh='介绍上市', label_en='Intro Listing', is_reit=False)
+
     # 港交所
     if any(kw in combined for kw in ['聯交所', '香港聯合交易所', '港交所', '香港主板']):
         return dict(code='ipo_hk', exchange_zh='港交所', exchange_en='HKEX',
