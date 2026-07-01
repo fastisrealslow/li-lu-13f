@@ -31,7 +31,17 @@ today     = datetime.now()
 date_to   = today.strftime("%Y%m%d")
 date_from = (today - timedelta(days=365)).strftime("%Y%m%d")
 
-KEYWORDS = ["分拆", "spin-off", "demerger"]
+KEYWORDS = ["分拆", "spin-off", "demerger", "實物分派", "以介紹方式"]
+
+# 明确排除：已确认是合股重组而非分拆的公司（股份代码）
+BLACKLIST_CODES = {
+    "08516",  # 廣駿集團控股：削減股本+分拆未發行股份+供股，是合股重组
+}
+
+# 手动标注介绍上市（公告标题无关键词但正文已确认）
+KNOWN_INTRO = {
+    "00308",  # 香港中旅 → 中旅港澳文旅控股：实物分派+介绍方式（新浪财经 2026-05-20 确认）
+}
 
 
 def get_opener():
@@ -175,10 +185,11 @@ def _classify_spinoff_type(titles):
     is_introduction = any(kw in combined for kw in [
         '介绍方式', '以介绍式', '实物分派', 'listing by introduction',
         'distribution in specie', '实物分配',
+        '實物分派', '以介紹方式', '介紹上市',   # 繁体
     ])
     if is_introduction:
         return dict(code='intro_hk', exchange_zh='港交所', exchange_en='HKEX',
-                    label_zh='介绍上市', label_en='Intro Listing', is_reit=False)
+                    label_zh='介紹上市', label_en='Intro Listing', is_reit=False)
 
     # 港交所
     if any(kw in combined for kw in ['聯交所', '香港聯合交易所', '港交所', '香港主板']):
@@ -262,8 +273,13 @@ def merge_by_company(all_items):
             if m1: sub = m1.group(1).strip(); break
             if m2: sub = m2.group(1).strip(); break
         c["spinTarget"] = sub
-        # 分拆类型识别
-        c["spinType"] = _classify_spinoff_type([a["title"] for a in c["announcements"]])
+        # 分拆类型识别（手动标注优先）
+        if code in KNOWN_INTRO:
+            c["spinType"] = dict(code='intro_hk', exchange_zh='港交所', exchange_en='HKEX',
+                                  label_zh='介紹上市', label_en='Intro Listing', is_reit=False,
+                                  note='manually confirmed')
+        else:
+            c["spinType"] = _classify_spinoff_type([a["title"] for a in c["announcements"]])
         span = f"（{c['firstDate']} ~ {c['latestDate']}）" if c["firstDate"] != c["latestDate"] else f"（{c['latestDate']}）"
         c["summary"] = (
             f"{'分拆标的：' + sub + '。' if sub else ''}"
@@ -346,6 +362,11 @@ def main():
         if is_capital_reorg and has_unissued_split and not has_spinoff_kw:
             return True
         return False
+
+    before_filter = len(companies)
+    companies = [c for c in companies if c['stockCode'] not in BLACKLIST_CODES]
+    if before_filter != len(companies):
+        print(f"  ⛔ 黑名单过滤: {before_filter - len(companies)} 家")
 
     before_filter = len(companies)
     companies = [c for c in companies if not is_pure_split(c)]
