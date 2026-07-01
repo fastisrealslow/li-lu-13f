@@ -29,7 +29,7 @@ BASE_URL = "https://www1.hkexnews.hk"
 
 today     = datetime.now()
 date_to   = today.strftime("%Y%m%d")
-date_from = (today - timedelta(days=365)).strftime("%Y%m%d")
+date_from = (today - timedelta(days=730)).strftime("%Y%m%d")
 
 KEYWORDS = ["分拆", "spin-off", "demerger", "實物分派", "以介紹方式"]
 
@@ -303,6 +303,64 @@ def merge_by_company(all_items):
     return sorted(companies.values(), key=lambda x: x["latestDate"], reverse=True)
 
 
+def get_status(company):
+    """从公告标题推断分拆进展状态（与前端 _soProgress 保持一致）"""
+    ann = company.get('announcements', [])
+    if not ann:
+        return 'announced'
+    t = (ann[0].get('title', '') + (ann[1].get('title', '') if len(ann) > 1 else ''))
+    if re.search(r'終止|终止|撤回|撤销|withdraw|cancel', t, re.I):
+        return 'terminated'
+    if re.search(r'開始買賣|开始买卖|股份開始|股份开始|持續督導|持续督导|行使超額|行使超额|實物分派.*生效|实物分派.*生效', t, re.I):
+        return 'listed'
+    if re.search(r'刊發招股|招股書|招股章程|招股说明|prospectus', t, re.I):
+        return 'prospectus'
+    if re.search(r'批準|批准|approved|聯交所批准|获批', t, re.I):
+        return 'approved'
+    if re.search(r'進展|进展|最新情況|最新情况|延遲|延迟|update|progress', t, re.I):
+        return 'progress'
+    if re.search(r'建議|建议|擬議|拟议|propose|擬|拟', t, re.I):
+        return 'proposed'
+    return 'announced'
+
+
+def load_prev_data():
+    """读取上次 spinoff.json，返回 {stockCode: company_dict} 索引"""
+    if not os.path.exists(OUT_FILE):
+        return {}
+    try:
+        with open(OUT_FILE) as f:
+            data = json.load(f)
+        return {c['stockCode']: c for c in data.get('companies', [])}
+    except Exception:
+        return {}
+
+
+def filter_status_driven(companies):
+    """状态驱动过滤：已上市超6个月 / 已终止 → 移除"""
+    prev = load_prev_data()
+    cutoff = (today - timedelta(days=180)).strftime('%Y-%m-%d')
+    result = []
+    removed = []
+    for c in companies:
+        status = get_status(c)
+        c['_status'] = status  # 暂存，写入 JSON 供调试
+        if status == 'terminated':
+            removed.append((c['stockCode'], c['stockName'], '已终止'))
+            continue
+        if status == 'listed':
+            # 最新公告日期 <= cutoff（上市超6个月）才移除
+            if c.get('latestDate', '9999') <= cutoff:
+                removed.append((c['stockCode'], c['stockName'], f'已上市>{cutoff}'))
+                continue
+        result.append(c)
+    if removed:
+        print(f"  ⛔ 状态驱动移除: {len(removed)} 家")
+        for code, name, reason in removed:
+            print(f"      {code} {name} ({reason})")
+    return result
+
+
 def filter_low_price(companies):
     """过滤现价 < 0.5 HKD 或市值 < 2亿 HKD 的住股/空壳公司"""
     try:
@@ -395,6 +453,10 @@ def main():
     companies = [c for c in companies if not is_pure_split(c)]
     if before_filter != len(companies):
         print(f"  ⛔ 过滤纯拆股: {before_filter - len(companies)} 家")
+
+    # 状态驱动过滤：已上市>6个月 / 已终止 → 移除
+    print("\n状态驱动过滤...")
+    companies = filter_status_driven(companies)
 
     # 价格过滤
     print("\n价格过滤（排除 <0.5 HKD 仙股）...")
