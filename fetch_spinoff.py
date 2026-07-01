@@ -34,8 +34,9 @@ date_from = (today - timedelta(days=365)).strftime("%Y%m%d")
 KEYWORDS = ["分拆", "spin-off", "demerger", "實物分派", "以介紹方式"]
 
 # 明确排除：已确认是合股重组而非分拆的公司（股份代码）
+# 注：优先靠 is_pure_split + 市值过滤自动拦截；仅将过滤逻辑无法覆盖的模糊案例加入此表
 BLACKLIST_CODES = {
-    "08516",  # 廣駿集團控股：削減股本+分拆未發行股份+供股，是合股重组
+    # 08516 广駿/中盈：靠市值 < 2亿自动过滤，无需硬编码
 }
 
 # 手动标注介绍上市（公告标题无关键词但正文已确认）
@@ -291,23 +292,33 @@ def merge_by_company(all_items):
 
 
 def filter_low_price(companies):
-    """过滤现价 < 0.5 HKD 的仙股"""
+    """过滤现价 < 0.5 HKD 或市值 < 2亿 HKD 的住股/空壳公司"""
     try:
         import yfinance as yf
         result = []
         for c in companies:
             ticker = c["ticker"]
             try:
-                price = yf.Ticker(ticker).fast_info.last_price
+                info = yf.Ticker(ticker).fast_info
+                price = info.last_price
+                mktcap = getattr(info, 'market_cap', None)
                 c["lastPrice"] = round(price, 3) if price else None
+                c["marketCap"] = int(mktcap) if mktcap else None
                 time.sleep(0.3)
             except Exception:
                 price = None
+                mktcap = None
                 c["lastPrice"] = None
-            if price is None or price >= 0.5:
-                result.append(c)
-            else:
+                c["marketCap"] = None
+            # 价格过滤：< 0.5 HKD
+            if price is not None and price < 0.5:
                 print(f"  ⛔ 过滤仙股: {ticker} 现价={price:.3f} HKD")
+                continue
+            # 市值过滤：< 2亿 HKD（小市值空壳/堆垃公司）
+            if mktcap is not None and mktcap < 200_000_000:
+                print(f"  ⛔ 过滤小市值: {ticker} 市值={mktcap/1e8:.1f}亿 HKD")
+                continue
+            result.append(c)
         print(f"  过滤后剩余: {len(result)} 家公司")
         return result
     except ImportError:
