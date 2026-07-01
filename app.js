@@ -1408,7 +1408,7 @@ async function renderSpinoff() {
                     background:#fff;outline:none;transition:border-color .15s;"
              onfocus="this.style.borderColor='var(--gold)'"
              onblur="this.style.borderColor='var(--border)'" />
-      <div style="display:flex;gap:6px;flex-wrap:wrap;">
+      <div style="display:flex;gap:6px;flex-wrap:wrap;align-items:center;">
         ${['all','progress','proposed','approved','listed','cancelled'].map(s=>`
           <button onclick="soFilterStatus('${s}')"
                   id="soBtn-${s}"
@@ -1419,6 +1419,13 @@ async function renderSpinoff() {
                          transition:all .15s;">
             ${{all:isEn?'All':'全部',progress:isEn?'In Progress':'进行中',proposed:isEn?'Proposed':'建议中',approved:isEn?'Approved':'批准',listed:isEn?'Listed':'上市',cancelled:isEn?'Cancelled':'终止'}[s]}
           </button>`).join('')}
+        <span style="width:1px;height:16px;background:var(--border);margin:0 4px;"></span>
+        <button id="soBtn-reit" onclick="soToggleReit()"
+                style="font-size:.65rem;padding:2px 9px;border-radius:12px;cursor:pointer;
+                       border:1px solid var(--border);background:#fff;
+                       color:var(--text-light);transition:all .15s;">
+          ${isEn?'+ REIT':'＋ REIT'}
+        </button>
       </div>
     </div>
 
@@ -1572,6 +1579,8 @@ async function renderSpinoff() {
 
     el.innerHTML = html;
     _spinoffCache = el.innerHTML;
+    // 默认隐藏 REIT，渲染完成后立即过滤一次
+    setTimeout(() => _soApplyFilters(), 0);
 
   } catch(e) {
     console.error('spinoff error:', e);
@@ -1604,45 +1613,67 @@ function _soTypeBadge(st, isEn) {
     label + '</span>';
 }
 
-function soFilter(q) {
+let _soShowReit = false;   // 默认隐藏 REIT
+function soToggleReit() {
+  _soShowReit = !_soShowReit;
+  const btn = document.getElementById('soBtn-reit');
+  if (btn) {
+    btn.style.background   = _soShowReit ? 'var(--navy)' : '#fff';
+    btn.style.color        = _soShowReit ? '#fff' : 'var(--text-light)';
+    btn.style.borderColor  = _soShowReit ? 'var(--navy)' : 'var(--border)';
+    btn.textContent        = _soShowReit ? (lang==='en'?'− REIT':'－ REIT') : (lang==='en'?'+ REIT':'＋ REIT');
+  }
+  _soApplyFilters();
+}
+
+function _soIsReit(row) {
+  // 通过行内类型 badge 文本判断是否为 REIT
+  const badge = row.querySelector('span[style*="#f0fdf4"]');
+  return !!badge;
+}
+
+function _soApplyFilters() {
   const rows = document.querySelectorAll('#soList > div');
-  const kw = q.toLowerCase().trim();
+  const kw = (document.getElementById('soSearch')?.value || '').toLowerCase().trim();
   rows.forEach(row => {
-    const text = row.textContent.toLowerCase();
-    row.style.display = (!kw || text.includes(kw)) ? '' : 'none';
+    // 关键词过滤
+    const textMatch = !kw || row.textContent.toLowerCase().includes(kw);
+    // REIT 过滤
+    const reitMatch = _soShowReit || !_soIsReit(row);
+    // 状态过滤
+    let statusMatch = true;
+    if (_soStatusFilter !== 'all') {
+      const badgeSpan = row.querySelector('span[style*="border-radius:10px"]');
+      const text = (badgeSpan ? badgeSpan.textContent : row.textContent).toLowerCase();
+      const matchKw = {
+        progress:  ['进行中','in progress','生效'],
+        proposed:  ['建议中','proposed'],
+        approved:  ['批准','approved'],
+        listed:    ['上市','listed','完成','招股书','ipo'],
+        cancelled: ['终止','cancelled'],
+      }[_soStatusFilter] || [];
+      statusMatch = matchKw.some(m => text.includes(m));
+    }
+    row.style.display = (textMatch && reitMatch && statusMatch) ? '' : 'none';
   });
+}
+
+function soFilter(q) {
+  _soApplyFilters();
 }
 
 let _soStatusFilter = 'all';
 function soFilterStatus(status) {
   _soStatusFilter = status;
-  // 更新按钮样式
   ['all','progress','proposed','approved','listed','cancelled'].forEach(s => {
     const btn = document.getElementById('soBtn-' + s);
     if (!btn) return;
     const active = s === status;
-    btn.style.background    = active ? 'var(--navy)' : '#fff';
-    btn.style.color         = active ? '#fff' : 'var(--text-light)';
-    btn.style.borderColor   = active ? 'var(--navy)' : 'var(--border)';
+    btn.style.background   = active ? 'var(--navy)' : '#fff';
+    btn.style.color        = active ? '#fff' : 'var(--text-light)';
+    btn.style.borderColor  = active ? 'var(--navy)' : 'var(--border)';
   });
-  const rows = document.querySelectorAll('#soList > div');
-  rows.forEach(row => {
-    if (status === 'all') { row.style.display = ''; return; }
-    // 根据进度条颜色或状态 badge 文本判断
-    const badge = row.querySelector('[id^="so-body-"]');
-    const headerDiv = row.children[0];
-    if (!headerDiv) return;
-    const badgeSpan = headerDiv.querySelector('span[style*="background"]');
-    const text = (badgeSpan ? badgeSpan.textContent : headerDiv.textContent).toLowerCase();
-    const match = {
-      progress: ['进行中','in progress','生效'],
-      proposed: ['建议中','proposed'],
-      approved: ['批准','approved'],
-      listed:   ['上市','listed','完成','招股书','ipo'],
-      cancelled:['终止','cancelled'],
-    }[status] || [];
-    row.style.display = match.some(m => text.includes(m)) ? '' : 'none';
-  });
+  _soApplyFilters();
 }
 
 function soToggle(idx) {
