@@ -310,8 +310,8 @@ def filter_low_price(companies):
                 mktcap = None
                 c["lastPrice"] = None
                 c["marketCap"] = None
-            # 价格过滤：< 0.5 HKD
-            if price is not None and price < 0.5:
+            # 价格过滤：< 0.2 HKD
+            if price is not None and price < 0.2:
                 print(f"  ⛔ 过滤仙股: {ticker} 现价={price:.3f} HKD")
                 continue
             # 市值过滤：< 2亿 HKD（小市值空壳/堆垃公司）
