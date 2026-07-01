@@ -1596,6 +1596,7 @@ function _soTypeBadge(st, isEn) {
   const label = isEn ? (st.label_en || 'Spinoff') : (st.label_zh || '\u5206\u62c6');
   const palettes = {
     intro_hk:     { bg:'#f5f3ff', color:'#6d28d9', border:'#ddd6fe' },
+    ipo_hk_dist:  { bg:'#ede9fe', color:'#4c1d95', border:'#c4b5fd' },
     ipo_hk:       { bg:'#e0f2fe', color:'#0369a1', border:'#bae6fd' },
     ipo_a_sh:     { bg:'#fef9c3', color:'#854d0e', border:'#fde68a' },
     ipo_a_sz:     { bg:'#fef9c3', color:'#854d0e', border:'#fde68a' },

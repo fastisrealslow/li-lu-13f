@@ -160,6 +160,8 @@ def _classify_spinoff_type(titles):
       7. 直接分拆（无独立上市）
     """
     combined = ' '.join(titles)
+    # 预计算：是否是「建議分拆+獨立上市」格式（标准 IPO 分拆）
+    has_ipo_spinoff = bool(re.search(r'建[議议]分拆.{0,50}(?:獨立上市|独立上市|獨立上市)', combined))
 
     # REIT 判断：分拆目标明确是基金/REITs，而非子公司股票
     is_reit = any(kw in combined for kw in [
@@ -182,6 +184,11 @@ def _classify_spinoff_type(titles):
         return dict(code='reit', exchange_zh='REITs', exchange_en='REITs',
                     label_zh='REIT上市', label_en='REIT Listing', is_reit=True)
 
+    # IPO + 实物分派（发行新股融资，同时将现有股份分派给原股东）
+    if has_ipo_spinoff and '實物分派' in combined:
+        return dict(code='ipo_hk_dist', exchange_zh='港交所', exchange_en='HKEX',
+                    label_zh='IPO+实物分派', label_en='IPO+Distribution', is_reit=False)
+
     # 介绍上市（实物分派，不发行新股不融资）——优先于港交所判断
     # 排除条件：标题同时含「建議分拆...並於...獨立上市」= 主体是IPO，实物分派只是附加安排
     is_introduction = any(kw in combined for kw in [
@@ -190,7 +197,6 @@ def _classify_spinoff_type(titles):
         '以介紹方式', '介紹上市',   # 繁体
     ])
     # 「实物分派」单独出现才算介绍上市；若同时有「建議分拆...獨立上市」= IPO+附加实物分派
-    has_ipo_spinoff = bool(re.search(r'建[議议]分拆.{0,50}(?:獨立上市|独立上市|獨立上市)', combined))
     if is_introduction and not has_ipo_spinoff:
         return dict(code='intro_hk', exchange_zh='港交所', exchange_en='HKEX',
                     label_zh='介紹上市', label_en='Intro Listing', is_reit=False)
