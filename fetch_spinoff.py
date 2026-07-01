@@ -321,7 +321,7 @@ def main():
 
     # 剔除纯拆股（拆股/合股，无子公司上市）
     def is_pure_split(c):
-        """剔除仅有股份拆分（非业务分拆）的公告"""
+        """剔除仅有股份拆分/合股重组（非业务分拆）的公告"""
         all_titles = " ".join(a.get("title","") for a in c.get("announcements",[]))
         # 判断是否包含子公司/上市等关键词
         has_spinoff_kw = re.search(r"建議分拆|建议分拆|擬議分拆|拟议分拆|獨立上市|独立上市|spin.?off|demerger", all_titles, re.I)
@@ -329,6 +329,12 @@ def main():
         is_share_split = re.search(r"股份分拆|股份分割|share.?split|免費換領股票|免费换领", all_titles, re.I)
         # 如果只有拆股信号、没有子公司上市信号，则过滤
         if is_share_split and not has_spinoff_kw:
+            return True
+        # 判断是否是合股重组（削减资本+分拆未发行股份，无子公司上市）
+        # 典型格式："削減已發行股份之資本及分拆未發行股份"
+        is_capital_reorg = re.search(r"削減.{0,10}股份.{0,10}資本|削减.{0,10}股份.{0,10}资本", all_titles, re.I)
+        has_unissued_split = re.search(r"分拆未發行股份|分拆未发行股份", all_titles, re.I)
+        if is_capital_reorg and has_unissued_split and not has_spinoff_kw:
             return True
         return False
 
