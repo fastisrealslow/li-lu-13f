@@ -21,7 +21,7 @@ jobs:
           python-version: '3.12'
 
       - name: Install dependencies
-        run: pip install yfinance
+        run: pip install yfinance pdfminer.six
 
       - name: Fetch Li Lu 13F from SEC EDGAR
         continue-on-error: true

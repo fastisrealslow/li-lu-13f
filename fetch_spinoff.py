@@ -40,8 +40,9 @@ BLACKLIST_CODES = {
 }
 
 # 手动标注介绍上市（公告标题无关键词但正文已确认）
+# 注：现已通过 PDF 正文检测自动识别，本字典仅保留为备用
 KNOWN_INTRO = {
-    "00308",  # 香港中旅 → 中旅港澳文旅控股：实物分派+介绍方式（新浪财经 2026-05-20 确认）
+    # "00308",  # 香港中旅 → 已通过 PDF 检测自动识别
 }
 
 
@@ -303,6 +304,51 @@ def merge_by_company(all_items):
     return sorted(companies.values(), key=lambda x: x["latestDate"], reverse=True)
 
 
+def _pdf_check_intro(doc_url, opener):
+    """读 PDF 前2页，检测是否是介绍上市/实物分派方式。返回 True/False"""
+    try:
+        from pdfminer.high_level import extract_text_to_fp
+        from pdfminer.layout import LAParams
+        from io import StringIO, BytesIO
+        req = Request(doc_url, headers={"User-Agent": "Mozilla/5.0"})
+        data = opener.open(req, timeout=20).read()
+        out = StringIO()
+        extract_text_to_fp(BytesIO(data), out, laparams=LAParams(), page_numbers=[0, 1])
+        text = out.getvalue()
+        return bool(re.search(r'實物分派|以介紹方式|介紹式上市|listing by introduction|distribution in specie', text, re.I))
+    except Exception as e:
+        print(f"    PDF检测失败 ({doc_url[-40:]}): {e}", file=sys.stderr)
+        return False
+
+
+def refine_intro_type(companies, opener):
+    """
+    对被判为 ipo_hk 但存在实物分派远项的公司，读 PDF 正文确认是否介绍上市。
+    确认为介绍上市 → 改为 intro_hk。
+    """
+    INTRO_TYPE = dict(code='intro_hk', exchange_zh='港交所', exchange_en='HKEX',
+                     label_zh='介紹上市', label_en='Intro Listing', is_reit=False)
+    for c in companies:
+        if c.get('spinType', {}).get('code') != 'ipo_hk':
+            continue
+        # 远项信号：公告标题或搜索来源含实物分派相关词，但未自动识别为 intro_hk
+        all_titles = ' '.join(a.get('title', '') for a in c.get('announcements', []))
+        if not re.search(r'實物分派|实物分配', all_titles):
+            continue  # 标题没有任何实物分派相关词，跳过
+        # 拿最新公告的 PDF
+        doc_url = c['announcements'][0].get('docUrl', '')
+        if not doc_url.endswith('.pdf'):
+            continue
+        print(f"  🔍 PDF检测: {c['stockCode']} {c['stockName'][:12]} ...", end=' ', flush=True)
+        time.sleep(1)
+        if _pdf_check_intro(doc_url, opener):
+            c['spinType'] = INTRO_TYPE
+            print('✅ 介紹上市确认')
+        else:
+            print('— 保持 IPO')
+    return companies
+
+
 def get_status(company):
     """从公告标题推断分拆进展状态（与前端 _soProgress 保持一致）"""
     ann = company.get('announcements', [])
@@ -453,6 +499,10 @@ def main():
     companies = [c for c in companies if not is_pure_split(c)]
     if before_filter != len(companies):
         print(f"  ⛔ 过滤纯拆股: {before_filter - len(companies)} 家")
+
+    # PDF 检测：对远项山岚的 ipo_hk 公司确认是否是介绍上市
+    print("\nPDF 检测介绍上市...")
+    companies = refine_intro_type(companies, opener)
 
     # 状态驱动过滤：已上市>6个月 / 已终止 → 移除
     print("\n状态驱动过滤...")
