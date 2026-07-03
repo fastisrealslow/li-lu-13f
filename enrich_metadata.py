@@ -9,7 +9,7 @@ Actions 跑完 13F 抓取后执行：
 4. 同时维护一个全局缓存 metadata_cache.json，避免重复请求
 """
 
-import json, os, time, glob
+import json, os, re, time, glob
 
 try:
     import yfinance as yf
@@ -223,6 +223,141 @@ def process_file(filepath, cache):
     else:
         print(f"  ⏭  {filepath} 无需更新")
 
+
+# SiliconFlow 免费模型 fallback 列表
+_SF_MODELS_EN = [
+    "Qwen/Qwen3.5-9B",
+    "Qwen/Qwen3.5-4B",
+    "THUDM/glm-4-9b-chat",
+]
+
+
+def _sf_call_enrich(api_key, prompt, max_tokens=400, retries=2):
+    """健壮 SiliconFlow 调用：multi-model fallback + 重试"""
+    try:
+        from urllib.request import Request, urlopen
+    except ImportError:
+        return None
+    for model in _SF_MODELS_EN:
+        for attempt in range(retries + 1):
+            try:
+                payload = json.dumps({
+                    "model": model,
+                    "messages": [{"role": "user", "content": prompt}],
+                    "max_tokens": max_tokens,
+                    "temperature": 0.3,
+                    "stream": False,
+                    "enable_thinking": False,
+                }).encode()
+                req = Request(
+                    "https://api.siliconflow.cn/v1/chat/completions",
+                    data=payload,
+                    headers={"Authorization": f"Bearer {api_key}",
+                             "Content-Type": "application/json"},
+                    method="POST",
+                )
+                with urlopen(req, timeout=40) as resp:
+                    data = json.loads(resp.read())
+                text = data['choices'][0]['message']['content'].strip()
+                if text:
+                    return text
+            except Exception as e:
+                wait = 2 ** attempt
+                print(f"  [{model}] 第{attempt+1}次失败: {e}"
+                      + (f"，{wait}s后重试" if attempt < retries else "，放弃"))
+                if attempt < retries:
+                    time.sleep(wait)
+        print(f"  模型 {model} 全部失败")
+    return None
+
+
+def _gen_13f_summaries(api_key):
+    """
+    读取各投资者最新季报变动，用 LLM 生成中文摘要，
+    写入各 JSON 文件的 meta.aiSummary 字段。
+    """
+    FILES = [
+        ('data.json',       '李录'),
+        ('pabrai_data.json','帕布莱'),
+        ('duan.json',       '段永平'),
+        ('tepper.json',     '泰珀'),
+        ('spier.json',      '斯皮尔'),
+        ('akre.json',       '阿克雷'),
+        ('greenberg.json',  '格林伯格'),
+        ('buffett.json',    '巴达特'),
+    ]
+    for filepath, investor_cn in FILES:
+        if not os.path.exists(filepath):
+            continue
+        try:
+            d = json.load(open(filepath))
+        except Exception:
+            continue
+
+        cur = d.get('current', {})
+        quarter = cur.get('quarter', '')
+        holdings = cur.get('holdings', [])
+        if not holdings:
+            continue
+
+        # 构造变动列表
+        new_pos, added, reduced, exited = [], [], [], []
+        for h in holdings:
+            t   = h.get('ticker', '')
+            cn  = h.get('cnName', '') or h.get('name', t)
+            s   = h.get('shares', 0)
+            ps  = h.get('prevShares')
+            if ps is None:
+                new_pos.append(cn)
+            elif s == 0:
+                exited.append(cn)
+            elif s > ps * 1.1:
+                pct = (s - ps) / ps * 100
+                added.append(f"{cn}(+{pct:.0f}%)")
+            elif s < ps * 0.9:
+                pct = (ps - s) / ps * 100
+                reduced.append(f"{cn}(-{pct:.0f}%)")
+
+        if not (new_pos or added or exited or reduced):
+            print(f"  {investor_cn} {quarter}: 无变动，跳过")
+            continue
+
+        parts = []
+        if new_pos:  parts.append("新建仓位: " + '、'.join(new_pos[:4]))
+        if added:    parts.append("增持: " + '、'.join(added[:4]))
+        if reduced:  parts.append("减持: " + '、'.join(reduced[:4]))
+        if exited:   parts.append("清仓: " + '、'.join(exited[:4]))
+        change_str = '；'.join(parts)
+
+        top5 = '、'.join(
+            (h.get('cnName') or h.get('name', h.get('ticker', '')))
+            for h in sorted(holdings, key=lambda x: x.get('value', 0), reverse=True)[:5]
+        )
+
+        prompt = (
+            f"以下是价値投资人{investor_cn}在{quarter}的季报变动。\n"
+            f"重仓前5: {top5}\n"
+            f"变动: {change_str}\n\n"
+            "请用中文写一句话（30-60字）概述本季最重要的操作和可能含义。"
+            "不要编造没有的信息，不要写剥析和预测。"
+        )
+
+        text = _sf_call_enrich(api_key, prompt, max_tokens=120)
+        if not text:
+            print(f"  {investor_cn} LLM 失败")
+            continue
+
+        # 写入 meta.aiSummary
+        if 'meta' not in d:
+            d['meta'] = {}
+        d['meta']['aiSummary'] = text
+        d['meta']['aiSummaryQuarter'] = quarter
+        with open(filepath, 'w') as f:
+            json.dump(d, f, ensure_ascii=False, indent=2)
+        print(f"  {investor_cn} {quarter}: {text}")
+        time.sleep(1)
+
+
 def main():
     print("=== enrich_metadata.py 开始 ===")
     cache = load_cache()
@@ -244,6 +379,12 @@ def main():
 
     save_cache(cache)
     print(f"\n=== 完成，缓存更新为 {len(cache)} 个 ticker ===")
+
+    # LLM 生成 13F 季报变动摘要
+    sf_key = os.environ.get('SILICONFLOW_KEY', '')
+    if sf_key:
+        print("\n=== LLM 生成 13F 季报摘要 ===")
+        _gen_13f_summaries(sf_key)
 
 if __name__ == '__main__':
     main()

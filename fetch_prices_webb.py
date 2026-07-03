@@ -1,39 +1,56 @@
 """Fetch stock prices for David Webb's HK holdings.
-- Live quotes: yfinance (supports .HK tickers)
-- Cost basis: derived from webb.json value/shares (HKD)
+- Live quotes: 新浪财经港股 API（批量查询，无限速）
+- Cost basis: yfinance 历史数据（失败时 fallback 到 13F value/shares 估算）
 Usage: python3 fetch_prices_webb.py
 """
-import json, os, sys, time
+import json, os, sys, time, re
 from datetime import datetime, timezone
+from urllib.request import Request, urlopen
 
 DATA_PATH = "webb.json"
 OUT_PATH  = "prices_webb.json"
 
 def get_hk_prices(tickers):
-    """Fetch current HK stock prices via yfinance."""
-    try:
-        import yfinance as yf
-        result = {}
-        # Fetch one by one to avoid batch issues
-        for tk in tickers:
-            try:
-                t = yf.Ticker(tk)
-                hist = t.history(period="5d")
-                if hist is not None and len(hist) > 0:
-                    price = round(float(hist['Close'].dropna().iloc[-1]), 3)
-                    result[tk] = {"c": price, "currency": "HKD"}
-                    print(f"  {tk}: HK${price:.3f}")
-                else:
-                    result[tk] = {"error": True}
-                    print(f"  {tk}: no data")
-                time.sleep(0.5)
-            except Exception as e:
-                result[tk] = {"error": True}
-                print(f"  {tk}: error {e}", file=sys.stderr)
-        return result
-    except ImportError:
-        print("ERROR: yfinance not installed. Run: pip install yfinance", file=sys.stderr)
-        sys.exit(1)
+    """批量查询港股实时价格（新浪财经 API）。一次请求所有 ticker，无限速。"""
+    # 构建新浪格式：01234.HK → hk01234
+    def to_sina(tk):
+        code = tk.replace('.HK', '')
+        return 'hk' + code.zfill(5)
+
+    sina_map = {to_sina(tk): tk for tk in tickers}  # sina_sym -> original ticker
+    result = {tk: {"error": True} for tk in tickers}
+
+    BATCH = 40
+    syms = list(sina_map.keys())
+    for i in range(0, len(syms), BATCH):
+        batch = syms[i:i+BATCH]
+        url = 'https://hq.sinajs.cn/list=' + ','.join(batch)
+        try:
+            req = Request(url, headers={
+                'Referer': 'https://finance.sina.com.cn',
+                'User-Agent': 'Mozilla/5.0'
+            })
+            with urlopen(req, timeout=12) as resp:
+                body = resp.read().decode('gbk', errors='replace')
+            for line in body.splitlines():
+                m = re.match(r'var hq_str_(hk\d+)="([^"]*)', line)
+                if not m: continue
+                sym, fields = m.group(1), m.group(2).split(',')
+                tk = sina_map.get(sym)
+                if not tk: continue
+                try:
+                    price = round(float(fields[6]), 3)  # 字段[6] = 当前价
+                    if price > 0:
+                        result[tk] = {"c": price, "currency": "HKD"}
+                        print(f"  {tk}: HK${price:.3f}")
+                    else:
+                        print(f"  {tk}: price=0 (no data)")
+                except (ValueError, IndexError):
+                    print(f"  {tk}: parse error")
+        except Exception as e:
+            print(f"  新浪 API 请求失败: {e}", file=sys.stderr)
+        time.sleep(0.2)
+    return result
 
 def quarter_ts(q_str):
     parts = q_str.split(" Q")

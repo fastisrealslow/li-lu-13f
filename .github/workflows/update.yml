@@ -79,9 +79,17 @@ jobs:
           FINNHUB_KEY: ${{ secrets.FINNHUB_KEY }}
         run: python3 fetch_prices_webb.py
 
-      - name: Fetch David Webb HK holdings (webbsite.0xmd.com)
+      - name: Fetch David Webb HK holdings (webbsite.0xmd.com, 仅周一)
         continue-on-error: true
-        run: python3 fetch_webb_holdings.py
+        run: |
+          # webbsite.0xmd.com 每周一 UTC 00-04 才更新，其他时间跳过
+          DAY=$(date -u +%u)  # 1=周一 ... 7=周日
+          if [ "$DAY" = "1" ] || [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            echo "周一，执行 Webb 持仓抓取..."
+            python3 fetch_webb_holdings.py
+          else
+            echo "今天是周 $DAY，跳过 Webb 持仓抓取"
+          fi
 
       - name: Fetch Buffett 13F from SEC EDGAR
         continue-on-error: true
@@ -105,6 +113,8 @@ jobs:
 
       - name: Enrich metadata (cnName + sector)
         continue-on-error: true
+        env:
+          SILICONFLOW_KEY: ${{ secrets.SILICONFLOW_KEY }}
         run: python3 enrich_metadata.py
 
       - name: Monitor HK disclosure of interests (Duan Yongping)
@@ -113,7 +123,15 @@ jobs:
 
       - name: Fetch HK spin-off announcements
         continue-on-error: true
+        env:
+          SILICONFLOW_KEY: ${{ secrets.SILICONFLOW_KEY }}
         run: python3 fetch_spinoff.py
+
+      - name: Fetch US spin-off announcements (SEC EDGAR)
+        continue-on-error: true
+        env:
+          SILICONFLOW_KEY: ${{ secrets.SILICONFLOW_KEY }}
+        run: python3 fetch_spinoff_us.py
 
       - name: Validate JSON files before commit
         run: |
@@ -169,7 +187,7 @@ jobs:
           done
 
           # Also add metadata cache and HK alerts if exists
-          for extra in metadata_cache.json alerts_hk_persons.json spinoff.json; do
+          for extra in metadata_cache.json alerts_hk_persons.json spinoff.json spinoff_us.json akre_hk.json pabrai_hk.json greenberg_hk.json; do
             if [ -f "$extra" ] && [ -s "$extra" ]; then
               VALID_FILES="$VALID_FILES $extra"
             fi

@@ -10,11 +10,12 @@ const T = {
   heroTitle: ['李录 13F 持仓追踪','Li Lu 13F Tracker'],
   heroSub: ['Himalaya Capital · SEC 13F · 价值投资','Himalaya Capital · SEC 13F · Value Investing'],
   // Tabs
-  tabCurrent: ['持仓明细','Holdings'],
-  tabChanges: ['季度变化','QoQ Changes'],
-  tabHistory: ['历史趋势','History'],
+  tabCurrent: ['📊 持仓明细','📊 Holdings'],
+  tabChanges: ['📈 季度变化','📈 QoQ Changes'],
+  tabHistory: ['📉 历史趋势','📉 History'],
   tabHomework: ['📋 价值筛选','📋 Value Picks'],
-  tabSpinoff:  ['🔀 分拆研究','🔀 Spin-offs'],
+  tabSpinoff:  ['🇭🇰 港股分拆','🇭🇰 HK Spin-offs'],
+  tabSpinoffUS: ['🇺🇸 美股分拆','🇺🇸 US Spin-offs'],
   selLabel: ['切换投资者：','Investor:'],
   tabTimeline: ['⏳ 时间轴','⏳ Timeline'],
   // Table headers
@@ -409,6 +410,8 @@ function switchLang() {
   renderTimeline();
   _homeworkCache = null;
   if (!document.getElementById('tab-homework').classList.contains('d-none')) renderHomework();
+  if (!document.getElementById('tab-spinoff').classList.contains('d-none')) renderSpinoff();
+  if (!document.getElementById('tab-spinoff_us').classList.contains('d-none')) renderSpinoffUS();
 }
 
 // ========== FORMAT HELPERS ==========
@@ -900,6 +903,23 @@ function renderChanges() {
 
 function renderInsights() {
   const d = data.current, ins = [];
+
+  // AI 摘要（如果有）
+  const aiSummary = (data.meta || {}).aiSummary;
+  const aiQuarter = (data.meta || {}).aiSummaryQuarter || '';
+  const box = document.querySelector('.insights-box');
+  let aiBar = document.getElementById('aiSummaryBar');
+  if (aiSummary && box) {
+    const html = `<div id="aiSummaryBar" style="
+      background:linear-gradient(135deg,rgba(99,102,241,0.08),rgba(139,92,246,0.08));
+      border:1px solid rgba(99,102,241,0.2);
+      border-radius:8px;padding:10px 14px;margin-bottom:10px;
+      font-size:.78rem;line-height:1.6;color:var(--text);
+    "><span style="font-size:.65rem;color:#6366f1;font-weight:600;margin-right:6px;">✨ AI ${aiQuarter}</span>${aiSummary}</div>`;
+    if (aiBar) { aiBar.outerHTML = html; } else { box.insertAdjacentHTML('afterbegin', html); }
+  } else if (aiBar) {
+    aiBar.remove();
+  }
   const np = d.holdings.filter(h=>!h.prevShares);
   if (np.length) ins.push(`${t('insNew')} ${np.length} ${t('insNew2')} ${np.map(h=>h.ticker).join('、')}, ${t('insExpand')}。`);
   const bs = d.holdings.filter(h=>h.prevShares&&h.shares<h.prevShares*0.5);
@@ -1070,16 +1090,17 @@ async function renderHKHoldings() {
 }
 
 function switchTab(name) {
-  ['current','changes','history','homework','spinoff'].forEach(t=>{
+  ['current','changes','history','homework','spinoff','spinoff_us'].forEach(t=>{
     document.getElementById('tab-'+t).classList.toggle('d-none',t!==name);
   });
   document.querySelectorAll('.tab-btn').forEach((b,i)=>{
-    b.classList.toggle('active',['current','changes','history','homework','spinoff'][i]===name);
+    b.classList.toggle('active',['current','changes','history','homework','spinoff','spinoff_us'][i]===name);
   });
   if (name==='changes') { renderChanges(); renderInsights(); }
   if (name==='history') { renderHistoryChart(); renderTimeline(); }
   if (name==='homework') { renderHomework(); }
   if (name==='spinoff') { renderSpinoff(); }
+  if (name==='spinoff_us') { renderSpinoffUS(); }
 }
 
 let _homeworkCache = null;
@@ -1485,7 +1506,7 @@ async function renderSpinoff() {
             <div style="font-weight:700;font-size:.84rem;color:var(--navy);letter-spacing:.3px;line-height:1.2;">${fmtTicker(c.ticker)}</div>
             <div style="font-size:.7rem;color:var(--text-light);margin-top:2px;
                         white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:118px;"
-                 title="${c.stockName}">${c.stockName}</div>
+                 title="${c.nameCN||c.stockName}">${c.nameCN||c.stockName}</div>
             ${sub?`<div style="font-size:.65rem;color:var(--gold);margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:120px;font-weight:500;" title="${sub}">↗ ${sub}</div>`:''}
           </div>
           <!-- 进度 -->
@@ -1518,8 +1539,8 @@ async function renderSpinoff() {
           ${sub?`<div style="padding:8px 14px 4px;font-size:.72rem;color:var(--text-light);">
             <span style="color:var(--gold);font-weight:600;">分拆标的：</span>${sub}
             &nbsp;&nbsp;
-            <span style="color:var(--text-lighter);">${c.summary||''}</span>
-          </div>`:`<div style="padding:6px 14px 2px;font-size:.7rem;color:var(--text-lighter);">${c.summary||''}</div>`}
+            <span style="color:var(--text-lighter);">${c.aiSummary||c.summary||''}</span>
+          </div>`:`<div style="padding:6px 14px 2px;font-size:.7rem;color:var(--text-lighter);">${c.aiSummary ? '<span style="color:#6366f1;font-size:.62rem;margin-right:3px;">✨</span>' : ''}${c.aiSummary||c.summary||''}</div>`}
 
           <!-- 进度条（完整版） -->
           <div style="margin:6px 14px 0;background:#e5e7eb;border-radius:4px;height:6px;overflow:hidden;">
@@ -1709,6 +1730,180 @@ function soToggle(idx) {
 
 // 兼容旧调用
 function spinoffToggle(idx) { soToggle(idx); }
+
+// ========== 美股分拆 ==========
+// ===== 美股分拆 Tab 状态 =====
+let _spinoffUSData = null;     // 原始数据
+
+const US_TYPE_PALETTES = {
+  spinoff:  { bg:'#e0f2fe', color:'#0369a1', border:'#bae6fd', zh:'纯分拆', en:'Spin-off' },
+  carveout: { bg:'#fff7ed', color:'#9a3412', border:'#fed7aa', zh:'子公司IPO', en:'Carve-out' },
+  splitoff: { bg:'#f5f3ff', color:'#6d28d9', border:'#ddd6fe', zh:'换股分拆', en:'Split-off' },
+};
+const US_STATUS_MAP = {
+  announced:   { zh:'📢 已宣布', en:'📢 Announced',   color:'#6b7280' },
+  in_progress: { zh:'⏳ 进行中', en:'⏳ In Progress',  color:'#d97706' },
+  record_set:  { zh:'📅 登记日已定', en:'📅 Record Set', color:'#0369a1' },
+  approved:    { zh:'✓ 已批准', en:'✓ Approved',   color:'#059669' },
+  completed:   { zh:'✅ 已完成', en:'✅ Completed',    color:'#059669' },
+  terminated:  { zh:'✕ 已终止', en:'✕ Terminated',   color:'#ef4444' },
+};
+
+function _usTypeBadge(type, isEn) {
+  const p = US_TYPE_PALETTES[type] || US_TYPE_PALETTES.spinoff;
+  return `<span style="display:inline-block;font-size:.62rem;padding:2px 7px;border-radius:10px;font-weight:600;white-space:nowrap;background:${p.bg};color:${p.color};border:1px solid ${p.border};">${isEn?p.en:p.zh}</span>`;
+}
+function _usStatusBadge(status, isEn) {
+  const s = US_STATUS_MAP[status] || US_STATUS_MAP.in_progress;
+  return `<span style="font-size:.72rem;color:${s.color};font-weight:600;">${isEn?s.en:s.zh}</span>`;
+}
+
+function _usApplyFilters() {
+  const el = document.getElementById('spinoffUSContent');
+  if (!el || !_spinoffUSData) return;
+  const isEn = lang === 'en';
+  const q = (document.getElementById('usSearchInput')?.value || '').toLowerCase().trim();
+  const typeF = document.getElementById('usTypeFilter')?.value || 'all';
+  const statusF = document.getElementById('usStatusFilter')?.value || 'all';
+
+  let list = _spinoffUSData.companies || [];
+  if (q) list = list.filter(c =>
+    (c.ticker||'').toLowerCase().includes(q) ||
+    (c.name||'').toLowerCase().includes(q) ||
+    (c.nameCN||'').includes(q) ||
+    (c.spinoffName||'').toLowerCase().includes(q)
+  );
+  if (typeF !== 'all') list = list.filter(c => c.type === typeF);
+  if (statusF !== 'all') {
+    if (statusF === 'active') list = list.filter(c => !['completed','terminated'].includes(c.status));
+    else list = list.filter(c => c.status === statusF);
+  }
+
+  const listEl = document.getElementById('usListContainer');
+  if (!listEl) return;
+  if (!list.length) { listEl.innerHTML = `<p style="color:var(--text-lighter);padding:20px;text-align:center;">${isEn?'No matches':'无匹配结果'}</p>`; return; }
+
+  listEl.innerHTML = list.map(c => {
+    const latestDate = c.announcements?.[0]?.date || '';
+    const annList = (c.announcements||[]).map(a =>
+      `<div style="font-size:.72rem;color:var(--text-light);padding:4px 0;border-bottom:1px solid var(--border);">
+        <span style="color:var(--text-lighter);min-width:82px;display:inline-block;">${a.date}</span>
+        ${a.url ? `<a href="${a.url}" target="_blank" style="color:var(--navy);text-decoration:none;">${a.title}</a>` : a.title}
+      </div>`
+    ).join('');
+    const detail = `
+      <div style="padding:14px 16px 14px 32px;background:var(--row-hover);border-top:1px solid var(--border);">
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;font-size:.8rem;margin-bottom:10px;">
+          ${c.spinoffTicker&&c.spinoffTicker!=='TBD'?`<div><b>${isEn?'Sub-ticker':'分拆ticker'}:</b> ${c.spinoffTicker}</div>`:''}
+          ${c.exchange?`<div><b>${isEn?'Exchange':'交易所'}:</b> ${c.exchange}</div>`:''}
+          ${c.recordDate?`<div><b>${isEn?'Record Date':'登记日'}:</b> ${c.recordDate}</div>`:''}
+          ${c.distributionDate?`<div><b>${isEn?'Distribution Date':'分派日'}:</b> ${c.distributionDate}</div>`:''}
+        </div>
+        ${c.aiSummary?`<div style="background:linear-gradient(135deg,rgba(99,102,241,0.06),rgba(139,92,246,0.06));border:1px solid rgba(99,102,241,0.15);border-radius:6px;padding:8px 12px;margin-bottom:10px;font-size:.75rem;line-height:1.6;color:var(--text);"><span style="font-size:.62rem;color:#6366f1;font-weight:600;margin-right:5px;">✨ AI</span>${c.aiSummary}</div>`:''}
+        <div style="font-size:.73rem;color:var(--text-light);font-weight:600;margin-bottom:5px;">${isEn?'SEC Filings':'公告记录'}</div>
+        ${annList}
+      </div>`;
+    const cnName = c.nameCN ? `<span style="font-size:.7rem;color:var(--text-lighter);margin-left:4px;">${c.nameCN}</span>` : '';
+    const soName = c.spinoffName ? `<span style="font-size:.75rem;color:var(--text-light);flex:1;min-width:100px;">→ ${c.spinoffName}</span>` : `<span style="flex:1;"></span>`;
+    return `
+      <div style="border:1px solid var(--border);border-radius:8px;margin-bottom:6px;overflow:hidden;">
+        <div onclick="this.nextElementSibling.style.display=this.nextElementSibling.style.display==='none'?'block':'none'"
+             style="display:flex;align-items:center;gap:8px;padding:9px 13px;cursor:pointer;background:var(--card-bg);flex-wrap:wrap;">
+          <span style="font-size:.83rem;font-weight:700;color:var(--navy);min-width:52px;">${c.ticker}</span>
+          <span style="font-size:.78rem;color:var(--text-light);min-width:120px;max-width:200px;">${c.name}${cnName}</span>
+          ${soName}
+          ${_usTypeBadge(c.type, isEn)}
+          ${_usStatusBadge(c.status, isEn)}
+          <span style="font-size:.68rem;color:var(--text-lighter);min-width:72px;text-align:right;">${latestDate}</span>
+        </div>
+        <div style="display:none;">${detail}</div>
+      </div>`;
+  }).join('');
+}
+
+async function renderSpinoffUS() {
+  const el = document.getElementById('spinoffUSContent');
+  if (!el) return;
+  const isEn = lang === 'en';
+
+  if (!_spinoffUSData) {
+    el.innerHTML = `<p style="padding:24px;color:var(--text-lighter);">${isEn?'Loading...':'加载中...'}</p>`;
+    try {
+      const resp = await fetch('spinoff_us.json?t=' + Date.now());
+      _spinoffUSData = await resp.json();
+    } catch(e) {
+      el.innerHTML = `<p style="padding:24px;color:#ef4444;">${isEn?'Load failed':'数据加载失败'}</p>`;
+      return;
+    }
+  }
+
+  const companies = _spinoffUSData.companies || [];
+  const byType = {};
+  companies.forEach(c => { byType[c.type] = (byType[c.type]||0)+1; });
+  const inProg = companies.filter(c => !['completed','terminated'].includes(c.status)).length;
+
+  el.innerHTML = `
+    <div style="margin-bottom:20px;">
+      <h3 style="font-family:var(--serif);font-size:1.05rem;color:var(--navy);margin:0 0 12px;font-weight:700;">
+        ${isEn?'🇺🇸 US Spin-off Tracker':'🇺🇸 美股分拆进展追踪'}
+      </h3>
+
+      <!-- KPI -->
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:8px;margin-bottom:14px;">
+        <div style="background:var(--card-bg);border:1px solid var(--border);border-radius:8px;padding:10px;text-align:center;">
+          <div style="font-size:1.3rem;font-weight:700;color:var(--navy);">${companies.length}</div>
+          <div style="font-size:.7rem;color:var(--text-light);">${isEn?'Total':'总数'}</div>
+        </div>
+        <div style="background:var(--card-bg);border:1px solid var(--border);border-radius:8px;padding:10px;text-align:center;">
+          <div style="font-size:1.3rem;font-weight:700;color:#d97706;">${inProg}</div>
+          <div style="font-size:.7rem;color:var(--text-light);">${isEn?'In Progress':'进行中'}</div>
+        </div>
+        <div style="background:var(--card-bg);border:1px solid var(--border);border-radius:8px;padding:10px;text-align:center;">
+          <div style="font-size:1.3rem;font-weight:700;color:#0369a1;">${byType.spinoff||0}</div>
+          <div style="font-size:.7rem;color:var(--text-light);">${isEn?'Spin-off':'纯分拆'}</div>
+        </div>
+        <div style="background:var(--card-bg);border:1px solid var(--border);border-radius:8px;padding:10px;text-align:center;">
+          <div style="font-size:1.3rem;font-weight:700;color:#9a3412;">${byType.carveout||0}</div>
+          <div style="font-size:.7rem;color:var(--text-light);">${isEn?'Carve-out':'子公司IPO'}</div>
+        </div>
+        <div style="background:var(--card-bg);border:1px solid var(--border);border-radius:8px;padding:10px;text-align:center;">
+          <div style="font-size:1.3rem;font-weight:700;color:#6d28d9;">${byType.splitoff||0}</div>
+          <div style="font-size:.7rem;color:var(--text-light);">${isEn?'Split-off':'换股分拆'}</div>
+        </div>
+      </div>
+
+      <!-- 搜索 + 过滤 -->
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px;">
+        <input id="usSearchInput" type="text" placeholder="${isEn?'Search ticker / company...':'搜索 ticker 或公司...'}"
+          oninput="_usApplyFilters()"
+          style="flex:1;min-width:160px;padding:6px 10px;border:1px solid var(--border);border-radius:6px;font-size:.8rem;background:var(--card-bg);color:var(--text);"/>
+        <select id="usTypeFilter" onchange="_usApplyFilters()"
+          style="padding:6px 10px;border:1px solid var(--border);border-radius:6px;font-size:.8rem;background:var(--card-bg);color:var(--text);">
+          <option value="all">${isEn?'All Types':'全部类型'}</option>
+          <option value="spinoff">${isEn?'Spin-off':'纯分拆'}</option>
+          <option value="carveout">${isEn?'Carve-out':'子公司IPO'}</option>
+          <option value="splitoff">${isEn?'Split-off':'换股分拆'}</option>
+        </select>
+        <select id="usStatusFilter" onchange="_usApplyFilters()"
+          style="padding:6px 10px;border:1px solid var(--border);border-radius:6px;font-size:.8rem;background:var(--card-bg);color:var(--text);">
+          <option value="all">${isEn?'All Status':'全部状态'}</option>
+          <option value="active">${isEn?'Active (In Progress)':'进行中'}</option>
+          <option value="completed">${isEn?'Completed':'已完成'}</option>
+          <option value="announced">${isEn?'Announced':'已宣布'}</option>
+        </select>
+      </div>
+
+      <p style="font-size:.68rem;color:var(--text-lighter);margin-bottom:10px;">
+        ${isEn
+          ? '📡 Source: SEC EDGAR 8-K auto-fetch + manual curation. Click row to expand.'
+          : '📡 数据：SEC EDGAR 8-K 自动抓取 + 手动维护。点击行展开公告。'}
+      </p>
+
+      <div id="usListContainer"></div>
+    </div>`;
+
+  _usApplyFilters();
+}
 
 
 

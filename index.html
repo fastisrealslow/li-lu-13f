@@ -297,11 +297,12 @@ th .info-wrap{position:relative;display:inline-flex}
     </div>
     <div id="summaryCards" class="stat-line" style="margin-bottom:20px;width:100%;"></div>
     <div class="tabs">
-      <button class="tab-btn active" onclick="switchTab('current')"><span data-i18n="tabCurrent">持仓明细</span><span style="display:none" data-i18n="tabCurrent">持仓明细</span></button>
-      <button class="tab-btn" onclick="switchTab('changes')"><span data-i18n="tabChanges">季度变化</span><span style="display:none" data-i18n="tabChanges">季度变化</span></button>
-      <button class="tab-btn" onclick="switchTab('history')"><span data-i18n="tabHistory">历史趋势</span><span style="display:none" data-i18n="tabHistory">历史趋势</span></button>
+      <button class="tab-btn active" onclick="switchTab('current')"><span data-i18n="tabCurrent">📊 持仓明细</span></button>
+      <button class="tab-btn" onclick="switchTab('changes')"><span data-i18n="tabChanges">📈 季度变化</span></button>
+      <button class="tab-btn" onclick="switchTab('history')"><span data-i18n="tabHistory">📉 历史趋势</span></button>
       <button class="tab-btn" onclick="switchTab('homework')" style="position:relative;"><span data-i18n="tabHomework">📋 价値筛选</span></button>
-      <button class="tab-btn" onclick="switchTab('spinoff')" style="position:relative;"><span data-i18n="tabSpinoff">🔀 分拆研究</span></button>
+      <button class="tab-btn" onclick="switchTab('spinoff')" style="position:relative;"><span data-i18n="tabSpinoff">🇭🇰 港股分拆</span></button>
+      <button class="tab-btn" onclick="switchTab('spinoff_us')" style="position:relative;"><span data-i18n="tabSpinoffUS">🇺🇸 美股分拆</span></button>
     </div>
     <div id="tab-current">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
@@ -324,6 +325,9 @@ th .info-wrap{position:relative;display:inline-flex}
     </div>
     <div id="tab-spinoff" class="d-none">
       <div id="spinoffContent"></div>
+    </div>
+    <div id="tab-spinoff_us" class="d-none">
+      <div id="spinoffUSContent"></div>
     </div>
     <div id="tab-history" class="d-none">
       <div class="chart-wrap"><canvas id="historyChart"></canvas></div>
@@ -473,7 +477,7 @@ th .info-wrap{position:relative;display:inline-flex}
   </div>
 </footer>
 
-<script src="app.js?v=46"></script>
+<script src="app.js?v=49"></script>
 <script>
 const nav=document.getElementById('mainNav');
 window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',window.scrollY>60));

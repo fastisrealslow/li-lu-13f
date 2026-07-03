@@ -51,6 +51,22 @@ WATCH_CONFIG = [
             {"name": "Berkshire Hathaway", "exact": "Berkshire Hathaway"},
         ],
     },
+    {
+        "investor": "pabrai",
+        "hk_file":  "pabrai_hk.json",
+        "persons": [
+            {"name": "Mohnish Pabrai",    "exact": "Pabrai"},
+            {"name": "Dalal Street",      "exact": "Dalal Street"},
+        ],
+    },
+    {
+        "investor": "akre",
+        "hk_file":  "akre_hk.json",
+        "persons": [
+            {"name": "Chuck Akre",        "exact": "Akre"},
+            {"name": "Akre Capital",      "exact": "Akre Capital"},
+        ],
+    },
 ]
 
 today     = datetime.now()
@@ -113,6 +129,41 @@ def normalize_hk_ticker(code):
     return num.zfill(5) + ".HK"
 
 
+_pct_cache = {}  # noticeUrl -> pct str
+
+
+def fetch_latest_pct(notice_url, opener):
+    """从 NSNoticePersonList 列表页拿最新一条投Form链接，再进详情页拿持股比例"""
+    if notice_url in _pct_cache:
+        return _pct_cache[notice_url]
+    try:
+        resp = opener.open(notice_url, timeout=12)  # notice_url 已是完整 URL
+        html = resp.read().decode("utf-8", errors="replace")
+        time.sleep(0.5)
+        # 找第一条记录的详情链接 NSForm1.aspx 或 NSForm2.aspx
+        form_m = re.search(r'href="(NSForm[12]\.aspx[^"]+)"', html)
+        if not form_m:
+            return ""
+        form_path = form_m.group(1).replace("&amp;", "&")
+        form_url = f"{BASE_URL}/{form_path}"
+        resp2 = opener.open(form_url, timeout=12)
+        html2 = resp2.read().decode("utf-8", errors="replace")
+        time.sleep(0.5)
+        # 在 Form 表单里找持股比例（通常在 "% of relevant share capital" 附近）
+        pct_m = re.search(
+            r'(?:百分比|% of relevant share capital|% (?:of|of\ the)\ relevant|佔相关股本)[^\d]{0,30}'
+            r'(\d{1,3}\.\d{1,4})',
+            html2, re.I)
+        if pct_m:
+            result = pct_m.group(1) + "%"
+            _pct_cache[notice_url] = result
+            return result
+    except Exception as e:
+        print(f"  fetch_latest_pct 失败: {e}")
+    _pct_cache[notice_url] = ""
+    return ""
+
+
 def resolve_sid_to_ticker(sid):
     """未知 sid：访问港交所大股东页面反查股票代号"""
     global _opener_ref
@@ -150,7 +201,7 @@ def parse_holdings(html, exact_keyword, investor_label):
         re.IGNORECASE
     )
     for m in pattern.finditer(html):
-        notice_url = m.group(1)
+        notice_url = m.group(1).replace("&amp;", "&")
         entity     = m.group(2).replace("&amp;", "&").strip()
         stock_name = m.group(3).strip()
 
@@ -197,25 +248,37 @@ def update_hk_file(hk_file, all_holdings):
         if not ticker:
             continue
         if ticker in existing_tickers:
-            # 更新已有条目的 last_disclosure
+            # 更新已有条目的 last_disclosure 和比例
             for existing in holdings_list:
                 if existing.get("ticker") == ticker:
                     existing["last_disclosure"] = today.strftime("%Y")
                     existing["current_status"]  = "active"
+                    # 尝试更新持股比例
+                    if h.get("noticeUrl") and _opener_ref:
+                        pct = fetch_latest_pct(h["noticeUrl"], _opener_ref)
+                        if pct:
+                            existing["pct"] = pct
+                            existing["pct_date"] = today.strftime("%Y-%m-%d")
+                            print(f"  📊 {ticker} 持股比例: {pct}")
             continue
 
         # 新股票自动追加
+        pct = ""
+        if h.get("noticeUrl") and _opener_ref:
+            pct = fetch_latest_pct(h["noticeUrl"], _opener_ref)
         new_entry = {
             "ticker":           ticker,
             "name":             h["stockName"],
             "cnName":           h["stockName"],
             "sector":           "",
             "entity":           h["entity"],
+            "pct":              pct,
+            "pct_date":         today.strftime("%Y-%m-%d") if pct else "",
             "first_disclosure": today.strftime("%Y"),
             "last_disclosure":  today.strftime("%Y"),
             "peak_known":       False,
             "peak_shares":      0,
-            "peak_pct":         "",
+            "peak_pct":         pct,
             "buy_price_note":   "",
             "current_status":   "active",
             "notes":            f"来源：港交所权益披露系统（di.hkex.com.hk）。持股达到或超过5%时触发强制披露，首次披露日期：{today.strftime('%Y-%m-%d')}。",
@@ -223,7 +286,7 @@ def update_hk_file(hk_file, all_holdings):
         holdings_list.append(new_entry)
         existing_tickers.add(ticker)
         new_added.append(f"{ticker} {h['stockName']}")
-        print(f"  ✅ 新增到 {hk_file}: {ticker} {h['stockName']}")
+        print(f"  ✅ 新增到 {hk_file}: {ticker} {h['stockName']}{' ' + pct if pct else ''}")
 
     # 本次抓到的 ticker 集合
     found_tickers = {normalize_hk_ticker(h.get("ticker","")) for h in all_holdings if h.get("ticker")}

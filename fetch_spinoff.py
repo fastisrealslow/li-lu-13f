@@ -27,16 +27,73 @@ from urllib.request import build_opener, HTTPCookieProcessor, Request
 OUT_FILE = "spinoff.json"
 BASE_URL = "https://www1.hkexnews.hk"
 
+# SiliconFlow 免费模型列表（按优先级排序，主模型下线自动 fallback）
+_SF_MODELS_HK = [
+    "Qwen/Qwen3.5-9B",
+    "Qwen/Qwen3.5-4B",
+    "THUDM/glm-4-9b-chat",
+]
+
+
+def _sf_call_hk(api_key, prompt, max_tokens=120, retries=2):
+    """
+    健壮的 SiliconFlow 调用：多模型 fallback + 重试。
+    返回模型输出字符串，全部失败返回 None。
+    """
+    import urllib.request as _ureq, json as _json
+    for model in _SF_MODELS_HK:
+        for attempt in range(retries + 1):
+            try:
+                payload = _json.dumps({
+                    "model": model,
+                    "messages": [{"role": "user", "content": prompt}],
+                    "max_tokens": max_tokens,
+                    "temperature": 0.1,
+                    "stream": False,
+                    "enable_thinking": False,
+                }).encode()
+                req = Request(
+                    "https://api.siliconflow.cn/v1/chat/completions",
+                    data=payload,
+                    headers={"Authorization": f"Bearer {api_key}",
+                             "Content-Type": "application/json"},
+                    method="POST",
+                )
+                with _ureq.urlopen(req, timeout=35) as resp:
+                    data = _json.loads(resp.read())
+                text = data['choices'][0]['message']['content'].strip()
+                if text:
+                    return text
+            except Exception as e:
+                wait = 2 ** attempt
+                print(f"    [{model}] 第{attempt+1}次失败: {e}"
+                      + (f"，{wait}s 后重试" if attempt < retries else "，放弃"))
+                if attempt < retries:
+                    time.sleep(wait)
+        print(f"    模型 {model} 全部失败，尝试下一个...")
+    return None
+
 today     = datetime.now()
 date_to   = today.strftime("%Y%m%d")
 date_from = (today - timedelta(days=365)).strftime("%Y%m%d")
 
 KEYWORDS = ["分拆", "spin-off", "demerger", "實物分派", "以介紹方式"]
 
+# 公告标题否定关键词：命中任一则跳过该条公告
+# 针对「分拆未發行股份/供股/股本削減」等内部资本操作，非子公司分拆
+EXCLUDE_TITLE_PATTERNS = [
+    r"分拆未發行股份",   # GEM 板供股配套操作
+    r"分拆.*供股",       # 分拆+供股捆绑
+    r"供股.*分拆",
+    r"股本削減.*分拆",   # 股本削减+分拆
+    r"分拆.*股本削減",
+    r"未發行.*分拆",
+]
+
 # 明确排除：已确认是合股重组而非分拆的公司（股份代码）
 # 注：优先靠 is_pure_split + 市值过滤自动拦截；仅将过滤逻辑无法覆盖的模糊案例加入此表
 BLACKLIST_CODES = {
-    # 08516 广駿/中盈：靠市值 < 2亿自动过滤，无需硬编码
+    "08516",  # 广駿集团：分拆未發行股份+供股操作，已由 EXCLUDE_TITLE_PATTERNS 拦截
 }
 
 # 手动标注介绍上市（公告标题无关键词但正文已确认）
@@ -122,7 +179,10 @@ def parse_rows(html):
         doc_url    = pdf_m.group(1).strip()
         title      = re.sub(r'\s+', ' ', pdf_m.group(2)).strip()
 
-        if not doc_url.startswith("http"):
+        # 标题否定过滤：匹配内部资本操作，跳过该公告
+        if any(re.search(pat, title) for pat in EXCLUDE_TITLE_PATTERNS):
+            continue
+
             doc_url = BASE_URL + doc_url
 
         # 日期格式统一：DD/MM/YYYY → YYYY-MM-DD
@@ -386,6 +446,85 @@ def refine_reit_type(companies, opener):
     return companies
 
 
+def refine_status_from_pdf(companies, opener):
+    """
+    读最新公告 PDF 前2页，提取记录日期/分派日期，精化状态。
+    能识别：已完成分派 / 已批准 / 已定记录日 / 进行中
+    """
+    try:
+        from pdfminer.high_level import extract_text_to_fp
+        from pdfminer.layout import LAParams
+        from io import StringIO, BytesIO
+    except ImportError:
+        print("  跳过 PDF 状态检测（pdfminer 未安装）")
+        return companies
+
+    today_str = today.strftime('%Y-%m-%d')
+
+    for c in companies:
+        # 只对状态不明确的公司做 PDF 检测
+        cur_status = c.get('_status', get_status(c))
+        if cur_status in ('listed', 'terminated'):
+            continue
+        doc_url = c['announcements'][0].get('docUrl', '') if c.get('announcements') else ''
+        if not doc_url.endswith('.pdf'):
+            continue
+
+        print(f"  🔍 状态PDF检测: {c['stockCode']} {c['stockName'][:12]} ...", end=' ', flush=True)
+        time.sleep(1)
+        try:
+            req = Request(doc_url, headers={"User-Agent": "Mozilla/5.0"})
+            data = opener.open(req, timeout=20).read()
+            out = StringIO()
+            extract_text_to_fp(BytesIO(data), out, laparams=LAParams(), page_numbers=[0, 1])
+            text = out.getvalue()
+        except Exception as e:
+            print(f"失败: {e}")
+            continue
+
+        # 1. 已完成：分派日期已过
+        dist_m = re.search(
+            r'(?:分派日期|分派时间|以实物分派|實物分派|分派日|distribution date)[^\d]{0,20}'
+            r'(20\d{2})\s*年\s*(\d{1,2})\s*月\s*(\d{1,2})\s*日',
+            text, re.I)
+        if dist_m:
+            dist_date = f"{dist_m.group(1)}-{int(dist_m.group(2)):02d}-{int(dist_m.group(3)):02d}"
+            if dist_date <= today_str:
+                c['_status'] = 'listed'
+                c['distributionDate'] = dist_date
+                print(f"✅ 已完成分派 ({dist_date})")
+                continue
+            else:
+                c['distributionDate'] = dist_date
+                c['_status'] = 'approved'
+                print(f"✅ 已确定分派日 ({dist_date})")
+                continue
+
+        # 2. 已批准：株东大会通过
+        if re.search(r'股東大會.*特別決議案已獲通過|特別決議案已獲通過|特別決議案通過|特别决议案已获通过|特别决议案通过|股東大會批准|股东大会批准', text, re.I):
+            if cur_status not in ('prospectus', 'listed'):
+                c['_status'] = 'approved'
+                print(f"✅ 已批准")
+                continue
+
+        # 3. 已定记录日
+        rec_m = re.search(
+            r'(?:记录日期|记录日|持有人记录日|record date)[^\d]{0,20}'
+            r'(20\d{2})\s*年\s*(\d{1,2})\s*月\s*(\d{1,2})\s*日',
+            text, re.I)
+        if rec_m:
+            rec_date = f"{rec_m.group(1)}-{int(rec_m.group(2)):02d}-{int(rec_m.group(3)):02d}"
+            c['recordDate'] = rec_date
+            if cur_status in ('announced', 'proposed'):
+                c['_status'] = 'approved'
+                print(f"✅ 已定记录日 ({rec_date})")
+                continue
+
+        print('— 无新信息')
+
+    return companies
+
+
 def refine_intro_type(companies, opener):
     """
     对被判为 ipo_hk 但存在实物分派远项的公司，读 PDF 正文确认是否介绍上市。
@@ -443,6 +582,225 @@ def load_prev_data():
         return {}
 
 
+def refine_ipo_other_via_llm(companies, opener):
+    """
+    对 spinType=ipo_other（目标交易所待定）的公司，读最新 PDF 前2页，
+    用 SiliconFlow LLM 判断目标交易所和子公司名称。
+    需要环境变量 SILICONFLOW_KEY。
+    """
+    sf_key = os.environ.get('SILICONFLOW_KEY', '')
+    if not sf_key:
+        print("  refine_ipo_other: 无 SILICONFLOW_KEY，跳过")
+        return companies
+
+    try:
+        from pdfminer.high_level import extract_text_to_fp
+        from pdfminer.layout import LAParams
+        from io import StringIO, BytesIO
+    except ImportError:
+        print("  refine_ipo_other: pdfminer 未安装，跳过")
+        return companies
+
+    TYPE_MAP = {
+        'hkex':  dict(code='ipo_hk',   exchange_zh='港交所', exchange_en='HKEX',
+                      label_zh='分拆·港股IPO', label_en='Spinoff·HKEX IPO', is_reit=False),
+        'sse':   dict(code='ipo_a_sh',  exchange_zh='上交所', exchange_en='SSE',
+                      label_zh='分拆·A股上交所', label_en='Spinoff·A-Share SSE', is_reit=False),
+        'szse':  dict(code='ipo_a_sz',  exchange_zh='深交所', exchange_en='SZSE',
+                      label_zh='分拆·A股深交所', label_en='Spinoff·A-Share SZSE', is_reit=False),
+        'intro': dict(code='intro_hk',  exchange_zh='港交所', exchange_en='HKEX',
+                      label_zh='介紹上市', label_en='Intro Listing', is_reit=False),
+        'other': None,  # 保持 ipo_other
+    }
+
+    targets = [c for c in companies if c.get('spinType', {}).get('code') == 'ipo_other']
+    if not targets:
+        return companies
+
+    print(f"  refine_ipo_other: 对 {len(targets)} 家调用 LLM 精化...")
+
+    for c in targets:
+        doc_url = c['announcements'][0].get('docUrl', '') if c.get('announcements') else ''
+        if not doc_url.endswith('.pdf'):
+            continue
+        print(f"  🤖 LLM分类: {c['stockCode']} {c['stockName'][:12]} ...", end=' ', flush=True)
+        time.sleep(1)
+        try:
+            req = Request(doc_url, headers={"User-Agent": "Mozilla/5.0"})
+            data = opener.open(req, timeout=20).read()
+            out = StringIO()
+            extract_text_to_fp(BytesIO(data), out, laparams=LAParams(), page_numbers=[0, 1])
+            pdf_text = out.getvalue()[:2000]  # 只取前2000字符
+        except Exception as e:
+            print(f"PDF读取失败: {e}")
+            continue
+
+        prompt = (
+            "以下是一份港股上市公司发布的分拆公告（前2页文本）。\n"
+            "请判断：\n"
+            "1. 子公司计划在哪个交易所上市？选项：hkex（港交所IPO）/ intro（港交所介绍上市）/ sse（A股上交所）/ szse（A股深交所）/ other（其他/未明确）\n"
+            "2. 子公司的名称是什么？（如公告未提及，回答'未知'）\n\n"
+            "严格按以下格式回答，不要其他内容：\n"
+            "exchange: <选项>\n"
+            "spinoff_name: <子公司名称>\n\n"
+            f"公告文本：\n{pdf_text}"
+        )
+
+        text = _sf_call_hk(sf_key, prompt)
+        if text is None:
+            print("— LLM全部失败，保持 ipo_other")
+            continue
+
+        # 解析输出（容错：兼容中英文冒号、多余空格）
+        exc_m = re.search(r'exchange[:\uff1a]\s*(\w+)', text, re.I)
+        name_m = re.search(r'spinoff_name[:\uff1a]\s*(.+)', text, re.I)
+        exc_code = exc_m.group(1).strip().lower() if exc_m else 'other'
+        spin_name = name_m.group(1).strip() if name_m else ''
+        spin_name = re.sub(r'^[\'"`]+|[\'"`]+$', '', spin_name)  # 去引号
+        if spin_name.lower() in ('未知', 'unknown', 'n/a', ''):
+            spin_name = ''
+
+        new_type = TYPE_MAP.get(exc_code)
+        if new_type:
+            c['spinType'] = new_type
+            if spin_name:
+                c['spinTarget'] = spin_name
+            print(f"✅ → {exc_code} | {spin_name or '子公司名未知'}")
+        else:
+            print(f"— 保持 ipo_other | {spin_name or ''}")
+            if spin_name:
+                c['spinTarget'] = spin_name
+
+    return companies
+
+
+# 常用港股公司简体中文名字典（手动维护，优先级高于 LLM）
+HK_CN_NAMES = {
+    '01171': '兖矿能源',
+    '03337': '安东油田',
+    '00836': '华润电力',
+    '00656': '复星国际',
+    '02196': '复星医药',
+    '00308': '中旅国际',
+    '01109': '华润置地',
+    '01979': '天宝集团',
+    '00358': '江西铜业',
+    '00902': '华能国际',
+    '09988': '阿里巴巴',
+    '02899': '紫金矿业',
+    '00842': '理士国际',
+    '01530': '三生制药',
+    '00384': '中国燃气',
+    '01030': '新城发展',
+    '01523': '珩湾科技',
+    '00041': '鹰君',
+    '07489': '岚图汽车',
+    '03393': '威胜控股',
+    '02382': '舜宇光学',
+    '02096': '先声药业',
+    '09888': '百度',
+    '01766': '中国中车',
+    '00142': '第一太平',
+    '08516': '广骏集团',
+    '00400': '硬蛋创新',
+    '00762': '中国联通',
+    '00019': '太古股份',
+    '09896': '名创优品',
+    '04604': '华润新能源',
+    '06655': '华新水泥',
+    '00460': '四环医药',
+}
+
+
+def _add_hk_cn_names(companies, api_key):
+    """为港股分拆公司添加简体中文名 (nameCN字段)。
+    优先级: HK_CN_NAMES 字典 > LLM 翻译。
+    """
+    need_llm = []
+    for c in companies:
+        code = c.get('stockCode', '').lstrip('0') or c['ticker'].replace('.HK', '').lstrip('0')
+        code5 = c.get('stockCode', c['ticker'].replace('.HK', ''))
+        if code5 in HK_CN_NAMES:
+            c['nameCN'] = HK_CN_NAMES[code5]
+        elif code in HK_CN_NAMES:
+            c['nameCN'] = HK_CN_NAMES[code]
+        elif not c.get('nameCN'):
+            need_llm.append(c)
+
+    if not need_llm or not api_key:
+        return
+
+    # LLM 批量翻译（每批 10 家）
+    BATCH = 10
+    for i in range(0, len(need_llm), BATCH):
+        batch = need_llm[i:i+BATCH]
+        lines = [f"{c['ticker']} {c['stockName']}" for c in batch]
+        prompt = (
+            "以下是港股公司的 ticker 和繁体全称。"
+            "请输出每家公司简洁的简体中文名称（2-8字，不要股份、集团、有限公司等后缀）。"
+            "输出格式：每行 ticker: 简体名，不要其他内容。\n\n"
+            + '\n'.join(lines)
+        )
+        text = _sf_call_hk(api_key, prompt, max_tokens=200)
+        if not text:
+            continue
+        result = {}
+        for line in text.splitlines():
+            import re as _re
+            m = _re.match(r'^(\d{5}\.HK)[:\uff1a]\s*(.+)$', line.strip())
+            if m:
+                result[m.group(1)] = m.group(2).strip()
+        for c in batch:
+            if c['ticker'] in result:
+                c['nameCN'] = result[c['ticker']]
+                # 也写入字典供下次直接命中
+                code5 = c.get('stockCode', c['ticker'].replace('.HK', ''))
+                HK_CN_NAMES[code5] = result[c['ticker']]
+                print(f"  [{c['ticker']}] nameCN={result[c['ticker']]}")
+        time.sleep(0.5)
+
+
+def _gen_hk_ai_summary(companies, api_key):
+    """为每家港股分拆公司生成一句话摘要，写入 aiSummary 字段。每批 8 家。"""
+    BATCH = 8
+    for i in range(0, len(companies), BATCH):
+        batch = companies[i:i+BATCH]
+        lines = []
+        for c in batch:
+            spin_type = c.get('spinType', {}).get('label_zh', '')
+            spin_target = c.get('spinTarget', '') or c.get('spinTarget', '')
+            ann_titles = ' | '.join(
+                a.get('title', '')[:40] for a in c.get('announcements', [])[:3]
+            )
+            lines.append(
+                f"{c['stockCode']} {c['stockName']}"
+                f"（分拆类型:{spin_type}"
+                + (f"，子公司:{spin_target}" if spin_target else "")
+                + f"）公告: {ann_titles}"
+            )
+        prompt = (
+            "以下每行是一家港股公司及其分拆公告摘要。\n"
+            "请为每家公司生成一句话中文摘要（20-40字），说明分拆进展和子公司业务。\n"
+            "输出格式严格为每行 stockCode: 摘要，不要其他内容。\n\n"
+            + '\n'.join(lines)
+        )
+        text = _sf_call_hk(api_key, prompt, max_tokens=300)
+        if not text:
+            print(f"  第{i//BATCH+1}批 aiSummary 失败")
+            continue
+        result = {}
+        for line in text.splitlines():
+            m = re.match(r'^(\d{5})[:\uff1a]\s*(.+)$', line.strip())
+            if m:
+                result[m.group(1)] = m.group(2).strip()
+        for c in batch:
+            code = c.get('stockCode', '')
+            if code in result:
+                c['aiSummary'] = result[code]
+                print(f"  {code} {c['stockName'][:8]}: {result[code]}")
+        time.sleep(0.5)
+
+
 def filter_status_driven(companies):
     """状态驱动过滤：已上市超6个月 / 已终止 → 移除"""
     prev = load_prev_data()
@@ -469,38 +827,53 @@ def filter_status_driven(companies):
 
 
 def filter_low_price(companies):
-    """过滤现价 < 0.5 HKD 或市值 < 2亿 HKD 的住股/空壳公司"""
-    try:
-        import yfinance as yf
-        result = []
-        for c in companies:
-            ticker = c["ticker"]
-            try:
-                info = yf.Ticker(ticker).fast_info
-                price = info.last_price
-                mktcap = getattr(info, 'market_cap', None)
-                c["lastPrice"] = round(price, 3) if price else None
-                c["marketCap"] = int(mktcap) if mktcap else None
-                time.sleep(0.3)
-            except Exception:
-                price = None
-                mktcap = None
-                c["lastPrice"] = None
-                c["marketCap"] = None
-            # 价格过滤：< 0.2 HKD
-            if price is not None and price < 0.2:
-                print(f"  ⛔ 过滤仙股: {ticker} 现价={price:.3f} HKD")
-                continue
-            # 市值过滤：< 2亿 HKD（小市值空壳/堆垃公司）
-            if mktcap is not None and mktcap < 200_000_000:
-                print(f"  ⛔ 过滤小市值: {ticker} 市值={mktcap/1e8:.1f}亿 HKD")
-                continue
-            result.append(c)
-        print(f"  过滤后剩余: {len(result)} 家公司")
-        return result
-    except ImportError:
-        print("  yfinance 未安装，跳过价格过滤")
-        return companies
+    """过滤现价 < 0.2 HKD 的仙股/空壳公司。
+    使用新浪财经港股行情 API（批量查询，不限速）替代 yfinance。
+    """
+    from urllib.request import Request, urlopen
+    import re as _re
+
+    # 构建批量查询列表： hkXXXXX 格式
+    sina_symbols = ['hk' + c['ticker'].replace('.HK','').lstrip('0').rjust(5,'0')
+                    if c['ticker'].replace('.HK','').isdigit()
+                    else 'hk' + c['ticker'].replace('.HK','')
+                    for c in companies]
+    symbol_to_idx = {s: i for i, s in enumerate(sina_symbols)}
+
+    prices = {}  # sina_symbol -> float
+    BATCH = 30
+    for i in range(0, len(sina_symbols), BATCH):
+        batch_syms = sina_symbols[i:i+BATCH]
+        url = 'https://hq.sinajs.cn/list=' + ','.join(batch_syms)
+        try:
+            req = Request(url, headers={
+                'Referer': 'https://finance.sina.com.cn',
+                'User-Agent': 'Mozilla/5.0'
+            })
+            with urlopen(req, timeout=10) as resp:
+                body = resp.read().decode('gbk', errors='replace')
+            for line in body.splitlines():
+                m = _re.match(r'var hq_str_(hk\d+)="([^"]*)', line)
+                if not m: continue
+                sym, fields = m.group(1), m.group(2).split(',')
+                # 字段[2] = 昨收，[6] = 现价
+                try: prices[sym] = float(fields[6]) if len(fields) > 6 else None
+                except (ValueError, IndexError): prices[sym] = None
+        except Exception as e:
+            print(f"  新浪行情查询失败: {e}")
+        time.sleep(0.2)
+
+    result = []
+    for c, sym in zip(companies, sina_symbols):
+        price = prices.get(sym)
+        c['lastPrice'] = round(price, 3) if price else None
+        c['marketCap'] = None  # 新浪 API 不返回市值，留空
+        if price is not None and price < 0.2:
+            print(f"  ⛔ 过滤仙股: {c['ticker']} 现价={price:.3f} HKD")
+            continue
+        result.append(c)
+    print(f"  过滤后剩余: {len(result)} 家公司")
+    return result
 
 
 def main():
@@ -575,6 +948,14 @@ def main():
     print("\nPDF 检测 REIT...")
     companies = refine_reit_type(companies, opener)
 
+    # PDF 检测：提取分派日期/记录日，精化状态
+    print("\nPDF 检测状态...")
+    companies = refine_status_from_pdf(companies, opener)
+
+    # LLM 精化：对目标交易所待定的 ipo_other 公司判断分类
+    print("\nLLM 精化 ipo_other 分类...")
+    companies = refine_ipo_other_via_llm(companies, opener)
+
     # 状态驱动过滤：已上市>6个月 / 已终止 → 移除
     print("\n状态驱动过滤...")
     companies = filter_status_driven(companies)
@@ -585,6 +966,14 @@ def main():
 
     for c in companies:
         print(f"  {c['ticker']} {c['stockName']} — {len(c['announcements'])} 条公告，最新: {c['latestDate']}")
+
+    # Step 最终: LLM 生成港股分拆 aiSummary
+    sf_key = os.environ.get('SILICONFLOW_KEY', '')
+    if sf_key:
+        print("\nLLM 生成 nameCN（繁转简）...")
+        _add_hk_cn_names(companies, sf_key)
+        print("\nLLM 生成 aiSummary...")
+        _gen_hk_ai_summary(companies, sf_key)
 
     data = {
         "updatedAt": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
