@@ -1087,7 +1087,8 @@ function renderHistoryChart() {
   const insightEl = document.getElementById('historyInsight');
   if (insightEl) {
     const txt = generateHistoryInsight(quarters, values);
-    insightEl.innerHTML = txt ? `<div style="display:flex;gap:8px;align-items:flex-start;"><span style="font-size:.75rem;color:#6366f1;flex-shrink:0;margin-top:1px;">✨</span><span>${txt}</span></div>` : '';
+    const label = lang === 'en' ? '📊 Summary' : '📊 数据摘要';
+    insightEl.innerHTML = txt ? `<div style="display:flex;gap:8px;align-items:flex-start;"><span style="font-size:.72rem;color:var(--text-lighter);font-weight:600;flex-shrink:0;margin-top:1px;">${label}</span><span>${txt}</span></div>` : '';
     insightEl.style.display = txt ? '' : 'none';
   }
 
