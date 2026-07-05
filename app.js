@@ -1360,23 +1360,24 @@ async function renderHomework() {
   ];
 
   const candidates = [];
-  // Pass 1: count ALL holders per ticker (regardless of MOS), for true consensus
-  const allHoldersMap = {}; // ticker -> Set of investor ids
-  const allDataCache = [];
-  for (const cfg of INVESTORS_CFG) {
-    try {
-      const [dr, pr] = await Promise.all([
-        fetch(cfg.df).then(r=>r.json()),
-        fetch(cfg.pf).then(r=>r.json()),
-      ]);
-      allDataCache.push({cfg, dr, pr});
-      for (const h of (dr.current.holdings||[])) {
-        const tk = h.ticker;
-        if (tk.startsWith('?') || tk.endsWith('.HK')) continue;
-        if (!allHoldersMap[tk]) allHoldersMap[tk] = new Set();
-        allHoldersMap[tk].add(cfg.id);
-      }
-    } catch(e) { console.warn(cfg.id, e); }
+  // Pass 1: 并行拉取所有投资者数据（不再串行）
+  const allHoldersMap = {};
+  const results = await Promise.allSettled(
+    INVESTORS_CFG.map(cfg => Promise.all([
+      fetch(cfg.df + '?t=' + Date.now()).then(r=>r.json()),
+      fetch(cfg.pf + '?t=' + Date.now()).then(r=>r.json()),
+    ]).then(([dr, pr]) => ({cfg, dr, pr})))
+  );
+  const allDataCache = results
+    .filter(r => r.status === 'fulfilled')
+    .map(r => r.value);
+  for (const {cfg, dr} of allDataCache) {
+    for (const h of (dr.current?.holdings || [])) {
+      const tk = h.ticker;
+      if (tk.startsWith('?') || tk.endsWith('.HK')) continue;
+      if (!allHoldersMap[tk]) allHoldersMap[tk] = new Set();
+      allHoldersMap[tk].add(cfg.id);
+    }
   }
 
   // Pass 2: build candidates (MOS >= 10% filter applies here)
