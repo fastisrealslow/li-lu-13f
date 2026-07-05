@@ -376,7 +376,12 @@ th .info-wrap{position:relative;display:inline-flex}
       <div id="spinoffUSContent"></div>
     </div>
     <div id="tab-history" class="d-none">
+      <!-- 桌面折线图 -->
       <div class="chart-wrap"><canvas id="historyChart"></canvas></div>
+      <!-- 手机卡片视图（JS 控制显示/隐藏）-->
+      <div id="historyMobileWrap" style="display:none;"></div>
+      <!-- AI 趋势解读 -->
+      <div id="historyInsight" style="margin-top:14px;padding:12px 16px;background:linear-gradient(135deg,rgba(99,102,241,0.06),rgba(139,92,246,0.06));border:1px solid rgba(99,102,241,0.18);border-radius:8px;font-size:.8rem;line-height:1.7;color:var(--text);display:none;"></div>
       <div style="margin-top:36px;">
         <h3 style="font-family:var(--serif);font-size:1.05rem;color:var(--navy);margin-bottom:12px;font-weight:600;"><span data-i18n="tlTitle">持仓时间轴</span></h3>
         <div id="timelineCanvas" class="chart-wrap" style="padding:16px;"></div>

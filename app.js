@@ -955,49 +955,260 @@ function renderInsights() {
   document.getElementById('insightsList').innerHTML = ins.map(s=>`<li>${s}</li>`).join('');
 }
 
+// ── 历史折线图 AI 解读 ──
+function generateHistoryInsight(quarters, values) {
+  if (!quarters || quarters.length < 2) return '';
+  const isEn = lang === 'en';
+  const first = values[0], last = values[values.length-1];
+  const peak = Math.max(...values), peakIdx = values.indexOf(peak);
+  const trough = Math.min(...values), troughIdx = values.indexOf(trough);
+  const totalGrowth = first > 0 ? ((last - first) / first * 100).toFixed(0) : '—';
+  const peakQ = quarters[peakIdx], troughQ = quarters[troughIdx];
+
+  // 找最大单季跌幅
+  let maxDrop = 0, maxDropQ = '', maxDropFrom = 0, maxDropTo = 0;
+  for (let i = 1; i < values.length; i++) {
+    const drop = (values[i-1] - values[i]) / values[i-1];
+    if (drop > maxDrop) { maxDrop = drop; maxDropQ = quarters[i]; maxDropFrom = values[i-1]; maxDropTo = values[i]; }
+  }
+  // 找最大单季涨幅
+  let maxRise = 0, maxRiseQ = '', maxRiseFrom = 0, maxRiseTo = 0;
+  for (let i = 1; i < values.length; i++) {
+    const rise = values[i-1] > 0 ? (values[i] - values[i-1]) / values[i-1] : 0;
+    if (rise > maxRise) { maxRise = rise; maxRiseQ = quarters[i]; maxRiseFrom = values[i-1]; maxRiseTo = values[i]; }
+  }
+  // 近4季趋势
+  const recent = values.slice(-4);
+  const recentTrend = recent[recent.length-1] > recent[0] ? (isEn ? '↑ rising' : '↑ 上升') : (isEn ? '↓ declining' : '↓ 下降');
+  const recentPct = recent[0] > 0 ? Math.abs((recent[recent.length-1]-recent[0])/recent[0]*100).toFixed(0) : '—';
+
+  const fmtM = v => v >= 1000 ? `$${(v/1000).toFixed(1)}B` : `$${v}M`;
+
+  if (isEn) {
+    let txt = `From ${quarters[0]} to ${quarters[quarters.length-1]}, AUM grew ${totalGrowth}% (${fmtM(first)} → ${fmtM(last)}). `;
+    txt += `Peak was ${fmtM(peak)} in ${peakQ}. `;
+    if (maxDrop > 0.25) txt += `Sharpest single-quarter drop: ${maxDropQ} −${(maxDrop*100).toFixed(0)}% (${fmtM(maxDropFrom)} → ${fmtM(maxDropTo)}), reflecting major portfolio repositioning. `;
+    if (maxRise > 0.25) txt += `Biggest surge: ${maxRiseQ} +${(maxRise*100).toFixed(0)}% (${fmtM(maxRiseFrom)} → ${fmtM(maxRiseTo)}). `;
+    txt += `Recent 4-quarter trend: ${recentTrend} ${recentPct}%.`;
+    return txt;
+  } else {
+    let txt = `从 ${quarters[0]} 到 ${quarters[quarters.length-1]}，规模增长 ${totalGrowth}%（${fmtM(first)} → ${fmtM(last)}）。`;
+    txt += `历史峰值为 ${peakQ} 的 ${fmtM(peak)}。`;
+    if (maxDrop > 0.25) txt += `最大单季跌幅出现在 ${maxDropQ}，下降 ${(maxDrop*100).toFixed(0)}%（${fmtM(maxDropFrom)} → ${fmtM(maxDropTo)}），反映重大持仓调整。`;
+    if (maxRise > 0.25) txt += `最大单季涨幅出现在 ${maxRiseQ}，增长 ${(maxRise*100).toFixed(0)}%（${fmtM(maxRiseFrom)} → ${fmtM(maxRiseTo)}）。`;
+    txt += `近4季走势：${recentTrend} ${recentPct}%。`;
+    return txt;
+  }
+}
+
+// ── 手机端：卡片式时间轴 ──
+function renderHistoryMobile(container, quarters, values) {
+  const isEn = lang === 'en';
+  const fmtM = v => v >= 1000 ? `$${(v/1000).toFixed(1)}B` : `$${v}M`;
+
+  // Sparkline SVG（mini折线，60×28）
+  const sparkSVG = (() => {
+    const W=200, H=44, pad=4;
+    const minV=Math.min(...values), maxV=Math.max(...values);
+    const range = maxV - minV || 1;
+    const pts = values.map((v,i) => {
+      const x = pad + (i/(values.length-1))*(W-pad*2);
+      const y = H - pad - ((v-minV)/range)*(H-pad*2);
+      return `${x.toFixed(1)},${y.toFixed(1)}`;
+    }).join(' ');
+    const lastX = pad + (W-pad*2); const lastY = H-pad;
+    const firstX = pad;
+    return `<svg viewBox="0 0 ${W} ${H}" style="width:100%;height:44px;display:block;">
+      <defs><linearGradient id="spg" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#1e3a5f" stop-opacity="0.25"/>
+        <stop offset="100%" stop-color="#1e3a5f" stop-opacity="0.02"/>
+      </linearGradient></defs>
+      <polygon points="${pts} ${lastX},${lastY} ${firstX},${lastY}" fill="url(#spg)"/>
+      <polyline points="${pts}" fill="none" stroke="#1e3a5f" stroke-width="1.8" stroke-linejoin="round"/>
+    </svg>`;
+  })();
+
+  // 按年分组
+  const byYear = {};
+  quarters.forEach((q, i) => {
+    const yr = q.split(' ')[0];
+    if (!byYear[yr]) byYear[yr] = [];
+    byYear[yr].push({q, v: values[i], i});
+  });
+
+  let html = `<div style="margin-bottom:12px;background:var(--cream);border:1px solid var(--border-light);border-radius:8px;padding:12px 14px;">
+    <div style="font-size:.65rem;color:var(--text-lighter);margin-bottom:4px;">${isEn?'AUM Trend':'规模走势（滑动查看）'}</div>
+    ${sparkSVG}
+    <div style="display:flex;justify-content:space-between;font-size:.62rem;color:var(--text-lighter);margin-top:2px;">
+      <span>${quarters[0]}</span><span>${quarters[quarters.length-1]}</span>
+    </div>
+  </div>`;
+
+  html += `<div style="display:flex;flex-direction:column;gap:8px;">`;
+  Object.entries(byYear).forEach(([yr, entries]) => {
+    html += `<div style="background:var(--cream);border:1px solid var(--border-light);border-radius:8px;overflow:hidden;">
+      <div style="padding:8px 12px;background:rgba(30,58,95,0.06);border-bottom:1px solid var(--border-light);display:flex;align-items:center;gap:6px;">
+        <span style="font-family:var(--serif);font-weight:700;font-size:.85rem;color:var(--navy);">${yr}</span>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--border-light);">` ;
+    entries.forEach(({q, v, i}) => {
+      const prev = i > 0 ? values[i-1] : null;
+      const chg = prev !== null && prev > 0 ? (v - prev) / prev : null;
+      const chgPct = chg !== null ? (chg * 100).toFixed(1) : null;
+      const chgColor = chg === null ? '' : chg > 0.05 ? '#16a34a' : chg < -0.05 ? '#dc2626' : '#6b7280';
+      const chgIcon = chg === null ? '' : chg > 0.05 ? '▲' : chg < -0.05 ? '▼' : '─';
+      const bigMove = chg !== null && Math.abs(chg) > 0.25;
+      html += `<div style="background:${bigMove?'rgba(239,68,68,0.04)':'var(--white,#fff)'};padding:10px 12px;">
+        <div style="font-size:.65rem;color:var(--text-lighter);margin-bottom:3px;">${q.split(' ')[1]}</div>
+        <div style="font-size:.95rem;font-weight:700;color:var(--navy);font-family:var(--serif);">${fmtM(v)}</div>
+        ${chgPct !== null ? `<div style="font-size:.65rem;color:${chgColor};margin-top:2px;">${chgIcon} ${chg > 0 ? '+' : ''}${chgPct}%${bigMove ? (isEn?' ⚡ major move':' ⚡ 大幅调仓') : ''}</div>` : ''}
+      </div>`;
+    });
+    html += `</div></div>`;
+  });
+  html += `</div>`;
+  container.innerHTML = html;
+}
+
 function renderHistoryChart() {
+  const wrap = document.getElementById('historyChartWrap');
   const canvas = document.getElementById('historyChart');
   if (!canvas || !data.history) return;
+  const {quarters, values} = data.history;
+  const isMobile = window.innerWidth < 640;
+
+  // 渲染 AI 解读
+  const insightEl = document.getElementById('historyInsight');
+  if (insightEl) {
+    const txt = generateHistoryInsight(quarters, values);
+    insightEl.innerHTML = txt ? `<div style="display:flex;gap:8px;align-items:flex-start;"><span style="font-size:.75rem;color:#6366f1;flex-shrink:0;margin-top:1px;">✨</span><span>${txt}</span></div>` : '';
+    insightEl.style.display = txt ? '' : 'none';
+  }
+
+  // 手机端：卡片式
+  if (isMobile) {
+    const mobileWrap = document.getElementById('historyMobileWrap');
+    if (mobileWrap) {
+      canvas.parentElement.style.display = 'none';
+      mobileWrap.style.display = '';
+      renderHistoryMobile(mobileWrap, quarters, values);
+      return;
+    }
+  } else {
+    // 桌面端：恢复 canvas
+    const mobileWrap = document.getElementById('historyMobileWrap');
+    if (mobileWrap) mobileWrap.style.display = 'none';
+    canvas.parentElement.style.display = '';
+  }
+
+  // ── 桌面折线图（带 hover tooltip）──
   const ctx = canvas.getContext('2d');
   const W = canvas.parentElement.clientWidth - 32;
-  canvas.width = W; canvas.height = 380;
-  const {quarters, values} = data.history;
-  const pad = {top:30,right:40,bottom:50,left:65};
-  const w=W-pad.left-pad.right, h=380-pad.top-pad.bottom;
+  canvas.width = W; canvas.height = 360;
+  const pad = {top:36,right:50,bottom:54,left:68};
+  const w=W-pad.left-pad.right, h=360-pad.top-pad.bottom;
   const maxV=Math.ceil(Math.max(...values)/500)*500;
-  const minV=Math.floor(Math.min(...values)/500)*500-500;
-  ctx.clearRect(0,0,W,380);
+  const minV=Math.max(0, Math.floor(Math.min(...values)/500)*500-500);
+  const range = maxV - minV || 1;
+  ctx.clearRect(0,0,W,360);
+
+  // 网格线
   ctx.strokeStyle='#e5e7eb'; ctx.lineWidth=0.5;
   for (let i=0;i<=5;i++) {
     const y=pad.top+(h/5)*i;
     ctx.beginPath(); ctx.moveTo(pad.left,y); ctx.lineTo(W-pad.right,y); ctx.stroke();
     const v=maxV-((maxV-minV)/5)*i;
-    ctx.fillStyle='#6b7280'; ctx.font='11px -apple-system,sans-serif'; ctx.textAlign='right';
-    ctx.fillText('$'+v+'M',pad.left-8,y+4);
+    const label = v >= 1000 ? `$${(v/1000).toFixed(v%1000===0?0:1)}B` : `$${v}M`;
+    ctx.fillStyle='#9ca3af'; ctx.font='10.5px -apple-system,sans-serif'; ctx.textAlign='right';
+    ctx.fillText(label,pad.left-8,y+4);
   }
-  const xStep=w/(quarters.length-1);
+
+  // X轴标签 — 按年显示
+  const xStep = quarters.length > 1 ? w/(quarters.length-1) : w;
+  const shownYears = new Set();
   quarters.forEach((q,i)=>{
-    if (i%2!==0) return;
+    const yr = q.split(' ')[0];
+    if (shownYears.has(yr)) return;
+    shownYears.add(yr);
     const x=pad.left+xStep*i;
-    ctx.fillStyle='#6b7280'; ctx.font='10px -apple-system,sans-serif'; ctx.textAlign='center';
-    ctx.save(); ctx.translate(x,pad.top+h+12); ctx.rotate(-0.4); ctx.fillText(q,0,0); ctx.restore();
+    ctx.fillStyle='#9ca3af'; ctx.font='10px -apple-system,sans-serif'; ctx.textAlign='center';
+    ctx.fillText(yr,x,pad.top+h+18);
   });
-  const gX=i=>pad.left+xStep*i, gY=v=>pad.top+h-((v-minV)/(maxV-minV))*h;
+
+  const gX=i=>pad.left+(quarters.length>1?xStep*i:w/2);
+  const gY=v=>pad.top+h-((v-minV)/range)*h;
+
+  // 渐变填充
   ctx.beginPath(); ctx.moveTo(gX(0),gY(values[0]));
   for (let i=1;i<values.length;i++) ctx.lineTo(gX(i),gY(values[i]));
-  ctx.strokeStyle='#1e3a5f'; ctx.lineWidth=2.5; ctx.stroke();
   ctx.lineTo(gX(values.length-1),pad.top+h); ctx.lineTo(gX(0),pad.top+h); ctx.closePath();
   const grad=ctx.createLinearGradient(0,pad.top,0,pad.top+h);
-  grad.addColorStop(0,'rgba(30,58,95,0.25)'); grad.addColorStop(1,'rgba(30,58,95,0.02)');
+  grad.addColorStop(0,'rgba(30,58,95,0.18)'); grad.addColorStop(1,'rgba(30,58,95,0.01)');
   ctx.fillStyle=grad; ctx.fill();
+
+  // 折线
+  ctx.beginPath(); ctx.moveTo(gX(0),gY(values[0]));
+  for (let i=1;i<values.length;i++) ctx.lineTo(gX(i),gY(values[i]));
+  ctx.strokeStyle='#1e3a5f'; ctx.lineWidth=2.5; ctx.lineJoin='round'; ctx.stroke();
+
+  // 标注大幅变动点（>25%）
+  for (let i=1;i<values.length;i++) {
+    const chg = values[i-1] > 0 ? (values[i]-values[i-1])/values[i-1] : 0;
+    if (Math.abs(chg) > 0.25) {
+      const x=gX(i), y=gY(values[i]);
+      ctx.beginPath(); ctx.arc(x,y,7,0,Math.PI*2);
+      ctx.fillStyle=chg>0?'rgba(22,163,74,0.15)':'rgba(220,38,38,0.12)'; ctx.fill();
+      ctx.strokeStyle=chg>0?'#16a34a':'#dc2626'; ctx.lineWidth=1.5; ctx.stroke();
+      // 箭头
+      ctx.fillStyle=chg>0?'#16a34a':'#dc2626'; ctx.font='bold 9px -apple-system,sans-serif'; ctx.textAlign='center';
+      ctx.fillText(chg>0?'▲':'▼',x,y+(chg>0?-10:14));
+    }
+  }
+
+  // 普通数据点
   values.forEach((v,i)=>{
     const x=gX(i),y=gY(v);
+    const chg = i>0 && values[i-1]>0 ? (v-values[i-1])/values[i-1] : 0;
+    if (Math.abs(chg) > 0.25) return; // 大变动点已画
     ctx.beginPath(); ctx.arc(x,y,3.5,0,Math.PI*2); ctx.fillStyle='#1e3a5f'; ctx.fill();
     ctx.strokeStyle='#fff'; ctx.lineWidth=1.5; ctx.stroke();
   });
+
+  // 最新值标注
   const last=values.length-1;
-  ctx.fillStyle='#1e3a5f'; ctx.font='bold 13px -apple-system,sans-serif'; ctx.textAlign='left';
-  ctx.fillText('$'+values[last]+'M',gX(last)+8,gY(values[last])-8);
+  const lastLabel = values[last] >= 1000 ? `$${(values[last]/1000).toFixed(1)}B` : `$${values[last]}M`;
+  ctx.fillStyle='#1e3a5f'; ctx.font='bold 12px -apple-system,sans-serif'; ctx.textAlign='left';
+  ctx.fillText(lastLabel,gX(last)+8,gY(values[last])-8);
+
+  // ── Hover tooltip ──
+  const existingTooltip = document.getElementById('hcTooltip');
+  if (existingTooltip) existingTooltip.remove();
+  const tooltip = document.createElement('div');
+  tooltip.id = 'hcTooltip';
+  tooltip.style.cssText = 'position:absolute;display:none;background:var(--navy,#1e3a5f);color:#f7f5f0;padding:8px 12px;border-radius:8px;font-size:.75rem;pointer-events:none;z-index:50;line-height:1.7;box-shadow:0 4px 16px rgba(0,0,0,.25);min-width:120px;';
+  canvas.parentElement.style.position = 'relative';
+  canvas.parentElement.appendChild(tooltip);
+
+  canvas.onmousemove = (e) => {
+    const rect = canvas.getBoundingClientRect();
+    const mx = (e.clientX - rect.left) * (canvas.width / rect.width);
+    const my = (e.clientY - rect.top) * (canvas.height / rect.height);
+    const idx = Math.round((mx - pad.left) / xStep);
+    if (idx < 0 || idx >= quarters.length) { tooltip.style.display='none'; return; }
+    const v = values[idx], q = quarters[idx];
+    const prev = idx > 0 ? values[idx-1] : null;
+    const chg = prev !== null && prev > 0 ? ((v-prev)/prev*100).toFixed(1) : null;
+    const chgStr = chg !== null ? (chg>0?`<span style="color:#4ade80">▲+${chg}%</span>`:`<span style="color:#f87171">▼${chg}%</span>`) : '';
+    const bigMove = prev !== null && Math.abs(v-prev)/prev > 0.25;
+    const fmtM = vv => vv >= 1000 ? `$${(vv/1000).toFixed(2)}B` : `$${vv}M`;
+    tooltip.innerHTML = `<div style="font-weight:600;margin-bottom:2px;">${q}</div><div>${fmtM(v)} ${chgStr}</div>${bigMove?`<div style="color:#fbbf24;font-size:.68rem;margin-top:3px;">⚡ ${lang==='zh'?'重大持仓变动':'Major repositioning'}</div>`:''}` ;
+    const cx = gX(idx), cy = gY(v);
+    const scaleX = rect.width / canvas.width, scaleY = rect.height / canvas.height;
+    tooltip.style.left = (cx * scaleX + 12) + 'px';
+    tooltip.style.top = (cy * scaleY - 16) + 'px';
+    tooltip.style.display = '';
+  };
+  canvas.onmouseleave = () => { tooltip.style.display='none'; };
 }
 
 // ── TIMELINE ──
