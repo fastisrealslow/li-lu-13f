@@ -1005,69 +1005,75 @@ function generateHistoryInsight(quarters, values) {
 function renderHistoryMobile(container, quarters, values) {
   const isEn = lang === 'en';
   const fmtM = v => v >= 1000 ? `$${(v/1000).toFixed(1)}B` : `$${v}M`;
+  const W = 340, H = 200;
+  const pad = {top:20, right:16, bottom:32, left:52};
+  const w = W - pad.left - pad.right, h = H - pad.top - pad.bottom;
+  const minV = Math.max(0, Math.floor(Math.min(...values)/500)*500-500);
+  const maxV = Math.ceil(Math.max(...values)/500)*500;
+  const range = maxV - minV || 1;
+  const gX = i => pad.left + (quarters.length > 1 ? (i/(quarters.length-1))*w : w/2);
+  const gY = v => pad.top + h - ((v - minV)/range)*h;
 
-  // Sparkline SVG（mini折线，60×28）
-  const sparkSVG = (() => {
-    const W=200, H=44, pad=4;
-    const minV=Math.min(...values), maxV=Math.max(...values);
-    const range = maxV - minV || 1;
-    const pts = values.map((v,i) => {
-      const x = pad + (i/(values.length-1))*(W-pad*2);
-      const y = H - pad - ((v-minV)/range)*(H-pad*2);
-      return `${x.toFixed(1)},${y.toFixed(1)}`;
-    }).join(' ');
-    const lastX = pad + (W-pad*2); const lastY = H-pad;
-    const firstX = pad;
-    return `<svg viewBox="0 0 ${W} ${H}" style="width:100%;height:44px;display:block;">
-      <defs><linearGradient id="spg" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0%" stop-color="#1e3a5f" stop-opacity="0.25"/>
-        <stop offset="100%" stop-color="#1e3a5f" stop-opacity="0.02"/>
-      </linearGradient></defs>
-      <polygon points="${pts} ${lastX},${lastY} ${firstX},${lastY}" fill="url(#spg)"/>
-      <polyline points="${pts}" fill="none" stroke="#1e3a5f" stroke-width="1.8" stroke-linejoin="round"/>
-    </svg>`;
-  })();
+  // 点列表
+  const pts = values.map((v,i) => `${gX(i).toFixed(1)},${gY(v).toFixed(1)}`).join(' ');
+  const fillPts = `${pts} ${gX(values.length-1).toFixed(1)},${(pad.top+h).toFixed(1)} ${gX(0).toFixed(1)},${(pad.top+h).toFixed(1)}`;
 
-  // 按年分组
-  const byYear = {};
+  // Y轴标签 (3个)
+  let yLines = '';
+  for (let i = 0; i <= 3; i++) {
+    const v = minV + (maxV - minV) * (i/3);
+    const y = gY(v);
+    const label = v >= 1000 ? `$${(v/1000).toFixed(v%1000===0?0:1)}B` : `$${Math.round(v)}M`;
+    yLines += `<line x1="${pad.left}" y1="${y.toFixed(1)}" x2="${W-pad.right}" y2="${y.toFixed(1)}" stroke="#e5e7eb" stroke-width="0.5"/>`;
+    yLines += `<text x="${pad.left-6}" y="${(y+3.5).toFixed(1)}" text-anchor="end" font-size="8.5" fill="#9ca3af">${label}</text>`;
+  }
+
+  // X轴标签 (按年)
+  let xLabels = '';
+  const shownYrs = new Set();
   quarters.forEach((q, i) => {
     const yr = q.split(' ')[0];
-    if (!byYear[yr]) byYear[yr] = [];
-    byYear[yr].push({q, v: values[i], i});
+    if (shownYrs.has(yr)) return;
+    shownYrs.add(yr);
+    const x = gX(i);
+    xLabels += `<text x="${x.toFixed(1)}" y="${H-6}" text-anchor="middle" font-size="8.5" fill="#9ca3af">${yr}</text>`;
   });
 
-  let html = `<div style="margin-bottom:12px;background:var(--cream);border:1px solid var(--border-light);border-radius:8px;padding:12px 14px;">
-    <div style="font-size:.65rem;color:var(--text-lighter);margin-bottom:4px;">${isEn?'AUM Trend':'规模走势（滑动查看）'}</div>
-    ${sparkSVG}
-    <div style="display:flex;justify-content:space-between;font-size:.62rem;color:var(--text-lighter);margin-top:2px;">
-      <span>${quarters[0]}</span><span>${quarters[quarters.length-1]}</span>
-    </div>
-  </div>`;
+  // 大幅变动标注圆
+  let markers = '';
+  for (let i = 1; i < values.length; i++) {
+    const chg = values[i-1] > 0 ? (values[i]-values[i-1])/values[i-1] : 0;
+    if (Math.abs(chg) > 0.25) {
+      const x = gX(i), y = gY(values[i]);
+      const col = chg > 0 ? '#16a34a' : '#dc2626';
+      markers += `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="5" fill="${col}" fill-opacity="0.15" stroke="${col}" stroke-width="1.5"/>`;
+      markers += `<text x="${x.toFixed(1)}" y="${(y + (chg>0?-7:12)).toFixed(1)}" text-anchor="middle" font-size="7" fill="${col}" font-weight="bold">${chg>0?'▲':'▼'}</text>`;
+    }
+  }
 
-  html += `<div style="display:flex;flex-direction:column;gap:8px;">`;
-  Object.entries(byYear).forEach(([yr, entries]) => {
-    html += `<div style="background:var(--cream);border:1px solid var(--border-light);border-radius:8px;overflow:hidden;">
-      <div style="padding:8px 12px;background:rgba(30,58,95,0.06);border-bottom:1px solid var(--border-light);display:flex;align-items:center;gap:6px;">
-        <span style="font-family:var(--serif);font-weight:700;font-size:.85rem;color:var(--navy);">${yr}</span>
-      </div>
-      <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--border-light);">` ;
-    entries.forEach(({q, v, i}) => {
-      const prev = i > 0 ? values[i-1] : null;
-      const chg = prev !== null && prev > 0 ? (v - prev) / prev : null;
-      const chgPct = chg !== null ? (chg * 100).toFixed(1) : null;
-      const chgColor = chg === null ? '' : chg > 0.05 ? '#16a34a' : chg < -0.05 ? '#dc2626' : '#6b7280';
-      const chgIcon = chg === null ? '' : chg > 0.05 ? '▲' : chg < -0.05 ? '▼' : '─';
-      const bigMove = chg !== null && Math.abs(chg) > 0.25;
-      html += `<div style="background:${bigMove?'rgba(239,68,68,0.04)':'var(--white,#fff)'};padding:10px 12px;">
-        <div style="font-size:.65rem;color:var(--text-lighter);margin-bottom:3px;">${q.split(' ')[1]}</div>
-        <div style="font-size:.95rem;font-weight:700;color:var(--navy);font-family:var(--serif);">${fmtM(v)}</div>
-        ${chgPct !== null ? `<div style="font-size:.65rem;color:${chgColor};margin-top:2px;">${chgIcon} ${chg > 0 ? '+' : ''}${chgPct}%${bigMove ? (isEn?' ⚡ major move':' ⚡ 大幅调仓') : ''}</div>` : ''}
-      </div>`;
-    });
-    html += `</div></div>`;
-  });
-  html += `</div>`;
-  container.innerHTML = html;
+  // 最新点标注
+  const lastX = gX(values.length-1), lastY = gY(values[values.length-1]);
+  const lastLabel = fmtM(values[values.length-1]);
+  const labelAnchor = lastX > W*0.7 ? 'end' : 'start';
+  const labelX = labelAnchor === 'end' ? lastX - 6 : lastX + 6;
+
+  const svg = `<svg viewBox="0 0 ${W} ${H}" style="width:100%;display:block;" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient id="mspg" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#1e3a5f" stop-opacity="0.2"/>
+        <stop offset="100%" stop-color="#1e3a5f" stop-opacity="0.01"/>
+      </linearGradient>
+    </defs>
+    ${yLines}
+    ${xLabels}
+    <polygon points="${fillPts}" fill="url(#mspg)"/>
+    <polyline points="${pts}" fill="none" stroke="#1e3a5f" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+    ${markers}
+    <circle cx="${lastX.toFixed(1)}" cy="${lastY.toFixed(1)}" r="3.5" fill="#1e3a5f" stroke="white" stroke-width="1.5"/>
+    <text x="${labelX.toFixed(1)}" y="${(lastY-6).toFixed(1)}" text-anchor="${labelAnchor}" font-size="9.5" fill="#1e3a5f" font-weight="bold">${lastLabel}</text>
+  </svg>`;
+
+  container.innerHTML = `<div style="background:var(--cream);border:1px solid var(--border-light);border-radius:8px;padding:14px 12px;">${svg}</div>`;
 }
 
 function renderHistoryChart() {
