@@ -180,10 +180,19 @@ tbody tr:last-child td{border-bottom:none}
   .stat-num{font-size:1.15rem!important}
   .stat-desc{font-size:.65rem}
   .stat-change{font-size:.7rem}
-  /* Tabs: scrollable with scroll indicator shadow */
-  .tabs{overflow-x:auto;white-space:nowrap;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding-bottom:2px;
-    -webkit-mask-image:linear-gradient(to right,black 80%,transparent 100%);
-    mask-image:linear-gradient(to right,black 80%,transparent 100%)}
+  /* Tabs: scrollable with dynamic fade edges */
+  .tabs-wrap{position:relative;}
+  .tabs-wrap::after{
+    content:'';pointer-events:none;position:absolute;top:0;right:0;bottom:0;width:40px;
+    background:linear-gradient(to right,transparent,var(--white,#ffffff));
+    transition:opacity .2s;z-index:2;}
+  .tabs-wrap::before{
+    content:'';pointer-events:none;position:absolute;top:0;left:0;bottom:0;width:40px;
+    background:linear-gradient(to left,transparent,var(--white,#ffffff));
+    opacity:0;transition:opacity .2s;z-index:2;}
+  .tabs-wrap.scrolled-start::before{opacity:1;}
+  .tabs-wrap.scrolled-end::after{opacity:0;}
+  .tabs{overflow-x:auto;white-space:nowrap;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding-bottom:2px;}
   .tabs::-webkit-scrollbar{display:none}
   .tab-btn{font-size:.72rem;padding:8px 12px;white-space:nowrap}
   /* Tables: scroll with momentum */
@@ -324,13 +333,15 @@ th .info-wrap{position:relative;display:inline-flex}
       <div id="investorBtn" style="display:flex;flex-wrap:wrap;gap:6px;"></div>
     </div>
     <div id="summaryCards" class="stat-line" style="margin-bottom:20px;width:100%;"></div>
-    <div class="tabs">
+    <div class="tabs-wrap" id="tabsWrap">
+    <div class="tabs" id="tabsScroll">
       <button class="tab-btn active" onclick="switchTab('current')"><span data-i18n="tabCurrent">📊 持仓明细</span></button>
       <button class="tab-btn" onclick="switchTab('changes')"><span data-i18n="tabChanges">📈 季度变化</span></button>
       <button class="tab-btn" onclick="switchTab('history')"><span data-i18n="tabHistory">📉 历史趋势</span></button>
       <button class="tab-btn" onclick="switchTab('homework')" style="position:relative;"><span data-i18n="tabHomework">📋 价値筛选</span></button>
       <button class="tab-btn" onclick="switchTab('spinoff')" style="position:relative;"><span data-i18n="tabSpinoff">🇭🇰 港股分拆</span></button>
       <button class="tab-btn" onclick="switchTab('spinoff_us')" style="position:relative;"><span data-i18n="tabSpinoffUS">🇺🇸 美股分拆</span></button>
+    </div>
     </div>
     <div id="tab-current">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
@@ -510,6 +521,21 @@ th .info-wrap{position:relative;display:inline-flex}
 const nav=document.getElementById('mainNav');
 window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',window.scrollY>60));
 document.querySelectorAll('.nav-links a').forEach(a=>a.addEventListener('click',()=>document.getElementById('navLinks').classList.remove('open')));
+// Tab 栏滞动渐隐效果
+(function(){
+  const wrap=document.getElementById('tabsWrap');
+  const tabs=document.getElementById('tabsScroll');
+  if(!wrap||!tabs)return;
+  function update(){
+    const atStart=tabs.scrollLeft<=4;
+    const atEnd=tabs.scrollLeft>=tabs.scrollWidth-tabs.clientWidth-4;
+    wrap.classList.toggle('scrolled-start',!atStart);
+    wrap.classList.toggle('scrolled-end',atEnd);
+  }
+  tabs.addEventListener('scroll',update,{passive:true});
+  window.addEventListener('resize',update);
+  update();
+})();
 </script>
 </body>
 </html>

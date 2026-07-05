@@ -708,8 +708,32 @@ function renderHKHoldings() {
 }
 
 // ========== RENDER ==========
+const INVESTOR_CIK = {
+  lilu:      '0001709323',
+  pabrai:    '0001474216',
+  duan:      '0001759760',
+  tepper:    '0001656456',
+  webb:      null,
+  buffett:   '0001067983',
+  akre:      '0001499406',
+  greenberg: '0001495196',
+};
+
 function renderSummary() {
   const d = data.current;
+  // 更新 hero 区报告期 / 提交日 / CIK
+  const metaRow = document.getElementById('metaRow');
+  if (metaRow) {
+    const isEn = lang === 'en';
+    const cik = INVESTOR_CIK[investor];
+    const cikHtml = cik
+      ? `<span><strong>CIK</strong> ${cik}</span>`
+      : '';
+    metaRow.innerHTML =
+      `<span><strong>${isEn ? 'Period' : '\u62a5\u544a\u671f'}</strong> ${d.periodEnd || '--'}</span>` +
+      `<span><strong>${isEn ? 'Filed' : '\u63d0\u4ea4\u65e5'}</strong> ${d.filingDate || '--'}</span>` +
+      cikHtml;
+  }
   const tc = d.totalValue - (d.prevTotalValue||0);
   const tp = d.prevTotalValue ? (tc/d.prevTotalValue*100) : 0;
   const cls = tc>=0?'up':'down', sign=tc>=0?'+':'';
