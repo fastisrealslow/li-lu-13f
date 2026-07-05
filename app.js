@@ -1088,17 +1088,18 @@ async function renderHKHoldings() {
 }
 
 function switchTab(name) {
-  ['current','changes','history','homework','spinoff','spinoff_us'].forEach(t=>{
+  ['current','changes','history','homework','spinoff','spinoff_us','run_status'].forEach(t=>{
     document.getElementById('tab-'+t).classList.toggle('d-none',t!==name);
   });
   document.querySelectorAll('.tab-btn').forEach((b,i)=>{
-    b.classList.toggle('active',['current','changes','history','homework','spinoff','spinoff_us'][i]===name);
+    b.classList.toggle('active',['current','changes','history','homework','spinoff','spinoff_us','run_status'][i]===name);
   });
   if (name==='changes') { renderChanges(); renderInsights(); }
   if (name==='history') { renderHistoryChart(); renderTimeline(); }
   if (name==='homework') { renderHomework(); }
   if (name==='spinoff') { renderSpinoff(); }
   if (name==='spinoff_us') { renderSpinoffUS(); }
+  if (name==='run_status') { renderRunStatus(); }
 }
 
 let _homeworkCache = null;
@@ -2081,4 +2082,138 @@ if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', () => switchInvestor('lilu'));
 } else {
   switchInvestor('lilu');
+}
+
+// ========== RUN STATUS PAGE ==========
+let _runStatusCache = null;
+
+async function renderRunStatus() {
+  const el = document.getElementById('runStatusContent');
+  if (!el) return;
+  el.innerHTML = '<p style="padding:24px;color:var(--text-lighter);">加载中...</p>';
+
+  let data;
+  try {
+    const r = await fetch('run_status.json?_=' + Date.now());
+    if (!r.ok) throw new Error('not found');
+    data = await r.json();
+  } catch(e) {
+    el.innerHTML = `<div style="padding:32px;text-align:center;color:var(--text-lighter);">
+      <p style="font-size:1rem;margin-bottom:8px;">暂无更新记录</p>
+      <p style="font-size:.8rem;">workflow 执行后会自动生成状态记录。</p>
+    </div>`;
+    return;
+  }
+
+  const runs = (data.runs || []).slice(0, 10); // 最多显示 10 次
+
+  if (!runs.length) {
+    el.innerHTML = '<p style="padding:24px;color:var(--text-lighter);">暂无运行记录。</p>';
+    return;
+  }
+
+  const STEP_ORDER = [
+    'lilu_13f','lilu_prices',
+    'pabrai_13f','pabrai_prices',
+    'duan_13f','duan_prices',
+    'tepper_13f','tepper_prices',
+    'buffett_13f','buffett_prices',
+    'akre_greenberg_13f','akre_prices','greenberg_prices',
+    'webb_prices','webb_holdings',
+    'metadata','hk_disclosures','spinoff_hk','spinoff_us',
+  ];
+
+  const STEP_LABELS = {
+    lilu_13f:'李录 13F', lilu_prices:'李录 股价',
+    pabrai_13f:'Pabrai 13F', pabrai_prices:'Pabrai 股价',
+    duan_13f:'段永平 13F', duan_prices:'段永平 股价',
+    tepper_13f:'Tepper 13F', tepper_prices:'Tepper 股价',
+    buffett_13f:'巴菲特 13F', buffett_prices:'巴菲特 股价',
+    akre_greenberg_13f:'Akre/Greenberg 13F',
+    akre_prices:'Akre 股价', greenberg_prices:'Greenberg 股价',
+    webb_prices:'Webb 股价', webb_holdings:'Webb 港股持仓',
+    metadata:'元数据富化', hk_disclosures:'港股披露监控',
+    spinoff_hk:'港股分拆', spinoff_us:'美股分拆',
+  };
+
+  function fmtTime(ts) {
+    if (!ts) return '—';
+    try {
+      const d = new Date(ts);
+      return d.toLocaleString('zh-CN', { timeZone: 'Asia/Shanghai', month:'2-digit', day:'2-digit', hour:'2-digit', minute:'2-digit' });
+    } catch(e) { return ts.slice(0,16); }
+  }
+
+  function triggerBadge(trigger) {
+    const label = trigger === 'workflow_dispatch' ? '手动触发' : '定时任务';
+    const color = trigger === 'workflow_dispatch' ? '#1d4ed8' : '#6b7280';
+    return `<span style="font-size:.65rem;padding:2px 8px;border-radius:12px;background:${color}1a;color:${color};font-weight:600;border:1px solid ${color}33;">${label}</span>`;
+  }
+
+  function statusIcon(s) {
+    if (!s) return '<span style="color:#9ca3af;font-size:.95rem;">—</span>';
+    if (s === 'ok')   return '<span style="color:#15803d;font-size:.95rem;" title="成功">✓</span>';
+    if (s === 'skip') return '<span style="color:#d97706;font-size:.85rem;" title="跳过">↷</span>';
+    return '<span style="color:#b91c1c;font-size:.95rem;" title="失败">✗</span>';
+  }
+
+  // 统计 ok/fail/skip 数量
+  function runSummary(steps) {
+    let ok=0, fail=0, skip=0, total=0;
+    Object.values(steps).forEach(s => {
+      total++;
+      if (s.status === 'ok') ok++;
+      else if (s.status === 'skip') skip++;
+      else fail++;
+    });
+    return { ok, fail, skip, total };
+  }
+
+  let html = `
+    <div style="margin-bottom:20px;">
+      <h3 style="font-family:var(--serif);font-size:1.1rem;color:var(--navy);font-weight:600;margin-bottom:4px;">
+        🔍 自动更新状态
+      </h3>
+      <p style="font-size:.8rem;color:var(--text-lighter);">显示最近 ${runs.length} 次 workflow 执行结果，每步骤标记成功 / 失败 / 跳过。</p>
+    </div>`;
+
+  runs.forEach((run, idx) => {
+    const steps = run.steps || {};
+    const { ok, fail, skip, total } = runSummary(steps);
+    const allOk = fail === 0;
+    const borderColor = allOk ? '#15803d' : '#b91c1c';
+    const bgBadge = allOk
+      ? '<span style="font-size:.7rem;padding:2px 10px;border-radius:12px;background:#dcfce7;color:#15803d;font-weight:600;">全部成功</span>'
+      : `<span style="font-size:.7rem;padding:2px 10px;border-radius:12px;background:#fee2e2;color:#b91c1c;font-weight:600;">${fail} 步骤失败</span>`;
+
+    html += `
+    <div style="border:1px solid var(--border-light);border-left:3px solid ${borderColor};border-radius:8px;padding:16px 20px;margin-bottom:16px;">
+      <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:14px;">
+        <span style="font-size:.78rem;color:var(--text-lighter);font-family:monospace;">${fmtTime(run.run_id)}</span>
+        ${triggerBadge(run.trigger)}
+        ${bgBadge}
+        <span style="font-size:.72rem;color:var(--text-lighter);margin-left:auto;">${ok}✓ ${skip}↷ ${fail}✗ / ${total} 步</span>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:6px;">`;
+
+    STEP_ORDER.forEach(stepKey => {
+      const s = steps[stepKey];
+      const label = STEP_LABELS[stepKey] || stepKey;
+      const icon = statusIcon(s ? s.status : null);
+      const msg = s && s.msg ? `<span style="font-size:.65rem;color:#b91c1c;margin-left:4px;">${s.msg}</span>` : '';
+      const ts = s && s.ts ? `<span style="font-size:.62rem;color:#9ca3af;margin-left:auto;">${fmtTime(s.ts).slice(-5)}</span>` : '';
+      const bg = !s ? '#f9fafb' : s.status === 'ok' ? '#f0fdf4' : s.status === 'skip' ? '#fffbeb' : '#fef2f2';
+      const border = !s ? 'var(--border-light)' : s.status === 'ok' ? '#bbf7d0' : s.status === 'skip' ? '#fde68a' : '#fecaca';
+
+      html += `<div style="display:flex;align-items:center;gap:6px;padding:6px 10px;border-radius:6px;background:${bg};border:1px solid ${border};font-size:.78rem;">
+        ${icon}
+        <span style="color:var(--text);flex:1;min-width:0;">${label}</span>
+        ${msg}${ts}
+      </div>`;
+    });
+
+    html += `</div></div>`;
+  });
+
+  el.innerHTML = html;
 }

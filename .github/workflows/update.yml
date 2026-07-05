@@ -23,105 +23,319 @@ jobs:
       - name: Install dependencies
         run: pip install yfinance pdfminer.six
 
+      # ── 初始化本次运行状态记录 ──
+      - name: Init run status
+        run: |
+          python3 update_status.py --init --trigger "${{ github.event_name }}"
+
+      # ─────────────── 13F 数据抓取 ───────────────
+
       - name: Fetch Li Lu 13F from SEC EDGAR
+        id: lilu_13f
         continue-on-error: true
         run: python3 fetch_13f.py --full
 
-      - name: Fetch Li Lu stock prices
-        continue-on-error: true
-        env:
-          FINNHUB_KEY: ${{ secrets.FINNHUB_KEY }}
-        run: python3 fetch_prices.py
+      - name: Status - Li Lu 13F
+        if: always()
+        run: |
+          if [ "${{ steps.lilu_13f.outcome }}" = "success" ]; then
+            python3 update_status.py --step lilu_13f --status ok
+          else
+            python3 update_status.py --step lilu_13f --status fail --msg "Step exited with error"
+          fi
 
       - name: Fetch Pabrai 13F from SEC EDGAR
+        id: pabrai_13f
         continue-on-error: true
         run: python3 fetch_13f_pabrai.py --full
 
-      - name: Fetch Pabrai stock prices
-        continue-on-error: true
-        env:
-          FINNHUB_KEY: ${{ secrets.FINNHUB_KEY }}
-        run: python3 fetch_pabrai_prices.py
+      - name: Status - Pabrai 13F
+        if: always()
+        run: |
+          if [ "${{ steps.pabrai_13f.outcome }}" = "success" ]; then
+            python3 update_status.py --step pabrai_13f --status ok
+          else
+            python3 update_status.py --step pabrai_13f --status fail --msg "Step exited with error"
+          fi
 
       - name: Fetch Duan Yongping 13F from SEC EDGAR
+        id: duan_13f
         continue-on-error: true
         run: python3 fetch_13f_duan.py --full
 
-      - name: Fetch Duan Yongping stock prices
-        continue-on-error: true
-        env:
-          FINNHUB_KEY: ${{ secrets.FINNHUB_KEY }}
-        run: python3 fetch_prices_duan.py
+      - name: Status - Duan 13F
+        if: always()
+        run: |
+          if [ "${{ steps.duan_13f.outcome }}" = "success" ]; then
+            python3 update_status.py --step duan_13f --status ok
+          else
+            python3 update_status.py --step duan_13f --status fail --msg "Step exited with error"
+          fi
 
       - name: Fetch David Tepper 13F from SEC EDGAR
+        id: tepper_13f
         continue-on-error: true
         run: python3 fetch_13f_tepper.py --full
 
-      - name: Fetch David Tepper stock prices
+      - name: Status - Tepper 13F
+        if: always()
+        run: |
+          if [ "${{ steps.tepper_13f.outcome }}" = "success" ]; then
+            python3 update_status.py --step tepper_13f --status ok
+          else
+            python3 update_status.py --step tepper_13f --status fail --msg "Step exited with error"
+          fi
+
+      - name: Fetch Buffett 13F from SEC EDGAR
+        id: buffett_13f
+        continue-on-error: true
+        run: python3 fetch_13f_buffett.py --full
+
+      - name: Status - Buffett 13F
+        if: always()
+        run: |
+          if [ "${{ steps.buffett_13f.outcome }}" = "success" ]; then
+            python3 update_status.py --step buffett_13f --status ok
+          else
+            python3 update_status.py --step buffett_13f --status fail --msg "Step exited with error"
+          fi
+
+      - name: Fetch Akre & Greenberg 13F from SEC EDGAR
+        id: akre_greenberg_13f
+        continue-on-error: true
+        run: python3 fetch_13f_akre_greenberg.py --full
+
+      - name: Status - Akre/Greenberg 13F
+        if: always()
+        run: |
+          if [ "${{ steps.akre_greenberg_13f.outcome }}" = "success" ]; then
+            python3 update_status.py --step akre_greenberg_13f --status ok
+          else
+            python3 update_status.py --step akre_greenberg_13f --status fail --msg "Step exited with error"
+          fi
+
+      # ─────────────── 股价抓取（使用通用脚本）───────────────
+
+      - name: Fetch Li Lu stock prices
+        id: lilu_prices
         continue-on-error: true
         env:
           FINNHUB_KEY: ${{ secrets.FINNHUB_KEY }}
-        run: python3 fetch_prices_tepper.py
+        run: python3 fetch_prices_all.py --investor lilu
+
+      - name: Status - Li Lu prices
+        if: always()
+        run: |
+          if [ "${{ steps.lilu_prices.outcome }}" = "success" ]; then
+            python3 update_status.py --step lilu_prices --status ok
+          else
+            python3 update_status.py --step lilu_prices --status fail --msg "Step exited with error"
+          fi
+
+      - name: Fetch Pabrai stock prices
+        id: pabrai_prices
+        continue-on-error: true
+        env:
+          FINNHUB_KEY: ${{ secrets.FINNHUB_KEY }}
+        run: python3 fetch_prices_all.py --investor pabrai
+
+      - name: Status - Pabrai prices
+        if: always()
+        run: |
+          if [ "${{ steps.pabrai_prices.outcome }}" = "success" ]; then
+            python3 update_status.py --step pabrai_prices --status ok
+          else
+            python3 update_status.py --step pabrai_prices --status fail --msg "Step exited with error"
+          fi
+
+      - name: Fetch Duan Yongping stock prices
+        id: duan_prices
+        continue-on-error: true
+        env:
+          FINNHUB_KEY: ${{ secrets.FINNHUB_KEY }}
+        run: python3 fetch_prices_all.py --investor duan
+
+      - name: Status - Duan prices
+        if: always()
+        run: |
+          if [ "${{ steps.duan_prices.outcome }}" = "success" ]; then
+            python3 update_status.py --step duan_prices --status ok
+          else
+            python3 update_status.py --step duan_prices --status fail --msg "Step exited with error"
+          fi
+
+      - name: Fetch David Tepper stock prices
+        id: tepper_prices
+        continue-on-error: true
+        env:
+          FINNHUB_KEY: ${{ secrets.FINNHUB_KEY }}
+        run: python3 fetch_prices_all.py --investor tepper
+
+      - name: Status - Tepper prices
+        if: always()
+        run: |
+          if [ "${{ steps.tepper_prices.outcome }}" = "success" ]; then
+            python3 update_status.py --step tepper_prices --status ok
+          else
+            python3 update_status.py --step tepper_prices --status fail --msg "Step exited with error"
+          fi
 
       - name: Fetch David Webb stock prices
+        id: webb_prices
         continue-on-error: true
         env:
           FINNHUB_KEY: ${{ secrets.FINNHUB_KEY }}
-        run: python3 fetch_prices_webb.py
+        run: python3 fetch_prices_all.py --investor webb
 
-      - name: Fetch David Webb HK holdings (webbsite.0xmd.com, 仅周一)
+      - name: Status - Webb prices
+        if: always()
+        run: |
+          if [ "${{ steps.webb_prices.outcome }}" = "success" ]; then
+            python3 update_status.py --step webb_prices --status ok
+          else
+            python3 update_status.py --step webb_prices --status fail --msg "Step exited with error"
+          fi
+
+      - name: Fetch Buffett stock prices
+        id: buffett_prices
+        continue-on-error: true
+        env:
+          FINNHUB_KEY: ${{ secrets.FINNHUB_KEY }}
+        run: python3 fetch_prices_all.py --investor buffett
+
+      - name: Status - Buffett prices
+        if: always()
+        run: |
+          if [ "${{ steps.buffett_prices.outcome }}" = "success" ]; then
+            python3 update_status.py --step buffett_prices --status ok
+          else
+            python3 update_status.py --step buffett_prices --status fail --msg "Step exited with error"
+          fi
+
+      - name: Fetch Akre stock prices
+        id: akre_prices
+        continue-on-error: true
+        env:
+          FINNHUB_KEY: ${{ secrets.FINNHUB_KEY }}
+        run: python3 fetch_prices_all.py --investor akre
+
+      - name: Status - Akre prices
+        if: always()
+        run: |
+          if [ "${{ steps.akre_prices.outcome }}" = "success" ]; then
+            python3 update_status.py --step akre_prices --status ok
+          else
+            python3 update_status.py --step akre_prices --status fail --msg "Step exited with error"
+          fi
+
+      - name: Fetch Greenberg stock prices
+        id: greenberg_prices
+        continue-on-error: true
+        env:
+          FINNHUB_KEY: ${{ secrets.FINNHUB_KEY }}
+        run: python3 fetch_prices_all.py --investor greenberg
+
+      - name: Status - Greenberg prices
+        if: always()
+        run: |
+          if [ "${{ steps.greenberg_prices.outcome }}" = "success" ]; then
+            python3 update_status.py --step greenberg_prices --status ok
+          else
+            python3 update_status.py --step greenberg_prices --status fail --msg "Step exited with error"
+          fi
+
+      # ─────────────── Webb 港股持仓（仅周一）───────────────
+
+      - name: Fetch David Webb HK holdings (仅周一)
+        id: webb_holdings
         continue-on-error: true
         run: |
-          # webbsite.0xmd.com 每周一 UTC 00-04 才更新，其他时间跳过
-          DAY=$(date -u +%u)  # 1=周一 ... 7=周日
+          DAY=$(date -u +%u)
           if [ "$DAY" = "1" ] || [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
             echo "周一，执行 Webb 持仓抓取..."
             python3 fetch_webb_holdings.py
           else
             echo "今天是周 $DAY，跳过 Webb 持仓抓取"
+            exit 0
           fi
 
-      - name: Fetch Buffett 13F from SEC EDGAR
-        continue-on-error: true
-        run: python3 fetch_13f_buffett.py --full
+      - name: Status - Webb holdings
+        if: always()
+        run: |
+          DAY=$(date -u +%u)
+          if [ "$DAY" != "1" ] && [ "${{ github.event_name }}" != "workflow_dispatch" ]; then
+            python3 update_status.py --step webb_holdings --status skip --msg "非周一，跳过"
+          elif [ "${{ steps.webb_holdings.outcome }}" = "success" ]; then
+            python3 update_status.py --step webb_holdings --status ok
+          else
+            python3 update_status.py --step webb_holdings --status fail --msg "Step exited with error"
+          fi
 
-      - name: Fetch Akre & Greenberg 13F from SEC EDGAR
-        continue-on-error: true
-        run: python3 fetch_13f_akre_greenberg.py --full
-
-      - name: Fetch Buffett stock prices
-        continue-on-error: true
-        env:
-          FINNHUB_KEY: ${{ secrets.FINNHUB_KEY }}
-        run: python3 fetch_prices_buffett.py
-
-      - name: Fetch Akre & Greenberg stock prices
-        continue-on-error: true
-        env:
-          FINNHUB_KEY: ${{ secrets.FINNHUB_KEY }}
-        run: python3 fetch_prices_akre_greenberg.py
+      # ─────────────── 元数据 & 分拆 ───────────────
 
       - name: Enrich metadata (cnName + sector)
+        id: metadata
         continue-on-error: true
         env:
           SILICONFLOW_KEY: ${{ secrets.SILICONFLOW_KEY }}
         run: python3 enrich_metadata.py
 
+      - name: Status - Metadata
+        if: always()
+        run: |
+          if [ "${{ steps.metadata.outcome }}" = "success" ]; then
+            python3 update_status.py --step metadata --status ok
+          else
+            python3 update_status.py --step metadata --status fail --msg "Step exited with error"
+          fi
+
       - name: Monitor HK disclosure of interests (Duan Yongping)
+        id: hk_disclosures
         continue-on-error: true
         run: python3 monitor_hk_disclosures.py
 
+      - name: Status - HK disclosures
+        if: always()
+        run: |
+          if [ "${{ steps.hk_disclosures.outcome }}" = "success" ]; then
+            python3 update_status.py --step hk_disclosures --status ok
+          else
+            python3 update_status.py --step hk_disclosures --status fail --msg "Step exited with error"
+          fi
+
       - name: Fetch HK spin-off announcements
+        id: spinoff_hk
         continue-on-error: true
         env:
           SILICONFLOW_KEY: ${{ secrets.SILICONFLOW_KEY }}
         run: python3 fetch_spinoff.py
 
+      - name: Status - HK spinoff
+        if: always()
+        run: |
+          if [ "${{ steps.spinoff_hk.outcome }}" = "success" ]; then
+            python3 update_status.py --step spinoff_hk --status ok
+          else
+            python3 update_status.py --step spinoff_hk --status fail --msg "Step exited with error"
+          fi
+
       - name: Fetch US spin-off announcements (SEC EDGAR)
+        id: spinoff_us
         continue-on-error: true
         env:
           SILICONFLOW_KEY: ${{ secrets.SILICONFLOW_KEY }}
         run: python3 fetch_spinoff_us.py
+
+      - name: Status - US spinoff
+        if: always()
+        run: |
+          if [ "${{ steps.spinoff_us.outcome }}" = "success" ]; then
+            python3 update_status.py --step spinoff_us --status ok
+          else
+            python3 update_status.py --step spinoff_us --status fail --msg "Step exited with error"
+          fi
+
+      # ─────────────── JSON 验证 & 提交 ───────────────
 
       - name: Validate JSON files before commit
         run: |
@@ -141,7 +355,6 @@ jobs:
           for f in files:
             if not os.path.exists(f):
               print(f'MISSING: {f}')
-              bad.append(f)
               continue
             if os.path.getsize(f) == 0:
               print(f'EMPTY: {f}')
@@ -155,7 +368,6 @@ jobs:
               bad.append(f)
           if bad:
             print(f'\n⚠️  {len(bad)} files have issues: {bad}')
-            print('These files will NOT be committed.')
           else:
             print('\n✅ All JSON files valid')
           EOF
@@ -165,9 +377,15 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
-          # Only add files that exist and are valid JSON
           VALID_FILES=""
-          for f in data.json prices.json hk_holdings.json pabrai_data.json pabrai_prices.json duan.json prices_duan.json duan_hk.json tepper.json prices_tepper.json tepper_hk.json akre.json prices_akre.json greenberg.json prices_greenberg.json buffett.json prices_buffett.json webb.json prices_webb.json; do
+          for f in data.json prices.json hk_holdings.json \
+                   pabrai_data.json pabrai_prices.json \
+                   duan.json prices_duan.json duan_hk.json \
+                   tepper.json prices_tepper.json tepper_hk.json \
+                   akre.json prices_akre.json \
+                   greenberg.json prices_greenberg.json \
+                   buffett.json prices_buffett.json \
+                   webb.json prices_webb.json; do
             if [ -f "$f" ] && [ -s "$f" ] && python3 -c "import json; json.load(open('$f'))" 2>/dev/null; then
               VALID_FILES="$VALID_FILES $f"
             else
@@ -175,8 +393,8 @@ jobs:
             fi
           done
 
-          # Also add metadata cache and HK alerts if exists
-          for extra in metadata_cache.json alerts_hk_persons.json spinoff.json spinoff_us.json akre_hk.json pabrai_hk.json greenberg_hk.json; do
+          for extra in metadata_cache.json alerts_hk_persons.json spinoff.json spinoff_us.json \
+                       akre_hk.json pabrai_hk.json greenberg_hk.json run_status.json; do
             if [ -f "$extra" ] && [ -s "$extra" ]; then
               VALID_FILES="$VALID_FILES $extra"
             fi

@@ -303,6 +303,7 @@ th .info-wrap{position:relative;display:inline-flex}
       <button class="tab-btn" onclick="switchTab('homework')" style="position:relative;"><span data-i18n="tabHomework">📋 价値筛选</span></button>
       <button class="tab-btn" onclick="switchTab('spinoff')" style="position:relative;"><span data-i18n="tabSpinoff">🇭🇰 港股分拆</span></button>
       <button class="tab-btn" onclick="switchTab('spinoff_us')" style="position:relative;"><span data-i18n="tabSpinoffUS">🇺🇸 美股分拆</span></button>
+      <button class="tab-btn" onclick="switchTab('run_status')" style="position:relative;"><span data-i18n="tabRunStatus">🔍 更新状态</span></button>
     </div>
     <div id="tab-current">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
@@ -328,6 +329,9 @@ th .info-wrap{position:relative;display:inline-flex}
     </div>
     <div id="tab-spinoff_us" class="d-none">
       <div id="spinoffUSContent"></div>
+    </div>
+    <div id="tab-run_status" class="d-none">
+      <div id="runStatusContent"></div>
     </div>
     <div id="tab-history" class="d-none">
       <div class="chart-wrap"><canvas id="historyChart"></canvas></div>
