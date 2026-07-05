@@ -63,16 +63,6 @@ jobs:
           FINNHUB_KEY: ${{ secrets.FINNHUB_KEY }}
         run: python3 fetch_prices_tepper.py
 
-      - name: Fetch Guy Spier 13F from SEC EDGAR
-        continue-on-error: true
-        run: python3 fetch_13f_spier.py --full
-
-      - name: Fetch Guy Spier stock prices
-        continue-on-error: true
-        env:
-          FINNHUB_KEY: ${{ secrets.FINNHUB_KEY }}
-        run: python3 fetch_prices_spier.py
-
       - name: Fetch David Webb stock prices
         continue-on-error: true
         env:
@@ -142,7 +132,6 @@ jobs:
             'pabrai_data.json','pabrai_prices.json',
             'duan.json','prices_duan.json','duan_hk.json',
             'tepper.json','prices_tepper.json','tepper_hk.json',
-            'spier.json','prices_spier.json','spier_hk.json',
             'akre.json','prices_akre.json',
             'greenberg.json','prices_greenberg.json',
             'buffett.json','prices_buffett.json',
@@ -178,7 +167,7 @@ jobs:
 
           # Only add files that exist and are valid JSON
           VALID_FILES=""
-          for f in data.json prices.json hk_holdings.json pabrai_data.json pabrai_prices.json duan.json prices_duan.json duan_hk.json tepper.json prices_tepper.json tepper_hk.json spier.json prices_spier.json spier_hk.json akre.json prices_akre.json greenberg.json prices_greenberg.json buffett.json prices_buffett.json webb.json prices_webb.json; do
+          for f in data.json prices.json hk_holdings.json pabrai_data.json pabrai_prices.json duan.json prices_duan.json duan_hk.json tepper.json prices_tepper.json tepper_hk.json akre.json prices_akre.json greenberg.json prices_greenberg.json buffett.json prices_buffett.json webb.json prices_webb.json; do
             if [ -f "$f" ] && [ -s "$f" ] && python3 -c "import json; json.load(open('$f'))" 2>/dev/null; then
               VALID_FILES="$VALID_FILES $f"
             else

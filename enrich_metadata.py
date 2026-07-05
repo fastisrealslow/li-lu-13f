@@ -281,7 +281,6 @@ def _gen_13f_summaries(api_key):
         ('pabrai_data.json','帕布莱'),
         ('duan.json',       '段永平'),
         ('tepper.json',     '泰珀'),
-        ('spier.json',      '斯皮尔'),
         ('akre.json',       '阿克雷'),
         ('greenberg.json',  '格林伯格'),
         ('buffett.json',    '巴达特'),
@@ -365,8 +364,8 @@ def main():
 
     data_files = [
         'data.json', 'pabrai_data.json', 'duan.json', 'tepper.json',
-        'spier.json', 'akre.json', 'greenberg.json', 'buffett.json', 'webb.json',
-        'hk_holdings.json', 'duan_hk.json', 'tepper_hk.json', 'spier_hk.json',
+        'akre.json', 'greenberg.json', 'buffett.json', 'webb.json',
+        'hk_holdings.json', 'duan_hk.json', 'tepper_hk.json',
         'buffett_hk.json', 'akre_hk.json', 'greenberg_hk.json', 'pabrai_hk.json',
     ]
 
