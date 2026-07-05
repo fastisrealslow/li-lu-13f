@@ -32,6 +32,23 @@ body{font-family:var(--sans);color:var(--text);background:var(--bg);line-height:
 .nav-links a:hover{color:var(--gold)}
 .lang-btn{background:none;border:1px solid rgba(255,255,255,.25);color:rgba(255,255,255,.6);padding:3px 8px;border-radius:4px;cursor:pointer;font-size:.7rem;font-weight:600;margin-left:12px;transition:all .2s}
 .lang-btn:hover{color:var(--gold);border-color:var(--gold)}
+/* ========== STATUS DOT ========== */
+.status-dot{background:none;border:none;cursor:pointer;padding:0;margin-left:12px;display:flex;align-items:center;justify-content:center;width:20px;height:20px;flex-shrink:0;}
+.status-dot span{display:block;width:10px;height:10px;border-radius:50%;background:#6b7280;box-shadow:0 0 0 2px rgba(107,114,128,.25);transition:background .3s,box-shadow .3s;}
+.status-dot.ok span{background:#22c55e;box-shadow:0 0 0 3px rgba(34,197,94,.25);}
+.status-dot.fail span{background:#ef4444;box-shadow:0 0 0 3px rgba(239,68,68,.3);animation:pulse-red 1.5s infinite;}
+@keyframes pulse-red{0%,100%{box-shadow:0 0 0 3px rgba(239,68,68,.3)}50%{box-shadow:0 0 0 5px rgba(239,68,68,.1)}}
+/* ========== STATUS DRAWER ========== */
+.status-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:1900;}
+.status-overlay.open{display:block;}
+.status-drawer{position:fixed;left:0;right:0;bottom:0;z-index:2000;background:#fff;border-radius:16px 16px 0 0;max-height:80vh;display:flex;flex-direction:column;transform:translateY(100%);transition:transform .3s cubic-bezier(.32,0,.67,0);}
+.status-drawer.open{transform:translateY(0);}
+@media(min-width:640px){.status-drawer{left:auto;right:24px;bottom:auto;top:64px;width:480px;border-radius:12px;max-height:70vh;transform:translateY(-8px) scale(.97);opacity:0;transition:transform .2s,opacity .2s;} .status-drawer.open{transform:translateY(0) scale(1);opacity:1;}}
+.status-drawer-header{display:flex;align-items:center;justify-content:space-between;padding:16px 20px 12px;border-bottom:1px solid var(--border-light);flex-shrink:0;}
+.status-drawer-title{font-family:var(--serif);font-size:.95rem;font-weight:600;color:var(--navy);}
+.status-drawer-close{background:none;border:none;cursor:pointer;color:var(--text-lighter);font-size:1.1rem;padding:4px 8px;border-radius:4px;line-height:1;}
+.status-drawer-close:hover{background:var(--cream);}
+.status-drawer-body{overflow-y:auto;padding:16px 20px 24px;flex:1;}
 .nav-hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;margin-left:auto;padding:8px}
 .nav-hamburger span{width:20px;height:1.5px;background:#fff}
 @media(max-width:768px){
@@ -260,12 +277,23 @@ th .info-wrap{position:relative;display:inline-flex}
       <li><a href="#philosophy" data-i18n="navPhilosophy">投资理念</a></li>
       <li><a href="#readings" data-i18n="navReadings">阅读材料</a></li>
     </ul>
+    <button id="statusDot" class="status-dot" onclick="openStatusDrawer()" title="更新状态"><span id="statusDotInner"></span></button>
     <button id="langBtn" class="lang-btn" onclick="switchLang()">EN</button>
     <div class="nav-hamburger" id="hamburger" onclick="document.getElementById('navLinks').classList.toggle('open')">
       <span></span><span></span><span></span>
     </div>
   </div>
 </nav>
+
+<!-- ========== STATUS DRAWER ========== -->
+<div id="statusOverlay" class="status-overlay" onclick="closeStatusDrawer()"></div>
+<div id="statusDrawer" class="status-drawer">
+  <div class="status-drawer-header">
+    <span class="status-drawer-title">🔍 自动更新状态</span>
+    <button class="status-drawer-close" onclick="closeStatusDrawer()">✕</button>
+  </div>
+  <div id="statusDrawerBody" class="status-drawer-body">加载中...</div>
+</div>
 
 <!-- ========== HERO + 13F DATA ========== -->
 <section class="hero" id="holdings">
@@ -303,7 +331,6 @@ th .info-wrap{position:relative;display:inline-flex}
       <button class="tab-btn" onclick="switchTab('homework')" style="position:relative;"><span data-i18n="tabHomework">📋 价値筛选</span></button>
       <button class="tab-btn" onclick="switchTab('spinoff')" style="position:relative;"><span data-i18n="tabSpinoff">🇭🇰 港股分拆</span></button>
       <button class="tab-btn" onclick="switchTab('spinoff_us')" style="position:relative;"><span data-i18n="tabSpinoffUS">🇺🇸 美股分拆</span></button>
-      <button class="tab-btn" onclick="switchTab('run_status')" style="position:relative;"><span data-i18n="tabRunStatus">🔍 更新状态</span></button>
     </div>
     <div id="tab-current">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
@@ -329,9 +356,6 @@ th .info-wrap{position:relative;display:inline-flex}
     </div>
     <div id="tab-spinoff_us" class="d-none">
       <div id="spinoffUSContent"></div>
-    </div>
-    <div id="tab-run_status" class="d-none">
-      <div id="runStatusContent"></div>
     </div>
     <div id="tab-history" class="d-none">
       <div class="chart-wrap"><canvas id="historyChart"></canvas></div>

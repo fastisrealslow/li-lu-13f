@@ -1088,18 +1088,17 @@ async function renderHKHoldings() {
 }
 
 function switchTab(name) {
-  ['current','changes','history','homework','spinoff','spinoff_us','run_status'].forEach(t=>{
+  ['current','changes','history','homework','spinoff','spinoff_us'].forEach(t=>{
     document.getElementById('tab-'+t).classList.toggle('d-none',t!==name);
   });
   document.querySelectorAll('.tab-btn').forEach((b,i)=>{
-    b.classList.toggle('active',['current','changes','history','homework','spinoff','spinoff_us','run_status'][i]===name);
+    b.classList.toggle('active',['current','changes','history','homework','spinoff','spinoff_us'][i]===name);
   });
   if (name==='changes') { renderChanges(); renderInsights(); }
   if (name==='history') { renderHistoryChart(); renderTimeline(); }
   if (name==='homework') { renderHomework(); }
   if (name==='spinoff') { renderSpinoff(); }
   if (name==='spinoff_us') { renderSpinoffUS(); }
-  if (name==='run_status') { renderRunStatus(); }
 }
 
 let _homeworkCache = null;
@@ -2075,35 +2074,74 @@ function updateInvestorContent() {
 }
 
 // ========== AUTO-INIT ==========
-// Safety shim: old cached pages may still call renderAll()
 function renderAll() { try { renderSummary(); renderHoldings(); renderInsights(); renderHistoryChart(); } catch(e) {} }
-// 页面加载完成后自动初始化
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', () => switchInvestor('lilu'));
-} else {
-  switchInvestor('lilu');
+
+// 页面加载后静默拉取状态灯颜色（不弹抽屉）
+async function initStatusDot() {
+  try {
+    const r = await fetch('run_status.json?_=' + Date.now());
+    if (!r.ok) return;
+    const data = await r.json();
+    updateStatusDot(data);
+  } catch(e) {}
 }
 
-// ========== RUN STATUS PAGE ==========
-let _runStatusCache = null;
+function updateStatusDot(data) {
+  const dot = document.getElementById('statusDot');
+  if (!dot) return;
+  const runs = (data.runs || []);
+  if (!runs.length) return;
+  const latest = runs[0];
+  const hasFail = Object.values(latest.steps || {}).some(s => s.status === 'fail');
+  dot.classList.remove('ok','fail');
+  dot.classList.add(hasFail ? 'fail' : 'ok');
+}
 
-async function renderRunStatus() {
-  const el = document.getElementById('runStatusContent');
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', () => { switchInvestor('lilu'); initStatusDot(); });
+} else {
+  switchInvestor('lilu');
+  initStatusDot();
+}
+
+// ========== STATUS DRAWER ==========
+let _runStatusData = null;
+
+function openStatusDrawer() {
+  document.getElementById('statusOverlay').classList.add('open');
+  document.getElementById('statusDrawer').classList.add('open');
+  renderStatusDrawer();
+}
+
+function closeStatusDrawer() {
+  document.getElementById('statusOverlay').classList.remove('open');
+  document.getElementById('statusDrawer').classList.remove('open');
+}
+
+// ESC 关闭
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeStatusDrawer(); });
+
+async function renderStatusDrawer() {
+  const el = document.getElementById('statusDrawerBody');
   if (!el) return;
-  el.innerHTML = '<p style="padding:24px;color:var(--text-lighter);">加载中...</p>';
+  el.innerHTML = '<p style="padding:16px 0;color:var(--text-lighter);font-size:.85rem;">加载中...</p>';
 
   let data;
   try {
     const r = await fetch('run_status.json?_=' + Date.now());
     if (!r.ok) throw new Error('not found');
     data = await r.json();
+    _runStatusData = data;
   } catch(e) {
-    el.innerHTML = `<div style="padding:32px;text-align:center;color:var(--text-lighter);">
-      <p style="font-size:1rem;margin-bottom:8px;">暂无更新记录</p>
-      <p style="font-size:.8rem;">workflow 执行后会自动生成状态记录。</p>
+    el.innerHTML = `<div style="padding:16px 0;text-align:center;color:var(--text-lighter);">
+      <p style="font-size:.9rem;margin-bottom:6px;">暂无更新记录</p>
+      <p style="font-size:.78rem;">workflow 执行后会自动生成。</p>
     </div>`;
     return;
   }
+
+  // 更新状态灯
+  updateStatusDot(data);
 
   const runs = (data.runs || []).slice(0, 10); // 最多显示 10 次
 
