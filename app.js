@@ -1033,7 +1033,7 @@ async function renderTimeline() {
     })
     .sort((a, b) => a.first.localeCompare(b.first));
 
-  let html = '<table style="width:100%;font-size:.82rem;"><thead><tr><th>'+t('thCompany')+'</th><th>'+t('thFirst')+'</th><th>'+t('thLast')+'</th><th>'+t('thQCount')+'</th><th>'+t('thPosition')+'</th><th>'+t('thStatus')+'</th></tr></thead><tbody>';
+  let html = '<div class="table-wrap tl-table-wrap"><table style="width:100%;font-size:.82rem;table-layout:fixed;"><colgroup><col style="width:38%"><col style="width:18%"><col style="width:18%"><col style="width:26%"></colgroup><thead><tr><th>'+t('thCompany')+'</th><th>'+t('thFirst')+'</th><th>'+t('thLast')+'</th><th>'+t('thStatus')+'</th></tr></thead><tbody>';
   entries.forEach(e => {
     if (e.active && e.curShares > 0 && e.maxShares > 0) {
       const ratio = (e.curShares / e.maxShares * 100).toFixed(0);
@@ -1058,15 +1058,13 @@ async function renderTimeline() {
       status = '<span style="color:var(--text-lighter);">○ 已清仓</span>';
     }
     html += `<tr>
-      <td class="stock-cell"><span class="ticker-line">${fmtTicker(e.ticker)}</span><span class="name-line">${cn(e.name, e)}</span><span class="sector-badge">${ts(e.sector)}</span></td>
-      <td>${e.first}</td>
-      <td>${e.last}</td>
-      <td>${e.qCount}</td>
-      <td>${e.shareInfo}</td>
-      <td>${status}</td>
+      <td class="stock-cell"><span class="ticker-line">${fmtTicker(e.ticker)}</span><span class="name-line">${cn(e.name, e)}</span><span class="sector-badge">${ts(e.sector)}</span><span style="display:block;font-size:.65rem;color:var(--text-lighter);margin-top:2px;">${e.qCount} 季</span></td>
+      <td style="white-space:nowrap">${e.first}</td>
+      <td style="white-space:nowrap">${e.last}</td>
+      <td>${status}<div style="margin-top:4px">${e.shareInfo}</div></td>
     </tr>`;
   });
-  html += '</tbody></table>';
+  html += '</tbody></table></div>';
   html += '<div style="font-size:.68rem;color:var(--text-lighter);margin-top:8px;">● 持有中 = 当前仍在组合内 | ○ 已清仓 = 历史持仓 | ◐ 卖出后重新买入 = 有中断</div>';
   container.innerHTML = html;
   renderHKHoldings();
