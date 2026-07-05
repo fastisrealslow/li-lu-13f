@@ -7,8 +7,6 @@ on:
 
 permissions:
   contents: write
-  pages: write
-  id-token: write
 
 jobs:
   update:
@@ -416,16 +414,4 @@ jobs:
             echo "Changes pushed!"
           fi
 
-      # ─────────────── 部署 GitHub Pages ───────────────
-
-      - name: Setup Pages
-        uses: actions/configure-pages@v5
-
-      - name: Upload Pages artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: '.'
-
-      - name: Deploy to GitHub Pages
-        id: deploy_pages
-        uses: actions/deploy-pages@v4
+      # Pages 部署由独立的 deploy-pages.yml 处理（监听 push 触发）
