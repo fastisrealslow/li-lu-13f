@@ -412,6 +412,7 @@ jobs:
             echo "No changes to commit"
           else
             git commit -m "auto: update 13F data & prices (all investors)"
+            git pull --rebase origin master
             git push
             echo "Changes pushed!"
           fi
