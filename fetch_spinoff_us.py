@@ -440,6 +440,41 @@ def get_market_cap_from_facts(cik, opener):
     return None
 
 
+def _fetch_us_market_caps(companies):
+    """
+    用 Finnhub /stock/metric 批量拉母公司市值。
+    写入 c['parentMarketCap']（单位：亿美元，保留1位小数）。
+    已有且非0则跳过（增量）。
+    """
+    fh_key = os.environ.get('FINNHUB_KEY', '')
+    if not fh_key:
+        print("  FINNHUB_KEY 未设置，跳过市值拉取")
+        return
+
+    need = [c for c in companies if not c.get('parentMarketCap')]
+    if not need:
+        print(f"  所有公司已有 parentMarketCap，跳过")
+        return
+
+    print(f"  拉取母公司市值（{len(need)} 家）...")
+    for c in need:
+        tk = c['ticker']
+        try:
+            url = f"https://finnhub.io/api/v1/stock/metric?symbol={tk}&metric=all&token={fh_key}"
+            req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0'})
+            resp = urllib.request.urlopen(req, timeout=10)
+            data = json.loads(resp.read().decode())
+            mc = data.get('metric', {}).get('marketCapitalization')  # 单位：百万美元
+            if mc and mc > 0:
+                c['parentMarketCap'] = round(mc / 100, 1)  # 转换为亿美元
+                print(f"    {tk}: ${c['parentMarketCap']}亿")
+            else:
+                print(f"    {tk}: 无数据")
+        except Exception as e:
+            print(f"    {tk}: 失败 {e}")
+        time.sleep(0.3)  # Finnhub 免费版限速 60次/分钟
+
+
 def dedupe(companies):
     """按 ticker 去重，保留公告最多的"""
     seen = {}
@@ -829,11 +864,13 @@ def main():
 
     companies = list(companies_map.values())
 
-    # Step 3.1: 从旧数据恢复 aiSummary（避免重复消耗 API 额度）
+    # Step 3.1: 从旧数据恢复 aiSummary 和 parentMarketCap（避免重复消耗 API 额度）
     for c in companies:
         tk = c['ticker']
         if not c.get('aiSummary') and tk in prev_us and prev_us[tk].get('aiSummary'):
             c['aiSummary'] = prev_us[tk]['aiSummary']
+        if not c.get('parentMarketCap') and tk in prev_us and prev_us[tk].get('parentMarketCap'):
+            c['parentMarketCap'] = prev_us[tk]['parentMarketCap']
 
     # Step 3.2: 将旧数据中 completed 案例补回（本次搜索窗口外的不会重新出现）
     cutoff_completed = (datetime.now(timezone.utc) - timedelta(days=365)).strftime('%Y-%m-%d')
@@ -896,6 +933,10 @@ def main():
                 c['spinoffTicker'] = t
                 print(f"  {c['ticker']} → spinoffTicker={t}")
         time.sleep(0.05)
+
+    # Step 3.8: 拉取母公司市值
+    print("\nStep 3.8: 拉取母公司市值...")
+    _fetch_us_market_caps(companies)
 
     # Step 4: 状态过滤
     print("\n状态过滤...")

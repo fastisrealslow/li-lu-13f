@@ -589,6 +589,58 @@ def load_prev_data():
         return {}
 
 
+def _fetch_hk_market_caps(companies):
+    """
+    用 yfinance 批量拁取港股母公司市值。
+    写入 c['parentMarketCap']（单位：亿美元，保留1位小数）。
+    已有且非0则跳过（增量）。
+    """
+    try:
+        import yfinance as yf
+    except ImportError:
+        print("  yfinance 未安装，跳过港股市值拁取")
+        return
+
+    # 港元/美元汇率（固定近似就够）
+    HKD_TO_USD = 0.128
+
+    need = [c for c in companies if not c.get('parentMarketCap')]
+    # 从旧数据恢复已有的
+    prev = load_prev_data()
+    for c in need:
+        code = c.get('stockCode', '')
+        if prev.get(code, {}).get('parentMarketCap'):
+            c['parentMarketCap'] = prev[code]['parentMarketCap']
+    need = [c for c in companies if not c.get('parentMarketCap')]
+    if not need:
+        print("  所有公司已有 parentMarketCap，跳过")
+        return
+
+    print(f"  拁取母公司市值（{len(need)} 家）...")
+    for c in need:
+        code = c.get('stockCode', '')  # e.g. '00308.HK'
+        # 转成 yfinance 格式：00308.HK → 0308.HK
+        yf_sym = code.lstrip('0') or code
+        if not yf_sym.endswith('.HK'):
+            yf_sym = yf_sym + '.HK'
+        # 保证至少一位数字
+        parts = yf_sym.split('.')
+        if len(parts[0]) < 1:
+            yf_sym = code  # fallback
+        try:
+            info = yf.Ticker(yf_sym).info
+            mc_hkd = info.get('marketCap', 0) or 0
+            if mc_hkd > 0:
+                mc_usd = mc_hkd * HKD_TO_USD / 1e8  # 转换为亿美元
+                c['parentMarketCap'] = round(mc_usd, 1)
+                print(f"    {code}: ${c['parentMarketCap']}亿 USD")
+            else:
+                print(f"    {code}: 无数据")
+        except Exception as e:
+            print(f"    {code}: 失败 {e}")
+        time.sleep(0.5)
+
+
 def refine_ipo_other_via_llm(companies, opener):
     """
     对 spinType=ipo_other（目标交易所待定）的公司，读最新 PDF 前2页，
@@ -970,6 +1022,10 @@ def main():
     # 价格过滤
     print("\n价格过滤（排除 <0.5 HKD 仙股）...")
     companies = filter_low_price(companies)
+
+    # 拁取母公司市值
+    print("\n拁取母公司市值...")
+    _fetch_hk_market_caps(companies)
 
     for c in companies:
         print(f"  {c['ticker']} {c['stockName']} — {len(c['announcements'])} 条公告，最新: {c['latestDate']}")

@@ -1751,6 +1751,8 @@ async function renderSpinoff() {
           <div>${bar}</div>
           <!-- 类型 -->
           <div style="padding:0 4px;">${_soTypeBadge(c.spinType, isEn)}</div>
+          <!-- 市值 -->
+          <div style="padding:0 2px;">${_mcapBadge(c.parentMarketCap, isEn)}</div>
           <!-- 最新公告 -->
           <div style="padding:0 10px;overflow:hidden;">
             ${latest.docUrl
@@ -1996,6 +1998,27 @@ function _usStatusBadge(status, isEn) {
   return `<span style="font-size:.72rem;color:${s.color};font-weight:600;">${isEn?s.en:s.zh}</span>`;
 }
 
+// 母公司市值标签（单位：亿美元）
+function _mcapBadge(mc, isEn) {
+  if (!mc || mc <= 0) return '';
+  let tier, bg, color, border;
+  if (mc >= 1000) {
+    tier = isEn ? '🐘 Large' : '🐘 大盘';
+    bg = '#f0fdf4'; color = '#166534'; border = '#bbf7d0';
+  } else if (mc >= 200) {
+    tier = isEn ? '🐂 Mid' : '🐂 中盘';
+    bg = '#eff6ff'; color = '#1d4ed8'; border = '#bfdbfe';
+  } else if (mc >= 50) {
+    tier = isEn ? '🐇 Small' : '🐇 小盘';
+    bg = '#fefce8'; color = '#92400e'; border = '#fde68a';
+  } else {
+    tier = isEn ? '💎 Micro' : '💎 微盘';
+    bg = '#fdf4ff'; color = '#7e22ce'; border = '#f5d0fe';
+  }
+  const mcStr = mc >= 100 ? `$${Math.round(mc)}亿` : `$${mc.toFixed(0)}亿`;
+  return `<span title="母公司市值 ${mcStr} USD" style="display:inline-block;font-size:.62rem;padding:2px 7px;border-radius:10px;font-weight:600;white-space:nowrap;background:${bg};color:${color};border:1px solid ${border};">${tier}</span>`;
+}
+
 function _usApplyFilters() {
   const el = document.getElementById('spinoffUSContent');
   if (!el || !_spinoffUSData) return;
@@ -2053,6 +2076,7 @@ function _usApplyFilters() {
           ${soName}
           ${_usTypeBadge(c.type, isEn)}
           ${_usStatusBadge(c.status, isEn)}
+          ${_mcapBadge(c.parentMarketCap, isEn)}
           <span style="font-size:.68rem;color:var(--text-lighter);min-width:72px;text-align:right;">${latestDate}</span>
           ${summarySnippet}
         </div>
