@@ -1690,7 +1690,7 @@ async function renderSpinoff() {
     </div>
 
     <!-- 表头 -->
-      <div style="display:grid;grid-template-columns:120px 118px 88px 1fr 88px 44px;
+      <div style="display:grid;grid-template-columns:120px 118px 88px 76px 1fr 88px 44px;
                   gap:0;padding:8px 14px;
                   background:var(--navy);border-radius:8px 8px 0 0;
                   font-size:.67rem;font-weight:600;color:rgba(255,255,255,.55);
@@ -1698,6 +1698,7 @@ async function renderSpinoff() {
         <span>${isEn?'COMPANY':'公司'}</span>
         <span>${isEn?'STATUS':'进度'}</span>
         <span>${isEn?'TYPE':'类型'}</span>
+        <span>${isEn?'SIZE':'市值'}</span>
         <span>${isEn?'LATEST ANNOUNCEMENT':'最新公告'}</span>
         <span style="text-align:right;">${isEn?'DATE':'日期'}</span>
         <span style="text-align:center;">${isEn?'N':'条'}</span>
@@ -1731,7 +1732,7 @@ async function renderSpinoff() {
       <!-- row ${idx} -->
       <div>
         <div onclick="soToggle(${idx})" style="
-              display:grid;grid-template-columns:120px 118px 88px 1fr 88px 44px;
+              display:grid;grid-template-columns:120px 118px 88px 76px 1fr 88px 44px;
               gap:0;padding:10px 14px;
               background:${isEven?'#fff':'#faf9f7'};
               border-bottom:1px solid var(--border-light);
