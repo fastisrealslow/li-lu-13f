@@ -77,7 +77,7 @@ today     = datetime.now()
 date_to   = today.strftime("%Y%m%d")
 date_from = (today - timedelta(days=365)).strftime("%Y%m%d")
 
-KEYWORDS = ["分拆", "spin-off", "demerger", "實物分派", "以介紹方式", "獨立上市", "独立上市", "建议分派", "建議分派"]
+KEYWORDS = ["分拆", "spin-off", "demerger", "實物分派", "以介紹方式", "獨立上市", "独立上市"]
 
 # 公告标题否定关键词：命中任一则跳过该条公告
 # 针对「分拆未發行股份/供股/股本削減」等内部资本操作，非子公司分拆
