@@ -306,7 +306,7 @@ def _gen_13f_summaries(api_key):
             cn  = h.get('cnName', '') or h.get('name', t)
             s   = h.get('shares', 0)
             ps  = h.get('prevShares')
-            if ps is None:
+            if ps is None or ps == 0:
                 new_pos.append(cn)
             elif s == 0:
                 exited.append(cn)
