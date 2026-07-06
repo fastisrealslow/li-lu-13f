@@ -619,14 +619,10 @@ def _fetch_hk_market_caps(companies):
     print(f"  拁取母公司市值（{len(need)} 家）...")
     for c in need:
         code = c.get('stockCode', '')  # e.g. '00308.HK'
-        # 转成 yfinance 格式：00308.HK → 0308.HK
-        yf_sym = code.lstrip('0') or code
-        if not yf_sym.endswith('.HK'):
-            yf_sym = yf_sym + '.HK'
-        # 保证至少一位数字
-        parts = yf_sym.split('.')
-        if len(parts[0]) < 1:
-            yf_sym = code  # fallback
+        # 转成 yfinance 格式：yfinance 港股需要 4 位数字，e.g. 0308.HK
+        raw = code.replace('.HK', '').replace('.hk', '')
+        digits = raw.lstrip('0') or '0'   # 去掉所有前导零，至少保留1位
+        yf_sym = digits.zfill(4) + '.HK'  # 补零到4位
         try:
             info = yf.Ticker(yf_sym).info
             mc_hkd = info.get('marketCap', 0) or 0
