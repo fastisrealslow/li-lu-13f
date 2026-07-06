@@ -2043,16 +2043,18 @@ function _usApplyFilters() {
       </div>`;
     const cnName = c.nameCN ? `<span style="font-size:.7rem;color:var(--text-lighter);margin-left:4px;">${c.nameCN}</span>` : '';
     const soName = c.spinoffName ? `<span style="font-size:.75rem;color:var(--text-light);flex:1;min-width:100px;">→ ${c.spinoffName}</span>` : `<span style="flex:1;"></span>`;
+    const summarySnippet = c.aiSummary ? `<div style="width:100%;font-size:.7rem;color:var(--text-lighter);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:calc(100% - 20px);">${c.aiSummary}</div>` : '';
     return `
       <div style="border:1px solid var(--border);border-radius:8px;margin-bottom:6px;overflow:hidden;">
         <div onclick="this.nextElementSibling.style.display=this.nextElementSibling.style.display==='none'?'block':'none'"
-             style="display:flex;align-items:center;gap:8px;padding:9px 13px;cursor:pointer;background:var(--card-bg);flex-wrap:wrap;">
+             style="display:flex;align-items:center;gap:8px;padding:9px 13px 7px;cursor:pointer;background:var(--card-bg);flex-wrap:wrap;">
           <span style="font-size:.83rem;font-weight:700;color:var(--navy);min-width:52px;">${c.ticker}</span>
           <span style="font-size:.78rem;color:var(--text-light);min-width:120px;max-width:200px;">${c.name}${cnName}</span>
           ${soName}
           ${_usTypeBadge(c.type, isEn)}
           ${_usStatusBadge(c.status, isEn)}
           <span style="font-size:.68rem;color:var(--text-lighter);min-width:72px;text-align:right;">${latestDate}</span>
+          ${summarySnippet}
         </div>
         <div style="display:none;">${detail}</div>
       </div>`;

@@ -67,6 +67,22 @@ WATCH_CONFIG = [
             {"name": "Akre Capital",      "exact": "Akre Capital"},
         ],
     },
+    {
+        "investor": "greenberg",
+        "hk_file":  "greenberg_hk.json",
+        "persons": [
+            {"name": "Glenn Greenberg",    "exact": "Greenberg"},
+            {"name": "Brave Warrior",      "exact": "Brave Warrior"},
+        ],
+    },
+    {
+        "investor": "tepper",
+        "hk_file":  "tepper_hk.json",
+        "persons": [
+            {"name": "David Tepper",       "exact": "Tepper"},
+            {"name": "Appaloosa Management", "exact": "Appaloosa"},
+        ],
+    },
 ]
 
 today     = datetime.now()
