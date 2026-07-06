@@ -623,10 +623,24 @@ def _gen_us_ai_summary(companies, api_key):
         time.sleep(0.5)
 
 
+def _load_prev_us():
+    """加载上次 spinoff_us.json，返回 {ticker: company_dict}，用于增量合并。"""
+    try:
+        with open('spinoff_us.json', encoding='utf-8') as f:
+            data = json.load(f)
+        return {c['ticker']: c for c in data.get('companies', [])}
+    except Exception:
+        return {}
+
+
 def main():
     opener = build_opener(HTTPCookieProcessor(CookieJar()))
 
     print("=== fetch_spinoff_us.py ===")
+    # 加载旧数据，用于保留 completed 案例和 aiSummary
+    prev_us = _load_prev_us()
+    print(f"  旧数据: {len(prev_us)} 家")
+
     date_from = (datetime.now(timezone.utc) - timedelta(days=SEARCH_DAYS)).strftime('%Y%m%d')
     date_to = datetime.now(timezone.utc).strftime('%Y%m%d')
     print(f"搜索范围: {date_from} ~ {date_to}")
@@ -687,9 +701,9 @@ def main():
 
     print(f"  初步收录 {len(companies_map)} 家公司")
 
-    # 第二步：对前20家（最新公告）作正文解析，丰富分拆信息
-    print("  拉取 8-K 正文（前20家）...")
-    for ticker, company in list(companies_map.items())[:20]:
+    # 第二步：对前50家（最新公告）作正文解析，丰富分拆信息
+    print("  拉取 8-K 正文（前50家）...")
+    for ticker, company in list(companies_map.items())[:50]:
         latest_ann = company['announcements'][0]
         adsh = latest_ann.get('adsh', '')
         cik = company['cik']
@@ -738,8 +752,8 @@ def main():
         '2.02': '业绩公布',
     }
     print("  补充 8-K 历史公告...")
-    # 只对已完成正文解析的前20家补充多条公告
-    enriched_tickers = list(companies_map.keys())[:20]
+    # 只对已完成正文解析的前50家补充多条公告
+    enriched_tickers = list(companies_map.keys())[:50]
     for ticker in enriched_tickers:
         company = companies_map[ticker]
         cik = company.get('cik','')
@@ -815,6 +829,26 @@ def main():
 
     companies = list(companies_map.values())
 
+    # Step 3.1: 从旧数据恢复 aiSummary（避免重复消耗 API 额度）
+    for c in companies:
+        tk = c['ticker']
+        if not c.get('aiSummary') and tk in prev_us and prev_us[tk].get('aiSummary'):
+            c['aiSummary'] = prev_us[tk]['aiSummary']
+
+    # Step 3.2: 将旧数据中 completed 案例补回（本次搜索窗口外的不会重新出现）
+    cutoff_completed = (datetime.now(timezone.utc) - timedelta(days=365)).strftime('%Y-%m-%d')
+    current_tickers = {c['ticker'] for c in companies}
+    for tk, old_c in prev_us.items():
+        if tk in current_tickers:
+            continue
+        if old_c.get('status') == 'terminated':
+            continue
+        # 只保留最近365天内有公告的旧案例（completed 或 in_progress）
+        dates = [a['date'] for a in old_c.get('announcements', []) if a.get('date')]
+        if dates and max(dates) >= cutoff_completed:
+            companies.append(old_c)
+            print(f"  [旧数据恢复] {tk} {old_c.get('name','')} ({old_c.get('status','')})")
+
     # Step 3.5: 自动匹配子公司 ticker（通过 EDGAR 搜索子公司名称）
     def lookup_spinoff_ticker(spinoff_name, parent_ticker, opener):
         """用 EDGAR 全文搜索找到子公司 CIK，再查 submissions 拿 ticker"""
@@ -825,7 +859,7 @@ def main():
         kw = kw[:20].rstrip(', ')
         GENERIC_NAMES = {'SpinCo', 'NewCo', 'Spinoff', 'New Company', 'TBD', 'Holdco',
                          'BD MedSurg', 'Global Coffee Co', 'Patient Monitoring'}
-        if not kw or len(kw) < 6 or kw in GENERIC_NAMES:
+        if not kw or len(kw) < 4 or kw in GENERIC_NAMES:
             return ''
         try:
             q = urllib.parse.quote(f'"{kw}"', safe='').replace('%20', '+')
@@ -909,9 +943,13 @@ def main():
         else:
             print("\nStep 6: 无需 spinoffName 精化")
 
-        # Step 7: LLM 生成 aiSummary
-        print(f"\nStep 7: LLM 生成 aiSummary（{len(companies)} 家）...")
-        _gen_us_ai_summary(companies, sf_key)
+        # Step 7: LLM 生成 aiSummary（已有则跳过，节省 API 额度）
+        need_summary = [c for c in companies if not c.get('aiSummary')]
+        if need_summary:
+            print(f"\nStep 7: LLM 生成 aiSummary（{len(need_summary)}/{len(companies)} 家需更新）...")
+            _gen_us_ai_summary(need_summary, sf_key)
+        else:
+            print(f"\nStep 7: 所有 {len(companies)} 家已有 aiSummary，跳过")
 
     # 输出
     out = {

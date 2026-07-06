@@ -77,7 +77,7 @@ today     = datetime.now()
 date_to   = today.strftime("%Y%m%d")
 date_from = (today - timedelta(days=365)).strftime("%Y%m%d")
 
-KEYWORDS = ["分拆", "spin-off", "demerger", "實物分派", "以介紹方式"]
+KEYWORDS = ["分拆", "spin-off", "demerger", "實物分派", "以介紹方式", "獨立上市", "独立上市", "建议分派", "建議分派"]
 
 # 公告标题否定关键词：命中任一则跳过该条公告
 # 针对「分拆未發行股份/供股/股本削減」等内部资本操作，非子公司分拆
@@ -802,9 +802,9 @@ def _gen_hk_ai_summary(companies, api_key):
 
 
 def filter_status_driven(companies):
-    """状态驱动过滤：已上市超6个月 / 已终止 → 移除"""
+    """状态驱动过滤：已上市超12个月 / 已终止 → 移除"""
     prev = load_prev_data()
-    cutoff = (today - timedelta(days=180)).strftime('%Y-%m-%d')
+    cutoff = (today - timedelta(days=365)).strftime('%Y-%m-%d')
     result = []
     removed = []
     for c in companies:
@@ -972,8 +972,18 @@ def main():
     if sf_key:
         print("\nLLM 生成 nameCN（繁转简）...")
         _add_hk_cn_names(companies, sf_key)
-        print("\nLLM 生成 aiSummary...")
-        _gen_hk_ai_summary(companies, sf_key)
+        # 已有 aiSummary 的先从旧数据恢复，不重复调用 API
+        prev_hk = load_prev_data()
+        for c in companies:
+            code = c.get('stockCode', '')
+            if not c.get('aiSummary') and code in prev_hk and prev_hk[code].get('aiSummary'):
+                c['aiSummary'] = prev_hk[code]['aiSummary']
+        need_summary_hk = [c for c in companies if not c.get('aiSummary')]
+        if need_summary_hk:
+            print(f"\nLLM 生成 aiSummary（{len(need_summary_hk)}/{len(companies)} 家需更新）...")
+            _gen_hk_ai_summary(need_summary_hk, sf_key)
+        else:
+            print(f"\naiSummary: 所有 {len(companies)} 家已有，跳过")
 
     data = {
         "updatedAt": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
