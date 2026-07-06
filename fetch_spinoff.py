@@ -424,7 +424,7 @@ def refine_reit_type(companies, opener):
         if re.search(r'REIT|不動產投資信託|房地產投資信託|基礎設施基金|基礎設施REITs?', all_titles, re.I):
             continue  # 标题已命中，_classify_spinoff_type 应该已处理，跳过
         # 拿最新（第一条）公告的 PDF
-        doc_url = c['announcements'][0].get('docUrl', '') if c.get('announcements') else ''
+        doc_url = _full_url(c['announcements'][0].get('docUrl', '') if c.get('announcements') else '')
         if not doc_url.endswith('.pdf'):
             continue
         print(f"  🔍 REIT PDF检测: {c['stockCode']} {c['stockName'][:12]} ...", end=' ', flush=True)
@@ -466,7 +466,7 @@ def refine_status_from_pdf(companies, opener):
         cur_status = c.get('_status', get_status(c))
         if cur_status in ('listed', 'terminated'):
             continue
-        doc_url = c['announcements'][0].get('docUrl', '') if c.get('announcements') else ''
+        doc_url = _full_url(c['announcements'][0].get('docUrl', '') if c.get('announcements') else '')
         if not doc_url.endswith('.pdf'):
             continue
 
@@ -525,6 +525,13 @@ def refine_status_from_pdf(companies, opener):
     return companies
 
 
+def _full_url(doc_url):
+    """将相对路径补全为完整 URL"""
+    if doc_url and not doc_url.startswith('http'):
+        return BASE_URL + doc_url
+    return doc_url
+
+
 def refine_intro_type(companies, opener):
     """
     对被判为 ipo_hk 但存在实物分派远项的公司，读 PDF 正文确认是否介绍上市。
@@ -536,7 +543,7 @@ def refine_intro_type(companies, opener):
         if c.get('spinType', {}).get('code') != 'ipo_hk':
             continue
         # 对所有 ipo_hk 公司都做 PDF 检测（介绍上市不一定在标题里体现）
-        doc_url = c['announcements'][0].get('docUrl', '') if c.get('announcements') else ''
+        doc_url = _full_url(c['announcements'][0].get('docUrl', '') if c.get('announcements') else '')
         if not doc_url.endswith('.pdf'):
             continue
         print(f"  🔍 PDF检测: {c['stockCode']} {c['stockName'][:12]} ...", end=' ', flush=True)
@@ -620,7 +627,7 @@ def refine_ipo_other_via_llm(companies, opener):
     print(f"  refine_ipo_other: 对 {len(targets)} 家调用 LLM 精化...")
 
     for c in targets:
-        doc_url = c['announcements'][0].get('docUrl', '') if c.get('announcements') else ''
+        doc_url = _full_url(c['announcements'][0].get('docUrl', '') if c.get('announcements') else '')
         if not doc_url.endswith('.pdf'):
             continue
         print(f"  🤖 LLM分类: {c['stockCode']} {c['stockName'][:12]} ...", end=' ', flush=True)
