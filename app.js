@@ -1642,6 +1642,9 @@ async function renderSpinoff() {
         <span style="font-size:.72rem;color:var(--text-lighter);">
           ${fd(data.dateFrom)} ~ ${fd(data.dateTo)} &nbsp;·&nbsp; ${isEn?'Updated':'更新'} ${(data.updatedAt||'').slice(0,10)}
         </span>
+        <span style="font-size:.7rem;color:var(--text-lighter);background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:2px 7px;">
+          ${isEn?'Global scan · independent of investor selection':'全市场扫描 · 与投资者选择无关'}
+        </span>
       </div>
 
       <!-- KPI 卡片 -->
@@ -2109,9 +2112,14 @@ async function renderSpinoffUS() {
 
   el.innerHTML = `
     <div style="margin-bottom:20px;">
-      <h3 style="font-family:var(--serif);font-size:1.05rem;color:var(--navy);margin:0 0 12px;font-weight:700;">
+      <h3 style="font-family:var(--serif);font-size:1.05rem;color:var(--navy);margin:0 0 8px;font-weight:700;">
         ${isEn?'🇺🇸 US Spin-off Tracker':'🇺🇸 美股分拆进展追踪'}
       </h3>
+      <div style="margin-bottom:12px;">
+        <span style="font-size:.7rem;color:var(--text-lighter);background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:2px 7px;">
+          ${isEn?'Global scan · independent of investor selection':'全市场扫描 · 与投资者选择无关'}
+        </span>
+      </div>
 
       <!-- KPI -->
       <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:8px;margin-bottom:14px;">
