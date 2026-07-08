@@ -2255,22 +2255,85 @@ function updateInvestorContent() {
   // Timeline
   var tl = document.querySelector('.ref-grid .timeline');
   if (tl) {
+    function tlItem(year, zh, en_) { return '<div class="tl-item"><div class="tl-year">'+year+'</div><div class="tl-text">'+(isEn?en_:zh)+'</div></div>'; }
+    var now = isEn ? 'Present' : '至今';
     if (isP) {
-      tl.innerHTML = '<div class="tl-item"><div class="tl-year">1964</div><div class="tl-text">出生于印度</div></div><div class="tl-item"><div class="tl-year">1999</div><div class="tl-text">100 万美元起步投资</div></div><div class="tl-item"><div class="tl-year">2007</div><div class="tl-text">出版 The Dhandho Investor</div></div><div class="tl-item"><div class="tl-year">2007</div><div class="tl-text">65 万美元拍下巴菲特午餐</div></div><div class="tl-item"><div class="tl-year">至今</div><div class="tl-text">管理 Pabrai Funds + 博客</div></div>';
+      tl.innerHTML = [
+        tlItem('1964','出生于印度','Born in India'),
+        tlItem('1999','100 万美元起步投资','Started investing with $1M'),
+        tlItem('2007','出版 The Dhandho Investor','Published The Dhandho Investor'),
+        tlItem('2007','65 万美元拍下巴菲特午餐','Paid $650K for Buffett lunch'),
+        tlItem(now,'管理 Pabrai Funds + 博客','Managing Pabrai Funds + blog'),
+      ].join('');
     } else if (isD) {
-      tl.innerHTML = '<div class="tl-item"><div class="tl-year">1961</div><div class="tl-text">出生于江西南昌</div></div><div class="tl-item"><div class="tl-year">1982</div><div class="tl-text">浙江大学无线电工程专业</div></div><div class="tl-item"><div class="tl-year">1989</div><div class="tl-text">创立小霸王电子工业公司</div></div><div class="tl-item"><div class="tl-year">1995</div><div class="tl-text">创立步步高电子</div></div><div class="tl-item"><div class="tl-year">2001</div><div class="tl-text">退出一线，移居美国</div></div><div class="tl-item"><div class="tl-year">2002</div><div class="tl-text">结识巴菲特，开始投资</div></div><div class="tl-item"><div class="tl-year">2006</div><div class="tl-text">62 万美元拍下巴菲特午餐（与黄峥）</div></div><div class="tl-item"><div class="tl-year">~2011</div><div class="tl-text">开始大量买入苹果</div></div><div class="tl-item"><div class="tl-year">至今</div><div class="tl-text">管理 H&H International Investment</div></div>';
+      tl.innerHTML = [
+        tlItem('1961','出生于江西南昌','Born in Nanchang, Jiangxi'),
+        tlItem('1982','浙江大学无线电工程专业','Radio Engineering, Zhejiang Univ.'),
+        tlItem('1989','创立小霸王电子工业公司','Founded Subor Electronics'),
+        tlItem('1995','创立步步高电子','Founded BBK Electronics'),
+        tlItem('2001','退出一线，移居美国','Retired from ops, moved to US'),
+        tlItem('2002','结识巴菲特，开始投资','Met Buffett, began investing'),
+        tlItem('2006','62 万美元拍下巴菲特午餐（与黄峥）','$620K Buffett lunch (with Huang Zheng)'),
+        tlItem('~2011','开始大量买入苹果','Began heavy buying of Apple'),
+        tlItem(now,'管理 H&H International Investment','Managing H&H International Investment'),
+      ].join('');
     } else if (isT) {
-      tl.innerHTML = '<div class="tl-item"><div class="tl-year">1957</div><div class="tl-text">出生于匹兹堡</div></div><div class="tl-item"><div class="tl-year">~1980</div><div class="tl-text">卡内基梅隆大学，后获 MBA</div></div><div class="tl-item"><div class="tl-year">~1982</div><div class="tl-text">加入高盛，从事垃圾债券交易</div></div><div class="tl-item"><div class="tl-year">1993</div><div class="tl-text">创立 Appaloosa Management</div></div><div class="tl-item"><div class="tl-year">2009</div><div class="tl-text">金融危机中大胆买入银行股</div></div><div class="tl-item"><div class="tl-year">至今</div><div class="tl-text">管理 Appaloosa LP，宏观押注与集中持仓</div></div>';
+      tl.innerHTML = [
+        tlItem('1957','出生于匹兹堡','Born in Pittsburgh'),
+        tlItem('~1980','卡内基梅隆大学，后获 MBA','Carnegie Mellon, then MBA'),
+        tlItem('~1982','加入高盛，从事垃圾债券交易','Goldman Sachs, junk bond trading'),
+        tlItem('1993','创立 Appaloosa Management','Founded Appaloosa Management'),
+        tlItem('2009','金融危机中大胆买入银行股','Bought distressed bank stocks, ~$7B profit'),
+        tlItem(now,'管理 Appaloosa LP，宏观押注与集中持仓','Managing Appaloosa LP, macro & concentrated bets'),
+      ].join('');
     } else if (isB) {
-      tl.innerHTML = '<div class="tl-item"><div class="tl-year">1930</div><div class="tl-text">出生于内布拉斯加州奥马哈</div></div><div class="tl-item"><div class="tl-year">1951</div><div class="tl-text">师从格雷厄姆，哥伦比亚 MBA</div></div><div class="tl-item"><div class="tl-year">1956</div><div class="tl-text">创立 Buffett Partnership</div></div><div class="tl-item"><div class="tl-year">1965</div><div class="tl-text">收购 Berkshire Hathaway</div></div><div class="tl-item"><div class="tl-year">1988</div><div class="tl-text">开始大量买入可口可乐</div></div><div class="tl-item"><div class="tl-year">2016</div><div class="tl-text">开始买入苹果，迄今最大持仓</div></div><div class="tl-item"><div class="tl-year">至今</div><div class="tl-text">管理伯克希尔·哈撒韦，$263B 组合</div></div>';
+      tl.innerHTML = [
+        tlItem('1930','出生于内布拉斯加州奥马哈','Born in Omaha, Nebraska'),
+        tlItem('1951','师从格雷厄姆，哥伦比亚 MBA','Studied under Graham, Columbia MBA'),
+        tlItem('1956','创立 Buffett Partnership','Founded Buffett Partnership'),
+        tlItem('1965','收购 Berkshire Hathaway','Acquired Berkshire Hathaway'),
+        tlItem('1988','开始大量买入可口可乐','Began buying Coca-Cola heavily'),
+        tlItem('2016','开始买入苹果，迄今最大持仓','Started buying Apple, now largest position'),
+        tlItem(now,'管理伯克希尔·哈撒韦，$263B 组合','Managing Berkshire Hathaway, $263B portfolio'),
+      ].join('');
     } else if (isW) {
-      tl.innerHTML = '<div class="tl-item"><div class="tl-year">1965</div><div class="tl-text">出生于英国</div></div><div class="tl-item"><div class="tl-year">~1990</div><div class="tl-text">牛津大学数学系</div></div><div class="tl-item"><div class="tl-year">1998</div><div class="tl-text">创立 Webb-site.com</div></div><div class="tl-item"><div class="tl-year">2003</div><div class="tl-text">获选港交所独立非执行董事</div></div><div class="tl-item"><div class="tl-year">2017</div><div class="tl-text">发布"谜网"报告，揭露 50 只不可投资港股</div></div><div class="tl-item"><div class="tl-year">2018</div><div class="tl-text">确诊前列腺癌</div></div><div class="tl-item"><div class="tl-year">2026</div><div class="tl-text">去世，享年 60 岁</div></div>';
+      tl.innerHTML = [
+        tlItem('1965','出生于英国','Born in UK'),
+        tlItem('~1990','牛津大学数学系','Mathematics, Oxford University'),
+        tlItem('1998','创立 Webb-site.com','Founded Webb-site.com'),
+        tlItem('2003','获选港交所独立非执行董事','Elected independent director of HKEX'),
+        tlItem('2017','发布"谜网"报告，揭露 50 只不可投资港股','Published "Network of Influence" report'),
+        tlItem('2018','确诊前列腺癌','Diagnosed with prostate cancer'),
+        tlItem('2026','去世，享年 60 岁','Passed away, aged 60'),
+      ].join('');
     } else if (isA) {
-      tl.innerHTML = '<div class="tl-item"><div class="tl-year">1996</div><div class="tl-text">创立 Akre Capital Management</div></div><div class="tl-item"><div class="tl-year">1997</div><div class="tl-text">开始管理 FBR Focus Fund</div></div><div class="tl-item"><div class="tl-year">2000</div><div class="tl-text">互联网泡沫中坚持价值投资</div></div><div class="tl-item"><div class="tl-year">2009</div><div class="tl-text">重组 Akre Capital，推出 Akre Focus Fund</div></div><div class="tl-item"><div class="tl-year">2021</div><div class="tl-text">管理资产规模突破 150 亿美元</div></div><div class="tl-item"><div class="tl-year">至今</div><div class="tl-text">集中持有约 20 只高质量复利企业</div></div>';
+      tl.innerHTML = [
+        tlItem('1996','创立 Akre Capital Management','Founded Akre Capital Management'),
+        tlItem('1997','开始管理 FBR Focus Fund','Began managing FBR Focus Fund'),
+        tlItem('2000','互联网泡沫中坚持价值投资','Stayed the course during dot-com bust'),
+        tlItem('2009','重组 Akre Capital，推出 Akre Focus Fund','Relaunched as Akre Focus Fund'),
+        tlItem('2021','管理资产规模突破 150 亿美元','AUM surpassed $15B'),
+        tlItem(now,'集中持有约 20 只高质量复利企业','~20 high-quality compounders'),
+      ].join('');
     } else if (isG) {
-      tl.innerHTML = '<div class="tl-item"><div class="tl-year">1984</div><div class="tl-text">加入 Chieftain Capital，师从 John Shapiro</div></div><div class="tl-item"><div class="tl-year">1990</div><div class="tl-text">成为 Chieftain 合伙人</div></div><div class="tl-item"><div class="tl-year">2000</div><div class="tl-text">互联网泡沫中坚持价值投资</div></div><div class="tl-item"><div class="tl-year">2009</div><div class="tl-text">金融危机中逆势大举买入</div></div><div class="tl-item"><div class="tl-year">2010</div><div class="tl-text">创立 Brave Warrior Advisors</div></div><div class="tl-item"><div class="tl-year">至今</div><div class="tl-text">管理约 40 亿美元，集中于高质量企业</div></div>';
+      tl.innerHTML = [
+        tlItem('1984','加入 Chieftain Capital，师从 John Shapiro','Joined Chieftain Capital under John Shapiro'),
+        tlItem('1990','成为 Chieftain 合伙人','Became partner at Chieftain'),
+        tlItem('2000','互联网泡沫中坚持价值投资','Stayed disciplined through dot-com bubble'),
+        tlItem('2009','金融危机中逆势大举买入','Bought aggressively during financial crisis'),
+        tlItem('2010','创立 Brave Warrior Advisors','Founded Brave Warrior Advisors'),
+        tlItem(now,'管理约 40 亿美元，集中于高质量企业','Managing ~$4B, concentrated in quality compounders'),
+      ].join('');
     } else {
-      tl.innerHTML = '<div class="tl-item"><div class="tl-year">1966</div><div class="tl-text">出生于唐山，十岁时亲历唐山大地震</div></div><div class="tl-item"><div class="tl-year">1985</div><div class="tl-text">考入南京大学</div></div><div class="tl-item"><div class="tl-year">1989</div><div class="tl-text">赴美，入读哥伦比亚大学</div></div><div class="tl-item"><div class="tl-year">1996</div><div class="tl-text">哥大 BA/JD/MBA 三学位</div></div><div class="tl-item"><div class="tl-year">1997</div><div class="tl-text">创立喜马拉雅资本</div></div><div class="tl-item"><div class="tl-year">2002</div><div class="tl-text">向芒格推荐比亚迪</div></div><div class="tl-item"><div class="tl-year">至今</div><div class="tl-text">持续管理喜马拉雅资本</div></div>';
+      tl.innerHTML = [
+        tlItem('1966','出生于唐山，十岁时亲历唐山大地震','Born in Tangshan; survived the 1976 earthquake at age 10'),
+        tlItem('1985','考入南京大学','Entered Nanjing University'),
+        tlItem('1989','赴美，入读哥伦比亚大学','Emigrated to US, enrolled at Columbia'),
+        tlItem('1996','哥大 BA/JD/MBA 三学位','Columbia BA/JD/MBA triple degree'),
+        tlItem('1997','创立喜马拉雅资本','Founded Himalaya Capital'),
+        tlItem('2002','向芒格推荐比亚迪','Introduced BYD to Charlie Munger'),
+        tlItem(now,'持续管理喜马拉雅资本','Continues managing Himalaya Capital'),
+      ].join('');
     }
   }
   // Philosophy
