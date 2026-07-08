@@ -405,7 +405,6 @@ function switchLang() {
   });
   renderSummary(); renderHoldings(); renderInsights(); renderHistoryChart();
   updateInvestorContent();
-  renderTimeline();
   _homeworkCache = null;
   if (!document.getElementById('tab-homework').classList.contains('d-none')) renderHomework();
   if (!document.getElementById('tab-spinoff').classList.contains('d-none')) renderSpinoff();
@@ -2255,7 +2254,7 @@ function updateInvestorContent() {
   // Timeline
   var tl = document.querySelector('.ref-grid .timeline');
   if (tl) {
-    function tlItem(year, zh, en_) { return '<div class="tl-item"><div class="tl-year">'+year+'</div><div class="tl-text">'+(isEn?en_:zh)+'</div></div>'; }
+    function tlItem(year, zh, en_) { return '<div class="tl-item"><div class="tl-year">'+year+'</div><div class="tl-text">'+(en?en_:zh)+'</div></div>'; }
     var now = isEn ? 'Present' : '至今';
     if (isP) {
       tl.innerHTML = [
