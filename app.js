@@ -2251,6 +2251,8 @@ function updateInvestorContent() {
     }
   }
   // Timeline
+  // 先移除静态时间线元素的 data-i18n 属性，防止 applyI18n 把它覆盖回李录版本
+  document.querySelectorAll('.ref-grid .timeline [data-i18n]').forEach(function(el){ el.removeAttribute('data-i18n'); });
   var tl = document.querySelector('.ref-grid .timeline');
   if (tl) {
     function tlItem(year, zh, en_) { return '<div class="tl-item"><div class="tl-year">'+year+'</div><div class="tl-text">'+(en?en_:zh)+'</div></div>'; }
