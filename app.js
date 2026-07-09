@@ -365,7 +365,6 @@ async function switchInvestor(v) {
     await loadPrices(pf);
     renderSummary(); renderHoldings(); renderHistoryChart();
     renderInsights();
-    renderTimeline();
     updateInvestorContent();
   } catch(e) {
     console.error('switchInvestor error:', e.message, e.stack);
