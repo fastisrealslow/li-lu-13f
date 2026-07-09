@@ -2256,7 +2256,7 @@ function updateInvestorContent() {
   var tl = document.querySelector('.ref-grid .timeline');
   if (tl) {
     function tlItem(year, zh, en_) { return '<div class="tl-item"><div class="tl-year">'+year+'</div><div class="tl-text">'+(en?en_:zh)+'</div></div>'; }
-    var now = isEn ? 'Present' : '至今';
+    var now = en ? 'Present' : '至今';
     if (isP) {
       tl.innerHTML = [
         tlItem('1964','出生于印度','Born in India'),
