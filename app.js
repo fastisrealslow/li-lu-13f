@@ -357,7 +357,7 @@ async function switchInvestor(v) {
     else if (investor === 'buffett') { f = 'buffett.json'; pf = 'prices_buffett.json'; }
     else if (investor === 'akre') { f = 'akre.json'; pf = 'prices_akre.json'; }
     else { f = 'greenberg.json'; pf = 'prices_greenberg.json'; }
-    var r = await fetch(f + '?t=' + Date.now());
+    var r = await fetch(f + '?t=' + Math.floor(Date.now()/300000));
     if (!r.ok) throw new Error(f + ' HTTP ' + r.status);
     var newData = await r.json();
     if (!newData || !newData.current) throw new Error(f + ' invalid');
@@ -449,7 +449,7 @@ let hkHoldings = null;  // loaded from hk_holdings.json
 async function loadPrices(pf) {
   const file = pf || 'prices.json';
   try {
-    const resp = await fetch(file + '?t=' + Date.now());
+    const resp = await fetch(file + '?t=' + Math.floor(Date.now()/300000));
     prices = await resp.json();
     const el = document.getElementById('priceUpdate');
     if (el) el.textContent =
@@ -561,7 +561,7 @@ async function refreshLive() {
 async function loadHKHoldings() {
   try {
     let hkUrl = investor === 'pabrai' ? 'pabrai_hk.json' : (investor === 'duan' ? 'duan_hk.json' : (investor === 'tepper' ? 'tepper_hk.json' : (investor === 'webb' ? 'webb_hk.json' : (investor === 'buffett' ? 'buffett_hk.json' : (investor === 'akre' ? 'akre_hk.json' : (investor === 'greenberg' ? 'greenberg_hk.json' : 'hk_holdings.json'))))));
-    const resp = await fetch(hkUrl + '?t=' + Date.now());
+    const resp = await fetch(hkUrl + '?t=' + Math.floor(Date.now()/300000));
     hkHoldings = await resp.json();
   } catch(e) {
     console.log('hk_holdings.json unavailable');
@@ -1291,7 +1291,7 @@ async function renderHKHoldings() {
   if (!container) return;
   try {
     let hkUrl = investor === 'pabrai' ? 'pabrai_hk.json' : (investor === 'duan' ? 'duan_hk.json' : (investor === 'tepper' ? 'tepper_hk.json' : (investor === 'webb' ? 'webb_hk.json' : (investor === 'buffett' ? 'buffett_hk.json' : (investor === 'akre' ? 'akre_hk.json' : (investor === 'greenberg' ? 'greenberg_hk.json' : 'hk_holdings.json'))))));
-    const resp = await fetch(hkUrl + '?t=' + Date.now());
+    const resp = await fetch(hkUrl + '?t=' + Math.floor(Date.now()/300000));
     const hk = await resp.json();
     const statusLabels = {below_5pct:'<5% 未披露', active:'>5% 持仓中', reduced:'已减持'};
     const statusColors = {below_5pct:'#f3f4f6;color:#6b7280', active:'#d1fae5;color:#065f46', reduced:'#fef3c7;color:#92400e'};
@@ -1362,8 +1362,8 @@ async function renderHomework() {
   const allHoldersMap = {};
   const results = await Promise.allSettled(
     INVESTORS_CFG.map(cfg => Promise.all([
-      fetch(cfg.df + '?t=' + Date.now()).then(r=>r.json()),
-      fetch(cfg.pf + '?t=' + Date.now()).then(r=>r.json()),
+      fetch(cfg.df + '?t=' + Math.floor(Date.now()/300000)).then(r=>r.json()),
+      fetch(cfg.pf + '?t=' + Math.floor(Date.now()/300000)).then(r=>r.json()),
     ]).then(([dr, pr]) => ({cfg, dr, pr})))
   );
   const allDataCache = results
@@ -1602,7 +1602,7 @@ async function renderSpinoff() {
   const isEn = lang === 'en';
 
   try {
-    const resp = await fetch('spinoff.json?t=' + Date.now());
+    const resp = await fetch('spinoff.json?t=' + Math.floor(Date.now()/300000));
     if (!resp.ok) throw new Error(resp.status);
     const data = await resp.json();
     const companies = (data.companies || []);
@@ -2095,7 +2095,7 @@ async function renderSpinoffUS() {
   if (!_spinoffUSData) {
     el.innerHTML = `<p style="padding:24px;color:var(--text-lighter);">${isEn?'Loading...':'加载中...'}</p>`;
     try {
-      const resp = await fetch('spinoff_us.json?t=' + Date.now());
+      const resp = await fetch('spinoff_us.json?t=' + Math.floor(Date.now()/300000));
       _spinoffUSData = await resp.json();
     } catch(e) {
       el.innerHTML = `<p style="padding:24px;color:#ef4444;">${isEn?'Load failed':'数据加载失败'}</p>`;
@@ -2418,7 +2418,7 @@ function renderAll() { try { renderSummary(); renderHoldings(); renderInsights()
 // 页面加载后静默拉取状态灯颜色（不弹抽屉）
 async function initStatusDot() {
   try {
-    const r = await fetch('run_status.json?_=' + Date.now());
+    const r = await fetch('run_status.json?_=' + Math.floor(Date.now()/300000));
     if (!r.ok) return;
     const data = await r.json();
     updateStatusDot(data);
@@ -2467,7 +2467,7 @@ async function renderStatusDrawer() {
 
   let data;
   try {
-    const r = await fetch('run_status.json?_=' + Date.now());
+    const r = await fetch('run_status.json?_=' + Math.floor(Date.now()/300000));
     if (!r.ok) throw new Error('not found');
     data = await r.json();
     _runStatusData = data;
