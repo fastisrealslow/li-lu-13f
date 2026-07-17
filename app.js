@@ -1540,6 +1540,112 @@ async function renderHomework() {
 
 // ========== Spin-off Tab ==========
 let _spinoffCache = null;
+let _guoData = null;
+
+// ── 郭海庆增减持面板 ────────────────────────────────────────────
+async function _loadGuoData() {
+  if (_guoData) return _guoData;
+  try {
+    const r = await fetch('guo_haiqing.json?t=' + Math.floor(Date.now()/300000));
+    if (!r.ok) throw new Error(r.status);
+    _guoData = await r.json();
+  } catch(e) {
+    _guoData = null;
+  }
+  return _guoData;
+}
+
+function _renderGuoPanel(isEn) {
+  const d = _guoData;
+  if (!d || !d.records || !d.records.length) return '';
+
+  const records = d.records.filter(r => r.type !== '首次披露');
+  const currentPct = d.current_pct || 0;
+  const currentShares = d.current_shares || 0;
+
+  // 折线图数据（按时间正序）
+  const chartPoints = [...records].reverse();
+
+  const rows = records.map((r, i) => {
+    const isUp = r.change > 0;
+    const arrow = isUp ? '▲' : '▼';
+    const color = isUp ? '#059669' : '#dc2626';
+    const changeStr = r.change ? (isUp ? '+' : '') + (r.change >= 1e6 ? (r.change/1e6).toFixed(2)+'M' : (r.change/1e4).toFixed(0)+'万') : '—';
+    const priceStr = r.price ? `HK$${r.price.toFixed(3)}` : '—';
+    const sharesStr = (r.shares/1e8).toFixed(2) + '亿';
+    return `
+      <div style="display:grid;grid-template-columns:90px 60px 70px 80px 1fr;
+                  gap:0;padding:7px 12px;
+                  background:${i%2===0?'#fff':'#fafaf8'};
+                  border-bottom:1px solid #f0ede6;
+                  align-items:center;font-size:.73rem;">
+        <span style="color:var(--text-light);font-variant-numeric:tabular-nums;">${r.date}</span>
+        <span style="color:${color};font-weight:600;">${arrow} ${isEn?(isUp?'Buy':'Sell'):(isUp?'增持':'减持')}</span>
+        <span style="color:${color};font-weight:600;">${changeStr}</span>
+        <span style="color:var(--text-light);">${priceStr}</span>
+        <span style="color:var(--text);">${sharesStr} &nbsp;<span style="color:var(--text-lighter);">(${r.pct.toFixed(2)}%)</span></span>
+      </div>`;
+  }).join('');
+
+  // 简单SVG折线图（持股比例）
+  const pts = chartPoints.filter(r => r.pct);
+  let svgLine = '';
+  if (pts.length >= 2) {
+    const minP = Math.min(...pts.map(p => p.pct)) - 0.5;
+    const maxP = Math.max(...pts.map(p => p.pct)) + 0.5;
+    const W = 260, H = 48;
+    const coords = pts.map((p, i) => {
+      const x = (i / (pts.length - 1)) * (W - 20) + 10;
+      const y = H - ((p.pct - minP) / (maxP - minP)) * (H - 10) - 5;
+      return `${x.toFixed(1)},${y.toFixed(1)}`;
+    });
+    const dotLast = coords[coords.length - 1].split(',');
+    svgLine = `
+      <svg width="${W}" height="${H}" style="display:block;overflow:visible;">
+        <polyline points="${coords.join(' ')}" fill="none" stroke="var(--gold)" stroke-width="1.8" stroke-linejoin="round"/>
+        <circle cx="${dotLast[0]}" cy="${dotLast[1]}" r="3.5" fill="var(--gold)"/>
+        <text x="${dotLast[0]}" y="${parseFloat(dotLast[1])-7}" text-anchor="middle"
+              font-size="9" fill="var(--gold)" font-weight="600">${pts[pts.length-1].pct.toFixed(2)}%</text>
+      </svg>`;
+  }
+
+  return `
+    <div style="margin:0 14px 14px;border:1px solid #e8dfc8;border-radius:8px;overflow:hidden;background:#fffdf7;">
+      <!-- 标题 -->
+      <div style="display:flex;align-items:center;justify-content:space-between;
+                  padding:8px 12px;background:#f5f0e0;border-bottom:1px solid #e8dfc8;flex-wrap:wrap;gap:6px;">
+        <div style="display:flex;align-items:center;gap:8px;">
+          <span style="font-size:.75rem;font-weight:700;color:var(--navy);">📊 ${isEn?'Major Shareholder Tracking':'大股东增减持追踪'}</span>
+          <span style="font-size:.65rem;color:var(--text-lighter);">· ${d.shareholder} (${d.shareholder_en})</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;">
+          ${svgLine}
+          <div style="text-align:right;">
+            <div style="font-size:.95rem;font-weight:700;color:var(--navy);font-family:var(--serif);">${currentPct.toFixed(2)}%</div>
+            <div style="font-size:.62rem;color:var(--text-lighter);">${isEn?'Current holding':'当前持股'} · ${(currentShares/1e8).toFixed(2)}亿股</div>
+          </div>
+        </div>
+      </div>
+      <!-- 表头 -->
+      <div style="display:grid;grid-template-columns:90px 60px 70px 80px 1fr;
+                  gap:0;padding:5px 12px;
+                  background:var(--navy);
+                  font-size:.63rem;font-weight:600;color:rgba(255,255,255,.5);
+                  letter-spacing:.5px;text-transform:uppercase;">
+        <span>${isEn?'DATE':'日期'}</span>
+        <span>${isEn?'ACTION':'操作'}</span>
+        <span>${isEn?'CHANGE':'变动'}</span>
+        <span>${isEn?'PRICE':'均价'}</span>
+        <span>${isEn?'TOTAL HELD':'持股总量'}</span>
+      </div>
+      <!-- 数据行 -->
+      ${rows}
+      <!-- 来源 -->
+      <div style="padding:5px 12px;font-size:.62rem;color:var(--text-lighter);background:#f8f5ec;">
+        ${isEn?'Source: HKEX Disclosure of Interests':'数据来源：港交所权益披露'} · ${isEn?'Last updated':'更新'}: ${d.last_updated}
+      </div>
+    </div>`;
+}
 
 // 进度状态识别（精确版，按优先级排列）
 function _soProgress(ann, isEn) {
@@ -1602,6 +1708,7 @@ async function renderSpinoff() {
   const isEn = lang === 'en';
 
   try {
+    await _loadGuoData();
     const resp = await fetch('spinoff.json?t=' + Math.floor(Date.now()/300000));
     if (!resp.ok) throw new Error(resp.status);
     const data = await resp.json();
@@ -1828,6 +1935,8 @@ async function renderSpinoff() {
               </div>`;
             }).join('')}
           </div>
+
+          ${(c.ticker||'').includes('00308') ? _renderGuoPanel(isEn) : ''}
         </div>
       </div>`;
     });
