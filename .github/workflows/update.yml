@@ -340,6 +340,8 @@ jobs:
       - name: Refresh HK/US spinoff child company prices
         id: spinoff_prices
         continue-on-error: true
+        env:
+          SILICONFLOW_KEY: ${{ secrets.SILICONFLOW_KEY }}
         run: |
           pip install rapidfuzz openpyxl akshare -q
           python3 spinoff_price_refresh.py

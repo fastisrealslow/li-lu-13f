@@ -15,7 +15,7 @@ HK Spinoff Price Auto-Refresh Pipeline
   --ticker   只处理指定母公司（调试用）
 """
 
-import json, re, sys, argparse, warnings, time
+import json, re, sys, argparse, warnings, time, os
 from pathlib import Path
 from datetime import datetime, timedelta
 import yfinance as yf
@@ -370,6 +370,26 @@ def process_company(c: dict) -> dict | None:
                 'spinoff_name': cn_name or en_name}
 
     if not candidates:
+        # ── LLM 兜底：模糊匹配失败时让 LLM 从公告标题直接推断 ticker ──
+        sf_key = os.environ.get('SILICONFLOW_KEY', '')
+        if sf_key:
+            print(f"    [LLM fallback] Trying LLM ticker search for {parent_tk}...")
+            llm_res = _verify_and_find(
+                parent_tk, stock_name, titles, market, sf_key, _hk_names
+            )
+            if llm_res:
+                llm_tk, llm_name, llm_price, llm_conf, llm_src = llm_res
+                print(f"    [LLM] Found: {llm_tk} ({llm_name}) price={llm_price}")
+                # 写入 KNOWN_SPINOFFS 日志（方便下次直接用）
+                write_log(parent_tk, llm_tk, llm_name, llm_price, None,
+                          float('nan'), llm_conf, llm_src)
+                return {
+                    'ticker': parent_tk, 'status': 'llm_found',
+                    'spinoff_ticker': llm_tk, 'spinoff_name': llm_name,
+                    'price_now': llm_price, 'confidence': llm_conf,
+                    'source': llm_src, 'market': market,
+                    'is_listed': True, 'autoMatched': True,
+                }
         return {'ticker': parent_tk, 'status': 'no_ticker_match',
                 'company': stock_name, 'is_listed': True,
                 'spinoff_name': cn_name or en_name, 'market': market}
@@ -405,7 +425,17 @@ def merge_into_json(results: list[dict], dry_run=False) -> int:
 
     written = 0
     for r in results:
-        if r.get('status') not in ('matched', 'low_confidence'): continue
+        # 接受 matched / low_confidence / llm_found 三种状态
+        if r.get('status') == 'llm_found':
+            # LLM 找到的结果：重新包装成 merge 可写格式
+            r['matched_ticker'] = r.get('spinoff_ticker', '')
+            r['spinoff_name']   = r.get('spinoff_name', '')
+            r['listing_date']   = r.get('date', '')
+            r['price_at_listing'] = None
+            r['change_pct']     = None
+            r['currency']       = {'HK': 'HKD', 'A': 'CNY', 'US': 'USD'}.get(r.get('market','HK'), 'HKD')
+        elif r.get('status') not in ('matched', 'low_confidence'):
+            continue
         if not r.get('matched_ticker'): continue
         if r.get('confidence', 0) < 65: continue
 
