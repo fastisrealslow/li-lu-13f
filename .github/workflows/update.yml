@@ -337,6 +337,23 @@ jobs:
           else
             python3 update_status.py --step spinoff_us --status fail --msg "Step exited with error"
           fi
+      - name: Refresh HK/US spinoff child company prices
+        id: spinoff_prices
+        continue-on-error: true
+        run: |
+          pip install rapidfuzz openpyxl akshare -q
+          python3 spinoff_price_refresh.py
+
+      - name: Status - Spinoff prices
+        if: always()
+        run: |
+          if [ "${{ steps.spinoff_prices.outcome }}" = "success" ]; then
+            python3 update_status.py --step spinoff_prices --status ok
+          else
+            python3 update_status.py --step spinoff_prices --status fail --msg "Step exited with error"
+          fi
+
+
 
       # ─────────────── JSON 验证 & 提交 ───────────────
 

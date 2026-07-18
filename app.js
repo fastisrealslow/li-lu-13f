@@ -1648,6 +1648,109 @@ function _renderGuoPanel(isEn) {
 }
 
 // 进度状态识别（精确版，按优先级排列）
+// ── 股价变化面板 helper ────────────────────────────────────────
+function _renderPricePanel(perf, isEn, opts) {
+  // perf: {priceAtAnnouncement, priceNow, changePct, firstAnnouncementDate, currency}
+  // opts: {label, labelColor, showDate, currency}
+  if (!perf) return '';
+  const chg = perf.changePct;
+  if (chg === null || chg === undefined) return '';
+  const currency = opts?.currency || perf.currency || 'USD';
+  const isPos = chg >= 0;
+  const arrow = isPos ? '▲' : '▼';
+  const color = isPos ? '#059669' : '#dc2626';
+  const bg    = isPos ? '#f0fdf4' : '#fef2f2';
+  const border = isPos ? '#bbf7d0' : '#fecaca';
+  const labelColor = opts?.labelColor || '#6366f1';
+  const label = opts?.label || (isEn ? 'Parent' : '母公司');
+  const p0 = perf.priceAtAnnouncement;
+  const p1 = perf.priceNow;
+  const dateStr = perf.firstAnnouncementDate || '';
+  const priceStr = (p0 && p1) ? `${currency} ${p0} → ${p1}` : (p1 ? `${currency} ${p1}` : '');
+  return `
+  <div style="display:inline-flex;align-items:center;gap:6px;padding:5px 10px;
+              background:${bg};border:1px solid ${border};border-radius:20px;
+              font-size:.72rem;line-height:1;">
+    <span style="color:${labelColor};font-weight:600;font-size:.65rem;">${label}</span>
+    <span style="color:${color};font-weight:700;">${arrow} ${isPos?'+':''}${chg}%</span>
+    ${priceStr ? `<span style="color:var(--text-lighter);font-size:.63rem;">${priceStr}</span>` : ''}
+    ${dateStr ? `<span style="color:var(--text-lighter);font-size:.6rem;">from ${dateStr}</span>` : ''}
+  </div>`;
+}
+
+function _renderSpinoffPricePanels(c, isEn) {
+  // 港股：只有母公司
+  const perf = c.pricePerf;
+  // 美股：母公司 + 可能有 spinoffPricePerf 数组
+  const parentPerf = c.parentPricePerf;
+  const spinoffPairs = c.spinoffPricePerf || [];
+
+  let parts = [];
+
+  if (perf) {
+    // 港股模式
+    const p = _renderPricePanel(perf, isEn, {
+      label: isEn ? 'Parent (since ann.)' : '母公司（公告以来）',
+      labelColor: '#0369a1',
+      currency: 'HKD'
+    });
+    if (p) parts.push(p);
+  }
+  if (parentPerf) {
+    // 美股母公司
+    const p = _renderPricePanel(parentPerf, isEn, {
+      label: isEn ? 'Parent (since ann.)' : '母公司（公告以来）',
+      labelColor: '#0369a1',
+      currency: 'USD'
+    });
+    if (p) parts.push(p);
+  }
+  spinoffPairs.forEach(pair => {
+    const isHK = pair.currency === 'HKD';
+    const curr = isHK ? 'HKD' : 'USD';
+    // 子公司（港股用 spinoffPriceAtListing，美股用 spinoffPriceAtSpin）
+    const spinBase  = pair.spinoffPriceAtListing ?? pair.spinoffPriceAtSpin;
+    const spinNow   = pair.spinoffPriceNow;
+    const spinChg   = pair.spinoffChangePct;
+    const spinLabel = pair.spinoffName
+      ? `${pair.spinoffName}${pair.spinoff ? ' ('+pair.spinoff+')' : ''}`
+      : (pair.spinoff || '');
+    if (spinChg !== null && spinChg !== undefined) {
+      const sp = _renderPricePanel({
+        priceAtAnnouncement: spinBase,
+        priceNow: spinNow,
+        changePct: spinChg,
+        firstAnnouncementDate: pair.spinoffDate,
+      }, isEn, {
+        label: `${spinLabel} (${isEn ? 'since listing' : '上市以来'})`,
+        labelColor: '#7c3aed',
+        currency: curr
+      });
+      if (sp) parts.push(sp);
+    }
+    // 美股才有 parentChangePct
+    if (pair.parentChangePct !== null && pair.parentChangePct !== undefined) {
+      const pp = _renderPricePanel({
+        priceAtAnnouncement: pair.parentPriceAtSpin,
+        priceNow: pair.parentPriceNow,
+        changePct: pair.parentChangePct,
+        firstAnnouncementDate: pair.spinoffDate,
+      }, isEn, {
+        label: `${pair.parent} (${isEn?'since spinoff':'分拆以来'})`,
+        labelColor: '#0369a1',
+        currency: 'USD'
+      });
+      if (pp) parts.push(pp);
+    }
+  });
+
+  if (!parts.length) return '';
+  return `<div style="padding:6px 14px 8px;display:flex;flex-wrap:wrap;gap:6px;align-items:center;">
+    <span style="font-size:.62rem;color:var(--text-lighter);margin-right:2px;">📈 ${isEn?'Price Change':'股价变化'}</span>
+    ${parts.join('')}
+  </div>`;
+}
+
 function _soProgress(ann, isEn) {
   if (!ann || !ann.length) return {label:'',color:'#9ca3af',bg:'#f3f4f6',pct:0};
   const t = (ann[0].title||'') + (ann.length>1 ? ann[1].title : '');
@@ -1903,9 +2006,27 @@ async function renderSpinoff() {
             ${ann.map((a,ai)=>{
               const ct = _soCleanTitle(a.title);
               const isLatest = ai===0;
+              // 股价标签
+              const p1 = a.stockPrice;
+              const p0 = ann[ai+1]?.stockPrice; // 上一条公告（更早）
+              let priceTag = '';
+              if (p1) {
+                const currency = 'HKD';
+                let chgHtml = '';
+                if (p0 && p0 > 0) {
+                  const chg = ((p1-p0)/p0*100).toFixed(1);
+                  const isPos = parseFloat(chg) >= 0;
+                  chgHtml = `<span style="color:${isPos?'#059669':'#dc2626'};font-weight:700;font-size:.6rem;margin-left:3px;">${isPos?'+':''}${chg}%</span>`;
+                }
+                priceTag = `<span style="display:inline-flex;align-items:center;gap:2px;padding:1px 6px;
+                  background:rgba(0,0,0,.04);border-radius:10px;font-size:.63rem;
+                  color:var(--text-light);font-variant-numeric:tabular-nums;white-space:nowrap;flex-shrink:0;">
+                  ${currency} ${p1}${chgHtml}
+                </span>`;
+              }
               return `
-              <div style="display:grid;grid-template-columns:14px 88px 1fr auto;
-                           gap:8px;align-items:flex-start;padding:5px 0;position:relative;z-index:1;">
+              <div style="display:grid;grid-template-columns:14px 88px 1fr auto auto;
+                           gap:6px;align-items:flex-start;padding:5px 0;position:relative;z-index:1;">
                 <!-- 圆点 -->
                 <div style="width:10px;height:10px;border-radius:50%;margin-top:3px;flex-shrink:0;
                              background:${isLatest?prog.color:'#d1d5db'};
@@ -1922,7 +2043,9 @@ async function renderSpinoff() {
                           color:${isLatest?'var(--navy)':'var(--text-light)'};
                           font-weight:${isLatest?'500':'400'};"
                    title="${ct}">${ct.slice(0,85)}${ct.length>85?'…':''}</a>
-                <!-- PDF按钮 -->
+                <!-- 股价标签 -->
+                ${priceTag}
+                <!-- PDF按鈕 -->
                 <a href="${a.docUrl.startsWith('http')?a.docUrl:'https://www1.hkexnews.hk'+a.docUrl}" target="_blank" rel="noopener" onclick="event.stopPropagation()"
                    style="font-size:.63rem;padding:2px 7px;flex-shrink:0;
                           border:1px solid ${isLatest?'var(--gold)':'#d1d5db'};
@@ -1934,8 +2057,39 @@ async function renderSpinoff() {
                    PDF ↗</a>
               </div>`;
             }).join('')}
+            ${(()=>{
+              // 今日收盘价节点
+              const pNow = c.pricePerf?.priceNow;
+              const pOldest = ann[ann.length-1]?.stockPrice; // 时间线最早一条
+              const pLatestAnn = ann[0]?.stockPrice;         // 最新公告日股价
+              if (!pNow) return '';
+              let chgFromLatestAnn = '';
+              if (pLatestAnn && pLatestAnn > 0) {
+                const chg = ((pNow - pLatestAnn) / pLatestAnn * 100).toFixed(1);
+                const isPos = parseFloat(chg) >= 0;
+                chgFromLatestAnn = `<span style="color:${isPos?'#059669':'#dc2626'};font-weight:700;font-size:.6rem;margin-left:3px;">${isPos?'+':''}${chg}%</span>`;
+              }
+              const todayStr = new Date().toISOString().slice(0,10);
+              return `
+              <div style="display:grid;grid-template-columns:14px 88px 1fr auto auto;
+                           gap:6px;align-items:center;padding:5px 0;position:relative;z-index:1;">
+                <div style="width:10px;height:10px;border-radius:50%;flex-shrink:0;
+                             background:${prog.color};border:2px solid ${prog.color};
+                             box-shadow:0 0 0 3px ${prog.color}28;"></div>
+                <span style="font-size:.68rem;color:${prog.color};
+                              font-variant-numeric:tabular-nums;font-weight:600;">${todayStr}</span>
+                <span style="font-size:.75rem;color:var(--navy);font-weight:600;">${isEn?'Today\'s close':'今日收盘'}</span>
+                <span style="display:inline-flex;align-items:center;gap:2px;padding:1px 6px;
+                  background:rgba(0,0,0,.05);border-radius:10px;font-size:.63rem;
+                  color:var(--text-light);font-variant-numeric:tabular-nums;white-space:nowrap;flex-shrink:0;">
+                  HKD ${pNow}${chgFromLatestAnn}
+                </span>
+                <span></span>
+              </div>`;
+            })()}
           </div>
 
+          ${_renderSpinoffPricePanels(c, isEn)}
           ${(c.ticker||'').includes('00308') ? _renderGuoPanel(isEn) : ''}
         </div>
       </div>`;
@@ -2157,12 +2311,30 @@ function _usApplyFilters() {
 
   listEl.innerHTML = list.map(c => {
     const latestDate = c.announcements?.[0]?.date || '';
-    const annList = (c.announcements||[]).map(a =>
-      `<div style="font-size:.72rem;color:var(--text-light);padding:4px 0;border-bottom:1px solid var(--border);">
-        <span style="color:var(--text-lighter);min-width:82px;display:inline-block;">${a.date}</span>
-        ${a.url ? `<a href="${a.url}" target="_blank" style="color:var(--navy);text-decoration:none;">${a.title}</a>` : a.title}
-      </div>`
-    ).join('');
+    const annsArr = c.announcements || [];
+    const annList = annsArr.map((a, ai) => {
+      const p1 = a.stockPrice;
+      const p0 = annsArr[ai+1]?.stockPrice; // 上一条（更早）
+      let priceHtml = '';
+      if (p1) {
+        let chgHtml = '';
+        if (p0 && p0 > 0) {
+          const chg = ((p1-p0)/p0*100).toFixed(1);
+          const isPos = parseFloat(chg) >= 0;
+          chgHtml = `<span style="color:${isPos?'#059669':'#dc2626'};font-weight:700;">${isPos?'+':''}${chg}%</span>`;
+        }
+        priceHtml = `<span style="margin-left:6px;padding:0 5px;background:rgba(0,0,0,.04);
+          border-radius:8px;font-size:.63rem;color:var(--text-light);
+          font-variant-numeric:tabular-nums;white-space:nowrap;">
+          $${p1}${chgHtml ? ' ' + chgHtml : ''}
+        </span>`;
+      }
+      return `<div style="font-size:.72rem;color:var(--text-light);padding:4px 0;border-bottom:1px solid var(--border);display:flex;align-items:baseline;gap:4px;flex-wrap:wrap;">
+        <span style="color:var(--text-lighter);min-width:82px;flex-shrink:0;">${a.date}</span>
+        <span style="flex:1;">${a.url ? `<a href="${a.url}" target="_blank" style="color:var(--navy);text-decoration:none;">${a.title}</a>` : a.title}</span>
+        ${priceHtml}
+      </div>`;
+    }).join('');
     const detail = `
       <div style="padding:14px 16px 14px 32px;background:var(--row-hover);border-top:1px solid var(--border);">
         <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;font-size:.8rem;margin-bottom:10px;">
@@ -2172,6 +2344,7 @@ function _usApplyFilters() {
           ${c.distributionDate?`<div><b>${isEn?'Distribution Date':'分派日'}:</b> ${c.distributionDate}</div>`:''}
         </div>
         ${c.aiSummary?`<div style="background:linear-gradient(135deg,rgba(99,102,241,0.06),rgba(139,92,246,0.06));border:1px solid rgba(99,102,241,0.15);border-radius:6px;padding:8px 12px;margin-bottom:10px;font-size:.75rem;line-height:1.6;color:var(--text);"><span style="font-size:.62rem;color:#6366f1;font-weight:600;margin-right:5px;">✨ AI</span>${c.aiSummary}</div>`:''}
+        ${_renderSpinoffPricePanels(c, isEn)}
         <div style="font-size:.73rem;color:var(--text-light);font-weight:600;margin-bottom:5px;">${isEn?'SEC Filings':'公告记录'}</div>
         ${annList}
       </div>`;
