@@ -62,17 +62,17 @@ CN_TO_EN_HINTS = {
 # ── 已上市判断（扩展版）──────────────────────────────────────────
 IS_LISTED_PATTERNS = re.compile(
     r'開始買賣|开始买卖|股份開始|上市及買賣|上市及开始|'
-    r'掛牌|挂牌|持續督導|持续督导|'
+    r'持續督導|持续督导|'
     r'介紹方式.*主板上市|以介紹方式.*香港|'
     r'完成建議分拆|完成.*分拆.*上市|'
     r'以實物分派.*生效|物分派.*完成|'
     r'悉數行使超額配股|全球發售.*最新資料.*買賣|'
-    r'刊發招股章程.*開始買賣|开始交易|开始挂牌|'
+    r'刊發招股章程.*開始買賣|开始交易|'
     r'股份已掛牌|已完成上市|已成功上市|已在.*交易所.*掛牌|'
     r'以實物分派.*保證.*權利|实物分派.*完成|'
     r'首日.*買賣|首日交易',
     re.I
-)
+)  # 注意：掛牌/挂牌 已移至 _WEAK_LISTED 两阶段检测，此处不再重复
 
 # 进行中（不确定是否上市）
 IN_PROGRESS_PATTERNS = re.compile(
@@ -82,15 +82,28 @@ IN_PROGRESS_PATTERNS = re.compile(
     re.I
 )
 
+# 强上市信号：出现即确认已上市
+_STRONG_LISTED = re.compile(
+    r'開始買賣|开始买卖|股份開始|上市及買賣|首日.*買賣|首日交易|'
+    r'股份已掛牌|已完成上市|完成建議分拆|以實物分派.*生效|悉數行使超額配股|'
+    r'持續督導',
+    re.I
+)
+# 弱信号：掛牌/挂牌 本身，但须排除"进展公告"/"建議分拆"类
+_WEAK_LISTED   = re.compile(r'掛牌|挂牌', re.I)
+_PROGRESS_EXCL = re.compile(r'之進展|进展公告|建議分拆|建议分拆|擬議|拟议|進展公告', re.I)
+
 def detect_listing_status(titles: list[str], dates: list[str]) -> tuple[bool, str | None]:
-    """返回 (is_listed, listing_date)"""
-    full = ' '.join(titles)
-    if IS_LISTED_PATTERNS.search(full):
-        # 尝试从最早含上市关键词的公告日期推断
-        for title, date in zip(titles, dates):
-            if IS_LISTED_PATTERNS.search(title):
-                return True, date
-        return True, dates[0] if dates else None
+    """两阶段检测：强信号直接确认，弱信号排除进展公告后再确认"""
+    for title, date in zip(titles, dates):
+        if _STRONG_LISTED.search(title):
+            return True, date
+        if _WEAK_LISTED.search(title) and not _PROGRESS_EXCL.search(title):
+            return True, date
+    # 兜底：原 IS_LISTED_PATTERNS（不含掛牌）
+    for title, date in zip(titles, dates):
+        if IS_LISTED_PATTERNS.search(title):
+            return True, date
     return False, None
 
 # ── 子公司名称提取 ────────────────────────────────────────────────
@@ -297,15 +310,33 @@ def fetch_price_latest(ticker: str) -> float | None:
     except: return None
 
 def fetch_a_price(raw_code: str, start_date: str) -> tuple[float | None, float | None]:
-    try:
-        import akshare as ak
-        df = ak.stock_zh_a_hist(symbol=raw_code, period='daily',
-                                 start_date=start_date.replace('-',''),
-                                 end_date=TODAY.replace('-',''), adjust='qfq')
-        if not df.empty:
-            col = '收盘' if '收盘' in df.columns else df.columns[4]
-            return round(float(df.iloc[0][col]), 3), round(float(df.iloc[-1][col]), 3)
-    except: pass
+    """用 yfinance 拉取 A 股价格（自动尝试 .SS / .SZ 后缀）。
+    Fix 4: 不再依赖 akshare，避免 CI 网络限制。
+    """
+    suffix_order = []
+    # 上交所：6/9开头；深交所：0/2/3开头
+    code = raw_code.lstrip('0') if raw_code.startswith('0') else raw_code
+    if raw_code[:1] in ('6', '9'):
+        suffix_order = ['.SS', '.SZ']
+    else:
+        suffix_order = ['.SZ', '.SS']
+
+    for sfx in suffix_order:
+        tk = raw_code + sfx
+        try:
+            # 拉取从上市日期到今天的历史数据
+            import datetime
+            start = start_date or '2020-01-01'
+            df = yf.download(tk, start=start, auto_adjust=True, progress=False)
+            if not df.empty:
+                col = df['Close']
+                if isinstance(col, pd.DataFrame): col = col.iloc[:,0]
+                col = col.dropna()
+                if not col.empty:
+                    p0   = round(float(col.iloc[0]), 3)
+                    pnow = round(float(col.iloc[-1]), 3)
+                    return p0, pnow
+        except: pass
     return None, None
 
 # ── 处理单个公司 ─────────────────────────────────────────────────
@@ -419,6 +450,89 @@ def process_company(c: dict) -> dict | None:
     }
 
 # ── 把结果合并写入 spinoff.json ──────────────────────────────────
+
+# ── 美股子公司价格刷新 ────────────────────────────────────────────
+def refresh_us_spinoff_prices(dry_run=False) -> int:
+    """
+    Fix 2: 刷新 spinoff_us.json 里所有 spinoffPricePerf 条目的今日价格。
+    同时对有 spinoffTicker 但还没有 spinoffPricePerf 的 completed 公司补录价格。
+    """
+    us_path = REPO_DIR / 'spinoff_us.json'
+    if not us_path.exists():
+        print("  spinoff_us.json 不存在，跳过")
+        return 0
+
+    with open(us_path, encoding='utf-8') as f:
+        data = json.load(f)
+
+    written = 0
+    for c in data.get('companies', []):
+        parent_tk = c.get('ticker', '')
+        status    = c.get('status', '')
+
+        # ── 刷新已有 spinoffPricePerf 的今日价 ──────────────────
+        for p in c.get('spinoffPricePerf', []):
+            sk = p.get('spinoff', '')
+            if not sk: continue
+            pnow = fetch_price_latest(sk)
+            if pnow is None: continue
+            # 重新计算涨跌幅
+            p0 = p.get('spinoffPriceAtSpin') or p.get('spinoffPriceAtListing')
+            chg = round((pnow - p0) / p0 * 100, 1) if p0 and p0 > 0 else None
+            old_now = p.get('spinoffPriceNow')
+            p['spinoffPriceNow']    = pnow
+            p['spinoffChangePct']   = chg
+            p['updatedAt']          = TODAY
+            # 同时刷新母公司今日价
+            pnow_parent = fetch_price_latest(parent_tk)
+            if pnow_parent:
+                p0_parent = p.get('parentPriceAtSpin')
+                chg_parent = round((pnow_parent - p0_parent) / p0_parent * 100, 1) if p0_parent and p0_parent > 0 else None
+                p['parentPriceNow']    = pnow_parent
+                p['parentChangePct']   = chg_parent
+            if old_now != pnow:
+                written += 1
+                print(f"  US refresh: {parent_tk}→{sk} {old_now}→{pnow} chg={chg}%")
+
+        # ── 补录：有 spinoffTicker 但尚无 spinoffPricePerf ──────
+        sk_field = c.get('spinoffTicker', '').strip()
+        if sk_field and sk_field.upper() != 'TBD' and not c.get('spinoffPricePerf'):
+            # 找分拆日期
+            dist_date = c.get('distributionDate', '') or c.get('recordDate', '')
+            pnow = fetch_price_latest(sk_field)
+            if pnow is None: continue
+            p0 = fetch_price_on_date(sk_field, dist_date) if dist_date else None
+            # 母公司
+            parent_now = fetch_price_latest(parent_tk)
+            parent_p0  = fetch_price_on_date(parent_tk, dist_date) if dist_date else None
+            chg_spinoff = round((pnow - p0) / p0 * 100, 1) if p0 and p0 > 0 else None
+            chg_parent  = round((parent_now - parent_p0) / parent_p0 * 100, 1) if parent_p0 and parent_p0 and parent_p0 > 0 else None
+
+            new_perf = {
+                'parent':            parent_tk,
+                'spinoff':           sk_field,
+                'spinoffDate':       dist_date,
+                'parentPriceAtSpin': parent_p0,
+                'parentPriceNow':    parent_now,
+                'parentChangePct':   chg_parent,
+                'spinoffPriceAtSpin':  p0,
+                'spinoffPriceNow':     pnow,
+                'spinoffChangePct':    chg_spinoff,
+                'updatedAt':           TODAY,
+            }
+            c['spinoffPricePerf'] = [new_perf]
+            written += 1
+            print(f"  US new:     {parent_tk}→{sk_field} p0={p0} now={pnow} chg={chg_spinoff}%")
+
+    if not dry_run and written > 0:
+        with open(us_path, 'w', encoding='utf-8') as f:
+            json.dump(data, f, ensure_ascii=False, indent=2)
+        print(f"  写入 spinoff_us.json: {written} 条更新")
+    elif dry_run:
+        print(f"  [dry-run] US spinoff: {written} 条待更新")
+
+    return written
+
 def merge_into_json(results: list[dict], dry_run=False) -> int:
     with open(SPINOFF_JSON, encoding='utf-8') as f:
         data = json.load(f)
@@ -442,20 +556,33 @@ def merge_into_json(results: list[dict], dry_run=False) -> int:
         parent_tk  = r['ticker']
         spinoff_tk = r['matched_ticker']
 
+        # Fix 3: 如果上市价为 None 但有上市日期，尝试拉取首日收盘价
+        price_at_listing = r.get('price_at_listing')
+        listing_date     = r.get('listing_date', '')
+        if price_at_listing is None and listing_date:
+            p0 = fetch_price_on_date(spinoff_tk, listing_date)
+            if p0:
+                price_at_listing = p0
+                print(f"    Backfilled listing price for {spinoff_tk}: {p0} on {listing_date}")
+
+        # Fix 5: source 字段写入
+        src = r.get('source', 'known_db')
+
         for c in data['companies']:
             if c.get('ticker') != parent_tk: continue
 
             new_pair = {
-                'spinoff':              spinoff_tk,
-                'spinoffName':          r.get('spinoff_name', ''),
-                'spinoffDate':          r.get('listing_date', ''),
-                'spinoffPriceAtListing': r.get('price_at_listing'),
-                'spinoffPriceNow':      r.get('price_now'),
-                'spinoffChangePct':     r.get('change_pct'),
-                'currency':             r.get('currency', 'HKD'),
-                'confidence':           r.get('confidence', 0),
-                'autoMatched':          r.get('source') == 'auto',
-                'updatedAt':            TODAY,
+                'spinoff':               spinoff_tk,
+                'spinoffName':           r.get('spinoff_name', ''),
+                'spinoffDate':           listing_date,
+                'spinoffPriceAtListing': price_at_listing,
+                'spinoffPriceNow':       r.get('price_now'),
+                'spinoffChangePct':      r.get('change_pct'),
+                'currency':              r.get('currency', 'HKD'),
+                'confidence':            r.get('confidence', 0),
+                'autoMatched':           r.get('source') not in ('known_db',),
+                'source':                src,
+                'updatedAt':             TODAY,
             }
             if r.get('note'):
                 new_pair['note'] = r['note']
@@ -537,6 +664,10 @@ def main():
         print(f"日志追加至 {LOG_PATH}")
     else:
         print("\n[dry-run] 未写入文件")
+
+    # Fix 2: 刷新美股子公司价格
+    print("\n── 美股子公司价格刷新 ──────────────────────────────────────")
+    refresh_us_spinoff_prices(dry_run=args.dry_run)
 
 if __name__ == '__main__':
     main()

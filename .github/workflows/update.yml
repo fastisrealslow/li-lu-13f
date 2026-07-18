@@ -2,7 +2,7 @@ name: Update 13F Data
 
 on:
   schedule:
-    - cron: '0 2,8,14,20 * * *'
+    - cron: '0 0,8 * * *'  # UTC 00:00 (HKT 08:00 开盘前) + UTC 08:00 (HKT 16:00 收盘后)
   workflow_dispatch:
 
 permissions:
