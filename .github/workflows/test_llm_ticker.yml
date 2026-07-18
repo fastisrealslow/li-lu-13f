@@ -1,19 +1,15 @@
 name: Test LLM Ticker Finder
 
 on:
-  workflow_dispatch:
-    inputs:
-      parent_ticker:
-        description: '母公司 ticker（如 01171.HK）'
-        required: true
-        default: '01171.HK'
+  push:
+    paths:
+      - '.github/workflows/test_llm_ticker.yml'
 
 jobs:
   test:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
@@ -21,89 +17,94 @@ jobs:
       - name: Install deps
         run: pip install yfinance rapidfuzz requests -q
 
-      - name: Run LLM ticker finder
+      - name: Run LLM ticker finder for 01171.HK
         env:
           SILICONFLOW_KEY: ${{ secrets.SILICONFLOW_KEY }}
-          PARENT_TICKER: ${{ github.event.inputs.parent_ticker }}
         run: |
           python3 << 'PYEOF'
           import os, sys, json, re, warnings
-          import yfinance as yf
-          import requests
-          import pandas as pd
+          import yfinance as yf, requests, pandas as pd
           from rapidfuzz import fuzz, process as rfprocess
           warnings.filterwarnings('ignore')
 
           api_key = os.environ.get('SILICONFLOW_KEY', '')
-          parent_ticker = os.environ.get('PARENT_TICKER', '01171.HK')
+          if not api_key:
+              print("❌ No SILICONFLOW_KEY"); sys.exit(1)
 
-          # 加载公告标题（从 spinoff.json）
-          d = json.load(open('spinoff.json'))
-          company = next((c for c in d['companies'] if c['ticker'] == parent_ticker), None)
-          if not company:
-              print(f"❌ {parent_ticker} not found in spinoff.json")
-              sys.exit(1)
+          # ── 01171.HK 的公告标题 ─────────────────────────────
+          parent_ticker = "01171.HK"
+          parent_name   = "兗礦能源"
+          titles = [
+              "建議分拆物泊科技於香港聯合交易所有限公司主板上市之進展公告",
+              "內幕消息 建議分拆物泊科技於香港聯合交易所有限公司主板上市",
+              "建議分拆卡松科技於全國中小企業股份轉讓系統掛牌之進展",
+              "內幕消息 建議分拆卡松科技於全國中小企業股份轉讓系統掛牌",
+          ]
 
-          titles = [a.get('title','') for a in company.get('announcements', [])]
-          parent_name = company.get('stockName', '')
-          print(f"Parent: {parent_ticker} {parent_name}")
-          print(f"Announcements ({len(titles)}):")
+          print(f"Testing: {parent_ticker} {parent_name}")
+          print("Titles:")
           for t in titles: print(f"  - {t}")
 
-          # 调用 LLM
+          # ── Prompt ──────────────────────────────────────────
           titles_text = '\n'.join(f'- {t}' for t in titles[:8])
-          prompt = f"""你是港股分拆研究员。「{parent_name}」（{parent_ticker}）的分拆公告：
+          prompt = f"""你是港股分拆研究员。「{parent_name}」（{parent_ticker}）有两个分拆计划：
 
 {titles_text}
 
-子公司已上市或即将上市。请推断：子公司名称（中/英）及股票代码（ticker）。
-港股格式：4-5位数字.HK（如7618.HK）；A股：6位.SS或.SZ；新三板：6位纯数字。
+请分别推断两个子公司的信息：
+1. 物泊科技 → 建议在香港联交所主板上市
+2. 卡松科技 → 建议在全国中小企业股份转让系统（新三板）挂牌
 
-只返回JSON，不加其他文字：
-{{"spinoff_name_cn":"中文名","spinoff_name_en":"英文名","ticker":"代码","confidence":0到100,"reasoning":"推断依据"}}"""
+注意：公告是"进展公告"，可能尚未正式上市。如果尚未上市或不确定ticker，confidence填0-30。
+港股格式：4-5位数字.HK；新三板：6位纯数字。
 
-          print(f"\n--- LLM Prompt ---")
-          print(prompt)
-          print("------------------\n")
+只返回JSON数组，不加其他文字：
+[
+  {{"company":"物泊科技","ticker":"港股ticker或空字符串","confidence":0到100,"listed":true或false,"reasoning":""}},
+  {{"company":"卡松科技","ticker":"新三板代码或空字符串","confidence":0到100,"listed":true或false,"reasoning":""}}
+]"""
 
+          print(f"\n--- Calling SiliconFlow Qwen3-8B ---")
           resp = requests.post(
               'https://api.siliconflow.cn/v1/chat/completions',
               headers={'Authorization': f'Bearer {api_key}', 'Content-Type': 'application/json'},
-              json={'model': 'Qwen/Qwen3-8B', 'messages': [{'role':'user','content':prompt}],
-                    'temperature': 0.1, 'max_tokens': 400, 'enable_thinking': False},
+              json={'model': 'Qwen/Qwen3-8B',
+                    'messages': [{'role':'user','content':prompt}],
+                    'temperature': 0.1, 'max_tokens': 500, 'enable_thinking': False},
               timeout=30
           )
-          print(f"HTTP status: {resp.status_code}")
+          print(f"HTTP: {resp.status_code}")
           raw = resp.json()['choices'][0]['message']['content'].strip()
-          print(f"LLM raw response:\n{raw}\n")
+          print(f"\nLLM Response:\n{raw}\n")
 
-          m = re.search(r'\{[\s\S]+?\}', raw)
+          # ── Parse ────────────────────────────────────────────
+          m = re.search(r'\[[\s\S]+?\]', raw)
           if not m:
-              print("❌ No JSON found in response")
-              sys.exit(1)
+              print("❌ No JSON array found"); sys.exit(1)
 
-          result = json.loads(m.group())
-          print(f"Parsed result: {json.dumps(result, ensure_ascii=False, indent=2)}")
+          results = json.loads(m.group())
+          print(f"Parsed: {json.dumps(results, ensure_ascii=False, indent=2)}")
 
-          # yfinance 验证
-          ticker = result.get('ticker','').strip()
-          if ticker:
-              if ticker.upper().endswith('.HK'):
-                  code = ticker[:-3].lstrip('0') or '0'
-                  ticker = code + '.HK'
-              print(f"\nVerifying ticker: {ticker}")
+          # ── yfinance verify each ticker ───────────────────────
+          print("\n--- yfinance verification ---")
+          for r in results:
+              tk = r.get('ticker','').strip()
+              if not tk:
+                  print(f"  {r.get('company')}: no ticker")
+                  continue
+              # normalize HK
+              if tk.upper().endswith('.HK'):
+                  tk = tk[:-3].lstrip('0') + '.HK'
               try:
-                  df = yf.download(ticker, period='5d', auto_adjust=True, progress=False)
+                  df = yf.download(tk, period='5d', auto_adjust=True, progress=False)
                   if not df.empty:
                       c = df['Close']
                       if isinstance(c, pd.DataFrame): c = c.iloc[:,0]
                       v = c.dropna()
-                      price = round(float(v.iloc[-1]), 3) if not v.empty else None
-                      print(f"✅ Ticker valid! price={price}")
+                      price = round(float(v.iloc[-1]),3) if not v.empty else None
+                      print(f"  ✅ {r.get('company')} → {tk} price={price}")
                   else:
-                      print(f"❌ yfinance returned empty data for {ticker}")
+                      print(f"  ❌ {r.get('company')} → {tk} not found on yfinance (not listed yet?)")
               except Exception as e:
-                  print(f"❌ yfinance error: {e}")
-          else:
-              print("⚠️  LLM returned no ticker")
+                  print(f"  ❌ {r.get('company')} → {tk} error: {e}")
           PYEOF
