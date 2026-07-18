@@ -98,8 +98,17 @@ def calc_cost_basis(ticker, holdings, current_quarter, prev_quarter, hist_holdin
             if qh["ticker"] == ticker and qh.get("shares", 0) > 0:
                 quarterly_data.append({"quarter": q_key, "shares": qh["shares"], "value": qh["value"]})
 
+    # Filter to buy quarters only (delta shares > 0) — holding periods don't affect cost basis
+    buy_quarters = []
+    prev_q_shares = 0
+    for qd in quarterly_data:
+        delta = qd["shares"] - prev_q_shares
+        if delta > 0:
+            buy_quarters.append({**qd, "delta_shares": delta})
+        prev_q_shares = qd["shares"]
+
     all_time = None
-    if quarterly_data:
+    if buy_quarters:
         existing_all = existing.get("allTime") if existing else None
         existing_first_q = existing_all.get("first") if existing_all else None
         existing_last_q = existing_all.get("last") if existing_all else None
@@ -113,7 +122,9 @@ def calc_cost_basis(ticker, holdings, current_quarter, prev_quarter, hist_holdin
             total_weighted_cost = 0.0
             total_shares_sum = 0
             valid_q = 0
-            for qd in quarterly_data:
+            first_buy_q = None
+            last_buy_q = None
+            for qd in buy_quarters:
                 q_from, q_to = quarter_ts(qd["quarter"])
                 c = yahoo_chart(qd["ticker"] if "ticker" in qd else ticker, q_from, q_to)
                 if c and c["closes"]:
@@ -122,18 +133,20 @@ def calc_cost_basis(ticker, holdings, current_quarter, prev_quarter, hist_holdin
                     q_price = low * 0.7 + avg * 0.3
                 else:
                     q_price = qd["value"] / qd["shares"]
-                total_weighted_cost += q_price * qd["shares"]
-                total_shares_sum += qd["shares"]
+                total_weighted_cost += q_price * qd["delta_shares"]
+                total_shares_sum += qd["delta_shares"]
                 valid_q += 1
+                if first_buy_q is None: first_buy_q = qd["quarter"]
+                last_buy_q = qd["quarter"]
                 time.sleep(yahoo_sleep + random.uniform(0, 2))
             all_avg = round(total_weighted_cost / total_shares_sum, 2)
             all_time = {
                 "avg": all_avg,
                 "quarters": valid_q,
-                "first": quarterly_data[0]["quarter"],
-                "last": quarterly_data[-1]["quarter"],
+                "first": first_buy_q,
+                "last": last_buy_q,
             }
-            print(f"| all-time wavg=${all_avg} ({valid_q}q, {total_shares_sum} total shares)")
+            print(f"| all-time wavg=${all_avg} ({valid_q} buy qtrs, {total_shares_sum} delta shares)")
 
     time.sleep(yahoo_sleep + random.uniform(0, 2))
     return {"recent": recent, "allTime": all_time}

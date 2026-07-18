@@ -201,15 +201,23 @@ def main():
             recent = {"buy": est_price, "low": est_price, "high": est_price, "quarter": buy_q, "source": "13f-estimate"}
             print(f"estim=${est_price} (13F fallback)")
 
-        # --- All-time cost: weighted avg (price per quarter × shares) / total shares ---
-        # Same buy-side formula as recent cost, applied to EVERY quarter the holding was held
+        # --- All-time cost: weighted avg across BUY quarters only (delta shares > 0) ---
+        # Only quarters where shares increased are counted — holding periods don't affect cost basis
         all_time = None
         quarterly_data = []
         for q_key, q_holdings in sorted(hist_holdings.items()):
             for qh in q_holdings:
                 if qh["ticker"] == tk and qh.get("shares", 0) > 0:
                     quarterly_data.append({"quarter": q_key, "shares": qh["shares"], "value": qh["value"]})
-        if quarterly_data:
+        # Filter to only buy quarters (shares increased vs previous quarter)
+        buy_quarters = []
+        prev_q_shares = 0
+        for qd in quarterly_data:
+            delta = qd["shares"] - prev_q_shares
+            if delta > 0:
+                buy_quarters.append({**qd, "delta_shares": delta})
+            prev_q_shares = qd["shares"]
+        if buy_quarters:
             # Incremental: skip allTime if we have complete cached data
             if should_skip_alltime(tk, existing_cb, [q["quarter"] for q in quarterly_data]):
                 all_time = existing_cb[tk]["allTime"]
@@ -218,7 +226,9 @@ def main():
                 total_weighted_cost = 0.0
                 total_shares_sum = 0
                 valid_q = 0
-                for qd in quarterly_data:
+                first_buy_q = None
+                last_buy_q = None
+                for qd in buy_quarters:
                     q_from, q_to = quarter_ts(qd["quarter"])
                     c = yahoo_chart(tk, q_from, q_to)
                     if c and c["closes"]:
@@ -230,18 +240,20 @@ def main():
                         # SEC pre-2023 value field is in thousands; detect and correct
                         if q_price > 5000:
                             q_price = q_price / 1000
-                    total_weighted_cost += q_price * qd["shares"]
-                    total_shares_sum += qd["shares"]
+                    total_weighted_cost += q_price * qd["delta_shares"]
+                    total_shares_sum += qd["delta_shares"]
                     valid_q += 1
+                    if first_buy_q is None: first_buy_q = qd["quarter"]
+                    last_buy_q = qd["quarter"]
                     time.sleep(0.5)
                 all_avg = round(total_weighted_cost / total_shares_sum, 2)
                 all_time = {
                     "avg": all_avg,
                     "quarters": valid_q,
-                    "first": quarterly_data[0]["quarter"],
-                    "last": quarterly_data[-1]["quarter"],
+                    "first": first_buy_q,
+                    "last": last_buy_q,
                 }
-                print(f"| all-time wavg=${all_avg} ({valid_q}q, {total_shares_sum} total shares)")
+                print(f"| all-time wavg=${all_avg} ({valid_q} buy qtrs, {total_shares_sum} delta shares)")
 
         cost_basis[tk] = {"recent": recent, "allTime": all_time}
         time.sleep(0.3)
