@@ -67,7 +67,9 @@ def calc_cost_basis(ticker, holdings, current_quarter, prev_quarter, hist_holdin
     if existing_cost_basis and ticker in existing_cost_basis:
         existing = existing_cost_basis[ticker]
         existing_recent = existing.get("recent", {})
-        if existing_recent.get("source") == "yahoo" and existing_recent.get("quarter") == buy_q:
+        existing_alltime = existing.get("allTime") or {}
+        alltime_complete = bool(existing_alltime.get("avg"))
+        if existing_recent.get("source") == "yahoo" and existing_recent.get("quarter") == buy_q and alltime_complete:
             print(f"  Cost basis {ticker} ({buy_q})... skip (cached)", flush=True)
             return existing
 
