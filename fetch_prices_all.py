@@ -293,12 +293,23 @@ def fetch_us(investor, cfg):
                 if qh["ticker"] == tk and qh.get("shares", 0) > 0:
                     quarterly_data.append({"quarter": q_key, "shares": qh["shares"], "value": qh["value"]})
         # 过滤出买入季度（股数增加的季度）
+        # 如果出现大时间跳跃（>4个季度空窗），视为清仓后重新建仓，只取最后一轮
         buy_qtrs = []
         prev_sh = 0
+        prev_q = None
         for qd in quarterly_data:
+            if prev_q is not None:
+                # 计算季度跨度
+                def q2n(q):
+                    y, qn = q.split(" Q"); return int(y)*4 + int(qn)
+                gap = q2n(qd["quarter"]) - q2n(prev_q)
+                if gap > 4:  # 超过4季度空窗 → 清仓重置
+                    buy_qtrs = []  # 丢弃之前的，重新开始
+                    prev_sh = 0
             if qd["shares"] > prev_sh:
                 buy_qtrs.append({**qd, "delta": qd["shares"] - prev_sh})
             prev_sh = qd["shares"]
+            prev_q = qd["quarter"]
 
         all_time = None
         if buy_qtrs:
@@ -422,10 +433,19 @@ def fetch_hk(investor, cfg):
                     qt_data.append({"quarter": q_key, "shares": qh["shares"], "value": qh["value"]})
         buy_qtrs_hk = []
         prev_sh_hk = 0
+        prev_q_hk = None
         for qd in qt_data:
+            if prev_q_hk is not None:
+                def q2n(q):
+                    y, qn = q.split(" Q"); return int(y)*4 + int(qn)
+                gap = q2n(qd["quarter"]) - q2n(prev_q_hk)
+                if gap > 4:
+                    buy_qtrs_hk = []
+                    prev_sh_hk = 0
             if qd["shares"] > prev_sh_hk:
                 buy_qtrs_hk.append({**qd, "delta": qd["shares"] - prev_sh_hk})
             prev_sh_hk = qd["shares"]
+            prev_q_hk = qd["quarter"]
 
         if buy_qtrs_hk:
             ex_a = existing_cb.get(tk, {}).get("allTime") or {}
