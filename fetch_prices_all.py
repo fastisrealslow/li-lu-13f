@@ -354,7 +354,7 @@ def fetch_us(investor, cfg):
             if not tk2.startswith("?") and tk2 not in current_tks:
                 exited_tks.add(tk2)
 
-    existing_ep = existing_prices.get("exitPerf", {})
+    existing_ep = (ex.get("exitPerf", {}) if ex else {})
 
     for tk2 in exited_tks:
         # 找最后出现的季度（即清仓季度）
