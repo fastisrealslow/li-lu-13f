@@ -246,10 +246,11 @@ def fetch_us(investor, cfg):
                             buy_q = q_key
                         prev_shares = qh["shares"]
 
-        # 近期成本缓存检查
+        # 近期成本缓存检查（只有 allTime 也有值时才跳过，避免 allTime 空时永远不重算）
         if tk in existing_cb:
             r = existing_cb[tk].get("recent", {})
-            if r.get("source") == "yahoo" and r.get("quarter") == buy_q:
+            a = existing_cb[tk].get("allTime") or {}
+            if r.get("source") == "yahoo" and r.get("quarter") == buy_q and a.get("avg"):
                 cost_basis[tk] = existing_cb[tk]
                 print(f"  Cost {tk} ({buy_q})... (cached)")
                 continue
@@ -274,24 +275,31 @@ def fetch_us(investor, cfg):
                       "quarter": buy_q, "source": "13f-estimate"}
             print(f"estim=${est} (13F fallback)")
 
-        # all-time 成本
+        # all-time 成本（只统计买入季度，即 delta_shares > 0 的季度）
         quarterly_data = []
         for q_key, q_h in sorted(hist_holdings.items()):
             for qh in q_h:
                 if qh["ticker"] == tk and qh.get("shares", 0) > 0:
                     quarterly_data.append({"quarter": q_key, "shares": qh["shares"], "value": qh["value"]})
+        # 过滤出买入季度（股数增加的季度）
+        buy_qtrs = []
+        prev_sh = 0
+        for qd in quarterly_data:
+            if qd["shares"] > prev_sh:
+                buy_qtrs.append({**qd, "delta": qd["shares"] - prev_sh})
+            prev_sh = qd["shares"]
 
         all_time = None
-        if quarterly_data:
+        if buy_qtrs:
             ex_a = existing_cb.get(tk, {}).get("allTime")
             q_keys = [q["quarter"] for q in quarterly_data]
-            if (ex_a and ex_a.get("first") == q_keys[0] and ex_a.get("last") == q_keys[-1]
-                    and ex_a.get("quarters", 0) >= len(q_keys)):
+            if (ex_a and ex_a.get("avg") and ex_a.get("first") == q_keys[0] and ex_a.get("last") == q_keys[-1]
+                    and ex_a.get("quarters", 0) >= len(buy_qtrs)):
                 all_time = ex_a
                 print(f"| all-time wavg=${ex_a['avg']} ({ex_a['quarters']}q, cached)")
             else:
                 total_cost, total_shares, valid_q = 0.0, 0, 0
-                for qd in quarterly_data:
+                for qd in buy_qtrs:
                     qf, qt_ = quarter_ts(qd["quarter"])
                     c2 = yahoo_chart(tk, qf, qt_)
                     if c2 and c2["closes"]:
@@ -300,8 +308,8 @@ def fetch_us(investor, cfg):
                         q_price = qd["value"] / qd["shares"]
                         if q_price > 5000:
                             q_price /= 1000
-                    total_cost   += q_price * qd["shares"]
-                    total_shares += qd["shares"]
+                    total_cost   += q_price * qd["delta"]
+                    total_shares += qd["delta"]
                     valid_q += 1
                     time.sleep(0.5)
                 all_avg  = round(total_cost / total_shares, 2)
