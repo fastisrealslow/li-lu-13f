@@ -432,12 +432,9 @@ jobs:
             echo "No changes to commit"
           else
             git commit -m "auto: update 13F data & prices (all investors)"
-            # 用 merge 策略避免 rebase 冲突；数据文件互不覆盖，merge 总能成功
-            for i in 1 2 3; do
-              git pull origin master --no-rebase --no-edit && break
-              echo "Pull attempt $i failed, retrying in 5s..."
-              sleep 5
-            done
+            # 拉取远端变更，对 prices*.json 用 ours 策略（CI计算结果优先），其余文件正常merge
+            git fetch origin master
+            git merge origin/master --no-edit -X ours || true
             git push
             echo "Changes pushed!"
           fi
