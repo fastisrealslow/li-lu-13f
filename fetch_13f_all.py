@@ -289,6 +289,7 @@ TICKER_MAP = {
     "TENCENT MUSIC ENTMT GROUP": "TME",
     # 电商/中概
     "PDD HOLDINGS INC": "PDD",
+    "PINDUODUO INC": "PDD",          # 2022年底改名前的旧名称
     "ALIBABA GROUP HLDG LTD": "BABA",
     "TENCENT HLDGS LTD": "TCEHY",
     "JD.COM INC": "JD",
