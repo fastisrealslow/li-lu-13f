@@ -208,9 +208,10 @@ tbody tr:last-child td{border-bottom:none}
     background-attachment:local,local,scroll,scroll}
   .table-wrap table{font-size:.68rem;min-width:560px}
   .ticker{font-size:.68rem}
-  /* Hide weight column on mobile (5th td/th = weight bar) */
+  /* Hide weight column on mobile — shown inline under market value instead */
   .table-wrap table th:nth-child(6),
   .table-wrap table td:nth-child(6){display:none}
+  .mobile-weight-inline{display:block!important}
   /* Hero */
   .hero-top{flex-direction:column;gap:8px}
   .hero-title{font-size:1.4rem}

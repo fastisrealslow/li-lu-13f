@@ -827,7 +827,7 @@ function renderHoldings() {
     }
     const mosCellHtml = `<div style="display:flex;flex-direction:column;align-items:center;gap:2px;">${mosHtml || '<span style="color:var(--text-lighter);font-size:.7rem;">--</span>'}${chgTag}</div>`;
     
-    return `<tr><td class="idx-cell"><span class="idx-num">${i+1}</span></td><td class="stock-cell"><span class="ticker-line">${fmtTicker(h.ticker)}</span><span class="name-line">${cn(h.name, h)}</span><span class="sector-badge">${ts(h.sector)}</span></td><td class="shares-value-cell"><div style="font-weight:600">${fmtNum(h.shares)}</div><div style="font-size:.68rem;color:var(--text-lighter);margin-top:2px;">$${h.value.toLocaleString()}</div></td><td class="price-cell">${priceHtml}</td><td class="cost-cell">${costHtml}</td><td style="width:100px;"><div class="bar-wrap"><div class="bar-fill" style="width:${pct*3.5}%"></div><span style="font-size:.7rem;font-weight:600;color:var(--navy);margin-left:6px;">${pct}%</span></div></td><td style="width:80px;text-align:center;">${mosCellHtml}</td></tr>`;
+    return `<tr><td class="idx-cell"><span class="idx-num">${i+1}</span></td><td class="stock-cell"><span class="ticker-line">${fmtTicker(h.ticker)}</span><span class="name-line">${cn(h.name, h)}</span><span class="sector-badge">${ts(h.sector)}</span></td><td class="shares-value-cell"><div style="font-weight:600">${fmtNum(h.shares)}</div><div style="font-size:.68rem;color:var(--text-lighter);margin-top:2px;">$${h.value.toLocaleString()}</div><div class="mobile-weight-inline" style="display:none;font-size:.65rem;color:var(--navy);font-weight:600;margin-top:3px;"><span style="font-weight:400;color:var(--text-lighter);">${isEn?'Wt':'仓位'}</span> ${pct}%</div></td><td class="price-cell">${priceHtml}</td><td class="cost-cell">${costHtml}</td><td style="width:100px;"><div class="bar-wrap"><div class="bar-fill" style="width:${pct*3.5}%"></div><span style="font-size:.7rem;font-weight:600;color:var(--navy);margin-left:6px;">${pct}%</span></div></td><td style="width:80px;text-align:center;">${mosCellHtml}</td></tr>`;
   }).join('');
   
   // Legend for tags
@@ -1574,16 +1574,23 @@ function _renderGuoPanel(isEn) {
     const priceStr = r.price ? `HK$${r.price.toFixed(3)}` : '—';
     const sharesStr = (r.shares/1e8).toFixed(2) + '亿';
     return `
-      <div style="display:grid;grid-template-columns:90px 60px 70px 80px 1fr;
-                  gap:0;padding:7px 12px;
+      <div style="display:grid;grid-template-columns:minmax(72px,90px) minmax(90px,130px) 1fr;
+                  gap:0;padding:7px 10px;
                   background:${i%2===0?'#fff':'#fafaf8'};
                   border-bottom:1px solid #f0ede6;
-                  align-items:center;font-size:.73rem;">
-        <span style="color:var(--text-light);font-variant-numeric:tabular-nums;">${r.date}</span>
-        <span style="color:${color};font-weight:600;">${arrow} ${isEn?(isUp?'Buy':'Sell'):(isUp?'增持':'减持')}</span>
-        <span style="color:${color};font-weight:600;">${changeStr}</span>
-        <span style="color:var(--text-light);">${priceStr}</span>
-        <span style="color:var(--text);">${sharesStr} &nbsp;<span style="color:var(--text-lighter);">(${r.pct.toFixed(2)}%)</span></span>
+                  align-items:center;font-size:.7rem;">
+        <div>
+          <div style="color:var(--text-light);font-variant-numeric:tabular-nums;font-size:.65rem;">${r.date}</div>
+          <div style="color:${color};font-weight:600;margin-top:1px;">${arrow} ${isEn?(isUp?'Buy':'Sell'):(isUp?'增持':'减持')}</div>
+        </div>
+        <div>
+          <div style="color:${color};font-weight:600;">${changeStr}</div>
+          <div style="color:var(--text-light);font-size:.65rem;margin-top:1px;">${priceStr}</div>
+        </div>
+        <div style="text-align:right;">
+          <div style="color:var(--text);">${sharesStr}</div>
+          <div style="color:var(--text-lighter);font-size:.65rem;margin-top:1px;">${r.pct.toFixed(2)}%</div>
+        </div>
       </div>`;
   }).join('');
 
@@ -1627,16 +1634,14 @@ function _renderGuoPanel(isEn) {
         </div>
       </div>
       <!-- 表头 -->
-      <div style="display:grid;grid-template-columns:90px 60px 70px 80px 1fr;
-                  gap:0;padding:5px 12px;
+      <div style="display:grid;grid-template-columns:minmax(72px,90px) minmax(90px,130px) 1fr;
+                  gap:0;padding:5px 10px;
                   background:var(--navy);
                   font-size:.63rem;font-weight:600;color:rgba(255,255,255,.5);
                   letter-spacing:.5px;text-transform:uppercase;">
-        <span>${isEn?'DATE':'日期'}</span>
-        <span>${isEn?'ACTION':'操作'}</span>
-        <span>${isEn?'CHANGE':'变动'}</span>
-        <span>${isEn?'PRICE':'均价'}</span>
-        <span>${isEn?'TOTAL HELD':'持股总量'}</span>
+        <span>${isEn?'DATE / ACTION':'日期 / 操作'}</span>
+        <span>${isEn?'CHANGE / PRICE':'变动 / 均价'}</span>
+        <span style="text-align:right;">${isEn?'TOTAL HELD':'持股总量'}</span>
       </div>
       <!-- 数据行 -->
       ${rows}
@@ -1744,7 +1749,20 @@ function _renderSpinoffPricePanels(c, isEn) {
     }
   });
 
-  if (!parts.length) return '';
+  if (!parts.length) {
+    // 美股 completed 但没有子公司 ticker，显示提示
+    const isUS = !!(c.parentPricePerf || c.exchange?.includes('NYSE') || c.exchange?.includes('Nasdaq') || c.source === 'edgar');
+    const hasChildTicker = c.spinoffTicker && c.spinoffTicker !== '' && c.spinoffTicker !== 'TBD';
+    const isCompleted = c.status === 'completed';
+    if (isUS && isCompleted && !hasChildTicker) {
+      return `<div style="padding:6px 14px 8px;">
+        <span style="display:inline-flex;align-items:center;gap:5px;padding:4px 10px;background:#f3f4f6;border-radius:6px;font-size:.65rem;color:#6b7280;">
+          📊 ${isEn ? 'Sub-company ticker unknown · price tracking unavailable' : '子公司 Ticker 未知，暂无股价追踪'}
+        </span>
+      </div>`;
+    }
+    return '';
+  }
   return `<div style="padding:6px 14px 8px;display:flex;flex-wrap:wrap;gap:6px;align-items:center;">
     <span style="font-size:.62rem;color:var(--text-lighter);margin-right:2px;">📈 ${isEn?'Price Change':'股价变化'}</span>
     ${parts.join('')}
