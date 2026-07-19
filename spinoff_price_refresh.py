@@ -452,6 +452,12 @@ def process_company(c: dict) -> dict | None:
 # ── 把结果合并写入 spinoff.json ──────────────────────────────────
 
 # ── 美股子公司价格刷新 ────────────────────────────────────────────
+# ── 美股已知分拆日期知识库（兜底 distributionDate 为空的情况）────────────
+US_KNOWN_DIST_DATES = {
+    'HON':  {'spinoffTicker': 'HONA', 'spinoffName': 'Honeywell Aerospace', 'date': '2026-06-29'},
+    'VANI': {'spinoffTicker': 'CRGT', 'spinoffName': 'Cortigent Inc',       'date': '2025-09-01'},
+}
+
 def refresh_us_spinoff_prices(dry_run=False) -> int:
     """
     Fix 2: 刷新 spinoff_us.json 里所有 spinoffPricePerf 条目的今日价格。
@@ -495,10 +501,19 @@ def refresh_us_spinoff_prices(dry_run=False) -> int:
                 print(f"  US refresh: {parent_tk}→{sk} {old_now}→{pnow} chg={chg}%")
 
         # ── 补录：有 spinoffTicker 但尚无 spinoffPricePerf ──────
+        # 同时从知识库兜底没有 spinoffTicker 的 known companies
         sk_field = c.get('spinoffTicker', '').strip()
+        known = US_KNOWN_DIST_DATES.get(parent_tk)
+        if not sk_field and known:
+            sk_field = known['spinoffTicker']
+            if not c.get('spinoffName'):
+                c['spinoffName'] = known['spinoffName']
+            c['spinoffTicker'] = sk_field
         if sk_field and sk_field.upper() != 'TBD' and not c.get('spinoffPricePerf'):
-            # 找分拆日期
+            # 找分拆日期（优先 JSON 字段，兜底知识库）
             dist_date = c.get('distributionDate', '') or c.get('recordDate', '')
+            if not dist_date and known:
+                dist_date = known['date']
             pnow = fetch_price_latest(sk_field)
             if pnow is None: continue
             p0 = fetch_price_on_date(sk_field, dist_date) if dist_date else None
@@ -611,6 +626,59 @@ def write_log(results: list[dict]):
         f.write(json.dumps(entry, ensure_ascii=False) + '\n')
 
 # ── 主函数 ───────────────────────────────────────────────────────
+# ── 港股母公司 pricePerf 刷新 ──────────────────────────────────────────────────
+def refresh_hk_parent_priceperf(dry_run=False) -> int:
+    """
+    对所有港股分拆公司，拉母公司自首次公告日（firstDate）以来的股价变化，
+    写入 c['pricePerf'] = {priceAtAnnouncement, priceNow, changePct, firstAnnouncementDate, currency}
+    """
+    with open(SPINOFF_JSON, encoding='utf-8') as f:
+        data = json.load(f)
+
+    written = 0
+    for c in data.get('companies', []):
+        ticker = c.get('ticker', '')
+        if not ticker: continue
+
+        first_date = c.get('firstDate', '')
+        if not first_date: continue
+
+        # yfinance 港股 ticker 格式：NNNN.HK（4位，去前缀零但保留至少1位）
+        if '.HK' in ticker.upper():
+            code = ticker.split('.')[0].lstrip('0') or '0'
+            yfk = code + '.HK'
+
+        price_at_ann = fetch_price_on_date(yfk, first_date)
+        price_now    = fetch_price_latest(yfk)
+
+        if not price_at_ann or not price_now: continue
+
+        chg = round((price_now - price_at_ann) / price_at_ann * 100, 1)
+        old = c.get('pricePerf') or {}
+        if old.get('changePct') == chg and old.get('priceNow') == price_now:
+            continue  # 无变化跳过
+
+        c['pricePerf'] = {
+            'priceAtAnnouncement':  price_at_ann,
+            'priceNow':             price_now,
+            'changePct':            chg,
+            'firstAnnouncementDate': first_date,
+            'currency':             'HKD',
+            'updatedAt':            TODAY,
+        }
+        written += 1
+        print(f"  HK pricePerf: {ticker} ({yfk}) firstDate={first_date} "
+              f"p0={price_at_ann} now={price_now} chg={chg:+.1f}%")
+
+    if not dry_run and written > 0:
+        with open(SPINOFF_JSON, 'w', encoding='utf-8') as f:
+            json.dump(data, f, ensure_ascii=False, indent=2)
+        print(f"  写入 spinoff.json pricePerf: {written} 条")
+    elif dry_run:
+        print(f"  [dry-run] HK pricePerf: {written} 条待写入")
+    return written
+
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--dry-run', action='store_true', help='仅打印，不写入')
@@ -665,7 +733,11 @@ def main():
     else:
         print("\n[dry-run] 未写入文件")
 
-    # Fix 2: 刷新美股子公司价格
+    # Fix 2: 港股母公司 pricePerf
+    print("\n── 港股母公司股价追踪 ──────────────────────────────────────")
+    refresh_hk_parent_priceperf(dry_run=args.dry_run)
+
+    # Fix 3: 刷新美股子公司价格
     print("\n── 美股子公司价格刷新 ──────────────────────────────────────")
     refresh_us_spinoff_prices(dry_run=args.dry_run)
 
