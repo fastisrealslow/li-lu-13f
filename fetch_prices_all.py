@@ -384,13 +384,18 @@ def fetch_us(investor, cfg):
             else:
                 continue
         else:
-            exit_price = round(sum(c2["closes"]) / len(c2["closes"]), 2)
+            avg2  = sum(c2["closes"]) / len(c2["closes"])
+            high2 = max(c2.get("highs", c2["closes"]))
+            exit_price = round(high2 * 0.7 + avg2 * 0.3, 2)
 
+        # 单季度持仓（建仓=清仓同季）：无论哪种方式都不可信，跳过
+        if qtrs_with_tk[0] == exit_q:
+            continue
         # 建仓成本：用 allTime.avg（如果已算过）
         entry_price = (cost_basis.get(tk2, {}).get("allTime") or {}).get("avg")
         if not entry_price:
-            # 重新算买入季度加权（精简版，不拉历史 K 线，用 13F implied price）
-            buy_implied = []
+            # 重新算买入季度加权（拉历史 K 线，用低价×0.7+均价×0.3 偏低估算）
+            buy_weighted = []
             prev_sh2 = 0
             prev_q2 = None
             for q2 in qtrs_with_tk:
@@ -398,20 +403,28 @@ def fetch_us(investor, cfg):
                     if h["ticker"] == tk2 and h.get("shares", 0) > 0:
                         sh2 = h["shares"]
                         if prev_q2:
-                            def q2n(q): y,qn=q.split(" Q"); return int(y)*4+int(qn)
+                            def q2n(q): y, qn = q.split(" Q"); return int(y) * 4 + int(qn)
                             if q2n(q2) - q2n(prev_q2) > 4:
-                                buy_implied = []
+                                buy_weighted = []
                                 prev_sh2 = 0
                         if sh2 > prev_sh2:
                             delta2 = sh2 - prev_sh2
-                            implied = h["value"] / sh2 if sh2 else 0
-                            buy_implied.append((implied, delta2))
+                            qf2, qt2_ = quarter_ts(q2)
+                            c_buy = yahoo_chart(tk2, qf2, qt2_)
+                            if c_buy and c_buy["closes"]:
+                                avg_b  = sum(c_buy["closes"]) / len(c_buy["closes"])
+                                low_b  = min(c_buy.get("lows", c_buy["closes"]))
+                                p_buy  = low_b * 0.7 + avg_b * 0.3
+                            else:
+                                p_buy  = h["value"] / sh2 if sh2 else 0
+                            buy_weighted.append((p_buy, delta2))
+                            time.sleep(0.3)
                         prev_sh2 = sh2
                         prev_q2 = q2
-            if not buy_implied:
+            if not buy_weighted:
                 continue
-            tc2 = sum(p * s for p, s in buy_implied)
-            ts2 = sum(s for _, s in buy_implied)
+            tc2 = sum(p * s for p, s in buy_weighted)
+            ts2 = sum(s for _, s in buy_weighted)
             entry_price = round(tc2 / ts2, 2) if ts2 > 0 else None
 
         if not entry_price:
