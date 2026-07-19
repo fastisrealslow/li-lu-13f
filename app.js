@@ -363,7 +363,7 @@ async function switchInvestor(v) {
     if (!newData || !newData.current) throw new Error(f + ' invalid');
     data = newData;
     await loadPrices(pf);
-    renderSummary(); renderHoldings(); renderHistoryChart();
+    renderSummary(); renderHoldings(); renderHistoryChart(); renderTimeline();
     renderInsights();
     updateInvestorContent();
   } catch(e) {
