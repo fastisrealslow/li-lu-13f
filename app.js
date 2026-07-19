@@ -571,7 +571,7 @@ async function loadHKHoldings() {
 
 function renderTimeline() {
   const container = document.getElementById('timelineCanvas');
-  if (!container || !data.history || !data.history.holdings) {
+  if (!container || !data || !data.history || !data.history.holdings) {
     if (container) container.innerHTML = '<p style="color:var(--text-lighter);padding:24px;text-align:center;">历史持仓数据尚未加载。请先运行 fetch_13f.py --full。</p>';
     return;
   }
@@ -1077,7 +1077,7 @@ function renderHistoryMobile(container, quarters, values) {
 function renderHistoryChart() {
   const wrap = document.getElementById('historyChartWrap');
   const canvas = document.getElementById('historyChart');
-  if (!canvas || !data.history) return;
+  if (!canvas || !data || !data.history) return;
   const {quarters, values} = data.history;
   const isMobile = window.innerWidth < 640;
 
