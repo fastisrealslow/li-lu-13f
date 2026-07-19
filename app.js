@@ -1228,6 +1228,7 @@ async function renderTimelineTable() {
   const quarters = Object.keys(hdata).sort();
   const latest = quarters[quarters.length - 1];
   const isHK = investor === 'webb';
+  const isEn = lang === 'en';
   const tickerInfo = {};
   for (const q of quarters) {
     for (const h of hdata[q]) {
