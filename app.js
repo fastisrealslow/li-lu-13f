@@ -1272,7 +1272,24 @@ async function renderTimeline() {
     } else if (e.active) {
       status = '<span style="color:#10b981;font-weight:600;">● 持有中</span>';
     } else {
-      status = '<span style="color:var(--text-lighter);">○ 已清仓</span>';
+      // 已清仓 — 尝试显示估算盈亏
+      const ep = (prices?.exitPerf || {})[e.ticker];
+      let exitTag = '';
+      if (ep && ep.entryPrice && ep.exitPrice) {
+        const chg = ep.changePct;
+        const col  = chg >= 0 ? '#10b981' : '#ef4444';
+        const sign = chg >= 0 ? '+' : '';
+        const entryLabel = isEn ? 'Entry' : '建仓';
+        const exitLabel  = isEn ? 'Exit'  : '清仓';
+        exitTag = `<div style="margin-top:4px;font-size:.65rem;color:var(--text-lighter);line-height:1.6;">
+          <span style="color:var(--text-lighter);">${entryLabel} ~$${ep.entryPrice}</span>
+          <span style="margin:0 3px;">→</span>
+          <span style="color:var(--text-lighter);">${exitLabel} ~$${ep.exitPrice}</span>
+          <span style="margin-left:4px;font-weight:700;color:${col};">${sign}${chg}%</span>
+          <span style="margin-left:3px;font-size:.6rem;color:var(--text-lighter);">(${isEn?'est.':'估算'})</span>
+        </div>`;
+      }
+      status = '<span style="color:var(--text-lighter);">○ ' + (isEn ? 'Exited' : '已清仓') + '</span>' + exitTag;
     }
     html += `<tr>
       <td class="stock-cell"><span class="ticker-line">${fmtTicker(e.ticker)}</span><span class="name-line">${cn(e.name, e)}</span><span class="sector-badge">${ts(e.sector)}</span><span style="display:block;font-size:.65rem;color:var(--text-lighter);margin-top:2px;">${e.qCount} 季</span></td>

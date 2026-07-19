@@ -343,9 +343,96 @@ def fetch_us(investor, cfg):
         cost_basis[tk] = {"recent": recent, "allTime": all_time}
         time.sleep(0.3)
 
+    # ── exitPerf：已清仓持仓估算盈亏 ──────────────────────────────────
+    exit_perf = {}
+    current_tks = {h["ticker"] for h in data.get("current", {}).get("holdings", [])}
+    # 找在 history 里出现过、但不在当前持仓的 ticker
+    exited_tks = set()
+    for holdings in hist_holdings.values():
+        for h in holdings:
+            tk2 = h["ticker"]
+            if not tk2.startswith("?") and tk2 not in current_tks:
+                exited_tks.add(tk2)
+
+    existing_ep = existing_prices.get("exitPerf", {})
+
+    for tk2 in exited_tks:
+        # 找最后出现的季度（即清仓季度）
+        qtrs_with_tk = sorted(
+            [q for q, hlist in hist_holdings.items()
+             if any(h["ticker"] == tk2 for h in hlist)]
+        )
+        if not qtrs_with_tk:
+            continue
+        exit_q = qtrs_with_tk[-1]
+
+        # 缓存检查：exit_q 没变就不重算
+        ex_ep = existing_ep.get(tk2, {})
+        if ex_ep.get("exitQuarter") == exit_q and ex_ep.get("exitPrice") and ex_ep.get("entryPrice"):
+            exit_perf[tk2] = ex_ep
+            continue
+
+        # 清仓季度均价作为卖出价估算
+        qf, qt_ = quarter_ts(exit_q)
+        c2 = yahoo_chart(tk2, qf, qt_)
+        if not c2 or not c2["closes"]:
+            # 用 13F value/shares 兜底
+            for h in hist_holdings.get(exit_q, []):
+                if h["ticker"] == tk2 and h.get("shares", 0) > 0:
+                    exit_price = round(h["value"] / h["shares"], 2)
+                    break
+            else:
+                continue
+        else:
+            exit_price = round(sum(c2["closes"]) / len(c2["closes"]), 2)
+
+        # 建仓成本：用 allTime.avg（如果已算过）
+        entry_price = (cost_basis.get(tk2, {}).get("allTime") or {}).get("avg")
+        if not entry_price:
+            # 重新算买入季度加权（精简版，不拉历史 K 线，用 13F implied price）
+            buy_implied = []
+            prev_sh2 = 0
+            prev_q2 = None
+            for q2 in qtrs_with_tk:
+                for h in hist_holdings.get(q2, []):
+                    if h["ticker"] == tk2 and h.get("shares", 0) > 0:
+                        sh2 = h["shares"]
+                        if prev_q2:
+                            def q2n(q): y,qn=q.split(" Q"); return int(y)*4+int(qn)
+                            if q2n(q2) - q2n(prev_q2) > 4:
+                                buy_implied = []
+                                prev_sh2 = 0
+                        if sh2 > prev_sh2:
+                            delta2 = sh2 - prev_sh2
+                            implied = h["value"] / sh2 if sh2 else 0
+                            buy_implied.append((implied, delta2))
+                        prev_sh2 = sh2
+                        prev_q2 = q2
+            if not buy_implied:
+                continue
+            tc2 = sum(p * s for p, s in buy_implied)
+            ts2 = sum(s for _, s in buy_implied)
+            entry_price = round(tc2 / ts2, 2) if ts2 > 0 else None
+
+        if not entry_price:
+            continue
+
+        chg = round((exit_price - entry_price) / entry_price * 100, 1)
+        # 找最早建仓季度（清仓重置后的第一个 buy quarter）
+        entry_q = qtrs_with_tk[0]
+        exit_perf[tk2] = {
+            "entryQuarter": entry_q,
+            "entryPrice":   entry_price,
+            "exitQuarter":  exit_q,
+            "exitPrice":    exit_price,
+            "changePct":    chg,
+        }
+        print(f"  exitPerf {tk2}: entry~${entry_price} ({entry_q}) → exit~${exit_price} ({exit_q}) {chg:+.1f}%")
+        time.sleep(0.3)
+
     # ── 写出 ──
     out = {"updated": datetime.utcnow().isoformat() + "Z",
-           "quotes": quotes, "costBasis": cost_basis}
+           "quotes": quotes, "costBasis": cost_basis, "exitPerf": exit_perf}
     with open(prices_file, "w") as f:
         json.dump(out, f, indent=2)
     print(f"\n✅ {prices_file} written ({len(quotes)} quotes, {len(cost_basis)} cost basis)")
