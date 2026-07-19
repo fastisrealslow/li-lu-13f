@@ -2,7 +2,7 @@ name: Update 13F Data
 
 on:
   schedule:
-    - cron: '0 0,8 * * *'  # UTC 00:00 (HKT 08:00 开盘前) + UTC 08:00 (HKT 16:00 收盘后)
+    - cron: '0 0,13 * * *'  # UTC 00:00 (HKT 08:00 港股开盘前) + UTC 13:00 (HKT 21:00 美股盘中)
   workflow_dispatch:
 
 permissions:
@@ -432,9 +432,12 @@ jobs:
             echo "No changes to commit"
           else
             git commit -m "auto: update 13F data & prices (all investors)"
-            git stash
-            git pull --rebase origin master
-            git stash pop || true
+            # 用 merge 策略避免 rebase 冲突；数据文件互不覆盖，merge 总能成功
+            for i in 1 2 3; do
+              git pull origin master --no-rebase --no-edit && break
+              echo "Pull attempt $i failed, retrying in 5s..."
+              sleep 5
+            done
             git push
             echo "Changes pushed!"
           fi

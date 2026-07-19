@@ -582,6 +582,22 @@ def save_data(path: str, data: dict):
         f.write("\n")
 
 
+def warn_unmapped(data: dict):
+    """打印所有未识别的 ticker（以 ? 开头），提醒补充 TICKER_MAP。"""
+    unmapped = set()
+    for h in data.get("current", {}).get("holdings", []):
+        if h["ticker"].startswith("?"):
+            unmapped.add(h["ticker"])
+    for holdings in data.get("history", {}).get("holdings", {}).values():
+        for h in holdings:
+            if h["ticker"].startswith("?"):
+                unmapped.add(h["ticker"])
+    if unmapped:
+        print(f"⚠️  未识别 ticker（需补充 TICKER_MAP）: {sorted(unmapped)}")
+    else:
+        print("✅ 所有 ticker 均已识别")
+
+
 # ─────────────────────────────────────────────────────────────
 # 主流程
 # ─────────────────────────────────────────────────────────────
@@ -654,6 +670,7 @@ def process_investor(key: str, config: dict, full_mode: bool):
         data["history"]["holdings"][q_label] = cur_holdings
 
     save_data(config["path"], data)
+    warn_unmapped(data)
     print(f"Updated: {len(cur_holdings)} holdings, ${total:,.0f} total")
 
 
@@ -764,6 +781,7 @@ def process_full(key: str, config: dict, filings: list[dict], data: dict):
     data["history"]["holdings"][latest_q] = latest_holdings
 
     save_data(config["path"], data)
+    warn_unmapped(data)
     print(f"\nDone: {new_quarters} new quarters, {skipped} skipped.")
     print(f"Total quarters: {len(data['history']['quarters'])}")
     print(f"Current: {len(latest_holdings)} holdings, ${latest_total:,.0f}")

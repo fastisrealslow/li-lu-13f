@@ -1226,6 +1226,7 @@ async function renderTimeline() {
   }
   const quarters = Object.keys(hdata).sort();
   const latest = quarters[quarters.length - 1];
+  const isHK = investor === 'webb';
   const tickerInfo = {};
   for (const q of quarters) {
     for (const h of hdata[q]) {
@@ -1282,6 +1283,7 @@ async function renderTimeline() {
   });
   html += '</tbody></table></div>';
   html += '<div style="font-size:.68rem;color:var(--text-lighter);margin-top:8px;">● 持有中 = 当前仍在组合内 | ○ 已清仓 = 历史持仓 | ◐ 卖出后重新买入 = 有中断</div>';
+  if (isHK) html += '<div style="font-size:.68rem;color:var(--text-lighter);margin-top:4px;">⚠️ Webb 港股持仓数据来源于公开权益披露，非 13F 报告</div>';
   container.innerHTML = html;
   renderHKHoldings();
 }

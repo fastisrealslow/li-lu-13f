@@ -70,17 +70,28 @@ def get_finnhub_key(override=None):
     _API_KEY = key
     return _API_KEY
 
-def finnhub(path):
+def finnhub(path, _retries=3):
     key = get_finnhub_key()
     sep = "&" if "?" in path else "?"
     url = f"https://finnhub.io/api/v1{path}{sep}token={key}"
-    try:
-        req = urllib.request.Request(url, headers={"User-Agent": "13F-Tracker/1.0"})
-        with urllib.request.urlopen(req, timeout=20) as resp:
-            return json.loads(resp.read().decode())
-    except Exception as e:
-        print(f"  [Finnhub error] {e}", file=sys.stderr)
-        return None
+    for attempt in range(_retries):
+        try:
+            req = urllib.request.Request(url, headers={"User-Agent": "13F-Tracker/1.0"})
+            with urllib.request.urlopen(req, timeout=20) as resp:
+                return json.loads(resp.read().decode())
+        except urllib.error.HTTPError as e:
+            if e.code == 429:
+                wait = 30 * (attempt + 1)
+                print(f"  [Finnhub 429] 限速，等待 {wait}s 后重试...", file=sys.stderr)
+                time.sleep(wait)
+            else:
+                print(f"  [Finnhub HTTP {e.code}] {e}", file=sys.stderr)
+                return None
+        except Exception as e:
+            print(f"  [Finnhub error] {e}", file=sys.stderr)
+            return None
+    print(f"  [Finnhub] {_retries} 次重试均失败", file=sys.stderr)
+    return None
 
 # ─────────────────────────────────────────────
 # 港股报价 (新浪财经，适用于 Webb)
@@ -402,7 +413,50 @@ def fetch_hk(investor, cfg):
                       "quarter": buy_q, "source": "13f-estimate", "currency": "HKD"}
             print(f"HK${est:.3f} (13F fallback)")
 
-        cost_basis[tk] = {"recent": recent, "allTime": None}
+        # allTime — 按买入季度加权（港股同样逻辑）
+        all_time = None
+        qt_data = []
+        for q_key in sorted(hist_holdings.keys()):
+            for qh in hist_holdings[q_key]:
+                if qh["ticker"] == tk and qh.get("shares", 0) > 0:
+                    qt_data.append({"quarter": q_key, "shares": qh["shares"], "value": qh["value"]})
+        buy_qtrs_hk = []
+        prev_sh_hk = 0
+        for qd in qt_data:
+            if qd["shares"] > prev_sh_hk:
+                buy_qtrs_hk.append({**qd, "delta": qd["shares"] - prev_sh_hk})
+            prev_sh_hk = qd["shares"]
+
+        if buy_qtrs_hk:
+            ex_a = existing_cb.get(tk, {}).get("allTime") or {}
+            q_keys_hk = [q["quarter"] for q in qt_data]
+            if (ex_a.get("avg") and ex_a.get("first") == q_keys_hk[0]
+                    and ex_a.get("last") == q_keys_hk[-1]
+                    and ex_a.get("quarters", 0) >= len(buy_qtrs_hk)):
+                all_time = ex_a
+                print(f"  {tk} all-time wavg=HK${ex_a['avg']} (cached)")
+            else:
+                tc, ts_, vq = 0.0, 0, 0
+                for qd in buy_qtrs_hk:
+                    qf, qt_ = quarter_ts(qd["quarter"])
+                    c2 = yahoo_chart(tk, qf, qt_)
+                    if c2 and c2["closes"]:
+                        qp = min(c2["lows"]) * 0.7 + (sum(c2["closes"]) / len(c2["closes"])) * 0.3
+                    else:
+                        qp = qd["value"] / qd["shares"] if qd["shares"] else 0
+                    tc += qp * qd["delta"]
+                    ts_ += qd["delta"]
+                    vq += 1
+                    time.sleep(0.5)
+                if ts_ > 0:
+                    all_avg = round(tc / ts_, 3)
+                    all_time = {"avg": all_avg, "quarters": vq,
+                                "first": qt_data[0]["quarter"],
+                                "last":  qt_data[-1]["quarter"],
+                                "currency": "HKD"}
+                    print(f"  {tk} all-time wavg=HK${all_avg} ({vq}q)")
+
+        cost_basis[tk] = {"recent": recent, "allTime": all_time}
         time.sleep(1)
 
     out = {"quarter": quarter,
