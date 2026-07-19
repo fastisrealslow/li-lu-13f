@@ -363,7 +363,7 @@ async function switchInvestor(v) {
     if (!newData || !newData.current) throw new Error(f + ' invalid');
     data = newData;
     await loadPrices(pf);
-    renderSummary(); renderHoldings(); renderHistoryChart(); renderTimeline();
+    renderSummary(); renderHoldings(); renderHistoryChart(); renderTimelineTable();
     renderInsights();
     updateInvestorContent();
   } catch(e) {
@@ -1217,8 +1217,9 @@ function renderHistoryChart() {
 }
 
 // ── TIMELINE ──
-async function renderTimeline() {
+async function renderTimelineTable() {
   const container = document.getElementById('timelineCanvas');
+  if (!data) return;
   const hdata = data.history?.holdings;
   if (!hdata || Object.keys(hdata).length === 0) {
     container.innerHTML = '<p style="text-align:center;color:var(--text-lighter);padding:40px;">历史持仓数据加载中…</p>';
@@ -1352,7 +1353,7 @@ function switchTab(name) {
     b.classList.toggle('active',['current','changes','history','homework','spinoff','spinoff_us'][i]===name);
   });
   if (name==='changes') { renderChanges(); renderInsights(); }
-  if (name==='history') { renderHistoryChart(); renderTimeline(); }
+  if (name==='history') { renderHistoryChart(); renderTimelineTable(); }
   if (name==='homework') { renderHomework(); }
   if (name==='spinoff') { renderSpinoff(); }
   if (name==='spinoff_us') { renderSpinoffUS(); }
