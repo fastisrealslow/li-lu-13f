@@ -349,6 +349,7 @@ th .info-wrap{position:relative;display:inline-flex}
       <button class="tab-btn" onclick="switchTab('homework')" style="position:relative;"><span data-i18n="tabHomework">📋 价値筛选</span></button>
       <button class="tab-btn" onclick="switchTab('spinoff')" style="position:relative;"><span data-i18n="tabSpinoff">🇭🇰 港股分拆</span></button>
       <button class="tab-btn" onclick="switchTab('spinoff_us')" style="position:relative;"><span data-i18n="tabSpinoffUS">🇺🇸 美股分拆</span></button>
+      <button class="tab-btn" onclick="switchTab('game')" style="position:relative;"><span data-i18n="tabGame">🎴 思维试炼</span></button>
     </div>
     </div>
     <div id="tab-current">
@@ -375,6 +376,9 @@ th .info-wrap{position:relative;display:inline-flex}
     </div>
     <div id="tab-spinoff_us" class="d-none">
       <div id="spinoffUSContent"></div>
+    </div>
+    <div id="tab-game" class="d-none">
+      <div id="gameContent"></div>
     </div>
     <div id="tab-history" class="d-none">
       <!-- 桌面折线图 -->
@@ -529,7 +533,7 @@ th .info-wrap{position:relative;display:inline-flex}
   </div>
 </footer>
 
-<script src="app.js?v=51"></script>
+<script src="app.js?v=53"></script>
 <script>
 const nav=document.getElementById('mainNav');
 window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',window.scrollY>60));
