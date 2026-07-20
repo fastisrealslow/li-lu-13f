@@ -286,59 +286,65 @@ def fetch_us(investor, cfg):
                       "quarter": buy_q, "source": "13f-estimate"}
             print(f"estim=${est} (13F fallback)")
 
-        # all-time 成本（只统计买入季度，即 delta_shares > 0 的季度）
+        # all-time 成本：平均成本法（AVCO）
+        # 买入 → 更新持仓均价；卖出 → 均价不变；gap>4季 → 重置
         quarterly_data = []
         for q_key, q_h in sorted(hist_holdings.items()):
             for qh in q_h:
                 if qh["ticker"] == tk and qh.get("shares", 0) > 0:
                     quarterly_data.append({"quarter": q_key, "shares": qh["shares"], "value": qh["value"]})
-        # 过滤出买入季度（股数增加的季度）
-        # 如果出现大时间跳跃（>4个季度空窗），视为清仓后重新建仓，只取最后一轮
-        buy_qtrs = []
-        prev_sh = 0
-        prev_q = None
-        for qd in quarterly_data:
-            if prev_q is not None:
-                # 计算季度跨度
-                def q2n(q):
-                    y, qn = q.split(" Q"); return int(y)*4 + int(qn)
-                gap = q2n(qd["quarter"]) - q2n(prev_q)
-                if gap > 4:  # 超过4季度空窗 → 清仓重置
-                    buy_qtrs = []  # 丢弃之前的，重新开始
-                    prev_sh = 0
-            if qd["shares"] > prev_sh:
-                buy_qtrs.append({**qd, "delta": qd["shares"] - prev_sh})
-            prev_sh = qd["shares"]
-            prev_q = qd["quarter"]
 
         all_time = None
-        if buy_qtrs:
+        if quarterly_data:
             ex_a = existing_cb.get(tk, {}).get("allTime")
             q_keys = [q["quarter"] for q in quarterly_data]
-            if (ex_a and ex_a.get("avg") and ex_a.get("first") == q_keys[0] and ex_a.get("last") == q_keys[-1]
-                    and ex_a.get("quarters", 0) >= len(buy_qtrs)):
+            # 缓存检查：first/last 季度一致且 allTime 有值，直接复用
+            if (ex_a and ex_a.get("avg") and ex_a.get("first") == q_keys[0]
+                    and ex_a.get("last") == q_keys[-1] and ex_a.get("method") == "avco"):
                 all_time = ex_a
-                print(f"| all-time wavg=${ex_a['avg']} ({ex_a['quarters']}q, cached)")
+                print(f"| all-time avco=${ex_a['avg']} ({ex_a['buy_quarters']}q buy, cached)")
             else:
-                total_cost, total_shares, valid_q = 0.0, 0, 0
-                for qd in buy_qtrs:
-                    qf, qt_ = quarter_ts(qd["quarter"])
-                    c2 = yahoo_chart(tk, qf, qt_)
-                    if c2 and c2["closes"]:
-                        q_price = min(c2["lows"]) * 0.7 + (sum(c2["closes"]) / len(c2["closes"])) * 0.3
-                    else:
-                        q_price = qd["value"] / qd["shares"]
-                        if q_price > 5000:
-                            q_price /= 1000
-                    total_cost   += q_price * qd["delta"]
-                    total_shares += qd["delta"]
-                    valid_q += 1
-                    time.sleep(0.5)
-                all_avg  = round(total_cost / total_shares, 2)
-                all_time = {"avg": all_avg, "quarters": valid_q,
-                            "first": quarterly_data[0]["quarter"],
-                            "last":  quarterly_data[-1]["quarter"]}
-                print(f"| all-time wavg=${all_avg} ({valid_q}q)")
+                avco_price  = 0.0   # 当前持仓均价
+                avco_shares = 0     # 当前持仓数量
+                prev_sh = 0
+                prev_q  = None
+                buy_q_count = 0
+                for qd in quarterly_data:
+                    cur_sh = qd["shares"]
+                    if prev_q is not None:
+                        def q2n(q):
+                            y, qn = q.split(" Q"); return int(y)*4 + int(qn)
+                        gap = q2n(qd["quarter"]) - q2n(prev_q)
+                        if gap > 4:  # 清仓重置
+                            avco_price  = 0.0
+                            avco_shares = 0
+                            prev_sh     = 0
+                    if cur_sh > prev_sh:  # 买入
+                        delta = cur_sh - prev_sh
+                        qf, qt_ = quarter_ts(qd["quarter"])
+                        c2 = yahoo_chart(tk, qf, qt_)
+                        if c2 and c2["closes"]:
+                            buy_price = min(c2["lows"]) * 0.7 + (sum(c2["closes"]) / len(c2["closes"])) * 0.3
+                        else:
+                            buy_price = qd["value"] / cur_sh
+                            if buy_price > 5000:
+                                buy_price /= 1000
+                        # AVCO 更新：(旧均价×旧仓 + 买入价×新增量) / 新仓
+                        avco_price  = (avco_price * avco_shares + buy_price * delta) / (avco_shares + delta)
+                        avco_shares += delta
+                        buy_q_count += 1
+                        time.sleep(0.5)
+                    elif cur_sh < prev_sh:  # 卖出：均价不变，仓位减少
+                        avco_shares = cur_sh
+                    prev_sh = cur_sh
+                    prev_q  = qd["quarter"]
+
+                if avco_shares > 0 and avco_price > 0:
+                    all_avg  = round(avco_price, 2)
+                    all_time = {"avg": all_avg, "buy_quarters": buy_q_count,
+                                "first": q_keys[0], "last": q_keys[-1],
+                                "method": "avco"}
+                    print(f"| all-time avco=${all_avg} ({buy_q_count}q buy)")
 
         cost_basis[tk] = {"recent": recent, "allTime": all_time}
         time.sleep(0.3)
@@ -394,10 +400,11 @@ def fetch_us(investor, cfg):
         # 建仓成本：用 allTime.avg（如果已算过）
         entry_price = (cost_basis.get(tk2, {}).get("allTime") or {}).get("avg")
         if not entry_price:
-            # 重新算买入季度加权（拉历史 K 线，用低价×0.7+均价×0.3 偏低估算）
-            buy_weighted = []
+            # exitPerf fallback：AVCO 重算建仓成本
+            avco_p2  = 0.0
+            avco_s2  = 0
             prev_sh2 = 0
-            prev_q2 = None
+            prev_q2  = None
             for q2 in qtrs_with_tk:
                 for h in hist_holdings.get(q2, []):
                     if h["ticker"] == tk2 and h.get("shares", 0) > 0:
@@ -405,27 +412,27 @@ def fetch_us(investor, cfg):
                         if prev_q2:
                             def q2n(q): y, qn = q.split(" Q"); return int(y) * 4 + int(qn)
                             if q2n(q2) - q2n(prev_q2) > 4:
-                                buy_weighted = []
-                                prev_sh2 = 0
+                                avco_p2 = 0.0; avco_s2 = 0; prev_sh2 = 0
                         if sh2 > prev_sh2:
                             delta2 = sh2 - prev_sh2
                             qf2, qt2_ = quarter_ts(q2)
                             c_buy = yahoo_chart(tk2, qf2, qt2_)
                             if c_buy and c_buy["closes"]:
-                                avg_b  = sum(c_buy["closes"]) / len(c_buy["closes"])
-                                low_b  = min(c_buy.get("lows", c_buy["closes"]))
-                                p_buy  = low_b * 0.7 + avg_b * 0.3
+                                avg_b = sum(c_buy["closes"]) / len(c_buy["closes"])
+                                low_b = min(c_buy.get("lows", c_buy["closes"]))
+                                p_buy = low_b * 0.7 + avg_b * 0.3
                             else:
-                                p_buy  = h["value"] / sh2 if sh2 else 0
-                            buy_weighted.append((p_buy, delta2))
+                                p_buy = h["value"] / sh2 if sh2 else 0
+                            avco_p2 = (avco_p2 * avco_s2 + p_buy * delta2) / (avco_s2 + delta2)
+                            avco_s2 += delta2
                             time.sleep(0.3)
+                        elif sh2 < prev_sh2:
+                            avco_s2 = sh2  # 卖出：均价不变
                         prev_sh2 = sh2
-                        prev_q2 = q2
-            if not buy_weighted:
+                        prev_q2  = q2
+            if avco_s2 <= 0 or avco_p2 <= 0:
                 continue
-            tc2 = sum(p * s for p, s in buy_weighted)
-            ts2 = sum(s for _, s in buy_weighted)
-            entry_price = round(tc2 / ts2, 2) if ts2 > 0 else None
+            entry_price = round(avco_p2, 2)
 
         if not entry_price:
             continue
