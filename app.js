@@ -800,12 +800,12 @@ function renderHoldings() {
       
       const cur$ = currSymbol(h.ticker);
       costHtml = `<div title="近期 ${rc.quarter}: 买入估算 ${cur$}${rc.buy} [${cur$}${rc.low}-${cur$}${rc.high}]\n${isYahoo?'Yahoo历史K线, 偏低价加权':'13F 市值/股数'}`;
-      if (at) costHtml += `\n\n全周期 (${at.first}~${at.last}, ${at.quarters}季): 均价 $${at.avg}`;
+      if (at) costHtml += `\n\n全周期 (${at.first}~${at.last}, ${at.buy_quarters ?? at.quarters}季): 均价 $${at.avg}`;
       costHtml += `" style="cursor:help">`;
       costHtml += `<div style="font-weight:600">${cur$}${rc.buy}</div>`;
       costHtml += `<div style="font-size:.65rem;color:var(--text-lighter);">${t('costRecent')} ${srcBadge} <span class="${pnlClass}" style="font-weight:500;">${pnlSign}${pnl}%</span></div>`;
       if (at) costHtml += `<div style="font-weight:500;color:var(--navy);margin-top:3px;">$${at.avg}</div>`;
-      if (at) costHtml += `<div style="font-size:.6rem;color:var(--text-lighter);">${t('costAllTime')} (${at.quarters}季)</div>`;
+      if (at) costHtml += `<div style="font-size:.6rem;color:var(--text-lighter);">${t('costAllTime')} (${at.buy_quarters ?? at.quarters}季)</div>`;
       costHtml += `</div>`;
     }
 
