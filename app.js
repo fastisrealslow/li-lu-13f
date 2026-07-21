@@ -16,6 +16,7 @@ const T = {
   tabHomework: ['📋 价值筛选','📋 Value Picks'],
   tabSpinoff:  ['🇭🇰 港股分拆','🇭🇰 HK Spin-offs'],
   tabSpinoffUS: ['🇺🇸 美股分拆','🇺🇸 US Spin-offs'],
+  tabGame: ['🎴 思维试炼','🎴 Munger Trials'],
   selLabel: ['切换投资者：','Investor:'],
   tabTimeline: ['⏳ 时间轴','⏳ Timeline'],
   // Table headers
@@ -408,6 +409,7 @@ function switchLang() {
   if (!document.getElementById('tab-homework').classList.contains('d-none')) renderHomework();
   if (!document.getElementById('tab-spinoff').classList.contains('d-none')) renderSpinoff();
   if (!document.getElementById('tab-spinoff_us').classList.contains('d-none')) renderSpinoffUS();
+  if (!document.getElementById('tab-game').classList.contains('d-none')) { _gameLoaded = false; renderGame(); }
 }
 
 // ========== FORMAT HELPERS ==========
@@ -1347,17 +1349,49 @@ async function renderHKHoldings() {
 }
 
 function switchTab(name) {
-  ['current','changes','history','homework','spinoff','spinoff_us'].forEach(t=>{
+  ['current','changes','history','homework','spinoff','spinoff_us','game'].forEach(t=>{
     document.getElementById('tab-'+t).classList.toggle('d-none',t!==name);
   });
   document.querySelectorAll('.tab-btn').forEach((b,i)=>{
-    b.classList.toggle('active',['current','changes','history','homework','spinoff','spinoff_us'][i]===name);
+    b.classList.toggle('active',['current','changes','history','homework','spinoff','spinoff_us','game'][i]===name);
   });
   if (name==='changes') { renderChanges(); renderInsights(); }
   if (name==='history') { renderHistoryChart(); renderTimelineTable(); }
   if (name==='homework') { renderHomework(); }
   if (name==='spinoff') { renderSpinoff(); }
   if (name==='spinoff_us') { renderSpinoffUS(); }
+  if (name==='game') { renderGame(); }
+}
+
+const GAME_URL = 'game/index.html';
+let _gameLoaded = false;
+function renderGame() {
+  const el = document.getElementById('gameContent');
+  if (!el || _gameLoaded) return;
+  const isEn = lang === 'en';
+  el.innerHTML = `
+    <div style="margin-bottom:14px;">
+      <h3 style="font-family:var(--serif);font-size:1.05rem;color:var(--navy);margin:0 0 6px;font-weight:700;">
+        ${isEn?'🎴 The Munger Trials: The $2 Trillion Answer':'🎴 格罗茨的试炼：2万亿的答案'}
+      </h3>
+      <p style="font-size:.8rem;color:var(--text-light);line-height:1.6;margin:0;">
+        ${isEn
+          ? 'An interactive narrative based on Charlie Munger\'s 1996 speech. Play as an 1884 entrepreneur and derive the mental models behind the Coca-Cola empire through five trials.'
+          : '一个改编自查理·芒格 1996 年演讲的互动叙事。扮演 1884 年的创业者，通过五个试炼亲手推导出可口可乐帝国背后的思维模型。'}
+      </p>
+      <a href="${GAME_URL}" target="_blank" rel="noopener"
+         style="display:inline-block;margin-top:8px;font-size:.75rem;color:var(--gold);text-decoration:none;">
+        ${isEn?'↗ Open in new tab':'↗ 在新标签页打开'}
+      </a>
+    </div>
+    <div style="position:relative;width:100%;border:1px solid var(--border);border-radius:12px;overflow:hidden;background:#f5f0e6;box-shadow:0 4px 16px rgba(0,0,0,0.08);">
+      <iframe src="${GAME_URL}"
+        style="width:100%;height:78vh;min-height:560px;border:0;display:block;"
+        allow="autoplay; fullscreen"
+        loading="lazy"
+        title="Munger Trials Game"></iframe>
+    </div>`;
+  _gameLoaded = true;
 }
 
 let _homeworkCache = null;
