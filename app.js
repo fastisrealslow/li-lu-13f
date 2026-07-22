@@ -806,8 +806,17 @@ function renderHoldings() {
       costHtml += `" style="cursor:help">`;
       costHtml += `<div style="font-weight:600">${cur$}${rc.buy}</div>`;
       costHtml += `<div style="font-size:.65rem;color:var(--text-lighter);">${t('costRecent')} ${srcBadge} <span class="${pnlClass}" style="font-weight:500;">${pnlSign}${pnl}%</span></div>`;
-      if (at) costHtml += `<div style="font-weight:500;color:var(--navy);margin-top:3px;">$${at.avg}</div>`;
-      if (at) costHtml += `<div style="font-size:.6rem;color:var(--text-lighter);">${t('costAllTime')} (${at.buy_quarters ?? at.quarters}季)</div>`;
+      if (at) {
+        costHtml += `<div style="font-weight:500;color:var(--navy);margin-top:3px;">$${at.avg}</div>`;
+        // 持仓时间：从首次建仓到当前报告季
+        const holdQ = (q) => { const [y,n]=q.split(' Q'); return parseInt(y)*4+parseInt(n); };
+        const curQ  = data?.current?.quarter || at.last;
+        const nq    = Math.max(holdQ(curQ) - holdQ(at.first) + 1, 1);
+        const yrs   = (nq / 4).toFixed(1).replace(/\.0$/,'');
+        const holdLabel = isEn ? `${at.buy_quarters ?? at.quarters}q buy · held ${nq}q / ${yrs}y`
+                                : `${at.buy_quarters ?? at.quarters}季买入 · 持有 ${nq}季 / ${yrs}年`;
+        costHtml += `<div style="font-size:.6rem;color:var(--text-lighter);">${t('costAllTime')} <span style="color:var(--text-light);">(${holdLabel})</span></div>`;
+      }
       costHtml += `</div>`;
     }
 
