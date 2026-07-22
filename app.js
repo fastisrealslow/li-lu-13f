@@ -813,8 +813,9 @@ function renderHoldings() {
         const curQ  = data?.current?.quarter || at.last;
         const nq    = Math.max(holdQ(curQ) - holdQ(at.first) + 1, 1);
         const yrs   = (nq / 4).toFixed(1).replace(/\.0$/,'');
-        const holdLabel = isEn ? `${at.buy_quarters ?? at.quarters}q buy · held ${nq}q / ${yrs}y`
-                                : `${at.buy_quarters ?? at.quarters}季买入 · 持有 ${nq}季 / ${yrs}年`;
+        const _en = lang === 'en';
+        const holdLabel = _en ? `${at.buy_quarters ?? at.quarters}q buy · held ${nq}q / ${yrs}y`
+                               : `${at.buy_quarters ?? at.quarters}季买入 · 持有 ${nq}季 / ${yrs}年`;
         costHtml += `<div style="font-size:.6rem;color:var(--text-lighter);">${t('costAllTime')} <span style="color:var(--text-light);">(${holdLabel})</span></div>`;
       }
       costHtml += `</div>`;
