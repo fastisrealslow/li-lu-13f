@@ -1876,6 +1876,31 @@ function _soExtractSpinSub(company) {
   return '';
 }
 
+
+// ── 分拆排序 + 新进展 badge ─────────────────────────────────────────
+function _spinoffIsNew(c) {
+  // lastUpdated 距今 ≤ 7 天算"新进展"
+  const lu = c.lastUpdated;
+  if (!lu) return false;
+  return (Date.now() - new Date(lu).getTime()) <= 7 * 24 * 3600 * 1000;
+}
+function _spinoffNewBadge(c, isEn) {
+  if (!_spinoffIsNew(c)) return '';
+  const label = isEn ? 'Updated' : '新进展';
+  return `<span style="font-size:.6rem;font-weight:700;color:#fff;background:#ef4444;
+    border-radius:10px;padding:1px 6px;margin-left:4px;vertical-align:middle;
+    letter-spacing:.3px;">${label}</span>`;
+}
+function _spinoffSort(companies, getDate) {
+  // 新进展（≤7天）优先，同组内按最新日期倒序
+  return [...companies].sort((a, b) => {
+    const na = _spinoffIsNew(a), nb = _spinoffIsNew(b);
+    if (na !== nb) return na ? -1 : 1;
+    const da = getDate(a), db = getDate(b);
+    return (db || '').localeCompare(da || '');
+  });
+}
+
 async function renderSpinoff() {
   const el = document.getElementById('spinoffContent');
   if (!el) return;
@@ -1992,7 +2017,9 @@ async function renderSpinoff() {
     <!-- 数据列表 -->
     <div id="soList" style="border:1px solid var(--border);border-radius:0 0 10px 10px;overflow:hidden;margin-top:-20px;">`;
 
-    companies.forEach((c, idx) => {
+    // 排序：新进展优先，其次按最新公告日期
+    const sortedCompanies = _spinoffSort(companies, c => (c.announcements||[])[0]?.date || '');
+    sortedCompanies.forEach((c, idx) => {
       const ann  = c.announcements || [];
       const prog = _soProgress(ann, isEn);
       const latest = ann[0] || {};
@@ -2026,7 +2053,7 @@ async function renderSpinoff() {
              onmouseout="this.style.background='${isEven?'#fff':'#faf9f7'}'">
           <!-- 公司 -->
           <div>
-            <div style="font-weight:700;font-size:.84rem;color:var(--navy);letter-spacing:.3px;line-height:1.2;">${fmtTicker(c.ticker)}</div>
+            <div style="font-weight:700;font-size:.84rem;color:var(--navy);letter-spacing:.3px;line-height:1.2;">${fmtTicker(c.ticker)}${_spinoffNewBadge(c,isEn)}</div>
             <div style="font-size:.7rem;color:var(--text-light);margin-top:2px;
                         white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:118px;"
                  title="${c.nameCN||c.stockName}">${c.nameCN||c.stockName}</div>
@@ -2382,6 +2409,8 @@ function _usApplyFilters() {
   if (!listEl) return;
   if (!list.length) { listEl.innerHTML = `<p style="color:var(--text-lighter);padding:20px;text-align:center;">${isEn?'No matches':'无匹配结果'}</p>`; return; }
 
+  // 排序：新进展优先，其次按最新公告日期
+  list = _spinoffSort(list, c => (c.announcements||[])[0]?.date || c.distributionDate || '');
   listEl.innerHTML = list.map(c => {
     const latestDate = c.announcements?.[0]?.date || '';
     const annsArr = c.announcements || [];
@@ -2428,7 +2457,7 @@ function _usApplyFilters() {
       <div style="border:1px solid var(--border);border-radius:8px;margin-bottom:6px;overflow:hidden;">
         <div onclick="this.nextElementSibling.style.display=this.nextElementSibling.style.display==='none'?'block':'none'"
              style="display:flex;align-items:center;gap:8px;padding:9px 13px 7px;cursor:pointer;background:var(--card-bg);flex-wrap:wrap;">
-          <span style="font-size:.83rem;font-weight:700;color:var(--navy);min-width:52px;">${c.ticker}</span>
+          <span style="font-size:.83rem;font-weight:700;color:var(--navy);min-width:52px;">${c.ticker}</span>${_spinoffNewBadge(c,isEn)}
           <span style="font-size:.78rem;color:var(--text-light);min-width:120px;max-width:200px;">${c.name}${cnName}</span>
           ${soName}
           ${_usTypeBadge(c.type, isEn)}

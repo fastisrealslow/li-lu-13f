@@ -741,5 +741,80 @@ def main():
     print("\n── 美股子公司价格刷新 ──────────────────────────────────────")
     refresh_us_spinoff_prices(dry_run=args.dry_run)
 
+    # Fix 4: diff 打 lastUpdated 标记
+    print("\n── 分拆新进展 diff 标记 ─────────────────────────────────────")
+    tag_last_updated('spinoff.json',    dry_run=args.dry_run)
+    tag_last_updated('spinoff_us.json', dry_run=args.dry_run)
+
+# ── lastUpdated diff ────────────────────────────────────────────────────────
+def tag_last_updated(json_path: str, dry_run: bool = False) -> int:
+    """
+    对比 git HEAD 中的旧版本与当前文件，找出 companies 里有实质变化的条目，
+    给它们打上 lastUpdated = today ISO 时间戳。
+    对比时忽略 pricePerf / updatedAt / lastUpdated 这类每次都会变的噪声字段。
+    返回打了标记的条目数。
+    """
+    import subprocess, copy
+
+    IGNORE_KEYS = {'pricePerf', 'updatedAt', 'lastUpdated', 'latestDate'}
+
+    def strip_noise(obj):
+        """递归去除噪声字段，用于比较"""
+        if isinstance(obj, dict):
+            return {k: strip_noise(v) for k, v in obj.items() if k not in IGNORE_KEYS}
+        if isinstance(obj, list):
+            return [strip_noise(i) for i in obj]
+        return obj
+
+    # 读当前文件
+    try:
+        with open(json_path, encoding='utf-8') as f:
+            cur = json.load(f)
+    except Exception as e:
+        print(f"tag_last_updated: 读取 {json_path} 失败: {e}"); return 0
+
+    # 读 git HEAD 版本（CI 环境中上一次提交的内容）
+    try:
+        result = subprocess.run(
+            ['git', 'show', f'HEAD:{json_path}'],
+            capture_output=True, text=True, timeout=10
+        )
+        if result.returncode != 0:
+            print(f"tag_last_updated: git show 失败（首次提交？），跳过 diff")
+            return 0
+        old = json.loads(result.stdout)
+    except Exception as e:
+        print(f"tag_last_updated: git show 异常: {e}"); return 0
+
+    # 建立旧版 index（港股用 ticker，美股也用 ticker）
+    id_key = 'ticker'
+    old_map = {c.get(id_key): strip_noise(c) for c in old.get('companies', [])}
+
+    now_str = datetime.now(timezone.utc).strftime('%Y-%m-%dT%H:%M:%SZ')
+    tagged = 0
+    companies = cur.get('companies', [])
+    for c in companies:
+        tid = c.get(id_key)
+        cur_stripped = strip_noise(c)
+        old_stripped = old_map.get(tid)
+        if old_stripped is None:
+            # 新增条目
+            c['lastUpdated'] = now_str
+            tagged += 1
+        elif cur_stripped != old_stripped:
+            # 有实质变化
+            c['lastUpdated'] = now_str
+            tagged += 1
+        # 无变化：保留原有 lastUpdated（不清零）
+
+    print(f"tag_last_updated [{json_path}]: {tagged} 条有新进展，打上 {now_str[:10]}")
+
+    if not dry_run and tagged > 0:
+        with open(json_path, 'w', encoding='utf-8') as f:
+            json.dump(cur, f, ensure_ascii=False, indent=2)
+
+    return tagged
+
+
 if __name__ == '__main__':
     main()
