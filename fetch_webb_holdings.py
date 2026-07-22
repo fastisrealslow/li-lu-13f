@@ -211,12 +211,9 @@ def update_webb_json(new_holdings):
 
 def main():
     print("=== fetch_webb_holdings.py ===")
-    # 韦伯持仓网站（webbsite.0xmd.com）较脆弱，限制为每周一才更新持仓
-    # 韦伯持仓网站脆弱，限制为每周一 UTC 02:00 那次（北京时间10:00）才抓，每周只请求1次
+    # 调度控制由 CI workflow 负责（仅周一执行），脚本本身无条件运行
     now = datetime.now(timezone.utc)
-    if not (now.weekday() == 0 and now.hour < 4):
-        print(f"非周一首次窗口（UTC {now.strftime('%a %H:%M')}），跳过韦伯持仓抓取")
-        return
+    print(f"执行时间：UTC {now.strftime('%a %Y-%m-%d %H:%M')}")
     print(f"抓取 {URL} ...")
     holdings = fetch_webbchips()
     if not holdings:
