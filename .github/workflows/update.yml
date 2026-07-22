@@ -371,7 +371,7 @@ jobs:
             'akre.json','prices_akre.json',
             'greenberg.json','prices_greenberg.json',
             'buffett.json','prices_buffett.json',
-            'webb.json','prices_webb.json',
+            'webb.json','prices_webb.json','webb_hk.json',
           ]
           bad = []
           for f in files:
@@ -407,7 +407,7 @@ jobs:
                    akre.json prices_akre.json \
                    greenberg.json prices_greenberg.json \
                    buffett.json prices_buffett.json \
-                   webb.json prices_webb.json; do
+                   webb.json prices_webb.json webb_hk.json; do
             if [ -f "$f" ] && [ -s "$f" ] && python3 -c "import json; json.load(open('$f'))" 2>/dev/null; then
               VALID_FILES="$VALID_FILES $f"
             else

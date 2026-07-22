@@ -176,6 +176,35 @@ def update_webb_json(new_holdings):
     with open(WEBB_JSON, "w") as f:
         json.dump(d, f, ensure_ascii=False, indent=2)
 
+    # 同步生成 webb_hk.json（前端渲染需要）
+    now_str = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+    hk_out = {
+        "updated": now_str,
+        "source": "webbsite.0xmd.com / HKEX Disclosures",
+        "quarter": d["current"].get("quarter", ""),
+        "holdings": [
+            {
+                "ticker": h["ticker"],
+                "name": h.get("cnName") or h.get("name", ""),
+                "sector": h.get("sector", "其他"),
+                "entity": "David Webb (personal)",
+                "shares": h.get("shares", 0),
+                "value": h.get("value", 0),
+                "stake": h.get("stake"),
+                "eventDate": h.get("eventDate", ""),
+                "current_status": "active",
+                "data_quality": "official",
+                "notes": f"港交所权益披露，截至 {h.get('eventDate', '')}",
+            }
+            for h in d["current"]["holdings"]
+        ],
+        "disclaimer": "仅包戴5%以上权益披露持仓，低于5%的持仓不在此列。",
+        "lastUpdated": now_str,
+    }
+    with open("webb_hk.json", "w") as f:
+        json.dump(hk_out, f, ensure_ascii=False, indent=2)
+    print(f"✅ webb_hk.json 同步更新，{len(hk_out['holdings'])} 条持仓")
+
     print(f"\n✅ webb.json 更新完成，{updated} 条持仓有变化")
     return True
 
