@@ -17,7 +17,7 @@ HK Spinoff Price Auto-Refresh Pipeline
 
 import json, re, sys, argparse, warnings, time, os
 from pathlib import Path
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 import yfinance as yf
 import pandas as pd
 from rapidfuzz import fuzz, process as rfprocess
