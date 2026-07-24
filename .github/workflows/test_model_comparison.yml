@@ -18,6 +18,9 @@ jobs:
         with:
           python-version: '3.12'
 
+      - name: Install dependencies
+        run: pip install yfinance
+
       - name: Run model comparison
         env:
           SILICONFLOW_KEY: ${{ secrets.SILICONFLOW_KEY }}
