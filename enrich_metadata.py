@@ -10,6 +10,7 @@ Actions 跑完 13F 抓取后执行：
 """
 
 import json, os, re, time, glob
+from datetime import datetime, timezone
 
 try:
     import yfinance as yf
@@ -357,6 +358,118 @@ def _gen_13f_summaries(api_key):
         time.sleep(1)
 
 
+def _gen_homework_summary(api_key):
+    """
+    跨投资人聚合价值筛选（MOS>=10%）候选股，
+    用 LLM 生成一段总结，写入 homework_summary.json
+    逻辑与前端 renderHomework() 保持一致（MOS计算、共识计数、新开仓/加仓标记）
+    """
+    FILES = [
+        ('data.json',        'prices.json',           '李录'),
+        ('pabrai_data.json', 'pabrai_prices.json',     '帕伯莱'),
+        ('duan.json',        'prices_duan.json',       '段永平'),
+        ('tepper.json',      'prices_tepper.json',     'Tepper'),
+        ('akre.json',        'prices_akre.json',       'Akre'),
+        ('greenberg.json',   'prices_greenberg.json',  'Greenberg'),
+        ('buffett.json',     'prices_buffett.json',    '巴菲特'),
+    ]
+
+    candidates = {}  # ticker -> {name, mos, buy, investors:[], holders:set}
+    for df, pf, name_cn in FILES:
+        if not (os.path.exists(df) and os.path.exists(pf)):
+            continue
+        try:
+            dr = json.load(open(df))
+            pr = json.load(open(pf))
+        except Exception:
+            continue
+        holdings = dr.get('current', {}).get('holdings', [])
+        total_val = dr.get('current', {}).get('totalValue', 0)
+        quotes = pr.get('quotes', {})
+        cb = pr.get('costBasis', {})
+        for h in holdings:
+            tk = h.get('ticker', '')
+            if not tk or tk.startswith('?') or tk.endswith('.HK'):
+                continue
+            q = quotes.get(tk)
+            c = cb.get(tk)
+            if not q or q.get('error') or not c:
+                continue
+            rc = c.get('recent')
+            if not rc or not rc.get('buy'):
+                continue
+            price = q.get('c', 0)
+            buy = rc.get('buy', 0)
+            if price <= 0 or buy <= 0:
+                continue
+            mos = (buy - price) / buy * 100
+            if mos < 10:
+                continue
+            prev = h.get('prevShares', 0) or 0
+            cur_sh = h.get('shares', 0) or 0
+            if prev == 0 and cur_sh > 0:
+                chg = 'new'
+            elif prev > 0 and cur_sh > prev * 1.05:
+                chg = 'added'
+            elif prev > 0 and cur_sh < prev * 0.95:
+                chg = 'trimmed'
+            else:
+                chg = 'hold'
+            entry = candidates.get(tk)
+            cn_name = h.get('cnName') or h.get('name', tk)
+            if entry:
+                entry['holders'].add(name_cn)
+                if chg in ('new', 'added'):
+                    entry['signals'].add(chg)
+                if buy < entry['buy']:
+                    entry['buy'] = buy
+                    entry['mos'] = round(mos, 1)
+            else:
+                candidates[tk] = {
+                    'name': cn_name, 'mos': round(mos, 1), 'buy': buy,
+                    'holders': {name_cn},
+                    'signals': {chg} if chg in ('new', 'added') else set(),
+                }
+
+    if not candidates:
+        print("  无候选股，跳过 homework summary")
+        return
+
+    # 排序：共识人数 desc, MOS desc
+    ranked = sorted(candidates.items(), key=lambda kv: (len(kv[1]['holders']), kv[1]['mos']), reverse=True)
+
+    consensus_lines = []
+    new_or_added = []
+    for tk, v in ranked[:15]:
+        if len(v['holders']) >= 2:
+            consensus_lines.append(f"{v['name']}({tk}) 安全边际{v['mos']}% 被{len(v['holders'])}人持有[{'/'.join(sorted(v['holders']))}]")
+        if v['signals']:
+            new_or_added.append(f"{v['name']}({tk}) {'/'.join(v['signals'])}")
+
+    prompt = (
+        "以下是根据多位价值投资人13F持仓筛选出的安全边际>=10%的股票列表。\n"
+        f"多人共识股（被2人以上持有）: {'; '.join(consensus_lines) if consensus_lines else '无'}\n"
+        f"最近新开仓/加仓信号: {'; '.join(new_or_added) if new_or_added else '无'}\n\n"
+        "请用中文写一段话（40-80字）概述这个筛选列表中最值得关注的信号（如多人共识或新开仓/加仓）。"
+        "不要编造没有的信息，不要给出投资建议。"
+    )
+
+    text = _sf_call_enrich(api_key, prompt, max_tokens=200)
+    if not text:
+        print("  homework summary LLM 失败")
+        return
+
+    out = {
+        'aiSummary': text,
+        'generatedAt': datetime.now(timezone.utc).strftime('%Y-%m-%dT%H:%M:%SZ'),
+        'candidateCount': len(candidates),
+        'consensusCount': sum(1 for v in candidates.values() if len(v['holders']) >= 2),
+    }
+    with open('homework_summary.json', 'w') as f:
+        json.dump(out, f, ensure_ascii=False, indent=2)
+    print(f"  homework summary: {text}")
+
+
 def main():
     print("=== enrich_metadata.py 开始 ===")
     cache = load_cache()
@@ -384,6 +497,9 @@ def main():
     if sf_key:
         print("\n=== LLM 生成 13F 季报摘要 ===")
         _gen_13f_summaries(sf_key)
+
+        print("\n=== LLM 生成价值筛选总结 ===")
+        _gen_homework_summary(sf_key)
 
 if __name__ == '__main__':
     main()

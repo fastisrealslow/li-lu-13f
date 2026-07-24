@@ -416,7 +416,8 @@ jobs:
           done
 
           for extra in metadata_cache.json alerts_hk_persons.json spinoff.json spinoff_us.json \
-                       akre_hk.json pabrai_hk.json greenberg_hk.json run_status.json; do
+                       akre_hk.json pabrai_hk.json greenberg_hk.json run_status.json \
+                       homework_summary.json; do
             if [ -f "$extra" ] && [ -s "$extra" ]; then
               VALID_FILES="$VALID_FILES $extra"
             fi

@@ -1577,7 +1577,19 @@ async function renderHomework() {
     </tr>`;
   }).join('');
 
+  // 跨投资者 AI 总结（预生成 homework_summary.json）
+  let hwAiHtml = '';
+  try {
+    const hwSum = await fetch('homework_summary.json?t=' + Math.floor(Date.now()/300000)).then(r => r.ok ? r.json() : null);
+    if (hwSum && hwSum.aiSummary) {
+      hwAiHtml = `<div style="margin-bottom:12px;padding:10px 14px;background:linear-gradient(135deg,rgba(99,102,241,0.07),rgba(139,92,246,0.07));border:1px solid rgba(99,102,241,0.18);border-radius:8px;font-size:.78rem;line-height:1.65;color:var(--text);">
+        <span style="font-size:.62rem;color:#6366f1;font-weight:700;margin-right:6px;">✨ AI ${isEn2?'Summary':'总结'}</span>${hwSum.aiSummary}
+      </div>`;
+    }
+  } catch(e) { /* 静默降级 */ }
+
   el.innerHTML = `
+    ${hwAiHtml}
     <div style="margin-bottom:16px;padding:12px 16px;background:rgba(212,168,83,0.08);border:1px solid rgba(212,168,83,0.2);border-radius:8px;">
       <p style="font-size:.8rem;color:var(--text-light);line-height:1.6;">
         📋 <strong style="color:var(--gold);">${isEn2?'Value Picks':'抄作业单'}</strong> &mdash;
