@@ -358,11 +358,34 @@ def _gen_13f_summaries(api_key):
         time.sleep(1)
 
 
-def _gen_homework_summary(api_key):
+def _hold_quarters(first_q, cur_q):
+    """计算从首次建仓季度到当前季度的持仓季数"""
+    try:
+        def hq(q):
+            y, n = q.split(' Q')
+            return int(y) * 4 + int(n)
+        return max(hq(cur_q) - hq(first_q) + 1, 1)
+    except Exception:
+        return None
+
+
+def _mos_tier(mos):
+    if mos >= 30:
+        return "深度折价"
+    if mos >= 15:
+        return "中等折价"
+    return "轻度折价"
+
+
+_CHG_LABEL = {'new': '本季新开仓', 'added': '本季加仓', 'trimmed': '本季减仓', 'hold': '仓位未变'}
+
+
+def _build_homework_prompt():
     """
-    跨投资人聚合价值筛选（MOS>=10%）候选股，
-    用 LLM 生成一段总结，写入 homework_summary.json
-    逻辑与前端 renderHomework() 保持一致（MOS计算、共识计数、新开仓/加仓标记）
+    跨投资人聚合价值筛选（MOS>=10%）候选股，逐股计算结构化点评
+    （仓位占比、持仓时间、安全边际分级、加减仓信号均由代码计算，保证准确）。
+    返回 (prompt, stock_notes, candidates) 供 _gen_homework_summary 和
+    test_llm_models.py 共用，避免两处逻辑漂移。
     """
     FILES = [
         ('data.json',        'prices.json',           '李录'),
@@ -374,7 +397,7 @@ def _gen_homework_summary(api_key):
         ('buffett.json',     'prices_buffett.json',    '巴菲特'),
     ]
 
-    candidates = {}  # ticker -> {name, mos, buy, investors:[], holders:set}
+    candidates = {}  # ticker -> {name, sector, mos, buy, price, holders:[{investor,chg,weight,hold_quarters,hold_years}]}
     for df, pf, name_cn in FILES:
         if not (os.path.exists(df) and os.path.exists(pf)):
             continue
@@ -383,12 +406,33 @@ def _gen_homework_summary(api_key):
             pr = json.load(open(pf))
         except Exception:
             continue
-        holdings = dr.get('current', {}).get('holdings', [])
-        total_val = dr.get('current', {}).get('totalValue', 0)
+        cur = dr.get('current', {})
+        holdings = cur.get('holdings', [])
+        total_val = cur.get('totalValue', 0)
+        cur_q = cur.get('quarter', '')
         quotes = pr.get('quotes', {})
         cb = pr.get('costBasis', {})
+
+        # 同一持有人对同一 ticker 可能有多条 13F 记录（不同批次/份额类别），先合并
+        merged = {}
         for h in holdings:
             tk = h.get('ticker', '')
+            if not tk:
+                continue
+            if tk in merged:
+                merged[tk]['shares'] += h.get('shares', 0) or 0
+                merged[tk]['prevShares'] += h.get('prevShares', 0) or 0
+                merged[tk]['value'] += h.get('value', 0) or 0
+            else:
+                merged[tk] = {
+                    'shares': h.get('shares', 0) or 0,
+                    'prevShares': h.get('prevShares', 0) or 0,
+                    'value': h.get('value', 0) or 0,
+                    'cnName': h.get('cnName') or h.get('name', tk),
+                    'sector': h.get('sector', ''),
+                }
+
+        for tk, h in merged.items():
             if not tk or tk.startswith('?') or tk.endswith('.HK'):
                 continue
             q = quotes.get(tk)
@@ -405,8 +449,8 @@ def _gen_homework_summary(api_key):
             mos = (buy - price) / buy * 100
             if mos < 10:
                 continue
-            prev = h.get('prevShares', 0) or 0
-            cur_sh = h.get('shares', 0) or 0
+            prev = h['prevShares']
+            cur_sh = h['shares']
             if prev == 0 and cur_sh > 0:
                 chg = 'new'
             elif prev > 0 and cur_sh > prev * 1.05:
@@ -415,59 +459,100 @@ def _gen_homework_summary(api_key):
                 chg = 'trimmed'
             else:
                 chg = 'hold'
+            weight = (h['value'] / total_val * 100) if total_val else 0
+            at = c.get('allTime') or {}
+            hq_n = _hold_quarters(at['first'], cur_q) if at.get('first') else None
+            hq_yrs = round(hq_n / 4, 1) if hq_n else None
+
+            investor_detail = {
+                'investor': name_cn, 'chg': chg, 'weight': round(weight, 1),
+                'hold_quarters': hq_n, 'hold_years': hq_yrs,
+            }
+
             entry = candidates.get(tk)
-            cn_name = h.get('cnName') or h.get('name', tk)
             if entry:
-                entry['holders'].add(name_cn)
-                if chg in ('new', 'added'):
-                    entry['signals'].add(chg)
+                entry['holders'].append(investor_detail)
                 if buy < entry['buy']:
-                    entry['buy'] = buy
+                    entry['buy'] = round(buy, 2)
                     entry['mos'] = round(mos, 1)
             else:
                 candidates[tk] = {
-                    'name': cn_name, 'mos': round(mos, 1), 'buy': buy,
-                    'holders': {name_cn},
-                    'signals': {chg} if chg in ('new', 'added') else set(),
+                    'name': h['cnName'], 'sector': h['sector'], 'mos': round(mos, 1),
+                    'buy': round(buy, 2), 'price': round(price, 2),
+                    'holders': [investor_detail],
                 }
 
     if not candidates:
-        print("  无候选股，跳过 homework summary")
-        return
+        return None, [], {}
 
     # 排序：共识人数 desc, MOS desc
     ranked = sorted(candidates.items(), key=lambda kv: (len(kv[1]['holders']), kv[1]['mos']), reverse=True)
 
+    # 逐股生成结构化点评（代码拼接，不经过LLM，保证数字准确）
+    stock_notes = []
     consensus_lines = []
     new_or_added = []
+    strong_signals = []  # 高仓位+主动加仓/新开仓 的强信号股，供 LLM 归纳引用
     for tk, v in ranked[:15]:
+        holder_descs = []
+        for h in v['holders']:
+            w_desc = f"{h['weight']}%仓位" if h['weight'] >= 0.5 else "极小仓位(<0.5%)"
+            hold_desc = f"持有{h['hold_quarters']}季/{h['hold_years']}年" if h['hold_quarters'] else "首次建仓"
+            holder_descs.append(f"{h['investor']}（{w_desc}，{hold_desc}，{_CHG_LABEL[h['chg']]}）")
+            if h['chg'] in ('new', 'added') and h['weight'] >= 3:
+                strong_signals.append(f"{v['name']}({tk})：{h['investor']}{w_desc}且{_CHG_LABEL[h['chg']]}")
+
+        note = {
+            'ticker': tk, 'name': v['name'], 'sector': v['sector'],
+            'mos': v['mos'], 'mosTier': _mos_tier(v['mos']),
+            'buy': v['buy'], 'price': v['price'],
+            'holderCount': len(v['holders']),
+            'holders': v['holders'],
+            'holderText': '；'.join(holder_descs),
+        }
+        stock_notes.append(note)
+
         if len(v['holders']) >= 2:
-            consensus_lines.append(f"{v['name']}({tk}) 安全边际{v['mos']}% 被{len(v['holders'])}人持有[{'/'.join(sorted(v['holders']))}]")
-        if v['signals']:
-            new_or_added.append(f"{v['name']}({tk}) {'/'.join(v['signals'])}")
+            consensus_lines.append(f"{v['name']}({tk}) 安全边际{v['mos']}% 被{len(v['holders'])}人持有[{'/'.join(h['investor'] for h in v['holders'])}]")
+        signals_here = [h['chg'] for h in v['holders'] if h['chg'] in ('new', 'added')]
+        if signals_here:
+            new_or_added.append(f"{v['name']}({tk}) {'/'.join(sorted(set(signals_here)))}")
 
     prompt = (
-        "以下是根据多位价值投资人13F持仓筛选出的安全边际>=10%的股票列表。\n"
+        "以下是根据多位价值投资人13F持仓筛选出的安全边际>=10%的股票列表分析素材，请只写整体归纳段落（150-220字中文），"
+        "总结本期筛选结果中最值得关注的模式和信号（例如：共识股的信号是否一致、哪些是高仓位+主动加仓的强信号、"
+        "哪些深度折价股伴随减仓需谨慎看待、新开仓标的的仓位大小说明信心强弱等）。"
+        "只能基于下面提供的信息进行归纳，不要编造未提及的数据，不要给出买卖建议，语气客观分析。\n\n"
         f"多人共识股（被2人以上持有）: {'; '.join(consensus_lines) if consensus_lines else '无'}\n"
-        f"最近新开仓/加仓信号: {'; '.join(new_or_added) if new_or_added else '无'}\n\n"
-        "请用中文写一段话（40-80字）概述这个筛选列表中最值得关注的信号（如多人共识或新开仓/加仓）。"
-        "不要编造没有的信息，不要给出投资建议。"
+        f"新开仓/加仓信号: {'; '.join(new_or_added) if new_or_added else '无'}\n"
+        f"高仓位主动加仓/新开仓强信号: {'; '.join(strong_signals) if strong_signals else '无'}\n"
     )
 
-    text = _sf_call_enrich(api_key, prompt, max_tokens=200)
-    if not text:
-        print("  homework summary LLM 失败")
+    return prompt, stock_notes, candidates
+
+
+def _gen_homework_summary(api_key):
+    """调用 _build_homework_prompt() 得到 prompt 与逐股数据，再调 LLM 生成整体归纳段落，写入 homework_summary.json"""
+    prompt, stock_notes, candidates = _build_homework_prompt()
+    if prompt is None:
+        print("  无候选股，跳过 homework summary")
         return
 
+    overall = _sf_call_enrich(api_key, prompt, max_tokens=400)
+    if not overall:
+        print("  homework summary LLM 失败（整体归纳），仍写入逐股数据")
+        overall = ""
+
     out = {
-        'aiSummary': text,
+        'overallSummary': overall,
+        'stockNotes': stock_notes,
         'generatedAt': datetime.now(timezone.utc).strftime('%Y-%m-%dT%H:%M:%SZ'),
         'candidateCount': len(candidates),
         'consensusCount': sum(1 for v in candidates.values() if len(v['holders']) >= 2),
     }
     with open('homework_summary.json', 'w') as f:
         json.dump(out, f, ensure_ascii=False, indent=2)
-    print(f"  homework summary: {text}")
+    print(f"  homework summary: {len(stock_notes)} 只逐股点评 + 整体归纳({len(overall)}字)")
 
 
 def main():

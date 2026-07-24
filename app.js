@@ -1577,19 +1577,45 @@ async function renderHomework() {
     </tr>`;
   }).join('');
 
-  // 跨投资者 AI 总结（预生成 homework_summary.json）
+  // 跨投资者 AI 总结（预生成 homework_summary.json：逐股点评 + 整体归纳）
   let hwAiHtml = '';
   try {
     const hwSum = await fetch('homework_summary.json?t=' + Math.floor(Date.now()/300000)).then(r => r.ok ? r.json() : null);
-    if (hwSum && hwSum.aiSummary) {
-      hwAiHtml = `<div style="margin-bottom:12px;padding:10px 14px;background:linear-gradient(135deg,rgba(99,102,241,0.07),rgba(139,92,246,0.07));border:1px solid rgba(99,102,241,0.18);border-radius:8px;font-size:.78rem;line-height:1.65;color:var(--text);">
-        <span style="font-size:.62rem;color:#6366f1;font-weight:700;margin-right:6px;">✨ AI ${isEn2?'Summary':'总结'}</span>${hwSum.aiSummary}
+    if (hwSum && (hwSum.overallSummary || (hwSum.stockNotes && hwSum.stockNotes.length))) {
+      const tierColor = t => t === '深度折价' ? '#059669' : (t === '中等折价' ? '#d97706' : '#6b7280');
+      const tierColorEn = { '深度折价':'Deep discount', '中等折价':'Moderate discount', '轻度折价':'Shallow discount' };
+      const chgLabelEn = { '本季新开仓':'New this quarter', '本季加仓':'Added this quarter', '本季减仓':'Trimmed this quarter', '仓位未变':'Unchanged' };
+      const noteRows = (hwSum.stockNotes || []).map(n => {
+        const holderHtml = (n.holders || []).map(h => {
+          const wLabel = h.weight >= 0.5 ? `${h.weight}%${isEn2?' position':'仓位'}` : (isEn2?'tiny position (<0.5%)':'极小仓位(<0.5%)');
+          const holdLabel = h.hold_quarters ? `${isEn2?'held':'持有'} ${h.hold_years}${isEn2?'y':'年'}` : (isEn2?'new entry':'首次建仓');
+          const chgCn = h.chg==='new'?'本季新开仓':h.chg==='added'?'本季加仓':h.chg==='trimmed'?'本季减仓':'仓位未变';
+          const chgTxt = isEn2 ? chgLabelEn[chgCn] : chgCn;
+          const chgColor = h.chg==='new'?'#3b82f6':h.chg==='added'?'#10b981':h.chg==='trimmed'?'#ef4444':'var(--text-lighter)';
+          return `<span style="white-space:nowrap;">${h.investor}<span style="color:var(--text-lighter);">（${wLabel}，${holdLabel}，</span><span style="color:${chgColor};font-weight:600;">${chgTxt}</span><span style="color:var(--text-lighter);">）</span></span>`;
+        }).join(isEn2?'; ':'；');
+        const tierTxt = isEn2 ? tierColorEn[n.mosTier] : n.mosTier;
+        return `<div style="padding:8px 0;border-bottom:1px solid rgba(148,163,184,0.12);font-size:.76rem;line-height:1.7;">
+          <div style="margin-bottom:2px;">
+            <strong style="color:var(--text);">${cn(n.name, n)} (${fmtTicker(n.ticker)})</strong>
+            <span style="color:var(--text-lighter);"> · ${ts(n.sector)} · </span>
+            <span style="color:${tierColor(n.mosTier)};font-weight:600;">${isEn2?'MOS':'安全边际'} ${n.mos}% (${tierTxt})</span>
+            <span style="color:var(--text-lighter);"> · ${isEn2?'Cost':'成本'} $${n.buy} ${isEn2?'vs Price':'现价'} $${n.price}</span>
+          </div>
+          <div style="color:var(--text-light);">${holderHtml}</div>
+        </div>`;
+      }).join('');
+      const overallHtml = hwSum.overallSummary ? `<div style="margin-top:10px;padding-top:10px;border-top:1px dashed rgba(99,102,241,0.3);font-size:.8rem;line-height:1.75;color:var(--text);"><strong style="color:#6366f1;">${isEn2?'Overall':'整体归纳'}：</strong>${hwSum.overallSummary}</div>` : '';
+      hwAiHtml = `<div style="margin-top:20px;padding:14px 16px;background:linear-gradient(135deg,rgba(99,102,241,0.05),rgba(139,92,246,0.05));border:1px solid rgba(99,102,241,0.15);border-radius:10px;">
+        <div style="font-size:.68rem;color:#6366f1;font-weight:700;margin-bottom:6px;">✨ AI ${isEn2?'Per-Stock Notes':'逐股解读'}</div>
+        ${noteRows}
+        ${overallHtml}
+        <div style="margin-top:8px;font-size:.62rem;color:var(--text-lighter);">${isEn2?'Generated':'生成于'} ${hwSum.generatedAt ? new Date(hwSum.generatedAt).toLocaleString(isEn2?'en-US':'zh-CN') : ''} · ${isEn2?'For reference only, not investment advice.':'仅供参考，不构成投资建议。'}</div>
       </div>`;
     }
   } catch(e) { /* 静默降级 */ }
 
   el.innerHTML = `
-    ${hwAiHtml}
     <div style="margin-bottom:16px;padding:12px 16px;background:rgba(212,168,83,0.08);border:1px solid rgba(212,168,83,0.2);border-radius:8px;">
       <p style="font-size:.8rem;color:var(--text-light);line-height:1.6;">
         📋 <strong style="color:var(--gold);">${isEn2?'Value Picks':'抄作业单'}</strong> &mdash;
@@ -1611,6 +1637,7 @@ async function renderHomework() {
         ? '💡 <strong>Est. Cost</strong>: estimated from historical K-line (low×70%+avg×30%). Multiple holders → lowest cost shown (most conservative). MOS = (Cost−Price)/Cost. Not investment advice.'
         : '💡 <strong>估算成本</strong>：基于历史 K 线（低价×70%+均价×30%）估算买入价。多人持有时取最低成本（最保守）。安全边际 = (成本−现价)÷成本。仅供参考，不构成投资建议。'}
     </p>
+    ${hwAiHtml}
   `;
   _homeworkCache = el.innerHTML;
 }

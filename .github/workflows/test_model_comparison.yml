@@ -1,0 +1,40 @@
+name: Test LLM Model Comparison (homework summary)
+
+# 仅手动触发，用于对比不同 SiliconFlow 模型/prompt 在"价值筛选整体归纳段落"任务上的效果。
+# 不会提交/推送任何文件，不会覆盖真实 homework_summary.json，只上传对比结果作为 artifact。
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  compare:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Run model comparison
+        env:
+          SILICONFLOW_KEY: ${{ secrets.SILICONFLOW_KEY }}
+        run: python3 test_llm_models.py
+
+      - name: Print results to step summary
+        if: always()
+        run: |
+          echo "## LLM 模型对比结果" >> $GITHUB_STEP_SUMMARY
+          echo '```json' >> $GITHUB_STEP_SUMMARY
+          cat llm_model_test_results.json >> $GITHUB_STEP_SUMMARY 2>/dev/null || echo "结果文件未生成" >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+
+      - name: Upload results as artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: llm-model-comparison-results
+          path: llm_model_test_results.json
+          retention-days: 14
