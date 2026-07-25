@@ -382,6 +382,16 @@ def _mos_tier(mos):
 
 _CHG_LABEL = {'new': '本季新开仓', 'added': '本季加仓', 'trimmed': '本季减仓', 'hold': '仓位未变'}
 
+# 持有人中文名 -> 英文名映射（与 app.js 中 INVESTORS_CFG 的 name/nameEn 保持一致）
+_INVESTOR_EN = {
+    '李录': 'Li Lu', '帕伯莱': 'Pabrai', '段永平': 'Duan', 'Tepper': 'Tepper',
+    'Akre': 'Akre', 'Greenberg': 'Greenberg', '巴菲特': 'Buffett',
+}
+
+
+def _investor_en(name_cn):
+    return _INVESTOR_EN.get(name_cn, name_cn)
+
 
 def _gen_verdict(v, mos_tier):
     """
@@ -437,11 +447,11 @@ def _gen_verdict(v, mos_tier):
 
     # 单人持有 + 深度折价 + 长期持有 + 仓位未变
     if n == 1 and deep and 'hold' in chgs and (holders[0].get('hold_years') or 0) >= 5:
-        size_desc = '但仓位并不重' if max_weight < 3 else ''
+        size_desc = '，但仓位并不重' if max_weight < 3 else ''
         size_en = ', though the position size is not large,' if max_weight < 3 else ''
         return (
-            f"深度折价且长期持有未动{('，' + size_desc) if size_desc else ''}，更像是低成本的安心底仓，而非新的买入信号。",
-            f"Deep discount with a long-held, unchanged position{size_en} — looks more like a low-cost core holding than a fresh buy signal."
+            f"深度折价且长期持有未动{size_desc}，更像是低成本的安心底仓，而非新的买入信号。",
+            f"Deep discount with a long-held, unchanged position{size_en} looks more like a low-cost core holding than a fresh buy signal."
         )
 
     # 单人 + 新开仓 + 高仓位（如帕伯莱AMR、段永平特斯拉案例）
@@ -473,9 +483,10 @@ def _gen_verdict(v, mos_tier):
     # 单人 + 新开仓 + 小仓位
     if n == 1 and all_new and max_weight < 3:
         who = holders[0]['investor']
+        who_en = _investor_en(who)
         return (
             f"{who}新开仓但仓位较小（{max_weight}%），更像是试探性布局，信心程度有待后续季度验证。",
-            f"{who}'s new position is small ({max_weight}%) — looks more like an exploratory stake; conviction level remains to be confirmed in future quarters."
+            f"{who_en}'s new position is small ({max_weight}%) — looks more like an exploratory stake; conviction level remains to be confirmed in future quarters."
         )
 
     # 单人 + 减仓
