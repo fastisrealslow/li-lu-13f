@@ -383,6 +383,130 @@ def _mos_tier(mos):
 _CHG_LABEL = {'new': '本季新开仓', 'added': '本季加仓', 'trimmed': '本季减仓', 'hold': '仓位未变'}
 
 
+def _gen_verdict(v, mos_tier):
+    """
+    规则式生成逐股判断结论句（代码拼接，不经过LLM，保证可复现、不编造）。
+    综合维度：安全边际深浅、共识人数、持有人动作是否分化（有人加仓有人减仓）、
+    是否新开仓、最大持仓权重。返回 (中文判断语, 英文判断语) 二元组。
+    """
+    holders = v['holders']
+    n = len(holders)
+    max_weight = max((h['weight'] for h in holders), default=0)
+    chgs = set(h['chg'] for h in holders)
+    has_added = 'added' in chgs or 'new' in chgs
+    has_trimmed = 'trimmed' in chgs
+    divergent = has_added and has_trimmed
+    all_new = n >= 1 and all(h['chg'] == 'new' for h in holders)
+    all_added = n >= 1 and all(h['chg'] in ('new', 'added') for h in holders)
+    all_trimmed = n >= 1 and all(h['chg'] == 'trimmed' for h in holders)
+    deep = mos_tier == '深度折价'
+    shallow = mos_tier == '轻度折价'
+
+    # 多人共识 + 动作分化
+    if n >= 2 and divergent:
+        depth_desc = '但折价浅' if shallow else ('且折价充足' if deep else '折价适中')
+        depth_en = 'but the discount is shallow' if shallow else ('and the discount is deep enough' if deep else 'with a moderate discount')
+        return (
+            f"共识度高{depth_desc}、且持有人动作分化，属于\"关注但不宜追高\"的类型。",
+            f"High consensus {depth_en}, but holders are diverging (some adding, some trimming) — worth watching but not chasing."
+        )
+
+    # 多人共识 + 一致加仓/新开仓
+    if n >= 2 and all_added:
+        depth_desc = '安全边际也较为充足' if deep else '但安全边际仅属中等'
+        depth_en = 'with an ample margin of safety' if deep else 'though the margin of safety is only moderate'
+        return (
+            f"多位投资人一致看多且{depth_desc}，属于本期信号最强的共识股之一。",
+            f"Multiple investors are unanimously bullish, {depth_en} — one of the strongest consensus signals this period."
+        )
+
+    # 多人共识 + 一致减仓/无动作
+    if n >= 2 and all_trimmed:
+        return (
+            "多人持有但本季集体减仓，共识度虽高，动能已在减弱，宜观察后续变化。",
+            "Held by multiple investors but collectively trimmed this quarter — consensus is high but momentum is fading; watch for further changes."
+        )
+
+    # 单人持有 + 深度折价 + 长期持有 + 本季减仓（如惠而浦案例）
+    if n == 1 and deep and has_trimmed and (holders[0].get('hold_years') or 0) >= 5:
+        yrs = int(holders[0]['hold_years'])
+        return (
+            f"持仓超{yrs}年的老仓位却在深度折价区减仓，可能反映基本面担忧大于估值吸引力，需警惕价值陷阱。",
+            f"A position held for over {yrs} years is being trimmed despite trading at a deep discount — may signal fundamental concerns outweighing valuation appeal; watch for a value trap."
+        )
+
+    # 单人持有 + 深度折价 + 长期持有 + 仓位未变
+    if n == 1 and deep and 'hold' in chgs and (holders[0].get('hold_years') or 0) >= 5:
+        size_desc = '但仓位并不重' if max_weight < 3 else ''
+        size_en = ', though the position size is not large,' if max_weight < 3 else ''
+        return (
+            f"深度折价且长期持有未动{('，' + size_desc) if size_desc else ''}，更像是低成本的安心底仓，而非新的买入信号。",
+            f"Deep discount with a long-held, unchanged position{size_en} — looks more like a low-cost core holding than a fresh buy signal."
+        )
+
+    # 单人 + 新开仓 + 高仓位（如帕伯莱AMR、段永平特斯拉案例）
+    if n == 1 and all_new and max_weight >= 3:
+        return (
+            f"新开仓即给到{max_weight}%的高仓位，显示极强的信心，值得重点关注。",
+            f"A brand-new position sized at {max_weight}% right away signals very strong conviction — worth watching closely."
+        )
+
+    # 单人 + 加仓 + 高仓位
+    if n == 1 and 'added' in chgs and max_weight >= 10:
+        return (
+            f"单一持有人以{max_weight}%重仓且本季继续加仓，属于高确定性的重仓信号。",
+            f"A single holder has {max_weight}% weighted in and kept adding this quarter — a high-conviction, heavily-weighted signal."
+        )
+
+    # 单人 + 加仓（仓位不到十但仍在主动加仓）+ 深度/中等折价
+    if n == 1 and 'added' in chgs and deep:
+        return (
+            f"单一持有人在深度折价区主动加仓（{max_weight}%仓位），虽无共识但信心明确，值得关注。",
+            f"A single holder is actively adding at a deep discount ({max_weight}% position) — no consensus yet, but conviction is clear; worth watching."
+        )
+    if n == 1 and 'added' in chgs:
+        return (
+            f"单一持有人本季主动加仓（{max_weight}%仓位），属于积极信号，但安全边际仅属中等，可作为次优先观察。",
+            f"A single holder added this quarter ({max_weight}% position) — a positive signal, though the margin of safety is only moderate; a secondary watchlist candidate."
+        )
+
+    # 单人 + 新开仓 + 小仓位
+    if n == 1 and all_new and max_weight < 3:
+        who = holders[0]['investor']
+        return (
+            f"{who}新开仓但仓位较小（{max_weight}%），更像是试探性布局，信心程度有待后续季度验证。",
+            f"{who}'s new position is small ({max_weight}%) — looks more like an exploratory stake; conviction level remains to be confirmed in future quarters."
+        )
+
+    # 单人 + 减仓
+    if n == 1 and has_trimmed:
+        return (
+            "仅单一持有人且本季减仓，安全边际虽达标，但缺乏共识支持，须谨慎看待。",
+            "Only one holder, and they trimmed this quarter — the margin of safety qualifies, but there's no consensus support; approach with caution."
+        )
+
+    # 单人 + 仓位未变，兜底
+    if n == 1 and 'hold' in chgs:
+        if deep:
+            depth_desc, depth_en = '安全边际充足', 'the margin of safety is ample'
+        elif shallow:
+            depth_desc, depth_en = '安全边际仅略微达标', 'the margin of safety only barely qualifies'
+        else:
+            depth_desc, depth_en = '安全边际仅属中等', 'the margin of safety is only moderate'
+        return (
+            f"仅单一持有人持有且仓位未变，{depth_desc}，可作为观察名单但暂无新增信号。",
+            f"Only one holder, position unchanged, and {depth_en} — fine as a watchlist name but no new signal for now."
+        )
+
+    # 默认兜底
+    depth_desc = '折价充足' if deep else ('折价较浅' if shallow else '折价适中')
+    depth_en = 'the discount is ample' if deep else ('the discount is shallow' if shallow else 'the discount is moderate')
+    return (
+        f"{depth_desc}，共{n}人持有，暂无明显一致性信号，建议结合基本面进一步验证。",
+        f"{depth_en.capitalize()}, held by {n} investor(s), with no clear consistent signal — recommend further fundamental validation."
+    )
+
+
 def _build_homework_prompt():
     """
     跨投资人聚合价值筛选（MOS>=10%）候选股，逐股计算结构化点评
@@ -505,13 +629,17 @@ def _build_homework_prompt():
             if h['chg'] in ('new', 'added') and h['weight'] >= 3:
                 strong_signals.append(f"{v['name']}({tk})：{h['investor']}{w_desc}且{_CHG_LABEL[h['chg']]}")
 
+        mos_tier = _mos_tier(v['mos'])
+        verdict_cn, verdict_en = _gen_verdict(v, mos_tier)
         note = {
             'ticker': tk, 'name': v['name'], 'sector': v['sector'],
-            'mos': v['mos'], 'mosTier': _mos_tier(v['mos']),
+            'mos': v['mos'], 'mosTier': mos_tier,
             'buy': v['buy'], 'price': v['price'],
             'holderCount': len(v['holders']),
             'holders': v['holders'],
             'holderText': '；'.join(holder_descs),
+            'verdict': verdict_cn,
+            'verdictEn': verdict_en,
         }
         stock_notes.append(note)
 

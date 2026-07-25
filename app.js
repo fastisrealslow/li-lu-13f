@@ -1595,6 +1595,8 @@ async function renderHomework() {
           return `<span style="white-space:nowrap;">${h.investor}<span style="color:var(--text-lighter);">（${wLabel}，${holdLabel}，</span><span style="color:${chgColor};font-weight:600;">${chgTxt}</span><span style="color:var(--text-lighter);">）</span></span>`;
         }).join(isEn2?'; ':'；');
         const tierTxt = isEn2 ? tierColorEn[n.mosTier] : n.mosTier;
+        const verdictTxt = isEn2 ? n.verdictEn : n.verdict;
+        const verdictHtml = verdictTxt ? `<div style="margin-top:4px;color:var(--text);">${verdictTxt}</div>` : '';
         return `<div style="padding:8px 0;border-bottom:1px solid rgba(148,163,184,0.12);font-size:.76rem;line-height:1.7;">
           <div style="margin-bottom:2px;">
             <strong style="color:var(--text);">${cn(n.name, n)} (${fmtTicker(n.ticker)})</strong>
@@ -1603,6 +1605,7 @@ async function renderHomework() {
             <span style="color:var(--text-lighter);"> · ${isEn2?'Cost':'成本'} $${n.buy} ${isEn2?'vs Price':'现价'} $${n.price}</span>
           </div>
           <div style="color:var(--text-light);">${holderHtml}</div>
+          ${verdictHtml}
         </div>`;
       }).join('');
       const overallHtml = hwSum.overallSummary ? `<div style="margin-top:10px;padding-top:10px;border-top:1px dashed rgba(99,102,241,0.3);font-size:.8rem;line-height:1.75;color:var(--text);"><strong style="color:#6366f1;">${isEn2?'Overall':'整体归纳'}：</strong>${hwSum.overallSummary}</div>` : '';
