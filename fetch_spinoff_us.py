@@ -478,6 +478,47 @@ def _fetch_us_market_caps(companies):
         time.sleep(0.3)  # Finnhub 免费版限速 60次/分钟
 
 
+def _fetch_spinoff_target_market_caps(companies):
+    """
+    用 Finnhub /stock/metric 拉分拆标的自身市值（而非母公司）。
+    仅对已有 spinoffTicker 的公司生效——没有独立 ticker 就无法查市值。
+    写入 c['marketCap']（单位：亿美元，保留1位小数）。
+    已有且非0则跳过（增量）。
+    格林布拉特分拆点评的市值比例信号依赖这个字段。
+    """
+    fh_key = os.environ.get('FINNHUB_KEY', '')
+    if not fh_key:
+        print("  FINNHUB_KEY 未设置，跳过分拆标的市值拉取")
+        return
+
+    need = [
+        c for c in companies
+        if c.get('spinoffTicker') and c['spinoffTicker'].upper() != 'TBD'
+        and not c.get('marketCap')
+    ]
+    if not need:
+        print("  无可拉取分拆标的市值的公司（均缺 spinoffTicker 或已有 marketCap）")
+        return
+
+    print(f"  拉取分拆标的市值（{len(need)} 家）...")
+    for c in need:
+        tk = c['spinoffTicker']
+        try:
+            url = f"https://finnhub.io/api/v1/stock/metric?symbol={tk}&metric=all&token={fh_key}"
+            req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0'})
+            resp = urllib.request.urlopen(req, timeout=10)
+            data = json.loads(resp.read().decode())
+            mc = data.get('metric', {}).get('marketCapitalization')  # 单位：百万美元
+            if mc and mc > 0:
+                c['marketCap'] = round(mc / 100, 1)  # 转换为亿美元
+                print(f"    {c['ticker']}→{tk}: ${c['marketCap']}亿")
+            else:
+                print(f"    {c['ticker']}→{tk}: 无数据")
+        except Exception as e:
+            print(f"    {c['ticker']}→{tk}: 失败 {e}")
+        time.sleep(0.3)  # Finnhub 免费版限速 60次/分钟
+
+
 def dedupe(companies):
     """按 ticker 去重，保留公告最多的"""
     seen = {}
@@ -940,6 +981,10 @@ def main():
     # Step 3.8: 拉取母公司市值
     print("\nStep 3.8: 拉取母公司市值...")
     _fetch_us_market_caps(companies)
+
+    # Step 3.9: 拉取分拆标的自身市值（仅已有 spinoffTicker 的公司）
+    print("\nStep 3.9: 拉取分拆标的市值...")
+    _fetch_spinoff_target_market_caps(companies)
 
     # Step 4: 状态过滤
     print("\n状态过滤...")

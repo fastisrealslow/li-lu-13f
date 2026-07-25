@@ -838,6 +838,231 @@ def _gen_homework_summary(api_key):
     print(f"  homework summary: {len(stock_notes)} 只逐股点评 + 整体归纳({len(overall)}字)")
 
 
+# ── 格林布拉特分拆点评（规则驱动，不经 LLM，可复现、不编造）───────────────
+# 依据 Joel Greenblatt 《股市天才》分拆筛选框架：
+#   1. 机构不想要（小、被动基金无法持有）→ 用市值比例估算
+#   2. 母公司规模越大，指数基金/机构强制抛售压力越大
+#   3. 上市后股价被错杀（非基本面因素导致下跌）→ 潜在机会
+#   4. 数据不足时降级为仅进度描述，不硬凑结论
+
+def _greenblatt_market_cap_signal(market_cap, parent_market_cap):
+    """市值比例信号：分拆标的/母公司。返回 (tier, ratio) 或 (None, None)。"""
+    if not market_cap or not parent_market_cap or parent_market_cap <= 0:
+        return None, None
+    ratio = market_cap / parent_market_cap * 100
+    if ratio < 10:
+        return 'tiny', ratio
+    elif ratio < 25:
+        return 'small', ratio
+    else:
+        return 'sizable', ratio
+
+
+def _greenblatt_parent_scale_signal(parent_market_cap):
+    """母公司规模信号：越大越可能构成指数/被动基金强制抛售。"""
+    if not parent_market_cap:
+        return None
+    if parent_market_cap >= 300:
+        return 'large'
+    elif parent_market_cap >= 50:
+        return 'mid'
+    else:
+        return 'small'
+
+
+def _gen_spinoff_verdict_hk(c):
+    """
+    港股分拆格林布拉特点评。输入为 spinoff.json 里单个 company dict。
+    返回 (中文, 英文) 二元组。
+    """
+    status = c.get('_status', '')
+    market_cap = c.get('marketCap')
+    parent_mc = c.get('parentMarketCap')
+    spin_perfs = c.get('spinoffPricePerf') or []
+    spin_chg = spin_perfs[0].get('spinoffChangePct') if spin_perfs else None
+    parent_perf = c.get('pricePerf') or {}
+    parent_chg = parent_perf.get('changePct')
+
+    tier, ratio = _greenblatt_market_cap_signal(market_cap, parent_mc)
+    scale = _greenblatt_parent_scale_signal(parent_mc)
+
+    # 档位1：已上市 + 有市值比例 + 有上市后走势 —— 信息最完整，可以给最具体的点评
+    if tier and spin_chg is not None:
+        if tier == 'tiny' and spin_chg < -10:
+            return (
+                f"分拆标的市值仅为母公司的{ratio:.1f}%，属于格林布拉特所说'机构大概率不会持有'的小盘股，"
+                f"上市后已下跌{abs(spin_chg):.1f}%，跌幅可能主要来自机构被动抛售而非基本面恶化，值得进一步核实。",
+                f"The spun-off unit is only {ratio:.1f}% of the parent's market cap — the kind of small, orphaned stock "
+                f"institutions tend to dump per Greenblatt's framework. It has fallen {abs(spin_chg):.1f}% since listing, "
+                f"which may reflect forced selling rather than deteriorating fundamentals — worth digging into."
+            )
+        if tier == 'tiny' and spin_chg >= -10:
+            return (
+                f"分拆标的市值仅为母公司的{ratio:.1f}%，符合'规模过小、机构懒得研究'的特征，"
+                f"但上市后股价暂未出现明显错杀（{spin_chg:+.1f}%），机会窗口可能已被市场部分定价。",
+                f"The spun-off unit is just {ratio:.1f}% of parent market cap — small enough that institutions typically "
+                f"ignore it — but its post-listing move ({spin_chg:+.1f}%) hasn't shown the classic forced-selling dip yet."
+            )
+        if tier != 'tiny' and spin_chg < -15:
+            return (
+                f"分拆标的市值达母公司的{ratio:.1f}%，规模不算'小到没人要'，但上市后仍下跌{abs(spin_chg):.1f}%，"
+                f"跌幅更可能与业务本身或情绪面有关，而非单纯的指数基金抛售，需要额外核实基本面。",
+                f"At {ratio:.1f}% of parent market cap, this isn't the 'too small to bother with' profile Greenblatt "
+                f"favors — yet it's down {abs(spin_chg):.1f}% since listing, more likely tied to fundamentals or sentiment "
+                f"than pure index-fund selling; worth extra diligence."
+            )
+        return (
+            f"分拆标的市值约为母公司的{ratio:.1f}%，机构强制抛售的特征不算典型，上市后表现为{spin_chg:+.1f}%，"
+            f"暂未看到明显的格林布拉特式错杀信号。",
+            f"At roughly {ratio:.1f}% of parent market cap, this doesn't strongly fit Greenblatt's 'unwanted small "
+            f"spinoff' profile. Post-listing performance is {spin_chg:+.1f}%, with no clear sign of the classic "
+            f"forced-selling mispricing yet."
+        )
+
+    # 档位2：没有市值比例，但有上市后走势
+    if spin_chg is not None:
+        if spin_chg < -15:
+            return (
+                f"分拆标的上市后已下跌{abs(spin_chg):.1f}%，跌幅明显，符合格林布拉特描述的'新股遭抛售'特征，"
+                f"但因缺少分拆标的自身市值数据，暂无法判断是否为'机构懒得持有'的小盘股，建议人工核实规模。",
+                f"Down {abs(spin_chg):.1f}% since listing — a meaningful drop consistent with Greenblatt's 'newly "
+                f"listed spinoff gets dumped' pattern. Market-cap data for the spinoff itself isn't available yet, "
+                f"so it's unclear if this is the classic small-cap orphan; worth checking size manually."
+            )
+        return (
+            f"分拆标的上市后表现为{spin_chg:+.1f}%，暂未观察到格林布拉特式的错杀下跌，"
+            f"母公司市值{f'约{parent_mc:.0f}亿美元' if parent_mc else '数据缺失'}，规模层面暂难判断机构抛售压力。",
+            f"Post-listing move is {spin_chg:+.1f}%, without a clear Greenblatt-style mispricing dip so far. "
+            f"Parent market cap is {f'about ${parent_mc:.0f}B' if parent_mc else 'unavailable'}, so institutional "
+            f"selling pressure is hard to gauge from size alone."
+        )
+
+    # 档位3：尚未上市/进行中 —— 只能用母公司规模推测潜在担声压力，不给确定结论
+    if status in ('proposed', 'approved', 'progress', 'announced'):
+        if scale == 'large':
+            return (
+                f"母公司市值约{parent_mc:.0f}亿美元，规模较大，若分拆标的相对较小，未来上市后更可能出现"
+                f"格林布拉特所说的指数基金/机构被动卖压，值得持续关注上市后的价格走势。",
+                f"Parent market cap is around ${parent_mc:.0f}B — large enough that if the spinoff is meaningfully "
+                f"smaller, it could see the index-fund/institutional forced-selling pattern Greenblatt describes once "
+                f"listed. Worth tracking price action after the spinoff completes."
+            )
+        return (
+            "分拆尚在进行中，暂无分拆标的市值和上市后价格数据，暂不构成可判断的格林布拉特信号，建议等待上市后再评估。",
+            "The spinoff is still in progress — no market-cap or post-listing price data yet, so it's too early "
+            "to apply Greenblatt's screening signals. Best to revisit once the listing completes."
+        )
+
+    return (
+        "数据尚不足以判断是否符合格林布拉特分拆筛选特征，建议关注后续市值和价格数据。",
+        "Not enough data yet to assess this against Greenblatt's spinoff criteria — worth watching for market-cap "
+        "and price data as it becomes available."
+    )
+
+
+def _gen_spinoff_verdict_us(c):
+    """
+    美股分拆格林布拉特点评。输入为 spinoff_us.json 里单个 company dict。
+    返回 (中文, 英文) 二元组。
+    """
+    status = c.get('status', '')
+    market_cap = c.get('marketCap')
+    parent_mc = c.get('parentMarketCap')
+    spin_perf = c.get('spinoffPricePerf')
+    spin_chg = None
+    if isinstance(spin_perf, list) and spin_perf:
+        spin_chg = spin_perf[0].get('spinoffChangePct') or spin_perf[0].get('changePct')
+    elif isinstance(spin_perf, dict):
+        spin_chg = spin_perf.get('changePct')
+
+    tier, ratio = _greenblatt_market_cap_signal(market_cap, parent_mc)
+    scale = _greenblatt_parent_scale_signal(parent_mc)
+
+    if tier and spin_chg is not None:
+        if tier == 'tiny' and spin_chg < -10:
+            return (
+                f"分拆标的市值仅为母公司的{ratio:.1f}%，是格林布拉特眼中典型的'机构不想要'的小盘股，"
+                f"上市后已下跌{abs(spin_chg):.1f}%，符合'非基本面抛压导致的错杀'特征，值得深入研究基本面。",
+                f"The spinoff is only {ratio:.1f}% of the parent's market cap — exactly the small, orphaned profile "
+                f"institutions dump per Greenblatt. It's down {abs(spin_chg):.1f}% since listing, consistent with "
+                f"non-fundamental forced selling — worth a closer look at the underlying business."
+            )
+        if tier == 'tiny':
+            return (
+                f"分拆标的市值仅为母公司的{ratio:.1f}%，规模符合'机构懒得持有'特征，"
+                f"但上市后走势为{spin_chg:+.1f}%，尚未看到明显的错杀下跌。",
+                f"At just {ratio:.1f}% of parent market cap, this fits the 'too small for institutions to bother "
+                f"with' profile, though the post-listing move ({spin_chg:+.1f}%) hasn't shown a clear mispricing dip."
+            )
+        return (
+            f"分拆标的市值约为母公司的{ratio:.1f}%，规模不算典型的'机构抛售'目标，上市后表现为{spin_chg:+.1f}%。",
+            f"At roughly {ratio:.1f}% of parent market cap, this isn't the classic small-orphan target for "
+            f"institutional dumping. Post-listing performance is {spin_chg:+.1f}%."
+        )
+
+    if spin_chg is not None:
+        if spin_chg < -15:
+            return (
+                f"分拆标的上市后已下跌{abs(spin_chg):.1f}%，跌幅明显，符合格林布拉特描述的新股抛压模式，"
+                f"但缺少市值比例数据，建议人工核实分拆标的相对母公司的规模。",
+                f"Down {abs(spin_chg):.1f}% since listing — consistent with Greenblatt's newly-listed-spinoff-gets-"
+                f"dumped pattern, though market-cap ratio data isn't available; worth checking relative size manually."
+            )
+        return (
+            f"分拆标的上市后表现为{spin_chg:+.1f}%，暂未观察到明显的错杀信号。",
+            f"Post-listing move is {spin_chg:+.1f}%, without a clear sign of Greenblatt-style mispricing so far."
+        )
+
+    if status in ('in_progress', 'announced'):
+        if scale == 'large':
+            return (
+                f"母公司市值约{parent_mc:.0f}亿美元，规模较大，是标普型指数成分股分拆时常见的"
+                f"'机构强制卖压'候选，建议关注分拆完成、独立上市后的股价表现。",
+                f"Parent market cap is around ${parent_mc:.0f}B — the kind of larger, index-eligible parent where "
+                f"Greenblatt's institutional forced-selling dynamic often plays out post-spinoff. Worth watching "
+                f"price action once the spinoff lists independently."
+            )
+        return (
+            "分拆尚在进行中，暂无独立市值和上市后价格数据，暂不构成可判断的格林布拉特信号。",
+            "The spinoff is still in progress — no independent market-cap or post-listing price data yet, so it's "
+            "too early to apply Greenblatt's screening signals."
+        )
+
+    return (
+        "数据尚不足以判断是否符合格林布拉特分拆筛选特征，建议关注后续市值和价格数据。",
+        "Not enough data yet to assess this against Greenblatt's spinoff criteria — worth watching for market-cap "
+        "and price data as it becomes available."
+    )
+
+
+def _gen_spinoff_verdicts():
+    """
+    为 spinoff.json（港股）和 spinoff_us.json（美股）的每个公司生成格林布拉特风格的中英双语点评，
+    写入 c['greenblattNote'] = {'zh': ..., 'en': ...}。规则驱动，不经 LLM。
+    """
+    # 港股
+    if os.path.exists('spinoff.json'):
+        with open('spinoff.json', encoding='utf-8') as f:
+            hk_data = json.load(f)
+        for c in hk_data.get('companies', []):
+            zh, en = _gen_spinoff_verdict_hk(c)
+            c['greenblattNote'] = {'zh': zh, 'en': en}
+        with open('spinoff.json', 'w', encoding='utf-8') as f:
+            json.dump(hk_data, f, ensure_ascii=False, indent=2)
+        print(f"  港股分拆：为 {len(hk_data.get('companies', []))} 家公司生成格林布拉特点评")
+
+    # 美股
+    if os.path.exists('spinoff_us.json'):
+        with open('spinoff_us.json', encoding='utf-8') as f:
+            us_data = json.load(f)
+        for c in us_data.get('companies', []):
+            zh, en = _gen_spinoff_verdict_us(c)
+            c['greenblattNote'] = {'zh': zh, 'en': en}
+        with open('spinoff_us.json', 'w', encoding='utf-8') as f:
+            json.dump(us_data, f, ensure_ascii=False, indent=2)
+        print(f"  美股分拆：为 {len(us_data.get('companies', []))} 家公司生成格林布拉特点评")
+
+
 def main():
     print("=== enrich_metadata.py 开始 ===")
     cache = load_cache()
@@ -868,6 +1093,9 @@ def main():
 
         print("\n=== LLM 生成价值筛选总结 ===")
         _gen_homework_summary(sf_key)
+
+    print("\n=== 生成分拆页格林布拉特点评（规则驱动，无需 LLM）===")
+    _gen_spinoff_verdicts()
 
 if __name__ == '__main__':
     main()

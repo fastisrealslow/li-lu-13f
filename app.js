@@ -1818,6 +1818,18 @@ function _renderPricePanel(perf, isEn, opts) {
   </div>`;
 }
 
+function _spinoffGreenblattNote(c, isEn) {
+  const note = c.greenblattNote;
+  if (!note) return '';
+  const txt = isEn ? note.en : note.zh;
+  if (!txt) return '';
+  return `<div style="background:linear-gradient(135deg,rgba(212,168,83,0.08),rgba(180,130,60,0.06));
+              border:1px solid rgba(212,168,83,0.25);border-radius:6px;padding:8px 12px;
+              margin-bottom:10px;font-size:.75rem;line-height:1.65;color:var(--text);">
+    <span style="font-size:.62rem;color:var(--gold);font-weight:700;margin-right:5px;white-space:nowrap;">📖 ${isEn?'Greenblatt Note':'格林布拉特点评'}</span>${txt}
+  </div>`;
+}
+
 function _renderSpinoffPricePanels(c, isEn) {
   // 港股：只有母公司
   const perf = c.pricePerf;
@@ -2173,6 +2185,7 @@ async function renderSpinoff() {
             &nbsp;&nbsp;
             <span style="color:var(--text-lighter);">${c.aiSummary||c.summary||''}</span>
           </div>`:`<div style="padding:6px 14px 2px;font-size:.7rem;color:var(--text-lighter);">${c.aiSummary ? '<span style="color:#6366f1;font-size:.62rem;margin-right:3px;">✨</span>' : ''}${c.aiSummary||c.summary||''}</div>`}
+          ${_spinoffGreenblattNote(c, isEn)}
 
           <!-- 进度条（完整版） -->
           <div style="margin:6px 14px 0;background:#e5e7eb;border-radius:4px;height:6px;overflow:hidden;">
@@ -2526,6 +2539,7 @@ function _usApplyFilters() {
           ${c.distributionDate?`<div><b>${isEn?'Distribution Date':'分派日'}:</b> ${c.distributionDate}</div>`:''}
         </div>
         ${c.aiSummary?`<div style="background:linear-gradient(135deg,rgba(99,102,241,0.06),rgba(139,92,246,0.06));border:1px solid rgba(99,102,241,0.15);border-radius:6px;padding:8px 12px;margin-bottom:10px;font-size:.75rem;line-height:1.6;color:var(--text);"><span style="font-size:.62rem;color:#6366f1;font-weight:600;margin-right:5px;">✨ AI</span>${c.aiSummary}</div>`:''}
+        ${_spinoffGreenblattNote(c, isEn)}
         ${_renderSpinoffPricePanels(c, isEn)}
         <div style="font-size:.73rem;color:var(--text-light);font-weight:600;margin-bottom:5px;">${isEn?'SEC Filings':'公告记录'}</div>
         ${annList}

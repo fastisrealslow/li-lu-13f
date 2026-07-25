@@ -293,6 +293,28 @@ def fetch_price_on_date(ticker: str, date_str: str, window=7) -> float | None:
         except: pass
     return None
 
+def fetch_target_market_cap(ticker: str, market: str = 'HK') -> float | None:
+    """
+    拉分拆标的自身市值（不是母公司）。用 yfinance，统一转换为亿美元。
+    格林布拉特分拆点评的市值比例信号依赖这个数据。
+    """
+    HKD_TO_USD = 0.128
+    CNY_TO_USD = 0.139
+    try:
+        info = yf.Ticker(ticker).info
+        mc = info.get('marketCap', 0) or 0
+        if mc <= 0:
+            return None
+        if market == 'HK' or ticker.upper().endswith('.HK'):
+            return round(mc * HKD_TO_USD / 1e8, 1)
+        elif market == 'A' or ticker.upper().endswith(('.SS', '.SZ')):
+            return round(mc * CNY_TO_USD / 1e8, 1)
+        else:  # US 及其他均视为美元
+            return round(mc / 1e8, 1)
+    except Exception:
+        return None
+
+
 def fetch_price_latest(ticker: str) -> float | None:
     tk = normalize_ticker(ticker)
     try:
@@ -583,8 +605,17 @@ def merge_into_json(results: list[dict], dry_run=False) -> int:
         # Fix 5: source 字段写入
         src = r.get('source', 'known_db')
 
+        # 拉分拆标的自身市值（仅当母公司尚无 marketCap 时，避免重复调用）
+        target_market = r.get('target_market') or r.get('market', 'HK')
+
         for c in data['companies']:
             if c.get('ticker') != parent_tk: continue
+
+            if not c.get('marketCap'):
+                mc = fetch_target_market_cap(spinoff_tk, target_market)
+                if mc:
+                    c['marketCap'] = mc
+                    print(f"    {parent_tk} 分拆标的 {spinoff_tk} 市值: ${mc}亿 USD")
 
             new_pair = {
                 'spinoff':               spinoff_tk,
