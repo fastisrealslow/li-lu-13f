@@ -257,11 +257,31 @@ def fetch_us(investor, cfg):
                             buy_q = q_key
                         prev_shares = qh["shares"]
 
-        # 近期成本缓存检查（只有 allTime 也有值时才跳过，避免 allTime 空时永远不重算）
+        # 预先推导本轮连续持有起点（gap>4 规则），用于下面的外层缓存短路判断——
+        # 必须在这里就先算好，否则外层短路会在 allTime.first 需要修正时仍然直接 continue 跳过重算
+        _run_first_precheck = None
+        _qk_precheck = None
+        for q_key, q_h in sorted(hist_holdings.items()):
+            for qh in q_h:
+                if qh["ticker"] == tk and qh.get("shares", 0) > 0:
+                    if _qk_precheck is None:
+                        _qk_precheck = []
+                    _qk_precheck.append(q_key)
+        if _qk_precheck:
+            def _q2n_pre(q):
+                y, qn = q.split(" Q"); return int(y) * 4 + int(qn)
+            _run_first_precheck = _qk_precheck[0]
+            for _i in range(1, len(_qk_precheck)):
+                if _q2n_pre(_qk_precheck[_i]) - _q2n_pre(_qk_precheck[_i - 1]) > 4:
+                    _run_first_precheck = _qk_precheck[_i]
+
+        # 近期成本缓存检查（只有 allTime 也有值且 allTime.first 与本轮连续起点一致时才跳过，
+        # 避免 allTime 空时永远不重算，也避免清仓重入后 allTime.first 永远回不到新起点（历史 bug）
         if tk in existing_cb:
             r = existing_cb[tk].get("recent", {})
             a = existing_cb[tk].get("allTime") or {}
-            if r.get("source") == "yahoo" and r.get("quarter") == buy_q and a.get("avg"):
+            if (r.get("source") == "yahoo" and r.get("quarter") == buy_q and a.get("avg")
+                    and (_run_first_precheck is None or a.get("first") == _run_first_precheck)):
                 cost_basis[tk] = existing_cb[tk]
                 print(f"  Cost {tk} ({buy_q})... (cached)")
                 continue
@@ -516,9 +536,26 @@ def fetch_hk(investor, cfg):
                         buy_q = q_key
                     prev_shares = qh["shares"]
 
+        # 预先推导本轮连续持有起点（gap>4 规则），防止外层短路在 allTime.first 需要修正时仍直接 continue 跳过重算（与美股分支同样的历史 bug）
+        _qt_precheck_hk = []
+        for q_key in sorted(hist_holdings.keys()):
+            for qh in hist_holdings[q_key]:
+                if qh["ticker"] == tk and qh.get("shares", 0) > 0:
+                    _qt_precheck_hk.append(q_key)
+        _run_first_hk_precheck = None
+        if _qt_precheck_hk:
+            def _q2n_pre_hk(q):
+                y, qn = q.split(" Q"); return int(y) * 4 + int(qn)
+            _run_first_hk_precheck = _qt_precheck_hk[0]
+            for _i in range(1, len(_qt_precheck_hk)):
+                if _q2n_pre_hk(_qt_precheck_hk[_i]) - _q2n_pre_hk(_qt_precheck_hk[_i - 1]) > 4:
+                    _run_first_hk_precheck = _qt_precheck_hk[_i]
+
         if tk in existing_cb:
             ec = existing_cb[tk]
-            if ec.get("recent", {}).get("quarter") == buy_q:
+            _ec_at = ec.get("allTime") or {}
+            if (ec.get("recent", {}).get("quarter") == buy_q
+                    and (_run_first_hk_precheck is None or _ec_at.get("first") == _run_first_hk_precheck)):
                 print(f"  {tk} ({buy_q}) — cached")
                 cost_basis[tk] = ec
                 continue
