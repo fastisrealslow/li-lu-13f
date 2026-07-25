@@ -1444,6 +1444,7 @@ async function renderHomework() {
   }
 
   // Pass 2: build candidates (MOS >= 10% filter applies here)
+  const nearMissMap = {}; // ticker -> [{investor, mos}] — 持有但 MOS<10% 被过滤的持有人（优化③：表格列同步显示 near_miss）
   for (const {cfg, dr, pr} of allDataCache) {
     try {
       const holdings = dr.current.holdings;
@@ -1460,7 +1461,13 @@ async function renderHomework() {
         const price = q.c; const buy = rc.buy;
         if (price <= 0 || buy <= 0) continue;
         const mos = (buy - price) / buy * 100;
-        if (mos < 10) continue;
+        if (mos < 10) {
+          if (mos > 0) {
+            if (!nearMissMap[tk]) nearMissMap[tk] = [];
+            nearMissMap[tk].push({investor: lang==='en'?cfg.nameEn:cfg.name, id: cfg.id, mos: Math.round(mos*10)/10});
+          }
+          continue;
+        }
         const weight = totalVal > 0 ? h.value / totalVal * 100 : 0;
         const prev = h.prevShares || 0; const cur2 = h.shares || 0;
         let chg = 'hold';
@@ -1555,8 +1562,13 @@ async function renderHomework() {
     const consensusPrefix = c.totalHolders >= 2
       ? `<span style="font-size:.6rem;color:#d4a853;font-weight:700;margin-right:4px;">👥 ${c.totalHolders}${isEn2?' held':' 人'}</span>`
       : '';
-    const invCellHtml = `<div style="display:flex;flex-wrap:wrap;align-items:center;gap:4px;">${consensusPrefix}${invBadges}</div>`;
-    const invMobileHtml = `<div style="display:flex;flex-wrap:wrap;align-items:center;gap:3px;margin-top:4px;">${consensusPrefix}${invBadgesCompact}</div>`;
+    const nmList = nearMissMap[c.ticker] || [];
+    const nmTitle = nmList.map(nm => `${nm.investor} ${nm.mos}%`).join(', ');
+    const nmBadge = nmList.length
+      ? `<span title="${nmTitle}" style="cursor:help;display:inline-flex;align-items:center;gap:2px;padding:2px 6px;background:rgba(148,163,184,0.12);border:1px dashed rgba(148,163,184,0.4);border-radius:8px;font-size:.55rem;color:var(--text-lighter);font-weight:600;white-space:nowrap;">+${nmList.length} ${isEn2?'watching':'观察中'}</span>`
+      : '';
+    const invCellHtml = `<div style="display:flex;flex-wrap:wrap;align-items:center;gap:4px;">${consensusPrefix}${invBadges}${nmBadge}</div>`;
+    const invMobileHtml = `<div style="display:flex;flex-wrap:wrap;align-items:center;gap:3px;margin-top:4px;">${consensusPrefix}${invBadgesCompact}${nmBadge}</div>`;
     return `<tr>
       <td class="idx-cell"><span class="idx-num">${i+1}</span></td>
       <td class="stock-cell">
@@ -1588,11 +1600,25 @@ async function renderHomework() {
       const noteRows = (hwSum.stockNotes || []).map(n => {
         const holderHtml = (n.holders || []).map(h => {
           const wLabel = h.weight >= 0.5 ? `${h.weight}%${isEn2?' position':'仓位'}` : (isEn2?'tiny position (<0.5%)':'极小仓位(<0.5%)');
-          const holdLabel = h.hold_quarters ? `${isEn2?'held':'持有'} ${h.hold_years}${isEn2?'y':'年'}` : (isEn2?'new entry':'首次建仓');
+          let holdLabel;
+          if (h.reentry && h.hold_quarters) {
+            holdLabel = isEn2
+              ? `re-entered ${h.reentry_quarter}, held ${h.hold_years}y (exited ${h.exit_quarter})`
+              : `本轮${h.reentry_quarter}重建仓后持有${h.hold_years}年(此前${h.exit_quarter}清仓过)`;
+          } else if (h.hold_quarters) {
+            holdLabel = `${isEn2?'held':'持有'} ${h.hold_years}${isEn2?'y':'年'}`;
+          } else {
+            holdLabel = isEn2?'new entry':'首次建仓';
+          }
+          const trendSuffix = h.trend === 'accumulating'
+            ? (isEn2 ? ', accumulating 3q' : '，近3季连续加仓')
+            : h.trend === 'reducing'
+              ? (isEn2 ? ', reducing 3q' : '，近3季连续减仓')
+              : '';
           const chgCn = h.chg==='new'?'本季新开仓':h.chg==='added'?'本季加仓':h.chg==='trimmed'?'本季减仓':'仓位未变';
           const chgTxt = isEn2 ? chgLabelEn[chgCn] : chgCn;
           const chgColor = h.chg==='new'?'#3b82f6':h.chg==='added'?'#10b981':h.chg==='trimmed'?'#ef4444':'var(--text-lighter)';
-          return `<span style="white-space:nowrap;">${h.investor}<span style="color:var(--text-lighter);">（${wLabel}，${holdLabel}，</span><span style="color:${chgColor};font-weight:600;">${chgTxt}</span><span style="color:var(--text-lighter);">）</span></span>`;
+          return `<span style="white-space:nowrap;">${h.investor}<span style="color:var(--text-lighter);">（${wLabel}，${holdLabel}${trendSuffix}，</span><span style="color:${chgColor};font-weight:600;">${chgTxt}</span><span style="color:var(--text-lighter);">）</span></span>`;
         }).join(isEn2?'; ':'；');
         const tierTxt = isEn2 ? tierColorEn[n.mosTier] : n.mosTier;
         const verdictTxt = isEn2 ? n.verdictEn : n.verdict;
@@ -1609,10 +1635,12 @@ async function renderHomework() {
         </div>`;
       }).join('');
       const overallHtml = hwSum.overallSummary ? `<div style="margin-top:10px;padding-top:10px;border-top:1px dashed rgba(99,102,241,0.3);font-size:.8rem;line-height:1.75;color:var(--text);"><strong style="color:#6366f1;">${isEn2?'Overall':'整体归纳'}：</strong>${hwSum.overallSummary}</div>` : '';
+      const droppedOutHtml = (hwSum.droppedOut && hwSum.droppedOut.length) ? `<div style="margin-top:8px;padding-top:8px;border-top:1px dashed rgba(148,163,184,0.25);font-size:.72rem;line-height:1.6;color:var(--text-lighter);"><strong style="color:var(--text-light);">${isEn2?'Dropped from list':'本轮跌出'}：</strong>${hwSum.droppedOut.map(d => `${fmtTicker(d.ticker)}${isEn2?'':`（${d.name}）`}${d.prevMos!=null?` — ${isEn2?'prev MOS':'上轮安全边际'} ${d.prevMos}%`:''}`).join(isEn2?'; ':'；')}</div>` : '';
       hwAiHtml = `<div style="margin-bottom:20px;padding:14px 16px;background:linear-gradient(135deg,rgba(99,102,241,0.05),rgba(139,92,246,0.05));border:1px solid rgba(99,102,241,0.15);border-radius:10px;">
         <div style="font-size:.68rem;color:#6366f1;font-weight:700;margin-bottom:6px;">✨ AI ${isEn2?'Per-Stock Notes':'逐股解读'}</div>
         ${noteRows}
         ${overallHtml}
+        ${droppedOutHtml}
         <div style="margin-top:8px;font-size:.62rem;color:var(--text-lighter);">${isEn2?'Generated':'生成于'} ${hwSum.generatedAt ? new Date(hwSum.generatedAt).toLocaleString(isEn2?'en-US':'zh-CN') : ''} · ${isEn2?'For reference only, not investment advice.':'仅供参考，不构成投资建议。'}</div>
       </div>`;
     }

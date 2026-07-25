@@ -361,15 +361,68 @@ def _gen_13f_summaries(api_key):
         time.sleep(1)
 
 
+def _q2n(q):
+    """'2025 Q2' -> 8101 类型的可比较整数，季度细粒度"""
+    y, n = q.split(' Q')
+    return int(y) * 4 + int(n)
+
+
 def _hold_quarters(first_q, cur_q):
     """计算从首次建仓季度到当前季度的持仓季数"""
     try:
-        def hq(q):
-            y, n = q.split(' Q')
-            return int(y) * 4 + int(n)
-        return max(hq(cur_q) - hq(first_q) + 1, 1)
+        return max(_q2n(cur_q) - _q2n(first_q) + 1, 1)
     except Exception:
         return None
+
+
+def _ticker_quarter_series(dr, tk):
+    """
+    从 dr['history']['holdings'] 中提取某 ticker 在每个季度的持仓股数（同 ticker 多条记录求和），
+    返回按季度升序排列的 [(quarter, shares), ...]，仅包含存在该 ticker 的季度（shares=0 不会出现，
+    因为清仓季度通常不再出现在该季度的 13F holdings 列表里）。
+    """
+    hist = dr.get('history', {})
+    quarters = hist.get('quarters', [])
+    hk = hist.get('holdings', {})
+    series = []
+    for q in quarters:
+        entries = hk.get(q, [])
+        sh = sum(e.get('shares', 0) or 0 for e in entries if e.get('ticker') == tk)
+        if sh > 0:
+            series.append((q, sh))
+    series.sort(key=lambda x: _q2n(x[0]))
+    return series
+
+
+def _analyze_holding_pattern(series):
+    """
+    基于 (quarter, shares) 序列分析持仓模式：
+    - trend: 'accumulating' 连续>=3季且无减仓地加仓(末3季) / 'reducing' 连续减仓 / 'stable' 其他
+    - reentry: True 若历史上存在 gap>4 季的清仓断层（与 fetch_prices_all.py 里 gap>4 重置规则保持一致）
+    - exit_quarter: 若 reentry 为 True，返回最后一次清仓前的最后持仓季度（用于文案提及）
+    """
+    result = {'trend': 'stable', 'reentry': False, 'exit_quarter': None, 'reentry_quarter': None}
+    if len(series) < 2:
+        return result
+    # 检测 gap>4 断层（取最后一次断层）
+    for i in range(1, len(series)):
+        gap = _q2n(series[i][0]) - _q2n(series[i - 1][0])
+        if gap > 4:
+            result['reentry'] = True
+            result['exit_quarter'] = series[i - 1][0]
+            result['reentry_quarter'] = series[i][0]
+    # 连续趋势仅看最近一段连续持仓（断层后的部分）
+    run = series
+    if result['reentry']:
+        rq = result['reentry_quarter']
+        run = [s for s in series if _q2n(s[0]) >= _q2n(rq)]
+    if len(run) >= 3:
+        recent3 = run[-3:]
+        if recent3[0][1] < recent3[1][1] < recent3[2][1]:
+            result['trend'] = 'accumulating'
+        elif recent3[0][1] > recent3[1][1] > recent3[2][1]:
+            result['trend'] = 'reducing'
+    return result
 
 
 def _mos_tier(mos):
@@ -496,7 +549,7 @@ def _gen_verdict(v, mos_tier):
             "Only one holder, and they trimmed this quarter — the margin of safety qualifies, but there's no consensus support; approach with caution."
         )
 
-    # 单人 + 仓位未变，兜底
+    # 单人 + 仓位未变，兜底（若近3季存在真实连续加仓/减仓趋势，优先用趋势描述而不是"未变"）
     if n == 1 and 'hold' in chgs:
         if deep:
             depth_desc, depth_en = '安全边际充足', 'the margin of safety is ample'
@@ -504,10 +557,22 @@ def _gen_verdict(v, mos_tier):
             depth_desc, depth_en = '安全边际仅略微达标', 'the margin of safety only barely qualifies'
         else:
             depth_desc, depth_en = '安全边际仅属中等', 'the margin of safety is only moderate'
+        trend = holders[0].get('trend')
+        if trend == 'accumulating':
+            return (
+                f"仅单一持有人持有，本季环比变化轻微但近3季实际上在持续加仓，{depth_desc}，倾向性信号偏积极。",
+                f"Only one holder, and while the quarter-over-quarter change is small, they've been steadily accumulating over the past 3 quarters; {depth_en} — a mildly positive signal."
+            )
+        if trend == 'reducing':
+            return (
+                f"仅单一持有人持有，本季环比变化轻微但近3季实际上在持续减仓，即使{depth_desc}，仍建议谨慎对待。",
+                f"Only one holder, and while the quarter-over-quarter change is small, they've been steadily trimming over the past 3 quarters; even though {depth_en}, caution is still advised."
+            )
         return (
             f"仅单一持有人持有且仓位未变，{depth_desc}，可作为观察名单但暂无新增信号。",
             f"Only one holder, position unchanged, and {depth_en} — fine as a watchlist name but no new signal for now."
         )
+
 
     # 默认兜底
     depth_desc = '折价充足' if deep else ('折价较浅' if shallow else '折价适中')
@@ -605,9 +670,14 @@ def _build_homework_prompt():
             hq_n = _hold_quarters(at['first'], cur_q) if at.get('first') else None
             hq_yrs = round(hq_n / 4, 1) if hq_n else None
 
+            series = _ticker_quarter_series(dr, tk)
+            pattern = _analyze_holding_pattern(series)
+
             investor_detail = {
                 'investor': name_cn, 'chg': chg, 'weight': round(weight, 1),
                 'hold_quarters': hq_n, 'hold_years': hq_yrs,
+                'trend': pattern['trend'], 'reentry': pattern['reentry'],
+                'exit_quarter': pattern['exit_quarter'], 'reentry_quarter': pattern['reentry_quarter'],
             }
 
             entry = candidates.get(tk)
@@ -640,8 +710,19 @@ def _build_homework_prompt():
         holder_descs = []
         for h in v['holders']:
             w_desc = f"{h['weight']}%仓位" if h['weight'] >= 0.5 else "极小仓位(<0.5%)"
-            hold_desc = f"持有{h['hold_quarters']}季/{h['hold_years']}年" if h['hold_quarters'] else "首次建仓"
-            holder_descs.append(f"{h['investor']}（{w_desc}，{hold_desc}，{_CHG_LABEL[h['chg']]}）")
+            if h.get('reentry') and h['hold_quarters']:
+                # 清仓重入：明确标注本轮重建仓时间，避免用户误以为“持仓年限”是一直未断的
+                hold_desc = f"本轮{h['reentry_quarter']}重建仓后持有{h['hold_quarters']}季/{h['hold_years']}年（此前于{h['exit_quarter']}清仓过）"
+            elif h['hold_quarters']:
+                hold_desc = f"持有{h['hold_quarters']}季/{h['hold_years']}年"
+            else:
+                hold_desc = "首次建仓"
+            trend_desc = ''
+            if h.get('trend') == 'accumulating':
+                trend_desc = "，近3季连续加仓"
+            elif h.get('trend') == 'reducing':
+                trend_desc = "，近3季连续减仓"
+            holder_descs.append(f"{h['investor']}（{w_desc}，{hold_desc}{trend_desc}，{_CHG_LABEL[h['chg']]}）")
             if h['chg'] in ('new', 'added') and h['weight'] >= 3:
                 strong_signals.append(f"{v['name']}({tk})：{h['investor']}{w_desc}且{_CHG_LABEL[h['chg']]}")
 
@@ -660,6 +741,10 @@ def _build_homework_prompt():
             'holderCount': len(v['holders']),
             'holders': v['holders'],
             'holderText': '；'.join(holder_descs),
+            'nearMiss': [
+                {'investor': nm, 'mos': m, 'investorEn': _investor_en(nm)}
+                for nm, m in v.get('near_miss', [])
+            ],
             'verdict': verdict_cn,
             'verdictEn': verdict_en,
         }
@@ -679,7 +764,8 @@ def _build_homework_prompt():
         "2. 最多只能提到 2-3 个具体股票代码作为例子，不要逐股列举。\n"
         "3. 不要使用 Markdown 语法（不要加粗、不要编号列表、不要用**号），只要普通段落文字。\n"
         "4. 只能基于下面提供的信息归纳，不要编造未提及的数据，不要给出买卖建议，语气客观分析。\n"
-        "5. 直接输出归纳段落本身，不要加任何开头说明或标题。\n\n"
+        "5. 直接输出归纳段落本身，不要加任何开头说明或标题。\n"
+        "6. 若提供了“本轮跌出候选清单的股票”，可适当提及1只作为补充（说明它因安全边际不再达标而跌出），不必全部列举。\n\n"
         f"多人共识股（被2人以上持有）: {'; '.join(consensus_lines) if consensus_lines else '无'}\n"
         f"新开仓/加仓信号: {'; '.join(new_or_added) if new_or_added else '无'}\n"
         f"高仓位主动加仓/新开仓强信号: {'; '.join(strong_signals) if strong_signals else '无'}\n"
@@ -707,16 +793,26 @@ def _gen_homework_summary(api_key):
         print("  无候选股，跳过 homework summary")
         return
 
-    prev_hash, prev_overall = None, None
+    prev_hash, prev_overall, prev_notes = None, None, []
     if os.path.exists('homework_summary.json'):
         try:
             prev = json.load(open('homework_summary.json'))
             prev_hash = prev.get('signalHash')
             prev_overall = prev.get('overallSummary')
+            prev_notes = prev.get('stockNotes', [])
         except Exception:
             pass
 
-    if signal_hash is not None and signal_hash == prev_hash and prev_overall:
+    # 优化①：检测跌出候选清单的股票（上一轮在、本轮不在），避免用户因“静默消失”而不知道原因
+    cur_tickers = {n['ticker'] for n in stock_notes}
+    prev_ticker_map = {n['ticker']: n for n in prev_notes}
+    dropped_out = [prev_ticker_map[tk] for tk in prev_ticker_map if tk not in cur_tickers]
+    dropped_desc = '; '.join(f"{d['name']}({d['ticker']}) 上一轮安全边际{d.get('mos','?')}%" for d in dropped_out[:5])
+
+    if dropped_out:
+        prompt += f"\n本轮跌出候选清单的股票（安全边际不再≥10%或无持有人）: {dropped_desc if dropped_desc else '无'}\n"
+
+    if signal_hash is not None and signal_hash == prev_hash and prev_overall and not dropped_out:
         overall = prev_overall
         print("  homework summary 信号未变，复用上次 overallSummary，跳过 LLM 调用")
     else:
@@ -728,6 +824,10 @@ def _gen_homework_summary(api_key):
     out = {
         'overallSummary': overall,
         'stockNotes': stock_notes,
+        'droppedOut': [
+            {'ticker': d['ticker'], 'name': d['name'], 'prevMos': d.get('mos')}
+            for d in dropped_out
+        ],
         'generatedAt': datetime.now(timezone.utc).strftime('%Y-%m-%dT%H:%M:%SZ'),
         'candidateCount': len(candidates),
         'consensusCount': sum(1 for v in candidates.values() if len(v['holders']) >= 2),
