@@ -53,6 +53,8 @@ STEP_LABELS = {
     "hk_disclosures":  "港股披露监控",
     "spinoff_hk":      "港股分拆",
     "spinoff_us":      "美股分拆",
+    "spinoff_prices":  "分拆股价刷新",
+    "greenblatt_notes":"格林布拉特点评",
 }
 
 def load():

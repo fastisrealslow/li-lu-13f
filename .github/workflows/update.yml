@@ -355,6 +355,21 @@ jobs:
             python3 update_status.py --step spinoff_prices --status fail --msg "Step exited with error"
           fi
 
+      - name: Generate Greenblatt spinoff notes
+        id: greenblatt_notes
+        continue-on-error: true
+        run: |
+          python3 -c "from enrich_metadata import _gen_spinoff_verdicts; _gen_spinoff_verdicts()"
+
+      - name: Status - Greenblatt notes
+        if: always()
+        run: |
+          if [ "${{ steps.greenblatt_notes.outcome }}" = "success" ]; then
+            python3 update_status.py --step greenblatt_notes --status ok
+          else
+            python3 update_status.py --step greenblatt_notes --status fail --msg "Step exited with error"
+          fi
+
 
 
       # ─────────────── JSON 验证 & 提交 ───────────────

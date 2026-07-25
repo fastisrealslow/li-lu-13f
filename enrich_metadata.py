@@ -1094,8 +1094,12 @@ def main():
         print("\n=== LLM 生成价值筛选总结 ===")
         _gen_homework_summary(sf_key)
 
-    print("\n=== 生成分拆页格林布拉特点评（规则驱动，无需 LLM）===")
-    _gen_spinoff_verdicts()
+    # 注意：_gen_spinoff_verdicts() 不在这里调用。
+    # 它依赖 spinoff.json/spinoff_us.json 里的 marketCap 和 spinoffPricePerf 字段，
+    # 而这些字段由 fetch_spinoff.py / fetch_spinoff_us.py / spinoff_price_refresh.py 在
+    # CI 中比 enrich_metadata.py 更晚执行才会写入（见 .github/workflows/update.yml 步骤顺序）。
+    # 在这里调用会读到还未刷新的旧数据，而且随后的分拆抓取步骤会重新写整个 JSON，
+    # 把这里写入的 greenblattNote 覆盖掉。改为在 spinoff_price_refresh.py 之后单独调用。
 
 if __name__ == '__main__':
     main()
