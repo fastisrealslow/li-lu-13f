@@ -16,24 +16,37 @@
           "chg": "hold",
           "weight": 14.7,
           "hold_quarters": 22,
-          "hold_years": 5.5
+          "hold_years": 5.5,
+          "trend": "stable",
+          "reentry": true,
+          "exit_quarter": "2021 Q3",
+          "reentry_quarter": "2025 Q2"
         },
         {
           "investor": "段永平",
           "chg": "added",
           "weight": 10.1,
           "hold_quarters": 11,
-          "hold_years": 2.8
+          "hold_years": 2.8,
+          "trend": "accumulating",
+          "reentry": false,
+          "exit_quarter": null,
+          "reentry_quarter": null
         },
         {
           "investor": "Tepper",
           "chg": "trimmed",
           "weight": 1.5,
           "hold_quarters": 12,
-          "hold_years": 3.0
+          "hold_years": 3.0,
+          "trend": "reducing",
+          "reentry": false,
+          "exit_quarter": null,
+          "reentry_quarter": null
         }
       ],
-      "holderText": "李录（14.7%仓位，持有22季/5.5年，仓位未变）；段永平（10.1%仓位，持有11季/2.8年，本季加仓）；Tepper（1.5%仓位，持有12季/3.0年，本季减仓）",
+      "holderText": "李录（14.7%仓位，本轮2025 Q2重建仓后持有22季/5.5年（此前于2021 Q3清仓过），仓位未变）；段永平（10.1%仓位，持有11季/2.8年，近3季连续加仓，本季加仓）；Tepper（1.5%仓位，持有12季/3.0年，近3季连续减仓，本季减仓）",
+      "nearMiss": [],
       "verdict": "共识度高但折价浅、且持有人动作分化，属于\"关注但不宜追高\"的类型。",
       "verdictEn": "High consensus but the discount is shallow, but holders are diverging (some adding, some trimming) — worth watching but not chasing."
     },
@@ -52,10 +65,15 @@
           "chg": "trimmed",
           "weight": 1.8,
           "hold_quarters": 41,
-          "hold_years": 10.2
+          "hold_years": 10.2,
+          "trend": "reducing",
+          "reentry": true,
+          "exit_quarter": "2023 Q4",
+          "reentry_quarter": "2025 Q2"
         }
       ],
-      "holderText": "Tepper（1.8%仓位，持有41季/10.2年，本季减仓）",
+      "holderText": "Tepper（1.8%仓位，本轮2025 Q2重建仓后持有41季/10.2年（此前于2023 Q4清仓过），近3季连续减仓，本季减仓）",
+      "nearMiss": [],
       "verdict": "持仓超10年的老仓位却在深度折价区减仓，可能反映基本面担忧大于估值吸引力，需警惕价值陷阱。",
       "verdictEn": "A position held for over 10 years is being trimmed despite trading at a deep discount — may signal fundamental concerns outweighing valuation appeal; watch for a value trap."
     },
@@ -74,10 +92,15 @@
           "chg": "hold",
           "weight": 2.8,
           "hold_quarters": 40,
-          "hold_years": 10.0
+          "hold_years": 10.0,
+          "trend": "stable",
+          "reentry": false,
+          "exit_quarter": null,
+          "reentry_quarter": null
         }
       ],
       "holderText": "巴菲特（2.8%仓位，持有40季/10.0年，仓位未变）",
+      "nearMiss": [],
       "verdict": "深度折价且长期持有未动，但仓位并不重，更像是低成本的安心底仓，而非新的买入信号。",
       "verdictEn": "Deep discount with a long-held, unchanged position, though the position size is not large, looks more like a low-cost core holding than a fresh buy signal."
     },
@@ -96,10 +119,15 @@
           "chg": "added",
           "weight": 6.8,
           "hold_quarters": 26,
-          "hold_years": 6.5
+          "hold_years": 6.5,
+          "trend": "accumulating",
+          "reentry": false,
+          "exit_quarter": null,
+          "reentry_quarter": null
         }
       ],
-      "holderText": "Akre（6.8%仓位，持有26季/6.5年，本季加仓）",
+      "holderText": "Akre（6.8%仓位，持有26季/6.5年，近3季连续加仓，本季加仓）",
+      "nearMiss": [],
       "verdict": "单一持有人在深度折价区主动加仓（6.8%仓位），虽无共识但信心明确，值得关注。",
       "verdictEn": "A single holder is actively adding at a deep discount (6.8% position) — no consensus yet, but conviction is clear; worth watching."
     },
@@ -118,10 +146,15 @@
           "chg": "trimmed",
           "weight": 0.0,
           "hold_quarters": 2,
-          "hold_years": 0.5
+          "hold_years": 0.5,
+          "trend": "stable",
+          "reentry": false,
+          "exit_quarter": null,
+          "reentry_quarter": null
         }
       ],
       "holderText": "段永平（极小仓位(<0.5%)，持有2季/0.5年，本季减仓）",
+      "nearMiss": [],
       "verdict": "仅单一持有人且本季减仓，安全边际虽达标，但缺乏共识支持，须谨慎看待。",
       "verdictEn": "Only one holder, and they trimmed this quarter — the margin of safety qualifies, but there's no consensus support; approach with caution."
     },
@@ -140,10 +173,15 @@
           "chg": "hold",
           "weight": 4.8,
           "hold_quarters": 5,
-          "hold_years": 1.2
+          "hold_years": 1.2,
+          "trend": "stable",
+          "reentry": false,
+          "exit_quarter": null,
+          "reentry_quarter": null
         }
       ],
       "holderText": "Greenberg（4.8%仓位，持有5季/1.2年，仓位未变）",
+      "nearMiss": [],
       "verdict": "仅单一持有人持有且仓位未变，安全边际仅属中等，可作为观察名单但暂无新增信号。",
       "verdictEn": "Only one holder, position unchanged, and the margin of safety is only moderate — fine as a watchlist name but no new signal for now."
     },
@@ -162,10 +200,21 @@
           "chg": "hold",
           "weight": 5.2,
           "hold_quarters": 31,
-          "hold_years": 7.8
+          "hold_years": 7.8,
+          "trend": "stable",
+          "reentry": true,
+          "exit_quarter": "2020 Q2",
+          "reentry_quarter": "2022 Q1"
         }
       ],
-      "holderText": "Greenberg（5.2%仓位，持有31季/7.8年，仓位未变）",
+      "holderText": "Greenberg（5.2%仓位，本轮2022 Q1重建仓后持有31季/7.8年（此前于2020 Q2清仓过），仓位未变）",
+      "nearMiss": [
+        {
+          "investor": "巴菲特",
+          "mos": 6.7,
+          "investorEn": "Buffett"
+        }
+      ],
       "verdict": "仅单一持有人持有且仓位未变，安全边际仅属中等，可作为观察名单但暂无新增信号。另外巴菲特（6.7%）也持有本股，但安全边际尚未达到10%门槛，未计入共识持有人。",
       "verdictEn": "Only one holder, position unchanged, and the margin of safety is only moderate — fine as a watchlist name but no new signal for now. Buffett (6.7%) also holds this stock, but the margin of safety hasn't reached the 10% threshold yet, so it is not counted among the consensus holders."
     },
@@ -184,10 +233,15 @@
           "chg": "trimmed",
           "weight": 0.5,
           "hold_quarters": 9,
-          "hold_years": 2.2
+          "hold_years": 2.2,
+          "trend": "reducing",
+          "reentry": false,
+          "exit_quarter": null,
+          "reentry_quarter": null
         }
       ],
-      "holderText": "Tepper（0.5%仓位，持有9季/2.2年，本季减仓）",
+      "holderText": "Tepper（0.5%仓位，持有9季/2.2年，近3季连续减仓，本季减仓）",
+      "nearMiss": [],
       "verdict": "仅单一持有人且本季减仓，安全边际虽达标，但缺乏共识支持，须谨慎看待。",
       "verdictEn": "Only one holder, and they trimmed this quarter — the margin of safety qualifies, but there's no consensus support; approach with caution."
     },
@@ -206,10 +260,15 @@
           "chg": "trimmed",
           "weight": 0.6,
           "hold_quarters": 25,
-          "hold_years": 6.2
+          "hold_years": 6.2,
+          "trend": "stable",
+          "reentry": false,
+          "exit_quarter": null,
+          "reentry_quarter": null
         }
       ],
       "holderText": "Tepper（0.6%仓位，持有25季/6.2年，本季减仓）",
+      "nearMiss": [],
       "verdict": "仅单一持有人且本季减仓，安全边际虽达标，但缺乏共识支持，须谨慎看待。",
       "verdictEn": "Only one holder, and they trimmed this quarter — the margin of safety qualifies, but there's no consensus support; approach with caution."
     },
@@ -228,10 +287,15 @@
           "chg": "trimmed",
           "weight": 0.0,
           "hold_quarters": 6,
-          "hold_years": 1.5
+          "hold_years": 1.5,
+          "trend": "reducing",
+          "reentry": false,
+          "exit_quarter": null,
+          "reentry_quarter": null
         }
       ],
-      "holderText": "巴菲特（极小仓位(<0.5%)，持有6季/1.5年，本季减仓）",
+      "holderText": "巴菲特（极小仓位(<0.5%)，持有6季/1.5年，近3季连续减仓，本季减仓）",
+      "nearMiss": [],
       "verdict": "仅单一持有人且本季减仓，安全边际虽达标，但缺乏共识支持，须谨慎看待。",
       "verdictEn": "Only one holder, and they trimmed this quarter — the margin of safety qualifies, but there's no consensus support; approach with caution."
     },
@@ -250,10 +314,15 @@
           "chg": "new",
           "weight": 1.9,
           "hold_quarters": 1,
-          "hold_years": 0.2
+          "hold_years": 0.2,
+          "trend": "stable",
+          "reentry": false,
+          "exit_quarter": null,
+          "reentry_quarter": null
         }
       ],
       "holderText": "李录（1.9%仓位，持有1季/0.2年，本季新开仓）",
+      "nearMiss": [],
       "verdict": "李录新开仓但仓位较小（1.9%），更像是试探性布局，信心程度有待后续季度验证。",
       "verdictEn": "Li Lu's new position is small (1.9%) — looks more like an exploratory stake; conviction level remains to be confirmed in future quarters."
     },
@@ -272,10 +341,15 @@
           "chg": "added",
           "weight": 28.1,
           "hold_quarters": 12,
-          "hold_years": 3.0
+          "hold_years": 3.0,
+          "trend": "accumulating",
+          "reentry": false,
+          "exit_quarter": null,
+          "reentry_quarter": null
         }
       ],
-      "holderText": "帕伯莱（28.1%仓位，持有12季/3.0年，本季加仓）",
+      "holderText": "帕伯莱（28.1%仓位，持有12季/3.0年，近3季连续加仓，本季加仓）",
+      "nearMiss": [],
       "verdict": "单一持有人以28.1%重仓且本季继续加仓，属于高确定性的重仓信号。",
       "verdictEn": "A single holder has 28.1% weighted in and kept adding this quarter — a high-conviction, heavily-weighted signal."
     },
@@ -294,10 +368,15 @@
           "chg": "new",
           "weight": 6.3,
           "hold_quarters": 1,
-          "hold_years": 0.2
+          "hold_years": 0.2,
+          "trend": "stable",
+          "reentry": false,
+          "exit_quarter": null,
+          "reentry_quarter": null
         }
       ],
       "holderText": "段永平（6.3%仓位，持有1季/0.2年，本季新开仓）",
+      "nearMiss": [],
       "verdict": "新开仓即给到6.3%的高仓位，显示极强的信心，值得重点关注。",
       "verdictEn": "A brand-new position sized at 6.3% right away signals very strong conviction — worth watching closely."
     },
@@ -316,10 +395,15 @@
           "chg": "hold",
           "weight": 0.0,
           "hold_quarters": 52,
-          "hold_years": 13.0
+          "hold_years": 13.0,
+          "trend": "stable",
+          "reentry": false,
+          "exit_quarter": null,
+          "reentry_quarter": null
         }
       ],
       "holderText": "Greenberg（极小仓位(<0.5%)，持有52季/13.0年，仓位未变）",
+      "nearMiss": [],
       "verdict": "仅单一持有人持有且仓位未变，安全边际仅略微达标，可作为观察名单但暂无新增信号。",
       "verdictEn": "Only one holder, position unchanged, and the margin of safety only barely qualifies — fine as a watchlist name but no new signal for now."
     },
@@ -338,15 +422,21 @@
           "chg": "new",
           "weight": 2.5,
           "hold_quarters": 1,
-          "hold_years": 0.2
+          "hold_years": 0.2,
+          "trend": "stable",
+          "reentry": false,
+          "exit_quarter": null,
+          "reentry_quarter": null
         }
       ],
       "holderText": "Akre（2.5%仓位，持有1季/0.2年，本季新开仓）",
+      "nearMiss": [],
       "verdict": "Akre新开仓但仓位较小（2.5%），更像是试探性布局，信心程度有待后续季度验证。",
       "verdictEn": "Akre's new position is small (2.5%) — looks more like an exploratory stake; conviction level remains to be confirmed in future quarters."
     }
   ],
-  "generatedAt": "2026-07-25T04:38:23Z",
+  "droppedOut": [],
+  "generatedAt": "2026-07-25T04:58:20Z",
   "candidateCount": 15,
   "consensusCount": 1,
   "signalHash": "a8a987bbac310b7f74e3621b203b1f2f9d630c7ff22488899868cc5f9db1d0d3"
