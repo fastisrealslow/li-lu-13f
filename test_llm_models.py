@@ -72,15 +72,15 @@ def main():
         print(f"\n### 调用模型: {model} ({price_tag}) ###")
         text = call_model(api_key, model, prompt)
         is_error = text.startswith("[ERROR]")
-        length_ok = 150 <= len(text) <= 220
+        length_ok = len(text) <= 180
         results[model] = {
             "price_tag": price_tag,
             "output": text,
             "length": len(text),
-            "length_in_range_150_220": length_ok,
+            "length_ok_le_180": length_ok,
             "error": is_error,
         }
-        print(f"字数: {len(text)} (150-220区间内: {length_ok})")
+        print(f"字数: {len(text)} (≤180要求: {length_ok})")
         print(f"输出: {text}")
         print("-" * 80)
 
