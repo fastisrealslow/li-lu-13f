@@ -55,7 +55,7 @@ def main():
         sys.exit(1)
 
     # 直接复用生产聚合逻辑，保证测试用的 prompt 与真实流水线完全一致
-    prompt, stock_notes, candidates = em._build_homework_prompt()
+    prompt, stock_notes, candidates, signal_hash = em._build_homework_prompt()
     if prompt is None:
         print("ERROR: 无候选股数据，无法构造测试 prompt（请确认 data.json 等文件存在）")
         sys.exit(1)

@@ -9,7 +9,7 @@ Actions 跑完 13F 抓取后执行：
 4. 同时维护一个全局缓存 metadata_cache.json，避免重复请求
 """
 
-import json, os, re, time, glob
+import json, os, re, time, glob, hashlib
 from datetime import datetime, timezone
 
 try:
@@ -225,11 +225,14 @@ def process_file(filepath, cache):
         print(f"  ⏭  {filepath} 无需更新")
 
 
-# SiliconFlow 免费模型 fallback 列表
+# SiliconFlow 模型 fallback 列表（由 test_model_comparison.yml 对比选出）：
+# 主选 Qwen3.5-9B（低价几乎免费，¥0.1/¥0.15每M token，两轮测试无编造且表达最准确），
+# fallback 免费模型 Qwen3.5-4B，再 fallback 到低价 GLM-4.5-Air。
+# 旧的 THUDM/glm-4-9b-chat 已确认被 SiliconFlow 下线，换掉。
 _SF_MODELS_EN = [
     "Qwen/Qwen3.5-9B",
     "Qwen/Qwen3.5-4B",
-    "THUDM/glm-4-9b-chat",
+    "zai-org/GLM-4.5-Air",
 ]
 
 
@@ -483,7 +486,7 @@ def _build_homework_prompt():
                 }
 
     if not candidates:
-        return None, [], {}
+        return None, [], {}, None
 
     # 排序：共识人数 desc, MOS desc
     ranked = sorted(candidates.items(), key=lambda kv: (len(kv[1]['holders']), kv[1]['mos']), reverse=True)
@@ -532,20 +535,45 @@ def _build_homework_prompt():
         f"高仓位主动加仓/新开仓强信号: {'; '.join(strong_signals) if strong_signals else '无'}\n"
     )
 
-    return prompt, stock_notes, candidates
+    # 仅用三行信号数据本身计算哈希（不包括固定的提示词指令），
+    # 这样 prompt 文字措辞小调不会触发不必要的重新生成，只有信号真正变化时才重调 LLM。
+    signal_text = (
+        f"consensus:{consensus_lines}|new_added:{new_or_added}|strong:{strong_signals}"
+    )
+    signal_hash = hashlib.sha256(signal_text.encode('utf-8')).hexdigest()
+
+    return prompt, stock_notes, candidates, signal_hash
 
 
 def _gen_homework_summary(api_key):
-    """调用 _build_homework_prompt() 得到 prompt 与逐股数据，再调 LLM 生成整体归纳段落，写入 homework_summary.json"""
-    prompt, stock_notes, candidates = _build_homework_prompt()
+    """
+    调用 _build_homework_prompt() 得到 prompt 、逐股数据与信号哈希，
+    若信号哈希与上一次写入的相同（共识股/加仓/新开仓信号均无变化），
+    就直接沿用旧的 overallSummary，跳过 LLM 调用（省钱且避免无意义重复生成）；
+    否则调 LLM 重新生成整体归纳段落。写入 homework_summary.json。
+    """
+    prompt, stock_notes, candidates, signal_hash = _build_homework_prompt()
     if prompt is None:
         print("  无候选股，跳过 homework summary")
         return
 
-    overall = _sf_call_enrich(api_key, prompt, max_tokens=400)
-    if not overall:
-        print("  homework summary LLM 失败（整体归纳），仍写入逐股数据")
-        overall = ""
+    prev_hash, prev_overall = None, None
+    if os.path.exists('homework_summary.json'):
+        try:
+            prev = json.load(open('homework_summary.json'))
+            prev_hash = prev.get('signalHash')
+            prev_overall = prev.get('overallSummary')
+        except Exception:
+            pass
+
+    if signal_hash is not None and signal_hash == prev_hash and prev_overall:
+        overall = prev_overall
+        print("  homework summary 信号未变，复用上次 overallSummary，跳过 LLM 调用")
+    else:
+        overall = _sf_call_enrich(api_key, prompt, max_tokens=400)
+        if not overall:
+            print("  homework summary LLM 失败（整体归纳），仍写入逐股数据")
+            overall = prev_overall or ""
 
     out = {
         'overallSummary': overall,
@@ -553,6 +581,7 @@ def _gen_homework_summary(api_key):
         'generatedAt': datetime.now(timezone.utc).strftime('%Y-%m-%dT%H:%M:%SZ'),
         'candidateCount': len(candidates),
         'consensusCount': sum(1 for v in candidates.values() if len(v['holders']) >= 2),
+        'signalHash': signal_hash,
     }
     with open('homework_summary.json', 'w') as f:
         json.dump(out, f, ensure_ascii=False, indent=2)
