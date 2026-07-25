@@ -287,7 +287,7 @@ def _gen_13f_summaries(api_key):
         ('tepper.json',     '泰珀'),
         ('akre.json',       '阿克雷'),
         ('greenberg.json',  '格林伯格'),
-        ('buffett.json',    '巴达特'),
+        ('buffett.json',    '巴菲特'),
     ]
     for filepath, investor_cn in FILES:
         if not os.path.exists(filepath):
@@ -536,6 +536,7 @@ def _build_homework_prompt():
     ]
 
     candidates = {}  # ticker -> {name, sector, mos, buy, price, holders:[{investor,chg,weight,hold_quarters,hold_years}]}
+    near_miss = {}  # ticker -> [(investor, mos)] — 持有但安全边际未达10%门槛而被过滤的持有人
     for df, pf, name_cn in FILES:
         if not (os.path.exists(df) and os.path.exists(pf)):
             continue
@@ -586,6 +587,8 @@ def _build_homework_prompt():
                 continue
             mos = (buy - price) / buy * 100
             if mos < 10:
+                if mos > 0:  # 仅记录仍有正安全边际但未达标的情况，避免噪声
+                    near_miss.setdefault(tk, []).append((name_cn, round(mos, 1)))
                 continue
             prev = h['prevShares']
             cur_sh = h['shares']
@@ -632,6 +635,8 @@ def _build_homework_prompt():
     new_or_added = []
     strong_signals = []  # 高仓位+主动加仓/新开仓 的强信号股，供 LLM 归纳引用
     for tk, v in ranked[:15]:
+        holder_names = {h['investor'] for h in v['holders']}
+        v['near_miss'] = [(nm, m) for nm, m in near_miss.get(tk, []) if nm not in holder_names]
         holder_descs = []
         for h in v['holders']:
             w_desc = f"{h['weight']}%仓位" if h['weight'] >= 0.5 else "极小仓位(<0.5%)"
@@ -642,6 +647,12 @@ def _build_homework_prompt():
 
         mos_tier = _mos_tier(v['mos'])
         verdict_cn, verdict_en = _gen_verdict(v, mos_tier)
+        if v.get('near_miss'):
+            nm_cn = '、'.join(f"{nm}（{m}%）" for nm, m in v['near_miss'])
+            nm_en = '、'.join(f"{_investor_en(nm)} ({m}%)" for nm, m in v['near_miss'])
+            nm_verb = 'holds' if len(v['near_miss']) == 1 else 'hold'
+            verdict_cn += f"另外{nm_cn}也持有本股，但安全边际尚未达到10%门槛，未计入共识持有人。"
+            verdict_en += f" {nm_en} also {nm_verb} this stock, but the margin of safety hasn't reached the 10% threshold yet, so {'they are' if nm_verb=='hold' else 'it is'} not counted among the consensus holders."
         note = {
             'ticker': tk, 'name': v['name'], 'sector': v['sector'],
             'mos': v['mos'], 'mosTier': mos_tier,

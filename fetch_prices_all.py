@@ -298,8 +298,15 @@ def fetch_us(investor, cfg):
         if quarterly_data:
             ex_a = existing_cb.get(tk, {}).get("allTime")
             q_keys = [q["quarter"] for q in quarterly_data]
-            # 缓存检查：first/last 季度一致且 allTime 有值，直接复用
-            if (ex_a and ex_a.get("avg") and ex_a.get("first") == q_keys[0]
+            # 重新推导本轮连续持有起点（与下方正式计算循环同一个 gap>4 规则），用于缓存比对
+            def _q2n(q):
+                y, qn = q.split(" Q"); return int(y) * 4 + int(qn)
+            _run_first = q_keys[0]
+            for _i in range(1, len(q_keys)):
+                if _q2n(q_keys[_i]) - _q2n(q_keys[_i - 1]) > 4:
+                    _run_first = q_keys[_i]
+            # 缓存检查：first(本轮起点)/last 季度一致且 allTime 有值，直接复用
+            if (ex_a and ex_a.get("avg") and ex_a.get("first") == _run_first
                     and ex_a.get("last") == q_keys[-1] and ex_a.get("method") == "avco"):
                 all_time = ex_a
                 print(f"| all-time avco=${ex_a['avg']} ({ex_a['buy_quarters']}q buy, cached)")
@@ -309,16 +316,18 @@ def fetch_us(investor, cfg):
                 prev_sh = 0
                 prev_q  = None
                 buy_q_count = 0
+                current_run_first = q_keys[0]  # 本轮（未被清仓中断的）连续持有起点
                 for qd in quarterly_data:
                     cur_sh = qd["shares"]
                     if prev_q is not None:
                         def q2n(q):
                             y, qn = q.split(" Q"); return int(y)*4 + int(qn)
                         gap = q2n(qd["quarter"]) - q2n(prev_q)
-                        if gap > 4:  # 清仓重置
+                        if gap > 4:  # 清仓重置：同时重置连续持有起点
                             avco_price  = 0.0
                             avco_shares = 0
                             prev_sh     = 0
+                            current_run_first = qd["quarter"]
                     if cur_sh > prev_sh:  # 买入
                         delta = cur_sh - prev_sh
                         qf, qt_ = quarter_ts(qd["quarter"])
@@ -342,9 +351,9 @@ def fetch_us(investor, cfg):
                 if avco_shares > 0 and avco_price > 0:
                     all_avg  = round(avco_price, 2)
                     all_time = {"avg": all_avg, "buy_quarters": buy_q_count,
-                                "first": q_keys[0], "last": q_keys[-1],
+                                "first": current_run_first, "last": q_keys[-1],
                                 "method": "avco"}
-                    print(f"| all-time avco=${all_avg} ({buy_q_count}q buy)")
+                    print(f"| all-time avco=${all_avg} ({buy_q_count}q buy, run-first={current_run_first})")
 
         cost_basis[tk] = {"recent": recent, "allTime": all_time}
         time.sleep(0.3)
@@ -541,6 +550,7 @@ def fetch_hk(investor, cfg):
         buy_qtrs_hk = []
         prev_sh_hk = 0
         prev_q_hk = None
+        current_run_first_hk = qt_data[0]["quarter"] if qt_data else None
         for qd in qt_data:
             if prev_q_hk is not None:
                 def q2n(q):
@@ -549,6 +559,7 @@ def fetch_hk(investor, cfg):
                 if gap > 4:
                     buy_qtrs_hk = []
                     prev_sh_hk = 0
+                    current_run_first_hk = qd["quarter"]
             if qd["shares"] > prev_sh_hk:
                 buy_qtrs_hk.append({**qd, "delta": qd["shares"] - prev_sh_hk})
             prev_sh_hk = qd["shares"]
@@ -557,7 +568,7 @@ def fetch_hk(investor, cfg):
         if buy_qtrs_hk:
             ex_a = existing_cb.get(tk, {}).get("allTime") or {}
             q_keys_hk = [q["quarter"] for q in qt_data]
-            if (ex_a.get("avg") and ex_a.get("first") == q_keys_hk[0]
+            if (ex_a.get("avg") and ex_a.get("first") == current_run_first_hk
                     and ex_a.get("last") == q_keys_hk[-1]
                     and ex_a.get("quarters", 0) >= len(buy_qtrs_hk)):
                 all_time = ex_a
@@ -578,10 +589,10 @@ def fetch_hk(investor, cfg):
                 if ts_ > 0:
                     all_avg = round(tc / ts_, 3)
                     all_time = {"avg": all_avg, "quarters": vq,
-                                "first": qt_data[0]["quarter"],
+                                "first": current_run_first_hk,
                                 "last":  qt_data[-1]["quarter"],
                                 "currency": "HKD"}
-                    print(f"  {tk} all-time wavg=HK${all_avg} ({vq}q)")
+                    print(f"  {tk} all-time wavg=HK${all_avg} ({vq}q, run-first={current_run_first_hk})")
 
         cost_basis[tk] = {"recent": recent, "allTime": all_time}
         time.sleep(1)

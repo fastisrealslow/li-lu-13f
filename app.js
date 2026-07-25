@@ -1609,7 +1609,7 @@ async function renderHomework() {
         </div>`;
       }).join('');
       const overallHtml = hwSum.overallSummary ? `<div style="margin-top:10px;padding-top:10px;border-top:1px dashed rgba(99,102,241,0.3);font-size:.8rem;line-height:1.75;color:var(--text);"><strong style="color:#6366f1;">${isEn2?'Overall':'整体归纳'}：</strong>${hwSum.overallSummary}</div>` : '';
-      hwAiHtml = `<div style="margin-top:20px;padding:14px 16px;background:linear-gradient(135deg,rgba(99,102,241,0.05),rgba(139,92,246,0.05));border:1px solid rgba(99,102,241,0.15);border-radius:10px;">
+      hwAiHtml = `<div style="margin-bottom:20px;padding:14px 16px;background:linear-gradient(135deg,rgba(99,102,241,0.05),rgba(139,92,246,0.05));border:1px solid rgba(99,102,241,0.15);border-radius:10px;">
         <div style="font-size:.68rem;color:#6366f1;font-weight:700;margin-bottom:6px;">✨ AI ${isEn2?'Per-Stock Notes':'逐股解读'}</div>
         ${noteRows}
         ${overallHtml}
@@ -1625,6 +1625,7 @@ async function renderHomework() {
         ${isEn2?'Stocks with MOS &ge; 10% held by tracked investors. Sorted by consensus + MOS + recent activity (🆕 new / 📈 added). Click an investor badge to view full portfolio.':'所有投资者持仓中安全边际 &ge; 10% 的标的。按多人共识 + 安全边际 + 最近动态（🆕新开仓 / 📈加仓）综合排序。点击投资者名称可跳转完整持仓。'}
       </p>
     </div>
+    ${hwAiHtml}
     <div class="table-wrap"><table style="width:100%;">
       <thead><tr>
         <th style="width:4%">#</th>
@@ -1640,7 +1641,6 @@ async function renderHomework() {
         ? '💡 <strong>Est. Cost</strong>: estimated from historical K-line (low×70%+avg×30%). Multiple holders → lowest cost shown (most conservative). MOS = (Cost−Price)/Cost. Not investment advice.'
         : '💡 <strong>估算成本</strong>：基于历史 K 线（低价×70%+均价×30%）估算买入价。多人持有时取最低成本（最保守）。安全边际 = (成本−现价)÷成本。仅供参考，不构成投资建议。'}
     </p>
-    ${hwAiHtml}
   `;
   _homeworkCache = el.innerHTML;
 }
