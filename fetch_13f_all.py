@@ -10,6 +10,11 @@
   python3 fetch_13f_all.py --investor buffett
   python3 fetch_13f_all.py --investor akre
   python3 fetch_13f_all.py --investor greenberg
+  python3 fetch_13f_all.py --investor klarman
+  python3 fetch_13f_all.py --investor ackman
+  python3 fetch_13f_all.py --investor abrams
+  python3 fetch_13f_all.py --investor berkowitz
+  python3 fetch_13f_all.py --investor hawkins
 
 新增投资者只需在 INVESTOR_CONFIG 里加一行即可。
 只依赖标准库，无需 pip install。
@@ -75,6 +80,36 @@ INVESTOR_CONFIG = {
         "manager": "Brave Warrior Advisors, LLC",
         "people": ["Glenn Greenberg"],
         "path": os.path.join(BASE, "greenberg.json"),
+    },
+    "klarman": {
+        "cik": "1061768",
+        "manager": "Baupost Group, LLC",
+        "people": ["Seth Klarman"],
+        "path": os.path.join(BASE, "klarman.json"),
+    },
+    "ackman": {
+        "cik": "1336528",
+        "manager": "Pershing Square Capital Management, L.P.",
+        "people": ["Bill Ackman"],
+        "path": os.path.join(BASE, "ackman.json"),
+    },
+    "abrams": {
+        "cik": "1358706",
+        "manager": "Abrams Capital Management, L.P.",
+        "people": ["David Abrams"],
+        "path": os.path.join(BASE, "abrams.json"),
+    },
+    "berkowitz": {
+        "cik": "1056831",
+        "manager": "Fairholme Capital Management, LLC",
+        "people": ["Bruce Berkowitz"],
+        "path": os.path.join(BASE, "berkowitz.json"),
+    },
+    "hawkins": {
+        "cik": "807985",
+        "manager": "Southeastern Asset Management, Inc.",
+        "people": ["Mason Hawkins"],
+        "path": os.path.join(BASE, "hawkins.json"),
     },
 }
 
@@ -389,6 +424,93 @@ TICKER_CLASS_MAP = {
     ("BROWN FORMAN CORP", False): "BF.B",
 }
 
+# CUSIP → ticker（当名称匹配失败或有多股票类别歧义时优先使用，人工逐条核对）
+# 由 Klarman/Ackman/Abrams/Berkowitz/Hawkins 5 位投资者持仓补充
+CUSIP_TICKER_MAP = {
+    "00108J109": "ACMR",  # ACM RESH INC
+    "008252108": "AMG",  # AFFILIATED MANAGERS GROUP
+    "013091103": "ACI",  # ALBERTSONS COS INC
+    "014752109": "ALX",  # ALEXANDERS INC
+    "03064D108": "COLD",  # AMERICOLD REALTY TRUST INC
+    "G0403H108": "AON",  # AON PLC
+    "043436104": "ABG",  # ASBURY AUTOMOTIVE GROUP INC
+    "047726302": "BATRK",  # ATLANTA BRAVES HLDGS INC
+    "05352A100": "AVTR",  # AVANTOR INC
+    "06417N103": "OZK",  # BANK OZK
+    "090572207": "BIO",  # BIO RAD LABS INC
+    "100557107": "SAM",  # BOSTON BEER INC
+    "G21810109": "CLVT",  # CLARIVATE PLC
+    "18538R103": "CLW",  # CLEARWATER PAPER CORP
+    "N20944109": "CNH",  # CNH INDL N V
+    "12653C108": "CNX",  # CNX RES CORP
+    "22266T109": "CPNG",  # COUPANG INC
+    "67011P100": "DNOW",  # DNOW INC
+    "G27907107": "DOLE",  # DOLE PLC
+    "26969P108": "EXP",  # EAGLE MATLS INC
+    "292104106": "ESRT",  # EMPIRE ST RLTY TR INC
+    "194014502": "ENOV",  # ENOVIS CORPORATION
+    "293792107": "EPD",  # ENTERPRISE PRODS PARTNERS L
+    "31428X106": "FDX",  # FEDEX CORP
+    "31488V107": "FERG",  # FERGUSON ENTERPRISES INC
+    "31620M106": "FIS",  # FIDELITY NATL INFORMATION SV
+    "337738108": "FISV",  # FISERV INC
+    "34964C106": "FBIN",  # FORTUNE BRANDS INNOVATIONS I
+    "36164V800": "GLIBK",  # GCI LIBERTY INC (now Liberty Capital Corp, ticker unchanged) — Series C
+    "36164V602": "GLIBA",  # GCI LIBERTY INC — Series A common stock
+    "36165L108": "GDS",  # GDS HLDGS LTD
+    "372460105": "GPC",  # GENUINE PARTS CO
+    "384637104": "GHC",  # GRAHAM HLDGS CO
+    "40054J109": "AERO",  # GRUPO AEROMEXICO SAB DE CV
+    "44332N106": "HTHT",  # H WORLD GROUP LTD
+    "40415F101": "HDB",  # HDFC BANK LTD
+    "G4412G101": "HLF",  # HERBALIFE LTD
+    "42806J700": "HTZ",  # HERTZ GLOBAL HLDGS INC
+    "436893200": "HOMB",  # HOME BANCSHARES INC
+    "44267T102": "HHH",  # HOWARD HUGHES HOLDINGS INC
+    "448579102": "H",  # HYATT HOTELS CORP
+    "44891N208": "IAC",  # IAC INC (renamed People Inc / PPLI on 2026-06-04, AFTER this filing period)
+    "48581R205": "KSPI",  # KASPI KZ JSC
+    "500754106": "KHC",  # KRAFT HEINZ CO
+    "52110M109": "LAZ",  # LAZARD INC
+    "G61188127": "LBTYA",  # LIBERTY GLOBAL LTD
+    "536797103": "LAD",  # LITHIA MTRS INC
+    "538034109": "LYV",  # LIVE NATION ENTERTAINMENT IN
+    "53947R105": "LOAR",  # LOAR HOLDINGS INC
+    "55825T103": "MSGS",  # MADISON SQUARE GRDN SPRT COR
+    "N5505D105": "MICC",  # MAGNUM ICE CREAM CO NV
+    "577081102": "MAT",  # MATTEL INC
+    "585464100": "MLCO",  # MELCO RESORTS AND ENTMNT LTD
+    "552953101": "MGM",  # MGM RESORTS INTERNATIONAL
+    "60855R100": "MOH",  # MOLINA HEALTHCARE INC
+    "647581206": "EDU",  # NEW ORIENTAL ED & TECHNOLOGY
+    "G66721104": "NCLH",  # NORWEGIAN CRUISE LINE HLDGS
+    "67080N101": "NUVB",  # NUVATION BIO INC
+    "70450Y103": "PYPL",  # PAYPAL HLDGS INC
+    "693656100": "PVH",  # PVH CORPORATION
+    "754907103": "RYN",  # RAYONIER INC
+    "75886F107": "REGN",  # REGENERON PHARMACEUTICALS
+    "76131D103": "QSR",  # RESTAURANT BRANDS INTL INC
+    "74982T103": "RXO",  # RXO INC
+    "806407102": "HSIC",  # SCHEIN HENRY INC
+    "812215200": "SEG",  # SEAPORT ENTMT GROUP INC
+    "G8068L108": "SN",  # SHARKNINJA INC
+    "82312B106": "SHEN",  # SHENANDOAH TELECOMMUNICATION
+    "88023U101": "SGI",  # SOMNIGROUP INTERNATIONAL INC
+    "790148100": "JOE",  # ST JOE CO
+    "879369106": "TFX",  # TELEFLEX INCORPORATED
+    "896945201": "TRIP",  # TRIPADVISOR INC
+    "023586100": "UHAL",  # U HAUL HOLDING COMPANY — common stock
+    "023586506": "UHAL.B",  # U HAUL HOLDING COMPANY — Series N Non-Voting Common Stock
+    "90353T100": "UBER",  # UBER TECHNOLOGIES INC
+    "92243G108": "PCVX",  # VAXCYTE INC
+    "95082P105": "WCC",  # WESCO INTL INC
+    "G9618E107": "WTM",  # WHITE MTNS INS GROUP LTD
+    "G96629103": "WTW",  # WILLIS TOWERS WATSON PLC LTD
+    "084423102": "WRB",  # WR BERKLEY CORP
+    "983793100": "XPO",  # XPO INC
+    "907818108": "UNP",  # UNION PAC CORP
+}
+
 # 行业映射（兜底用 enrich_metadata.py 的 LLM 标注）
 SECTORS = {
     "AAPL": "科技", "MSFT": "科技", "AMZN": "电商", "GOOG": "互联网",
@@ -446,6 +568,27 @@ SECTORS = {
     "RH": "消费", "JEF": "金融服务", "NVR": "工业", "HPQ": "科技",
     "AMT": "通讯", "KWEB": "ETF", "IEMG": "ETF", "SPY": "ETF",
     "VOO": "ETF", "QQQ": "ETF", "IWM": "ETF",
+    # Klarman/Ackman/Abrams/Berkowitz/Hawkins 补充
+    "ACMR": "半导体", "AMG": "金融服务", "ACI": "消费", "ALX": "地产",
+    "COLD": "地产", "AON": "金融服务", "ABG": "消费", "BATRK": "娱乐",
+    "AVTR": "医药", "OZK": "金融/银行", "BIO": "医药", "SAM": "消费",
+    "CLVT": "科技", "CLW": "工业", "CNH": "工业", "CNX": "能源",
+    "CPNG": "电商", "DNOW": "能源", "DOLE": "消费", "EXP": "工业",
+    "ESRT": "地产", "ENOV": "医药", "EPD": "能源", "FDX": "工业",
+    "FERG": "工业", "FIS": "金融服务", "FISV": "金融服务", "FBIN": "消费",
+    "GLIBK": "通讯", "GLIBA": "通讯", "GDS": "科技", "GPC": "消费", "GHC": "多元工业",
+    "AERO": "工业", "HTHT": "消费", "HDB": "金融/银行", "HLF": "消费",
+    "HTZ": "消费", "HOMB": "金融/银行", "HHH": "地产", "H": "消费",
+    "IAC": "互联网", "KSPI": "金融服务", "LAZ": "金融服务",
+    "LBTYA": "通讯", "LAD": "消费", "LYV": "娱乐", "LOAR": "工业",
+    "MSGS": "娱乐", "MICC": "消费", "MLCO": "娱乐",
+    "MGM": "娱乐", "MOH": "保险", "EDU": "教育", "NCLH": "娱乐",
+    "NUVB": "医药", "PYPL": "金融服务", "PVH": "消费", "RYN": "地产",
+    "REGN": "医药", "QSR": "消费", "RXO": "工业", "HSIC": "医药",
+    "SEG": "地产", "SN": "消费", "SHEN": "通讯", "SGI": "消费",
+    "JOE": "地产", "TFX": "医药", "TRIP": "消费", "UHAL": "工业", "UHAL.B": "工业",
+    "UBER": "科技", "PCVX": "医药", "WCC": "工业", "WTM": "保险", "WTW": "金融服务", "WRB": "保险",
+    "XPO": "工业",
 }
 
 
@@ -517,8 +660,11 @@ def find_info_table_xml(cik: str, accession: str, accession_dashed: str) -> str:
     raise RuntimeError(f"Cannot find INFOTABLE XML for {accession_dashed}")
 
 
-def resolve_ticker(name: str, cls: str) -> str:
+def resolve_ticker(name: str, cls: str, cusip: str = "") -> str:
     n = name.strip()
+    c = (cusip or "").strip()
+    if c in CUSIP_TICKER_MAP:
+        return CUSIP_TICKER_MAP[c]
     is_a = "CL A" in (cls or "").upper()
     class_key = (n, is_a)
     if class_key in TICKER_CLASS_MAP:
@@ -535,15 +681,17 @@ def parse_holdings(xml_bytes: bytes, consolidate: bool = False) -> list[dict]:
     for info in root.findall("ns:infoTable", NS):
         name_el = info.find("ns:nameOfIssuer", NS)
         cls_el = info.find("ns:titleOfClass", NS)
+        cusip_el = info.find("ns:cusip", NS)
         val_el = info.find("ns:value", NS)
         shares_el = info.find(".//ns:sshPrnamt", NS)
         name_val = name_el.text.strip() if name_el is not None and name_el.text else ""
         cls_val = cls_el.text.strip() if cls_el is not None and cls_el.text else ""
+        cusip_val = cusip_el.text.strip() if cusip_el is not None and cusip_el.text else ""
         shares = int(shares_el.text) if shares_el is not None and shares_el.text else 0
         value = int(val_el.text) if val_el is not None and val_el.text else 0
-        tk = resolve_ticker(name_val, cls_val)
+        tk = resolve_ticker(name_val, cls_val, cusip_val)
         raw_entries.append({
-            "ticker": tk, "name": name_val, "cls": cls_val,
+            "ticker": tk, "name": name_val, "cls": cls_val, "cusip": cusip_val,
             "shares": shares, "value": value,
         })
 

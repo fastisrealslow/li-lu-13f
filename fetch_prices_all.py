@@ -10,6 +10,11 @@
   python3 fetch_prices_all.py --investor akre
   python3 fetch_prices_all.py --investor greenberg
   python3 fetch_prices_all.py --investor webb
+  python3 fetch_prices_all.py --investor klarman
+  python3 fetch_prices_all.py --investor ackman
+  python3 fetch_prices_all.py --investor abrams
+  python3 fetch_prices_all.py --investor berkowitz
+  python3 fetch_prices_all.py --investor hawkins
 
 每个投资者通过 INVESTOR_CONFIG 配置 data_file / prices_file / market 三个字段即可。
 """
@@ -29,6 +34,11 @@ INVESTOR_CONFIG = {
     "akre":      {"data": "akre.json",        "prices": "prices_akre.json",     "market": "US"},
     "greenberg": {"data": "greenberg.json",   "prices": "prices_greenberg.json","market": "US"},
     "webb":      {"data": "webb.json",        "prices": "prices_webb.json",     "market": "HK"},
+    "klarman":   {"data": "klarman.json",     "prices": "prices_klarman.json",  "market": "US"},
+    "ackman":    {"data": "ackman.json",      "prices": "prices_ackman.json",   "market": "US"},
+    "abrams":    {"data": "abrams.json",      "prices": "prices_abrams.json",   "market": "US"},
+    "berkowitz": {"data": "berkowitz.json",   "prices": "prices_berkowitz.json","market": "US"},
+    "hawkins":   {"data": "hawkins.json",     "prices": "prices_hawkins.json",  "market": "US"},
 }
 
 # ─────────────────────────────────────────────

@@ -116,6 +116,25 @@ jobs:
             python3 update_status.py --step akre_greenberg_13f --status fail --msg "Step exited with error"
           fi
 
+      - name: Fetch Klarman/Ackman/Abrams/Berkowitz/Hawkins 13F from SEC EDGAR
+        id: batch2_13f
+        continue-on-error: true
+        run: |
+          python3 fetch_13f_all.py --investor klarman
+          python3 fetch_13f_all.py --investor ackman
+          python3 fetch_13f_all.py --investor abrams
+          python3 fetch_13f_all.py --investor berkowitz
+          python3 fetch_13f_all.py --investor hawkins
+
+      - name: Status - Batch2 13F
+        if: always()
+        run: |
+          if [ "${{ steps.batch2_13f.outcome }}" = "success" ]; then
+            python3 update_status.py --step batch2_13f --status ok
+          else
+            python3 update_status.py --step batch2_13f --status fail --msg "Step exited with error"
+          fi
+
       # ─────────────── 股价抓取（使用通用脚本）───────────────
 
       - name: Fetch Li Lu stock prices
@@ -244,6 +263,86 @@ jobs:
             python3 update_status.py --step greenberg_prices --status ok
           else
             python3 update_status.py --step greenberg_prices --status fail --msg "Step exited with error"
+          fi
+
+      - name: Fetch Klarman stock prices
+        id: klarman_prices
+        continue-on-error: true
+        env:
+          FINNHUB_KEY: ${{ secrets.FINNHUB_KEY }}
+        run: python3 fetch_prices_all.py --investor klarman
+
+      - name: Status - Klarman prices
+        if: always()
+        run: |
+          if [ "${{ steps.klarman_prices.outcome }}" = "success" ]; then
+            python3 update_status.py --step klarman_prices --status ok
+          else
+            python3 update_status.py --step klarman_prices --status fail --msg "Step exited with error"
+          fi
+
+      - name: Fetch Ackman stock prices
+        id: ackman_prices
+        continue-on-error: true
+        env:
+          FINNHUB_KEY: ${{ secrets.FINNHUB_KEY }}
+        run: python3 fetch_prices_all.py --investor ackman
+
+      - name: Status - Ackman prices
+        if: always()
+        run: |
+          if [ "${{ steps.ackman_prices.outcome }}" = "success" ]; then
+            python3 update_status.py --step ackman_prices --status ok
+          else
+            python3 update_status.py --step ackman_prices --status fail --msg "Step exited with error"
+          fi
+
+      - name: Fetch Abrams stock prices
+        id: abrams_prices
+        continue-on-error: true
+        env:
+          FINNHUB_KEY: ${{ secrets.FINNHUB_KEY }}
+        run: python3 fetch_prices_all.py --investor abrams
+
+      - name: Status - Abrams prices
+        if: always()
+        run: |
+          if [ "${{ steps.abrams_prices.outcome }}" = "success" ]; then
+            python3 update_status.py --step abrams_prices --status ok
+          else
+            python3 update_status.py --step abrams_prices --status fail --msg "Step exited with error"
+          fi
+
+      - name: Fetch Berkowitz stock prices
+        id: berkowitz_prices
+        continue-on-error: true
+        env:
+          FINNHUB_KEY: ${{ secrets.FINNHUB_KEY }}
+        run: python3 fetch_prices_all.py --investor berkowitz
+
+      - name: Status - Berkowitz prices
+        if: always()
+        run: |
+          if [ "${{ steps.berkowitz_prices.outcome }}" = "success" ]; then
+            python3 update_status.py --step berkowitz_prices --status ok
+          else
+            python3 update_status.py --step berkowitz_prices --status fail --msg "Step exited with error"
+          fi
+
+      - name: Fetch Hawkins stock prices
+        id: hawkins_prices
+        continue-on-error: true
+        env:
+          FINNHUB_KEY: ${{ secrets.FINNHUB_KEY }}
+        run: python3 fetch_prices_all.py --investor hawkins
+
+      - name: Status - Hawkins prices
+        if: always()
+        run: |
+          if [ "${{ steps.hawkins_prices.outcome }}" = "success" ]; then
+            python3 update_status.py --step hawkins_prices --status ok
+          else
+            python3 update_status.py --step hawkins_prices --status fail --msg "Step exited with error"
           fi
 
       # ─────────────── Webb 港股持仓（仅周一）───────────────
@@ -387,6 +486,11 @@ jobs:
             'greenberg.json','prices_greenberg.json',
             'buffett.json','prices_buffett.json',
             'webb.json','prices_webb.json','webb_hk.json',
+            'klarman.json','prices_klarman.json',
+            'ackman.json','prices_ackman.json',
+            'abrams.json','prices_abrams.json',
+            'berkowitz.json','prices_berkowitz.json',
+            'hawkins.json','prices_hawkins.json',
           ]
           bad = []
           for f in files:
@@ -422,7 +526,12 @@ jobs:
                    akre.json prices_akre.json \
                    greenberg.json prices_greenberg.json \
                    buffett.json prices_buffett.json \
-                   webb.json prices_webb.json webb_hk.json; do
+                   webb.json prices_webb.json webb_hk.json \
+                   klarman.json prices_klarman.json \
+                   ackman.json prices_ackman.json \
+                   abrams.json prices_abrams.json \
+                   berkowitz.json prices_berkowitz.json \
+                   hawkins.json prices_hawkins.json; do
             if [ -f "$f" ] && [ -s "$f" ] && python3 -c "import json; json.load(open('$f'))" 2>/dev/null; then
               VALID_FILES="$VALID_FILES $f"
             else
