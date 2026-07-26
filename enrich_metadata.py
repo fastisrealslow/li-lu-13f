@@ -676,18 +676,47 @@ def _build_homework_prompt():
     返回 (prompt, stock_notes, candidates) 供 _gen_homework_summary 和
     test_llm_models.py 共用，避免两处逻辑漂移。
     """
-    FILES = [
-        ('data.json',        'prices.json',           '李录'),
-        ('pabrai_data.json', 'pabrai_prices.json',     '帕伯莱'),
-        ('duan.json',        'prices_duan.json',       '段永平'),
-        ('tepper.json',      'prices_tepper.json',     'Tepper'),
-        ('akre.json',        'prices_akre.json',       'Akre'),
-        ('greenberg.json',   'prices_greenberg.json',  'Greenberg'),
-        ('buffett.json',     'prices_buffett.json',    '巴菲特'),
-    ]
+    # 单一权威来源：从 investors.json 动态读取，只纳入 inValueScreen=true 的投资者
+    # （与前端 app.js renderHomework() 的 INVESTOR_CFG.filter(inv => inv.inValueScreen) 保持一致）。
+    # 此前这里是硬编码 7 人列表，新增的 klarman/ackman/abrams/berkowitz/hawkins 5 位投资者
+    # 未被纳入，导致 AI 逐股解读遗漏了他们持有的候选股，与前端表格（已用全量列表）不一致。
+    investors = load_investors()
+    if investors:
+        FILES = [
+            (inv['dataFile'], inv['pricesFile'], inv['name'])
+            for inv in investors if inv.get('inValueScreen')
+        ]
+    else:
+        # investors.json 缺失时的安全兜底（与原硬编码列表一致，仅作最后防线）
+        FILES = [
+            ('data.json',        'prices.json',           '李录'),
+            ('pabrai_data.json', 'pabrai_prices.json',     '帕伯莱'),
+            ('duan.json',        'prices_duan.json',       '段永平'),
+            ('tepper.json',      'prices_tepper.json',     'Tepper'),
+            ('akre.json',        'prices_akre.json',       'Akre'),
+            ('greenberg.json',   'prices_greenberg.json',  'Greenberg'),
+            ('buffett.json',     'prices_buffett.json',    '巴菲特'),
+        ]
 
     candidates = {}  # ticker -> {name, sector, mos, buy, price, holders:[{investor,chg,weight,hold_quarters,hold_years}]}
     near_miss = {}  # ticker -> [(investor, mos)] — 持有但安全边际未达10%门槛而被过滤的持有人
+    all_holders_map = {}  # ticker -> set(investor) — 不论 MOS 高低的全部持有人（与前端 allHoldersMap 对应，用于共识加成打分）
+
+    # Pass 0: 先构建全部持有人映射（不应用 MOS 过滤），与前端 app.js 的
+    # 第一轮遍历（Pass 1: 构建 allHoldersMap）对齐，保证共识人数口径一致。
+    for df, pf, name_cn in FILES:
+        if not os.path.exists(df):
+            continue
+        try:
+            dr0 = json.load(open(df))
+        except Exception:
+            continue
+        for h in dr0.get('current', {}).get('holdings', []):
+            tk0 = h.get('ticker', '')
+            if not tk0 or tk0.startswith('?') or tk0.endswith('.HK'):
+                continue
+            all_holders_map.setdefault(tk0, set()).add(name_cn)
+
     for df, pf, name_cn in FILES:
         if not (os.path.exists(df) and os.path.exists(pf)):
             continue
@@ -782,15 +811,34 @@ def _build_homework_prompt():
     if not candidates:
         return None, [], {}, None
 
-    # 排序：共识人数 desc, MOS desc
-    ranked = sorted(candidates.items(), key=lambda kv: (len(kv[1]['holders']), kv[1]['mos']), reverse=True)
+    # 排序：与前端 app.js renderHomework() 的打分公式保持一致
+    # score = MOS + (全部持有人数-1)*40 + 新开仓/加仓奖励(15/8) - 全员减仓惩罚(20)
+    # 注意："全部持有人数"用 all_holders_map（不论 MOS 高低），与前端 totalHolders 口径一致，
+    # 而不是 len(v['holders'])（仅统计 MOS>=10% 达标的人数）——此前两者混淆导致排序与前端不一致
+    # （例如 KHC 有 3 人持有但只有 1 人 MOS 达标，前端仍按 3 人共识加分，后端之前只按 1 人加分）。
+    # 新开仓/加仓/全员减仓仍只看达标持有人的动作（与前端 c.investors 对应，因为前端也只对 investors 数组判断 hasNew/hasAdded/allTrimming）。
+    def _score(tk, v):
+        s = v['mos']
+        total_holders = len(all_holders_map.get(tk, set())) or 1
+        s += (total_holders - 1) * 40
+        chgs = [h['chg'] for h in v['holders']]
+        if 'new' in chgs:
+            s += 15
+        elif 'added' in chgs:
+            s += 8
+        if chgs and all(c == 'trimmed' for c in chgs):
+            s -= 20
+        return s
+    ranked = sorted(candidates.items(), key=lambda kv: _score(kv[0], kv[1]), reverse=True)
 
     # 逐股生成结构化点评（代码拼接，不经过LLM，保证数字准确）
     stock_notes = []
     consensus_lines = []
     new_or_added = []
     strong_signals = []  # 高仓位+主动加仓/新开仓 的强信号股，供 LLM 归纳引用
-    for tk, v in ranked[:15]:
+    # 不再截断为前15条：与前端 app.js renderHomework() 的表格保持全量一致（前端不设上限）。
+    # 此前硬编码 [:15] 会在候选股超过15只时让 AI 逐股解读条数少于表格行数，造成两边对不上。
+    for tk, v in ranked:
         holder_names = {h['investor'] for h in v['holders']}
         v['near_miss'] = [(nm, m) for nm, m in near_miss.get(tk, []) if nm not in holder_names]
         holder_descs = []
