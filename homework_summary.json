@@ -1,82 +1,6 @@
 {
-  "overallSummary": "本期筛选显示价值共识高度集中，拼多多、CoStar 及阿尔法金属获多位大佬重仓且主动加仓，段永平加仓拼多多、帕伯莱大举买入阿尔法金属，释放极强信心。特斯拉作为新仓亦获段永平布局。反观 Salesforce 因安全边际回落跌出清单，印证了当前资金对高确定性标的的聚焦。",
+  "overallSummary": "本期筛选显示拼多多、CoStar 集团及阿尔伯特森斯等多只个股获多位价值投资者共识，其中段永平重仓加仓拼多多与特斯拉，查克·阿克瑞大举增持 CoStar 集团，帕伯莱持有近三成阿尔法金属并加仓，均释放强烈信心信号。此外，自由资本、Salesforce 等亦新开仓。反之，部分个股因安全边际不再达标而跌出候选清单。整体来看，高仓位主动加仓行为显著，反映了对特定标的的坚定看好。",
   "stockNotes": [
-    {
-      "ticker": "PDD",
-      "name": "拼多多",
-      "sector": "电商",
-      "mos": 10.6,
-      "mosTier": "轻度折价",
-      "buy": 92.46,
-      "price": 82.66,
-      "holderCount": 3,
-      "holders": [
-        {
-          "investor": "李录",
-          "chg": "hold",
-          "weight": 14.7,
-          "hold_quarters": 4,
-          "hold_years": 1.0,
-          "trend": "stable",
-          "reentry": true,
-          "exit_quarter": "2021 Q3",
-          "reentry_quarter": "2025 Q2"
-        },
-        {
-          "investor": "段永平",
-          "chg": "added",
-          "weight": 10.1,
-          "hold_quarters": 11,
-          "hold_years": 2.8,
-          "trend": "accumulating",
-          "reentry": false,
-          "exit_quarter": null,
-          "reentry_quarter": null
-        },
-        {
-          "investor": "Tepper",
-          "chg": "trimmed",
-          "weight": 1.5,
-          "hold_quarters": 12,
-          "hold_years": 3.0,
-          "trend": "reducing",
-          "reentry": false,
-          "exit_quarter": null,
-          "reentry_quarter": null
-        }
-      ],
-      "holderText": "李录（14.7%仓位，本轮2025 Q2重建仓后持有4季/1.0年（此前于2021 Q3清仓过），仓位未变）；段永平（10.1%仓位，持有11季/2.8年，近3季连续加仓，本季加仓）；Tepper（1.5%仓位，持有12季/3.0年，近3季连续减仓，本季减仓）",
-      "nearMiss": [],
-      "verdict": "共识度高但折价浅、且持有人动作分化，属于\"关注但不宜追高\"的类型。",
-      "verdictEn": "High consensus but the discount is shallow, but holders are diverging (some adding, some trimming) — worth watching but not chasing."
-    },
-    {
-      "ticker": "WHR",
-      "name": "惠而浦",
-      "sector": "消费",
-      "mos": 53.0,
-      "mosTier": "深度折价",
-      "buy": 79.27,
-      "price": 37.27,
-      "holderCount": 1,
-      "holders": [
-        {
-          "investor": "Tepper",
-          "chg": "trimmed",
-          "weight": 1.8,
-          "hold_quarters": 4,
-          "hold_years": 1.0,
-          "trend": "reducing",
-          "reentry": true,
-          "exit_quarter": "2023 Q4",
-          "reentry_quarter": "2025 Q2"
-        }
-      ],
-      "holderText": "Tepper（1.8%仓位，本轮2025 Q2重建仓后持有4季/1.0年（此前于2023 Q4清仓过），近3季连续减仓，本季减仓）",
-      "nearMiss": [],
-      "verdict": "仅单一持有人且本季减仓，安全边际虽达标，但缺乏共识支持，须谨慎看待。",
-      "verdictEn": "Only one holder, and they trimmed this quarter — the margin of safety qualifies, but there's no consensus support; approach with caution."
-    },
     {
       "ticker": "KHC",
       "name": "卡夫亨氏",
@@ -105,85 +29,96 @@
       "verdictEn": "Deep discount with a long-held, unchanged position, though the position size is not large, looks more like a low-cost core holding than a fresh buy signal."
     },
     {
-      "ticker": "CSGP",
-      "name": "CoStar集团",
-      "sector": "房地产",
-      "mos": 35.8,
-      "mosTier": "深度折价",
-      "buy": 43.1,
-      "price": 27.66,
+      "ticker": "MSFT",
+      "name": "微软",
+      "sector": "科技",
+      "mos": 19.4,
+      "mosTier": "中等折价",
+      "buy": 473.57,
+      "price": 381.7,
       "holderCount": 1,
       "holders": [
         {
-          "investor": "Akre",
-          "chg": "added",
-          "weight": 6.8,
-          "hold_quarters": 26,
-          "hold_years": 6.5,
-          "trend": "accumulating",
-          "reentry": false,
-          "exit_quarter": null,
-          "reentry_quarter": null
-        }
-      ],
-      "holderText": "Akre（6.8%仓位，持有26季/6.5年，近3季连续加仓，本季加仓）",
-      "nearMiss": [],
-      "verdict": "单一持有人在深度折价区主动加仓（6.8%仓位），虽无共识但信心明确，值得关注。",
-      "verdictEn": "A single holder is actively adding at a deep discount (6.8% position) — no consensus yet, but conviction is clear; worth watching."
-    },
-    {
-      "ticker": "TEM",
-      "name": "Tempus AI",
-      "sector": "医药",
-      "mos": 34.9,
-      "mosTier": "深度折价",
-      "buy": 65.55,
-      "price": 42.69,
-      "holderCount": 1,
-      "holders": [
-        {
-          "investor": "段永平",
+          "investor": "大卫·泰珀",
           "chg": "trimmed",
-          "weight": 0.0,
-          "hold_quarters": 2,
-          "hold_years": 0.5,
+          "weight": 0.6,
+          "hold_quarters": 25,
+          "hold_years": 6.2,
           "trend": "stable",
           "reentry": false,
           "exit_quarter": null,
           "reentry_quarter": null
         }
       ],
-      "holderText": "段永平（极小仓位(<0.5%)，持有2季/0.5年，本季减仓）",
+      "holderText": "大卫·泰珀（0.6%仓位，持有25季/6.2年，本季减仓）",
       "nearMiss": [],
       "verdict": "仅单一持有人且本季减仓，安全边际虽达标，但缺乏共识支持，须谨慎看待。",
       "verdictEn": "Only one holder, and they trimmed this quarter — the margin of safety qualifies, but there's no consensus support; approach with caution."
     },
     {
-      "ticker": "BLDR",
-      "name": "建筑商FirstSource",
-      "sector": "工业",
-      "mos": 27.0,
+      "ticker": "PDD",
+      "name": "拼多多",
+      "sector": "电商",
+      "mos": 15.9,
       "mosTier": "中等折价",
-      "buy": 99.8,
-      "price": 72.86,
-      "holderCount": 1,
+      "buy": 98.31,
+      "price": 82.66,
+      "holderCount": 2,
       "holders": [
         {
-          "investor": "Greenberg",
-          "chg": "hold",
-          "weight": 4.8,
-          "hold_quarters": 5,
-          "hold_years": 1.2,
-          "trend": "stable",
+          "investor": "段永平",
+          "chg": "added",
+          "weight": 10.1,
+          "hold_quarters": 11,
+          "hold_years": 2.8,
+          "trend": "accumulating",
+          "reentry": false,
+          "exit_quarter": null,
+          "reentry_quarter": null
+        },
+        {
+          "investor": "大卫·泰珀",
+          "chg": "trimmed",
+          "weight": 1.5,
+          "hold_quarters": 12,
+          "hold_years": 3.0,
+          "trend": "reducing",
           "reentry": false,
           "exit_quarter": null,
           "reentry_quarter": null
         }
       ],
-      "holderText": "Greenberg（4.8%仓位，持有5季/1.2年，仓位未变）",
+      "holderText": "段永平（10.1%仓位，持有11季/2.8年，近3季连续加仓，本季加仓）；大卫·泰珀（1.5%仓位，持有12季/3.0年，近3季连续减仓，本季减仓）",
       "nearMiss": [],
-      "verdict": "仅单一持有人持有且仓位未变，安全边际仅属中等，可作为观察名单但暂无新增信号。",
-      "verdictEn": "Only one holder, position unchanged, and the margin of safety is only moderate — fine as a watchlist name but no new signal for now."
+      "verdict": "共识度高折价适中、且持有人动作分化，属于\"关注但不宜追高\"的类型。",
+      "verdictEn": "High consensus with a moderate discount, but holders are diverging (some adding, some trimming) — worth watching but not chasing."
+    },
+    {
+      "ticker": "FISV",
+      "name": "费城",
+      "sector": "金融服务",
+      "mos": 65.4,
+      "mosTier": "深度折价",
+      "buy": 147.6,
+      "price": 51.02,
+      "holderCount": 1,
+      "holders": [
+        {
+          "investor": "梅森·霍金斯",
+          "chg": "hold",
+          "weight": 0.0,
+          "hold_quarters": 2,
+          "hold_years": 0.5,
+          "trend": "stable",
+          "reentry": true,
+          "exit_quarter": "2024 Q2",
+          "reentry_quarter": "2025 Q4"
+        }
+      ],
+      "holderText": "梅森·霍金斯（极小仓位(<0.5%)，本轮2025 Q4重建仓后持有2季/0.5年（此前于2024 Q2清仓过），仓位未变）",
+      "nearMiss": [],
+      "verdict": "仅单一持有人持有且仓位未变，安全边际充足，可作为观察名单但暂无新增信号。",
+      "verdictEn": "Only one holder, position unchanged, and the margin of safety is ample — fine as a watchlist name but no new signal for now."
     },
     {
       "ticker": "LEN",
@@ -196,7 +131,7 @@
       "holderCount": 1,
       "holders": [
         {
-          "investor": "Greenberg",
+          "investor": "格伦·格林伯格",
           "chg": "hold",
           "weight": 5.2,
           "hold_quarters": 17,
@@ -207,7 +142,7 @@
           "reentry_quarter": "2022 Q1"
         }
       ],
-      "holderText": "Greenberg（5.2%仓位，本轮2022 Q1重建仓后持有17季/4.2年（此前于2020 Q2清仓过），仓位未变）",
+      "holderText": "格伦·格林伯格（5.2%仓位，本轮2022 Q1重建仓后持有17季/4.2年（此前于2020 Q2清仓过），仓位未变）",
       "nearMiss": [
         {
           "investor": "巴菲特",
@@ -219,58 +154,112 @@
       "verdictEn": "Only one holder, position unchanged, and the margin of safety is only moderate — fine as a watchlist name but no new signal for now. Buffett (6.7%) also holds this stock, but the margin of safety hasn't reached the 10% threshold yet, so it is not counted among the consensus holders."
     },
     {
-      "ticker": "KWEB",
-      "name": "中概互联ETF",
-      "sector": "ETF",
-      "mos": 19.5,
-      "mosTier": "中等折价",
-      "buy": 32.64,
-      "price": 26.29,
+      "ticker": "HTZ",
+      "name": "赫兹全球控股",
+      "sector": "消费",
+      "mos": 58.1,
+      "mosTier": "深度折价",
+      "buy": 4.32,
+      "price": 1.81,
       "holderCount": 1,
       "holders": [
         {
-          "investor": "Tepper",
-          "chg": "trimmed",
+          "investor": "比尔·阿克曼",
+          "chg": "hold",
           "weight": 0.5,
-          "hold_quarters": 9,
-          "hold_years": 2.2,
-          "trend": "reducing",
-          "reentry": false,
-          "exit_quarter": null,
-          "reentry_quarter": null
-        }
-      ],
-      "holderText": "Tepper（0.5%仓位，持有9季/2.2年，近3季连续减仓，本季减仓）",
-      "nearMiss": [],
-      "verdict": "仅单一持有人且本季减仓，安全边际虽达标，但缺乏共识支持，须谨慎看待。",
-      "verdictEn": "Only one holder, and they trimmed this quarter — the margin of safety qualifies, but there's no consensus support; approach with caution."
-    },
-    {
-      "ticker": "MSFT",
-      "name": "微软",
-      "sector": "科技",
-      "mos": 19.4,
-      "mosTier": "中等折价",
-      "buy": 473.57,
-      "price": 381.7,
-      "holderCount": 1,
-      "holders": [
-        {
-          "investor": "Tepper",
-          "chg": "trimmed",
-          "weight": 0.6,
-          "hold_quarters": 25,
-          "hold_years": 6.2,
+          "hold_quarters": 5,
+          "hold_years": 1.2,
           "trend": "stable",
           "reentry": false,
           "exit_quarter": null,
           "reentry_quarter": null
         }
       ],
-      "holderText": "Tepper（0.6%仓位，持有25季/6.2年，本季减仓）",
+      "holderText": "比尔·阿克曼（0.5%仓位，持有5季/1.2年，仓位未变）",
       "nearMiss": [],
-      "verdict": "仅单一持有人且本季减仓，安全边际虽达标，但缺乏共识支持，须谨慎看待。",
-      "verdictEn": "Only one holder, and they trimmed this quarter — the margin of safety qualifies, but there's no consensus support; approach with caution."
+      "verdict": "仅单一持有人持有且仓位未变，安全边际充足，可作为观察名单但暂无新增信号。",
+      "verdictEn": "Only one holder, position unchanged, and the margin of safety is ample — fine as a watchlist name but no new signal for now."
+    },
+    {
+      "ticker": "GLIBK",
+      "name": "自由资本",
+      "sector": "通讯",
+      "mos": 38.9,
+      "mosTier": "深度折价",
+      "buy": 35.93,
+      "price": 21.95,
+      "holderCount": 1,
+      "holders": [
+        {
+          "investor": "梅森·霍金斯",
+          "chg": "added",
+          "weight": 2.4,
+          "hold_quarters": 3,
+          "hold_years": 0.8,
+          "trend": "stable",
+          "reentry": false,
+          "exit_quarter": null,
+          "reentry_quarter": null
+        }
+      ],
+      "holderText": "梅森·霍金斯（2.4%仓位，持有3季/0.8年，本季加仓）",
+      "nearMiss": [],
+      "verdict": "单一持有人在深度折价区主动加仓（2.4%仓位），虽无共识但信心明确，值得关注。",
+      "verdictEn": "A single holder is actively adding at a deep discount (2.4% position) — no consensus yet, but conviction is clear; worth watching."
+    },
+    {
+      "ticker": "CLVT",
+      "name": "科睿唯安",
+      "sector": "科技",
+      "mos": 45.6,
+      "mosTier": "深度折价",
+      "buy": 3.75,
+      "price": 2.04,
+      "holderCount": 1,
+      "holders": [
+        {
+          "investor": "梅森·霍金斯",
+          "chg": "hold",
+          "weight": 0.0,
+          "hold_quarters": 3,
+          "hold_years": 0.8,
+          "trend": "stable",
+          "reentry": false,
+          "exit_quarter": null,
+          "reentry_quarter": null
+        }
+      ],
+      "holderText": "梅森·霍金斯（极小仓位(<0.5%)，持有3季/0.8年，仓位未变）",
+      "nearMiss": [],
+      "verdict": "仅单一持有人持有且仓位未变，安全边际充足，可作为观察名单但暂无新增信号。",
+      "verdictEn": "Only one holder, position unchanged, and the margin of safety is ample — fine as a watchlist name but no new signal for now."
+    },
+    {
+      "ticker": "CSGP",
+      "name": "CoStar集团",
+      "sector": "房地产",
+      "mos": 35.8,
+      "mosTier": "深度折价",
+      "buy": 43.1,
+      "price": 27.66,
+      "holderCount": 1,
+      "holders": [
+        {
+          "investor": "查克·阿克瑞",
+          "chg": "added",
+          "weight": 6.8,
+          "hold_quarters": 26,
+          "hold_years": 6.5,
+          "trend": "accumulating",
+          "reentry": false,
+          "exit_quarter": null,
+          "reentry_quarter": null
+        }
+      ],
+      "holderText": "查克·阿克瑞（6.8%仓位，持有26季/6.5年，近3季连续加仓，本季加仓）",
+      "nearMiss": [],
+      "verdict": "单一持有人在深度折价区主动加仓（6.8%仓位），虽无共识但信心明确，值得关注。",
+      "verdictEn": "A single holder is actively adding at a deep discount (6.8% position) — no consensus yet, but conviction is clear; worth watching."
     },
     {
       "ticker": "STZ",
@@ -295,36 +284,96 @@
         }
       ],
       "holderText": "巴菲特（极小仓位(<0.5%)，持有6季/1.5年，近3季连续减仓，本季减仓）",
-      "nearMiss": [],
-      "verdict": "仅单一持有人且本季减仓，安全边际虽达标，但缺乏共识支持，须谨慎看待。",
-      "verdictEn": "Only one holder, and they trimmed this quarter — the margin of safety qualifies, but there's no consensus support; approach with caution."
+      "nearMiss": [
+        {
+          "investor": "梅森·霍金斯",
+          "mos": 4.8,
+          "investorEn": "Mason Hawkins"
+        }
+      ],
+      "verdict": "仅单一持有人且本季减仓，安全边际虽达标，但缺乏共识支持，须谨慎看待。另外梅森·霍金斯（4.8%）也持有本股，但安全边际尚未达到10%门槛，未计入共识持有人。",
+      "verdictEn": "Only one holder, and they trimmed this quarter — the margin of safety qualifies, but there's no consensus support; approach with caution. Mason Hawkins (4.8%) also holds this stock, but the margin of safety hasn't reached the 10% threshold yet, so it is not counted among the consensus holders."
     },
     {
-      "ticker": "CPRT",
-      "name": "Copart, Inc.",
-      "sector": "工业",
-      "mos": 17.4,
-      "mosTier": "中等折价",
-      "buy": 33.83,
-      "price": 27.94,
+      "ticker": "ACI",
+      "name": "阿尔伯特森斯",
+      "sector": "消费",
+      "mos": 30.0,
+      "mosTier": "深度折价",
+      "buy": 15.76,
+      "price": 11.03,
       "holderCount": 1,
       "holders": [
         {
-          "investor": "Akre",
-          "chg": "hold",
-          "weight": 4.3,
-          "hold_quarters": 4,
-          "hold_years": 1.0,
+          "investor": "梅森·霍金斯",
+          "chg": "added",
+          "weight": 6.2,
+          "hold_quarters": 7,
+          "hold_years": 1.8,
           "trend": "accumulating",
           "reentry": false,
           "exit_quarter": null,
           "reentry_quarter": null
         }
       ],
-      "holderText": "Akre（4.3%仓位，持有4季/1.0年，近3季连续加仓，仓位未变）",
+      "holderText": "梅森·霍金斯（6.2%仓位，持有7季/1.8年，近3季连续加仓，本季加仓）",
       "nearMiss": [],
-      "verdict": "仅单一持有人持有，本季环比变化轻微但近3季实际上在持续加仓，安全边际仅属中等，倾向性信号偏积极。",
-      "verdictEn": "Only one holder, and while the quarter-over-quarter change is small, they've been steadily accumulating over the past 3 quarters; the margin of safety is only moderate — a mildly positive signal."
+      "verdict": "单一持有人在深度折价区主动加仓（6.2%仓位），虽无共识但信心明确，值得关注。",
+      "verdictEn": "A single holder is actively adding at a deep discount (6.2% position) — no consensus yet, but conviction is clear; worth watching."
+    },
+    {
+      "ticker": "HDB",
+      "name": "印度住房金融",
+      "sector": "金融/银行",
+      "mos": 33.3,
+      "mosTier": "深度折价",
+      "buy": 34.83,
+      "price": 23.23,
+      "holderCount": 1,
+      "holders": [
+        {
+          "investor": "梅森·霍金斯",
+          "chg": "hold",
+          "weight": 0.0,
+          "hold_quarters": 10,
+          "hold_years": 2.5,
+          "trend": "stable",
+          "reentry": false,
+          "exit_quarter": null,
+          "reentry_quarter": null
+        }
+      ],
+      "holderText": "梅森·霍金斯（极小仓位(<0.5%)，持有10季/2.5年，仓位未变）",
+      "nearMiss": [],
+      "verdict": "仅单一持有人持有且仓位未变，安全边际充足，可作为观察名单但暂无新增信号。",
+      "verdictEn": "Only one holder, position unchanged, and the margin of safety is ample — fine as a watchlist name but no new signal for now."
+    },
+    {
+      "ticker": "WHR",
+      "name": "惠而浦",
+      "sector": "消费",
+      "mos": 53.0,
+      "mosTier": "深度折价",
+      "buy": 79.27,
+      "price": 37.27,
+      "holderCount": 1,
+      "holders": [
+        {
+          "investor": "大卫·泰珀",
+          "chg": "trimmed",
+          "weight": 1.8,
+          "hold_quarters": 4,
+          "hold_years": 1.0,
+          "trend": "reducing",
+          "reentry": true,
+          "exit_quarter": "2023 Q4",
+          "reentry_quarter": "2025 Q2"
+        }
+      ],
+      "holderText": "大卫·泰珀（1.8%仓位，本轮2025 Q2重建仓后持有4季/1.0年（此前于2023 Q4清仓过），近3季连续减仓，本季减仓）",
+      "nearMiss": [],
+      "verdict": "仅单一持有人且本季减仓，安全边际虽达标，但缺乏共识支持，须谨慎看待。",
+      "verdictEn": "Only one holder, and they trimmed this quarter — the margin of safety qualifies, but there's no consensus support; approach with caution."
     },
     {
       "ticker": "TME",
@@ -354,33 +403,6 @@
       "verdictEn": "Li Lu's new position is small (1.9%) — looks more like an exploratory stake; conviction level remains to be confirmed in future quarters."
     },
     {
-      "ticker": "AMR",
-      "name": "阿尔法金属",
-      "sector": "冶金/煤炭",
-      "mos": 15.7,
-      "mosTier": "中等折价",
-      "buy": 169.63,
-      "price": 142.94,
-      "holderCount": 1,
-      "holders": [
-        {
-          "investor": "帕伯莱",
-          "chg": "added",
-          "weight": 28.1,
-          "hold_quarters": 12,
-          "hold_years": 3.0,
-          "trend": "accumulating",
-          "reentry": false,
-          "exit_quarter": null,
-          "reentry_quarter": null
-        }
-      ],
-      "holderText": "帕伯莱（28.1%仓位，持有12季/3.0年，近3季连续加仓，本季加仓）",
-      "nearMiss": [],
-      "verdict": "单一持有人以28.1%重仓且本季继续加仓，属于高确定性的重仓信号。",
-      "verdictEn": "A single holder has 28.1% weighted in and kept adding this quarter — a high-conviction, heavily-weighted signal."
-    },
-    {
       "ticker": "TSLA",
       "name": "特斯拉",
       "sector": "汽车/新能源",
@@ -408,6 +430,249 @@
       "verdictEn": "A brand-new position sized at 6.3% right away signals very strong conviction — worth watching closely."
     },
     {
+      "ticker": "BLDR",
+      "name": "建筑商FirstSource",
+      "sector": "工业",
+      "mos": 27.0,
+      "mosTier": "中等折价",
+      "buy": 99.8,
+      "price": 72.86,
+      "holderCount": 1,
+      "holders": [
+        {
+          "investor": "格伦·格林伯格",
+          "chg": "hold",
+          "weight": 4.8,
+          "hold_quarters": 5,
+          "hold_years": 1.2,
+          "trend": "stable",
+          "reentry": false,
+          "exit_quarter": null,
+          "reentry_quarter": null
+        }
+      ],
+      "holderText": "格伦·格林伯格（4.8%仓位，持有5季/1.2年，仓位未变）",
+      "nearMiss": [],
+      "verdict": "仅单一持有人持有且仓位未变，安全边际仅属中等，可作为观察名单但暂无新增信号。",
+      "verdictEn": "Only one holder, position unchanged, and the margin of safety is only moderate — fine as a watchlist name but no new signal for now."
+    },
+    {
+      "ticker": "GLIBA",
+      "name": "自由资本",
+      "sector": "通讯",
+      "mos": 26.2,
+      "mosTier": "中等折价",
+      "buy": 30.24,
+      "price": 22.32,
+      "holderCount": 1,
+      "holders": [
+        {
+          "investor": "梅森·霍金斯",
+          "chg": "hold",
+          "weight": 0.1,
+          "hold_quarters": 3,
+          "hold_years": 0.8,
+          "trend": "stable",
+          "reentry": false,
+          "exit_quarter": null,
+          "reentry_quarter": null
+        }
+      ],
+      "holderText": "梅森·霍金斯（极小仓位(<0.5%)，持有3季/0.8年，仓位未变）",
+      "nearMiss": [],
+      "verdict": "仅单一持有人持有且仓位未变，安全边际仅属中等，可作为观察名单但暂无新增信号。",
+      "verdictEn": "Only one holder, position unchanged, and the margin of safety is only moderate — fine as a watchlist name but no new signal for now."
+    },
+    {
+      "ticker": "CRM",
+      "name": "Salesforce, Inc.",
+      "sector": "科技",
+      "mos": 10.8,
+      "mosTier": "轻度折价",
+      "buy": 183.52,
+      "price": 163.66,
+      "holderCount": 1,
+      "holders": [
+        {
+          "investor": "查克·阿克瑞",
+          "chg": "new",
+          "weight": 2.5,
+          "hold_quarters": 1,
+          "hold_years": 0.2,
+          "trend": "stable",
+          "reentry": false,
+          "exit_quarter": null,
+          "reentry_quarter": null
+        }
+      ],
+      "holderText": "查克·阿克瑞（2.5%仓位，持有1季/0.2年，本季新开仓）",
+      "nearMiss": [],
+      "verdict": "查克·阿克瑞新开仓但仓位较小（2.5%），更像是试探性布局，信心程度有待后续季度验证。",
+      "verdictEn": "Chuck Akre's new position is small (2.5%) — looks more like an exploratory stake; conviction level remains to be confirmed in future quarters."
+    },
+    {
+      "ticker": "AMR",
+      "name": "阿尔法金属",
+      "sector": "冶金/煤炭",
+      "mos": 15.7,
+      "mosTier": "中等折价",
+      "buy": 169.63,
+      "price": 142.94,
+      "holderCount": 1,
+      "holders": [
+        {
+          "investor": "帕伯莱",
+          "chg": "added",
+          "weight": 28.1,
+          "hold_quarters": 12,
+          "hold_years": 3.0,
+          "trend": "accumulating",
+          "reentry": false,
+          "exit_quarter": null,
+          "reentry_quarter": null
+        }
+      ],
+      "holderText": "帕伯莱（28.1%仓位，持有12季/3.0年，近3季连续加仓，本季加仓）",
+      "nearMiss": [],
+      "verdict": "单一持有人以28.1%重仓且本季继续加仓，属于高确定性的重仓信号。",
+      "verdictEn": "A single holder has 28.1% weighted in and kept adding this quarter — a high-conviction, heavily-weighted signal."
+    },
+    {
+      "ticker": "FIS",
+      "name": "Fidelity 国家信息服务",
+      "sector": "金融服务",
+      "mos": 12.7,
+      "mosTier": "轻度折价",
+      "buy": 47.56,
+      "price": 41.51,
+      "holderCount": 1,
+      "holders": [
+        {
+          "investor": "梅森·霍金斯",
+          "chg": "added",
+          "weight": 1.9,
+          "hold_quarters": 13,
+          "hold_years": 3.2,
+          "trend": "stable",
+          "reentry": false,
+          "exit_quarter": null,
+          "reentry_quarter": null
+        }
+      ],
+      "holderText": "梅森·霍金斯（1.9%仓位，持有13季/3.2年，本季加仓）",
+      "nearMiss": [],
+      "verdict": "单一持有人本季主动加仓（1.9%仓位），属于积极信号，但安全边际仅属中等，可作为次优先观察。",
+      "verdictEn": "A single holder added this quarter (1.9% position) — a positive signal, though the margin of safety is only moderate; a secondary watchlist candidate."
+    },
+    {
+      "ticker": "SAM",
+      "name": "波士顿啤酒",
+      "sector": "消费",
+      "mos": 11.2,
+      "mosTier": "轻度折价",
+      "buy": 202.96,
+      "price": 180.15,
+      "holderCount": 1,
+      "holders": [
+        {
+          "investor": "梅森·霍金斯",
+          "chg": "added",
+          "weight": 1.3,
+          "hold_quarters": 13,
+          "hold_years": 3.2,
+          "trend": "stable",
+          "reentry": false,
+          "exit_quarter": null,
+          "reentry_quarter": null
+        }
+      ],
+      "holderText": "梅森·霍金斯（1.3%仓位，持有13季/3.2年，本季加仓）",
+      "nearMiss": [],
+      "verdict": "单一持有人本季主动加仓（1.3%仓位），属于积极信号，但安全边际仅属中等，可作为次优先观察。",
+      "verdictEn": "A single holder added this quarter (1.3% position) — a positive signal, though the margin of safety is only moderate; a secondary watchlist candidate."
+    },
+    {
+      "ticker": "REGN",
+      "name": "再生元",
+      "sector": "医药",
+      "mos": 10.2,
+      "mosTier": "轻度折价",
+      "buy": 730.66,
+      "price": 656.01,
+      "holderCount": 1,
+      "holders": [
+        {
+          "investor": "梅森·霍金斯",
+          "chg": "added",
+          "weight": 5.0,
+          "hold_quarters": 5,
+          "hold_years": 1.2,
+          "trend": "stable",
+          "reentry": false,
+          "exit_quarter": null,
+          "reentry_quarter": null
+        }
+      ],
+      "holderText": "梅森·霍金斯（5.0%仓位，持有5季/1.2年，本季加仓）",
+      "nearMiss": [],
+      "verdict": "单一持有人本季主动加仓（5.0%仓位），属于积极信号，但安全边际仅属中等，可作为次优先观察。",
+      "verdictEn": "A single holder added this quarter (5.0% position) — a positive signal, though the margin of safety is only moderate; a secondary watchlist candidate."
+    },
+    {
+      "ticker": "CPRT",
+      "name": "Copart, Inc.",
+      "sector": "工业",
+      "mos": 17.4,
+      "mosTier": "中等折价",
+      "buy": 33.83,
+      "price": 27.94,
+      "holderCount": 1,
+      "holders": [
+        {
+          "investor": "查克·阿克瑞",
+          "chg": "hold",
+          "weight": 4.3,
+          "hold_quarters": 4,
+          "hold_years": 1.0,
+          "trend": "accumulating",
+          "reentry": false,
+          "exit_quarter": null,
+          "reentry_quarter": null
+        }
+      ],
+      "holderText": "查克·阿克瑞（4.3%仓位，持有4季/1.0年，近3季连续加仓，仓位未变）",
+      "nearMiss": [],
+      "verdict": "仅单一持有人持有，本季环比变化轻微但近3季实际上在持续加仓，安全边际仅属中等，倾向性信号偏积极。",
+      "verdictEn": "Only one holder, and while the quarter-over-quarter change is small, they've been steadily accumulating over the past 3 quarters; the margin of safety is only moderate — a mildly positive signal."
+    },
+    {
+      "ticker": "TEM",
+      "name": "Tempus AI",
+      "sector": "医药",
+      "mos": 34.9,
+      "mosTier": "深度折价",
+      "buy": 65.55,
+      "price": 42.69,
+      "holderCount": 1,
+      "holders": [
+        {
+          "investor": "段永平",
+          "chg": "trimmed",
+          "weight": 0.0,
+          "hold_quarters": 2,
+          "hold_years": 0.5,
+          "trend": "stable",
+          "reentry": false,
+          "exit_quarter": null,
+          "reentry_quarter": null
+        }
+      ],
+      "holderText": "段永平（极小仓位(<0.5%)，持有2季/0.5年，本季减仓）",
+      "nearMiss": [],
+      "verdict": "仅单一持有人且本季减仓，安全边际虽达标，但缺乏共识支持，须谨慎看待。",
+      "verdictEn": "Only one holder, and they trimmed this quarter — the margin of safety qualifies, but there's no consensus support; approach with caution."
+    },
+    {
       "ticker": "CMCSA",
       "name": "康卡斯特",
       "sector": "娱乐",
@@ -418,7 +683,7 @@
       "holderCount": 1,
       "holders": [
         {
-          "investor": "Greenberg",
+          "investor": "格伦·格林伯格",
           "chg": "hold",
           "weight": 0.0,
           "hold_quarters": 52,
@@ -429,21 +694,69 @@
           "reentry_quarter": null
         }
       ],
-      "holderText": "Greenberg（极小仓位(<0.5%)，持有52季/13.0年，仓位未变）",
+      "holderText": "格伦·格林伯格（极小仓位(<0.5%)，持有52季/13.0年，仓位未变）",
       "nearMiss": [],
       "verdict": "仅单一持有人持有且仓位未变，安全边际仅略微达标，可作为观察名单但暂无新增信号。",
       "verdictEn": "Only one holder, position unchanged, and the margin of safety only barely qualifies — fine as a watchlist name but no new signal for now."
-    }
-  ],
-  "droppedOut": [
+    },
     {
-      "ticker": "CRM",
-      "name": "Salesforce, Inc.",
-      "prevMos": 10.8
+      "ticker": "NUVB",
+      "name": "努瓦生科",
+      "sector": "医药",
+      "mos": 31.3,
+      "mosTier": "深度折价",
+      "buy": 9.35,
+      "price": 6.42,
+      "holderCount": 1,
+      "holders": [
+        {
+          "investor": "大卫·艾布拉姆斯",
+          "chg": "trimmed",
+          "weight": 0.1,
+          "hold_quarters": 21,
+          "hold_years": 5.2,
+          "trend": "stable",
+          "reentry": false,
+          "exit_quarter": null,
+          "reentry_quarter": null
+        }
+      ],
+      "holderText": "大卫·艾布拉姆斯（极小仓位(<0.5%)，持有21季/5.2年，本季减仓）",
+      "nearMiss": [],
+      "verdict": "持仓超5年的老仓位却在深度折价区减仓，可能反映基本面担忧大于估值吸引力，需警惕价值陷阱。",
+      "verdictEn": "A position held for over 5 years is being trimmed despite trading at a deep discount — may signal fundamental concerns outweighing valuation appeal; watch for a value trap."
+    },
+    {
+      "ticker": "KWEB",
+      "name": "中概互联ETF",
+      "sector": "ETF",
+      "mos": 19.5,
+      "mosTier": "中等折价",
+      "buy": 32.64,
+      "price": 26.29,
+      "holderCount": 1,
+      "holders": [
+        {
+          "investor": "大卫·泰珀",
+          "chg": "trimmed",
+          "weight": 0.5,
+          "hold_quarters": 9,
+          "hold_years": 2.2,
+          "trend": "reducing",
+          "reentry": false,
+          "exit_quarter": null,
+          "reentry_quarter": null
+        }
+      ],
+      "holderText": "大卫·泰珀（0.5%仓位，持有9季/2.2年，近3季连续减仓，本季减仓）",
+      "nearMiss": [],
+      "verdict": "仅单一持有人且本季减仓，安全边际虽达标，但缺乏共识支持，须谨慎看待。",
+      "verdictEn": "Only one holder, and they trimmed this quarter — the margin of safety qualifies, but there's no consensus support; approach with caution."
     }
   ],
-  "generatedAt": "2026-07-26T11:44:23Z",
-  "candidateCount": 16,
+  "droppedOut": [],
+  "generatedAt": "2026-07-26T12:40:15Z",
+  "candidateCount": 27,
   "consensusCount": 1,
-  "signalHash": "45d682958b36b4570c8df1e6d24ced8a7cb4b229ad348a372d4506d3f1b04e21"
+  "signalHash": "5fbae914f469d13a7f91a4331b7b83d82cf5b03f2c408f880e55a1c49c90484f"
 }
