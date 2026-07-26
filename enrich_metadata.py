@@ -521,15 +521,13 @@ def _mos_tier(mos):
 
 _CHG_LABEL = {'new': '本季新开仓', 'added': '本季加仓', 'trimmed': '本季减仓', 'hold': '仓位未变'}
 
-# 持有人中文名 -> 英文名映射（与 app.js 中 INVESTORS_CFG 的 name/nameEn 保持一致）
-_INVESTOR_EN = {
-    '李录': 'Li Lu', '帕伯莱': 'Pabrai', '段永平': 'Duan', 'Tepper': 'Tepper',
-    'Akre': 'Akre', 'Greenberg': 'Greenberg', '巴菲特': 'Buffett',
-}
-
-
+# 持有人中文名 -> 英文名映射：从 investors.json 动态生成（单一权威来源），
+# 不再手工硬编码列表 —— 之前的硬编码只覆盖7人且部分本身就是错的占位英文名
+# （如 'Tepper'->'Tepper'，本该是 'David Tepper'），新增投资者时会自动漏掉。
 def _investor_en(name_cn):
-    return _INVESTOR_EN.get(name_cn, name_cn)
+    if not hasattr(_investor_en, '_map'):
+        _investor_en._map = {inv['name']: inv['nameEn'] for inv in load_investors()}
+    return _investor_en._map.get(name_cn, name_cn)
 
 
 def _gen_verdict(v, mos_tier):
