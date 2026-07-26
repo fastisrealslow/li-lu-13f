@@ -1076,7 +1076,12 @@ function renderHistoryChart() {
   const wrap = document.getElementById('historyChartWrap');
   const canvas = document.getElementById('historyChart');
   if (!canvas || !data || !data.history) return;
-  const {quarters, values} = data.history;
+  const {quarters: rawQuarters, values: rawValues} = data.history;
+  // 按季度时间顺序重排（数据源是分批抓取追加写入的，quarters/values 原始顺序可能不是时间序）
+  const qKey = q => { const [y, qq] = q.split(' Q'); return parseInt(y) * 10 + parseInt(qq); };
+  const order = rawQuarters.map((q, i) => i).sort((a, b) => qKey(rawQuarters[a]) - qKey(rawQuarters[b]));
+  const quarters = order.map(i => rawQuarters[i]);
+  const values = order.map(i => rawValues[i]);
   const isMobile = window.innerWidth < 640;
 
   // 渲染 AI 解读
@@ -3061,7 +3066,7 @@ async function renderStatusDrawer() {
     'akre_greenberg_13f','akre_prices','greenberg_prices',
     'batch2_13f','klarman_prices','ackman_prices','abrams_prices','berkowitz_prices','hawkins_prices',
     'webb_prices','webb_holdings',
-    'metadata','hk_disclosures','spinoff_hk','spinoff_us',
+    'resolve_cusip','metadata','hk_disclosures','spinoff_hk','spinoff_us',
   ];
 
   const STEP_LABELS = {

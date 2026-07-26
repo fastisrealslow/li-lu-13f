@@ -152,6 +152,12 @@ def load_cache():
             pass
     return {}
 
+
+def _is_chinese(s):
+    """判断字符串是否包含中文字符（用于识别 cnName 里 yfinance 英文
+    fallback 未被真正翻译成中文的情况）。"""
+    return bool(re.search(r'[\u4e00-\u9fff]', s or ''))
+
 def save_cache(cache):
     with open(CACHE_FILE, 'w') as f:
         json.dump(cache, f, ensure_ascii=False, indent=2)
@@ -285,6 +291,63 @@ def _sf_call_enrich(api_key, prompt, max_tokens=400, retries=2):
                     time.sleep(wait)
         print(f"  模型 {model} 全部失败")
     return None
+
+
+def translate_names_to_chinese(names, api_key, batch_size=20):
+    """批量把英文公司全名翻译成简体中文常用名（用于修复 cnName 字段里
+    yfinance longName 英文 fallback 未被真正翻译的问题）。
+
+    返回 {english_name: chinese_name}，翻译失败或 LLM 返回格式不对的
+    条目不会出现在返回结果里（调用方应保留原英文名，不强行瞎填）。
+    """
+    if not api_key or not names:
+        return {}
+
+    result = {}
+    names = list(dict.fromkeys(names))  # 去重，保持顺序
+    for i in range(0, len(names), batch_size):
+        batch = names[i:i + batch_size]
+        numbered = "\n".join(f"{j+1}. {n}" for j, n in enumerate(batch))
+        prompt = (
+            "你是金融翻译专家。把下面这些美股/港股上市公司的英文全名，"
+            "翻译成中国大陆投资者最熟悉的简体中文常用简称（不是逐字直译，"
+            "要用业内通用叫法，例如 'Starbucks Corporation' 应译为 '星巴克'，"
+            "'Marriott International, Inc.' 应译为 '万豪国际'）。\n"
+            "严格按 JSON 对象格式返回，key 必须是下面列出的编号字符串（不是公司名），"
+            "value 是对应的中文翻译，必须包含全部 " + str(len(batch)) + " 个编号，"
+            "不要输出任何其他文字、注释或代码块标记，例如："
+            "{\"1\": \"星巴克\", \"2\": \"万豪国际\"}\n\n"
+            f"{numbered}"
+        )
+        text = _sf_call_enrich(api_key, prompt, max_tokens=800)
+        if not text:
+            print(f"  翻译批次 {i} 失败（LLM 无响应），跳过本批")
+            continue
+        # 去掉可能的 markdown 代码块包裹
+        cleaned = re.sub(r'^```(?:json)?\s*|\s*```$', '', text.strip())
+        try:
+            translated = json.loads(cleaned)
+        except json.JSONDecodeError:
+            print(f"  翻译批次 {i} JSON 解析失败，原文: {text[:200]}")
+            continue
+        if not isinstance(translated, dict):
+            print(f"  翻译批次 {i} 返回不是 JSON 对象，跳过本批")
+            continue
+        # 按编号回填，而不是按数组位置 zip —— 即使 LLM 漏答/多答部分编号，
+        # 已经答对的编号也不会因为位置错位而被错误地归属到另一个公司名。
+        matched = 0
+        for j, en in enumerate(batch):
+            cn = (translated.get(str(j + 1), "") or "").strip()
+            if cn and _is_chinese(cn):
+                result[en] = cn
+                matched += 1
+            elif cn:
+                print(f"  跳过可疑翻译结果: \"{en}\" -> \"{cn}\"")
+        if matched < len(batch):
+            print(f"  翻译批次 {i}：{len(batch)} 个中 {matched} 个成功匹配编号，其余保持未翻译（不猴填）")
+        print(f"  翻译批次 {min(i + batch_size, len(names))}/{len(names)} 完成")
+        time.sleep(1)
+    return result
 
 
 def _gen_13f_summaries(api_key):
@@ -1121,6 +1184,65 @@ def main():
 
     # LLM 生成 13F 季报变动摘要
     sf_key = os.environ.get('SILICONFLOW_KEY', '')
+
+    # 修复 cnName 里 yfinance 英文 fallback 未被真正翻译成中文的问题：
+    # 扫描 cache 里所有 cnName 不含中文字符的条目，批量翻译后回写 cache
+    # 和所有数据文件（全自动，不依赖手工白名单）。没有 key 时跳过，
+    # 不会报错也不会用英文假装成中文。
+    if sf_key:
+        print("\n=== LLM 批量翻译残留英文 cnName ===")
+        english_names = sorted({
+            v.get('cnName', '') for v in cache.values()
+            if v.get('cnName') and not _is_chinese(v.get('cnName', ''))
+        })
+        print(f"待翻译英文名（去重）: {len(english_names)} 个")
+        if english_names:
+            translations = translate_names_to_chinese(english_names, sf_key)
+            print(f"成功翻译: {len(translations)}/{len(english_names)}")
+            if translations:
+                # 回写 cache：每个 ticker 的 cnName 如果命中翻译表就替换
+                cache_updated = 0
+                for tk, v in cache.items():
+                    cn = v.get('cnName', '')
+                    if cn in translations:
+                        v['cnName'] = translations[cn]
+                        cache_updated += 1
+                if cache_updated:
+                    save_cache(cache)
+                    print(f"cache 已更新 {cache_updated} 个 ticker 的 cnName")
+
+                # 回写所有数据文件里已落盘的旧英文 cnName
+                files_updated = 0
+                records_updated = 0
+                for f in data_files:
+                    if not os.path.exists(f):
+                        continue
+                    d = json.load(open(f))
+                    changed = False
+
+                    def fix_holdings(holdings):
+                        nonlocal changed, records_updated
+                        for h in holdings:
+                            cn = h.get('cnName', '')
+                            if cn in translations:
+                                h['cnName'] = translations[cn]
+                                changed = True
+                                records_updated += 1
+
+                    fix_holdings(d.get('current', {}).get('holdings', []))
+                    hist = d.get('history', {})
+                    hist_qs = hist.get('holdings', hist) if isinstance(hist, dict) else {}
+                    if isinstance(hist_qs, dict):
+                        for q, hs in hist_qs.items():
+                            if isinstance(hs, list):
+                                fix_holdings(hs)
+
+                    if changed:
+                        with open(f, 'w') as fp:
+                            json.dump(d, fp, ensure_ascii=False, indent=2)
+                        files_updated += 1
+                print(f"已回写 {files_updated} 个文件，{records_updated} 条记录的 cnName 被翻译回写")
+
     if sf_key:
         print("\n=== LLM 生成 13F 季报摘要 ===")
         _gen_13f_summaries(sf_key)

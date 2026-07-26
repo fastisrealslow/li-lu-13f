@@ -374,6 +374,20 @@ jobs:
 
       # ─────────────── 元数据 & 分拆 ───────────────
 
+      - name: Resolve unmapped tickers via CUSIP (OpenFIGI)
+        id: resolve_cusip
+        continue-on-error: true
+        run: python3 resolve_unmapped_tickers.py
+
+      - name: Status - Resolve unmapped tickers
+        if: always()
+        run: |
+          if [ "${{ steps.resolve_cusip.outcome }}" = "success" ]; then
+            python3 update_status.py --step resolve_cusip --status ok
+          else
+            python3 update_status.py --step resolve_cusip --status fail --msg "Step exited with error"
+          fi
+
       - name: Enrich metadata (cnName + sector)
         id: metadata
         continue-on-error: true

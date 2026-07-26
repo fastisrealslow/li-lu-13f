@@ -467,6 +467,25 @@ CUSIP_TICKER_MAP = {
     "907818108": "UNP",  # UNION PAC CORP
 }
 
+
+def _load_auto_resolved_cusip_map():
+    """合并 resolve_unmapped_tickers.py 自动解析并持久化的 CUSIP→ticker
+    映射（见 resolved_cusip_map.json）。该文件由 OpenFIGI API 权威解析
+    生成，不存在时静默跳过 —— 不影响手工维护的 CUSIP_TICKER_MAP。"""
+    path = os.path.join(BASE, "resolved_cusip_map.json")
+    if not os.path.exists(path):
+        return {}
+    try:
+        with open(path, encoding="utf-8") as f:
+            return json.load(f)
+    except (json.JSONDecodeError, OSError) as e:
+        print(f"WARN: resolved_cusip_map.json 读取失败（{e}），跳过自动映射", file=sys.stderr)
+        return {}
+
+
+# 手工映射优先于自动解析映射（如有冲突，人工核对过的条目更可信）
+CUSIP_TICKER_MAP = {**_load_auto_resolved_cusip_map(), **CUSIP_TICKER_MAP}
+
 # 行业映射（兜底用 enrich_metadata.py 的 LLM 标注）
 SECTORS = {
     "AAPL": "科技", "MSFT": "科技", "AMZN": "电商", "GOOG": "互联网",
@@ -680,7 +699,32 @@ def parse_holdings(xml_bytes: bytes, consolidate: bool = False) -> list[dict]:
     return holdings
 
 
+def _quarter_sort_key(q_label: str) -> int:
+    """'2024 Q3' -> 20243，用于按时间顺序排序（跨字段名不受影响）。"""
+    year, q = q_label.split(" Q")
+    return int(year) * 10 + int(q)
+
+
+def _sort_history_in_place(data: dict):
+    """history.quarters / values 是分批抓取追加写入的，顺序可能不是时间序
+    （例如先抓近期再回填更早历史）。写盘前统一按季度时间顺序重排，
+    避免前端图表/摘要按原始数组顺序读取时出现乱序。"""
+    hist = data.get("history")
+    if not hist or "quarters" not in hist or "values" not in hist:
+        return
+    quarters = hist["quarters"]
+    values = hist["values"]
+    if len(quarters) != len(values) or len(quarters) < 2:
+        return
+    order = sorted(range(len(quarters)), key=lambda i: _quarter_sort_key(quarters[i]))
+    if order == list(range(len(quarters))):
+        return  # 已经是时间序，无需改动
+    hist["quarters"] = [quarters[i] for i in order]
+    hist["values"] = [values[i] for i in order]
+
+
 def save_data(path: str, data: dict):
+    _sort_history_in_place(data)
     with open(path, "w") as f:
         json.dump(data, f, ensure_ascii=False, indent=2)
         f.write("\n")
