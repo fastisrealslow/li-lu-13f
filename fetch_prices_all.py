@@ -87,6 +87,10 @@ def get_finnhub_key(override=None):
     _API_KEY = key
     return _API_KEY
 
+# HTTP 状态码中，5xx 通常是服务端临时性故障（网关超时、服务重启等），
+# 短暂退避重试很可能就会成功；4xx（除429限速外）多为客户端/请求本身的问题，重试无意义。
+_RETRYABLE_HTTP_CODES = {500, 502, 503, 504}
+
 def finnhub(path, _retries=3):
     key = get_finnhub_key()
     sep = "&" if "?" in path else "?"
@@ -101,10 +105,19 @@ def finnhub(path, _retries=3):
                 wait = 30 * (attempt + 1)
                 print(f"  [Finnhub 429] 限速，等待 {wait}s 后重试...", file=sys.stderr)
                 time.sleep(wait)
+            elif e.code in _RETRYABLE_HTTP_CODES and attempt < _retries - 1:
+                wait = 2 * (attempt + 1)
+                print(f"  [Finnhub HTTP {e.code}] 临时性错误，等待 {wait}s 后重试 ({attempt + 1}/{_retries})...", file=sys.stderr)
+                time.sleep(wait)
             else:
                 print(f"  [Finnhub HTTP {e.code}] {e}", file=sys.stderr)
                 return None
         except Exception as e:
+            if attempt < _retries - 1:
+                wait = 2 * (attempt + 1)
+                print(f"  [Finnhub error] {e}，等待 {wait}s 后重试 ({attempt + 1}/{_retries})...", file=sys.stderr)
+                time.sleep(wait)
+                continue
             print(f"  [Finnhub error] {e}", file=sys.stderr)
             return None
     print(f"  [Finnhub] {_retries} 次重试均失败", file=sys.stderr)
@@ -251,8 +264,15 @@ def fetch_us(investor, cfg):
                           "pc": round(q["pc"],2), "t": q["t"]}
             print(f"${q['c']:.2f}")
         else:
-            print("✗")
-            quotes[tk] = {"error": True}
+            # 本次拉取失败（如 Finnhub 偶发502等）——回退到上一次成功缓存的报价，
+            # 而不是直接覆盖为 error，避免前端“参考股价”因一次接口抖动就彻底消失。
+            eq = existing_quotes.get(tk)
+            if eq and not eq.get("error") and eq.get("c", 0) > 0:
+                quotes[tk] = {**eq, "stale": True}
+                print(f"✗ → 回退旧报价 ${eq['c']:.2f} (stale)")
+            else:
+                print("✗ → 无历史缓存可回退")
+                quotes[tk] = {"error": True}
         time.sleep(1.1)
 
     # ── Part 2: 成本估算 ──

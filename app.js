@@ -762,7 +762,10 @@ function renderHoldings() {
     const q = quotes[h.ticker];
     const cb = costBasis[h.ticker];
     const currentPrice = (q && !q.error) ? q.c : (h.value / h.shares);
-    const priceHtml = (q && !q.error) ? `${currSymbol(h.ticker)}${q.c.toFixed(2)}` : '<span style="color:var(--text-lighter)">--</span>';
+    const staleTitle = lang === 'en' ? 'Live quote temporarily unavailable — showing last known price' : '实时报价暂时拉取失败，显示为最后一次成功报价';
+    const priceHtml = (q && !q.error)
+      ? `${currSymbol(h.ticker)}${q.c.toFixed(2)}${q.stale ? ` <span title="${staleTitle}" style="color:var(--warn,#c9812f);font-size:.7em;">⏱</span>` : ''}`
+      : '<span style="color:var(--text-lighter)">--</span>';
     
     let mosHtml = '';
     let costHtml = '<span style="color:var(--text-lighter)">--</span>';
