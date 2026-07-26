@@ -173,7 +173,9 @@ def yahoo_chart(symbol, from_ts, to_ts):
         import yfinance as yf
         start_dt = datetime.fromtimestamp(from_ts, tz=timezone.utc).strftime('%Y-%m-%d')
         end_dt   = datetime.fromtimestamp(to_ts,   tz=timezone.utc).strftime('%Y-%m-%d')
-        yf_symbol = symbol.replace('.B', '-B').replace('.A', '-A') if symbol.startswith('BRK') else symbol
+        # yfinance 用短杠格式（BRK-B/BRK-A），上游 13F 数据里同时存在点号（BRK.B）和斜杠（BRK/B）两种写法，都需归一化，
+        # 否则斜杠会被 yfinance 内部请求拼进 URL 路径导致请求失败。
+        yf_symbol = symbol.replace('.B', '-B').replace('/B', '-B').replace('.A', '-A').replace('/A', '-A') if symbol.startswith('BRK') else symbol
         t = yf.Ticker(yf_symbol)
         hist = t.history(start=start_dt, end=end_dt)
         if hist is None or len(hist) == 0:
