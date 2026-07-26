@@ -2091,18 +2091,18 @@ async function renderSpinoff() {
     </div>
 
     <!-- 表头 -->
-      <div style="display:grid;grid-template-columns:120px 118px 88px 76px 1fr 88px 44px;
+      <div class="so-thead" style="display:grid;grid-template-columns:120px 118px 88px 76px 1fr 88px 44px;
                   gap:0;padding:8px 14px;
                   background:var(--navy);border-radius:8px 8px 0 0;
                   font-size:.67rem;font-weight:600;color:rgba(255,255,255,.55);
                   letter-spacing:.6px;text-transform:uppercase;align-items:center;">
-        <span>${isEn?'COMPANY':'公司'}</span>
-        <span>${isEn?'STATUS':'进度'}</span>
-        <span>${isEn?'TYPE':'类型'}</span>
-        <span>${isEn?'SIZE':'市值'}</span>
-        <span>${isEn?'LATEST ANNOUNCEMENT':'最新公告'}</span>
-        <span style="text-align:right;">${isEn?'DATE':'日期'}</span>
-        <span style="text-align:center;">${isEn?'N':'条'}</span>
+        <span class="so-th-company">${isEn?'COMPANY':'公司'}</span>
+        <span class="so-th-status">${isEn?'STATUS':'进度'}</span>
+        <span class="so-th-type">${isEn?'TYPE':'类型'}</span>
+        <span class="so-th-size">${isEn?'SIZE':'市值'}</span>
+        <span class="so-th-latest">${isEn?'LATEST ANNOUNCEMENT':'最新公告'}</span>
+        <span class="so-th-date" style="text-align:right;">${isEn?'DATE':'日期'}</span>
+        <span class="so-th-n" style="text-align:center;">${isEn?'N':'条'}</span>
       </div>
     </div>
 
@@ -2134,7 +2134,7 @@ async function renderSpinoff() {
       html += `
       <!-- row ${idx} -->
       <div>
-        <div onclick="soToggle(${idx})" style="
+        <div onclick="soToggle(${idx})" class="so-row" style="
               display:grid;grid-template-columns:120px 118px 88px 76px 1fr 88px 44px;
               gap:0;padding:10px 14px;
               background:${isEven?'#fff':'#faf9f7'};
@@ -2144,7 +2144,7 @@ async function renderSpinoff() {
              onmouseover="this.style.background='#f5f0e6'"
              onmouseout="this.style.background='${isEven?'#fff':'#faf9f7'}'">
           <!-- 公司 -->
-          <div>
+          <div class="so-col-company">
             <div style="font-weight:700;font-size:.84rem;color:var(--navy);letter-spacing:.3px;line-height:1.2;">${fmtTicker(c.ticker)}${_spinoffNewBadge(c,isEn)}</div>
             <div style="font-size:.7rem;color:var(--text-light);margin-top:2px;
                         white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:118px;"
@@ -2152,13 +2152,13 @@ async function renderSpinoff() {
             ${sub?`<div style="font-size:.65rem;color:var(--gold);margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:120px;font-weight:500;" title="${sub}">↗ ${sub}</div>`:''}
           </div>
           <!-- 进度 -->
-          <div>${bar}</div>
+          <div class="so-col-status">${bar}</div>
           <!-- 类型 -->
-          <div style="padding:0 4px;">${_soTypeBadge(c.spinType, isEn)}</div>
+          <div class="so-col-type" style="padding:0 4px;">${_soTypeBadge(c.spinType, isEn)}</div>
           <!-- 市值 -->
-          <div style="padding:0 2px;">${_mcapBadge(c.parentMarketCap, isEn)}</div>
+          <div class="so-col-size" style="padding:0 2px;">${_mcapBadge(c.parentMarketCap, isEn)}</div>
           <!-- 最新公告 -->
-          <div style="padding:0 10px;overflow:hidden;">
+          <div class="so-col-latest" style="padding:0 10px;overflow:hidden;">
             ${latest.docUrl
               ? `<a href="${latest.docUrl.startsWith('http')?latest.docUrl:'https://www1.hkexnews.hk'+latest.docUrl}" target="_blank" rel="noopener"
                     onclick="event.stopPropagation()"
@@ -2172,9 +2172,9 @@ async function renderSpinoff() {
             </div>`:''}
           </div>
           <!-- 日期 -->
-          <div style="font-size:.72rem;color:var(--text-light);text-align:right;white-space:nowrap;">${c.latestDate}</div>
+          <div class="so-col-date" style="font-size:.72rem;color:var(--text-light);text-align:right;white-space:nowrap;">${c.latestDate}</div>
           <!-- 展开箭头 -->
-          <div id="so-arr-${idx}" style="text-align:center;font-size:.72rem;color:var(--gold);
+          <div id="so-arr-${idx}" class="so-col-arrow" style="text-align:center;font-size:.72rem;color:var(--gold);
                transition:transform .2s;">▶</div>
         </div>
 
@@ -2218,7 +2218,7 @@ async function renderSpinoff() {
                 </span>`;
               }
               return `
-              <div style="display:grid;grid-template-columns:14px 88px 1fr auto auto;
+              <div class="so-timeline-row" style="display:grid;grid-template-columns:14px 88px 1fr auto auto;
                            gap:6px;align-items:flex-start;padding:5px 0;position:relative;z-index:1;">
                 <!-- 圆点 -->
                 <div style="width:10px;height:10px;border-radius:50%;margin-top:3px;flex-shrink:0;
@@ -2264,7 +2264,7 @@ async function renderSpinoff() {
               }
               const todayStr = new Date().toISOString().slice(0,10);
               return `
-              <div style="display:grid;grid-template-columns:14px 88px 1fr auto auto;
+              <div class="so-timeline-row" style="display:grid;grid-template-columns:14px 88px 1fr auto auto;
                            gap:6px;align-items:center;padding:5px 0;position:relative;z-index:1;">
                 <div style="width:10px;height:10px;border-radius:50%;flex-shrink:0;
                              background:${prog.color};border:2px solid ${prog.color};

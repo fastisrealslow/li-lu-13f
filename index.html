@@ -271,14 +271,55 @@ th .info-wrap{position:relative;display:inline-flex}
 .price-note code{background:#e8e0d0;padding:1px 6px;border-radius:3px;font-size:.68rem}
 /* Spinoff Tab - mobile */
 @media(max-width:640px){
-  #soList > div > div:first-child {
-    grid-template-columns: 1fr auto !important;
-    grid-template-rows: auto auto !important;
-  }
-  #soList [style*="grid-template-columns:126px"] {
-    grid-template-columns: 1fr auto !important;
-  }
   .so-kpi-grid { grid-template-columns: repeat(3,1fr) !important; }
+
+  /* 表头：只保留“公司/进度”两列，其余列在主行中以彽性展示，不在表头重复占位 */
+  .so-thead {
+    grid-template-columns: 1fr auto !important;
+    padding: 8px 12px !important;
+  }
+  .so-th-type, .so-th-size, .so-th-latest, .so-th-date, .so-th-n { display: none !important; }
+  .so-th-status { text-align: right !important; }
+
+  /* 主行：左侧公司信息，右上角状态，类型/市值徽章同行并排+最新公告换行展示 */
+  .so-row {
+    grid-template-columns: 1fr auto auto !important;
+    grid-template-areas: "company status arrow" "badges badges badges" "latest latest latest" !important;
+    row-gap: 6px !important;
+    padding: 10px 12px !important;
+  }
+  .so-col-company { grid-area: company !important; min-width: 0; }
+  .so-col-company > div { max-width: none !important; }
+  .so-col-status { grid-area: status !important; }
+  .so-col-arrow { grid-area: arrow !important; }
+  .so-col-type {
+    grid-area: badges !important;
+    display: inline-flex !important;
+    padding: 0 !important;
+  }
+  .so-col-size {
+    grid-area: badges !important;
+    display: inline-flex !important;
+    padding: 0 !important;
+    justify-self: end;
+  }
+  .so-col-latest {
+    grid-area: latest !important;
+    padding: 0 !important;
+  }
+  .so-col-date { display: none !important; }
+
+  /* 展开区时间线：日期列缩窄，PDF按钮换行 */
+  .so-timeline-row {
+    grid-template-columns: 12px 62px 1fr !important;
+    grid-template-areas: "dot date title" ". price pdf" !important;
+    row-gap: 4px !important;
+  }
+  .so-timeline-row > *:nth-child(1) { grid-area: dot !important; }
+  .so-timeline-row > *:nth-child(2) { grid-area: date !important; font-size: .64rem !important; }
+  .so-timeline-row > *:nth-child(3) { grid-area: title !important; }
+  .so-timeline-row > *:nth-child(4) { grid-area: price !important; }
+  .so-timeline-row > *:nth-child(5) { grid-area: pdf !important; justify-self: start !important; }
 }
 </style>
 </head>
