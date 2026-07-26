@@ -913,6 +913,189 @@ def _build_homework_prompt():
     return prompt, stock_notes, candidates, signal_hash
 
 
+def _build_value_screen():
+    """
+    预计算“价值筛选”表格所需的全部结构化数据（MOS/共识人数/打分排序/加减仓标签/
+    历史均价/未达标观察名单），写入 value_screen.json 供前端直接 fetch 渲染，
+    替代此前前端 renderHomework() 里对 24 个原始持仓+价格文件的并行拉取与
+    浏览器端重复计算。
+
+    与 _build_homework_prompt() 共用同一份候选股计算口径（MOS>=10%门槛、
+    all_holders_map 共识人数、打分公式），避免前端表格与 AI 逐股解读的
+    数字/排序再次出现漂移。两者独立实现（而非互相调用）是因为
+    _build_homework_prompt() 返回的是给 LLM 用的 prompt 文本 + 精简 stock_notes，
+    缺少表格需要的 totalHolders / atAvg / nearMissMap 等字段；为不破坏
+    test_llm_models.py 等既有调用方对 _build_homework_prompt() 签名的依赖，
+    这里单独实现一份，字段对齐前端 app.js 的 candidates 结构。
+
+    返回 dict：{generatedAt, candidates: [...], nearMissMap: {ticker: [...]}}
+    """
+    investors = load_investors()
+    if investors:
+        FILES = [
+            (inv['dataFile'], inv['pricesFile'], inv['name'], inv['nameEn'], inv['id'])
+            for inv in investors if inv.get('inValueScreen')
+        ]
+    else:
+        FILES = []
+
+    if not FILES:
+        return {'generatedAt': datetime.now(timezone.utc).isoformat(), 'candidates': [], 'nearMissMap': {}}
+
+    all_holders_map = {}  # ticker -> set(investor_id)
+    for df, pf, name_cn, name_en, inv_id in FILES:
+        if not os.path.exists(df):
+            continue
+        try:
+            dr0 = json.load(open(df))
+        except Exception:
+            continue
+        for h in dr0.get('current', {}).get('holdings', []):
+            tk0 = h.get('ticker', '')
+            if not tk0 or tk0.startswith('?') or tk0.endswith('.HK'):
+                continue
+            all_holders_map.setdefault(tk0, set()).add(inv_id)
+
+    candidates = {}  # ticker -> {...}
+    near_miss_map = {}  # ticker -> [{investor, investorEn, id, mos}]
+
+    for df, pf, name_cn, name_en, inv_id in FILES:
+        if not (os.path.exists(df) and os.path.exists(pf)):
+            continue
+        try:
+            dr = json.load(open(df))
+            pr = json.load(open(pf))
+        except Exception:
+            continue
+        cur = dr.get('current', {})
+        holdings = cur.get('holdings', [])
+        total_val = cur.get('totalValue', 0)
+        quotes = pr.get('quotes', {})
+        cb = pr.get('costBasis', {})
+
+        merged = {}
+        for h in holdings:
+            tk = h.get('ticker', '')
+            if not tk:
+                continue
+            if tk in merged:
+                merged[tk]['shares'] += h.get('shares', 0) or 0
+                merged[tk]['prevShares'] += h.get('prevShares', 0) or 0
+                merged[tk]['value'] += h.get('value', 0) or 0
+            else:
+                merged[tk] = {
+                    'shares': h.get('shares', 0) or 0,
+                    'prevShares': h.get('prevShares', 0) or 0,
+                    'value': h.get('value', 0) or 0,
+                    'name': h.get('name', tk),
+                    'cnName': h.get('cnName') or h.get('name', tk),
+                    'sector': h.get('sector', ''),
+                }
+
+        for tk, h in merged.items():
+            if not tk or tk.startswith('?') or tk.endswith('.HK'):
+                continue
+            q = quotes.get(tk)
+            c = cb.get(tk)
+            if not q or q.get('error') or not c:
+                continue
+            rc = c.get('recent')
+            if not rc or not rc.get('buy'):
+                continue
+            price = q.get('c', 0)
+            buy = rc.get('buy', 0)
+            if price <= 0 or buy <= 0:
+                continue
+            mos = (buy - price) / buy * 100
+            if mos < 10:
+                if mos > 0:
+                    near_miss_map.setdefault(tk, []).append({
+                        'investor': name_cn, 'investorEn': name_en, 'id': inv_id,
+                        'mos': round(mos, 1),
+                    })
+                continue
+            prev = h['prevShares']
+            cur_sh = h['shares']
+            if prev == 0 and cur_sh > 0:
+                chg = 'new'
+            elif prev > 0 and cur_sh > prev * 1.05:
+                chg = 'added'
+            elif prev > 0 and cur_sh < prev * 0.95:
+                chg = 'trimmed'
+            else:
+                chg = 'hold'
+            weight = (h['value'] / total_val * 100) if total_val else 0
+            at_avg = (c.get('allTime') or {}).get('avg')
+
+            investor_entry = {
+                'id': inv_id, 'name': name_cn, 'nameEn': name_en,
+                'weight': round(weight, 1), 'chg': chg,
+            }
+
+            entry = candidates.get(tk)
+            if entry:
+                if not any(x['id'] == inv_id for x in entry['investors']):
+                    entry['investors'].append(investor_entry)
+                    if buy < entry['buy']:
+                        entry['buy'] = round(buy, 2)
+                        entry['mos'] = round(mos, 1)
+                        entry['atAvg'] = round(at_avg, 2) if at_avg else entry.get('atAvg')
+            else:
+                candidates[tk] = {
+                    'ticker': tk,
+                    'name': h['name'],
+                    'cnName': h['cnName'],
+                    'sector': h['sector'],
+                    'mos': round(mos, 1),
+                    'price': round(price, 2),
+                    'buy': round(buy, 2),
+                    'atAvg': round(at_avg, 2) if at_avg else None,
+                    'investors': [investor_entry],
+                    'totalHolders': len(all_holders_map.get(tk, set())) or 1,
+                }
+
+    # 打分排序：与 _build_homework_prompt()/前端 app.js 保持一致的公式
+    # score = MOS + (全部持有人数-1)*40 + 新开仓/加仓奖励(15/8) - 全员减仓惩罚(20)
+    def _score(c):
+        s = c['mos']
+        s += (c['totalHolders'] - 1) * 40
+        chgs = [inv['chg'] for inv in c['investors']]
+        if 'new' in chgs:
+            s += 15
+        elif 'added' in chgs:
+            s += 8
+        if chgs and all(x == 'trimmed' for x in chgs):
+            s -= 20
+        return s
+
+    ranked = sorted(candidates.values(), key=_score, reverse=True)
+
+    # 注意：nearMissMap 不做任何过滤，与前端 app.js 的 nearMissMap 语义完全一致：
+    # 它是独立于 candidates 构建的全量映射（ticker -> 持有但 MOS<10% 的人列表），
+    # 包括那些自己也不在 candidates 里的 ticker（如 BIDU：只有 Tepper 一人持有且
+    # MOS=8.3%未达标，本身不会进入 candidates，但仍需保留在 nearMissMap 里供前端
+    # 用途参考）。之前错误地只遍历 ranked 来构建过滤后的版本，导致这类非 candidates
+    # ticker 被遗漏（Playwright交叉验证发现：JS版 nearMiss 有22个 ticker，Python过滤后只剩 2个）。
+
+    return {
+        'generatedAt': datetime.now(timezone.utc).isoformat(),
+        'candidates': ranked,
+        'nearMissMap': near_miss_map,
+    }
+
+
+def _write_value_screen():
+    """计算并写入 value_screen.json（不依赖 LLM key，纯代码计算，任何环境均可跑）。"""
+    try:
+        data = _build_value_screen()
+    except Exception as e:
+        print(f"WARNING: 价值筛选预计算失败（{e}），跳过 value_screen.json", file=sys.stderr)
+        return
+    with open('value_screen.json', 'w', encoding='utf-8') as f:
+        json.dump(data, f, ensure_ascii=False, indent=2)
+    print(f"  已写入 value_screen.json：{len(data['candidates'])} 只候选股")
+
+
 def _gen_homework_summary(api_key):
     """
     调用 _build_homework_prompt() 得到 prompt 、逐股数据与信号哈希，
@@ -1288,6 +1471,9 @@ def main():
                             json.dump(d, fp, ensure_ascii=False, indent=2)
                         files_updated += 1
                 print(f"已回写 {files_updated} 个文件，{records_updated} 条记录的 cnName 被翻译回写")
+
+    print("\n=== 预计算价值筛选表格数据 ===")
+    _write_value_screen()
 
     if sf_key:
         print("\n=== LLM 生成 13F 季报摘要 ===")

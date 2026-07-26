@@ -1404,96 +1404,33 @@ async function renderHomework() {
   if (_homeworkCache) { el.innerHTML = _homeworkCache; return; }
   el.innerHTML = '<p style="padding:24px;color:var(--text-lighter);">加载中...</p>';
 
-  // Load all investor data — 从 INVESTOR_CFG 动态构建（单一权威来源），
-  // 只纳入 inValueScreen=true 的投资者（webb 是港股权益披露，没有买入价/MOS概念，不适用价值筛选）。
-  // 修复说明：审计发现旧硬码列表只有 7 位，漏掉 webb 和 5 位新投资者（klarman/ackman/abrams/berkowitz/hawkins），
-  // 导致他们被静静排除在价值筛选候选池外。
-  const INVESTORS_CFG = INVESTOR_CFG
-    .filter(inv => inv.inValueScreen)
-    .map(inv => ({ id: inv.id, df: inv.dataFile, pf: inv.pricesFile, name: inv.name, nameEn: inv.nameEn }));
-
-  const candidates = [];
-  // Pass 1: 并行拉取所有投资者数据（不再串行）
-  const allHoldersMap = {};
-  const results = await Promise.allSettled(
-    INVESTORS_CFG.map(cfg => Promise.all([
-      fetch(cfg.df + '?t=' + Math.floor(Date.now()/300000)).then(r=>r.json()),
-      fetch(cfg.pf + '?t=' + Math.floor(Date.now()/300000)).then(r=>r.json()),
-    ]).then(([dr, pr]) => ({cfg, dr, pr})))
-  );
-  const allDataCache = results
-    .filter(r => r.status === 'fulfilled')
-    .map(r => r.value);
-  for (const {cfg, dr} of allDataCache) {
-    for (const h of (dr.current?.holdings || [])) {
-      const tk = h.ticker;
-      if (tk.startsWith('?') || tk.endsWith('.HK')) continue;
-      if (!allHoldersMap[tk]) allHoldersMap[tk] = new Set();
-      allHoldersMap[tk].add(cfg.id);
-    }
-  }
-
-  // Pass 2: build candidates (MOS >= 10% filter applies here)
-  const nearMissMap = {}; // ticker -> [{investor, mos}] — 持有但 MOS<10% 被过滤的持有人（优化③：表格列同步显示 near_miss）
-  for (const {cfg, dr, pr} of allDataCache) {
-    try {
-      const holdings = dr.current.holdings;
-      const totalVal = dr.current.totalValue;
-      const quotes = pr.quotes || {};
-      const cb = pr.costBasis || {};
-      for (const h of holdings) {
-        const tk = h.ticker;
-        if (tk.startsWith('?') || tk.endsWith('.HK')) continue;
-        const q = quotes[tk]; const c = cb[tk];
-        if (!q || q.error || !c) continue;
-        const rc = c.recent;
-        if (!rc || !rc.buy) continue;
-        const price = q.c; const buy = rc.buy;
-        if (price <= 0 || buy <= 0) continue;
-        const mos = (buy - price) / buy * 100;
-        if (mos < 10) {
-          if (mos > 0) {
-            if (!nearMissMap[tk]) nearMissMap[tk] = [];
-            nearMissMap[tk].push({investor: lang==='en'?cfg.nameEn:cfg.name, id: cfg.id, mos: Math.round(mos*10)/10});
-          }
-          continue;
-        }
-        const weight = totalVal > 0 ? h.value / totalVal * 100 : 0;
-        const prev = h.prevShares || 0; const cur2 = h.shares || 0;
-        let chg = 'hold';
-        if (prev === 0 && cur2 > 0) chg = 'new';
-        else if (prev > 0 && cur2 > prev * 1.05) chg = 'added';
-        else if (prev > 0 && cur2 < prev * 0.95) chg = 'trimmed';
-        const invEntry = {name: lang==='en'?cfg.nameEn:cfg.name, id:cfg.id, weight:Math.round((weight)*10)/10, chg};
-        const existing = candidates.find(x => x.ticker === tk);
-        if (existing) {
-          if (!existing.investors.find(x => x.id === cfg.id)) {
-            existing.investors.push(invEntry);
-            // Use lowest cost basis across all holders (most conservative)
-            if (buy < existing.buy) {
-              existing.buy = buy;
-              existing.mos = Math.round((mos)*10)/10;
-              existing.atAvg = c.allTime?.avg || existing.atAvg;
-            }
-          }
-        } else {
-          candidates.push({
-            ticker: tk, name: h.name, cnName: h.cnName||'', sector: h.sector,
-            mos: Math.round((mos)*10)/10, price, buy,
-            atAvg: c.allTime?.avg || null,
-            investors: [invEntry],
-            totalHolders: allHoldersMap[tk]?.size || 1,
-          });
-        }
-      }
-    } catch(e) { console.warn(cfg.id, e); }
-  }
-
-  // Score: consensus count (weight 40) + MOS (weight 1) + change bonus (new=15, added=8)
+  // 预计算架构：全部 MOS/共识人数/打分排序/加减仓标签 计算已搬到后端
+  // enrich_metadata.py 的 _build_value_screen()，CI 每次跑完写入 value_screen.json。
+  // 前端只需 fetch 这一个静态文件即可拿到已排好序的候选股数组，
+  // 不再需要并行拉取 24 个原始持仓+价格文件、也不用在浏览器里重复计算 MOS/打分，
+  // 彻底避免前端 JS 与后端 Python 两份独立实现的逻辑漂移风险（此前已发生过两次）。
+  let candidates = [];
+  let nearMissMap = {};
   const isEn2 = lang === 'en';
+  try {
+    const vs = await fetch('value_screen.json?t=' + Math.floor(Date.now()/300000)).then(r => r.ok ? r.json() : null);
+    if (!vs) throw new Error('value_screen.json fetch failed');
+    // investors 数组里的 name/nameEn 已由后端算好，这里按当前语言态选择展示哪个
+    candidates = (vs.candidates || []).map(c => ({
+      ...c,
+      investors: (c.investors || []).map(inv => ({ ...inv, name: isEn2 ? inv.nameEn : inv.name })),
+    }));
+    nearMissMap = {};
+    for (const [tk, list] of Object.entries(vs.nearMissMap || {})) {
+      nearMissMap[tk] = list.map(nm => ({ ...nm, investor: isEn2 ? nm.investorEn : nm.investor }));
+    }
+  } catch (e) {
+    console.warn('value_screen.json load failed', e);
+    el.innerHTML = `<p style="padding:32px;text-align:center;color:var(--text-lighter);">${isEn2?'Failed to load value screen data':'价值筛选数据加载失败'}</p>`;
+    return;
+  }
+
   candidates.forEach(c => {
-    let score = c.mos;
-    score += (c.totalHolders - 1) * 40; // multi-investor consensus bonus (all holders, not just MOS>=10%)
     const hasNew = c.investors.some(inv => inv.chg === 'new');
     const hasAdded = c.investors.some(inv => inv.chg === 'added');
     const rowChgTag = hasNew
@@ -1501,15 +1438,11 @@ async function renderHomework() {
       : hasAdded
       ? `<span style="display:inline-flex;align-items:center;gap:2px;padding:1px 6px;background:rgba(16,185,129,0.1);border:1px solid rgba(16,185,129,0.25);border-radius:4px;font-size:.6rem;color:#10b981;font-weight:600;margin-top:3px;">📈 ${isEn2?'Added':'加仓'}</span>`
       : '';
-    if (hasNew) score += 15;
-    else if (hasAdded) score += 8;
-    // Penalize if ALL investors are trimming (net exit signal)
+    // Penalize if ALL investors are trimming (net exit signal) — 仅用于标签显示，排序已在后端 _build_value_screen() 完成
     const allTrimming = c.investors.length > 0 && c.investors.every(inv => inv.chg === 'trimmed');
-    if (allTrimming) score -= 20;
-    c._score = score;
     c._allTrimming = allTrimming;
   });
-  candidates.sort((a,b) => b._score - a._score);
+  // 注意：candidates 已由后端 value_screen.json 按打分排序好，前端不再重新 sort
 
   if (candidates.length === 0) {
     el.innerHTML = `<p style="padding:32px;text-align:center;color:var(--text-lighter);">${lang==='en'?'No stocks with MOS ≥ 10%':'暂无安全边际 ≥ 10% 的标的'}</p>`;
