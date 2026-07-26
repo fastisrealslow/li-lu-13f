@@ -16,30 +16,37 @@
   python3 fetch_prices_all.py --investor berkowitz
   python3 fetch_prices_all.py --investor hawkins
 
-每个投资者通过 INVESTOR_CONFIG 配置 data_file / prices_file / market 三个字段即可。
+每个投资者的 data_file / prices_file / market 配置来自仓库根目录的 investors.json（单一权威来源）。
 """
 
 import json, os, sys, time, re, urllib.request, urllib.error
 from datetime import datetime, timezone, date
 
 # ─────────────────────────────────────────────
-# 投资者配置表 — 新增投资者只需在这里加一行
+# 投资者配置表 — 从 investors.json 动态构建，见 _load_investor_config()
 # ─────────────────────────────────────────────
-INVESTOR_CONFIG = {
-    "lilu":      {"data": "data.json",       "prices": "prices.json",          "market": "US"},
-    "duan":      {"data": "duan.json",        "prices": "prices_duan.json",     "market": "US"},
-    "pabrai":    {"data": "pabrai_data.json", "prices": "pabrai_prices.json",   "market": "US"},
-    "tepper":    {"data": "tepper.json",      "prices": "prices_tepper.json",   "market": "US"},
-    "buffett":   {"data": "buffett.json",     "prices": "prices_buffett.json",  "market": "US"},
-    "akre":      {"data": "akre.json",        "prices": "prices_akre.json",     "market": "US"},
-    "greenberg": {"data": "greenberg.json",   "prices": "prices_greenberg.json","market": "US"},
-    "webb":      {"data": "webb.json",        "prices": "prices_webb.json",     "market": "HK"},
-    "klarman":   {"data": "klarman.json",     "prices": "prices_klarman.json",  "market": "US"},
-    "ackman":    {"data": "ackman.json",      "prices": "prices_ackman.json",   "market": "US"},
-    "abrams":    {"data": "abrams.json",      "prices": "prices_abrams.json",   "market": "US"},
-    "berkowitz": {"data": "berkowitz.json",   "prices": "prices_berkowitz.json","market": "US"},
-    "hawkins":   {"data": "hawkins.json",     "prices": "prices_hawkins.json",  "market": "US"},
-}
+def _load_investor_config():
+    """从 investors.json 读取投资者列表（单一权威来源）。
+    新增投资者只需编辑仓库根目录的 investors.json，无需在本文件手工加条目。
+    注意：与 fetch_13f_all.py 不同，这里要包含 webb（他也需要抓取港股价格）。"""
+    base = os.path.dirname(os.path.abspath(__file__))
+    try:
+        with open(os.path.join(base, 'investors.json'), encoding='utf-8') as f:
+            investors = json.load(f)['investors']
+    except (FileNotFoundError, KeyError, json.JSONDecodeError) as e:
+        print(f"ERROR: investors.json 读取失败（{e}）", file=sys.stderr)
+        sys.exit(1)
+    return {
+        inv["id"]: {
+            "data": inv["dataFile"],
+            "prices": inv["pricesFile"],
+            "market": inv["market"],
+        }
+        for inv in investors
+    }
+
+
+INVESTOR_CONFIG = _load_investor_config()
 
 # ─────────────────────────────────────────────
 # CLI 参数解析
@@ -204,6 +211,7 @@ def fetch_us(investor, cfg):
     # ── 加载已有缓存 ──
     existing_quotes = {}
     existing_cb     = {}
+    ex = None
     try:
         with open(prices_file) as f:
             ex = json.load(f)

@@ -9,7 +9,7 @@ Actions 跑完 13F 抓取后执行：
 4. 同时维护一个全局缓存 metadata_cache.json，避免重复请求
 """
 
-import json, os, re, time, glob, hashlib
+import json, os, re, sys, time, glob, hashlib
 from datetime import datetime, timezone
 
 try:
@@ -17,6 +17,18 @@ try:
 except ImportError:
     print("yfinance not installed, skipping enrich")
     raise SystemExit(0)
+
+
+def load_investors():
+    """从 investors.json 读取投资者配置列表（单一权威来源）。
+    新增投资者只需编辑 investors.json，此函数会自动反映到
+    enrich_metadata 的处理范围，无需在本文件手工维护列表。"""
+    try:
+        with open('investors.json', encoding='utf-8') as f:
+            return json.load(f)['investors']
+    except (FileNotFoundError, KeyError, json.JSONDecodeError) as e:
+        print(f"WARNING: investors.json 读取失败（{e}），跳过 metadata 丰富", file=sys.stderr)
+        return []
 
 CACHE_FILE = "metadata_cache.json"
 
@@ -280,15 +292,26 @@ def _gen_13f_summaries(api_key):
     读取各投资者最新季报变动，用 LLM 生成中文摘要，
     写入各 JSON 文件的 meta.aiSummary 字段。
     """
-    FILES = [
-        ('data.json',       '李录'),
-        ('pabrai_data.json','帕布莱'),
-        ('duan.json',       '段永平'),
-        ('tepper.json',     '泰珀'),
-        ('akre.json',       '阿克雷'),
-        ('greenberg.json',  '格林伯格'),
-        ('buffett.json',    '巴菲特'),
-    ]
+    investors = load_investors()
+    if investors:
+        # 只对走 13F 流程的投资者生成季报变动摘要（webb 是港股权益披露，不适用）
+        FILES = [(inv['dataFile'], inv['name']) for inv in investors if inv.get('source13F')]
+    else:
+        # investors.json 缺失时的安全兼底
+        FILES = [
+            ('data.json',       '李录'),
+            ('pabrai_data.json','帕布莱'),
+            ('duan.json',       '段永平'),
+            ('tepper.json',     '泰珀'),
+            ('akre.json',       '阿克雷'),
+            ('greenberg.json',  '格林伯格'),
+            ('buffett.json',    '巴菲特'),
+            ('klarman.json',    '克拉曼'),
+            ('ackman.json',     '阿克曼'),
+            ('abrams.json',     '艾布拉姆斯'),
+            ('berkowitz.json',  '伯科威茨'),
+            ('hawkins.json',    '霍金斯'),
+        ]
     for filepath, investor_cn in FILES:
         if not os.path.exists(filepath):
             continue
@@ -1068,12 +1091,23 @@ def main():
     cache = load_cache()
     print(f"缓存已有 {len(cache)} 个 ticker")
 
-    data_files = [
-        'data.json', 'pabrai_data.json', 'duan.json', 'tepper.json',
-        'akre.json', 'greenberg.json', 'buffett.json', 'webb.json',
-        'hk_holdings.json', 'duan_hk.json', 'tepper_hk.json',
-        'buffett_hk.json', 'akre_hk.json', 'greenberg_hk.json', 'pabrai_hk.json',
-    ]
+    investors = load_investors()
+    data_files = []
+    for inv in investors:
+        data_files.append(inv['dataFile'])
+        # webb 的 hkFile 就是主数据文件（webb.json 已在 dataFile 里处理过），
+        # 避免对其他投资者重复添加同一个 hkFile
+        if inv.get('hkFile') and inv['hkFile'] != inv['dataFile'] and inv['hkFile'] not in data_files:
+            data_files.append(inv['hkFile'])
+    if not investors:
+        # investors.json 缺失时的安全兼底，避免 metadata 完全跳过
+        data_files = [
+            'data.json', 'pabrai_data.json', 'duan.json', 'tepper.json',
+            'akre.json', 'greenberg.json', 'buffett.json', 'webb.json',
+            'klarman.json', 'ackman.json', 'abrams.json', 'berkowitz.json', 'hawkins.json',
+            'hk_holdings.json', 'duan_hk.json', 'tepper_hk.json',
+            'buffett_hk.json', 'akre_hk.json', 'greenberg_hk.json', 'pabrai_hk.json',
+        ]
 
     for f in data_files:
         if os.path.exists(f):

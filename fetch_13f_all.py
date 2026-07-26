@@ -16,7 +16,8 @@
   python3 fetch_13f_all.py --investor berkowitz
   python3 fetch_13f_all.py --investor hawkins
 
-新增投资者只需在 INVESTOR_CONFIG 里加一行即可。
+新增投资者只需在仓库根目录的 investors.json 里加一条记录即可，
+INVESTOR_CONFIG 会在启动时从该文件自动构建，无需在本文件手工修改。
 只依赖标准库，无需 pip install。
 """
 
@@ -37,81 +38,36 @@ BASE = os.path.dirname(os.path.abspath(__file__))
 USER_AGENT = "13F-Tracker guoziyuan@xiaohongshu.com"
 NS = {"ns": "http://www.sec.gov/edgar/document/thirteenf/informationtable"}
 
-INVESTOR_CONFIG = {
-    "lilu": {
-        "cik": "1709323",
-        "manager": "Himalaya Capital Management, LLC",
-        "people": ["Li Lu"],
-        "path": os.path.join(BASE, "data.json"),
-    },
-    "pabrai": {
-        "cik": "1549575",
-        "manager": "Dalal Street, LLC",
-        "people": ["Mohnish Pabrai"],
-        "path": os.path.join(BASE, "pabrai_data.json"),
-    },
-    "duan": {
-        "cik": "1759760",
-        "manager": "H&H International Investment, LLC",
-        "people": ["Duan Yongping"],
-        "path": os.path.join(BASE, "duan.json"),
-    },
-    "tepper": {
-        "cik": "1656456",
-        "manager": "Appaloosa LP",
-        "people": ["David Tepper"],
-        "path": os.path.join(BASE, "tepper.json"),
-    },
-    "buffett": {
-        "cik": "1067983",
-        "manager": "Berkshire Hathaway Inc",
-        "people": ["Warren Buffett"],
-        "path": os.path.join(BASE, "buffett.json"),
-        "consolidate": True,   # 合并子公司重复持仓
-    },
-    "akre": {
-        "cik": "1112520",
-        "manager": "Akre Capital Management, LLC",
-        "people": ["Chuck Akre"],
-        "path": os.path.join(BASE, "akre.json"),
-    },
-    "greenberg": {
-        "cik": "1553733",
-        "manager": "Brave Warrior Advisors, LLC",
-        "people": ["Glenn Greenberg"],
-        "path": os.path.join(BASE, "greenberg.json"),
-    },
-    "klarman": {
-        "cik": "1061768",
-        "manager": "Baupost Group, LLC",
-        "people": ["Seth Klarman"],
-        "path": os.path.join(BASE, "klarman.json"),
-    },
-    "ackman": {
-        "cik": "1336528",
-        "manager": "Pershing Square Capital Management, L.P.",
-        "people": ["Bill Ackman"],
-        "path": os.path.join(BASE, "ackman.json"),
-    },
-    "abrams": {
-        "cik": "1358706",
-        "manager": "Abrams Capital Management, L.P.",
-        "people": ["David Abrams"],
-        "path": os.path.join(BASE, "abrams.json"),
-    },
-    "berkowitz": {
-        "cik": "1056831",
-        "manager": "Fairholme Capital Management, LLC",
-        "people": ["Bruce Berkowitz"],
-        "path": os.path.join(BASE, "berkowitz.json"),
-    },
-    "hawkins": {
-        "cik": "807985",
-        "manager": "Southeastern Asset Management, Inc.",
-        "people": ["Mason Hawkins"],
-        "path": os.path.join(BASE, "hawkins.json"),
-    },
-}
+def _load_investor_config():
+    """从 investors.json 读取投资者列表（单一权威来源），转换为
+    本脚本原有的 INVESTOR_CONFIG 字典结构。只纳入 source13F=true 的
+    投资者（webb 是港股权益披露，走独立的 fetch_webb_holdings.py，
+    不需要 CIK，也不走 SEC 13F 抓取流程）。新增投资者只需编辑 investors.json，
+    无需在本文件手工加条目。"""
+    try:
+        with open(os.path.join(BASE, 'investors.json'), encoding='utf-8') as f:
+            investors = json.load(f)['investors']
+    except (FileNotFoundError, KeyError, json.JSONDecodeError) as e:
+        print(f"ERROR: investors.json 读取失败（{e}）", file=sys.stderr)
+        sys.exit(1)
+
+    cfg = {}
+    for inv in investors:
+        if not inv.get('source13F'):
+            continue
+        entry = {
+            "cik": inv["cik"],
+            "manager": inv["manager"],
+            "people": inv["people"],
+            "path": os.path.join(BASE, inv["dataFile"]),
+        }
+        if inv.get("consolidate"):
+            entry["consolidate"] = True
+        cfg[inv["id"]] = entry
+    return cfg
+
+
+INVESTOR_CONFIG = _load_investor_config()
 
 # ─────────────────────────────────────────────────────────────
 # 全量 TICKER_MAP（合并去重自各投资者原始脚本）

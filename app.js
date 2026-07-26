@@ -332,9 +332,37 @@ const T = {
 };
 function t(key) { const v = T[key]; return v ? v[lang==='en'?1:0] : key; }
 let investor = 'lilu';
-const INVESTORS = ['lilu', 'pabrai', 'duan', 'tepper', 'webb', 'buffett', 'akre', 'greenberg', 'klarman', 'ackman', 'abrams', 'berkowitz', 'hawkins'];
-const INVESTOR_LABELS = { lilu: '李录', pabrai: '帕伯莱', duan: '段永平', tepper: '大卫·泰珀', webb: '大卫·韦伯', buffett: '巴菲特', akre: '查克·阿克雷', greenberg: '格伦·格林伯格', klarman: '塞斯·克拉曼', ackman: '比尔·阿克曼', abrams: '大卫·艾布拉姆斯', berkowitz: '布鲁斯·伯科威茨', hawkins: '梅森·霍金斯' };
-const INVESTOR_LABELS_EN = { lilu: 'Li Lu', pabrai: 'Pabrai', duan: 'Duan', tepper: 'Tepper', webb: 'Webb', buffett: 'Buffett', akre: 'Akre', greenberg: 'Greenberg', klarman: 'Klarman', ackman: 'Ackman', abrams: 'Abrams', berkowitz: 'Berkowitz', hawkins: 'Hawkins' };
+
+// ========== 投资者结构化配置（单一权威来源：investors.json） ==========
+// 详情页文案（人物简介/时间线/投资理念/推荐阅读）仍在 updateInvestorContent() 里手工维护，
+// 因为是创作性内容无法自动生成。但导航/tab切换/港股fallback/数据文件列表/价值筛选候选名单
+// 这些结构性逻辑均从下面的 INVESTOR_CFG 派生，新增投资者只需编辑 investors.json。
+let INVESTOR_CFG = [];           // investors.json 里的 investors 数组原样（加载后充实）
+let INVESTOR_CFG_BY_ID = {};     // id -> 配置对象，方便查找
+let INVESTORS = [];              // 按 investors.json 顺序排列的 id 列表
+let INVESTOR_LABELS = {};        // id -> 中文名
+let INVESTOR_LABELS_EN = {};     // id -> 英文名
+
+async function loadInvestorConfig() {
+  try {
+    const resp = await fetch('investors.json?t=' + Math.floor(Date.now()/300000));
+    const json = await resp.json();
+    INVESTOR_CFG = json.investors || [];
+  } catch (e) {
+    console.error('investors.json 加载失败，将无法正常显示投资者列表:', e);
+    INVESTOR_CFG = [];
+  }
+  INVESTOR_CFG_BY_ID = {};
+  INVESTORS = [];
+  INVESTOR_LABELS = {};
+  INVESTOR_LABELS_EN = {};
+  for (const inv of INVESTOR_CFG) {
+    INVESTOR_CFG_BY_ID[inv.id] = inv;
+    INVESTORS.push(inv.id);
+    INVESTOR_LABELS[inv.id] = inv.name;
+    INVESTOR_LABELS_EN[inv.id] = inv.nameEn;
+  }
+}
 function renderInvestorBtns() {
   const bar = document.getElementById('investorBtn');
   if (!bar) return;
@@ -349,20 +377,9 @@ async function switchInvestor(v) {
   else { const idx = INVESTORS.indexOf(investor); investor = INVESTORS[(idx + 1) % INVESTORS.length]; }
   renderInvestorBtns();
   try {
-    var f, pf;
-    if (investor === 'lilu') { f = 'data.json'; pf = 'prices.json'; }
-    else if (investor === 'pabrai') { f = 'pabrai_data.json'; pf = 'pabrai_prices.json'; }
-    else if (investor === 'duan') { f = 'duan.json'; pf = 'prices_duan.json'; }
-    else if (investor === 'tepper') { f = 'tepper.json'; pf = 'prices_tepper.json'; }
-    else if (investor === 'webb') { f = 'webb.json'; pf = 'prices_webb.json'; }
-    else if (investor === 'buffett') { f = 'buffett.json'; pf = 'prices_buffett.json'; }
-    else if (investor === 'akre') { f = 'akre.json'; pf = 'prices_akre.json'; }
-    else if (investor === 'greenberg') { f = 'greenberg.json'; pf = 'prices_greenberg.json'; }
-    else if (investor === 'klarman') { f = 'klarman.json'; pf = 'prices_klarman.json'; }
-    else if (investor === 'ackman') { f = 'ackman.json'; pf = 'prices_ackman.json'; }
-    else if (investor === 'abrams') { f = 'abrams.json'; pf = 'prices_abrams.json'; }
-    else if (investor === 'berkowitz') { f = 'berkowitz.json'; pf = 'prices_berkowitz.json'; }
-    else { f = 'hawkins.json'; pf = 'prices_hawkins.json'; }
+    var cfg = INVESTOR_CFG_BY_ID[investor];
+    if (!cfg) throw new Error('未知投资者配置: ' + investor);
+    var f = cfg.dataFile, pf = cfg.pricesFile;
     var r = await fetch(f + '?t=' + Math.floor(Date.now()/300000));
     if (!r.ok) throw new Error(f + ' HTTP ' + r.status);
     var newData = await r.json();
@@ -567,7 +584,9 @@ async function refreshLive() {
 // ========== TIMELINE & HK HOLDINGS ==========
 async function loadHKHoldings() {
   try {
-    let hkUrl = investor === 'pabrai' ? 'pabrai_hk.json' : (investor === 'duan' ? 'duan_hk.json' : (investor === 'tepper' ? 'tepper_hk.json' : (investor === 'webb' ? 'webb_hk.json' : (investor === 'buffett' ? 'buffett_hk.json' : (investor === 'akre' ? 'akre_hk.json' : (investor === 'greenberg' ? 'greenberg_hk.json' : 'hk_holdings.json'))))));
+    const cfg = INVESTOR_CFG_BY_ID[investor];
+    const hkUrl = cfg ? cfg.hkFile : null;
+    if (!hkUrl) { hkHoldings = { holdings: [], disclaimer: '' }; return; }
     const resp = await fetch(hkUrl + '?t=' + Math.floor(Date.now()/300000));
     hkHoldings = await resp.json();
   } catch(e) {
@@ -669,60 +688,22 @@ function renderTimeline() {
   container.innerHTML = html;
 }
 
-function renderHKHoldings() {
-  const container = document.getElementById('hkHoldingsTable');
-  if (!container || !hkHoldings) return;
-
-  if (!hkHoldings.holdings.length) {
-    container.innerHTML = '<p style="color:var(--text-lighter);padding:16px;">暂无港股持仓数据。</p>';
-    return;
-  }
-
-  let html = '';
-  hkHoldings.holdings.forEach((h, i) => {
-    const qualityTag = h.data_quality === 'rumored' ? '<span class="tag" style="background:#fef3c7;color:#92400e;">传闻</span>' :
-                       h.data_quality === 'estimated' ? '<span class="tag" style="background:#dbeafe;color:#1e40af;">估算</span>' :
-                       '<span class="tag">已确认</span>';
-    const statusTag = h.current_status === 'reduced' ? '<span style="color:var(--down);font-size:.72rem;">减持中</span>' :
-                      h.current_status === 'active' ? '<span style="color:var(--up);font-size:.72rem;">活跃</span>' :
-                      '<span style="color:var(--text-lighter);font-size:.72rem;">未知</span>';
-    const peakStr = h.peak_shares_approx ? fmtNum(h.peak_shares_approx) + ' 股' : '未知';
-
-    html += `<div style="padding:16px;border:1px solid var(--border-light);border-radius:8px;margin-bottom:12px;background:var(--bg);">
-      <div style="display:flex;align-items:center;gap:12px;margin-bottom:8px;">
-        <span style="font-weight:700;color:var(--navy);font-size:1rem;">${h.ticker}</span>
-        <span style="font-size:.88rem;color:var(--text);">${cn(h.name, h)}</span>
-        <span class="tag">${h.sector}</span>
-        ${qualityTag}
-        ${statusTag}
-      </div>
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:8px;font-size:.82rem;color:var(--text-light);margin-bottom:8px;">
-        <div><strong style="color:var(--navy);">首次建仓:</strong> ${h.first_acquired}</div>
-        <div><strong style="color:var(--navy);">峰值持仓:</strong> ${peakStr}</div>
-        <div><strong style="color:var(--navy);">峰值年份:</strong> ${h.peak_year || '未知'}</div>
-      </div>
-      <div style="font-size:.8rem;color:var(--text-lighter);line-height:1.6;">${h.notes}</div>
-    </div>`;
-  });
-
-  if (hkHoldings.disclaimer) {
-    html += `<div style="margin-top:12px;padding:12px 16px;background:var(--cream);border-radius:6px;font-size:.74rem;color:var(--text-lighter);line-height:1.6;">⚠️ ${hkHoldings.disclaimer}</div>`;
-  }
-
-  container.innerHTML = html;
-}
+// 注：旧的同名同步 renderHKHoldings() 定义（还取决于 hkHoldings 全局变量）已删除，
+// 因为 JS 里同名函数会被后面的定义覆盖，该旧定义实际上从未被调用过（死代码）。
+// 真正生效的版本在本文件靠后（下方已修复为从 INVESTOR_CFG_BY_ID 动态取 hkUrl）。
 
 // ========== RENDER ==========
-const INVESTOR_CIK = {
-  lilu:      '0001709323',
-  pabrai:    '0001474216',
-  duan:      '0001759760',
-  tepper:    '0001656456',
-  webb:      null,
-  buffett:   '0001067983',
-  akre:      '0001499406',
-  greenberg: '0001495196',
-};
+// INVESTOR_CIK 不再硬码维护，从 INVESTOR_CFG 动态构建。
+// 修复说明：审计过程中发现旧硬码字典里 pabrai=0001474216、akre=0001499406
+// 两个 CIK 都是错的（分别指向与本项目无关的 Franchise Portfolio 2, Inc. 和
+// KLP 2010 ANP Mirror Trust B，经 SEC EDGAR 官方接口核实），导致前端一直展示错误
+// CIK 给用户。investors.json 里的 cik 字段已经过 fetch_13f_all.py 实际抓取验证，
+// 以它为准。
+function getInvestorCIK(id) {
+  const cfg = INVESTOR_CFG_BY_ID[id];
+  if (!cfg || !cfg.cik) return null;
+  return String(cfg.cik).padStart(10, '0');
+}
 
 function renderSummary() {
   const d = data.current;
@@ -730,7 +711,7 @@ function renderSummary() {
   const metaRow = document.getElementById('metaRow');
   if (metaRow) {
     const isEn = lang === 'en';
-    const cik = INVESTOR_CIK[investor];
+    const cik = getInvestorCIK(investor);
     const cikHtml = cik
       ? `<span><strong>CIK</strong> ${cik}</span>`
       : '';
@@ -1328,7 +1309,9 @@ async function renderHKHoldings() {
   const container = document.getElementById('hkHoldingsTable');
   if (!container) return;
   try {
-    let hkUrl = investor === 'pabrai' ? 'pabrai_hk.json' : (investor === 'duan' ? 'duan_hk.json' : (investor === 'tepper' ? 'tepper_hk.json' : (investor === 'webb' ? 'webb_hk.json' : (investor === 'buffett' ? 'buffett_hk.json' : (investor === 'akre' ? 'akre_hk.json' : (investor === 'greenberg' ? 'greenberg_hk.json' : 'hk_holdings.json'))))));
+    const cfg = INVESTOR_CFG_BY_ID[investor];
+    const hkUrl = cfg ? cfg.hkFile : null;
+    if (!hkUrl) { container.innerHTML = '<p style="color:var(--text-lighter);padding:16px;">暂无港股持仓数据。</p>'; return; }
     const resp = await fetch(hkUrl + '?t=' + Math.floor(Date.now()/300000));
     const hk = await resp.json();
     const statusLabels = {below_5pct:'<5% 未披露', active:'>5% 持仓中', reduced:'已减持'};
@@ -1416,16 +1399,13 @@ async function renderHomework() {
   if (_homeworkCache) { el.innerHTML = _homeworkCache; return; }
   el.innerHTML = '<p style="padding:24px;color:var(--text-lighter);">加载中...</p>';
 
-  // Load all investor data
-  const INVESTORS_CFG = [
-    {id:'lilu',   df:'data.json',        pf:'prices.json',          name:'李录',     nameEn:'Li Lu'},
-    {id:'pabrai', df:'pabrai_data.json', pf:'pabrai_prices.json',   name:'帕伯莱',   nameEn:'Pabrai'},
-    {id:'duan',   df:'duan.json',        pf:'prices_duan.json',     name:'段永平',   nameEn:'Duan'},
-    {id:'tepper', df:'tepper.json',      pf:'prices_tepper.json',   name:'Tepper',   nameEn:'Tepper'},
-    {id:'akre',   df:'akre.json',        pf:'prices_akre.json',     name:'Akre',     nameEn:'Akre'},
-    {id:'greenberg',df:'greenberg.json', pf:'prices_greenberg.json',name:'Greenberg',nameEn:'Greenberg'},
-    {id:'buffett',df:'buffett.json',     pf:'prices_buffett.json',  name:'巴菲特',   nameEn:'Buffett'},
-  ];
+  // Load all investor data — 从 INVESTOR_CFG 动态构建（单一权威来源），
+  // 只纳入 inValueScreen=true 的投资者（webb 是港股权益披露，没有买入价/MOS概念，不适用价值筛选）。
+  // 修复说明：审计发现旧硬码列表只有 7 位，漏掉 webb 和 5 位新投资者（klarman/ackman/abrams/berkowitz/hawkins），
+  // 导致他们被静静排除在价值筛选候选池外。
+  const INVESTORS_CFG = INVESTOR_CFG
+    .filter(inv => inv.inValueScreen)
+    .map(inv => ({ id: inv.id, df: inv.dataFile, pf: inv.pricesFile, name: inv.name, nameEn: inv.nameEn }));
 
   const candidates = [];
   // Pass 1: 并行拉取所有投资者数据（不再串行）
@@ -3012,11 +2992,18 @@ function updateStatusDot(data) {
   dot.classList.add(hasFail ? 'fail' : 'ok');
 }
 
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', () => { switchInvestor('lilu'); initStatusDot(); });
-} else {
-  switchInvestor('lilu');
+async function initApp() {
+  // 先加载 investors.json（单一权威来源），再切换投资者，避免导航按钮/数据加载
+  // 发生在 INVESTOR_CFG 为空时的竞态。
+  await loadInvestorConfig();
+  await switchInvestor('lilu');
   initStatusDot();
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initApp);
+} else {
+  initApp();
 }
 
 // ========== STATUS DRAWER ==========
