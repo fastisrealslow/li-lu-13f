@@ -1917,30 +1917,30 @@ function _renderSpinoffPricePanels(c, isEn) {
 }
 
 function _soProgress(ann, isEn) {
-  if (!ann || !ann.length) return {label:'',color:'#9ca3af',bg:'#f3f4f6',pct:0};
+  if (!ann || !ann.length) return {label:'',color:'#9ca3af',bg:'#f3f4f6',pct:0,key:'announced'};
   const t = (ann[0].title||'') + (ann.length>1 ? ann[1].title : '');
   // 1. 终止（最高优先级）
   if (/終止|终止|撤回|撤销|withdraw|cancel/i.test(t))
-    return {label:isEn?'✕ Cancelled':'✕ 已终止',  color:'#dc2626',bg:'#fee2e2',pct:0};
+    return {label:isEn?'✕ Cancelled':'✕ 已终止',  color:'#dc2626',bg:'#fee2e2',pct:0,key:'cancelled'};
   // 2. 真正上市（强信号：开始买卖 / 持续督导 / 行使超额 / 生效日期）
   if (/開始買賣|开始买卖|股份開始|股份开始|持續督導|持续督导|行使超額|行使超额|律師事務所關於.*上市.*核查|实物分派.*保证/i.test(t))
-    return {label:isEn?'✅ Listed':'✅ 已上市',    color:'#059669',bg:'#d1fae5',pct:100};
+    return {label:isEn?'✅ Listed':'✅ 已上市',    color:'#059669',bg:'#d1fae5',pct:100,key:'listed'};
   // 3. 招股书阶段
   if (/刊發招股|招股書|招股章程|招股说明|prospectus/i.test(t))
-    return {label:isEn?'📋 IPO Filing':'📋 招股书', color:'#0891b2',bg:'#cffafe',pct:88};
+    return {label:isEn?'📋 IPO Filing':'📋 招股书', color:'#0891b2',bg:'#cffafe',pct:88,key:'listed'};
   // 4. 已批准
   if (/批準|批准|approved|聯交所批准|获批/i.test(t))
-    return {label:isEn?'✓ Approved':'✓ 已批准',   color:'#2563eb',bg:'#dbeafe',pct:75};
+    return {label:isEn?'✓ Approved':'✓ 已批准',   color:'#2563eb',bg:'#dbeafe',pct:75,key:'approved'};
   // 5. 进行中（有进展更新）
   if (/進展|进展|最新情況|最新情况|update|progress/i.test(t))
-    return {label:isEn?'⏳ In Progress':'⏳ 进行中', color:'#d97706',bg:'#fef3c7',pct:50};
+    return {label:isEn?'⏳ In Progress':'⏳ 进行中', color:'#d97706',bg:'#fef3c7',pct:50,key:'progress'};
   // 6. 初步建议
   if (/建議|建议|擬議|拟议|propose|擬|拟/i.test(t))
-    return {label:isEn?'💡 Proposed':'💡 建议中',  color:'#7c3aed',bg:'#ede9fe',pct:25};
+    return {label:isEn?'💡 Proposed':'💡 建议中',  color:'#7c3aed',bg:'#ede9fe',pct:25,key:'proposed'};
   // 生效/完成
   if (/生效日期|生效|completion|effective|以實物分派|实物分派/i.test(t))
-    return {label:isEn?'✅ Completed':'✅ 已完成', color:'#059669',bg:'#d1fae5',pct:100};
-  return   {label:isEn?'📢 Announced':'📢 已公告', color:'#6b7280',bg:'#f3f4f6',pct:15};
+    return {label:isEn?'✅ Completed':'✅ 已完成', color:'#059669',bg:'#d1fae5',pct:100,key:'listed'};
+  return   {label:isEn?'📢 Announced':'📢 已公告', color:'#6b7280',bg:'#f3f4f6',pct:15,key:'announced'};
 }
 
 // 清理标题：去掉常见前缀噪音
@@ -2125,7 +2125,7 @@ async function renderSpinoff() {
           <div style="width:48px;height:4px;background:#e5e7eb;border-radius:2px;overflow:hidden;flex-shrink:0;">
             <div style="width:${prog.pct}%;height:100%;background:${prog.color};border-radius:2px;"></div>
           </div>
-          <span style="font-size:.68rem;color:${prog.color};font-weight:600;white-space:nowrap;
+          <span data-status="${prog.key}" style="font-size:.68rem;color:${prog.color};font-weight:600;white-space:nowrap;
                        background:${prog.bg};padding:1px 6px;border-radius:10px;">
             ${prog.label}
           </span>
@@ -2331,7 +2331,7 @@ function _soTypeBadge(st, isEn) {
     unknown:      { bg:'#f9fafb', color:'#9ca3af', border:'#e5e7eb' },
   };
   const p = palettes[code] || palettes.unknown;
-  return '<span style="display:inline-block;font-size:.62rem;padding:2px 7px;' +
+  return '<span data-type-code="' + code + '" style="display:inline-block;font-size:.62rem;padding:2px 7px;' +
     'border-radius:10px;font-weight:600;white-space:nowrap;line-height:1.5;' +
     'background:' + p.bg + ';color:' + p.color + ';border:1px solid ' + p.border + ';">' +
     label + '</span>';
@@ -2351,9 +2351,10 @@ function soToggleReit() {
 }
 
 function _soIsReit(row) {
-  // 通过行内类型 badge 文本判断是否为 REIT
-  const badge = row.querySelector('span[style*="#f0fdf4"]');
-  return !!badge;
+  // 通过类型 badge 的 data-type-code 精确判断是否为 REIT（避免颜色选择器误命中背景详情里的股价涨幅标签）
+  const badge = row.querySelector('.so-col-type span[data-type-code]');
+  const code = badge ? badge.getAttribute('data-type-code') : '';
+  return code === 'reit' || code === 'reit_sz' || code === 'reit_sh';
 }
 
 function _soApplyFilters() {
@@ -2364,19 +2365,11 @@ function _soApplyFilters() {
     const textMatch = !kw || row.textContent.toLowerCase().includes(kw);
     // REIT 过滤
     const reitMatch = _soShowReit || !_soIsReit(row);
-    // 状态过滤
+    // 状态过滤（读取 data-status 精确匹配，避免样式选择器误命中其他徽章）
     let statusMatch = true;
     if (_soStatusFilter !== 'all') {
-      const badgeSpan = row.querySelector('span[style*="border-radius:10px"]');
-      const text = (badgeSpan ? badgeSpan.textContent : row.textContent).toLowerCase();
-      const matchKw = {
-        progress:  ['进行中','in progress','生效'],
-        proposed:  ['建议中','proposed'],
-        approved:  ['批准','approved'],
-        listed:    ['上市','listed','完成','招股书','ipo'],
-        cancelled: ['终止','cancelled'],
-      }[_soStatusFilter] || [];
-      statusMatch = matchKw.some(m => text.includes(m));
+      const badgeSpan = row.querySelector('.so-col-status span[data-status]');
+      statusMatch = !!badgeSpan && badgeSpan.getAttribute('data-status') === _soStatusFilter;
     }
     row.style.display = (textMatch && reitMatch && statusMatch) ? '' : 'none';
   });
