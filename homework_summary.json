@@ -1,5 +1,5 @@
 {
-  "overallSummary": "本期筛选显示拼多多、CoStar 集团及阿尔伯特森斯等多只个股获多位价值投资者共识，其中段永平重仓加仓拼多多与特斯拉，查克·阿克瑞大举增持 CoStar 集团，帕伯莱持有近三成阿尔法金属并加仓，均释放强烈信心信号。此外，自由资本、Salesforce 等亦新开仓。反之，部分个股因安全边际不再达标而跌出候选清单。整体来看，高仓位主动加仓行为显著，反映了对特定标的的坚定看好。",
+  "overallSummary": "本期筛选显示价值共识显著，拼多多、特斯拉与阿尔法金属获多位知名投资人重仓或新开仓，其中阿尔法金属仓位高达 28.1%，彰显极强信心。拼多多与 CoStar 集团亦现主动加仓，释放积极信号。部分个股如自由资本因安全边际不再达标而跌出候选清单，整体反映资金正聚焦于具备深厚安全边际的优质标的。",
   "stockNotes": [
     {
       "ticker": "KHC",
@@ -59,12 +59,23 @@
       "ticker": "PDD",
       "name": "拼多多",
       "sector": "电商",
-      "mos": 15.9,
-      "mosTier": "中等折价",
-      "buy": 98.31,
+      "mos": 10.6,
+      "mosTier": "轻度折价",
+      "buy": 92.46,
       "price": 82.66,
-      "holderCount": 2,
+      "holderCount": 3,
       "holders": [
+        {
+          "investor": "李录",
+          "chg": "hold",
+          "weight": 14.7,
+          "hold_quarters": 4,
+          "hold_years": 1.0,
+          "trend": "stable",
+          "reentry": true,
+          "exit_quarter": "2021 Q3",
+          "reentry_quarter": "2025 Q2"
+        },
         {
           "investor": "段永平",
           "chg": "added",
@@ -88,10 +99,10 @@
           "reentry_quarter": null
         }
       ],
-      "holderText": "段永平（10.1%仓位，持有11季/2.8年，近3季连续加仓，本季加仓）；大卫·泰珀（1.5%仓位，持有12季/3.0年，近3季连续减仓，本季减仓）",
+      "holderText": "李录（14.7%仓位，本轮2025 Q2重建仓后持有4季/1.0年（此前于2021 Q3清仓过），仓位未变）；段永平（10.1%仓位，持有11季/2.8年，近3季连续加仓，本季加仓）；大卫·泰珀（1.5%仓位，持有12季/3.0年，近3季连续减仓，本季减仓）",
       "nearMiss": [],
-      "verdict": "共识度高折价适中、且持有人动作分化，属于\"关注但不宜追高\"的类型。",
-      "verdictEn": "High consensus with a moderate discount, but holders are diverging (some adding, some trimming) — worth watching but not chasing."
+      "verdict": "共识度高但折价浅、且持有人动作分化，属于\"关注但不宜追高\"的类型。",
+      "verdictEn": "High consensus but the discount is shallow, but holders are diverging (some adding, some trimming) — worth watching but not chasing."
     },
     {
       "ticker": "FISV",
@@ -755,8 +766,8 @@
     }
   ],
   "droppedOut": [],
-  "generatedAt": "2026-07-26T12:40:15Z",
+  "generatedAt": "2026-07-26T13:53:41Z",
   "candidateCount": 27,
   "consensusCount": 1,
-  "signalHash": "5fbae914f469d13a7f91a4331b7b83d82cf5b03f2c408f880e55a1c49c90484f"
+  "signalHash": "68203bbce8068619bfa73a8e4c7eb32ca58125bbd0f09be0475d4af57f32b8cc"
 }
