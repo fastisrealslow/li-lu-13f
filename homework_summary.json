@@ -1,5 +1,5 @@
 {
-  "overallSummary": "本期筛选显示高安全边际与机构共识显著。拼多多、CoStar 及阿尔法金属获多位价值大佬重仓加仓，段永平增持拼多多，帕伯莱大举买入阿尔法金属，显示极强信心。特斯拉与腾讯音乐等新开仓亦获关注，表明资金正积极布局具备深度价值的安全边际标的。",
+  "overallSummary": "本期筛选显示价值共识高度集中，拼多多、CoStar 及阿尔法金属获多位大佬重仓且主动加仓，段永平加仓拼多多、帕伯莱大举买入阿尔法金属，释放极强信心。特斯拉作为新仓亦获段永平布局。反观 Salesforce 因安全边际回落跌出清单，印证了当前资金对高确定性标的的聚焦。",
   "stockNotes": [
     {
       "ticker": "PDD",
@@ -300,6 +300,33 @@
       "verdictEn": "Only one holder, and they trimmed this quarter — the margin of safety qualifies, but there's no consensus support; approach with caution."
     },
     {
+      "ticker": "CPRT",
+      "name": "Copart, Inc.",
+      "sector": "工业",
+      "mos": 17.4,
+      "mosTier": "中等折价",
+      "buy": 33.83,
+      "price": 27.94,
+      "holderCount": 1,
+      "holders": [
+        {
+          "investor": "Akre",
+          "chg": "hold",
+          "weight": 4.3,
+          "hold_quarters": 4,
+          "hold_years": 1.0,
+          "trend": "accumulating",
+          "reentry": false,
+          "exit_quarter": null,
+          "reentry_quarter": null
+        }
+      ],
+      "holderText": "Akre（4.3%仓位，持有4季/1.0年，近3季连续加仓，仓位未变）",
+      "nearMiss": [],
+      "verdict": "仅单一持有人持有，本季环比变化轻微但近3季实际上在持续加仓，安全边际仅属中等，倾向性信号偏积极。",
+      "verdictEn": "Only one holder, and while the quarter-over-quarter change is small, they've been steadily accumulating over the past 3 quarters; the margin of safety is only moderate — a mildly positive signal."
+    },
+    {
       "ticker": "TME",
       "name": "腾讯音乐",
       "sector": "娱乐",
@@ -382,7 +409,7 @@
     },
     {
       "ticker": "CMCSA",
-      "name": "Comcast Corporation",
+      "name": "康卡斯特",
       "sector": "娱乐",
       "mos": 12.5,
       "mosTier": "轻度折价",
@@ -406,38 +433,17 @@
       "nearMiss": [],
       "verdict": "仅单一持有人持有且仓位未变，安全边际仅略微达标，可作为观察名单但暂无新增信号。",
       "verdictEn": "Only one holder, position unchanged, and the margin of safety only barely qualifies — fine as a watchlist name but no new signal for now."
-    },
+    }
+  ],
+  "droppedOut": [
     {
       "ticker": "CRM",
       "name": "Salesforce, Inc.",
-      "sector": "科技",
-      "mos": 10.8,
-      "mosTier": "轻度折价",
-      "buy": 183.52,
-      "price": 163.66,
-      "holderCount": 1,
-      "holders": [
-        {
-          "investor": "Akre",
-          "chg": "new",
-          "weight": 2.5,
-          "hold_quarters": 1,
-          "hold_years": 0.2,
-          "trend": "stable",
-          "reentry": false,
-          "exit_quarter": null,
-          "reentry_quarter": null
-        }
-      ],
-      "holderText": "Akre（2.5%仓位，持有1季/0.2年，本季新开仓）",
-      "nearMiss": [],
-      "verdict": "Akre新开仓但仓位较小（2.5%），更像是试探性布局，信心程度有待后续季度验证。",
-      "verdictEn": "Akre's new position is small (2.5%) — looks more like an exploratory stake; conviction level remains to be confirmed in future quarters."
+      "prevMos": 10.8
     }
   ],
-  "droppedOut": [],
-  "generatedAt": "2026-07-26T08:22:37Z",
-  "candidateCount": 15,
+  "generatedAt": "2026-07-26T11:44:23Z",
+  "candidateCount": 16,
   "consensusCount": 1,
-  "signalHash": "a8a987bbac310b7f74e3621b203b1f2f9d630c7ff22488899868cc5f9db1d0d3"
+  "signalHash": "45d682958b36b4570c8df1e6d24ced8a7cb4b229ad348a372d4506d3f1b04e21"
 }

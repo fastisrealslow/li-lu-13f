@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-26T08:00:37.326888Z",
+  "updated": "2026-07-26T11:29:14.355935Z",
   "quotes": {
     "MA": {
       "c": 539.66,
@@ -73,11 +73,21 @@
       "pc": 86.11,
       "t": 1784923200
     },
-    "?COPART INC": {
-      "error": true
+    "CPRT": {
+      "c": 27.94,
+      "h": 28.13,
+      "l": 27.14,
+      "o": 27.3,
+      "pc": 27.2,
+      "t": 1784923200
     },
-    "?AIRBNB INC": {
-      "error": true
+    "ABNB": {
+      "c": 141.1,
+      "h": 142.7,
+      "l": 138.16,
+      "o": 138.24,
+      "pc": 137.57,
+      "t": 1784923200
     },
     "CCCS": {
       "error": true
@@ -130,13 +140,8 @@
       "pc": 34.06,
       "t": 1784923200
     },
-    "BRK.B": {
-      "c": 494.93,
-      "h": 497.29,
-      "l": 490.25,
-      "o": 491.43,
-      "pc": 490.85,
-      "t": 1784923200
+    "BRK/B": {
+      "error": true
     }
   },
   "costBasis": {
@@ -284,6 +289,38 @@
         "method": "avco"
       }
     },
+    "CPRT": {
+      "recent": {
+        "buy": 33.83,
+        "low": 32.2,
+        "high": 41.79,
+        "quarter": "2026 Q1",
+        "source": "yahoo"
+      },
+      "allTime": {
+        "avg": 43.02,
+        "buy_quarters": 4,
+        "first": "2025 Q2",
+        "last": "2026 Q1",
+        "method": "avco"
+      }
+    },
+    "ABNB": {
+      "recent": {
+        "buy": 107.89,
+        "low": 99.88,
+        "high": 143.88,
+        "quarter": "2025 Q2",
+        "source": "yahoo"
+      },
+      "allTime": {
+        "avg": 123.04,
+        "buy_quarters": 4,
+        "first": "2024 Q2",
+        "last": "2026 Q1",
+        "method": "avco"
+      }
+    },
     "CCCS": {
       "recent": {
         "buy": 6.0,
@@ -396,30 +433,31 @@
         "method": "avco"
       }
     },
-    "BRK.B": {
+    "BRK/B": {
       "recent": {
-        "buy": 278.89,
-        "low": 263.68,
-        "high": 354.58,
-        "quarter": "2022 Q2",
-        "source": "yahoo"
+        "buy": 479.2,
+        "low": 479.2,
+        "high": 479.2,
+        "quarter": "2026 Q1",
+        "source": "13f-estimate"
       },
-      "allTime": {
-        "avg": 144.89,
-        "buy_quarters": 19,
-        "first": "2013 Q2",
-        "last": "2026 Q1",
-        "method": "avco"
-      }
+      "allTime": null
     }
   },
   "exitPerf": {
-    "ROST": {
-      "entryQuarter": "2013 Q2",
-      "entryPrice": 27.2,
-      "exitQuarter": "2014 Q1",
-      "exitPrice": 32.76,
-      "changePct": 20.4
+    "DHR": {
+      "entryQuarter": "2020 Q3",
+      "entryPrice": 209.56,
+      "exitQuarter": "2025 Q4",
+      "exitPrice": 229.12,
+      "changePct": 9.3
+    },
+    "DG": {
+      "entryQuarter": "2016 Q4",
+      "entryPrice": 59.97,
+      "exitQuarter": "2017 Q1",
+      "exitPrice": 68.14,
+      "changePct": 13.6
     },
     "VRSK": {
       "entryQuarter": "2013 Q2",
@@ -428,47 +466,19 @@
       "exitPrice": 300.11,
       "changePct": 377.5
     },
+    "ADBE": {
+      "entryQuarter": "2020 Q1",
+      "entryPrice": 323.04,
+      "exitQuarter": "2022 Q1",
+      "exitPrice": 546.96,
+      "changePct": 69.3
+    },
     "AAPL": {
       "entryQuarter": "2013 Q2",
       "entryPrice": 16.07,
       "exitQuarter": "2014 Q3",
       "exitPrice": 22.47,
       "changePct": 39.8
-    },
-    "MAR": {
-      "entryQuarter": "2020 Q1",
-      "entryPrice": 67.29,
-      "exitQuarter": "2020 Q2",
-      "exitPrice": 104.66,
-      "changePct": 55.5
-    },
-    "DHR": {
-      "entryQuarter": "2020 Q3",
-      "entryPrice": 209.56,
-      "exitQuarter": "2025 Q4",
-      "exitPrice": 229.12,
-      "changePct": 9.3
-    },
-    "CPRT": {
-      "entryQuarter": "2025 Q2",
-      "entryPrice": 43.02,
-      "exitQuarter": "2026 Q1",
-      "exitPrice": 40.55,
-      "changePct": -5.7
-    },
-    "TDG": {
-      "entryQuarter": "2013 Q2",
-      "entryPrice": 68.23,
-      "exitQuarter": "2014 Q3",
-      "exitPrice": 117.56,
-      "changePct": 72.3
-    },
-    "FDS": {
-      "entryQuarter": "2013 Q2",
-      "entryPrice": 78.46,
-      "exitQuarter": "2014 Q1",
-      "exitPrice": 97.99,
-      "changePct": 24.9
     },
     "DLTR": {
       "entryQuarter": "2013 Q2",
@@ -477,19 +487,12 @@
       "exitPrice": 147.15,
       "changePct": 159.5
     },
-    "GOOG": {
-      "entryQuarter": "2021 Q1",
-      "entryPrice": 100.55,
-      "exitQuarter": "2023 Q1",
-      "exitPrice": 104.19,
-      "changePct": 3.6
-    },
-    "ABNB": {
-      "entryQuarter": "2024 Q2",
-      "entryPrice": 123.04,
-      "exitQuarter": "2026 Q1",
-      "exitPrice": 138.01,
-      "changePct": 12.2
+    "ROST": {
+      "entryQuarter": "2013 Q2",
+      "entryPrice": 27.2,
+      "exitQuarter": "2014 Q1",
+      "exitPrice": 32.76,
+      "changePct": 20.4
     },
     "KMX": {
       "entryQuarter": "2013 Q4",
@@ -498,6 +501,34 @@
       "exitPrice": 45.21,
       "changePct": -19.0
     },
+    "TDG": {
+      "entryQuarter": "2013 Q2",
+      "entryPrice": 68.23,
+      "exitQuarter": "2014 Q3",
+      "exitPrice": 117.56,
+      "changePct": 72.3
+    },
+    "BRK.B": {
+      "entryQuarter": "2013 Q2",
+      "entryPrice": 144.89,
+      "exitQuarter": "2026 Q1",
+      "exitPrice": 505.82,
+      "changePct": 249.1
+    },
+    "MAR": {
+      "entryQuarter": "2020 Q1",
+      "entryPrice": 67.29,
+      "exitQuarter": "2020 Q2",
+      "exitPrice": 104.66,
+      "changePct": 55.5
+    },
+    "FDS": {
+      "entryQuarter": "2013 Q2",
+      "entryPrice": 78.46,
+      "exitQuarter": "2014 Q1",
+      "exitPrice": 97.99,
+      "changePct": 24.9
+    },
     "SBAC": {
       "entryQuarter": "2020 Q3",
       "entryPrice": 181.95,
@@ -505,19 +536,12 @@
       "exitPrice": 202.77,
       "changePct": 11.4
     },
-    "ADBE": {
-      "entryQuarter": "2020 Q1",
-      "entryPrice": 323.04,
-      "exitQuarter": "2022 Q1",
-      "exitPrice": 546.96,
-      "changePct": 69.3
-    },
-    "DG": {
-      "entryQuarter": "2016 Q4",
-      "entryPrice": 59.97,
-      "exitQuarter": "2017 Q1",
-      "exitPrice": 68.14,
-      "changePct": 13.6
+    "GOOG": {
+      "entryQuarter": "2021 Q1",
+      "entryPrice": 100.55,
+      "exitQuarter": "2023 Q1",
+      "exitPrice": 104.19,
+      "changePct": 3.6
     }
   }
 }

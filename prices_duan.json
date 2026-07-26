@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-26T07:59:02.135885Z",
+  "updated": "2026-07-26T11:27:22.847290Z",
   "quotes": {
     "AAPL": {
       "c": 333.02,
@@ -9,13 +9,8 @@
       "pc": 321.66,
       "t": 1784923200
     },
-    "BRK.B": {
-      "c": 494.93,
-      "h": 497.29,
-      "l": 490.25,
-      "o": 491.43,
-      "pc": 490.85,
-      "t": 1784923200
+    "BRK/B": {
+      "error": true
     },
     "NVDA": {
       "c": 206.84,
@@ -171,21 +166,15 @@
         "method": "avco"
       }
     },
-    "BRK.B": {
+    "BRK/B": {
       "recent": {
-        "buy": 474.37,
-        "low": 467.21,
-        "high": 512.13,
+        "buy": 479.2,
+        "low": 479.2,
+        "high": 479.2,
         "quarter": "2026 Q1",
-        "source": "yahoo"
+        "source": "13f-estimate"
       },
-      "allTime": {
-        "avg": 364.77,
-        "buy_quarters": 10,
-        "first": "2018 Q4",
-        "last": "2026 Q1",
-        "method": "avco"
-      }
+      "allTime": null
     },
     "NVDA": {
       "recent": {
@@ -461,12 +450,12 @@
     }
   },
   "exitPerf": {
-    "YY": {
-      "entryQuarter": "2020 Q4",
-      "entryPrice": 62.33,
-      "exitQuarter": "2023 Q4",
-      "exitPrice": 39.7,
-      "changePct": -36.3
+    "BRK.B": {
+      "entryQuarter": "2018 Q4",
+      "entryPrice": 364.77,
+      "exitQuarter": "2026 Q1",
+      "exitPrice": 505.82,
+      "changePct": 38.7
     },
     "BABA": {
       "entryQuarter": "2021 Q2",
@@ -474,6 +463,13 @@
       "exitQuarter": "2025 Q4",
       "exitPrice": 182.13,
       "changePct": 75.8
+    },
+    "YY": {
+      "entryQuarter": "2020 Q4",
+      "entryPrice": 62.33,
+      "exitQuarter": "2023 Q4",
+      "exitPrice": 39.7,
+      "changePct": -36.3
     }
   }
 }

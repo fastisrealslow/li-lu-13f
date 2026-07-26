@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-26T07:58:34.249219Z",
+  "updated": "2026-07-26T11:26:51.822387Z",
   "quotes": {
     "GOOGL": {
       "c": 319.74,
@@ -25,13 +25,8 @@
       "pc": 83.3,
       "t": 1784923200
     },
-    "BRK.B": {
-      "c": 494.93,
-      "h": 497.29,
-      "l": 490.25,
-      "o": 491.43,
-      "pc": 490.85,
-      "t": 1784923200
+    "BRK/B": {
+      "error": true
     },
     "EWBC": {
       "c": 131,
@@ -163,21 +158,15 @@
         "method": "avco"
       }
     },
-    "BRK.B": {
+    "BRK/B": {
       "recent": {
-        "buy": 303.26,
-        "low": 294.81,
-        "high": 362.1,
-        "quarter": "2022 Q1",
-        "source": "yahoo"
+        "buy": 479.2,
+        "low": 479.2,
+        "high": 479.2,
+        "quarter": "2026 Q1",
+        "source": "13f-estimate"
       },
-      "allTime": {
-        "avg": 303.26,
-        "buy_quarters": 1,
-        "first": "2022 Q1",
-        "last": "2026 Q1",
-        "method": "avco"
-      }
+      "allTime": null
     },
     "EWBC": {
       "recent": {
@@ -340,5 +329,13 @@
       }
     }
   },
-  "exitPerf": {}
+  "exitPerf": {
+    "BRK.B": {
+      "entryQuarter": "2022 Q1",
+      "entryPrice": 303.26,
+      "exitQuarter": "2026 Q1",
+      "exitPrice": 505.82,
+      "changePct": 66.8
+    }
+  }
 }
