@@ -502,6 +502,13 @@ def refresh_us_spinoff_prices(dry_run=False) -> int:
         for p in c.get('spinoffPricePerf', []):
             sk = p.get('spinoff', '')
             if not sk: continue
+            # 市值拉取与价格拉取相互独立，即使价格拉取失败也应尝试市值
+            if not c.get('marketCap'):
+                mc = fetch_target_market_cap(sk, market='US')
+                if mc:
+                    c['marketCap'] = mc
+                    written += 1
+                    print(f"  US marketCap (yfinance fallback): {parent_tk}→{sk} ${mc}亿")
             pnow = fetch_price_latest(sk)
             if pnow is None: continue
             # 重新计算涨跌幅
@@ -560,6 +567,12 @@ def refresh_us_spinoff_prices(dry_run=False) -> int:
             c['spinoffPricePerf'] = [new_perf]
             written += 1
             print(f"  US new:     {parent_tk}→{sk_field} p0={p0} now={pnow} chg={chg_spinoff}%")
+            # 顺带拉分拆标的自身市值
+            if not c.get('marketCap'):
+                mc = fetch_target_market_cap(sk_field, market='US')
+                if mc:
+                    c['marketCap'] = mc
+                    print(f"  US marketCap (yfinance fallback): {parent_tk}→{sk_field} ${mc}亿")
 
     if not dry_run and written > 0:
         with open(us_path, 'w', encoding='utf-8') as f:
