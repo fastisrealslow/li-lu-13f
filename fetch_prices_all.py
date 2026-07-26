@@ -254,7 +254,14 @@ def fetch_us(investor, cfg):
                     print(f"  Quote {tk}... ${eq['c']:.2f} (cached)")
                     continue
         print(f"  Quote {tk}...", end=" ", flush=True)
-        sym = "BRK%2EB" if tk == "BRK.B" else ("BRK%2EA" if tk == "BRK.A" else tk)
+        # Finnhub 标准代码用句点（BRK.A/BRK.B），13F 原始数据里部分申报人用斜杠写法（BRK/A、BRK/B），
+        # 若直接把斜杠传给 URL 路径会被当成路径分隔符，导致请求错误的接口地址而失败，这里统一归一化。
+        if tk in ("BRK.B", "BRK/B"):
+            sym = "BRK%2EB"
+        elif tk in ("BRK.A", "BRK/A"):
+            sym = "BRK%2EA"
+        else:
+            sym = tk
         q = finnhub(f"/quote?symbol={sym}")
         if (not q or q.get("c", 0) == 0) and sym != tk:
             q = finnhub(f"/quote?symbol={tk}")
