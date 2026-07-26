@@ -1618,7 +1618,7 @@ async function renderHomework() {
           const chgCn = h.chg==='new'?'本季新开仓':h.chg==='added'?'本季加仓':h.chg==='trimmed'?'本季减仓':'仓位未变';
           const chgTxt = isEn2 ? chgLabelEn[chgCn] : chgCn;
           const chgColor = h.chg==='new'?'#3b82f6':h.chg==='added'?'#10b981':h.chg==='trimmed'?'#ef4444':'var(--text-lighter)';
-          return `<span style="white-space:nowrap;">${h.investor}<span style="color:var(--text-lighter);">（${wLabel}，${holdLabel}${trendSuffix}，</span><span style="color:${chgColor};font-weight:600;">${chgTxt}</span><span style="color:var(--text-lighter);">）</span></span>`;
+          return `<span>${h.investor}<span style="color:var(--text-lighter);">（${wLabel}，${holdLabel}${trendSuffix}，</span><span style="color:${chgColor};font-weight:600;">${chgTxt}</span><span style="color:var(--text-lighter);">）</span></span>`;
         }).join(isEn2?'; ':'；');
         const tierTxt = isEn2 ? tierColorEn[n.mosTier] : n.mosTier;
         const verdictTxt = isEn2 ? n.verdictEn : n.verdict;
