@@ -1369,7 +1369,7 @@ function switchTab(name) {
   if (name==='game') { renderGame(); }
 }
 
-const GAME_URL = 'game/index.html';
+const GAME_URL = 'game/v2/index.html';
 let _gameLoaded = false;
 function renderGame() {
   const el = document.getElementById('gameContent');
@@ -1390,7 +1390,7 @@ function renderGame() {
         ${isEn?'↗ Open in new tab':'↗ 在新标签页打开'}
       </a>
     </div>
-    <div style="position:relative;width:100%;border:1px solid var(--border);border-radius:12px;overflow:hidden;background:#f5f0e6;box-shadow:0 4px 16px rgba(0,0,0,0.08);">
+    <div style="position:relative;width:100%;border:1px solid var(--border);border-radius:12px;overflow:hidden;background:#f5f0e6;box-shadow:0 4px 16px rgba(0,0,0,0.08);overscroll-behavior:contain;touch-action:pan-y;">
       <iframe src="${GAME_URL}"
         style="width:100%;height:78vh;min-height:560px;border:0;display:block;"
         allow="autoplay; fullscreen"
