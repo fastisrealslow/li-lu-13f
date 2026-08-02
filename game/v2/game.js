@@ -106,9 +106,10 @@
     var card = el('div','card scene-enter');
     card.appendChild(el('div','card-title','贰佰万美元整'));
     card.appendChild(el('div','card-quote',
-      '我先讲个虚构的故事——别当真。欢迎来到 1884 年的亚特兰大。格罗兹先生愿意拿出 200 万美元——' +
+      '我先讲个虚构的故事——别当真。欢迎来到 1884 年的亚特兰大。格罗兹先生是当地一位古怪的富翁，他已经打定主意：' +
+      '要开一家非酒精饮料公司，而且莫名钟情一个名字——"可口可乐"。他愿意拿出 200 万美元——' +
       '一半捐赠给"格罗兹慈善基金会"，另一半换取一个承诺：150 年后，这家公司必须值 2 万亿——即便每年都要分红。' +
-      '谁能说服他，剩下的一半股份就归谁。你有十五分钟。'));
+      '产品和名字他都定好了，谁能说服他自己的商业计划能做到 2 万亿，剩下的一半股份就归谁。你有十五分钟。'));
     card.appendChild(el('div','card-body',
       '在你开口之前，先把这五个思维透镜揣在身上——接下来的每一关，都在考你能不能用得上它们。'));
     stage.appendChild(card);
@@ -165,8 +166,9 @@
     var card = el('div','card scene-enter');
     card.appendChild(el('div','card-title','第一个真相：没有人能靠钢琴赚到 2 万亿'));
     card.appendChild(el('div','card-quote',
-      '钢琴太贵、太复杂，一个人一辈子只买一次。你需要的，是像水一样普适、廉价、能激发人性本能的东西。'));
-    card.appendChild(el('div','card-body','如果目标是 2 万亿，你会选择做什么样的产品？'));
+      '格罗兹已经定了要做非酒精饮料，这是个筛选。钢琴太贵、太复杂，一个人一辈子只买一次；' +
+      '而饮料天生就是像水一样普适、廉价、能激发人性本能的东西。'));
+    card.appendChild(el('div','card-body','如果目标是 2 万亿，可口可乐应该把自己当成什么样的产品来卖？'));
     stage.appendChild(card);
 
     var list = el('div','choice-list');
