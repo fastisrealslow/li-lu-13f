@@ -9,7 +9,6 @@
   var state = {
     scene: 'intro',   // intro | trial1..trial5 | ending
     seals: [],        // 已获得的印章 key 列表
-    soundOn: false,
   };
 
   var SEAL_DEFS = [
@@ -54,15 +53,7 @@
 
     var top = el('div','topbar');
     var badge = el('div','badge', chapterLabel || '格罗茨的试炼');
-    var soundBtn = el('button','sound-btn', state.soundOn ? '🔊' : '🔈');
-    soundBtn.setAttribute('aria-label','toggle sound');
-    soundBtn.onclick = function(){
-      state.soundOn = !state.soundOn;
-      soundBtn.textContent = state.soundOn ? '🔊' : '🔈';
-      haptic();
-    };
     top.appendChild(badge);
-    top.appendChild(soundBtn);
     container.appendChild(top);
   }
 
@@ -178,7 +169,7 @@
     function showTrial1Result(stageEl, correct){
       var box = el('div','result-box scene-enter',
         (correct
-          ? '<b>正确。</b> 到 2034 年，全球将有约 <b>80 亿</b>饮料消费者，每人每天必须摄入约 64 盎司（8 杯）的水。'
+          ? '<b>正确。</b> 到 2034 年，全球将有约 <b>80 亿</b>饮料消费者，每人每天必须摄入约 1.9 升（8 杯，每杯约 237 毫升）的水。'
           : '<b>再想想。</b> 卖一种平庸的饮料，永远不可能创造出价值 2 万亿的东西——但一种像水一样普适的产品可以。') +
         '<br><br>反过来想，总是反过来想——这是芒格引用的数学校训，也是商业第一原则。');
       resultSlot.appendChild(box);
@@ -314,7 +305,7 @@
     stage.appendChild(sliderCard);
 
     function updateResult(){
-      // 到 2034 年全球约 80 亿人，每人每天 8 杯（64 盎司）水需求
+      // 到 2034 年全球约 80 亿人，每人每天 8 杯（每杯约 237 毫升，合计约 1.9 升）水需求
       var totalPeople = 8e9; // 80亿
       var dailyServings = 8; // 每人每天 8 杯
       var reachablePeople = totalPeople * (vals.pop/100);
@@ -338,7 +329,7 @@
   }
 
   /* ============================================
-     试炼四：双重条件反射分类
+     试炼四：三重心理效应分类
      ============================================ */
   var T4_ITEMS = [
     { label:'冰镇解暑', type:'operant', detail:'喝下去立刻感到凉爽——这是直接的生理奖励，行为发生后马上得到满足，属于操作性条件反射。' },
@@ -347,6 +338,8 @@
     { label:'香槟质感', type:'pavlov', detail:'把饮料做成香槟的样子，只是借用"香槟=庆祝"的既有联想，产品本身并不能带来香槟的效果，属于巴甫洛夫条件反射。' },
     { label:'甜味刺激', type:'operant', detail:'甜味直接刺激味蕾产生愉悦感，这是即时的生理奖励，属于操作性条件反射。' },
     { label:'士兵与家', type:'pavlov', detail:'可乐不能真的把士兵送回家，这是"可乐=家乡"的联想被反复强化后的结果，属于巴甫洛夫条件反射。' },
+    { label:'邻桌都在喝', type:'social', detail:'你不是自己判断出可乐好喝，而是看到周围的人都在喝，才下意识觉得"应该没错"——这不是生理奖励也不是联想，而是社会认同：别人的选择本身就是证据。' },
+    { label:'随处可见的红色标志', type:'social', detail:'从餐厅到自动售货机到电影里，可乐无处不在，这种"人人都在用"的普遍存在感会不断强化"这是大家的默认选择"的心理暗示，同样属于社会认同效应。' },
   ];
 
   function renderTrial4(){
@@ -354,14 +347,14 @@
     renderChrome(root, '试炼 四');
     var stage = el('div','stage');
     renderProgress(stage, 4, 5);
-    stage.appendChild(chapterTag('试炼 四 · 双重条件反射'));
+    stage.appendChild(chapterTag('试炼 四 · 三重心理效应'));
 
     var card = el('div','card scene-enter');
-    card.appendChild(el('div','card-title','欲望闭环：操作性 + 巴甫洛夫'));
+    card.appendChild(el('div','card-title','欲望闭环：操作性 + 巴甫洛夫 + 社会认同'));
     card.appendChild(el('div','card-quote',
-      '不要指望靠讲道理说服消费者。人的大脑，本质上和巴甫洛夫的狗没有区别。' +
-      '我们要同时启动两套机制：操作性条件反射给奖励，巴甫洛夫条件反射建联想。'));
-    card.appendChild(el('div','card-body','点击每张卡片，判断它属于哪一种条件反射。'));
+      '不要指望靠讲道理说服消费者。人的大脑，本质上和巴甫洛夫的狗没有区别，也天生倾向于跟随人群。' +
+      '我们要同时启动三套机制：操作性条件反射给奖励，巴甫洛夫条件反射建联想，社会认同让从众变成理由本身。'));
+    card.appendChild(el('div','card-body','点击每张卡片，判断它属于哪一种心理效应。'));
     stage.appendChild(card);
 
     var grid = el('div','tile-grid');
@@ -386,6 +379,7 @@
       var list = el('div','choice-list');
       var opA = el('button','choice-btn','操作性条件反射（给奖励）');
       var opB = el('button','choice-btn','巴甫洛夫条件反射（建联想）');
+      var opC = el('button','choice-btn','社会认同（从众即理由）');
       function pick(chosenType, btnEl){
         Array.prototype.forEach.call(list.children, function(b){ b.disabled = true; });
         if (chosenType === item.type) {
@@ -404,8 +398,10 @@
       }
       opA.onclick = function(){ pick('operant', opA); };
       opB.onclick = function(){ pick('pavlov', opB); };
+      opC.onclick = function(){ pick('social', opC); };
       list.appendChild(opA);
       list.appendChild(opB);
+      list.appendChild(opC);
       pickerCard.appendChild(list);
       detailSlot.innerHTML = '';
       detailSlot.appendChild(pickerCard);
