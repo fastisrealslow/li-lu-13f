@@ -2663,8 +2663,8 @@ function updateInvestorContent() {
         : '<p>梅森·霍金斯（Mason Hawkins），1945 年生，<strong>Southeastern Asset Management</strong> 联合创始人兼董事长，1975 年创立该公司，旗下管理 Longleaf Partners 系列共同基金。</p><p>霍金斯是严格的<strong>企业内在价值</strong>投资者：他和团队像私人买家一样估算企业的评估价值，只在价格显著低于该价值时买入（Southeastern 的目标是以约 60% 的评估价值买入），同时要求公司具备称职的管理团队。</p><p>Southeastern 的风格接近深度价值与企业价值投资\u2014\u2014穿透报表倍数看底层业务与资产价值\u2014\u2014这一思路与李录本人的价值投资框架有明显的相通之处。</p>';
     } else {
       rt.innerHTML = en
-        ? '<p>Li Lu (b. 1966), Chinese-American value investor, founder of Himalaya Capital. Earned BA, JD, and MBA at Columbia University.</p><p>Founded Himalaya Capital in 1997. Recommended BYD to Charlie Munger in 2002, leading to Berkshire\'s $230M investment.</p><p>Active in philanthropy through his humanitarian foundation.</p>'
-        : '<p>李录（Li Lu），1966 年生于唐山，美籍华裔价值投资者，喜马拉雅资本创始人。哥伦比亚大学 BA/JD/MBA 三学位。</p><p>1997 年创立喜马拉雅资本。2002 年向查理·芒格推荐比亚迪，伯克希尔 2008 年投资 2.3 亿美元。</p><p>热心公益，设立了人道主义基金会。</p>';
+        ? '<p>Li Lu (b. 1966), Chinese-American value investor, founder of Himalaya Capital. Moved to the US in 1989 and earned a BA, JD, and MBA simultaneously at Columbia University \u2014 a rare "triple degree" achievement.</p><p>Founded Himalaya Capital in 1997, focused on long-term value investing. Recommended BYD to Charlie Munger in 2002, leading to Berkshire\'s $230M investment in 2008. Munger once publicly praised him: "Li Lu is a genius, and we\'ve made a lot of money together."</p><p>Active in philanthropy through his humanitarian foundation, focused on human rights, education, and disaster relief.</p>'
+        : '<p>李录（Li Lu），1966 年生于唐山，美籍华裔价值投资者，喜马拉雅资本创始人。1989 年赴美，在哥伦比亚大学同时取得经济学学士、法学博士 (JD) 和 MBA 三个学位——哥大罕见的“三学位”成就者。</p><p>1997 年创立喜马拉雅资本，专注长期价值投资。2002 年向查理·芒格推荐比亚迪，后由伯克希尔 2008 年投资 2.3 亿美元。芒格曾公开赞誉：“李录是一个天才，我们一起赚了很多钱。”</p><p>除投资外，李录也热心公益，设立了人道主义基金会，关注人权、教育和救灾。</p>';
     }
   }
   // Timeline
