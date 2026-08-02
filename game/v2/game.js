@@ -89,6 +89,14 @@
   /* ============================================
      序章：信封 / 委任
      ============================================ */
+  var LENS_DEFS = [
+    { icon:'🧩', name:'化繁为简', desc:'先把那些显而易见的大问题想透，别一上来就陷进细节。' },
+    { icon:'📐', name:'数学思维', desc:'伽利略说过，数学是揭示真相的语言——算一遍账，比拍胸脯更可靠。' },
+    { icon:'🔄', name:'逆向思维', desc:'雅可比的校训：反过来想，总是反过来想——先搞清楚怎么会输，再去想怎么赢。' },
+    { icon:'🎓', name:'跨学科基础智慧', desc:'真正有用的知识不分学科——心理学、生物学、历史都要为我所用。' },
+    { icon:'⚡', name:'鲁拉帕路萨效应', desc:'当多个因素同时同向发力，效果不是相加，而是自我催化、指数级放大。' },
+  ];
+
   function renderLetter(){
     var root = el('div');
     renderChrome(root, '致：未来的商业天才');
@@ -98,11 +106,27 @@
     var card = el('div','card scene-enter');
     card.appendChild(el('div','card-title','贰佰万美元整'));
     card.appendChild(el('div','card-quote',
-      '欢迎来到 1884 年的亚特兰大。格罗兹先生愿意拿出 200 万美元，换取一个承诺：' +
-      '150 年后，这家公司必须值 2 万亿——即便每年都要分红。你有十五分钟。'));
+      '我先讲个虚构的故事——别当真。欢迎来到 1884 年的亚特兰大。格罗兹先生愿意拿出 200 万美元——' +
+      '一半捐赠给"格罗兹慈善基金会"，另一半换取一个承诺：150 年后，这家公司必须值 2 万亿——即便每年都要分红。' +
+      '谁能说服他，剩下的一半股份就归谁。你有十五分钟。'));
     card.appendChild(el('div','card-body',
-      '你有十五分钟陈述你的方案。你会对格罗兹说什么？'));
+      '在你开口之前，先把这五个思维透镜揣在身上——接下来的每一关，都在考你能不能用得上它们。'));
     stage.appendChild(card);
+
+    var lensCard = el('div','card scene-enter');
+    lensCard.appendChild(el('div','card-title','五个有用的思维观念'));
+    var lensList = el('div','lens-list');
+    LENS_DEFS.forEach(function(l){
+      var item = el('div','lens-item');
+      item.appendChild(el('div','lens-icon', l.icon));
+      var txt = el('div','lens-text');
+      txt.appendChild(el('div','lens-name', l.name));
+      txt.appendChild(el('div','lens-desc', l.desc));
+      item.appendChild(txt);
+      lensList.appendChild(item);
+    });
+    lensCard.appendChild(lensList);
+    stage.appendChild(lensCard);
 
     root.appendChild(stage);
     var nav = el('div','bottom-nav');
@@ -124,6 +148,11 @@
     { key:'piano', label:'像钢琴一样精密、昂贵的奢侈品', correct:false },
     { key:'water', label:'像水一样普适、廉价、人人天天需要的东西', correct:true },
     { key:'lux',   label:'只服务少数高净值人群的稀缺品', correct:false },
+  ];
+
+  var T1_BIG_QUESTIONS = [
+    { q:'商标保护够不够强？', a:'必须够强。品牌名字是唯一不会过时的资产——另外99%的技术、工厂都可以被复制，但"可口可乐"这四个字在消费者心里的位置，复制不了。' },
+    { q:'要先拿下一座城市，还是一开始就想征服全世界？', a:'先拿下亚特兰大。先在一座城市里把模式跑通——产品、定价、铺货渠道都验证过一遍——再复制到下一座城市，比一开始就铺开全世界靠得住。' },
   ];
 
   function renderTrial1(){
@@ -171,8 +200,21 @@
         (correct
           ? '<b>正确。</b> 到 2034 年，全球将有约 <b>80 亿</b>饮料消费者，每人每天必须摄入约 1.9 升（8 杯，每杯约 237 毫升）的水。'
           : '<b>再想想。</b> 卖一种平庸的饮料，永远不可能创造出价值 2 万亿的东西——但一种像水一样普适的产品可以。') +
-        '<br><br>反过来想，总是反过来想——这是芒格引用的数学校训，也是商业第一原则。');
+        '<br><br>反过来想，总是反过来想——这是芒格引用的数学校训，也是商业第一原则。' +
+        '<br><br>还有一点容易被忽视：即便产品本身足够普适，如果买不到，习惯就无从形成——未经试用的竞品很难取代已经每天习惯性伸手可得的产品。可得性，同样是策略的一部分。');
       resultSlot.appendChild(box);
+      var bigQBox = el('div','card scene-enter');
+      bigQBox.appendChild(el('div','card-title','在进入下一关之前，还有两个显而易见的大问题要先想清楚'));
+      T1_BIG_QUESTIONS.forEach(function(bq){
+        var lens = el('div','lens-item');
+        lens.appendChild(el('div','lens-icon','?'));
+        var txt = el('div','lens-text');
+        txt.appendChild(el('div','lens-name', bq.q));
+        txt.appendChild(el('div','lens-desc', bq.a));
+        lens.appendChild(txt);
+        bigQBox.appendChild(lens);
+      });
+      resultSlot.appendChild(bigQBox);
     }
 
     root.appendChild(stage);
@@ -253,6 +295,13 @@
   /* ============================================
      试炼三：芒格的算账题（滑块）
      ============================================ */
+  var T3_LOLLA_ITEMS = [
+    { label:'货币贬值', detail:'哪怕产品销量一动不动，只要用美元计价，长期通胀本身就会推着营收数字往上走。' },
+    { label:'购买力提升', detail:'随着全球尤其是发展中国家的人均收入增长，能负担得起一瓶饮料的人只会越来越多，不会越来越少。' },
+    { label:'人均液体摄入量提升', detail:'饮食结构和生活方式在变化，人均消耗的饮料量本身长期趋势是上升的，这是需求端的自然放大器。' },
+    { label:'技术降本', detail:'装瓶、制冷、物流技术持续进步，单位生产和分销成本持续下降，同样的售价能留下更多利润。' },
+  ];
+
   function renderTrial3(){
     var root = el('div');
     renderChrome(root, '试炼 三');
@@ -318,6 +367,26 @@
         '<br><br>这正是芒格算账的精髓：不是编造一个乐观故事，而是用最朴素的假设检验一个宏大结论是否站得住脚。';
     }
     updateResult();
+
+    var lollaCard = el('div','card scene-enter');
+    lollaCard.appendChild(el('div','card-title','但这道算术题只算了一年——150 年呢？'));
+    lollaCard.appendChild(el('div','card-body','点击下面四张卡片，看看是什么在背后持续推着这条曲线往上走。'));
+    var lollaGrid = el('div','tile-grid');
+    var lollaDetailSlot = el('div','detail-slot');
+    T3_LOLLA_ITEMS.forEach(function(item){
+      var tile = el('div','tile', item.label);
+      tile.onclick = function(){
+        if (tile.classList.contains('picked')) return;
+        haptic();
+        tile.classList.add('picked','locked-correct');
+        var det = el('div','result-box scene-enter', '<b>' + item.label + '</b>：' + item.detail);
+        lollaDetailSlot.appendChild(det);
+      };
+      lollaGrid.appendChild(tile);
+    });
+    lollaCard.appendChild(lollaGrid);
+    lollaCard.appendChild(lollaDetailSlot);
+    stage.appendChild(lollaCard);
 
     root.appendChild(stage);
     var nav = el('div','bottom-nav');
@@ -425,7 +494,8 @@
     { key:'perm', label:'一次性授予永久特许权，条款永不可改', correct:false,
       detail:'这正是可口可乐真实犯过的错误。真实历史上，公司把装瓶权作为永久特许权批给了各地装瓶商，价格条款一次锁死、永不能改。短期看，这换来了装瓶商快速跑马圈地的积极性；但代价是此后几十年，无论原材料成本怎么涨，公司都无法向这些装瓶商重新议价——定价权就这样被永久让渡了出去，这也是公司历史上最惨痛的战略失误之一。' },
     { key:'sub', label:'签阶段性分包协议，定期重新谈判条款', correct:true,
-      detail:'这才是芒格会做的选择。把装瓶商定位成"分包商"而非"永久特许受让人"——协议要设定周期，到期重新谈判价格和条款。这样公司既能借装瓶商的资金和人力快速铺开全球网络，又能始终握住重新定价的权力，不被通胀和成本上涨反噬。真正的护城河不仅是产品端的，也包括你和合作伙伴之间的权力结构设计。' },
+      detail:'这才是芒格会做的选择。把装瓶商定位成"分包商"而非"永久特许受让人"——协议要设定周期，到期重新谈判价格和条款。这样公司既能借装瓶商的资金和人力快速铺开全球网络，又能始终握住重新定价的权力，不被通胀和成本上涨反噬。真正的护城河不仅是产品端的，也包括你和合作伙伴之间的权力结构设计。' +
+      '<br><br>把五个试炼串起来看：普适的产品、反过来想避开的坑、可持续的心理闭环、经得起验证的算账、握在手里的定价权——当这些因素同时同向发力时，效果不是简单相加，而是自我催化——这正是鲁拉帕路萨效应。' },
   ];
 
   function renderTrial5(){
@@ -496,7 +566,7 @@
     scoreCard.appendChild(strip);
 
     var msg = state.seals.length === 5
-      ? '满分！思维大师——四个模型同向发力，自我催化产生奇迹。'
+      ? '满分！思维大师——五个思维透镜同向发力，自我催化产生奇迹。'
       : (state.seals.length >= 3 ? '不错！继续努力。' : '再试一次吧。');
     scoreCard.appendChild(el('p','card-body', msg));
     stage.appendChild(scoreCard);
@@ -519,9 +589,14 @@
     var wisdomCard = el('div','card scene-enter');
     wisdomCard.appendChild(el('div','card-title','所有的智慧都在你日常的常识里'));
     wisdomCard.appendChild(el('div','card-body',
-      '掌握那些基础的、跨学科的思维模型——化繁为简、反过来想、双重条件反射、分包而非放权——四个模型同时发力，自我催化产生奇迹（鲁拉帕路萨效应）。你也能创造自己的奇迹。'));
+      '掌握那些基础的、跨学科的思维模型——化繁为简、反过来想、三重心理效应、分包而非放权——当它们同时发力，自我催化产生奇迹（鲁拉帕路萨效应）。你也能创造自己的奇迹。'));
     wisdomCard.appendChild(el('div','card-narrator','—— 查理·芒格'));
     stage.appendChild(wisdomCard);
+
+    var closingCard = el('div','card scene-enter');
+    closingCard.appendChild(el('div','card-body',
+      '最后说句实话：开头那个"格罗兹"的故事是虚构的——但你刚刚练习的这五个思维透镜，可一点不虚。'));
+    stage.appendChild(closingCard);
 
     root.appendChild(stage);
     var nav = el('div','bottom-nav');

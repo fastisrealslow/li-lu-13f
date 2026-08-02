@@ -230,6 +230,46 @@ img{max-width:100%;display:block;}
   margin-bottom:8px;
 }
 
+/* ---------- 思维透镜列表（序言铺垫） ---------- */
+.lens-list{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+  margin:14px 0 4px;
+}
+.lens-item{
+  display:flex;
+  align-items:flex-start;
+  gap:10px;
+  padding:10px 12px;
+  background:rgba(255,255,255,0.55);
+  border:1px solid var(--border);
+  border-radius:12px;
+}
+.lens-icon{
+  font-size:1.05rem;
+  line-height:1.5;
+  flex-shrink:0;
+  width:22px;
+  text-align:center;
+}
+.lens-text{
+  flex:1;
+  min-width:0;
+}
+.lens-name{
+  font-size:.86rem;
+  font-weight:700;
+  color:var(--ink2);
+  margin-bottom:2px;
+}
+.lens-desc{
+  font-size:.78rem;
+  color:var(--ink);
+  opacity:.72;
+  line-height:1.55;
+}
+
 /* ---------- 选项按钮组 ---------- */
 .choice-list{
   display:flex;
