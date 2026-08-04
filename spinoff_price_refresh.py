@@ -795,12 +795,21 @@ def tag_last_updated(json_path: str, dry_run: bool = False) -> int:
     """
     对比 git HEAD 中的旧版本与当前文件，找出 companies 里有实质变化的条目，
     给它们打上 lastUpdated = today ISO 时间戳。
-    对比时忽略 pricePerf / updatedAt / lastUpdated 这类每次都会变的噪声字段。
+    对比时忽略以下每次运行都会自然波动、不代表真正“新进展”的噪声字段：
+      - pricePerf / spinoffPricePerf：每日股价变化描述，与实际公告无关
+      - lastPrice：实时行情报价，接口偶发失败会在 None 与数值之间跳变
+      - marketCap / parentMarketCap：每日随股价波动而变
+      - greenblattNote：由上述数值推导生成的文案，数值微调就会跟着变字，不应视为实质进展
+      - updatedAt / lastUpdated / latestDate：时间戳字段本身
+    真正应该触发“新进展”的是 announcements/_status/status/summary/spinTarget 等反映实际内容变化的字段。
     返回打了标记的条目数。
     """
     import subprocess, copy
 
-    IGNORE_KEYS = {'pricePerf', 'updatedAt', 'lastUpdated', 'latestDate'}
+    IGNORE_KEYS = {
+        'pricePerf', 'spinoffPricePerf', 'lastPrice', 'marketCap', 'parentMarketCap',
+        'greenblattNote', 'updatedAt', 'lastUpdated', 'latestDate',
+    }
 
     def strip_noise(obj):
         """递归去除噪声字段，用于比较"""

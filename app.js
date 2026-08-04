@@ -1603,6 +1603,134 @@ async function renderHomework() {
 let _spinoffCache = null;
 let _guoData = null;
 
+let _shareholderHistoryData = null;
+
+// ── 大股东历史增减持数据（通用，覆盖郭海庆以外的20家公司） ────────────────────
+async function _loadShareholderHistoryData() {
+  if (_shareholderHistoryData) return _shareholderHistoryData;
+  try {
+    const r = await fetch('spinoff_shareholder_history.json?t=' + Math.floor(Date.now()/300000));
+    if (!r.ok) throw new Error(r.status);
+    const d = await r.json();
+    _shareholderHistoryData = d.companies || {};
+  } catch (e) {
+    _shareholderHistoryData = {};
+  }
+  return _shareholderHistoryData;
+}
+
+// 事件类型 -> {箭头, 颜色, 中文标签, 英文标签} 的映射，通用于任何股东面板
+function _shareholderEventMeta(type, isEn) {
+  switch (type) {
+    case '增持':
+      return { arrow: '▲', color: '#059669', zh: '增持', en: 'Buy' };
+    case '减持':
+      return { arrow: '▼', color: '#dc2626', zh: '减持', en: 'Sell' };
+    case '首次披露':
+      return { arrow: '●', color: 'var(--gold)', zh: '首次披露', en: 'Initial' };
+    case '百分比变动（非交易）':
+      return { arrow: '·', color: 'var(--text-lighter)', zh: '比例漂移（非交易）', en: '% drift (non-trade)' };
+    default:
+      // 性质变动（方向不明）等未知事件：不猜方向，用中性图标
+      return { arrow: '○', color: 'var(--text-lighter)', zh: '性质变动', en: 'Nature change' };
+  }
+}
+
+// 通用大股东面板，接受 spinoff_shareholder_history.json 中单一公司的记录对象，样式与郭海庆面板保持一致
+function _renderShareholderHistoryPanel(d, isEn) {
+  if (!d || !d.records || !d.records.length) return '';
+
+  const records = d.records.filter(r => r.type !== '首次披露');
+  const currentPct = d.current_pct || 0;
+  const currentShares = d.current_shares || 0;
+
+  const chartPoints = [...records].reverse();
+
+  const rows = records.map((r, i) => {
+    const meta = _shareholderEventMeta(r.type, isEn);
+    const hasChange = r.change !== null && r.change !== undefined;
+    const changeStr = hasChange
+      ? (r.change >= 0 ? '+' : '') + (Math.abs(r.change) >= 1e6 ? (r.change / 1e6).toFixed(2) + 'M' : (r.change / 1e4).toFixed(0) + '万')
+      : '—';
+    const priceStr = r.price ? `HK$${r.price.toFixed(3)}` : '—';
+    const sharesStr = (r.shares / 1e8).toFixed(2) + '亿';
+    return `
+      <div style="display:grid;grid-template-columns:minmax(72px,90px) minmax(90px,130px) 1fr;
+                  gap:0;padding:7px 10px;
+                  background:${i % 2 === 0 ? '#fff' : '#fafaf8'};
+                  border-bottom:1px solid #f0ede6;
+                  align-items:center;font-size:.7rem;">
+        <div>
+          <div style="color:var(--text-light);font-variant-numeric:tabular-nums;font-size:.65rem;">${r.date}</div>
+          <div style="color:${meta.color};font-weight:600;margin-top:1px;">${meta.arrow} ${isEn ? meta.en : meta.zh}</div>
+        </div>
+        <div>
+          <div style="color:${meta.color};font-weight:600;">${changeStr}</div>
+          <div style="color:var(--text-light);font-size:.65rem;margin-top:1px;">${priceStr}</div>
+        </div>
+        <div style="text-align:right;">
+          <div style="color:var(--text);">${sharesStr}</div>
+          <div style="color:var(--text-lighter);font-size:.65rem;margin-top:1px;">${r.pct != null ? r.pct.toFixed(2) + '%' : '—'}</div>
+        </div>
+      </div>`;
+  }).join('');
+
+  const pts = chartPoints.filter(r => r.pct != null);
+  let svgLine = '';
+  if (pts.length >= 2) {
+    const minP = Math.min(...pts.map(p => p.pct)) - 0.5;
+    const maxP = Math.max(...pts.map(p => p.pct)) + 0.5;
+    const W = 260, H = 48;
+    const coords = pts.map((p, i) => {
+      const x = (i / (pts.length - 1)) * (W - 20) + 10;
+      const y = H - ((p.pct - minP) / (maxP - minP)) * (H - 10) - 5;
+      return `${x.toFixed(1)},${y.toFixed(1)}`;
+    });
+    const dotLast = coords[coords.length - 1].split(',');
+    svgLine = `
+      <svg width="${W}" height="${H}" style="display:block;overflow:visible;">
+        <polyline points="${coords.join(' ')}" fill="none" stroke="var(--gold)" stroke-width="1.8" stroke-linejoin="round"/>
+        <circle cx="${dotLast[0]}" cy="${dotLast[1]}" r="3.5" fill="var(--gold)"/>
+        <text x="${dotLast[0]}" y="${parseFloat(dotLast[1]) - 7}" text-anchor="middle"
+              font-size="9" fill="var(--gold)" font-weight="600">${pts[pts.length - 1].pct.toFixed(2)}%</text>
+      </svg>`;
+  }
+
+  return `
+    <div style="margin:0 14px 14px;border:1px solid #e8dfc8;border-radius:8px;overflow:hidden;background:#fffdf7;">
+      <div style="display:flex;align-items:center;justify-content:space-between;
+                  padding:8px 12px;background:#f5f0e0;border-bottom:1px solid #e8dfc8;flex-wrap:wrap;gap:6px;">
+        <div style="display:flex;align-items:center;gap:8px;">
+          <span style="font-size:.75rem;font-weight:700;color:var(--navy);">📊 ${isEn ? 'Major Shareholder Tracking' : '大股东增减持追踪'}</span>
+          <span style="font-size:.65rem;color:var(--text-lighter);">· ${d.shareholder}</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;">
+          ${svgLine}
+          <div style="text-align:right;">
+            <div style="font-size:.95rem;font-weight:700;color:var(--navy);font-family:var(--serif);">${currentPct.toFixed(2)}%</div>
+            <div style="font-size:.62rem;color:var(--text-lighter);">${isEn ? 'Current holding' : '当前持股'} · ${(currentShares / 1e8).toFixed(2)}亿股</div>
+          </div>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:minmax(72px,90px) minmax(90px,130px) 1fr;
+                  gap:0;padding:5px 10px;
+                  background:var(--navy);
+                  font-size:.63rem;font-weight:600;color:rgba(255,255,255,.5);
+                  letter-spacing:.5px;text-transform:uppercase;">
+        <span>${isEn ? 'DATE / ACTION' : '日期 / 操作'}</span>
+        <span>${isEn ? 'CHANGE / PRICE' : '变动 / 均价'}</span>
+        <span style="text-align:right;">${isEn ? 'TOTAL HELD' : '持股总量'}</span>
+      </div>
+      ${rows}
+      <div style="padding:5px 12px;font-size:.62rem;color:var(--text-lighter);background:#f8f5ec;line-height:1.5;">
+        ${isEn ? 'Source: HKEX Disclosure of Interests (auto-fetched)' : '数据来源：港交所权益披露（自动抓取）'} · ${isEn ? 'Last updated' : '更新'}: ${d.last_updated}<br/>
+        ${isEn
+          ? 'ℹ️ Only disclosures at or above the 5% notifiable threshold are captured; changes between whole-percentage-point crossings are not required to be disclosed under HK law and will not appear here. Rows labeled "Nature change" reflect an HKEX reason code that does not itself indicate a buy/sell direction — shown as-is rather than guessed.'
+          : 'ℹ️ 仅捕获≥5%具报门槛下的披露记录；根据香港法规，未跨过整数百分点的增减持无需披露，不会出现在此处。标记为"性质变动"的记录，是因其对应的港交所披露原因代码本身不表明买卖方向，按实展示而非猜测。'}
+      </div>
+    </div>`;
+}
+
 // ── 郭海庆增减持面板 ────────────────────────────────────────────
 async function _loadGuoData() {
   if (_guoData) return _guoData;
@@ -1706,9 +1834,15 @@ function _renderGuoPanel(isEn) {
       </div>
       <!-- 数据行 -->
       ${rows}
-      <!-- 来源 -->
-      <div style="padding:5px 12px;font-size:.62rem;color:var(--text-lighter);background:#f8f5ec;">
-        ${isEn?'Source: HKEX Disclosure of Interests':'数据来源：港交所权益披露'} · ${isEn?'Last updated':'更新'}: ${d.last_updated}
+      <!-- 来源 + 口径说明 -->
+      <div style="padding:5px 12px;font-size:.62rem;color:var(--text-lighter);background:#f8f5ec;line-height:1.5;">
+        ${isEn?'Source: HKEX Disclosure of Interests':'数据来源：港交所权益披露'} · ${isEn?'Last updated':'更新'}: ${d.last_updated}<br/>
+        ${isEn
+          ? 'ℹ️ The current holding above is Kwok\'s total beneficial interest under SFO Part XV, combining shares held in his own name and shares held via his wholly-owned vehicle Surpassing Investment Limited. Some third-party data providers list these two components separately (e.g. ~5.09% personal + ~1.91% via Surpassing), which will not match this combined 7.00% figure — both are correct, just different presentation.'
+          : 'ℹ️ 上述持股为郭海庆根据《证券及期货条例》第XV部合并计算的权益总额，包含个人名义持股与其全资子公司 Surpassing Investment Limited 持股两部分。部分第三方数据源（如同花顺）会将二者拆开列示（个人约计5.09%＋Surpassing约1.91%），与此处合并后的7.00%数字不一致，两者均正确，仅展示口径不同。'}<br/>
+        ${isEn
+          ? 'ℹ️ Adjacent rows above may show a bigger jump in total shares than the disclosed "change" amount. This is expected: once a shareholder holds ≥5%, HK law only requires a new disclosure when the stake crosses a whole percentage point (e.g. 5%→6%), so gradual on-market buying in between whole-percentage crossings is legally exempt from disclosure and simply does not appear in any public record — the per-row "change" figure is accurate for that filing, it is just not the full story between two rows.'
+          : 'ℹ️ 上下两行之间的"持股总量"变化，可能会明显大于该行披露的"变动"股数，这是正常现象：港股规则规定，大股东持股≥5%后，只有当持股比例跨越整数百分点（如5%→6%）时才需要重新披露，期间零散的场内增持不触发披露义务，因此不会出现在任何公开记录里——每一行的"变动"数字本身是准确的，只是两行之间还有未披露的增持没有被计入。'}
       </div>
     </div>`;
 }
@@ -1897,10 +2031,19 @@ function _soExtractSpinSub(company) {
 
 // ── 分拆排序 + 新进展 badge ─────────────────────────────────────────
 function _spinoffIsNew(c) {
-  // lastUpdated 距今 ≤ 7 天算"新进展"
-  const lu = c.lastUpdated;
-  if (!lu) return false;
-  return (Date.now() - new Date(lu).getTime()) <= 7 * 24 * 3600 * 1000;
+  // 优先用公告本身的日期判断是否有新进展，距今 ≤ 7 天算"新进展"。
+  // 之前曾依赖 lastUpdated（数据处理过程中的中间字段），但它会因为 lastPrice/marketCap 等
+  // 每日波动的噪声字段被误判为"实质变化"而错误刷新，导致几乎每条都显示"新进展"。
+  // 港股数据有顶层 latestDate 字段可直接用；美股数据没有该字段，需从
+  // announcements 数组里取最新日期（该数组不保证总是按日期降序，需取 max）。
+  let ref = c.latestDate;
+  if (!ref && Array.isArray(c.announcements) && c.announcements.length) {
+    const dates = c.announcements.map(a => a && a.date).filter(Boolean);
+    if (dates.length) ref = dates.reduce((a, b) => (a > b ? a : b));
+  }
+  if (!ref) ref = c.lastUpdated;
+  if (!ref) return false;
+  return (Date.now() - new Date(ref).getTime()) <= 7 * 24 * 3600 * 1000;
 }
 function _spinoffNewBadge(c, isEn) {
   if (!_spinoffIsNew(c)) return '';
@@ -1928,6 +2071,7 @@ async function renderSpinoff() {
 
   try {
     await _loadGuoData();
+    const shareholderHistoryMap = await _loadShareholderHistoryData();
     const resp = await fetch('spinoff.json?t=' + Math.floor(Date.now()/300000));
     if (!resp.ok) throw new Error(resp.status);
     const data = await resp.json();
@@ -2210,6 +2354,7 @@ async function renderSpinoff() {
 
           ${_renderSpinoffPricePanels(c, isEn)}
           ${(c.ticker||'').includes('00308') ? _renderGuoPanel(isEn) : ''}
+          ${(c.stockCode && shareholderHistoryMap[c.stockCode]) ? _renderShareholderHistoryPanel(shareholderHistoryMap[c.stockCode], isEn) : ''}
         </div>
       </div>`;
     });
