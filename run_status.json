@@ -1,6 +1,180 @@
 {
   "runs": [
     {
+      "run_id": "2026-08-07T14:03:01Z",
+      "trigger": "schedule",
+      "steps": {
+        "lilu_13f": {
+          "status": "ok",
+          "ts": "2026-08-07T14:03:03Z",
+          "msg": "",
+          "label": "李录 13F"
+        },
+        "pabrai_13f": {
+          "status": "ok",
+          "ts": "2026-08-07T14:03:04Z",
+          "msg": "",
+          "label": "Pabrai 13F"
+        },
+        "duan_13f": {
+          "status": "ok",
+          "ts": "2026-08-07T14:03:05Z",
+          "msg": "",
+          "label": "段永平 13F"
+        },
+        "tepper_13f": {
+          "status": "ok",
+          "ts": "2026-08-07T14:03:06Z",
+          "msg": "",
+          "label": "Tepper 13F"
+        },
+        "buffett_13f": {
+          "status": "ok",
+          "ts": "2026-08-07T14:03:07Z",
+          "msg": "",
+          "label": "巴菲特 13F"
+        },
+        "akre_greenberg_13f": {
+          "status": "ok",
+          "ts": "2026-08-07T14:03:09Z",
+          "msg": "",
+          "label": "Akre/Greenberg 13F"
+        },
+        "batch2_13f": {
+          "status": "ok",
+          "ts": "2026-08-07T14:03:14Z",
+          "msg": "",
+          "label": "batch2_13f"
+        },
+        "lilu_prices": {
+          "status": "ok",
+          "ts": "2026-08-07T14:03:34Z",
+          "msg": "",
+          "label": "李录 股价"
+        },
+        "pabrai_prices": {
+          "status": "ok",
+          "ts": "2026-08-07T14:03:38Z",
+          "msg": "",
+          "label": "Pabrai 股价"
+        },
+        "duan_prices": {
+          "status": "ok",
+          "ts": "2026-08-07T14:04:03Z",
+          "msg": "",
+          "label": "段永平 股价"
+        },
+        "tepper_prices": {
+          "status": "ok",
+          "ts": "2026-08-07T14:04:44Z",
+          "msg": "",
+          "label": "Tepper 股价"
+        },
+        "webb_prices": {
+          "status": "ok",
+          "ts": "2026-08-07T14:04:45Z",
+          "msg": "",
+          "label": "Webb 股价"
+        },
+        "buffett_prices": {
+          "status": "ok",
+          "ts": "2026-08-07T14:05:20Z",
+          "msg": "",
+          "label": "巴菲特 股价"
+        },
+        "akre_prices": {
+          "status": "ok",
+          "ts": "2026-08-07T14:05:48Z",
+          "msg": "",
+          "label": "Akre 股价"
+        },
+        "greenberg_prices": {
+          "status": "ok",
+          "ts": "2026-08-07T14:06:33Z",
+          "msg": "",
+          "label": "Greenberg 股价"
+        },
+        "klarman_prices": {
+          "status": "ok",
+          "ts": "2026-08-07T14:07:05Z",
+          "msg": "",
+          "label": "klarman_prices"
+        },
+        "ackman_prices": {
+          "status": "ok",
+          "ts": "2026-08-07T14:07:20Z",
+          "msg": "",
+          "label": "ackman_prices"
+        },
+        "abrams_prices": {
+          "status": "ok",
+          "ts": "2026-08-07T14:07:36Z",
+          "msg": "",
+          "label": "abrams_prices"
+        },
+        "berkowitz_prices": {
+          "status": "ok",
+          "ts": "2026-08-07T14:07:54Z",
+          "msg": "",
+          "label": "berkowitz_prices"
+        },
+        "hawkins_prices": {
+          "status": "ok",
+          "ts": "2026-08-07T14:09:43Z",
+          "msg": "",
+          "label": "hawkins_prices"
+        },
+        "webb_holdings": {
+          "status": "skip",
+          "ts": "2026-08-07T14:09:43Z",
+          "msg": "非周一，跳过",
+          "label": "Webb 港股持仓"
+        },
+        "resolve_cusip": {
+          "status": "ok",
+          "ts": "2026-08-07T14:11:22Z",
+          "msg": "",
+          "label": "resolve_cusip"
+        },
+        "metadata": {
+          "status": "ok",
+          "ts": "2026-08-07T14:12:06Z",
+          "msg": "",
+          "label": "元数据富化"
+        },
+        "hk_disclosures": {
+          "status": "ok",
+          "ts": "2026-08-07T14:13:36Z",
+          "msg": "",
+          "label": "港股披露监控"
+        },
+        "spinoff_hk": {
+          "status": "ok",
+          "ts": "2026-08-07T14:16:31Z",
+          "msg": "",
+          "label": "港股分拆"
+        },
+        "spinoff_us": {
+          "status": "ok",
+          "ts": "2026-08-07T14:17:58Z",
+          "msg": "",
+          "label": "美股分拆"
+        },
+        "spinoff_prices": {
+          "status": "ok",
+          "ts": "2026-08-07T14:18:57Z",
+          "msg": "",
+          "label": "分拆股价刷新"
+        },
+        "greenblatt_notes": {
+          "status": "ok",
+          "ts": "2026-08-07T14:18:57Z",
+          "msg": "",
+          "label": "格林布拉特点评"
+        }
+      }
+    },
+    {
       "run_id": "2026-08-07T01:55:29Z",
       "trigger": "schedule",
       "steps": {
@@ -5029,138 +5203,6 @@
         "greenblatt_notes": {
           "status": "ok",
           "ts": "2026-07-26T07:08:07Z",
-          "msg": "",
-          "label": "格林布拉特点评"
-        }
-      }
-    },
-    {
-      "run_id": "2026-07-26T01:21:39Z",
-      "trigger": "schedule",
-      "steps": {
-        "lilu_13f": {
-          "status": "ok",
-          "ts": "2026-07-26T01:21:40Z",
-          "msg": "",
-          "label": "李录 13F"
-        },
-        "pabrai_13f": {
-          "status": "ok",
-          "ts": "2026-07-26T01:21:41Z",
-          "msg": "",
-          "label": "Pabrai 13F"
-        },
-        "duan_13f": {
-          "status": "ok",
-          "ts": "2026-07-26T01:21:42Z",
-          "msg": "",
-          "label": "段永平 13F"
-        },
-        "tepper_13f": {
-          "status": "ok",
-          "ts": "2026-07-26T01:21:43Z",
-          "msg": "",
-          "label": "Tepper 13F"
-        },
-        "buffett_13f": {
-          "status": "ok",
-          "ts": "2026-07-26T01:21:44Z",
-          "msg": "",
-          "label": "巴菲特 13F"
-        },
-        "akre_greenberg_13f": {
-          "status": "ok",
-          "ts": "2026-07-26T01:21:46Z",
-          "msg": "",
-          "label": "Akre/Greenberg 13F"
-        },
-        "lilu_prices": {
-          "status": "ok",
-          "ts": "2026-07-26T01:22:03Z",
-          "msg": "",
-          "label": "李录 股价"
-        },
-        "pabrai_prices": {
-          "status": "ok",
-          "ts": "2026-07-26T01:22:07Z",
-          "msg": "",
-          "label": "Pabrai 股价"
-        },
-        "duan_prices": {
-          "status": "ok",
-          "ts": "2026-07-26T01:22:31Z",
-          "msg": "",
-          "label": "段永平 股价"
-        },
-        "tepper_prices": {
-          "status": "ok",
-          "ts": "2026-07-26T01:23:08Z",
-          "msg": "",
-          "label": "Tepper 股价"
-        },
-        "webb_prices": {
-          "status": "ok",
-          "ts": "2026-07-26T01:23:10Z",
-          "msg": "",
-          "label": "Webb 股价"
-        },
-        "buffett_prices": {
-          "status": "ok",
-          "ts": "2026-07-26T01:23:43Z",
-          "msg": "",
-          "label": "巴菲特 股价"
-        },
-        "akre_prices": {
-          "status": "ok",
-          "ts": "2026-07-26T01:24:06Z",
-          "msg": "",
-          "label": "Akre 股价"
-        },
-        "greenberg_prices": {
-          "status": "ok",
-          "ts": "2026-07-26T01:24:48Z",
-          "msg": "",
-          "label": "Greenberg 股价"
-        },
-        "webb_holdings": {
-          "status": "skip",
-          "ts": "2026-07-26T01:24:48Z",
-          "msg": "非周一，跳过",
-          "label": "Webb 港股持仓"
-        },
-        "metadata": {
-          "status": "ok",
-          "ts": "2026-07-26T01:25:19Z",
-          "msg": "",
-          "label": "元数据富化"
-        },
-        "hk_disclosures": {
-          "status": "ok",
-          "ts": "2026-07-26T01:26:49Z",
-          "msg": "",
-          "label": "港股披露监控"
-        },
-        "spinoff_hk": {
-          "status": "ok",
-          "ts": "2026-07-26T01:29:36Z",
-          "msg": "",
-          "label": "港股分拆"
-        },
-        "spinoff_us": {
-          "status": "ok",
-          "ts": "2026-07-26T01:31:18Z",
-          "msg": "",
-          "label": "美股分拆"
-        },
-        "spinoff_prices": {
-          "status": "ok",
-          "ts": "2026-07-26T01:32:04Z",
-          "msg": "",
-          "label": "分拆股价刷新"
-        },
-        "greenblatt_notes": {
-          "status": "ok",
-          "ts": "2026-07-26T01:32:05Z",
           "msg": "",
           "label": "格林布拉特点评"
         }
