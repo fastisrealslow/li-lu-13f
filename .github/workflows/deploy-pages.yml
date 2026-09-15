@@ -32,6 +32,9 @@ jobs:
           # The updater commits data after its triggering SHA. Read the updated branch.
           ref: ${{ github.event_name == 'workflow_run' && 'master' || github.ref }}
 
+      - name: Test investor switching
+        run: node --test tests/test_investor_switch.cjs
+
       - name: Setup Pages
         uses: actions/configure-pages@v5
 
