@@ -10,6 +10,8 @@ import unittest
 from unittest.mock import patch
 
 import fetch_13f_all
+import enrich_metadata
+import resolve_unmapped_tickers
 from holdings_diff import compare_holdings, update_history
 import update_status
 import validate_data
@@ -28,6 +30,21 @@ class HoldingsTests(unittest.TestCase):
         self.assertTrue(rows[1]["exited"])
         self.assertEqual(rows[1]["shares"], 0)
         self.assertEqual(len(current), 1)
+
+    def test_previous_report_gets_resolved_tickers_and_cached_company_metadata(self):
+        with tempfile.TemporaryDirectory() as directory, contextlib.redirect_stdout(io.StringIO()):
+            output = Path(directory) / 'data.json'
+            output.write_text(json.dumps({'current': {'holdings': [], 'previousHoldings': [
+                {'ticker':'?OLD', 'cusip':'111', 'name':'OLD', 'shares':10, 'value':100}
+            ]}}))
+            self.assertIn('111', resolve_unmapped_tickers.scan_unresolved_cusips([str(output)], {}))
+            resolve_unmapped_tickers.backfill_data_files([str(output)], {'111':'ABC'})
+            cache = {'ABC': {'cnName':'公司', 'sector':'金融'}}
+            enrich_metadata.process_file(str(output), cache)
+            previous = json.loads(output.read_text())['current']['previousHoldings'][0]
+            self.assertEqual(previous['ticker'], 'ABC')
+            self.assertEqual(previous['cnName'], '公司')
+            self.assertEqual(previous['sector'], '金融')
 
     def test_refreshed_history_replaces_old_snapshot_and_sorts_new_quarters(self):
         data = {"history": {"quarters": ["2026 Q2"], "values": [999], "holdings": {"2026 Q2": []}}}

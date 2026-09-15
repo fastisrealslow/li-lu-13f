@@ -99,7 +99,7 @@ test('refresh reloads only the selected investor and bypasses the browser cache'
     await a.run('refreshLive()');
     a.context.fetch = fetchFile;
     assert.equal(a.run('investor'), inv.id);
-    for (const file of [inv.dataFile, inv.pricesFile]) {
+    for (const file of [inv.dataFile, inv.pricesFile, 'run_status.json']) {
       const request = requests.find(r => r.url.split('?')[0] === file);
       assert.ok(request, `${inv.id}: ${file}`);
       assert.equal(request.options.cache, 'no-store');
