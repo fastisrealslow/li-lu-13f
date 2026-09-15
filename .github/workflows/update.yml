@@ -4,6 +4,14 @@ on:
   schedule:
     - cron: '0 0,13 * * *'  # UTC 00:00 (HKT 08:00 港股开盘前) + UTC 13:00 (HKT 21:00 美股盘中)
   workflow_dispatch:
+  push:
+    branches: [master]
+    paths:
+      - ".github/workflows/update.yml"
+
+concurrency:
+  group: update-13f-${{ github.ref }}
+  cancel-in-progress: false
 
 permissions:
   contents: write
@@ -11,10 +19,13 @@ permissions:
 jobs:
   update:
     runs-on: ubuntu-latest
+    timeout-minutes: 90
     steps:
+      # Use the per-run repository token; an expired PAT must not stop updates.
       - uses: actions/checkout@v4
         with:
-          token: ${{ secrets.GH_PAT }}
+          token: ${{ github.token }}
+          ref: ${{ github.ref_name }}
 
       - uses: actions/setup-python@v5
         with:
@@ -25,6 +36,7 @@ jobs:
 
       # ── 初始化本次运行状态记录 ──
       - name: Init run status
+        id: init_status
         run: |
           python3 update_status.py --init --trigger "${{ github.event_name }}"
 
@@ -36,7 +48,7 @@ jobs:
         run: python3 fetch_13f_all.py --investor lilu
 
       - name: Status - Li Lu 13F
-        if: always()
+        if: ${{ !cancelled() && steps.init_status.outcome == 'success' }}
         run: |
           if [ "${{ steps.lilu_13f.outcome }}" = "success" ]; then
             python3 update_status.py --step lilu_13f --status ok
@@ -50,7 +62,7 @@ jobs:
         run: python3 fetch_13f_all.py --investor pabrai
 
       - name: Status - Pabrai 13F
-        if: always()
+        if: ${{ !cancelled() && steps.init_status.outcome == 'success' }}
         run: |
           if [ "${{ steps.pabrai_13f.outcome }}" = "success" ]; then
             python3 update_status.py --step pabrai_13f --status ok
@@ -64,7 +76,7 @@ jobs:
         run: python3 fetch_13f_all.py --investor duan
 
       - name: Status - Duan 13F
-        if: always()
+        if: ${{ !cancelled() && steps.init_status.outcome == 'success' }}
         run: |
           if [ "${{ steps.duan_13f.outcome }}" = "success" ]; then
             python3 update_status.py --step duan_13f --status ok
@@ -78,7 +90,7 @@ jobs:
         run: python3 fetch_13f_all.py --investor tepper
 
       - name: Status - Tepper 13F
-        if: always()
+        if: ${{ !cancelled() && steps.init_status.outcome == 'success' }}
         run: |
           if [ "${{ steps.tepper_13f.outcome }}" = "success" ]; then
             python3 update_status.py --step tepper_13f --status ok
@@ -92,7 +104,7 @@ jobs:
         run: python3 fetch_13f_all.py --investor buffett
 
       - name: Status - Buffett 13F
-        if: always()
+        if: ${{ !cancelled() && steps.init_status.outcome == 'success' }}
         run: |
           if [ "${{ steps.buffett_13f.outcome }}" = "success" ]; then
             python3 update_status.py --step buffett_13f --status ok
@@ -108,7 +120,7 @@ jobs:
           python3 fetch_13f_all.py --investor greenberg
 
       - name: Status - Akre/Greenberg 13F
-        if: always()
+        if: ${{ !cancelled() && steps.init_status.outcome == 'success' }}
         run: |
           if [ "${{ steps.akre_greenberg_13f.outcome }}" = "success" ]; then
             python3 update_status.py --step akre_greenberg_13f --status ok
@@ -127,7 +139,7 @@ jobs:
           python3 fetch_13f_all.py --investor hawkins
 
       - name: Status - Batch2 13F
-        if: always()
+        if: ${{ !cancelled() && steps.init_status.outcome == 'success' }}
         run: |
           if [ "${{ steps.batch2_13f.outcome }}" = "success" ]; then
             python3 update_status.py --step batch2_13f --status ok
@@ -145,7 +157,7 @@ jobs:
         run: python3 fetch_prices_all.py --investor lilu
 
       - name: Status - Li Lu prices
-        if: always()
+        if: ${{ !cancelled() && steps.init_status.outcome == 'success' }}
         run: |
           if [ "${{ steps.lilu_prices.outcome }}" = "success" ]; then
             python3 update_status.py --step lilu_prices --status ok
@@ -161,7 +173,7 @@ jobs:
         run: python3 fetch_prices_all.py --investor pabrai
 
       - name: Status - Pabrai prices
-        if: always()
+        if: ${{ !cancelled() && steps.init_status.outcome == 'success' }}
         run: |
           if [ "${{ steps.pabrai_prices.outcome }}" = "success" ]; then
             python3 update_status.py --step pabrai_prices --status ok
@@ -177,7 +189,7 @@ jobs:
         run: python3 fetch_prices_all.py --investor duan
 
       - name: Status - Duan prices
-        if: always()
+        if: ${{ !cancelled() && steps.init_status.outcome == 'success' }}
         run: |
           if [ "${{ steps.duan_prices.outcome }}" = "success" ]; then
             python3 update_status.py --step duan_prices --status ok
@@ -193,7 +205,7 @@ jobs:
         run: python3 fetch_prices_all.py --investor tepper
 
       - name: Status - Tepper prices
-        if: always()
+        if: ${{ !cancelled() && steps.init_status.outcome == 'success' }}
         run: |
           if [ "${{ steps.tepper_prices.outcome }}" = "success" ]; then
             python3 update_status.py --step tepper_prices --status ok
@@ -209,7 +221,7 @@ jobs:
         run: python3 fetch_prices_all.py --investor webb
 
       - name: Status - Webb prices
-        if: always()
+        if: ${{ !cancelled() && steps.init_status.outcome == 'success' }}
         run: |
           if [ "${{ steps.webb_prices.outcome }}" = "success" ]; then
             python3 update_status.py --step webb_prices --status ok
@@ -225,7 +237,7 @@ jobs:
         run: python3 fetch_prices_all.py --investor buffett
 
       - name: Status - Buffett prices
-        if: always()
+        if: ${{ !cancelled() && steps.init_status.outcome == 'success' }}
         run: |
           if [ "${{ steps.buffett_prices.outcome }}" = "success" ]; then
             python3 update_status.py --step buffett_prices --status ok
@@ -241,7 +253,7 @@ jobs:
         run: python3 fetch_prices_all.py --investor akre
 
       - name: Status - Akre prices
-        if: always()
+        if: ${{ !cancelled() && steps.init_status.outcome == 'success' }}
         run: |
           if [ "${{ steps.akre_prices.outcome }}" = "success" ]; then
             python3 update_status.py --step akre_prices --status ok
@@ -257,7 +269,7 @@ jobs:
         run: python3 fetch_prices_all.py --investor greenberg
 
       - name: Status - Greenberg prices
-        if: always()
+        if: ${{ !cancelled() && steps.init_status.outcome == 'success' }}
         run: |
           if [ "${{ steps.greenberg_prices.outcome }}" = "success" ]; then
             python3 update_status.py --step greenberg_prices --status ok
@@ -273,7 +285,7 @@ jobs:
         run: python3 fetch_prices_all.py --investor klarman
 
       - name: Status - Klarman prices
-        if: always()
+        if: ${{ !cancelled() && steps.init_status.outcome == 'success' }}
         run: |
           if [ "${{ steps.klarman_prices.outcome }}" = "success" ]; then
             python3 update_status.py --step klarman_prices --status ok
@@ -289,7 +301,7 @@ jobs:
         run: python3 fetch_prices_all.py --investor ackman
 
       - name: Status - Ackman prices
-        if: always()
+        if: ${{ !cancelled() && steps.init_status.outcome == 'success' }}
         run: |
           if [ "${{ steps.ackman_prices.outcome }}" = "success" ]; then
             python3 update_status.py --step ackman_prices --status ok
@@ -305,7 +317,7 @@ jobs:
         run: python3 fetch_prices_all.py --investor abrams
 
       - name: Status - Abrams prices
-        if: always()
+        if: ${{ !cancelled() && steps.init_status.outcome == 'success' }}
         run: |
           if [ "${{ steps.abrams_prices.outcome }}" = "success" ]; then
             python3 update_status.py --step abrams_prices --status ok
@@ -321,7 +333,7 @@ jobs:
         run: python3 fetch_prices_all.py --investor berkowitz
 
       - name: Status - Berkowitz prices
-        if: always()
+        if: ${{ !cancelled() && steps.init_status.outcome == 'success' }}
         run: |
           if [ "${{ steps.berkowitz_prices.outcome }}" = "success" ]; then
             python3 update_status.py --step berkowitz_prices --status ok
@@ -337,7 +349,7 @@ jobs:
         run: python3 fetch_prices_all.py --investor hawkins
 
       - name: Status - Hawkins prices
-        if: always()
+        if: ${{ !cancelled() && steps.init_status.outcome == 'success' }}
         run: |
           if [ "${{ steps.hawkins_prices.outcome }}" = "success" ]; then
             python3 update_status.py --step hawkins_prices --status ok
@@ -361,7 +373,7 @@ jobs:
           fi
 
       - name: Status - Webb holdings
-        if: always()
+        if: ${{ !cancelled() && steps.init_status.outcome == 'success' }}
         run: |
           DAY=$(date -u +%u)
           if [ "$DAY" != "1" ] && [ "${{ github.event_name }}" != "workflow_dispatch" ]; then
@@ -380,7 +392,7 @@ jobs:
         run: python3 resolve_unmapped_tickers.py
 
       - name: Status - Resolve unmapped tickers
-        if: always()
+        if: ${{ !cancelled() && steps.init_status.outcome == 'success' }}
         run: |
           if [ "${{ steps.resolve_cusip.outcome }}" = "success" ]; then
             python3 update_status.py --step resolve_cusip --status ok
@@ -396,7 +408,7 @@ jobs:
         run: python3 enrich_metadata.py
 
       - name: Status - Metadata
-        if: always()
+        if: ${{ !cancelled() && steps.init_status.outcome == 'success' }}
         run: |
           if [ "${{ steps.metadata.outcome }}" = "success" ]; then
             python3 update_status.py --step metadata --status ok
@@ -410,7 +422,7 @@ jobs:
         run: python3 monitor_hk_disclosures.py
 
       - name: Status - HK disclosures
-        if: always()
+        if: ${{ !cancelled() && steps.init_status.outcome == 'success' }}
         run: |
           if [ "${{ steps.hk_disclosures.outcome }}" = "success" ]; then
             python3 update_status.py --step hk_disclosures --status ok
@@ -426,7 +438,7 @@ jobs:
         run: python3 fetch_spinoff.py
 
       - name: Status - HK spinoff
-        if: always()
+        if: ${{ !cancelled() && steps.init_status.outcome == 'success' }}
         run: |
           if [ "${{ steps.spinoff_hk.outcome }}" = "success" ]; then
             python3 update_status.py --step spinoff_hk --status ok
@@ -443,7 +455,7 @@ jobs:
         run: python3 fetch_spinoff_us.py
 
       - name: Status - US spinoff
-        if: always()
+        if: ${{ !cancelled() && steps.init_status.outcome == 'success' }}
         run: |
           if [ "${{ steps.spinoff_us.outcome }}" = "success" ]; then
             python3 update_status.py --step spinoff_us --status ok
@@ -460,7 +472,7 @@ jobs:
           python3 spinoff_price_refresh.py
 
       - name: Status - Spinoff prices
-        if: always()
+        if: ${{ !cancelled() && steps.init_status.outcome == 'success' }}
         run: |
           if [ "${{ steps.spinoff_prices.outcome }}" = "success" ]; then
             python3 update_status.py --step spinoff_prices --status ok
@@ -475,7 +487,7 @@ jobs:
           python3 -c "from enrich_metadata import _gen_spinoff_verdicts; _gen_spinoff_verdicts()"
 
       - name: Status - Greenblatt notes
-        if: always()
+        if: ${{ !cancelled() && steps.init_status.outcome == 'success' }}
         run: |
           if [ "${{ steps.greenblatt_notes.outcome }}" = "success" ]; then
             python3 update_status.py --step greenblatt_notes --status ok
@@ -573,7 +585,7 @@ jobs:
             git commit -m "auto: update 13F data & prices (all investors)"
             # 拉取远端变更，对 prices*.json 用 ours 策略（CI计算结果优先），其余文件正常merge
             git fetch origin master
-            git merge origin/master --no-edit -X ours || true
+            git merge origin/master --no-edit -X ours
             git push
             echo "Changes pushed!"
           fi

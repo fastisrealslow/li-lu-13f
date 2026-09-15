@@ -4,6 +4,11 @@ on:
   push:
     branches: [master]
   workflow_dispatch:
+  # GITHUB_TOKEN pushes do not start push workflows. Publish after the updater.
+  workflow_run:
+    workflows: ["Update 13F Data"]
+    types: [completed]
+    branches: [master]
 
 permissions:
   contents: read
@@ -16,12 +21,16 @@ concurrency:
 
 jobs:
   deploy:
+    if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
     environment:
       name: github-pages
       url: ${{ steps.deploy.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
+        with:
+          # The updater commits data after its triggering SHA. Read the updated branch.
+          ref: ${{ github.event_name == 'workflow_run' && 'master' || github.ref }}
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
