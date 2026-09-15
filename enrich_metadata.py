@@ -218,7 +218,8 @@ def enrich_holdings(holdings, cache, changed_tickers):
 def process_file(filepath, cache):
     """处理单个数据 JSON 文件"""
     try:
-        d = json.load(open(filepath))
+        with open(filepath, encoding="utf-8") as f:
+            d = json.load(f)
     except Exception as e:
         print(f"  ⚠️  {filepath} load error: {e}")
         return
@@ -229,6 +230,8 @@ def process_file(filepath, cache):
     cur = d.get('current', {}).get('holdings', [])
     if cur:
         enrich_holdings(cur, cache, changed)
+
+    enrich_holdings(d.get('current', {}).get('previousHoldings', []), cache, changed)
 
     # history holdings
     hist = d.get('history', {})
@@ -1487,6 +1490,7 @@ def main():
                                 records_updated += 1
 
                     fix_holdings(d.get('current', {}).get('holdings', []))
+                    fix_holdings(d.get('current', {}).get('previousHoldings', []))
                     hist = d.get('history', {})
                     hist_qs = hist.get('holdings', hist) if isinstance(hist, dict) else {}
                     if isinstance(hist_qs, dict):

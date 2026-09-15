@@ -83,6 +83,7 @@ def scan_unresolved_cusips(data_files, already_resolved):
                     cusip_counts[cusip] = cusip_counts.get(cusip, 0) + 1
 
         scan_holdings(data.get("current", {}).get("holdings", []))
+        scan_holdings(data.get("current", {}).get("previousHoldings", []))
         for holdings in data.get("history", {}).get("holdings", {}).values():
             scan_holdings(holdings)
     return cusip_counts
@@ -169,6 +170,7 @@ def backfill_data_files(data_files, resolved_map):
                     records_fixed += 1
 
         fix_holdings(data.get("current", {}).get("holdings", []))
+        fix_holdings(data.get("current", {}).get("previousHoldings", []))
         for holdings in data.get("history", {}).get("holdings", {}).values():
             fix_holdings(holdings)
 
