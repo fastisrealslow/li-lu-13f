@@ -269,10 +269,10 @@ def search_us(en_query: str) -> list:
 
 # ── 价格拉取 ──────────────────────────────────────────────────────
 def normalize_ticker(ticker: str) -> str:
-    """去除港股 ticker 前导零: 07618.HK -> 7618.HK"""
-    if ticker.endswith('.HK'):
+    """Yahoo 港股代码至少四位：00656.HK -> 0656.HK，07618.HK -> 7618.HK。"""
+    if ticker.upper().endswith('.HK') and ticker[:-3].isdigit():
         code = ticker[:-3].lstrip('0') or '0'
-        return code + '.HK'
+        return code.zfill(4) + '.HK'
     return ticker
 
 def fetch_price_on_date(ticker: str, date_str: str, window=7) -> float | None:
@@ -301,7 +301,7 @@ def fetch_target_market_cap(ticker: str, market: str = 'HK') -> float | None:
     HKD_TO_USD = 0.128
     CNY_TO_USD = 0.139
     try:
-        info = yf.Ticker(ticker).info
+        info = yf.Ticker(normalize_ticker(ticker)).info
         mc = info.get('marketCap', 0) or 0
         if mc <= 0:
             return None
@@ -687,10 +687,10 @@ def refresh_hk_parent_priceperf(dry_run=False) -> int:
         first_date = c.get('firstDate', '')
         if not first_date: continue
 
-        # yfinance 港股 ticker 格式：NNNN.HK（4位，去前缀零但保留至少1位）
-        if '.HK' in ticker.upper():
-            code = ticker.split('.')[0].lstrip('0') or '0'
-            yfk = code + '.HK'
+        # Skip non-HK entries instead of reusing the previous company's symbol.
+        if not ticker.upper().endswith('.HK'):
+            continue
+        yfk = normalize_ticker(ticker)
 
         price_at_ann = fetch_price_on_date(yfk, first_date)
         price_now    = fetch_price_latest(yfk)
