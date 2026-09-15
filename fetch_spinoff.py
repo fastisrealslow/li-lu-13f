@@ -35,13 +35,22 @@ _SF_MODELS_HK = [
 ]
 
 
+_SF_UNAVAILABLE = False
+_SF_REJECTED_MODELS = set()
+
+
 def _sf_call_hk(api_key, prompt, max_tokens=120, retries=2):
     """
     健壮的 SiliconFlow 调用：多模型 fallback + 重试。
     返回模型输出字符串，全部失败返回 None。
     """
     import urllib.request as _ureq, json as _json
+    global _SF_UNAVAILABLE
+    if not api_key or _SF_UNAVAILABLE:
+        return None
     for model in _SF_MODELS_HK:
+        if model in _SF_REJECTED_MODELS:
+            continue
         for attempt in range(retries + 1):
             try:
                 payload = _json.dumps({
@@ -65,6 +74,16 @@ def _sf_call_hk(api_key, prompt, max_tokens=120, retries=2):
                 if text:
                     return text
             except Exception as e:
+                code = getattr(e, 'code', None)
+                if code in (401, 402):
+                    _SF_UNAVAILABLE = True
+                    print(f"::warning::AI enrichment unavailable (HTTP {code}); "
+                          "skipping further model requests in this process and keeping existing text.")
+                    return None
+                if code in (403, 404):
+                    _SF_REJECTED_MODELS.add(model)
+                    print(f"::warning::AI model {model} unavailable (HTTP {code}); trying next model.")
+                    break
                 wait = 2 ** attempt
                 print(f"    [{model}] 第{attempt+1}次失败: {e}"
                       + (f"，{wait}s 后重试" if attempt < retries else "，放弃"))
