@@ -8,6 +8,8 @@ on:
     branches: [master]
     paths:
       - ".github/workflows/update.yml"
+      - "spinoff_price_refresh.py"
+      - "tests/test_spinoff_prices.py"
 
 concurrency:
   group: update-13f-${{ github.ref }}
@@ -32,7 +34,10 @@ jobs:
           python-version: '3.12'
 
       - name: Install dependencies
-        run: pip install yfinance pdfminer.six
+        run: pip install yfinance pdfminer.six rapidfuzz
+
+      - name: Test spinoff price lookups
+        run: python3 -m unittest discover -s tests -v
 
       # ── 初始化本次运行状态记录 ──
       - name: Init run status
