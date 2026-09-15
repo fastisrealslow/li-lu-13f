@@ -262,33 +262,6 @@
       "verdictEn": "Only one holder, position unchanged, and the margin of safety is ample — fine as a watchlist name but no new signal for now."
     },
     {
-      "ticker": "IAC",
-      "name": "People Inc",
-      "sector": "互联网",
-      "mos": 18.7,
-      "mosTier": "中等折价",
-      "buy": 46.16,
-      "price": 37.51,
-      "holderCount": 1,
-      "holders": [
-        {
-          "investor": "梅森·霍金斯",
-          "chg": "added",
-          "weight": 7.5,
-          "hold_quarters": 20,
-          "hold_years": 5.0,
-          "trend": "stable",
-          "reentry": false,
-          "exit_quarter": null,
-          "reentry_quarter": null
-        }
-      ],
-      "holderText": "梅森·霍金斯（7.5%仓位，持有20季/5.0年，本季加仓）",
-      "nearMiss": [],
-      "verdict": "单一持有人本季主动加仓（7.5%仓位），属于积极信号，但安全边际仅属中等，可作为次优先观察。",
-      "verdictEn": "A single holder added this quarter (7.5% position) — a positive signal, though the margin of safety is only moderate; a secondary watchlist candidate."
-    },
-    {
       "ticker": "ESRT",
       "name": "帝国州房地产信托",
       "sector": "地产",
@@ -314,33 +287,6 @@
       "nearMiss": [],
       "verdict": "单一持有人本季主动加仓（2.5%仓位），属于积极信号，但安全边际仅属中等，可作为次优先观察。",
       "verdictEn": "A single holder added this quarter (2.5% position) — a positive signal, though the margin of safety is only moderate; a secondary watchlist candidate."
-    },
-    {
-      "ticker": "SHEN",
-      "name": "谢南多厄电信",
-      "sector": "通讯",
-      "mos": 15.0,
-      "mosTier": "中等折价",
-      "buy": 13.87,
-      "price": 11.79,
-      "holderCount": 1,
-      "holders": [
-        {
-          "investor": "梅森·霍金斯",
-          "chg": "added",
-          "weight": 2.1,
-          "hold_quarters": 6,
-          "hold_years": 1.5,
-          "trend": "stable",
-          "reentry": false,
-          "exit_quarter": null,
-          "reentry_quarter": null
-        }
-      ],
-      "holderText": "梅森·霍金斯（2.1%仓位，持有6季/1.5年，本季加仓）",
-      "nearMiss": [],
-      "verdict": "单一持有人本季主动加仓（2.1%仓位），属于积极信号，但安全边际仅属中等，可作为次优先观察。",
-      "verdictEn": "A single holder added this quarter (2.1% position) — a positive signal, though the margin of safety is only moderate; a secondary watchlist candidate."
     },
     {
       "ticker": "BIDU",
@@ -424,6 +370,60 @@
       "verdictEn": "Only one holder, and they trimmed this quarter — the margin of safety qualifies, but there's no consensus support; approach with caution."
     },
     {
+      "ticker": "IAC",
+      "name": "People Inc",
+      "sector": "互联网",
+      "mos": 15.6,
+      "mosTier": "中等折价",
+      "buy": 46.16,
+      "price": 38.97,
+      "holderCount": 1,
+      "holders": [
+        {
+          "investor": "梅森·霍金斯",
+          "chg": "trimmed",
+          "weight": 7.5,
+          "hold_quarters": 20,
+          "hold_years": 5.0,
+          "trend": "stable",
+          "reentry": false,
+          "exit_quarter": null,
+          "reentry_quarter": null
+        }
+      ],
+      "holderText": "梅森·霍金斯（7.5%仓位，持有20季/5.0年，本季减仓）",
+      "nearMiss": [],
+      "verdict": "仅单一持有人且本季减仓，安全边际虽达标，但缺乏共识支持，须谨慎看待。",
+      "verdictEn": "Only one holder, and they trimmed this quarter — the margin of safety qualifies, but there's no consensus support; approach with caution."
+    },
+    {
+      "ticker": "SHEN",
+      "name": "谢南多厄电信",
+      "sector": "通讯",
+      "mos": 15.0,
+      "mosTier": "中等折价",
+      "buy": 13.87,
+      "price": 11.79,
+      "holderCount": 1,
+      "holders": [
+        {
+          "investor": "梅森·霍金斯",
+          "chg": "trimmed",
+          "weight": 2.1,
+          "hold_quarters": 6,
+          "hold_years": 1.5,
+          "trend": "stable",
+          "reentry": false,
+          "exit_quarter": null,
+          "reentry_quarter": null
+        }
+      ],
+      "holderText": "梅森·霍金斯（2.1%仓位，持有6季/1.5年，本季减仓）",
+      "nearMiss": [],
+      "verdict": "仅单一持有人且本季减仓，安全边际虽达标，但缺乏共识支持，须谨慎看待。",
+      "verdictEn": "Only one holder, and they trimmed this quarter — the margin of safety qualifies, but there's no consensus support; approach with caution."
+    },
+    {
       "ticker": "GLIBA",
       "name": "自由资本",
       "sector": "通讯",
@@ -479,8 +479,8 @@
     }
   ],
   "droppedOut": [],
-  "generatedAt": "2026-09-15T04:03:29Z",
+  "generatedAt": "2026-09-15T08:53:55Z",
   "candidateCount": 17,
   "consensusCount": 1,
-  "signalHash": "ab6c42e722a916f06c962c08a96a8562b9754ea876f71e173e8a9bb14d43a6f1"
+  "signalHash": "fd48546944d4c2681a771f51380007103d819c11594dcaa78259bbc43683abb2"
 }
