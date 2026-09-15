@@ -415,7 +415,7 @@ th .info-wrap{position:relative;display:inline-flex}
     </div>
     <div id="tab-changes" class="d-none">
       <div class="table-wrap"><table><thead><tr>
-        <th>股票</th><th id="chPS">上季 持股</th><th id="chCS">本季 持股</th><th>股数变化</th><th id="chPV">上季 市值</th><th id="chCV">本季 市值</th><th>市值变化</th>
+        <th data-i18n="thStock">股票</th><th id="chPS">上季 持股</th><th id="chCS">本季 持股</th><th data-i18n="changesChg">股数变化</th><th id="chPV">上季 市值</th><th id="chCV">本季 市值</th><th data-i18n="changesVChg">市值变化</th>
       </tr></thead><tbody id="changesBody"></tbody></table></div>
     </div>
     <div id="tab-homework" class="d-none">
@@ -583,7 +583,7 @@ th .info-wrap{position:relative;display:inline-flex}
   </div>
 </footer>
 
-<script src="app.js?v=55"></script>
+<script src="app.js?v=56"></script>
 <script>
 const nav=document.getElementById('mainNav');
 window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',window.scrollY>60));

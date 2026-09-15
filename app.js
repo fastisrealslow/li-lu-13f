@@ -21,6 +21,7 @@ const T = {
   tabTimeline: ['⏳ 时间轴','⏳ Timeline'],
   // Table headers
   thTicker: ['代码','Ticker'],
+  thStock: ['股票','Stock'],
   thCompany: ['公司','Company'],
   thSector: ['行业','Sector'],
   thShares: ['持股数','Shares'],
@@ -438,6 +439,8 @@ function switchLang() {
   localStorage.setItem('lang', lang);
   renderInvestorBtns();
   document.getElementById('langBtn').textContent = lang === 'zh' ? 'EN' : '中';
+  const refreshBtn = document.getElementById('btnRefresh');
+  if (refreshBtn && !refreshBtn.disabled) refreshBtn.textContent = lang === 'en' ? '🔄 Refresh' : '🔄 刷新';
   document.querySelectorAll('[data-i18n]').forEach(el => {
     const v = t(el.dataset.i18n);
     if (el.childElementCount === 0) el.textContent = v;
@@ -531,7 +534,7 @@ async function refreshLive() {
   btn.textContent = lang === 'en' ? '⏳ Refreshing…' : '⏳ 刷新中…';
   try {
     await switchInvestor(investor, {fresh: true, signal: ctrl.signal});
-    await initStatusDot();
+    if (!ctrl.signal.aborted) await initStatusDot(ctrl.signal);
   } finally {
     clearTimeout(timeout);
     btn.disabled = false;
@@ -3052,9 +3055,9 @@ function updateInvestorContent() {
 function renderAll() { try { renderSummary(); renderHoldings(); renderChanges(); renderInsights(); renderHistoryChart(); } catch(e) {} }
 
 // 页面加载后静默拉取状态灯颜色（不弹抽屉）
-async function initStatusDot() {
+async function initStatusDot(signal) {
   try {
-    const r = await fetch('run_status.json?_=' + Math.floor(Date.now()/300000));
+    const r = await fetch('run_status.json?_=' + Date.now(), {cache: 'no-store', signal});
     if (!r.ok) throw new Error('Status unavailable');
     const statusData = await r.json();
     _runStatusData = statusData;
@@ -3123,7 +3126,7 @@ async function renderStatusDrawer() {
 
   let data;
   try {
-    const r = await fetch('run_status.json?_=' + Math.floor(Date.now()/300000));
+    const r = await fetch('run_status.json?_=' + Date.now(), {cache: 'no-store'});
     if (!r.ok) throw new Error('not found');
     data = await r.json();
     _runStatusData = data;
