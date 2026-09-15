@@ -555,6 +555,10 @@ _SF_MODELS = [
 ]
 
 
+_SF_UNAVAILABLE = False
+_SF_REJECTED_MODELS = set()
+
+
 def _sf_call(api_key, prompt, max_tokens=300, retries=2):
     """
     健壮的 SiliconFlow 调用封装：
@@ -562,7 +566,12 @@ def _sf_call(api_key, prompt, max_tokens=300, retries=2):
     - 请求失败自动重试（默认 2次）
     - 返回 (text, model_used) 或 (None, None)
     """
+    global _SF_UNAVAILABLE
+    if not api_key or _SF_UNAVAILABLE:
+        return (None, None)
     for model in _SF_MODELS:
+        if model in _SF_REJECTED_MODELS:
+            continue
         for attempt in range(retries + 1):
             try:
                 payload = json.dumps({
@@ -588,6 +597,16 @@ def _sf_call(api_key, prompt, max_tokens=300, retries=2):
                 if text:  # 非空则成功
                     return text, model
             except Exception as e:
+                code = getattr(e, 'code', None)
+                if code in (401, 402):
+                    _SF_UNAVAILABLE = True
+                    print(f"::warning::AI enrichment unavailable (HTTP {code}); "
+                          "skipping further model requests in this process and keeping existing text.")
+                    return (None, None)
+                if code in (403, 404):
+                    _SF_REJECTED_MODELS.add(model)
+                    print(f"::warning::AI model {model} unavailable (HTTP {code}); trying next model.")
+                    break
                 wait = 2 ** attempt
                 print(f"    [{model}] 第{attempt+1}次失败: {e}，{'retry in ' + str(wait) + 's' if attempt < retries else '放弃'}")
                 if attempt < retries:
