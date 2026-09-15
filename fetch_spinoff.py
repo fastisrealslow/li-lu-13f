@@ -20,6 +20,8 @@ API（从浏览器 Network 面板确认）：
 过滤：现价 < 0.5 HKD 的仙股排除。
 """
 
+from update_status import record_ai_warning
+
 import json, os, re, sys, time, http.cookiejar, urllib.parse
 from datetime import datetime, timezone, timedelta
 from urllib.request import build_opener, HTTPCookieProcessor, Request
@@ -77,6 +79,7 @@ def _sf_call_hk(api_key, prompt, max_tokens=120, retries=2):
                 code = getattr(e, 'code', None)
                 if code in (401, 402):
                     _SF_UNAVAILABLE = True
+                    record_ai_warning('spinoff_hk', code)
                     print(f"::warning::AI enrichment unavailable (HTTP {code}); "
                           "skipping further model requests in this process and keeping existing text.")
                     return None
@@ -90,6 +93,7 @@ def _sf_call_hk(api_key, prompt, max_tokens=120, retries=2):
                 if attempt < retries:
                     time.sleep(wait)
         print(f"    模型 {model} 全部失败，尝试下一个...")
+    record_ai_warning('spinoff_hk')
     return None
 
 today     = datetime.now()

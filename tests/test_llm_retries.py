@@ -1,5 +1,9 @@
 import io
 import json
+import os
+import tempfile
+from pathlib import Path
+import update_status
 import unittest
 from contextlib import redirect_stdout
 from unittest.mock import patch
@@ -23,12 +27,17 @@ def response():
 
 class ModelRetryTests(unittest.TestCase):
     def setUp(self):
+        self.environment = patch.dict(os.environ, {"TRACK_RUN_STATUS": "0"})
+        self.environment.start()
+        self.addCleanup(self.environment.stop)
         for module, _, _, _ in CASES:
             module._SF_UNAVAILABLE = False
             module._SF_REJECTED_MODELS.clear()
 
     def tearDown(self):
-        self.setUp()
+        for module, _, _, _ in CASES:
+            module._SF_UNAVAILABLE = False
+            module._SF_REJECTED_MODELS.clear()
 
     def test_auth_and_payment_errors_stop_later_batches_without_sleeping(self):
         for code in (401, 402):
@@ -58,6 +67,20 @@ class ModelRetryTests(unittest.TestCase):
                 sleep.assert_not_called()
                 first_model = json.loads(request.call_args_list[0].args[0].data)['model']
                 self.assertNotEqual(json.loads(request.call_args_list[2].args[0].data)['model'], first_model)
+
+    def test_payment_failures_reach_published_status_for_each_client(self):
+        for (module, name, target, _), step in zip(CASES, ['metadata', 'spinoff_hk', 'spinoff_us']):
+            with self.subTest(module=module.__name__), tempfile.TemporaryDirectory() as directory, \
+                    patch.object(update_status, 'STATUS_FILE', str(Path(directory) / 'run_status.json')), \
+                    patch.dict(os.environ, {'TRACK_RUN_STATUS': '1'}), redirect_stdout(io.StringIO()):
+                update_status.init_run('test')
+                error = HTTPError('https://example.test', 402, 'Payment required', {}, None)
+                with patch(target, side_effect=error):
+                    getattr(module, name)('test-key', 'batch')
+                update_status.update_step(step, 'ok')
+                saved = update_status.load()['runs'][0]['steps'][step]
+                self.assertEqual(saved['status'], 'warn')
+                self.assertIn('余额不足', saved['msg'])
 
     def test_transient_server_errors_still_retry(self):
         for module, name, target, _ in CASES:

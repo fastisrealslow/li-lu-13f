@@ -9,6 +9,10 @@ Actions 跑完 13F 抓取后执行：
 4. 同时维护一个全局缓存 metadata_cache.json，避免重复请求
 """
 
+from holdings_diff import compare_holdings
+
+from update_status import record_ai_warning
+
 import json, os, re, sys, time, glob, hashlib
 from datetime import datetime, timezone
 
@@ -296,6 +300,7 @@ def _sf_call_enrich(api_key, prompt, max_tokens=400, retries=2):
                 code = getattr(e, 'code', None)
                 if code in (401, 402):
                     _SF_UNAVAILABLE = True
+                    record_ai_warning('metadata', code)
                     print(f"::warning::AI enrichment unavailable (HTTP {code}); "
                           "skipping further model requests in this process and keeping existing text.")
                     return None
@@ -309,6 +314,7 @@ def _sf_call_enrich(api_key, prompt, max_tokens=400, retries=2):
                 if attempt < retries:
                     time.sleep(wait)
         print(f"  模型 {model} 全部失败")
+    record_ai_warning('metadata')
     return None
 
 
@@ -405,6 +411,8 @@ def _gen_13f_summaries(api_key):
         cur = d.get('current', {})
         quarter = cur.get('quarter', '')
         holdings = cur.get('holdings', [])
+        if isinstance(cur.get('previousHoldings'), list):
+            holdings = compare_holdings(holdings, cur['previousHoldings'])
         if not holdings:
             continue
 
@@ -460,6 +468,7 @@ def _gen_13f_summaries(api_key):
             d['meta'] = {}
         d['meta']['aiSummary'] = text
         d['meta']['aiSummaryQuarter'] = quarter
+        d['meta']['aiSummaryUpdatedAt'] = datetime.now(timezone.utc).isoformat()
         with open(filepath, 'w') as f:
             json.dump(d, f, ensure_ascii=False, indent=2)
         print(f"  {investor_cn} {quarter}: {text}")

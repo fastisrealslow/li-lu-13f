@@ -21,6 +21,8 @@ INVESTOR_CONFIG 会在启动时从该文件自动构建，无需在本文件手�
 只依赖标准库，无需 pip install。
 """
 
+from holdings_diff import attach_previous, update_history
+
 import json
 import os
 import re
@@ -791,11 +793,7 @@ def process_investor(key: str, config: dict, full_mode: bool):
     cur_holdings  = parse_holdings(cur_xml,  consolidate=consolidate)
     prev_holdings = parse_holdings(prev_xml, consolidate=consolidate)
 
-    prev_map = {h["ticker"]: h for h in prev_holdings}
-    for h in cur_holdings:
-        p = prev_map.get(h["ticker"], {})
-        h["prevShares"] = p.get("shares", 0)
-        h["prevValue"]  = p.get("value", 0)
+    attach_previous(cur_holdings, prev_holdings)
 
     total      = sum(h["value"] for h in cur_holdings)
     prev_total = sum(h["value"] for h in prev_holdings)
@@ -807,15 +805,13 @@ def process_investor(key: str, config: dict, full_mode: bool):
         "totalValue":     total,
         "holdings":       cur_holdings,
         "prevQuarter":    quarter_label(prev_f["reportDate"]),
+        "previousHoldings": prev_holdings,
         "prevTotalValue": prev_total,
     }
     data["meta"]["lastUpdated"] = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
 
-    q_label = quarter_label(cur_f["reportDate"])
-    if q_label not in data["history"]["quarters"]:
-        data["history"]["quarters"].append(q_label)
-        data["history"]["values"].append(round(total / 1_000_000))
-        data["history"]["holdings"][q_label] = cur_holdings
+    update_history(data, quarter_label(prev_f["reportDate"]), prev_holdings)
+    update_history(data, quarter_label(cur_f["reportDate"]), cur_holdings)
 
     save_data(config["path"], data)
     warn_unmapped(data)
@@ -905,11 +901,7 @@ def process_full(key: str, config: dict, filings: list[dict], data: dict):
         xml_bytes = sec_fetch(find_info_table_xml(cik, prev_f["accession"], prev_f["accessionDashed"]))
         prev_holdings = parse_holdings(xml_bytes, consolidate=consolidate)
 
-    prev_map = {h["ticker"]: h for h in prev_holdings}
-    for h in latest_holdings:
-        p = prev_map.get(h["ticker"], {})
-        h["prevShares"] = p.get("shares", 0)
-        h["prevValue"]  = p.get("value", 0)
+    attach_previous(latest_holdings, prev_holdings)
 
     latest_total = sum(h["value"] for h in latest_holdings)
     data["current"] = {
@@ -919,14 +911,13 @@ def process_full(key: str, config: dict, filings: list[dict], data: dict):
         "totalValue":     latest_total,
         "holdings":       latest_holdings,
         "prevQuarter":    quarter_label(prev_f["reportDate"]),
+        "previousHoldings": prev_holdings,
         "prevTotalValue": sum(h["value"] for h in prev_holdings),
     }
     data["meta"]["lastUpdated"] = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
 
-    if latest_q not in data["history"]["quarters"]:
-        data["history"]["quarters"].append(latest_q)
-        data["history"]["values"].append(round(latest_total / 1_000_000))
-    data["history"]["holdings"][latest_q] = latest_holdings
+    update_history(data, prev_q, prev_holdings)
+    update_history(data, latest_q, latest_holdings)
 
     save_data(config["path"], data)
     warn_unmapped(data)

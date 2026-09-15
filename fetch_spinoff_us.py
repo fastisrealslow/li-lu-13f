@@ -6,6 +6,8 @@ fetch_spinoff_us.py
 输出：spinoff_us.json
 """
 
+from update_status import record_ai_warning
+
 import json, os, re, sys, time, urllib.parse
 from datetime import datetime, timedelta, timezone
 from urllib.request import Request, urlopen, build_opener, HTTPCookieProcessor
@@ -600,6 +602,7 @@ def _sf_call(api_key, prompt, max_tokens=300, retries=2):
                 code = getattr(e, 'code', None)
                 if code in (401, 402):
                     _SF_UNAVAILABLE = True
+                    record_ai_warning('spinoff_us', code)
                     print(f"::warning::AI enrichment unavailable (HTTP {code}); "
                           "skipping further model requests in this process and keeping existing text.")
                     return (None, None)
@@ -612,6 +615,7 @@ def _sf_call(api_key, prompt, max_tokens=300, retries=2):
                 if attempt < retries:
                     time.sleep(wait)
         print(f"    模型 {model} 全部失败，尝试下一个...")
+    record_ai_warning('spinoff_us')
     return None, None
 
 

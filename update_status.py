@@ -74,6 +74,7 @@ def init_run(trigger):
     data = load()
     run_id = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
     new_run = {
+        "schemaVersion": 2,
         "run_id":  run_id,
         "trigger": trigger,
         "steps":   {},
@@ -90,18 +91,43 @@ def update_step(step, status, msg=""):
         init_run("unknown")
         data = load()
     current_run = data["runs"][0]
+    previous = current_run["steps"].get(step, {})
+    # A successful process can still have unavailable optional AI features.
+    if status == "ok" and previous.get("status") == "warn":
+        status, msg = "warn", previous.get("msg", "AI 更新不完整，保留已有内容")
     current_run["steps"][step] = {
-        "status": status,  # "ok" | "fail" | "skip"
+        "status": status,  # "ok" | "warn" | "fail" | "skip"
         "ts":     datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
         "msg":    msg,
         "label":  STEP_LABELS.get(step, step),
     }
     save(data)
-    icon = "✅" if status == "ok" else ("⚠️" if status == "skip" else "❌")
+    icon = "✅" if status == "ok" else ("⚠️" if status in ("skip", "warn") else "❌")
     print(f"{icon} Step [{step}] → {status}" + (f": {msg}" if msg else ""))
+
+
+def record_ai_warning(step, code=None):
+    """Record only during an initialized workflow, never during imports or local tests."""
+    if os.environ.get("TRACK_RUN_STATUS") != "1" or not load().get("runs"):
+        return
+    reasons = {401: "AI 密钥认证失败", 402: "AI 余额不足", "missing_key": "未配置 AI 密钥"}
+    reason = reasons.get(code, "AI 请求失败或模型不可用")
+    update_step(os.environ.get("RUN_STATUS_STEP", step), "warn",
+                reason + "；相关内容未完整更新，保留已有内容")
+
+
+def finish_run():
+    data = load()
+    if not data["runs"]:
+        raise ValueError("Run status has not been initialized")
+    data["runs"][0]["completedAt"] = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+    save(data)
 
 def main():
     args = sys.argv[1:]
+    if "--finish" in args:
+        finish_run()
+        return
     if "--init" in args:
         trigger = "schedule"
         if "--trigger" in args:

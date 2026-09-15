@@ -22,6 +22,8 @@ jobs:
   update:
     runs-on: ubuntu-latest
     timeout-minutes: 90
+    env:
+      TRACK_RUN_STATUS: "1"
     steps:
       # Use the per-run repository token; an expired PAT must not stop updates.
       - uses: actions/checkout@v4
@@ -36,7 +38,9 @@ jobs:
       - name: Install dependencies
         run: pip install yfinance pdfminer.six rapidfuzz
 
-      - name: Test spinoff price lookups
+      - name: Test data update regressions
+        env:
+          TRACK_RUN_STATUS: "0"
         run: python3 -m unittest discover -s tests -v
 
       # ── 初始化本次运行状态记录 ──
@@ -410,7 +414,11 @@ jobs:
         continue-on-error: true
         env:
           SILICONFLOW_KEY: ${{ secrets.SILICONFLOW_KEY }}
-        run: python3 enrich_metadata.py
+        run: |
+          if [ -z "$SILICONFLOW_KEY" ]; then
+            python3 update_status.py --step metadata --status warn --msg "未配置 AI 密钥；保留已有内容"
+          fi
+          python3 enrich_metadata.py
 
       - name: Status - Metadata
         if: ${{ !cancelled() && steps.init_status.outcome == 'success' }}
@@ -440,7 +448,11 @@ jobs:
         continue-on-error: true
         env:
           SILICONFLOW_KEY: ${{ secrets.SILICONFLOW_KEY }}
-        run: python3 fetch_spinoff.py
+        run: |
+          if [ -z "$SILICONFLOW_KEY" ]; then
+            python3 update_status.py --step spinoff_hk --status warn --msg "未配置 AI 密钥；保留已有内容"
+          fi
+          python3 fetch_spinoff.py
 
       - name: Status - HK spinoff
         if: ${{ !cancelled() && steps.init_status.outcome == 'success' }}
@@ -457,7 +469,11 @@ jobs:
         env:
           SILICONFLOW_KEY: ${{ secrets.SILICONFLOW_KEY }}
           FINNHUB_KEY: ${{ secrets.FINNHUB_KEY }}
-        run: python3 fetch_spinoff_us.py
+        run: |
+          if [ -z "$SILICONFLOW_KEY" ]; then
+            python3 update_status.py --step spinoff_us --status warn --msg "未配置 AI 密钥；保留已有内容"
+          fi
+          python3 fetch_spinoff_us.py
 
       - name: Status - US spinoff
         if: ${{ !cancelled() && steps.init_status.outcome == 'success' }}
@@ -504,86 +520,17 @@ jobs:
 
       # ─────────────── JSON 验证 & 提交 ───────────────
 
+      - name: Finish run status
+        run: python3 update_status.py --finish
+
       - name: Validate JSON files before commit
-        run: |
-          python3 << 'EOF'
-          import json, sys, os
-          files = [
-            'data.json','prices.json','hk_holdings.json',
-            'pabrai_data.json','pabrai_prices.json',
-            'duan.json','prices_duan.json','duan_hk.json',
-            'tepper.json','prices_tepper.json','tepper_hk.json',
-            'akre.json','prices_akre.json',
-            'greenberg.json','prices_greenberg.json',
-            'buffett.json','prices_buffett.json',
-            'webb.json','prices_webb.json','webb_hk.json',
-            'klarman.json','prices_klarman.json',
-            'ackman.json','prices_ackman.json',
-            'abrams.json','prices_abrams.json',
-            'berkowitz.json','prices_berkowitz.json',
-            'hawkins.json','prices_hawkins.json',
-          ]
-          bad = []
-          for f in files:
-            if not os.path.exists(f):
-              print(f'MISSING: {f}')
-              continue
-            if os.path.getsize(f) == 0:
-              print(f'EMPTY: {f}')
-              bad.append(f)
-              continue
-            try:
-              json.load(open(f))
-              print(f'OK: {f}')
-            except Exception as e:
-              print(f'INVALID JSON: {f} - {e}')
-              bad.append(f)
-          if bad:
-            print(f'\n⚠️  {len(bad)} files have issues: {bad}')
-          else:
-            print('\n✅ All JSON files valid')
-          EOF
+        run: python3 validate_data.py
 
       - name: Commit and push if changed
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-
-          VALID_FILES=""
-          for f in data.json prices.json hk_holdings.json \
-                   pabrai_data.json pabrai_prices.json \
-                   duan.json prices_duan.json duan_hk.json \
-                   tepper.json prices_tepper.json tepper_hk.json \
-                   akre.json prices_akre.json \
-                   greenberg.json prices_greenberg.json \
-                   buffett.json prices_buffett.json \
-                   webb.json prices_webb.json webb_hk.json \
-                   klarman.json prices_klarman.json \
-                   ackman.json prices_ackman.json \
-                   abrams.json prices_abrams.json \
-                   berkowitz.json prices_berkowitz.json \
-                   hawkins.json prices_hawkins.json; do
-            if [ -f "$f" ] && [ -s "$f" ] && python3 -c "import json; json.load(open('$f'))" 2>/dev/null; then
-              VALID_FILES="$VALID_FILES $f"
-            else
-              echo "Skipping invalid/missing file: $f"
-            fi
-          done
-
-          for extra in metadata_cache.json alerts_hk_persons.json spinoff.json spinoff_us.json \
-                       akre_hk.json pabrai_hk.json greenberg_hk.json run_status.json \
-                       homework_summary.json value_screen.json; do
-            if [ -f "$extra" ] && [ -s "$extra" ]; then
-              VALID_FILES="$VALID_FILES $extra"
-            fi
-          done
-
-          if [ -z "$VALID_FILES" ]; then
-            echo "No valid files to commit"
-            exit 0
-          fi
-
-          git add $VALID_FILES
+          python3 validate_data.py --stage
           if git diff --cached --quiet; then
             echo "No changes to commit"
           else
@@ -591,6 +538,7 @@ jobs:
             # 拉取远端变更，对 prices*.json 用 ours 策略（CI计算结果优先），其余文件正常merge
             git fetch origin master
             git merge origin/master --no-edit -X ours
+            python3 validate_data.py
             git push
             echo "Changes pushed!"
           fi

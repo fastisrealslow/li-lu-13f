@@ -93,6 +93,9 @@ const T = {
   secIndustrial: ['工业/轨交','Industrial/Rail'],
   secBanking: ['金融/银行','Banking'],
   secOther: ['其他','Other'],
+  secCoal: ['煤炭','Coal'],
+  secOilDrill: ['油气钻探','Oil & Gas Drilling'],
+  secMetCoal: ['冶金/煤炭','Metallurgical Coal'],
   secCyber: ['网络安全','Cybersecurity'],
   secInsurance: ['保险','Insurance'],
   secEducation: ['教育','Education'],
@@ -373,37 +376,46 @@ function renderInvestorBtns() {
     return `<button onclick="switchInvestor('${id}')" style="padding:5px 11px;border:1px solid ${active ? 'var(--gold)' : 'rgba(212,168,83,.3)'};border-radius:16px;background:${active ? 'rgba(212,168,83,.15)' : 'transparent'};color:${active ? 'var(--gold)' : 'var(--text-light)'};font-size:.72rem;font-weight:${active ? '700' : '500'};cursor:pointer;white-space:nowrap;transition:all .15s;">${labels[id]}</button>`;
   }).join('');
 }
-async function switchInvestor(v) {
+async function switchInvestor(v, {fresh = false, signal} = {}) {
   const requestId = ++investorRequestId;
-  if (v && INVESTORS.includes(v)) { investor = v; }
-  else { const idx = INVESTORS.indexOf(investor); investor = INVESTORS[(idx + 1) % INVESTORS.length]; }
-  renderInvestorBtns();
+  const target = v && INVESTORS.includes(v) ? v
+    : INVESTORS[(INVESTORS.indexOf(investor) + 1) % INVESTORS.length];
+  const src = document.getElementById('dataSource');
+  const cfg = INVESTOR_CFG_BY_ID[target];
+  if (src) src.textContent = lang === 'en' ? 'Loading published data…' : '正在读取已发布数据…';
   try {
-    var cfg = INVESTOR_CFG_BY_ID[investor];
-    if (!cfg) throw new Error('未知投资者配置: ' + investor);
-    var f = cfg.dataFile, pf = cfg.pricesFile;
-    var r = await fetch(f + '?t=' + Math.floor(Date.now()/300000));
-    if (!r.ok) throw new Error(f + ' HTTP ' + r.status);
-    var newData = await r.json();
-    if (requestId !== investorRequestId) return;
-    if (!newData || !newData.current) throw new Error(f + ' invalid');
-    await loadPrices(pf, requestId);
-    if (requestId !== investorRequestId) return;
+    if (!cfg) throw new Error('Unknown investor: ' + target);
+    const stamp = fresh ? Date.now() : Math.floor(Date.now()/300000);
+    const r = await fetch(cfg.dataFile + '?t=' + stamp, {signal, cache: fresh ? 'no-store' : 'default'});
+    if (!r.ok) throw new Error(cfg.dataFile + ' HTTP ' + r.status);
+    const newData = await r.json();
+    if (requestId !== investorRequestId) return false;
+    if (!newData?.current || !Array.isArray(newData.current.holdings)) throw new Error('Invalid holdings data');
+    const pricesOK = await loadPrices(cfg.pricesFile, requestId, {signal, stamp, fresh});
+    if (requestId !== investorRequestId) return false;
+    // Commit the selection and its dataset together; failed switches keep the old selection.
+    investor = target;
     data = newData;
+    renderInvestorBtns();
     renderSummary(); renderHoldings(); renderChanges(); renderHistoryChart(); renderTimelineTable();
-    renderInsights();
-    updateInvestorContent();
+    renderInsights(); updateInvestorContent();
+    const updated = data.meta?.lastUpdated;
+    const age = Date.now() - Date.parse(updated);
+    const maxAge = (cfg.source13F === false ? 9 * 24 : 48) * 3600000;
+    const stale = !Number.isFinite(age) || age > maxAge;
+    if (src) src.textContent = (stale || !pricesOK ? '⚠ ' : '✓ ') +
+      (lang === 'en' ? 'Published data' : '已发布数据') +
+      (updated ? ' · ' + new Date(updated).toLocaleString(lang === 'en' ? 'en-US' : 'zh-CN', {timeZone: 'Asia/Shanghai'}) : '') +
+      (stale ? (lang === 'en' ? ' · Check update status' : ' · 数据较旧，请查看更新状态') : '') +
+      (!pricesOK ? (lang === 'en' ? ' · Prices unavailable' : ' · 股价暂不可用') : '');
+    return true;
   } catch(e) {
-    if (requestId !== investorRequestId) return;
-    console.error('switchInvestor error:', e.message, e.stack);
-    // Only show toast for actual data load failures (not when data already loaded)
-    if (!data || !data.current) {
-      const toast = document.createElement('div');
-      toast.style.cssText = 'position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#dc2626;color:#fff;padding:10px 20px;border-radius:8px;font-size:.85rem;z-index:9999;';
-      toast.textContent = '数据加载失败，请稍后重试';
-      document.body.appendChild(toast);
-      setTimeout(() => toast.remove(), 3000);
-    }
+    if (requestId !== investorRequestId) return false;
+    console.error('switchInvestor error:', e.message);
+    if (src) src.textContent = lang === 'en'
+      ? '⚠ Loading failed; previous selection retained. Try again.'
+      : '⚠ 加载失败，保留原投资人和数据，请重试';
+    return false;
   }
 }
 function cn(name, h) {
@@ -432,6 +444,7 @@ function switchLang() {
   });
   renderSummary(); renderHoldings(); renderChanges(); renderInsights(); renderHistoryChart();
   updateInvestorContent();
+  if (_runStatusData) updateStatusDot(_runStatusData);
   _homeworkCache = null;
   if (!document.getElementById('tab-homework').classList.contains('d-none')) renderHomework();
   if (!document.getElementById('tab-spinoff').classList.contains('d-none')) renderSpinoff();
@@ -456,18 +469,18 @@ function currSymbol(ticker) {
 }
 
 function fmtPct(cur, prev) {
-  if (prev===0) return '<span class="qoq-new">新进</span>';
+  if (prev===0) return `<span class="qoq-new">${lang === 'en' ? 'New' : '新进'}</span>`;
   const p=((cur-prev)/prev*100);
   if (Math.abs(p)<0.05) return '<span class="qoq-flat">-</span>';
   const c=p>0?'qoq-up':'qoq-down', s=p>0?'+':'';
   return `<span class="${c}">${s}${p.toFixed(1)}%</span>`;
 }
 function fmtShareChg(cur, prev) {
-  if (prev===0) return '<span class="qoq-new">新进</span>';
+  if (prev===0) return `<span class="qoq-new">${lang === 'en' ? 'New' : '新进'}</span>`;
   const d=cur-prev;
-  if (d===0) return '<span class="qoq-flat">不变</span>';
-  const p=(d/prev*100), c=d>0?'qoq-up':'qoq-down', s=d>0?'+':'';
-  return `<span class="${c}">${s}${fmtNum(Math.abs(d))} (${s}${p.toFixed(1)}%)</span>`;
+  if (d===0) return `<span class="qoq-flat">${lang === 'en' ? 'Unchanged' : '不变'}</span>`;
+  const p=(d/prev*100), c=d>0?'qoq-up':'qoq-down', sign=d>0?'+':'-';
+  return `<span class="${c}">${sign}${fmtNum(Math.abs(d))} (${d>0?'+':''}${p.toFixed(1)}%)</span>`;
 }
 
 // ========== DATA ==========
@@ -475,23 +488,27 @@ let data = null;
 let prices = null;  // loaded from prices.json (generated by GitHub Action)
 let hkHoldings = null;  // loaded from hk_holdings.json
 
-async function loadPrices(pf, requestId = investorRequestId) {
+async function loadPrices(pf, requestId = investorRequestId, {signal, stamp = Math.floor(Date.now()/300000), fresh = false} = {}) {
   const file = pf || 'prices.json';
   try {
-    const resp = await fetch(file + '?t=' + Math.floor(Date.now()/300000));
+    const resp = await fetch(file + '?t=' + stamp, {signal, cache: fresh ? 'no-store' : 'default'});
+    if (!resp.ok) throw new Error(file + ' HTTP ' + resp.status);
     const newPrices = await resp.json();
+    if (!newPrices || typeof newPrices.quotes !== 'object' || !newPrices.quotes) throw new Error('Invalid prices');
     if (requestId !== investorRequestId) return;
     prices = newPrices;
     const el = document.getElementById('priceUpdate');
     if (el) el.textContent =
       prices.updatedAt ? new Date(prices.updatedAt).toLocaleString('zh-CN',{timeZone:'Asia/Shanghai'})
       : prices.updated ? new Date(prices.updated).toLocaleString('zh-CN',{timeZone:'Asia/Shanghai'}) : '待更新';
+    return true;
   } catch(e) {
     if (requestId !== investorRequestId) return;
     console.log('prices unavailable:', file);
     prices = { quotes: {}, costBasis: {} };
     const el2 = document.getElementById('priceUpdate');
     if (el2) el2.textContent = '暂不可用';
+    return false;
   }
 }
 
@@ -504,88 +521,21 @@ function fmtTicker(tk) {
   return `<span class="ticker" style="${style}"${title}>${display}</span>`;
 }
 
-// ========== LIVE SEC FETCH (direct from browser, for non-China users) ==========
-async function tryLiveFetch() {
-  const UA = 'Himalaya-13F-Tracker/1.0';
-  const CIK = '1709323';
-  const subResp = await fetch(`https://data.sec.gov/submissions/CIK${CIK.padStart(10,'0')}.json`,{headers:{'User-Agent':UA}});
-  if (!subResp.ok) throw new Error('SEC unreachable');
-  const sub = await subResp.json();
-  const rec = sub.filings.recent;
-  const filings = [];
-  for (let i=0; i<rec.form.length && filings.length<2; i++) {
-    if (rec.form[i]==='13F-HR') filings.push({
-      accession: rec.accessionNumber[i].replace(/-/g,''),
-      accessionDashed: rec.accessionNumber[i],
-      filingDate: rec.filingDate[i], reportDate: rec.reportDate[i]
-    });
-  }
-  if (filings.length<2) throw new Error('Not enough filings');
-
-  const findInfo = async (acc, accD) => {
-    const base = `https://www.sec.gov/Archives/edgar/data/${CIK}/${acc}`;
-    const html = await (await fetch(`${base}/${accD}-index.html`,{headers:{'User-Agent':UA}})).text();
-    const re = /<a\s+href="([^"]+)"[^>]*>([^<]+\.xml)<\/a>\s*<\/td>\s*<td[^>]*>\s*INFORMATION TABLE/gi;
-    let m;
-    while ((m=re.exec(html))!==null) { if (!m[1].includes('xslForm13F')) return m[1]; }
-    const rd=acc.match(/(\d{2})(\d)(\d)$/);
-    if (rd) return `/Archives/edgar/data/${CIK}/${acc}/13fhciq${rd[2]}${rd[3]}.xml`;
-    throw new Error('No INFOTABLE');
-  };
-  const [ci, pi] = await Promise.all([
-    findInfo(filings[0].accession, filings[0].accessionDashed),
-    findInfo(filings[1].accession, filings[1].accessionDashed)
-  ]);
-
-  const tkMap = {
-    'ALPHABET INC': (c)=>c?.includes('CL A')?'GOOGL':'GOOG',
-    'APPLE INC':'AAPL','BK OF AMERICA CORP':'BAC','BERKSHIRE HATHAWAY INC DEL':'BRK.B',
-    'CROCS INC':'CROX','EAST WEST BANCORP INC':'EWBC','BLOCK H & R INC':'HRB',
-    'MOODYS CORP':'MCO','MSCI INC':'MSCI','OCCIDENTAL PETE CORP':'OXY',
-    'PDD HOLDINGS INC':'PDD','S&P GLOBAL INC':'SPGI','TENCENT MUSIC ENTMT GROUP':'TME'
-  };
-  const secMap = {GOOGL:'科技',GOOG:'科技',AAPL:'科技',BAC:'金融',EWBC:'金融','BRK.B':'综合金融',CROX:'消费',OXY:'能源',PDD:'电商',TME:'娱乐',SPGI:'金融服务',MCO:'金融服务',HRB:'金融服务',MSCI:'金融服务'};
-  const parseXML = async (path) => {
-    const xml = await (await fetch(`https://www.sec.gov${path}`,{headers:{'User-Agent':UA}})).text();
-    const doc = new DOMParser().parseFromString(xml,'application/xml');
-    return [...doc.querySelectorAll('infoTable')].map(r=>{
-      const nm=r.querySelector('nameOfIssuer')?.textContent?.trim()||'';
-      const cl=r.querySelector('titleOfClass')?.textContent?.trim()||'';
-      const tk=typeof tkMap[nm]==='function'?tkMap[nm](cl):(tkMap[nm]||nm);
-      return {ticker:tk,name:nm,cls:cl,shares:+r.querySelector('sshPrnamt')?.textContent||0,value:+r.querySelector('value')?.textContent||0,sector:secMap[tk]||'其他'};
-    });
-  };
-  const [curH, prevH] = await Promise.all([parseXML(ci), parseXML(pi)]);
-  const pm={}; prevH.forEach(h=>pm[h.ticker]=h);
-  curH.forEach(h=>{ const p=pm[h.ticker]; h.prevShares=p?.shares||0; h.prevValue=p?.value||0; });
-  curH.sort((a,b)=>b.value-a.value);
-  const ql = d => { const dt=new Date(d+'T00:00:00'); return dt.getFullYear()+' Q'+(Math.ceil((dt.getMonth()+1)/3)); };
-  return {
-    quarter: ql(filings[0].reportDate), filingDate: filings[0].filingDate,
-    periodEnd: filings[0].reportDate, prevQuarter: ql(filings[1].reportDate),
-    totalValue: curH.reduce((s,h)=>s+h.value,0),
-    prevTotalValue: prevH.reduce((s,h)=>s+h.value,0),
-    holdings: curH, live: true
-  };
-}
-
+// Reload the selected investor's complete, server-processed published snapshot.
+// Browser-side SEC parsing bypassed ticker reconciliation and mixed investor data.
 async function refreshLive() {
   const btn = document.getElementById('btnRefresh');
-  const src = document.getElementById('dataSource');
-  btn.disabled = true; btn.textContent = '⏳ 拉取中...';
-  src.textContent = '正在连接 SEC EDGAR...';
+  const ctrl = new AbortController();
+  const timeout = setTimeout(() => ctrl.abort(), 30000);
+  btn.disabled = true;
+  btn.textContent = lang === 'en' ? '⏳ Refreshing…' : '⏳ 刷新中…';
   try {
-    const ctrl = new AbortController();
-    setTimeout(()=>ctrl.abort(), 30000);
-    const live = await tryLiveFetch();
-    data.current = live; data._live = true;
-    renderSummary(); renderHoldings(); renderChanges(); renderInsights(); renderHistoryChart();
-    src.textContent = '✅ SEC 实时数据';
-  } catch(e) {
-    src.textContent = '⚠ SEC 不可达,显示缓存数据';
-    console.log('Live fetch failed:', e.message);
+    await switchInvestor(investor, {fresh: true, signal: ctrl.signal});
+    await initStatusDot();
   } finally {
-    btn.disabled = false; btn.textContent = '🔄 刷新';
+    clearTimeout(timeout);
+    btn.disabled = false;
+    btn.textContent = lang === 'en' ? '🔄 Refresh' : '🔄 刷新';
   }
 }
 
@@ -913,29 +863,65 @@ function renderHoldings() {
   }
 }
 
+function sameSecurity(a, b) {
+  if (a.cusip && b.cusip) return a.cusip === b.cusip;
+  const ticker = h => (h.ticker || '').toUpperCase().replace(/[./-]/g, '');
+  if (ticker(a) && ticker(a) === ticker(b)) return true;
+  // Legacy history may lack CUSIP and contain unresolved issuer names.
+  return !!a.name && a.name === b.name && (a.cls || '') === (b.cls || '') &&
+    ((a.ticker || '').startsWith('?') || (b.ticker || '').startsWith('?'));
+}
+
+function quarterlyHoldings(snapshot = data) {
+  const current = snapshot.current;
+  const authoritative = Array.isArray(current.previousHoldings);
+  const previous = authoritative ? current.previousHoldings
+    : snapshot.history?.holdings?.[current.prevQuarter] || [];
+  const remaining = [...previous];
+  const rows = current.holdings.map(h => {
+    const index = remaining.findIndex(p => sameSecurity(h, p));
+    const p = index < 0 ? null : remaining.splice(index, 1)[0];
+    return {...h,
+      prevShares: authoritative ? (p?.shares || 0) : (h.prevShares ?? p?.shares ?? 0),
+      prevValue: authoritative ? (p?.value || 0) : (h.prevValue ?? p?.value ?? 0)};
+  });
+  for (const p of remaining) {
+    if (p.shares > 0) rows.push({...p, shares: 0, value: 0, prevShares: p.shares, prevValue: p.value, exited: true});
+  }
+  return rows;
+}
+
 function renderChanges() {
-  const d = data.current;
-  const pq = d.prevQuarter || '上季';
-  const cq = d.quarter || '本季';
-  document.getElementById('chPS').textContent = pq + ' 持股';
-  document.getElementById('chCS').textContent = cq + ' 持股';
-  document.getElementById('chPV').textContent = pq + ' 市值';
-  document.getElementById('chCV').textContent = cq + ' 市值';
-  document.getElementById('changesBody').innerHTML = d.holdings.map(h=>{
-    const sd=h.shares-(h.prevShares||0), vd=h.value-(h.prevValue||0);
-    const sc=h.prevShares===0?'qoq-new':(sd>0?'qoq-up':(sd<0?'qoq-down':'qoq-flat'));
-    const vc=h.prevValue===0?'qoq-new':(vd>0?'qoq-up':(vd<0?'qoq-down':'qoq-flat'));
-    const ss=sd>0?'+':'', vs=vd>0?'+':'';
-    return `<tr><td class="stock-cell"><span class="ticker-line">${fmtTicker(h.ticker)}</span><span class="name-line">${cn(h.name, h)}</span><span class="sector-badge">${ts(h.sector)}</span></td><td>${h.prevShares===0?'-':fmtNum(h.prevShares)}</td><td>${fmtNum(h.shares)}</td><td>${fmtShareChg(h.shares,h.prevShares)}</td><td>${h.prevValue===0?'-':'$'+fmtVal(h.prevValue)}</td><td>$${fmtVal(h.value)}</td><td class="${vc}">${h.prevValue===0?'新进':`${vs}$${fmtVal(Math.abs(vd))} (${fmtPct(h.value,h.prevValue)})`}</td></tr>`;
+  const d = data.current, en = lang === 'en';
+  const pq = d.prevQuarter || (en ? 'Previous' : '上季');
+  const cq = d.quarter || (en ? 'Current' : '本季');
+  document.getElementById('chPS').textContent = pq + (en ? ' Shares' : ' 持股');
+  document.getElementById('chCS').textContent = cq + (en ? ' Shares' : ' 持股');
+  document.getElementById('chPV').textContent = pq + (en ? ' Value' : ' 市值');
+  document.getElementById('chCV').textContent = cq + (en ? ' Value' : ' 市值');
+  document.getElementById('changesBody').innerHTML = quarterlyHoldings().map(h => {
+    const vd = h.value - h.prevValue;
+    const vc = h.prevValue === 0 ? 'qoq-new' : (vd > 0 ? 'qoq-up' : (vd < 0 ? 'qoq-down' : 'qoq-flat'));
+    const vs = vd > 0 ? '+' : vd < 0 ? '-' : '';
+    const symbol = currSymbol(h.ticker);
+    const exited = h.exited ? `<span class="qoq-down"> · ${en ? 'Exited' : '清仓'}</span>` : '';
+    return `<tr><td class="stock-cell"><span class="ticker-line">${fmtTicker(h.ticker)}${exited}</span><span class="name-line">${cn(h.name, h)}</span><span class="sector-badge">${ts(h.sector)}</span></td><td>${h.prevShares===0?'-':fmtNum(h.prevShares)}</td><td>${fmtNum(h.shares)}</td><td>${fmtShareChg(h.shares,h.prevShares)}</td><td>${h.prevValue===0?'-':symbol+fmtVal(h.prevValue)}</td><td>${symbol}${fmtVal(h.value)}</td><td class="${vc}">${h.prevValue===0?(en?'New':'新进'):`${vs}${symbol}${fmtVal(Math.abs(vd))} (${fmtPct(h.value,h.prevValue)})`}</td></tr>`;
   }).join('');
 }
 
 function renderInsights() {
-  const d = data.current, ins = [];
+  const d = data.current, ins = [], changes = quarterlyHoldings();
 
   // AI 摘要（如果有）
   const aiSummary = (data.meta || {}).aiSummary;
   const aiQuarter = (data.meta || {}).aiSummaryQuarter || '';
+  const aiStep = _runStatusData?.runs?.[0]?.steps?.metadata;
+  const aiDegraded = aiStep && ['warn', 'fail'].includes(aiStep.status);
+  const aiStale = aiQuarter && aiQuarter !== d.quarter;
+  const aiUpdated = data.meta?.aiSummaryUpdatedAt;
+  const aiNotice = aiDegraded ? (lang === 'en' ? ' · AI update incomplete; saved summary' : ' · AI 未完整更新，显示已有摘要')
+    : aiStale ? (lang === 'en' ? ' · Earlier quarter' : ' · 非本季摘要') : '';
+  const aiDate = aiUpdated ? ' · ' + new Date(aiUpdated).toLocaleDateString(lang === 'en' ? 'en-US' : 'zh-CN') : '';
   const box = document.querySelector('.insights-box');
   let aiBar = document.getElementById('aiSummaryBar');
   if (aiSummary && box) {
@@ -944,18 +930,18 @@ function renderInsights() {
       border:1px solid rgba(99,102,241,0.2);
       border-radius:8px;padding:10px 14px;margin-bottom:10px;
       font-size:.78rem;line-height:1.6;color:var(--text);
-    "><span style="font-size:.65rem;color:#6366f1;font-weight:600;margin-right:6px;">✨ AI ${aiQuarter}</span>${aiSummary}</div>`;
+    "><span style="font-size:.65rem;color:#6366f1;font-weight:600;margin-right:6px;">✨ AI ${aiQuarter}${aiDate}${aiNotice}</span>${aiSummary}</div>`;
     if (aiBar) { aiBar.outerHTML = html; } else { box.insertAdjacentHTML('afterbegin', html); }
   } else if (aiBar) {
     aiBar.remove();
   }
-  const np = d.holdings.filter(h=>!h.prevShares);
+  const np = changes.filter(h=>!h.prevShares);
   if (np.length) ins.push(`${t('insNew')} ${np.length} ${t('insNew2')} ${np.map(h=>h.ticker).join('、')}, ${t('insExpand')}。`);
-  const bs = d.holdings.filter(h=>h.prevShares&&h.shares<h.prevShares*0.5);
+  const bs = changes.filter(h=>h.prevShares&&h.shares<h.prevShares*0.5);
   bs.forEach(h=>{ const p=((h.prevShares-h.shares)/h.prevShares*100).toFixed(0); ins.push(`${h.ticker}(${cn(h.name, h)})${t('insSell')} ${p}%, ${t('insSell2')} ${fmtNum(h.prevShares-h.shares)} ${t('insSell3')}。`); });
-  const inc = d.holdings.filter(h=>h.prevShares&&h.shares>h.prevShares*1.1);
+  const inc = changes.filter(h=>h.prevShares&&h.shares>h.prevShares*1.1);
   inc.forEach(h=>{ const p=((h.shares-h.prevShares)/h.prevShares*100).toFixed(0); ins.push(`${h.ticker}(${cn(h.name, h)})${t('insBuy')} ${p}%, ${t('insBuy2')} ${fmtNum(h.shares-h.prevShares)} ${t('insBuy3')}。`); });
-  const unch = d.holdings.filter(h=>h.prevShares&&h.shares===h.prevShares);
+  const unch = changes.filter(h=>h.prevShares&&h.shares===h.prevShares);
   if (unch.length) ins.push(`${unch.map(h=>h.ticker).join('、')} ${t('insUnchanged')}。`);
   const t3p = (d.holdings.slice(0,3).reduce((s,h)=>s+h.value,0)/d.totalValue*100).toFixed(0);
   ins.push(`${t('insTop3')} ${t3p}%, ${t('insTop3b')}。`);
@@ -3069,21 +3055,34 @@ function renderAll() { try { renderSummary(); renderHoldings(); renderChanges();
 async function initStatusDot() {
   try {
     const r = await fetch('run_status.json?_=' + Math.floor(Date.now()/300000));
-    if (!r.ok) return;
-    const data = await r.json();
-    updateStatusDot(data);
-  } catch(e) {}
+    if (!r.ok) throw new Error('Status unavailable');
+    const statusData = await r.json();
+    _runStatusData = statusData;
+    updateStatusDot(statusData);
+    if (data) renderInsights();
+  } catch(e) { updateStatusDot(null); }
 }
 
-function updateStatusDot(data) {
+function runHealth(run, now = Date.now()) {
+  if (!run) return {state: 'warn', label: lang === 'en' ? 'Update status unavailable' : '更新状态暂不可用'};
+  const steps = Object.values(run.steps || {});
+  if (steps.some(s => s.status === 'fail')) return {state: 'fail', label: lang === 'en' ? 'Some updates failed' : '部分更新失败'};
+  const ts = Date.parse(run.completedAt || run.run_id);
+  if (!Number.isFinite(ts) || now - ts > 36 * 3600000) return {state: 'warn', label: lang === 'en' ? 'Update record is stale' : '更新记录已过期，请检查自动更新'};
+  if (steps.some(s => s.status === 'warn')) return {state: 'warn', label: lang === 'en' ? 'Partial update; see details' : '部分功能未完整更新，请查看详情'};
+  if (run.schemaVersion !== 2) return {state: 'warn', label: lang === 'en' ? 'Older record; AI status unknown' : '旧版记录，未包含 AI 可用状态'};
+  if (!run.completedAt || !steps.length) return {state: 'warn', label: lang === 'en' ? 'Update not completed' : '更新尚未完成'};
+  return {state: 'ok', label: lang === 'en' ? 'Update completed' : '更新完成'};
+}
+
+function updateStatusDot(statusData) {
   const dot = document.getElementById('statusDot');
   if (!dot) return;
-  const runs = (data.runs || []);
-  if (!runs.length) return;
-  const latest = runs[0];
-  const hasFail = Object.values(latest.steps || {}).some(s => s.status === 'fail');
-  dot.classList.remove('ok','fail');
-  dot.classList.add(hasFail ? 'fail' : 'ok');
+  const health = runHealth(statusData?.runs?.[0]);
+  dot.classList.remove('ok', 'fail', 'warn');
+  dot.classList.add(health.state);
+  dot.title = health.label;
+  dot.setAttribute('aria-label', health.label);
 }
 
 async function initApp() {
@@ -3155,7 +3154,7 @@ async function renderStatusDrawer() {
     'akre_greenberg_13f','akre_prices','greenberg_prices',
     'batch2_13f','klarman_prices','ackman_prices','abrams_prices','berkowitz_prices','hawkins_prices',
     'webb_prices','webb_holdings',
-    'resolve_cusip','metadata','hk_disclosures','spinoff_hk','spinoff_us',
+    'resolve_cusip','metadata','hk_disclosures','spinoff_hk','spinoff_us','spinoff_prices','greenblatt_notes',
   ];
 
   const STEP_LABELS = {
@@ -3170,6 +3169,7 @@ async function renderStatusDrawer() {
     klarman_prices:'克拉曼 股价', ackman_prices:'阿克曼 股价',
     abrams_prices:'艾布拉姆斯 股价', berkowitz_prices:'伯科威茨 股价', hawkins_prices:'霍金斯 股价',
     webb_prices:'Webb 股价', webb_holdings:'Webb 港股持仓',
+    resolve_cusip:'股票代码解析', spinoff_prices:'分拆股价刷新', greenblatt_notes:'格林布拉特点评',
     metadata:'元数据富化', hk_disclosures:'港股披露监控',
     spinoff_hk:'港股分拆', spinoff_us:'美股分拆',
   };
@@ -3183,7 +3183,7 @@ async function renderStatusDrawer() {
   }
 
   function triggerBadge(trigger) {
-    const label = trigger === 'workflow_dispatch' ? '手动触发' : '定时任务';
+    const label = trigger === 'workflow_dispatch' ? '手动触发' : trigger === 'push' ? '代码更新' : '定时任务';
     const color = trigger === 'workflow_dispatch' ? '#1d4ed8' : '#6b7280';
     return `<span style="font-size:.65rem;padding:2px 8px;border-radius:12px;background:${color}1a;color:${color};font-weight:600;border:1px solid ${color}33;">${label}</span>`;
   }
@@ -3191,20 +3191,22 @@ async function renderStatusDrawer() {
   function statusIcon(s) {
     if (!s) return '<span style="color:#9ca3af;font-size:.95rem;">—</span>';
     if (s === 'ok')   return '<span style="color:#15803d;font-size:.95rem;" title="成功">✓</span>';
+    if (s === 'warn') return '<span style="color:#d97706;font-size:.85rem;" title="部分功能未更新">!</span>';
     if (s === 'skip') return '<span style="color:#d97706;font-size:.85rem;" title="跳过">↷</span>';
     return '<span style="color:#b91c1c;font-size:.95rem;" title="失败">✗</span>';
   }
 
   // 统计 ok/fail/skip 数量
   function runSummary(steps) {
-    let ok=0, fail=0, skip=0, total=0;
+    let ok=0, fail=0, skip=0, warn=0, total=0;
     Object.values(steps).forEach(s => {
       total++;
       if (s.status === 'ok') ok++;
       else if (s.status === 'skip') skip++;
+      else if (s.status === 'warn') warn++;
       else fail++;
     });
-    return { ok, fail, skip, total };
+    return { ok, fail, skip, warn, total };
   }
 
   let html = `
@@ -3212,17 +3214,16 @@ async function renderStatusDrawer() {
       <h3 style="font-family:var(--serif);font-size:1.1rem;color:var(--navy);font-weight:600;margin-bottom:4px;">
         🔍 自动更新状态
       </h3>
-      <p style="font-size:.8rem;color:var(--text-lighter);">显示最近 ${runs.length} 次 workflow 执行结果，每步骤标记成功 / 失败 / 跳过。</p>
+      <p style="font-size:.8rem;color:var(--text-lighter);">显示最近 ${runs.length} 次 workflow 执行结果，每步骤标记成功 / 部分更新 / 失败 / 跳过。绿色表示更新完成，黄色表示降级、未完成或记录过期。</p>
     </div>`;
 
   runs.forEach((run, idx) => {
     const steps = run.steps || {};
-    const { ok, fail, skip, total } = runSummary(steps);
-    const allOk = fail === 0;
-    const borderColor = allOk ? '#15803d' : '#b91c1c';
-    const bgBadge = allOk
-      ? '<span style="font-size:.7rem;padding:2px 10px;border-radius:12px;background:#dcfce7;color:#15803d;font-weight:600;">全部成功</span>'
-      : `<span style="font-size:.7rem;padding:2px 10px;border-radius:12px;background:#fee2e2;color:#b91c1c;font-weight:600;">${fail} 步骤失败</span>`;
+    const { ok, fail, skip, warn, total } = runSummary(steps);
+    // Freshness applies to the latest run; older cards describe their state at completion.
+    const health = runHealth(run, idx === 0 ? Date.now() : Date.parse(run.completedAt || run.run_id));
+    const borderColor = health.state === 'ok' ? '#15803d' : health.state === 'fail' ? '#b91c1c' : '#b45309';
+    const bgBadge = `<span style="font-size:.7rem;padding:2px 10px;border-radius:12px;background:${borderColor}15;color:${borderColor};font-weight:600;">${health.label}</span>`;
 
     html += `
     <div style="border:1px solid var(--border-light);border-left:3px solid ${borderColor};border-radius:8px;padding:16px 20px;margin-bottom:16px;">
@@ -3230,18 +3231,18 @@ async function renderStatusDrawer() {
         <span style="font-size:.78rem;color:var(--text-lighter);font-family:monospace;">${fmtTime(run.run_id)}</span>
         ${triggerBadge(run.trigger)}
         ${bgBadge}
-        <span style="font-size:.72rem;color:var(--text-lighter);margin-left:auto;">${ok}✓ ${skip}↷ ${fail}✗ / ${total} 步</span>
+        <span style="font-size:.72rem;color:var(--text-lighter);margin-left:auto;">${ok}✓ ${warn}! ${skip}↷ ${fail}✗ / ${total} 步</span>
       </div>
       <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:6px;">`;
 
-    STEP_ORDER.forEach(stepKey => {
+    [...new Set([...STEP_ORDER, ...Object.keys(steps)])].forEach(stepKey => {
       const s = steps[stepKey];
-      const label = STEP_LABELS[stepKey] || stepKey;
+      const label = STEP_LABELS[stepKey] || s?.label || stepKey;
       const icon = statusIcon(s ? s.status : null);
       const msg = s && s.msg ? `<span style="font-size:.65rem;color:#b91c1c;margin-left:4px;">${s.msg}</span>` : '';
       const ts = s && s.ts ? `<span style="font-size:.62rem;color:#9ca3af;margin-left:auto;">${fmtTime(s.ts).slice(-5)}</span>` : '';
-      const bg = !s ? '#f9fafb' : s.status === 'ok' ? '#f0fdf4' : s.status === 'skip' ? '#fffbeb' : '#fef2f2';
-      const border = !s ? 'var(--border-light)' : s.status === 'ok' ? '#bbf7d0' : s.status === 'skip' ? '#fde68a' : '#fecaca';
+      const bg = !s ? '#f9fafb' : s.status === 'ok' ? '#f0fdf4' : ['skip', 'warn'].includes(s.status) ? '#fffbeb' : '#fef2f2';
+      const border = !s ? 'var(--border-light)' : s.status === 'ok' ? '#bbf7d0' : ['skip', 'warn'].includes(s.status) ? '#fde68a' : '#fecaca';
 
       html += `<div style="display:flex;align-items:center;gap:6px;padding:6px 10px;border-radius:6px;background:${bg};border:1px solid ${border};font-size:.78rem;">
         ${icon}

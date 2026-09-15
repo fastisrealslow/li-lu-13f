@@ -44,6 +44,7 @@ body{font-family:var(--sans);color:var(--text);background:var(--bg);line-height:
 .status-dot{background:none;border:none;cursor:pointer;padding:0;margin-left:12px;display:flex;align-items:center;justify-content:center;width:20px;height:20px;flex-shrink:0;}
 .status-dot span{display:block;width:10px;height:10px;border-radius:50%;background:#6b7280;box-shadow:0 0 0 2px rgba(107,114,128,.25);transition:background .3s,box-shadow .3s;}
 .status-dot.ok span{background:#22c55e;box-shadow:0 0 0 3px rgba(34,197,94,.25);}
+.status-dot.warn span{background:#f59e0b;box-shadow:0 0 0 3px rgba(245,158,11,.25);}
 .status-dot.fail span{background:#ef4444;box-shadow:0 0 0 3px rgba(239,68,68,.3);animation:pulse-red 1.5s infinite;}
 @keyframes pulse-red{0%,100%{box-shadow:0 0 0 3px rgba(239,68,68,.3)}50%{box-shadow:0 0 0 5px rgba(239,68,68,.1)}}
 /* ========== STATUS DRAWER ========== */
@@ -372,7 +373,7 @@ th .info-wrap{position:relative;display:inline-flex}
         </div>
       </div>
       <div class="hero-actions">
-        <button class="btn-refresh" id="btnRefresh" onclick="refreshLive()" title="海外用户可从 SEC 拉取实时数据">🔄 刷新</button>
+        <button class="btn-refresh" id="btnRefresh" onclick="refreshLive()" title="重新读取当前投资人最新发布的持仓和股价">🔄 刷新</button>
         <div class="data-source-tag" id="dataSource"></div>
       </div>
     </div>
@@ -582,7 +583,7 @@ th .info-wrap{position:relative;display:inline-flex}
   </div>
 </footer>
 
-<script src="app.js?v=54"></script>
+<script src="app.js?v=55"></script>
 <script>
 const nav=document.getElementById('mainNav');
 window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',window.scrollY>60));
