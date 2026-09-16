@@ -213,7 +213,11 @@ def normalize(data, market, previous=None, now=None):
             event['changedAt'] = old.get('changedAt', now) if old and old.get('fingerprint') == fingerprint else now
             if initialized and (not old or old.get('fingerprint') != fingerprint):
                 fields = [k for k in semantic if not old or old_semantic.get(k) != semantic[k]]
-                changes.append({'eventId': eid, 'at': now, 'kind': 'updated' if old else 'new', 'fields': fields, 'fromStatus': old.get('status') if old else None, 'toStatus': status})
+                if fields or not old:
+                    changes.append({'eventId': eid, 'at': now, 'kind': 'updated' if old else 'new',
+                                    'parentTicker': event['parentTicker'], 'parentName': event['parentName'],
+                                    'fields': fields, 'before': old_semantic if old else None, 'after': semantic,
+                                    'fromStatus': old.get('status') if old else None, 'toStatus': status})
             events.append(event)
     data.update(events=events, eventsSchemaVersion=1, eventsNormalizedAt=now, changes=changes[-300:],
                 trackingStartedAt=(previous or data).get('trackingStartedAt', now))

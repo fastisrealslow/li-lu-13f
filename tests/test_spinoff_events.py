@@ -88,6 +88,9 @@ class SpinEvidenceTests(unittest.TestCase):
         changed = normalize(again,'us',now='2026-09-18T00:00:00Z')
         self.assertEqual(len(changed['changes']),1)
         self.assertEqual(changed['changes'][0]['fields'],['status'])
+        self.assertEqual(changed['changes'][0]['parentTicker'], 'PARENT')
+        self.assertEqual(changed['changes'][0]['before']['status'], 'completed')
+        self.assertEqual(changed['changes'][0]['after']['status'], 'terminated')
         validate_events(changed)
 
     def test_publishing_rejects_status_without_source(self):
