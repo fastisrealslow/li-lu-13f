@@ -29,6 +29,7 @@ class SpinEvidenceTests(unittest.TestCase):
         self.assertEqual(extract_name('Corteva common stock will trade without an entitlement to receive the Vylor Co'), '')
         self.assertEqual(extract_name('The spin-off of Example Holdings was announced.'), 'Example Holdings')
         self.assertEqual(extract_name('建議分拆所屬子公司江西省江銅銅箔科技股份有限公司及獨立上市'), '江西省江銅銅箔科技股份有限公司')
+        self.assertEqual(extract_name('建議分拆物泊科技於香港聯合交易所有限公司上市'), '')
         self.assertEqual(extract_name('The spin-off of Alpha Holdings and separation of Beta Holdings.'), '')
 
     def test_dates_are_normalized_and_conflicts_remain_unknown(self):
@@ -41,6 +42,22 @@ class SpinEvidenceTests(unittest.TestCase):
         ann = {'adsh':'0001234567-26-000001', 'date':'2026-09-16', 'title':'Spin-off filing'}
         return {'updatedAt':'2026-09-16', 'companies':[{'ticker':'PARENT','cik':'1234567', 'spinoffName':'Child Holdings',
             'status':'completed', 'distributionDate':'2020-01-01', 'announcements':[ann]}]}
+
+    def test_resolving_one_of_multiple_targets_keeps_unique_ids(self):
+        data = self.fixture()
+        old = normalize(copy.deepcopy(data), 'us')
+        data['companies'][0]['filingEvidence'] = [{'targetName': 'Child Holdings', 'status': 'announced',
+            'quote': 'We plan the spin-off.', 'url': filing_url('1234567','0001234567-26-000001'),
+            'accession': '0001234567-26-000001', 'date': '2026-09-16', 'dates': {}},
+            {'targetName': '', 'status': 'needs_review', 'quote': '', 'url': '', 'dates': {}}]
+        result = normalize(data, 'us', previous=old)
+        self.assertEqual(len({e['id'] for e in result['events']}), 2)
+        validate_events(result)
+
+    def test_encoded_dates_are_readable(self):
+        dates = extract_dates('Record date: September&#160;15, 2026. distribution date: 2026 年 10 月 1 日。')
+        self.assertEqual(dates['recordDate']['date'], '2026-09-15')
+        self.assertEqual(dates['distributionDate']['date'], '2026-10-01')
 
     def test_parent_name_is_not_reused_as_child(self):
         data = self.fixture()

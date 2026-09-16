@@ -1,5 +1,6 @@
 """Evidence-backed spin-off dossiers. No AI or network required to normalize data."""
 import hashlib
+import html
 import json
 import re
 from datetime import datetime, timezone
@@ -34,8 +35,10 @@ def direct_source(url):
 
 
 def iso_date(value):
-    value = str(value or '').strip()
-    for fmt in ('%Y-%m-%d', '%B %d, %Y', '%b %d, %Y', '%Y年%m月%d日'):
+    value = html.unescape(str(value or '')).strip()
+    if '年' in value:
+        value = re.sub(r'\s+', '', value)
+    for fmt in ('%Y-%m-%d', '%B %d, %Y', '%b %d, %Y', '%B %d %Y', '%b %d %Y', '%Y年%m月%d日'):
         try:
             return datetime.strptime(value, fmt).date().isoformat()
         except ValueError:
@@ -45,8 +48,10 @@ def iso_date(value):
 
 def clean_name(value):
     name = re.sub(r'\s+', ' ', str(value or '')).strip(' .,')
+    name = re.sub(r'^(?:所屬子公司|所属子公司)', '', name)
+    name = re.sub(r'(有限公司)及$', r'\1', name)
     if (not 2 <= len(name) <= 90 or name.lower() in {'tbd', 'spinco', 'newco', '(解析中)', '子公司', '附屬公司'}
-            or re.search(r'\b(?:will|would|shall|entitlement|shares|common stock|receive|expects|from|including|owned)\b|建議分拆及|建议分拆及|公司的建議', name, re.I)):
+            or re.search(r'\b(?:will|would|shall|entitlement|shares|common stock|receive|expects|from|including|owned)\b|建議分拆及|建议分拆及|公司的建議|交易所|董事會|董事会|股票價格|股票价格|分拆|獨立上市|独立上市|上市董事|本集團|本集团|並於|并于', name, re.I)):
         return ''
     return name
 
@@ -69,6 +74,7 @@ def extract_name(text):
 
 def infer_status(text):
     """Return a rule match and its exact sentence, never infer completion from a date."""
+    text = html.unescape(text or '')
     sentences = re.split(r'(?<=[.!?。；;])\s+|[\n。；]', re.sub(r'[ \t]+', ' ', text or ''))
     candidates = []
     for sentence in sentences:
@@ -101,8 +107,9 @@ def infer_status(text):
 
 
 def extract_dates(text):
+    text = html.unescape(text or '').replace('\u00a0', ' ')
     result = {}
-    token = r'(?:[A-Z][a-z]+ \d{1,2},? \d{4}|\d{4}-\d{2}-\d{2}|20\d{2}年\d{1,2}月\d{1,2}日)'
+    token = r'(?:[A-Z][a-z]+ \d{1,2},? \d{4}|\d{4}-\d{2}-\d{2}|20\d{2}\s*年\s*\d{1,2}\s*月\s*\d{1,2}\s*日)'
     for field, label in [('recordDate', r'record date|記錄日期|记录日期|記錄日|记录日'), ('distributionDate', r'distribution date|分派日期|分派日')]:
         matches = list(re.finditer(r'(?:' + label + r')[^.;。；\n]{0,65}?(' + token + ')', text, re.I))
         dates = {iso_date(m.group(1)) for m in matches} - {''}
@@ -112,6 +119,7 @@ def extract_dates(text):
 
 
 def parse_evidence(text, ann, cik=''):
+    text = html.unescape(text or '')
     url = source_url(ann, cik)
     match = infer_status(text)
     return {**match, 'url': url, 'date': iso_date(ann.get('date')), 'targetName': extract_name(text),
@@ -133,7 +141,7 @@ def normalize(data, market, previous=None, now=None):
             relevant = market == 'hk' or bool(ann.get('adsh')) or not re.search(r'公告（|签订.*（|交割完成.*（|变动.*（', ann.get('title', ''))
             announcements.append({**ann, 'url': url, 'direct': direct_source(url), 'relevance': 'candidate' if relevant else 'unverified'})
         announcements.sort(key=lambda a: a.get('date', ''), reverse=True)
-        proofs = list(c.get('filingEvidence') or [])
+        proofs = [{**p, 'quote': html.unescape(p.get('quote', ''))} for p in c.get('filingEvidence') or []]
         parsed_urls = {p.get('url') for p in proofs}
         parsed_ids = {p.get('accession') for p in proofs if p.get('accession')}
         proofs += [parse_evidence(a.get('title', ''), a, c.get('cik', '')) for a in announcements
@@ -157,7 +165,8 @@ def normalize(data, market, previous=None, now=None):
             eid = f'{market}:{parent}:' + (hashlib.sha256(target_key.encode()).hexdigest()[:12] if target_key else 'unresolved')
             # Preserve local watch/note identity as an unresolved dossier gains a name.
             prior = [e for e in old_events.values() if e.get('market') == market and e.get('parentTicker') == (c.get('ticker') or parent)]
-            matching = [e for e in prior if named and e.get('targetName', '').casefold() == named.casefold()]
+            matching = [e for e in prior if named and e.get('targetName', '').casefold() == named.casefold()
+                        and (len(groups) == 1 or not e['id'].endswith(':unresolved'))]
             if len(matching) == 1:
                 eid = matching[0]['id']
             elif len(groups) == 1 and len(prior) == 1 and prior[0]['id'].endswith(':unresolved'):

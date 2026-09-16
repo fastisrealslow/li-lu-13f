@@ -2461,12 +2461,20 @@
       "targetName": "若干商業物業權益",
       "targetTicker": "",
       "identityVerified": false,
-      "status": "needs_review",
-      "evidence": null,
+      "status": "announced",
+      "evidence": {
+        "status": "announced",
+        "quote": "自願公告 建議分拆商業不動產REITs",
+        "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0309/2026030900004_c.pdf",
+        "date": "2026-03-09",
+        "targetName": "",
+        "dates": {},
+        "method": "rule",
+        "accession": ""
+      },
       "dates": {},
       "missing": [
         "ticker",
-        "evidence",
         "recordDate",
         "distributionDate"
       ],
@@ -2508,9 +2516,9 @@
         "currency": "HKD",
         "updatedAt": "2026-09-16"
       },
-      "fingerprint": "295dbddf124221f6c0bec2b0005219fc8ed78ae9ceba360189b7600378474693",
+      "fingerprint": "74c0aa6b10fd686a9c4a101bf7de28967c836b1e9912db6400b2ec49a2edf80b",
       "firstSeenAt": "2026-09-16T02:58:58Z",
-      "changedAt": "2026-09-16T03:15:38Z"
+      "changedAt": "2026-09-16T03:57:43Z"
     },
     {
       "id": "hk:01548:unresolved",
@@ -2580,12 +2588,20 @@
       "targetName": "復星安特金",
       "targetTicker": "",
       "identityVerified": false,
-      "status": "needs_review",
-      "evidence": null,
+      "status": "announced",
+      "evidence": {
+        "status": "announced",
+        "quote": "建議分拆復星安特金並於香港聯交所主板獨立上市",
+        "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0626/2026062601696_c.pdf",
+        "date": "2026-06-26",
+        "targetName": "",
+        "dates": {},
+        "method": "rule",
+        "accession": ""
+      },
       "dates": {},
       "missing": [
         "ticker",
-        "evidence",
         "recordDate",
         "distributionDate"
       ],
@@ -2643,9 +2659,9 @@
         "currency": "HKD",
         "updatedAt": "2026-09-16"
       },
-      "fingerprint": "e54f877426a082e48cba7e01df1980a65c36cb1a75a4dea4f44d7a8c7cda8e09",
+      "fingerprint": "4fbd32ecf4b33bd8dea8c354afbf893fdda0882052c21a564e22b3bba4237466",
       "firstSeenAt": "2026-09-16T02:58:58Z",
-      "changedAt": "2026-09-16T03:15:38Z"
+      "changedAt": "2026-09-16T03:57:43Z"
     },
     {
       "id": "hk:01070:unresolved",
@@ -2704,7 +2720,7 @@
       "market": "hk",
       "parentTicker": "00358.HK",
       "parentName": "江西銅業股份",
-      "targetName": "所屬子公司江西省江銅銅箔科技股份有限公司",
+      "targetName": "",
       "targetTicker": "",
       "identityVerified": false,
       "status": "announced",
@@ -2720,6 +2736,7 @@
       },
       "dates": {},
       "missing": [
+        "target",
         "ticker",
         "recordDate",
         "distributionDate"
@@ -2747,7 +2764,7 @@
           "docUrl": "/listedco/listconews/sehk/2026/0716/2026071601403_c.pdf",
           "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0716/2026071601403_c.pdf",
           "direct": true,
-          "relevance": "candidate"
+          "relevance": "unverified"
         },
         {
           "date": "2026-07-16",
@@ -2763,7 +2780,7 @@
           "docUrl": "/listedco/listconews/sehk/2026/0716/2026071601363_c.pdf",
           "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0716/2026071601363_c.pdf",
           "direct": true,
-          "relevance": "candidate"
+          "relevance": "unverified"
         },
         {
           "date": "2026-07-16",
@@ -2794,9 +2811,100 @@
         "currency": "HKD",
         "updatedAt": "2026-09-16"
       },
-      "fingerprint": "aa840055924e39d97eb7468c5f0bc1e99aef211598388fefdad8083b20cf8225",
+      "fingerprint": "8e2fe2acd138ba95430867eb471ba1f64939b1e39a44d5036a7ecdb909828ed0",
       "firstSeenAt": "2026-09-16T02:58:58Z",
-      "changedAt": "2026-09-16T02:58:58Z"
+      "changedAt": "2026-09-16T03:57:43Z"
+    },
+    {
+      "id": "hk:00358:af0f59be722e",
+      "market": "hk",
+      "parentTicker": "00358.HK",
+      "parentName": "江西銅業股份",
+      "targetName": "江西省江銅銅箔科技股份有限公司",
+      "targetTicker": "",
+      "identityVerified": true,
+      "status": "needs_review",
+      "evidence": null,
+      "dates": {},
+      "missing": [
+        "ticker",
+        "evidence",
+        "recordDate",
+        "distributionDate"
+      ],
+      "type": {
+        "code": "ipo_hk",
+        "exchange_zh": "港交所",
+        "exchange_en": "HKEX",
+        "label_zh": "分拆·港股IPO",
+        "label_en": "Spinoff·HKEX IPO",
+        "is_reit": false
+      },
+      "announcements": [
+        {
+          "date": "2026-08-06",
+          "title": "海外監管公告 - 關於分拆所屬子公司江西省江銅銅箔科技股份有限公司至香港聯合交易所有限公司主板上市相關內幕信息知情人買賣公司股票情況的自查報告、北京德恒律師事務所關於江西銅業股份有限公司分拆所屬子公司江西省江銅銅箔科技股份有限公司至香港聯合交易所有限公司主板上市之股票交易自查期間相關方買賣股票情況的專項核查意見及中國國際金融股份有限公司關於江西銅業股份有限公",
+          "docUrl": "/listedco/listconews/sehk/2026/0806/2026080601575_c.pdf",
+          "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0806/2026080601575_c.pdf",
+          "direct": true,
+          "relevance": "unverified"
+        },
+        {
+          "date": "2026-07-16",
+          "title": "海外監管公告 - 中國國際金融股份有限公司關於江西銅業股份有限公司分拆所屬子公司江西省江銅銅箔科技股份有限公司至香港聯合交易所有限公司主板上市之獨立財務顧問核查意見、北京德恒律師事務所關於江西銅業股份有限公司分拆所屬子公司江西省江銅銅箔科技股份有限公司至香港聯合交易所有限公司主板上市的法律意見及江西銅業股份有限公司分拆所屬子公司江西省江銅銅箔科技股份有限公司",
+          "docUrl": "/listedco/listconews/sehk/2026/0716/2026071601403_c.pdf",
+          "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0716/2026071601403_c.pdf",
+          "direct": true,
+          "relevance": "candidate"
+        },
+        {
+          "date": "2026-07-16",
+          "title": "海外監管公告 - 關於分拆子公司上市的一般風險提示性公告、董事會關於分拆子公司上市董事會決議日前股票價格波動的情況說明及董事會關於公司分拆所屬子公司江西省江銅銅箔科技股份有限公司至香港聯合交易所有限公司主板上市履行法定程序的完備性、合規性及提交法律文件有效性的說明",
+          "docUrl": "/listedco/listconews/sehk/2026/0716/2026071601379_c.pdf",
+          "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0716/2026071601379_c.pdf",
+          "direct": true,
+          "relevance": "unverified"
+        },
+        {
+          "date": "2026-07-16",
+          "title": "海外監管公告 - 關於分拆所屬子公司江西省江銅銅箔科技股份有限公司至香港聯合交易所有限公司主板上市的預案",
+          "docUrl": "/listedco/listconews/sehk/2026/0716/2026071601363_c.pdf",
+          "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0716/2026071601363_c.pdf",
+          "direct": true,
+          "relevance": "candidate"
+        },
+        {
+          "date": "2026-07-16",
+          "title": "內幕消息及海外監管公告 - 有關控股子公司擬分拆上市",
+          "docUrl": "/listedco/listconews/sehk/2026/0716/2026071601326_c.pdf",
+          "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0716/2026071601326_c.pdf",
+          "direct": true,
+          "relevance": "unverified"
+        },
+        {
+          "date": "2026-04-30",
+          "title": "內幕消息及海外監管公告 - 關於擬籌劃控股子公司分拆上市的提示性公告",
+          "docUrl": "/listedco/listconews/sehk/2026/0430/2026043004591_c.pdf",
+          "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0430/2026043004591_c.pdf",
+          "direct": true,
+          "relevance": "unverified"
+        }
+      ],
+      "latestDate": "2026-07-16",
+      "sourceUpdatedAt": "2026-09-16T03:15:38Z",
+      "parentMarketCap": 138.6,
+      "pricePairs": [],
+      "parentPrice": {
+        "priceAtAnnouncement": 35.843,
+        "priceNow": 33.32,
+        "changePct": -7.0,
+        "firstAnnouncementDate": "2026-04-30",
+        "currency": "HKD",
+        "updatedAt": "2026-09-16"
+      },
+      "fingerprint": "c2956687fdc657df8cf93896e58e0cf96eb0d455df35c78e9594aabcdf33ef40",
+      "firstSeenAt": "2026-09-16T03:57:43Z",
+      "changedAt": "2026-09-16T03:57:43Z"
     },
     {
       "id": "hk:02161:unresolved",
@@ -3158,7 +3266,7 @@
           "docUrl": "/listedco/listconews/sehk/2026/0226/2026022600854_c.pdf",
           "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0226/2026022600854_c.pdf",
           "direct": true,
-          "relevance": "candidate"
+          "relevance": "unverified"
         },
         {
           "date": "2026-02-26",
@@ -3190,7 +3298,7 @@
           "docUrl": "/listedco/listconews/sehk/2026/0122/2026012201045_c.pdf",
           "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0122/2026012201045_c.pdf",
           "direct": true,
-          "relevance": "candidate"
+          "relevance": "unverified"
         },
         {
           "date": "2026-01-22",
@@ -3266,6 +3374,161 @@
       "changedAt": "2026-09-16T02:58:58Z"
     },
     {
+      "id": "hk:02196:223f5dfead37",
+      "market": "hk",
+      "parentTicker": "02196.HK",
+      "parentName": "復星醫藥",
+      "targetName": "復星安特金（成都）生物製藥股份有限公司",
+      "targetTicker": "",
+      "identityVerified": true,
+      "status": "needs_review",
+      "evidence": null,
+      "dates": {},
+      "missing": [
+        "ticker",
+        "evidence",
+        "recordDate",
+        "distributionDate"
+      ],
+      "type": {
+        "code": "ipo_hk",
+        "exchange_zh": "港交所",
+        "exchange_en": "HKEX",
+        "label_zh": "分拆·港股IPO",
+        "label_en": "Spinoff·HKEX IPO",
+        "is_reit": false
+      },
+      "announcements": [
+        {
+          "date": "2026-06-26",
+          "title": "海外監管公告 - 關於建議分拆子公司並於香港聯合交易所有限公司主板獨立上市的進展公告",
+          "docUrl": "/listedco/listconews/sehk/2026/0626/2026062601537_c.pdf",
+          "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0626/2026062601537_c.pdf",
+          "direct": true,
+          "relevance": "unverified"
+        },
+        {
+          "date": "2026-06-26",
+          "title": "建議分拆復星安特金並於香港聯合交易所有限公司主板獨立上市",
+          "docUrl": "/listedco/listconews/sehk/2026/0626/2026062601458_c.pdf",
+          "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0626/2026062601458_c.pdf",
+          "direct": true,
+          "relevance": "unverified"
+        },
+        {
+          "date": "2026-02-26",
+          "title": "海外監管公告 - 上海市方達律師事務所關於上海復星醫藥（集團）股份有限公司分拆復星安特金（成都）生物製藥股份有限公司至香港聯合交易所有限公司主板上市相關內幕信息知情人買賣股票情況自查報告的專項核查意見",
+          "docUrl": "/listedco/listconews/sehk/2026/0226/2026022600854_c.pdf",
+          "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0226/2026022600854_c.pdf",
+          "direct": true,
+          "relevance": "candidate"
+        },
+        {
+          "date": "2026-02-26",
+          "title": "海外監管公告 - 中國國際金融股份有限公司關於上海復星醫藥（ 集團）股份有限公司分拆所屬子公司復星安特金（ 成都）生物製藥股份有限公司至香港聯合交易所有限公司主板上市相關內幕信息知情人買賣公司股票情況之專項核查意見",
+          "docUrl": "/listedco/listconews/sehk/2026/0226/2026022600844_c.pdf",
+          "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0226/2026022600844_c.pdf",
+          "direct": true,
+          "relevance": "unverified"
+        },
+        {
+          "date": "2026-02-26",
+          "title": "海外監管公告 - 關於分拆所屬子公司至香港聯合交易所有限公司主板上市相關內幕信息知情人買賣本公司股票情況的自查報告",
+          "docUrl": "/listedco/listconews/sehk/2026/0226/2026022600828_c.pdf",
+          "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0226/2026022600828_c.pdf",
+          "direct": true,
+          "relevance": "unverified"
+        },
+        {
+          "date": "2026-01-22",
+          "title": "海外監管公告 - 安永華明會計師事務所（特殊普通合夥）關於上海復星醫藥（集團）股份有限公司分拆所屬子公司復星安特金（ 成都）生物製藥股份有限公司至香港聯合交易所有限公司主板上市的說明及會計師意見函",
+          "docUrl": "/listedco/listconews/sehk/2026/0122/2026012201053_c.pdf",
+          "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0122/2026012201053_c.pdf",
+          "direct": true,
+          "relevance": "unverified"
+        },
+        {
+          "date": "2026-01-22",
+          "title": "海外監管公告 - 上海市方達律師事務所關於上海復星醫藥（集團）股份有限公司分拆復星安特金（成都）生物製藥股份有限公司至香港聯合交易所有限公司主板上市的法律意見書",
+          "docUrl": "/listedco/listconews/sehk/2026/0122/2026012201045_c.pdf",
+          "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0122/2026012201045_c.pdf",
+          "direct": true,
+          "relevance": "candidate"
+        },
+        {
+          "date": "2026-01-22",
+          "title": "海外監管公告 - 中國國際金融股份有限公司關於上海復星醫藥（ 集團）股份有限公司分拆所屬子公司復星安特金（ 成都）生物製藥股份有限公司至香港聯合交易所有限公司主板上市之獨立財務顧問核查意見",
+          "docUrl": "/listedco/listconews/sehk/2026/0122/2026012201041_c.pdf",
+          "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0122/2026012201041_c.pdf",
+          "direct": true,
+          "relevance": "unverified"
+        },
+        {
+          "date": "2026-01-22",
+          "title": "海外監管公告 - 董事會關於公司擬分拆所屬子公司復星安特金（ 成都）生物製藥股份有限公司至香港聯合交易所有限公司主板上市履行法定程序的完備性、合規性及提交的法律文件有效性的說明",
+          "docUrl": "/listedco/listconews/sehk/2026/0122/2026012201033_c.pdf",
+          "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0122/2026012201033_c.pdf",
+          "direct": true,
+          "relevance": "unverified"
+        },
+        {
+          "date": "2026-01-22",
+          "title": "海外監管公告 - 關於分拆子公司上市的一般風險提示性公告",
+          "docUrl": "/listedco/listconews/sehk/2026/0122/2026012201021_c.pdf",
+          "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0122/2026012201021_c.pdf",
+          "direct": true,
+          "relevance": "unverified"
+        },
+        {
+          "date": "2026-01-22",
+          "title": "海外監管公告 - 關於分拆所屬子公司復星安特金（ 成都）生物製藥股份有限公司至香港聯合交易所有限公司主板上市的預案",
+          "docUrl": "/listedco/listconews/sehk/2026/0122/2026012201019_c.pdf",
+          "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0122/2026012201019_c.pdf",
+          "direct": true,
+          "relevance": "unverified"
+        },
+        {
+          "date": "2026-01-22",
+          "title": "自願公告 - 建議分拆本公司附屬公司復星安特金並於聯交所上市",
+          "docUrl": "/listedco/listconews/sehk/2026/0122/2026012200955_c.pdf",
+          "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0122/2026012200955_c.pdf",
+          "direct": true,
+          "relevance": "unverified"
+        },
+        {
+          "date": "2025-10-28",
+          "title": "海外監管公告 - 關於擬籌劃控股子公司分拆上市的提示性公告",
+          "docUrl": "/listedco/listconews/sehk/2025/1028/2025102801379_c.pdf",
+          "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2025/1028/2025102801379_c.pdf",
+          "direct": true,
+          "relevance": "unverified"
+        },
+        {
+          "date": "2025-10-28",
+          "title": "自願公告 - 建議籌劃復星安特金於聯交所分拆上市",
+          "docUrl": "/listedco/listconews/sehk/2025/1028/2025102801120_c.pdf",
+          "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2025/1028/2025102801120_c.pdf",
+          "direct": true,
+          "relevance": "unverified"
+        }
+      ],
+      "latestDate": "2026-02-26",
+      "sourceUpdatedAt": "2026-09-16T03:15:38Z",
+      "parentMarketCap": 57.2,
+      "pricePairs": [],
+      "parentPrice": {
+        "priceAtAnnouncement": 22.391,
+        "priceNow": 16.99,
+        "changePct": -24.1,
+        "firstAnnouncementDate": "2025-10-28",
+        "currency": "HKD",
+        "updatedAt": "2026-09-16"
+      },
+      "fingerprint": "52afd2a8a0d3f8a87b8fd218a2437bde48d8461beb25725a0e60b76d31a353fe",
+      "firstSeenAt": "2026-09-16T03:57:43Z",
+      "changedAt": "2026-09-16T03:57:43Z"
+    },
+    {
       "id": "hk:00308:unresolved",
       "market": "hk",
       "parentTicker": "00308.HK",
@@ -3333,13 +3596,21 @@
       "targetName": "",
       "targetTicker": "",
       "identityVerified": false,
-      "status": "needs_review",
-      "evidence": null,
+      "status": "announced",
+      "evidence": {
+        "status": "announced",
+        "quote": "公開募集商業不動產投資信託基金之建議分拆及在深圳證券交易所上市",
+        "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0428/2026042803126_c.pdf",
+        "date": "2026-04-28",
+        "targetName": "",
+        "dates": {},
+        "method": "rule",
+        "accession": ""
+      },
       "dates": {},
       "missing": [
         "target",
         "ticker",
-        "evidence",
         "recordDate",
         "distributionDate"
       ],
@@ -3381,9 +3652,9 @@
         "currency": "HKD",
         "updatedAt": "2026-09-16"
       },
-      "fingerprint": "92339099ffd8ba4f14285efd3efcd8fe96d99aa73ad0f5ba8f9688728c40e09d",
+      "fingerprint": "8e2fe2acd138ba95430867eb471ba1f64939b1e39a44d5036a7ecdb909828ed0",
       "firstSeenAt": "2026-09-16T02:58:58Z",
-      "changedAt": "2026-09-16T03:15:38Z"
+      "changedAt": "2026-09-16T03:57:43Z"
     },
     {
       "id": "hk:01979:unresolved",
@@ -3562,13 +3833,14 @@
       "market": "hk",
       "parentTicker": "02899.HK",
       "parentName": "紫金礦業",
-      "targetName": "紫金黃金國際有限公司",
+      "targetName": "",
       "targetTicker": "",
       "identityVerified": false,
       "status": "needs_review",
       "evidence": null,
       "dates": {},
       "missing": [
+        "target",
         "ticker",
         "evidence",
         "recordDate",
@@ -3597,27 +3869,72 @@
           "docUrl": "/listedco/listconews/sehk/2025/1008/2025100802075_c.pdf",
           "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2025/1008/2025100802075_c.pdf",
           "direct": true,
-          "relevance": "candidate"
+          "relevance": "unverified"
         }
       ],
       "latestDate": "2026-04-07",
       "sourceUpdatedAt": "2026-09-16T03:15:38Z",
       "parentMarketCap": 1048.3,
-      "pricePairs": [
+      "pricePairs": [],
+      "parentPrice": {
+        "priceAtAnnouncement": 33.316,
+        "priceNow": 34.16,
+        "changePct": 2.5,
+        "firstAnnouncementDate": "2025-10-08",
+        "currency": "HKD",
+        "updatedAt": "2026-09-16"
+      },
+      "fingerprint": "92339099ffd8ba4f14285efd3efcd8fe96d99aa73ad0f5ba8f9688728c40e09d",
+      "firstSeenAt": "2026-09-16T02:58:58Z",
+      "changedAt": "2026-09-16T03:57:43Z"
+    },
+    {
+      "id": "hk:02899:120a060e2783",
+      "market": "hk",
+      "parentTicker": "02899.HK",
+      "parentName": "紫金礦業",
+      "targetName": "紫金黃金國際有限公司",
+      "targetTicker": "",
+      "identityVerified": true,
+      "status": "needs_review",
+      "evidence": null,
+      "dates": {},
+      "missing": [
+        "ticker",
+        "evidence",
+        "recordDate",
+        "distributionDate"
+      ],
+      "type": {
+        "code": "ipo_hk",
+        "exchange_zh": "港交所",
+        "exchange_en": "HKEX",
+        "label_zh": "分拆·港股IPO",
+        "label_en": "Spinoff·HKEX IPO",
+        "is_reit": false
+      },
+      "announcements": [
         {
-          "spinoff": "2259.HK",
-          "spinoffName": "紫金黃金國際",
-          "spinoffDate": "2025-09-30",
-          "spinoffPriceAtListing": 118.055,
-          "spinoffPriceNow": 160.1,
-          "spinoffChangePct": 35.6,
-          "currency": "HKD",
-          "confidence": 100,
-          "autoMatched": false,
-          "source": "known_db",
-          "updatedAt": "2026-09-16"
+          "date": "2026-04-07",
+          "title": "中信證券股份有限公司關於紫金礦業集團股份有限公司分拆所屬子公司紫金黃金國際有限公司境外上市之持續督導核查意見",
+          "docUrl": "/listedco/listconews/sehk/2026/0407/2026040700038_c.pdf",
+          "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0407/2026040700038_c.pdf",
+          "direct": true,
+          "relevance": "unverified"
+        },
+        {
+          "date": "2025-10-08",
+          "title": "分拆紫金黃金國際有限公司至香港聯合交易所有限公司主板上市-悉數行使超額配股權",
+          "docUrl": "/listedco/listconews/sehk/2025/1008/2025100802075_c.pdf",
+          "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2025/1008/2025100802075_c.pdf",
+          "direct": true,
+          "relevance": "candidate"
         }
       ],
+      "latestDate": "2025-10-08",
+      "sourceUpdatedAt": "2026-09-16T03:15:38Z",
+      "parentMarketCap": 1048.3,
+      "pricePairs": [],
       "parentPrice": {
         "priceAtAnnouncement": 33.316,
         "priceNow": 34.16,
@@ -3627,8 +3944,8 @@
         "updatedAt": "2026-09-16"
       },
       "fingerprint": "55d032fb68a792e7136d229b61f8e7536637245b2b40f6057d505f7b5eb623d0",
-      "firstSeenAt": "2026-09-16T02:58:58Z",
-      "changedAt": "2026-09-16T02:58:58Z"
+      "firstSeenAt": "2026-09-16T03:57:43Z",
+      "changedAt": "2026-09-16T03:57:43Z"
     },
     {
       "id": "hk:00842:unresolved",
@@ -3746,12 +4063,20 @@
       "targetName": "蔓迪國際",
       "targetTicker": "",
       "identityVerified": false,
-      "status": "needs_review",
-      "evidence": null,
+      "status": "announced",
+      "evidence": {
+        "status": "announced",
+        "quote": "建議分拆蔓迪国际 並於香港聯合交易所有限公司主板獨立上市",
+        "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2025/1120/2025112001395_c.pdf",
+        "date": "2025-11-20",
+        "targetName": "",
+        "dates": {},
+        "method": "rule",
+        "accession": ""
+      },
       "dates": {},
       "missing": [
         "ticker",
-        "evidence",
         "recordDate",
         "distributionDate"
       ],
@@ -3793,9 +4118,9 @@
         "currency": "HKD",
         "updatedAt": "2026-09-16"
       },
-      "fingerprint": "aec302906160c1336a58411f46eabfd562a7f6c54a189e255b025b30a61c611a",
+      "fingerprint": "b36017d9014a9b56c0add6acdf9bf6ebc5b687aeee9c296c4a445fe73f3af6ec",
       "firstSeenAt": "2026-09-16T02:58:58Z",
-      "changedAt": "2026-09-16T03:15:38Z"
+      "changedAt": "2026-09-16T03:57:43Z"
     },
     {
       "id": "hk:00384:unresolved",
@@ -4093,7 +4418,7 @@
       "market": "hk",
       "parentTicker": "02382.HK",
       "parentName": "舜宇光學科技",
-      "targetName": "本集團車載相關光學業務並",
+      "targetName": "",
       "targetTicker": "",
       "identityVerified": false,
       "status": "announced",
@@ -4109,6 +4434,7 @@
       },
       "dates": {},
       "missing": [
+        "target",
         "ticker",
         "recordDate",
         "distributionDate"
@@ -4151,9 +4477,9 @@
         "currency": "HKD",
         "updatedAt": "2026-09-16"
       },
-      "fingerprint": "f033fc91020e8722bb4c9dcb2b991ddb9e15555a641dc74c68a80f23291c7ac3",
+      "fingerprint": "8e2fe2acd138ba95430867eb471ba1f64939b1e39a44d5036a7ecdb909828ed0",
       "firstSeenAt": "2026-09-16T02:58:58Z",
-      "changedAt": "2026-09-16T02:58:58Z"
+      "changedAt": "2026-09-16T03:57:43Z"
     },
     {
       "id": "hk:01357:unresolved",
@@ -4212,7 +4538,7 @@
       "market": "hk",
       "parentTicker": "02096.HK",
       "parentName": "先聲藥業",
-      "targetName": "先聲再明醫藥股份有限公司及",
+      "targetName": "先聲再明醫藥股份有限公司",
       "targetTicker": "",
       "identityVerified": false,
       "status": "announced",
@@ -4262,9 +4588,9 @@
         "currency": "HKD",
         "updatedAt": "2026-09-16"
       },
-      "fingerprint": "c6503dfbaa404eb96774d07a4ca8ea3736058d2dc52198cebe843693a94ca3b3",
+      "fingerprint": "1794d46cb869dbcf714dcb6c6d571c7916247ea11792d28e723a8eafb9f9165f",
       "firstSeenAt": "2026-09-16T02:58:58Z",
-      "changedAt": "2026-09-16T02:58:58Z"
+      "changedAt": "2026-09-16T03:57:43Z"
     },
     {
       "id": "hk:09888:unresolved",
@@ -4331,13 +4657,14 @@
       "market": "hk",
       "parentTicker": "01766.HK",
       "parentName": "中國中車",
-      "targetName": "中車戚墅堰機車車輛工藝研究所股份有限公司",
+      "targetName": "",
       "targetTicker": "",
       "identityVerified": false,
       "status": "needs_review",
       "evidence": null,
       "dates": {},
       "missing": [
+        "target",
         "ticker",
         "evidence",
         "recordDate",
@@ -4382,7 +4709,7 @@
           "docUrl": "/listedco/listconews/sehk/2025/1228/2025122800009_c.pdf",
           "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2025/1228/2025122800009_c.pdf",
           "direct": true,
-          "relevance": "candidate"
+          "relevance": "unverified"
         },
         {
           "date": "2025-11-27",
@@ -4391,6 +4718,137 @@
           "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2025/1127/2025112701496_c.pdf",
           "direct": true,
           "relevance": "candidate"
+        },
+        {
+          "date": "2025-11-27",
+          "title": "海外監管公告 - 關於中國中車股份有限公司分拆所屬子公司中車戚墅堰機車車輛工藝研究所股份有限公司至深圳證券交易所創業板上市說明的會計師專項報告",
+          "docUrl": "/listedco/listconews/sehk/2025/1127/2025112701490_c.pdf",
+          "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2025/1127/2025112701490_c.pdf",
+          "direct": true,
+          "relevance": "unverified"
+        },
+        {
+          "date": "2025-11-27",
+          "title": "海外監管公告 - 中國國際金融股份有限公司關於中國中車股份有限公司分拆所屬子公司中車戚墅堰機車車輛工藝研究所股份有限公司至深圳證券交易所創業板上市的核查意見",
+          "docUrl": "/listedco/listconews/sehk/2025/1127/2025112701480_c.pdf",
+          "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2025/1127/2025112701480_c.pdf",
+          "direct": true,
+          "relevance": "unverified"
+        },
+        {
+          "date": "2025-11-27",
+          "title": "海外監管公告 - 中國中車股份有限公司關於分拆所屬子公司中車戚墅堰機車車輛工藝研究所股份有限公司至深圳證券交易所創業板上市的預案",
+          "docUrl": "/listedco/listconews/sehk/2025/1127/2025112701474_c.pdf",
+          "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2025/1127/2025112701474_c.pdf",
+          "direct": true,
+          "relevance": "unverified"
+        },
+        {
+          "date": "2025-11-27",
+          "title": "海外監管公告 - 中國中車股份有限公司董事會關於公司分拆所屬子公司至創業板上市董事會決議日前股票價格波動情況的說明",
+          "docUrl": "/listedco/listconews/sehk/2025/1127/2025112701462_c.pdf",
+          "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2025/1127/2025112701462_c.pdf",
+          "direct": true,
+          "relevance": "candidate"
+        },
+        {
+          "date": "2025-11-27",
+          "title": "海外監管公告 - 中信證券股份有限公司關於中國中車股份有限公司分拆所屬子公司中車戚墅堰機車車輛工藝研究所股份有限公司至深圳證券交易所創業板上市的核查意見",
+          "docUrl": "/listedco/listconews/sehk/2025/1127/2025112701456_c.pdf",
+          "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2025/1127/2025112701456_c.pdf",
+          "direct": true,
+          "relevance": "unverified"
+        },
+        {
+          "date": "2025-11-27",
+          "title": "海外監管公告 - 北京市嘉源律師事務所關於中國中車股份有限公司分拆所屬子公司中車戚墅堰機車車輛工藝研究所股份有限公司至深圳證券交易所創業板上市的法律意見書",
+          "docUrl": "/listedco/listconews/sehk/2025/1127/2025112701452_c.pdf",
+          "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2025/1127/2025112701452_c.pdf",
+          "direct": true,
+          "relevance": "unverified"
+        }
+      ],
+      "latestDate": "2025-12-28",
+      "sourceUpdatedAt": "2026-09-16T03:15:38Z",
+      "parentMarketCap": 168.6,
+      "pricePairs": [],
+      "parentPrice": {
+        "priceAtAnnouncement": 5.846,
+        "priceNow": 5.1,
+        "changePct": -12.8,
+        "firstAnnouncementDate": "2025-11-27",
+        "currency": "HKD",
+        "updatedAt": "2026-09-16"
+      },
+      "fingerprint": "92339099ffd8ba4f14285efd3efcd8fe96d99aa73ad0f5ba8f9688728c40e09d",
+      "firstSeenAt": "2026-09-16T02:58:58Z",
+      "changedAt": "2026-09-16T03:57:43Z"
+    },
+    {
+      "id": "hk:01766:1a0b071e347a",
+      "market": "hk",
+      "parentTicker": "01766.HK",
+      "parentName": "中國中車",
+      "targetName": "中車戚墅堰機車車輛工藝研究所股份有限公司",
+      "targetTicker": "",
+      "identityVerified": true,
+      "status": "needs_review",
+      "evidence": null,
+      "dates": {},
+      "missing": [
+        "ticker",
+        "evidence",
+        "recordDate",
+        "distributionDate"
+      ],
+      "type": {
+        "code": "ipo_a_sz",
+        "exchange_zh": "深交所",
+        "exchange_en": "SZSE",
+        "label_zh": "分拆·A股深交所",
+        "label_en": "Spinoff·A-Share SZSE",
+        "is_reit": false
+      },
+      "announcements": [
+        {
+          "date": "2025-12-28",
+          "title": "海外監管公告 - 北京市嘉源律師事務所關於中國中車股份有限公司分拆所屬子公司中車戚墅堰機車車輛工藝研 究所股份有限公司至深圳證券交易所創業板上市相關內幕信息知情人買賣公司股票情況之專項核查意見",
+          "docUrl": "/listedco/listconews/sehk/2025/1228/2025122800065_c.pdf",
+          "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2025/1228/2025122800065_c.pdf",
+          "direct": true,
+          "relevance": "unverified"
+        },
+        {
+          "date": "2025-12-28",
+          "title": "海外監管公告 - 中信證券股份有限公司關於中國中車股份有限公司分拆所屬子公司中車戚墅堰機車車輛工藝研 究所股份有限公司至深圳證券交易所創業板上市相關內幕信息知情人買賣公司股票情況之專項核查意見",
+          "docUrl": "/listedco/listconews/sehk/2025/1228/2025122800049_c.pdf",
+          "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2025/1228/2025122800049_c.pdf",
+          "direct": true,
+          "relevance": "unverified"
+        },
+        {
+          "date": "2025-12-28",
+          "title": "海外監管公告 - 中國國際金融股份有限公司關於中國中車股份有限公司分拆所屬子公司中車戚墅堰機車車輛工 藝研究所股份有限公司至深圳證券交易所創業板上市相關內幕信息知情人買賣公司股票情況之專項核查意見",
+          "docUrl": "/listedco/listconews/sehk/2025/1228/2025122800029_c.pdf",
+          "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2025/1228/2025122800029_c.pdf",
+          "direct": true,
+          "relevance": "unverified"
+        },
+        {
+          "date": "2025-12-28",
+          "title": "海外監管公告 - 中國中車股份有限公司關於分拆所屬子公司中車戚墅堰機車車輛工藝研究所股份有限公司至深 圳證券交易所創業板上市相關內幕信息知情人買賣公司股票情況的自查報告",
+          "docUrl": "/listedco/listconews/sehk/2025/1228/2025122800009_c.pdf",
+          "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2025/1228/2025122800009_c.pdf",
+          "direct": true,
+          "relevance": "candidate"
+        },
+        {
+          "date": "2025-11-27",
+          "title": "海外監管公告 - 中國中車股份有限公司關於分拆子公司上市的一般風險提示性公告",
+          "docUrl": "/listedco/listconews/sehk/2025/1127/2025112701496_c.pdf",
+          "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2025/1127/2025112701496_c.pdf",
+          "direct": true,
+          "relevance": "unverified"
         },
         {
           "date": "2025-11-27",
@@ -4422,7 +4880,7 @@
           "docUrl": "/listedco/listconews/sehk/2025/1127/2025112701462_c.pdf",
           "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2025/1127/2025112701462_c.pdf",
           "direct": true,
-          "relevance": "candidate"
+          "relevance": "unverified"
         },
         {
           "date": "2025-11-27",
@@ -4454,8 +4912,8 @@
         "updatedAt": "2026-09-16"
       },
       "fingerprint": "fda3aaa749151b88bf9a596c49d85ddf5d01a6cbd031ca26ae58584e572d3673",
-      "firstSeenAt": "2026-09-16T02:58:58Z",
-      "changedAt": "2026-09-16T02:58:58Z"
+      "firstSeenAt": "2026-09-16T03:57:43Z",
+      "changedAt": "2026-09-16T03:57:43Z"
     },
     {
       "id": "hk:09618:unresolved",
@@ -4531,13 +4989,21 @@
       "targetName": "",
       "targetTicker": "",
       "identityVerified": false,
-      "status": "needs_review",
-      "evidence": null,
+      "status": "announced",
+      "evidence": {
+        "status": "announced",
+        "quote": "完成建議分拆MAYNILAD WATER SERVICES, INC.及於菲律賓證券交易所獨立上市",
+        "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2025/1107/2025110700300_c.pdf",
+        "date": "2025-11-07",
+        "targetName": "",
+        "dates": {},
+        "method": "rule",
+        "accession": ""
+      },
       "dates": {},
       "missing": [
         "target",
         "ticker",
-        "evidence",
         "recordDate",
         "distributionDate"
       ],
@@ -4603,9 +5069,9 @@
         "currency": "HKD",
         "updatedAt": "2026-09-16"
       },
-      "fingerprint": "92339099ffd8ba4f14285efd3efcd8fe96d99aa73ad0f5ba8f9688728c40e09d",
+      "fingerprint": "8e2fe2acd138ba95430867eb471ba1f64939b1e39a44d5036a7ecdb909828ed0",
       "firstSeenAt": "2026-09-16T02:58:58Z",
-      "changedAt": "2026-09-16T03:15:38Z"
+      "changedAt": "2026-09-16T03:57:43Z"
     },
     {
       "id": "hk:00400:unresolved",
@@ -4787,13 +5253,21 @@
       "targetName": "",
       "targetTicker": "",
       "identityVerified": false,
-      "status": "needs_review",
-      "evidence": null,
+      "status": "prospectus",
+      "evidence": {
+        "status": "prospectus",
+        "quote": "建議分拆及軒竹生物於香港聯合交易所有限公司主板獨立上市之更新資料 - 刊發招股章程及全球發售之預期規模及發售價範圍",
+        "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2025/1006/2025100601213_c.pdf",
+        "date": "2025-10-06",
+        "targetName": "",
+        "dates": {},
+        "method": "rule",
+        "accession": ""
+      },
       "dates": {},
       "missing": [
         "target",
         "ticker",
-        "evidence",
         "recordDate",
         "distributionDate"
       ],
@@ -4865,9 +5339,9 @@
         "currency": "HKD",
         "updatedAt": "2026-09-16"
       },
-      "fingerprint": "92339099ffd8ba4f14285efd3efcd8fe96d99aa73ad0f5ba8f9688728c40e09d",
+      "fingerprint": "2530a832e4e26aab2d432adf66807ae06402ba3a33252b742dcef89d380cd58b",
       "firstSeenAt": "2026-09-16T02:58:58Z",
-      "changedAt": "2026-09-16T03:15:38Z"
+      "changedAt": "2026-09-16T03:57:43Z"
     },
     {
       "id": "hk:09896:unresolved",
@@ -4983,7 +5457,7 @@
     }
   ],
   "eventsSchemaVersion": 1,
-  "eventsNormalizedAt": "2026-09-16T03:17:40Z",
+  "eventsNormalizedAt": "2026-09-16T03:57:43Z",
   "changes": [
     {
       "eventId": "hk:01030:unresolved",
@@ -5104,6 +5578,168 @@
       ],
       "fromStatus": "announced",
       "toStatus": "needs_review"
+    },
+    {
+      "eventId": "hk:01030:unresolved",
+      "at": "2026-09-16T03:57:43Z",
+      "kind": "updated",
+      "fields": [
+        "status"
+      ],
+      "fromStatus": "needs_review",
+      "toStatus": "announced"
+    },
+    {
+      "eventId": "hk:00656:unresolved",
+      "at": "2026-09-16T03:57:43Z",
+      "kind": "updated",
+      "fields": [
+        "status"
+      ],
+      "fromStatus": "needs_review",
+      "toStatus": "announced"
+    },
+    {
+      "eventId": "hk:00358:unresolved",
+      "at": "2026-09-16T03:57:43Z",
+      "kind": "updated",
+      "fields": [
+        "targetName"
+      ],
+      "fromStatus": "announced",
+      "toStatus": "announced"
+    },
+    {
+      "eventId": "hk:00358:af0f59be722e",
+      "at": "2026-09-16T03:57:43Z",
+      "kind": "new",
+      "fields": [
+        "status",
+        "targetName",
+        "targetTicker",
+        "dates"
+      ],
+      "fromStatus": null,
+      "toStatus": "needs_review"
+    },
+    {
+      "eventId": "hk:02196:223f5dfead37",
+      "at": "2026-09-16T03:57:43Z",
+      "kind": "new",
+      "fields": [
+        "status",
+        "targetName",
+        "targetTicker",
+        "dates"
+      ],
+      "fromStatus": null,
+      "toStatus": "needs_review"
+    },
+    {
+      "eventId": "hk:01109:unresolved",
+      "at": "2026-09-16T03:57:43Z",
+      "kind": "updated",
+      "fields": [
+        "status"
+      ],
+      "fromStatus": "needs_review",
+      "toStatus": "announced"
+    },
+    {
+      "eventId": "hk:02899:unresolved",
+      "at": "2026-09-16T03:57:43Z",
+      "kind": "updated",
+      "fields": [
+        "targetName"
+      ],
+      "fromStatus": "needs_review",
+      "toStatus": "needs_review"
+    },
+    {
+      "eventId": "hk:02899:120a060e2783",
+      "at": "2026-09-16T03:57:43Z",
+      "kind": "new",
+      "fields": [
+        "status",
+        "targetName",
+        "targetTicker",
+        "dates"
+      ],
+      "fromStatus": null,
+      "toStatus": "needs_review"
+    },
+    {
+      "eventId": "hk:01530:unresolved",
+      "at": "2026-09-16T03:57:43Z",
+      "kind": "updated",
+      "fields": [
+        "status"
+      ],
+      "fromStatus": "needs_review",
+      "toStatus": "announced"
+    },
+    {
+      "eventId": "hk:02382:unresolved",
+      "at": "2026-09-16T03:57:43Z",
+      "kind": "updated",
+      "fields": [
+        "targetName"
+      ],
+      "fromStatus": "announced",
+      "toStatus": "announced"
+    },
+    {
+      "eventId": "hk:02096:unresolved",
+      "at": "2026-09-16T03:57:43Z",
+      "kind": "updated",
+      "fields": [
+        "targetName"
+      ],
+      "fromStatus": "announced",
+      "toStatus": "announced"
+    },
+    {
+      "eventId": "hk:01766:unresolved",
+      "at": "2026-09-16T03:57:43Z",
+      "kind": "updated",
+      "fields": [
+        "targetName"
+      ],
+      "fromStatus": "needs_review",
+      "toStatus": "needs_review"
+    },
+    {
+      "eventId": "hk:01766:1a0b071e347a",
+      "at": "2026-09-16T03:57:43Z",
+      "kind": "new",
+      "fields": [
+        "status",
+        "targetName",
+        "targetTicker",
+        "dates"
+      ],
+      "fromStatus": null,
+      "toStatus": "needs_review"
+    },
+    {
+      "eventId": "hk:00142:unresolved",
+      "at": "2026-09-16T03:57:43Z",
+      "kind": "updated",
+      "fields": [
+        "status"
+      ],
+      "fromStatus": "needs_review",
+      "toStatus": "announced"
+    },
+    {
+      "eventId": "hk:00460:unresolved",
+      "at": "2026-09-16T03:57:43Z",
+      "kind": "updated",
+      "fields": [
+        "status"
+      ],
+      "fromStatus": "needs_review",
+      "toStatus": "prospectus"
     }
   ],
   "trackingStartedAt": "2026-09-16T02:58:58Z"
