@@ -270,3 +270,119 @@ class SpinEvidenceTests(unittest.TestCase):
 
 
 if __name__ == '__main__': unittest.main()
+
+class AutomaticIdentityTests(unittest.TestCase):
+    def test_headline_order_and_business_label(self):
+        from spinoff_identity import resolve_identity
+        for title, expected in [
+            ('內幕消息：PROBIO TECHNOLOGY LIMITED建議分拆及獨立上市','PROBIO TECHNOLOGY LIMITED'),
+            ('華潤新能源控股有限公司建議分拆及A股上市之最新情況','華潤新能源控股有限公司'),
+            ('建議分拆卡松科技於全國中小企業股份轉讓系統掛牌之進展','卡松科技'),
+        ]:
+            self.assertEqual(resolve_identity('',title)['name'],expected)
+        business=resolve_identity('','內幕消息 光伏業務擬分立獨立上市')
+        self.assertEqual(business['name'],'光伏業務')
+        self.assertEqual(business['kind'],'business')
+
+    def test_alias_and_parenthetical_separation(self):
+        from spinoff_identity import resolve_identity
+        text='Teyame AI Holdings, Inc. (“Teyame”), a subsidiary. The planned spin-off of Teyame from the Company.'
+        self.assertEqual(resolve_identity(text)['name'],'Teyame AI Holdings, Inc')
+        text='The separation (the “Spin-Off”) of Versigent Limited (“Versigent”) from the Company.'
+        self.assertEqual(resolve_identity(text)['name'],'Versigent Limited')
+
+    def test_self_filing_child_is_kept_only_with_distribution_evidence(self):
+        ann={'date':'2026-06-15','url':'https://www.sec.gov/Archives/edgar/data/123/filing.htm'}
+        text='Child Technologies Inc. (the “Company”), a subsidiary of Parent Inc. Parent will distribute all of the issued shares of Company common stock to holders of record of Parent common stock in the spin-off.'
+        proof=parse_evidence(text,ann)
+        result=normalize({'companies':[{'ticker':'C','name':'Child Technologies Inc.','announcements':[ann],'filingEvidence':[proof]}]},'us')
+        self.assertEqual(result['events'][0]['targetName'],'Child Technologies Inc')
+        self.assertTrue(result['events'][0]['identityVerified'])
+        self.assertEqual(result['events'][0]['identityEvidence']['url'],ann['url'])
+
+    def test_ambiguous_entities_and_compensation_not_filled(self):
+        from spinoff_identity import resolve_identity
+        result=resolve_identity('The spin-off of Alpha Inc. and the separation of Beta Inc.')
+        self.assertEqual(result['name'],'')
+        self.assertEqual(result['reason'],'conflicting_names')
+        self.assertEqual(resolve_identity('Alpha Inc. (the “Company”). The Plan adjusts awards for a stock split, recapitalization or spin-off.')['name'],'')
+        # A conditional definition must not capture the next definition-table row.
+        self.assertEqual(resolve_identity('「分拆公司」 指 (i) 目標公司或其他公司 「目標公司」 指電子商務發展有限公司')['name'],'')
+
+    def test_full_name_resolution_preserves_watch_identity_and_is_idempotent(self):
+        ann={'date':'2026-06-15','url':'https://www.sec.gov/Archives/edgar/data/123/filing.htm'}
+        first=normalize({'companies':[{'ticker':'P','name':'Parent','announcements':[ann], 'filingEvidence':[{'url':ann['url'],'date':ann['date'],'status':'announced','quote':'The company plans a spin-off.'}]}]},'us')
+        updated=copy.deepcopy(first)
+        updated['companies'][0]['filingEvidence']=[parse_evidence('The company plans a spin-off of Child Inc.',ann)]
+        updated=normalize(updated,'us',previous=first)
+        self.assertEqual(updated['events'][0]['id'],first['events'][0]['id'])
+        again=normalize(copy.deepcopy(updated),'us')
+        self.assertEqual(again['changes'],updated['changes'])
+
+    def test_name_from_attachment_survives_shallow_reread(self):
+        old={'url':'https://www.sec.gov/Archives/report.htm','targetName':'Child Inc','identityVersion':1,'identityQuote':'The spin-off of Child Inc.','identitySourceUrl':'https://www.sec.gov/Archives/ex99.htm'}
+        new={'url':old['url'],'targetName':'','identityVersion':1,'status':'announced'}
+        merged=merge_evidence([old],[new])[0]
+        self.assertEqual(merged['targetName'],'Child Inc')
+        self.assertEqual(merged['identitySourceUrl'],old['identitySourceUrl'])
+        self.assertEqual(merged['status'],'announced')
+
+    def test_success_is_cached_and_failure_is_retryable(self):
+        from resolve_spinoff_names import refresh_company
+        ann={'date':'2026-01-01','title':'建議分拆甲乙有限公司於香港上市','docUrl':'/listedco/one.pdf'}
+        company={'stockCode':'00123','announcements':[ann]}
+        with patch('resolve_spinoff_names.document',side_effect=OSError('offline')):
+            _,errors=refresh_company(company,'hk',None)
+        self.assertEqual(len(errors),1)
+        self.assertEqual(company['identityChecks'],{})
+        with patch('resolve_spinoff_names.document',return_value={'text':ann['title']}) as read:
+            refresh_company(company,'hk',None)
+            refresh_company(company,'hk',None)
+        self.assertEqual(read.call_count,1)
+        self.assertEqual(company['filingEvidence'][0]['targetName'],'甲乙有限公司')
+
+    def test_dated_reference_requires_unambiguous_target(self):
+        from resolve_spinoff_names import link_references
+        update={'date':'2026-03-01','identityReferences':['2026-02-01']}
+        old={'date':'2026-02-01','targetName':'Child Inc','url':'https://www.sec.gov/Archives/a.htm','identityQuote':'spin-off of Child Inc.'}
+        self.assertEqual(link_references([dict(update),old])[0]['targetName'],'Child Inc')
+        conflict={**old,'targetName':'Other Inc'}
+        self.assertFalse(link_references([dict(update),old,conflict])[0].get('targetName'))
+
+    def test_legacy_sec_url_recovered_only_for_unique_same_date_filing(self):
+        import json
+        from resolve_spinoff_names import recover_sec_announcements
+        ann={'date':'2026-06-01','url':'https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=123'}
+        c={'cik':'123','announcements':[ann]}
+        table={'filingDate':['2026-06-01'],'form':['8-K'],'accessionNumber':['0000000123-26-000001'],'primaryDocument':['report.htm']}
+        with patch('resolve_spinoff_names.read_url',return_value=json.dumps({'filings':{'recent':table}}).encode()):
+            recover_sec_announcements(c,None)
+        self.assertEqual(ann['adsh'],'0000000123-26-000001')
+        self.assertTrue(ann['url'].endswith('/report.htm'))
+
+    def test_advisors_and_broken_legal_names_are_rejected(self):
+        from spinoff_identity import resolve_identity
+        from spinoff_events import clean_name
+        text='分拆所属子公司江西省江铜铜箔科技股份有限公司。分拆独立财务顾问中国国际金融股份有限公司。'
+        self.assertEqual(resolve_identity(text)['name'],'江西省江铜铜箔科技股份有限公司')
+        self.assertEqual(clean_name('）生物製藥股份有限公司'),'')
+
+    def test_reference_chain_upgrades_business_name_without_crossing_entities(self):
+        from resolve_spinoff_names import link_references
+        old={'url':'https://example.org/a.pdf','date':'2026-01-01','targetName':'Child Inc','identityKind':'entity','identityQuote':'spin-off of Child Inc.'}
+        middle={'url':'https://example.org/b.pdf','date':'2026-02-01','identityReferences':['2026-01-01']}
+        latest={'url':'https://example.org/c.pdf','date':'2026-03-01','targetName':'光伏業務','identityKind':'business','identityReferences':['2026-02-01']}
+        out=link_references([latest,middle,old])
+        self.assertEqual(out[0]['targetName'],'Child Inc')
+        self.assertIn('光伏業務',out[0]['targetAliases'])
+        self.assertEqual(out[0]['identitySourceUrl'],old['url'])
+
+    def test_simplified_and_traditional_names_have_same_identity(self):
+        from spinoff_events import target_key
+        self.assertEqual(target_key('中車戚墅堰機車車輛工藝研究所股份有限公司'),target_key('中车戚墅堰机车车辆工艺研究所股份有限公司'))
+        self.assertEqual(target_key('Vylor, Inc.'),target_key('Vylor Inc'))
+
+    def test_conflicting_new_identity_does_not_reuse_old_name(self):
+        before={'url':'https://example.org/a.pdf','targetName':'Alpha Inc','identityVersion':1}
+        after={'url':before['url'],'targetName':'','identityVersion':1,'identityReason':'conflicting_names'}
+        self.assertFalse(merge_evidence([before],[after])[0]['targetName'])

@@ -6,6 +6,7 @@ import re
 from datetime import datetime, timezone
 from pathlib import Path
 from urllib.parse import urlparse
+from spinoff_identity import resolve_identity, IDENTITY_VERSION
 
 STATUSES = {'needs_review', 'announced', 'approved', 'record_set', 'prospectus', 'completed', 'terminated', 'paused'}
 RULE_VERSION = 2
@@ -17,6 +18,9 @@ def merge_evidence(previous, current):
     for proof in current:
         key = proof.get('accession') or proof.get('url')
         if key:
+            old = merged.get(key, {})
+            if not proof.get('targetName') and proof.get('identityReason') != 'conflicting_names' and old.get('targetName') and old.get('identityVersion', 0) >= proof.get('identityVersion', 0):
+                proof = {**proof, **{field: old[field] for field in ('targetName', 'targetAliases', 'identityQuote', 'identityKind', 'identityVersion', 'identityReason', 'identitySourceUrl', 'identitySourceDate', 'distributedEntity', 'separatedEntity') if field in old}}
             merged[key] = proof
     return list(merged.values())
 
@@ -24,7 +28,7 @@ def merge_evidence(previous, current):
 def filing_text(value):
     """Join PDF layout whitespace inside Chinese prose, preserving English words."""
     value = html.unescape(value or '')
-    return re.sub(r'(?<=[\u3400-\u9fff0-9，。；：])\s+(?=[\u3400-\u9fff0-9，。；：])', '', value)
+    return re.sub(r'(?<=[\u3400-\u9fff0-9，。；：（）()])\s+(?=[\u3400-\u9fff0-9，。；：（）()])', '', value)
 
 
 def filing_url(cik, accession, document=''):
@@ -75,10 +79,12 @@ def iso_date(value):
 
 def clean_name(value):
     name = re.sub(r'\s+', ' ', str(value or '')).strip(' .,')
-    name = re.sub(r'^(?:所屬子公司|所属子公司)', '', name)
+    name = re.sub(r'^(?:(?:所屬子公司|所属子公司|內容有關|内容有关|本公司|控股|子公司|附屬公司|附属公司|非全資|非全资|主体指|主體指|指))+', '', name)
+    if any(name.count(a) != name.count(b) for a, b in [('(', ')'), ('（', '）')]):
+        return ''
     name = re.sub(r'(有限公司)及$', r'\1', name)
     if (not 2 <= len(name) <= 90 or name.lower() in {'tbd', 'spinco', 'newco', '(解析中)', '子公司', '附屬公司'}
-            or re.search(r'\b(?:will|would|shall|entitlement|shares|common stock|receive|expects|from|including|owned)\b|建議分拆及|建议分拆及|公司的建議|交易所|董事會|董事会|股票價格|股票价格|分拆|獨立上市|独立上市|上市董事|本集團|本集团|並於|并于|批准|公告|茲提|兹提|最新情況|最新情况', name, re.I)):
+            or re.search(r'\b(?:will|would|shall|entitlement|shares|common stock|receive|expects|from|including|owned)\b|建議分拆及|建议分拆及|公司的建議|交易所|董事會|董事会|股票價格|股票价格|分拆|獨立上市|独立上市|上市董事|本集團|本集团|並於|并于|批准|公告|茲提|兹提|拆上|上市市|本次發行|本次发行|財務顧問|财务顾问|法律顧問|法律顾问|最新情況|最新情况', name, re.I)):
         return ''
     return name
 
@@ -100,22 +106,22 @@ def extract_name(text):
     patterns.append(r'分拆\s*([A-Z][A-Z0-9 &,.-]{3,80}?(?:INC\.|LIMITED|LTD\.))(?:及於|並於|并于|於)')
     # HKEX titles also use a short name before "於…獨立上市".
     patterns.append(r'(?:建議分拆|建议分拆)及([\u4e00-\u9fff]{2,20}?)於香港聯合交易所有限公司主板獨立上市')
-    names = {clean_name(m.group(1)) for p in patterns for m in re.finditer(p, text)} - {''}
-    return next(iter(names)) if len(names) == 1 else ''
+    names = {target_key(clean_name(m.group(1))): clean_name(m.group(1)) for p in patterns for m in re.finditer(p, text) if clean_name(m.group(1))}
+    return next(iter(names.values())) if len(names) == 1 else ''
 
 
 def title_target(title):
     """A bounded headline name outranks old company-wide enrichment."""
     title = filing_text(title)
     matches = re.findall(r'分拆(?:及)?\s*([^。；:\n]{2,85}?)(?:並於|并于|及於|於|至)(?:香港|泰國|菲律賓|中國|上海|深圳)', title)
-    names = {clean_name(n) for n in matches} - {''}
-    return next(iter(names)) if len(names) == 1 else extract_name(title)
+    names = {target_key(clean_name(n)): clean_name(n) for n in matches if clean_name(n)}
+    return next(iter(names.values())) if len(names) == 1 else extract_name(title)
 
 
 def target_key(name):
     # Script/spacing variants only; aliases require an explicit filing definition.
-    variants = str.maketrans('復國際製藥業華東車環醫術資產廣實體屬', '复国际制药业华东车环医术资产广实体属')
-    return re.sub(r'\s+', '', str(name or '')).translate(variants).casefold().rstrip('.')
+    variants = str.maketrans('復國際製藥業華東車環醫術資產廣實體屬銅箔聯網紡織潤龍電寶慶機輛藝寧', '复国际制药业华东车环医术资产广实体属铜箔联网纺织润龙电宝庆机辆艺宁')
+    return re.sub(r'[\s,]+', '', str(name or '')).translate(variants).casefold().rstrip('.')
 
 
 def classify_hk_type(titles):
@@ -212,8 +218,14 @@ def parse_evidence(text, ann, cik=''):
     match = infer_status(text)
     if match['status'] == 'needs_review':
         match = infer_status(ann.get('title', ''))
-    target_name = title_target(ann.get('title', '')) or extract_name(text)
+    identity = resolve_identity(text, ann.get('title', ''))
+    target_name = identity['name'] or (extract_name(text) if identity.get('reason') != 'conflicting_names' else '')
+    if target_name and not identity.get('quote'):
+        start = text.find(target_name)
+        identity['quote'] = text[max(0, start - 100):start + len(target_name) + 150] if start >= 0 else ann.get('title', '')
+        identity['kind'] = 'entity'
     target_aliases = re.findall(re.escape(target_name) + r'（(?:以下简称|以下簡稱)?[「“"]([^」”"]{2,40})[」”"]', text) if target_name else []
+    target_aliases = list(dict.fromkeys([*target_aliases, *identity.get('aliases', [])]))
     dates = extract_dates(text)
     if match['status'] == 'record_set':
         dates.update(extract_dates(match['quote']))
@@ -232,7 +244,9 @@ def parse_evidence(text, ann, cik=''):
             if len(values) == 1:
                 dates['listingDate'] = {'date': values.pop(), 'quote': found[0].group(0), 'kind': 'actual'}
     return {**match, 'url': url, 'date': iso_date(ann.get('date')), 'targetName': target_name,
-            'targetTicker': ticker, 'targetAliases': target_aliases, 'dates': dates, 'method': 'rule', 'ruleVersion': RULE_VERSION, 'accession': ann.get('adsh', '')}
+            'targetTicker': ticker, 'targetAliases': target_aliases,
+            'identityVersion': IDENTITY_VERSION, 'identityQuote': identity.get('quote', ''),
+            'identityKind': identity.get('kind', ''), 'distributedEntity': identity.get('distributedEntity', False), 'separatedEntity': identity.get('separatedEntity', False), 'identityReason': identity.get('reason', ''), 'dates': dates, 'method': 'rule', 'ruleVersion': RULE_VERSION, 'accession': ann.get('adsh', '')}
 
 
 def normalize(data, market, previous=None, now=None):
@@ -282,18 +296,24 @@ def normalize(data, market, previous=None, now=None):
             parent_key = entity_key(c.get('stockName') or c.get('name'))
             if candidate_name and entity_key(candidate_name) == parent_key:
                 candidate_name = ''
-            if named and entity_key(named) == parent_key:
+            if named and entity_key(named) == parent_key and not any(p.get('distributedEntity') or p.get('separatedEntity') for p in group):
                 named = ''
-            target_name = named or (candidate_name if len(groups) == 1 else '')
+            target_name = named or (candidate_name if len(groups) == 1 and not any(p.get('identityReason') == 'conflicting_names' for p in group) else '')
+            identity_proofs = [p for p in group if named and p.get('identityQuote') and direct_source(p.get('url', ''))]
+            identity_proof = max(identity_proofs, key=lambda p: p.get('date', ''), default=None)
             eid = f'{market}:{parent}:' + (hashlib.sha256(key.encode()).hexdigest()[:12] if key else 'unresolved')
             # Preserve local watch/note identity as an unresolved dossier gains a name.
             prior = [e for e in old_events.values() if e.get('market') == market and e.get('parentTicker') == (c.get('ticker') or parent)]
             matching = [e for e in prior if named and group_key(e.get('targetName', '')) == key]
+            group_urls = {p.get('url') for p in group}
+            source_matching = [e for e in prior if (e.get('evidence') or {}).get('url') in group_urls]
+            if not matching and len(source_matching) == 1:
+                matching = source_matching
             if len(matching) == 1:
                 eid = matching[0]['id']
             elif len(groups) == 1 and len(prior) == 1 and prior[0]['id'].endswith(':unresolved') and not prior[0].get('targetName'):
                 eid = prior[0]['id']
-            elif not key and len(groups) > 1 and old_events.get(eid, {}).get('targetName'):
+            elif not key and len(groups) > 1 and (old_events.get(eid, {}).get('targetName') or any(p.get('url') == (old_events.get(eid, {}).get('evidence') or {}).get('url') for k, ps in groups.items() if k for p in ps)):
                 eid = f'{market}:{parent}:unattributed'
             valid = [p for p in group if direct_source(p.get('url', '')) and p.get('quote') and p.get('status') in STATUSES - {'needs_review'}]
             valid.sort(key=lambda p: p.get('date', ''), reverse=True)
@@ -336,8 +356,12 @@ def normalize(data, market, previous=None, now=None):
                 scoped_type = classify_hk_type([a.get('title', '') for a in event_announcements if a['relevance'] == 'candidate'])
                 if len(groups) > 1 or scoped_type['code'] != 'unknown':
                     event_type = scoped_type
-            event = {'id': eid, 'market': market, 'parentTicker': c.get('ticker') or parent, 'parentName': c.get('stockName') or c.get('name', ''),
+            merged_ids = {alias for e in [*matching, *source_matching, *([old_events[eid]] if eid in old_events else [])] for alias in [e['id'], *e.get('mergedIds', [])]} - {eid}
+            event = {'id': eid, 'mergedIds': sorted(merged_ids), 'market': market, 'parentTicker': c.get('ticker') or parent, 'parentName': c.get('stockName') or c.get('name', ''),
                      'targetName': target_name, 'targetTicker': child_ticker, 'identityVerified': bool(named),
+                     'identityKind': identity_proof.get('identityKind', 'entity') if identity_proof else '',
+                     'identityEvidence': {'url': identity_proof.get('identitySourceUrl') or identity_proof['url'], 'date': identity_proof.get('identitySourceDate') or identity_proof.get('date', ''), 'quote': identity_proof['identityQuote']} if identity_proof else None,
+                     'identityState': 'resolved' if named else 'legacy' if target_name else 'conflicting_names' if any(p.get('identityReason') == 'conflicting_names' for p in group) else 'missing_name' if evidence else 'unconfirmed_event',
                      'status': status, 'evidence': evidence, 'dates': date_fields, 'missing': missing,
                      'type': event_type, 'announcements': event_announcements,
                      'latestDate': max(relevant_dates, default=''), 'sourceUpdatedAt': data.get('updatedAt', ''),
@@ -362,6 +386,9 @@ def normalize(data, market, previous=None, now=None):
                                     'fields': fields, 'before': old_semantic if old else None, 'after': semantic,
                                     'fromStatus': old.get('status') if old else None, 'toStatus': status})
             events.append(event)
+    live_ids = {e['id'] for e in events}
+    for event in events:
+        event['mergedIds'] = [key for key in event['mergedIds'] if key not in live_ids]
     data.update(events=events, eventsSchemaVersion=1, eventsNormalizedAt=now, changes=changes[-300:],
                 trackingStartedAt=(previous or data).get('trackingStartedAt', now))
     return data
@@ -379,6 +406,9 @@ def validate_events(data):
             ev = event.get('evidence') or {}
             if not ev.get('quote') or not direct_source(source_url(ev)) or ev.get('status') != event['status']:
                 raise ValueError('Spin-off status requires matching direct-source evidence')
+        identity = event.get('identityEvidence')
+        if identity and (not event.get('targetName') or not identity.get('quote') or not direct_source(source_url(identity))):
+            raise ValueError('Target identity requires a name, quote and direct source')
         for value in event.get('dates', {}).values():
             if not iso_date(value.get('date')) or not direct_source(source_url(value)):
                 raise ValueError('Invalid milestone evidence')

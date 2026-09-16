@@ -510,6 +510,7 @@ def dedupe(companies):
     for c in companies:
         tk = c['ticker']
         c['filingEvidence'] = merge_evidence(prev_us.get(tk, {}).get('filingEvidence', []), c.get('filingEvidence', []))
+        c['identityChecks'] = dict(prev_us.get(tk, {}).get('identityChecks', {}))
         if tk not in seen or len(c['announcements']) > len(seen[tk]['announcements']):
             seen[tk] = c
     return list(seen.values())

@@ -397,6 +397,7 @@ def refine_status_from_pdf(companies, opener):
     previous = load_prev_data()
     for c in companies:
         c['filingEvidence'] = list(previous.get(c['stockCode'], {}).get('filingEvidence', []))
+        c['identityChecks'] = dict(previous.get(c['stockCode'], {}).get('identityChecks', {}))
     try:
         from pdfminer.high_level import extract_text_to_fp
         from pdfminer.layout import LAParams

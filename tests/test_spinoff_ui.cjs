@@ -103,3 +103,27 @@ test('paused dossiers have their own status and no stale upcoming dates',()=>{
  a.run("spinDash.hk.data={events:[event]};spinDash.hk.status='paused'");
  assert.equal(a.run('spinVisible(spinDash.hk,{}).length'),1);
 });
+test('identity gaps distinguish unknown events and business names expose sources',()=>{
+ const a=app();a.context.event={...event,targetName:'',identityState:'unconfirmed_event'};
+ assert.match(a.run('spinCard(event)'),/尚未确认关联分拆/);
+ a.context.event={...event,targetName:'光伏業務',identityKind:'business',identityEvidence:{date:'2026-01-01',url:'https://www1.hkexnews.hk/filing.pdf',quote:'<script>分立光伏業務</script>'}};
+ const html=a.run('spinCard(event)');
+ assert.match(html,/业务 \/ 项目/);assert.match(html,/查看名称原文/);
+ assert.ok(!html.includes('<script>'));assert.match(html,/非正式上市公司名/);
+});
+test('unconfirmed leads remain accessible separately from identified events',()=>{
+ const a=app();a.context.event=event;
+ a.run("spinDash.us.data={events:[event,{...event,id:'lead',targetName:'',identityState:'unconfirmed_event'}]};spinDash.us.view='confirmed'");
+ assert.equal(a.run('spinVisible(spinDash.us,{}).length'),1);
+ a.run("spinDash.us.view='unconfirmed'");assert.equal(a.run('spinVisible(spinDash.us,{})[0].id'),'lead');
+ a.run("spinDash.us.view='all'");assert.equal(a.run('spinVisible(spinDash.us,{}).length'),2);
+});
+test('merged dossier names retain old watchlists and notes once',()=>{
+ const a=app();a.context.event={...event,mergedIds:['old']};
+ a.run("spinSave('old',{watch:true,note:'原笔记'});spinSave(event.id,{note:'新笔记'});spinDash.us.data={events:[event]}");
+ assert.equal(a.run('spinPrefs()[event.id].watch'),true);
+ assert.equal(a.run('spinPrefs()[event.id].note'),'新笔记\n\n原笔记');
+ assert.equal(a.run('spinPrefs()[event.id].note'),'新笔记\n\n原笔记');
+ a.run("spinSave(event.id,{note:'修改后的笔记'})");
+ assert.equal(a.run('spinPrefs()[event.id].note'),'修改后的笔记');
+});
