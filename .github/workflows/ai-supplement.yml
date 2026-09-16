@@ -44,12 +44,14 @@ jobs:
       AI_MODEL: ${{ inputs.model || 'qwen3.5:9b-q4_K_M' }}
       AI_LIMIT: ${{ inputs.limit || '6' }}
       OLLAMA_HOST: '127.0.0.1:11434'
-      OLLAMA_MODELS: ${{ runner.temp }}/lilu-ollama-models
       OLLAMA_NUM_PARALLEL: '1'
       OLLAMA_MAX_LOADED_MODELS: '1'
       OLLAMA_NO_CLOUD: '1'
-      AI_REPORT: ${{ runner.temp }}/ai-run-report.json
     steps:
+      - name: Set runner-local paths
+        run: |
+          echo "OLLAMA_MODELS=$RUNNER_TEMP/lilu-ollama-models" >> "$GITHUB_ENV"
+          echo "AI_REPORT=$RUNNER_TEMP/ai-run-report.json" >> "$GITHUB_ENV"
       - uses: actions/checkout@v4
         with:
           ref: master
