@@ -28,6 +28,7 @@ class SpinEvidenceTests(unittest.TestCase):
     def test_prose_is_not_a_child_company_name(self):
         self.assertEqual(extract_name('Corteva common stock will trade without an entitlement to receive the Vylor Co'), '')
         self.assertEqual(extract_name('The spin-off of Example Holdings was announced.'), 'Example Holdings')
+        self.assertEqual(extract_name('建議分拆所屬子公司江西省江銅銅箔科技股份有限公司及獨立上市'), '江西省江銅銅箔科技股份有限公司')
         self.assertEqual(extract_name('The spin-off of Alpha Holdings and separation of Beta Holdings.'), '')
 
     def test_dates_are_normalized_and_conflicts_remain_unknown(self):
