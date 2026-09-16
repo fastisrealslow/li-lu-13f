@@ -46,9 +46,14 @@ def iso_date(value):
 def clean_name(value):
     name = re.sub(r'\s+', ' ', str(value or '')).strip(' .,')
     if (not 2 <= len(name) <= 90 or name.lower() in {'tbd', 'spinco', 'newco', '(解析中)', '子公司', '附屬公司'}
-            or re.search(r'\b(?:will|would|shall|entitlement|shares|common stock|receive|expects)\b|建議分拆及|建议分拆及|公司的建議', name, re.I)):
+            or re.search(r'\b(?:will|would|shall|entitlement|shares|common stock|receive|expects|from|including|owned)\b|建議分拆及|建议分拆及|公司的建議', name, re.I)):
         return ''
     return name
+
+
+def entity_key(value):
+    value = re.sub(r'\([^)]*\)', '', str(value or ''))
+    return re.sub(r'[^a-z0-9\u4e00-\u9fff]', '', re.sub(r'\b(?:inc|corp|corporation|co|ltd|llc)\b', '', value.lower()))
 
 
 def extract_name(text):
@@ -57,6 +62,7 @@ def extract_name(text):
         r'(?:spin[- ]off|separation) of ([A-Z][\w&.-]*(?: [A-Z][\w&.-]*){0,7}(?:,? (?:Inc\.?|Corporation|Corp\.?|LLC|Ltd\.?|Holdings|Group)))',
         r'distribut\w*\s+(?:all (?:of )?(?:the )?)?(?:outstanding )?shares of ([A-Z][\w&.-]*(?: [A-Z][\w&.-]*){0,6}(?:,? (?:Inc\.?|Corporation|Corp\.?|LLC|Ltd\.?)))',
     ]
+    patterns.append(r'(?:建議分拆|建议分拆|分拆)(?:(?:其|本公司|所屬|所属|附屬|附属|子公司|非全資|非全资)\s*)*([\u4e00-\u9fffA-Za-z（）()]{2,45}?(?:股份有限公司|有限公司))')
     names = {clean_name(m.group(1)) for p in patterns for m in re.finditer(p, text)} - {''}
     return next(iter(names)) if len(names) == 1 else ''
 
@@ -128,8 +134,10 @@ def normalize(data, market, previous=None, now=None):
             announcements.append({**ann, 'url': url, 'direct': direct_source(url), 'relevance': 'candidate' if relevant else 'unverified'})
         announcements.sort(key=lambda a: a.get('date', ''), reverse=True)
         proofs = list(c.get('filingEvidence') or [])
-        if not proofs:
-            proofs = [parse_evidence(a.get('title', ''), a, c.get('cik', '')) for a in announcements if a['direct'] and a['relevance'] == 'candidate']
+        parsed_urls = {p.get('url') for p in proofs}
+        parsed_ids = {p.get('accession') for p in proofs if p.get('accession')}
+        proofs += [parse_evidence(a.get('title', ''), a, c.get('cik', '')) for a in announcements
+                   if a['direct'] and a['relevance'] == 'candidate' and a['url'] not in parsed_urls and a.get('adsh') not in parsed_ids]
         # Separate explicit legal entities; unresolved material is kept in its own dossier.
         groups = {}
         for proof in proofs:
@@ -140,6 +148,11 @@ def normalize(data, market, previous=None, now=None):
         for target_key, group in groups.items():
             named = next((clean_name(p.get('targetName')) for p in group if clean_name(p.get('targetName'))), '')
             candidate_name = clean_name(c.get('spinTarget') or c.get('spinoffName'))
+            parent_key = entity_key(c.get('stockName') or c.get('name'))
+            if candidate_name and entity_key(candidate_name) == parent_key:
+                candidate_name = ''
+            if named and entity_key(named) == parent_key:
+                named = ''
             target_name = named or (candidate_name if len(groups) == 1 else '')
             eid = f'{market}:{parent}:' + (hashlib.sha256(target_key.encode()).hexdigest()[:12] if target_key else 'unresolved')
             # Preserve local watch/note identity as an unresolved dossier gains a name.
@@ -165,22 +178,32 @@ def normalize(data, market, previous=None, now=None):
             if child_ticker in ('TBD', 'N/A'):
                 child_ticker = ''
             missing = [key for key, ok in [('target', target_name), ('ticker', child_ticker), ('evidence', evidence), ('recordDate', date_fields.get('recordDate')), ('distributionDate', date_fields.get('distributionDate'))] if not ok]
-            relevant_dates = [a.get('date', '') for a in announcements if a['relevance'] == 'candidate']
+            event_announcements = announcements
+            if len(groups) > 1:
+                accessions = {p.get('accession') for p in group if p.get('accession')}
+                urls = {p.get('url') for p in group if p.get('url')}
+                event_announcements = [{**a, 'relevance': a['relevance'] if a.get('adsh') in accessions or a.get('url') in urls else 'unverified'} for a in announcements]
+            relevant_dates = [a.get('date', '') for a in event_announcements if a['relevance'] == 'candidate']
             event = {'id': eid, 'market': market, 'parentTicker': c.get('ticker') or parent, 'parentName': c.get('stockName') or c.get('name', ''),
                      'targetName': target_name, 'targetTicker': child_ticker, 'identityVerified': bool(named),
                      'status': status, 'evidence': evidence, 'dates': date_fields, 'missing': missing,
-                     'type': c.get('spinType') or c.get('type', 'spinoff'), 'announcements': announcements,
+                     'type': c.get('spinType') or c.get('type', 'spinoff'), 'announcements': event_announcements,
                      'latestDate': max(relevant_dates, default=''), 'sourceUpdatedAt': data.get('updatedAt', ''),
                      'parentMarketCap': c.get('parentMarketCap'), 'pricePairs': c.get('spinoffPricePerf', []) if same_target else [],
                      'parentPrice': c.get('parentPricePerf') or c.get('pricePerf') or {}}
             old = old_events.get(eid)
-            semantic = {k: event[k] for k in ('status', 'targetName', 'targetTicker', 'dates')}
+            def snapshot(value):
+                result = {k: value.get(k) for k in ('status', 'targetName', 'targetTicker')}
+                result['dates'] = {k: v['date'] for k, v in value.get('dates', {}).items()}
+                return result
+            semantic = snapshot(event)
+            old_semantic = snapshot(old) if old else {}
             fingerprint = hashlib.sha256(json.dumps(semantic, sort_keys=True, ensure_ascii=False).encode()).hexdigest()
             event['fingerprint'] = fingerprint
             event['firstSeenAt'] = old.get('firstSeenAt', now) if old else now
             event['changedAt'] = old.get('changedAt', now) if old and old.get('fingerprint') == fingerprint else now
             if initialized and (not old or old.get('fingerprint') != fingerprint):
-                fields = [k for k in semantic if not old or old.get(k) != event[k]]
+                fields = [k for k in semantic if not old or old_semantic.get(k) != semantic[k]]
                 changes.append({'eventId': eid, 'at': now, 'kind': 'updated' if old else 'new', 'fields': fields, 'fromStatus': old.get('status') if old else None, 'toStatus': status})
             events.append(event)
     data.update(events=events, eventsSchemaVersion=1, eventsNormalizedAt=now, changes=changes[-300:],

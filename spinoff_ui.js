@@ -100,7 +100,7 @@ function spinCard(e, pref={}) {
       ${e.market === 'hk' ? `<section class="sd-section"><h4>${spinLabel('历史股东披露','Historical ownership disclosures')}</h4><button data-action="ownership">${spinLabel('加载历史记录','Load historical records')}</button><div class="sd-ownership"></div></section>` : ''}
       <section class="sd-section"><h4>${spinLabel('研究待办','Research checklist')}</h4><p>${spinLabel('核对母子公司对应关系、分派比例、债务与现金流、管理层持股，以及机构持仓变化。暂无来源的项目不自动打分。','Verify parent/child identity, distribution ratio, debt and cash flow, management ownership, and institutional holdings. Missing evidence is not automatically scored.')}</p></section>
       <section class="sd-section"><h4>${spinLabel('公告记录','Source documents')} <small>${related.length}</small></h4><ul class="sd-sources">${announcementHTML(related)}</ul>${unverified.length ? `<details class="sd-legacy"><summary>${spinLabel('历史导入记录：分拆相关性未核实','Legacy imports: relevance unverified')} (${unverified.length})</summary><ul class="sd-sources">${announcementHTML(unverified)}</ul></details>` : ''}</section>
-      <section class="sd-section"><label class="sd-note-label">${spinLabel('研究笔记','Research notes')}<textarea data-action="note" rows="3" maxlength="5000" placeholder="${spinLabel('记录需要核实的问题…','Questions to verify…')}">${spinEscape(pref.note || '')}</textarea></label><small class="sd-note-result" role="status">${spinLabel('笔记与自选仅保存在此浏览器。离开输入框时保存。','Notes and watchlist stay in this browser. Notes save on blur.')}</small></section></div>
+      <section class="sd-section"><label class="sd-note-label">${spinLabel('研究笔记','Research notes')}<textarea data-action="note" rows="3" maxlength="5000" placeholder="${spinLabel('记录需要核实的问题…','Questions to verify…')}">${spinEscape(pref.note || '')}</textarea></label><small class="sd-note-result" role="status">${spinLabel('笔记与自选仅保存在此浏览器。输入时自动保存。','Notes and watchlist stay in this browser. Notes save as you type.')}</small></section></div>
     </details></article>`;
 }
 function spinRenderList(market) {
@@ -135,15 +135,16 @@ function spinPaint(market) {
     <div class="sd-views">${[['unread',spinLabel('未读 / 有更新','Unread / updated')],['changes',spinLabel('近期变化','Recent changes')],['completed',spinLabel('近 90 天完成公告','Completion filings · 90 days')]].map(([k,label])=>`<button data-view="${k}" aria-pressed="${state.view===k}">${label}</button>`).join('')}<button data-action="reset">${spinLabel('重置筛选','Reset filters')}</button><span class="sd-count" aria-live="polite"></span></div><div class="sd-results"></div>
     <p class="sd-footer">${spinLabel('采集范围内的研究线索，并非全部分拆事件。计划日期可能变化，最终以公司公告为准。','Research leads within collection coverage, not an exhaustive event list. Scheduled dates may change; consult issuer filings.')}</p></div>`;
   for (const key of ['status','type','sort']) root.querySelector(`[data-filter="${key}"]`).value=state[key];
-  root.oninput = event=>{ if (event.target.dataset.filter === 'query') { state.query=event.target.value; spinRenderList(market); } };
-  root.onchange = event=>{ const key=event.target.dataset.filter; if (key && key!=='query') { state[key]=event.target.value; spinRenderList(market); } };
-  root.onfocusout = event=>{
-    if (event.target.dataset.action !== 'note') return;
-    const id=event.target.closest('[data-event]').dataset.event;
-    const saved=spinSave(id,{note:event.target.value});
-    event.target.parentElement.nextElementSibling.textContent=saved?spinLabel('已保存到此浏览器','Saved in this browser'):spinLabel('保存失败，请保留笔记后重试','Save failed; keep your note and retry');
-    root.querySelector('.sd-storage').hidden=!spinStorageFailed;
+  root.oninput = event=>{
+    if (event.target.dataset.filter === 'query') { state.query=event.target.value; spinRenderList(market); }
+    if (event.target.dataset.action === 'note') {
+      const id=event.target.closest('[data-event]').dataset.event;
+      const saved=spinSave(id,{note:event.target.value});
+      event.target.parentElement.nextElementSibling.textContent=saved?spinLabel('已保存到此浏览器','Saved in this browser'):spinLabel('保存失败，请保留笔记后重试','Save failed; keep your note and retry');
+      root.querySelector('.sd-storage').hidden=!spinStorageFailed;
+    }
   };
+  root.onchange = event=>{ const key=event.target.dataset.filter; if (key && key!=='query') { state[key]=event.target.value; spinRenderList(market); } };
   root.onclick = event=>{
     const button=event.target.closest('button'); if (!button) return;
     if (button.dataset.view) { state.view=button.dataset.view; spinRenderList(market); }

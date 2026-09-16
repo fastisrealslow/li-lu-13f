@@ -28,6 +28,7 @@ class SpinEvidenceTests(unittest.TestCase):
     def test_prose_is_not_a_child_company_name(self):
         self.assertEqual(extract_name('Corteva common stock will trade without an entitlement to receive the Vylor Co'), '')
         self.assertEqual(extract_name('The spin-off of Example Holdings was announced.'), 'Example Holdings')
+        self.assertEqual(extract_name('建議分拆所屬子公司江西省江銅銅箔科技股份有限公司及獨立上市'), '江西省江銅銅箔科技股份有限公司')
         self.assertEqual(extract_name('The spin-off of Alpha Holdings and separation of Beta Holdings.'), '')
 
     def test_dates_are_normalized_and_conflicts_remain_unknown(self):
@@ -40,6 +41,11 @@ class SpinEvidenceTests(unittest.TestCase):
         ann = {'adsh':'0001234567-26-000001', 'date':'2026-09-16', 'title':'Spin-off filing'}
         return {'updatedAt':'2026-09-16', 'companies':[{'ticker':'PARENT','cik':'1234567', 'spinoffName':'Child Holdings',
             'status':'completed', 'distributionDate':'2020-01-01', 'announcements':[ann]}]}
+
+    def test_parent_name_is_not_reused_as_child(self):
+        data = self.fixture()
+        data['companies'][0].update(name='Parent Holdings, Inc. (PARENT)', spinoffName='PARENT HOLDINGS INC')
+        self.assertEqual(normalize(data, 'us')['events'][0]['targetName'], '')
 
     def test_exact_accession_links_and_legacy_status_not_trusted(self):
         result = normalize(self.fixture(), 'us')

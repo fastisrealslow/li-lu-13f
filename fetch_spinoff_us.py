@@ -814,11 +814,6 @@ def main():
             for ann in company['announcements']:
                 ann['primaryDocument'] = docs.get(ann['adsh'], '')
                 ann['url'] = filing_url(cik, ann['adsh'], ann['primaryDocument'])
-            by_id = {a['adsh']: a for a in company['announcements']}
-            for proof in company.get('filingEvidence', []):
-                ann = by_id.get(proof.get('accession'))
-                if ann:
-                    proof['url'] = ann['url']
         except Exception as exc:
             print(f"  Exact document lookup unavailable: {company['ticker']}: {exc}")
 
