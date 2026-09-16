@@ -1,25 +1,23 @@
 {
   "attempts": {
     "investor:abrams": {
-      "at": "2026-09-16T13:16:50.888757+00:00",
-      "sourceHash": "b90ab1a51504275aed8c949360d116999742513b66fabc9e57f251c3fc9b3f08",
-      "status": "failed",
-      "error": "Rejected on editorial review: unitless monetary values"
+      "at": "2026-09-16T13:46:59.265343+00:00",
+      "sourceHash": "59cee13f6b5a3acf95696b363657e99008351b3e26bffa4ef3acc92d226a6695",
+      "status": "ok"
     },
     "investor:ackman": {
-      "at": "2026-09-16T13:15:25.869153+00:00",
-      "sourceHash": "d6511c8ae73ccb8f082ce414f88d792d06706a83316b5336565aae6c78f4b825",
+      "at": "2026-09-16T13:46:08.587080+00:00",
+      "sourceHash": "9fee843c8a9b28bd2ecd7d0d8afc75730dbcf77d974f2a946f864038f7cf5fa6",
       "status": "ok"
     },
     "investor:akre": {
-      "at": "2026-09-16T13:08:03.191737+00:00",
-      "error": "Rejected on semantic review: unsupported ranking/count claim",
-      "sourceHash": "3d37963b772e54ef80031550d99be743b70efb5c28978239c717a2ce0c7f6606",
-      "status": "failed"
+      "at": "2026-09-16T13:43:11.245448+00:00",
+      "sourceHash": "89d62d4e250eb31df55991b6e51904361c8cb8d381743ece206d2d25f6e30df4",
+      "status": "ok"
     },
     "investor:berkowitz": {
-      "at": "2026-09-16T13:17:45.774708+00:00",
-      "sourceHash": "7a6aeff7ce7ee945933ebdf6fcf680b8b7b8b8b33f120ac3d5103124c8607c1f",
+      "at": "2026-09-16T13:47:31.596882+00:00",
+      "sourceHash": "b425bda19a1e94e2015d9c285dcef9dd012c27c9d4508d49557ee513d56ada73",
       "status": "ok"
     },
     "investor:buffett": {
@@ -33,8 +31,8 @@
       "status": "ok"
     },
     "investor:greenberg": {
-      "at": "2026-09-16T13:12:16.182582+00:00",
-      "sourceHash": "05fb831541940430f0f622c2d0d92d986ac1abb0b7a0b1b8203cf031d7d5be2c",
+      "at": "2026-09-16T13:44:20.243872+00:00",
+      "sourceHash": "07b06b3305a6d2ee997491188fd2051a27fa02d7ab17f07c8dc1b820f6f5435e",
       "status": "ok"
     },
     "investor:hawkins": {
@@ -43,8 +41,8 @@
       "status": "ok"
     },
     "investor:klarman": {
-      "at": "2026-09-16T13:13:55.358148+00:00",
-      "sourceHash": "2d8569272b0ea25fbfc86d9d6edea0473ba317d2b8eb455e3518736a51f989c9",
+      "at": "2026-09-16T13:45:18.399696+00:00",
+      "sourceHash": "d7a4cd16511e47a365b1e45d431ca4728364fa36578127e28bc9bcc0197cc24d",
       "status": "ok"
     },
     "investor:lilu": {
@@ -70,13 +68,8 @@
   },
   "entries": {
     "investor:ackman": {
-      "generatedAt": "2026-09-16T13:16:50.886930+00:00",
-      "metrics": {
-        "seconds": 85.01,
-        "tokens": 68
-      },
-      "model": "qwen3.5:9b-q4_K_M",
       "source": {
+        "quarter": "2026 Q1",
         "holdings": [
           [
             "BN",
@@ -300,20 +293,20 @@
             "赫兹全球控股",
             "HERTZ GLOBAL HLDGS INC"
           ]
-        ],
-        "quarter": "2026 Q1"
+        ]
       },
-      "sourceHash": "d6511c8ae73ccb8f082ce414f88d792d06706a83316b5336565aae6c78f4b825",
-      "summary": "比尔·阿克曼在2026年第一季度减持布鲁克菲尔德2.8%、优步0.8%、餐饮品牌国际1.0%，并清仓希尔顿全球控股。同期增持亚马逊19.2%，新建仓微软，大幅减持谷歌C及谷歌A。"
+      "sourceHash": "9fee843c8a9b28bd2ecd7d0d8afc75730dbcf77d974f2a946f864038f7cf5fa6",
+      "summary": "比尔·阿克曼在 2026 Q1 增持亚马逊 19.2%，新建仓微软，减持布鲁克菲尔德 2.8%、优步 0.8%、餐饮品牌国际 1.0%、谷歌 C 94.9%、谷歌 A 95.2% 及 Meta 0.5%，并清仓希尔顿全球控股。",
+      "generatedAt": "2026-09-16T13:46:59.263238+00:00",
+      "model": "qwen3.5:9b-q4_K_M",
+      "metrics": {
+        "seconds": 50.67,
+        "tokens": 90
+      }
     },
     "investor:berkowitz": {
-      "generatedAt": "2026-09-16T13:19:15.538220+00:00",
-      "metrics": {
-        "seconds": 89.76,
-        "tokens": 129
-      },
-      "model": "qwen3.5:9b-q4_K_M",
       "source": {
+        "quarter": "2026 Q2",
         "holdings": [
           [
             "JOE",
@@ -547,20 +540,20 @@
             "Home BancShares, Inc.",
             "HOME BANCSHARES INC"
           ]
-        ],
-        "quarter": "2026 Q2"
+        ]
       },
-      "sourceHash": "7a6aeff7ce7ee945933ebdf6fcf680b8b7b8b8b33f120ac3d5103124c8607c1f",
-      "summary": "布鲁斯·伯科威茨在 2026 Q2 减持圣乔公司（JOE）5.4%，同时增持伯克希尔哈撒韦 B 类（BRK/B）74.1%、进步集团（PGR）8.7% 及卡夫亨氏（KHC）92.1%。此外，其新建仓了辉瑞（PFE）、汤普森食品（CPB）和联合包裹服务（UPS），并增持伯克希尔哈撒韦 A 类（BRK/A）450.0%。"
+      "sourceHash": "b425bda19a1e94e2015d9c285dcef9dd012c27c9d4508d49557ee513d56ada73",
+      "summary": "2026 年第二季度，布鲁斯·伯科威茨减持圣乔公司（JOE）5.4%，增持伯克希尔哈撒韦 B 类（BRK/B）74.1%、进步集团（PGR）8.7%、卡夫亨氏（KHC）92.1%及伯克希尔哈撒韦 A 类（BRK/A）450.0%，并新建仓辉瑞（PFE）、汤普森食品（CPB）和联合包裹服务（UPS），同时保持企业产品合作伙伴（EPD）、奥兹克银行（OZK）及伯克利风险（WRB）股数不变。",
+      "generatedAt": "2026-09-16T13:48:31.601898+00:00",
+      "model": "qwen3.5:9b-q4_K_M",
+      "metrics": {
+        "seconds": 60.0,
+        "tokens": 150
+      }
     },
     "investor:greenberg": {
-      "generatedAt": "2026-09-16T13:13:55.357131+00:00",
-      "metrics": {
-        "seconds": 98.93,
-        "tokens": 76
-      },
-      "model": "qwen3.5:9b-q4_K_M",
       "source": {
+        "quarter": "2026 Q2",
         "holdings": [
           [
             "?ICON PUB LTD CO",
@@ -1324,11 +1317,16 @@
             "穆迪",
             "MOODYS CORP"
           ]
-        ],
-        "quarter": "2026 Q2"
+        ]
       },
-      "sourceHash": "05fb831541940430f0f622c2d0d92d986ac1abb0b7a0b1b8203cf031d7d5be2c",
-      "summary": "格伦·格林伯格在 2026 Q2 增持 ICON PUB LTD CO 5.2% 并新建仓阿瑟 J. 加拉格尔，同时减持 TD 辛纳克斯 52.8%、密罗斯地产 29.2% 及信诺健康 13.0%。"
+      "sourceHash": "07b06b3305a6d2ee997491188fd2051a27fa02d7ab17f07c8dc1b820f6f5435e",
+      "summary": "格伦·格林伯格在 2026 年第二季度增持 ICON PUB LTD CO 5.2% 和 RYAAY 30.2%，同时减持 SNX 52.8%、ELV 13.0% 及 MRP 29.2%。此外，其还减持了 OMF、SLM、AN、PRI 各 1.5%，并新建仓 AJG。",
+      "generatedAt": "2026-09-16T13:45:18.398174+00:00",
+      "model": "qwen3.5:9b-q4_K_M",
+      "metrics": {
+        "seconds": 58.15,
+        "tokens": 98
+      }
     },
     "investor:hawkins": {
       "generatedAt": "2026-09-16T13:20:49.508722+00:00",
@@ -2998,13 +2996,8 @@
       "summary": "梅森·霍金斯在 2026 Q2 减持雷奥尼尔 (RYN) 8.6%、美泰 (MAT) 股数不变、CNX 资源 (CNX) 增持 20.2%、People Inc(IAC) 减持 18.2%、阿尔伯特森斯 (ACI) 增持 22.7%。"
     },
     "investor:klarman": {
-      "generatedAt": "2026-09-16T13:15:25.868052+00:00",
-      "metrics": {
-        "seconds": 90.5,
-        "tokens": 58
-      },
-      "model": "qwen3.5:9b-q4_K_M",
       "source": {
+        "quarter": "2026 Q2",
         "holdings": [
           [
             "AMZN",
@@ -3458,11 +3451,16 @@
             "DNOW Inc.",
             "DNOW INC"
           ]
-        ],
-        "quarter": "2026 Q2"
+        ]
       },
-      "sourceHash": "2d8569272b0ea25fbfc86d9d6edea0473ba317d2b8eb455e3518736a51f989c9",
-      "summary": "塞斯·克拉曼在2026年第二季度增持了亚马逊、谷歌C和弗格森企业等股票。同时，他清仓了威利斯塔塔 Watson，并减持了餐饮品牌国际、联合太平洋及怡安等持仓。"
+      "sourceHash": "d7a4cd16511e47a365b1e45d431ca4728364fa36578127e28bc9bcc0197cc24d",
+      "summary": "塞斯·克拉曼在 2026 年第二季度增持了亚马逊、谷歌 C 和弗格森企业等股票。同时，他减持了餐饮品牌国际、WESCO 国际及联合太平洋等持仓，并清仓了威利斯塔塔 Watson。",
+      "generatedAt": "2026-09-16T13:46:08.584536+00:00",
+      "model": "qwen3.5:9b-q4_K_M",
+      "metrics": {
+        "seconds": 50.18,
+        "tokens": 63
+      }
     },
     "investor:lilu": {
       "source": {
@@ -5543,16 +5541,670 @@
         "seconds": 60.08,
         "tokens": 115
       }
+    },
+    "investor:akre": {
+      "source": {
+        "quarter": "2026 Q2",
+        "holdings": [
+          [
+            "MA",
+            "57636Q104",
+            1989906,
+            1022015722,
+            2281106,
+            1139777424,
+            "万事达卡",
+            "MASTERCARD INCORPORATED"
+          ],
+          [
+            "MCO",
+            "615369105",
+            1156893,
+            523979978,
+            1246114,
+            543617232,
+            "穆迪",
+            "MOODYS CORP"
+          ],
+          [
+            "BN",
+            "11271J107",
+            12119927,
+            516187709,
+            17027077,
+            689085823,
+            "布鲁克菲尔德",
+            "BROOKFIELD CORP"
+          ],
+          [
+            "KKR",
+            "48251w104",
+            4981486,
+            457200745,
+            6718078,
+            621422174,
+            "KKR集团",
+            "KKR & CO L P DEL"
+          ],
+          [
+            "FICO",
+            "303250104",
+            361826,
+            432302468,
+            363765,
+            388333688,
+            "公平信息公司",
+            "FAIR ISAAC CORP"
+          ],
+          [
+            "ROP",
+            "776696106",
+            1176562,
+            398136815,
+            1257232,
+            444884116,
+            "罗珀科技",
+            "ROPER TECHNOLOGIES INC"
+          ],
+          [
+            "V",
+            "92826C839",
+            1110881,
+            381132162,
+            1638798,
+            495310308,
+            "维萨",
+            "VISA INC"
+          ],
+          [
+            "CSGP",
+            "22160N109",
+            11699396,
+            331326895,
+            10348273,
+            417449333,
+            "CoStar集团",
+            "COSTAR GROUP INC"
+          ],
+          [
+            "CPRT",
+            "217204106",
+            7985808,
+            225119928,
+            7998938,
+            265564742,
+            "Copart, Inc.",
+            "COPART INC"
+          ],
+          [
+            "ORLY",
+            "67103H107",
+            2161818,
+            199081820,
+            3885813,
+            358699398,
+            "奥莱利汽车",
+            "OREILLY AUTOMOTIVE INC"
+          ],
+          [
+            "ABNB",
+            "009066101",
+            1183749,
+            169394482,
+            2034473,
+            256913250,
+            "爱彼迎",
+            "AIRBNB INC"
+          ],
+          [
+            "CCCS",
+            "12510Q100",
+            29858935,
+            154072105,
+            31513070,
+            189078420,
+            null,
+            "CCC INTELLIGENT SOLUTIONS HL"
+          ],
+          [
+            "NOW",
+            "81762P102",
+            1246099,
+            123712709,
+            1096099,
+            114597150,
+            "ServiceNow, Inc.",
+            "SERVICENOW INC"
+          ],
+          [
+            "CRM",
+            "79466L302",
+            717799,
+            112450391,
+            717799,
+            133991539,
+            "Salesforce, Inc.",
+            "SALESFORCE INC"
+          ],
+          [
+            "GSHD",
+            "38267D109",
+            443385,
+            21504172,
+            443385,
+            18914804,
+            "Goosehead保险",
+            "GOOSEHEAD INS INC"
+          ],
+          [
+            "SOPH",
+            "H82027105",
+            3719140,
+            21459438,
+            3719140,
+            18409743,
+            "SOPHiA GENETICS SA",
+            "SOPHIA GENETICS SA"
+          ],
+          [
+            "CRM",
+            "79466L302",
+            100000,
+            15666000,
+            100000,
+            18667000,
+            "Salesforce, Inc.",
+            "SALESFORCE INC"
+          ],
+          [
+            "PRM",
+            "71385M107",
+            250000,
+            8912500,
+            250000,
+            6105000,
+            "Perimeter 解决方案",
+            "PERIMETER SOLUTIONS INC"
+          ],
+          [
+            "AMT",
+            "03027X100",
+            29254,
+            4785077,
+            50772,
+            8762232,
+            "美国塔",
+            "AMERICAN TOWER CORP NEW"
+          ],
+          [
+            "BRK/B",
+            "084670702",
+            8184,
+            4095192,
+            10339,
+            4954449,
+            "伯克希尔哈撒韦 B 类",
+            "BERKSHIRE HATHAWAY INC DEL"
+          ]
+        ],
+        "previousHoldings": [
+          [
+            "MA",
+            "57636Q104",
+            2281106,
+            1139777424,
+            null,
+            null,
+            "万事达卡",
+            "MASTERCARD INCORPORATED"
+          ],
+          [
+            "BN",
+            "11271J107",
+            17027077,
+            689085823,
+            null,
+            null,
+            "布鲁克菲尔德",
+            "BROOKFIELD CORP"
+          ],
+          [
+            "KKR",
+            "48251w104",
+            6718078,
+            621422174,
+            null,
+            null,
+            "KKR集团",
+            "KKR & CO L P DEL"
+          ],
+          [
+            "MCO",
+            "615369105",
+            1246114,
+            543617232,
+            null,
+            null,
+            "穆迪",
+            "MOODYS CORP"
+          ],
+          [
+            "V",
+            "92826C839",
+            1638798,
+            495310308,
+            null,
+            null,
+            "维萨",
+            "VISA INC"
+          ],
+          [
+            "ROP",
+            "776696106",
+            1257232,
+            444884116,
+            null,
+            null,
+            "罗珀科技",
+            "ROPER TECHNOLOGIES INC"
+          ],
+          [
+            "CSGP",
+            "22160N109",
+            10348273,
+            417449333,
+            null,
+            null,
+            "CoStar集团",
+            "COSTAR GROUP INC"
+          ],
+          [
+            "FICO",
+            "303250104",
+            363765,
+            388333688,
+            null,
+            null,
+            "公平信息公司",
+            "FAIR ISAAC CORP"
+          ],
+          [
+            "ORLY",
+            "67103H107",
+            3885813,
+            358699398,
+            null,
+            null,
+            "奥莱利汽车",
+            "OREILLY AUTOMOTIVE INC"
+          ],
+          [
+            "CPRT",
+            "217204106",
+            7998938,
+            265564742,
+            null,
+            null,
+            "Copart, Inc.",
+            "COPART INC"
+          ],
+          [
+            "ABNB",
+            "009066101",
+            2034473,
+            256913250,
+            null,
+            null,
+            "爱彼迎",
+            "AIRBNB INC"
+          ],
+          [
+            "CCCS",
+            "12510Q100",
+            31513070,
+            189078420,
+            null,
+            null,
+            null,
+            "CCC INTELLIGENT SOLUTIONS HL"
+          ],
+          [
+            "CRM",
+            "79466L302",
+            717799,
+            133991539,
+            null,
+            null,
+            "Salesforce, Inc.",
+            "SALESFORCE INC"
+          ],
+          [
+            "NOW",
+            "81762P102",
+            1096099,
+            114597150,
+            null,
+            null,
+            "ServiceNow, Inc.",
+            "SERVICENOW INC"
+          ],
+          [
+            "GSHD",
+            "38267D109",
+            443385,
+            18914804,
+            null,
+            null,
+            "Goosehead保险",
+            "GOOSEHEAD INS INC"
+          ],
+          [
+            "CRM",
+            "79466L302",
+            100000,
+            18667000,
+            null,
+            null,
+            "Salesforce, Inc.",
+            "SALESFORCE INC"
+          ],
+          [
+            "SOPH",
+            "H82027105",
+            3719140,
+            18409743,
+            null,
+            null,
+            "SOPHiA GENETICS SA",
+            "SOPHIA GENETICS SA"
+          ],
+          [
+            "AMT",
+            "03027X100",
+            50772,
+            8762232,
+            null,
+            null,
+            "美国塔",
+            "AMERICAN TOWER CORP NEW"
+          ],
+          [
+            "PRM",
+            "71385M107",
+            250000,
+            6105000,
+            null,
+            null,
+            "Perimeter 解决方案",
+            "PERIMETER SOLUTIONS INC"
+          ],
+          [
+            "BRK/B",
+            "084670702",
+            10339,
+            4954449,
+            null,
+            null,
+            "伯克希尔哈撒韦 B 类",
+            "BERKSHIRE HATHAWAY INC DEL"
+          ]
+        ]
+      },
+      "sourceHash": "89d62d4e250eb31df55991b6e51904361c8cb8d381743ece206d2d25f6e30df4",
+      "summary": "查克·阿克瑞在 2026 Q2 期间减持了万事达卡 (MA)12.8%、布鲁克菲尔德 (BN)28.8%、KKR 集团 (KKR)25.8%、维萨 (V)32.2% 及奥莱利汽车 (ORLY)44.4%，同时增持了 CoStar 集团 (CSGP)13.1%。",
+      "generatedAt": "2026-09-16T13:44:20.243093+00:00",
+      "model": "qwen3.5:9b-q4_K_M",
+      "metrics": {
+        "seconds": 68.81,
+        "tokens": 102
+      }
+    },
+    "investor:abrams": {
+      "source": {
+        "quarter": "2026 Q2",
+        "holdings": [
+          [
+            "LOAR",
+            "53947R105",
+            32050240,
+            2583569846,
+            32050240,
+            1836158250,
+            "洛尔控股",
+            "LOAR HOLDINGS INC"
+          ],
+          [
+            "LAD",
+            "536797103",
+            2490534,
+            723475222,
+            2490534,
+            621936150,
+            "利西亚汽车",
+            "LITHIA MTRS INC"
+          ],
+          [
+            "GOOGL",
+            "02079K305",
+            1370495,
+            489773798,
+            1865768,
+            536520246,
+            "谷歌A",
+            "ALPHABET INC"
+          ],
+          [
+            "SGI",
+            "88023U101",
+            5798776,
+            454624038,
+            5798776,
+            428645522,
+            "Somnigroup 国际",
+            "SOMNIGROUP INTERNATIONAL INC"
+          ],
+          [
+            "ABG",
+            "043436104",
+            2155492,
+            433426331,
+            2155492,
+            421204692,
+            "阿萨比汽车集团",
+            "ASBURY AUTOMOTIVE GROUP INC"
+          ],
+          [
+            "CPNG",
+            "22266T109",
+            13017964,
+            226122035,
+            13017964,
+            245779160,
+            "Coupang, Inc.",
+            "COUPANG INC"
+          ],
+          [
+            "WTW",
+            "G96629103",
+            720779,
+            188390007,
+            720779,
+            209530455,
+            "威利斯塔塔 Watson",
+            "WILLIS TOWERS WATSON PLC LTD"
+          ],
+          [
+            "UHAL.B",
+            "023586506",
+            3251469,
+            187609761,
+            3251469,
+            145243120,
+            null,
+            "U HAUL HOLDING COMPANY"
+          ],
+          [
+            "META",
+            "30303M102",
+            325155,
+            183156560,
+            325155,
+            186030930,
+            "Meta",
+            "META PLATFORMS INC"
+          ],
+          [
+            "NUVB",
+            "67080N101",
+            1270504,
+            7216463,
+            1270504,
+            5450462,
+            "努瓦生科",
+            "NUVATION BIO INC"
+          ],
+          [
+            "UHAL",
+            "023586100",
+            36401,
+            2382081,
+            36401,
+            1739240,
+            "U-Haul 控股",
+            "U HAUL HOLDING COMPANY"
+          ]
+        ],
+        "previousHoldings": [
+          [
+            "LOAR",
+            "53947R105",
+            32050240,
+            1836158250,
+            null,
+            null,
+            "洛尔控股",
+            "LOAR HOLDINGS INC"
+          ],
+          [
+            "LAD",
+            "536797103",
+            2490534,
+            621936150,
+            null,
+            null,
+            "利西亚汽车",
+            "LITHIA MTRS INC"
+          ],
+          [
+            "GOOGL",
+            "02079K305",
+            1865768,
+            536520246,
+            null,
+            null,
+            "谷歌A",
+            "ALPHABET INC"
+          ],
+          [
+            "SGI",
+            "88023U101",
+            5798776,
+            428645522,
+            null,
+            null,
+            "Somnigroup 国际",
+            "SOMNIGROUP INTERNATIONAL INC"
+          ],
+          [
+            "ABG",
+            "043436104",
+            2155492,
+            421204692,
+            null,
+            null,
+            "阿萨比汽车集团",
+            "ASBURY AUTOMOTIVE GROUP INC"
+          ],
+          [
+            "CPNG",
+            "22266T109",
+            13017964,
+            245779160,
+            null,
+            null,
+            "Coupang, Inc.",
+            "COUPANG INC"
+          ],
+          [
+            "WTW",
+            "G96629103",
+            720779,
+            209530455,
+            null,
+            null,
+            "威利斯塔塔 Watson",
+            "WILLIS TOWERS WATSON PLC LTD"
+          ],
+          [
+            "META",
+            "30303M102",
+            325155,
+            186030930,
+            null,
+            null,
+            "Meta",
+            "META PLATFORMS INC"
+          ],
+          [
+            "UHAL.B",
+            "023586506",
+            3251469,
+            145243120,
+            null,
+            null,
+            null,
+            "U HAUL HOLDING COMPANY"
+          ],
+          [
+            "NUVB",
+            "67080N101",
+            1270504,
+            5450462,
+            null,
+            null,
+            "努瓦生科",
+            "NUVATION BIO INC"
+          ],
+          [
+            "UHAL",
+            "023586100",
+            36401,
+            1739240,
+            null,
+            null,
+            "U-Haul 控股",
+            "U HAUL HOLDING COMPANY"
+          ]
+        ]
+      },
+      "sourceHash": "59cee13f6b5a3acf95696b363657e99008351b3e26bffa4ef3acc92d226a6695",
+      "summary": "大卫·艾布拉姆斯在 2026 年第二季度持有洛尔控股、利西亚汽车、谷歌 A、Somnigroup 国际和阿萨比汽车集团等股票。其中，其持有的谷歌 A 股数减少了 26.5%，其余主要持仓的股数保持不变。",
+      "generatedAt": "2026-09-16T13:47:31.594432+00:00",
+      "model": "qwen3.5:9b-q4_K_M",
+      "metrics": {
+        "seconds": 32.33,
+        "tokens": 68
+      }
     }
   },
   "lastRun": {
-    "startedAt": "2026-09-16T13:25:46.752723+00:00",
+    "startedAt": "2026-09-16T13:43:11.245425+00:00",
     "model": "qwen3.5:9b-q4_K_M",
-    "pendingBefore": 13,
-    "cached": 0,
+    "pendingBefore": 8,
+    "cached": 5,
     "sourceCommit": "",
-    "finishedAt": "2026-09-16T13:31:27.067022+00:00",
-    "pendingAfter": 7,
+    "finishedAt": "2026-09-16T13:48:31.604330+00:00",
+    "pendingAfter": 2,
     "accepted": 6,
     "failed": 0
   },
