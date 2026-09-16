@@ -165,11 +165,16 @@ def normalize(data, market, previous=None, now=None):
             if child_ticker in ('TBD', 'N/A'):
                 child_ticker = ''
             missing = [key for key, ok in [('target', target_name), ('ticker', child_ticker), ('evidence', evidence), ('recordDate', date_fields.get('recordDate')), ('distributionDate', date_fields.get('distributionDate'))] if not ok]
-            relevant_dates = [a.get('date', '') for a in announcements if a['relevance'] == 'candidate']
+            event_announcements = announcements
+            if len(groups) > 1:
+                accessions = {p.get('accession') for p in group if p.get('accession')}
+                urls = {p.get('url') for p in group if p.get('url')}
+                event_announcements = [{**a, 'relevance': a['relevance'] if a.get('adsh') in accessions or a.get('url') in urls else 'unverified'} for a in announcements]
+            relevant_dates = [a.get('date', '') for a in event_announcements if a['relevance'] == 'candidate']
             event = {'id': eid, 'market': market, 'parentTicker': c.get('ticker') or parent, 'parentName': c.get('stockName') or c.get('name', ''),
                      'targetName': target_name, 'targetTicker': child_ticker, 'identityVerified': bool(named),
                      'status': status, 'evidence': evidence, 'dates': date_fields, 'missing': missing,
-                     'type': c.get('spinType') or c.get('type', 'spinoff'), 'announcements': announcements,
+                     'type': c.get('spinType') or c.get('type', 'spinoff'), 'announcements': event_announcements,
                      'latestDate': max(relevant_dates, default=''), 'sourceUpdatedAt': data.get('updatedAt', ''),
                      'parentMarketCap': c.get('parentMarketCap'), 'pricePairs': c.get('spinoffPricePerf', []) if same_target else [],
                      'parentPrice': c.get('parentPricePerf') or c.get('pricePerf') or {}}

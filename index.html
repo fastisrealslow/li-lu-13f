@@ -331,7 +331,7 @@ th .info-wrap{position:relative;display:inline-flex}
   .so-timeline-row > *:nth-child(5) { grid-area: pdf !important; justify-self: start !important; }
 }
 </style>
-<link rel="stylesheet" href="spinoff_ui.css?v=1">
+<link rel="stylesheet" href="spinoff_ui.css?v=2">
 </head>
 <body>
 
@@ -572,24 +572,25 @@ th .info-wrap{position:relative;display:inline-flex}
 <!-- ========== FOOTER ========== -->
 <footer class="footer">
   <div class="footer-inner">
-    <p><strong style="color:#fff">李录 13F 持仓追踪</strong> <span data-i18n="footerTagline">— 克隆、学习、跟踪大师持仓变化</span></p>
-    <p><span data-i18n="ftDisclaimer">本页面仅展示 SEC 13F 公开披露信息，不构成投资建议。13F 仅披露美股多头持仓。</span></p>
+    <p class="spin-only">分拆研究 · Spin-off research · SEC EDGAR / HKEX</p>
+    <p class="investor-context"><strong style="color:#fff">李录 13F 持仓追踪</strong> <span data-i18n="footerTagline">— 克隆、学习、跟踪大师持仓变化</span></p>
+    <p class="investor-context"><span data-i18n="ftDisclaimer">本页面仅展示 SEC 13F 公开披露信息，不构成投资建议。13F 仅披露美股多头持仓。</span></p>
     <div class="links">
       <a href="https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=0001709323" target="_blank">SEC EDGAR</a>
       <a href="https://www.himcap.com/" target="_blank">Himalaya Capital</a>
       <a href="https://github.com/fastisrealslow/li-lu-13f" target="_blank">GitHub</a>
     </div>
-    <p><span data-i18n="footerUpdate">数据更新：</span><span id="updateTime" style="font-weight:600;color:var(--gold);"></span><span data-i18n="footerWeekly"> · GitHub Actions 每日自动更新</span></p>
+    <p class="investor-context"><span data-i18n="footerUpdate">数据更新：</span><span id="updateTime" style="font-weight:600;color:var(--gold);"></span><span data-i18n="footerWeekly"> · GitHub Actions 每日自动更新</span></p>
     <p style="margin-top:8px;color:#64748b">📬 <a href="mailto:fastisrealslow@163.com">fastisrealslow@163.com</a></p>
   </div>
 </footer>
 
 <script src="app.js?v=57"></script>
-<script src="spinoff_ui.js?v=1"></script>
+<script src="spinoff_ui.js?v=2"></script>
 <script>
 const nav=document.getElementById('mainNav');
 window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',window.scrollY>60));
-document.querySelectorAll('.nav-links a').forEach(a=>a.addEventListener('click',()=>document.getElementById('navLinks').classList.remove('open')));
+document.querySelectorAll('.nav-links a').forEach(a=>a.addEventListener('click',()=>{ if(document.body.classList.contains('spin-research')) switchTab('current'); document.getElementById('navLinks').classList.remove('open'); }));
 // Tab 栏滞动渐隐效果
 (function(){
   const wrap=document.getElementById('tabsWrap');
