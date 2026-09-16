@@ -46,9 +46,14 @@ def iso_date(value):
 def clean_name(value):
     name = re.sub(r'\s+', ' ', str(value or '')).strip(' .,')
     if (not 2 <= len(name) <= 90 or name.lower() in {'tbd', 'spinco', 'newco', '(解析中)', '子公司', '附屬公司'}
-            or re.search(r'\b(?:will|would|shall|entitlement|shares|common stock|receive|expects)\b|建議分拆及|建议分拆及|公司的建議', name, re.I)):
+            or re.search(r'\b(?:will|would|shall|entitlement|shares|common stock|receive|expects|from|including|owned)\b|建議分拆及|建议分拆及|公司的建議', name, re.I)):
         return ''
     return name
+
+
+def entity_key(value):
+    value = re.sub(r'\([^)]*\)', '', str(value or ''))
+    return re.sub(r'[^a-z0-9\u4e00-\u9fff]', '', re.sub(r'\b(?:inc|corp|corporation|co|ltd|llc)\b', '', value.lower()))
 
 
 def extract_name(text):
@@ -140,6 +145,11 @@ def normalize(data, market, previous=None, now=None):
         for target_key, group in groups.items():
             named = next((clean_name(p.get('targetName')) for p in group if clean_name(p.get('targetName'))), '')
             candidate_name = clean_name(c.get('spinTarget') or c.get('spinoffName'))
+            parent_key = entity_key(c.get('stockName') or c.get('name'))
+            if candidate_name and entity_key(candidate_name) == parent_key:
+                candidate_name = ''
+            if named and entity_key(named) == parent_key:
+                named = ''
             target_name = named or (candidate_name if len(groups) == 1 else '')
             eid = f'{market}:{parent}:' + (hashlib.sha256(target_key.encode()).hexdigest()[:12] if target_key else 'unresolved')
             # Preserve local watch/note identity as an unresolved dossier gains a name.

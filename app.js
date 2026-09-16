@@ -434,10 +434,7 @@ function ts(s) {
   sm['其他'] = 'secOther';
   return t(sm[s] || 'secOther');
 }
-function switchLang() {
-  lang = lang === 'zh' ? 'en' : 'zh';
-  localStorage.setItem('lang', lang);
-  renderInvestorBtns();
+function applyLanguageLabels() {
   document.getElementById('langBtn').textContent = lang === 'zh' ? 'EN' : '中';
   const refreshBtn = document.getElementById('btnRefresh');
   if (refreshBtn && !refreshBtn.disabled) refreshBtn.textContent = lang === 'en' ? '🔄 Refresh' : '🔄 刷新';
@@ -445,6 +442,13 @@ function switchLang() {
     const v = t(el.dataset.i18n);
     if (el.childElementCount === 0) el.textContent = v;
   });
+}
+
+function switchLang() {
+  lang = lang === 'zh' ? 'en' : 'zh';
+  localStorage.setItem('lang', lang);
+  renderInvestorBtns();
+  applyLanguageLabels();
   renderSummary(); renderHoldings(); renderChanges(); renderInsights(); renderHistoryChart();
   updateInvestorContent();
   if (_runStatusData) updateStatusDot(_runStatusData);
@@ -1973,6 +1977,7 @@ function updateStatusDot(statusData) {
 }
 
 async function initApp() {
+  applyLanguageLabels();
   // 先加载 investors.json（单一权威来源），再切换投资者，避免导航按钮/数据加载
   // 发生在 INVESTOR_CFG 为空时的竞态。
   await loadInvestorConfig();

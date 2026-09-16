@@ -41,6 +41,11 @@ class SpinEvidenceTests(unittest.TestCase):
         return {'updatedAt':'2026-09-16', 'companies':[{'ticker':'PARENT','cik':'1234567', 'spinoffName':'Child Holdings',
             'status':'completed', 'distributionDate':'2020-01-01', 'announcements':[ann]}]}
 
+    def test_parent_name_is_not_reused_as_child(self):
+        data = self.fixture()
+        data['companies'][0].update(name='Parent Holdings, Inc. (PARENT)', spinoffName='PARENT HOLDINGS INC')
+        self.assertEqual(normalize(data, 'us')['events'][0]['targetName'], '')
+
     def test_exact_accession_links_and_legacy_status_not_trusted(self):
         result = normalize(self.fixture(), 'us')
         e = result['events'][0]
