@@ -82,9 +82,9 @@ test('empty change records are excluded and all changes remain accessible',()=>{
  const html=a.run("spinChangesHTML({events:[event],changes:Array.from({length:8},()=>({eventId:event.id,at:new Date().toISOString(),kind:'new',toStatus:'needs_review'}))})");
  assert.match(html,/查看全部 8 条变化/);
 });
-test('cards identify missing fields and translate spin-off types',()=>{
+test('cards show key facts without internal data checklists',()=>{
  const a=app();a.context.event=event;
- const html=a.run('spinCard(event)');assert.match(html,/分拆标的：/);assert.match(html,/状态依据、公司对应关系/);assert.match(html,/最新公告：/);
+ const html=a.run('spinCard(event)');assert.match(html,/分拆标的：/);assert.ok(!/状态依据|公司对应关系|待补全 \/ 核实|研究待办/.test(html));assert.match(html,/最新公告：/);
  assert.equal(a.run("spinTypeName('carveout')"),'分拆上市');
  assert.equal(a.run("spinIssuerName({parentName:'Example Inc. (ABC)',parentTicker:'ABC'})"),'Example Inc.');
 });
@@ -103,13 +103,13 @@ test('paused dossiers have their own status and no stale upcoming dates',()=>{
  a.run("spinDash.hk.data={events:[event]};spinDash.hk.status='paused'");
  assert.equal(a.run('spinVisible(spinDash.hk,{}).length'),1);
 });
-test('identity gaps distinguish unknown events and business names expose sources',()=>{
+test('identity gaps and business names remain clear without source excerpts',()=>{
  const a=app();a.context.event={...event,targetName:'',identityState:'unconfirmed_event'};
  assert.match(a.run('spinCard(event)'),/尚未确认关联分拆/);
  a.context.event={...event,targetName:'光伏業務',identityKind:'business',identityEvidence:{date:'2026-01-01',url:'https://www1.hkexnews.hk/filing.pdf',quote:'<script>分立光伏業務</script>'}};
  const html=a.run('spinCard(event)');
- assert.match(html,/业务 \/ 项目/);assert.match(html,/查看名称原文/);
- assert.ok(!html.includes('<script>'));assert.match(html,/非正式上市公司名/);
+ assert.match(html,/业务 \/ 项目/);assert.ok(!/名称来源|查看名称原文/.test(html));
+ assert.ok(!html.includes('<script>'));assert.ok(!html.includes('&lt;script&gt;分立'));
 });
 test('unconfirmed leads remain accessible separately from identified events',()=>{
  const a=app();a.context.event=event;

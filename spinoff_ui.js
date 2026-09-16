@@ -77,7 +77,6 @@ function spinVisible(state, prefs, now=Date.now()) {
       case 'confirmed': return e.identityState !== 'unconfirmed_event';
       case 'unconfirmed': return e.identityState === 'unconfirmed_event';
       case 'watch': return !!prefs[e.id]?.watch;
-      case 'review': return e.missing.length > 0 || !e.identityVerified;
       case 'upcoming': return spinUpcoming(e,now).length > 0;
       case 'completed': return e.status === 'completed' && spinRecent(e.evidence?.date,90,now);
       case 'changes': return changes.has(e.id);
@@ -93,7 +92,7 @@ function spinPrices(e) {
   const pairs = Array.isArray(e.pricePairs) ? e.pricePairs : [];
   const parent = e.parentPrice || {};
   if (!pairs.length && typeof parent.changePct !== 'number') return '';
-  return `<section class="sd-section"><h4>${spinLabel('价格参考','Price reference')}</h4><p class="sd-muted">${spinLabel('价格变动不是母子公司合计收益；历史行情配对尚需核对，不用于判断事件完成或强制卖压。','Price moves are not combined parent/child returns. Legacy price mappings need verification and do not establish completion or forced selling.')}</p>
+  return `<section class="sd-section"><h4>${spinLabel('价格参考','Price reference')}</h4><p class="sd-muted">${spinLabel('区间涨跌幅，非母子公司合计收益。','Period price changes, not combined parent/child returns.')}</p>
     ${typeof parent.changePct === 'number' ? `<p>${spinLabel('关联公司参考区间变动','Issuer reference-period move')}: <b>${spinPct(parent.changePct)}</b> · ${spinEscape(parent.firstAnnouncementDate || parent.startDate || '—')} → ${spinEscape(parent.updatedAt || '—')}</p>` : ''}
     ${pairs.map(p=>`<p>${spinEscape(p.spinoffName || p.spinoff || '')} <span class="sd-muted">${spinEscape(p.spinoff || '')}</span> · ${spinPct(p.spinoffChangePct)} · ${spinEscape(p.currency || '')} · ${spinLabel('参考起始日','Reference start')} ${spinEscape(p.spinoffDate || '—')}</p>`).join('')}
   </section>`;
@@ -117,12 +116,6 @@ function spinTargetLabel(e) {
   if (e.identityState==='unconfirmed_event') return spinLabel('尚未确认关联分拆','Spin-off relationship unconfirmed');
   if (e.identityState==='conflicting_names') return spinLabel('多个名称，待核对关联','Multiple names; relationship unresolved');
   return spinLabel('标的名称待补全','Target name not yet identified');
-}
-function spinGaps(e) {
-  const labels={target:spinLabel('标的名称','target name'),ticker:spinLabel('标的代码','target ticker'),evidence:spinLabel('状态依据','status evidence'),recordDate:spinLabel('记录日','record date'),distributionDate:spinLabel('分派日','distribution date')};
-  const items=(e.missing || []).map(k=>labels[k]).filter(Boolean);
-  if (!e.identityVerified) items.push(spinLabel('公司对应关系','issuer relationship'));
-  return items.length ? spinLabel('待补全 / 核实：','Missing / to verify: ')+items.join('、') : spinLabel('基础资料已收录，仍需核对原文','Core fields available; review original sources');
 }
 function spinChangeDescription(c,e) {
   const lines=[], fields=c.fields || [], before=c.before, after=c.after;
@@ -174,41 +167,36 @@ function spinChangesHTML(data, expanded=false) {
 }
 
 function spinCard(e, pref={}) {
-  const unknown = spinLabel('待核实','To verify');
-  const evidence = e.evidence;
   const dates = Object.entries(e.dates || {});
   const related = e.announcements.filter(a=>a.relevance !== 'unverified');
   const unverified = e.announcements.filter(a=>a.relevance === 'unverified');
   const announcementHTML = list => list.map(a=>`<li><time>${spinEscape(a.date)}</time><div>${spinLink(a.url,a.title)}${!a.direct ? `<small>${spinLabel('公司公告目录，尚未定位原文','Company filing list; original document not yet resolved')}</small>` : ''}</div></li>`).join('');
   const type = spinTypeName(e.type);
-  const gapCount=(e.missing || []).length+(e.identityVerified?0:1);
   return `<article class="sd-card ${pref.read === e.fingerprint ? 'sd-read' : ''}" data-event="${spinEscape(e.id)}">
     <button class="sd-watch" data-action="watch" aria-label="${spinEscape(spinLabel('自选：','Watch: ')+(spinIssuerName(e) || e.parentTicker))}" title="${spinLabel('加入 / 取消自选','Toggle watchlist')}" aria-pressed="${!!pref.watch}">${pref.watch?'★':'☆'}</button>
     <details class="sd-dossier"><summary>
       <div class="sd-identity"><span class="sd-company" title="${spinEscape(spinIssuerName(e))}">${spinEscape(spinIssuerName(e) || e.parentTicker)}</span><span class="sd-symbol">${spinEscape(e.parentTicker)} <span class="sd-unread">${spinLabel('未读','Unread')}</span></span></div>
       <div class="sd-target" title="${spinEscape(spinTargetLabel(e))}"><b><span class="sd-mobile-label">${spinLabel('分拆标的：','Target: ')}</span>${spinEscape(spinTargetLabel(e))}</b><small>${e.identityKind==='business'?spinLabel('业务 / 项目 · ','Business / project · '):''}${spinEscape(type)}${e.targetTicker?' · '+spinEscape(e.targetTicker):''}</small></div>
-      <div class="sd-row-meta"><span class="sd-status sd-${spinEscape(e.status)}">${spinStatus(e.status)}</span><small title="${spinEscape(spinGaps(e))}">${gapCount?spinLabel(`待补全 / 核实 ${gapCount} 项`,`${gapCount} fields to verify`):spinLabel('基础资料已收录','Core fields available')}</small></div>
+      <div class="sd-row-meta"><span class="sd-status sd-${spinEscape(e.status)}">${spinStatus(e.status)}</span></div>
       <time class="sd-row-date"><span class="sd-mobile-label">${spinLabel('最新公告：','Latest filing: ')}</span>${spinEscape(e.latestDate || '—')}</time>
       <span class="sd-expand" aria-label="${spinLabel('展开档案','Expand dossier')}">⌄</span>
     </summary>
-      <div class="sd-detail"><p class="sd-gaps">${spinEscape(spinGaps(e))}</p><div class="sd-facts"><div><span>${spinLabel('申报 / 关联公司','Filing / related issuer')}</span><b>${spinEscape(spinIssuerName(e))}</b><small>${spinEscape(e.parentTicker)}</small></div><div><span>${spinLabel('分拆标的 / 代码','Target / ticker')}</span><b>${spinEscape(spinTargetLabel(e))}</b><small>${spinEscape(e.targetTicker || spinLabel('代码待核实','Ticker to verify'))}</small></div><div><span>${spinLabel('实体对应关系','Entity mapping')}</span><b>${e.identityVerified ? spinLabel('原文规则提取，待人工复核','Extracted from filing; review needed') : unknown}</b></div><div><span>${spinLabel('关联公司参考市值','Issuer reference cap')}</span><b>${typeof e.parentMarketCap === 'number' ? (lang==='en'?`$${(e.parentMarketCap/10).toFixed(2)}B`:`${e.parentMarketCap.toFixed(1)} 亿美元`) : '—'}</b><small>${spinLabel('缓存快照，非实时','Cached snapshot, not live')}</small></div></div>
-      ${e.identityEvidence ? `<section class="sd-section"><h4>${spinLabel('名称来源','Name source')}${e.identityKind==='business'?` · ${spinLabel('业务或项目名称，非正式上市公司名','Business / project name; not a legal listing name')}`:''}</h4><blockquote>${spinEscape(e.identityEvidence.quote)}</blockquote><p>${spinEscape(e.identityEvidence.date)} · ${spinLink(e.identityEvidence.url,spinLabel('查看名称原文','View identity source'))}</p></section>` : ''}
-      <section class="sd-section"><h4>${spinLabel('状态依据','Status evidence')}</h4>${evidence ? `<blockquote>${spinEscape(evidence.quote)}</blockquote><p>${spinEscape(evidence.date)} · ${spinLink(evidence.url,spinLabel('查看来源','View source'))} · ${spinLabel('规则提取，需复核全文与标的','Rule extraction; review full context and target')}</p>` : `<p class="sd-muted">${spinLabel('尚无足够的具体公告证据。历史标签与预定日期不作为完成依据。','Insufficient document evidence. Legacy labels and scheduled dates do not establish completion.')}</p>`}</section>
-      <section class="sd-section"><h4>${spinLabel('关键日期','Key dates')}</h4>${dates.length ? dates.map(([k,v])=>`<p><b>${spinDateLabel(k)} · ${spinEscape(v.date)}</b> <span class="sd-muted">${v.kind==='actual'?spinLabel('公告确认已发生','Confirmed in filing'):spinLabel('计划日期，可能调整','Scheduled; subject to change')}</span> ${spinLink(v.url,spinLabel('依据','Source'))}</p>`).join('') : `<p class="sd-muted">${spinLabel('记录日、分派日：暂无可靠来源。','Record and distribution dates: no reliable source yet.')}</p>`}</section>
+      <div class="sd-detail">
+      ${typeof e.parentMarketCap === 'number' ? `<p class="sd-muted">${spinLabel('关联公司市值（快照）','Issuer market cap (snapshot)')} · ${lang==='en'?`$${(e.parentMarketCap/10).toFixed(2)}B`:`${e.parentMarketCap.toFixed(1)} 亿美元`}</p>` : ''}
+      ${dates.length ? `<section class="sd-section"><h4>${spinLabel('关键日期','Key dates')}</h4>${dates.map(([k,v])=>`<p><b>${spinDateLabel(k)} · ${spinEscape(v.date)}</b> <span class="sd-muted">${v.kind==='actual'?spinLabel('公告确认已发生','Confirmed in filing'):spinLabel('计划日期，可能调整','Scheduled; subject to change')}</span> ${spinLink(v.url,spinLabel('公告','Filing'))}</p>`).join('')}</section>` : ''}
       ${spinPrices(e)}
       ${e.market === 'hk' ? `<section class="sd-section"><h4>${spinLabel('历史股东披露','Historical ownership disclosures')}</h4><button data-action="ownership">${spinLabel('加载历史记录','Load historical records')}</button><div class="sd-ownership"></div></section>` : ''}
-      <section class="sd-section"><h4>${spinLabel('研究待办','Research checklist')}</h4><p>${spinLabel('核对母子公司对应关系、分派比例、债务与现金流、管理层持股，以及机构持仓变化。暂无来源的项目不自动打分。','Verify parent/child identity, distribution ratio, debt and cash flow, management ownership, and institutional holdings. Missing evidence is not automatically scored.')}</p></section>
-      <section class="sd-section"><h4>${spinLabel('公告记录','Source documents')} <small>${related.length}</small></h4><ul class="sd-sources">${announcementHTML(related)}</ul>${unverified.length ? `<details class="sd-legacy"><summary>${spinLabel('历史导入记录：分拆相关性未核实','Legacy imports: relevance unverified')} (${unverified.length})</summary><ul class="sd-sources">${announcementHTML(unverified)}</ul></details>` : ''}</section>
-      <section class="sd-section"><label class="sd-note-label">${spinLabel('研究笔记','Research notes')}<textarea data-action="note" rows="3" maxlength="5000" placeholder="${spinLabel('记录需要核实的问题…','Questions to verify…')}">${spinEscape(pref.note || '')}</textarea></label><small class="sd-note-result" role="status">${spinLabel('笔记与自选仅保存在此浏览器。输入时自动保存。','Notes and watchlist stay in this browser. Notes save as you type.')}</small></section></div>
+      ${related.length || unverified.length ? `<details class="sd-section sd-disclosure"><summary>${spinLabel('公告记录','Filings')} <small>${related.length + unverified.length}</small></summary>${related.length ? `<ul class="sd-sources">${announcementHTML(related)}</ul>` : ''}${unverified.length ? `<details class="sd-legacy"><summary>${spinLabel('关联待确认','Relevance unconfirmed')} (${unverified.length})</summary><ul class="sd-sources">${announcementHTML(unverified)}</ul></details>` : ''}</details>` : ''}
+      <details class="sd-section sd-disclosure"${pref.note ? ' open' : ''}><summary>${spinLabel('研究笔记','Research notes')}</summary><label class="sd-note-label"><textarea aria-label="${spinLabel('研究笔记','Research notes')}" data-action="note" rows="3" maxlength="5000" placeholder="${spinLabel('记录需要核实的问题…','Questions to verify…')}">${spinEscape(pref.note || '')}</textarea></label><small class="sd-note-result" role="status">${spinLabel('笔记与自选仅保存在此浏览器。输入时自动保存。','Notes and watchlist stay in this browser. Notes save as you type.')}</small></details></div>
     </details></article>`;
 }
 function spinRenderList(market) {
   const state = spinDash[market], root = document.getElementById(market === 'hk' ? 'spinoffContent' : 'spinoffUSContent');
   const prefs = spinPrefs(), events = spinVisible(state,prefs), base = spinBaseEvents(state);
-  root.querySelector('.sd-results').innerHTML = events.length ? `<div class="sd-list-head"><span>${spinLabel('公司 / 代码','Company / ticker')}</span><span>${spinLabel('分拆标的 / 类型','Target / type')}</span><span>${spinLabel('进度 / 资料','Status / data')}</span><span>${spinLabel('最新公告','Latest filing')}</span><span></span></div>`+events.map(e=>spinCard(e,prefs[e.id])).join('') : `<div class="sd-empty">${spinLabel('暂无符合条件的事件。可清空搜索或调整筛选。','No matching events. Clear the search or adjust filters.')}</div>`;
+  root.querySelector('.sd-results').innerHTML = events.length ? `<div class="sd-list-head"><span>${spinLabel('公司 / 代码','Company / ticker')}</span><span>${spinLabel('分拆标的 / 类型','Target / type')}</span><span>${spinLabel('进度','Status')}</span><span>${spinLabel('最新公告','Latest filing')}</span><span></span></div>`+events.map(e=>spinCard(e,prefs[e.id])).join('') : `<div class="sd-empty">${spinLabel('暂无符合条件的事件。可清空搜索或调整筛选。','No matching events. Clear the search or adjust filters.')}</div>`;
   root.querySelector('.sd-count').textContent = spinLabel(`显示 ${events.length} / ${base.length} 个档案`,`Showing ${events.length} / ${base.length} dossiers`);
   root.querySelectorAll('[data-view]').forEach(b=>{ b.setAttribute('aria-pressed',String(state.view===b.dataset.view)); });
-  const counts = {confirmed:base.filter(e=>e.identityState !== 'unconfirmed_event').length,unconfirmed:base.filter(e=>e.identityState === 'unconfirmed_event').length,all:base.length,watch:base.filter(e=>prefs[e.id]?.watch).length,review:base.filter(e=>e.missing.length || !e.identityVerified).length,upcoming:base.filter(e=>spinUpcoming(e).length).length};
+  const counts = {confirmed:base.filter(e=>e.identityState !== 'unconfirmed_event').length,unconfirmed:base.filter(e=>e.identityState === 'unconfirmed_event').length,all:base.length,watch:base.filter(e=>prefs[e.id]?.watch).length,upcoming:base.filter(e=>spinUpcoming(e).length).length};
   root.querySelectorAll('[data-count]').forEach(e=>{ e.textContent=counts[e.dataset.count]; });
   root.querySelector('.sd-storage').hidden = !spinStorageFailed;
   root.querySelectorAll('.sd-dossier').forEach(details=>details.addEventListener('toggle',()=>{
@@ -221,12 +209,12 @@ function spinRenderList(market) {
 function spinPaint(market) {
   const state = spinDash[market], root = document.getElementById(market === 'hk' ? 'spinoffContent' : 'spinoffUSContent');
   const data = state.data;
-  const viewNames = {all:spinLabel('全部档案','All dossiers'),watch:spinLabel('我的自选','Watchlist'),review:spinLabel('资料待补全','Incomplete dossiers'),upcoming:spinLabel('未来 30 天','Next 30 days')};
+  const viewNames = {all:spinLabel('全部档案','All dossiers'),watch:spinLabel('我的自选','Watchlist'),upcoming:spinLabel('未来 30 天','Next 30 days')};
   root.innerHTML = `<div class="sd-dashboard"><header class="sd-header"><div><p class="sd-eyebrow">${spinLabel('分拆研究工作台','SPIN-OFF RESEARCH')}</p><h2>${market==='hk'?spinLabel('港股分拆','Hong Kong spin-offs'):spinLabel('美股分拆','US spin-offs')}</h2><p class="sd-muted">${spinLabel('先看变化，再核对证据，持续跟踪值得研究的事件。','Track changes, inspect evidence, and follow the events worth researching.')}</p></div><button data-action="refresh">↻ ${spinLabel('刷新数据','Refresh data')}</button></header>
-    <p class="sd-updated">${spinLabel('来源数据更新','Source data updated')}: ${spinEscape(spinUpdatedTime(data.updatedAt))} · ${spinLabel('不依赖 AI 摘要判断状态','Status does not depend on AI summaries')}</p>
+    <p class="sd-updated">${spinLabel('来源数据更新','Source data updated')}: ${spinEscape(spinUpdatedTime(data.updatedAt))}</p>
     <p class="sd-error" role="status" ${state.error?'':'hidden'}>${spinLabel('刷新失败，仍显示上次成功加载的数据。请重试。','Refresh failed. Showing the last successfully loaded data. Please retry.')}</p>
     <p class="sd-storage" role="status" hidden>${spinLabel('浏览器存储不可用，自选和笔记暂时无法保存。','Browser storage is unavailable; watchlist and notes cannot be saved.')}</p>
-    <div class="sd-kpis">${Object.entries(viewNames).map(([key,label])=>`<button data-view="${key}" aria-pressed="${state.view===key}"><span>${label}</span><b data-count="${key}">0</b>${key==='review'?`<small>${spinLabel('名称、日期或对应关系尚不完整','Missing names, dates or relationship evidence')}</small>`:''}</button>`).join('')}</div>
+    <div class="sd-kpis">${Object.entries(viewNames).map(([key,label])=>`<button data-view="${key}" aria-pressed="${state.view===key}"><span>${label}</span><b data-count="${key}">0</b></button>`).join('')}</div>
     <section class="sd-changes"><h3>${spinLabel('近 7 天的实质变化','Meaningful changes · last 7 days')}</h3><div class="sd-change-content">${spinChangesHTML(data,state.changesExpanded)}</div></section>
     <div class="sd-controls"><label class="sd-search">${spinLabel('搜索','Search')}<input type="search" data-filter="query" value="${spinEscape(state.query)}" placeholder="${spinLabel('公司、标的或股票代码','Issuer, target or ticker')}"></label><label>${spinLabel('状态','Status')}<select data-filter="status"><option value="all">${spinLabel('全部状态','All statuses')}</option>${Object.keys(spinStatusText).map(k=>`<option value="${k}">${spinStatus(k)}</option>`).join('')}</select></label><label>${spinLabel('类型','Type')}<select data-filter="type"><option value="all">${spinLabel('全部（含 REIT）','All (including REITs)')}</option><option value="reit">REIT</option><option value="other">${spinLabel('非 REIT','Non-REIT')}</option></select></label><label>${spinLabel('排序','Sort')}<select data-filter="sort"><option value="latest">${spinLabel('最新公告','Latest filing')}</option><option value="upcoming">${spinLabel('临近日期优先','Upcoming date')}</option><option value="name">${spinLabel('股票代码','Ticker')}</option></select></label></div>
     <div class="sd-views">${[['confirmed',spinLabel('已识别事件','Identified events')],['unconfirmed',spinLabel('关联待确认','Unconfirmed leads')],['unread',spinLabel('未读 / 有更新','Unread / updated')],['changes',spinLabel('近期变化','Recent changes')],['completed',spinLabel('近 90 天完成公告','Completion filings · 90 days')]].map(([k,label])=>`<button data-view="${k}" aria-pressed="${state.view===k}">${label}${['confirmed','unconfirmed'].includes(k)?` <span data-count="${k}">0</span>`:''}</button>`).join('')}<button data-action="reset">${spinLabel('重置筛选','Reset filters')}</button><span class="sd-count" aria-live="polite"></span></div><div class="sd-results"></div>
