@@ -36,8 +36,8 @@
       "status": "ok"
     },
     "investor:hawkins": {
-      "at": "2026-09-16T13:19:15.540310+00:00",
-      "sourceHash": "f301540539c0b33f5c1dd571cdb8fded38f1b234d786363d35f3c3a3010ed424",
+      "at": "2026-09-16T17:43:16.866901+00:00",
+      "sourceHash": "bec8073e8eba5a3a2d3c26325c9e75d5c25d187c0e18e26c0db4726896b2a4a0",
       "status": "ok"
     },
     "investor:klarman": {
@@ -61,8 +61,8 @@
       "status": "ok"
     },
     "value": {
-      "at": "2026-09-16T13:25:46.752748+00:00",
-      "sourceHash": "d18b5eace633d2afedf363c751d1e3b763382848a614c8ea57c2f532b0c07b17",
+      "at": "2026-09-16T17:44:24.788734+00:00",
+      "sourceHash": "7b2f0487f466584223f47af16c42ad3406ffacf0d89b349eeb80ce43aaf1879b",
       "status": "ok"
     }
   },
@@ -1329,13 +1329,8 @@
       }
     },
     "investor:hawkins": {
-      "generatedAt": "2026-09-16T13:20:49.508722+00:00",
-      "metrics": {
-        "seconds": 93.96,
-        "tokens": 91
-      },
-      "model": "qwen3.5:9b-q4_K_M",
       "source": {
+        "quarter": "2026 Q2",
         "holdings": [
           [
             "RYN",
@@ -2989,11 +2984,16 @@
             "亚历山大酒店",
             "ALEXANDERS INC"
           ]
-        ],
-        "quarter": "2026 Q2"
+        ]
       },
-      "sourceHash": "f301540539c0b33f5c1dd571cdb8fded38f1b234d786363d35f3c3a3010ed424",
-      "summary": "梅森·霍金斯在 2026 Q2 减持雷奥尼尔 (RYN) 8.6%、美泰 (MAT) 股数不变、CNX 资源 (CNX) 增持 20.2%、People Inc(IAC) 减持 18.2%、阿尔伯特森斯 (ACI) 增持 22.7%。"
+      "sourceHash": "bec8073e8eba5a3a2d3c26325c9e75d5c25d187c0e18e26c0db4726896b2a4a0",
+      "summary": "梅森·霍金斯在 2026 Q2 期间增持了 CNX 资源、阿尔伯特森斯和再生元，减持了雷奥尼尔、People Inc、联邦快递、卡夫亨氏、米高梅国际度假等股票，同时新建仓雅培并维持美泰持仓不变。",
+      "generatedAt": "2026-09-16T17:44:24.786820+00:00",
+      "model": "qwen3.5:9b-q4_K_M",
+      "metrics": {
+        "seconds": 67.89,
+        "tokens": 71
+      }
     },
     "investor:klarman": {
       "source": {
@@ -3849,6 +3849,17 @@
           ]
         ],
         [
+          "NUVB",
+          "努瓦生科",
+          [
+            [
+              "abrams",
+              0.1,
+              "hold"
+            ]
+          ]
+        ],
+        [
           "BLDR",
           "建筑商FirstSource",
           [
@@ -3867,17 +3878,6 @@
               "tepper",
               0.4,
               "trimmed"
-            ]
-          ]
-        ],
-        [
-          "NUVB",
-          "努瓦生科",
-          [
-            [
-              "abrams",
-              0.1,
-              "hold"
             ]
           ]
         ],
@@ -3904,23 +3904,23 @@
           ]
         ],
         [
-          "ESRT",
-          "帝国州房地产信托",
-          [
-            [
-              "hawkins",
-              2.5,
-              "added"
-            ]
-          ]
-        ],
-        [
           "BIDU",
           "百度",
           [
             [
               "tepper",
               1.9,
+              "added"
+            ]
+          ]
+        ],
+        [
+          "ESRT",
+          "帝国州房地产信托",
+          [
+            [
+              "hawkins",
+              2.5,
               "added"
             ]
           ]
@@ -3937,23 +3937,23 @@
           ]
         ],
         [
+          "PYPL",
+          "PayPal Holdings, Inc.",
+          [
+            [
+              "hawkins",
+              0.1,
+              "hold"
+            ]
+          ]
+        ],
+        [
           "FG",
           "F&G 年金与寿险",
           [
             [
               "greenberg",
               1.4,
-              "trimmed"
-            ]
-          ]
-        ],
-        [
-          "SHEN",
-          "谢南多厄电信",
-          [
-            [
-              "hawkins",
-              2.1,
               "trimmed"
             ]
           ]
@@ -3981,6 +3981,17 @@
           ]
         ],
         [
+          "SHEN",
+          "谢南多厄电信",
+          [
+            [
+              "hawkins",
+              2.1,
+              "trimmed"
+            ]
+          ]
+        ],
+        [
           "EXP",
           "鹰材料",
           [
@@ -3992,13 +4003,13 @@
           ]
         ]
       ],
-      "sourceHash": "d18b5eace633d2afedf363c751d1e3b763382848a614c8ea57c2f532b0c07b17",
-      "summary": "巴菲特持有卡夫亨氏 (KHC) 2.6%，李录持有腾讯音乐 (TME) 1.5%。阿克曼减持布鲁克菲尔德 (BN) 10.1% 后仍持 17.6%，霍金斯增持帝国州房地产信托 (ESRT) 2.5% 并持有印度住房金融 (HDB)、恩诺维斯 (ENOV)。",
-      "generatedAt": "2026-09-16T13:26:45.673658+00:00",
+      "sourceHash": "7b2f0487f466584223f47af16c42ad3406ffacf0d89b349eeb80ce43aaf1879b",
+      "summary": "卡夫亨氏、腾讯音乐等持仓保持，布鲁克菲尔德中阿克曼持有 17.6 股、阿克雷减持 10.1 股；惠而浦特珀尔减持 0.4 股，百度特珀尔新增 1.9 股，帝国州房地产信托霍金斯新增 2.5 股。",
+      "generatedAt": "2026-09-16T17:45:12.101623+00:00",
       "model": "qwen3.5:9b-q4_K_M",
       "metrics": {
-        "seconds": 58.87,
-        "tokens": 94
+        "seconds": 47.31,
+        "tokens": 83
       }
     },
     "investor:duan": {
@@ -6198,14 +6209,14 @@
     }
   },
   "lastRun": {
-    "startedAt": "2026-09-16T13:43:11.245425+00:00",
+    "startedAt": "2026-09-16T17:43:16.866869+00:00",
     "model": "qwen3.5:9b-q4_K_M",
-    "pendingBefore": 8,
-    "cached": 5,
+    "pendingBefore": 2,
+    "cached": 11,
     "sourceCommit": "",
-    "finishedAt": "2026-09-16T13:48:31.604330+00:00",
-    "pendingAfter": 2,
-    "accepted": 6,
+    "finishedAt": "2026-09-16T17:45:12.103737+00:00",
+    "pendingAfter": 0,
+    "accepted": 2,
     "failed": 0
   },
   "schemaVersion": 1
