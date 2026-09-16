@@ -68,6 +68,18 @@ class AISupplementTests(unittest.TestCase):
         cache={'attempts':{self.task['id']:{'at':'2026-09-16'}}}
         self.assertEqual(ai.pending([self.task,other],cache,ai.MODEL)[0]['id'],other['id'])
 
+    def test_partial_inputs_cannot_become_total_counts_or_rankings(self):
+        for text in ['本季持有万事达卡等五只股票，其中维萨减持幅度最大。', '段永平本季持有苹果等五只主要股票，拼多多增持最多。']:
+            with self.assertRaises(ValueError): ai.validate_summary(text,self.task['facts'])
+
+    def test_top_positions_use_current_value_and_tiny_changes_do_not_round_to_zero(self):
+        self.data['current']['holdings'].append({'ticker':'BIG','shares':100001,'value':10000})
+        self.data['current']['previousHoldings'].append({'ticker':'BIG','shares':100000,'value':10})
+        ai.write(self.root/'data.json',self.data)
+        fact=ai.tasks(self.root)[0]['facts']['topPositions'][0]
+        self.assertEqual(fact['ticker'],'BIG')
+        self.assertEqual(fact['change'],'增持（微量变动）')
+
     def test_nonfinite_or_short_output_rejected(self):
         with self.assertRaises(ValueError): ai.validate_summary('好的',{})
 
