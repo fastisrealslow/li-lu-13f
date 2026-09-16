@@ -520,7 +520,7 @@ jobs:
 
       # ─────────────── JSON 验证 & 提交 ───────────────
 
-      - name: Normalize spin-off evidence and change history
+      - name: Recover spin-off identities and normalize change history
         run: |
           python3 resolve_spinoff_names.py
           python3 spinoff_events.py

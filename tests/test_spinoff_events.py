@@ -386,3 +386,14 @@ class AutomaticIdentityTests(unittest.TestCase):
         before={'url':'https://example.org/a.pdf','targetName':'Alpha Inc','identityVersion':1}
         after={'url':before['url'],'targetName':'','identityVersion':1,'identityReason':'conflicting_names'}
         self.assertFalse(merge_evidence([before],[after])[0]['targetName'])
+
+    def test_reference_identity_survives_next_daily_fetch(self):
+        from resolve_spinoff_names import link_references
+        origin={'url':'https://example.org/old.pdf','date':'2026-01-01','targetName':'Child Inc','identityKind':'entity','identityQuote':'spin-off of Child Inc.','identityVersion':1}
+        latest={'url':'https://example.org/new.pdf','date':'2026-02-01','identityVersion':1,'identityReferences':['2026-01-01']}
+        history=link_references([origin,latest])
+        shallow={**latest,'targetName':'光伏業務','identityKind':'business','identityReason':''}
+        shallow.pop('identityReferences')
+        refreshed=link_references(merge_evidence(history,[shallow]))
+        self.assertEqual(refreshed[1]['targetName'],'Child Inc')
+        self.assertEqual(refreshed[1]['identityReferences'],['2026-01-01'])

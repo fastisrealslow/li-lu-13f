@@ -19,7 +19,11 @@ def merge_evidence(previous, current):
         key = proof.get('accession') or proof.get('url')
         if key:
             old = merged.get(key, {})
-            if not proof.get('targetName') and proof.get('identityReason') != 'conflicting_names' and old.get('targetName') and old.get('identityVersion', 0) >= proof.get('identityVersion', 0):
+            same_rules = old.get('identityVersion', 0) >= proof.get('identityVersion', 0)
+            if same_rules and old.get('identityReferences') and 'identityReferences' not in proof:
+                proof = {**proof, 'identityReferences': old['identityReferences']}
+            weaker_name = not proof.get('targetName') or (proof.get('identityKind') == 'business' and old.get('identityReason') == 'dated_reference')
+            if weaker_name and proof.get('identityReason') != 'conflicting_names' and old.get('targetName') and same_rules:
                 proof = {**proof, **{field: old[field] for field in ('targetName', 'targetAliases', 'identityQuote', 'identityKind', 'identityVersion', 'identityReason', 'identitySourceUrl', 'identitySourceDate', 'distributedEntity', 'separatedEntity') if field in old}}
             merged[key] = proof
     return list(merged.values())
