@@ -224,6 +224,8 @@ test('independent AI summary matches exact investor snapshot, not just quarter',
   const a=app();
   a.run("data={current:{quarter:'2026Q2',holdings:[{ticker:'AAA',shares:10,value:100}]}}; _aiSupplement={entries:{'investor:lilu':{source:aiInvestorSource(data),summary:'已有摘要'}}}");
   assert.equal(a.run("aiMatchingEntry('investor:lilu',aiInvestorSource(data)).summary"),'已有摘要');
+  a.run("const s=_aiSupplement.entries['investor:lilu'].source; _aiSupplement.entries['investor:lilu'].source={previousHoldings:s.previousHoldings,holdings:s.holdings,quarter:s.quarter}");
+  assert.equal(a.run("aiMatchingEntry('investor:lilu',aiInvestorSource(data)).summary"),'已有摘要');
   a.run('data.current.holdings[0].shares=20');
   assert.equal(a.run("aiMatchingEntry('investor:lilu',aiInvestorSource(data))"),null);
   assert.equal(a.run("aiMatchingEntry('investor:buffett',aiInvestorSource(data))"),null);
