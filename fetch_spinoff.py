@@ -475,6 +475,9 @@ def refine_status_from_pdf(companies, opener):
     读最新公告 PDF 前2页，提取记录日期/分派日期，精化状态。
     能识别：已完成分派 / 已批准 / 已定记录日 / 进行中
     """
+    previous = load_prev_data()
+    for c in companies:
+        c['filingEvidence'] = list(previous.get(c['stockCode'], {}).get('filingEvidence', []))
     try:
         from pdfminer.high_level import extract_text_to_fp
         from pdfminer.layout import LAParams
@@ -483,11 +486,9 @@ def refine_status_from_pdf(companies, opener):
         print("  跳过 PDF 状态检测（pdfminer 未安装）")
         return companies
 
-    today_str = today.strftime('%Y-%m-%d')
-
     for c in companies:
-        # 只对状态不明确的公司做 PDF 检测
-        cur_status = c.get('_status', get_status(c))
+        # Keep earlier document evidence when a later filing or transient download
+        # failure provides no replacement. Replace only the document re-parsed.
         doc_url = _full_url(c['announcements'][0].get('docUrl', '') if c.get('announcements') else '')
         if not doc_url.endswith('.pdf'):
             continue
@@ -505,7 +506,7 @@ def refine_status_from_pdf(companies, opener):
             continue
 
         proof = parse_evidence(text, c['announcements'][0])
-        c['filingEvidence'] = [proof]
+        c['filingEvidence'] = [p for p in c['filingEvidence'] if p.get('url') != proof['url']] + [proof]
         c['_status'] = proof['status']
         for field, value in proof['dates'].items():
             c[field] = value['date']

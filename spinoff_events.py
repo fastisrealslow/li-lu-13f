@@ -10,6 +10,12 @@ from urllib.parse import urlparse
 STATUSES = {'needs_review', 'announced', 'approved', 'record_set', 'prospectus', 'completed', 'terminated'}
 
 
+def filing_text(value):
+    """Join PDF layout whitespace inside Chinese prose, preserving English words."""
+    value = html.unescape(value or '')
+    return re.sub(r'(?<=[\u3400-\u9fff0-9，。；：])\s+(?=[\u3400-\u9fff0-9，。；：])', '', value)
+
+
 def filing_url(cik, accession, document=''):
     if not str(cik).isdigit() or not re.fullmatch(r'\d{10}-\d{2}-\d{6}', accession or ''):
         return ''
@@ -38,6 +44,14 @@ def iso_date(value):
     value = html.unescape(str(value or '')).strip()
     if '年' in value:
         value = re.sub(r'\s+', '', value)
+        digits = dict(zip('零〇一二三四五六七八九', '00123456789'))
+        def number(m):
+            token = m.group(0)
+            if '十' in token:
+                a, b = token.split('十')
+                return str(int(digits.get(a, '1')) * 10 + int(digits.get(b, '0')))
+            return ''.join(digits[c] for c in token)
+        value = re.sub(r'[零〇一二三四五六七八九十]+', number, value)
     for fmt in ('%Y-%m-%d', '%B %d, %Y', '%b %d, %Y', '%B %d %Y', '%b %d %Y', '%Y年%m月%d日'):
         try:
             return datetime.strptime(value, fmt).date().isoformat()
@@ -62,19 +76,22 @@ def entity_key(value):
 
 
 def extract_name(text):
+    text = filing_text(text)
     # Bounded, capitalized legal names; never consume an entire prose sentence.
     patterns = [
         r'(?:spin[- ]off|separation) of ([A-Z][\w&.-]*(?: [A-Z][\w&.-]*){0,7}(?:,? (?:Inc\.?|Corporation|Corp\.?|LLC|Ltd\.?|Holdings|Group)))',
         r'distribut\w*\s+(?:all (?:of )?(?:the )?)?(?:outstanding )?shares of ([A-Z][\w&.-]*(?: [A-Z][\w&.-]*){0,6}(?:,? (?:Inc\.?|Corporation|Corp\.?|LLC|Ltd\.?)))',
     ]
     patterns.append(r'(?:建議分拆|建议分拆|分拆)(?:(?:其|本公司|所屬|所属|附屬|附属|子公司|非全資|非全资)\s*)*([\u4e00-\u9fffA-Za-z（）()]{2,45}?(?:股份有限公司|有限公司))')
+    # HKEX titles also use a short name before "於…獨立上市".
+    patterns.append(r'(?:建議分拆|建议分拆)及([\u4e00-\u9fff]{2,20}?)於香港聯合交易所有限公司主板獨立上市')
     names = {clean_name(m.group(1)) for p in patterns for m in re.finditer(p, text)} - {''}
     return next(iter(names)) if len(names) == 1 else ''
 
 
 def infer_status(text):
     """Return a rule match and its exact sentence, never infer completion from a date."""
-    text = html.unescape(text or '')
+    text = filing_text(text)
     sentences = re.split(r'(?<=[.!?。；;])\s+|[\n。；]', re.sub(r'[ \t]+', ' ', text or ''))
     candidates = []
     for sentence in sentences:
@@ -84,12 +101,12 @@ def infer_status(text):
         spin = re.search(r'spin[- ]?off|separat|distribution|分拆|分派|分拆上市', s, re.I)
         if not spin:
             continue
-        uncertain = re.search(r'\b(?:not|no|never|expect\w*|anticipat\w*|intend\w*|would|could|may|might|will|subject to|if|upon|until|prior to|before)\b|預計|预计|將|将|尚未|未完成|待|倘|如獲|如获|計劃|计划', s, re.I)
+        uncertain = re.search(r'\b(?:not|no|never|expect\w*|anticipat\w*|intend\w*|would|could|may|might|will|subject to|if|upon|until|prior to|before)\b|預計|预计|將|将|尚未|未完成|未開始|未开始|未上市|待|倘|如獲|如获|若|假如|一旦|計劃|计划', s, re.I)
         status = None
         if not uncertain:
             if re.search(r'(?:has|have|was|is|had)\s+(?:been\s+)?(?:terminated|cancelled|canceled|abandoned)|(?:terminated|cancelled|canceled|abandoned)\s+(?:the\s+)?(?:proposed\s+)?spin[- ]?off|(?:終止|终止|取消)(?:建議|建议)?分拆|分拆.*(?:已終止|已终止)', s, re.I):
                 status = 'terminated'
-            elif re.search(r'(?:has|have|had|successfully)\s+(?:been\s+)?completed\s+(?:the\s+|its\s+)?(?:spin[- ]?off|separation|distribution)|(?:spin[- ]?off|separation|distribution)\s+(?:(?:of|to)\s+[^,;]{1,60}\s+)?(?:has been|was|is|had been)\s+(?:successfully\s+)?completed|(?:分拆|分派).{0,12}(?:已完成|已生效)|已完成.{0,12}(?:分拆|分派)|(?:分拆|分派).{0,80}(?:已開始買賣|已开始买卖)', s, re.I):
+            elif re.search(r'(?:has|have|had|successfully)\s+(?:been\s+)?completed\s+(?:the\s+|its\s+)?(?:spin[- ]?off|separation|distribution)|(?:spin[- ]?off|separation|distribution)\s+(?:(?:of|to)\s+[^,;]{1,60}\s+)?(?:has been|was|is|had been)\s+(?:successfully\s+)?completed|(?:分拆|分派).{0,12}(?:已完成|已生效)|已完成.{0,12}(?:分拆|分派)|(?:分拆|分派).{0,80}(?:已開始買賣|已开始买卖)|分拆.{0,160}(?:上市及[^。；]{0,45}開始買賣|上市及[^。；]{0,45}开始买卖)|分拆公司.{0,90}開始於聯交所主板買賣', s, re.I):
                 status = 'completed'
             elif re.search(r'(?:has|have)\s+approved\s+(?:the\s+)?(?:proposed\s+)?spin[- ]?off|(?:分拆).{0,30}(?:獲.{0,8}批准|获.{0,8}批准)|(?:spin[- ]?off).{0,30}(?:has been|was) approved', s, re.I):
                 status = 'approved'
@@ -119,11 +136,27 @@ def extract_dates(text):
 
 
 def parse_evidence(text, ann, cik=''):
-    text = html.unescape(text or '')
+    text = filing_text(text)
     url = source_url(ann, cik)
     match = infer_status(text)
-    return {**match, 'url': url, 'date': iso_date(ann.get('date')), 'targetName': extract_name(text),
-            'dates': extract_dates(text), 'method': 'rule', 'accession': ann.get('adsh', '')}
+    target_name = extract_name(text) or extract_name(ann.get('title', ''))
+    dates = extract_dates(text)
+    ticker = ''
+    if target_name and urlparse(url).hostname in {'www1.hkexnews.hk', 'www.hkexnews.hk'}:
+        aliases = re.findall(re.escape(target_name) + r'（「([^」]{2,30})」）', text)
+        subject = '(?:' + '|'.join(re.escape(n) for n in [target_name, '分拆公司', *aliases]) + ')'
+        # Bind the code to the child, not the parent's code in the letterhead.
+        codes = set(re.findall(subject + r'[^。\n]{0,100}?股份代號(?:為|：|:)\s*(\d{1,5})(?!\d)', text))
+        if len(codes) == 1:
+            ticker = codes.pop().zfill(5) + '.HK'
+        if match['status'] == 'completed':
+            token = r'(?:20\d{2}年\d{1,2}月\d{1,2}日|[二零〇一三四五六七八九]{4}年[一二三四五六七八九十]{1,3}月[一二三四五六七八九十]{1,3}日)'
+            found = list(re.finditer(subject + r'於(' + token + r')在(?:香港)?聯交所主板上市', text))
+            values = {iso_date(m.group(1)) for m in found} - {''}
+            if len(values) == 1:
+                dates['listingDate'] = {'date': values.pop(), 'quote': found[0].group(0), 'kind': 'actual'}
+    return {**match, 'url': url, 'date': iso_date(ann.get('date')), 'targetName': target_name,
+            'targetTicker': ticker, 'dates': dates, 'method': 'rule', 'accession': ann.get('adsh', '')}
 
 
 def normalize(data, market, previous=None, now=None):
@@ -173,7 +206,9 @@ def normalize(data, market, previous=None, now=None):
                 eid = prior[0]['id']
             valid = [p for p in group if direct_source(p.get('url', '')) and p.get('quote') and p.get('status') in STATUSES - {'needs_review'}]
             valid.sort(key=lambda p: p.get('date', ''), reverse=True)
-            evidence = valid[0] if valid else None
+            # Later prospectus references must not undo an evidenced completion.
+            terminal = [p for p in valid if p['status'] in {'completed', 'terminated'}]
+            evidence = terminal[0] if terminal else valid[0] if valid else None
             status = evidence['status'] if evidence else 'needs_review'
             date_fields = {}
             for p in sorted(group, key=lambda p: p.get('date', '')):
@@ -184,6 +219,9 @@ def normalize(data, market, previous=None, now=None):
             # Do not attach legacy tickers/prices to a different parsed target.
             same_target = len(groups) == 1 and (not named or candidate_name.casefold() == named.casefold())
             child_ticker = (c.get('spinoffTicker') or '') if same_target else ''
+            verified_tickers = {p['targetTicker'] for p in group if p.get('targetTicker') and direct_source(p.get('url', ''))}
+            if len(verified_tickers) == 1:
+                child_ticker = verified_tickers.pop()
             if child_ticker in ('TBD', 'N/A'):
                 child_ticker = ''
             missing = [key for key, ok in [('target', target_name), ('ticker', child_ticker), ('evidence', evidence), ('recordDate', date_fields.get('recordDate')), ('distributionDate', date_fields.get('distributionDate'))] if not ok]

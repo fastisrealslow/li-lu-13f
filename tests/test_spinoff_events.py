@@ -1,9 +1,70 @@
 import copy
 import unittest
-from spinoff_events import (infer_status, extract_name, extract_dates, filing_url, normalize, validate_events)
+from pathlib import Path
+from unittest.mock import patch
+from spinoff_events import (infer_status, extract_name, extract_dates, filing_url, normalize, validate_events, parse_evidence)
 
 
 class SpinEvidenceTests(unittest.TestCase):
+    def hk_proof(self):
+        text = (Path(__file__).parent / 'fixtures/hk_listing_completion.txt').read_text()
+        ann = {'date': '2025-10-15', 'title': '建議分拆及軒竹生物於香港聯合交易所有限公司主板獨立上市之更新資料 - 軒竹生物上市及開始買賣',
+               'docUrl': '/listedco/listconews/sehk/2025/1015/2025101500144_c.pdf'}
+        return ann, parse_evidence(text, ann)
+
+    def test_hk_listing_pdf_layout_and_child_identity(self):
+        ann, proof = self.hk_proof()
+        self.assertEqual(proof['status'], 'completed')
+        self.assertEqual(proof['targetName'], '軒竹生物')
+        self.assertEqual(proof['targetTicker'], '02575.HK')
+        self.assertEqual(proof['dates']['listingDate']['date'], '2025-10-15')
+        self.assertEqual(proof['dates']['listingDate']['kind'], 'actual')
+        data = {'companies': [{'stockCode': '00460', 'ticker': '00460.HK', 'stockName': '四環醫藥',
+                              'announcements': [ann], 'filingEvidence': [proof]}]}
+        previous = normalize({'companies': [{'stockCode': '00460', 'ticker': '00460.HK'}]}, 'hk')
+        result = normalize(data, 'hk', previous=previous)
+        self.assertEqual(len(result['events']), 1)
+        self.assertEqual(result['events'][0]['id'], previous['events'][0]['id'])
+        self.assertEqual(result['events'][0]['targetTicker'], '02575.HK')
+        validate_events(result)
+
+    def test_hk_expected_and_negative_trading_are_not_completion(self):
+        for s in ['分拆公司H股預計開始於聯交所主板買賣', '分拆公司H股未開始於聯交所主板買賣',
+                  '分拆公司若完成上市及開始買賣', '建議分拆及預計上市及開始買賣',
+                  '分拆公司股份將於明日上市及開始買賣']:
+            self.assertNotEqual(infer_status(s)['status'], 'completed', s)
+
+    def test_hk_named_child_and_alias_exclude_parent_code(self):
+        text = ('股份代號：9618。分拆京東工業股份有限公司於香港聯合交易所有限公司主板獨立上市。'
+                '分拆京東工業股份有限公司上市及京東工業股份有限公司股份開始買賣。'
+                '京東工業股份有限公司（「京東工業」）於2025年12月11日在香港聯交所主板上市。'
+                '京東工業於2025年12月11日在香港聯交所主板上市。'
+                '京東工業股份以每手200股進行買賣，股份代號為7618。')
+        proof = parse_evidence(text, {'date': '2025-12-11',
+            'docUrl': '/listedco/listconews/sehk/2025/1211/2025121101039_c.pdf'})
+        self.assertEqual(proof['status'], 'completed')
+        self.assertEqual(proof['targetTicker'], '07618.HK')
+        self.assertEqual(proof['dates']['listingDate']['date'], '2025-12-11')
+
+    def test_completion_survives_later_prospectus_reference(self):
+        ann, proof = self.hk_proof()
+        data = {'companies': [{'stockCode': '00460', 'filingEvidence': [proof, {
+            **proof, 'date': '2026-01-01', 'status': 'prospectus', 'quote': '建議分拆的招股章程更新',
+            'url': 'https://www1.hkexnews.hk/later.pdf'}]}]}
+        result = normalize(data, 'hk')
+        self.assertEqual(result['events'][0]['status'], 'completed')
+        self.assertEqual(result['events'][0]['evidence']['date'], ann['date'])
+
+    def test_pdf_download_failure_preserves_previous_evidence(self):
+        import fetch_spinoff
+        ann, proof = self.hk_proof()
+        c = {'stockCode': '00460', 'stockName': '四環醫藥', 'announcements': [ann]}
+        with patch.object(fetch_spinoff, 'load_prev_data', return_value={'00460': {'filingEvidence': [proof]}}), \
+             patch.object(fetch_spinoff.time, 'sleep'), patch.object(fetch_spinoff, 'get_opener') as opener:
+            opener.open.side_effect = OSError('offline')
+            fetch_spinoff.refine_status_from_pdf([c], opener)
+        self.assertEqual(c['filingEvidence'], [proof])
+
     def test_completion_requires_actual_positive_statement(self):
         for text in [
             'The spin-off is expected to be completed in 2027.',

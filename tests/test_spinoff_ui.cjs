@@ -88,3 +88,10 @@ test('cards identify missing fields and translate spin-off types',()=>{
  assert.equal(a.run("spinTypeName('carveout')"),'分拆上市');
  assert.equal(a.run("spinIssuerName({parentName:'Example Inc. (ABC)',parentTicker:'ABC'})"),'Example Inc.');
 });
+
+test('actual listing dates are labeled as confirmed, not scheduled distributions',()=>{
+ const a=app();a.context.event={...event,status:'completed',dates:{listingDate:{date:'2025-10-15',kind:'actual',url:'https://www1.hkexnews.hk/listedco/completion.pdf'}}};
+ const html=a.run('spinCard(event)');
+ assert.match(html,/上市日 · 2025-10-15/);assert.match(html,/公告确认已发生/);assert.ok(!html.includes('计划日期，可能调整'));
+ a.run("lang='en'");assert.match(a.run('spinCard(event)'),/Listing date · 2025-10-15/);
+});
