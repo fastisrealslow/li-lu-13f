@@ -24,6 +24,8 @@ jobs:
     timeout-minutes: 90
     env:
       TRACK_RUN_STATUS: "1"
+      # AI runs independently; source collection never waits for inference.
+      SILICONFLOW_KEY: ""
     steps:
       # Use the per-run repository token; an expired PAT must not stop updates.
       - uses: actions/checkout@v4
@@ -412,12 +414,7 @@ jobs:
       - name: Enrich metadata (cnName + sector)
         id: metadata
         continue-on-error: true
-        env:
-          SILICONFLOW_KEY: ${{ secrets.SILICONFLOW_KEY }}
         run: |
-          if [ -z "$SILICONFLOW_KEY" ]; then
-            python3 update_status.py --step metadata --status warn --msg "未配置 AI 密钥；保留已有内容"
-          fi
           python3 enrich_metadata.py
 
       - name: Status - Metadata
@@ -446,12 +443,7 @@ jobs:
       - name: Fetch HK spin-off announcements
         id: spinoff_hk
         continue-on-error: true
-        env:
-          SILICONFLOW_KEY: ${{ secrets.SILICONFLOW_KEY }}
         run: |
-          if [ -z "$SILICONFLOW_KEY" ]; then
-            python3 update_status.py --step spinoff_hk --status warn --msg "未配置 AI 密钥；保留已有内容"
-          fi
           python3 fetch_spinoff.py
 
       - name: Status - HK spinoff
@@ -467,12 +459,8 @@ jobs:
         id: spinoff_us
         continue-on-error: true
         env:
-          SILICONFLOW_KEY: ${{ secrets.SILICONFLOW_KEY }}
           FINNHUB_KEY: ${{ secrets.FINNHUB_KEY }}
         run: |
-          if [ -z "$SILICONFLOW_KEY" ]; then
-            python3 update_status.py --step spinoff_us --status warn --msg "未配置 AI 密钥；保留已有内容"
-          fi
           python3 fetch_spinoff_us.py
 
       - name: Status - US spinoff
@@ -486,8 +474,6 @@ jobs:
       - name: Refresh HK/US spinoff child company prices
         id: spinoff_prices
         continue-on-error: true
-        env:
-          SILICONFLOW_KEY: ${{ secrets.SILICONFLOW_KEY }}
         run: |
           pip install rapidfuzz openpyxl akshare -q
           python3 spinoff_price_refresh.py

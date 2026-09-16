@@ -916,16 +916,45 @@ function renderChanges() {
   }).join('');
 }
 
+// AI artifacts load independently; holdings and prices never wait for a model.
+let _aiSupplement = {entries:{}};
+const aiEscape = value => String(value ?? '').replace(/[&<>"']/g, x => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[x]));
+function aiInvestorSource(d) {
+  const cur=d?.current || {}, fields=['ticker','cusip','shares','value','prevShares','prevValue','cnName','name'];
+  const rows=items=>(items || []).map(h=>fields.map(k=>h[k] ?? null));
+  return {quarter:cur.quarter || '',holdings:rows(cur.holdings),previousHoldings:rows(cur.previousHoldings)};
+}
+function aiValueSource(candidates) {
+  return candidates.map(c=>[c.ticker ?? null,c.cnName || c.name || null,(c.investors || []).map(h=>[h.id ?? null,h.weight ?? null,h.chg ?? null])]);
+}
+function aiMatchingEntry(key, source) {
+  const e=_aiSupplement.entries?.[key];
+  return e && typeof e.summary==='string' && JSON.stringify(e.source)===JSON.stringify(source) ? e : null;
+}
+async function refreshAISupplements() {
+  const ctrl=new AbortController(), timer=setTimeout(()=>ctrl.abort(),6000);
+  try {
+    const response=await fetch('ai_supplement.json?t='+Math.floor(Date.now()/300000),{signal:ctrl.signal});
+    if (!response.ok) return;
+    const payload=await response.json();
+    if (payload.schemaVersion!==1 || !payload.entries || typeof payload.entries!=='object') return;
+    _aiSupplement=payload;
+    if (data) renderInsights();
+    _homeworkCache=null;
+  } catch {} finally { clearTimeout(timer); }
+}
+
 function renderInsights() {
   const d = data.current, ins = [], changes = quarterlyHoldings();
 
   // AI 摘要（如果有）
-  const aiSummary = (data.meta || {}).aiSummary;
-  const aiQuarter = (data.meta || {}).aiSummaryQuarter || '';
+  const localAI = aiMatchingEntry('investor:'+investor,aiInvestorSource(data));
+  const aiSummary = localAI?.summary || (data.meta || {}).aiSummary;
+  const aiQuarter = localAI?.source?.quarter || (data.meta || {}).aiSummaryQuarter || '';
   const aiStep = _runStatusData?.runs?.[0]?.steps?.metadata;
-  const aiDegraded = aiStep && ['warn', 'fail'].includes(aiStep.status);
+  const aiDegraded = !localAI && ((_aiSupplement.entries?.['investor:'+investor]) || (aiStep && ['warn', 'fail'].includes(aiStep.status)));
   const aiStale = aiQuarter && aiQuarter !== d.quarter;
-  const aiUpdated = data.meta?.aiSummaryUpdatedAt;
+  const aiUpdated = localAI?.generatedAt || data.meta?.aiSummaryUpdatedAt;
   const aiNotice = aiDegraded ? (lang === 'en' ? ' · AI update incomplete; saved summary' : ' · AI 未完整更新，显示已有摘要')
     : aiStale ? (lang === 'en' ? ' · Earlier quarter' : ' · 非本季摘要') : '';
   const aiDate = aiUpdated ? ' · ' + new Date(aiUpdated).toLocaleDateString(lang === 'en' ? 'en-US' : 'zh-CN') : '';
@@ -937,7 +966,7 @@ function renderInsights() {
       border:1px solid rgba(99,102,241,0.2);
       border-radius:8px;padding:10px 14px;margin-bottom:10px;
       font-size:.78rem;line-height:1.6;color:var(--text);
-    "><span style="font-size:.65rem;color:#6366f1;font-weight:600;margin-right:6px;">✨ AI ${aiQuarter}${aiDate}${aiNotice}</span>${aiSummary}</div>`;
+    "><span style="font-size:.65rem;color:#6366f1;font-weight:600;margin-right:6px;">✨ AI ${aiEscape(aiQuarter)}${aiDate}${aiNotice}</span>${aiEscape(aiSummary)}</div>`;
     if (aiBar) { aiBar.outerHTML = html; } else { box.insertAdjacentHTML('afterbegin', html); }
   } else if (aiBar) {
     aiBar.remove();
@@ -1521,6 +1550,8 @@ async function renderHomework() {
   let hwAiHtml = '';
   try {
     const hwSum = await fetch('homework_summary.json?t=' + Math.floor(Date.now()/300000)).then(r => r.ok ? r.json() : null);
+    const localOverall = aiMatchingEntry('value',aiValueSource(candidates));
+    if (hwSum && localOverall) hwSum.overallSummary=localOverall.summary;
     if (hwSum && (hwSum.overallSummary || (hwSum.stockNotes && hwSum.stockNotes.length))) {
       const tierColor = t => t === '深度折价' ? '#059669' : (t === '中等折价' ? '#d97706' : '#6b7280');
       const tierColorEn = { '深度折价':'Deep discount', '中等折价':'Moderate discount', '轻度折价':'Shallow discount' };
@@ -1562,7 +1593,7 @@ async function renderHomework() {
           ${verdictHtml}
         </div>`;
       }).join('');
-      const overallHtml = hwSum.overallSummary ? `<div style="margin-top:10px;padding-top:10px;border-top:1px dashed rgba(99,102,241,0.3);font-size:.8rem;line-height:1.75;color:var(--text);"><strong style="color:#6366f1;">${isEn2?'Overall':'整体归纳'}：</strong>${hwSum.overallSummary}</div>` : '';
+      const overallHtml = hwSum.overallSummary ? `<div style="margin-top:10px;padding-top:10px;border-top:1px dashed rgba(99,102,241,0.3);font-size:.8rem;line-height:1.75;color:var(--text);"><strong style="color:#6366f1;">${isEn2?'Overall':'整体归纳'}：</strong>${aiEscape(hwSum.overallSummary)}</div>` : '';
       const droppedOutHtml = (hwSum.droppedOut && hwSum.droppedOut.length) ? `<div style="margin-top:8px;padding-top:8px;border-top:1px dashed rgba(148,163,184,0.25);font-size:.72rem;line-height:1.6;color:var(--text-lighter);"><strong style="color:var(--text-light);">${isEn2?'Dropped from list':'本轮跌出'}：</strong>${hwSum.droppedOut.map(d => `${fmtTicker(d.ticker)}${isEn2?'':`（${d.name}）`}${d.prevMos!=null?` — ${isEn2?'prev MOS':'上轮安全边际'} ${d.prevMos}%`:''}`).join(isEn2?'; ':'；')}</div>` : '';
       hwAiHtml = `<div style="margin-bottom:20px;padding:14px 16px;background:linear-gradient(135deg,rgba(99,102,241,0.05),rgba(139,92,246,0.05));border:1px solid rgba(99,102,241,0.15);border-radius:10px;">
         <div style="font-size:.68rem;color:#6366f1;font-weight:700;margin-bottom:6px;">✨ AI ${isEn2?'Per-Stock Notes':'逐股解读'}</div>
@@ -1982,6 +2013,7 @@ async function initApp() {
   // 发生在 INVESTOR_CFG 为空时的竞态。
   await loadInvestorConfig();
   await switchInvestor('lilu');
+  refreshAISupplements();
   initStatusDot();
 }
 

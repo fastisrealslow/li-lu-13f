@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
   # GITHUB_TOKEN pushes do not start push workflows. Publish after the updater.
   workflow_run:
-    workflows: ["Update 13F Data"]
+    workflows: ["Update 13F Data", "AI Supplement (Qwen CPU)"]
     types: [completed]
     branches: [master]
 

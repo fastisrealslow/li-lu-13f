@@ -1,0 +1,139 @@
+name: AI Supplement (Qwen CPU)
+
+on:
+  workflow_run:
+    workflows: ["Update 13F Data"]
+    types: [completed]
+    branches: [master]
+  schedule:
+    - cron: '30 4 * * *' # Retry any remaining backlog separately from data collection.
+  workflow_dispatch:
+    inputs:
+      model:
+        description: Local model (9B is the default; 4B for explicit comparison)
+        type: choice
+        options: ["qwen3.5:9b-q4_K_M", "qwen3.5:4b-q4_K_M"]
+        default: "qwen3.5:9b-q4_K_M"
+      limit:
+        description: Maximum changed summaries to process
+        type: choice
+        options: ["3", "6", "13"]
+        default: "6"
+  push:
+    branches: [master]
+    paths:
+      - .github/workflows/ai-supplement.yml
+      - ai_supplement.py
+      - tests/test_ai_supplement.py
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ai-supplement-master
+  cancel-in-progress: false
+
+jobs:
+  enrich:
+    if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 40
+    permissions:
+      contents: write
+    env:
+      AI_MODEL: ${{ inputs.model || 'qwen3.5:9b-q4_K_M' }}
+      AI_LIMIT: ${{ inputs.limit || '6' }}
+      OLLAMA_HOST: '127.0.0.1:11434'
+      OLLAMA_MODELS: ${{ runner.temp }}/lilu-ollama-models
+      OLLAMA_NUM_PARALLEL: '1'
+      OLLAMA_MAX_LOADED_MODELS: '1'
+      OLLAMA_NO_CLOUD: '1'
+      AI_REPORT: ${{ runner.temp }}/ai-run-report.json
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: master
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Test cache, validation and concurrent data protection
+        run: python3 -m unittest discover -s tests -p test_ai_supplement.py -v
+      - name: Check changed input before installing a model
+        id: plan
+        run: |
+          python3 ai_supplement.py --plan --model "$AI_MODEL" > "$RUNNER_TEMP/ai-plan.json"
+          python3 -c 'import json,os; p=json.load(open(os.environ["RUNNER_TEMP"]+"/ai-plan.json")); open(os.environ["GITHUB_OUTPUT"],"a").write("pending="+str(p["pending"])+"\n"); print(p)'
+      - uses: actions/cache@v4
+        if: steps.plan.outputs.pending != '0'
+        with:
+          path: ${{ env.OLLAMA_MODELS }}
+          key: qwen-cpu-v1-${{ runner.os }}-${{ env.AI_MODEL }}
+      - name: Install pinned Ollama runtime
+        if: steps.plan.outputs.pending != '0'
+        timeout-minutes: 8
+        run: |
+          mkdir -p "$RUNNER_TEMP/ollama"
+          curl --fail --location --retry 3 --max-time 420 https://github.com/ollama/ollama/releases/download/v0.34.1/ollama-linux-amd64.tar.zst -o "$RUNNER_TEMP/ollama.tar.zst"
+          tar --zstd -xf "$RUNNER_TEMP/ollama.tar.zst" -C "$RUNNER_TEMP/ollama"
+          rm "$RUNNER_TEMP/ollama.tar.zst"
+          echo "$RUNNER_TEMP/ollama/bin" >> "$GITHUB_PATH"
+      - name: Start local CPU inference and load model
+        if: steps.plan.outputs.pending != '0'
+        timeout-minutes: 8
+        run: |
+          ollama serve > "$RUNNER_TEMP/ollama.log" 2>&1 &
+          for attempt in $(seq 1 30); do
+            if curl -fsS http://127.0.0.1:11434/api/version; then break; fi
+            sleep 1
+          done
+          curl -fsS http://127.0.0.1:11434/api/version
+          ollama pull "$AI_MODEL"
+          ollama list
+      - name: Generate changed summaries (bounded, checkpointed)
+        if: steps.plan.outputs.pending != '0'
+        timeout-minutes: 25
+        run: python3 -u ai_supplement.py --model "$AI_MODEL" --limit "$AI_LIMIT" --minutes 22 --output "$AI_REPORT"
+      - name: Publish only AI supplement against latest source data
+        if: ${{ !cancelled() && steps.plan.outputs.pending != '0' }}
+        run: |
+          if [ ! -f "$AI_REPORT" ]; then exit 0; fi
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          for attempt in 1 2 3 4; do
+            git fetch origin master
+            git reset --hard origin/master
+            python3 ai_supplement.py --merge "$AI_REPORT"
+            git add -- ai_supplement.json
+            if git diff --cached --quiet; then exit 0; fi
+            git commit -m "auto: supplement AI summaries with local Qwen"
+            if git push origin HEAD:master; then exit 0; fi
+          done
+          exit 1
+      - name: Record measured result
+        if: always()
+        run: |
+          python3 - <<'PY'
+          import json, os
+          from pathlib import Path
+          report = Path(os.environ['AI_REPORT'])
+          with open(os.environ['GITHUB_STEP_SUMMARY'], 'a') as out:
+              out.write('## Independent Qwen CPU summaries\n\n')
+              if report.exists():
+                  d = json.loads(report.read_text())
+                  out.write(f"Model: {d['model']}\n\nCached: {d['cached']}; successful: {len(d['results'])}; pending: {d.get('pendingAfter', '?')}\n\n")
+                  out.write('| Task | Result | Seconds |\n|---|---|---|\n')
+                  for key, a in d['attempts'].items():
+                      seconds = d['results'].get(key, {}).get('metrics', {}).get('seconds', '—')
+                      out.write(f"| {key} | {a['status']} | {seconds} |\n")
+              else:
+                  out.write('No inference report: inputs unchanged or model setup failed. Existing summaries retained.\n')
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: ai-inference-report
+          path: |
+            ${{ env.AI_REPORT }}
+            ${{ runner.temp }}/ollama.log
+          if-no-files-found: ignore
+          retention-days: 14

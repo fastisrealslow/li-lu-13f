@@ -1165,7 +1165,7 @@ def _gen_homework_summary(api_key):
         overall = _sf_call_enrich(api_key, prompt, max_tokens=400)
         if not overall:
             print("  homework summary LLM 失败（整体归纳），仍写入逐股数据")
-            overall = prev_overall or ""
+            overall = prev_overall if signal_hash == prev_hash else ""
 
     out = {
         'overallSummary': overall,
@@ -1364,6 +1364,8 @@ def main():
 
         print("\n=== LLM 生成价值筛选总结 ===")
         _gen_homework_summary(sf_key)
+    else:
+        _gen_homework_summary('')
 
     # 注意：_gen_spinoff_verdicts() 不在这里调用。
     # 它依赖 spinoff.json/spinoff_us.json 里的 marketCap 和 spinoffPricePerf 字段，
