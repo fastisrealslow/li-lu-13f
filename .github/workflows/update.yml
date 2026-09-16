@@ -520,6 +520,9 @@ jobs:
 
       # ─────────────── JSON 验证 & 提交 ───────────────
 
+      - name: Normalize spin-off evidence and change history
+        run: python3 spinoff_events.py
+
       - name: Finish run status
         run: python3 update_status.py --finish
 

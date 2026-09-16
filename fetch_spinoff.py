@@ -20,6 +20,7 @@ API（从浏览器 Network 面板确认）：
 过滤：现价 < 0.5 HKD 的仙股排除。
 """
 
+from spinoff_events import parse_evidence, normalize
 from update_status import record_ai_warning
 
 import json, os, re, sys, time, http.cookiejar, urllib.parse
@@ -487,8 +488,6 @@ def refine_status_from_pdf(companies, opener):
     for c in companies:
         # 只对状态不明确的公司做 PDF 检测
         cur_status = c.get('_status', get_status(c))
-        if cur_status in ('listed', 'terminated'):
-            continue
         doc_url = _full_url(c['announcements'][0].get('docUrl', '') if c.get('announcements') else '')
         if not doc_url.endswith('.pdf'):
             continue
@@ -505,44 +504,12 @@ def refine_status_from_pdf(companies, opener):
             print(f"失败: {e}")
             continue
 
-        # 1. 已完成：分派日期已过
-        dist_m = re.search(
-            r'(?:分派日期|分派时间|以实物分派|實物分派|分派日|distribution date)[^\d]{0,20}'
-            r'(20\d{2})\s*年\s*(\d{1,2})\s*月\s*(\d{1,2})\s*日',
-            text, re.I)
-        if dist_m:
-            dist_date = f"{dist_m.group(1)}-{int(dist_m.group(2)):02d}-{int(dist_m.group(3)):02d}"
-            if dist_date <= today_str:
-                c['_status'] = 'listed'
-                c['distributionDate'] = dist_date
-                print(f"✅ 已完成分派 ({dist_date})")
-                continue
-            else:
-                c['distributionDate'] = dist_date
-                c['_status'] = 'approved'
-                print(f"✅ 已确定分派日 ({dist_date})")
-                continue
-
-        # 2. 已批准：株东大会通过
-        if re.search(r'股東大會.*特別決議案已獲通過|特別決議案已獲通過|特別決議案通過|特别决议案已获通过|特别决议案通过|股東大會批准|股东大会批准', text, re.I):
-            if cur_status not in ('prospectus', 'listed'):
-                c['_status'] = 'approved'
-                print(f"✅ 已批准")
-                continue
-
-        # 3. 已定记录日
-        rec_m = re.search(
-            r'(?:记录日期|记录日|持有人记录日|record date)[^\d]{0,20}'
-            r'(20\d{2})\s*年\s*(\d{1,2})\s*月\s*(\d{1,2})\s*日',
-            text, re.I)
-        if rec_m:
-            rec_date = f"{rec_m.group(1)}-{int(rec_m.group(2)):02d}-{int(rec_m.group(3)):02d}"
-            c['recordDate'] = rec_date
-            if cur_status in ('announced', 'proposed'):
-                c['_status'] = 'approved'
-                print(f"✅ 已定记录日 ({rec_date})")
-                continue
-
+        proof = parse_evidence(text, c['announcements'][0])
+        c['filingEvidence'] = [proof]
+        c['_status'] = proof['status']
+        for field, value in proof['dates'].items():
+            c[field] = value['date']
+        # Scheduled dates never establish approval or completion on their own.
         print('— 无新信息')
 
     return companies
@@ -1075,7 +1042,13 @@ def main():
         "companies": companies,
     }
 
-    with open(OUT_FILE, "w") as f:
+    try:
+        with open(OUT_FILE, encoding='utf-8') as old_file:
+            previous = json.load(old_file)
+    except (OSError, ValueError):
+        previous = {}
+    data = normalize(data, 'hk', previous=previous)
+    with open(OUT_FILE, "w", encoding='utf-8') as f:
         json.dump(data, f, ensure_ascii=False, indent=2)
     print(f"\n✅ {len(companies)} 家公司分拆事件 → {OUT_FILE}")
 

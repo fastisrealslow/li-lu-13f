@@ -35,6 +35,9 @@ jobs:
       - name: Test investor data and display
         run: node --test tests/*.cjs
 
+      - name: Test spin-off evidence rules
+        run: python3 -m unittest discover -s tests -p test_spinoff_events.py -v
+
       - name: Validate published data
         run: python3 validate_data.py
 

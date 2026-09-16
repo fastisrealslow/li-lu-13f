@@ -6,6 +6,7 @@ fetch_spinoff_us.py
 输出：spinoff_us.json
 """
 
+from spinoff_events import infer_status, extract_name, extract_dates as evidence_dates, parse_evidence, filing_url, normalize
 from update_status import record_ai_warning
 
 import json, os, re, sys, time, urllib.parse
@@ -354,7 +355,7 @@ def search_edgar(opener, query, days=365):
 
 
 def fetch_8k_text(cik, adsh, opener):
-    """拉取 8-K 正文（前8000字符），改用目录列表方式找主文件"""
+    """拉取 8-K 正文（前120000字符），改用目录列表方式找主文件"""
     adsh_clean = adsh.replace('-', '')
     dir_url = f"https://www.sec.gov/Archives/edgar/data/{cik}/{adsh_clean}/"
     try:
@@ -373,7 +374,7 @@ def fetch_8k_text(cik, adsh, opener):
         raw = sec_get(main_htm, opener, sleep=0.2).decode('utf-8', errors='ignore')
         text = re.sub(r'<[^>]+>', ' ', raw)
         text = re.sub(r'\s+', ' ', text)
-        return text[:8000]
+        return text[:120000]
     except Exception:
         return ''
 
@@ -391,52 +392,16 @@ def classify_type(text):
 
 
 def get_status(text):
-    """从 8-K 正文推断状态"""
-    t = text.lower()
-    if any(re.search(p, t) for p in STATUS_TERMINATED):
-        return 'terminated'
-    if any(re.search(p, t) for p in STATUS_COMPLETE):
-        return 'completed'
-    if any(re.search(p, t) for p in STATUS_APPROVED):
-        return 'approved'
-    if any(re.search(p, t) for p in STATUS_RECORD):
-        return 'record_set'
-    if any(re.search(p, t) for p in STATUS_ANNOUNCED):
-        return 'announced'
-    return 'in_progress'
+    return infer_status(text)['status']
 
 
 def extract_spinoff_name(text):
-    """从 8-K 正文提取子公司名称"""
-    patterns = [
-        r'spin(?:-| )off of ([A-Z][A-Za-z\s,]+(?:Inc|Corp|LLC|Ltd|Co|Holdings|Group)[.,]?)',
-        r'separation of ([A-Z][A-Za-z\s,]+(?:Inc|Corp|LLC|Ltd|Co|Holdings|Group)[.,]?)',
-        r'distribute.*shares of ([A-Z][A-Za-z\s,]+(?:Inc|Corp|LLC|Ltd|Co|Holdings|Group)[.,]?)',
-        r'([A-Z][A-Za-z\s,]+(?:Inc|Corp|LLC|Ltd|Co|Holdings|Group)[.,]?),? (?:the )?SpinCo',
-    ]
-    for p in patterns:
-        m = re.search(p, text)
-        if m:
-            name = m.group(1).strip().rstrip('.,')
-            if len(name) < 80:
-                return name
-    return ''
+    return extract_name(text)
 
 
 def extract_dates(text):
-    """提取 record date 和 distribution date"""
-    record = ''
-    dist = ''
-
-    rd = re.search(r'record date[^,.\n]*?(\w+ \d+, \d{4}|\d{4}-\d{2}-\d{2})', text, re.I)
-    if rd:
-        record = rd.group(1)
-
-    dd = re.search(r'distribution date[^,.\n]*?(\w+ \d+, \d{4}|\d{4}-\d{2}-\d{2})', text, re.I)
-    if dd:
-        dist = dd.group(1)
-
-    return record, dist
+    dates = evidence_dates(text)
+    return dates.get('recordDate', {}).get('date', ''), dates.get('distributionDate', {}).get('date', '')
 
 
 def get_market_cap_from_facts(cik, opener):
@@ -777,12 +742,12 @@ def main():
         ann = {
             'date': hit['file_date'],
             'title': f"SEC 8-K: {hit['entity']} spin-off filing",
-            'url': f"https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK={hit['cik']}&type=8-K&dateb=&owner=include&count=10",
+            'url': filing_url(hit['cik'], adsh),
             'adsh': adsh,
         }
         if ticker in companies_map:
-            existing_dates = {a['date'] for a in companies_map[ticker]['announcements']}
-            if hit['file_date'] not in existing_dates:
+            existing_ids = {a.get('adsh') for a in companies_map[ticker]['announcements']}
+            if adsh not in existing_ids:
                 companies_map[ticker]['announcements'].append(ann)
                 companies_map[ticker]['announcements'].sort(key=lambda x: x['date'], reverse=True)
         else:
@@ -830,71 +795,32 @@ def main():
         rd, dd = extract_dates(text)
         company['recordDate'] = rd
         company['distributionDate'] = dd
-        # 清除公告里的 adsh（不需要输出）
-        for a in company['announcements']:
-            a.pop('adsh', None)
-        print(f"({company['type']}, {company['status']})")  
+        company['filingEvidence'] = [parse_evidence(text, latest_ann, cik)]
+        # Parse another relevant filing independently so distinct named targets remain separate.
+        for other_ann in company['announcements'][1:2]:
+            other_text = fetch_8k_text(cik, other_ann['adsh'], opener)
+            if other_text:
+                company['filingEvidence'].append(parse_evidence(other_text, other_ann, cik))
+        print(f"({company['type']}, {company['status']})")
 
-    # 其余公司清除 adsh
-    for ticker, company in companies_map.items():
-        for a in company['announcements']:
-            a.pop('adsh', None)
-
-    print(f"\n解析到 {len(companies_map)} 家公司")
-
-    # Step 2.5: 用 submissions API 补充各公司的完整 8-K 历史（无需拉正文）
-    SPIN_ITEMS = {'1.01','2.01','3.03','8.01'}  # 分拆相关的 Item 类型
-    ITEM_LABELS = {
-        '1.01': '重大协议签订',
-        '2.01': '交割完成',
-        '3.03': '股东权益变动',
-        '7.01': '投资者关系公告',
-        '8.01': '分拆进展公告',
-        '5.02': '管理层变动',
-        '2.02': '业绩公布',
-    }
-    print("  补充 8-K 历史公告...")
-    # 只对已完成正文解析的前50家补充多条公告
-    enriched_tickers = list(companies_map.keys())[:50]
-    for ticker in enriched_tickers:
-        company = companies_map[ticker]
-        cik = company.get('cik','')
-        if not cik:
-            continue
-        cik_padded = cik.zfill(10)
+    # Resolve exact primary documents only for search-matched filings. Ordinary
+    # Item 1.01/8.01 filings are not automatically spin-off announcements.
+    for company in list(companies_map.values())[:50]:
+        cik = company.get('cik', '')
         try:
-            sub_url = f"https://data.sec.gov/submissions/CIK{cik_padded}.json"
-            sub_data = json.loads(sec_get(sub_url, opener, sleep=0.1))
-            rec = sub_data['filings']['recent']
-            existing_dates = {a['date'] for a in company['announcements']}
-            added = 0
-            for i, form in enumerate(rec['form']):
-                if form not in ('8-K','8-K/A'):
-                    continue
-                date = rec['filingDate'][i]
-                if date < (datetime.now(timezone.utc) - timedelta(days=SEARCH_DAYS)).strftime('%Y-%m-%d'):
-                    continue
-                items_str = rec.get('items',[''])[i] if isinstance(rec.get('items'), list) else ''
-                items_set = set(items_str.split(',')) if items_str else set()
-                # 只保留分拆相关 item（排除纯常规公告）
-                if not (items_set & SPIN_ITEMS):
-                    continue
-                if date in existing_dates:
-                    continue
-                item_labels = [ITEM_LABELS[it] for it in sorted(items_set & set(ITEM_LABELS)) if it in ITEM_LABELS]
-                label = '、'.join(item_labels[:2]) or 'SEC 8-K 公告'
-                adsh = rec['accessionNumber'][i]
-                ann_url = f"https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK={cik}&type=8-K&dateb=&owner=include&count=40"
-                company['announcements'].append({'date': date, 'title': f"{label}（{date}）", 'url': ann_url})
-                existing_dates.add(date)
-                added += 1
-            if added:
-                company['announcements'].sort(key=lambda x: x['date'], reverse=True)
-        except Exception:
-            pass
-        time.sleep(0.1)
-    print(f"  完成")
-
+            sub = json.loads(sec_get(f"https://data.sec.gov/submissions/CIK{cik.zfill(10)}.json", opener, sleep=0.1))
+            recent = sub['filings']['recent']
+            docs = dict(zip(recent['accessionNumber'], recent['primaryDocument']))
+            for ann in company['announcements']:
+                ann['primaryDocument'] = docs.get(ann['adsh'], '')
+                ann['url'] = filing_url(cik, ann['adsh'], ann['primaryDocument'])
+            by_id = {a['adsh']: a for a in company['announcements']}
+            for proof in company.get('filingEvidence', []):
+                ann = by_id.get(proof.get('accession'))
+                if ann:
+                    proof['url'] = ann['url']
+        except Exception as exc:
+            print(f"  Exact document lookup unavailable: {company['ticker']}: {exc}")
 
     # Step 3: 合并手动维护的已知案例
     print("\n合并已知案例...")
@@ -973,22 +899,26 @@ def main():
             hits = json.loads(sec_get(url, opener, sleep=0.1))['hits']['hits']
             if not hits:
                 return ''
-            src = hits[0]['_source']
-            entity_name = src.get('entity', src.get('display_names', [''])[0] if src.get('display_names') else '').lower()
-            # 验证： entity 名字必须包含关键词的主要部分
-            kw_lower = kw.lower()
-            first_word = kw_lower.split()[0] if kw_lower.split() else ''
-            if first_word and first_word not in entity_name:
-                return ''  # 名字不匹配，拥弃
-            cik = src.get('ciks', [''])[0]
-            if not cik:
+            def identity(value):
+                words = re.findall(r'[a-z0-9]+', value.lower())
+                return [w for w in words if w not in {'inc', 'corp', 'corporation', 'ltd', 'llc', 'the', 'co'}]
+            expected = identity(spinoff_name)
+            candidates = set()
+            for hit in hits:
+                src = hit.get('_source', {})
+                for display in src.get('display_names', []):
+                    issuer = re.sub(r'\s*\([^)]*\)', '', display)
+                    if expected and identity(issuer) == expected and len(src.get('ciks', [])) == 1:
+                        candidates.add(src['ciks'][0])
+            if len(candidates) != 1:
                 return ''
+            cik = candidates.pop()
             cik_padded = cik.zfill(10)
             sub = json.loads(sec_get(f"https://data.sec.gov/submissions/CIK{cik_padded}.json", opener, sleep=0.1))
             tickers = [t for t in sub.get('tickers', []) if t]
             # 过滤：不能是母公司自己的 ticker
             tickers = [t for t in tickers if t != parent_ticker]
-            return tickers[0] if tickers else ''
+            return tickers[0] if len(tickers) == 1 else ''
         except Exception:
             return ''
 
@@ -1071,6 +1001,13 @@ def main():
         'count': len(companies),
         'companies': companies,
     }
+
+    try:
+        with open('spinoff_us.json', encoding='utf-8') as old_file:
+            previous = json.load(old_file)
+    except (OSError, ValueError):
+        previous = {}
+    out = normalize(out, 'us', previous=previous)
 
     with open('spinoff_us.json', 'w', encoding='utf-8') as f:
         json.dump(out, f, ensure_ascii=False, indent=2)

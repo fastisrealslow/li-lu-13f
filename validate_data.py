@@ -5,6 +5,7 @@ import math
 from pathlib import Path
 import subprocess
 import sys
+from spinoff_events import validate_events
 
 
 EXTRA_FILES = (
@@ -44,6 +45,8 @@ def validate(root):
     for name, role in roles.items():
         try:
             value = read_json(root / name)
+            if name in ("spinoff.json", "spinoff_us.json"):
+                validate_events(value)
             if role == "dataFile":
                 current = value.get("current", {})
                 if not isinstance(current.get("holdings"), list) or not current.get("quarter"):
