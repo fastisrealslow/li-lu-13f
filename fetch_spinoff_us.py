@@ -6,8 +6,8 @@ fetch_spinoff_us.py
 输出：spinoff_us.json
 """
 
-from spinoff_events import infer_status, extract_name, extract_dates as evidence_dates, parse_evidence, filing_url, normalize
-from update_status import record_ai_warning
+from spinoff_events import infer_status, extract_name, extract_dates as evidence_dates, parse_evidence, filing_url, normalize, merge_evidence
+from update_status import record_ai_warning, record_source_warning
 
 import json, os, re, sys, time, urllib.parse
 from datetime import datetime, timedelta, timezone
@@ -314,7 +314,7 @@ def search_edgar(opener, query, days=365):
         url = (f"{EDGAR_BASE}/LATEST/search-index"
                f"?q={q_enc}&forms=8-K"
                f"&dateRange=custom&startdt={start_dt}&enddt={end_dt}"
-               f"&from={from_offset}")
+               f"&from={from_offset}&size={page_size}")
         try:
             data = json.loads(sec_get(url, opener))
         except Exception as e:
@@ -348,43 +348,61 @@ def search_edgar(opener, query, days=365):
 
         total = data.get('hits', {}).get('total', {}).get('value', 0)
         from_offset += page_size
-        if from_offset >= min(total, 40):  # 每个查询最多取40条，控制总耗时
+        if from_offset >= min(total, 400):  # Bounded pagination, not just the first result page
             break
 
     return results
 
 
-def fetch_8k_text(cik, adsh, opener):
-    """拉取 8-K 正文（前120000字符），改用目录列表方式找主文件"""
-    adsh_clean = adsh.replace('-', '')
-    dir_url = f"https://www.sec.gov/Archives/edgar/data/{cik}/{adsh_clean}/"
+def primary_8k_document(index_html, cik, adsh):
+    """Select the document whose SEC document-table Type is 8-K, never the first attachment."""
+    from html import unescape
+    prefix = f"/Archives/edgar/data/{int(cik)}/{adsh.replace('-', '')}/"
+    for row in re.findall(r'<tr\b[^>]*>(.*?)</tr>', index_html, re.S | re.I):
+        cells = re.findall(r'<td\b[^>]*>(.*?)</td>', row, re.S | re.I)
+        labels = [unescape(re.sub(r'<[^>]+>', '', c)).strip() for c in cells]
+        if '8-K' not in labels and '8-K/A' not in labels:
+            continue
+        for href in re.findall(r'href=["\']([^"\']+)["\']', row, re.I):
+            href = unescape(href)
+            if 'doc=' in href:
+                href = urllib.parse.parse_qs(urllib.parse.urlparse(href).query).get('doc', [''])[0]
+            if href.startswith(prefix) and re.search(r'\.html?$', href, re.I):
+                return href.rsplit('/', 1)[-1]
+    return ''
+
+
+def fetch_8k_text(cik, adsh, opener, ann=None):
+    """Read the exact primary 8-K identified by SEC metadata; preserve its URL."""
+    from html import unescape
     try:
-        dir_raw = sec_get(dir_url, opener, sleep=0.2).decode('utf-8', errors='ignore')
-        # 找主 8-K htm 文件（排除 exhibit、R*.htm、def/lab/pre 等辅助文件）
-        files = re.findall(r'href="(/Archives/edgar/data/[^"]+\.htm)"', dir_raw)
-        main_htm = None
-        for f in files:
-            fname = f.split('/')[-1].lower()
-            if not any(x in fname for x in ['exhibit', 'r1.htm', 'r2.htm', 'r3.htm',
-                                             'def.', 'lab.', 'pre.', 'filing']):
-                main_htm = 'https://www.sec.gov' + f
-                break
-        if not main_htm:
+        document = (ann or {}).get('primaryDocument', '')
+        if not document:
+            index = sec_get(filing_url(cik, adsh), opener, sleep=0.2).decode('utf-8', errors='replace')
+            document = primary_8k_document(index, cik, adsh)
+        if not document:
+            record_source_warning('spinoff_us', '部分 SEC 主文件未能读取；保留历史证据，相关档案待核实')
             return ''
-        raw = sec_get(main_htm, opener, sleep=0.2).decode('utf-8', errors='ignore')
-        text = re.sub(r'<[^>]+>', ' ', raw)
-        text = re.sub(r'\s+', ' ', text)
-        return text[:120000]
-    except Exception:
+        url = filing_url(cik, adsh, document)
+        raw = sec_get(url, opener, sleep=0.2).decode('utf-8', errors='replace')
+        raw = re.sub(r'<(?:script|style)\b[^>]*>.*?</(?:script|style)>', ' ', raw, flags=re.S | re.I)
+        text = unescape(re.sub(r'<[^>]+>', ' ', raw))
+        text = re.sub(r'\s+', ' ', text).strip()
+        if ann is not None:
+            ann.update(primaryDocument=document, url=url)
+        return text[:240000]
+    except Exception as exc:
+        print(f"  8-K document unavailable: {adsh}: {exc}", file=sys.stderr)
+        record_source_warning('spinoff_us', '部分 SEC 主文件未能读取；保留历史证据，相关档案待核实')
         return ''
 
 
 def classify_type(text):
     """从 8-K 正文判断分拆类型"""
     t = text.lower()
-    if any(re.search(p, t) for p in TYPE_SPLITOFF):
+    if re.search(r'split[- ]?off|exchange offer.{0,100}(?:subsidiary|spinco|spin-off)', t):
         return 'splitoff'
-    if any(re.search(p, t) for p in TYPE_CARVEOUT):
+    if re.search(r'(?:equity )?carve[- ]?out|initial public offering of.{0,100}(?:subsidiary|spinco)', t):
         return 'carveout'
     if any(re.search(p, t) for p in TYPE_SPINOFF):
         return 'spinoff'
@@ -491,27 +509,15 @@ def dedupe(companies):
     seen = {}
     for c in companies:
         tk = c['ticker']
+        c['filingEvidence'] = merge_evidence(prev_us.get(tk, {}).get('filingEvidence', []), c.get('filingEvidence', []))
         if tk not in seen or len(c['announcements']) > len(seen[tk]['announcements']):
             seen[tk] = c
     return list(seen.values())
 
 
 def filter_status(companies):
-    """移除已完成超过6个月 或 已终止的"""
-    cutoff = datetime.now(timezone.utc) - timedelta(days=180)
-    out = []
-    for c in companies:
-        if c['status'] == 'terminated':
-            continue
-        if c['status'] == 'completed':
-            # 找最近公告日期
-            dates = [a['date'] for a in c['announcements'] if a.get('date')]
-            if dates:
-                latest = datetime.strptime(max(dates), '%Y-%m-%d').replace(tzinfo=timezone.utc)
-                if latest < cutoff:
-                    continue
-        out.append(c)
-    return out
+    """Retain completed and terminated dossiers for the dashboard's status filters."""
+    return companies
 
 
 # SiliconFlow 免费模型列表（按优先级排序，主模型下线自动 fallback）
@@ -731,6 +737,8 @@ def main():
                 all_hits[key] = h
 
     print(f"\n去重后共 {len(all_hits)} 条 8-K")
+    if not all_hits:
+        raise RuntimeError('No SEC search results; refusing to overwrite the last successful dataset')
 
     # Step 2: 分两步处理
     # 第一步：按 ticker 分组，建立公司列表（不拉正文）
@@ -768,16 +776,17 @@ def main():
 
     print(f"  初步收录 {len(companies_map)} 家公司")
 
-    # 第二步：对前50家（最新公告）作正文解析，丰富分拆信息
-    print("  拉取 8-K 正文（前50家）...")
-    for ticker, company in list(companies_map.items())[:50]:
+    # 第二步：解析每家公司的最新正文，并保留已有证据。
+    print("  拉取全部候选公司的 8-K 正文...")
+    for ticker, company in companies_map.items():
         latest_ann = company['announcements'][0]
         adsh = latest_ann.get('adsh', '')
         cik = company['cik']
         if not adsh or not cik:
             continue
         print(f"  {ticker} ...", end=' ', flush=True)
-        text = fetch_8k_text(cik, adsh, opener)
+        company['filingEvidence'] = list(prev_us.get(ticker, {}).get('filingEvidence', []))
+        text = fetch_8k_text(cik, adsh, opener, latest_ann)
         if not text:
             print('(no text)')
             continue
@@ -785,7 +794,7 @@ def main():
         # 判断是否真实分拆公告
         if not any(re.search(p, t) for p in TYPE_SPINOFF + TYPE_CARVEOUT + TYPE_SPLITOFF):
             print('(not spinoff, skip)')
-            del companies_map[ticker]
+            company['filingEvidence'] = merge_evidence(company['filingEvidence'], [parse_evidence(text, latest_ann, cik)])
             continue
         company['type'] = classify_type(text)
         company['status'] = get_status(text)
@@ -795,12 +804,12 @@ def main():
         rd, dd = extract_dates(text)
         company['recordDate'] = rd
         company['distributionDate'] = dd
-        company['filingEvidence'] = [parse_evidence(text, latest_ann, cik)]
+        company['filingEvidence'] = merge_evidence(company['filingEvidence'], [parse_evidence(text, latest_ann, cik)])
         # Parse another relevant filing independently so distinct named targets remain separate.
         for other_ann in company['announcements'][1:2]:
-            other_text = fetch_8k_text(cik, other_ann['adsh'], opener)
+            other_text = fetch_8k_text(cik, other_ann['adsh'], opener, other_ann)
             if other_text:
-                company['filingEvidence'].append(parse_evidence(other_text, other_ann, cik))
+                company['filingEvidence'] = merge_evidence(company['filingEvidence'], [parse_evidence(other_text, other_ann, cik)])
         print(f"({company['type']}, {company['status']})")
 
     # Resolve exact primary documents only for search-matched filings. Ordinary
@@ -865,8 +874,6 @@ def main():
     current_tickers = {c['ticker'] for c in companies}
     for tk, old_c in prev_us.items():
         if tk in current_tickers:
-            continue
-        if old_c.get('status') == 'terminated':
             continue
         # 只保留最近365天内有公告的旧案例（completed 或 in_progress）
         dates = [a['date'] for a in old_c.get('announcements', []) if a.get('date')]
@@ -938,7 +945,7 @@ def main():
     print("\n状态过滤...")
     before = len(companies)
     companies = filter_status(companies)
-    print(f"  {before} → {len(companies)} 家（移除已终止/超期已完成）")
+    print(f"  {before} → {len(companies)} 家（保留已完成及已终止档案）")
 
     # Step 5: 添加中文名（手动字典 + SiliconFlow 兜底翻译）
     for c in companies:

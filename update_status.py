@@ -92,6 +92,8 @@ def update_step(step, status, msg=""):
         data = load()
     current_run = data["runs"][0]
     previous = current_run["steps"].get(step, {})
+    if status == "warn" and previous.get("status") == "warn" and previous.get("msg"):
+        msg = previous["msg"] if msg in previous["msg"] else previous["msg"] + "；" + msg
     # A successful process can still have unavailable optional AI features.
     if status == "ok" and previous.get("status") == "warn":
         status, msg = "warn", previous.get("msg", "AI 更新不完整，保留已有内容")
@@ -114,6 +116,12 @@ def record_ai_warning(step, code=None):
     reason = reasons.get(code, "AI 请求失败或模型不可用")
     update_step(os.environ.get("RUN_STATUS_STEP", step), "warn",
                 reason + "；相关内容未完整更新，保留已有内容")
+
+
+def record_source_warning(step, message):
+    """Expose incomplete source reads without discarding the last good evidence."""
+    if os.environ.get("TRACK_RUN_STATUS") == "1" and load().get("runs"):
+        update_step(step, "warn", message)
 
 
 def finish_run():

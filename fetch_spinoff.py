@@ -20,8 +20,8 @@ API（从浏览器 Network 面板确认）：
 过滤：现价 < 0.5 HKD 的仙股排除。
 """
 
-from spinoff_events import parse_evidence, normalize
-from update_status import record_ai_warning
+from spinoff_events import parse_evidence, normalize, merge_evidence, classify_hk_type
+from update_status import record_ai_warning, record_source_warning
 
 import json, os, re, sys, time, http.cookiejar, urllib.parse
 from datetime import datetime, timezone, timedelta
@@ -231,88 +231,7 @@ def parse_rows(html):
 
 
 def _classify_spinoff_type(titles):
-    """
-    识别分拆类型，返回 dict:
-      { code, exchange_zh, exchange_en, label_zh, label_en, is_reit }
-
-    类型优先级：
-      1. REIT / 基础设施基金（子公司分拆为基金上市，非普通股）
-      2. 港交所主板 IPO
-      3. A股深交所 IPO
-      4. A股上交所 IPO
-      5. A股（未明确交易所）
-      6. 其他交易所
-      7. 直接分拆（无独立上市）
-    """
-    combined = ' '.join(titles)
-    # 预计算：是否是「建議分拆+獨立上市」格式（标准 IPO 分拆）
-    has_ipo_spinoff = bool(re.search(r'建[議议]分拆.{0,50}(?:獨立上市|独立上市|獨立上市)', combined))
-
-    # REIT 判断：分拆目标明确是基金/REITs，而非子公司股票
-    is_reit = any(kw in combined for kw in [
-        '不動產投資信託基金', '基礎設施證券投資基金', '商業不動產證券投資基金',
-        'REITs', 'REIT', '公募基金', '基礎設施基金',
-    ])
-    # 同时包含「子公司」「独立上市」等关键词时优先按 IPO 处理（非 REIT）
-    has_subsidiary_ipo = any(kw in combined for kw in ['子公司', '獨立上市', '独立上市']) and \
-                         not any(kw in combined for kw in ['信託基金', '證券投資基金'])
-    if has_subsidiary_ipo:
-        is_reit = False
-
-    if is_reit:
-        if '深圳證券' in combined or '深交所' in combined:
-            return dict(code='reit_sz', exchange_zh='深交所', exchange_en='SZSE',
-                        label_zh='REIT·深交所', label_en='REIT·SZSE', is_reit=True)
-        if '上海證券' in combined or '上交所' in combined:
-            return dict(code='reit_sh', exchange_zh='上交所', exchange_en='SSE',
-                        label_zh='REIT·上交所', label_en='REIT·SSE', is_reit=True)
-        return dict(code='reit', exchange_zh='REITs', exchange_en='REITs',
-                    label_zh='REIT上市', label_en='REIT Listing', is_reit=True)
-
-    # IPO + 实物分派（发行新股融资，同时将现有股份分派给原股东）
-    if has_ipo_spinoff and '實物分派' in combined:
-        return dict(code='ipo_hk_dist', exchange_zh='港交所', exchange_en='HKEX',
-                    label_zh='IPO+实物分派', label_en='IPO+Distribution', is_reit=False)
-
-    # 介绍上市（实物分派，不发行新股不融资）——优先于港交所判断
-    # 排除条件：标题同时含「建議分拆...並於...獨立上市」= 主体是IPO，实物分派只是附加安排
-    is_introduction = any(kw in combined for kw in [
-        '介绍方式', '以介绍式', 'listing by introduction',
-        'distribution in specie', '实物分配',
-        '以介紹方式', '介紹上市',   # 繁体
-    ])
-    # 「实物分派」单独出现才算介绍上市；若同时有「建議分拆...獨立上市」= IPO+附加实物分派
-    if is_introduction and not has_ipo_spinoff:
-        return dict(code='intro_hk', exchange_zh='港交所', exchange_en='HKEX',
-                    label_zh='介紹上市', label_en='Intro Listing', is_reit=False)
-    if '實物分派' in combined and not has_ipo_spinoff:
-        return dict(code='intro_hk', exchange_zh='港交所', exchange_en='HKEX',
-                    label_zh='介紹上市', label_en='Intro Listing', is_reit=False)
-
-    # 港交所
-    if any(kw in combined for kw in ['聯交所', '香港聯合交易所', '港交所', '香港主板']):
-        return dict(code='ipo_hk', exchange_zh='港交所', exchange_en='HKEX',
-                    label_zh='分拆·港股IPO', label_en='Spinoff·HKEX IPO', is_reit=False)
-
-    # A股
-    if '深圳證券' in combined or '深交所' in combined:
-        return dict(code='ipo_a_sz', exchange_zh='深交所', exchange_en='SZSE',
-                    label_zh='分拆·A股深交所', label_en='Spinoff·A-Share SZSE', is_reit=False)
-    if '上海證券' in combined or '上交所' in combined:
-        return dict(code='ipo_a_sh', exchange_zh='上交所', exchange_en='SSE',
-                    label_zh='分拆·A股上交所', label_en='Spinoff·A-Share SSE', is_reit=False)
-    if 'A股' in combined:
-        return dict(code='ipo_a', exchange_zh='A股', exchange_en='A-Share',
-                    label_zh='分拆·A股上市', label_en='Spinoff·A-Share IPO', is_reit=False)
-
-    # 有上市迹象但交易所不明
-    if any(kw in combined for kw in ['獨立上市', '独立上市', '上市', 'IPO', '挂牌']):
-        return dict(code='ipo_other', exchange_zh='待定', exchange_en='TBD',
-                    label_zh='分拆·独立上市', label_en='Spinoff·IPO', is_reit=False)
-
-    # 直接分拆（无独立上市）
-    return dict(code='split_direct', exchange_zh='直接分拆', exchange_en='Direct Split',
-                label_zh='直接分拆', label_en='Direct Spinoff', is_reit=False)
+    return classify_hk_type(titles)
 
 
 def merge_by_company(all_items):
@@ -472,7 +391,7 @@ def refine_reit_type(companies, opener):
 
 def refine_status_from_pdf(companies, opener):
     """
-    读最新公告 PDF 前2页，提取记录日期/分派日期，精化状态。
+    读最新公告 PDF 前6页，提取记录日期/分派日期，精化状态。
     能识别：已完成分派 / 已批准 / 已定记录日 / 进行中
     """
     previous = load_prev_data()
@@ -484,6 +403,7 @@ def refine_status_from_pdf(companies, opener):
         from io import StringIO, BytesIO
     except ImportError:
         print("  跳过 PDF 状态检测（pdfminer 未安装）")
+        record_source_warning('spinoff_hk', '公告正文解析不可用；保留历史证据')
         return companies
 
     for c in companies:
@@ -499,14 +419,19 @@ def refine_status_from_pdf(companies, opener):
             req = Request(doc_url, headers={"User-Agent": "Mozilla/5.0"})
             data = opener.open(req, timeout=20).read()
             out = StringIO()
-            extract_text_to_fp(BytesIO(data), out, laparams=LAParams(), page_numbers=[0, 1])
+            extract_text_to_fp(BytesIO(data), out, laparams=LAParams(), maxpages=6)
             text = out.getvalue()
         except Exception as e:
             print(f"失败: {e}")
+            record_source_warning('spinoff_hk', '部分公告正文未能读取；保留历史证据，相关档案待核实')
+            continue
+
+        if len(text.strip()) < 30:
+            record_source_warning('spinoff_hk', '部分公告正文未能读取；保留历史证据，相关档案待核实')
             continue
 
         proof = parse_evidence(text, c['announcements'][0])
-        c['filingEvidence'] = [p for p in c['filingEvidence'] if p.get('url') != proof['url']] + [proof]
+        c['filingEvidence'] = merge_evidence(c['filingEvidence'], [proof])
         c['_status'] = proof['status']
         for field, value in proof['dates'].items():
             c[field] = value['date']
@@ -848,28 +773,8 @@ def _gen_hk_ai_summary(companies, api_key):
 
 
 def filter_status_driven(companies):
-    """状态驱动过滤：已上市超12个月 / 已终止 → 移除"""
-    prev = load_prev_data()
-    cutoff = (today - timedelta(days=365)).strftime('%Y-%m-%d')
-    result = []
-    removed = []
-    for c in companies:
-        status = get_status(c)
-        c['_status'] = status  # 暂存，写入 JSON 供调试
-        if status == 'terminated':
-            removed.append((c['stockCode'], c['stockName'], '已终止'))
-            continue
-        if status == 'listed':
-            # 最新公告日期 <= cutoff（上市超6个月）才移除
-            if c.get('latestDate', '9999') <= cutoff:
-                removed.append((c['stockCode'], c['stockName'], f'已上市>{cutoff}'))
-                continue
-        result.append(c)
-    if removed:
-        print(f"  ⛔ 状态驱动移除: {len(removed)} 家")
-        for code, name, reason in removed:
-            print(f"      {code} {name} ({reason})")
-    return result
+    """Keep terminal states visible; the source search already defines the time window."""
+    return companies
 
 
 def filter_low_price(companies):
@@ -947,8 +852,15 @@ def main():
 
     print(f"\n去重后共 {len(raw_items)} 条原始公告")
 
+    if not raw_items:
+        raise RuntimeError('No HKEX results; refusing to overwrite the last successful dataset')
+
     # 按公司合并
     companies = merge_by_company(raw_items)
+    seen_codes = {c['stockCode'] for c in companies}
+    for code, old in load_prev_data().items():
+        if code not in seen_codes and old.get('latestDate', '') >= datetime.strptime(date_from, '%Y%m%d').date().isoformat():
+            companies.append(old)
     print(f"合并后共 {len(companies)} 家公司")
 
     # 剔除纯拆股（拆股/合股，无子公司上市）

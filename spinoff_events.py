@@ -7,7 +7,18 @@ from datetime import datetime, timezone
 from pathlib import Path
 from urllib.parse import urlparse
 
-STATUSES = {'needs_review', 'announced', 'approved', 'record_set', 'prospectus', 'completed', 'terminated'}
+STATUSES = {'needs_review', 'announced', 'approved', 'record_set', 'prospectus', 'completed', 'terminated', 'paused'}
+RULE_VERSION = 2
+
+
+def merge_evidence(previous, current):
+    """Retain document history; replace only a successfully re-read document."""
+    merged = {p.get('accession') or p.get('url'): p for p in previous if p.get('accession') or p.get('url')}
+    for proof in current:
+        key = proof.get('accession') or proof.get('url')
+        if key:
+            merged[key] = proof
+    return list(merged.values())
 
 
 def filing_text(value):
@@ -48,6 +59,8 @@ def iso_date(value):
         def number(m):
             token = m.group(0)
             if '十' in token:
+                if token.count('十') != 1:
+                    return token
                 a, b = token.split('十')
                 return str(int(digits.get(a, '1')) * 10 + int(digits.get(b, '0')))
             return ''.join(digits[c] for c in token)
@@ -65,13 +78,14 @@ def clean_name(value):
     name = re.sub(r'^(?:所屬子公司|所属子公司)', '', name)
     name = re.sub(r'(有限公司)及$', r'\1', name)
     if (not 2 <= len(name) <= 90 or name.lower() in {'tbd', 'spinco', 'newco', '(解析中)', '子公司', '附屬公司'}
-            or re.search(r'\b(?:will|would|shall|entitlement|shares|common stock|receive|expects|from|including|owned)\b|建議分拆及|建议分拆及|公司的建議|交易所|董事會|董事会|股票價格|股票价格|分拆|獨立上市|独立上市|上市董事|本集團|本集团|並於|并于', name, re.I)):
+            or re.search(r'\b(?:will|would|shall|entitlement|shares|common stock|receive|expects|from|including|owned)\b|建議分拆及|建议分拆及|公司的建議|交易所|董事會|董事会|股票價格|股票价格|分拆|獨立上市|独立上市|上市董事|本集團|本集团|並於|并于|批准|公告|茲提|兹提|最新情況|最新情况', name, re.I)):
         return ''
     return name
 
 
 def entity_key(value):
     value = re.sub(r'\([^)]*\)', '', str(value or ''))
+    value = re.sub(r'\s*[/\\][A-Z]{2}[/\\]?\s*$', '', value)
     return re.sub(r'[^a-z0-9\u4e00-\u9fff]', '', re.sub(r'\b(?:inc|corp|corporation|co|ltd|llc)\b', '', value.lower()))
 
 
@@ -82,11 +96,53 @@ def extract_name(text):
         r'(?:spin[- ]off|separation) of ([A-Z][\w&.-]*(?: [A-Z][\w&.-]*){0,7}(?:,? (?:Inc\.?|Corporation|Corp\.?|LLC|Ltd\.?|Holdings|Group)))',
         r'distribut\w*\s+(?:all (?:of )?(?:the )?)?(?:outstanding )?shares of ([A-Z][\w&.-]*(?: [A-Z][\w&.-]*){0,6}(?:,? (?:Inc\.?|Corporation|Corp\.?|LLC|Ltd\.?)))',
     ]
-    patterns.append(r'(?:建議分拆|建议分拆|分拆)(?:(?:其|本公司|所屬|所属|附屬|附属|子公司|非全資|非全资)\s*)*([\u4e00-\u9fffA-Za-z（）()]{2,45}?(?:股份有限公司|有限公司))')
+    patterns.append(r'(?:建議分拆|建议分拆|分拆)(?:(?:其|本公司|所屬|所属|附屬公司|附属公司|附屬|附属|子公司|非全資|非全资)\s*)*([\u4e00-\u9fffA-Za-z（）()]{2,45}?(?:股份有限公司|有限公司))')
+    patterns.append(r'分拆\s*([A-Z][A-Z0-9 &,.-]{3,80}?(?:INC\.|LIMITED|LTD\.))(?:及於|並於|并于|於)')
     # HKEX titles also use a short name before "於…獨立上市".
     patterns.append(r'(?:建議分拆|建议分拆)及([\u4e00-\u9fff]{2,20}?)於香港聯合交易所有限公司主板獨立上市')
     names = {clean_name(m.group(1)) for p in patterns for m in re.finditer(p, text)} - {''}
     return next(iter(names)) if len(names) == 1 else ''
+
+
+def title_target(title):
+    """A bounded headline name outranks old company-wide enrichment."""
+    title = filing_text(title)
+    matches = re.findall(r'分拆(?:及)?\s*([^。；:\n]{2,85}?)(?:並於|并于|及於|於|至)(?:香港|泰國|菲律賓|中國|上海|深圳)', title)
+    names = {clean_name(n) for n in matches} - {''}
+    return next(iter(names)) if len(names) == 1 else extract_name(title)
+
+
+def target_key(name):
+    # Script/spacing variants only; aliases require an explicit filing definition.
+    variants = str.maketrans('復國際製藥業華東車環醫術資產廣實體屬', '复国际制药业华东车环医术资产广实体属')
+    return re.sub(r'\s+', '', str(name or '')).translate(variants).casefold().rstrip('.')
+
+
+def classify_hk_type(titles):
+    text = ' '.join(titles)
+    exchange = next(((zh, en, code) for pattern, zh, en, code in [
+        ('菲律賓|菲律宾', '菲律宾交易所', 'PSE', 'other'), ('泰國|泰国', '泰国交易所', 'SET', 'other'),
+        ('深圳證券|深圳证券|深交所', '深交所', 'SZSE', 'a_sz'), ('上海證券|上海证券|上交所', '上交所', 'SSE', 'a_sh'),
+        ('聯交所|联交所|香港聯合交易所|港交所|香港主板', '港交所', 'HKEX', 'hk'),
+        ('納斯達克|纳斯达克|Nasdaq', '纳斯达克', 'Nasdaq', 'other'), ('A股', 'A股', 'A-Share', 'a')
+    ] if re.search(pattern, text, re.I)), ('待定', 'TBD', 'other'))
+    zh, en, suffix = exchange
+    is_reit = bool(re.search(r'REIT|不動產.*基金|不动产.*基金|基礎設施.*基金|基础设施.*基金|公募基金', text, re.I))
+    distribution = bool(re.search(r'實物分派|实物分派|distribution in specie', text, re.I))
+    if is_reit:
+        code = 'reit_' + suffix.removeprefix('a_') if suffix != 'other' else 'reit'
+        label, label_en = 'REIT·' + zh, 'REIT·' + en
+    elif re.search(r'以介紹方式|以介绍方式|介紹上市|介绍上市|listing by introduction', text, re.I):
+        code, label, label_en = 'intro_' + suffix, '介绍上市·' + zh, 'Introduction·' + en
+    elif re.search(r'獨立上市|独立上市|上市|IPO|掛牌|挂牌', text, re.I):
+        code = 'ipo_' + suffix + ('_dist' if distribution else '')
+        label = ('IPO+实物分派·' if distribution else '分拆上市·') + zh
+        label_en = ('IPO+distribution·' if distribution else 'Spin-off IPO·') + en
+    elif distribution:
+        code, label, label_en = 'distribution', '实物分派', 'Distribution in specie'
+    else:
+        code, label, label_en = 'unknown', '类型待核实', 'Type to verify'
+    return dict(code=code, exchange_zh=zh, exchange_en=en, label_zh=label, label_en=label_en, is_reit=is_reit)
 
 
 def infer_status(text):
@@ -98,25 +154,37 @@ def infer_status(text):
         s = sentence.strip()
         if not s or len(s) > 1200:
             continue
-        spin = re.search(r'spin[- ]?off|separat|distribution|分拆|分派|分拆上市', s, re.I)
+        # Equity compensation, employment separation and underwriting boilerplate
+        # are not evidence of a corporate separation transaction.
+        if re.search(r'separation from service|severance|stock split.{0,180}(?:recapitalization|reclassification)|annual award limits|adjustment.{0,100}outstanding award|distribution of (?:the )?offered securities|renesas base distribution|non-binding.*compensation proposal', s, re.I):
+            continue
+        spin = re.search(r'spin[- ]?off|split[- ]?off|separation|分拆|分派|分立|\bDistribution\b', s)
+        spin = spin or re.search(r'spin[- ]?off|split[- ]?off|separation|distribution of.{0,90}shares', s, re.I)
         if not spin:
             continue
-        uncertain = re.search(r'\b(?:not|no|never|expect\w*|anticipat\w*|intend\w*|would|could|may|might|will|subject to|if|upon|until|prior to|before)\b|預計|预计|將|将|尚未|未完成|未開始|未开始|未上市|待|倘|如獲|如获|若|假如|一旦|計劃|计划', s, re.I)
+        uncertain = re.search(r'\b(?:not|no|never|expect\w*|anticipat\w*|intend\w*|would|could|might|will|subject to|if|upon|until|prior to|before)\b|\bmay\s+(?:be|not|have|result|occur)\b|預計|预计|將|将|尚未|未完成|未開始|未开始|未上市|待|倘|如獲|如获|若|假如|一旦|計劃|计划|擬(?:於|完成|上市)|拟(?:于|完成|上市)', s, re.I)
         status = None
+        if re.search(r'決定(?:於現階段)?不進行(?:建議)?分拆|决定(?:于现阶段)?不进行(?:建议)?分拆|(?:已|決定|决定)(?:暫緩|暂缓|暫停|暂停).{0,12}分拆', s):
+            status = 'paused'
         if not uncertain:
-            if re.search(r'(?:has|have|was|is|had)\s+(?:been\s+)?(?:terminated|cancelled|canceled|abandoned)|(?:terminated|cancelled|canceled|abandoned)\s+(?:the\s+)?(?:proposed\s+)?spin[- ]?off|(?:終止|终止|取消)(?:建議|建议)?分拆|分拆.*(?:已終止|已终止)', s, re.I):
+            if re.search(r'(?:has|have|had)\s+(?:terminated|cancelled|canceled|abandoned)\s+(?:the\s+|its\s+)?(?:proposed\s+)?(?:spin[- ]?off|separation)|(?:spin[- ]?off|separation).{0,60}(?:has been|was|is|had been)\s+(?:terminated|cancelled|canceled|abandoned)|(?:終止|终止|取消)(?:建議|建议)?分拆|分拆.*(?:已終止|已终止)', s, re.I):
                 status = 'terminated'
             elif re.search(r'(?:has|have|had|successfully)\s+(?:been\s+)?completed\s+(?:the\s+|its\s+)?(?:spin[- ]?off|separation|distribution)|(?:spin[- ]?off|separation|distribution)\s+(?:(?:of|to)\s+[^,;]{1,60}\s+)?(?:has been|was|is|had been)\s+(?:successfully\s+)?completed|(?:分拆|分派).{0,12}(?:已完成|已生效)|已完成.{0,12}(?:分拆|分派)|(?:分拆|分派).{0,80}(?:已開始買賣|已开始买卖)|分拆.{0,160}(?:上市及[^。；]{0,45}開始買賣|上市及[^。；]{0,45}开始买卖)|分拆公司.{0,90}開始於聯交所主板買賣', s, re.I):
                 status = 'completed'
             elif re.search(r'(?:has|have)\s+approved\s+(?:the\s+)?(?:proposed\s+)?spin[- ]?off|(?:分拆).{0,30}(?:獲.{0,8}批准|获.{0,8}批准)|(?:spin[- ]?off).{0,30}(?:has been|was) approved', s, re.I):
                 status = 'approved'
-        if status is None and re.search(r'招股章程|招股書|招股书|prospectus', s, re.I):
+        if status is None and not uncertain and re.search(r'完成(?:建議|建议)?分拆', s):
+            status = 'completed'
+        if status is None and re.search(r'(?:has|have)\s+(?:set|fixed|established|declared|approved).{0,40}record date|(?:記錄日期|记录日期|記錄日|记录日)(?:為|为|定於|定于)|(?:訂定|订定|確定|确定).{0,20}(?:記錄日期|记录日期)', s, re.I) and extract_dates(s).get('recordDate'):
+            if not re.search(r'not (?:set|fixed)|proposed record date|尚未|擬定|拟定|預計|预计', s, re.I):
+                status = 'record_set'
+        if status is None and not uncertain and re.search(r'招股章程|招股書|招股书|prospectus', s, re.I):
             status = 'prospectus'
         if status is None and re.search(r'plan\w*|propos\w*|intend\w*|expect\w*|建議|建议|擬|拟', s, re.I):
             status = 'announced'
         if status:
             candidates.append((status, s))
-    for status in ('terminated', 'completed', 'approved', 'prospectus', 'announced'):
+    for status in ('terminated', 'paused', 'completed', 'record_set', 'approved', 'prospectus', 'announced'):
         match = next((s for st, s in candidates if st == status), None)
         if match:
             return {'status': status, 'quote': match}
@@ -126,9 +194,12 @@ def infer_status(text):
 def extract_dates(text):
     text = html.unescape(text or '').replace('\u00a0', ' ')
     result = {}
-    token = r'(?:[A-Z][a-z]+ \d{1,2},? \d{4}|\d{4}-\d{2}-\d{2}|20\d{2}\s*年\s*\d{1,2}\s*月\s*\d{1,2}\s*日)'
+    text = filing_text(text)
+    token = r'(?:[A-Z][a-z]+ \d{1,2},? \d{4}|\d{4}-\d{2}-\d{2}|20\d{2}\s*年\s*\d{1,2}\s*月\s*\d{1,2}\s*日|[二零〇一三四五六七八九]{4}年[一二三四五六七八九十]{1,3}月[一二三四五六七八九十]{1,3}日)'
     for field, label in [('recordDate', r'record date|記錄日期|记录日期|記錄日|记录日'), ('distributionDate', r'distribution date|分派日期|分派日')]:
         matches = list(re.finditer(r'(?:' + label + r')[^.;。；\n]{0,65}?(' + token + ')', text, re.I))
+        reverse = list(re.finditer('(' + token + r')[^.;。；\n]{0,35}?(?:' + label + ')', text, re.I))
+        matches += reverse
         dates = {iso_date(m.group(1)) for m in matches} - {''}
         if len(dates) == 1:
             result[field] = {'date': dates.pop(), 'quote': matches[0].group(0), 'kind': 'scheduled'}
@@ -139,8 +210,13 @@ def parse_evidence(text, ann, cik=''):
     text = filing_text(text)
     url = source_url(ann, cik)
     match = infer_status(text)
-    target_name = extract_name(text) or extract_name(ann.get('title', ''))
+    if match['status'] == 'needs_review':
+        match = infer_status(ann.get('title', ''))
+    target_name = title_target(ann.get('title', '')) or extract_name(text)
+    target_aliases = re.findall(re.escape(target_name) + r'（(?:以下简称|以下簡稱)?[「“"]([^」”"]{2,40})[」”"]', text) if target_name else []
     dates = extract_dates(text)
+    if match['status'] == 'record_set':
+        dates.update(extract_dates(match['quote']))
     ticker = ''
     if target_name and urlparse(url).hostname in {'www1.hkexnews.hk', 'www.hkexnews.hk'}:
         aliases = re.findall(re.escape(target_name) + r'（「([^」]{2,30})」）', text)
@@ -156,7 +232,7 @@ def parse_evidence(text, ann, cik=''):
             if len(values) == 1:
                 dates['listingDate'] = {'date': values.pop(), 'quote': found[0].group(0), 'kind': 'actual'}
     return {**match, 'url': url, 'date': iso_date(ann.get('date')), 'targetName': target_name,
-            'targetTicker': ticker, 'dates': dates, 'method': 'rule', 'accession': ann.get('adsh', '')}
+            'targetTicker': ticker, 'targetAliases': target_aliases, 'dates': dates, 'method': 'rule', 'ruleVersion': RULE_VERSION, 'accession': ann.get('adsh', '')}
 
 
 def normalize(data, market, previous=None, now=None):
@@ -175,18 +251,32 @@ def normalize(data, market, previous=None, now=None):
             announcements.append({**ann, 'url': url, 'direct': direct_source(url), 'relevance': 'candidate' if relevant else 'unverified'})
         announcements.sort(key=lambda a: a.get('date', ''), reverse=True)
         proofs = [{**p, 'quote': html.unescape(p.get('quote', ''))} for p in c.get('filingEvidence') or []]
+        for proof in proofs:
+            if proof.get('method') == 'rule' and proof.get('ruleVersion', 0) < RULE_VERSION:
+                # Revalidate legacy status quotes when rules change. Missing full
+                # text must never preserve a known boilerplate false positive.
+                proof.update(infer_status(proof.get('quote', '')), ruleVersion=RULE_VERSION)
         parsed_urls = {p.get('url') for p in proofs}
         parsed_ids = {p.get('accession') for p in proofs if p.get('accession')}
         proofs += [parse_evidence(a.get('title', ''), a, c.get('cik', '')) for a in announcements
                    if a['direct'] and a['relevance'] == 'candidate' and a['url'] not in parsed_urls and a.get('adsh') not in parsed_ids]
         # Separate explicit legal entities; unresolved material is kept in its own dossier.
         groups = {}
+        aliases = {}
+        for proof in proofs:
+            canonical = target_key(clean_name(proof.get('targetName')))
+            if canonical:
+                for alias in proof.get('targetAliases', []):
+                    aliases.setdefault(target_key(alias), set()).add(canonical)
+        def group_key(name):
+            key = target_key(clean_name(name))
+            return next(iter(aliases[key])) if len(aliases.get(key, [])) == 1 else key
         for proof in proofs:
             name = clean_name(proof.get('targetName'))
-            groups.setdefault(name.casefold(), []).append(proof)
+            groups.setdefault(group_key(name), []).append(proof)
         if not groups:
             groups[''] = []
-        for target_key, group in groups.items():
+        for key, group in groups.items():
             named = next((clean_name(p.get('targetName')) for p in group if clean_name(p.get('targetName'))), '')
             candidate_name = clean_name(c.get('spinTarget') or c.get('spinoffName'))
             parent_key = entity_key(c.get('stockName') or c.get('name'))
@@ -195,20 +285,30 @@ def normalize(data, market, previous=None, now=None):
             if named and entity_key(named) == parent_key:
                 named = ''
             target_name = named or (candidate_name if len(groups) == 1 else '')
-            eid = f'{market}:{parent}:' + (hashlib.sha256(target_key.encode()).hexdigest()[:12] if target_key else 'unresolved')
+            eid = f'{market}:{parent}:' + (hashlib.sha256(key.encode()).hexdigest()[:12] if key else 'unresolved')
             # Preserve local watch/note identity as an unresolved dossier gains a name.
             prior = [e for e in old_events.values() if e.get('market') == market and e.get('parentTicker') == (c.get('ticker') or parent)]
-            matching = [e for e in prior if named and e.get('targetName', '').casefold() == named.casefold()
-                        and (len(groups) == 1 or not e['id'].endswith(':unresolved'))]
+            matching = [e for e in prior if named and group_key(e.get('targetName', '')) == key]
             if len(matching) == 1:
                 eid = matching[0]['id']
-            elif len(groups) == 1 and len(prior) == 1 and prior[0]['id'].endswith(':unresolved'):
+            elif len(groups) == 1 and len(prior) == 1 and prior[0]['id'].endswith(':unresolved') and not prior[0].get('targetName'):
                 eid = prior[0]['id']
+            elif not key and len(groups) > 1 and old_events.get(eid, {}).get('targetName'):
+                eid = f'{market}:{parent}:unattributed'
             valid = [p for p in group if direct_source(p.get('url', '')) and p.get('quote') and p.get('status') in STATUSES - {'needs_review'}]
             valid.sort(key=lambda p: p.get('date', ''), reverse=True)
             # Later prospectus references must not undo an evidenced completion.
             terminal = [p for p in valid if p['status'] in {'completed', 'terminated'}]
-            evidence = terminal[0] if terminal else valid[0] if valid else None
+            completed = [p for p in terminal if p['status'] == 'completed']
+            # Completion cannot regress to a prospectus reference. A terminated
+            # proposal may, however, be explicitly restarted by a later filing.
+            evidence = terminal[0] if completed else valid[0] if valid else None
+            if evidence and evidence['status'] not in {'completed', 'terminated', 'paused'}:
+                cutoff = max((p.get('date', '') for p in valid if p['status'] in {'terminated', 'paused'}), default='')
+                ranks = {'announced': 1, 'approved': 2, 'prospectus': 3, 'record_set': 4}
+                progress = [p for p in valid if p.get('date', '') >= cutoff and p['status'] in ranks]
+                if progress:
+                    evidence = max(progress, key=lambda p: (ranks[p['status']], p.get('date', '')))
             status = evidence['status'] if evidence else 'needs_review'
             date_fields = {}
             for p in sorted(group, key=lambda p: p.get('date', '')):
@@ -231,10 +331,15 @@ def normalize(data, market, previous=None, now=None):
                 urls = {p.get('url') for p in group if p.get('url')}
                 event_announcements = [{**a, 'relevance': a['relevance'] if a.get('adsh') in accessions or a.get('url') in urls else 'unverified'} for a in announcements]
             relevant_dates = [a.get('date', '') for a in event_announcements if a['relevance'] == 'candidate']
+            event_type = c.get('spinType') or c.get('type', 'spinoff')
+            if market == 'hk':
+                scoped_type = classify_hk_type([a.get('title', '') for a in event_announcements if a['relevance'] == 'candidate'])
+                if len(groups) > 1 or scoped_type['code'] != 'unknown':
+                    event_type = scoped_type
             event = {'id': eid, 'market': market, 'parentTicker': c.get('ticker') or parent, 'parentName': c.get('stockName') or c.get('name', ''),
                      'targetName': target_name, 'targetTicker': child_ticker, 'identityVerified': bool(named),
                      'status': status, 'evidence': evidence, 'dates': date_fields, 'missing': missing,
-                     'type': c.get('spinType') or c.get('type', 'spinoff'), 'announcements': event_announcements,
+                     'type': event_type, 'announcements': event_announcements,
                      'latestDate': max(relevant_dates, default=''), 'sourceUpdatedAt': data.get('updatedAt', ''),
                      'parentMarketCap': c.get('parentMarketCap'), 'pricePairs': c.get('spinoffPricePerf', []) if same_target else [],
                      'parentPrice': c.get('parentPricePerf') or c.get('pricePerf') or {}}

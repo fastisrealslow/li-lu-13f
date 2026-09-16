@@ -9,6 +9,7 @@ const spinStatusText = {
   approved:['公告称获批','Approval announced'], record_set:['已定记录日','Record date set'],
   prospectus:['招股文件','Prospectus'], completed:['公告称已完成','Completion announced'],
   terminated:['公告称终止','Termination announced'],
+  paused:['暂不推进','On hold'],
 };
 const spinEscape = value => String(value ?? '').replace(/[&<>"']/g, x => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[x]));
 const spinLabel = (zh,en) => lang === 'en' ? en : zh;
@@ -40,7 +41,7 @@ function spinSave(id, patch) {
 function spinDate(value) { return /^\d{4}-\d{2}-\d{2}$/.test(value || '') ? Date.parse(value + 'T00:00:00Z') : NaN; }
 function spinUpcoming(e, now=Date.now()) {
   const day = Math.floor(now / 86400000) * 86400000;
-  if (['completed','terminated'].includes(e.status)) return [];
+  if (['completed','terminated','paused'].includes(e.status)) return [];
   return Object.entries(e.dates || {}).filter(([,v]) => spinDate(v.date) >= day && spinDate(v.date) <= day + 30*86400000).sort((a,b)=>a[1].date.localeCompare(b[1].date));
 }
 function spinRecent(value, days, now=Date.now()) {

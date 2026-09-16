@@ -2,10 +2,113 @@ import copy
 import unittest
 from pathlib import Path
 from unittest.mock import patch
-from spinoff_events import (infer_status, extract_name, extract_dates, filing_url, normalize, validate_events, parse_evidence)
+from spinoff_events import (infer_status, extract_name, extract_dates, filing_url, normalize, validate_events, parse_evidence, merge_evidence, iso_date, classify_hk_type)
 
 
 class SpinEvidenceTests(unittest.TestCase):
+    def test_source_warning_survives_repeated_warning_and_final_success(self):
+        import update_status
+        state = {'runs': [{'steps': {}}]}
+        with patch.object(update_status, 'load', return_value=state), patch.object(update_status, 'save'):
+            update_status.update_step('spinoff_us', 'warn', 'AI unavailable')
+            update_status.update_step('spinoff_us', 'warn', 'SEC unavailable')
+            update_status.update_step('spinoff_us', 'warn', 'SEC unavailable')
+            update_status.update_step('spinoff_us', 'ok')
+        self.assertEqual(state['runs'][0]['steps']['spinoff_us']['status'], 'warn')
+        self.assertEqual(state['runs'][0]['steps']['spinoff_us']['msg'], 'AI unavailable；SEC unavailable')
+
+    def test_distribution_is_not_automatically_a_hong_kong_introduction(self):
+        self.assertEqual(classify_hk_type(['以實物分派方式宣派特別股息'])['code'], 'distribution')
+        foreign = classify_hk_type(['分拆MAYNILAD WATER SERVICES, INC.及於菲律賓證券交易所獨立上市：以實物分派方式提供保證的權利'])
+        self.assertEqual(foreign['code'], 'ipo_other_dist')
+        self.assertEqual(foreign['exchange_en'], 'PSE')
+        self.assertEqual(classify_hk_type(['以介紹方式於香港聯合交易所主板上市'])['code'], 'intro_hk')
+
+    def test_separate_targets_do_not_inherit_company_wide_reit_type(self):
+        data = {'companies': [{'stockCode': '00656', 'ticker': '00656.HK', 'spinType': {'code': 'reit_sh', 'is_reit': True},
+            'announcements': [
+                {'date': '2026-08-28', 'title': '建議分拆CLUBMED LIFESTYLE並於香港聯交所主板獨立上市', 'docUrl': '/listedco/clubmed.pdf'},
+                {'date': '2026-05-01', 'title': '擬通過中國商業不動產證券投資基金在上海證券交易所分拆上市', 'docUrl': '/listedco/reit.pdf'}]}]}
+        result = normalize(data, 'hk')
+        club = next(e for e in result['events'] if e['targetName'] == 'CLUBMED LIFESTYLE')
+        self.assertFalse(club['type']['is_reit'])
+        self.assertEqual(club['type']['code'], 'ipo_hk')
+        self.assertTrue(any(e['type']['is_reit'] for e in result['events']))
+
+    def test_script_variants_and_explicit_alias_share_one_event(self):
+        text = '分拆复星安特金（成都）生物制药股份有限公司（以下简称“复星安特金”）於香港主板上市。'
+        proof = parse_evidence(text, {'date': '2026-06-26', 'docUrl': '/listedco/latest.pdf'})
+        data = {'companies': [{'stockCode': '02196', 'filingEvidence': [proof], 'announcements': [
+            {'date': '2026-02-01', 'title': '建議分拆復星安特金並於香港聯合交易所有限公司主板獨立上市', 'docUrl': '/listedco/old.pdf'}]}]}
+        self.assertEqual(len(normalize(data, 'hk')['events']), 1)
+
+    def test_legacy_candidate_name_keeps_watchlist_identity(self):
+        data = self.fixture()
+        first = normalize(data, 'us')
+        second = normalize(copy.deepcopy(first), 'us')
+        self.assertEqual(first['events'][0]['id'], second['events'][0]['id'])
+
+    def test_status_categories_reject_boilerplate_and_future_prospectus(self):
+        for text in [
+            'In the event of any stock split, recapitalization, spin-off or reclassification, the Plan will adjust the award.',
+            'The Plan provides distributions after Separation from Service.',
+            'The distribution of the Offered Securities is described in the prospectus.',
+            'The Renesas Base Distribution Date under the Plan is expected next year.',
+        ]:
+            self.assertEqual(infer_status(text)['status'], 'needs_review', text)
+        self.assertNotEqual(infer_status('For the proposed spin-off, the parties intend to file a prospectus.')['status'], 'prospectus')
+        self.assertEqual(infer_status('The spin-off has been completed on May 1, 2026.')['status'], 'completed')
+        self.assertEqual(infer_status('完成建議分拆MAYNILAD WATER SERVICES, INC.及於菲律賓上市')['status'], 'completed')
+        self.assertEqual(infer_status('擬議分拆獲香港聯交所批准')['status'], 'approved')
+
+    def test_paused_is_distinct_from_terminated(self):
+        self.assertEqual(infer_status('本公司決定於現階段不進行建議分拆及建議於美國上市。')['status'], 'paused')
+        self.assertEqual(infer_status('本公司已終止建議分拆。')['status'], 'terminated')
+        self.assertEqual(infer_status('The spin-off has been terminated.')['status'], 'terminated')
+        self.assertNotEqual(infer_status('The company has terminated an employment agreement during the spin-off.')['status'], 'terminated')
+
+    def test_record_date_status_and_dates_before_labels(self):
+        for text in ['The Board has approved a record date of June 26, 2026 for the spin-off.',
+                     '釐定股東於實物分派的權利的記錄日期為二零二六年三月十七日。']:
+            self.assertEqual(infer_status(text)['status'], 'record_set')
+        self.assertEqual(extract_dates('June 26, 2026 (the “Record Date”).')['recordDate']['date'], '2026-06-26')
+        self.assertEqual(iso_date('二零二六年十十月一日'), '')
+        self.assertNotEqual(infer_status('The Board has not set the record date of May 1, 2026 for the spin-off.')['status'], 'record_set')
+
+    def test_primary_sec_document_does_not_select_equity_plan_attachment(self):
+        import fetch_spinoff_us as fetch
+        index = '''<table><tr><td>2</td><td>Stock Plan</td><td><a href="/Archives/edgar/data/123/000000012326000001/plan.htm">plan</a></td><td>EX-10.1</td></tr>
+        <tr><td>1</td><td>Current report</td><td><a href="/ix?doc=/Archives/edgar/data/123/000000012326000001/report.htm">report</a></td><td>8-K</td></tr></table>'''
+        ann = {'adsh': '0000000123-26-000001'}
+        with patch.object(fetch, 'sec_get', side_effect=[index.encode(), b'<p>The spin-off has been completed.</p>']) as get:
+            text = fetch.fetch_8k_text('123', ann['adsh'], None, ann)
+        self.assertIn('completed', text)
+        self.assertTrue(get.call_args.args[0].endswith('/report.htm'))
+        self.assertEqual(ann['primaryDocument'], 'report.htm')
+
+    def test_document_history_retains_prior_proof_and_terminal_categories(self):
+        import fetch_spinoff_us, fetch_spinoff
+        first = {'url': 'https://example.org/old.pdf', 'status': 'completed'}
+        later = {'url': 'https://example.org/new.pdf', 'status': 'announced'}
+        self.assertEqual(merge_evidence([first], []), [first])
+        self.assertEqual(merge_evidence([first], [later]), [first, later])
+        rows = [{'status': 'terminated'}, {'status': 'completed'}]
+        self.assertEqual(fetch_spinoff_us.filter_status(rows), rows)
+        self.assertEqual(fetch_spinoff.filter_status_driven(rows), rows)
+
+    def test_generic_ipo_and_debt_exchange_do_not_reclassify_spinoff(self):
+        import fetch_spinoff_us as fetch
+        self.assertEqual(fetch.classify_type('The spin-off was announced. The parent had an initial public offering in 1990.'), 'spinoff')
+        self.assertEqual(fetch.classify_type('An exchange offer of senior notes.'), 'spinoff')
+        self.assertEqual(fetch.classify_type('The equity carve-out of a subsidiary.'), 'carveout')
+        self.assertEqual(fetch.classify_type('The split-off of its business.'), 'splitoff')
+
+    def test_headline_target_does_not_inherit_another_fosun_business(self):
+        ann = {'title': '建議分拆CLUBMED LIFESTYLE並於香港聯交所主板獨立上市', 'date': '2026-08-28', 'docUrl': '/listedco/clubmed.pdf'}
+        proof = parse_evidence(ann['title'], ann)
+        self.assertEqual(proof['targetName'], 'CLUBMED LIFESTYLE')
+        self.assertEqual(extract_name('建議分拆獲聯交所批准兹提述中國海外發展有限公司'), '')
+
     def hk_proof(self):
         text = (Path(__file__).parent / 'fixtures/hk_listing_completion.txt').read_text()
         ann = {'date': '2025-10-15', 'title': '建議分拆及軒竹生物於香港聯合交易所有限公司主板獨立上市之更新資料 - 軒竹生物上市及開始買賣',

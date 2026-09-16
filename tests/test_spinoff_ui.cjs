@@ -95,3 +95,11 @@ test('actual listing dates are labeled as confirmed, not scheduled distributions
  assert.match(html,/上市日 · 2025-10-15/);assert.match(html,/公告确认已发生/);assert.ok(!html.includes('计划日期，可能调整'));
  a.run("lang='en'");assert.match(a.run('spinCard(event)'),/Listing date · 2025-10-15/);
 });
+
+test('paused dossiers have their own status and no stale upcoming dates',()=>{
+ const a=app();a.context.event={...event,status:'paused'};
+ assert.match(a.run('spinCard(event)'),/暂不推进/);
+ assert.equal(a.run("spinUpcoming(event,Date.parse('2026-09-16')).length"),0);
+ a.run("spinDash.hk.data={events:[event]};spinDash.hk.status='paused'");
+ assert.equal(a.run('spinVisible(spinDash.hk,{}).length'),1);
+});
