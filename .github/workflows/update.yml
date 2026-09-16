@@ -10,6 +10,9 @@ on:
       - ".github/workflows/update.yml"
       - "spinoff_price_refresh.py"
       - "tests/test_spinoff_prices.py"
+      - "spinoff_events.py"
+      - "resolve_spinoff_names.py"
+      - "tests/test_spinoff_events.py"
 
 concurrency:
   group: update-13f-${{ github.ref }}
@@ -533,5 +536,4 @@ jobs:
             git push
             echo "Changes pushed!"
           fi
-
 

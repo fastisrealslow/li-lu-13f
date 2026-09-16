@@ -77,6 +77,8 @@ class AISupplementTests(unittest.TestCase):
         self.data['current']['previousHoldings'].append({'ticker':'BIG','shares':100000,'value':10})
         ai.write(self.root/'data.json',self.data)
         fact=ai.tasks(self.root)[0]['facts']['topPositions'][0]
+        self.assertNotIn('value', fact)
+        self.assertNotIn('previousValue', fact)
         self.assertEqual(fact['ticker'],'BIG')
         self.assertEqual(fact['change'],'增持（微量变动）')
 

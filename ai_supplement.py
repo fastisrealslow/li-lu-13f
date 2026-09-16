@@ -90,8 +90,12 @@ def tasks(root):
         # Bounded context, with exits and major changes ahead of unchanged holdings.
         changed = [h for h in facts if h['change'] != '股数不变'][:10]
         top = sorted([h for h in facts if h['value'] > 0], key=lambda h: h['value'], reverse=True)[:5]
+        # Values select the important positions, but are not prose inputs: raw
+        # dollar amounts encourage unreadable, unitless numbers in summaries.
+        def summary_rows(rows):
+            return [{k: h[k] for k in ('ticker', 'name', 'change')} for h in rows]
         context = {'investor': inv['name'], 'quarter': cur['quarter'],
-                   'topPositions': top, 'largestChanges': changed,
+                   'topPositions': summary_rows(top), 'largestChanges': summary_rows(changed),
                    'scope': '仅列主要持仓及主要变动，不能据此断言其他股票无变化'}
         source = investor_source(data)
         result.append({'id': 'investor:' + inv['id'], 'source': source, 'facts': context})

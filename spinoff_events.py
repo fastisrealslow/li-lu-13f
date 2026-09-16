@@ -310,7 +310,15 @@ def normalize(data, market, previous=None, now=None):
             prior = [e for e in old_events.values() if e.get('market') == market and e.get('parentTicker') == (c.get('ticker') or parent)]
             matching = [e for e in prior if named and group_key(e.get('targetName', '')) == key]
             group_urls = {p.get('url') for p in group}
-            source_matching = [e for e in prior if (e.get('evidence') or {}).get('url') in group_urls]
+            # One filing may describe several targets. Only transfer a prior ID
+            # by URL when that source belongs to one group, and never take an ID
+            # away from another group whose target name still matches it.
+            source_matching = [e for e in prior
+                if (e.get('evidence') or {}).get('url') in group_urls
+                and (group_key(e.get('targetName', '')) not in groups
+                     or group_key(e.get('targetName', '')) == key)
+                and sum(any(p.get('url') == (e.get('evidence') or {}).get('url')
+                            for p in ps) for ps in groups.values()) == 1]
             if not matching and len(source_matching) == 1:
                 matching = source_matching
             if len(matching) == 1:

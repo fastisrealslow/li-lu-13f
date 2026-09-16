@@ -6,6 +6,26 @@ from spinoff_events import (infer_status, extract_name, extract_dates, filing_ur
 
 
 class SpinEvidenceTests(unittest.TestCase):
+    def test_shared_filing_cannot_assign_one_old_identity_to_two_targets(self):
+        url = 'https://www1.hkexnews.hk/listedco/shared.pdf'
+        proof = {'url': url, 'date': '2026-09-16', 'status': 'announced',
+                 'quote': '建議分拆', 'targetName': 'Alpha Limited'}
+        base = {'companies': [{'stockCode': '00001', 'ticker': '00001.HK',
+                               'filingEvidence': [proof]}]}
+        previous = normalize(copy.deepcopy(base), 'hk')
+        old_id = previous['events'][0]['id']
+        # A newly recovered target may appear first in the refreshed evidence.
+        base['companies'][0]['filingEvidence'] = [
+            {**proof, 'targetName': 'Beta Limited'}, proof]
+        result = normalize(base, 'hk', previous=previous)
+        validate_events(result)
+        self.assertEqual(len(result['events']), 2)
+        self.assertEqual(next(e['id'] for e in result['events']
+                              if e['targetName'] == 'Alpha Limited'), old_id)
+        again = normalize(copy.deepcopy(result), 'hk')
+        self.assertEqual([e['id'] for e in again['events']],
+                         [e['id'] for e in result['events']])
+
     def test_source_warning_survives_repeated_warning_and_final_success(self):
         import update_status
         state = {'runs': [{'steps': {}}]}
