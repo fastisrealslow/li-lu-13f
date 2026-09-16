@@ -23,16 +23,14 @@
       "status": "ok"
     },
     "investor:buffett": {
-      "at": "2026-09-16T13:07:04.533590+00:00",
-      "error": "Summary introduced unsupported numbers",
-      "sourceHash": "007aee9e156cda0225768d5b5ced20a28a0b52af1d80374732d19ebd1fb0abb1",
-      "status": "failed"
+      "at": "2026-09-16T13:30:26.982677+00:00",
+      "sourceHash": "ccb406d47a92b72e40b0f9a551f8382cbae528a14873b6a3cf4643ec33bba1f3",
+      "status": "ok"
     },
     "investor:duan": {
-      "at": "2026-09-16T13:05:07.431857+00:00",
-      "error": "Rejected on semantic review: unsupported ranking/count claim",
-      "sourceHash": "1760637d3e95d1139d9d80f298b30a597523435e68300dd1999d9876a677d4f8",
-      "status": "failed"
+      "at": "2026-09-16T13:28:25.989035+00:00",
+      "sourceHash": "55b83362e053954d8746401f927a788f38e38ff4da0a185f87605de9f286d537",
+      "status": "ok"
     },
     "investor:greenberg": {
       "at": "2026-09-16T13:12:16.182582+00:00",
@@ -50,20 +48,24 @@
       "status": "ok"
     },
     "investor:lilu": {
-      "at": "2026-09-16T13:03:32.487986+00:00",
-      "sourceHash": "d203427dfe81b2e815adb039c1e9566e6723531cf250f7e91f7aa4b834470ba9",
+      "at": "2026-09-16T13:26:45.674343+00:00",
+      "sourceHash": "a3b9d2d58d6a7a212fc4c66ed0c614446e1e183d25b773c431e8dab87ed7b0ad",
       "status": "ok"
     },
     "investor:pabrai": {
-      "at": "2026-09-16T13:04:28.830535+00:00",
-      "sourceHash": "af96ee6d98a15681d448cae4c59528cad138679318cee1a5ea1148fb02942fb3",
+      "at": "2026-09-16T13:27:41.929573+00:00",
+      "sourceHash": "250308f34d58a2b04691eb36b94f5dc488f471b26bd7f3bb8eb8b757796597c8",
       "status": "ok"
     },
     "investor:tepper": {
-      "at": "2026-09-16T13:06:06.873688+00:00",
-      "error": "Summary introduced unsupported numbers",
-      "sourceHash": "9408edfdfc62f0e7b8b65c8cb197ed4fe0a606eb1d5a8e18e192bf1045f781b2",
-      "status": "failed"
+      "at": "2026-09-16T13:29:31.718274+00:00",
+      "sourceHash": "3213c108fa5357a71641ee84436a726d8f9ea3097e085e81405200442eeb8b6d",
+      "status": "ok"
+    },
+    "value": {
+      "at": "2026-09-16T13:25:46.752748+00:00",
+      "sourceHash": "d18b5eace633d2afedf363c751d1e3b763382848a614c8ea57c2f532b0c07b17",
+      "status": "ok"
     }
   },
   "entries": {
@@ -3463,13 +3465,8 @@
       "summary": "塞斯·克拉曼在2026年第二季度增持了亚马逊、谷歌C和弗格森企业等股票。同时，他清仓了威利斯塔塔 Watson，并减持了餐饮品牌国际、联合太平洋及怡安等持仓。"
     },
     "investor:lilu": {
-      "generatedAt": "2026-09-16T13:04:28.830029+00:00",
-      "metrics": {
-        "seconds": 56.32,
-        "tokens": 74
-      },
-      "model": "qwen3.5:9b-q4_K_M",
       "source": {
+        "quarter": "2026 Q2",
         "holdings": [
           [
             "GOOGL",
@@ -3693,20 +3690,20 @@
             "MSCI Inc.",
             "MSCI INC"
           ]
-        ],
-        "quarter": "2026 Q2"
+        ]
       },
-      "sourceHash": "d203427dfe81b2e815adb039c1e9566e6723531cf250f7e91f7aa4b834470ba9",
-      "summary": "李录在 2026 年第二季度持有谷歌 A 类、C 类股及拼多多等重仓股，其中拼多多和伯克希尔哈撒韦 B 类分别增持 133.5% 与 23.5%，同时清仓了美国银行、西方石油等多只股票。"
+      "sourceHash": "a3b9d2d58d6a7a212fc4c66ed0c614446e1e183d25b773c431e8dab87ed7b0ad",
+      "summary": "2026 年第二季度，李录的谷歌 A、谷歌 C 和华美银行股数不变。拼多多增持 133.5%，伯克希尔哈撒韦 B 类增持 23.5%；美国银行、西方石油、标普全球、H&R 税务、穆迪及 MSCI Inc.均清仓。",
+      "generatedAt": "2026-09-16T13:27:41.928618+00:00",
+      "model": "qwen3.5:9b-q4_K_M",
+      "metrics": {
+        "seconds": 56.25,
+        "tokens": 81
+      }
     },
     "investor:pabrai": {
-      "generatedAt": "2026-09-16T13:05:07.431177+00:00",
-      "metrics": {
-        "seconds": 38.6,
-        "tokens": 67
-      },
-      "model": "qwen3.5:9b-q4_K_M",
       "source": {
+        "quarter": "2026 Q2",
         "holdings": [
           [
             "HCC",
@@ -3780,24 +3777,1784 @@
             "阿尔法金属",
             "ALPHA METALLURGICAL RESOUR I"
           ]
-        ],
-        "quarter": "2026 Q2"
+        ]
       },
-      "sourceHash": "af96ee6d98a15681d448cae4c59528cad138679318cee1a5ea1148fb02942fb3",
-      "summary": "帕伯莱在2026年第二季度主要持有冶金煤业（HCC）、越洋钻探（RIG）等股票。其中减持了3.7%的冶金煤业和10.8%的阿尔法金属，同时新建仓了Kaspi.kz。"
+      "sourceHash": "250308f34d58a2b04691eb36b94f5dc488f471b26bd7f3bb8eb8b757796597c8",
+      "summary": "帕伯莱在 2026 Q2 减持了冶金煤业（HCC）3.7% 和阿尔法金属（AMR）10.8%，增持越洋钻探（RIG）并新建仓 Joint Stock Company Kaspi.kz。",
+      "generatedAt": "2026-09-16T13:28:25.984999+00:00",
+      "model": "qwen3.5:9b-q4_K_M",
+      "metrics": {
+        "seconds": 44.05,
+        "tokens": 64
+      }
+    },
+    "value": {
+      "source": [
+        [
+          "KHC",
+          "卡夫亨氏",
+          [
+            [
+              "buffett",
+              2.6,
+              "hold"
+            ]
+          ]
+        ],
+        [
+          "TME",
+          "腾讯音乐",
+          [
+            [
+              "lilu",
+              1.5,
+              "hold"
+            ]
+          ]
+        ],
+        [
+          "LEN",
+          "莱纳建筑",
+          [
+            [
+              "greenberg",
+              4.7,
+              "hold"
+            ]
+          ]
+        ],
+        [
+          "HTZ",
+          "赫兹全球控股",
+          [
+            [
+              "ackman",
+              0.5,
+              "hold"
+            ]
+          ]
+        ],
+        [
+          "BN",
+          "布鲁克菲尔德",
+          [
+            [
+              "akre",
+              10.1,
+              "trimmed"
+            ],
+            [
+              "ackman",
+              17.6,
+              "hold"
+            ]
+          ]
+        ],
+        [
+          "BLDR",
+          "建筑商FirstSource",
+          [
+            [
+              "greenberg",
+              4.6,
+              "hold"
+            ]
+          ]
+        ],
+        [
+          "WHR",
+          "惠而浦",
+          [
+            [
+              "tepper",
+              0.4,
+              "trimmed"
+            ]
+          ]
+        ],
+        [
+          "NUVB",
+          "努瓦生科",
+          [
+            [
+              "abrams",
+              0.1,
+              "hold"
+            ]
+          ]
+        ],
+        [
+          "HDB",
+          "印度住房金融",
+          [
+            [
+              "hawkins",
+              0.0,
+              "hold"
+            ]
+          ]
+        ],
+        [
+          "ENOV",
+          "恩诺维斯",
+          [
+            [
+              "hawkins",
+              0.0,
+              "hold"
+            ]
+          ]
+        ],
+        [
+          "ESRT",
+          "帝国州房地产信托",
+          [
+            [
+              "hawkins",
+              2.5,
+              "added"
+            ]
+          ]
+        ],
+        [
+          "BIDU",
+          "百度",
+          [
+            [
+              "tepper",
+              1.9,
+              "added"
+            ]
+          ]
+        ],
+        [
+          "NRG",
+          "NRG能源",
+          [
+            [
+              "tepper",
+              3.3,
+              "hold"
+            ]
+          ]
+        ],
+        [
+          "FG",
+          "F&G 年金与寿险",
+          [
+            [
+              "greenberg",
+              1.4,
+              "trimmed"
+            ]
+          ]
+        ],
+        [
+          "SHEN",
+          "谢南多厄电信",
+          [
+            [
+              "hawkins",
+              2.1,
+              "trimmed"
+            ]
+          ]
+        ],
+        [
+          "IAC",
+          "People Inc",
+          [
+            [
+              "hawkins",
+              7.5,
+              "trimmed"
+            ]
+          ]
+        ],
+        [
+          "GLIBA",
+          "自由资本",
+          [
+            [
+              "hawkins",
+              0.1,
+              "trimmed"
+            ]
+          ]
+        ],
+        [
+          "EXP",
+          "鹰材料",
+          [
+            [
+              "klarman",
+              2.2,
+              "trimmed"
+            ]
+          ]
+        ]
+      ],
+      "sourceHash": "d18b5eace633d2afedf363c751d1e3b763382848a614c8ea57c2f532b0c07b17",
+      "summary": "巴菲特持有卡夫亨氏 (KHC) 2.6%，李录持有腾讯音乐 (TME) 1.5%。阿克曼减持布鲁克菲尔德 (BN) 10.1% 后仍持 17.6%，霍金斯增持帝国州房地产信托 (ESRT) 2.5% 并持有印度住房金融 (HDB)、恩诺维斯 (ENOV)。",
+      "generatedAt": "2026-09-16T13:26:45.673658+00:00",
+      "model": "qwen3.5:9b-q4_K_M",
+      "metrics": {
+        "seconds": 58.87,
+        "tokens": 94
+      }
+    },
+    "investor:duan": {
+      "source": {
+        "quarter": "2026 Q2",
+        "holdings": [
+          [
+            "AAPL",
+            "037833100",
+            27098707,
+            7841281858,
+            28945607,
+            7346105601,
+            "苹果",
+            "APPLE INC"
+          ],
+          [
+            "BRK/B",
+            "084670702",
+            9229696,
+            4618447581,
+            9147796,
+            4383623843,
+            "伯克希尔哈撒韦 B 类",
+            "BERKSHIRE HATHAWAY INC DEL"
+          ],
+          [
+            "PDD",
+            "722304102",
+            25022094,
+            1908685330,
+            19748294,
+            2017880681,
+            "拼多多",
+            "PDD HOLDINGS INC"
+          ],
+          [
+            "TSLA",
+            "88160R101",
+            3380400,
+            1421796240,
+            3408900,
+            1267258575,
+            "特斯拉",
+            "TESLA INC"
+          ],
+          [
+            "NVDA",
+            "67066G104",
+            6280675,
+            1256700261,
+            13843775,
+            2414354360,
+            "英伟达",
+            "NVIDIA CORPORATION"
+          ],
+          [
+            "GOOG",
+            "02079K107",
+            1968600,
+            695565438,
+            3706000,
+            1063103160,
+            "谷歌C",
+            "ALPHABET INC"
+          ],
+          [
+            "OXY",
+            "674599105",
+            10261500,
+            498401055,
+            10261500,
+            666997500,
+            "西方石油",
+            "OCCIDENTAL PETE CORP"
+          ],
+          [
+            "MSFT",
+            "594918104",
+            754100,
+            281294382,
+            1016000,
+            376092720,
+            "微软",
+            "MICROSOFT CORP"
+          ],
+          [
+            "CRDO",
+            "G25457105",
+            701200,
+            190691340,
+            751200,
+            70515144,
+            "思瑞光电",
+            "CREDO TECHNOLOGY GROUP HOLDI"
+          ],
+          [
+            "UNH",
+            "91324P102",
+            399600,
+            166085748,
+            601400,
+            162732826,
+            "联合健康",
+            "UNITEDHEALTH GROUP INC"
+          ],
+          [
+            "DIS",
+            "254687106",
+            1706600,
+            164260250,
+            1511800,
+            145707284,
+            "迪士尼",
+            "DISNEY WALT CO"
+          ],
+          [
+            "BABA",
+            "01609W102",
+            301400,
+            28928372,
+            0,
+            0,
+            "阿里巴巴",
+            "ALIBABA GROUP HLDG LTD"
+          ],
+          [
+            "CRCL",
+            "172573107",
+            200000,
+            12526000,
+            200000,
+            19082000,
+            "圈网集团",
+            "CIRCLE INTERNET GROUP INC"
+          ],
+          [
+            "PLTR",
+            "69608A108",
+            60000,
+            7000200,
+            60000,
+            8776800,
+            "Palantir Technologies Inc.",
+            "PALANTIR TECHNOLOGIES INC"
+          ],
+          [
+            "SNPS",
+            "871607107",
+            10000,
+            4460700,
+            10000,
+            3964800,
+            "新思科技",
+            "SYNOPSYS INC"
+          ],
+          [
+            "SNOW",
+            "833445109",
+            10000,
+            2545000,
+            10000,
+            1508200,
+            "Snowflake Inc.",
+            "SNOWFLAKE INC"
+          ],
+          [
+            "TEM",
+            "88023B103",
+            20000,
+            1158600,
+            20000,
+            904400,
+            "泰普斯 AI",
+            "TEMPUS AI INC"
+          ],
+          [
+            "INOD",
+            "457642205",
+            10000,
+            755800,
+            10000,
+            386200,
+            "Innodata Inc.",
+            "INNODATA INC"
+          ]
+        ],
+        "previousHoldings": [
+          [
+            "AAPL",
+            "037833100",
+            28945607,
+            7346105601,
+            null,
+            null,
+            "苹果",
+            "APPLE INC"
+          ],
+          [
+            "BRK/B",
+            "084670702",
+            9147796,
+            4383623843,
+            null,
+            null,
+            "伯克希尔哈撒韦 B 类",
+            "BERKSHIRE HATHAWAY INC DEL"
+          ],
+          [
+            "NVDA",
+            "67066G104",
+            13843775,
+            2414354360,
+            null,
+            null,
+            "英伟达",
+            "NVIDIA CORPORATION"
+          ],
+          [
+            "PDD",
+            "722304102",
+            19748294,
+            2017880681,
+            null,
+            null,
+            "拼多多",
+            "PDD HOLDINGS INC"
+          ],
+          [
+            "TSLA",
+            "88160R101",
+            3408900,
+            1267258575,
+            null,
+            null,
+            "特斯拉",
+            "TESLA INC"
+          ],
+          [
+            "GOOG",
+            "02079K107",
+            3706000,
+            1063103160,
+            null,
+            null,
+            "谷歌C",
+            "ALPHABET INC"
+          ],
+          [
+            "OXY",
+            "674599105",
+            10261500,
+            666997500,
+            null,
+            null,
+            "西方石油",
+            "OCCIDENTAL PETE CORP"
+          ],
+          [
+            "MSFT",
+            "594918104",
+            1016000,
+            376092720,
+            null,
+            null,
+            "微软",
+            "MICROSOFT CORP"
+          ],
+          [
+            "UNH",
+            "91324P102",
+            601400,
+            162732826,
+            null,
+            null,
+            "联合健康",
+            "UNITEDHEALTH GROUP INC"
+          ],
+          [
+            "DIS",
+            "254687106",
+            1511800,
+            145707284,
+            null,
+            null,
+            "迪士尼",
+            "DISNEY WALT CO"
+          ],
+          [
+            "CRDO",
+            "G25457105",
+            751200,
+            70515144,
+            null,
+            null,
+            "思瑞光电",
+            "CREDO TECHNOLOGY GROUP HOLDI"
+          ],
+          [
+            "TSM",
+            "874039100",
+            151200,
+            51098040,
+            null,
+            null,
+            "台积电",
+            "TAIWAN SEMICONDUCTOR MANUFAC"
+          ],
+          [
+            "CRCL",
+            "172573107",
+            200000,
+            19082000,
+            null,
+            null,
+            "圈网集团",
+            "CIRCLE INTERNET GROUP INC"
+          ],
+          [
+            "PLTR",
+            "69608A108",
+            60000,
+            8776800,
+            null,
+            null,
+            "Palantir Technologies Inc.",
+            "PALANTIR TECHNOLOGIES INC"
+          ],
+          [
+            "SNPS",
+            "871607107",
+            10000,
+            3964800,
+            null,
+            null,
+            "新思科技",
+            "SYNOPSYS INC"
+          ],
+          [
+            "CRWD",
+            "22788C105",
+            10000,
+            3904100,
+            null,
+            null,
+            "CrowdStrike Holdings, Inc.",
+            "CROWDSTRIKE HLDGS INC"
+          ],
+          [
+            "SNOW",
+            "833445109",
+            10000,
+            1508200,
+            null,
+            null,
+            "Snowflake Inc.",
+            "SNOWFLAKE INC"
+          ],
+          [
+            "TEM",
+            "88023B103",
+            20000,
+            904400,
+            null,
+            null,
+            "泰普斯 AI",
+            "TEMPUS AI INC"
+          ],
+          [
+            "INOD",
+            "457642205",
+            10000,
+            386200,
+            null,
+            null,
+            "Innodata Inc.",
+            "INNODATA INC"
+          ]
+        ]
+      },
+      "sourceHash": "55b83362e053954d8746401f927a788f38e38ff4da0a185f87605de9f286d537",
+      "summary": "段永平在 2026 Q2 减持苹果 6.4%、英伟达 54.6%、谷歌 C 46.9%、微软 25.8%、思瑞光电 6.7%、联合健康 33.6%及特斯拉 0.8%，增持伯克希尔哈撒韦 B 类 0.9%、拼多多 26.7%及迪士尼 12.9%。",
+      "generatedAt": "2026-09-16T13:29:31.716900+00:00",
+      "model": "qwen3.5:9b-q4_K_M",
+      "metrics": {
+        "seconds": 65.72,
+        "tokens": 108
+      }
+    },
+    "investor:tepper": {
+      "source": {
+        "quarter": "2026 Q2",
+        "holdings": [
+          [
+            "AMZN",
+            "023135106",
+            5000000,
+            1191700000,
+            4320000,
+            899726400,
+            "亚马逊",
+            "AMAZON COM INC"
+          ],
+          [
+            "MU",
+            "595112103",
+            975000,
+            1125432750,
+            1665000,
+            562503600,
+            "美光科技",
+            "MICRON TECHNOLOGY INC"
+          ],
+          [
+            "TSM",
+            "874039100",
+            1650000,
+            787990500,
+            1327500,
+            448628625,
+            "台积电",
+            "TAIWAN SEMICONDUCTOR MANUFAC"
+          ],
+          [
+            "GOOG",
+            "02079K107",
+            1850000,
+            653660500,
+            1732700,
+            497042322,
+            "谷歌C",
+            "ALPHABET INC"
+          ],
+          [
+            "UBER",
+            "90353T100",
+            7694071,
+            555204163,
+            6332720,
+            455512550,
+            "优步",
+            "UBER TECHNOLOGIES INC"
+          ],
+          [
+            "IEMG",
+            "464286772",
+            2425000,
+            489607500,
+            2400000,
+            295224000,
+            "iShares 核心 MSCI 新兴市场 ETF",
+            "ISHARES INC"
+          ],
+          [
+            "META",
+            "30303M102",
+            675000,
+            380220750,
+            436500,
+            249734745,
+            "Meta",
+            "META PLATFORMS INC"
+          ],
+          [
+            "VST",
+            "92840M102",
+            2215272,
+            351408597,
+            2022332,
+            304017170,
+            "维斯塔",
+            "VISTRA CORP"
+          ],
+          [
+            "NVDA",
+            "67066G104",
+            1525000,
+            305137250,
+            1471500,
+            256629600,
+            "英伟达",
+            "NVIDIA CORPORATION"
+          ],
+          [
+            "NRG",
+            "629377508",
+            1760000,
+            257065600,
+            1734442,
+            253471354,
+            "NRG能源",
+            "NRG ENERGY INC"
+          ],
+          [
+            "AAPL",
+            "037833100",
+            835000,
+            241615600,
+            0,
+            0,
+            "苹果",
+            "APPLE INC"
+          ],
+          [
+            "BABA",
+            "01609W102",
+            2000000,
+            191960000,
+            3465000,
+            434718900,
+            "阿里巴巴",
+            "ALIBABA GROUP HLDG LTD"
+          ],
+          [
+            "BA",
+            "097023105",
+            800000,
+            173176000,
+            0,
+            0,
+            "波音",
+            "BOEING CO"
+          ],
+          [
+            "LRCX",
+            "512807306",
+            382500,
+            165748725,
+            382500,
+            81724950,
+            "拉姆研究",
+            "LAM RESEARCH CORP"
+          ],
+          [
+            "BIDU",
+            "056752108",
+            1295000,
+            148005550,
+            692100,
+            77113782,
+            "百度",
+            "BAIDU INC"
+          ],
+          [
+            "AAL",
+            "02376R102",
+            7500000,
+            135525000,
+            0,
+            0,
+            "美国航空",
+            "AMERICAN AIRLINES GROUP INC"
+          ],
+          [
+            "AMD",
+            "007903107",
+            197500,
+            114729725,
+            221400,
+            45039402,
+            "超微半导体",
+            "ADVANCED MICRO DEVICES INC"
+          ],
+          [
+            "CRWV",
+            "21873S108",
+            1078248,
+            107328806,
+            0,
+            0,
+            "CoreWeave, Inc.",
+            "COREWEAVE INC"
+          ],
+          [
+            "ASML",
+            "N07059210",
+            50000,
+            99472000,
+            49500,
+            65381085,
+            "阿斯麦",
+            "ASML HLDG NV"
+          ],
+          [
+            "AVGO",
+            "11135F101",
+            150000,
+            56662500,
+            0,
+            0,
+            "博通",
+            "BROADCOM INC"
+          ],
+          [
+            "QCOM",
+            "747525103",
+            250000,
+            46197500,
+            498613,
+            64211382,
+            "高通",
+            "QUALCOMM INC"
+          ],
+          [
+            "SPCX",
+            "84615Q103",
+            225000,
+            38443500,
+            0,
+            0,
+            "Space Exploration Technologies Corp.",
+            "SPACE EXPLORATION TECHN CORP"
+          ],
+          [
+            "ET",
+            "29273V100",
+            1576125,
+            30135510,
+            1576125,
+            30419213,
+            "能源传输",
+            "ENERGY TRANSFER L P"
+          ],
+          [
+            "MPLX",
+            "55336V100",
+            502460,
+            28303572,
+            502460,
+            28675392,
+            "MPLX管道",
+            "MPLX LP"
+          ],
+          [
+            "WHR",
+            "963320106",
+            715000,
+            28185300,
+            1950000,
+            105144000,
+            "惠而浦",
+            "WHIRLPOOL CORP"
+          ],
+          [
+            "BRK/B",
+            "084670702",
+            25000,
+            12509750,
+            0,
+            0,
+            "伯克希尔哈撒韦 B 类",
+            "BERKSHIRE HATHAWAY INC DEL"
+          ],
+          [
+            "GT",
+            "382550101",
+            1508591,
+            9956701,
+            0,
+            0,
+            "固特异",
+            "GOODYEAR TIRE & RUBR CO"
+          ]
+        ],
+        "previousHoldings": [
+          [
+            "AMZN",
+            "023135106",
+            4320000,
+            899726400,
+            null,
+            null,
+            "亚马逊",
+            "AMAZON COM INC"
+          ],
+          [
+            "MU",
+            "595112103",
+            1665000,
+            562503600,
+            null,
+            null,
+            "美光科技",
+            "MICRON TECHNOLOGY INC"
+          ],
+          [
+            "GOOG",
+            "02079K107",
+            1732700,
+            497042322,
+            null,
+            null,
+            "谷歌C",
+            "ALPHABET INC"
+          ],
+          [
+            "UBER",
+            "90353T100",
+            6332720,
+            455512550,
+            null,
+            null,
+            "优步",
+            "UBER TECHNOLOGIES INC"
+          ],
+          [
+            "TSM",
+            "874039100",
+            1327500,
+            448628625,
+            null,
+            null,
+            "台积电",
+            "TAIWAN SEMICONDUCTOR MANUFAC"
+          ],
+          [
+            "BABA",
+            "01609W102",
+            3465000,
+            434718900,
+            null,
+            null,
+            "阿里巴巴",
+            "ALIBABA GROUP HLDG LTD"
+          ],
+          [
+            "VST",
+            "92840M102",
+            2022332,
+            304017170,
+            null,
+            null,
+            "维斯塔",
+            "VISTRA CORP"
+          ],
+          [
+            "IEMG",
+            "464286772",
+            2400000,
+            295224000,
+            null,
+            null,
+            "iShares 核心 MSCI 新兴市场 ETF",
+            "ISHARES INC"
+          ],
+          [
+            "NVDA",
+            "67066G104",
+            1471500,
+            256629600,
+            null,
+            null,
+            "英伟达",
+            "NVIDIA CORPORATION"
+          ],
+          [
+            "NRG",
+            "629377508",
+            1734442,
+            253471354,
+            null,
+            null,
+            "NRG能源",
+            "NRG ENERGY INC"
+          ],
+          [
+            "META",
+            "30303M102",
+            436500,
+            249734745,
+            null,
+            null,
+            "Meta",
+            "META PLATFORMS INC"
+          ],
+          [
+            "SNDK",
+            "80004C200",
+            281250,
+            178689375,
+            null,
+            null,
+            "闪迪",
+            "SANDISK CORP"
+          ],
+          [
+            "GLW",
+            "219350105",
+            1129500,
+            153578115,
+            null,
+            null,
+            "康宁",
+            "CORNING INC"
+          ],
+          [
+            "WHR",
+            "963320106",
+            1950000,
+            105144000,
+            null,
+            null,
+            "惠而浦",
+            "WHIRLPOOL CORP"
+          ],
+          [
+            "PDD",
+            "722304102",
+            900000,
+            91962000,
+            null,
+            null,
+            "拼多多",
+            "PDD HOLDINGS INC"
+          ],
+          [
+            "LRCX",
+            "512807306",
+            382500,
+            81724950,
+            null,
+            null,
+            "拉姆研究",
+            "LAM RESEARCH CORP"
+          ],
+          [
+            "BIDU",
+            "056752108",
+            692100,
+            77113782,
+            null,
+            null,
+            "百度",
+            "BAIDU INC"
+          ],
+          [
+            "LHX",
+            "502431109",
+            198000,
+            68339700,
+            null,
+            null,
+            "L3哈里斯",
+            "L3HARRIS TECHNOLOGIES INC"
+          ],
+          [
+            "RTX",
+            "75513E101",
+            342000,
+            65971800,
+            null,
+            null,
+            "雷神技术",
+            "RTX CORPORATION"
+          ],
+          [
+            "ASML",
+            "N07059210",
+            49500,
+            65381085,
+            null,
+            null,
+            "阿斯麦",
+            "ASML HLDG NV"
+          ],
+          [
+            "QCOM",
+            "747525103",
+            498613,
+            64211382,
+            null,
+            null,
+            "高通",
+            "QUALCOMM INC"
+          ],
+          [
+            "BALL",
+            "058498106",
+            837000,
+            49475070,
+            null,
+            null,
+            "鲍尔公司",
+            "BALL CORP"
+          ],
+          [
+            "AMD",
+            "007903107",
+            221400,
+            45039402,
+            null,
+            null,
+            "超微半导体",
+            "ADVANCED MICRO DEVICES INC"
+          ],
+          [
+            "JD",
+            "47215P106",
+            1305000,
+            38588850,
+            null,
+            null,
+            "京东",
+            "JD.COM INC"
+          ],
+          [
+            "LYFT",
+            "55087P104",
+            2700000,
+            35910000,
+            null,
+            null,
+            "Lyft",
+            "LYFT INC"
+          ],
+          [
+            "MSFT",
+            "594918104",
+            90000,
+            33315300,
+            null,
+            null,
+            "微软",
+            "MICROSOFT CORP"
+          ],
+          [
+            "KWEB",
+            "500767306",
+            1080000,
+            30704400,
+            null,
+            null,
+            "中概互联ETF",
+            "KRANESHARES TRUST"
+          ],
+          [
+            "ET",
+            "29273V100",
+            1576125,
+            30419213,
+            null,
+            null,
+            "能源传输",
+            "ENERGY TRANSFER L P"
+          ],
+          [
+            "MPLX",
+            "55336V100",
+            502460,
+            28675392,
+            null,
+            null,
+            "MPLX管道",
+            "MPLX LP"
+          ],
+          [
+            "UNH",
+            "91324P102",
+            90000,
+            24353100,
+            null,
+            null,
+            "联合健康",
+            "UNITEDHEALTH GROUP INC"
+          ],
+          [
+            "DB",
+            "D18190898",
+            257616,
+            7671804,
+            null,
+            null,
+            "德意志银行",
+            "DEUTSCHE BK AG"
+          ]
+        ]
+      },
+      "sourceHash": "3213c108fa5357a71641ee84436a726d8f9ea3097e085e81405200442eeb8b6d",
+      "summary": "2026 年第二季度，大卫·泰珀增持了亚马逊、美光科技、台积电、谷歌 C、优步、iShares 核心 MSCI 新兴市场 ETF、阿里巴巴、Meta、维斯塔和英伟达。其中，对 Meta 的持仓增持幅度为 54.6%，对阿里巴巴的减持幅度为 42.3%。",
+      "generatedAt": "2026-09-16T13:30:26.980858+00:00",
+      "model": "qwen3.5:9b-q4_K_M",
+      "metrics": {
+        "seconds": 55.26,
+        "tokens": 83
+      }
+    },
+    "investor:buffett": {
+      "source": {
+        "quarter": "2026 Q2",
+        "holdings": [
+          [
+            "AAPL",
+            "037833100",
+            227917808,
+            65950296923,
+            227917808,
+            57843260493,
+            "苹果",
+            "APPLE INC"
+          ],
+          [
+            "AXP",
+            "025816109",
+            151610700,
+            51282319275,
+            151610700,
+            45859204536,
+            "美国运通",
+            "AMERICAN EXPRESS CO"
+          ],
+          [
+            "KO",
+            "191216100",
+            400000000,
+            32508000000,
+            400000000,
+            30420000000,
+            "可口可乐",
+            "COCA COLA CO"
+          ],
+          [
+            "GOOGL",
+            "02079K305",
+            78791167,
+            28157599351,
+            54249798,
+            15600071913,
+            "谷歌A",
+            "ALPHABET INC"
+          ],
+          [
+            "BAC",
+            "060505104",
+            483394015,
+            27543790975,
+            513624165,
+            25039178044,
+            "美国银行",
+            "BANK OF AMER CORP"
+          ],
+          [
+            "CVX",
+            "166764100",
+            84375856,
+            13986141890,
+            84375856,
+            17457364606,
+            "雪佛龙",
+            "CHEVRON CORPORATION"
+          ],
+          [
+            "OXY",
+            "674599105",
+            264941431,
+            12868205304,
+            264941431,
+            17221193015,
+            "西方石油",
+            "OCCIDENTAL PETE CORP"
+          ],
+          [
+            "?CHUBB LIMITED",
+            "H1467J104",
+            34249183,
+            11670066615,
+            34249183,
+            11162836215,
+            null,
+            "CHUBB LIMITED"
+          ],
+          [
+            "MCO",
+            "615369105",
+            24669778,
+            11173435852,
+            24669778,
+            10762190653,
+            "穆迪",
+            "MOODYS CORP"
+          ],
+          [
+            "GOOG",
+            "02079K107",
+            27188433,
+            9606489032,
+            3585215,
+            1028454775,
+            "谷歌C",
+            "ALPHABET INC"
+          ],
+          [
+            "KHC",
+            "500754106",
+            325634818,
+            7691494401,
+            325634818,
+            7323527057,
+            "卡夫亨氏",
+            "KRAFT HEINZ CO"
+          ],
+          [
+            "DVA",
+            "23918K108",
+            28880209,
+            6425268898,
+            30100585,
+            4626158909,
+            "达维塔",
+            "DAVITA INC"
+          ],
+          [
+            "DAL",
+            "247361702",
+            57320000,
+            5368591200,
+            39809456,
+            2646532635,
+            "达美航空",
+            "DELTA AIR LINES INC"
+          ],
+          [
+            "SIRI",
+            "829933100",
+            124807117,
+            3686802237,
+            124807117,
+            2880548260,
+            "Sirius XM Holdings Inc.",
+            "SIRIUSXM HOLDINGS INC"
+          ],
+          [
+            "VRSN",
+            "92343E102",
+            8989880,
+            2261494212,
+            8989880,
+            2232726597,
+            "维瑞信",
+            "VERISIGN INC"
+          ],
+          [
+            "KR",
+            "501044101",
+            39000000,
+            2165670000,
+            50000000,
+            3618000000,
+            "克罗格",
+            "KROGER CO"
+          ],
+          [
+            "LLYVA",
+            "530909100",
+            15573731,
+            1623367688,
+            15573731,
+            1453326953,
+            "自由直播控股",
+            "LIBERTY LIVE HOLDINGS INC"
+          ],
+          [
+            "ALLY",
+            "02005N100",
+            27000000,
+            1240650000,
+            29000000,
+            1137670000,
+            "Ally金融",
+            "ALLY FINL INC"
+          ],
+          [
+            "LEN",
+            "526057104",
+            13409858,
+            1212927402,
+            10337345,
+            897048487,
+            "莱纳建筑",
+            "LENNAR CORP"
+          ],
+          [
+            "NYT",
+            "650111107",
+            15700000,
+            1098686000,
+            15146535,
+            1268219376,
+            "纽约时报",
+            "NEW YORK TIMES CO MTN BE"
+          ],
+          [
+            "COF",
+            "14040H105",
+            3000000,
+            601860000,
+            7150000,
+            1304374500,
+            "美国资本集团",
+            "CAPITAL ONE FINL CORP"
+          ],
+          [
+            "LPX",
+            "546347105",
+            5664793,
+            445592617,
+            5664793,
+            412113691,
+            "路易斯安那太平洋",
+            "LOUISIANA PAC CORP"
+          ],
+          [
+            "NUE",
+            "670346105",
+            1857752,
+            413814258,
+            3907075,
+            660686383,
+            "纽科尔",
+            "NUCOR CORP"
+          ],
+          [
+            "M",
+            "55616P104",
+            7347426,
+            173031882,
+            3038355,
+            54963842,
+            "梅西百货",
+            "MACYS INC"
+          ],
+          [
+            "NVR",
+            "62944T105",
+            11112,
+            75710501,
+            11112,
+            73226191,
+            "NVR, Inc.",
+            "NVR INC"
+          ],
+          [
+            "JEF",
+            "47233W109",
+            433558,
+            21669229,
+            433558,
+            17892939,
+            "杰富瑞",
+            "JEFFERIES FINANCIAL GROUP IN"
+          ],
+          [
+            "DHI",
+            "23331A109",
+            3564,
+            580504,
+            0,
+            0,
+            "D.R. 霍顿",
+            "D R HORTON INC"
+          ]
+        ],
+        "previousHoldings": [
+          [
+            "AAPL",
+            "037833100",
+            227917808,
+            57843260493,
+            null,
+            null,
+            "苹果",
+            "APPLE INC"
+          ],
+          [
+            "AXP",
+            "025816109",
+            151610700,
+            45859204536,
+            null,
+            null,
+            "美国运通",
+            "AMERICAN EXPRESS CO"
+          ],
+          [
+            "KO",
+            "191216100",
+            400000000,
+            30420000000,
+            null,
+            null,
+            "可口可乐",
+            "COCA COLA CO"
+          ],
+          [
+            "BAC",
+            "060505104",
+            513624165,
+            25039178044,
+            null,
+            null,
+            "美国银行",
+            "BANK AMERICA CORP"
+          ],
+          [
+            "CVX",
+            "166764100",
+            84375856,
+            17457364606,
+            null,
+            null,
+            "雪佛龙",
+            "CHEVRON CORPORATION"
+          ],
+          [
+            "OXY",
+            "674599105",
+            264941431,
+            17221193015,
+            null,
+            null,
+            "西方石油",
+            "OCCIDENTAL PETE CORP"
+          ],
+          [
+            "GOOGL",
+            "02079K305",
+            54249798,
+            15600071913,
+            null,
+            null,
+            "谷歌A",
+            "ALPHABET INC"
+          ],
+          [
+            "CB",
+            "H1467J104",
+            34249183,
+            11162836215,
+            null,
+            null,
+            "丘博保险",
+            "CHUBB LTD SWITZ"
+          ],
+          [
+            "MCO",
+            "615369105",
+            24669778,
+            10762190653,
+            null,
+            null,
+            "穆迪",
+            "MOODYS CORP"
+          ],
+          [
+            "KHC",
+            "500754106",
+            325634818,
+            7323527057,
+            null,
+            null,
+            "卡夫亨氏",
+            "KRAFT HEINZ CO"
+          ],
+          [
+            "DVA",
+            "23918K108",
+            30100585,
+            4626158909,
+            null,
+            null,
+            "达维塔",
+            "DAVITA INC"
+          ],
+          [
+            "KR",
+            "501044101",
+            50000000,
+            3618000000,
+            null,
+            null,
+            "克罗格",
+            "KROGER CO"
+          ],
+          [
+            "SIRI",
+            "829933100",
+            124807117,
+            2880548260,
+            null,
+            null,
+            "Sirius XM Holdings Inc.",
+            "SIRIUSXM HOLDINGS INC"
+          ],
+          [
+            "DAL",
+            "247361702",
+            39809456,
+            2646532635,
+            null,
+            null,
+            "达美航空",
+            "DELTA AIR LINES INC"
+          ],
+          [
+            "VRSN",
+            "92343E102",
+            8989880,
+            2232726597,
+            null,
+            null,
+            "维瑞信",
+            "VERISIGN INC"
+          ],
+          [
+            "LLYVA",
+            "530909100",
+            15573731,
+            1453326953,
+            null,
+            null,
+            "自由直播控股",
+            "LIBERTY LIVE HOLDINGS INC"
+          ],
+          [
+            "COF",
+            "14040H105",
+            7150000,
+            1304374500,
+            null,
+            null,
+            "美国资本集团",
+            "CAPITAL ONE FINL CORP"
+          ],
+          [
+            "NYT",
+            "650111107",
+            15146535,
+            1268219376,
+            null,
+            null,
+            "纽约时报",
+            "NEW YORK TIMES CO MTN BE"
+          ],
+          [
+            "ALLY",
+            "02005N100",
+            29000000,
+            1137670000,
+            null,
+            null,
+            "Ally金融",
+            "ALLY FINL INC"
+          ],
+          [
+            "GOOG",
+            "02079K107",
+            3585215,
+            1028454775,
+            null,
+            null,
+            "谷歌C",
+            "ALPHABET INC"
+          ],
+          [
+            "LEN",
+            "526057104",
+            10337345,
+            897048487,
+            null,
+            null,
+            "莱纳建筑",
+            "LENNAR CORP"
+          ],
+          [
+            "NUE",
+            "670346105",
+            3907075,
+            660686383,
+            null,
+            null,
+            "纽科尔",
+            "NUCOR CORP"
+          ],
+          [
+            "LPX",
+            "546347105",
+            5664793,
+            412113691,
+            null,
+            null,
+            "路易斯安那太平洋",
+            "LOUISIANA PAC CORP"
+          ],
+          [
+            "STZ",
+            "21036P108",
+            632890,
+            94933500,
+            null,
+            null,
+            "星座品牌",
+            "CONSTELLATION BRANDS INC"
+          ],
+          [
+            "NVR",
+            "62944T105",
+            11112,
+            73226191,
+            null,
+            null,
+            "NVR, Inc.",
+            "NVR INC"
+          ],
+          [
+            "M",
+            "55616P104",
+            3038355,
+            54963842,
+            null,
+            null,
+            "梅西百货",
+            "MACYS INC"
+          ],
+          [
+            "JEF",
+            "47233W109",
+            433558,
+            17892939,
+            null,
+            null,
+            "杰富瑞",
+            "JEFFERIES FINANCIAL GROUP IN"
+          ]
+        ]
+      },
+      "sourceHash": "ccb406d47a92b72e40b0f9a551f8382cbae528a14873b6a3cf4643ec33bba1f3",
+      "summary": "巴菲特在 2026 年第二季度持有 AAPL、AXP 和 KO 股数不变，增持 GOOGL 45.2%、GOOG 658.3%、DAL 44.0%、LEN 29.7% 及 NYT 3.7%，同时减持 BAC 5.9%、DVA 4.1%、KR 22.0%、COF 58.0%、ALLY 6.9%。",
+      "generatedAt": "2026-09-16T13:31:27.064650+00:00",
+      "model": "qwen3.5:9b-q4_K_M",
+      "metrics": {
+        "seconds": 60.08,
+        "tokens": 115
+      }
     }
   },
   "lastRun": {
-    "accepted": 5,
-    "cached": 0,
-    "failed": 1,
-    "finishedAt": "2026-09-16T13:20:49.512147+00:00",
+    "startedAt": "2026-09-16T13:25:46.752723+00:00",
     "model": "qwen3.5:9b-q4_K_M",
-    "pendingAfter": 8,
     "pendingBefore": 13,
+    "cached": 0,
     "sourceCommit": "",
-    "startedAt": "2026-09-16T13:12:16.182562+00:00",
-    "reviewedAt": "2026-09-16T13:23:07.317Z"
+    "finishedAt": "2026-09-16T13:31:27.067022+00:00",
+    "pendingAfter": 7,
+    "accepted": 6,
+    "failed": 0
   },
   "schemaVersion": 1
 }

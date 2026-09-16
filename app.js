@@ -929,7 +929,11 @@ function aiValueSource(candidates) {
 }
 function aiMatchingEntry(key, source) {
   const e=_aiSupplement.entries?.[key];
-  return e && typeof e.summary==='string' && JSON.stringify(e.source)===JSON.stringify(source) ? e : null;
+  // Object field order is not data: serializers can reorder JSON keys.
+  const canonical = value => Array.isArray(value) ? value.map(canonical)
+    : value && typeof value==='object'
+      ? Object.fromEntries(Object.keys(value).sort().map(k=>[k,canonical(value[k])])) : value;
+  return e && typeof e.summary==='string' && JSON.stringify(canonical(e.source))===JSON.stringify(canonical(source)) ? e : null;
 }
 async function refreshAISupplements() {
   const ctrl=new AbortController(), timer=setTimeout(()=>ctrl.abort(),6000);
