@@ -38,6 +38,7 @@ def main():
     parser.add_argument('--model', required=True)
     parser.add_argument('--output', type=Path, required=True)
     parser.add_argument('--think', action='store_true')
+    parser.add_argument('--prompt-schema', action='store_true')
     parser.add_argument('--max-tokens', type=int, default=800)
     parser.add_argument('--timeout', type=int, default=360)
     parser.add_argument('--case', dest='case_id')
@@ -60,6 +61,8 @@ def main():
     thread = threading.Thread(target=monitor, daemon=True)
     thread.start()
     extra = ['--max-tokens', str(args.max_tokens), '--timeout', str(args.timeout)]
+    if args.prompt_schema:
+        extra.append('--prompt-schema')
     if args.think:
         extra.append('--think')
     if args.case_id:

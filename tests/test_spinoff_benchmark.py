@@ -77,6 +77,18 @@ class BenchmarkScoringTests(unittest.TestCase):
         self.assertEqual(data['options']['num_ctx'], 4096)
         self.assertEqual(set(json.loads(data['prompt'])), {'parent', 'filingDate', 'filingText'})
 
+    def test_prompt_schema_control_differs_only_by_think_flag(self):
+        payloads = []
+        for think in [False, True]:
+            with patch.object(b, 'request_json', return_value={}) as request:
+                b.infer(self.case, 'model', 1200, think=think, max_tokens=2048, prompt_schema=True)
+            data = request.call_args.args[1]
+            self.assertNotIn('format', data)
+            self.assertIn(json.dumps(b.SCHEMA), data['system'])
+            self.assertEqual(data.pop('think'), think)
+            payloads.append(data)
+        self.assertEqual(payloads[0], payloads[1])
+
     def test_thinking_trace_is_not_parsed_as_final_answer(self):
         answer = {'targetName': '', 'targetQuote': '', 'status': 'needs_review',
                   'statusQuote': '', 'dates': []}

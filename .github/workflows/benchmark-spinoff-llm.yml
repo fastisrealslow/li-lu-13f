@@ -25,6 +25,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
+        thinking: ['on', 'off']
         case: [sihuan_completed, sihuan_prospectus, leoch_paused, ctva, hcti, blze]
     env:
       AI_MODEL: qwen3.5:9b-q8_0
@@ -72,12 +73,12 @@ jobs:
           ollama list
       - name: Extract from identical frozen filing text
         timeout-minutes: 22
-        run: python -u scripts/run_spinoff_benchmark_monitored.py --model "$AI_MODEL" --think --max-tokens 2048 --timeout 1200 --case "${{ matrix.case }}" --output "benchmark-results/qwen35-9b-q8-thinking-${{ matrix.case }}.json"
+        run: python -u scripts/run_spinoff_benchmark_monitored.py --model "$AI_MODEL" --prompt-schema ${{ matrix.thinking == 'on' && '--think' || '' }} --max-tokens 2048 --timeout 1200 --case "${{ matrix.case }}" --output "benchmark-results/qwen35-9b-q8-thinking-${{ matrix.thinking }}-${{ matrix.case }}.json"
       - name: Preserve raw outputs and resource errors
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: spinoff-benchmark-qwen35-9b-q8-thinking-${{ matrix.case }}
+          name: spinoff-benchmark-qwen35-9b-q8-thinking-${{ matrix.thinking }}-${{ matrix.case }}
           path: |
             benchmark-results/*.json
             ${{ runner.temp }}/ollama.log

@@ -8,9 +8,16 @@ Completed Q8 comparison: [Q4 versus Q8 results and memory observations](results/
 Both scored 3/6 strict field passes; Q8 took 12m39s versus Q4's 9m15s. Q8 corrected
 one missing name but regressed on one lifecycle stage. Production remains unchanged.
 
-The isolated workflow now tests **Qwen3.5 9B Q8_0 with thinking enabled**.
-The six frozen cases run in separate CPU jobs, with the same source text, system
-prompt, schema, scorer, runtime, temperature 0, seed 42 and context 4096 as before.
+The isolated workflow now tests **Qwen3.5 9B Q8_0 with thinking on and off**.
+A first direct-switch probe (run 35215503163) exposed empty final responses with
+JSON appearing inside the thinking field when native schema grammar was enabled.
+Those integration failures are preserved separately, not treated as a reasoning
+quality comparison. The paired rerun uses the same schema in the system prompt
+and omits native `format` in BOTH arms. Only the `think` flag differs between arms.
+The scorer still requires strict JSON and does not recover answers from thinking.
+This new pair is the direct comparison; old native-grammar Q8 is historical context.
+The six frozen cases in each arm run in separate CPU jobs, with the same source text, extraction instructions,
+schema, scorer, runtime, temperature 0, seed 42 and context 4096 as before.
 Output budget increases from 800 to 2048 tokens and per-case timeout from 360 to
 1200 seconds to accommodate thinking. This is a bounded reasoning trial, not a
 maximum-capability claim. Truncation remains an explicit error; no repair retries.
