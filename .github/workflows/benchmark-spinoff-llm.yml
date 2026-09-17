@@ -1,0 +1,88 @@
+name: Spin-off LLM Benchmark (isolated)
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [master]
+    paths:
+      - .github/workflows/benchmark-spinoff-llm.yml
+      - scripts/benchmark_spinoff_llm.py
+      - tests/fixtures/spinoff_benchmark.json
+      - tests/test_spinoff_benchmark.py
+
+permissions:
+  contents: read
+
+concurrency:
+  group: spinoff-llm-benchmark
+  cancel-in-progress: false
+
+jobs:
+  benchmark:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 50
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - model: qwen3.5:9b-q4_K_M
+            label: qwen35-9b-q4
+          - model: qwen3:14b-q4_K_M
+            label: qwen3-14b-q4
+    env:
+      AI_MODEL: ${{ matrix.model }}
+      OLLAMA_HOST: '127.0.0.1:11434'
+      OLLAMA_NUM_PARALLEL: '1'
+      OLLAMA_MAX_LOADED_MODELS: '1'
+      OLLAMA_NO_CLOUD: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify benchmark and measure existing rules
+        run: |
+          python -m unittest discover -s tests -p test_spinoff_benchmark.py
+          python -u scripts/benchmark_spinoff_llm.py --model rules --output benchmark-results/rules.json
+      - name: Set model paths and record resources
+        run: |
+          echo "OLLAMA_MODELS=$RUNNER_TEMP/lilu-ollama-models" >> "$GITHUB_ENV"
+          free -h
+          df -h /
+          lscpu | head -20
+      - uses: actions/cache/restore@v4
+        with:
+          path: ${{ env.OLLAMA_MODELS }}
+          key: qwen-cpu-v1-${{ runner.os }}-${{ matrix.model }}
+      - name: Install pinned Ollama runtime
+        timeout-minutes: 8
+        run: |
+          mkdir -p "$RUNNER_TEMP/ollama"
+          curl --fail --location --retry 3 --max-time 420 https://github.com/ollama/ollama/releases/download/v0.34.1/ollama-linux-amd64.tar.zst -o "$RUNNER_TEMP/ollama.tar.zst"
+          tar --zstd -xf "$RUNNER_TEMP/ollama.tar.zst" -C "$RUNNER_TEMP/ollama"
+          rm "$RUNNER_TEMP/ollama.tar.zst"
+          echo "$RUNNER_TEMP/ollama/bin" >> "$GITHUB_PATH"
+      - name: Load model on CPU
+        timeout-minutes: 10
+        run: |
+          ollama serve > "$RUNNER_TEMP/ollama.log" 2>&1 &
+          for attempt in $(seq 1 30); do
+            if curl -fsS http://127.0.0.1:11434/api/version; then break; fi
+            sleep 1
+          done
+          curl -fsS http://127.0.0.1:11434/api/version
+          ollama pull "$AI_MODEL"
+          ollama list
+      - name: Extract from identical frozen filing text
+        timeout-minutes: 37
+        run: python -u scripts/benchmark_spinoff_llm.py --model "$AI_MODEL" --output "benchmark-results/${{ matrix.label }}.json"
+      - name: Preserve raw outputs and resource errors
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: spinoff-benchmark-${{ matrix.label }}
+          path: |
+            benchmark-results/*.json
+            ${{ runner.temp }}/ollama.log
+          retention-days: 30
+          if-no-files-found: warn
