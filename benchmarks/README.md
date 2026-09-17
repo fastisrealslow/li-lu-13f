@@ -4,7 +4,11 @@ First completed comparison: [2026-09-17 results and manual evidence review](resu
 Strict field passes were rules 4/6, Qwen3.5 9B 3/6, Qwen3 14B 1/6. Neither model
 was integrated into production spin-off facts.
 
-The next isolated run tests **Qwen3.5 9B Q8_0**, against the frozen Q4 results above.
+Completed Q8 comparison: [Q4 versus Q8 results and memory observations](results/35203275342/REVIEW.md).
+Both scored 3/6 strict field passes; Q8 took 12m39s versus Q4's 9m15s. Q8 corrected
+one missing name but regressed on one lifecycle stage. Production remains unchanged.
+
+The isolated workflow tests **Qwen3.5 9B Q8_0**, against the frozen Q4 results above.
 Only the model tag changes: extraction code, six inputs, prompt, schema, thinking
 mode, runtime version and request limits remain identical. A wrapper samples Linux
 memory every five seconds and prints the complete report into job logs. Sampled

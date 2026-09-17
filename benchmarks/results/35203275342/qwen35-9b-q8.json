@@ -1,0 +1,362 @@
+{
+  "benchmarkVersion": 1,
+  "cases": [
+    {
+      "gold": {
+        "dates": [
+          {
+            "date": "2025-10-15",
+            "field": "listingDate",
+            "kind": "actual"
+          }
+        ],
+        "status": "completed",
+        "targetNames": [
+          "軒竹生物"
+        ]
+      },
+      "id": "sihuan_completed",
+      "metrics": {
+        "done_reason": "stop",
+        "eval_count": 244,
+        "eval_duration": 63276812000,
+        "load_duration": 12620778669,
+        "prompt_eval_count": 1028,
+        "prompt_eval_duration": 107059297000
+      },
+      "output": {
+        "dates": [
+          {
+            "date": "2025-10-15",
+            "field": "listingDate",
+            "kind": "actual",
+            "quote": "分拆公司於二零二五年十月十五日在聯交所主板上市"
+          },
+          {
+            "date": "2025-10-15",
+            "field": "listingDate",
+            "kind": "actual",
+            "quote": "分拆公司 H 股於二零二五年十月十五日上午九時正開始於聯交所主板買賣"
+          }
+        ],
+        "status": "completed",
+        "statusQuote": "董事會欣然宣佈，於全球發售完成後，分拆公司於二零二五年十月十五日在聯交所主板上市，而分拆公司 H 股於二零二五年十月十五日上午九時正開始於聯交所主板買賣。",
+        "targetName": "軒竹生物",
+        "targetQuote": "建議分拆及軒竹生物於香港聯合交易所有限公司主板獨立上市"
+      },
+      "raw": "{\n  \"targetName\": \"軒竹生物\",\n  \"targetQuote\": \"建議分拆及軒竹生物於香港聯合交易所有限公司主板獨立上市\",\n  \"status\": \"completed\",\n  \"statusQuote\": \"董事會欣然宣佈，於全球發售完成後，分拆公司於二零二五年十月十五日在聯交所主板上市，而分拆公司 H 股於二零二五年十月十五日上午九時正開始於聯交所主板買賣。\",\n  \"dates\": [\n    {\n      \"field\": \"listingDate\",\n      \"date\": \"2025-10-15\",\n      \"kind\": \"actual\",\n      \"quote\": \"分拆公司於二零二五年十月十五日在聯交所主板上市\"\n    },\n    {\n      \"field\": \"listingDate\",\n      \"date\": \"2025-10-15\",\n      \"kind\": \"actual\",\n      \"quote\": \"分拆公司 H 股於二零二五年十月十五日上午九時正開始於聯交所主板買賣\"\n    }\n  ]\n}",
+      "score": {
+        "dates": false,
+        "falseCompletion": false,
+        "fieldsExact": false,
+        "grounded": false,
+        "schema": false,
+        "status": false,
+        "target": false,
+        "unsupportedTarget": false
+      },
+      "seconds": 182.98,
+      "sourceUrl": "https://www1.hkexnews.hk/listedco/listconews/sehk/2025/1015/2025101500144_c.pdf",
+      "textSha256": "aca6d025e377f1798148b2710a08e208ceb8568244f34af89acf3a6db00f11f9"
+    },
+    {
+      "gold": {
+        "dates": [],
+        "status": "prospectus",
+        "targetNames": [
+          "軒竹生物科技股份有限公司",
+          "軒竹生物"
+        ]
+      },
+      "id": "sihuan_prospectus",
+      "metrics": {
+        "done_reason": "stop",
+        "eval_count": 102,
+        "eval_duration": 25705179000,
+        "load_duration": 3468359,
+        "prompt_eval_count": 649,
+        "prompt_eval_duration": 67487403000
+      },
+      "output": {
+        "dates": [],
+        "status": "prospectus",
+        "statusQuote": "董事會欣然宣佈，就建議分拆及上市而言，分拆公司已於二零二五年十月六日刊發招股章程",
+        "targetName": "軒竹生物科技股份有限公司",
+        "targetQuote": "本公司附屬公司軒竹生物科技股份有限公司（「分拆公司」或「軒竹生物」）於聯交所主板獨立上市"
+      },
+      "raw": "{\n  \"targetName\": \"軒竹生物科技股份有限公司\",\n  \"targetQuote\": \"本公司附屬公司軒竹生物科技股份有限公司（「分拆公司」或「軒竹生物」）於聯交所主板獨立上市\",\n  \"status\": \"prospectus\",\n  \"statusQuote\": \"董事會欣然宣佈，就建議分拆及上市而言，分拆公司已於二零二五年十月六日刊發招股章程\",\n  \"dates\": []\n}",
+      "score": {
+        "dates": true,
+        "falseCompletion": false,
+        "fieldsExact": true,
+        "grounded": false,
+        "schema": true,
+        "status": true,
+        "target": true,
+        "unsupportedTarget": false
+      },
+      "seconds": 93.25,
+      "sourceUrl": "https://www1.hkexnews.hk/listedco/listconews/sehk/2025/1006/2025100601213_c.pdf",
+      "textSha256": "42f3fd5c6388530ca59e0b8681e1871124d8fa924afe09b815c1882fffdc6e9f"
+    },
+    {
+      "gold": {
+        "dates": [],
+        "status": "paused",
+        "targetNames": [
+          ""
+        ]
+      },
+      "id": "leoch_paused",
+      "metrics": {
+        "done_reason": "stop",
+        "eval_count": 72,
+        "eval_duration": 18038640000,
+        "load_duration": 1979375,
+        "prompt_eval_count": 833,
+        "prompt_eval_duration": 72148922000
+      },
+      "output": {
+        "dates": [],
+        "status": "terminated",
+        "statusQuote": "分拆公司於考慮現時市場及監管狀況等多項因素後，決定於現階段不進行建議分拆及建議於美國證券交易所上市。",
+        "targetName": "",
+        "targetQuote": ""
+      },
+      "raw": "{\n  \"targetName\": \"\",\n  \"targetQuote\": \"\",\n  \"status\": \"terminated\",\n  \"statusQuote\": \"分拆公司於考慮現時市場及監管狀況等多項因素後，決定於現階段不進行建議分拆及建議於美國證券交易所上市。\",\n  \"dates\": []\n}",
+      "score": {
+        "dates": true,
+        "falseCompletion": false,
+        "fieldsExact": false,
+        "grounded": true,
+        "schema": true,
+        "status": false,
+        "target": true,
+        "unsupportedTarget": false
+      },
+      "seconds": 90.29,
+      "sourceUrl": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0401/2026040104407_c.pdf",
+      "textSha256": "da4a37d5a3695b1a7fce2fe9d4870dbef00bf84174f523090493207f74a44883"
+    },
+    {
+      "gold": {
+        "dates": [
+          {
+            "date": "2026-09-24",
+            "field": "recordDate",
+            "kind": "scheduled"
+          },
+          {
+            "date": "2026-10-01",
+            "field": "distributionDate",
+            "kind": "scheduled"
+          },
+          {
+            "date": "2026-10-01",
+            "field": "listingDate",
+            "kind": "scheduled"
+          }
+        ],
+        "status": "record_set",
+        "targetNames": [
+          "Vylor Inc.",
+          "Vylor"
+        ]
+      },
+      "id": "ctva",
+      "metrics": {
+        "done_reason": "stop",
+        "eval_count": 329,
+        "eval_duration": 85036809000,
+        "load_duration": 1117511,
+        "prompt_eval_count": 1111,
+        "prompt_eval_duration": 101233946000
+      },
+      "output": {
+        "dates": [
+          {
+            "date": "2026-09-24",
+            "field": "recordDate",
+            "kind": "scheduled",
+            "quote": "as of the close of business on September 24, 2026(the 'Record Date')"
+          },
+          {
+            "date": "2026-10-01",
+            "field": "distributionDate",
+            "kind": "scheduled",
+            "quote": "The Distribution is expected to be completed prior to 9:30 a.m., New York City time, on October 1, 2026"
+          },
+          {
+            "date": "2026-10-01",
+            "field": "listingDate",
+            "kind": "scheduled",
+            "quote": "Vylor Common Stock is expected to begin 'regular way' trading on the NYSE... at the open of trading on October 1, 2026"
+          }
+        ],
+        "status": "announced",
+        "statusQuote": "On September 12, 2026, the board of directors of Corteva approved the previously announced separation",
+        "targetName": "Vylor Inc.",
+        "targetQuote": "separation of Corteva's seed operating segment into an independent, publicly traded company, Vylor Inc. ('Vylor')"
+      },
+      "raw": "{\n  \"targetName\": \"Vylor Inc.\",\n  \"targetQuote\": \"separation of Corteva's seed operating segment into an independent, publicly traded company, Vylor Inc. ('Vylor')\",\n  \"status\": \"announced\",\n  \"statusQuote\": \"On September 12, 2026, the board of directors of Corteva approved the previously announced separation\",\n  \"dates\": [\n    {\n      \"field\": \"recordDate\",\n      \"date\": \"2026-09-24\",\n      \"kind\": \"scheduled\",\n      \"quote\": \"as of the close of business on September 24, 2026(the 'Record Date')\"\n    },\n    {\n      \"field\": \"distributionDate\",\n      \"date\": \"2026-10-01\",\n      \"kind\": \"scheduled\",\n      \"quote\": \"The Distribution is expected to be completed prior to 9:30 a.m., New York City time, on October 1, 2026\"\n    },\n    {\n      \"field\": \"listingDate\",\n      \"date\": \"2026-10-01\",\n      \"kind\": \"scheduled\",\n      \"quote\": \"Vylor Common Stock is expected to begin 'regular way' trading on the NYSE... at the open of trading on October 1, 2026\"\n    }\n  ]\n}",
+      "score": {
+        "dates": true,
+        "falseCompletion": false,
+        "fieldsExact": false,
+        "grounded": false,
+        "schema": true,
+        "status": false,
+        "target": true,
+        "unsupportedTarget": false
+      },
+      "seconds": 186.41,
+      "sourceUrl": "https://www.sec.gov/Archives/edgar/data/1755672/000119312526391369/d71834d8k.htm",
+      "textSha256": "262c0889bd4078ff67079e52121388e0b08f8eae954141958f47dc33dccd073d"
+    },
+    {
+      "gold": {
+        "dates": [],
+        "status": "announced",
+        "targetNames": [
+          "Teyame AI Holdings, Inc.",
+          "Teyame"
+        ]
+      },
+      "id": "hcti",
+      "metrics": {
+        "done_reason": "stop",
+        "eval_count": 79,
+        "eval_duration": 20188817000,
+        "load_duration": 1435660,
+        "prompt_eval_count": 1195,
+        "prompt_eval_duration": 110135212000
+      },
+      "output": {
+        "dates": [],
+        "status": "announced",
+        "statusQuote": "in connection with the planned separation and spin-off of Teyame from the Company",
+        "targetName": "Teyame AI Holdings, Inc.",
+        "targetQuote": "planned separation and spin-off of Teyame from the Company"
+      },
+      "raw": "{\n  \"targetName\": \"Teyame AI Holdings, Inc.\",\n  \"targetQuote\": \"planned separation and spin-off of Teyame from the Company\",\n  \"status\": \"announced\",\n  \"statusQuote\": \"in connection with the planned separation and spin-off of Teyame from the Company\",\n  \"dates\": []\n}",
+      "score": {
+        "dates": true,
+        "falseCompletion": false,
+        "fieldsExact": true,
+        "grounded": true,
+        "schema": true,
+        "status": true,
+        "target": true,
+        "unsupportedTarget": false
+      },
+      "seconds": 130.48,
+      "sourceUrl": "https://www.sec.gov/Archives/edgar/data/1839285/000121390026097953/ea0304854-8k_healthcare.htm",
+      "textSha256": "f71dfc5b117aa0eaac4b30d46736828d3873b018655031ab3e53afd68221e3ee"
+    },
+    {
+      "gold": {
+        "dates": [],
+        "status": "needs_review",
+        "targetNames": [
+          ""
+        ]
+      },
+      "id": "blze",
+      "metrics": {
+        "done_reason": "stop",
+        "eval_count": 40,
+        "eval_duration": 9956658000,
+        "load_duration": 1490703,
+        "prompt_eval_count": 764,
+        "prompt_eval_duration": 65100389000
+      },
+      "output": {
+        "dates": [],
+        "status": "needs_review",
+        "statusQuote": "",
+        "targetName": "",
+        "targetQuote": ""
+      },
+      "raw": "{\n  \"targetName\": \"\",\n  \"targetQuote\": \"\",\n  \"status\": \"needs_review\",\n  \"statusQuote\": \"\",\n  \"dates\": []\n}",
+      "score": {
+        "dates": true,
+        "falseCompletion": false,
+        "fieldsExact": true,
+        "grounded": true,
+        "schema": true,
+        "status": true,
+        "target": true,
+        "unsupportedTarget": false
+      },
+      "seconds": 75.19,
+      "sourceUrl": "https://www.sec.gov/Archives/edgar/data/1462056/000114036126034200/ef20080933_8k.htm",
+      "textSha256": "393ed07b48325ac5444ddef336256fe241686c4487146c0e8d161199da669dca"
+    }
+  ],
+  "commit": "e05e0ea3db0283e3cdd62f75ab10e7afdbe2c250",
+  "complete": true,
+  "config": {
+    "num_ctx": 4096,
+    "num_predict": 800,
+    "seed": 42,
+    "think": false,
+    "threads": 4,
+    "timeoutSeconds": 360
+  },
+  "finishedAt": "2026-09-17T09:19:39Z",
+  "model": "qwen3.5:9b-q8_0",
+  "models": {
+    "models": [
+      {
+        "capabilities": [
+          "completion",
+          "vision",
+          "tools",
+          "thinking"
+        ],
+        "details": {
+          "context_length": 262144,
+          "embedding_length": 4096,
+          "families": [
+            "qwen35"
+          ],
+          "family": "qwen35",
+          "format": "gguf",
+          "parameter_size": "9.7B",
+          "parent_model": "",
+          "quantization_level": "Q8_0"
+        },
+        "digest": "441ec31e4d2aedceb97dd834b036db104d943fbe3dbc1e5c8ac95eeaa9141c77",
+        "model": "qwen3.5:9b-q8_0",
+        "modified_at": "2026-09-17T09:07:00.803473593Z",
+        "name": "qwen3.5:9b-q8_0",
+        "size": 10699928277
+      }
+    ]
+  },
+  "runtime": {
+    "version": "0.34.1"
+  },
+  "scope": "Six hand-selected real filing excerpts; not a general accuracy estimate. Quotes require human entailment review.",
+  "startedAt": "2026-09-17T09:07:01Z",
+  "suiteSha256": "f91767f34d6bd44573b0fd924f0676b2f4d26bec030687da9b7dc4b5d8db3243",
+  "totals": {
+    "cases": 6,
+    "dates": 5,
+    "errors": 0,
+    "falseCompletion": 0,
+    "fieldsExact": 3,
+    "grounded": 3,
+    "schema": 5,
+    "seconds": 758.6,
+    "status": 3,
+    "target": 5,
+    "unsupportedTarget": 0
+  },
+  "provenance": {
+    "runUrl": "https://github.com/fastisrealslow/li-lu-13f/actions/runs/35203275342",
+    "jobId": 105142878646,
+    "kind": "complete BENCHMARK_REPORT JSON copied from completed Actions job log",
+    "cpu": "AMD EPYC 9V74; standard 4 vCPU runner"
+  }
+}
