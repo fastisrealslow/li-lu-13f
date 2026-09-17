@@ -37,6 +37,7 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--model', required=True)
     parser.add_argument('--output', type=Path, required=True)
+    parser.add_argument('--profile', choices=['baseline', 'qwen-recommended'], default='baseline')
     parser.add_argument('--think', action='store_true')
     parser.add_argument('--prompt-schema', action='store_true')
     parser.add_argument('--max-tokens', type=int, default=800)
@@ -60,7 +61,7 @@ def main():
 
     thread = threading.Thread(target=monitor, daemon=True)
     thread.start()
-    extra = ['--max-tokens', str(args.max_tokens), '--timeout', str(args.timeout)]
+    extra = ['--max-tokens', str(args.max_tokens), '--timeout', str(args.timeout), '--profile', args.profile]
     if args.prompt_schema:
         extra.append('--prompt-schema')
     if args.think:

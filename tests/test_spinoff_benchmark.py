@@ -89,6 +89,21 @@ class BenchmarkScoringTests(unittest.TestCase):
             payloads.append(data)
         self.assertEqual(payloads[0], payloads[1])
 
+    def test_recommended_profile_pair_keeps_options_identical(self):
+        payloads = []
+        for think in [False, True]:
+            with patch.object(b, 'request_json', return_value={}) as request:
+                b.infer(self.case, 'model', 1800, think=think, max_tokens=4096,
+                        prompt_schema=True, profile='qwen-recommended')
+            data = request.call_args.args[1]
+            self.assertEqual(data.pop('think'), think)
+            self.assertEqual(data['options']['temperature'], 1.0)
+            self.assertEqual(data['options']['num_ctx'], 8192)
+            self.assertEqual(data['options']['num_predict'], 4096)
+            self.assertNotIn('format', data)
+            payloads.append(data)
+        self.assertEqual(payloads[0], payloads[1])
+
     def test_thinking_trace_is_not_parsed_as_final_answer(self):
         answer = {'targetName': '', 'targetQuote': '', 'status': 'needs_review',
                   'statusQuote': '', 'dates': []}

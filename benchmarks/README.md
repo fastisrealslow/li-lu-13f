@@ -8,7 +8,17 @@ Completed Q8 comparison: [Q4 versus Q8 results and memory observations](results/
 Both scored 3/6 strict field passes; Q8 took 12m39s versus Q4's 9m15s. Q8 corrected
 one missing name but regressed on one lifecycle stage. Production remains unchanged.
 
-The isolated workflow now tests **Qwen3.5 9B Q8_0 with thinking on and off**.
+The latest bounded rerun uses the official general-task thinking sampling profile
+(temperature 1, top_p .95, top_k 20, min_p 0, presence penalty 1.5, repeat penalty 1),
+8192 context, 4096 output tokens and 1800 seconds per case. Both thinking ON and OFF
+use identical settings except the think flag. This follows observed repetitive
+self-checking and token exhaustion in the temperature-0 / 2048-token pair (run
+35215827052). It is a new experimental condition, not a silent replacement of that
+run. This single-seed, six-case test remains below the official suggested 32K output
+budget; any remaining truncation is a budget failure, not a completed wrong answer.
+Source: https://huggingface.co/Qwen/Qwen3.5-9B#best-practices
+
+The earlier isolated workflow tested **Qwen3.5 9B Q8_0 with thinking on and off**.
 A first direct-switch probe (run 35215503163) exposed empty final responses with
 JSON appearing inside the thinking field when native schema grammar was enabled.
 Those integration failures are preserved separately, not treated as a reasoning
