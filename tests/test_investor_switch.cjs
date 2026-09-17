@@ -222,7 +222,7 @@ test('status distinguishes success, degradation, failure, incomplete and stale r
 
 test('independent AI summary matches exact investor snapshot, not just quarter',()=>{
   const a=app();
-  a.run("data={current:{quarter:'2026Q2',holdings:[{ticker:'AAA',shares:10,value:100}]}}; _aiSupplement={entries:{'investor:lilu':{source:aiInvestorSource(data),summary:'已有摘要'}}}");
+  a.run("data={current:{quarter:'2026Q2',holdings:[{ticker:'AAA',shares:10,value:100}]}}; _aiSupplement={entries:{'investor:lilu':{source:aiInvestorSource(data),renderVersion:3,mode:'model_selection',summary:'已有摘要'}}}");
   assert.equal(a.run("aiMatchingEntry('investor:lilu',aiInvestorSource(data)).summary"),'已有摘要');
   a.run("const s=_aiSupplement.entries['investor:lilu'].source; _aiSupplement.entries['investor:lilu'].source={previousHoldings:s.previousHoldings,holdings:s.holdings,quarter:s.quarter}");
   assert.equal(a.run("aiMatchingEntry('investor:lilu',aiInvestorSource(data)).summary"),'已有摘要');
@@ -230,4 +230,24 @@ test('independent AI summary matches exact investor snapshot, not just quarter',
   assert.equal(a.run("aiMatchingEntry('investor:lilu',aiInvestorSource(data))"),null);
   assert.equal(a.run("aiMatchingEntry('investor:buffett',aiInvestorSource(data))"),null);
   assert.equal(a.run("aiEscape('<script>')"),'&lt;script&gt;');
+});
+
+
+test('unverified and stale summaries cannot reappear through fallback',()=>{
+  const a=app();
+  a.run("data={meta:{aiSummary:'增持阿里巴巴，旧的错误摘要'},current:{quarter:'2026 Q2',holdings:[{ticker:'BABA',cnName:'阿里巴巴',shares:2000000,value:10}],previousHoldings:[{ticker:'BABA',shares:3465000,value:12}]}}; _aiSupplement={entries:{'investor:lilu':{source:aiInvestorSource(data),summary:'旧的错误摘要'}}}");
+  assert.equal(a.run("aiMatchingEntry('investor:lilu',aiInvestorSource(data))"),null);
+  const text=a.run('aiInvestorFallback(data)');
+  assert.match(text,/阿里巴巴（BABA）：减持42.3%/);
+  assert.doesNotMatch(text,/旧的错误摘要|增持/);
+  a.run('delete data.current.previousHoldings');
+  assert.match(a.run('aiInvestorFallback(data)'),/上季股数未知/);
+});
+
+test('value fallback binds weights and directions to investors without implying equity ownership',()=>{
+  const a=app();
+  const text=a.run("aiValueFallback([{ticker:'BN',cnName:'布鲁克菲尔德',investors:[{id:'akre',name:'阿克瑞',weight:10.1,chg:'trimmed'},{id:'ackman',name:'阿克曼',weight:17.6,chg:'hold'}]}])");
+  assert.match(text,/阿克瑞：布鲁克菲尔德（BN）减持，占其披露组合市值10.1%/);
+  assert.match(text,/阿克曼：布鲁克菲尔德（BN）股数不变，占其披露组合市值17.6%/);
+  assert.doesNotMatch(text,/持股比例|股权/);
 });

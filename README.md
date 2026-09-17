@@ -275,7 +275,7 @@ paid inference API, or always-on model server. First startup downloads roughly
 6.6 GB; subsequent runs restore a model cache. Unchanged inputs skip installation
 and inference entirely.
 
-Each run attempts at most six changed summaries, with a 22-minute inference
+Each run attempts at most thirteen changed summaries, with a 22-minute inference
 budget, a four-minute per-request timeout, and a stop after three consecutive
 failures. A failed item moves behind untouched records on the next run. The
 workflow's artifact and job summary record successes, failures, tokens and
@@ -289,8 +289,21 @@ after either workflow. The UI matches the exact source snapshot before using a
 new summary in the existing quarterly and value-screen summary locations.
 Financial source data, spin-off names, dates and lifecycle status are never
 rewritten by this model. Existing evidence-backed name recovery still runs in
-the data pipeline. Numerical/format checks reject some bad generations; they
-are not a proof of semantic accuracy.
+the data pipeline. The model can return only fact IDs from a JSON-schema enum. Code renders each
+selected fact with its original investor, security, direction and metric; a
+publisher-side reconstruction rejects altered prose, swapped numbers, duplicate
+IDs and changed source snapshots. Source data can still be incorrect: this
+verifies faithfulness to the input, not the accuracy of an underlying filing.
+
+Schema v2 / renderer v3 invalidates legacy free-form summaries. Model failures
+produce a deterministic summary from current facts and remain queued for retry;
+fallbacks are counted separately from successful model selections. Existing
+validated summaries survive only while their input still matches. The UI also
+renders current-data fallbacks instead of reusing unverified legacy metadata.
+Value-screen percentages explicitly denote a position's share of that investor's
+disclosed portfolio market value, never company equity ownership or share change.
+`python3 ai_supplement.py --refresh-fallbacks` safely migrates existing cache
+entries without an inference server.
 
 The main workflow no longer calls paid LLMs. Deterministic per-stock notes and
 source metadata still refresh there. Name translation and legacy spin-off AI

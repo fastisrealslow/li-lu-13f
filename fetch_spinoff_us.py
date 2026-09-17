@@ -15,7 +15,7 @@ from urllib.request import Request, urlopen, build_opener, HTTPCookieProcessor
 from urllib.error import HTTPError, URLError
 from http.cookiejar import CookieJar
 
-UA = "Mozilla/5.0 (research bot) research@example.com"
+UA = "li-lu-13f public filing research fastisrealslow@163.com"
 EDGAR_BASE = "https://efts.sec.gov"
 EDGAR_ARCHIVE = "https://www.sec.gov/Archives/edgar/data"
 COMPANY_FACTS = "https://data.sec.gov/api/xbrl/companyfacts"
@@ -372,6 +372,38 @@ def primary_8k_document(index_html, cik, adsh):
     return ''
 
 
+def resolve_primary_documents(company, opener, previous=None):
+    """Reuse exact accession matches, then resolve missing names before fetching HTML."""
+    previous_docs = {a.get('adsh'): a.get('primaryDocument')
+                     for a in (previous or {}).get('announcements', []) if a.get('primaryDocument')}
+    pending = []
+    for ann in company.get('announcements', []):
+        adsh = ann.get('adsh')
+        if not adsh:
+            continue
+        document = ann.get('primaryDocument') or previous_docs.get(adsh)
+        if document:
+            ann.update(primaryDocument=document, url=filing_url(company['cik'], adsh, document))
+        else:
+            pending.append(ann)
+    if not pending:
+        return
+    cik = str(company.get('cik', ''))
+    try:
+        sub = json.loads(sec_get(f'https://data.sec.gov/submissions/CIK{int(cik):010d}.json', opener, sleep=0.2))
+        recent = sub.get('filings', {}).get('recent', {})
+        docs = {adsh: doc for adsh, doc, form in zip(recent.get('accessionNumber', []),
+                recent.get('primaryDocument', []), recent.get('form', [])) if form in ('8-K', '8-K/A') and doc}
+        for ann in pending:
+            document = docs.get(ann['adsh'])
+            if document:
+                ann.update(primaryDocument=document, url=filing_url(cik, ann['adsh'], document))
+    except Exception as exc:
+        # The exact filing index remains a fallback; do not classify it as a
+        # source failure until both discovery and document retrieval fail.
+        print(f"  SEC primary metadata fallback: {company.get('ticker')}: {type(exc).__name__}: {exc}", file=sys.stderr)
+
+
 def fetch_8k_text(cik, adsh, opener, ann=None):
     """Read the exact primary 8-K identified by SEC metadata; preserve its URL."""
     from html import unescape
@@ -381,6 +413,7 @@ def fetch_8k_text(cik, adsh, opener, ann=None):
             index = sec_get(filing_url(cik, adsh), opener, sleep=0.2).decode('utf-8', errors='replace')
             document = primary_8k_document(index, cik, adsh)
         if not document:
+            print(f'  8-K primary document not found: {adsh}: {filing_url(cik, adsh)}', file=sys.stderr)
             record_source_warning('spinoff_us', '部分 SEC 主文件未能读取；保留历史证据，相关档案待核实')
             return ''
         url = filing_url(cik, adsh, document)
@@ -787,6 +820,7 @@ def main():
             continue
         print(f"  {ticker} ...", end=' ', flush=True)
         company['filingEvidence'] = list(prev_us.get(ticker, {}).get('filingEvidence', []))
+        resolve_primary_documents(company, opener, prev_us.get(ticker))
         text = fetch_8k_text(cik, adsh, opener, latest_ann)
         if not text:
             print('(no text)')
@@ -812,20 +846,6 @@ def main():
             if other_text:
                 company['filingEvidence'] = merge_evidence(company['filingEvidence'], [parse_evidence(other_text, other_ann, cik)])
         print(f"({company['type']}, {company['status']})")
-
-    # Resolve exact primary documents only for search-matched filings. Ordinary
-    # Item 1.01/8.01 filings are not automatically spin-off announcements.
-    for company in list(companies_map.values())[:50]:
-        cik = company.get('cik', '')
-        try:
-            sub = json.loads(sec_get(f"https://data.sec.gov/submissions/CIK{cik.zfill(10)}.json", opener, sleep=0.1))
-            recent = sub['filings']['recent']
-            docs = dict(zip(recent['accessionNumber'], recent['primaryDocument']))
-            for ann in company['announcements']:
-                ann['primaryDocument'] = docs.get(ann['adsh'], '')
-                ann['url'] = filing_url(cik, ann['adsh'], ann['primaryDocument'])
-        except Exception as exc:
-            print(f"  Exact document lookup unavailable: {company['ticker']}: {exc}")
 
     # Step 3: 合并手动维护的已知案例
     print("\n合并已知案例...")

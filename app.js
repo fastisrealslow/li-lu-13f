@@ -925,7 +925,7 @@ function aiInvestorSource(d) {
   return {quarter:cur.quarter || '',holdings:rows(cur.holdings),previousHoldings:rows(cur.previousHoldings)};
 }
 function aiValueSource(candidates) {
-  return candidates.map(c=>[c.ticker ?? null,c.cnName || c.name || null,(c.investors || []).map(h=>[h.id ?? null,h.weight ?? null,h.chg ?? null])]);
+  return candidates.map(c=>[c.ticker ?? null,c.cnName || c.name || null,(c.investors || []).map(h=>[h.id ?? null,h.weight ?? null,h.chg ?? null,h.name ?? null])]);
 }
 function aiMatchingEntry(key, source) {
   const e=_aiSupplement.entries?.[key];
@@ -933,7 +933,7 @@ function aiMatchingEntry(key, source) {
   const canonical = value => Array.isArray(value) ? value.map(canonical)
     : value && typeof value==='object'
       ? Object.fromEntries(Object.keys(value).sort().map(k=>[k,canonical(value[k])])) : value;
-  return e && typeof e.summary==='string' && JSON.stringify(canonical(e.source))===JSON.stringify(canonical(source)) ? e : null;
+  return e && e.renderVersion===3 && ['model_selection','deterministic'].includes(e.mode) && typeof e.summary==='string' && JSON.stringify(canonical(e.source))===JSON.stringify(canonical(source)) ? e : null;
 }
 async function refreshAISupplements() {
   const ctrl=new AbortController(), timer=setTimeout(()=>ctrl.abort(),6000);
@@ -941,11 +941,40 @@ async function refreshAISupplements() {
     const response=await fetch('ai_supplement.json?t='+Math.floor(Date.now()/300000),{signal:ctrl.signal});
     if (!response.ok) return;
     const payload=await response.json();
-    if (payload.schemaVersion!==1 || !payload.entries || typeof payload.entries!=='object') return;
+    if (payload.schemaVersion!==2 || !payload.entries || typeof payload.entries!=='object') return;
     _aiSupplement=payload;
     if (data) renderInsights();
     _homeworkCache=null;
   } catch {} finally { clearTimeout(timer); }
+}
+
+function aiInvestorFallback(snapshot) {
+  const cur=snapshot.current, hasPrevious=Array.isArray(cur.previousHoldings) || Array.isArray(snapshot.history?.holdings?.[cur.prevQuarter]);
+  const rows=quarterlyHoldings(snapshot).sort((a,b)=>Math.max(b.value||0,b.prevValue||0)-Math.max(a.value||0,a.prevValue||0));
+  const ranked=rows.filter(h=>h.shares!==h.prevShares).concat(rows.filter(h=>h.shares===h.prevShares));
+  return `${cur.quarter || ''}（按披露股数比较）：`+ranked.slice(0,5).map(h=>{
+    const original=cur.holdings.find(x=>sameSecurity(x,h));
+    const prev=hasPrevious ? h.prevShares : original?.prevShares;
+    let change='上季股数未知，不判断增减';
+    if (prev!=null) {
+      if (!prev) change=h.shares?'新建仓':'无持仓';
+      else if (!h.shares) change='清仓';
+      else if(h.shares===prev) change='股数不变';
+      else { const pct=Math.abs(h.shares/prev-1)*100; change=(h.shares>prev?'增持':'减持')+(pct<0.05?'（微量变动）':pct.toFixed(1)+'%'); }
+    }
+    const name=h.cnName || h.name || '';
+    return (h.ticker.startsWith('?') ? name || h.ticker.slice(1) : name && name!==h.ticker ? `${name}（${h.ticker}）`:h.ticker)+'：'+change;
+  }).join('；')+'。';
+}
+function aiValueFallback(candidates) {
+  const labels={new:'新建仓',added:'增持',trimmed:'减持',hold:'股数不变'};
+  const rows=candidates.flatMap(c=>(c.investors || []).map(h=>({c,h})));
+  rows.sort((a,b)=>(a.h.chg==='hold')-(b.h.chg==='hold'));
+  return rows.length ? '按各投资人最新披露组合：'+rows.slice(0,3).map(({c,h})=>{
+    const name=c.cnName || c.name || '', stock=name && name!==c.ticker ? `${name}（${c.ticker}）`:c.ticker;
+    const weight=typeof h.weight==='number' && Number.isFinite(h.weight) && h.weight>=0 && h.weight<=100 ? `，占其披露组合市值${h.weight}%`:'';
+    return `${h.name || INVESTOR_LABELS[h.id] || h.id}：${stock}${labels[h.chg] || '增减未知'}${weight}`;
+  }).join('；')+'。' : '';
 }
 
 function renderInsights() {
@@ -953,14 +982,11 @@ function renderInsights() {
 
   // AI 摘要（如果有）
   const localAI = aiMatchingEntry('investor:'+investor,aiInvestorSource(data));
-  const aiSummary = localAI?.summary || (data.meta || {}).aiSummary;
-  const aiQuarter = localAI?.source?.quarter || (data.meta || {}).aiSummaryQuarter || '';
-  const aiStep = _runStatusData?.runs?.[0]?.steps?.metadata;
-  const aiDegraded = !localAI && ((_aiSupplement.entries?.['investor:'+investor]) || (aiStep && ['warn', 'fail'].includes(aiStep.status)));
-  const aiStale = aiQuarter && aiQuarter !== d.quarter;
-  const aiUpdated = localAI?.generatedAt || data.meta?.aiSummaryUpdatedAt;
-  const aiNotice = aiDegraded ? (lang === 'en' ? ' · AI update incomplete; saved summary' : ' · AI 未完整更新，显示已有摘要')
-    : aiStale ? (lang === 'en' ? ' · Earlier quarter' : ' · 非本季摘要') : '';
+  // Unverified legacy prose is never used as a fallback.
+  const aiSummary = localAI?.summary || aiInvestorFallback(data);
+  const aiQuarter = localAI?.source?.quarter || d.quarter || '';
+  const aiUpdated = localAI?.generatedAt;
+  const aiLabel = localAI?.mode==='model_selection' ? '✨ AI' : (lang==='en'?'Quarterly summary':'季度摘要');
   const aiDate = aiUpdated ? ' · ' + new Date(aiUpdated).toLocaleDateString(lang === 'en' ? 'en-US' : 'zh-CN') : '';
   const box = document.querySelector('.insights-box');
   let aiBar = document.getElementById('aiSummaryBar');
@@ -970,7 +996,7 @@ function renderInsights() {
       border:1px solid rgba(99,102,241,0.2);
       border-radius:8px;padding:10px 14px;margin-bottom:10px;
       font-size:.78rem;line-height:1.6;color:var(--text);
-    "><span style="font-size:.65rem;color:#6366f1;font-weight:600;margin-right:6px;">✨ AI ${aiEscape(aiQuarter)}${aiDate}${aiNotice}</span>${aiEscape(aiSummary)}</div>`;
+    "><span style="font-size:.65rem;color:#6366f1;font-weight:600;margin-right:6px;">${aiLabel} ${aiEscape(aiQuarter)}${aiDate}</span>${aiEscape(aiSummary)}</div>`;
     if (aiBar) { aiBar.outerHTML = html; } else { box.insertAdjacentHTML('afterbegin', html); }
   } else if (aiBar) {
     aiBar.remove();
@@ -1553,9 +1579,9 @@ async function renderHomework() {
   // 跨投资者 AI 总结（预生成 homework_summary.json：逐股点评 + 整体归纳）
   let hwAiHtml = '';
   try {
-    const hwSum = await fetch('homework_summary.json?t=' + Math.floor(Date.now()/300000)).then(r => r.ok ? r.json() : null);
+    const hwSum = await fetch('homework_summary.json?t=' + Math.floor(Date.now()/300000)).then(r => r.ok ? r.json() : null).catch(()=>null) || {};
     const localOverall = aiMatchingEntry('value',aiValueSource(candidates));
-    if (hwSum && localOverall) hwSum.overallSummary=localOverall.summary;
+    hwSum.overallSummary=localOverall?.summary || aiValueFallback(candidates);
     if (hwSum && (hwSum.overallSummary || (hwSum.stockNotes && hwSum.stockNotes.length))) {
       const tierColor = t => t === '深度折价' ? '#059669' : (t === '中等折价' ? '#d97706' : '#6b7280');
       const tierColorEn = { '深度折价':'Deep discount', '中等折价':'Moderate discount', '轻度折价':'Shallow discount' };

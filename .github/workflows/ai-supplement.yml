@@ -18,7 +18,7 @@ on:
         description: Maximum changed summaries to process
         type: choice
         options: ["3", "6", "13"]
-        default: "6"
+        default: "13"
   push:
     branches: [master]
     paths:
@@ -42,7 +42,7 @@ jobs:
       contents: write
     env:
       AI_MODEL: ${{ inputs.model || 'qwen3.5:9b-q4_K_M' }}
-      AI_LIMIT: ${{ inputs.limit || '6' }}
+      AI_LIMIT: ${{ inputs.limit || '13' }}
       OLLAMA_HOST: '127.0.0.1:11434'
       OLLAMA_NUM_PARALLEL: '1'
       OLLAMA_MAX_LOADED_MODELS: '1'
@@ -122,7 +122,7 @@ jobs:
               out.write('## Independent Qwen CPU summaries\n\n')
               if report.exists():
                   d = json.loads(report.read_text())
-                  out.write(f"Model: {d['model']}\n\nCached: {d['cached']}; successful: {len(d['results'])}; pending: {d.get('pendingAfter', '?')}\n\n")
+                  out.write(f"Model: {d['model']}\n\nCached: {d['cached']}; validated selections: {sum(a['status']=='ok' for a in d['attempts'].values())}; fallback: {sum(a['status']=='failed' for a in d['attempts'].values())}; pending: {d.get('pendingAfter', '?')}\n\n")
                   out.write('| Task | Result | Seconds |\n|---|---|---|\n')
                   for key, a in d['attempts'].items():
                       seconds = d['results'].get(key, {}).get('metrics', {}).get('seconds', '—')
