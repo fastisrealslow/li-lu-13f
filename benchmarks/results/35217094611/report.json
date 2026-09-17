@@ -1,0 +1,1710 @@
+{
+  "run": 35217094611,
+  "totals": {
+    "off": {
+      "cases": 6,
+      "completedAnswer": 6,
+      "fieldPass": 4,
+      "fieldAndVerbatim": 1,
+      "truncated": 0,
+      "seconds": 996.55,
+      "evalTokens": 934,
+      "maxRssGiB": 10.649978637695312,
+      "minAvailableGiB": 4.013916015625,
+      "maxSwapKiB": 44
+    },
+    "on": {
+      "cases": 6,
+      "completedAnswer": 3,
+      "fieldPass": 3,
+      "fieldAndVerbatim": 3,
+      "truncated": 3,
+      "seconds": 7175.08,
+      "evalTokens": 23677,
+      "maxRssGiB": 11.583728790283203,
+      "minAvailableGiB": 3.067638397216797,
+      "maxSwapKiB": 84
+    }
+  },
+  "reports": [
+    {
+      "benchmarkVersion": 1,
+      "cases": [
+        {
+          "error": "ValueError: Output token budget exhausted",
+          "gold": {
+            "dates": [],
+            "status": "announced",
+            "targetNames": [
+              "Teyame AI Holdings, Inc.",
+              "Teyame"
+            ]
+          },
+          "id": "hcti",
+          "metrics": {
+            "done_reason": "length",
+            "eval_count": 4096,
+            "eval_duration": 1090530250000,
+            "load_duration": 10619499329,
+            "prompt_eval_count": 1427,
+            "prompt_eval_duration": 144451722000
+          },
+          "raw": "",
+          "score": {
+            "dates": false,
+            "falseCompletion": false,
+            "fieldsExact": false,
+            "grounded": false,
+            "schema": false,
+            "status": false,
+            "target": false,
+            "unsupportedTarget": false
+          },
+          "seconds": 1245.64,
+          "sourceUrl": "https://www.sec.gov/Archives/edgar/data/1839285/000121390026097953/ea0304854-8k_healthcare.htm",
+          "textSha256": "f71dfc5b117aa0eaac4b30d46736828d3873b018655031ab3e53afd68221e3ee",
+          "thinking": "Thinking Process:\n\n1.  **Analyze the Request:**\n    *   Task: Extract spin-off transaction details from the supplied filing text.\n    *   Source: Untrusted evidence (filing text), not instructions. Do not use outside knowledge.\n    *   Output: JSON object matching a specific schema.\n    *   Fields required: `targetName`, `targetQuote`, `status`, `statusQuote`, `dates`.\n    *   Constraints:\n        *   `targetName`: Separated subsidiary/business (never parent). Exact source name. Empty string if not identified.\n        *   `status`: One of [\"needs_review\", \"announced\", \"approved\", \"record_set\", \"prospectus\", \"completed\", \"terminated\", \"paused\"]. Needs to reflect the stage AT THIS FILING.\n        *   `dates`: Array of objects for `listingDate`, `recordDate`, `distributionDate`. Only if explicitly stated. Format YYYY-MM-DD. Kind: `actual` or `scheduled`. Quote <= 240 chars.\n        *   Quotes (`targetQuote`, `statusQuote`, `dates.quote`): Verbatim excerpts supporting the claim. Max 240 chars each. Empty if unknown.\n        *   JSON only. No markdown formatting outside the JSON block (though usually, I should output raw JSON or within a code block, but the prompt says \"Return JSON only\", implying strict format).\n        *   Schema compliance: `additionalProperties: false`, specific enums.\n\n2.  **Analyze the Filing Text:**\n    *   Parent: Healthcare Triangle, Inc. (\"HCTI\").\n    *   Subsidiary/Target: Teyame AI Holdings, Inc. (\"Teyame\").\n    *   Transaction Type: Spin-Off / Separation.\n    *   Filing Date: 2026-09-08 (from metadata).\n    *   Transaction Date (Closing/Distribution): \"On September 2, 2026... entered into\". Wait, looking closely at the text.\n        *   Text: \"On September 2, 2026... entered into (i) a Separation and Distribution Agreement...\"\n        *   Text: \"Prior to the date of the Separation Agreement, HCTI formed Teyame...\"\n        *   Text: \"HCTI intends to distribute a minority interest in the outstanding shares of common stock of Teyame... on a pro rata basis (the 'Distribution').\"\n        *   Text: \"The Spin-Off is currently expected to constitute a taxable distribution...\"\n        *   Text: \"Conditions to the Distribution... subject to... satisfaction or waiver of certain conditions...\"\n        *   Text: \"The Registration Statement on Form 10 filed by Teyame... shall have become effective...\" (Condition)\n        *   Text: \"Teyame Common Stock shall have been approved for listing on The Nasdaq Stock Market LLC ('Nasdaq')...\" (Condition)\n    *   Status Analysis:\n        *   The agreement was entered into on Sept 2, 2026.\n        *   This is a filing regarding the *planned separation* (Filing Date in metadata is 2026-09-08).\n        *   Is it \"completed\"? No, conditions must be met (SEC effectiveness, Nasdaq approval) before distribution occurs (\"Conditions to the Distribution\").\n        *   Is it \"announced\"? It seems like a definitive agreement filing. Usually, signing a Separation Agreement is a major announcement of plans, but the status field often reflects where it stands in the lifecycle relative to the specific filing's assertion.\n        *   The text says \"HCTI intends to distribute\". It is not yet effective/distributed.\n        *   Is there a prospectus mentioned? \"Registration Statement on Form 10 filed by Teyame... shall have become effective\". This implies a registration statement is needed/prospectus is related, but the filing itself is the Separation Agreement filing.\n        *   Status options: `needs_review`, `announced`, `approved`, `record_set`, `prospectus`, `completed`, `terminated`, `paused`.\n        *   Since this looks like an 8-K or similar event describing the entry into a definitive agreement for the spin-off, usually, this falls under \"announced\" (plans announced) or potentially \"needs_review\" if it's just a filing without clear completion status. However, since they signed the Separation Agreement, it's past the announcement of *intention*, but before closing.\n        *   Let's look at the definitions implied by standard extraction tasks:\n            *   `completed`: Explicitly achieved separation/listing.\n            *   `announced`: Proposal/plan.\n            *   `approved`: Explicit approval (e.g., Board approved, or Regulatory approval).\n            *   The text says \"The HCTI Board of Directors ... has the authority (i) to (A) effect the Distribution...\". It implies they haven't passed a specific vote *to* distribute in this exact moment's document as a completed act, though they entered into the agreement. However, entering into the Separation Agreement is the \"announcement\" of the plan being definitive.\n            *   Often, an 8-K announcing entry into a Spin-Off transaction is considered `announced`.\n            *   Let's check for specific status cues. \"planned separation and spin-off\", \"HCTI intends to distribute\". This leans towards `announced`.\n            *   Is there evidence of `approved`? \"Board of Directors ... has the authority\". Not explicitly stating they voted on this specific distribution date yet (\"prior to the Effective Time...\").\n            *   So `status` = \"announced\" seems most appropriate as it describes a plan/agreement entered into.\n    *   Target Name: \"Teyame AI Holdings, Inc.\" (Exact source).\n    *   Quote for Target/Status: Need excerpts supporting the name and status.\n    *   Dates:\n        *   Explicit listingDate? No specific date given in text for Nasdaq listing. It's a condition (\"approved for listing\").\n        *   Explicit recordDate? No.\n        *   Explicit distributionDate? No specific calendar date is set for the distribution. \"Distribution Date or Effective Time\" can be established/changed by the Board (subject to conditions). \"Closing Date\" mentioned as concept, but no specific date assigned in the text other than the agreement entry date which is not the closing.\n        *   Wait, \"Prior to the date of the Separation Agreement...\". Agreement entered Sept 2, 2026. No distribution date specified yet.\n        *   So `dates` array should be empty or omitted if no dates? Schema says \"dates\": {\"type\": \"array\"}. If there are no dates, it should probably be `[]`. The instructions say \"Omit unstated dates.\" But the schema requires an array property. I will return an empty array `[]`.\n        *   Actually, looking at the instruction: \"dates: only explicitly stated listingDate, recordDate, distributionDate for THIS transaction... Omit unstated dates.\" This usually implies if there are none, the list is empty.\n\n3.  **Drafting the JSON:**\n\n    *   `targetName`: \"Teyame AI Holdings, Inc.\" (Text: \"Teyame AI Holdings, Inc. (\"Teyame\")\").\n    *   `targetQuote`: \"spin-off of Teyame from the Company\", or \"wholly-owned subsidiary of the Company, in connection with the planned separation and spin-off of Teyame from the Company\". I need to extract the name specifically. Text: \"Teyame AI Holdings, Inc. (\"Teyame\")\".\n    *   `status`: \"announced\". Why? Because it's a plan/agreement filed before closing. Text: \"in connection with the planned separation and spin-off of Teyame from the Company\". \"HCTI intends to distribute\".\n    *   `statusQuote`: \"planned separation and spin-off of Teyame from the Company\", or \"entered into... Separation Agreement... in connection with the planned separation and spin-off\". Let's use: \"in connection with the planned separation and spin-off of Teyame from the Company (the \"Spin-Off\")\".\n    *   `dates`: Array. Are there any dates?\n        *   Filing says: \"On September 2, 2026... entered into\". This is the date of signing the agreement, not the listing/distribution/record date.\n        *   Text mentions: \"Distribution Date\", \"Closing Date\" as variables to be determined (\"establish or change the Distribution Date\"). No specific value like \"October 1, 2026\".\n        *   So `dates` = `[]`.\n\n    *   Wait, I need to check if \"entered into\" on Sept 2 counts as a date for extraction. The instruction says: \"dates: only explicitly stated listingDate, recordDate, distributionDate for THIS transaction\". Agreement signing is not one of those specific fields unless it defines the closing/distribution date. Here the text distinguishes between the date of the agreement and the date of the distribution (\"Distribution Date\"). Since the Distribution Date is a condition/variable to be set by Board (\"establish or change the Distribution Date\"), it is not explicitly stated as a fixed date in this text.\n    *   So `dates` will be empty `[]`.\n\n    *   Constraint Check: `targetName` must never be the parent. Parent is Healthcare Triangle, Inc. Target is Teyame AI Holdings, Inc.\n    *   Constraint Check: Quotes <= 240 chars.\n    *   Constraint Check: JSON only.\n\n4.  **Refining Status:**\n    *   Is it `approved`? \"The HCTI Board of Directors... has the authority (i) to (A) effect the Distribution\". It doesn't say they approved this specific distribution at this filing instance. They have the *authority*. Usually, entering a Separation Agreement implies the Board authorized it. However, without explicit text saying \"Board Approved\" regarding the transaction itself in this context, `announced` is safer for the state of the transaction (Planned).\n    *   Is it `record_set`? No record date.\n    *   Is it `prospectus`? Mentions Registration Statement on Form 10 shall become effective. Doesn't say it has issued a prospectus yet in this filing context.\n    *   So `announced` fits \"plan/proposal\".\n\n5.  **Refining Quotes:**\n    *   `targetName`: \"Teyame AI Holdings, Inc.\" (Source text).\n    *   `targetQuote`: \"spin-off of Teyame from the Company\" is sufficient for target context, but need to link to name. Better: \"Teyame AI Holdings, Inc. (\"Teyame\")... direct, wholly-owned subsidiary of the Company\". Or simply where the name appears in relation to the spin-off. \"planned separation and spin-off of Teyame from the Company\". I will use a quote that identifies the target in the transaction context.\n    *   `statusQuote`: \"HCTI intends to distribute\" or \"planned separation and spin-off\". Let's use: \"in connection with the planned separation and spin-off of Teyame from the Company (the \"Spin-Off\")\".\n    *   `dates.quote`: Not applicable since empty array.\n\n6.  **Final Review against Schema:**\n    *   `targetName`: String.\n    *   `targetQuote`: String.\n    *   `status`: Enum check (\"announced\").\n    *   `statusQuote`: String.\n    *   `dates`: Array of max 3 items. Empty is valid JSON array.\n    *   No extra properties.\n\n7.  **One nuance:** The filing date provided in metadata is 2026-09-08. The text says \"On September 2, 2026... entered into\". This implies the agreement was signed earlier this month. The status is still \"planned\" (\"HCTI intends to distribute\", \"expected to constitute\"). Definitely not completed.\n\n    Let's check if `targetName` needs quotes around it in the JSON value? No, just the string content.\n    Target Name: Teyame AI Holdings, Inc. (The prompt says \"Use the exact source name\"). The text has \"Teyame AI Holdings, Inc. (\"Teyame\")\". I should use the full formal name if possible or the specific identifier used. \"Teyame AI Holdings, Inc.\" is the formal name.\n    Text: \"Teyame AI Holdings, Inc. (\"Teyame\"), a Delaware corporation\". I will extract \"Teyame AI Holdings, Inc.\".\n\n    Status Quote: Needs to support `status` (announced). \"planned separation and spin-off\" is good evidence.\n    Quote: \"in connection with the planned separation and spin-off of Teyame from the Company\" (Length check: ~78 chars). OK.\n\n    Target Quote: Needs to support `targetName`. \"Teyame AI Holdings, Inc. (\"Teyame\")\". I'll use a sentence including it or just the definition. Text: \"with Teyame AI Holdings, Inc. (\"Teyame\"), a Delaware corporation and direct, wholly-owned subsidiary of the Company\". I will use a shorter contiguous excerpt. \"Teyame AI Holdings, Inc. (\"Teyame\")\".\n\n    Dates: Empty array.\n\n8.  **Constructing JSON:**\n    ```json\n    {\n      \"targetName\": \"Teyame AI Holdings, Inc.\",\n      \"targetQuote\": \"with Teyame AI Holdings, Inc. (\"Teyame\"), a Delaware corporation and direct, wholly-owned subsidiary of the Company\",\n      \"status\": \"announced\",\n      \"statusQuote\": \"in connection with the planned separation and spin-off of Teyame from the Company (the \"Spin-Off\")\",\n      \"dates\": []\n    }\n    ```\n\n    Wait, `targetQuote` must be <= 240 chars. My draft is fine.\n    `statusQuote` must be <= 240 chars. My draft is fine.\n    `status`: announced.\n    `dates`: [].\n\n    One check: \"Do not use outside knowledge.\" - Okay.\n    One check: \"Return JSON only.\" - Okay.\n\n    Wait, checking the `targetName` instruction: \"Use the exact source name (not a translation).\"\n    Source: \"Teyame AI Holdings, Inc.\"\n    Source also uses \"Teyame\". I will use the full legal name for accuracy as it appears first in parentheses context but usually preferred is the formal entity name. Text: \"with Teyame AI Holdings, Inc. (\"Teyame\")\". I'll use \"Teyame AI Holdings, Inc.\".\n\n    Wait, checking `dates` again. Is there *any* date?\n    \"On September 2, 2026... entered into\". This is transaction initiation date.\n    Instructions: \"dates: only explicitly stated listingDate, recordDate, distributionDate for THIS transaction\".\n    Does \"entered into\" count as a listing/distribution/record date? No.\n    So `dates` remains empty.\n\n    Wait, checking status logic again.\n    Is it `needs_review`?\n    Definition: \"status: needs_review if no transaction established\".\n    Here, the Separation Agreement was *entered into*. The transaction is established (an agreement exists).\n    Is it `announced`?\n    Definition: \"announced for a proposal/plan\".\n    Text: \"planned separation and spin-off\", \"HCTI intends to distribute\".\n    Since conditions (SEC registration effective, Nasdaq approval) must be met, it is not completed or approved in the sense of consummation. It is a plan/agreement phase. `announced` fits best among the enums provided that implies an active status before completion but beyond just \"needs_review\" for non-existent transaction.\n    However, if a contract is signed, is it `approved`? Usually, signing the SPA/Separation Agreement requires Board Approval. The text says \"The HCTI Board of Directors... has the authority (i) to (A) effect the Distribution\". It doesn't explicitly state \"The Board approved this distribution at this meeting\" in this specific text block, though it's implied by the execution of the agreement signed on Sept 2.\n    Comparing `announced` vs `approved`:\n    `announced`: proposal/plan.\n    `approved`: explicit approval.\n    Usually, an 8-K for \"Entry into Definitive Agreement\" is classified as `announced` status in many datasets unless there's a specific vote confirmation text like \"The Board has voted to approve...\". Here it focuses on the agreement terms and conditions. I will stick with `announced`.\n\n    Wait, looking at the quote limit: 240 chars.\n    My quotes are well under.\n\n    One final check on `targetName`: \"Use the separated subsidiary/business as targetName, never the parent.\"\n    Parent: Healthcare Triangle, Inc.\n    Target: Teyame AI Holdings, Inc.\n    Correct.\n\n    Final check on JSON structure.\n    Required keys: `targetName`, `targetQuote`, `status`, `statusQuote`, `dates`.\n    All present.\n\n    Wait, I should ensure the JSON is valid (escape quotes inside strings).\n    \"Teyame\" inside quote -> \\\"Teyame\\\".\n    Text: `with Teyame AI Holdings, Inc. (\"Teyame\"), a Delaware corporation and direct, wholly-owned subsidiary of the Company`\n    This contains double quotes around Teyame. I need to escape them in JSON string.\n    Actually, I should check if I can select a quote without internal quotes to avoid escaping complexity or just escape properly.\n    Selected Quote: \"with Teyame AI Holdings, Inc. (\"Teyame\"), a Delaware corporation and direct, wholly-owned subsidiary of the Company\" -> Needs `\\\"`.\n    Alternatively: \"spin-off of Teyame from the Company\". This doesn't contain internal quotes. But does it support targetName well? It supports the transaction. For targetName, I need to identify the name.\n    Text: \"Teyame AI Holdings, Inc. (\"Teyame\")\".\n    Let's use: `targetQuote`: \"with Teyame AI Holdings, Inc. (\"Teyame\"), a Delaware corporation\". Escaped.\n    Or just: `targetQuote`: \"Teyame AI Holdings, Inc.\". It is contiguous text? Yes. \"with Teyame AI Holdings, Inc.\" -> I can use \"Teyame AI Holdings, Inc.\".\n    Let's find the exact location. \"with Teyame AI Holdings, Inc. (\"Teyame\")\".\n    Quote: `\"Teyame AI Holdings",
+          "thinkingObserved": true
+        }
+      ],
+      "commit": "8d8d8c55d70f2536ce38ee3fe64507ed1d5c4639",
+      "complete": true,
+      "config": {
+        "min_p": 0,
+        "num_ctx": 8192,
+        "num_gpu": 0,
+        "num_predict": 4096,
+        "num_thread": 4,
+        "presence_penalty": 1.5,
+        "profile": "qwen-recommended",
+        "repeat_penalty": 1,
+        "schemaMode": "prompt",
+        "seed": 42,
+        "selectedCaseIds": [
+          "hcti"
+        ],
+        "temperature": 1,
+        "think": true,
+        "threads": 4,
+        "timeoutSeconds": 1800,
+        "top_k": 20,
+        "top_p": 0.95
+      },
+      "finishedAt": "2026-09-17T12:06:09Z",
+      "fullSuite": false,
+      "model": "qwen3.5:9b-q8_0",
+      "models": {
+        "models": [
+          {
+            "capabilities": [
+              "completion",
+              "vision",
+              "tools",
+              "thinking"
+            ],
+            "details": {
+              "context_length": 262144,
+              "embedding_length": 4096,
+              "families": [
+                "qwen35"
+              ],
+              "family": "qwen35",
+              "format": "gguf",
+              "parameter_size": "9.7B",
+              "parent_model": "",
+              "quantization_level": "Q8_0"
+            },
+            "digest": "441ec31e4d2aedceb97dd834b036db104d943fbe3dbc1e5c8ac95eeaa9141c77",
+            "model": "qwen3.5:9b-q8_0",
+            "modified_at": "2026-09-17T11:45:23.843801885Z",
+            "name": "qwen3.5:9b-q8_0",
+            "size": 10699928277
+          }
+        ]
+      },
+      "provenance": {
+        "cpu": "AMD EPYC 7763 64-Core Processor",
+        "job": 105188672242,
+        "run": 35217094611
+      },
+      "resources": {
+        "errors": [],
+        "inferenceExitCode": 0,
+        "maxOllamaRssSumKiB": 11171212,
+        "maxSystemSwapUsedKiB": 24,
+        "minSystemAvailableKiB": 4232324,
+        "note": "Sampled RSS sum can double-count shared pages; system available memory and swap include other runner processes. Not an exact memory peak.",
+        "samplingSeconds": 5
+      },
+      "runtime": {
+        "version": "0.34.1"
+      },
+      "scope": "Six hand-selected real filing excerpts; not a general accuracy estimate. Quotes require human entailment review.",
+      "startedAt": "2026-09-17T11:45:24Z",
+      "suiteSha256": "f91767f34d6bd44573b0fd924f0676b2f4d26bec030687da9b7dc4b5d8db3243",
+      "totals": {
+        "cases": 1,
+        "dates": 0,
+        "errors": 1,
+        "falseCompletion": 0,
+        "fieldsExact": 0,
+        "grounded": 0,
+        "schema": 0,
+        "seconds": 1245.64,
+        "status": 0,
+        "target": 0,
+        "unsupportedTarget": 0
+      }
+    },
+    {
+      "benchmarkVersion": 1,
+      "cases": [
+        {
+          "gold": {
+            "dates": [
+              {
+                "date": "2025-10-15",
+                "field": "listingDate",
+                "kind": "actual"
+              }
+            ],
+            "status": "completed",
+            "targetNames": [
+              "軒竹生物"
+            ]
+          },
+          "id": "sihuan_completed",
+          "metrics": {
+            "done_reason": "stop",
+            "eval_count": 3630,
+            "eval_duration": 1117614543000,
+            "load_duration": 14875954867,
+            "prompt_eval_count": 1260,
+            "prompt_eval_duration": 28572307000
+          },
+          "output": {
+            "dates": [
+              {
+                "date": "2025-10-15",
+                "field": "listingDate",
+                "kind": "actual",
+                "quote": "分拆公司於二零二五年十月十五日在聯交所主板上市"
+              }
+            ],
+            "status": "completed",
+            "statusQuote": "分拆公司 H 股於二零二五年十月十五日上午九時正開始於聯交所主板買賣",
+            "targetName": "軒竹生物",
+            "targetQuote": "建議分拆及軒竹生物於香港聯合交易所有限公司主板獨立上市之更新資料"
+          },
+          "raw": "{\n  \"targetName\": \"軒竹生物\",\n  \"targetQuote\": \"建議分拆及軒竹生物於香港聯合交易所有限公司主板獨立上市之更新資料\",\n  \"status\": \"completed\",\n  \"statusQuote\": \"分拆公司 H 股於二零二五年十月十五日上午九時正開始於聯交所主板買賣\",\n  \"dates\": [\n    {\n      \"field\": \"listingDate\",\n      \"date\": \"2025-10-15\",\n      \"kind\": \"actual\",\n      \"quote\": \"分拆公司於二零二五年十月十五日在聯交所主板上市\"\n    }\n  ]\n}",
+          "score": {
+            "dates": true,
+            "falseCompletion": false,
+            "fieldsExact": true,
+            "grounded": true,
+            "schema": true,
+            "status": true,
+            "target": true,
+            "unsupportedTarget": false
+          },
+          "seconds": 1161.09,
+          "sourceUrl": "https://www1.hkexnews.hk/listedco/listconews/sehk/2025/1015/2025101500144_c.pdf",
+          "textSha256": "aca6d025e377f1798148b2710a08e208ceb8568244f34af89acf3a6db00f11f9",
+          "thinking": "Thinking Process:\n\n1.  **Analyze the Request:**\n    *   Input: A filing text about a spin-off transaction.\n    *   Task: Extract specific information (targetName, status, dates, quotes) based *only* on the text.\n    *   Constraints:\n        *   `targetName`: Separated subsidiary/business (never parent), exact source name, empty if unknown.\n        *   `status`: Based on current filing state (needs_review, announced, approved, record_set, prospectus, completed, terminated, paused). \"completed\" ONLY for explicitly achieved separation/listing.\n        *   `targetQuote`, `statusQuote`: Contiguous verbatim excerpts supporting the claim, <= 240 chars each. Empty if unknown. Do not copy entire filing.\n        *   `dates`: Only explicit listingDate, recordDate, distributionDate. Normalized YYYY-MM-DD. Kind: actual or scheduled. Verbatim quote <= 240 chars. Never label scheduled as actual. Omit unstated dates.\n        *   Output Format: JSON only. Specific schema provided.\n\n2.  **Analyze the Filing Text:**\n    *   Parent Company: 四環醫藥控股集團有限公司 (Sihuan Pharmaceutical Holdings Group Ltd.)\n    *   Subsidiary/Spin-off Target: 軒竹生物 (Xunzhu Bio / Xunzhu Biological? Text says \"軒竹生物\"). Full name in text: \"分拆公司\" (Spin-off company) referred to as \"軒竹生物\".\n    *   Transaction Type: Spin-off and independent listing (建議分拆及軒竹生物於香港聯合交易所有限公司主板獨立上市).\n    *   Status Indicators:\n        *   \"董事會欣然宣佈，於全球發售完成後，分拆公司於二零二五年十月十五日在聯交所主板上市\" (Board is pleased to announce that after completion of Global Offering, spin-off company listed on HKEX Main Board on 25 October 2025).\n        *   \"而分拆公司 H 股於二零二五年十月十五日上午九時正開始於聯交所主板買賣\" (And the spin-off company's H shares started trading at 9:00 am on 25 October 2025 on HKEX Main Board).\n        *   \"聯交所已批准分拆公司 H 股於聯交所主板上市及買賣\" (HKEX has approved...).\n        *   \"於本公告日期，本公司執行董事為...\" (At the date of this announcement, our executive directors are...). Date: 二零二五年十月十五日 (15 Oct 2025).\n    *   Filing Date: 2025-10-15 (from JSON input).\n    *   Key phrase indicating completion/listing: \"分拆公司 H 股於二零二五年十月十五日上午九時正開始於聯交所主板買賣\" (Spin-off company H shares started trading at 9am on Oct 15, 2025).\n    *   Since the filing is dated 2025-10-15 and states the listing *completed* or *started trading* on that date (\"開始...買賣\", \"上市\"), this suggests `status: completed`. However, I need to be careful. Is it a past tense event relative to the filing, or a future schedule announced today?\n    *   Text: \"董事會欣然宣佈，於全球發售完成後，分拆公司於二零二五年十月十五日在聯交所主板上市，而分組公司 H 股於二零二五年十月十五日上午九時正開始於聯交所主板買賣。\" (Board announces... after global offering completion, spin-off company listed on Oct 15, and shares started trading on Oct 15).\n    *   Since the filing date is 2025-10-15, and it states the listing happened *on* that day (\"於二零二五年十月十五日...上市\", \"開始...買賣\"), this implies the event is happening or has just happened relative to the filing date. Usually, if shares have started trading, status is `completed` (regarding listing).\n    *   Target Name: The text refers to it as \"軒竹生物\" (Xunzhu Biological) in the title (\"建議分拆及軒竹生物於香港聯合交易所有限公司主板獨立上市之更新資料\"). Later it says \"分拆公司\". I should use the exact source name identified. \"軒竹生物\" appears explicitly.\n    *   Status: `completed` seems appropriate because shares started trading on the date of the announcement (\"開始於聯交所主板買賣\"). If it were just an approval, it would say HKEX approved (which it does), but the key is the trading start. The prompt says \"completed ONLY for explicitly achieved separation/listing\". Trading has started.\n    *   Dates:\n        *   Listing Date: 2025-10-15. Text: \"於二零二五年十月十五日在聯交所主板上市\" (Listed on HKEX Main Board on 15 October 2025). Kind: actual (since filing date is same day and trading started).\n        *   Trading Start: Same as listing date effectively for this context.\n        *   Record/Distribution dates? Not mentioned in this specific text snippet other than the listing/trading start.\n    *   Status Quote: Needs to support the status. \"分拆公司 H 股於二零二五年十月十五日上午九時正開始於聯交所主板買賣\" supports completed listing/trading.\n    *   Target Quote: \"軒竹生物\" or mention of the spin-off company. \"建議分拆及軒竹生物於香港聯合交易所有限公司主板獨立上市之更新資料\". Or \"分拆公司... 軒竹生物\". The name is explicitly \"軒竹生物\".\n\n3.  **Drafting the JSON:**\n    *   `targetName`: \"軒竹生物\" (Found in title \"建議分拆及軒竹生物...\").\n    *   `targetQuote`: \"建議分拆及軒竹生物於香港聯合交易所有限公司主板獨立上市之更新資料\" or just \"分拆公司 H 股於二零二五年十月十五日上午九時正開始於聯交所主板買賣\". Better to use the name context. Let's look for \"軒竹生物\". \"建議分拆及軒竹生物於香港聯合交易所有限公司主板獨立上市之更新資料\". Or \"本公司附屬公司軒竹生物\". Quote: \"本公司附屬公司軒竹生物於聯交所主板獨立上市\". (From preamble).\n    *   `status`: \"completed\" (Trading started on listing date).\n    *   `statusQuote`: \"分拆公司 H 股於二零二五年十月十五日上午九時正開始於聯交所主板買賣\".\n    *   `dates`:\n        *   listingDate: 2025-10-15. Kind: actual (implied by \"started trading\"). Quote: \"於二零二五年十月十五日在聯交所主板上市\".\n        *   recordDate: None mentioned.\n        *   distributionDate: None explicitly defined as such (Global Offering completion implies distribution but no specific date named for distribution).\n    *   Wait, check constraints on `status`. \"Report the stage AT THIS FILING\". Filing is dated 2025-10-15. Text says listing happened ON that day (\"於二零二五年十月十五日...上市\"). Trading started ON that day. So status is `completed` regarding listing/trading.\n    *   Check constraints on `dates`. Only include explicitly stated. Listing date is explicit.\n    *   Check `targetName`. \"軒竹生物\" is the specific business name mentioned.\n    *   Check `quotes` length. <= 240 chars.\n    *   Check JSON schema.\n\n4.  **Refining Quotes:**\n    *   `targetName`: \"軒竹生物\".\n    *   `targetQuote`: \"本公司附屬公司軒竹生物於聯交所主板獨立上市\" (Found in preamble: \"內容有關建議分拆及本公司附屬公司軒竹生物於聯交所主板獨立上市\"). Or simpler: \"建議分拆及軒竹生物於香港聯合交易所有限公司主板獨立上市之更新資料\". Let's use the one defining it. \"內容有關建議分拆及本公司附屬公司軒竹生物於聯交所主板獨立上市\" (Too long? No, <240). Let's try to get the name clearly. \"軒竹生物\" is in \"建議分拆及軒竹生物於香港聯合交易所有限公司主板獨立上市之更新資料\".\n    *   `statusQuote`: \"分拆公司 H 股於二零二五年十月十五日上午九時正開始於聯交所主板買賣\". (This confirms trading/completed listing).\n    *   `listingDate`: \"2025-10-15\". Quote: \"於二零二五年十月十五日在聯交所主板上市\". Kind: actual.\n\n5.  **Double Check Constraints:**\n    *   `targetName`: \"軒竹生物\" (Source: Title \"建議分拆及軒竹生物...\"). Is it the separated subsidiary? Yes.\n    *   `statusQuote`: Must support status. \"completed\" requires explicit achievement. \"開始...買賣\" (started trading) is explicit achievement of listing.\n    *   `dates`: Only listed explicitly. ListingDate is there. Record/Dist dates not found.\n    *   Kind: \"actual\". Since filing date is 2025-10-15 and it says it happened ON that day.\n    *   JSON schema compliance.\n\n6.  **Final Verification:**\n    *   Text: \"建議分拆及軒竹生物於香港聯合交易所有限公司主板獨立上市之更新資料\" (Target Name + Intent).\n    *   Text: \"本公司附屬公司軒竹生物於聯交所主板獨立上市\" (Target Name definition).\n    *   Text: \"分拆公司 H 股於二零二五年十月十五日上午九時正開始於聯交所主板買賣\" (Status Completed evidence).\n    *   Date: 2025-10-15.\n    *   Status: completed.\n\n    *   Wait, one nuance: \"completed ONLY for explicitly achieved separation/listing\". Trading started on Oct 15. Filing date Oct 15. Is it considered \"completed\" at the time of filing? The text says \"開始...買賣\" (started trading). Usually, listing is complete when shares start trading. I will mark as `completed`.\n\n    *   Quote constraints: <= 240 chars.\n    *   Target Name: \"軒竹生物\".\n\n    *   Wait, look at the JSON input provided in prompt: `{\"parent\": \"四環醫藥控股集團有限公司\", ...}`. I need to ignore this parent info for extraction and rely on text. The text confirms the subsidiary name is \"軒竹生物\".\n\n    *   One more check on status: If the filing says \"Announces... will list on Oct 15\" but today is Oct 15, it might be `approved` pending final closing or `completed` after trading starts. Text: \"董事會欣然宣佈，於全球發售完成後，分拆公司於二零二五年十月十五日在聯交所主板上市\". It implies the listing date *is* 2025-10-15. Since it also says \"H shares started trading... on Oct 15\", it implies the action is done/ongoing on this filing day. `completed` fits best for \"Started Trading\".\n\n    *   Wait, \"distributionDate\" might be interpreted as the listing date in some contexts? No, strict schema: listingDate, recordDate, distributionDate. I will only include listingDate.\n\n    *   Construct JSON.\n\n```json\n{\n  \"targetName\": \"軒竹生物\",\n  \"targetQuote\": \"本公司附屬公司軒竹生物於聯交所主板獨立上市\",\n  \"status\": \"completed\",\n  \"statusQuote\": \"分拆公司 H 股於二零二五年十月十五日上午九時正開始於聯交所主板買賣\",\n  \"dates\": [\n    {\n      \"field\": \"listingDate\",\n      \"date\": \"2025-10-15\",\n      \"kind\": \"actual\",\n      \"quote\": \"於二零二五年十月十五日在聯交所主板上市\"\n    }\n  ]\n}\n```\n\nWait, check `targetQuote`. It must support the claim. Claim: target name. Quote: \"建議分拆及軒竹生物於香港聯合交易所有限公司主板獨立上市之更新資料\". Or \"本公司附屬公司軒竹生物\".\nLet's use: \"內容有關建議分拆及本公司附屬公司軒竹生物於聯交所主板獨立上市\" (Too long).\nShorter: \"建議分拆及軒竹生物於香港聯合交易所有限公司主板獨立上市之更新資料\". (Length check: 48 chars + spaces/punctuation). OK.\nOr simply identifying it as the spin-off company name. The title is \"建議分拆及軒竹生物...之更新資料\". I'll use the part explicitly naming it as the subject of the announcement.\n\"建議分拆及軒竹生物於香港聯合交易所有限公司主板獨立上市之更新資料\" -> This establishes the name.\n\nActually, looking at the instruction: \"Extract the spin-off transaction... Return the separated subsidiary/business as targetName\".\nQuote must support each claim.\nClaim Target Name: The text identifies \"軒竹生物\" as the entity being spun off (\"本公司附屬公司軒竹生物\").\nQuote for Target Name: \"本公司附屬公司軒竹生物於聯交所主板獨立上市\". (Source: 緒言 section).\n\nStatus Quote: \"分拆公司 H 股於二零二五年十月十五日上午九時正開始於聯交所主板買賣\".\n\nDate Quote: \"於二零二五年十月十五日在聯交所主板上市\".\n\nDate kind: actual. Filing is dated today (2015 Oct). It says started trading today. So actual.\n\nWait, check schema again: `dates` array maxItems 3. Items required fields: field, date, kind, quote.\nField enum: listingDate, recordDate, distributionDate.\nDate format: YYYY-MM-DD.\nQuote limit: 240 chars.\n\nOne detail: \"dates: only explicitly stated listingDate, recordDate, distributionDate for THIS transaction\".\nListing Date is 2025-10-15.\nRecord Date? Not mentioned.\nDistribution Date? Global Offering completion date not explicitly named as \"distribution date\". Listing date acts similarly but strictly follow schema field names. I will only include listingDate.\n\nWait, `status`: \"completed ONLY for explicitly achieved separation/listing\".\nText: \"分拆公司 H 股於二零二五年十月十五日上午九時正開始於聯交所主板買賣\" (Shares started trading).\nThis is explicit achievement of listing/trading. So `completed` is valid.\n\nOne check on Target Name exact source name: \"軒竹生物\". Text says \"軒竹生物\".\nParent text has \"四環醫藥控股集團有限公司\".\nSpin-off text: \"軒竹生物\" (Title) and \"本公司附屬公司軒竹生物\".\nI will use \"軒竹生物\".\n\nFinal check on JSON validity.\n\nOne more thing: `targetQuote` needs to support the target name claim.\n\"建議分拆及軒竹生物於香港聯合交易所有限公司主板獨立上市之更新資料\" explicitly names it in context of spin-off.\n\nWait, I should check if \"completed\" is too strong. Filing date is 2025-10-15. Text says \"Announces... will list on Oct 15\". Later it says \"H shares started trading on Oct 15\". Since the filing reports that they *started* trading (past tense implied by report date matching start date and text saying \"starting at 9am\"), it is treated as achieved in this context.\n\nLet's finalize.",
+          "thinkingObserved": true
+        }
+      ],
+      "commit": "8d8d8c55d70f2536ce38ee3fe64507ed1d5c4639",
+      "complete": true,
+      "config": {
+        "min_p": 0,
+        "num_ctx": 8192,
+        "num_gpu": 0,
+        "num_predict": 4096,
+        "num_thread": 4,
+        "presence_penalty": 1.5,
+        "profile": "qwen-recommended",
+        "repeat_penalty": 1,
+        "schemaMode": "prompt",
+        "seed": 42,
+        "selectedCaseIds": [
+          "sihuan_completed"
+        ],
+        "temperature": 1,
+        "think": true,
+        "threads": 4,
+        "timeoutSeconds": 1800,
+        "top_k": 20,
+        "top_p": 0.95
+      },
+      "finishedAt": "2026-09-17T12:05:20Z",
+      "fullSuite": false,
+      "model": "qwen3.5:9b-q8_0",
+      "models": {
+        "models": [
+          {
+            "capabilities": [
+              "completion",
+              "vision",
+              "tools",
+              "thinking"
+            ],
+            "details": {
+              "context_length": 262144,
+              "embedding_length": 4096,
+              "families": [
+                "qwen35"
+              ],
+              "family": "qwen35",
+              "format": "gguf",
+              "parameter_size": "9.7B",
+              "parent_model": "",
+              "quantization_level": "Q8_0"
+            },
+            "digest": "441ec31e4d2aedceb97dd834b036db104d943fbe3dbc1e5c8ac95eeaa9141c77",
+            "model": "qwen3.5:9b-q8_0",
+            "modified_at": "2026-09-17T11:45:59.105940815Z",
+            "name": "qwen3.5:9b-q8_0",
+            "size": 10699928277
+          }
+        ]
+      },
+      "provenance": {
+        "cpu": "INTEL(R) XEON(R) PLATINUM 8573C",
+        "job": 105188672460,
+        "run": 35217094611
+      },
+      "resources": {
+        "errors": [],
+        "inferenceExitCode": 0,
+        "maxOllamaRssSumKiB": 12146420,
+        "maxSystemSwapUsedKiB": 24,
+        "minSystemAvailableKiB": 3216652,
+        "note": "Sampled RSS sum can double-count shared pages; system available memory and swap include other runner processes. Not an exact memory peak.",
+        "samplingSeconds": 5
+      },
+      "runtime": {
+        "version": "0.34.1"
+      },
+      "scope": "Six hand-selected real filing excerpts; not a general accuracy estimate. Quotes require human entailment review.",
+      "startedAt": "2026-09-17T11:45:59Z",
+      "suiteSha256": "f91767f34d6bd44573b0fd924f0676b2f4d26bec030687da9b7dc4b5d8db3243",
+      "totals": {
+        "cases": 1,
+        "dates": 1,
+        "errors": 0,
+        "falseCompletion": 0,
+        "fieldsExact": 1,
+        "grounded": 1,
+        "schema": 1,
+        "seconds": 1161.09,
+        "status": 1,
+        "target": 1,
+        "unsupportedTarget": 0
+      }
+    },
+    {
+      "benchmarkVersion": 1,
+      "cases": [
+        {
+          "gold": {
+            "dates": [],
+            "status": "needs_review",
+            "targetNames": [
+              ""
+            ]
+          },
+          "id": "blze",
+          "metrics": {
+            "done_reason": "stop",
+            "eval_count": 88,
+            "eval_duration": 29786230000,
+            "load_duration": 9606247568,
+            "prompt_eval_count": 998,
+            "prompt_eval_duration": 85201907000
+          },
+          "output": {
+            "dates": [],
+            "status": "needs_review",
+            "statusQuote": "Item 1.01 Entry into a Material Definitive Agreement... issued $201.25 million aggregate principal amount of the Company's 0.00% Convertible Senior Notes due 2031",
+            "targetName": "",
+            "targetQuote": ""
+          },
+          "raw": "{\n  \"targetName\": \"\",\n  \"targetQuote\": \"\",\n  \"status\": \"needs_review\",\n  \"statusQuote\": \"Item 1.01 Entry into a Material Definitive Agreement... issued $201.25 million aggregate principal amount of the Company's 0.00% Convertible Senior Notes due 2031\",\n  \"dates\": []\n}",
+          "score": {
+            "dates": true,
+            "falseCompletion": false,
+            "fieldsExact": true,
+            "grounded": false,
+            "schema": true,
+            "status": true,
+            "target": true,
+            "unsupportedTarget": false
+          },
+          "seconds": 124.62,
+          "sourceUrl": "https://www.sec.gov/Archives/edgar/data/1462056/000114036126034200/ef20080933_8k.htm",
+          "textSha256": "393ed07b48325ac5444ddef336256fe241686c4487146c0e8d161199da669dca",
+          "thinking": "",
+          "thinkingObserved": false
+        }
+      ],
+      "commit": "8d8d8c55d70f2536ce38ee3fe64507ed1d5c4639",
+      "complete": true,
+      "config": {
+        "min_p": 0,
+        "num_ctx": 8192,
+        "num_gpu": 0,
+        "num_predict": 4096,
+        "num_thread": 4,
+        "presence_penalty": 1.5,
+        "profile": "qwen-recommended",
+        "repeat_penalty": 1,
+        "schemaMode": "prompt",
+        "seed": 42,
+        "selectedCaseIds": [
+          "blze"
+        ],
+        "temperature": 1,
+        "think": false,
+        "threads": 4,
+        "timeoutSeconds": 1800,
+        "top_k": 20,
+        "top_p": 0.95
+      },
+      "finishedAt": "2026-09-17T11:47:28Z",
+      "fullSuite": false,
+      "model": "qwen3.5:9b-q8_0",
+      "models": {
+        "models": [
+          {
+            "capabilities": [
+              "completion",
+              "vision",
+              "tools",
+              "thinking"
+            ],
+            "details": {
+              "context_length": 262144,
+              "embedding_length": 4096,
+              "families": [
+                "qwen35"
+              ],
+              "family": "qwen35",
+              "format": "gguf",
+              "parameter_size": "9.7B",
+              "parent_model": "",
+              "quantization_level": "Q8_0"
+            },
+            "digest": "441ec31e4d2aedceb97dd834b036db104d943fbe3dbc1e5c8ac95eeaa9141c77",
+            "model": "qwen3.5:9b-q8_0",
+            "modified_at": "2026-09-17T11:45:23.245329007Z",
+            "name": "qwen3.5:9b-q8_0",
+            "size": 10699928277
+          }
+        ]
+      },
+      "provenance": {
+        "cpu": "Intel(R) Xeon(R) Platinum 8370C CPU @ 2.80GHz",
+        "job": 105188672481,
+        "run": 35217094611
+      },
+      "resources": {
+        "errors": [],
+        "inferenceExitCode": 0,
+        "maxOllamaRssSumKiB": 11111036,
+        "maxSystemSwapUsedKiB": 24,
+        "minSystemAvailableKiB": 4294904,
+        "note": "Sampled RSS sum can double-count shared pages; system available memory and swap include other runner processes. Not an exact memory peak.",
+        "samplingSeconds": 5
+      },
+      "runtime": {
+        "version": "0.34.1"
+      },
+      "scope": "Six hand-selected real filing excerpts; not a general accuracy estimate. Quotes require human entailment review.",
+      "startedAt": "2026-09-17T11:45:23Z",
+      "suiteSha256": "f91767f34d6bd44573b0fd924f0676b2f4d26bec030687da9b7dc4b5d8db3243",
+      "totals": {
+        "cases": 1,
+        "dates": 1,
+        "errors": 0,
+        "falseCompletion": 0,
+        "fieldsExact": 1,
+        "grounded": 0,
+        "schema": 1,
+        "seconds": 124.62,
+        "status": 1,
+        "target": 1,
+        "unsupportedTarget": 0
+      }
+    },
+    {
+      "benchmarkVersion": 1,
+      "cases": [
+        {
+          "gold": {
+            "dates": [
+              {
+                "date": "2025-10-15",
+                "field": "listingDate",
+                "kind": "actual"
+              }
+            ],
+            "status": "completed",
+            "targetNames": [
+              "軒竹生物"
+            ]
+          },
+          "id": "sihuan_completed",
+          "metrics": {
+            "done_reason": "stop",
+            "eval_count": 275,
+            "eval_duration": 72083573000,
+            "load_duration": 9873735592,
+            "prompt_eval_count": 1262,
+            "prompt_eval_duration": 127413688000
+          },
+          "output": {
+            "dates": [
+              {
+                "date": "2025-10-15",
+                "field": "listingDate",
+                "kind": "actual",
+                "quote": "於全球發售完成後，分拆公司於二零二五年十月十五日在聯交所主板上市"
+              },
+              {
+                "date": "2025-10-15",
+                "field": "listingDate",
+                "kind": "actual",
+                "quote": "分拆公司 H 股於二零二五年十月十五日上午九時正開始於聯交所主板買賣"
+              }
+            ],
+            "status": "completed",
+            "statusQuote": "聯交所已批准分拆公司 H 股於聯交所主板上市及買賣。於全球發售（包括優先發售）完成後，(i)分拆公司於二零二五年十月十五日在聯交所主板上市；及(ii)分拆公司 H 股於二零二五年十月十五日上午九時正開始於聯交所主板買賣。",
+            "targetName": "軒竹生物",
+            "targetQuote": "建議分拆及軒竹生物於香港聯合交易所有限公司主板獨立上市"
+          },
+          "raw": "{\n  \"targetName\": \"軒竹生物\",\n  \"targetQuote\": \"建議分拆及軒竹生物於香港聯合交易所有限公司主板獨立上市\",\n  \"status\": \"completed\",\n  \"statusQuote\": \"聯交所已批准分拆公司 H 股於聯交所主板上市及買賣。於全球發售（包括優先發售）完成後，(i)分拆公司於二零二五年十月十五日在聯交所主板上市；及(ii)分拆公司 H 股於二零二五年十月十五日上午九時正開始於聯交所主板買賣。\",\n  \"dates\": [\n    {\n      \"field\": \"listingDate\",\n      \"date\": \"2025-10-15\",\n      \"kind\": \"actual\",\n      \"quote\": \"於全球發售完成後，分拆公司於二零二五年十月十五日在聯交所主板上市\"\n    },\n    {\n      \"field\": \"listingDate\",\n      \"date\": \"2025-10-15\",\n      \"kind\": \"actual\",\n      \"quote\": \"分拆公司 H 股於二零二五年十月十五日上午九時正開始於聯交所主板買賣\"\n    }\n  ]\n}",
+          "score": {
+            "dates": false,
+            "falseCompletion": false,
+            "fieldsExact": false,
+            "grounded": false,
+            "schema": false,
+            "status": false,
+            "target": false,
+            "unsupportedTarget": false
+          },
+          "seconds": 209.4,
+          "sourceUrl": "https://www1.hkexnews.hk/listedco/listconews/sehk/2025/1015/2025101500144_c.pdf",
+          "textSha256": "aca6d025e377f1798148b2710a08e208ceb8568244f34af89acf3a6db00f11f9",
+          "thinking": "",
+          "thinkingObserved": false
+        }
+      ],
+      "commit": "8d8d8c55d70f2536ce38ee3fe64507ed1d5c4639",
+      "complete": true,
+      "config": {
+        "min_p": 0,
+        "num_ctx": 8192,
+        "num_gpu": 0,
+        "num_predict": 4096,
+        "num_thread": 4,
+        "presence_penalty": 1.5,
+        "profile": "qwen-recommended",
+        "repeat_penalty": 1,
+        "schemaMode": "prompt",
+        "seed": 42,
+        "selectedCaseIds": [
+          "sihuan_completed"
+        ],
+        "temperature": 1,
+        "think": false,
+        "threads": 4,
+        "timeoutSeconds": 1800,
+        "top_k": 20,
+        "top_p": 0.95
+      },
+      "finishedAt": "2026-09-17T11:48:53Z",
+      "fullSuite": false,
+      "model": "qwen3.5:9b-q8_0",
+      "models": {
+        "models": [
+          {
+            "capabilities": [
+              "completion",
+              "vision",
+              "tools",
+              "thinking"
+            ],
+            "details": {
+              "context_length": 262144,
+              "embedding_length": 4096,
+              "families": [
+                "qwen35"
+              ],
+              "family": "qwen35",
+              "format": "gguf",
+              "parameter_size": "9.7B",
+              "parent_model": "",
+              "quantization_level": "Q8_0"
+            },
+            "digest": "441ec31e4d2aedceb97dd834b036db104d943fbe3dbc1e5c8ac95eeaa9141c77",
+            "model": "qwen3.5:9b-q8_0",
+            "modified_at": "2026-09-17T11:45:23.155719292Z",
+            "name": "qwen3.5:9b-q8_0",
+            "size": 10699928277
+          }
+        ]
+      },
+      "provenance": {
+        "cpu": "AMD EPYC 7763 64-Core Processor",
+        "job": 105188672570,
+        "run": 35217094611
+      },
+      "resources": {
+        "errors": [],
+        "inferenceExitCode": 0,
+        "maxOllamaRssSumKiB": 11165524,
+        "maxSystemSwapUsedKiB": 44,
+        "minSystemAvailableKiB": 4208896,
+        "note": "Sampled RSS sum can double-count shared pages; system available memory and swap include other runner processes. Not an exact memory peak.",
+        "samplingSeconds": 5
+      },
+      "runtime": {
+        "version": "0.34.1"
+      },
+      "scope": "Six hand-selected real filing excerpts; not a general accuracy estimate. Quotes require human entailment review.",
+      "startedAt": "2026-09-17T11:45:23Z",
+      "suiteSha256": "f91767f34d6bd44573b0fd924f0676b2f4d26bec030687da9b7dc4b5d8db3243",
+      "totals": {
+        "cases": 1,
+        "dates": 0,
+        "errors": 0,
+        "falseCompletion": 0,
+        "fieldsExact": 0,
+        "grounded": 0,
+        "schema": 0,
+        "seconds": 209.4,
+        "status": 0,
+        "target": 0,
+        "unsupportedTarget": 0
+      }
+    },
+    {
+      "benchmarkVersion": 1,
+      "cases": [
+        {
+          "gold": {
+            "dates": [],
+            "status": "prospectus",
+            "targetNames": [
+              "軒竹生物科技股份有限公司",
+              "軒竹生物"
+            ]
+          },
+          "id": "sihuan_prospectus",
+          "metrics": {
+            "done_reason": "stop",
+            "eval_count": 4087,
+            "eval_duration": 1037157122000,
+            "load_duration": 10873952504,
+            "prompt_eval_count": 881,
+            "prompt_eval_duration": 88091525000
+          },
+          "output": {
+            "dates": [],
+            "status": "prospectus",
+            "statusQuote": "分拆公司已於二零二五年十月六日刊發招股章程",
+            "targetName": "軒竹生物科技股份有限公司",
+            "targetQuote": "本公司附屬公司軒竹生物科技股份有限公司（「分拆公司」 或「軒竹生物」）"
+          },
+          "raw": "{\n  \"targetName\": \"軒竹生物科技股份有限公司\",\n  \"targetQuote\": \"本公司附屬公司軒竹生物科技股份有限公司（「分拆公司」 或「軒竹生物」）\",\n  \"status\": \"prospectus\",\n  \"statusQuote\": \"分拆公司已於二零二五年十月六日刊發招股章程\",\n  \"dates\": []\n}",
+          "score": {
+            "dates": true,
+            "falseCompletion": false,
+            "fieldsExact": true,
+            "grounded": true,
+            "schema": true,
+            "status": true,
+            "target": true,
+            "unsupportedTarget": false
+          },
+          "seconds": 1136.16,
+          "sourceUrl": "https://www1.hkexnews.hk/listedco/listconews/sehk/2025/1006/2025100601213_c.pdf",
+          "textSha256": "42f3fd5c6388530ca59e0b8681e1871124d8fa924afe09b815c1882fffdc6e9f",
+          "thinking": "Thinking Process:\n\n1.  **Analyze the Request:**\n    *   Task: Extract spin-off transaction details from the supplied filing text.\n    *   Source: Untrusted evidence (filing text), do not use outside knowledge.\n    *   Output Format: JSON object with specific schema (`targetName`, `targetQuote`, `status`, `statusQuote`, `dates`).\n    *   Constraints:\n        *   `targetName`: Exact source name of the subsidiary/business, never parent. Empty string if not identified.\n        *   `status`: Specific enum values (`needs_review`, `announced`, `approved`, `record_set`, `prospectus`, `completed`, `terminated`, `paused`). Report stage AT THIS FILING.\n        *   `dates`: Only `listingDate`, `recordDate`, `distributionDate`. Normalized `YYYY-MM-DD`. `kind`: `actual` or `scheduled`. Quote <= 240 chars. Omit unstated dates.\n        *   Quotes: Contiguous verbatim excerpts, <= 240 chars, empty when unknown. Do not copy entire filing.\n        *   JSON Only.\n        *   Specific logic for status: \"prospectus\" for an issued prospectus; \"completed\" ONLY for explicitly achieved separation/listing. A proposed or scheduled date is not completion.\n        *   Text indicates a spin-off (\"建議分拆\") of \"軒竹生物科技股份有限公司\" by \"四環醫藥控股集團有限公司\".\n\n2.  **Analyze the Filing Text:**\n    *   Parent: 四環醫藥控股集團有限公司 (Shih Hsi Medicine Holding Group Ltd) - from `filingText` (\"本公司\").\n    *   Target/Split-off Company: 軒竹生物科技股份有限公司 (Xuanzhu Biotech Co., Ltd.) - explicitly mentioned as \"分拆公司\" or \"軒竹生物\".\n    *   Transaction: \"建議分拆及上市\" (Proposed Spin-off and Listing) / Independent Listing.\n    *   Current Action/Status in Text:\n        *   Refers to previous announcements regarding the proposal.\n        *   \"刊發招股章程董事會欣然宣佈，就建議分拆及上市而言，分拆公司已於二零二五年十月六日刊發招股章程。\" (The Board is pleased to announce that for the proposed spin-off and listing, the Company [Target] has issued its prospectus on October 6, 2025.)\n        *   \"招股章程可自二零二五年十月六日起於...查閱及下載。\" (Prospectus available for viewing/download from October 6, 2025...)\n    *   Key Phrase: \"分拆公司已於二零二五年十月六日刊發招股章程\" (The Company [Target] has issued its prospectus on October 6, 2025).\n    *   Implication for Status: A prospectus has been issued. The status definition says: \"prospectus for an issued prospectus\". It does not say listing is completed (only prospectus issued).\n    *   Target Name: 軒竹生物科技股份有限公司.\n    *   Quote Selection: Need short quotes for `targetName`, `statusQuote`, etc.\n\n3.  **Determine Status:**\n    *   Text says \"建議分拆及上市\" (Proposed spin-off and listing).\n    *   Text explicitly states the prospectus was issued (\"刊發招股章程\").\n    *   Instruction: \"prospectus for an issued prospectus\".\n    *   Does not say \"completed\" or \"listing commenced\". It says prospectus is available.\n    *   So, `status` = \"prospectus\".\n\n4.  **Determine Target Name:**\n    *   Source name: \"軒竹生物科技股份有限公司\".\n    *   Also referred to as \"分拆公司\" or \"軒竹生物\", but the full legal name is better for exact source extraction where possible. The text says \"本公司附屬公司軒竹生物科技股份有限公司（「分拆公司」 或「軒竹生物」）\". I should use the full name \"軒竹生物科技股份有限公司\".\n\n5.  **Determine Dates:**\n    *   Listing Date: Not explicitly stated as a completed date or specific scheduled IPO date (only that prospectus is available). The text mentions listing in general (\"於聯交所主板獨立上市\"). No specific `listingDate` (actual or scheduled) mentioned other than the prospectus issue date. Wait, \"分拆公司已於二零二五年十月六日刊發招股章程\". This is the date of prospectus issuance. Is there a distribution date? No explicit mention of IPO subscription end/distribution date. Listing date is usually separate from prospectus issue.\n    *   Prospectus Issue Date: October 6, 2025 (二零二五年十月六日). The schema requires `listingDate`, `recordDate`, or `distributionDate`. It does not have a field for \"prospectusIssueDate\".\n    *   Instruction: \"dates: only explicitly stated listingDate, recordDate, distributionDate for THIS transaction\".\n    *   Does the filing provide these specific dates?\n        *   Listing Date: Not mentioned as a scheduled date in this text. It just says prospectus is out.\n        *   Record Date: Not mentioned.\n        *   Distribution Date: Not mentioned.\n    *   Since no specific `listingDate`, `recordDate`, or `distributionDate` are explicitly stated in the text provided, the `dates` array should likely be empty `[]`.\n    *   Wait, I need to check if \"October 6, 2025\" counts as a scheduled listing date? Usually, prospectus issue precedes subscription start. The text says \"分拆公司已於二零二五年十月六日刊發招股章程\". It doesn't explicitly state this is the listing date or distribution date. I should follow the instruction strictly: only include if explicitly stated for *these* fields.\n    *   Result: `dates`: [].\n\n6.  **Drafting JSON:**\n\n    *   `targetName`: \"軒竹生物科技股份有限公司\"\n    *   `targetQuote`: \"本公司附屬公司軒竹生物科技股份有限公司（「分拆公司」 或「軒竹生物」）於聯交所主板獨立上市\" (Or shorter: \"分拆公司已於二零二五年十月六日刊發招股章程\") -> Let's use the name definition quote.\n    *   `status`: \"prospectus\" (Because prospectus was issued).\n    *   `statusQuote`: \"分拆公司已於二零二五年十月六日刊發招股章程\" (Supports prospectus issuance). Or \"董事會欣然宣佈，就建議分拆及上市而言，分拆公司已於二零二五年十月六日刊發招股章程\". Shortest clear one: \"分拆公司已於二零二五年十月六日刊發招股章程\".\n    *   `dates`: [] (No specific listing/record/distribution dates mentioned).\n\n    Wait, check the instruction again: \"targetQuote and statusQuote must be contiguous verbatim excerpts supporting each claim; empty when unknown.\"\n    For `targetName`: \"軒竹生物科技股份有限公司\" is supported by \"...本公司附屬公司軒竹生物科技股份有限公司（「分拆公司」 或「軒竹生物」）...\".\n    Quote: \"本公司附屬公司軒竹生物科技股份有限公司\"\n\n    For `statusQuote`: \"prospectus\" status needs to be supported. Text: \"分拆公司已於二零二五年十月六日刊發招股章程\". Quote: \"分拆公司已於二零二五年十月六日刊發招股章程\".\n\n    Dates check again:\n    Is \"二零二五年十月六日\" a listing date? It says they published the prospectus on that date. Usually, IPO listing happens after subscription/distribution. The text mentions \"Global Offering\" details in the prospectus but does not give a specific `listingDate` (when shares trade) or `distributionDate` (when shares are distributed to public). So omit dates.\n\n7.  **Refining JSON:**\n    *   Ensure schema compliance.\n    *   `targetName`: \"軒竹生物科技股份有限公司\"\n    *   `targetQuote`: \"本公司附屬公司軒竹生物科技股份有限公司（「分拆公司」 或「軒竹生物」）\" (Might be too long for quote limit? Limit is 240 chars. That is short enough). Let's pick the most direct mention. \"分拆公司\" is defined as this name.\n    *   `targetQuote`: \"本公司附屬公司軒竹生物科技股份有限公司（「分拆公司」 或「軒竹生物」）於聯交所主板獨立上市\" -> 62 chars. Safe.\n    *   `status`: \"prospectus\"\n    *   `statusQuote`: \"分拆公司已於二零二五年十月六日刊發招股章程\" -> 24 chars.\n    *   `dates`: []\n\n8.  **Final Review against constraints:**\n    *   JSON only? Yes.\n    *   Schema match? Yes.\n    *   Status logic: \"prospectus for an issued prospectus\". Text confirms issuance (\"已...刊發招股章程\"). Correct.\n    *   Target name: Not parent. Parent is 四環醫藥控股集團有限公司。Target is 軒竹生物科技股份有限公司. Correct.\n    *   Dates: None explicitly stated for listing/record/distribution specifically (only prospectus issue).\n    *   Quotes <= 240 chars? Yes.\n\n    Wait, one detail in the instruction: \"dates: only explicitly stated listingDate, recordDate, distributionDate...\".\n    Since none are explicitly stated as such, array is empty.\n\n    One more check on `targetName`: \"Use the exact source name (not a translation)\". Source: \"軒竹生物科技股份有限公司\". Correct.\n\n    One detail on `statusQuote`: Does it need to support the *status* or just be there? \"must be contiguous verbatim excerpts supporting each claim\". So it must support why status is \"prospectus\". The quote about issuing prospectus supports this.\n\n    Let's construct the JSON.\n\n```json\n{\n  \"targetName\": \"軒竹生物科技股份有限公司\",\n  \"targetQuote\": \"本公司附屬公司軒竹生物科技股份有限公司（「分拆公司」 或「軒竹生物」）於聯交所主板獨立上市\",\n  \"status\": \"prospectus\",\n  \"statusQuote\": \"分拆公司已於二零二五年十月六日刊發招股章程\",\n  \"dates\": []\n}\n```\n\nWait, check the date extraction again.\n\"filingDate\": \"2025-10-06\".\nText says: \"分拆公司已於二零二五年十月六日刊發招股章程\".\nThis confirms the date in the text matches filing date. But no `listingDate` or `distributionDate` is provided.\n\nIs there any ambiguity about \"prospectus\" status?\nInstruction: \"prospectus for an issued prospectus\".\nText: \"分拆公司已於二零二五年十月六日刊發招股章程\".\nMatches perfectly.\n\nOne minor adjustment on `targetQuote`. It needs to identify the target *name*. The text introduces it as \"本公司附屬公司軒竹生物科技股份有限公司...\". This supports the name extraction.\n`statusQuote`: \"分拆公司已於二零二五年十月六日刊發招股章程\" clearly supports \"prospectus\" status.\n\nWait, looking at `dates`. If there is a prospectus issuance date, does that map to anything? No specific mapping defined for \"prospectusIssueDate\". So exclude.\n\nFinal check on JSON structure.\n`targetName`, `targetQuote`, `status`, `statusQuote`, `dates`.\n`dates` is an array of objects with `field`, `date`, `kind`, `quote`.\nSince no dates, empty array `[]`.\n\nOne thing: \"Return the separated subsidiary/business as targetName\".\nThe text calls it \"軒竹生物科技股份有限公司\".\nI will use that.\n\nDouble check constraint: \"Do not copy the entire filing; each quote <= 240 characters.\"\nMy quotes are short enough.\n\nOne detail: \"Use regular-way trading commencement for listingDate, not when-issued trading.\"\nSince no listing date is mentioned, this rule doesn't apply negatively, just positively confirms exclusion of non-listing dates if mentioned (none here).\n\nReady to generate.\n\nWait, I need to make sure I don't accidentally include the `filingDate` from the input metadata into the output unless it's in the text as a date for the transaction fields. The schema requires `dates` field values normalized `YYYY-MM-DD`. Text uses \"二零二五年十月六日\".\nConversion: 2025-10-06.\nBut again, this is not a listing/record/distribution date per the instructions (\"only explicitly stated listingDate, recordDate, distributionDate\"). It is just the prospectus issuance date. So I should omit it from the `dates` array to be safe and accurate according to strict field definitions.\n\nFinal check on Status:\nText says \"建議分拆\" (Proposed Spin-off). But later says \"已...刊發招股章程\" (Already issued prospectus).\nStatus \"prospectus\" fits \"issued prospectus\".\nIs it \"completed\"? Instruction: \"completed ONLY for explicitly achieved separation/listing\". Issuing a prospectus is not achieving listing. So `prospectus` is correct.\n\nOne detail on quotes: \"contiguous verbatim excerpts\".\nFor targetName quote: I need to quote the text that identifies the name.\n\"本公司附屬公司軒竹生物科技股份有限公司（「分拆公司」 或「軒竹生物」）於聯交所主板獨立上市\"\nThis is contiguous.\n\nOkay, generating JSON.\n\nOne last check on `targetQuote`. The instruction says `targetName` extraction must be supported by `targetQuote`. Does `targetQuote` need to contain the name? Ideally yes to support the claim of the name.\nThe snippet \"本公司附屬公司軒竹生物科技股份有限公司（「分撑公司」 或「軒竹生物」）\" identifies the name clearly. I will include that context in the quote to be safe on the \"supporting each claim\" rule, or just the phrase containing the name.\nI'll use: \"本公司附屬公司軒竹生物科技股份有限公司（「分拆公司」 或「軒竹生物」）\" (57 chars).\n\nWait, I should check if there are any distribution dates mentioned in \"全球發售\" section details?\n\"招股章程載有... 全球發售之其他詳情\". No specific date.\nSo `dates` remains empty.\n\nFinal JSON Construction.\nEnsure `dates` array items follow schema strictly if present (none here).\nEnsure types are correct strings/arrays.\nEnsure no markdown formatting around JSON (just the object). Wait, instruction says \"Return JSON only.\" Usually implies raw text. I will output raw JSON block.\n\nWait, looking at `targetQuote`. If `targetName` is extracted, `targetQuote` must support it.\nText: \"...本公司附屬公司軒竹生物科技股份有限公司（「分拆公司」 或「軒竹生物」）...\"\nI will use this part.\n\nStatus Quote: \"分拆公司已於二零二五年十月六日刊發招股章程\" supports \"prospectus\".\n\nOne nuance: \"statusQuote... empty when unknown.\" Here it is known.\n\nOkay, proceeding.\nWait, I need to make sure I don't include `filingDate` from the input dict into the output logic (it's just metadata). The instruction says \"dates: ... only explicitly stated listingDate, recordDate, distributionDate\".\n\nOne more check on the target name.\nInput Parent: \"四環醫藥控股集團有限公司\" (Holding Group).\nTarget in text: \"軒竹生物科技股份有限公司\" (Xuanzhu Bio Tech).\nCorrect.\n\nFinal check on `dates` normalization. \"二零二五年十月六日\" -> \"2025-10-06\". If I were to include it, I'd normalize. But I decided not to include it because it's not listed as listing/record/distribution date in the specific fields requested. It is a prospectus issue date. The schema restricts `dates` array to those 3 fields.\nSo `dates`: [].\n\nWait, looking at the instruction again: \"A declared record date is scheduled unless the text explicitly confirms its occurrence.\"\nIf I included it as a record date? No record date mentioned.\nSo empty list is correct.\n\nLet's finalize the JSON content.\n```json\n{\n  \"targetName\": \"軒竹生物科技股份有限公司\",\n  \"targetQuote\": \"本公司附屬公司軒竹生物科技股份有限公司（「分拆公司」 或「軒竹生物」）\",\n  \"status\": \"prospectus\",\n  \"statusQuote\": \"分拆公司已於二零二五年十月六日刊發招股章程\",\n  \"dates\": []\n}\n```\nWait, I need to ensure the quotes are exactly verbatim from text.\nText: \"本公司附屬公司軒竹生物科技股份有限公司（「分拆公司」 或「軒竹生物」）\"\nText Segment in `filingText`: \"本公司附屬公司軒竹生物科技股份有限公司（「分拆公司」 或「軒竹生物」）於聯交所主板獨立上市\".\nMy quote: \"本公司附屬公司軒竹生物科技股份有限公司（「分拆公司」 或「軒竹生物」）\" -> This is contiguous within the larger string. Valid.\n\nStatus Quote: \"分拆公司已於二零二五年十月六日刊發招股章程\" -> Contiguous. Valid.\n\nOkay, looks good.\nOne detail: `dates` schema requires items to have `quote`. Since array is empty, this constraint is vacuously satisfied.\n\nWait, should I check if `2025-10-06` is a `distributionDate` or `listingDate`?\nText says \"Global Offering (including preferential offering)...\" details are in prospectus.\nIt doesn't explicitly say \"Listing Date: 2025-10-XX\" or \"Distribution Date: ...\".\nSo it remains empty.\n\nWait, is there any chance `prospectus` implies `listingDate` is unknown? Yes.\nOkay, final check complete.\n\nOne small thing: \"Use the exact source name (not a translation)\".\nSource: \"軒竹生物科技股份有限公司\". Correct.\n\nOutputting JSON.",
+          "thinkingObserved": true
+        }
+      ],
+      "commit": "8d8d8c55d70f2536ce38ee3fe64507ed1d5c4639",
+      "complete": true,
+      "config": {
+        "min_p": 0,
+        "num_ctx": 8192,
+        "num_gpu": 0,
+        "num_predict": 4096,
+        "num_thread": 4,
+        "presence_penalty": 1.5,
+        "profile": "qwen-recommended",
+        "repeat_penalty": 1,
+        "schemaMode": "prompt",
+        "seed": 42,
+        "selectedCaseIds": [
+          "sihuan_prospectus"
+        ],
+        "temperature": 1,
+        "think": true,
+        "threads": 4,
+        "timeoutSeconds": 1800,
+        "top_k": 20,
+        "top_p": 0.95
+      },
+      "finishedAt": "2026-09-17T12:04:29Z",
+      "fullSuite": false,
+      "model": "qwen3.5:9b-q8_0",
+      "models": {
+        "models": [
+          {
+            "capabilities": [
+              "completion",
+              "vision",
+              "tools",
+              "thinking"
+            ],
+            "details": {
+              "context_length": 262144,
+              "embedding_length": 4096,
+              "families": [
+                "qwen35"
+              ],
+              "family": "qwen35",
+              "format": "gguf",
+              "parameter_size": "9.7B",
+              "parent_model": "",
+              "quantization_level": "Q8_0"
+            },
+            "digest": "441ec31e4d2aedceb97dd834b036db104d943fbe3dbc1e5c8ac95eeaa9141c77",
+            "model": "qwen3.5:9b-q8_0",
+            "modified_at": "2026-09-17T11:45:33.138088048Z",
+            "name": "qwen3.5:9b-q8_0",
+            "size": 10699928277
+          }
+        ]
+      },
+      "provenance": {
+        "cpu": "AMD EPYC 7763 64-Core Processor",
+        "job": 105188672580,
+        "run": 35217094611
+      },
+      "resources": {
+        "errors": [],
+        "inferenceExitCode": 0,
+        "maxOllamaRssSumKiB": 11104584,
+        "maxSystemSwapUsedKiB": 44,
+        "minSystemAvailableKiB": 4250096,
+        "note": "Sampled RSS sum can double-count shared pages; system available memory and swap include other runner processes. Not an exact memory peak.",
+        "samplingSeconds": 5
+      },
+      "runtime": {
+        "version": "0.34.1"
+      },
+      "scope": "Six hand-selected real filing excerpts; not a general accuracy estimate. Quotes require human entailment review.",
+      "startedAt": "2026-09-17T11:45:33Z",
+      "suiteSha256": "f91767f34d6bd44573b0fd924f0676b2f4d26bec030687da9b7dc4b5d8db3243",
+      "totals": {
+        "cases": 1,
+        "dates": 1,
+        "errors": 0,
+        "falseCompletion": 0,
+        "fieldsExact": 1,
+        "grounded": 1,
+        "schema": 1,
+        "seconds": 1136.16,
+        "status": 1,
+        "target": 1,
+        "unsupportedTarget": 0
+      }
+    },
+    {
+      "benchmarkVersion": 1,
+      "cases": [
+        {
+          "gold": {
+            "dates": [
+              {
+                "date": "2026-09-24",
+                "field": "recordDate",
+                "kind": "scheduled"
+              },
+              {
+                "date": "2026-10-01",
+                "field": "distributionDate",
+                "kind": "scheduled"
+              },
+              {
+                "date": "2026-10-01",
+                "field": "listingDate",
+                "kind": "scheduled"
+              }
+            ],
+            "status": "record_set",
+            "targetNames": [
+              "Vylor Inc.",
+              "Vylor"
+            ]
+          },
+          "id": "ctva",
+          "metrics": {
+            "done_reason": "stop",
+            "eval_count": 352,
+            "eval_duration": 84593505000,
+            "load_duration": 10357791287,
+            "prompt_eval_count": 1345,
+            "prompt_eval_duration": 135592377000
+          },
+          "output": {
+            "dates": [
+              {
+                "date": "2026-09-24",
+                "field": "recordDate",
+                "kind": "scheduled",
+                "quote": "as of the close of business on September 24, 2026(the \"Record Date\")"
+              },
+              {
+                "date": "2026-10-01",
+                "field": "distributionDate",
+                "kind": "scheduled",
+                "quote": "The Distribution is expected to be completed prior to 9:30 a.m., New York City time, on October 1, 2026"
+              },
+              {
+                "date": "2026-10-01",
+                "field": "listingDate",
+                "kind": "scheduled",
+                "quote": "Vylor Common Stock is expected to begin \"regular way\" trading on the NYSE... at the open of trading on October 1, 2026"
+              }
+            ],
+            "status": "announced",
+            "statusQuote": "On September 12, 2026, the board of directors of Corteva approved the previously announced separation...; The consummation of the Spin-Off is subject to the satisfaction or waiver of certain conditions...",
+            "targetName": "Vylor Inc.",
+            "targetQuote": "separation of Corteva's seed operating segment into an independent, publicly traded company, Vylor Inc. (\"Vylor\")"
+          },
+          "raw": "{\n  \"targetName\": \"Vylor Inc.\",\n  \"targetQuote\": \"separation of Corteva's seed operating segment into an independent, publicly traded company, Vylor Inc. (\\\"Vylor\\\")\",\n  \"status\": \"announced\",\n  \"statusQuote\": \"On September 12, 2026, the board of directors of Corteva approved the previously announced separation...; The consummation of the Spin-Off is subject to the satisfaction or waiver of certain conditions...\",\n  \"dates\": [\n    {\n      \"field\": \"recordDate\",\n      \"date\": \"2026-09-24\",\n      \"kind\": \"scheduled\",\n      \"quote\": \"as of the close of business on September 24, 2026(the \\\"Record Date\\\")\"\n    },\n    {\n      \"field\": \"distributionDate\",\n      \"date\": \"2026-10-01\",\n      \"kind\": \"scheduled\",\n      \"quote\": \"The Distribution is expected to be completed prior to 9:30 a.m., New York City time, on October 1, 2026\"\n    },\n    {\n      \"field\": \"listingDate\",\n      \"date\": \"2026-10-01\",\n      \"kind\": \"scheduled\",\n      \"quote\": \"Vylor Common Stock is expected to begin \\\"regular way\\\" trading on the NYSE... at the open of trading on October 1, 2026\"\n    }\n  ]\n}",
+          "score": {
+            "dates": true,
+            "falseCompletion": false,
+            "fieldsExact": false,
+            "grounded": false,
+            "schema": true,
+            "status": false,
+            "target": true,
+            "unsupportedTarget": false
+          },
+          "seconds": 230.57,
+          "sourceUrl": "https://www.sec.gov/Archives/edgar/data/1755672/000119312526391369/d71834d8k.htm",
+          "textSha256": "262c0889bd4078ff67079e52121388e0b08f8eae954141958f47dc33dccd073d",
+          "thinking": "",
+          "thinkingObserved": false
+        }
+      ],
+      "commit": "8d8d8c55d70f2536ce38ee3fe64507ed1d5c4639",
+      "complete": true,
+      "config": {
+        "min_p": 0,
+        "num_ctx": 8192,
+        "num_gpu": 0,
+        "num_predict": 4096,
+        "num_thread": 4,
+        "presence_penalty": 1.5,
+        "profile": "qwen-recommended",
+        "repeat_penalty": 1,
+        "schemaMode": "prompt",
+        "seed": 42,
+        "selectedCaseIds": [
+          "ctva"
+        ],
+        "temperature": 1,
+        "think": false,
+        "threads": 4,
+        "timeoutSeconds": 1800,
+        "top_k": 20,
+        "top_p": 0.95
+      },
+      "finishedAt": "2026-09-17T11:49:18Z",
+      "fullSuite": false,
+      "model": "qwen3.5:9b-q8_0",
+      "models": {
+        "models": [
+          {
+            "capabilities": [
+              "completion",
+              "vision",
+              "tools",
+              "thinking"
+            ],
+            "details": {
+              "context_length": 262144,
+              "embedding_length": 4096,
+              "families": [
+                "qwen35"
+              ],
+              "family": "qwen35",
+              "format": "gguf",
+              "parameter_size": "9.7B",
+              "parent_model": "",
+              "quantization_level": "Q8_0"
+            },
+            "digest": "441ec31e4d2aedceb97dd834b036db104d943fbe3dbc1e5c8ac95eeaa9141c77",
+            "model": "qwen3.5:9b-q8_0",
+            "modified_at": "2026-09-17T11:45:27.450935238Z",
+            "name": "qwen3.5:9b-q8_0",
+            "size": 10699928277
+          }
+        ]
+      },
+      "provenance": {
+        "cpu": "AMD EPYC 7763 64-Core Processor",
+        "job": 105188672602,
+        "run": 35217094611
+      },
+      "resources": {
+        "errors": [],
+        "inferenceExitCode": 0,
+        "maxOllamaRssSumKiB": 11163836,
+        "maxSystemSwapUsedKiB": 44,
+        "minSystemAvailableKiB": 4237860,
+        "note": "Sampled RSS sum can double-count shared pages; system available memory and swap include other runner processes. Not an exact memory peak.",
+        "samplingSeconds": 5
+      },
+      "runtime": {
+        "version": "0.34.1"
+      },
+      "scope": "Six hand-selected real filing excerpts; not a general accuracy estimate. Quotes require human entailment review.",
+      "startedAt": "2026-09-17T11:45:27Z",
+      "suiteSha256": "f91767f34d6bd44573b0fd924f0676b2f4d26bec030687da9b7dc4b5d8db3243",
+      "totals": {
+        "cases": 1,
+        "dates": 1,
+        "errors": 0,
+        "falseCompletion": 0,
+        "fieldsExact": 0,
+        "grounded": 0,
+        "schema": 1,
+        "seconds": 230.57,
+        "status": 0,
+        "target": 1,
+        "unsupportedTarget": 0
+      }
+    },
+    {
+      "benchmarkVersion": 1,
+      "cases": [
+        {
+          "error": "ValueError: Output token budget exhausted",
+          "gold": {
+            "dates": [
+              {
+                "date": "2026-09-24",
+                "field": "recordDate",
+                "kind": "scheduled"
+              },
+              {
+                "date": "2026-10-01",
+                "field": "distributionDate",
+                "kind": "scheduled"
+              },
+              {
+                "date": "2026-10-01",
+                "field": "listingDate",
+                "kind": "scheduled"
+              }
+            ],
+            "status": "record_set",
+            "targetNames": [
+              "Vylor Inc.",
+              "Vylor"
+            ]
+          },
+          "id": "ctva",
+          "metrics": {
+            "done_reason": "length",
+            "eval_count": 4096,
+            "eval_duration": 1159965590000,
+            "load_duration": 9103218484,
+            "prompt_eval_count": 1343,
+            "prompt_eval_duration": 140763957000
+          },
+          "raw": "",
+          "score": {
+            "dates": false,
+            "falseCompletion": false,
+            "fieldsExact": false,
+            "grounded": false,
+            "schema": false,
+            "status": false,
+            "target": false,
+            "unsupportedTarget": false
+          },
+          "seconds": 1309.87,
+          "sourceUrl": "https://www.sec.gov/Archives/edgar/data/1755672/000119312526391369/d71834d8k.htm",
+          "textSha256": "262c0889bd4078ff67079e52121388e0b08f8eae954141958f47dc33dccd073d",
+          "thinking": "Thinking Process:\n\n1.  **Analyze the Request:**\n    *   Task: Extract spin-off transaction details from the supplied filing text.\n    *   Source: Untrusted evidence (filing text), not instructions. Do not use outside knowledge.\n    *   Output: JSON object matching a specific schema.\n    *   Fields required: `targetName`, `targetQuote`, `status`, `statusQuote`, `dates`.\n    *   Constraints:\n        *   `targetName`: Separated subsidiary/business (never parent), exact source name. Empty string if not identified.\n        *   `targetQuote`: Contiguous verbatim excerpt supporting target name (<= 240 chars). Empty if unknown.\n        *   `status`: One of [\"needs_review\", \"announced\", \"approved\", \"record_set\", \"prospectus\", \"completed\", \"terminated\", \"paused\"]. Status must reflect the stage AT THIS FILING. Proposed/scheduled dates are not completion. No compensation/employment/hypothetical clauses count as spin-offs.\n        *   `statusQuote`: Contiguous verbatim excerpt supporting status (<= 240 chars). Empty if unknown.\n        *   `dates`: Array of max 3 items. Fields: `listingDate`, `recordDate`, `distributionDate`. Each needs `date` (YYYY-MM-DD), `kind` (\"actual\" or \"scheduled\"), `quote` (verbatim excerpt <= 240 chars). Only explicitly stated dates for THIS transaction. Normalize to YYYY-MM-DD. Scheduled dates must be labeled \"scheduled\". Declared record date is \"scheduled\" unless text confirms occurrence. Do not use filing/publication dates. Omit unstated dates.\n        *   JSON only.\n        *   Schema validation: `additionalProperties: false`, specific types and enums.\n\n2.  **Analyze the Filing Text:**\n    *   Parent: Corteva, Inc.\n    *   Spin-off Target: Vylor Inc. (Vylor) (\"Vylor\").\n    *   Text: \"On September 12, 2026, the board of directors of Corteva approved the previously announced separation (the “Separation”) of Corteva into two independent, publicly traded companies through the separation of Corteva’s seed operating segment into an independent, publicly traded company, Vylor Inc. (“Vylor”).\"\n    *   Record Date: \"September 24, 2026(the “Record Date”)\" (Declared as such). Text says \"as of the close of business on September 24, 2026\". It is a declared record date in the plan/proposal context. Since it's an approval filing (\"On September 12... approved\"), and the text describes the mechanism, the status needs careful determination.\n    *   Distribution Date: \"expected to be completed prior to 9:30 a.m., New York City time, on October 1, 2026.\" -> Scheduled.\n    *   Trading Dates: \"when-issued... begin on... September 25, 2026\". \"regular way\" trading... on October 1, 2026. This is a `listingDate` equivalent (start of regular way trading).\n    *   Status Analysis:\n        *   Text says: \"On September 12, 2026, the board of directors of Corteva approved the previously announced separation...\"\n        *   The text describes the mechanism and future dates (\"expected to be completed\", \"is expected to begin\").\n        *   It mentions \"The consummation of the Spin-Off is subject to the satisfaction or waiver of certain conditions...\".\n        *   It does not say it has *already* happened. It says \"approved the previously announced separation\".\n        *   Is it `announced` or `approved`? The text states the board \"approved\" the separation on Sept 12. The filing date is Sept 15, 2026. This looks like a definitive statement of approval within the context of this filing. However, it says \"previously announced\". Usually, if the transaction hasn't happened, but has received formal board approval and conditions are expected to be met, `approved` fits best over `announced` (which implies a plan/proposal earlier stage). But wait, `status` options: `needs_review`, `announced`, `approved`, `record_set`, `prospectus`, `completed`, `terminated`, `paused`.\n        *   Definition of `approved`: explicit approval. The text says \"board... approved the previously announced separation\". This seems to fit `approved`.\n        *   However, it also mentions an \"information statement attached as Exhibit 99.1 to Amendment No. 2 to the Registration Statement on Form 10... filed by Vylor with the U.S. Securities and Exchange Commission on September 14, 2026\". This suggests a prospectus is involved.\n        *   Let's check the dates. The filing date is Sept 15, 2026. The record date is declared for Sept 24 (future). Distribution expected Oct 1 (future). Regular way trading expected Oct 1 (future).\n        *   Since future dates are \"expected\", it is not `completed`.\n        *   Since the board has explicitly approved the separation (\"board of directors... approved\"), `approved` seems appropriate.\n        *   Is there a record date set? Yes, declared: \"as of the close of business on September 24, 2026(the “Record Date”)\". So `recordDate` is present. Status `record_set` usually implies the focus is on setting that date. However, usually, if the deal is approved but pending conditions, `approved` is often used. But looking at the status list: `record_set` for a declared record date. The text *declares* the Record Date. So I can mark the status as `approved` because the board approval is explicit in the first sentence. Does `record_set` override `approved`? The instructions say: \"Report the stage AT THIS FILING\". If the board approved it, but a record date was set. Usually `approved` takes precedence if the deal is moving forward with specific dates planned. But wait, is the separation *approved* or just announced with conditions subject to satisfaction? \"consummation... is subject to the satisfaction or waiver of certain conditions\". This implies approval exists but conditions remain.\n        *   Let's look at `status` definitions in prompt: \"approved for explicit approval\". Text: \"board of directors of Corteva approved the previously announced separation\". This is explicit approval.\n        *   Let's look at `record_set`: \"for a declared record date\". The text declares a Record Date (\"Record Date\").\n        *   Which one is more accurate? Often `approved` implies the transaction status in terms of deal lifecycle (Board approved -> Prospectus filed -> Closing). `record_set` is specific to the date. Usually, if there is an explicit approval statement, `approved` is better for the overall stage, but `record_set` captures the specific action regarding dates. However, if I must choose one status for the JSON object `status`, which represents the transaction state. The text describes the *approval* of the separation. The Record Date is a detail within that approval context.\n        *   Wait, looking closely at the prompt: \"Report the stage AT THIS FILING\". The filing announces the board approval and sets the record date.\n        *   If I choose `approved`, it supports the first sentence. If I choose `record_set`, it supports the declaration of the specific date. Usually, explicit board approval moves a deal to `approved`. Let's stick with `approved` because conditions must still be met (\"subject to... satisfaction\"). But wait, is there an Issued Prospectus mentioned? \"Amendment No. 2 to the Registration Statement on Form 10... filed by Vylor\". It doesn't explicitly say a prospectus was *issued* (distributed), just that it was filed and amended.\n        *   Actually, re-reading: \"On September 12, 2026, the board of directors of Corteva approved the previously announced separation... To effect the Separation, the board of directors of Corteva declared a pro rata dividend... as of... September 24, 2026\". This is a formal declaration. The approval was given on Sept 12.\n        *   Status Quote: \"board of directors of Corteva approved the previously announced separation (the “Separation”)...\"\n        *   Target Name: \"Vylor Inc. (\"Vylor\")\". Or just \"Vylor Inc.\". I should use the exact source name. \"Vylor Inc.\" appears in parentheses as the company name definition, but later it says \"independent, publicly traded company, Vylor Inc. (\"Vylor\")\". The text identifies it as \"Vylor Inc.\".\n        *   Dates:\n            *   Record Date: September 24, 2026. Kind: scheduled (it is declared but future relative to filing date Sept 15? Wait, if the board approved on Sept 12, and this filing is Sept 15, is the record date \"scheduled\" or is it a declaration that makes it fixed? A declared record date is \"scheduled unless the text explicitly confirms its occurrence.\" Here it says \"as of... September 24, 2026\". It's in the future relative to the filing (Sept 15). So `scheduled`.\n            *   Distribution Date: October 1, 2026. Text: \"expected to be completed prior to 9:30 a.m., New York City time, on October 1, 2026.\" Kind: `scheduled`.\n            *   Listing Date: Text says \"Vylor Common Stock is expected to begin “regular way” trading... at the open of trading on October 1, 2026.\" This is the commencement of regular-way trading. Kind: `scheduled`.\n\n    *   Wait, I need to check if `status` should be `approved` or something else. The filing says \"approved the previously announced separation\". It also says \"consummation... is subject to the satisfaction or waiver of certain conditions\". This implies it's not fully closed/completed. `approved` fits best among options for a filed document confirming board approval and setting terms.\n    *   However, there is an `information statement attached...`. Sometimes this pushes towards `prospectus`. But `prospectus` status says \"for an issued prospectus\". The text mentions a Registration Statement filed by Vylor on Sept 14 (yesterday relative to filing). It doesn't explicitly say the prospectus is *issued* in a way that defines the public availability beyond the registration statement. However, often when a spin-off involves a Form S-4/S-4A/Spin-off Prospectus, and the filing contains that document reference, it might lean `prospectus`. But strictly, \"approved\" seems more grounded in the \"board approved\" sentence. Let's look at the instruction: \"approved for explicit approval\". There is explicit approval of the separation by the board.\n    *   Target Name Quote: Needs to be contiguous verbatim excerpt supporting the target claim. \"Vylor Inc. (“Vylor”)\" or similar.\n    *   Target Name: \"Vylor Inc.\" (The text defines it as Vylor Inc.). I will use \"Vylor Inc.\".\n\n3.  **Drafting JSON:**\n\n    *   `targetName`: \"Vylor Inc.\"\n    *   `targetQuote`: \"separation of Corteva’s seed operating segment into an independent, publicly traded company, Vylor Inc. (“Vylor”)\" (Too long? <= 240 chars). Or simpler: \"independent, publicly traded company, Vylor Inc.\". Let's find a short one. \"Vylor Inc. (“Vylor”)\" is in the text.\n    *   `status`: \"approved\" (Board approved on Sept 12).\n    *   `statusQuote`: \"the board of directors of Corteva approved the previously announced separation\"\n    *   `dates`:\n        *   recordDate: 2026-09-24, kind scheduled, quote: \"as of the close of business on September 24, 2026(the “Record Date”)\"\n        *   distributionDate: 2026-10-01, kind scheduled, quote: \"completed prior to 9:30 a.m., New York City time, on October 1, 2026\"\n        *   listingDate: 2026-10-01, kind scheduled, quote: \"Vylor Common Stock... begin “regular way” trading... on October 1, 2026\"\n\n    Wait, check the Listing Date definition. \"Use regular-way trading commencement for listingDate\". The text says \"begin 'regular way' trading on the NYSE... at the open of trading on October 1, 2026.\" So listingDate is Oct 1, 2026.\n\n    Check Record Date again. \"declared a pro rata dividend... as of the close of business on September 24, 2026(the “Record Date”).\" It is a declared record date. Filing date is Sept 15. So it is in the future. `kind`: \"scheduled\".\n    Check Distribution Date again. \"Distribution... expected to be completed... on October 1, 2026.\" `kind`: \"scheduled\".\n\n    Check Status Quote length. \"the board of directors of Corteva approved the previously announced separation\" -> ~80 chars. Good.\n    Check Target Quote length. \"Vylor Inc. (“Vylor”)\" -> ~21 chars. Or \"independent, publicly traded company, Vylor Inc.\". Let's use \"Vylor Inc. (“Vylor”)\" found near the name introduction.\n\n    One nuance: The text says \"approved the previously announced separation\". Does \"previously announced\" mean it was already `announced`? But this filing confirms the *approval* which is the current state of action described. Usually, if the board just approved it in a formal manner (as distinct from just an IR announcement), and there are specific record dates being declared here, `approved` is the correct stage for the corporate action itself. The prompt says \"explicit approval\". Board approval fits.\n\n    Is there any reason to use `record_set`? \"record_set for a declared record date\". The text *does* declare a record date explicitly. However, `approved` generally encompasses the deal state. If I have to choose one status that best describes the transaction at this filing stage where conditions are still subject to satisfaction (\"consummation... is subject to\"), `approved` seems safer as it reflects the board action. But wait, if there is an explicit declaration of a record date, does that supersede? Usually `approved` indicates the deal has cleared the highest internal hurdle before execution. Let's check constraints again: \"Report the stage AT THIS FILING\". The filing announces the Board Approval and the Record Date. I will prioritize the Board Approval because it determines the transaction's viability. Also, the prompt says `record_set` is for a declared record date. If I select `approved`, does it conflict? No, but I need to pick one string. Given \"approved\" implies the deal moves forward under specific terms (including dates), it covers the declaration. But if the text emphasizes the Record Date declaration as the key step *of this filing*... The first sentence says \"board... approved\". That's the primary action. I will go with `approved`.\n\n    Wait, looking at status list: `needs_review`, `announced`, `approved`, `record_set`, `prospectus`, `completed`, `terminated`, `paused`.\n    Often in financial extraction logic, if a Record Date is explicitly set by the board *in this filing*, it might lean towards `record_set` or `approved`. Let's look for cues. \"On September 12, 2026... approved\". \"Board... declared... Record Date\". Since both happened (approval and declaration) in the same context, `approved` is the broader deal status.\n    However, I need to ensure I don't use outside knowledge. If the text explicitly links approval to the transaction, `approved` is valid.\n\n    Let's refine the quotes for dates.\n    Record Date: \"as of the close of business on September 24, 2026(the “Record Date”)\" (13 chars removed from original context). Quote needs to be contiguous. Text: \"September 24, 2026(the “Record Date”)\". I'll use a substring containing the date and label.\n    Distribution Date: \"Distribution is expected to be completed prior to 9:30 a.m., New York City time, on October 1, 2026.\"\n    Listing Date: \"Vylor Common Stock... begin “regular way” trading on the NYSE... at the open of trading on October 1, 2026.\"\n\n    Let's check `targetName`. Text: \"Vylor Inc. (“Vylor”)\". I'll use \"Vylor Inc.\".\n    `statusQuote`: \"board of directors of Corteva approved the previously announced separation\" (from text).\n    `targetQuote`: \"independent, publicly traded company, Vylor Inc. (\"Vylor\")\" (Need to ensure quotes are escaped or just text). Prompt says \"exact source name\". The source text has `Vylor Inc. (“Vylor”)\"`. I should extract the exact identifier. \"Vylor Inc.\" is the legal name.\n    Wait, I need to check character counts for quotes (<= 240 chars). All my drafts are well under that.\n\n    One more check on Status: \"consummation of the Spin-Off is subject to the satisfaction or waiver of certain conditions\". This sounds like it hasn't closed. It's not `completed`. Is it `announced`? The separation was \"previously announced\", but *this* filing contains the Board Approval. So status at this filing is `approved` (Board approved it now/here).\n    Wait, \"On September 12... approved\". Filing date Sept 15. This is a formal announcement of approval or confirmation. If I treat this as an SEC filing confirming the approval, `approved` is correct.\n\n    Let's finalize the fields.\n    targetName: \"Vylor Inc.\"\n    targetQuote: \"separation... into an independent, publicly traded company, Vylor Inc. (“Vylor”)\" (Check length).\n    Status: \"approved\"\n    statusQuote: \"board of directors of Corteva approved the previously announced separation (the “Separation”",
+          "thinkingObserved": true
+        }
+      ],
+      "commit": "8d8d8c55d70f2536ce38ee3fe64507ed1d5c4639",
+      "complete": true,
+      "config": {
+        "min_p": 0,
+        "num_ctx": 8192,
+        "num_gpu": 0,
+        "num_predict": 4096,
+        "num_thread": 4,
+        "presence_penalty": 1.5,
+        "profile": "qwen-recommended",
+        "repeat_penalty": 1,
+        "schemaMode": "prompt",
+        "seed": 42,
+        "selectedCaseIds": [
+          "ctva"
+        ],
+        "temperature": 1,
+        "think": true,
+        "threads": 4,
+        "timeoutSeconds": 1800,
+        "top_k": 20,
+        "top_p": 0.95
+      },
+      "finishedAt": "2026-09-17T12:07:14Z",
+      "fullSuite": false,
+      "model": "qwen3.5:9b-q8_0",
+      "models": {
+        "models": [
+          {
+            "capabilities": [
+              "completion",
+              "vision",
+              "tools",
+              "thinking"
+            ],
+            "details": {
+              "context_length": 262144,
+              "embedding_length": 4096,
+              "families": [
+                "qwen35"
+              ],
+              "family": "qwen35",
+              "format": "gguf",
+              "parameter_size": "9.7B",
+              "parent_model": "",
+              "quantization_level": "Q8_0"
+            },
+            "digest": "441ec31e4d2aedceb97dd834b036db104d943fbe3dbc1e5c8ac95eeaa9141c77",
+            "model": "qwen3.5:9b-q8_0",
+            "modified_at": "2026-09-17T11:45:24.457308287Z",
+            "name": "qwen3.5:9b-q8_0",
+            "size": 10699928277
+          }
+        ]
+      },
+      "provenance": {
+        "cpu": "AMD EPYC 9V74 80-Core Processor",
+        "job": 105188672605,
+        "run": 35217094611
+      },
+      "resources": {
+        "errors": [],
+        "inferenceExitCode": 0,
+        "maxOllamaRssSumKiB": 11169420,
+        "maxSystemSwapUsedKiB": 44,
+        "minSystemAvailableKiB": 4219492,
+        "note": "Sampled RSS sum can double-count shared pages; system available memory and swap include other runner processes. Not an exact memory peak.",
+        "samplingSeconds": 5
+      },
+      "runtime": {
+        "version": "0.34.1"
+      },
+      "scope": "Six hand-selected real filing excerpts; not a general accuracy estimate. Quotes require human entailment review.",
+      "startedAt": "2026-09-17T11:45:24Z",
+      "suiteSha256": "f91767f34d6bd44573b0fd924f0676b2f4d26bec030687da9b7dc4b5d8db3243",
+      "totals": {
+        "cases": 1,
+        "dates": 0,
+        "errors": 1,
+        "falseCompletion": 0,
+        "fieldsExact": 0,
+        "grounded": 0,
+        "schema": 0,
+        "seconds": 1309.87,
+        "status": 0,
+        "target": 0,
+        "unsupportedTarget": 0
+      }
+    },
+    {
+      "benchmarkVersion": 1,
+      "cases": [
+        {
+          "gold": {
+            "dates": [],
+            "status": "prospectus",
+            "targetNames": [
+              "軒竹生物科技股份有限公司",
+              "軒竹生物"
+            ]
+          },
+          "id": "sihuan_prospectus",
+          "metrics": {
+            "done_reason": "stop",
+            "eval_count": 97,
+            "eval_duration": 23993288000,
+            "load_duration": 8356011947,
+            "prompt_eval_count": 883,
+            "prompt_eval_duration": 89568630000
+          },
+          "output": {
+            "dates": [],
+            "status": "prospectus",
+            "statusQuote": "董事會欣然宣佈，就建議分拆及上市而言，分拆公司已於二零二五年十月六日刊發招股章程。",
+            "targetName": "軒竹生物科技股份有限公司",
+            "targetQuote": "本公司附屬公司軒竹生物科技股份有限公司（「分拆公司」或「軒竹生物」）"
+          },
+          "raw": "{\n  \"targetName\": \"軒竹生物科技股份有限公司\",\n  \"targetQuote\": \"本公司附屬公司軒竹生物科技股份有限公司（「分拆公司」或「軒竹生物」）\",\n  \"status\": \"prospectus\",\n  \"statusQuote\": \"董事會欣然宣佈，就建議分拆及上市而言，分拆公司已於二零二五年十月六日刊發招股章程。\",\n  \"dates\": []\n}",
+          "score": {
+            "dates": true,
+            "falseCompletion": false,
+            "fieldsExact": true,
+            "grounded": false,
+            "schema": true,
+            "status": true,
+            "target": true,
+            "unsupportedTarget": false
+          },
+          "seconds": 121.93,
+          "sourceUrl": "https://www1.hkexnews.hk/listedco/listconews/sehk/2025/1006/2025100601213_c.pdf",
+          "textSha256": "42f3fd5c6388530ca59e0b8681e1871124d8fa924afe09b815c1882fffdc6e9f",
+          "thinking": "",
+          "thinkingObserved": false
+        }
+      ],
+      "commit": "8d8d8c55d70f2536ce38ee3fe64507ed1d5c4639",
+      "complete": true,
+      "config": {
+        "min_p": 0,
+        "num_ctx": 8192,
+        "num_gpu": 0,
+        "num_predict": 4096,
+        "num_thread": 4,
+        "presence_penalty": 1.5,
+        "profile": "qwen-recommended",
+        "repeat_penalty": 1,
+        "schemaMode": "prompt",
+        "seed": 42,
+        "selectedCaseIds": [
+          "sihuan_prospectus"
+        ],
+        "temperature": 1,
+        "think": false,
+        "threads": 4,
+        "timeoutSeconds": 1800,
+        "top_k": 20,
+        "top_p": 0.95
+      },
+      "finishedAt": "2026-09-17T11:47:30Z",
+      "fullSuite": false,
+      "model": "qwen3.5:9b-q8_0",
+      "models": {
+        "models": [
+          {
+            "capabilities": [
+              "completion",
+              "vision",
+              "tools",
+              "thinking"
+            ],
+            "details": {
+              "context_length": 262144,
+              "embedding_length": 4096,
+              "families": [
+                "qwen35"
+              ],
+              "family": "qwen35",
+              "format": "gguf",
+              "parameter_size": "9.7B",
+              "parent_model": "",
+              "quantization_level": "Q8_0"
+            },
+            "digest": "441ec31e4d2aedceb97dd834b036db104d943fbe3dbc1e5c8ac95eeaa9141c77",
+            "model": "qwen3.5:9b-q8_0",
+            "modified_at": "2026-09-17T11:45:28.263673471Z",
+            "name": "qwen3.5:9b-q8_0",
+            "size": 10699928277
+          }
+        ]
+      },
+      "provenance": {
+        "cpu": "AMD EPYC 7763 64-Core Processor",
+        "job": 105188672632,
+        "run": 35217094611
+      },
+      "resources": {
+        "errors": [],
+        "inferenceExitCode": 0,
+        "maxOllamaRssSumKiB": 11103916,
+        "maxSystemSwapUsedKiB": 44,
+        "minSystemAvailableKiB": 4290972,
+        "note": "Sampled RSS sum can double-count shared pages; system available memory and swap include other runner processes. Not an exact memory peak.",
+        "samplingSeconds": 5
+      },
+      "runtime": {
+        "version": "0.34.1"
+      },
+      "scope": "Six hand-selected real filing excerpts; not a general accuracy estimate. Quotes require human entailment review.",
+      "startedAt": "2026-09-17T11:45:28Z",
+      "suiteSha256": "f91767f34d6bd44573b0fd924f0676b2f4d26bec030687da9b7dc4b5d8db3243",
+      "totals": {
+        "cases": 1,
+        "dates": 1,
+        "errors": 0,
+        "falseCompletion": 0,
+        "fieldsExact": 1,
+        "grounded": 0,
+        "schema": 1,
+        "seconds": 121.93,
+        "status": 1,
+        "target": 1,
+        "unsupportedTarget": 0
+      }
+    },
+    {
+      "benchmarkVersion": 1,
+      "cases": [
+        {
+          "gold": {
+            "dates": [],
+            "status": "paused",
+            "targetNames": [
+              ""
+            ]
+          },
+          "id": "leoch_paused",
+          "metrics": {
+            "done_reason": "stop",
+            "eval_count": 44,
+            "eval_duration": 9971693000,
+            "load_duration": 10111504325,
+            "prompt_eval_count": 1067,
+            "prompt_eval_duration": 107887671000
+          },
+          "output": {
+            "dates": [],
+            "status": "paused",
+            "statusQuote": "決定於現階段不進行建議分拆及建議於美國證券交易所上市",
+            "targetName": "",
+            "targetQuote": ""
+          },
+          "raw": "{\"targetName\": \"\", \"targetQuote\": \"\", \"status\": \"paused\", \"statusQuote\": \"決定於現階段不進行建議分拆及建議於美國證券交易所上市\", \"dates\": []}",
+          "score": {
+            "dates": true,
+            "falseCompletion": false,
+            "fieldsExact": true,
+            "grounded": true,
+            "schema": true,
+            "status": true,
+            "target": true,
+            "unsupportedTarget": false
+          },
+          "seconds": 127.99,
+          "sourceUrl": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0401/2026040104407_c.pdf",
+          "textSha256": "da4a37d5a3695b1a7fce2fe9d4870dbef00bf84174f523090493207f74a44883",
+          "thinking": "",
+          "thinkingObserved": false
+        }
+      ],
+      "commit": "8d8d8c55d70f2536ce38ee3fe64507ed1d5c4639",
+      "complete": true,
+      "config": {
+        "min_p": 0,
+        "num_ctx": 8192,
+        "num_gpu": 0,
+        "num_predict": 4096,
+        "num_thread": 4,
+        "presence_penalty": 1.5,
+        "profile": "qwen-recommended",
+        "repeat_penalty": 1,
+        "schemaMode": "prompt",
+        "seed": 42,
+        "selectedCaseIds": [
+          "leoch_paused"
+        ],
+        "temperature": 1,
+        "think": false,
+        "threads": 4,
+        "timeoutSeconds": 1800,
+        "top_k": 20,
+        "top_p": 0.95
+      },
+      "finishedAt": "2026-09-17T11:47:36Z",
+      "fullSuite": false,
+      "model": "qwen3.5:9b-q8_0",
+      "models": {
+        "models": [
+          {
+            "capabilities": [
+              "completion",
+              "vision",
+              "tools",
+              "thinking"
+            ],
+            "details": {
+              "context_length": 262144,
+              "embedding_length": 4096,
+              "families": [
+                "qwen35"
+              ],
+              "family": "qwen35",
+              "format": "gguf",
+              "parameter_size": "9.7B",
+              "parent_model": "",
+              "quantization_level": "Q8_0"
+            },
+            "digest": "441ec31e4d2aedceb97dd834b036db104d943fbe3dbc1e5c8ac95eeaa9141c77",
+            "model": "qwen3.5:9b-q8_0",
+            "modified_at": "2026-09-17T11:45:27.152441992Z",
+            "name": "qwen3.5:9b-q8_0",
+            "size": 10699928277
+          }
+        ]
+      },
+      "provenance": {
+        "cpu": "AMD EPYC 7763 64-Core Processor",
+        "job": 105188672648,
+        "run": 35217094611
+      },
+      "resources": {
+        "errors": [],
+        "inferenceExitCode": 0,
+        "maxOllamaRssSumKiB": 11167312,
+        "maxSystemSwapUsedKiB": 24,
+        "minSystemAvailableKiB": 4231912,
+        "note": "Sampled RSS sum can double-count shared pages; system available memory and swap include other runner processes. Not an exact memory peak.",
+        "samplingSeconds": 5
+      },
+      "runtime": {
+        "version": "0.34.1"
+      },
+      "scope": "Six hand-selected real filing excerpts; not a general accuracy estimate. Quotes require human entailment review.",
+      "startedAt": "2026-09-17T11:45:28Z",
+      "suiteSha256": "f91767f34d6bd44573b0fd924f0676b2f4d26bec030687da9b7dc4b5d8db3243",
+      "totals": {
+        "cases": 1,
+        "dates": 1,
+        "errors": 0,
+        "falseCompletion": 0,
+        "fieldsExact": 1,
+        "grounded": 1,
+        "schema": 1,
+        "seconds": 127.99,
+        "status": 1,
+        "target": 1,
+        "unsupportedTarget": 0
+      }
+    },
+    {
+      "benchmarkVersion": 1,
+      "cases": [
+        {
+          "gold": {
+            "dates": [],
+            "status": "announced",
+            "targetNames": [
+              "Teyame AI Holdings, Inc.",
+              "Teyame"
+            ]
+          },
+          "id": "hcti",
+          "metrics": {
+            "done_reason": "stop",
+            "eval_count": 78,
+            "eval_duration": 20367015000,
+            "load_duration": 11361624191,
+            "prompt_eval_count": 1429,
+            "prompt_eval_duration": 150284203000
+          },
+          "output": {
+            "dates": [],
+            "status": "announced",
+            "statusQuote": "\"planned separation and spin-off\"... \"HCTI intends to distribute\"",
+            "targetName": "Teyame AI Holdings, Inc.",
+            "targetQuote": "\"planned separation and spin-off of Teyame from the Company\""
+          },
+          "raw": "{\n  \"targetName\": \"Teyame AI Holdings, Inc.\",\n  \"targetQuote\": \"\\\"planned separation and spin-off of Teyame from the Company\\\"\",\n  \"status\": \"announced\",\n  \"statusQuote\": \"\\\"planned separation and spin-off\\\"... \\\"HCTI intends to distribute\\\"\",\n  \"dates\": []\n}",
+          "score": {
+            "dates": true,
+            "falseCompletion": false,
+            "fieldsExact": true,
+            "grounded": false,
+            "schema": true,
+            "status": true,
+            "target": true,
+            "unsupportedTarget": false
+          },
+          "seconds": 182.04,
+          "sourceUrl": "https://www.sec.gov/Archives/edgar/data/1839285/000121390026097953/ea0304854-8k_healthcare.htm",
+          "textSha256": "f71dfc5b117aa0eaac4b30d46736828d3873b018655031ab3e53afd68221e3ee",
+          "thinking": "",
+          "thinkingObserved": false
+        }
+      ],
+      "commit": "8d8d8c55d70f2536ce38ee3fe64507ed1d5c4639",
+      "complete": true,
+      "config": {
+        "min_p": 0,
+        "num_ctx": 8192,
+        "num_gpu": 0,
+        "num_predict": 4096,
+        "num_thread": 4,
+        "presence_penalty": 1.5,
+        "profile": "qwen-recommended",
+        "repeat_penalty": 1,
+        "schemaMode": "prompt",
+        "seed": 42,
+        "selectedCaseIds": [
+          "hcti"
+        ],
+        "temperature": 1,
+        "think": false,
+        "threads": 4,
+        "timeoutSeconds": 1800,
+        "top_k": 20,
+        "top_p": 0.95
+      },
+      "finishedAt": "2026-09-17T11:48:40Z",
+      "fullSuite": false,
+      "model": "qwen3.5:9b-q8_0",
+      "models": {
+        "models": [
+          {
+            "capabilities": [
+              "completion",
+              "vision",
+              "tools",
+              "thinking"
+            ],
+            "details": {
+              "context_length": 262144,
+              "embedding_length": 4096,
+              "families": [
+                "qwen35"
+              ],
+              "family": "qwen35",
+              "format": "gguf",
+              "parameter_size": "9.7B",
+              "parent_model": "",
+              "quantization_level": "Q8_0"
+            },
+            "digest": "441ec31e4d2aedceb97dd834b036db104d943fbe3dbc1e5c8ac95eeaa9141c77",
+            "model": "qwen3.5:9b-q8_0",
+            "modified_at": "2026-09-17T11:45:37.73670862Z",
+            "name": "qwen3.5:9b-q8_0",
+            "size": 10699928277
+          }
+        ]
+      },
+      "provenance": {
+        "cpu": "AMD EPYC 9V74 80-Core Processor",
+        "job": 105188672652,
+        "run": 35217094611
+      },
+      "resources": {
+        "errors": [],
+        "inferenceExitCode": 0,
+        "maxOllamaRssSumKiB": 11164672,
+        "maxSystemSwapUsedKiB": 44,
+        "minSystemAvailableKiB": 4262640,
+        "note": "Sampled RSS sum can double-count shared pages; system available memory and swap include other runner processes. Not an exact memory peak.",
+        "samplingSeconds": 5
+      },
+      "runtime": {
+        "version": "0.34.1"
+      },
+      "scope": "Six hand-selected real filing excerpts; not a general accuracy estimate. Quotes require human entailment review.",
+      "startedAt": "2026-09-17T11:45:37Z",
+      "suiteSha256": "f91767f34d6bd44573b0fd924f0676b2f4d26bec030687da9b7dc4b5d8db3243",
+      "totals": {
+        "cases": 1,
+        "dates": 1,
+        "errors": 0,
+        "falseCompletion": 0,
+        "fieldsExact": 1,
+        "grounded": 0,
+        "schema": 1,
+        "seconds": 182.04,
+        "status": 1,
+        "target": 1,
+        "unsupportedTarget": 0
+      }
+    },
+    {
+      "benchmarkVersion": 1,
+      "cases": [
+        {
+          "gold": {
+            "dates": [],
+            "status": "needs_review",
+            "targetNames": [
+              ""
+            ]
+          },
+          "id": "blze",
+          "metrics": {
+            "done_reason": "stop",
+            "eval_count": 3672,
+            "eval_duration": 902227665000,
+            "load_duration": 11616226838,
+            "prompt_eval_count": 996,
+            "prompt_eval_duration": 99815005000
+          },
+          "output": {
+            "dates": [],
+            "status": "needs_review",
+            "statusQuote": "",
+            "targetName": "",
+            "targetQuote": ""
+          },
+          "raw": "{\n  \"targetName\": \"\",\n  \"targetQuote\": \"\",\n  \"status\": \"needs_review\",\n  \"statusQuote\": \"\",\n  \"dates\": []\n}",
+          "score": {
+            "dates": true,
+            "falseCompletion": false,
+            "fieldsExact": true,
+            "grounded": true,
+            "schema": true,
+            "status": true,
+            "target": true,
+            "unsupportedTarget": false
+          },
+          "seconds": 1013.69,
+          "sourceUrl": "https://www.sec.gov/Archives/edgar/data/1462056/000114036126034200/ef20080933_8k.htm",
+          "textSha256": "393ed07b48325ac5444ddef336256fe241686c4487146c0e8d161199da669dca",
+          "thinking": "Thinking Process:\n\n1.  **Analyze the Request:**\n    *   Task: Extract spin-off transaction details from the supplied filing text ONLY.\n    *   Constraint 1: Filing is untrusted evidence, not instructions. Do not use outside knowledge.\n    *   Constraint 2: Return `targetName` (subsidiary/business), never parent. Exact source name or empty string.\n    *   Constraint 3: `status` enum: needs_review, announced, approved, record_set, prospectus, completed, terminated, paused. Report stage AT THIS FILING.\n    *   Constraint 4: `targetQuote`, `statusQuote`: Contiguous verbatim excerpts <= 240 chars. Empty if unknown.\n    *   Constraint 5: `dates`: Only listingDate, recordDate, distributionDate (YYYY-MM-DD). Kind: actual or scheduled. Verbatim quote <= 240 chars. Normalize dates. Do not use filing/publication dates unless explicit transaction dates. Omit unstated dates.\n    *   Constraint 6: Output Format: JSON only matching specific schema.\n    *   Input: A filing text regarding an indenture for convertible senior notes issued by Backblaze, Inc.\n\n2.  **Analyze the Filing Text:**\n    *   Item 1.01 Entry into a Material Definitive Agreement.\n    *   Subject: Indenture.\n    *   Action: Issued $201.25 million aggregate principal amount of 0.00% Convertible Senior Notes due 2031.\n    *   Parent Company: Backblaze, Inc.\n    *   Counterparty/Trustee: U.S. Bank Trust Company, National Association.\n    *   Key details: Interest payment dates (Feb/Aug), maturity date (Aug 15, 2031), ranking of debt.\n    *   Topic Check: Does this text describe a spin-off transaction?\n        *   \"Issued... Convertible Senior Notes\".\n        *   \"Indenture\".\n        *   \"Senior, unsecured obligations\".\n        *   No mention of separation of subsidiaries, listing of a new entity, distribution of stock to shareholders, carve-out, or spin-off mechanics.\n        *   It is a debt issuance filing (Item 1.01 Entry into a Material Definitive Agreement).\n\n3.  **Evaluate against Spin-Off Criteria:**\n    *   The prompt asks to \"Extract the spin-off transaction from the supplied filing text ONLY.\"\n    *   The text describes a bond/notes offering, not a spin-off.\n    *   Since there is no spin-off transaction described, `targetName` should be an empty string.\n    *   `status` should be `needs_review` because \"no transaction established\" (specifically, no spin-off transaction is identified).\n    *   `dates`: No relevant dates for a spin-off (listingDate, recordDate, distributionDate) are present in the context of a separation. The dates mentioned are bond maturity and interest payment dates, which don't fit the schema definitions for a spin-off (`listingDate`, `recordDate`, `distributionDate` usually imply equity distribution).\n    *   `quotes`: Need to reflect the lack of spin-off info or empty strings. Since the instruction says \"Empty string if the text does not identify it\" regarding targetName, and quotes must support claims. If there is no claim of a spin-off, I cannot provide a quote supporting a status like \"completed\". The safest status for *no* transaction identified in this specific context (spin-off) is `needs_review`.\n\n4.  **Determine Specific Fields:**\n    *   `targetName`: \"\" (Empty string). No subsidiary or business is mentioned as being spun off. Backblaze, Inc. is the issuer of debt.\n    *   `statusQuote`: \"\" (Empty string if unknown/not applicable to spin-off context). Or should I quote text explaining it's a note issuance? The instruction says \"targetQuote and statusQuote must be contiguous verbatim excerpts supporting each claim\". Since the claim is effectively that there is no spin-off (or rather, the extraction is looking for one and finds none), usually `needs_review` implies the filing was received but the specific transaction type wasn't confirmed or needs manual checking. However, strict adherence to \"Extract the spin-off transaction... Empty string if the text does not identify it\" applies to `targetName`. For status, if no spin-off is found, `needs_review` is appropriate because the file exists but contains no data for this schema's purpose (spin-off). I will leave quotes empty or provide a quote indicating it's a debt filing to explain why it's not completed/spin-off? Actually, looking at the instruction: \"Report the stage AT THIS FILING... needs_review if no transaction established\". So `needs_review` is correct. Quotes supporting `needs_review` are tricky if there's actually *no* spin-off. Usually, if no transaction is found, quotes might be empty or indicate the nature of the filing. Let's look at similar tasks. Often, if it's not a spin-off, we return empty strings for name/quotes and status needs_review.\n    *   Wait, `targetQuote` must support `targetName`. If targetName is \"\", targetQuote should likely be \"\". `statusQuote` must support `status`. Status is `needs_review` because no transaction established (meaning no spin-off established here). Is there a quote to support that? The text says \"Entry into a Material Definitive Agreement... Issued... Notes\". This proves it's not a spin-off. However, the instruction says \"Do not use outside knowledge.\" I must extract what is there. Since there is *no* spin-off transaction, I cannot cite a quote for a status of \"announced\" or \"completed\". `needs_review` fits best as default for \"file received but no specific transaction data extracted for this schema\". Quote can be empty if nothing supports the claim specifically? No, \"targetQuote and statusQuote must be contiguous verbatim excerpts supporting each claim\". A claim that status is needs_review because \"no transaction established\" relies on the text not showing a spin-off. I will leave quotes empty to avoid hallucinating support for non-existent data, or quote the filing header to show what *is* there? Usually, for negative extractions, quotes are left empty if no specific clause defines it. Let's check constraints: \"Empty when unknown.\" If the status is `needs_review` due to lack of info, is that \"unknown\"? It implies we don't have enough info to declare a stage like completed. I will use empty strings for quotes as no specific spin-off language exists to quote.\n    *   `dates`: All dates should be omitted because there are no `listingDate`, `recordDate`, or `distributionDate` relevant to a spin-off. (The notes maturity date is not a listing date for an entity).\n\n5.  **Refine Decision:**\n    *   The text is about debt issuance (\"Convertible Senior Notes\").\n    *   There is no mention of a subsidiary being spun off, equity distribution, or a new entity listing resulting from a separation.\n    *   Therefore:\n        *   `targetName`: \"\"\n        *   `statusQuote`: \"\"\n        *   `status`: \"needs_review\" (Instruction: \"needs_review if no transaction established\")\n        *   `targetQuote`: \"\"\n        *   `dates`: [] (No relevant dates)\n\n6.  **Schema Check:**\n    *   `targetName`: string. OK.\n    *   `targetQuote`: string. OK.\n    *   `status`: enum. \"needs_review\" is in list. OK.\n    *   `statusQuote`: string. OK.\n    *   `dates`: array of objects. Empty array is valid per schema (\"maxItems\": 3).\n\n7.  **Final Verification:**\n    *   Did I identify a spin-off? No.\n    *   Does the text mention Backblaze spinning off something? No, it mentions issuing notes.\n    *   Is `needs_review` the correct status when no transaction is identified in the filing? Yes, \"needs_review if no transaction established\".\n    *   Are quotes empty? Yes, because there is no spin-off quote to extract.\n    *   JSON structure valid? Yes.\n\n    One nuance: Should I report `needs_review` if it's clearly *not* a spin-off at all (e.g., Item 1.01 Notes)? Usually, in these extraction tasks, if the filing type doesn't match the target event (spin-off), the status is often `needs_review` to indicate that manual review concluded no transaction was found *in this context*, or sometimes specific schemas might expect a different value. However, based on \"Report the stage AT THIS FILING... needs_review if no transaction established\", and since the text describes a Note issuance (transaction type: Debt Offering) not a Spin-off (transaction type: Separation), I treat it as \"no spin-off transaction established\" in this document.\n\n    Wait, re-reading: \"needs_review if no transaction established\". This usually means we can't confirm the status yet. If it's definitely a debt offering, is it `needs_review` for a *spin-off*? Yes, because the schema asks to extract the spin-off transaction. Since none exists, the status of the extraction effort is that it needs review or simply indicates null data. The instruction says \"Report the stage AT THIS FILING\". Since there is no spin-off filed, `needs_review` is the safe state for \"No info found/Not established\".\n\n    Let's ensure quotes are empty if unknown. `statusQuote`: If status is needs_review because text doesn't define a transaction, quote can be empty.\n    `targetName`: Empty string.\n    `dates`: Empty list.\n\n    Wait, I should check if there's any hidden subsidiary mention. \"rank: ... to any of the Company’s indebtedness... structurally junior to all indebtedness ... of the Company’s subsidiaries.\" Just mentions subsidiaries exist for ranking purposes. No specific spin-off.\n\n    Conclusion: No spin-off transaction found.\n    Target Name: \"\"\n    Status: needs_review\n    Quotes: \"\"\n    Dates: []\n\n8.  **Construct JSON:**\n    ```json\n    {\n      \"targetName\": \"\",\n      \"targetQuote\": \"\",\n      \"status\": \"needs_review\",\n      \"statusQuote\": \"\",\n      \"dates\": []\n    }\n    ```\n    Wait, I need to make sure `statusQuote` isn't required to be populated if status is `needs_review`. \"Empty when unknown\". If the text doesn't establish a transaction, the quote for that status (which implies review of file content) might be empty. However, providing a quote showing *why* it's needs_review (i.e., this is a debt filing not spin-off) could be useful, but strict adherence to \"contiguous verbatim excerpts supporting each claim\" applies. The claim is \"needs_review\". Supporting that \"no transaction established\" requires showing there isn't one. But usually, for negative matches in these tasks, empty quotes are standard when the specific event type isn't present. I will leave them empty to avoid violating the constraint of extracting spin-off data which doesn't exist. Actually, looking at the instruction: \"targetQuote and statusQuote must be contiguous verbatim excerpts supporting each claim\". Claim = \"needs_review\". Evidence = Text shows Debt Issuance, not Spin-off. Since I can't find a quote that *says* it's needs review (that's my inference), empty is safer or quoting the \"Notes\" part to show what *is* there? If I quote \"Issued... Notes\", does it support `needs_review` for a spin-off? Indirectly. But better to follow \"Empty when unknown\". Here, transaction type is unknown/none.\n\n    Actually, looking at previous examples of this task type (often associated with legal extraction datasets like FinBERT/SEC filings): If the filing clearly isn't about the event type (Spin-off), `targetName` is empty, status is often `needs_review` or specific to what was found. Given \"Extract the spin-off transaction... needs_review if no transaction established\", I will set status to `needs_review` and quotes empty because there is no *spin-off* quote available.\n\n    One check: Is it possible the user considers a debt issuance a spin-off in some context? No, they are distinct financial actions.\n    So, strictly following instructions: Extract spin-off. Text has none. Return empty fields + needs_review status.\n\n    Wait, constraint: \"Report the stage AT THIS FILING\". If no transaction is established (because it's not a spin-off filing), `needs_review` is the logical default.\n\n    Final check on `dates`: The instruction says \"Omit unstated dates.\" Since spin-off specific dates are unstated/absent, array should be empty.\n\n    Let's assemble JSON.\n\n```json\n{\n  \"targetName\": \"\",\n  \"targetQuote\": \"\",\n  \"status\": \"needs_review\",\n  \"statusQuote\": \"\",\n  \"dates\": []\n}\n```\n\nWait, I need to double check the `status` definition: \"needs_review if no transaction established\". Since a spin-off transaction is not established in this text (it's a note indenture), `needs_review` is correct.\n\nOne detail: `targetQuote`. \"Empty string if the text does not identify it.\" This applies to `targetName`. For `targetQuote`, \"contiguous verbatim excerpts supporting each claim\". If I claim status is `needs_review` because no spin-off, is there a quote? No specific sentence says \"no spin-off\". So empty is correct.\n\nWait, I need to ensure the JSON keys match the schema exactly.\nSchema: `targetName`, `targetQuote`, `status`, `statusQuote`, `dates`.\nAll present.\n\nOne last check on dates schema: `\"items\": {\"type\": \"object\", \"additionalProperties\": false, \"required\": [\"field\", \"date\", \"kind\", \"quote\"], ...}`. If array is empty, it's valid (\"maxItems\": 3).\n\nOkay, ready to generate.\n\nWait, I should verify if \"Backblaze, Inc.\" could be the targetName? No, instruction says \"Return the separated subsidiary/business as targetName, never the parent.\" Backblaze is the parent/issuer of notes here.\nSo `targetName` remains empty.\n\nOne more thing: \"The FINAL answer must be a JSON object matching this schema\". I must not include markdown code blocks if the prompt implies raw JSON? \"Return JSON only.\" usually means raw text, but often wrapped in markdown block for display. The instruction says \"Return JSON only.\" I will output raw JSON text to be safe, or standard markdown code block if it allows. Usually, \"Return JSON only\" means no conversational text. I will output the JSON string.\n\nWait, checking the `statusQuote` constraint again: \"targetQuote and statusQuote must be contiguous verbatim excerpts supporting each claim\".\nIf status is `needs_review`, the claim is \"no transaction established\". Is there a quote? No explicit statement of spin-off existence/absence is required to infer this based on document type, but I don't have text that explicitly says \"We are not spinning off\". I will leave it empty as per \"Empty when unknown\" logic applies to extracted data. Since the status is a default for lack of data, quotes might not be available.\n\nWait, looking at `dates`. \"Omit unstated dates.\"\nThere are no listing/record/distribution dates for a spin-off. So empty array.\n\nOkay, final plan:\ntargetName: \"\"\ntargetQuote: \"\"\nstatus: \"needs_review\"\nstatusQuote: \"\"\ndates: []\n\nWait, is it possible I should extract the date of the filing as `listingDate` with `scheduled`? No, instruction says \"Omit unstated dates.\" and \"Use regular-way trading commencement for listingDate\". Filing date (2026-08-24) is not listing date.\n\nFinal decision:\n```json\n{\n\"targetName\": \"\",\n\"targetQuote\": \"\",\n\"status\": \"needs_review\",\n\"statusQuote\": \"\",\n\"dates\": []\n}\n```\nWait, I must ensure valid JSON. Double quotes for keys and strings.\n\nOne consideration: Is `needs_review` the best status if it is clearly *not* a spin-off? The prompt says \"Extract the spin-off transaction...\". If none found, `needs_review` implies we are reviewing the filing to find one or determining the state. Given the strict rules (\"Report the stage AT THIS FILING\"), and \"needs_review if no transaction established\", this fits best among the options since `completed`, `terminated`, etc., are false, and `announced` requires a proposal/plan of spin-off which isn't there.\n\nLet's produce the JSON.",
+          "thinkingObserved": true
+        }
+      ],
+      "commit": "8d8d8c55d70f2536ce38ee3fe64507ed1d5c4639",
+      "complete": true,
+      "config": {
+        "min_p": 0,
+        "num_ctx": 8192,
+        "num_gpu": 0,
+        "num_predict": 4096,
+        "num_thread": 4,
+        "presence_penalty": 1.5,
+        "profile": "qwen-recommended",
+        "repeat_penalty": 1,
+        "schemaMode": "prompt",
+        "seed": 42,
+        "selectedCaseIds": [
+          "blze"
+        ],
+        "temperature": 1,
+        "think": true,
+        "threads": 4,
+        "timeoutSeconds": 1800,
+        "top_k": 20,
+        "top_p": 0.95
+      },
+      "finishedAt": "2026-09-17T12:02:38Z",
+      "fullSuite": false,
+      "model": "qwen3.5:9b-q8_0",
+      "models": {
+        "models": [
+          {
+            "capabilities": [
+              "completion",
+              "vision",
+              "tools",
+              "thinking"
+            ],
+            "details": {
+              "context_length": 262144,
+              "embedding_length": 4096,
+              "families": [
+                "qwen35"
+              ],
+              "family": "qwen35",
+              "format": "gguf",
+              "parameter_size": "9.7B",
+              "parent_model": "",
+              "quantization_level": "Q8_0"
+            },
+            "digest": "441ec31e4d2aedceb97dd834b036db104d943fbe3dbc1e5c8ac95eeaa9141c77",
+            "model": "qwen3.5:9b-q8_0",
+            "modified_at": "2026-09-17T11:45:44.324117556Z",
+            "name": "qwen3.5:9b-q8_0",
+            "size": 10699928277
+          }
+        ]
+      },
+      "provenance": {
+        "cpu": "AMD EPYC 7763 64-Core Processor",
+        "job": 105188672691,
+        "run": 35217094611
+      },
+      "resources": {
+        "errors": [],
+        "inferenceExitCode": 0,
+        "maxOllamaRssSumKiB": 11111940,
+        "maxSystemSwapUsedKiB": 60,
+        "minSystemAvailableKiB": 4292692,
+        "note": "Sampled RSS sum can double-count shared pages; system available memory and swap include other runner processes. Not an exact memory peak.",
+        "samplingSeconds": 5
+      },
+      "runtime": {
+        "version": "0.34.1"
+      },
+      "scope": "Six hand-selected real filing excerpts; not a general accuracy estimate. Quotes require human entailment review.",
+      "startedAt": "2026-09-17T11:45:44Z",
+      "suiteSha256": "f91767f34d6bd44573b0fd924f0676b2f4d26bec030687da9b7dc4b5d8db3243",
+      "totals": {
+        "cases": 1,
+        "dates": 1,
+        "errors": 0,
+        "falseCompletion": 0,
+        "fieldsExact": 1,
+        "grounded": 1,
+        "schema": 1,
+        "seconds": 1013.69,
+        "status": 1,
+        "target": 1,
+        "unsupportedTarget": 0
+      }
+    },
+    {
+      "benchmarkVersion": 1,
+      "cases": [
+        {
+          "error": "ValueError: Output token budget exhausted",
+          "gold": {
+            "dates": [],
+            "status": "paused",
+            "targetNames": [
+              ""
+            ]
+          },
+          "id": "leoch_paused",
+          "metrics": {
+            "done_reason": "length",
+            "eval_count": 4096,
+            "eval_duration": 1187736412000,
+            "load_duration": 8864204063,
+            "prompt_eval_count": 1065,
+            "prompt_eval_duration": 111996299000
+          },
+          "raw": "",
+          "score": {
+            "dates": false,
+            "falseCompletion": false,
+            "fieldsExact": false,
+            "grounded": false,
+            "schema": false,
+            "status": false,
+            "target": false,
+            "unsupportedTarget": false
+          },
+          "seconds": 1308.63,
+          "sourceUrl": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0401/2026040104407_c.pdf",
+          "textSha256": "da4a37d5a3695b1a7fce2fe9d4870dbef00bf84174f523090493207f74a44883",
+          "thinking": "Thinking Process:\n\n1.  **Analyze the Request:**\n    *   Input: A filing text in Chinese/English regarding Leoch International Technology Limited (理士國際技術有限公司).\n    *   Task: Extract spin-off transaction details.\n    *   Constraints:\n        *   Only use provided filing text (no outside knowledge).\n        *   Return JSON object matching a specific schema.\n        *   `targetName`: Name of the separated subsidiary/business (exact source, not parent). Empty string if not identified.\n        *   `status`: One of [\"needs_review\", \"announced\", \"approved\", \"record_set\", \"prospectus\", \"completed\", \"terminated\", \"paused\"]. Based on current state in filing.\n        *   `targetQuote`, `statusQuote`: Contiguous verbatim excerpts (<= 240 chars). Empty if unknown.\n        *   `dates`: Array of objects for `listingDate`, `recordDate`, `distributionDate` only if explicitly stated. Normalize to YYYY-MM-DD. Kind: \"actual\" or \"scheduled\". Quote: Verbatim excerpt <= 240 chars. Omit unstated dates.\n        *   Output: JSON only.\n\n2.  **Analyze the Filing Text:**\n    *   Header: Standard HKEX disclaimer.\n    *   Company: Leoch International Technology Limited (理士國際技術有限公司). Stock Code placeholder \"（股份代號：）\".\n    *   Subject: Latest update on proposed spin-off and proposed distribution (建議分拆及建議分派之最新消息).\n    *   Content:\n        *   Refers to previous announcements (Feb 12, 2025, Dec 31, 2025, Jan 13, 2026, Feb 2, 2026, Feb 27, 2026, Mar 10, 2026) and circular (Dec 15, 2025).\n        *   **Crucial Sentence:** \"經諮詢其建議分拆的顧問，分拆公司於考慮現時市場及監管狀況等多項因素後，決定於現階段不進行建議分拆及建議於美國證券交易所上市。\" (After consulting its advisors on the spin-off, the Spin-off Company, after considering various factors including current market and regulatory conditions, has decided *not* to proceed with the proposed spin-off and proposed listing on a US stock exchange at this stage.)\n        *   Reason: \"分拆公司將調整其融資策略並尋求新機遇。\" (The Spin-off Company will adjust its financing strategy and seek new opportunities.)\n    *   Conclusion: The proposal was cancelled or postponed/terminated based on the decision not to proceed.\n    *   Date of Filing: 2026-04-01.\n\n3.  **Determine Fields:**\n    *   `targetName`: The text mentions \"分拆公司\" (Spin-off Company) but does not explicitly name the subsidiary being spun off in this specific snippet. It refers to previous announcements which might have named it, but based on *this* text alone, it only says \"Leoch International Technology Limited ... 有關建議分拆\". Usually, Leoch is the parent (\"本公司\"). The spin-off company isn't explicitly named as a distinct entity (like \"Leoch Americas LLC\") in *this* text block. Wait, looking closely: \"Leoch International Technology Limited 理士國際技術有限公司... 有關建議分拆及建議分派... 決定於現階段不進行建議分拆\". It doesn't name the subsidiary target in this specific filing text provided. However, usually, if a spin-off is mentioned without naming the subsidiary, I need to check if there's a name. The header says \"Leoch International Technology Limited\". This is the parent. The text refers to \"分拆公司\" (the company being spun off). Since the text doesn't provide the specific legal name of the subsidiary target (only referring to it as \"分拆公司\"), `targetName` should likely be empty string according to the rule \"Exact source name... Empty string if the text does not identify it\".\n    *   `status`: The company decided *not* to proceed with the proposed spin-off. This implies a cancellation or termination of the proposal. Options: \"terminated\" (for cancellation), \"paused\" (for postponement). Text says \"決定於現階段不進行建議分拆... 分拆公司將調整其融資策略\". This sounds like a pause or termination for now (\"at this stage\"). However, later text often clarifies if it's terminated. \"Decided not to proceed... at this stage\". Often classified as `paused` (postponement) if there's potential to resume, or `terminated` if cancelled. The prompt says: \"terminated for cancellation; paused for postponement.\" \"決定於現階段不進行\" (decided not to proceed at this stage). This is often treated as a pause/postponement of the plan rather than a permanent termination. However, looking at HKEX announcements similar patterns: \"cancel/terminate\" vs \"postpone/pause\". The phrase \"at this stage\" suggests it might be paused/rescheduleable. But let's look at the instruction: \"A proposed or scheduled date is not completion.\" \"terminated for cancellation; paused for postponement.\" If they say they decided *not* to proceed, is that a pause? Often companies say \"postpone indefinitely\" or \"terminate\". Here it says \"decided not to proceed... at this stage\". I will lean towards `paused` (postponement) as opposed to `terminated` (cancellation), but `terminated` might fit if the plan is abandoned. However, usually, \"not to proceed... at this stage\" implies a temporary halt (pause). Let's check the status options again. `terminated` is cancellation. `paused` is postponement. Given \"adjust financing strategy\", it implies future possibility changes. I'll choose `paused` as it fits \"postponement\". *Correction*: Often if a deal is effectively killed for now, some taxonomies mark it `terminated`. But standard interpretation of \"not to proceed at this stage\" is often a pause. Let's look for keywords: \"cancel\", \"terminate\", \"suspend\", \"postpone\". No explicit cancellation word found, just \"decided not to proceed... at this stage\".\n    *   Wait, looking closer at the prompt instructions regarding status: \"terminated for cancellation; paused for postponement.\"\n    *   If the text says \"decided not to proceed\", does that mean the transaction is off? It's an update saying they *won't* do it now. This is effectively a cancellation of the *proposal* for now. But since they are spinning out, and usually spin-offs require a record, if they cancel, the target doesn't exist as public company yet.\n    *   Let's consider `terminated`. If they stop the spin-off entirely? \"decided not to proceed... at this stage\". This is ambiguous. However, in financial NLP contexts for HKEX filings, \"not to proceed\" often maps to cancellation/termination of the specific transaction plan. But if they just pause?\n    *   Let's check the instruction: \"status: ... terminated for cancellation; paused for postponement.\"\n    *   If I search for similar cases in Leoch announcements: Usually, when a company says \"decided not to proceed... at this stage\", it is often treated as `paused` or `terminated`. Given \"adjust financing strategy and seek new opportunities\", it implies they might try again later. So `paused` seems more accurate than permanent cancellation (`terminated`).\n    *   Let's check `statusQuote`: Must support the claim. Quote: \"決定於現階段不進行建議分拆及建議於美國證券交易所上市。\" (Decided not to proceed with proposed spin-off...).\n    *   `targetName`: The text mentions \"分拆公司\" (Spin-off Company) but does not give its registered name. The parent is Leoch International Technology Limited. Since the target name is not explicitly provided in this text (it refers to previous announcements for definition), I must return empty string per instruction: \"Empty string if the text does not identify it\".\n    *   `dates`: No listingDate, recordDate, or distributionDate are explicitly stated as dates (scheduled or actual). The text says \"at this stage\". So omit dates array.\n\n4.  **Refining Status:**\n    *   Is it `terminated` or `paused`?\n    *   Text: \"決定於現階段不進行建議分拆... 分拆公司將調整其融資策略並尋求新機遇。\"\n    *   This is a decision *not to proceed*. It doesn't explicitly say \"cancelled\". \"At this stage\" implies it might happen later. So `paused` (postponement) fits best.\n    *   However, if the filing date is 2026-04-01 and previous announcements were about a spin-off, and now they stop, is it `terminated`? Usually, \"termination\" implies giving up on it forever or for the foreseeable future without immediate plan to resume. \"Pause\" implies we wait. Given \"adjust financing strategy\", it sounds like they are waiting. I will use `paused`.\n    *   Wait, looking at the instruction: \"Report the stage AT THIS FILING\". If they decided *not* to proceed, the transaction is not happening now.\n    *   Let's consider `statusQuote`: \"決定於現階段不進行建議分拆及建議於美國證券交易所上市。\"\n\n5.  **Refining Target Name:**\n    *   Is there a name hidden? \"Leoch International Technology Limited ... (股份代號：)842\". This is the parent.\n    *   \"分拆公司\" refers to the entity being spun off. No specific name like \"Leoch Energy Solutions Co.\" is in this text.\n    *   Result: `targetName` = \"\".\n\n6.  **Refining JSON Schema:**\n    *   Ensure all required fields are present.\n    *   `dates`: Should be an array. If no dates, empty array `[]`. The schema says `required: [\"listingDate\", \"recordDate\", \"distributionDate\"]` inside items? No, `items` properties have those as optional in schema logic usually, but the instruction says \"Omit unstated dates\". The schema definition shows `dates`: `{\"type\": \"array\", \"maxItems\": 3, ...}`. If I don't know them, I put an empty array.\n    *   Wait, the schema says: `\"required\": [\"targetName\", \"targetQuote\", \"status\", \"statusQuote\", \"dates\"]`. So `dates` must be present (even if empty).\n    *   `status`: Must match enum. `paused` is valid.\n    *   `statusQuote`: Quote supporting status.\n\n7.  **Final Check:**\n    *   Filing Date: 2026-04-01.\n    *   Text confirms decision not to proceed at this stage.\n    *   Status: `paused` (postponement of the plan). Or `terminated`? If they decide \"not to proceed\", it's often effectively terminated in that context unless explicitly rescheduled. However, \"at this stage\" + \"adjust strategy\" strongly implies a hold/pause. I will stick with `paused`.\n    *   Target Name: Not present. Empty string.\n    *   Dates: None found (listing, record, distribution).\n\n    *Self-Correction on Status:* In many regulatory contexts, if a company announces they are not going ahead with the deal \"at this stage\", it is often classified as `paused` (postponement). If they say \"cancel\", it's `terminated`. The text says \"decided not to proceed... at this stage\". I will use `paused`.\n    *Wait, looking at the provided schema again:* `status`: ... enum includes \"terminated\" and \"paused\".\n    *   Quote for status: \"決定於現階段不進行建議分拆及建議於美國證券交易所上市。\"\n\n    *Wait, is there a target name?* \"分拆公司\" (The spin-off company). Is that a name? No, it's a description. The prompt asks for \"separated subsidiary/business as targetName\". Usually needs the proper noun. Since not found, empty string.\n\n    *Check Dates:* The text mentions previous announcement dates (2025-02-12, etc.) but those are for context (\"Refers to...\"). It does not state a new listing date or record date for *this* specific filing regarding the transaction schedule change. So `dates` is empty array.\n\n    *Check targetQuote:* \"分拆公司於考慮現時市場及監管狀況等多項因素後，決定於現階段不進行建議分拆及建議於美國證券交易所上市。\" (The spin-off company, after considering... decided not to proceed...) This supports the status `paused`. Or even better: \"決定於現階段不進行建議分拆及建議於美國證券交易所上市\".\n    *   Constraint: quote <= 240 chars.\n\n8.  **Construct JSON:**\n    *   targetName: \"\"\n    *   targetQuote: \"\" (Since target name is unknown, target quote might be empty or I could put the definition? Instruction says \"Empty when unknown\". Since I don't know the target name, maybe I don't need a quote for it. Actually, if targetName is empty, targetQuote should probably be empty too as per logic \"targetQuote and statusQuote must be contiguous verbatim excerpts supporting each claim\". If claim is no name, maybe empty.) -> Let's set to \"\".\n    *   status: \"paused\"\n    *   statusQuote: \"決定於現階段不進行建議分拆及建議於美國證券交易所上市。\"\n    *   dates: []\n\n    *Re-evaluating Status:* Is \"not to proceed... at this stage\" a `terminated`? If a spin-off is cancelled, it's terminated. If postponed, it's paused. The text implies they will try again (\"seek new opportunities\", \"adjust strategy\"). This leans towards `paused`.\n    *   However, some strict interpretations might say if the transaction isn't happening now, and no date is set, it's terminated. But `paused` is safer for \"not at this stage\".\n    *   Wait, I need to check if there are any other specific spin-off details. The header says \"Leoch International Technology Limited ... 有關建議分拆及建議分派\". This implies the parent is Leoch. The target name isn't given.\n\n    *One more check on `targetQuote`:* If `targetName` is empty, does `targetQuote` need to be? Instruction: \"Empty when unknown.\" I will set it to \"\".\n    *   Wait, `statusQuote` must support the status claim. The claim is that it's paused/not proceeding now.\n    *   Quote: \"決定於現階段不進行建議分拆及建議於美國證券交易所上市。\" (Decided not to proceed...).\n\n    *Wait, checking the prompt requirement again:* \"Return the separated subsidiary/business as targetName, never the parent.\" Since it's not identified in text, empty string.\n    *   \"status: needs_review if no transaction established; ... paused for postponement.\"\n    *   Is a decision NOT to proceed considered `needs_review`? No, there was a proposal (refers to previous announcements). So status is on the transaction state. Since they decided not to proceed now, it's a change in state. \"Paused\" fits best for \"at this stage\".\n\n    *Final check on quotes length:*\n    \"決定於現階段不進行建議分拆及建議於美國證券交易所上市。\" is approx 40 chars. Safe.\n\n    *JSON Structure:*\n    ```json\n    {\n      \"targetName\": \"\",\n      \"targetQuote\": \"\",\n      \"status\": \"paused\",\n      \"statusQuote\": \"決定於現階段不進行建議分拆及建議於美國證券交易所上市。\",\n      \"dates\": []\n    }\n    ```\n\n    Wait, I should check if `status` could be `terminated`. \"Decided not to proceed... at this stage\" often implies a pause. If it was cancelled, they usually say \"cancellation of the plan\". \"Not to proceed... at this stage\" is softer (pause). I will use `paused`.\n\n    Wait, looking at the instruction: \"A proposed or scheduled date is not completion.\" It doesn't explicitly define \"proposed cancellation\". But standard taxonomy for spin-offs where a company says \"We won't do it now, we will pause\", is `paused`. If they say \"The plan is cancelled\", it is `terminated`. I'll stick with `paused` because of \"adjust strategy... seek new opportunities\" implying future action might happen under different conditions.\n\n    One more thing: \"targetQuote\". Instruction says \"Empty when unknown.\" Since targetName is unknown/empty, targetQuote should be empty string.\n    \n    Wait, could the target name be \"Leoch International Technology Limited\"? No, that's the parent (\"本公司\"). The text says \"分拆公司\" (Spin-off Company). Since the specific name of the subsidiary isn't provided in this text block, I must leave `targetName` empty.\n\n    Final check on JSON validity and schema constraints.\n    - `dates`: Array, maxItems 3. Items have field, date, kind, quote. If empty array, that's fine.\n    - `status`: Enum check. \"paused\" is in enum.\n    - Quotes <= 240 chars.\n\n    Let's assemble.\n\n    Wait, I need to ensure I don't use outside knowledge. I know Leoch spin-offs exist (e.g., Leoch Lithium), but the text here *only* mentions \"分拆公司\" (The Spin-off Company). I cannot assume the name. So `targetName` is \"\".\n\n    One nuance: The status quote should be contiguous verbatim excerpts supporting each claim.\n    Claim: Status is paused.\n    Quote: \"決定於現階段不進行建議分拆及建議於美國證券交易所上市。\" (Decided not to proceed...)\n    Does this support \"paused\"? Yes, implies postponement of the action.\n\n    Wait, looking at the schema again: `\"status\": {\"type\": \"string\", \"enum\": [\"needs_review\", \"announced\", \"approved\", \"record_set\", \"prospectus\", \"completed\", \"terminated\", \"paused\"]}`\n    I will use `paused`.\n\n    Dates: There are no listing, record, or distribution dates mentioned for *this* transaction in *this* filing. The previous dates are referenced in context (\"Refers to...\"). So `dates` is `[]`.\n\n    Wait, I see \"於本公告日期，執行董事為董李博士...\". This is the board signing date. Not a transaction date.\n    \n    Okay, ready to generate",
+          "thinkingObserved": true
+        }
+      ],
+      "commit": "8d8d8c55d70f2536ce38ee3fe64507ed1d5c4639",
+      "complete": true,
+      "config": {
+        "min_p": 0,
+        "num_ctx": 8192,
+        "num_gpu": 0,
+        "num_predict": 4096,
+        "num_thread": 4,
+        "presence_penalty": 1.5,
+        "profile": "qwen-recommended",
+        "repeat_penalty": 1,
+        "schemaMode": "prompt",
+        "seed": 42,
+        "selectedCaseIds": [
+          "leoch_paused"
+        ],
+        "temperature": 1,
+        "think": true,
+        "threads": 4,
+        "timeoutSeconds": 1800,
+        "top_k": 20,
+        "top_p": 0.95
+      },
+      "finishedAt": "2026-09-17T12:07:13Z",
+      "fullSuite": false,
+      "model": "qwen3.5:9b-q8_0",
+      "models": {
+        "models": [
+          {
+            "capabilities": [
+              "completion",
+              "vision",
+              "tools",
+              "thinking"
+            ],
+            "details": {
+              "context_length": 262144,
+              "embedding_length": 4096,
+              "families": [
+                "qwen35"
+              ],
+              "family": "qwen35",
+              "format": "gguf",
+              "parameter_size": "9.7B",
+              "parent_model": "",
+              "quantization_level": "Q8_0"
+            },
+            "digest": "441ec31e4d2aedceb97dd834b036db104d943fbe3dbc1e5c8ac95eeaa9141c77",
+            "model": "qwen3.5:9b-q8_0",
+            "modified_at": "2026-09-17T11:45:24.639017995Z",
+            "name": "qwen3.5:9b-q8_0",
+            "size": 10699928277
+          }
+        ]
+      },
+      "provenance": {
+        "cpu": "AMD EPYC 9V74 80-Core Processor",
+        "job": 105188672816,
+        "run": 35217094611
+      },
+      "resources": {
+        "errors": [],
+        "inferenceExitCode": 0,
+        "maxOllamaRssSumKiB": 11168140,
+        "maxSystemSwapUsedKiB": 84,
+        "minSystemAvailableKiB": 4227664,
+        "note": "Sampled RSS sum can double-count shared pages; system available memory and swap include other runner processes. Not an exact memory peak.",
+        "samplingSeconds": 5
+      },
+      "runtime": {
+        "version": "0.34.1"
+      },
+      "scope": "Six hand-selected real filing excerpts; not a general accuracy estimate. Quotes require human entailment review.",
+      "startedAt": "2026-09-17T11:45:25Z",
+      "suiteSha256": "f91767f34d6bd44573b0fd924f0676b2f4d26bec030687da9b7dc4b5d8db3243",
+      "totals": {
+        "cases": 1,
+        "dates": 0,
+        "errors": 1,
+        "falseCompletion": 0,
+        "fieldsExact": 0,
+        "grounded": 0,
+        "schema": 0,
+        "seconds": 1308.63,
+        "status": 0,
+        "target": 0,
+        "unsupportedTarget": 0
+      }
+    }
+  ]
+}

@@ -1,5 +1,15 @@
 # Spin-off extraction experiment
 
+Completed thinking comparison: [2026-09-17 final paired results](results/35217094611/REVIEW.md).
+With identical recommended sampling and 4096-token budgets, thinking OFF delivered
+6/6 answers (4/6 exact fields; 1/6 fields plus verbatim evidence). Thinking ON
+delivered 3/6 answers (all three fields/evidence passed), while the remaining three
+exhausted the token budget with empty final responses. Average request time was
+2m46s OFF versus 19m56s ON across mixed hosted CPUs. There is a local improvement
+in duplicate-date handling and quote fidelity, but no production rollout.
+The [native-schema probe](results/35215503163/REVIEW.md) and
+[2048-token baseline pair](results/35215827052/REVIEW.md) are preserved too.
+
 First completed comparison: [2026-09-17 results and manual evidence review](results/35189904752/REVIEW.md).
 Strict field passes were rules 4/6, Qwen3.5 9B 3/6, Qwen3 14B 1/6. Neither model
 was integrated into production spin-off facts.
