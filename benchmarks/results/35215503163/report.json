@@ -1,0 +1,667 @@
+{
+  "run": 35215503163,
+  "classification": "Integration probe; empty final outputs are not a reasoning quality comparison",
+  "reports": [
+    {
+      "job": 105182897731,
+      "benchmarkVersion": 1,
+      "cases": [
+        {
+          "error": "JSONDecodeError: Expecting value: line 1 column 1 (char 0)",
+          "gold": {
+            "dates": [],
+            "status": "prospectus",
+            "targetNames": [
+              "軒竹生物科技股份有限公司",
+              "軒竹生物"
+            ]
+          },
+          "id": "sihuan_prospectus",
+          "metrics": {
+            "done_reason": "stop",
+            "eval_count": 197,
+            "eval_duration": 50846047000,
+            "load_duration": 20133435655,
+            "prompt_eval_count": 647,
+            "prompt_eval_duration": 43361943000
+          },
+          "raw": "",
+          "score": {
+            "dates": false,
+            "falseCompletion": false,
+            "fieldsExact": false,
+            "grounded": false,
+            "schema": false,
+            "status": false,
+            "target": false,
+            "unsupportedTarget": false
+          },
+          "seconds": 114.36,
+          "sourceUrl": "https://www1.hkexnews.hk/listedco/listconews/sehk/2025/1006/2025100601213_c.pdf",
+          "textSha256": "42f3fd5c6388530ca59e0b8681e1871124d8fa924afe09b815c1882fffdc6e9f",
+          "thinking": "{\n    \"targetName\": \"轩竹生物科技股份有限公司\",\n    \"targetQuote\": \"本公司附屬公司軒竹生物科技股份有限公司（「分拆公司」或「軒竹生物」）於聯交所主板獨立上市\",\n    \"status\": \"prospectus\",\n    \"statusQuote\": \"分拆公司已於二零二五年十月六日刊發招股章程\",\n    \"dates\": [\n        {\n            \"field\": \"listingDate\",\n            \"date\": \"\",\n            \"kind\": \"scheduled\",\n            \"quote\": \"\"\n        },\n        {\n            \"field\": \"recordDate\",\n            \"date\": \"\",\n            \"kind\": \"scheduled\",\n            \"quote\": \"\"\n        },\n        {\n            \"field\": \"distributionDate\",\n            \"date\": \"\",\n            \"kind\": \"scheduled\",\n            \"quote\": \"\"\n        }\n    ]\n}",
+          "thinkingObserved": true
+        }
+      ],
+      "commit": "4a6c2f3ec1d479dea008730fea182e9df5efbe39",
+      "complete": true,
+      "config": {
+        "num_ctx": 4096,
+        "num_predict": 2048,
+        "seed": 42,
+        "selectedCaseIds": [
+          "sihuan_prospectus"
+        ],
+        "temperature": 0,
+        "think": true,
+        "threads": 4,
+        "timeoutSeconds": 1200
+      },
+      "finishedAt": "2026-09-17T11:27:26Z",
+      "fullSuite": false,
+      "model": "qwen3.5:9b-q8_0",
+      "models": {
+        "models": [
+          {
+            "capabilities": [
+              "completion",
+              "vision",
+              "tools",
+              "thinking"
+            ],
+            "details": {
+              "context_length": 262144,
+              "embedding_length": 4096,
+              "families": [
+                "qwen35"
+              ],
+              "family": "qwen35",
+              "format": "gguf",
+              "parameter_size": "9.7B",
+              "parent_model": "",
+              "quantization_level": "Q8_0"
+            },
+            "digest": "441ec31e4d2aedceb97dd834b036db104d943fbe3dbc1e5c8ac95eeaa9141c77",
+            "model": "qwen3.5:9b-q8_0",
+            "modified_at": "2026-09-17T11:25:31.993861514Z",
+            "name": "qwen3.5:9b-q8_0",
+            "size": 10699928277
+          }
+        ]
+      },
+      "runtime": {
+        "version": "0.34.1"
+      },
+      "scope": "Six hand-selected real filing excerpts; not a general accuracy estimate. Quotes require human entailment review.",
+      "startedAt": "2026-09-17T11:25:32Z",
+      "suiteSha256": "f91767f34d6bd44573b0fd924f0676b2f4d26bec030687da9b7dc4b5d8db3243",
+      "totals": {
+        "cases": 1,
+        "dates": 0,
+        "errors": 1,
+        "falseCompletion": 0,
+        "fieldsExact": 0,
+        "grounded": 0,
+        "schema": 0,
+        "seconds": 114.36,
+        "status": 0,
+        "target": 0,
+        "unsupportedTarget": 0
+      }
+    },
+    {
+      "job": 105182897987,
+      "benchmarkVersion": 1,
+      "cases": [
+        {
+          "error": "JSONDecodeError: Expecting value: line 1 column 1 (char 0)",
+          "gold": {
+            "dates": [],
+            "status": "announced",
+            "targetNames": [
+              "Teyame AI Holdings, Inc.",
+              "Teyame"
+            ]
+          },
+          "id": "hcti",
+          "metrics": {
+            "done_reason": "stop",
+            "eval_count": 94,
+            "eval_duration": 19244318000,
+            "load_duration": 12340287728,
+            "prompt_eval_count": 1193,
+            "prompt_eval_duration": 53911629000
+          },
+          "raw": "",
+          "score": {
+            "dates": false,
+            "falseCompletion": false,
+            "fieldsExact": false,
+            "grounded": false,
+            "schema": false,
+            "status": false,
+            "target": false,
+            "unsupportedTarget": false
+          },
+          "seconds": 85.52,
+          "sourceUrl": "https://www.sec.gov/Archives/edgar/data/1839285/000121390026097953/ea0304854-8k_healthcare.htm",
+          "textSha256": "f71dfc5b117aa0eaac4b30d46736828d3873b018655031ab3e53afd68221e3ee",
+          "thinking": "{\n    \"targetName\": \"Teyame AI Holdings, Inc.\",\n    \"targetQuote\": \"\\\"Teyame AI Holdings, Inc. (\\\"Teyame\\\")... in connection with the planned separation and spin-off of Teyame from the Company\\\"\",\n    \"status\": \"announced\",\n    \"statusQuote\": \"\\\"planned separation and spin-off of Teyame from the Company\\\"\",\n    \"dates\": []\n}",
+          "thinkingObserved": true
+        }
+      ],
+      "commit": "4a6c2f3ec1d479dea008730fea182e9df5efbe39",
+      "complete": true,
+      "config": {
+        "num_ctx": 4096,
+        "num_predict": 2048,
+        "seed": 42,
+        "selectedCaseIds": [
+          "hcti"
+        ],
+        "temperature": 0,
+        "think": true,
+        "threads": 4,
+        "timeoutSeconds": 1200
+      },
+      "finishedAt": "2026-09-17T11:27:02Z",
+      "fullSuite": false,
+      "model": "qwen3.5:9b-q8_0",
+      "models": {
+        "models": [
+          {
+            "capabilities": [
+              "completion",
+              "vision",
+              "tools",
+              "thinking"
+            ],
+            "details": {
+              "context_length": 262144,
+              "embedding_length": 4096,
+              "families": [
+                "qwen35"
+              ],
+              "family": "qwen35",
+              "format": "gguf",
+              "parameter_size": "9.7B",
+              "parent_model": "",
+              "quantization_level": "Q8_0"
+            },
+            "digest": "441ec31e4d2aedceb97dd834b036db104d943fbe3dbc1e5c8ac95eeaa9141c77",
+            "model": "qwen3.5:9b-q8_0",
+            "modified_at": "2026-09-17T11:25:36.430853192Z",
+            "name": "qwen3.5:9b-q8_0",
+            "size": 10699928277
+          }
+        ]
+      },
+      "runtime": {
+        "version": "0.34.1"
+      },
+      "scope": "Six hand-selected real filing excerpts; not a general accuracy estimate. Quotes require human entailment review.",
+      "startedAt": "2026-09-17T11:25:36Z",
+      "suiteSha256": "f91767f34d6bd44573b0fd924f0676b2f4d26bec030687da9b7dc4b5d8db3243",
+      "totals": {
+        "cases": 1,
+        "dates": 0,
+        "errors": 1,
+        "falseCompletion": 0,
+        "fieldsExact": 0,
+        "grounded": 0,
+        "schema": 0,
+        "seconds": 85.52,
+        "status": 0,
+        "target": 0,
+        "unsupportedTarget": 0
+      }
+    },
+    {
+      "job": 105182898110,
+      "benchmarkVersion": 1,
+      "cases": [
+        {
+          "error": "JSONDecodeError: Expecting value: line 1 column 1 (char 0)",
+          "gold": {
+            "dates": [],
+            "status": "needs_review",
+            "targetNames": [
+              ""
+            ]
+          },
+          "id": "blze",
+          "metrics": {
+            "done_reason": "stop",
+            "eval_count": 30,
+            "eval_duration": 8632313000,
+            "load_duration": 13151207054,
+            "prompt_eval_count": 762,
+            "prompt_eval_duration": 17367172000
+          },
+          "raw": "",
+          "score": {
+            "dates": false,
+            "falseCompletion": false,
+            "fieldsExact": false,
+            "grounded": false,
+            "schema": false,
+            "status": false,
+            "target": false,
+            "unsupportedTarget": false
+          },
+          "seconds": 39.36,
+          "sourceUrl": "https://www.sec.gov/Archives/edgar/data/1462056/000114036126034200/ef20080933_8k.htm",
+          "textSha256": "393ed07b48325ac5444ddef336256fe241686c4487146c0e8d161199da669dca",
+          "thinking": "{ \"targetName\": \"\", \"targetQuote\": \"\", \"status\": \"needs_review\", \"statusQuote\": \"\", \"dates\": [] }",
+          "thinkingObserved": true
+        }
+      ],
+      "commit": "4a6c2f3ec1d479dea008730fea182e9df5efbe39",
+      "complete": true,
+      "config": {
+        "num_ctx": 4096,
+        "num_predict": 2048,
+        "seed": 42,
+        "selectedCaseIds": [
+          "blze"
+        ],
+        "temperature": 0,
+        "think": true,
+        "threads": 4,
+        "timeoutSeconds": 1200
+      },
+      "finishedAt": "2026-09-17T11:26:20Z",
+      "fullSuite": false,
+      "model": "qwen3.5:9b-q8_0",
+      "models": {
+        "models": [
+          {
+            "capabilities": [
+              "completion",
+              "vision",
+              "tools",
+              "thinking"
+            ],
+            "details": {
+              "context_length": 262144,
+              "embedding_length": 4096,
+              "families": [
+                "qwen35"
+              ],
+              "family": "qwen35",
+              "format": "gguf",
+              "parameter_size": "9.7B",
+              "parent_model": "",
+              "quantization_level": "Q8_0"
+            },
+            "digest": "441ec31e4d2aedceb97dd834b036db104d943fbe3dbc1e5c8ac95eeaa9141c77",
+            "model": "qwen3.5:9b-q8_0",
+            "modified_at": "2026-09-17T11:25:41.026125709Z",
+            "name": "qwen3.5:9b-q8_0",
+            "size": 10699928277
+          }
+        ]
+      },
+      "runtime": {
+        "version": "0.34.1"
+      },
+      "scope": "Six hand-selected real filing excerpts; not a general accuracy estimate. Quotes require human entailment review.",
+      "startedAt": "2026-09-17T11:25:41Z",
+      "suiteSha256": "f91767f34d6bd44573b0fd924f0676b2f4d26bec030687da9b7dc4b5d8db3243",
+      "totals": {
+        "cases": 1,
+        "dates": 0,
+        "errors": 1,
+        "falseCompletion": 0,
+        "fieldsExact": 0,
+        "grounded": 0,
+        "schema": 0,
+        "seconds": 39.36,
+        "status": 0,
+        "target": 0,
+        "unsupportedTarget": 0
+      }
+    },
+    {
+      "job": 105182898135,
+      "benchmarkVersion": 1,
+      "cases": [
+        {
+          "error": "JSONDecodeError: Expecting value: line 1 column 1 (char 0)",
+          "gold": {
+            "dates": [
+              {
+                "date": "2026-09-24",
+                "field": "recordDate",
+                "kind": "scheduled"
+              },
+              {
+                "date": "2026-10-01",
+                "field": "distributionDate",
+                "kind": "scheduled"
+              },
+              {
+                "date": "2026-10-01",
+                "field": "listingDate",
+                "kind": "scheduled"
+              }
+            ],
+            "status": "record_set",
+            "targetNames": [
+              "Vylor Inc.",
+              "Vylor"
+            ]
+          },
+          "id": "ctva",
+          "metrics": {
+            "done_reason": "stop",
+            "eval_count": 333,
+            "eval_duration": 83007031000,
+            "load_duration": 11616546025,
+            "prompt_eval_count": 1109,
+            "prompt_eval_duration": 112006483000
+          },
+          "raw": "",
+          "score": {
+            "dates": false,
+            "falseCompletion": false,
+            "fieldsExact": false,
+            "grounded": false,
+            "schema": false,
+            "status": false,
+            "target": false,
+            "unsupportedTarget": false
+          },
+          "seconds": 206.65,
+          "sourceUrl": "https://www.sec.gov/Archives/edgar/data/1755672/000119312526391369/d71834d8k.htm",
+          "textSha256": "262c0889bd4078ff67079e52121388e0b08f8eae954141958f47dc33dccd073d",
+          "thinking": "{\n    \"targetName\": \"Vylor Inc.\",\n    \"targetQuote\": \"\\\"separation of Corteva's seed operating segment into an independent, publicly traded company, Vylor Inc. ('Vylor')\\\"\",\n    \"status\": \"announced\",\n    \"statusQuote\": \"\\\"On September 12, 2026, the board of directors of Corteva approved the previously announced separation...\\\"\",\n    \"dates\": [\n        {\n            \"field\": \"recordDate\",\n            \"date\": \"2026-09-24\",\n            \"kind\": \"scheduled\",\n            \"quote\": \"\\\"as of the close of business on September 24, 2026(the 'Record Date')\\\"\"\n        },\n        {\n            \"field\": \"distributionDate\",\n            \"date\": \"2026-10-01\",\n            \"kind\": \"scheduled\",\n            \"quote\": \"\\\"The Distribution is expected to be completed prior to 9:30 a.m., New York City time, on October 1, 2026.\\\"\"\n        },\n        {\n            \"field\": \"listingDate\",\n            \"date\": \"2026-10-01\",\n            \"kind\": \"scheduled\",\n            \"quote\": \"\\\"Vylor Common Stock is expected to begin 'regular way' trading on the NYSE... at the open of trading on October 1, 2026.\\\"\"\n        }\n    ]\n}",
+          "thinkingObserved": true
+        }
+      ],
+      "commit": "4a6c2f3ec1d479dea008730fea182e9df5efbe39",
+      "complete": true,
+      "config": {
+        "num_ctx": 4096,
+        "num_predict": 2048,
+        "seed": 42,
+        "selectedCaseIds": [
+          "ctva"
+        ],
+        "temperature": 0,
+        "think": true,
+        "threads": 4,
+        "timeoutSeconds": 1200
+      },
+      "finishedAt": "2026-09-17T11:28:46Z",
+      "fullSuite": false,
+      "model": "qwen3.5:9b-q8_0",
+      "models": {
+        "models": [
+          {
+            "capabilities": [
+              "completion",
+              "vision",
+              "tools",
+              "thinking"
+            ],
+            "details": {
+              "context_length": 262144,
+              "embedding_length": 4096,
+              "families": [
+                "qwen35"
+              ],
+              "family": "qwen35",
+              "format": "gguf",
+              "parameter_size": "9.7B",
+              "parent_model": "",
+              "quantization_level": "Q8_0"
+            },
+            "digest": "441ec31e4d2aedceb97dd834b036db104d943fbe3dbc1e5c8ac95eeaa9141c77",
+            "model": "qwen3.5:9b-q8_0",
+            "modified_at": "2026-09-17T11:25:19.194151408Z",
+            "name": "qwen3.5:9b-q8_0",
+            "size": 10699928277
+          }
+        ]
+      },
+      "runtime": {
+        "version": "0.34.1"
+      },
+      "scope": "Six hand-selected real filing excerpts; not a general accuracy estimate. Quotes require human entailment review.",
+      "startedAt": "2026-09-17T11:25:19Z",
+      "suiteSha256": "f91767f34d6bd44573b0fd924f0676b2f4d26bec030687da9b7dc4b5d8db3243",
+      "totals": {
+        "cases": 1,
+        "dates": 0,
+        "errors": 1,
+        "falseCompletion": 0,
+        "fieldsExact": 0,
+        "grounded": 0,
+        "schema": 0,
+        "seconds": 206.65,
+        "status": 0,
+        "target": 0,
+        "unsupportedTarget": 0
+      }
+    },
+    {
+      "job": 105182898140,
+      "benchmarkVersion": 1,
+      "cases": [
+        {
+          "error": "JSONDecodeError: Expecting value: line 1 column 1 (char 0)",
+          "gold": {
+            "dates": [
+              {
+                "date": "2025-10-15",
+                "field": "listingDate",
+                "kind": "actual"
+              }
+            ],
+            "status": "completed",
+            "targetNames": [
+              "軒竹生物"
+            ]
+          },
+          "id": "sihuan_completed",
+          "metrics": {
+            "done_reason": "stop",
+            "eval_count": 244,
+            "eval_duration": 60803164000,
+            "load_duration": 9360729567,
+            "prompt_eval_count": 1026,
+            "prompt_eval_duration": 102491034000
+          },
+          "raw": "",
+          "score": {
+            "dates": false,
+            "falseCompletion": false,
+            "fieldsExact": false,
+            "grounded": false,
+            "schema": false,
+            "status": false,
+            "target": false,
+            "unsupportedTarget": false
+          },
+          "seconds": 172.68,
+          "sourceUrl": "https://www1.hkexnews.hk/listedco/listconews/sehk/2025/1015/2025101500144_c.pdf",
+          "textSha256": "aca6d025e377f1798148b2710a08e208ceb8568244f34af89acf3a6db00f11f9",
+          "thinking": "{\n    \"targetName\": \"軒竹生物\",\n    \"targetQuote\": \"建議分拆及軒竹生物於香港聯合交易所有限公司主板獨立上市\",\n    \"status\": \"completed\",\n    \"statusQuote\": \"董事會欣然宣佈，於全球發售完成後，分拆公司於二零二五年十月十五日在聯交所主板上市，而分拆公司 H 股於二零二五年十月十五日上午九時正開始於聯交所主板買賣。\",\n    \"dates\": [\n        {\n            \"field\": \"listingDate\",\n            \"date\": \"2025-10-15\",\n            \"kind\": \"actual\",\n            \"quote\": \"分拆公司於二零二五年十月十五日在聯交所主板上市\"\n        },\n        {\n            \"field\": \"listingDate\",\n            \"date\": \"2025-10-15\",\n            \"kind\": \"actual\",\n            \"quote\": \"分拆公司 H 股於二零二五年十月十五日上午九時正開始於聯交所主板買賣\"\n        }\n    ]\n}",
+          "thinkingObserved": true
+        }
+      ],
+      "commit": "4a6c2f3ec1d479dea008730fea182e9df5efbe39",
+      "complete": true,
+      "config": {
+        "num_ctx": 4096,
+        "num_predict": 2048,
+        "seed": 42,
+        "selectedCaseIds": [
+          "sihuan_completed"
+        ],
+        "temperature": 0,
+        "think": true,
+        "threads": 4,
+        "timeoutSeconds": 1200
+      },
+      "finishedAt": "2026-09-17T11:28:07Z",
+      "fullSuite": false,
+      "model": "qwen3.5:9b-q8_0",
+      "models": {
+        "models": [
+          {
+            "capabilities": [
+              "completion",
+              "vision",
+              "tools",
+              "thinking"
+            ],
+            "details": {
+              "context_length": 262144,
+              "embedding_length": 4096,
+              "families": [
+                "qwen35"
+              ],
+              "family": "qwen35",
+              "format": "gguf",
+              "parameter_size": "9.7B",
+              "parent_model": "",
+              "quantization_level": "Q8_0"
+            },
+            "digest": "441ec31e4d2aedceb97dd834b036db104d943fbe3dbc1e5c8ac95eeaa9141c77",
+            "model": "qwen3.5:9b-q8_0",
+            "modified_at": "2026-09-17T11:25:14.299512819Z",
+            "name": "qwen3.5:9b-q8_0",
+            "size": 10699928277
+          }
+        ]
+      },
+      "runtime": {
+        "version": "0.34.1"
+      },
+      "scope": "Six hand-selected real filing excerpts; not a general accuracy estimate. Quotes require human entailment review.",
+      "startedAt": "2026-09-17T11:25:14Z",
+      "suiteSha256": "f91767f34d6bd44573b0fd924f0676b2f4d26bec030687da9b7dc4b5d8db3243",
+      "totals": {
+        "cases": 1,
+        "dates": 0,
+        "errors": 1,
+        "falseCompletion": 0,
+        "fieldsExact": 0,
+        "grounded": 0,
+        "schema": 0,
+        "seconds": 172.68,
+        "status": 0,
+        "target": 0,
+        "unsupportedTarget": 0
+      }
+    },
+    {
+      "job": 105182898152,
+      "benchmarkVersion": 1,
+      "cases": [
+        {
+          "error": "JSONDecodeError: Expecting value: line 1 column 1 (char 0)",
+          "gold": {
+            "dates": [],
+            "status": "paused",
+            "targetNames": [
+              ""
+            ]
+          },
+          "id": "leoch_paused",
+          "metrics": {
+            "done_reason": "stop",
+            "eval_count": 72,
+            "eval_duration": 16596143000,
+            "load_duration": 7351606492,
+            "prompt_eval_count": 831,
+            "prompt_eval_duration": 83150355000
+          },
+          "raw": "",
+          "score": {
+            "dates": false,
+            "falseCompletion": false,
+            "fieldsExact": false,
+            "grounded": false,
+            "schema": false,
+            "status": false,
+            "target": false,
+            "unsupportedTarget": false
+          },
+          "seconds": 107.13,
+          "sourceUrl": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0401/2026040104407_c.pdf",
+          "textSha256": "da4a37d5a3695b1a7fce2fe9d4870dbef00bf84174f523090493207f74a44883",
+          "thinking": "{\n    \"targetName\": \"\",\n    \"targetQuote\": \"\",\n    \"status\": \"terminated\",\n    \"statusQuote\": \"分拆公司於考慮現時市場及監管狀況等多項因素後，決定於現階段不進行建議分拆及建議於美國證券交易所上市。\",\n    \"dates\": []\n}",
+          "thinkingObserved": true
+        }
+      ],
+      "commit": "4a6c2f3ec1d479dea008730fea182e9df5efbe39",
+      "complete": true,
+      "config": {
+        "num_ctx": 4096,
+        "num_predict": 2048,
+        "seed": 42,
+        "selectedCaseIds": [
+          "leoch_paused"
+        ],
+        "temperature": 0,
+        "think": true,
+        "threads": 4,
+        "timeoutSeconds": 1200
+      },
+      "finishedAt": "2026-09-17T11:26:59Z",
+      "fullSuite": false,
+      "model": "qwen3.5:9b-q8_0",
+      "models": {
+        "models": [
+          {
+            "capabilities": [
+              "completion",
+              "vision",
+              "tools",
+              "thinking"
+            ],
+            "details": {
+              "context_length": 262144,
+              "embedding_length": 4096,
+              "families": [
+                "qwen35"
+              ],
+              "family": "qwen35",
+              "format": "gguf",
+              "parameter_size": "9.7B",
+              "parent_model": "",
+              "quantization_level": "Q8_0"
+            },
+            "digest": "441ec31e4d2aedceb97dd834b036db104d943fbe3dbc1e5c8ac95eeaa9141c77",
+            "model": "qwen3.5:9b-q8_0",
+            "modified_at": "2026-09-17T11:25:12.630805513Z",
+            "name": "qwen3.5:9b-q8_0",
+            "size": 10699928277
+          }
+        ]
+      },
+      "runtime": {
+        "version": "0.34.1"
+      },
+      "scope": "Six hand-selected real filing excerpts; not a general accuracy estimate. Quotes require human entailment review.",
+      "startedAt": "2026-09-17T11:25:12Z",
+      "suiteSha256": "f91767f34d6bd44573b0fd924f0676b2f4d26bec030687da9b7dc4b5d8db3243",
+      "totals": {
+        "cases": 1,
+        "dates": 0,
+        "errors": 1,
+        "falseCompletion": 0,
+        "fieldsExact": 0,
+        "grounded": 0,
+        "schema": 0,
+        "seconds": 107.13,
+        "status": 0,
+        "target": 0,
+        "unsupportedTarget": 0
+      }
+    }
+  ]
+}
