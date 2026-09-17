@@ -4,6 +4,15 @@ First completed comparison: [2026-09-17 results and manual evidence review](resu
 Strict field passes were rules 4/6, Qwen3.5 9B 3/6, Qwen3 14B 1/6. Neither model
 was integrated into production spin-off facts.
 
+The next isolated run tests **Qwen3.5 9B Q8_0**, against the frozen Q4 results above.
+Only the model tag changes: extraction code, six inputs, prompt, schema, thinking
+mode, runtime version and request limits remain identical. A wrapper samples Linux
+memory every five seconds and prints the complete report into job logs. Sampled
+process RSS may double-count shared pages; system available RAM and swap also
+include other runner processes. These are observations, not exact model-only peaks.
+CPU identity is retained because standard hosted runners may use different CPUs.
+The workflow now runs Q8 alone to avoid repeating the already completed Q4/14B trial.
+
 Run `python scripts/benchmark_spinoff_llm.py --model rules --output /tmp/rules.json`
 or use the isolated **Spin-off LLM Benchmark** GitHub Action. This workflow has
 read-only repository permission, no schedule, and no dependency on data updates.

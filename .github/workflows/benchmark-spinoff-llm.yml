@@ -7,6 +7,7 @@ on:
     paths:
       - .github/workflows/benchmark-spinoff-llm.yml
       - scripts/benchmark_spinoff_llm.py
+      - scripts/run_spinoff_benchmark_monitored.py
       - tests/fixtures/spinoff_benchmark.json
       - tests/test_spinoff_benchmark.py
 
@@ -25,10 +26,8 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - model: qwen3.5:9b-q4_K_M
-            label: qwen35-9b-q4
-          - model: qwen3:14b-q4_K_M
-            label: qwen3-14b-q4
+          - model: qwen3.5:9b-q8_0
+            label: qwen35-9b-q8
     env:
       AI_MODEL: ${{ matrix.model }}
       OLLAMA_HOST: '127.0.0.1:11434'
@@ -75,7 +74,7 @@ jobs:
           ollama list
       - name: Extract from identical frozen filing text
         timeout-minutes: 37
-        run: python -u scripts/benchmark_spinoff_llm.py --model "$AI_MODEL" --output "benchmark-results/${{ matrix.label }}.json"
+        run: python -u scripts/run_spinoff_benchmark_monitored.py --model "$AI_MODEL" --output "benchmark-results/${{ matrix.label }}.json"
       - name: Preserve raw outputs and resource errors
         if: always()
         uses: actions/upload-artifact@v4
