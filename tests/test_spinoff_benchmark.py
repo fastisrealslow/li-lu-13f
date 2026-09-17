@@ -4,6 +4,9 @@ import importlib.util
 import json
 from pathlib import Path
 import unittest
+import tempfile
+import contextlib
+import io
 from unittest.mock import patch
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -64,6 +67,36 @@ class BenchmarkScoringTests(unittest.TestCase):
         self.assertEqual(set(json.loads(data['prompt'])), {'parent', 'filingDate', 'filingText'})
         self.assertNotIn(self.case['annotationNote'], data['prompt'])
         self.assertEqual(json.loads(data['prompt'])['filingText'], self.case['text'])
+
+    def test_thinking_request_keeps_gold_out_and_preserves_prompt(self):
+        with patch.object(b, 'request_json', return_value={}) as request:
+            b.infer(self.case, 'model', 1200, think=True, max_tokens=2048)
+        data = request.call_args.args[1]
+        self.assertTrue(data['think'])
+        self.assertEqual(data['options']['num_predict'], 2048)
+        self.assertEqual(data['options']['num_ctx'], 4096)
+        self.assertEqual(set(json.loads(data['prompt'])), {'parent', 'filingDate', 'filingText'})
+
+    def test_thinking_trace_is_not_parsed_as_final_answer(self):
+        answer = {'targetName': '', 'targetQuote': '', 'status': 'needs_review',
+                  'statusQuote': '', 'dates': []}
+        response = {'thinking': 'Not JSON. Must never be scored.',
+                    'response': json.dumps(answer), 'done_reason': 'stop'}
+        with tempfile.TemporaryDirectory() as tmp, contextlib.redirect_stdout(io.StringIO()), \
+             patch.object(b, 'request_json', return_value={}), \
+             patch.object(b, 'infer', return_value=response):
+            report = b.run('model', Path(tmp) / 'r.json', think=True, max_tokens=2048, case_id='blze')
+        self.assertTrue(report['complete'])
+        self.assertFalse(report['fullSuite'])
+        self.assertEqual(report['totals']['fieldsExact'], 1)
+        self.assertTrue(report['cases'][0]['thinkingObserved'])
+        response['done_reason'] = 'length'
+        with tempfile.TemporaryDirectory() as tmp, contextlib.redirect_stdout(io.StringIO()), \
+             patch.object(b, 'request_json', return_value={}), \
+             patch.object(b, 'infer', return_value=response):
+            report = b.run('model', Path(tmp) / 'r.json', think=True, case_id='blze')
+        self.assertEqual(report['totals']['fieldsExact'], 0)
+        self.assertEqual(report['totals']['errors'], 1)
 
 
 if __name__ == '__main__':

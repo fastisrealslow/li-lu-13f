@@ -118,22 +118,26 @@ def request_json(path, data=None, timeout=20):
         return json.load(response)
 
 
-def infer(case, model, timeout):
+def infer(case, model, timeout, think=False, max_tokens=800):
     # Gold labels, source IDs, filenames and benchmark notes never enter the prompt.
     prompt = json.dumps({'parent': case['parent'], 'filingDate': case['filingDate'],
                          'filingText': case['text']}, ensure_ascii=False)
     return request_json('/api/generate', {'model': model, 'system': SYSTEM, 'prompt': prompt,
-        'stream': False, 'think': False, 'format': SCHEMA, 'keep_alive': '10m',
+        'stream': False, 'think': think, 'format': SCHEMA, 'keep_alive': '10m',
         'options': {'temperature': 0, 'seed': 42, 'num_ctx': 4096,
-                    'num_predict': 800, 'num_thread': 4, 'num_gpu': 0}}, timeout)
+                    'num_predict': max_tokens, 'num_thread': 4, 'num_gpu': 0}}, timeout)
 
 
-def run(model, output, timeout=360):
+def run(model, output, timeout=360, think=False, max_tokens=800, case_id=None):
     raw = DATA.read_bytes()
     suite = json.loads(raw)
+    cases = [c for c in suite['cases'] if case_id is None or c['id'] == case_id]
+    if not cases:
+        raise ValueError(f'Unknown case: {case_id}')
     report = {'benchmarkVersion': 1, 'suiteSha256': hashlib.sha256(raw).hexdigest(),
               'model': model, 'commit': os.environ.get('GITHUB_SHA', ''),
-              'config': {'think': False, 'num_ctx': 4096, 'num_predict': 800, 'seed': 42,
+              'config': {'think': think, 'num_ctx': 4096, 'num_predict': max_tokens, 'seed': 42,
+                         'temperature': 0, 'selectedCaseIds': [c['id'] for c in cases],
                          'threads': 4, 'timeoutSeconds': timeout},
               'cases': [], 'startedAt': time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime()),
               'scope': 'Six hand-selected real filing excerpts; not a general accuracy estimate. Quotes require human entailment review.'}
@@ -141,7 +145,7 @@ def run(model, output, timeout=360):
         report['runtime'] = request_json('/api/version')
         report['models'] = request_json('/api/tags')
     output.parent.mkdir(parents=True, exist_ok=True)
-    for case in suite['cases']:
+    for case in cases:
         started = time.monotonic()
         result = {'id': case['id'], 'sourceUrl': case['sourceUrl'], 'gold': case['gold'],
                   'textSha256': hashlib.sha256(case['text'].encode()).hexdigest()}
@@ -149,8 +153,10 @@ def run(model, output, timeout=360):
             if model == 'rules':
                 out = rule_output(case)
             else:
-                response = infer(case, model, timeout)
+                response = infer(case, model, timeout, think=think, max_tokens=max_tokens)
                 result['raw'] = response.get('response', '')
+                result['thinking'] = response.get('thinking', '')
+                result['thinkingObserved'] = bool(result['thinking'].strip())
                 result['metrics'] = {k: response.get(k) for k in ['done_reason', 'prompt_eval_count', 'eval_count', 'load_duration', 'prompt_eval_duration', 'eval_duration']}
                 if response.get('done_reason') == 'length':
                     raise ValueError('Output token budget exhausted')
@@ -173,7 +179,8 @@ def run(model, output, timeout=360):
         # partial results and do not silently count unattempted cases as successes.
         if 'error' in result and ('Timeout' in result['error'] or 'timed out' in result['error']):
             break
-    report['complete'] = len(report['cases']) == len(suite['cases'])
+    report['complete'] = len(report['cases']) == len(cases)
+    report['fullSuite'] = len(cases) == len(suite['cases'])
     report['finishedAt'] = time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime())
     output.write_text(json.dumps(report, ensure_ascii=False, indent=2) + '\n')
     print('BENCHMARK_TOTAL ' + json.dumps(report['totals']), flush=True)
@@ -189,5 +196,8 @@ if __name__ == '__main__':
     parser.add_argument('--model', default='rules')
     parser.add_argument('--output', type=Path, required=True)
     parser.add_argument('--timeout', type=int, default=360)
+    parser.add_argument('--think', action='store_true')
+    parser.add_argument('--max-tokens', type=int, default=800)
+    parser.add_argument('--case', dest='case_id')
     args = parser.parse_args()
-    run(args.model, args.output, args.timeout)
+    run(args.model, args.output, args.timeout, args.think, args.max_tokens, args.case_id)

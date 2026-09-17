@@ -21,15 +21,13 @@ concurrency:
 jobs:
   benchmark:
     runs-on: ubuntu-24.04
-    timeout-minutes: 50
+    timeout-minutes: 45
     strategy:
       fail-fast: false
       matrix:
-        include:
-          - model: qwen3.5:9b-q8_0
-            label: qwen35-9b-q8
+        case: [sihuan_completed, sihuan_prospectus, leoch_paused, ctva, hcti, blze]
     env:
-      AI_MODEL: ${{ matrix.model }}
+      AI_MODEL: qwen3.5:9b-q8_0
       OLLAMA_HOST: '127.0.0.1:11434'
       OLLAMA_NUM_PARALLEL: '1'
       OLLAMA_MAX_LOADED_MODELS: '1'
@@ -52,7 +50,7 @@ jobs:
       - uses: actions/cache/restore@v4
         with:
           path: ${{ env.OLLAMA_MODELS }}
-          key: qwen-cpu-v1-${{ runner.os }}-${{ matrix.model }}
+          key: qwen-cpu-v1-${{ runner.os }}-qwen3.5:9b-q8_0
       - name: Install pinned Ollama runtime
         timeout-minutes: 8
         run: |
@@ -73,13 +71,13 @@ jobs:
           ollama pull "$AI_MODEL"
           ollama list
       - name: Extract from identical frozen filing text
-        timeout-minutes: 37
-        run: python -u scripts/run_spinoff_benchmark_monitored.py --model "$AI_MODEL" --output "benchmark-results/${{ matrix.label }}.json"
+        timeout-minutes: 22
+        run: python -u scripts/run_spinoff_benchmark_monitored.py --model "$AI_MODEL" --think --max-tokens 2048 --timeout 1200 --case "${{ matrix.case }}" --output "benchmark-results/qwen35-9b-q8-thinking-${{ matrix.case }}.json"
       - name: Preserve raw outputs and resource errors
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: spinoff-benchmark-${{ matrix.label }}
+          name: spinoff-benchmark-qwen35-9b-q8-thinking-${{ matrix.case }}
           path: |
             benchmark-results/*.json
             ${{ runner.temp }}/ollama.log

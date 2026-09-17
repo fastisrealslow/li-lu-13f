@@ -37,6 +37,10 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--model', required=True)
     parser.add_argument('--output', type=Path, required=True)
+    parser.add_argument('--think', action='store_true')
+    parser.add_argument('--max-tokens', type=int, default=800)
+    parser.add_argument('--timeout', type=int, default=360)
+    parser.add_argument('--case', dest='case_id')
     args = parser.parse_args()
     args.output.parent.mkdir(parents=True, exist_ok=True)
     monitor_path = args.output.with_name(args.output.stem + '-resources.json')
@@ -55,9 +59,14 @@ def main():
 
     thread = threading.Thread(target=monitor, daemon=True)
     thread.start()
+    extra = ['--max-tokens', str(args.max_tokens), '--timeout', str(args.timeout)]
+    if args.think:
+        extra.append('--think')
+    if args.case_id:
+        extra.extend(['--case', args.case_id])
     try:
         result = subprocess.run([sys.executable, '-u', str(ROOT / 'scripts/benchmark_spinoff_llm.py'),
-                                 '--model', args.model, '--output', str(args.output)], check=False)
+                                 '--model', args.model, '--output', str(args.output), *extra], check=False)
     finally:
         stop.set()
         thread.join(timeout=10)

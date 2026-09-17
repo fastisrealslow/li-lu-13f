@@ -8,14 +8,23 @@ Completed Q8 comparison: [Q4 versus Q8 results and memory observations](results/
 Both scored 3/6 strict field passes; Q8 took 12m39s versus Q4's 9m15s. Q8 corrected
 one missing name but regressed on one lifecycle stage. Production remains unchanged.
 
-The isolated workflow tests **Qwen3.5 9B Q8_0**, against the frozen Q4 results above.
-Only the model tag changes: extraction code, six inputs, prompt, schema, thinking
-mode, runtime version and request limits remain identical. A wrapper samples Linux
-memory every five seconds and prints the complete report into job logs. Sampled
-process RSS may double-count shared pages; system available RAM and swap also
-include other runner processes. These are observations, not exact model-only peaks.
-CPU identity is retained because standard hosted runners may use different CPUs.
-The workflow now runs Q8 alone to avoid repeating the already completed Q4/14B trial.
+The isolated workflow now tests **Qwen3.5 9B Q8_0 with thinking enabled**.
+The six frozen cases run in separate CPU jobs, with the same source text, system
+prompt, schema, scorer, runtime, temperature 0, seed 42 and context 4096 as before.
+Output budget increases from 800 to 2048 tokens and per-case timeout from 360 to
+1200 seconds to accommodate thinking. This is a bounded reasoning trial, not a
+maximum-capability claim. Truncation remains an explicit error; no repair retries.
+The raw thinking field is retained separately and only the final answer is scored.
+A nonempty thinking field is required to establish that thinking actually ran.
+Each report identifies its selected case; `complete` covers selected cases only,
+while `fullSuite` states whether one report contains all six. Aggregate all six
+unique cases before comparing with the previous non-thinking Q8 run.
+
+A wrapper samples Linux memory every five seconds and prints complete reports into
+job logs. Sampled process RSS may double-count shared pages; system available RAM
+and swap include other runner processes. These are observations, not exact peaks.
+CPU identity is retained; parallel hosted runners may use different CPU models.
+Compare summed inference seconds separately from parallel job wall-clock duration.
 
 Run `python scripts/benchmark_spinoff_llm.py --model rules --output /tmp/rules.json`
 or use the isolated **Spin-off LLM Benchmark** GitHub Action. This workflow has
@@ -40,7 +49,7 @@ The existing Sihuan completion regression sample is deliberately included, so th
 is not a wholly unseen holdout. The small, selected sample is not a general accuracy
 estimate. Gold was frozen before model inference and never enters model requests.
 
-Each model gets identical text, prompt, output schema, context 4096, temperature 0,
+In the original non-thinking comparison, each model got identical text, prompt, output schema, context 4096, temperature 0,
 seed 42, thinking disabled, four CPU threads, and at most 800 output tokens and
 360 seconds per case. This tests the production CPU budget, not maximum reasoning
 capability. Model digest, runtime version, token counts, elapsed time, errors, and
