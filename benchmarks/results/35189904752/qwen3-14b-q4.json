@@ -1,0 +1,344 @@
+{
+  "provenance": {
+    "kind": "verbatim case records parsed from completed Actions job log",
+    "runUrl": "https://github.com/fastisrealslow/li-lu-13f/actions/runs/35189904752",
+    "jobId": 105099967654,
+    "commit": "5c4ac220c5c8cfa56cd6fe61c558b4d7a754f3e2",
+    "fullArtifact": "spinoff-benchmark-qwen3-14b-q4"
+  },
+  "model": "qwen3:14b-q4_K_M",
+  "runtime": "Ollama 0.34.1",
+  "modelDigestPrefix": "bdbd181c33f2",
+  "cpu": "AMD EPYC 7763; 4 vCPU runner",
+  "config": {
+    "think": false,
+    "num_ctx": 4096,
+    "num_predict": 800,
+    "temperature": 0,
+    "seed": 42,
+    "num_thread": 4,
+    "num_gpu": 0,
+    "timeoutSeconds": 360
+  },
+  "complete": true,
+  "cases": [
+    {
+      "gold": {
+        "dates": [
+          {
+            "date": "2025-10-15",
+            "field": "listingDate",
+            "kind": "actual"
+          }
+        ],
+        "status": "completed",
+        "targetNames": [
+          "軒竹生物"
+        ]
+      },
+      "id": "sihuan_completed",
+      "metrics": {
+        "done_reason": "stop",
+        "eval_count": 232,
+        "eval_duration": 75729486000,
+        "load_duration": 10345246596,
+        "prompt_eval_count": 1124,
+        "prompt_eval_duration": 170565102000
+      },
+      "output": {
+        "dates": [
+          {
+            "date": "2025-10-15",
+            "field": "listingDate",
+            "kind": "actual",
+            "quote": "分拆公司 H 股於二零二五年十月十五日上午九時正開始於聯交所主板買賣"
+          },
+          {
+            "date": "2025-10-15",
+            "field": "distributionDate",
+            "kind": "actual",
+            "quote": "分拆公司 H 股於二零二五年十月十五日上午九時正開始於聯交所主板買賣"
+          }
+        ],
+        "status": "completed",
+        "statusQuote": "分拆公司 H 股於二零二五年十月十五日上午九時正開始於聯交所主板買賣",
+        "targetName": "軒竹生物",
+        "targetQuote": "建議分拆及軒竹生物於香港聯合交易所有限公司主板獨立上市之更新資料軒竹生物上市及開始買賣"
+      },
+      "raw": "{\n  \"targetName\": \"軒竹生物\",\n  \"targetQuote\": \"建議分拆及軒竹生物於香港聯合交易所有限公司主板獨立上市之更新資料軒竹生物上市及開始買賣\",\n  \"status\": \"completed\",\n  \"statusQuote\": \"分拆公司 H 股於二零二五年十月十五日上午九時正開始於聯交所主板買賣\",\n  \"dates\": [\n    {\n      \"field\": \"listingDate\",\n      \"date\": \"2025-10-15\",\n      \"kind\": \"actual\",\n      \"quote\": \"分拆公司 H 股於二零二五年十月十五日上午九時正開始於聯交所主板買賣\"\n    },\n    {\n      \"field\": \"distributionDate\",\n      \"date\": \"2025-10-15\",\n      \"kind\": \"actual\",\n      \"quote\": \"分拆公司 H 股於二零二五年十月十五日上午九時正開始於聯交所主板買賣\"\n    }\n  ]\n}",
+      "score": {
+        "dates": false,
+        "falseCompletion": false,
+        "fieldsExact": false,
+        "grounded": true,
+        "schema": true,
+        "status": true,
+        "target": true,
+        "unsupportedTarget": false
+      },
+      "seconds": 256.67,
+      "sourceUrl": "https://www1.hkexnews.hk/listedco/listconews/sehk/2025/1015/2025101500144_c.pdf",
+      "textSha256": "aca6d025e377f1798148b2710a08e208ceb8568244f34af89acf3a6db00f11f9"
+    },
+    {
+      "gold": {
+        "dates": [],
+        "status": "prospectus",
+        "targetNames": [
+          "軒竹生物科技股份有限公司",
+          "軒竹生物"
+        ]
+      },
+      "id": "sihuan_prospectus",
+      "metrics": {
+        "done_reason": "stop",
+        "eval_count": 154,
+        "eval_duration": 48953160000,
+        "load_duration": 1481409,
+        "prompt_eval_count": 674,
+        "prompt_eval_duration": 53216488000
+      },
+      "output": {
+        "dates": [
+          {
+            "date": "2025-10-06",
+            "field": "listingDate",
+            "kind": "actual",
+            "quote": "分拆公司已於二零二五年十月六日刊發招股章程"
+          }
+        ],
+        "status": "prospectus",
+        "statusQuote": "分拆公司已於二零二五年十月六日刊發招股章程",
+        "targetName": "軒竹生物科技股份有限公司",
+        "targetQuote": "建議分拆及本公司附屬公司軒竹生物科技股份有限公司（「分拆公司」 或「軒竹生物」）於聯交所主板獨立上市"
+      },
+      "raw": "{\n  \"targetName\": \"軒竹生物科技股份有限公司\",\n  \"targetQuote\": \"建議分拆及本公司附屬公司軒竹生物科技股份有限公司（「分拆公司」 或「軒竹生物」）於聯交所主板獨立上市\",\n  \"status\": \"prospectus\",\n  \"statusQuote\": \"分拆公司已於二零二五年十月六日刊發招股章程\",\n  \"dates\": [\n    {\n      \"field\": \"listingDate\",\n      \"date\": \"2025-10-06\",\n      \"kind\": \"actual\",\n      \"quote\": \"分拆公司已於二零二五年十月六日刊發招股章程\"\n    }\n  ]\n}",
+      "score": {
+        "dates": false,
+        "falseCompletion": false,
+        "fieldsExact": false,
+        "grounded": true,
+        "schema": true,
+        "status": true,
+        "target": true,
+        "unsupportedTarget": false
+      },
+      "seconds": 102.31,
+      "sourceUrl": "https://www1.hkexnews.hk/listedco/listconews/sehk/2025/1006/2025100601213_c.pdf",
+      "textSha256": "42f3fd5c6388530ca59e0b8681e1871124d8fa924afe09b815c1882fffdc6e9f"
+    },
+    {
+      "gold": {
+        "dates": [],
+        "status": "paused",
+        "targetNames": [
+          ""
+        ]
+      },
+      "id": "leoch_paused",
+      "metrics": {
+        "done_reason": "stop",
+        "eval_count": 52,
+        "eval_duration": 16412564999,
+        "load_duration": 3495801,
+        "prompt_eval_count": 907,
+        "prompt_eval_duration": 93217576000
+      },
+      "output": {
+        "dates": [],
+        "status": "needs_review",
+        "statusQuote": "決定於現階段不進行建議分拆及建議於美國證券交易所上市",
+        "targetName": "",
+        "targetQuote": ""
+      },
+      "raw": "{\n  \"targetName\": \"\",\n  \"targetQuote\": \"\",\n  \"status\": \"needs_review\",\n  \"statusQuote\": \"決定於現階段不進行建議分拆及建議於美國證券交易所上市\",\n  \"dates\": []\n}",
+      "score": {
+        "dates": true,
+        "falseCompletion": false,
+        "fieldsExact": false,
+        "grounded": true,
+        "schema": true,
+        "status": false,
+        "target": true,
+        "unsupportedTarget": false
+      },
+      "seconds": 109.73,
+      "sourceUrl": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0401/2026040104407_c.pdf",
+      "textSha256": "da4a37d5a3695b1a7fce2fe9d4870dbef00bf84174f523090493207f74a44883"
+    },
+    {
+      "gold": {
+        "dates": [
+          {
+            "date": "2026-09-24",
+            "field": "recordDate",
+            "kind": "scheduled"
+          },
+          {
+            "date": "2026-10-01",
+            "field": "distributionDate",
+            "kind": "scheduled"
+          },
+          {
+            "date": "2026-10-01",
+            "field": "listingDate",
+            "kind": "scheduled"
+          }
+        ],
+        "status": "record_set",
+        "targetNames": [
+          "Vylor Inc.",
+          "Vylor"
+        ]
+      },
+      "id": "ctva",
+      "metrics": {
+        "done_reason": "stop",
+        "eval_count": 307,
+        "eval_duration": 103783029000,
+        "load_duration": 1292577,
+        "prompt_eval_count": 1104,
+        "prompt_eval_duration": 123068165000
+      },
+      "output": {
+        "dates": [
+          {
+            "date": "2026-09-24",
+            "field": "recordDate",
+            "kind": "scheduled",
+            "quote": "as of the close of business on September 24, 2026 (the “Record Date”)"
+          },
+          {
+            "date": "2026-10-01",
+            "field": "listingDate",
+            "kind": "scheduled",
+            "quote": "Vylor Common Stock is expected to begin “regular way” trading on the NYSE, under the symbol “VYLR” at the open of trading on October 1, 2026."
+          },
+          {
+            "date": "2026-10-01",
+            "field": "distributionDate",
+            "kind": "scheduled",
+            "quote": "The Distribution is expected to be completed prior to 9:30 a.m., New York City time, on October 1, 2026."
+          }
+        ],
+        "status": "approved",
+        "statusQuote": "the board of directors of Corteva approved the previously announced separation (the “Separation”)",
+        "targetName": "Vylor Inc.",
+        "targetQuote": "the separation of Corteva’s seed operating segment into an independent, publicly traded company, Vylor Inc. (“Vylor”)"
+      },
+      "raw": "{\n  \"targetName\": \"Vylor Inc.\",\n  \"targetQuote\": \"the separation of Corteva’s seed operating segment into an independent, publicly traded company, Vylor Inc. (“Vylor”)\",\n  \"status\": \"approved\",\n  \"statusQuote\": \"the board of directors of Corteva approved the previously announced separation (the “Separation”)\",\n  \"dates\": [\n    {\n      \"field\": \"recordDate\",\n      \"date\": \"2026-09-24\",\n      \"kind\": \"scheduled\",\n      \"quote\": \"as of the close of business on September 24, 2026 (the “Record Date”)\"\n    },\n    {\n      \"field\": \"listingDate\",\n      \"date\": \"2026-10-01\",\n      \"kind\": \"scheduled\",\n      \"quote\": \"Vylor Common Stock is expected to begin “regular way” trading on the NYSE, under the symbol “VYLR” at the open of trading on October 1, 2026.\"\n    },\n    {\n      \"field\": \"distributionDate\",\n      \"date\": \"2026-10-01\",\n      \"kind\": \"scheduled\",\n      \"quote\": \"The Distribution is expected to be completed prior to 9:30 a.m., New York City time, on October 1, 2026.\"\n    }\n  ]\n}",
+      "score": {
+        "dates": true,
+        "falseCompletion": false,
+        "fieldsExact": false,
+        "grounded": false,
+        "schema": true,
+        "status": false,
+        "target": true,
+        "unsupportedTarget": false
+      },
+      "seconds": 226.94,
+      "sourceUrl": "https://www.sec.gov/Archives/edgar/data/1755672/000119312526391369/d71834d8k.htm",
+      "textSha256": "262c0889bd4078ff67079e52121388e0b08f8eae954141958f47dc33dccd073d"
+    },
+    {
+      "gold": {
+        "dates": [],
+        "status": "announced",
+        "targetNames": [
+          "Teyame AI Holdings, Inc.",
+          "Teyame"
+        ]
+      },
+      "id": "hcti",
+      "metrics": {
+        "done_reason": "stop",
+        "eval_count": 157,
+        "eval_duration": 54201917000,
+        "load_duration": 4544359,
+        "prompt_eval_count": 1189,
+        "prompt_eval_duration": 136137489000
+      },
+      "output": {
+        "dates": [
+          {
+            "date": "2026-09-08",
+            "field": "listingDate",
+            "kind": "scheduled",
+            "quote": "the Teyame Common Stock shall have been approved for listing on The Nasdaq Stock Market LLC (“Nasdaq”), subject to official notice of issuance"
+          }
+        ],
+        "status": "announced",
+        "statusQuote": "the planned separation and spin-off of Teyame from the Company (the “Spin-Off”)",
+        "targetName": "Teyame AI Holdings, Inc.",
+        "targetQuote": "the planned separation and spin-off of Teyame from the Company (the “Spin-Off”)"
+      },
+      "raw": "{\n  \"targetName\": \"Teyame AI Holdings, Inc.\",\n  \"targetQuote\": \"the planned separation and spin-off of Teyame from the Company (the “Spin-Off”)\",\n  \"status\": \"announced\",\n  \"statusQuote\": \"the planned separation and spin-off of Teyame from the Company (the “Spin-Off”)\",\n  \"dates\": [\n    {\n      \"field\": \"listingDate\",\n      \"date\": \"2026-09-08\",\n      \"kind\": \"scheduled\",\n      \"quote\": \"the Teyame Common Stock shall have been approved for listing on The Nasdaq Stock Market LLC (“Nasdaq”), subject to official notice of issuance\"\n    }\n  ]\n}",
+      "score": {
+        "dates": false,
+        "falseCompletion": false,
+        "fieldsExact": false,
+        "grounded": true,
+        "schema": true,
+        "status": true,
+        "target": true,
+        "unsupportedTarget": false
+      },
+      "seconds": 190.53,
+      "sourceUrl": "https://www.sec.gov/Archives/edgar/data/1839285/000121390026097953/ea0304854-8k_healthcare.htm",
+      "textSha256": "f71dfc5b117aa0eaac4b30d46736828d3873b018655031ab3e53afd68221e3ee"
+    },
+    {
+      "gold": {
+        "dates": [],
+        "status": "needs_review",
+        "targetNames": [
+          ""
+        ]
+      },
+      "id": "blze",
+      "metrics": {
+        "done_reason": "stop",
+        "eval_count": 19,
+        "eval_duration": 5909496000,
+        "load_duration": 2642371,
+        "prompt_eval_count": 757,
+        "prompt_eval_duration": 69972866000
+      },
+      "output": {
+        "dates": [],
+        "status": "needs_review",
+        "statusQuote": "",
+        "targetName": "",
+        "targetQuote": ""
+      },
+      "raw": "{\"targetName\":\"\",\"targetQuote\":\"\",\"status\":\"needs_review\",\"statusQuote\":\"\",\"dates\":[]}",
+      "score": {
+        "dates": true,
+        "falseCompletion": false,
+        "fieldsExact": true,
+        "grounded": true,
+        "schema": true,
+        "status": true,
+        "target": true,
+        "unsupportedTarget": false
+      },
+      "seconds": 75.98,
+      "sourceUrl": "https://www.sec.gov/Archives/edgar/data/1462056/000114036126034200/ef20080933_8k.htm",
+      "textSha256": "393ed07b48325ac5444ddef336256fe241686c4487146c0e8d161199da669dca"
+    }
+  ],
+  "totals": {
+    "cases": 6,
+    "dates": 3,
+    "errors": 0,
+    "falseCompletion": 0,
+    "fieldsExact": 1,
+    "grounded": 5,
+    "schema": 6,
+    "seconds": 962.16,
+    "status": 4,
+    "target": 6,
+    "unsupportedTarget": 0
+  }
+}

@@ -1,0 +1,258 @@
+{
+  "provenance": {
+    "kind": "verbatim case records parsed from completed Actions job log",
+    "runUrl": "https://github.com/fastisrealslow/li-lu-13f/actions/runs/35189904752",
+    "jobId": 105099967402,
+    "commit": "5c4ac220c5c8cfa56cd6fe61c558b4d7a754f3e2",
+    "fullArtifact": "spinoff-benchmark-qwen35-9b-q4"
+  },
+  "model": "rules",
+  "runtime": "Ollama 0.34.1",
+  "modelDigestPrefix": null,
+  "cpu": "AMD EPYC 9V74; 4 vCPU runner",
+  "config": {
+    "think": false,
+    "num_ctx": 4096,
+    "num_predict": 800,
+    "temperature": 0,
+    "seed": 42,
+    "num_thread": 4,
+    "num_gpu": 0,
+    "timeoutSeconds": 360
+  },
+  "complete": true,
+  "cases": [
+    {
+      "id": "sihuan_completed",
+      "sourceUrl": "https://www1.hkexnews.hk/listedco/listconews/sehk/2025/1015/2025101500144_c.pdf",
+      "gold": {
+        "targetNames": [
+          "軒竹生物"
+        ],
+        "status": "completed",
+        "dates": [
+          {
+            "field": "listingDate",
+            "date": "2025-10-15",
+            "kind": "actual"
+          }
+        ]
+      },
+      "textSha256": "aca6d025e377f1798148b2710a08e208ceb8568244f34af89acf3a6db00f11f9",
+      "output": {
+        "targetName": "軒竹生物",
+        "targetQuote": "無意在美國公開發售任何證券。 Sihuan Pharmaceutical Holdings Group Ltd. 四環醫藥控股集團有限公司（於百慕達註冊成立的有限公司）（股份代號：0460）建議分拆及軒竹生物於香港聯合交易所有限公司主板獨立上市之更新資料軒竹生物上市及開始買賣 – 1 – 董事會欣然宣佈，於全球發售完成後，分拆公司於二零二五年十月十五日在聯交所主板上市，而分拆公司 H 股於二零二五年十月十五日上午九時正開始於聯交所主板買賣。緒言茲提述本公司日期為二零二四年十一月十二日、二零二四年十一月二",
+        "status": "completed",
+        "statusQuote": "四環醫藥控股集團有限公司（於百慕達註冊成立的有限公司）（股份代號：0460）建議分拆及軒竹生物於香港聯合交易所有限公司主板獨立上市之更新資料軒竹生物上市及開始買賣 – 1 – 董事會欣然宣佈，於全球發售完成後，分拆公司於二零二五年十月十五日在聯交所主板上市，而分拆公司 H 股於二零二五年十月十五日上午九時正開始於聯交所主板買賣",
+        "dates": [
+          {
+            "field": "listingDate",
+            "date": "2025-10-15",
+            "quote": "分拆公司於二零二五年十月十五日在聯交所主板上市",
+            "kind": "actual"
+          }
+        ]
+      },
+      "score": {
+        "schema": true,
+        "target": true,
+        "status": true,
+        "dates": true,
+        "grounded": false,
+        "fieldsExact": true,
+        "falseCompletion": false,
+        "unsupportedTarget": false
+      },
+      "seconds": 0.06
+    },
+    {
+      "id": "sihuan_prospectus",
+      "sourceUrl": "https://www1.hkexnews.hk/listedco/listconews/sehk/2025/1006/2025100601213_c.pdf",
+      "gold": {
+        "targetNames": [
+          "軒竹生物科技股份有限公司",
+          "軒竹生物"
+        ],
+        "status": "prospectus",
+        "dates": []
+      },
+      "textSha256": "42f3fd5c6388530ca59e0b8681e1871124d8fa924afe09b815c1882fffdc6e9f",
+      "output": {
+        "targetName": "及本公司附屬公司軒竹生物科技股份有限公司",
+        "targetQuote": "分拆及本公司附屬公司軒竹生物科技股份有限公司",
+        "status": "prospectus",
+        "statusQuote": "刊發招股章程董事會欣然宣佈，就建議分拆及上市而言，分拆公司已於二零二五年十月六日刊發招股章程",
+        "dates": []
+      },
+      "score": {
+        "schema": true,
+        "target": false,
+        "status": true,
+        "dates": true,
+        "grounded": true,
+        "fieldsExact": false,
+        "falseCompletion": false,
+        "unsupportedTarget": true
+      },
+      "seconds": 0
+    },
+    {
+      "id": "leoch_paused",
+      "sourceUrl": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0401/2026040104407_c.pdf",
+      "gold": {
+        "targetNames": [
+          ""
+        ],
+        "status": "paused",
+        "dates": []
+      },
+      "textSha256": "da4a37d5a3695b1a7fce2fe9d4870dbef00bf84174f523090493207f74a44883",
+      "output": {
+        "targetName": "",
+        "targetQuote": "",
+        "status": "paused",
+        "statusQuote": "經諮詢其建議分拆的顧問，分拆公司於考慮現時市場及監管狀況等多項因素後，決定於現階段不進行建議分拆及建議於美國證券交易所上市",
+        "dates": []
+      },
+      "score": {
+        "schema": true,
+        "target": true,
+        "status": true,
+        "dates": true,
+        "grounded": true,
+        "fieldsExact": true,
+        "falseCompletion": false,
+        "unsupportedTarget": false
+      },
+      "seconds": 0
+    },
+    {
+      "id": "ctva",
+      "sourceUrl": "https://www.sec.gov/Archives/edgar/data/1755672/000119312526391369/d71834d8k.htm",
+      "gold": {
+        "targetNames": [
+          "Vylor Inc.",
+          "Vylor"
+        ],
+        "status": "record_set",
+        "dates": [
+          {
+            "field": "recordDate",
+            "date": "2026-09-24",
+            "kind": "scheduled"
+          },
+          {
+            "field": "distributionDate",
+            "date": "2026-10-01",
+            "kind": "scheduled"
+          },
+          {
+            "field": "listingDate",
+            "date": "2026-10-01",
+            "kind": "scheduled"
+          }
+        ]
+      },
+      "textSha256": "262c0889bd4078ff67079e52121388e0b08f8eae954141958f47dc33dccd073d",
+      "output": {
+        "targetName": "Vylor Inc",
+        "targetQuote": "Vylor Inc. (“Vylor”) … independent, publicly traded company, Vylor Inc.",
+        "status": "announced",
+        "statusQuote": "The Distribution is expected to be completed prior to 9:30 a.m., New York City time, on October 1, 2026.",
+        "dates": [
+          {
+            "field": "recordDate",
+            "date": "2026-09-24",
+            "quote": "September 24, 2026(the “Record Date",
+            "kind": "scheduled"
+          }
+        ]
+      },
+      "score": {
+        "schema": true,
+        "target": true,
+        "status": false,
+        "dates": false,
+        "grounded": false,
+        "fieldsExact": false,
+        "falseCompletion": false,
+        "unsupportedTarget": false
+      },
+      "seconds": 0
+    },
+    {
+      "id": "hcti",
+      "sourceUrl": "https://www.sec.gov/Archives/edgar/data/1839285/000121390026097953/ea0304854-8k_healthcare.htm",
+      "gold": {
+        "targetNames": [
+          "Teyame AI Holdings, Inc.",
+          "Teyame"
+        ],
+        "status": "announced",
+        "dates": []
+      },
+      "textSha256": "f71dfc5b117aa0eaac4b30d46736828d3873b018655031ab3e53afd68221e3ee",
+      "output": {
+        "targetName": "Teyame AI Holdings, Inc",
+        "targetQuote": "Teyame AI Holdings, Inc. (“Teyame”) … distribute a minority interest in the outstanding shares of common stock of Teyame",
+        "status": "announced",
+        "statusQuote": "(“Teyame”), a Delaware corporation and direct, wholly-owned subsidiary of the Company, in connection with the planned separation and spin-off of Teyame from the Company (the “Spin-Off”).",
+        "dates": []
+      },
+      "score": {
+        "schema": true,
+        "target": true,
+        "status": true,
+        "dates": true,
+        "grounded": false,
+        "fieldsExact": true,
+        "falseCompletion": false,
+        "unsupportedTarget": false
+      },
+      "seconds": 0.01
+    },
+    {
+      "id": "blze",
+      "sourceUrl": "https://www.sec.gov/Archives/edgar/data/1462056/000114036126034200/ef20080933_8k.htm",
+      "gold": {
+        "targetNames": [
+          ""
+        ],
+        "status": "needs_review",
+        "dates": []
+      },
+      "textSha256": "393ed07b48325ac5444ddef336256fe241686c4487146c0e8d161199da669dca",
+      "output": {
+        "targetName": "",
+        "targetQuote": "",
+        "status": "needs_review",
+        "statusQuote": "",
+        "dates": []
+      },
+      "score": {
+        "schema": true,
+        "target": true,
+        "status": true,
+        "dates": true,
+        "grounded": true,
+        "fieldsExact": true,
+        "falseCompletion": false,
+        "unsupportedTarget": false
+      },
+      "seconds": 0
+    }
+  ],
+  "totals": {
+    "schema": 6,
+    "target": 5,
+    "status": 5,
+    "dates": 5,
+    "grounded": 3,
+    "fieldsExact": 4,
+    "falseCompletion": 0,
+    "unsupportedTarget": 1,
+    "errors": 0,
+    "cases": 6,
+    "seconds": 0.07
+  }
+}

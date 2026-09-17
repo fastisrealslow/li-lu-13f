@@ -1,5 +1,9 @@
 # Spin-off extraction experiment
 
+First completed comparison: [2026-09-17 results and manual evidence review](results/35189904752/REVIEW.md).
+Strict field passes were rules 4/6, Qwen3.5 9B 3/6, Qwen3 14B 1/6. Neither model
+was integrated into production spin-off facts.
+
 Run `python scripts/benchmark_spinoff_llm.py --model rules --output /tmp/rules.json`
 or use the isolated **Spin-off LLM Benchmark** GitHub Action. This workflow has
 read-only repository permission, no schedule, and no dependency on data updates.
