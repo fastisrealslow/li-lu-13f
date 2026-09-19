@@ -619,6 +619,33 @@
       "verdictEn": "Only one holder, position unchanged, and the margin of safety only barely qualifies — fine as a watchlist name but no new signal for now."
     },
     {
+      "ticker": "IAC",
+      "name": "People Inc",
+      "sector": "互联网",
+      "mos": 21.6,
+      "mosTier": "中等折价",
+      "buy": 46.16,
+      "price": 36.19,
+      "holderCount": 1,
+      "holders": [
+        {
+          "investor": "梅森·霍金斯",
+          "chg": "trimmed",
+          "weight": 7.5,
+          "hold_quarters": 20,
+          "hold_years": 5.0,
+          "trend": "stable",
+          "reentry": false,
+          "exit_quarter": null,
+          "reentry_quarter": null
+        }
+      ],
+      "holderText": "梅森·霍金斯（7.5%仓位，持有20季/5.0年，本季减仓）",
+      "nearMiss": [],
+      "verdict": "仅单一持有人且本季减仓，安全边际虽达标，但缺乏共识支持，须谨慎看待。",
+      "verdictEn": "Only one holder, and they trimmed this quarter — the margin of safety qualifies, but there's no consensus support; approach with caution."
+    },
+    {
       "ticker": "GLIBA",
       "name": "自由资本",
       "sector": "通讯",
@@ -641,33 +668,6 @@
         }
       ],
       "holderText": "梅森·霍金斯（极小仓位(<0.5%)，持有4季/1.0年，本季减仓）",
-      "nearMiss": [],
-      "verdict": "仅单一持有人且本季减仓，安全边际虽达标，但缺乏共识支持，须谨慎看待。",
-      "verdictEn": "Only one holder, and they trimmed this quarter — the margin of safety qualifies, but there's no consensus support; approach with caution."
-    },
-    {
-      "ticker": "IAC",
-      "name": "People Inc",
-      "sector": "互联网",
-      "mos": 20.0,
-      "mosTier": "中等折价",
-      "buy": 46.16,
-      "price": 36.95,
-      "holderCount": 1,
-      "holders": [
-        {
-          "investor": "梅森·霍金斯",
-          "chg": "trimmed",
-          "weight": 7.5,
-          "hold_quarters": 20,
-          "hold_years": 5.0,
-          "trend": "stable",
-          "reentry": false,
-          "exit_quarter": null,
-          "reentry_quarter": null
-        }
-      ],
-      "holderText": "梅森·霍金斯（7.5%仓位，持有20季/5.0年，本季减仓）",
       "nearMiss": [],
       "verdict": "仅单一持有人且本季减仓，安全边际虽达标，但缺乏共识支持，须谨慎看待。",
       "verdictEn": "Only one holder, and they trimmed this quarter — the margin of safety qualifies, but there's no consensus support; approach with caution."
@@ -755,7 +755,7 @@
     }
   ],
   "droppedOut": [],
-  "generatedAt": "2026-09-19T01:54:50Z",
+  "generatedAt": "2026-09-19T16:15:17Z",
   "candidateCount": 27,
   "consensusCount": 1,
   "signalHash": "db9c1997a0e98b1721fd48d38f059494bcdf1b4996385519795c95597b8667ff"
