@@ -127,3 +127,20 @@ test('merged dossier names retain old watchlists and notes once',()=>{
  a.run("spinSave(event.id,{note:'修改后的笔记'})");
  assert.equal(a.run('spinPrefs()[event.id].note'),'修改后的笔记');
 });
+
+test('introduction listing filter works with search, status and both type formats',()=>{
+ const a=app();a.context.event=event;
+ a.run(`spinDash.hk.data={events:[
+   {...event,id:'intro1',parentName:'中国旅游',status:'announced',type:{code:'intro_hk'}},
+   {...event,id:'intro2',parentName:'岚图汽车',status:'completed',type:'intro_hk'},
+   {...event,id:'ipo',type:{code:'ipo_hk'}},
+   {...event,id:'distribution',type:'distribution'},
+   {...event,id:'reit',type:{code:'reit',is_reit:true}}
+ ]};spinDash.hk.type='intro'`);
+ assert.equal(a.run('spinBaseEvents(spinDash.hk).length'),2);
+ assert.equal(a.run('spinVisible(spinDash.hk,{}).length'),2);
+ a.run("spinDash.hk.status='completed'");assert.equal(a.run('spinVisible(spinDash.hk,{}).length'),1);
+ a.run("spinDash.hk.status='all';spinDash.hk.query='中国旅游'");
+ assert.equal(a.run('spinBaseEvents(spinDash.hk).length'),1);
+ assert.equal(a.run('spinVisible(spinDash.hk,{})[0].id'),'intro1');
+});

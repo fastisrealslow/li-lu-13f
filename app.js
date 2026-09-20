@@ -1014,75 +1014,91 @@ function renderInsights() {
   document.getElementById('insightsList').innerHTML = ins.map(s=>`<li>${s}</li>`).join('');
 }
 
-// ── 历史折线图 AI 解读 ──
+// History values are millions of the investor's reporting currency, not returns/AUM.
+function historyQuarterIndex(q) {
+  const m = /^(\d{4}) Q([1-4])$/.exec(q);
+  return m ? Number(m[1]) * 4 + Number(m[2]) - 1 : NaN;
+}
+function historySeries(history) {
+  if (history?.verification?.status === 'unverified') return {quarters: [], values: []};
+  const points = new Map();
+  (history?.quarters || []).forEach((q, i) => {
+    if (!Number.isFinite(historyQuarterIndex(q))) return;
+    const holdings = history.holdings?.[q];
+    // Prefer exact filed totals to old rounded summary values.
+    const v = Array.isArray(holdings) && holdings.length && holdings.every(h => typeof h.value === 'number' && Number.isFinite(h.value) && h.value >= 0)
+      ? holdings.reduce((sum, h) => sum + h.value, 0) / 1e6 : history.values?.[i];
+    if (typeof v === 'number' && Number.isFinite(v) && v >= 0) points.set(q, v);
+  });
+  const entries = [...points].sort((a, b) => historyQuarterIndex(a[0]) - historyQuarterIndex(b[0]));
+  return {quarters: entries.map(p => p[0]), values: entries.map(p => p[1])};
+}
+function historyMoney(v, precision = 2) {
+  const currency = investor === 'webb' ? 'HK$' : 'US$';
+  const n = v >= 1000 ? v / 1000 : v;
+  return currency + n.toLocaleString('en-US', {maximumFractionDigits: precision}) + (v >= 1000 ? 'B' : 'M');
+}
+function historyRange(values) {
+  const low = Math.min(...values), high = Math.max(...values);
+  const margin = Math.max((high - low) * .12, high * .02, .01);
+  return {minV: Math.max(0, low - margin), maxV: high + margin};
+}
+function historyChange(quarters, values, i) {
+  if (i < 1 || values[i-1] <= 0 || historyQuarterIndex(quarters[i]) - historyQuarterIndex(quarters[i-1]) !== 1) return null;
+  return (values[i] - values[i-1]) / values[i-1];
+}
+function historyX(quarters, i) {
+  const first = historyQuarterIndex(quarters[0]);
+  const span = historyQuarterIndex(quarters[quarters.length-1]) - first;
+  return span ? (historyQuarterIndex(quarters[i]) - first) / span : .5;
+}
+function historySegments(quarters) {
+  const segments = [];
+  quarters.forEach((q, i) => {
+    if (!i || historyQuarterIndex(q) - historyQuarterIndex(quarters[i-1]) !== 1) segments.push([]);
+    segments[segments.length-1].push(i);
+  });
+  return segments;
+}
 function generateHistoryInsight(quarters, values) {
-  if (!quarters || quarters.length < 2) return '';
   const isEn = lang === 'en';
+  if (!values.length) return isEn ? 'No historical data available.' : '暂无历史数据。';
   const first = values[0], last = values[values.length-1];
-  const peak = Math.max(...values), peakIdx = values.indexOf(peak);
-  const trough = Math.min(...values), troughIdx = values.indexOf(trough);
-  const totalGrowth = first > 0 ? ((last - first) / first * 100).toFixed(0) : '—';
-  const peakQ = quarters[peakIdx], troughQ = quarters[troughIdx];
-
-  // 找最大单季跌幅
-  let maxDrop = 0, maxDropQ = '', maxDropFrom = 0, maxDropTo = 0;
-  for (let i = 1; i < values.length; i++) {
-    const drop = (values[i-1] - values[i]) / values[i-1];
-    if (drop > maxDrop) { maxDrop = drop; maxDropQ = quarters[i]; maxDropFrom = values[i-1]; maxDropTo = values[i]; }
-  }
-  // 找最大单季涨幅
-  let maxRise = 0, maxRiseQ = '', maxRiseFrom = 0, maxRiseTo = 0;
-  for (let i = 1; i < values.length; i++) {
-    const rise = values[i-1] > 0 ? (values[i] - values[i-1]) / values[i-1] : 0;
-    if (rise > maxRise) { maxRise = rise; maxRiseQ = quarters[i]; maxRiseFrom = values[i-1]; maxRiseTo = values[i]; }
-  }
-  // 近4季趋势
-  const recent = values.slice(-4);
-  const recentTrend = recent[recent.length-1] > recent[0] ? (isEn ? '↑ rising' : '↑ 上升') : (isEn ? '↓ declining' : '↓ 下降');
-  const recentPct = recent[0] > 0 ? Math.abs((recent[recent.length-1]-recent[0])/recent[0]*100).toFixed(0) : '—';
-
-  const fmtM = v => v >= 1000 ? `$${(v/1000).toFixed(1)}B` : `$${v}M`;
-
-  if (isEn) {
-    let txt = `From ${quarters[0]} to ${quarters[quarters.length-1]}, AUM grew ${totalGrowth}% (${fmtM(first)} → ${fmtM(last)}). `;
-    txt += `Peak was ${fmtM(peak)} in ${peakQ}. `;
-    if (maxDrop > 0.25) txt += `Sharpest single-quarter drop: ${maxDropQ} −${(maxDrop*100).toFixed(0)}% (${fmtM(maxDropFrom)} → ${fmtM(maxDropTo)}), reflecting major portfolio repositioning. `;
-    if (maxRise > 0.25) txt += `Biggest surge: ${maxRiseQ} +${(maxRise*100).toFixed(0)}% (${fmtM(maxRiseFrom)} → ${fmtM(maxRiseTo)}). `;
-    txt += `Recent 4-quarter trend: ${recentTrend} ${recentPct}%.`;
-    return txt;
-  } else {
-    let txt = `从 ${quarters[0]} 到 ${quarters[quarters.length-1]}，规模增长 ${totalGrowth}%（${fmtM(first)} → ${fmtM(last)}）。`;
-    txt += `历史峰值为 ${peakQ} 的 ${fmtM(peak)}。`;
-    if (maxDrop > 0.25) txt += `最大单季跌幅出现在 ${maxDropQ}，下降 ${(maxDrop*100).toFixed(0)}%（${fmtM(maxDropFrom)} → ${fmtM(maxDropTo)}），反映重大持仓调整。`;
-    if (maxRise > 0.25) txt += `最大单季涨幅出现在 ${maxRiseQ}，增长 ${(maxRise*100).toFixed(0)}%（${fmtM(maxRiseFrom)} → ${fmtM(maxRiseTo)}）。`;
-    txt += `近4季走势：${recentTrend} ${recentPct}%。`;
-    return txt;
-  }
+  const peak = Math.max(...values), peakQ = quarters[values.indexOf(peak)];
+  const change = first > 0 ? ((last-first)/first*100) : null;
+  const pct = change === null ? '—' : `${change > 0 ? '+' : ''}${change.toFixed(1)}%`;
+  let txt = isEn
+    ? `Disclosed holdings value: ${quarters[0]} ${historyMoney(first)} → ${quarters[quarters.length-1]} ${historyMoney(last)} (change ${pct}). Peak: ${peakQ}, ${historyMoney(peak)}. `
+    : `披露持仓市值：${quarters[0]} ${historyMoney(first)} → ${quarters[quarters.length-1]} ${historyMoney(last)}（变化 ${pct}）。峰值：${peakQ}，${historyMoney(peak)}。`;
+  if (historySegments(quarters).length > 1) txt += isEn ? 'Missing quarters are shown as gaps. ' : '缺失季度以断线显示。';
+  txt += isEn ? 'Value changes are not investment returns; disclosed holdings do not represent total assets under management.' : '市值变化不等于投资收益，披露持仓也不代表全部管理资产。';
+  return txt;
 }
 
 // ── 手机端：卡片式时间轴 ──
 function renderHistoryMobile(container, quarters, values) {
   const isEn = lang === 'en';
-  const fmtM = v => v >= 1000 ? `$${(v/1000).toFixed(1)}B` : `$${v}M`;
+  const fmtM = historyMoney;
   const W = 340, H = 200;
-  const pad = {top:20, right:16, bottom:32, left:52};
+  const pad = {top:20, right:16, bottom:32, left:68};
   const w = W - pad.left - pad.right, h = H - pad.top - pad.bottom;
-  const minV = Math.max(0, Math.floor(Math.min(...values)/500)*500-500);
-  const maxV = Math.ceil(Math.max(...values)/500)*500;
+  const {minV, maxV} = historyRange(values);
   const range = maxV - minV || 1;
-  const gX = i => pad.left + (quarters.length > 1 ? (i/(quarters.length-1))*w : w/2);
+  const gX = i => pad.left + historyX(quarters, i)*w;
   const gY = v => pad.top + h - ((v - minV)/range)*h;
 
-  // 点列表
-  const pts = values.map((v,i) => `${gX(i).toFixed(1)},${gY(v).toFixed(1)}`).join(' ');
-  const fillPts = `${pts} ${gX(values.length-1).toFixed(1)},${(pad.top+h).toFixed(1)} ${gX(0).toFixed(1)},${(pad.top+h).toFixed(1)}`;
+  const paths = historySegments(quarters).map(indices => {
+    const pts = indices.map(i => `${gX(i).toFixed(1)},${gY(values[i]).toFixed(1)}`).join(' ');
+    const fill = `${pts} ${gX(indices[indices.length-1])},${pad.top+h} ${gX(indices[0])},${pad.top+h}`;
+    return `<polygon points="${fill}" fill="url(#mspg)"/><polyline points="${pts}" fill="none" stroke="#1e3a5f" stroke-width="2"/>`;
+  }).join('');
 
   // Y轴标签 (3个)
   let yLines = '';
   for (let i = 0; i <= 3; i++) {
     const v = minV + (maxV - minV) * (i/3);
     const y = gY(v);
-    const label = v >= 1000 ? `$${(v/1000).toFixed(v%1000===0?0:1)}B` : `$${Math.round(v)}M`;
+    const label = historyMoney(v, 1);
     yLines += `<line x1="${pad.left}" y1="${y.toFixed(1)}" x2="${W-pad.right}" y2="${y.toFixed(1)}" stroke="#e5e7eb" stroke-width="0.5"/>`;
     yLines += `<text x="${pad.left-6}" y="${(y+3.5).toFixed(1)}" text-anchor="end" font-size="8.5" fill="#9ca3af">${label}</text>`;
   }
@@ -1101,7 +1117,7 @@ function renderHistoryMobile(container, quarters, values) {
   // 大幅变动标注圆
   let markers = '';
   for (let i = 1; i < values.length; i++) {
-    const chg = values[i-1] > 0 ? (values[i]-values[i-1])/values[i-1] : 0;
+    const chg = historyChange(quarters, values, i);
     if (Math.abs(chg) > 0.25) {
       const x = gX(i), y = gY(values[i]);
       const col = chg > 0 ? '#16a34a' : '#dc2626';
@@ -1125,8 +1141,8 @@ function renderHistoryMobile(container, quarters, values) {
     </defs>
     ${yLines}
     ${xLabels}
-    <polygon points="${fillPts}" fill="url(#mspg)"/>
-    <polyline points="${pts}" fill="none" stroke="#1e3a5f" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+    ${paths}
+    ${values.map((v,i)=>`<circle cx="${gX(i)}" cy="${gY(v)}" r="2" fill="#1e3a5f"/>`).join('')}
     ${markers}
     <circle cx="${lastX.toFixed(1)}" cy="${lastY.toFixed(1)}" r="3.5" fill="#1e3a5f" stroke="white" stroke-width="1.5"/>
     <text x="${labelX.toFixed(1)}" y="${(lastY-6).toFixed(1)}" text-anchor="${labelAnchor}" font-size="9.5" fill="#1e3a5f" font-weight="bold">${lastLabel}</text>
@@ -1138,16 +1154,22 @@ function renderHistoryMobile(container, quarters, values) {
 function renderHistoryChart() {
   const wrap = document.getElementById('historyChartWrap');
   const canvas = document.getElementById('historyChart');
-  if (!canvas || !data || !data.history) return;
-  const {quarters: rawQuarters, values: rawValues} = data.history;
-  // 按季度时间顺序重排（数据源是分批抓取追加写入的，quarters/values 原始顺序可能不是时间序）
-  const qKey = q => { const [y, qq] = q.split(' Q'); return parseInt(y) * 10 + parseInt(qq); };
-  const order = rawQuarters.map((q, i) => i).sort((a, b) => qKey(rawQuarters[a]) - qKey(rawQuarters[b]));
-  const quarters = order.map(i => rawQuarters[i]);
-  const values = order.map(i => rawValues[i]);
+  if (!canvas) return;
+  const {quarters, values} = historySeries(data?.history);
+  document.getElementById('hcTooltip')?.remove();
+  canvas.onmousemove = canvas.onmouseleave = null;
+  const mobile = document.getElementById('historyMobileWrap');
+  if (mobile) { mobile.innerHTML = ''; mobile.style.display = 'none'; }
+  canvas.parentElement.style.display = '';
+  if (!values.length) {
+    canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height);
+    const insight = document.getElementById('historyInsight');
+    if (insight) { insight.textContent = data?.history?.verification?.status === 'unverified' ? (lang === 'en' ? 'Historical quarter snapshots cannot be reconciled to dated disclosures. Chart temporarily unavailable.' : '历史季度快照尚无法与披露日期核对，暂不绘制趋势图。') : generateHistoryInsight([], []); insight.style.display = ''; }
+    return;
+  }
   const isMobile = window.innerWidth < 640;
 
-  // 渲染 AI 解读
+  // Render deterministic data summary
   const insightEl = document.getElementById('historyInsight');
   if (insightEl) {
     const txt = generateHistoryInsight(quarters, values);
@@ -1174,12 +1196,11 @@ function renderHistoryChart() {
 
   // ── 桌面折线图（带 hover tooltip）──
   const ctx = canvas.getContext('2d');
-  const W = canvas.parentElement.clientWidth - 32;
+  const W = Math.max(300, canvas.parentElement.clientWidth - 32);
   canvas.width = W; canvas.height = 360;
-  const pad = {top:36,right:50,bottom:54,left:68};
+  const pad = {top:36,right:32,bottom:54,left:88};
   const w=W-pad.left-pad.right, h=360-pad.top-pad.bottom;
-  const maxV=Math.ceil(Math.max(...values)/500)*500;
-  const minV=Math.max(0, Math.floor(Math.min(...values)/500)*500-500);
+  const {minV, maxV} = historyRange(values);
   const range = maxV - minV || 1;
   ctx.clearRect(0,0,W,360);
 
@@ -1189,42 +1210,39 @@ function renderHistoryChart() {
     const y=pad.top+(h/5)*i;
     ctx.beginPath(); ctx.moveTo(pad.left,y); ctx.lineTo(W-pad.right,y); ctx.stroke();
     const v=maxV-((maxV-minV)/5)*i;
-    const label = v >= 1000 ? `$${(v/1000).toFixed(v%1000===0?0:1)}B` : `$${v}M`;
+    const label = historyMoney(v, 1);
     ctx.fillStyle='#9ca3af'; ctx.font='10.5px -apple-system,sans-serif'; ctx.textAlign='right';
     ctx.fillText(label,pad.left-8,y+4);
   }
 
   // X轴标签 — 按年显示
-  const xStep = quarters.length > 1 ? w/(quarters.length-1) : w;
   const shownYears = new Set();
   quarters.forEach((q,i)=>{
     const yr = q.split(' ')[0];
     if (shownYears.has(yr)) return;
     shownYears.add(yr);
-    const x=pad.left+xStep*i;
+    const x=pad.left+historyX(quarters,i)*w;
     ctx.fillStyle='#9ca3af'; ctx.font='10px -apple-system,sans-serif'; ctx.textAlign='center';
     ctx.fillText(yr,x,pad.top+h+18);
   });
 
-  const gX=i=>pad.left+(quarters.length>1?xStep*i:w/2);
+  const gX=i=>pad.left+historyX(quarters,i)*w;
   const gY=v=>pad.top+h-((v-minV)/range)*h;
 
-  // 渐变填充
-  ctx.beginPath(); ctx.moveTo(gX(0),gY(values[0]));
-  for (let i=1;i<values.length;i++) ctx.lineTo(gX(i),gY(values[i]));
-  ctx.lineTo(gX(values.length-1),pad.top+h); ctx.lineTo(gX(0),pad.top+h); ctx.closePath();
   const grad=ctx.createLinearGradient(0,pad.top,0,pad.top+h);
   grad.addColorStop(0,'rgba(30,58,95,0.18)'); grad.addColorStop(1,'rgba(30,58,95,0.01)');
-  ctx.fillStyle=grad; ctx.fill();
-
-  // 折线
-  ctx.beginPath(); ctx.moveTo(gX(0),gY(values[0]));
-  for (let i=1;i<values.length;i++) ctx.lineTo(gX(i),gY(values[i]));
-  ctx.strokeStyle='#1e3a5f'; ctx.lineWidth=2.5; ctx.lineJoin='round'; ctx.stroke();
+  for (const indices of historySegments(quarters)) {
+    const first = indices[0], last = indices[indices.length-1];
+    ctx.beginPath(); ctx.moveTo(gX(first),gY(values[first]));
+    indices.slice(1).forEach(i=>ctx.lineTo(gX(i),gY(values[i])));
+    ctx.strokeStyle='#1e3a5f'; ctx.lineWidth=2.5; ctx.lineJoin='round'; ctx.stroke();
+    ctx.lineTo(gX(last),pad.top+h); ctx.lineTo(gX(first),pad.top+h); ctx.closePath();
+    ctx.fillStyle=grad; ctx.fill();
+  }
 
   // 标注大幅变动点（>25%）
   for (let i=1;i<values.length;i++) {
-    const chg = values[i-1] > 0 ? (values[i]-values[i-1])/values[i-1] : 0;
+    const chg = historyChange(quarters, values, i);
     if (Math.abs(chg) > 0.25) {
       const x=gX(i), y=gY(values[i]);
       ctx.beginPath(); ctx.arc(x,y,7,0,Math.PI*2);
@@ -1239,7 +1257,7 @@ function renderHistoryChart() {
   // 普通数据点
   values.forEach((v,i)=>{
     const x=gX(i),y=gY(v);
-    const chg = i>0 && values[i-1]>0 ? (v-values[i-1])/values[i-1] : 0;
+    const chg = historyChange(quarters, values, i);
     if (Math.abs(chg) > 0.25) return; // 大变动点已画
     ctx.beginPath(); ctx.arc(x,y,3.5,0,Math.PI*2); ctx.fillStyle='#1e3a5f'; ctx.fill();
     ctx.strokeStyle='#fff'; ctx.lineWidth=1.5; ctx.stroke();
@@ -1247,9 +1265,9 @@ function renderHistoryChart() {
 
   // 最新值标注
   const last=values.length-1;
-  const lastLabel = values[last] >= 1000 ? `$${(values[last]/1000).toFixed(1)}B` : `$${values[last]}M`;
-  ctx.fillStyle='#1e3a5f'; ctx.font='bold 12px -apple-system,sans-serif'; ctx.textAlign='left';
-  ctx.fillText(lastLabel,gX(last)+8,gY(values[last])-8);
+  const lastLabel = historyMoney(values[last]);
+  ctx.fillStyle='#1e3a5f'; ctx.font='bold 12px -apple-system,sans-serif'; ctx.textAlign='right';
+  ctx.fillText(lastLabel,gX(last)-8,gY(values[last])-8);
 
   // ── Hover tooltip ──
   const existingTooltip = document.getElementById('hcTooltip');
@@ -1263,19 +1281,15 @@ function renderHistoryChart() {
   canvas.onmousemove = (e) => {
     const rect = canvas.getBoundingClientRect();
     const mx = (e.clientX - rect.left) * (canvas.width / rect.width);
-    const my = (e.clientY - rect.top) * (canvas.height / rect.height);
-    const idx = Math.round((mx - pad.left) / xStep);
+    const idx = values.reduce((best, _, i) => Math.abs(gX(i)-mx) < Math.abs(gX(best)-mx) ? i : best, 0);
     if (idx < 0 || idx >= quarters.length) { tooltip.style.display='none'; return; }
     const v = values[idx], q = quarters[idx];
-    const prev = idx > 0 ? values[idx-1] : null;
-    const chg = prev !== null && prev > 0 ? ((v-prev)/prev*100).toFixed(1) : null;
-    const chgStr = chg !== null ? (chg>0?`<span style="color:#4ade80">▲+${chg}%</span>`:`<span style="color:#f87171">▼${chg}%</span>`) : '';
-    const bigMove = prev !== null && Math.abs(v-prev)/prev > 0.25;
-    const fmtM = vv => vv >= 1000 ? `$${(vv/1000).toFixed(2)}B` : `$${vv}M`;
-    tooltip.innerHTML = `<div style="font-weight:600;margin-bottom:2px;">${q}</div><div>${fmtM(v)} ${chgStr}</div>${bigMove?`<div style="color:#fbbf24;font-size:.68rem;margin-top:3px;">⚡ ${lang==='zh'?'重大持仓变动':'Major repositioning'}</div>`:''}` ;
+    const delta = historyChange(quarters, values, idx);
+    const chgStr = delta === null ? '' : `<span style="color:${delta > 0 ? '#4ade80' : delta < 0 ? '#f87171' : '#d1d5db'}">${lang==='zh'?'环比':'QoQ'} ${delta>0?'+':''}${(delta*100).toFixed(1)}%</span>`;
+    tooltip.innerHTML = `<div style="font-weight:600;margin-bottom:2px;">${q}</div><div>${historyMoney(v, 3)} ${chgStr}</div>`;
     const cx = gX(idx), cy = gY(v);
     const scaleX = rect.width / canvas.width, scaleY = rect.height / canvas.height;
-    tooltip.style.left = (cx * scaleX + 12) + 'px';
+    tooltip.style.left = Math.max(0, Math.min(cx * scaleX + 12, rect.width - 210)) + 'px';
     tooltip.style.top = (cy * scaleY - 16) + 'px';
     tooltip.style.display = '';
   };
@@ -1286,6 +1300,11 @@ function renderHistoryChart() {
 async function renderTimelineTable() {
   const container = document.getElementById('timelineCanvas');
   if (!data) return;
+  if (data.history?.verification?.status === 'unverified') {
+    container.innerHTML = `<p style="color:var(--text-lighter);">${lang === 'en' ? 'A holdings timeline requires dated historical snapshots.' : '持仓时间轴需要可核对日期的历史快照，暂不展示。'}</p>`;
+    renderHKHoldings();
+    return;
+  }
   const hdata = data.history?.holdings;
   if (!hdata || Object.keys(hdata).length === 0) {
     container.innerHTML = '<p style="text-align:center;color:var(--text-lighter);padding:40px;">历史持仓数据加载中…</p>';
@@ -1298,6 +1317,7 @@ async function renderTimelineTable() {
   const tickerInfo = {};
   for (const q of quarters) {
     for (const h of hdata[q]) {
+      if (!(h.shares > 0)) continue;
       const tk = h.ticker;
       if (!tickerInfo[tk]) tickerInfo[tk] = {first: q, last: q, quarters: [], sector: h.sector, name: h.name, cnName: h.cnName||'', maxShares: 0, curShares: 0};
       else tickerInfo[tk].last = q;
@@ -1323,8 +1343,8 @@ async function renderTimelineTable() {
     if (e.active && e.curShares > 0 && e.maxShares > 0) {
       const ratio = (e.curShares / e.maxShares * 100).toFixed(0);
       const s = e.curShares === e.maxShares
-        ? `<span style="color:#10b981;">${ratio}% 持有</span>`
-        : `<span style="color:#f59e0b;">${ratio}% 已减持</span>`;
+        ? `<span style="color:#10b981;">${isEn ? 'At peak shares' : '持股处于历史峰值'}</span>`
+        : `<span style="color:#f59e0b;">${isEn ? `Shares at ${ratio}% of peak` : `持股为峰值的 ${ratio}%`}</span>`;
       const shareInfo = ratio < 100 ? `<br><span style="font-size:.68rem;color:var(--text-lighter);">最高 ${fmtNum(e.maxShares)} → 当前 ${fmtNum(e.curShares)}</span>` : '';
       e.shareInfo = s + shareInfo;
     } else {
@@ -1334,9 +1354,8 @@ async function renderTimelineTable() {
     if (e.gaps.length > 0) {
       const soldQ = e.gaps[0];
       const boughtQ = e.gaps[e.gaps.length - 1];
-      const beforeGap = quarters[quarters.indexOf(soldQ) - 1];
       const afterGap = quarters[quarters.indexOf(boughtQ) + 1];
-      status = `<span style="color:#f59e0b;font-weight:600;">◐ ${beforeGap} 清仓</span><br><span style="font-size:.68rem;color:var(--text-lighter);">→ ${afterGap} 重新买入（空窗${e.gaps.length}季）</span>`;
+      status = `<span style="color:#f59e0b;font-weight:600;">◐ ${soldQ} ${isEn?'No holding disclosed':'未披露持仓'}</span><br><span style="font-size:.68rem;color:var(--text-lighter);">→ ${afterGap} 重新买入（空窗${e.gaps.length}季）</span>`;
     } else if (e.active) {
       status = '<span style="color:#10b981;font-weight:600;">● 持有中</span>';
     } else {

@@ -2,6 +2,7 @@
 import argparse
 import json
 import math
+import re
 from pathlib import Path
 import subprocess
 import sys
@@ -22,6 +23,28 @@ def read_json(path):
     if not isinstance(value, dict):
         raise ValueError("Expected a JSON object")
     return value
+
+
+
+def validate_history(history):
+    if history is None:
+        return
+    quarters, values = history.get("quarters", []), history.get("values", [])
+    if len(quarters) != len(values) or len(set(quarters)) != len(quarters):
+        raise ValueError("History quarters/values must align without duplicate quarters")
+    if any(not isinstance(q, str) or not re.fullmatch(r"\d{4} Q[1-4]", q) for q in quarters):
+        raise ValueError("Invalid history quarter")
+    for q, value in zip(quarters, values):
+        if not isinstance(value, (int, float)) or isinstance(value, bool) or not math.isfinite(value) or value < 0:
+            raise ValueError(f"Invalid history value: {q}")
+        holdings = history.get("holdings", {}).get(q)
+        if holdings:
+            amounts = [h.get("value") for h in holdings]
+            if any(not isinstance(v, (int, float)) or isinstance(v, bool) or not math.isfinite(v) or v < 0 for v in amounts):
+                raise ValueError(f"Invalid historical holding value: {q}")
+            # Legacy files rounded to whole millions. Reject larger discrepancies.
+            if abs(sum(amounts) / 1_000_000 - value) > .500001:
+                raise ValueError(f"History total disagrees with holdings: {q}")
 
 
 def validate(root):
@@ -48,6 +71,7 @@ def validate(root):
             if name in ("spinoff.json", "spinoff_us.json"):
                 validate_events(value)
             if role == "dataFile":
+                validate_history(value.get("history"))
                 current = value.get("current", {})
                 if not isinstance(current.get("holdings"), list) or not current.get("quarter"):
                     raise ValueError("Missing current holdings or quarter")
