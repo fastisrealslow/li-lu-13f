@@ -1,6 +1,49 @@
 {
   "holdings": [],
-  "source": "HKEX 权益披露：历史搜索线索及已核实披露记录",
+  "source": "HKEX DI 原始申报表及权益披露列表（DION + 2003–2017历史库）",
   "disclaimer": "历史披露不代表当前持仓；搜索日期不等于披露日期。未搜到记录不代表已清仓或低于5%。比例须按原披露的股份类别解读。",
-  "lastUpdated": "2026-09-20T12:13:00Z"
+  "lastUpdated": "2026-09-20T12:16:00Z",
+  "schemaVersion": 3,
+  "investor": "abrams",
+  "source_bindings": {},
+  "audit": {
+    "checkedAt": "2026-09-20T12:16:00Z",
+    "status": "checked",
+    "queries": [
+      {
+        "query": "Abrams Capital Management, L.P.",
+        "archive": "dion",
+        "status": "ok",
+        "matchedSecurities": 0,
+        "url": "https://di.hkex.com.hk/di/NSSrchPersonList.aspx?sa1=pl&scsd=03%2F07%2F2017&sced=20%2F09%2F2026&pn=Abrams+Capital+Management%2C+L.P.&src=MAIN&lang=EN&g_lang=en"
+      },
+      {
+        "query": "David Abrams",
+        "archive": "dion",
+        "status": "ok",
+        "matchedSecurities": 0,
+        "url": "https://di.hkex.com.hk/di/NSSrchPersonList.aspx?sa1=pl&scsd=03%2F07%2F2017&sced=20%2F09%2F2026&pn=David+Abrams&src=MAIN&lang=EN&g_lang=en"
+      },
+      {
+        "query": "Abrams Capital Management, L.P.",
+        "archive": "legacy",
+        "status": "ok",
+        "matchedSecurities": 0,
+        "url": "https://di.hkex.com.hk/filing/di/NSSrchPersonList.aspx?sa1=pl&scsd=01%2F04%2F2003&sced=02%2F10%2F2017&pn=Abrams+Capital+Management%2C+L.P.&src=MAIN&lang=EN&g_lang=en"
+      },
+      {
+        "query": "David Abrams",
+        "archive": "legacy",
+        "status": "ok",
+        "matchedSecurities": 0,
+        "url": "https://di.hkex.com.hk/filing/di/NSSrchPersonList.aspx?sa1=pl&scsd=01%2F04%2F2003&sced=02%2F10%2F2017&pn=David+Abrams&src=MAIN&lang=EN&g_lang=en"
+      }
+    ],
+    "discoveredSources": 0,
+    "verifiedSecurities": 0,
+    "pendingSecurities": 0,
+    "recordsFetched": 0,
+    "errors": [],
+    "scope": "匹配已配置主体的公开多头权益披露；不等于完整投资组合或当前持仓"
+  }
 }
