@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-20T12:20:54Z",
+  "updatedAt": "2026-09-20T12:40:02Z",
   "knownStocks": {
     "duan": [
       "09992.HK"
@@ -5422,7 +5422,7 @@
   "verificationRuns": [
     {
       "investor": "abrams",
-      "checkedAt": "2026-09-20T12:16:00Z",
+      "checkedAt": "2026-09-20T12:37:51Z",
       "status": "checked",
       "queries": [
         {
@@ -5463,7 +5463,7 @@
     },
     {
       "investor": "ackman",
-      "checkedAt": "2026-09-20T12:15:52Z",
+      "checkedAt": "2026-09-20T12:37:35Z",
       "status": "checked",
       "queries": [
         {
@@ -5504,7 +5504,7 @@
     },
     {
       "investor": "akre",
-      "checkedAt": "2026-09-20T12:15:20Z",
+      "checkedAt": "2026-09-20T12:37:20Z",
       "status": "checked",
       "queries": [
         {
@@ -5545,7 +5545,7 @@
     },
     {
       "investor": "berkowitz",
-      "checkedAt": "2026-09-20T12:16:06Z",
+      "checkedAt": "2026-09-20T12:37:53Z",
       "status": "checked",
       "queries": [
         {
@@ -5586,7 +5586,7 @@
     },
     {
       "investor": "buffett",
-      "checkedAt": "2026-09-20T12:14:42Z",
+      "checkedAt": "2026-09-20T12:36:48Z",
       "status": "checked",
       "queries": [
         {
@@ -5627,7 +5627,7 @@
     },
     {
       "investor": "duan",
-      "checkedAt": "2026-09-20T12:14:11Z",
+      "checkedAt": "2026-09-20T12:36:22Z",
       "status": "checked",
       "queries": [
         {
@@ -5668,7 +5668,7 @@
     },
     {
       "investor": "greenberg",
-      "checkedAt": "2026-09-20T12:15:37Z",
+      "checkedAt": "2026-09-20T12:37:20Z",
       "status": "checked",
       "queries": [
         {
@@ -5709,8 +5709,8 @@
     },
     {
       "investor": "hawkins",
-      "checkedAt": "2026-09-20T12:16:16Z",
-      "status": "partial",
+      "checkedAt": "2026-09-20T12:38:06Z",
+      "status": "checked",
       "queries": [
         {
           "query": "Southeastern Asset Management, Inc.",
@@ -5744,28 +5744,13 @@
       "discoveredSources": 5,
       "verifiedSecurities": 4,
       "pendingSecurities": 0,
-      "recordsFetched": 116,
-      "errors": [
-        {
-          "entity": "Southeastern Asset Management, Inc.",
-          "security": "Melco International Development Ltd.",
-          "rejected": [
-            {
-              "filing_ref": "CS20221207E00001 (Amendment to CS20221204E00001 )",
-              "reason": "Unrecognized form identifier / revised record marker"
-            },
-            {
-              "filing_ref": "CS20221204E00001 (Superseded by CS20221207E00001 )",
-              "reason": "Unrecognized form identifier / revised record marker"
-            }
-          ]
-        }
-      ],
+      "recordsFetched": 104,
+      "errors": [],
       "scope": "匹配已配置主体的公开多头权益披露；不等于完整投资组合或当前持仓"
     },
     {
       "investor": "klarman",
-      "checkedAt": "2026-09-20T12:15:43Z",
+      "checkedAt": "2026-09-20T12:37:35Z",
       "status": "checked",
       "queries": [
         {
@@ -5806,7 +5791,7 @@
     },
     {
       "investor": "lilu",
-      "checkedAt": "2026-09-20T12:14:11Z",
+      "checkedAt": "2026-09-20T12:36:22Z",
       "status": "checked",
       "queries": [
         {
@@ -5847,7 +5832,7 @@
     },
     {
       "investor": "pabrai",
-      "checkedAt": "2026-09-20T12:14:11Z",
+      "checkedAt": "2026-09-20T12:36:22Z",
       "status": "checked",
       "queries": [
         {
@@ -5888,7 +5873,7 @@
     },
     {
       "investor": "tepper",
-      "checkedAt": "2026-09-20T12:14:26Z",
+      "checkedAt": "2026-09-20T12:36:35Z",
       "status": "checked",
       "queries": [
         {
@@ -5929,8 +5914,8 @@
     },
     {
       "investor": "webb",
-      "checkedAt": "2026-09-20T12:14:34Z",
-      "status": "partial",
+      "checkedAt": "2026-09-20T12:36:42Z",
+      "status": "checked",
       "queries": [
         {
           "query": "Webb David Michael",
@@ -5950,49 +5935,8 @@
       "discoveredSources": 59,
       "verifiedSecurities": 41,
       "pendingSecurities": 0,
-      "recordsFetched": 274,
-      "errors": [
-        {
-          "entity": "WEBB DAVID MICHAEL",
-          "security": "Ming Fai International Holdings Ltd.",
-          "rejected": [
-            {
-              "filing_ref": "IS20240617E00314 (Amendment to IS20240614E00402 )",
-              "reason": "Unrecognized form identifier / revised record marker"
-            },
-            {
-              "filing_ref": "IS20240614E00402 (Superseded by IS20240617E00314 )",
-              "reason": "Unrecognized form identifier / revised record marker"
-            },
-            {
-              "filing_ref": "IS20190118E00039 (Amendment to IS20180502E00261 )",
-              "reason": "Unrecognized form identifier / revised record marker"
-            }
-          ]
-        },
-        {
-          "entity": "WEBB DAVID MICHAEL",
-          "security": "Winox Holdings Ltd.",
-          "rejected": [
-            {
-              "filing_ref": "IS20230714E00380 (Amendment to IS20230713E00537 )",
-              "reason": "Unrecognized form identifier / revised record marker"
-            },
-            {
-              "filing_ref": "IS20230713E00537 (Superseded by IS20230714E00380 )",
-              "reason": "Unrecognized form identifier / revised record marker"
-            },
-            {
-              "filing_ref": "IS20211104E00372 (Amendment to IS20211103E00545 )",
-              "reason": "Unrecognized form identifier / revised record marker"
-            },
-            {
-              "filing_ref": "IS20211103E00545 (Superseded by IS20211104E00372 )",
-              "reason": "Unrecognized form identifier / revised record marker"
-            }
-          ]
-        }
-      ],
+      "recordsFetched": 281,
+      "errors": [],
       "scope": "匹配已配置主体的公开多头权益披露；不等于完整投资组合或当前持仓"
     }
   ]
