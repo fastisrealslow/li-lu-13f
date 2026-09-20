@@ -74,3 +74,17 @@ test('unverified historical snapshots are not charted as confirmed values',async
  await a.run('renderHKHoldings=()=>{};renderTimelineTable()');
  assert.match(a.el('timelineCanvas').innerHTML,/暂不展示/);
 });
+
+test('HK search-derived active status and old peak are not current evidence',()=>{
+  const a=app();
+  const result=JSON.parse(a.run(`JSON.stringify(hkEvidenceView({current_status:'active',last_disclosure:'2026',peak_known:true,peak_shares:57404700}))`));
+  assert.equal(result.status,'当前持仓未核实');
+  assert.equal(result.latest,undefined);
+});
+test('HK dated disclosures display historic quantities only with primary evidence',()=>{
+  const a=app();
+  const result=JSON.parse(a.run(`JSON.stringify(hkEvidenceView({verified_disclosures:[{event_date:'2021-01-15',shares:1274411000,pct:6.42,filing_ref:'CS20210120E00331',source_url:'https://di.hkex.com.hk/di/NSAllFormList.aspx'},{event_date:'2026',shares:99,pct:9,source_url:'https://example.com'}]}))`));
+  assert.equal(result.latest.shares,1274411000);
+  assert.equal(result.latest.event_date,'2021-01-15');
+  assert.equal(result.status,'当前持仓未核实');
+});

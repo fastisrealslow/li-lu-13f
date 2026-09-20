@@ -592,19 +592,89 @@ def sec_fetch(path: str, retries: int = 3) -> bytes:
     raise RuntimeError(f"sec_fetch failed after {retries} retries: {url}")
 
 
-def get_recent_filings(cik: str) -> list[dict]:
+def get_recent_filings(cik: str, include_archives: bool = False) -> list[dict]:
     data = json.loads(sec_fetch(f"submissions/CIK{cik.zfill(10)}.json"))
-    rec = data["filings"]["recent"]
-    filings = []
-    for i in range(len(rec["form"])):
-        if rec["form"][i] == "13F-HR":
-            filings.append({
-                "accession": rec["accessionNumber"][i].replace("-", ""),
-                "accessionDashed": rec["accessionNumber"][i],
-                "filingDate": rec["filingDate"][i],
-                "reportDate": rec["reportDate"][i],
-            })
-    return filings
+    batches = [data["filings"]["recent"]]
+    if include_archives:
+        for archive in data["filings"].get("files", []):
+            name = archive["name"]
+            if not re.fullmatch(r"CIK[0-9]+-submissions-[0-9]+\.json", name):
+                raise ValueError(f"Unexpected SEC archive filename: {name}")
+            batches.append(json.loads(sec_fetch(f"submissions/{name}")))
+    filings = {}
+    for rec in batches:
+        for i, form in enumerate(rec.get("form", [])):
+            if form != "13F-HR":
+                continue
+            accession = rec["accessionNumber"][i]
+            filings[accession] = {
+                "accession": accession.replace("-", ""), "accessionDashed": accession,
+                "filingDate": rec["filingDate"][i], "reportDate": rec["reportDate"][i],
+            }
+    return sorted(filings.values(), key=lambda f: (f["reportDate"], f["filingDate"]), reverse=True)
+
+
+def missing_history_quarters(data):
+    quarters = data.get("history", {}).get("quarters", [])
+    indices = {int(m[1]) * 4 + int(m[2]) - 1 for q in quarters
+               if (m := re.fullmatch(r"(\d{4}) Q([1-4])", q))}
+    if not indices:
+        return []
+    return [f"{i // 4} Q{i % 4 + 1}" for i in range(min(indices), max(indices) + 1)
+            if i not in indices]
+
+
+def backfill_history_gaps(cik, data, filings, consolidate=False, limit=4):
+    """Repair bounded gaps on normal runs; failures remain gaps, never zeroes."""
+    missing = missing_history_quarters(data)
+    errors, repaired = {}, []
+    attempts = data.get("history", {}).get("coverage", {}).get("attempts", {})
+    if missing:
+        known = {quarter_label(f["reportDate"]) for f in filings}
+        if any(q not in known for q in missing):
+            try:
+                filings = get_recent_filings(cik, include_archives=True)
+            except Exception as exc:
+                errors["archive_index"] = str(exc)
+        by_quarter = {}
+        for filing in filings:
+            by_quarter.setdefault(quarter_label(filing["reportDate"]), filing)
+        for quarter in missing:
+            if quarter not in by_quarter:
+                errors[quarter] = "No original 13F-HR found in retrieved SEC indexes; not a zero position"
+        candidates = sorted((q for q in missing if q in by_quarter), key=lambda q: (attempts.get(q, 0), q))
+        for quarter in candidates[:limit]:
+            filing = by_quarter[quarter]
+            attempts[quarter] = attempts.get(quarter, 0) + 1
+            try:
+                path = find_info_table_xml(cik, filing["accession"], filing["accessionDashed"])
+                rows = parse_holdings(sec_fetch(path), consolidate=consolidate,
+                                      filing_date=filing["filingDate"])
+                if not rows:
+                    raise ValueError("Empty information table requires manual verification")
+                update_history(data, quarter, rows)
+                data["history"].setdefault("filing_sources", {})[quarter] = {
+                    **filing, "url": "https://www.sec.gov" + path,
+                }
+                repaired.append(quarter)
+                print(f"  Backfilled {quarter}: {len(rows)} rows")
+            except Exception as exc:
+                errors[quarter] = str(exc)
+    remaining = missing_history_quarters(data)
+    data["history"]["coverage"] = {
+        "checkedAt": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
+        "missingQuarters": remaining, "repairedThisRun": repaired, "errors": errors,
+        "attempts": {q: attempts[q] for q in remaining if q in attempts},
+        "status": "gaps_remaining" if remaining else "continuous_within_stored_range",
+    }
+    if remaining:
+        print(f"  WARNING: historical gaps remain: {remaining}; details: {errors}")
+    summary = os.environ.get("GITHUB_STEP_SUMMARY")
+    if summary and (missing or errors):
+        with open(summary, "a") as f:
+            f.write(f"\n### 13F history coverage — CIK {cik}\n"
+                    f"- Repaired: {', '.join(repaired) or 'none'}\n"
+                    f"- Remaining gaps: {', '.join(remaining) or 'none'}\n")
 
 
 def quarter_label(date_str: str) -> str:
@@ -760,7 +830,7 @@ def process_investor(key: str, config: dict, full_mode: bool):
 
     cik = config["cik"]
     consolidate = config.get("consolidate", False)
-    filings = get_recent_filings(cik)
+    filings = get_recent_filings(cik, include_archives=True) if full_mode else get_recent_filings(cik)
     if len(filings) < 2:
         print(f"ERROR: only found {len(filings)} filings, need ≥2")
         sys.exit(1)
@@ -812,6 +882,12 @@ def process_investor(key: str, config: dict, full_mode: bool):
 
     update_history(data, quarter_label(prev_f["reportDate"]), prev_holdings)
     update_history(data, quarter_label(cur_f["reportDate"]), cur_holdings)
+    backfill_history_gaps(cik, data, filings, consolidate)
+    remaining = data["history"]["coverage"]["missingQuarters"]
+    if remaining:
+        from update_status import record_source_warning
+        step = "akre_greenberg_13f" if key in ("akre", "greenberg") else f"{key}_13f"
+        record_source_warning(step, f"{key} 历史仍缺 {len(remaining)} 季；未按零持仓填充")
 
     save_data(config["path"], data)
     warn_unmapped(data)
@@ -938,3 +1014,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+

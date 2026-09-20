@@ -21,6 +21,7 @@ import json, os, re, sys, time, http.cookiejar
 from datetime import datetime, timezone, timedelta
 from urllib.request import build_opener, HTTPCookieProcessor
 from urllib.parse import urlencode
+from update_status import record_source_warning
 
 OUT_FILE = "alerts_hk_persons.json"
 BASE_URL = "https://di.hkex.com.hk/di"
@@ -145,41 +146,6 @@ def normalize_hk_ticker(code):
     return num.zfill(5) + ".HK"
 
 
-_pct_cache = {}  # noticeUrl -> pct str
-
-
-def fetch_latest_pct(notice_url, opener):
-    """从 NSNoticePersonList 列表页拿最新一条投Form链接，再进详情页拿持股比例"""
-    if notice_url in _pct_cache:
-        return _pct_cache[notice_url]
-    try:
-        resp = opener.open(notice_url, timeout=12)  # notice_url 已是完整 URL
-        html = resp.read().decode("utf-8", errors="replace")
-        time.sleep(0.5)
-        # 找第一条记录的详情链接 NSForm1.aspx 或 NSForm2.aspx
-        form_m = re.search(r'href="(NSForm[12]\.aspx[^"]+)"', html)
-        if not form_m:
-            return ""
-        form_path = form_m.group(1).replace("&amp;", "&")
-        form_url = f"{BASE_URL}/{form_path}"
-        resp2 = opener.open(form_url, timeout=12)
-        html2 = resp2.read().decode("utf-8", errors="replace")
-        time.sleep(0.5)
-        # 在 Form 表单里找持股比例（通常在 "% of relevant share capital" 附近）
-        pct_m = re.search(
-            r'(?:百分比|% of relevant share capital|% (?:of|of\ the)\ relevant|佔相关股本)[^\d]{0,30}'
-            r'(\d{1,3}\.\d{1,4})',
-            html2, re.I)
-        if pct_m:
-            result = pct_m.group(1) + "%"
-            _pct_cache[notice_url] = result
-            return result
-    except Exception as e:
-        print(f"  fetch_latest_pct 失败: {e}")
-    _pct_cache[notice_url] = ""
-    return ""
-
-
 def resolve_sid_to_ticker(sid):
     """未知 sid：访问港交所大股东页面反查股票代号"""
     global _opener_ref
@@ -242,84 +208,57 @@ def parse_holdings(html, exact_keyword, investor_label):
 
 
 def update_hk_file(hk_file, all_holdings):
-    """把新持仓合并进对应的 *_hk.json"""
+    """Person search discovers historical records, never a current position.
+
+    Only dated, separately verified filing records may supply dates/quantities.
+    An absent search hit is not evidence of a sale or a below-threshold position.
+    """
     if not os.path.exists(hk_file):
-        print(f"  {hk_file} 不存在，跳过")
         return []
-    try:
-        data = json.load(open(hk_file))
-    except:
-        return []
-
-    # 兼容两种结构：有 holdings 字段 或 直接是列表
-    holdings_list = data.get("holdings", data if isinstance(data, list) else [])
-    # 先规范化所有现有 ticker
-    for h in holdings_list:
-        h["ticker"] = normalize_hk_ticker(h.get("ticker",""))
-    existing_tickers = {h.get("ticker","") for h in holdings_list}
-    new_added = []
-
-    for h in all_holdings:
-        ticker = h.get("ticker", "")
+    with open(hk_file, encoding="utf-8") as f:
+        data = json.load(f)
+    if isinstance(data, list):
+        data = {"holdings": data}
+    holdings = data.setdefault("holdings", [])
+    for row in holdings:
+        row["ticker"] = normalize_hk_ticker(row.get("ticker", ""))
+        if row.get("evidence_schema") != 2:
+            # Preserve old assertions for audit, but do not present them as facts.
+            row["legacy_unverified"] = {k: row.get(k) for k in (
+                "first_disclosure", "last_disclosure", "current_status", "notes",
+                "pct", "pct_date", "peak_shares", "peak_pct", "peak_date", "filing_refs")}
+            row.update(evidence_schema=2, first_disclosure=None, last_disclosure=None,
+                       current_status="unknown", data_quality="unverified",
+                       peak_known=False, peak_shares=None, peak_pct=None, peak_date=None,
+                       pct=None, pct_date=None, buy_price_known=False, buy_price_note="",
+                       notes="历史搜索记录；具体披露日期和数量待核实，不能据此判断当前持仓。")
+    by_ticker = {row["ticker"]: row for row in holdings}
+    added = []
+    for hit in all_holdings:
+        ticker = normalize_hk_ticker(hit.get("ticker", ""))
         if not ticker:
             continue
-        if ticker in existing_tickers:
-            # 更新已有条目的 last_disclosure 和比例
-            for existing in holdings_list:
-                if existing.get("ticker") == ticker:
-                    existing["last_disclosure"] = today.strftime("%Y")
-                    existing["current_status"]  = "active"
-                    # 尝试更新持股比例
-                    if h.get("noticeUrl") and _opener_ref:
-                        pct = fetch_latest_pct(h["noticeUrl"], _opener_ref)
-                        if pct:
-                            existing["pct"] = pct
-                            existing["pct_date"] = today.strftime("%Y-%m-%d")
-                            print(f"  📊 {ticker} 持股比例: {pct}")
-            continue
-
-        # 新股票自动追加
-        pct = ""
-        if h.get("noticeUrl") and _opener_ref:
-            pct = fetch_latest_pct(h["noticeUrl"], _opener_ref)
-        new_entry = {
-            "ticker":           ticker,
-            "name":             h["stockName"],
-            "cnName":           h["stockName"],
-            "sector":           "",
-            "entity":           h["entity"],
-            "pct":              pct,
-            "pct_date":         today.strftime("%Y-%m-%d") if pct else "",
-            "first_disclosure": today.strftime("%Y"),
-            "last_disclosure":  today.strftime("%Y"),
-            "peak_known":       False,
-            "peak_shares":      0,
-            "peak_pct":         pct,
-            "buy_price_note":   "",
-            "current_status":   "active",
-            "notes":            f"来源：港交所权益披露系统（di.hkex.com.hk）。持股达到或超过5%时触发强制披露，首次披露日期：{today.strftime('%Y-%m-%d')}。",
-        }
-        holdings_list.append(new_entry)
-        existing_tickers.add(ticker)
-        new_added.append(f"{ticker} {h['stockName']}")
-        print(f"  ✅ 新增到 {hk_file}: {ticker} {h['stockName']}{' ' + pct if pct else ''}")
-
-    # 本次抓到的 ticker 集合
-    found_tickers = {normalize_hk_ticker(h.get("ticker","")) for h in all_holdings if h.get("ticker")}
-    # 对「本次未搜到」但之前 status=active 的条目降级为 below_5pct
-    for existing in holdings_list:
-        t = existing.get("ticker","")
-        if existing.get("current_status") == "active" and t and t not in found_tickers:
-            existing["current_status"] = "below_5pct"
-            print(f"  ⬇️  {t} {existing.get('name','')[:15]} 降级为 below_5pct（本次未搜到）")
-
-    if "holdings" in data:
-        data["holdings"] = holdings_list
+        if ticker not in by_ticker:
+            row = dict(ticker=ticker, name=hit["stockName"], sector="",
+                       entity=hit["entity"], evidence_schema=2, first_disclosure=None,
+                       last_disclosure=None, current_status="unknown", data_quality="unverified",
+                       peak_known=False, peak_shares=None, peak_pct=None,
+                       notes="发现历史披露记录，具体日期和数量待核实；当前持仓未知。")
+            by_ticker[ticker] = row
+            holdings.append(row)
+            added.append(f"{ticker} {hit['stockName']}")
+        row = by_ticker[ticker]
+        row["last_search_seen"] = today.strftime("%Y-%m-%d")
+        row["discovery_url"] = hit.get("noticeUrl", "")
+        # In particular, do NOT set last_disclosure, pct_date or current_status.
+    data["source"] = "HKEX 权益披露：历史搜索线索及已核实披露记录"
+    data["disclaimer"] = "历史披露不代表当前持仓；搜索日期不等于披露日期。未搜到记录不代表已清仓或低于5%。比例须按原披露的股份类别解读。"
     data["lastUpdated"] = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
-    with open(hk_file, "w") as f:
+    with open(hk_file, "w", encoding="utf-8") as f:
         json.dump(data, f, ensure_ascii=False, indent=2)
-    print(f"  {hk_file} 已更新（新增 {len(new_added)} 条）")
-    return new_added
+        f.write("\n")
+    print(f"  {hk_file}: {len(added)} new historical leads; no current-position inference")
+    return added
 
 
 def load_existing():
@@ -344,6 +283,7 @@ def main():
     print("\n获取 session...")
     opener = get_opener()
     if not opener:
+        record_source_warning("hk_disclosures", "港交所不可访问；保留历史记录，当前持仓未核实")
         print("❌ 无法访问 di.hkex.com.hk，跳过")
         sys.exit(0)
     _opener_ref = opener
@@ -370,6 +310,7 @@ def main():
             print(f"\n  搜索: {name}")
             html = search_person(opener, name)
             if not html:
+                record_source_warning("hk_disclosures", f"{investor} 披露搜索失败；不推断持仓变化")
                 continue
 
             holdings = parse_holdings(html, exact, label)
@@ -394,7 +335,7 @@ def main():
         known_map[investor] = list(known_set)
 
         # 写入对应 hk_file
-        if investor_holdings:
+        if os.path.exists(hk_file):
             print(f"\n  更新 {hk_file}...")
             update_hk_file(hk_file, investor_holdings)
 
@@ -421,3 +362,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+

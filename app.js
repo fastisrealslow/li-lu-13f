@@ -1070,7 +1070,13 @@ function generateHistoryInsight(quarters, values) {
   let txt = isEn
     ? `Disclosed holdings value: ${quarters[0]} ${historyMoney(first)} → ${quarters[quarters.length-1]} ${historyMoney(last)} (change ${pct}). Peak: ${peakQ}, ${historyMoney(peak)}. `
     : `披露持仓市值：${quarters[0]} ${historyMoney(first)} → ${quarters[quarters.length-1]} ${historyMoney(last)}（变化 ${pct}）。峰值：${peakQ}，${historyMoney(peak)}。`;
-  if (historySegments(quarters).length > 1) txt += isEn ? 'Missing quarters are shown as gaps. ' : '缺失季度以断线显示。';
+  if (historySegments(quarters).length > 1) {
+    const known = new Set(quarters.map(historyQuarterIndex)), missing = [];
+    for (let i = historyQuarterIndex(quarters[0]); i <= historyQuarterIndex(quarters[quarters.length-1]); i++) {
+      if (!known.has(i)) missing.push(`${Math.floor(i/4)} Q${i%4+1}`);
+    }
+    txt += isEn ? `Missing quarters (not zero holdings): ${missing.join(', ')}. ` : `缺失季度：${missing.join('、')}；断线不代表清仓。`;
+  }
   txt += isEn ? 'Value changes are not investment returns; disclosed holdings do not represent total assets under management.' : '市值变化不等于投资收益，披露持仓也不代表全部管理资产。';
   return txt;
 }
@@ -1392,44 +1398,51 @@ async function renderTimelineTable() {
   renderHKHoldings();
 }
 
+function hkEvidenceView(holding) {
+  const records = (holding.verified_disclosures || []).filter(r =>
+    /^\d{4}-\d{2}-\d{2}$/.test(r.event_date || '') &&
+    typeof r.shares === 'number' && Number.isFinite(r.shares) && r.shares >= 0 &&
+    typeof r.pct === 'number' && Number.isFinite(r.pct) && r.pct >= 0 && r.pct <= 100 &&
+    r.filing_ref && /^https:\/\/di\.hkex\.com\.hk\//.test(r.source_url || '')
+  ).sort((a,b) => a.event_date.localeCompare(b.event_date));
+  return {first: records[0], latest: records[records.length - 1], status: '当前持仓未核实'};
+}
+function hkEscape(value) {
+  return String(value ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
 async function renderHKHoldings() {
   const container = document.getElementById('hkHoldingsTable');
   if (!container) return;
+  const requestedInvestor = investor;
   try {
     const cfg = INVESTOR_CFG_BY_ID[investor];
     const hkUrl = cfg ? cfg.hkFile : null;
     if (!hkUrl) { container.innerHTML = '<p style="color:var(--text-lighter);padding:16px;">暂无港股持仓数据。</p>'; return; }
     const resp = await fetch(hkUrl + '?t=' + Math.floor(Date.now()/300000));
+    if (!resp.ok) throw new Error('HK disclosures unavailable');
     const hk = await resp.json();
-    const statusLabels = {below_5pct:'<5% 未披露', active:'>5% 持仓中', reduced:'已减持'};
-    const statusColors = {below_5pct:'#f3f4f6;color:#6b7280', active:'#d1fae5;color:#065f46', reduced:'#fef3c7;color:#92400e'};
+    if (investor !== requestedInvestor) return;
     container.innerHTML = `
       <div style="overflow-x:auto;"><table style="width:100%;font-size:.82rem;"><thead><tr>
-        <th>代码</th><th>公司</th><th>行业</th><th>披露主体</th><th>首次披露</th><th>最后披露</th><th>已知峰值</th><th>当前状态</th>
-        <th>说明</th>
+        <th>代码</th><th>公司</th><th>行业</th><th>披露主体</th><th>已核实记录起点</th><th>最后核实记录</th><th>该次披露持股</th><th>当前状态</th><th>说明与来源</th>
       </tr></thead><tbody>
-      ${hk.holdings.map(h=>{
-        const peak = h.peak_known ? `${(h.peak_shares/1e6).toFixed(1)}M股 (${h.peak_pct})<br><span style="font-size:.65rem;color:var(--text-lighter)">${h.buy_price_note||''}</span>` : '未公开';
-        const st = statusLabels[h.current_status]||h.current_status;
-        const sc = statusColors[h.current_status]||'#f3f4f6;color:#6b7280';
-        return `
-        <tr>
-          <td>${fmtTicker(h.ticker)}</td>
-          <td>${cn(h.name, h)}</td>
-          <td><span class="tag">${h.sector}</span></td>
-          <td style="font-size:.75rem;">${h.entity}</td>
-          <td>${h.first_disclosure}</td>
-          <td>${h.last_disclosure}</td>
-          <td style="font-size:.75rem;">${peak}</td>
-          <td><span class="tag" style="background:${sc}">${st}</span></td>
-          <td style="max-width:300px;font-size:.75rem;line-height:1.5;">${h.notes}</td>
+      ${(hk.holdings || []).map(h=>{
+        const evidence = hkEvidenceView(h), r = evidence.latest;
+        const quantity = r ? `${r.shares.toLocaleString('en-US')}股 (${r.pct}%，${hkEscape(r.share_class || '原披露类别')})` : '待核实';
+        const source = r ? `<br><a href="${hkEscape(r.source_url)}" target="_blank" rel="noopener noreferrer">港交所 ${hkEscape(r.filing_ref)}</a>` : '';
+        const notes = h.evidence_schema === 2 ? h.notes : '历史记录尚未逐项核实；旧状态、峰值及日期不能作为当前持仓依据。';
+        return `<tr>
+          <td>${hkEscape(fmtTicker(h.ticker))}</td><td>${hkEscape(cn(h.name, h))}</td>
+          <td>${hkEscape(h.sector)}</td><td style="font-size:.75rem;">${hkEscape(r?.entity || h.entity)}</td>
+          <td>${evidence.first?.event_date || '待核实'}</td><td>${r?.event_date || '待核实'}</td>
+          <td style="font-size:.75rem;">${quantity}</td><td><span class="tag">${evidence.status}</span></td>
+          <td style="max-width:300px;font-size:.75rem;line-height:1.5;">${hkEscape(notes)}${source}</td>
         </tr>`;
       }).join('')}
       </tbody></table></div>
-      <div style="font-size:.68rem;color:var(--text-lighter);margin-top:8px;padding:6px 12px;background:#f8f6f0;border-radius:6px;">📋 数据源：<code>${hk.source}</code> | ${hk.disclaimer}</div>
-    `;
+      <div style="font-size:.68rem;color:var(--text-lighter);margin-top:8px;padding:6px 12px;background:#f8f6f0;border-radius:6px;">历史披露不代表当前持仓。已核实记录起点不等于建仓时间，最后核实记录不保证是最近一次披露；缺失记录不代表清仓或低于5%。</div>`;
   } catch(e) {
-    container.innerHTML = '<p style="color:var(--text-lighter);">港股数据加载失败</p>';
+    if (investor === requestedInvestor) container.innerHTML = '<p style="color:var(--text-lighter);">港股数据加载失败</p>';
   }
 }
 
@@ -2229,3 +2242,4 @@ async function renderStatusDrawer() {
 
   el.innerHTML = html;
 }
+

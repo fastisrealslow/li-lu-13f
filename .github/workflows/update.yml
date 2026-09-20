@@ -8,6 +8,10 @@ on:
     branches: [master]
     paths:
       - ".github/workflows/update.yml"
+      - "monitor_hk_disclosures.py"
+      - "fetch_13f_all.py"
+      - "tests/test_hk_disclosure_evidence.py"
+      - "tests/test_history_backfill.py"
       - "spinoff_price_refresh.py"
       - "tests/test_spinoff_prices.py"
       - "spinoff_events.py"
@@ -538,4 +542,5 @@ jobs:
             git push
             echo "Changes pushed!"
           fi
+
 
