@@ -1403,9 +1403,10 @@ function hkEvidenceView(holding) {
     /^\d{4}-\d{2}-\d{2}$/.test(r.event_date || '') &&
     typeof r.shares === 'number' && Number.isFinite(r.shares) && r.shares >= 0 &&
     typeof r.pct === 'number' && Number.isFinite(r.pct) && r.pct >= 0 && r.pct <= 100 &&
-    r.filing_ref && /^https:\/\/di\.hkex\.com\.hk\//.test(r.source_url || '')
-  ).sort((a,b) => a.event_date.localeCompare(b.event_date));
-  return {first: records[0], latest: records[records.length - 1], status: '当前持仓未核实'};
+    r.filing_ref && /^https:\/\/di\.hkex\.com\.hk\//.test(r.source_url || '') &&
+    (!r.form_url || /^https:\/\/di\.hkex\.com\.hk\//.test(r.form_url))
+  ).sort((a,b) => a.event_date.localeCompare(b.event_date) || (a.filing_date || '').localeCompare(b.filing_date || '') || a.filing_ref.localeCompare(b.filing_ref));
+  return {records, first: records[0], latest: records[records.length - 1], status: '当前持仓未核实'};
 }
 function hkEscape(value) {
   return String(value ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -1422,25 +1423,32 @@ async function renderHKHoldings() {
     if (!resp.ok) throw new Error('HK disclosures unavailable');
     const hk = await resp.json();
     if (investor !== requestedInvestor) return;
+    const audit = hk.audit;
+    const checked = audit?.checkedAt ? `最近自动检查：${hkEscape(audit.checkedAt.replace('T', ' ').replace('Z', ' UTC'))}` : '等待首次自动核验';
+    const result = !audit ? '' : audit.status === 'checked' ? '已完成本轮已配置主体检索' : '部分来源未能核实，保留此前证据';
+    const empty = audit?.status === 'checked' ? '本轮未检索到匹配主体的公开多头权益披露，不等于没有港股持仓。' : '暂无已核实的港股披露；来源未完成检查时不能判断是否持有。';
     container.innerHTML = `
+      <p style="font-size:.75rem;color:var(--text-lighter);">${checked} · ${result}</p>
       <div style="overflow-x:auto;"><table style="width:100%;font-size:.82rem;"><thead><tr>
         <th>代码</th><th>公司</th><th>行业</th><th>披露主体</th><th>已核实记录起点</th><th>最后核实记录</th><th>该次披露持股</th><th>当前状态</th><th>说明与来源</th>
       </tr></thead><tbody>
       ${(hk.holdings || []).map(h=>{
         const evidence = hkEvidenceView(h), r = evidence.latest;
         const quantity = r ? `${r.shares.toLocaleString('en-US')}股 (${r.pct}%，${hkEscape(r.share_class || '原披露类别')})` : '待核实';
-        const source = r ? `<br><a href="${hkEscape(r.source_url)}" target="_blank" rel="noopener noreferrer">港交所 ${hkEscape(r.filing_ref)}</a>` : '';
+        const source = r ? `<br><a href="${hkEscape(r.form_url || r.source_url)}" target="_blank" rel="noopener noreferrer">港交所 ${hkEscape(r.filing_ref)}</a>` : '';
+        const history = evidence.records.length ? `<details><summary>已核实历史（${evidence.records.length}条）</summary>${[...evidence.records].reverse().map(record => `<div style="padding:5px 0;border-bottom:1px solid var(--border);">${record.event_date} · ${hkEscape(record.entity)}<br>${record.shares.toLocaleString('en-US')}股 / ${record.pct}% · ${hkEscape(record.share_class || '原披露类别')}<br><a href="${hkEscape(record.form_url || record.source_url)}" target="_blank" rel="noopener noreferrer">${hkEscape(record.filing_ref)}</a></div>`).join('')}</details>` : '';
         const notes = h.evidence_schema === 2 ? h.notes : '历史记录尚未逐项核实；旧状态、峰值及日期不能作为当前持仓依据。';
         return `<tr>
           <td>${hkEscape(fmtTicker(h.ticker))}</td><td>${hkEscape(cn(h.name, h))}</td>
           <td>${hkEscape(h.sector)}</td><td style="font-size:.75rem;">${hkEscape(r?.entity || h.entity)}</td>
           <td>${evidence.first?.event_date || '待核实'}</td><td>${r?.event_date || '待核实'}</td>
           <td style="font-size:.75rem;">${quantity}</td><td><span class="tag">${evidence.status}</span></td>
-          <td style="max-width:300px;font-size:.75rem;line-height:1.5;">${hkEscape(notes)}${source}</td>
+          <td style="max-width:300px;font-size:.75rem;line-height:1.5;">${hkEscape(notes)}${source}${history}</td>
         </tr>`;
       }).join('')}
       </tbody></table></div>
-      <div style="font-size:.68rem;color:var(--text-lighter);margin-top:8px;padding:6px 12px;background:#f8f6f0;border-radius:6px;">历史披露不代表当前持仓。已核实记录起点不等于建仓时间，最后核实记录不保证是最近一次披露；缺失记录不代表清仓或低于5%。</div>`;
+      ${!(hk.holdings || []).length ? `<p>${empty}</p>` : ''}
+      <div style="font-size:.68rem;color:var(--text-lighter);margin-top:8px;padding:6px 12px;background:#f8f6f0;border-radius:6px;">历史披露不代表当前持仓。同一权益可能由个人和受控公司分别申报，不能相加。已核实记录起点不等于建仓时间，最后核实记录不保证是最近一次披露；缺失记录不代表清仓或低于5%。</div>`;
   } catch(e) {
     if (investor === requestedInvestor) container.innerHTML = '<p style="color:var(--text-lighter);">港股数据加载失败</p>';
   }

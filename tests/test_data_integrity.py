@@ -87,7 +87,7 @@ class ValidationTests(unittest.TestCase):
         (self.root / "run_status.json").write_text('{"runs": []}')
         (self.root / "fund.json").write_text('{"current":{"quarter":"2026 Q2","holdings":[]}}')
         (self.root / "quotes.json").write_text('{"quotes":{}}')
-        (self.root / "hk.json").write_text('{}')
+        (self.root / "hk.json").write_text('{"holdings":[]}')
 
     def test_all_data_and_mapping_cache_are_validated_and_included(self):
         (self.root / "resolved_cusip_map.json").write_text('{"111":"ABC"}')

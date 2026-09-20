@@ -313,3 +313,13 @@ Local checks: `python3 -m unittest discover -s tests -p test_ai_supplement.py`
 and `python3 ai_supplement.py --plan`. Inference requires a local Ollama server
 on `127.0.0.1:11434`; generated requests explicitly select CPU and disable
 thinking. Do not expose this endpoint as a public service.
+
+### 港股原始披露自动核验
+
+`monitor_hk_disclosures.py` / `hk_disclosures.py` 由现有 Update 13F Data 流程每天北京时间 08:00、21:00 运行。遍历 `investors.json` 的所有投资者，不维护另一份人员名单。新增投资者需配置 `hkFile` 和 `hkDisclosure.queries`（检索词）、`hkDisclosure.entities`（确认过的披露主体名称）。未配置专用名称时使用 manager / people；别名应由公开原始资料确认，不能把相似姓名自动归为同一人。
+
+抓取港交所现行 DION 与 2003–2017 历史库，逐页读取权益披露，使用原始 Form 1/2 绑定证券代码并交叉校验每个主体列表的最新事件、股数和比例。历史记录按表格序号去重，各主体分别保留，个人与其公司申报同一权益不能相加。股数采用事件后的多头权益，比例保留原股份类别；不把交易股数、空头、检查时间当作当前持仓。
+
+`verified_disclosures` 保存事件日期、申报主体、股数、比例与官方来源；`audit` 保存每次检索结果与部分失败；`source_bindings` 缓存核实过的表格与历史分页完成状态。首次回补历史，以后复用已核实原表；检索和抓取失败保留既有证据。空结果不等于清仓，历史披露不等于当前持仓。页面可以展开每只股票的披露历史。
+
+手动重跑全部：`python3 -u monitor_hk_disclosures.py`；单人重跑：`python3 hk_disclosures.py --investor lilu`（可重复传入 `--investor`）。依赖 `beautifulsoup4`，可通过现有 workflow_dispatch 手动运行完整流程。测试：`python3 -m unittest discover -s tests`、`node --test tests/*.cjs`，发布前由 `validate_data.py` 检查披露格式及官方来源。

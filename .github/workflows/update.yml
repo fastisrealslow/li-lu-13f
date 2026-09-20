@@ -9,6 +9,9 @@ on:
     paths:
       - ".github/workflows/update.yml"
       - "monitor_hk_disclosures.py"
+      - "hk_disclosures.py"
+      - "investors.json"
+      - "tests/test_hk_automation.py"
       - "fetch_13f_all.py"
       - "tests/test_hk_disclosure_evidence.py"
       - "tests/test_history_backfill.py"
@@ -47,7 +50,7 @@ jobs:
           python-version: '3.12'
 
       - name: Install dependencies
-        run: pip install yfinance pdfminer.six rapidfuzz
+        run: pip install yfinance pdfminer.six rapidfuzz beautifulsoup4
 
       - name: Test data update regressions
         env:
@@ -59,6 +62,20 @@ jobs:
         id: init_status
         run: |
           python3 update_status.py --init --trigger "${{ github.event_name }}"
+
+      - name: Verify HKEX disclosures (all configured investors)
+        id: hk_disclosures
+        continue-on-error: true
+        run: python3 -u monitor_hk_disclosures.py
+
+      - name: Status - HK disclosures
+        if: ${{ !cancelled() && steps.init_status.outcome == 'success' }}
+        run: |
+          if [ "${{ steps.hk_disclosures.outcome }}" = "success" ]; then
+            python3 update_status.py --step hk_disclosures --status ok
+          else
+            python3 update_status.py --step hk_disclosures --status fail --msg "Step exited with error"
+          fi
 
       # ─────────────── 13F 数据抓取 ───────────────
 
@@ -433,20 +450,6 @@ jobs:
             python3 update_status.py --step metadata --status ok
           else
             python3 update_status.py --step metadata --status fail --msg "Step exited with error"
-          fi
-
-      - name: Monitor HK disclosure of interests (Duan Yongping)
-        id: hk_disclosures
-        continue-on-error: true
-        run: python3 monitor_hk_disclosures.py
-
-      - name: Status - HK disclosures
-        if: ${{ !cancelled() && steps.init_status.outcome == 'success' }}
-        run: |
-          if [ "${{ steps.hk_disclosures.outcome }}" = "success" ]; then
-            python3 update_status.py --step hk_disclosures --status ok
-          else
-            python3 update_status.py --step hk_disclosures --status fail --msg "Step exited with error"
           fi
 
       - name: Fetch HK spin-off announcements

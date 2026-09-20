@@ -53,5 +53,5 @@ class DisclosureEvidenceTests(unittest.TestCase):
         original=copy.deepcopy(data['holdings'][2]['verified_disclosures'])
         result=self.update(data, [dict(ticker='01658.HK')])
         self.assertEqual(result['holdings'][2]['verified_disclosures'], original)
-        self.assertEqual(original[-1]['shares'],1274411000)
-        self.assertEqual(original[-1]['pct'],6.42)
+        postal_2021 = [r for r in original if r['event_date']=='2021-01-15']
+        self.assertTrue(any(r['shares']==1274411000 and r['pct']==6.42 for r in postal_2021))

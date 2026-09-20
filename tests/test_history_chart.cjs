@@ -88,3 +88,25 @@ test('HK dated disclosures display historic quantities only with primary evidenc
   assert.equal(result.latest.event_date,'2021-01-15');
   assert.equal(result.status,'当前持仓未核实');
 });
+
+test('HK automated checked-empty and partial results remain distinct',async()=>{
+  const a=app();
+  a.run("investor='lilu';INVESTOR_CFG_BY_ID.lilu={hkFile:'hk_holdings.json'}");
+  for (const status of ['checked','partial']) {
+    a.context.fetch=async()=>({ok:true,json:async()=>({holdings:[],audit:{checkedAt:'2026-09-20T12:00:00Z',status}})});
+    await a.run('renderHKHoldings()');
+    const html=a.el('hkHoldingsTable').innerHTML;
+    assert.match(html,/最近自动检查/);
+    if(status==='checked') assert.match(html,/不等于没有港股持仓/);
+    else assert.match(html,/部分来源未能核实/);
+  }
+});
+test('HK historical records show dates, entity and original filing links',async()=>{
+  const a=app();
+  a.run("investor='lilu';INVESTOR_CFG_BY_ID.lilu={hkFile:'hk_holdings.json'}");
+  const record={event_date:'2025-05-08',entity:'Li Lu',shares:985618000,pct:4.96,filing_ref:'IS20250513E00008',source_url:'https://di.hkex.com.hk/di/NSForm1.aspx?fn=IS20250513E00008'};
+  a.context.fetch=async()=>({ok:true,json:async()=>({holdings:[{ticker:'01658.HK',name:'PSBC',verified_disclosures:[record]}]})});
+  await a.run('renderHKHoldings()');
+  const html=a.el('hkHoldingsTable').innerHTML;
+  for(const expected of ['2025-05-08','985,618,000','4.96%','已核实历史','当前持仓未核实','IS20250513E00008']) assert.ok(html.includes(expected));
+});

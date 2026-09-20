@@ -1,6 +1,6 @@
 {
   "updated": "2026-05-25",
-  "source": "HKEX 权益披露：历史搜索线索及已核实披露记录",
+  "source": "HKEX DI 原始申报表及权益披露列表（DION + 2003–2017历史库）",
   "holdings": [
     {
       "ticker": "00975.HK",
@@ -36,5 +36,48 @@
     }
   ],
   "disclaimer": "历史披露不代表当前持仓；搜索日期不等于披露日期。未搜到记录不代表已清仓或低于5%。比例须按原披露的股份类别解读。",
-  "lastUpdated": "2026-09-20T11:32:13Z"
+  "lastUpdated": "2026-09-20T12:09:10Z",
+  "schemaVersion": 3,
+  "investor": "pabrai",
+  "source_bindings": {},
+  "audit": {
+    "checkedAt": "2026-09-20T12:09:10Z",
+    "status": "checked",
+    "queries": [
+      {
+        "query": "Mohnish Pabrai",
+        "archive": "dion",
+        "status": "ok",
+        "matchedSecurities": 0,
+        "url": "https://di.hkex.com.hk/di/NSSrchPersonList.aspx?sa1=pl&scsd=03%2F07%2F2017&sced=20%2F09%2F2026&pn=Mohnish+Pabrai&src=MAIN&lang=EN&g_lang=en"
+      },
+      {
+        "query": "Dalal Street",
+        "archive": "dion",
+        "status": "ok",
+        "matchedSecurities": 0,
+        "url": "https://di.hkex.com.hk/di/NSSrchPersonList.aspx?sa1=pl&scsd=03%2F07%2F2017&sced=20%2F09%2F2026&pn=Dalal+Street&src=MAIN&lang=EN&g_lang=en"
+      },
+      {
+        "query": "Mohnish Pabrai",
+        "archive": "legacy",
+        "status": "ok",
+        "matchedSecurities": 0,
+        "url": "https://di.hkex.com.hk/filing/di/NSSrchPersonList.aspx?sa1=pl&scsd=01%2F04%2F2003&sced=02%2F10%2F2017&pn=Mohnish+Pabrai&src=MAIN&lang=EN&g_lang=en"
+      },
+      {
+        "query": "Dalal Street",
+        "archive": "legacy",
+        "status": "ok",
+        "matchedSecurities": 0,
+        "url": "https://di.hkex.com.hk/filing/di/NSSrchPersonList.aspx?sa1=pl&scsd=01%2F04%2F2003&sced=02%2F10%2F2017&pn=Dalal+Street&src=MAIN&lang=EN&g_lang=en"
+      }
+    ],
+    "discoveredSources": 0,
+    "verifiedSecurities": 0,
+    "pendingSecurities": 1,
+    "recordsFetched": 0,
+    "errors": [],
+    "scope": "匹配已配置主体的公开多头权益披露；不等于完整投资组合或当前持仓"
+  }
 }

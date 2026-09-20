@@ -47,6 +47,29 @@ def validate_history(history):
                 raise ValueError(f"History total disagrees with holdings: {q}")
 
 
+def validate_hk_evidence(value):
+    from datetime import date
+    from urllib.parse import urlsplit
+    if not isinstance(value.get("holdings"), list):
+        raise ValueError("Missing HK disclosure holdings")
+    for holding in value["holdings"]:
+        if not re.fullmatch(r"\d{5}\.HK", holding.get("ticker", "")):
+            raise ValueError("Invalid HK disclosure ticker")
+        for record in holding.get("verified_disclosures", []):
+            date.fromisoformat(record.get("event_date", ""))
+            if not record.get("filing_ref"):
+                raise ValueError("Missing HK filing reference")
+            for key in ("source_url", "form_url"):
+                if key == "form_url" and key not in record:
+                    continue
+                url = urlsplit(record.get(key, ""))
+                if url.scheme != "https" or url.netloc != "di.hkex.com.hk":
+                    raise ValueError("HK evidence must link to HKEX")
+            shares, pct = record.get("shares"), record.get("pct")
+            if type(shares) is not int or shares < 0 or type(pct) not in (int,float) or not math.isfinite(pct) or not 0 <= pct <= 100:
+                raise ValueError("Invalid HK post-event position")
+
+
 def validate(root):
     root = Path(root)
     config = read_json(root / "investors.json")
@@ -82,6 +105,8 @@ def validate(root):
                         number = h.get(field)
                         if not isinstance(number, (int, float)) or isinstance(number, bool) or not math.isfinite(number) or number < 0:
                             raise ValueError(f"Invalid {field} for {h['ticker']}")
+            if role == "hkFile":
+                validate_hk_evidence(value)
             if role == "pricesFile" and not isinstance(value.get("quotes"), dict):
                 raise ValueError("Missing price quotes")
             if name == "run_status.json" and not isinstance(value.get("runs"), list):
