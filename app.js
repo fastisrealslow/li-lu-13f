@@ -123,7 +123,7 @@ const T = {
   tlTitle: ['持仓时间轴','Holdings Timeline'],
   tlSub: ['每行展示一只股票在投资组合中的持有时间与仓位变化','Duration & position change for each holding'],
   // HK section
-  hkTitle: ['🇭🇰 港股持仓','🇭🇰 HK Holdings'],
+  hkTitle: ['港股权益披露','HK Disclosures'],
   hkSub: ['13F 仅披露美股多头持仓。以下港股数据来源于港交所权益披露(di.hkex.com.hk)、公开报道等。','13F only covers US long positions. HK data from HKEX SFC DI system & public records.'],
   // Price note
   priceNote: ['💡 参考股价 = Finnhub 每日拉取（非实时） | 最近成本 = 最近一次建仓买入估算 | 历史均价 = 全周期持仓季度中位数','💡 Price = Finnhub daily (not real-time) | Recent Cost = latest buy-in estimate | All-Time Avg = median across all holding quarters'],

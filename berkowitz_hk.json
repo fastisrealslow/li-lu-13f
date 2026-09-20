@@ -1,5 +1,145 @@
 {
-  "holdings": [],
-  "source": "HKEX DI",
-  "disclaimer": "尚未完成公开披露核验，空表不代表无持仓。"
+  "holdings": [
+    {
+      "ticker": "02601.HK",
+      "sector": "",
+      "evidence_schema": 2,
+      "verified_disclosures": [
+        {
+          "filing_ref": "CS20110111000181",
+          "event_date": "2011-01-07",
+          "shares": 144000000,
+          "pct": 6.22,
+          "position": "long",
+          "issuer_name": "China Pacific Insurance (Group) Co., Ltd. - H Shares",
+          "reason": "101 (L)",
+          "source_url": "https://di.hkex.com.hk/filing/di/NSNoticePersonList.aspx?sa2=np&scpid=2063327&sa1=pl&scsd=01%2f04%2f2003&sced=02%2f10%2f2017&pn=Fairholme+Capital+Management%2c+LLC&src=MAIN&lang=EN&g_lang=en&",
+          "form_url": "https://di.hkex.com.hk/filing/di/NSForm2.aspx?fn=151920&sa2=np&scpid=2063327&sa1=pl&scsd=01%2f04%2f2003&sced=02%2f10%2f2017&pn=Fairholme+Capital+Management%2c+LLC&src=MAIN&lang=EN&g_lang=en&",
+          "verification": "hkex_notice_table",
+          "ticker": "02601.HK",
+          "entity": "Fairholme Capital Management, LLC",
+          "share_class": "Ordinary",
+          "source_key": "/filing/di/NSNoticePersonList.aspx?scpid=2063327",
+          "checked_at": "2026-09-20T12:15:00Z"
+        },
+        {
+          "filing_ref": "CS20111108000048",
+          "event_date": "2011-11-04",
+          "shares": 137843400,
+          "pct": 5.96,
+          "position": "long",
+          "issuer_name": "China Pacific Insurance (Group) Co., Ltd. - H Shares",
+          "reason": "103 (L)",
+          "source_url": "https://di.hkex.com.hk/filing/di/NSNoticePersonList.aspx?sa2=np&scpid=2063327&sa1=pl&scsd=01%2f04%2f2003&sced=02%2f10%2f2017&pn=Fairholme+Capital+Management%2c+LLC&src=MAIN&lang=EN&g_lang=en&",
+          "form_url": "https://di.hkex.com.hk/filing/di/NSForm2.aspx?fn=172604&sa2=np&scpid=2063327&sa1=pl&scsd=01%2f04%2f2003&sced=02%2f10%2f2017&pn=Fairholme+Capital+Management%2c+LLC&src=MAIN&lang=EN&g_lang=en&",
+          "verification": "hkex_notice_table",
+          "ticker": "02601.HK",
+          "entity": "Fairholme Capital Management, LLC",
+          "share_class": "Ordinary",
+          "source_key": "/filing/di/NSNoticePersonList.aspx?scpid=2063327",
+          "checked_at": "2026-09-20T12:15:00Z"
+        },
+        {
+          "filing_ref": "CS20111201000028",
+          "event_date": "2011-11-29",
+          "shares": 114665400,
+          "pct": 4.96,
+          "position": "long",
+          "issuer_name": "China Pacific Insurance (Group) Co., Ltd. - H Shares",
+          "reason": "102 (L)",
+          "source_url": "https://di.hkex.com.hk/filing/di/NSForm2.aspx?fn=174017&sa2=np&scpid=2063327&sa1=pl&scsd=01%2f04%2f2003&sced=02%2f10%2f2017&pn=Fairholme+Capital+Management%2c+LLC&src=MAIN&lang=EN&g_lang=en&",
+          "form_url": "https://di.hkex.com.hk/filing/di/NSForm2.aspx?fn=174017&sa2=np&scpid=2063327&sa1=pl&scsd=01%2f04%2f2003&sced=02%2f10%2f2017&pn=Fairholme+Capital+Management%2c+LLC&src=MAIN&lang=EN&g_lang=en&",
+          "verification": "hkex_form",
+          "ticker": "02601.HK",
+          "entity": "Fairholme Capital Management, LLC",
+          "share_class": "Ordinary",
+          "source_key": "/filing/di/NSNoticePersonList.aspx?scpid=2063327",
+          "checked_at": "2026-09-20T12:15:00Z",
+          "filing_date": "2011-12-01",
+          "supplementary": ""
+        }
+      ],
+      "name": "China Pacific Insurance (Group) Co., Ltd. - H Shares",
+      "cnName": "",
+      "entity": "Fairholme Capital Management, LLC",
+      "current_status": "unknown",
+      "data_quality": "verified_historical",
+      "first_disclosure": "2011-01-07",
+      "last_disclosure": "2011-11-29",
+      "notes": "港交所原始披露自动核验；数量为对应主体当次披露的多头权益，不合并重复申报主体，不代表当前持仓或历史峰值。",
+      "discovery_sources": [
+        {
+          "entity": "Fairholme Capital Management, LLC",
+          "stockName": "China Pacific Insurance (Group) Co., Ltd. - H Shares",
+          "noticeUrl": "https://di.hkex.com.hk/filing/di/NSNoticePersonList.aspx?sa2=np&scpid=2063327&sa1=pl&scsd=01%2f04%2f2003&sced=02%2f10%2f2017&pn=Fairholme+Capital+Management%2c+LLC&src=MAIN&lang=EN&g_lang=en&"
+        }
+      ],
+      "last_checked_at": "2026-09-20T12:13:42Z"
+    }
+  ],
+  "source": "HKEX DI 原始申报表及权益披露列表（DION + 2003–2017历史库）",
+  "disclaimer": "历史披露不代表当前持仓；搜索日期不等于披露日期。未搜到记录不代表已清仓或低于5%。比例须按原披露的股份类别解读。",
+  "lastUpdated": "2026-09-20T12:13:42Z",
+  "schemaVersion": 3,
+  "investor": "berkowitz",
+  "source_bindings": {
+    "/filing/di/NSNoticePersonList.aspx?scpid=2063327": {
+      "ticker": "02601.HK",
+      "filing_ref": "CS20111201000028",
+      "entity": "Fairholme Capital Management, LLC",
+      "event_date": "2011-11-29",
+      "filing_date": "2011-12-01",
+      "issuer_name": "China Pacific Insurance (Group) Co., Ltd. - H Shares",
+      "share_class": "Ordinary",
+      "shares": 114665400,
+      "pct": 4.96,
+      "position": "long",
+      "source_url": "https://di.hkex.com.hk/filing/di/NSForm2.aspx?fn=174017&sa2=np&scpid=2063327&sa1=pl&scsd=01%2f04%2f2003&sced=02%2f10%2f2017&pn=Fairholme+Capital+Management%2c+LLC&src=MAIN&lang=EN&g_lang=en&",
+      "form_url": "https://di.hkex.com.hk/filing/di/NSForm2.aspx?fn=174017&sa2=np&scpid=2063327&sa1=pl&scsd=01%2f04%2f2003&sced=02%2f10%2f2017&pn=Fairholme+Capital+Management%2c+LLC&src=MAIN&lang=EN&g_lang=en&",
+      "verification": "hkex_form",
+      "supplementary": "",
+      "history_complete": true,
+      "notice_url": "https://di.hkex.com.hk/filing/di/NSNoticePersonList.aspx?sa2=np&scpid=2063327&sa1=pl&scsd=01%2f04%2f2003&sced=02%2f10%2f2017&pn=Fairholme+Capital+Management%2c+LLC&src=MAIN&lang=EN&g_lang=en&"
+    }
+  },
+  "audit": {
+    "checkedAt": "2026-09-20T12:13:42Z",
+    "status": "checked",
+    "queries": [
+      {
+        "query": "Fairholme Capital Management, LLC",
+        "archive": "dion",
+        "status": "ok",
+        "matchedSecurities": 0,
+        "url": "https://di.hkex.com.hk/di/NSSrchPersonList.aspx?sa1=pl&scsd=03%2F07%2F2017&sced=20%2F09%2F2026&pn=Fairholme+Capital+Management%2C+LLC&src=MAIN&lang=EN&g_lang=en"
+      },
+      {
+        "query": "Bruce Berkowitz",
+        "archive": "dion",
+        "status": "ok",
+        "matchedSecurities": 0,
+        "url": "https://di.hkex.com.hk/di/NSSrchPersonList.aspx?sa1=pl&scsd=03%2F07%2F2017&sced=20%2F09%2F2026&pn=Bruce+Berkowitz&src=MAIN&lang=EN&g_lang=en"
+      },
+      {
+        "query": "Fairholme Capital Management, LLC",
+        "archive": "legacy",
+        "status": "ok",
+        "matchedSecurities": 1,
+        "url": "https://di.hkex.com.hk/filing/di/NSSrchPersonList.aspx?sa1=pl&scsd=01%2F04%2F2003&sced=02%2F10%2F2017&pn=Fairholme+Capital+Management%2C+LLC&src=MAIN&lang=EN&g_lang=en"
+      },
+      {
+        "query": "Bruce Berkowitz",
+        "archive": "legacy",
+        "status": "ok",
+        "matchedSecurities": 0,
+        "url": "https://di.hkex.com.hk/filing/di/NSSrchPersonList.aspx?sa1=pl&scsd=01%2F04%2F2003&sced=02%2F10%2F2017&pn=Bruce+Berkowitz&src=MAIN&lang=EN&g_lang=en"
+      }
+    ],
+    "discoveredSources": 1,
+    "verifiedSecurities": 1,
+    "pendingSecurities": 0,
+    "recordsFetched": 3,
+    "errors": [],
+    "scope": "匹配已配置主体的公开多头权益披露；不等于完整投资组合或当前持仓"
+  }
 }

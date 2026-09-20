@@ -58,7 +58,7 @@ def dated(value):
 
 def long_number(value, integer=False):
     # Never use a short position or a transaction quantity as a long holding.
-    matches = re.findall(r'([\d,]+(?:\.\d+)?)\s*\(\s*L\s*\)', value, re.I)
+    matches = re.findall(r'(?<![\w,.+\-])((?:\d{1,3}(?:,\d{3})+|\d+)(?:\.\d+)?)\s*\(\s*L\s*\)', value, re.I)
     if len(matches) != 1:
         raise ValueError(f'Expected one long position: {value!r}')
     n = float(matches[0].replace(',', ''))
@@ -93,7 +93,12 @@ def parse_search(html, url, aliases):
     soup = BeautifulSoup(html, 'html.parser')
     total, pages = page_info(soup, url)
     hits = []
-    for a in soup.find_all('a', href=True):
+    anchors = soup.find_all('a', href=re.compile('NSNoticePersonList\\.aspx', re.I))
+    if total and not anchors:
+        raise ValueError('Search result links missing; layout may have changed')
+    if total > len(anchors) and not pages:
+        raise ValueError('Search pagination missing; result incomplete')
+    for a in anchors:
         if 'NSNoticePersonList.aspx' not in a['href'] or not entity_matches(text(a), aliases):
             continue
         row = a.find_parent('tr')
@@ -142,6 +147,8 @@ def parse_notices(html, url):
             ignored.append({'filing_ref':serial, 'reason':str(exc)})
     if total and headers is None:
         raise ValueError('Disclosure column layout changed')
+    if total > len(records) + len(ignored) and not pages:
+        raise ValueError('Notice pagination missing or rows unrecognized')
     return records, total, pages, ignored
 
 

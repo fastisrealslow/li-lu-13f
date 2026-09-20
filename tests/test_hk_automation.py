@@ -81,7 +81,7 @@ class HKAutomationTests(unittest.TestCase):
 
     def test_only_long_positions_and_valid_dates(self):
         self.assertEqual(hk.long_number('1,234 (L) 98 (S)', True), 1234)
-        for bad in ['98 (S)', '-', '1.5 (L)', '1 (L) 2 (L)']:
+        for bad in ['98 (S)', '-', '1.5 (L)', '1 (L) 2 (L)', '-100 (L)', '1,,234 (L)', '1e9 (L)']:
             with self.subTest(bad=bad), self.assertRaises(ValueError):
                 hk.long_number(bad, True)
         with self.assertRaises(ValueError):
@@ -177,3 +177,10 @@ class HKAutomationTests(unittest.TestCase):
         record['source_url'] = 'https://example.com/unverified'
         with self.assertRaises(ValueError):
             validate_hk_evidence(value)
+
+    def test_changed_layout_cannot_silently_drop_results(self):
+        with self.assertRaises(ValueError):
+            hk.parse_search('<p>Total records: 5</p>', hk.BASE+'NSSrchPersonList.aspx', ALIASES)
+        broken = fixture('lilu_psbc_notices').replace('id="lblRecCount">4</span>', 'id="lblRecCount">99</span>')
+        with self.assertRaises(ValueError):
+            hk.parse_notices(broken, LIST)
