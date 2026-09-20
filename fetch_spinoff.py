@@ -20,7 +20,7 @@ API（从浏览器 Network 面板确认）：
 过滤：现价 < 0.5 HKD 的仙股排除。
 """
 
-from spinoff_events import parse_evidence, normalize, merge_evidence, classify_hk_type
+from spinoff_events import parse_evidence, normalize, merge_evidence, classify_hk_type, introduction_quote
 from update_status import record_ai_warning, record_source_warning
 
 import json, os, re, sys, time, http.cookiejar, urllib.parse
@@ -308,7 +308,7 @@ def merge_by_company(all_items):
 
 
 def _pdf_check_intro(doc_url, opener):
-    """读 PDF 前2页，检测是否是介绍上市/实物分派方式。返回 True/False"""
+    """读 PDF 前2页，检测明确的介绍上市方式。返回 True/False"""
     try:
         from pdfminer.high_level import extract_text_to_fp
         from pdfminer.layout import LAParams
@@ -318,7 +318,7 @@ def _pdf_check_intro(doc_url, opener):
         out = StringIO()
         extract_text_to_fp(BytesIO(data), out, laparams=LAParams(), page_numbers=[0, 1])
         text = out.getvalue()
-        return bool(re.search(r'實物分派|以介紹方式|介紹式上市|listing by introduction|distribution in specie', text, re.I))
+        return bool(introduction_quote(text))
     except Exception as e:
         print(f"    PDF检测失败 ({doc_url[-40:]}): {e}", file=sys.stderr)
         return False

@@ -10,6 +10,8 @@ from spinoff_identity import resolve_identity, IDENTITY_VERSION
 
 STATUSES = {'needs_review', 'announced', 'approved', 'record_set', 'prospectus', 'completed', 'terminated', 'paused'}
 RULE_VERSION = 2
+TYPE_RULE_VERSION = 1
+INTRO_PATTERN = r'以介紹方式|以介绍方式|以介紹式|以介绍式|介紹(?:式)?上市|介绍(?:式)?上市|listing by (?:way of )?introduction'
 
 
 def merge_evidence(previous, current):
@@ -128,8 +130,21 @@ def target_key(name):
     return re.sub(r'[\s,]+', '', str(name or '')).translate(variants).casefold().rstrip('.')
 
 
+def introduction_quote(text):
+    """Explicit listing method only; in-specie distribution alone proves no method."""
+    for sentence in re.split(r'[。；;\n]', filing_text(text)):
+        if not re.search(INTRO_PATTERN, sentence, re.I):
+            continue
+        if not re.search(r'上市|listing|listed', sentence, re.I):
+            continue
+        if re.search(r'(?:並非|并非|不會|不会|不擬|不拟|不以|非以|並不|并不).{0,30}(?:介紹|介绍)|(?:not|no longer).{0,40}(?:listing|listed|introduction)', sentence, re.I):
+            continue
+        return sentence.strip()
+    return ''
+
+
 def classify_hk_type(titles):
-    text = ' '.join(titles)
+    text = filing_text(' '.join(titles))
     exchange = next(((zh, en, code) for pattern, zh, en, code in [
         ('菲律賓|菲律宾', '菲律宾交易所', 'PSE', 'other'), ('泰國|泰国', '泰国交易所', 'SET', 'other'),
         ('深圳證券|深圳证券|深交所', '深交所', 'SZSE', 'a_sz'), ('上海證券|上海证券|上交所', '上交所', 'SSE', 'a_sh'),
@@ -142,7 +157,7 @@ def classify_hk_type(titles):
     if is_reit:
         code = 'reit_' + suffix.removeprefix('a_') if suffix != 'other' else 'reit'
         label, label_en = 'REIT·' + zh, 'REIT·' + en
-    elif re.search(r'以介紹方式|以介绍方式|介紹上市|介绍上市|listing by introduction', text, re.I):
+    elif introduction_quote(text):
         code, label, label_en = 'intro_' + suffix, '介绍上市·' + zh, 'Introduction·' + en
     elif re.search(r'獨立上市|独立上市|上市|IPO|掛牌|挂牌', text, re.I):
         code = 'ipo_' + suffix + ('_dist' if distribution else '')
@@ -247,7 +262,11 @@ def parse_evidence(text, ann, cik=''):
             values = {iso_date(m.group(1)) for m in found} - {''}
             if len(values) == 1:
                 dates['listingDate'] = {'date': values.pop(), 'quote': found[0].group(0), 'kind': 'actual'}
-    return {**match, 'url': url, 'date': iso_date(ann.get('date')), 'targetName': target_name,
+    type_quote = introduction_quote(text) if urlparse(url).hostname in {'www1.hkexnews.hk', 'www.hkexnews.hk'} else ''
+    type_fields = {'typeVersion': TYPE_RULE_VERSION}
+    if type_quote and identity.get('reason') != 'conflicting_names':
+        type_fields.update(listingType=classify_hk_type([ann.get('title', ''), type_quote]), typeQuote=type_quote)
+    return {**match, **type_fields, 'url': url, 'date': iso_date(ann.get('date')), 'targetName': target_name,
             'targetTicker': ticker, 'targetAliases': target_aliases,
             'identityVersion': IDENTITY_VERSION, 'identityQuote': identity.get('quote', ''),
             'identityKind': identity.get('kind', ''), 'distributedEntity': identity.get('distributedEntity', False), 'separatedEntity': identity.get('separatedEntity', False), 'identityReason': identity.get('reason', ''), 'dates': dates, 'method': 'rule', 'ruleVersion': RULE_VERSION, 'accession': ann.get('adsh', '')}
@@ -363,11 +382,19 @@ def normalize(data, market, previous=None, now=None):
                 urls = {p.get('url') for p in group if p.get('url')}
                 event_announcements = [{**a, 'relevance': a['relevance'] if a.get('adsh') in accessions or a.get('url') in urls else 'unverified'} for a in announcements]
             relevant_dates = [a.get('date', '') for a in event_announcements if a['relevance'] == 'candidate']
+            type_evidence = None
             event_type = c.get('spinType') or c.get('type', 'spinoff')
             if market == 'hk':
                 scoped_type = classify_hk_type([a.get('title', '') for a in event_announcements if a['relevance'] == 'candidate'])
                 if len(groups) > 1 or scoped_type['code'] != 'unknown':
                     event_type = scoped_type
+                # Body evidence is scoped to this target, never inherited from a sibling.
+                typed = [p for p in group if p.get('listingType') and p.get('typeQuote')
+                         and direct_source(p.get('url', ''))]
+                if typed:
+                    proof = max(typed, key=lambda p: p.get('date', ''))
+                    event_type = proof['listingType']
+                    type_evidence = {'url': proof['url'], 'date': proof.get('date', ''), 'quote': proof['typeQuote']}
             merged_ids = {alias for e in [*matching, *source_matching, *([old_events[eid]] if eid in old_events else [])] for alias in [e['id'], *e.get('mergedIds', [])]} - {eid}
             event = {'id': eid, 'mergedIds': sorted(merged_ids), 'market': market, 'parentTicker': c.get('ticker') or parent, 'parentName': c.get('stockName') or c.get('name', ''),
                      'targetName': target_name, 'targetTicker': child_ticker, 'identityVerified': bool(named),
@@ -379,6 +406,8 @@ def normalize(data, market, previous=None, now=None):
                      'latestDate': max(relevant_dates, default=''), 'sourceUpdatedAt': data.get('updatedAt', ''),
                      'parentMarketCap': c.get('parentMarketCap'), 'pricePairs': c.get('spinoffPricePerf', []) if same_target else [],
                      'parentPrice': c.get('parentPricePerf') or c.get('pricePerf') or {}}
+            if type_evidence:
+                event['typeEvidence'] = type_evidence
             old = old_events.get(eid)
             def snapshot(value):
                 result = {k: value.get(k) for k in ('status', 'targetName', 'targetTicker')}

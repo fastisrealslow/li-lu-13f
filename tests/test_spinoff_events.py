@@ -44,6 +44,56 @@ class SpinEvidenceTests(unittest.TestCase):
         self.assertEqual(foreign['exchange_en'], 'PSE')
         self.assertEqual(classify_hk_type(['以介紹方式於香港聯合交易所主板上市'])['code'], 'intro_hk')
 
+    def test_china_travel_body_introduction_survives_generic_title_and_normalization(self):
+        title = '中旅港澳文旅控股有限公司之建議分拆及於香港聯合交易所有限公司主板獨立上市'
+        ann = {'date': '2026-05-20', 'title': title,
+               'docUrl': '/listedco/listconews/sehk/2026/0520/2026052001869_c.pdf'}
+        body = title + '。董事局謹此宣佈，本公司計劃以實物分派方式分拆港澳文旅及以介紹方式將港澳文旅股份於聯交所主板獨立上市。'
+        proof = parse_evidence(body, ann)
+        data = {'companies': [{'stockCode': '00308', 'ticker': '00308.HK',
+                'announcements': [ann], 'filingEvidence': [proof]}]}
+        first = normalize(data, 'hk')
+        event = first['events'][0]
+        self.assertEqual(event['type']['code'], 'intro_hk')
+        self.assertEqual(event['status'], 'announced')
+        self.assertIn('以介紹方式', event['typeEvidence']['quote'])
+        self.assertEqual(event['typeEvidence']['url'], proof['url'])
+        again = normalize(copy.deepcopy(first), 'hk')
+        self.assertEqual(again['events'][0]['type'], event['type'])
+        self.assertEqual(again['events'][0]['id'], event['id'])
+        validate_events(again)
+        other = {'date': '2026-06-01', 'title': '建議分拆另一業務有限公司於香港聯交所主板獨立上市',
+                 'docUrl': '/listedco/other.pdf'}
+        data['companies'][0]['announcements'].append(other)
+        data['companies'][0]['filingEvidence'].append(parse_evidence(other['title'], other))
+        events = normalize(data, 'hk')['events']
+        self.assertEqual(next(e for e in events if e['targetName'] == '另一業務有限公司')['type']['code'], 'ipo_hk')
+
+    def test_introduction_requires_explicit_non_negated_listing_method(self):
+        from spinoff_events import introduction_quote
+        for text in ['以實物分派方式分拆並於香港聯交所上市',
+                     '分拆公司並非以介紹方式上市', 'The company will not list by listing by introduction.']:
+            self.assertFalse(introduction_quote(text))
+        for text in ['股份以介紹式於聯交所主板上市及買賣', '以介绍方式于香港主板上市',
+                     'Proposed listing by way of introduction on HKEX']:
+            self.assertTrue(introduction_quote(text))
+
+    def test_identity_cache_backfills_listing_method_once(self):
+        from resolve_spinoff_names import refresh_company
+        from spinoff_events import TYPE_RULE_VERSION
+        ann = {'date': '2026-05-20', 'title': '建議分拆甲乙有限公司於香港聯交所上市',
+               'docUrl': '/listedco/intro.pdf'}
+        url = 'https://www1.hkexnews.hk' + ann['docUrl']
+        company = {'stockCode': '00308', 'announcements': [ann],
+                   'identityChecks': {url: {'version': 1, 'result': 'named'}}}
+        body = ann['title'] + '。本公司建議以介紹方式於聯交所上市。'
+        with patch('resolve_spinoff_names.document', return_value={'text': body}) as read:
+            refresh_company(company, 'hk', None)
+            refresh_company(company, 'hk', None)
+        self.assertEqual(read.call_count, 1)
+        self.assertEqual(company['identityChecks'][url]['typeVersion'], TYPE_RULE_VERSION)
+        self.assertEqual(company['filingEvidence'][0]['listingType']['code'], 'intro_hk')
+
     def test_separate_targets_do_not_inherit_company_wide_reit_type(self):
         data = {'companies': [{'stockCode': '00656', 'ticker': '00656.HK', 'spinType': {'code': 'reit_sh', 'is_reit': True},
             'announcements': [

@@ -19,7 +19,7 @@ from urllib.parse import urljoin, urlparse
 from urllib.request import Request, build_opener
 
 from spinoff_events import (parse_evidence, source_url, direct_source, filing_url,
-                            merge_evidence, normalize, validate_events, iso_date)
+                            merge_evidence, normalize, validate_events, iso_date, TYPE_RULE_VERSION)
 from spinoff_identity import IDENTITY_VERSION
 
 _request_lock = threading.Lock()
@@ -179,7 +179,9 @@ def refresh_company(company, market, opener, cache=None, limit=3):
     anns=sorted(company.get('announcements',[]),key=lambda a:(not bool(re.search(r'SEC 8-K:|建議|分拆|分立',a.get('title',''))), a.get('date','')))
     for ann in anns:
         url=source_url(ann,company.get('cik',''))
-        if not direct_source(url) or checks.get(url,{}).get('version')==IDENTITY_VERSION:continue
+        check = checks.get(url, {})
+        current = check.get('version') == IDENTITY_VERSION and (market != 'hk' or check.get('typeVersion') == TYPE_RULE_VERSION)
+        if not direct_source(url) or current:continue
         if done>=limit:break
         done+=1
         try:
@@ -202,7 +204,7 @@ def refresh_company(company, market, opener, cache=None, limit=3):
             if content.get('supplementUnavailable'):
                 failures.append(url+': supplemental source unavailable')
             else:
-                checks[url]={'version':IDENTITY_VERSION,'checkedAt':datetime.now(timezone.utc).strftime('%Y-%m-%d'),'result':'named' if proof['targetName'] else 'no_name'}
+                checks[url]={'version':IDENTITY_VERSION,'typeVersion':TYPE_RULE_VERSION,'checkedAt':datetime.now(timezone.utc).strftime('%Y-%m-%d'),'result':'named' if proof['targetName'] else 'no_name'}
         except Exception as error:
             failures.append(url+': '+type(error).__name__)
     company['filingEvidence']=link_references(proofs)
