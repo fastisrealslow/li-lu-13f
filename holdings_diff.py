@@ -40,7 +40,7 @@ def update_history(data, quarter, holdings):
     if quarter not in history["quarters"]:
         history["quarters"].append(quarter)
         history["values"].append(0)
-    history["values"][history["quarters"].index(quarter)] = round(sum(h["value"] for h in holdings) / 1_000_000)
+    history["values"][history["quarters"].index(quarter)] = round(sum(h["value"] for h in holdings) / 1_000_000, 6)
     history.setdefault("holdings", {})[quarter] = holdings
     pairs = sorted(zip(history["quarters"], history["values"]))
     history["quarters"] = [q for q, _ in pairs]

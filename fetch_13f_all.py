@@ -616,7 +616,7 @@ def quarter_label(date_str: str) -> str:
 def find_info_table_xml(cik: str, accession: str, accession_dashed: str) -> str:
     """尝试 .html 和 .htm 两种格式，提取 INFOTABLE XML 路径。"""
     index_html = None
-    for ext in ["-index.html", "-index.htm"]:
+    for ext in ["-index.htm", "-index.html"]:
         try:
             raw = sec_fetch(f"/Archives/edgar/data/{cik}/{accession}/{accession_dashed}{ext}")
             index_html = raw.decode("utf-8", errors="replace")
@@ -651,7 +651,7 @@ def resolve_ticker(name: str, cls: str, cusip: str = "") -> str:
     return f"?{n}"
 
 
-def parse_holdings(xml_bytes: bytes, consolidate: bool = False) -> list[dict]:
+def parse_holdings(xml_bytes: bytes, consolidate: bool = False, *, filing_date: str) -> list[dict]:
     """解析 INFOTABLE XML，返回 holdings 列表（已排序）。"""
     root = ET.fromstring(xml_bytes)
     raw_entries = []
@@ -672,13 +672,13 @@ def parse_holdings(xml_bytes: bytes, consolidate: bool = False) -> list[dict]:
             "shares": shares, "value": value,
         })
 
-    # 自动检测单位：SEC 2022Q4 前用 kUSD，之后用 USD
-    valid = [e for e in raw_entries if e["shares"] > 0 and e["value"] > 0]
-    if valid:
-        avg_price = sum(e["value"] / e["shares"] for e in valid) / len(valid)
-        if avg_price < 1.0:
-            for e in raw_entries:
-                e["value"] *= 1000
+    # SEC amended Form 13F is mandatory for filings from 2023-01-03.
+    # Use filing date, not report quarter or inferred share price (BRK.A breaks it).
+    # https://www.sec.gov/divisions/investment/13ffaq (FAQs 61–62)
+    filed = datetime.strptime(filing_date, "%Y-%m-%d")
+    if filed < datetime(2023, 1, 3):
+        for e in raw_entries:
+            e["value"] *= 1000
 
     if consolidate:
         # 合并同一 ticker 的多个子公司持仓（主要针对 Berkshire）
@@ -790,8 +790,8 @@ def process_investor(key: str, config: dict, full_mode: bool):
 
     cur_xml  = sec_fetch(find_info_table_xml(cik, cur_f["accession"], cur_f["accessionDashed"]))
     prev_xml = sec_fetch(find_info_table_xml(cik, prev_f["accession"], prev_f["accessionDashed"]))
-    cur_holdings  = parse_holdings(cur_xml,  consolidate=consolidate)
-    prev_holdings = parse_holdings(prev_xml, consolidate=consolidate)
+    cur_holdings  = parse_holdings(cur_xml, consolidate=consolidate, filing_date=cur_f["filingDate"])
+    prev_holdings = parse_holdings(prev_xml, consolidate=consolidate, filing_date=prev_f["filingDate"])
 
     attach_previous(cur_holdings, prev_holdings)
 
@@ -833,26 +833,15 @@ def process_full(key: str, config: dict, filings: list[dict], data: dict):
     existing_quarters = set(data["history"]["quarters"])
     all_fetched: dict[str, list[dict]] = {}
     new_quarters = 0
-    skipped = 0
+    refreshed = 0
 
     for i, f in enumerate(filings_sorted):
         q_label = quarter_label(f["reportDate"])
 
-        if q_label in existing_quarters:
-            skipped += 1
-            print(f"  [{i+1}/{len(filings_sorted)}] SKIP {q_label} (already in history)")
-            # 仍然加载进内存，供后续 prevShares diff 使用
-            try:
-                xml_bytes = sec_fetch(find_info_table_xml(cik, f["accession"], f["accessionDashed"]))
-                all_fetched[q_label] = parse_holdings(xml_bytes, consolidate=consolidate)
-            except Exception as e:
-                print(f"    -> WARN: could not reload skipped quarter: {e}")
-            continue
-
         print(f"  [{i+1}/{len(filings_sorted)}] Fetching {q_label} (filed {f['filingDate']})...")
         try:
             xml_bytes = sec_fetch(find_info_table_xml(cik, f["accession"], f["accessionDashed"]))
-            holdings = parse_holdings(xml_bytes, consolidate=consolidate)
+            holdings = parse_holdings(xml_bytes, consolidate=consolidate, filing_date=f["filingDate"])
             all_fetched[q_label] = holdings
 
             # 找最近的前一期用于 prevShares
@@ -875,10 +864,11 @@ def process_full(key: str, config: dict, filings: list[dict], data: dict):
                     h["prevValue"]  = 0
 
             total = sum(h["value"] for h in holdings)
-            data["history"]["quarters"].append(q_label)
-            data["history"]["values"].append(round(total / 1_000_000))
-            data["history"]["holdings"][q_label] = holdings
-            new_quarters += 1
+            update_history(data, q_label, holdings)
+            if q_label in existing_quarters:
+                refreshed += 1
+            else:
+                new_quarters += 1
             print(f"    -> {len(holdings)} holdings, ${total:,.0f}")
         except Exception as e:
             print(f"    -> ERROR: {e}")
@@ -891,7 +881,7 @@ def process_full(key: str, config: dict, filings: list[dict], data: dict):
         latest_holdings = all_fetched[latest_q]
     else:
         xml_bytes = sec_fetch(find_info_table_xml(cik, latest["accession"], latest["accessionDashed"]))
-        latest_holdings = parse_holdings(xml_bytes, consolidate=consolidate)
+        latest_holdings = parse_holdings(xml_bytes, consolidate=consolidate, filing_date=latest["filingDate"])
 
     prev_f = filings[1]
     prev_q = quarter_label(prev_f["reportDate"])
@@ -899,7 +889,7 @@ def process_full(key: str, config: dict, filings: list[dict], data: dict):
         prev_holdings = all_fetched[prev_q]
     else:
         xml_bytes = sec_fetch(find_info_table_xml(cik, prev_f["accession"], prev_f["accessionDashed"]))
-        prev_holdings = parse_holdings(xml_bytes, consolidate=consolidate)
+        prev_holdings = parse_holdings(xml_bytes, consolidate=consolidate, filing_date=prev_f["filingDate"])
 
     attach_previous(latest_holdings, prev_holdings)
 
@@ -921,7 +911,7 @@ def process_full(key: str, config: dict, filings: list[dict], data: dict):
 
     save_data(config["path"], data)
     warn_unmapped(data)
-    print(f"\nDone: {new_quarters} new quarters, {skipped} skipped.")
+    print(f"\nDone: {new_quarters} new quarters, {refreshed} refreshed.")
     print(f"Total quarters: {len(data['history']['quarters'])}")
     print(f"Current: {len(latest_holdings)} holdings, ${latest_total:,.0f}")
 
