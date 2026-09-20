@@ -184,3 +184,16 @@ class HKAutomationTests(unittest.TestCase):
         broken = fixture('lilu_psbc_notices').replace('id="lblRecCount">4</span>', 'id="lblRecCount">99</span>')
         with self.assertRaises(ValueError):
             hk.parse_notices(broken, LIST)
+
+    def test_amendments_and_superseded_records_are_distinguished(self):
+        self.assertEqual(hk.filing_identity('CS20221207E00001 (Amendment to CS20221204E00001 )'),
+                         ('CS20221207E00001', {'amends':'CS20221204E00001'}))
+        self.assertEqual(hk.filing_identity('CS20221204E00001 (Superseded by CS20221207E00001 )'),
+                         ('CS20221204E00001', {'superseded_by':'CS20221207E00001'}))
+        soup = hk.BeautifulSoup(fixture('lilu_psbc_notices'), 'html.parser')
+        link = next(a for a in soup.find_all('a') if hk.text(a)=='IS20250513E00008')
+        link.string = 'IS20250513E00008 (Amendment to IS20250510E00001 )'
+        records, _, _, errors = hk.parse_notices(str(soup), LIST)
+        self.assertFalse(errors)
+        self.assertEqual(records[0]['amends'], 'IS20250510E00001')
+        self.assertEqual(records[0]['filing_ref'], 'IS20250513E00008')

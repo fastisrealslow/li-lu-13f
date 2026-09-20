@@ -1400,6 +1400,7 @@ async function renderTimelineTable() {
 
 function hkEvidenceView(holding) {
   const records = (holding.verified_disclosures || []).filter(r =>
+    !r.superseded_by &&
     /^\d{4}-\d{2}-\d{2}$/.test(r.event_date || '') &&
     typeof r.shares === 'number' && Number.isFinite(r.shares) && r.shares >= 0 &&
     typeof r.pct === 'number' && Number.isFinite(r.pct) && r.pct >= 0 && r.pct <= 100 &&

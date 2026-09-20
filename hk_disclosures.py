@@ -109,6 +109,15 @@ def parse_search(html, url, aliases):
     return hits, total, pages
 
 
+def filing_identity(value):
+    identifier = r'[A-Z]{2}\d{8}[A-Z]?\d+'
+    match = re.fullmatch(r'(' + identifier + r')(?:\s*\(\s*(Amendment to|Superseded by)\s+(' + identifier + r')\s*\))?', value)
+    if not match:
+        raise ValueError('Unrecognized form identifier / revised record marker')
+    relation = {'amends': match[3]} if match[2] == 'Amendment to' else {'superseded_by': match[3]} if match[2] else {}
+    return match[1], relation
+
+
 def parse_notices(html, url):
     soup = BeautifulSoup(html, 'html.parser')
     total, pages = page_info(soup, url)
@@ -129,8 +138,7 @@ def parse_notices(html, url):
             return next(v for k,v in fields.items() if k.startswith(prefix))
         serial = field('Form Serial')
         try:
-            if not re.fullmatch(r'[A-Z]{2}\d{8}[A-Z]?\d+', serial):
-                raise ValueError('Unrecognized form identifier / revised record marker')
+            serial, relation = filing_identity(serial)
             form_url = urljoin(url, links[0]['href'])
             if not official_url(form_url):
                 raise ValueError('Non-HKEX form URL')
@@ -142,7 +150,7 @@ def parse_notices(html, url):
                                 shares=shares, pct=pct, position='long',
                                 issuer_name=field('Name of listed corporation'),
                                 reason=field('Reason for disclosure'), source_url=url,
-                                form_url=form_url, verification='hkex_notice_table'))
+                                form_url=form_url, verification='hkex_notice_table', **relation))
         except (ValueError, StopIteration) as exc:
             ignored.append({'filing_ref':serial, 'reason':str(exc)})
     if total and headers is None:
@@ -238,7 +246,10 @@ def crawl_notices(client, hit, aliases, cached_records, binding=None, max_pages=
     records, total, pages, ignored = parse_notices(client.get(url), url)
     if not records:
         raise ValueError(f'No usable long-position rows ({total} source records, {len(ignored)} rejected)')
-    newest = max(records, key=lambda r:(r['event_date'],r['filing_ref']))
+    applicable = [r for r in records if not r.get('superseded_by')]
+    if not applicable:
+        raise ValueError('No non-superseded long-position disclosure')
+    newest = max(applicable, key=lambda r:(r['event_date'],r['filing_ref']))
     # Reuse an already validated exact form, never a guessed security mapping.
     if binding and all(binding.get(k) == newest[k] for k in ('filing_ref', 'event_date', 'shares', 'pct')):
         form = binding
