@@ -110,3 +110,11 @@ test('HK historical records show dates, entity and original filing links',async(
   const html=a.el('hkHoldingsTable').innerHTML;
   for(const expected of ['2025-05-08','985,618,000','4.96%','已核实历史','当前持仓未核实','IS20250513E00008']) assert.ok(html.includes(expected));
 });
+
+test('superseded HK filings cannot replace a corrected record',()=>{
+  const a=app();
+  const base={event_date:'2025-05-08',shares:100,pct:5,source_url:'https://di.hkex.com.hk/di/NSForm1.aspx'};
+  a.context.sample={verified_disclosures:[{...base,filing_ref:'IS20250513E00008',shares:120},{...base,event_date:'2025-06-01',filing_ref:'IS20250510E00001',superseded_by:'IS20250513E00008'}]};
+  assert.equal(a.run('hkEvidenceView(sample).latest.shares'),120);
+  assert.equal(a.run('hkEvidenceView(sample).records.length'),1);
+});

@@ -58,7 +58,7 @@ def dated(value):
 
 def long_number(value, integer=False):
     # Never use a short position or a transaction quantity as a long holding.
-    matches = re.findall(r'([\d,]+(?:\.\d+)?)\s*\(\s*L\s*\)', value, re.I)
+    matches = re.findall(r'(?<![\w,.+\-])((?:\d{1,3}(?:,\d{3})+|\d+)(?:\.\d+)?)\s*\(\s*L\s*\)', value, re.I)
     if len(matches) != 1:
         raise ValueError(f'Expected one long position: {value!r}')
     n = float(matches[0].replace(',', ''))
@@ -93,7 +93,12 @@ def parse_search(html, url, aliases):
     soup = BeautifulSoup(html, 'html.parser')
     total, pages = page_info(soup, url)
     hits = []
-    for a in soup.find_all('a', href=True):
+    anchors = soup.find_all('a', href=re.compile('NSNoticePersonList\\.aspx', re.I))
+    if total and not anchors:
+        raise ValueError('Search result links missing; layout may have changed')
+    if total > len(anchors) and not pages:
+        raise ValueError('Search pagination missing; result incomplete')
+    for a in anchors:
         if 'NSNoticePersonList.aspx' not in a['href'] or not entity_matches(text(a), aliases):
             continue
         row = a.find_parent('tr')
@@ -102,6 +107,15 @@ def parse_search(html, url, aliases):
         if len(cells) >= 2 and official_url(notice):
             hits.append({'entity':text(a), 'stockName':text(cells[1]), 'noticeUrl':notice})
     return hits, total, pages
+
+
+def filing_identity(value):
+    identifier = r'[A-Z]{2}\d{8}[A-Z]?\d+'
+    match = re.fullmatch(r'(' + identifier + r')(?:\s*\(\s*(Amendment to|Superseded by)\s+(' + identifier + r')\s*\))?', value)
+    if not match:
+        raise ValueError('Unrecognized form identifier / revised record marker')
+    relation = {'amends': match[3]} if match[2] == 'Amendment to' else {'superseded_by': match[3]} if match[2] else {}
+    return match[1], relation
 
 
 def parse_notices(html, url):
@@ -124,8 +138,7 @@ def parse_notices(html, url):
             return next(v for k,v in fields.items() if k.startswith(prefix))
         serial = field('Form Serial')
         try:
-            if not re.fullmatch(r'[A-Z]{2}\d{8}[A-Z]?\d+', serial):
-                raise ValueError('Unrecognized form identifier / revised record marker')
+            serial, relation = filing_identity(serial)
             form_url = urljoin(url, links[0]['href'])
             if not official_url(form_url):
                 raise ValueError('Non-HKEX form URL')
@@ -137,11 +150,13 @@ def parse_notices(html, url):
                                 shares=shares, pct=pct, position='long',
                                 issuer_name=field('Name of listed corporation'),
                                 reason=field('Reason for disclosure'), source_url=url,
-                                form_url=form_url, verification='hkex_notice_table'))
+                                form_url=form_url, verification='hkex_notice_table', **relation))
         except (ValueError, StopIteration) as exc:
             ignored.append({'filing_ref':serial, 'reason':str(exc)})
     if total and headers is None:
         raise ValueError('Disclosure column layout changed')
+    if total > len(records) + len(ignored) and not pages:
+        raise ValueError('Notice pagination missing or rows unrecognized')
     return records, total, pages, ignored
 
 
@@ -231,7 +246,10 @@ def crawl_notices(client, hit, aliases, cached_records, binding=None, max_pages=
     records, total, pages, ignored = parse_notices(client.get(url), url)
     if not records:
         raise ValueError(f'No usable long-position rows ({total} source records, {len(ignored)} rejected)')
-    newest = max(records, key=lambda r:(r['event_date'],r['filing_ref']))
+    applicable = [r for r in records if not r.get('superseded_by')]
+    if not applicable:
+        raise ValueError('No non-superseded long-position disclosure')
+    newest = max(applicable, key=lambda r:(r['event_date'],r['filing_ref']))
     # Reuse an already validated exact form, never a guessed security mapping.
     if binding and all(binding.get(k) == newest[k] for k in ('filing_ref', 'event_date', 'shares', 'pct')):
         form = binding
