@@ -323,3 +323,9 @@ thinking. Do not expose this endpoint as a public service.
 `verified_disclosures` 保存事件日期、申报主体、股数、比例与官方来源；`audit` 保存每次检索结果与部分失败；`source_bindings` 缓存核实过的表格与历史分页完成状态。首次回补历史，以后复用已核实原表；检索和抓取失败保留既有证据。空结果不等于清仓，历史披露不等于当前持仓。页面可以展开每只股票的披露历史。
 
 手动重跑全部：`python3 -u monitor_hk_disclosures.py`；单人重跑：`python3 hk_disclosures.py --investor lilu`（可重复传入 `--investor`）。依赖 `beautifulsoup4`，可通过现有 workflow_dispatch 手动运行完整流程。测试：`python3 -m unittest discover -s tests`、`node --test tests/*.cjs`，发布前由 `validate_data.py` 检查披露格式及官方来源。
+
+### 13F 历史缺口补查
+
+常规更新发现内部缺季时，先查询 SEC submissions 的现行及归档索引，再由 `sec_history_index.py` 检查同一 CIK 在报告期之后两个申报季度的 SEC `master.gz` 总索引。它读取原始提交文件中的报告期、申报日期、CIK 和 accession 进行交叉核对，不能把申报季度误当持仓季度。原始 13F-HR 或明确的 RESTATEMENT 可成为回补候选；Form D、13F-NT 和仅追加持仓的修订不能填充完整组合。
+
+每轮最多读取8个总索引、核对16份提交文件；已成功检查的索引缓存7天，未完成或失败部分在后续更新重试。`history.coverage.expandedLookup` 保存核查范围、来源、候选文件和错误；页面区分“已补查仍无可核实数据”和“补查未完成”。不存在可靠原始记录时保留图表断点，不用零值、邻季或估算值补齐。此检索范围不能证明某季度从未申报、未持仓或清仓。

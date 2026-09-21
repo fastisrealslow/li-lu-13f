@@ -2538,7 +2538,7 @@
       ]
     },
     "coverage": {
-      "checkedAt": "2026-09-21T01:53:59Z",
+      "checkedAt": "2026-09-21T03:26:58Z",
       "missingQuarters": [
         "2018 Q4",
         "2019 Q1",
@@ -2547,12 +2547,85 @@
       ],
       "repairedThisRun": [],
       "errors": {
-        "2018 Q4": "No original 13F-HR found in retrieved SEC indexes; not a zero position",
-        "2019 Q1": "No original 13F-HR found in retrieved SEC indexes; not a zero position",
-        "2019 Q2": "No original 13F-HR found in retrieved SEC indexes; not a zero position",
-        "2019 Q3": "No original 13F-HR found in retrieved SEC indexes; not a zero position"
+        "2018 Q4": "No matching complete 13F portfolio in submissions and checked quarterly indexes; not a zero position",
+        "2019 Q1": "No matching complete 13F portfolio in submissions and checked quarterly indexes; not a zero position",
+        "2019 Q2": "No matching complete 13F portfolio in submissions and checked quarterly indexes; not a zero position",
+        "2019 Q3": "No matching complete 13F portfolio in submissions and checked quarterly indexes; not a zero position"
       },
       "attempts": {},
+      "expandedLookup": {
+        "schemaVersion": 1,
+        "cik": "1709323",
+        "checkedAt": "2026-09-21T03:26:48Z",
+        "attemptedAt": "2026-09-21T03:26:58Z",
+        "status": "checked",
+        "indexes": {
+          "2019/QTR1": {
+            "status": "checked",
+            "checkedAt": "2026-09-21T03:26:06Z",
+            "url": "https://www.sec.gov/Archives/edgar/full-index/2019/QTR1/master.gz",
+            "filings": []
+          },
+          "2019/QTR2": {
+            "status": "checked",
+            "checkedAt": "2026-09-21T03:26:17Z",
+            "url": "https://www.sec.gov/Archives/edgar/full-index/2019/QTR2/master.gz",
+            "filings": []
+          },
+          "2019/QTR3": {
+            "status": "checked",
+            "checkedAt": "2026-09-21T03:26:27Z",
+            "url": "https://www.sec.gov/Archives/edgar/full-index/2019/QTR3/master.gz",
+            "filings": []
+          },
+          "2019/QTR4": {
+            "status": "checked",
+            "checkedAt": "2026-09-21T03:26:38Z",
+            "url": "https://www.sec.gov/Archives/edgar/full-index/2019/QTR4/master.gz",
+            "filings": []
+          },
+          "2020/QTR1": {
+            "status": "checked",
+            "checkedAt": "2026-09-21T03:26:48Z",
+            "url": "https://www.sec.gov/Archives/edgar/full-index/2020/QTR1/master.gz",
+            "filings": [
+              {
+                "accessionDashed": "0001709323-20-000001",
+                "accession": "000170932320000001",
+                "filingDate": "2020-02-14",
+                "form": "13F-HR",
+                "manager": "Himalaya Capital Management LLC",
+                "submissionPath": "/Archives/edgar/data/1709323/0001709323-20-000001.txt"
+              }
+            ]
+          }
+        },
+        "resolved": {
+          "0001709323-20-000001": {
+            "accessionDashed": "0001709323-20-000001",
+            "accession": "000170932320000001",
+            "filingDate": "2020-02-14",
+            "form": "13F-HR",
+            "manager": "Himalaya Capital Management LLC",
+            "submissionPath": "/Archives/edgar/data/1709323/0001709323-20-000001.txt",
+            "reportDate": "2019-12-31",
+            "completePortfolio": true,
+            "amendmentType": "",
+            "source": "sec_quarterly_master_index",
+            "submissionUrl": "https://www.sec.gov/Archives/edgar/data/1709323/0001709323-20-000001.txt"
+          }
+        },
+        "errors": [],
+        "deferred": [],
+        "requestedQuarters": [
+          "2018 Q4",
+          "2019 Q1",
+          "2019 Q2",
+          "2019 Q3"
+        ],
+        "candidateFilings": [],
+        "scope": "SEC季度总索引：报告期之后两个申报季度；同一CIK。未检索到不等于未持仓或未申报。"
+      },
       "status": "gaps_remaining"
     }
   }

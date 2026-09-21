@@ -1076,6 +1076,15 @@ function generateHistoryInsight(quarters, values) {
       if (!known.has(i)) missing.push(`${Math.floor(i/4)} Q${i%4+1}`);
     }
     txt += isEn ? `Missing quarters (not zero holdings): ${missing.join(', ')}. ` : `缺失季度：${missing.join('、')}；断线不代表清仓。`;
+    const lookup = data?.history?.coverage?.expandedLookup;
+    if (lookup?.status === 'checked') {
+      const checked = /^\d{4}-\d{2}-\d{2}/.exec(lookup.checkedAt || '')?.[0] || '—';
+      txt += isEn ? `SEC historical indexes were also checked (${checked}); a usable portfolio for the missing quarters is still unavailable. `
+        : `已补查 SEC 历史总索引（${checked}），这些季度仍未取得可核实的原始持仓数据。`;
+    } else if (lookup?.status === 'partial') {
+      txt += isEn ? 'Historical-source verification is incomplete and will retry automatically. '
+        : '历史来源补查尚未完成，将自动重试。';
+    }
   }
   txt += isEn ? 'Value changes are not investment returns; disclosed holdings do not represent total assets under management.' : '市值变化不等于投资收益，披露持仓也不代表全部管理资产。';
   return txt;

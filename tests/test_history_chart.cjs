@@ -118,3 +118,15 @@ test('superseded HK filings cannot replace a corrected record',()=>{
   assert.equal(a.run('hkEvidenceView(sample).latest.shares'),120);
   assert.equal(a.run('hkEvidenceView(sample).records.length'),1);
 });
+
+test('history distinguishes completed source searches from fetch failures',()=>{
+  const a=app();
+  a.run("data={history:{coverage:{expandedLookup:{status:'checked',checkedAt:'2026-09-21T03:00:00Z'}}}}");
+  let text=a.run("generateHistoryInsight(['2018 Q3','2019 Q4'],[100,200])");
+  assert.match(text,/已补查 SEC 历史总索引（2026-09-21）/);
+  assert.match(text,/仍未取得可核实/);
+  a.run("data.history.coverage.expandedLookup.status='partial'");
+  text=a.run("generateHistoryInsight(['2018 Q3','2019 Q4'],[100,200])");
+  assert.match(text,/尚未完成，将自动重试/);
+  assert.ok(!text.includes('已补查 SEC'));
+});

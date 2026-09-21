@@ -627,7 +627,7 @@ def missing_history_quarters(data):
 def backfill_history_gaps(cik, data, filings, consolidate=False, limit=4):
     """Repair bounded gaps on normal runs; failures remain gaps, never zeroes."""
     missing = missing_history_quarters(data)
-    errors, repaired = {}, []
+    errors, repaired, audit = {}, [], None
     attempts = data.get("history", {}).get("coverage", {}).get("attempts", {})
     if missing:
         known = {quarter_label(f["reportDate"]) for f in filings}
@@ -639,9 +639,22 @@ def backfill_history_gaps(cik, data, filings, consolidate=False, limit=4):
         by_quarter = {}
         for filing in filings:
             by_quarter.setdefault(quarter_label(filing["reportDate"]), filing)
+        absent = [q for q in missing if q not in by_quarter]
+        if absent:
+            from sec_history_index import discover
+            expanded, audit = discover(cik, absent, sec_fetch,
+                data.get("history", {}).get("coverage", {}).get("expandedLookup"))
+            for filing in expanded:
+                by_quarter.setdefault(quarter_label(filing["reportDate"]), filing)
+            print(f"  SEC historical index lookup: {audit['status']}, {len(expanded)} complete portfolio candidates")
+        else:
+            audit = None
         for quarter in missing:
             if quarter not in by_quarter:
-                errors[quarter] = "No original 13F-HR found in retrieved SEC indexes; not a zero position"
+                related = any(quarter_label(f["reportDate"]) == quarter for f in (audit or {}).get("candidateFilings", []))
+                errors[quarter] = ("Related notice/additive amendment found; no complete portfolio verified" if related else
+                    "Expanded SEC index lookup incomplete; will retry" if audit and audit["status"] == "partial" else
+                    "No matching complete 13F portfolio in submissions and checked quarterly indexes; not a zero position")
         candidates = sorted((q for q in missing if q in by_quarter), key=lambda q: (attempts.get(q, 0), q))
         for quarter in candidates[:limit]:
             filing = by_quarter[quarter]
@@ -665,6 +678,7 @@ def backfill_history_gaps(cik, data, filings, consolidate=False, limit=4):
         "checkedAt": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
         "missingQuarters": remaining, "repairedThisRun": repaired, "errors": errors,
         "attempts": {q: attempts[q] for q in remaining if q in attempts},
+        "expandedLookup": audit,
         "status": "gaps_remaining" if remaining else "continuous_within_stored_range",
     }
     if remaining:
@@ -675,6 +689,11 @@ def backfill_history_gaps(cik, data, filings, consolidate=False, limit=4):
             f.write(f"\n### 13F history coverage — CIK {cik}\n"
                     f"- Repaired: {', '.join(repaired) or 'none'}\n"
                     f"- Remaining gaps: {', '.join(remaining) or 'none'}\n")
+            if audit:
+                f.write(f"- Expanded SEC quarterly-index lookup: {audit['status']}\n")
+                f.write("- Scope: same CIK; two filing quarters after each missing report quarter. A search miss is not a zero holding.\n")
+                for key, entry in audit['indexes'].items():
+                    f.write(f"  - [{key}]({entry['url']}): {entry['status']} ({entry['checkedAt']})\n")
 
 
 def quarter_label(date_str: str) -> str:
@@ -887,7 +906,9 @@ def process_investor(key: str, config: dict, full_mode: bool):
     if remaining:
         from update_status import record_source_warning
         step = "akre_greenberg_13f" if key in ("akre", "greenberg") else f"{key}_13f"
-        record_source_warning(step, f"{key} 历史仍缺 {len(remaining)} 季；未按零持仓填充")
+        audit = data["history"]["coverage"].get("expandedLookup") or {}
+        reason = "已补查SEC历史索引，仍无可用原始持仓报告" if audit.get("status") == "checked" else "补查未完成或原表未核实，后续重试"
+        record_source_warning(step, f"{key} 历史缺 {len(remaining)} 季：{reason}；不作零持仓")
 
     save_data(config["path"], data)
     warn_unmapped(data)
