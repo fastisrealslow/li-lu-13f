@@ -1,14 +1,124 @@
 {
-  "updatedAt": "2026-09-21T03:45:07Z",
+  "updatedAt": "2026-09-21T18:36:48Z",
   "dateFrom": "20250921",
   "dateTo": "20260921",
   "count": 40,
   "companies": [
     {
+      "stockCode": "00902",
+      "stockName": "華能國際電力股份",
+      "ticker": "00902.HK",
+      "lastPrice": 5.645,
+      "latestDate": "2026-09-21",
+      "firstDate": "2026-04-28",
+      "announcements": [
+        {
+          "date": "2026-09-21",
+          "title": "公開募集基礎設施領域不動產投資信託基金之建議分拆及於上海證券交易所獨立上市有關監管部門的批准",
+          "docUrl": "/listedco/listconews/sehk/2026/0921/2026092101283_c.pdf"
+        },
+        {
+          "date": "2026-04-28",
+          "title": "擬分拆並在上海證券交易所獨立上市的基礎設施領域不動產投資信託基金及關連交易",
+          "docUrl": "/listedco/listconews/sehk/2026/0428/2026042804564_c.pdf"
+        }
+      ],
+      "spinTarget": "",
+      "spinType": {
+        "code": "reit_sh",
+        "exchange_zh": "上交所",
+        "exchange_en": "SSE",
+        "label_zh": "REIT·上交所",
+        "label_en": "REIT·SSE",
+        "is_reit": true
+      },
+      "summary": "共 2 条相关公告（2026-04-28 ~ 2026-09-21）",
+      "filingEvidence": [
+        {
+          "status": "announced",
+          "quote": "擬分拆並在上海證券交易所獨立上市的基礎設施領域不動產投資信託基金及關連交易獨立財務顧問茲提述華能國際電力股份有限公司（「公司」或「本公司」）於二零二五年五月二十九日發佈的關於開展基礎設施公募 REITs 申報工作及建議分拆的公告（「該公告」）",
+          "typeVersion": 1,
+          "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0428/2026042804564_c.pdf",
+          "date": "2026-04-28",
+          "targetName": "華能煤電 REIT",
+          "targetTicker": "",
+          "targetAliases": [],
+          "identityVersion": 1,
+          "identityQuote": "（即「華能煤電 REIT」）",
+          "identityKind": "business",
+          "distributedEntity": false,
+          "separatedEntity": false,
+          "identityReason": "",
+          "dates": {},
+          "method": "rule",
+          "ruleVersion": 2,
+          "accession": "",
+          "identityReferences": [
+            "2025-05-29"
+          ]
+        },
+        {
+          "status": "announced",
+          "quote": "公開募集基礎設施領域不動產投資信託基金之建議分拆及於上海證券交易所獨立上市有關監管部門的批准茲提述華能國際電力股份有限公司（「 公司 」）日期為二零二五年五月二十九日的關於開展基礎設施公募 REITs 申報工作及建議分拆的公告、",
+          "typeVersion": 1,
+          "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0921/2026092101283_c.pdf",
+          "date": "2026-09-21",
+          "targetName": "",
+          "targetTicker": "",
+          "targetAliases": [],
+          "identityVersion": 1,
+          "identityQuote": "",
+          "identityKind": "",
+          "distributedEntity": false,
+          "separatedEntity": false,
+          "identityReason": "not_identified",
+          "dates": {},
+          "method": "rule",
+          "ruleVersion": 2,
+          "accession": "",
+          "identityReferences": [
+            "2025-05-29",
+            "2026-04-29",
+            "2026-05-14"
+          ]
+        }
+      ],
+      "identityChecks": {
+        "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0428/2026042804564_c.pdf": {
+          "version": 1,
+          "typeVersion": 1,
+          "checkedAt": "2026-09-20",
+          "result": "named"
+        },
+        "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0921/2026092101283_c.pdf": {
+          "version": 1,
+          "typeVersion": 1,
+          "checkedAt": "2026-09-21",
+          "result": "no_name"
+        }
+      },
+      "_status": "announced",
+      "marketCap": null,
+      "parentMarketCap": 110.1,
+      "pricePerf": {
+        "priceAtAnnouncement": 5.915,
+        "priceNow": 5.66,
+        "changePct": -4.3,
+        "firstAnnouncementDate": "2026-04-28",
+        "currency": "HKD",
+        "updatedAt": "2026-09-21"
+      },
+      "lastUpdated": "2026-09-21T18:39:49Z",
+      "greenblattNote": {
+        "zh": "母公司参考市值约 110.1 亿美元（快照，非实时）。 待验证：分派比例、子公司债务与现金流、管理层持股及机构持仓变化。市值与股价变化不能单独证明强制卖压或低估。",
+        "en": "Parent reference market cap: $11.01B (snapshot, not live). Research checklist: distribution ratio, child debt and cash flow, management ownership, and institutional holdings. Size and price changes alone do not establish forced selling or undervaluation."
+      }
+    },
+    {
       "stockCode": "00017",
       "stockName": "新世界發展",
       "ticker": "00017.HK",
-      "lastPrice": 5.88,
+      "lastPrice": 5.87,
       "latestDate": "2026-09-21",
       "firstDate": "2026-09-17",
       "announcements": [
@@ -97,13 +207,12 @@
       "parentMarketCap": 18.7,
       "pricePerf": {
         "priceAtAnnouncement": 5.815,
-        "priceNow": 5.87,
-        "changePct": 0.9,
+        "priceNow": 5.78,
+        "changePct": -0.6,
         "firstAnnouncementDate": "2026-09-17",
         "currency": "HKD",
         "updatedAt": "2026-09-21"
       },
-      "lastUpdated": "2026-09-21T03:46:51Z",
       "greenblattNote": {
         "zh": "母公司参考市值约 18.7 亿美元（快照，非实时）。 待验证：分派比例、子公司债务与现金流、管理层持股及机构持仓变化。市值与股价变化不能单独证明强制卖压或低估。",
         "en": "Parent reference market cap: $1.87B (snapshot, not live). Research checklist: distribution ratio, child debt and cash flow, management ownership, and institutional holdings. Size and price changes alone do not establish forced selling or undervaluation."
@@ -113,7 +222,7 @@
       "stockCode": "00688",
       "stockName": "中國海外發展",
       "ticker": "00688.HK",
-      "lastPrice": 12.23,
+      "lastPrice": 12.41,
       "latestDate": "2026-09-11",
       "firstDate": "2026-09-07",
       "announcements": [
@@ -145,15 +254,15 @@
           "typeVersion": 1,
           "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0911/2026091101166_c.pdf",
           "date": "2026-09-11",
-          "targetName": "",
+          "targetName": "位於中國廣東省佛山市南海區的購物中心（佛山千燈湖環宇城項目）",
           "targetTicker": "",
           "targetAliases": [],
           "identityVersion": 1,
-          "identityQuote": "",
+          "identityQuote": "REIT 的相關資產為位於中國廣東省佛山市南海區的購物中心（佛山千燈湖環宇城項目），即",
           "identityKind": "business",
           "distributedEntity": false,
           "separatedEntity": false,
-          "identityReason": "not_identified",
+          "identityReason": "dated_reference",
           "dates": {},
           "method": "rule",
           "ruleVersion": 2,
@@ -205,12 +314,13 @@
       "parentMarketCap": 169.5,
       "pricePerf": {
         "priceAtAnnouncement": 12.665,
-        "priceNow": 12.22,
-        "changePct": -3.5,
+        "priceNow": 12.2,
+        "changePct": -3.7,
         "firstAnnouncementDate": "2026-09-07",
         "currency": "HKD",
         "updatedAt": "2026-09-21"
       },
+      "lastUpdated": "2026-09-21T18:39:49Z",
       "greenblattNote": {
         "zh": "母公司参考市值约 169.5 亿美元（快照，非实时）。 待验证：分派比例、子公司债务与现金流、管理层持股及机构持仓变化。市值与股价变化不能单独证明强制卖压或低估。",
         "en": "Parent reference market cap: $16.95B (snapshot, not live). Research checklist: distribution ratio, child debt and cash flow, management ownership, and institutional holdings. Size and price changes alone do not establish forced selling or undervaluation."
@@ -220,7 +330,7 @@
       "stockCode": "01030",
       "stockName": "新城發展",
       "ticker": "01030.HK",
-      "lastPrice": 1.49,
+      "lastPrice": 1.505,
       "latestDate": "2026-09-04",
       "firstDate": "2026-03-09",
       "announcements": [
@@ -252,15 +362,17 @@
           "typeVersion": 1,
           "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0904/2026090402494_c.pdf",
           "date": "2026-09-04",
-          "targetName": "",
+          "targetName": "商業不動產REITs",
           "targetTicker": "",
-          "targetAliases": [],
+          "targetAliases": [
+            "若干商業物業權益"
+          ],
           "identityVersion": 1,
-          "identityQuote": "",
+          "identityQuote": "自願公告建議分拆商業不動產REITs",
           "identityKind": "business",
           "distributedEntity": false,
           "separatedEntity": false,
-          "identityReason": "not_identified",
+          "identityReason": "dated_reference",
           "dates": {},
           "method": "rule",
           "ruleVersion": 2,
@@ -318,6 +430,7 @@
         "currency": "HKD",
         "updatedAt": "2026-09-21"
       },
+      "lastUpdated": "2026-09-21T18:39:49Z",
       "greenblattNote": {
         "zh": "母公司参考市值约 13.0 亿美元（快照，非实时）。 待验证：分派比例、子公司债务与现金流、管理层持股及机构持仓变化。市值与股价变化不能单独证明强制卖压或低估。",
         "en": "Parent reference market cap: $1.30B (snapshot, not live). Research checklist: distribution ratio, child debt and cash flow, management ownership, and institutional holdings. Size and price changes alone do not establish forced selling or undervaluation."
@@ -327,7 +440,7 @@
       "stockCode": "01548",
       "stockName": "金斯瑞生物科技",
       "ticker": "01548.HK",
-      "lastPrice": 41.16,
+      "lastPrice": 41.4,
       "latestDate": "2026-09-04",
       "firstDate": "2026-09-04",
       "announcements": [
@@ -384,8 +497,8 @@
       "parentMarketCap": 92.6,
       "pricePerf": {
         "priceAtAnnouncement": 31.46,
-        "priceNow": 41.22,
-        "changePct": 31.0,
+        "priceNow": 39.34,
+        "changePct": 25.0,
         "firstAnnouncementDate": "2026-09-04",
         "currency": "HKD",
         "updatedAt": "2026-09-21"
@@ -399,7 +512,7 @@
       "stockCode": "00656",
       "stockName": "復星國際",
       "ticker": "00656.HK",
-      "lastPrice": 5.075,
+      "lastPrice": 5.115,
       "latestDate": "2026-08-28",
       "firstDate": "2026-03-26",
       "announcements": [
@@ -552,8 +665,8 @@
       "parentMarketCap": 42.8,
       "pricePerf": {
         "priceAtAnnouncement": 3.87,
-        "priceNow": 5.085,
-        "changePct": 31.4,
+        "priceNow": 5.045,
+        "changePct": 30.4,
         "firstAnnouncementDate": "2026-03-26",
         "currency": "HKD",
         "updatedAt": "2026-09-21"
@@ -567,7 +680,7 @@
       "stockCode": "01070",
       "stockName": "ＴＣＬ電子",
       "ticker": "01070.HK",
-      "lastPrice": 16.75,
+      "lastPrice": 16.56,
       "latestDate": "2026-08-24",
       "firstDate": "2026-08-24",
       "announcements": [
@@ -622,8 +735,8 @@
       "parentMarketCap": 51.9,
       "pricePerf": {
         "priceAtAnnouncement": 16.07,
-        "priceNow": 16.74,
-        "changePct": 4.2,
+        "priceNow": 17.22,
+        "changePct": 7.2,
         "firstAnnouncementDate": "2026-08-24",
         "currency": "HKD",
         "updatedAt": "2026-09-21"
@@ -637,7 +750,7 @@
       "stockCode": "00358",
       "stockName": "江西銅業股份",
       "ticker": "00358.HK",
-      "lastPrice": 33.78,
+      "lastPrice": 34.16,
       "latestDate": "2026-08-06",
       "firstDate": "2026-04-30",
       "announcements": [
@@ -858,8 +971,8 @@
       "parentMarketCap": 138.6,
       "pricePerf": {
         "priceAtAnnouncement": 35.843,
-        "priceNow": 33.78,
-        "changePct": -5.8,
+        "priceNow": 34.0,
+        "changePct": -5.1,
         "firstAnnouncementDate": "2026-04-30",
         "currency": "HKD",
         "updatedAt": "2026-09-21"
@@ -873,7 +986,7 @@
       "stockCode": "02161",
       "stockName": "健倍苗苗",
       "ticker": "02161.HK",
-      "lastPrice": 1.64,
+      "lastPrice": 1.645,
       "latestDate": "2026-07-17",
       "firstDate": "2026-07-17",
       "announcements": [
@@ -943,7 +1056,7 @@
       "stockCode": "01171",
       "stockName": "兗礦能源",
       "ticker": "01171.HK",
-      "lastPrice": 12.25,
+      "lastPrice": 12.34,
       "latestDate": "2026-06-30",
       "firstDate": "2026-02-13",
       "announcements": [
@@ -1071,8 +1184,8 @@
       "parentMarketCap": 147.1,
       "pricePerf": {
         "priceAtAnnouncement": 12.771,
-        "priceNow": 12.23,
-        "changePct": -4.2,
+        "priceNow": 12.02,
+        "changePct": -5.9,
         "firstAnnouncementDate": "2026-02-13",
         "currency": "HKD",
         "updatedAt": "2026-09-21"
@@ -1109,7 +1222,7 @@
       "filingEvidence": [
         {
           "status": "announced",
-          "quote": "（於開曼群島註冊成立的有限公司）（股份代號：）3337潛在須予披露交易建議分拆通奧檢測集團股份有限公司並於香港聯合交易所有限公司主板獨立上市背景茲提述本公司日期為2022298月年日及202516月年建議分拆本集團透過通奧檢測集團股份有限公司（日的公告（「該等公告」），內容有關",
+          "quote": "（於開曼群島註冊成立的有限公司）（股份代號：）3337潛在須予披露交易建議分拆通奧檢測集團股份有限公司並於香港聯合交易所有限公司主板獨立上市背景茲提述本公司日期為2022298月年日及202561月年建議分拆本集團透過通奧檢測集團股份有限公司（日的公告（「該等公告」），內容有關",
           "typeVersion": 1,
           "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0630/2026063003740_c.pdf",
           "date": "2026-06-30",
@@ -1147,7 +1260,7 @@
         "currency": "HKD",
         "updatedAt": "2026-09-21"
       },
-      "lastUpdated": "2026-09-21T03:46:51Z",
+      "lastUpdated": "2026-09-21T18:39:49Z",
       "greenblattNote": {
         "zh": "母公司参考市值约 2.9 亿美元（快照，非实时）。 待验证：分派比例、子公司债务与现金流、管理层持股及机构持仓变化。市值与股价变化不能单独证明强制卖压或低估。",
         "en": "Parent reference market cap: $0.29B (snapshot, not live). Research checklist: distribution ratio, child debt and cash flow, management ownership, and institutional holdings. Size and price changes alone do not establish forced selling or undervaluation."
@@ -1157,7 +1270,7 @@
       "stockCode": "00836",
       "stockName": "華潤電力",
       "ticker": "00836.HK",
-      "lastPrice": 18.91,
+      "lastPrice": 18.94,
       "latestDate": "2026-06-30",
       "firstDate": "2026-04-29",
       "announcements": [
@@ -1493,8 +1606,8 @@
       "parentMarketCap": 114.7,
       "pricePerf": {
         "priceAtAnnouncement": 18.559,
-        "priceNow": 18.91,
-        "changePct": 1.9,
+        "priceNow": 18.89,
+        "changePct": 1.8,
         "firstAnnouncementDate": "2026-04-29",
         "currency": "HKD",
         "updatedAt": "2026-09-21"
@@ -1508,7 +1621,7 @@
       "stockCode": "02196",
       "stockName": "復星醫藥",
       "ticker": "02196.HK",
-      "lastPrice": 17.98,
+      "lastPrice": 18.29,
       "latestDate": "2026-06-26",
       "firstDate": "2025-10-28",
       "announcements": [
@@ -1991,8 +2104,8 @@
       "parentMarketCap": 57.2,
       "pricePerf": {
         "priceAtAnnouncement": 22.391,
-        "priceNow": 17.98,
-        "changePct": -19.7,
+        "priceNow": 17.32,
+        "changePct": -22.6,
         "firstAnnouncementDate": "2025-10-28",
         "currency": "HKD",
         "updatedAt": "2026-09-21"
@@ -2006,7 +2119,7 @@
       "stockCode": "00308",
       "stockName": "香港中旅",
       "ticker": "00308.HK",
-      "lastPrice": 1.15,
+      "lastPrice": 1.145,
       "latestDate": "2026-05-20",
       "firstDate": "2026-05-20",
       "announcements": [
@@ -2070,8 +2183,8 @@
       "parentMarketCap": 7.5,
       "pricePerf": {
         "priceAtAnnouncement": 1.19,
-        "priceNow": 1.155,
-        "changePct": -2.9,
+        "priceNow": 1.13,
+        "changePct": -5.0,
         "firstAnnouncementDate": "2026-05-20",
         "currency": "HKD",
         "updatedAt": "2026-09-21"
@@ -2085,7 +2198,7 @@
       "stockCode": "01109",
       "stockName": "華潤置地",
       "ticker": "01109.HK",
-      "lastPrice": 28.56,
+      "lastPrice": 29.18,
       "latestDate": "2026-05-18",
       "firstDate": "2026-04-28",
       "announcements": [
@@ -2117,15 +2230,15 @@
           "typeVersion": 1,
           "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0518/2026051801187_c.pdf",
           "date": "2026-05-18",
-          "targetName": "",
+          "targetName": "兩個購物商場，分別位於中國江蘇省南通市及山東省臨沂市",
           "targetTicker": "",
           "targetAliases": [],
           "identityVersion": 1,
-          "identityQuote": "",
+          "identityQuote": "REIT 的相關資產為兩個購物商場，分別位於中國江蘇省南通市及山東省臨沂市，即",
           "identityKind": "business",
           "distributedEntity": false,
           "separatedEntity": false,
-          "identityReason": "not_identified",
+          "identityReason": "dated_reference",
           "dates": {},
           "method": "rule",
           "ruleVersion": 2,
@@ -2177,12 +2290,13 @@
       "parentMarketCap": 293.0,
       "pricePerf": {
         "priceAtAnnouncement": 29.788,
-        "priceNow": 28.5,
-        "changePct": -4.3,
+        "priceNow": 28.64,
+        "changePct": -3.9,
         "firstAnnouncementDate": "2026-04-28",
         "currency": "HKD",
         "updatedAt": "2026-09-21"
       },
+      "lastUpdated": "2026-09-21T18:39:49Z",
       "greenblattNote": {
         "zh": "母公司参考市值约 293.0 亿美元（快照，非实时）。 待验证：分派比例、子公司债务与现金流、管理层持股及机构持仓变化。市值与股价变化不能单独证明强制卖压或低估。",
         "en": "Parent reference market cap: $29.30B (snapshot, not live). Research checklist: distribution ratio, child debt and cash flow, management ownership, and institutional holdings. Size and price changes alone do not establish forced selling or undervaluation."
@@ -2192,7 +2306,7 @@
       "stockCode": "01979",
       "stockName": "天寶集團",
       "ticker": "01979.HK",
-      "lastPrice": 1.505,
+      "lastPrice": 1.525,
       "latestDate": "2026-05-14",
       "firstDate": "2026-05-14",
       "announcements": [
@@ -2261,83 +2375,10 @@
       }
     },
     {
-      "stockCode": "00902",
-      "stockName": "華能國際電力股份",
-      "ticker": "00902.HK",
-      "lastPrice": 5.655,
-      "latestDate": "2026-04-28",
-      "firstDate": "2026-04-28",
-      "announcements": [
-        {
-          "date": "2026-04-28",
-          "title": "擬分拆並在上海證券交易所獨立上市的基礎設施領域不動產投資信託基金及關連交易",
-          "docUrl": "/listedco/listconews/sehk/2026/0428/2026042804564_c.pdf"
-        }
-      ],
-      "spinTarget": "",
-      "spinType": {
-        "code": "reit_sh",
-        "exchange_zh": "上交所",
-        "exchange_en": "SSE",
-        "label_zh": "REIT·上交所",
-        "label_en": "REIT·SSE",
-        "is_reit": true
-      },
-      "summary": "共 1 条相关公告（2026-04-28）",
-      "filingEvidence": [
-        {
-          "status": "announced",
-          "quote": "擬分拆並在上海證券交易所獨立上市的基礎設施領域不動產投資信託基金及關連交易獨立財務顧問茲提述華能國際電力股份有限公司（「公司」或「本公司」）於二零二五年五月二十九日發佈的關於開展基礎設施公募 REITs 申報工作及建議分拆的公告（「該公告」）",
-          "typeVersion": 1,
-          "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0428/2026042804564_c.pdf",
-          "date": "2026-04-28",
-          "targetName": "華能煤電 REIT",
-          "targetTicker": "",
-          "targetAliases": [],
-          "identityVersion": 1,
-          "identityQuote": "（即「華能煤電 REIT」）",
-          "identityKind": "business",
-          "distributedEntity": false,
-          "separatedEntity": false,
-          "identityReason": "",
-          "dates": {},
-          "method": "rule",
-          "ruleVersion": 2,
-          "accession": "",
-          "identityReferences": [
-            "2025-05-29"
-          ]
-        }
-      ],
-      "identityChecks": {
-        "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0428/2026042804564_c.pdf": {
-          "version": 1,
-          "typeVersion": 1,
-          "checkedAt": "2026-09-20",
-          "result": "named"
-        }
-      },
-      "_status": "announced",
-      "marketCap": null,
-      "parentMarketCap": 110.1,
-      "pricePerf": {
-        "priceAtAnnouncement": 5.915,
-        "priceNow": 5.65,
-        "changePct": -4.5,
-        "firstAnnouncementDate": "2026-04-28",
-        "currency": "HKD",
-        "updatedAt": "2026-09-21"
-      },
-      "greenblattNote": {
-        "zh": "母公司参考市值约 110.1 亿美元（快照，非实时）。 待验证：分派比例、子公司债务与现金流、管理层持股及机构持仓变化。市值与股价变化不能单独证明强制卖压或低估。",
-        "en": "Parent reference market cap: $11.01B (snapshot, not live). Research checklist: distribution ratio, child debt and cash flow, management ownership, and institutional holdings. Size and price changes alone do not establish forced selling or undervaluation."
-      }
-    },
-    {
       "stockCode": "09988",
       "stockName": "阿里巴巴－Ｗ",
       "ticker": "09988.HK",
-      "lastPrice": 111.2,
+      "lastPrice": 112.6,
       "latestDate": "2026-04-27",
       "firstDate": "2026-04-27",
       "announcements": [
@@ -2392,8 +2433,8 @@
       "parentMarketCap": 2341.7,
       "pricePerf": {
         "priceAtAnnouncement": 130.054,
-        "priceNow": 110.8,
-        "changePct": -14.8,
+        "priceNow": 109.3,
+        "changePct": -16.0,
         "firstAnnouncementDate": "2026-04-27",
         "currency": "HKD",
         "updatedAt": "2026-09-21"
@@ -2407,7 +2448,7 @@
       "stockCode": "02899",
       "stockName": "紫金礦業",
       "ticker": "02899.HK",
-      "lastPrice": 34.18,
+      "lastPrice": 34.22,
       "latestDate": "2026-04-07",
       "firstDate": "2026-04-07",
       "announcements": [
@@ -2499,7 +2540,7 @@
         }
       },
       "_status": "needs_review",
-      "marketCap": 527.9,
+      "marketCap": 530.3,
       "parentMarketCap": 1048.3,
       "spinoffPricePerf": [
         {
@@ -2507,8 +2548,8 @@
           "spinoffName": "紫金黃金國際",
           "spinoffDate": "2025-09-30",
           "spinoffPriceAtListing": 118.055,
-          "spinoffPriceNow": 154.1,
-          "spinoffChangePct": 30.5,
+          "spinoffPriceNow": 159.1,
+          "spinoffChangePct": 34.8,
           "currency": "HKD",
           "confidence": 100,
           "autoMatched": false,
@@ -2518,7 +2559,7 @@
       ],
       "pricePerf": {
         "priceAtAnnouncement": 36.135,
-        "priceNow": 34.16,
+        "priceNow": 34.14,
         "changePct": -5.5,
         "firstAnnouncementDate": "2026-04-07",
         "currency": "HKD",
@@ -2533,7 +2574,7 @@
       "stockCode": "00842",
       "stockName": "理士國際",
       "ticker": "00842.HK",
-      "lastPrice": 0.85,
+      "lastPrice": 0.815,
       "latestDate": "2026-04-01",
       "firstDate": "2025-12-31",
       "announcements": [
@@ -2900,7 +2941,7 @@
       "stockCode": "01530",
       "stockName": "三生製藥",
       "ticker": "01530.HK",
-      "lastPrice": 16.8,
+      "lastPrice": 17.22,
       "latestDate": "2026-03-30",
       "firstDate": "2025-11-20",
       "announcements": [
@@ -2998,8 +3039,8 @@
       "parentMarketCap": 62.0,
       "pricePerf": {
         "priceAtAnnouncement": 31.929,
-        "priceNow": 16.82,
-        "changePct": -47.3,
+        "priceNow": 15.75,
+        "changePct": -50.7,
         "firstAnnouncementDate": "2025-11-20",
         "currency": "HKD",
         "updatedAt": "2026-09-21"
@@ -3013,7 +3054,7 @@
       "stockCode": "00384",
       "stockName": "中國燃氣",
       "ticker": "00384.HK",
-      "lastPrice": 5.4,
+      "lastPrice": 5.39,
       "latestDate": "2026-03-20",
       "firstDate": "2026-03-20",
       "announcements": [
@@ -3071,8 +3112,8 @@
       "parentMarketCap": 38.8,
       "pricePerf": {
         "priceAtAnnouncement": 7.543,
-        "priceNow": 5.39,
-        "changePct": -28.5,
+        "priceNow": 5.4,
+        "changePct": -28.4,
         "firstAnnouncementDate": "2026-03-20",
         "currency": "HKD",
         "updatedAt": "2026-09-21"
@@ -3086,7 +3127,7 @@
       "stockCode": "01523",
       "stockName": "珩灣科技",
       "ticker": "01523.HK",
-      "lastPrice": 7.645,
+      "lastPrice": 7.6,
       "latestDate": "2026-02-25",
       "firstDate": "2026-02-25",
       "announcements": [
@@ -3141,8 +3182,8 @@
       "parentMarketCap": 10.8,
       "pricePerf": {
         "priceAtAnnouncement": 8.08,
-        "priceNow": 7.64,
-        "changePct": -5.4,
+        "priceNow": 7.535,
+        "changePct": -6.7,
         "firstAnnouncementDate": "2026-02-25",
         "currency": "HKD",
         "updatedAt": "2026-09-21"
@@ -3156,7 +3197,7 @@
       "stockCode": "00041",
       "stockName": "鷹君",
       "ticker": "00041.HK",
-      "lastPrice": 14.44,
+      "lastPrice": 14.42,
       "latestDate": "2026-02-25",
       "firstDate": "2025-10-08",
       "announcements": [
@@ -3258,8 +3299,8 @@
       "parentMarketCap": 14.9,
       "pricePerf": {
         "priceAtAnnouncement": 14.089,
-        "priceNow": 14.44,
-        "changePct": 2.5,
+        "priceNow": 14.34,
+        "changePct": 1.8,
         "firstAnnouncementDate": "2025-10-08",
         "currency": "HKD",
         "updatedAt": "2026-09-21"
@@ -3273,7 +3314,7 @@
       "stockCode": "07489",
       "stockName": "嵐圖汽車",
       "ticker": "07489.HK",
-      "lastPrice": 2.01,
+      "lastPrice": 1.97,
       "latestDate": "2026-02-12",
       "firstDate": "2026-02-12",
       "announcements": [
@@ -3338,7 +3379,7 @@
         }
       },
       "_status": "needs_review",
-      "marketCap": 9.4,
+      "marketCap": 9.3,
       "parentMarketCap": 13.0,
       "spinoffPricePerf": [
         {
@@ -3346,7 +3387,7 @@
           "spinoffName": "嵐圖汽車",
           "spinoffDate": "2026-02-12",
           "spinoffPriceAtListing": null,
-          "spinoffPriceNow": 2.0,
+          "spinoffPriceNow": 1.96,
           "spinoffChangePct": null,
           "currency": "HKD",
           "confidence": 100,
@@ -3365,7 +3406,7 @@
       "stockCode": "03393",
       "stockName": "威勝控股",
       "ticker": "03393.HK",
-      "lastPrice": 13.76,
+      "lastPrice": 13.74,
       "latestDate": "2026-01-27",
       "firstDate": "2026-01-27",
       "announcements": [
@@ -3420,8 +3461,8 @@
       "parentMarketCap": 29.0,
       "pricePerf": {
         "priceAtAnnouncement": 23.645,
-        "priceNow": 13.76,
-        "changePct": -41.8,
+        "priceNow": 13.93,
+        "changePct": -41.1,
         "firstAnnouncementDate": "2026-01-27",
         "currency": "HKD",
         "updatedAt": "2026-09-21"
@@ -3435,7 +3476,7 @@
       "stockCode": "02382",
       "stockName": "舜宇光學科技",
       "ticker": "02382.HK",
-      "lastPrice": 67.15,
+      "lastPrice": 67.35,
       "latestDate": "2026-01-27",
       "firstDate": "2026-01-05",
       "announcements": [
@@ -3527,8 +3568,8 @@
       "parentMarketCap": 76.7,
       "pricePerf": {
         "priceAtAnnouncement": 66.756,
-        "priceNow": 66.85,
-        "changePct": 0.1,
+        "priceNow": 67.05,
+        "changePct": 0.4,
         "firstAnnouncementDate": "2026-01-05",
         "currency": "HKD",
         "updatedAt": "2026-09-21"
@@ -3542,7 +3583,7 @@
       "stockCode": "01357",
       "stockName": "美圖公司",
       "ticker": "01357.HK",
-      "lastPrice": 4.095,
+      "lastPrice": 4.12,
       "latestDate": "2026-01-26",
       "firstDate": "2026-01-26",
       "announcements": [
@@ -3599,8 +3640,8 @@
       "parentMarketCap": 26.0,
       "pricePerf": {
         "priceAtAnnouncement": 7.865,
-        "priceNow": 4.095,
-        "changePct": -47.9,
+        "priceNow": 4.035,
+        "changePct": -48.7,
         "firstAnnouncementDate": "2026-01-26",
         "currency": "HKD",
         "updatedAt": "2026-09-21"
@@ -3614,7 +3655,7 @@
       "stockCode": "02202",
       "stockName": "萬科企業",
       "ticker": "02202.HK",
-      "lastPrice": 2.445,
+      "lastPrice": 2.47,
       "latestDate": "2026-01-23",
       "firstDate": "2026-01-23",
       "announcements": [
@@ -3672,8 +3713,8 @@
       "parentMarketCap": 33.7,
       "pricePerf": {
         "priceAtAnnouncement": 3.66,
-        "priceNow": 2.445,
-        "changePct": -33.2,
+        "priceNow": 2.35,
+        "changePct": -35.8,
         "firstAnnouncementDate": "2026-01-23",
         "currency": "HKD",
         "updatedAt": "2026-09-21"
@@ -3687,7 +3728,7 @@
       "stockCode": "02096",
       "stockName": "先聲藥業",
       "ticker": "02096.HK",
-      "lastPrice": 11.71,
+      "lastPrice": 11.61,
       "latestDate": "2026-01-09",
       "firstDate": "2026-01-09",
       "announcements": [
@@ -3742,8 +3783,8 @@
       "parentMarketCap": 39.3,
       "pricePerf": {
         "priceAtAnnouncement": 11.897,
-        "priceNow": 11.71,
-        "changePct": -1.6,
+        "priceNow": 11.17,
+        "changePct": -6.1,
         "firstAnnouncementDate": "2026-01-09",
         "currency": "HKD",
         "updatedAt": "2026-09-21"
@@ -3757,7 +3798,7 @@
       "stockCode": "09888",
       "stockName": "百度集團－ＳＷ",
       "ticker": "09888.HK",
-      "lastPrice": 88.6,
+      "lastPrice": 89.0,
       "latestDate": "2026-01-02",
       "firstDate": "2026-01-02",
       "announcements": [
@@ -3815,8 +3856,8 @@
       "parentMarketCap": 382.6,
       "pricePerf": {
         "priceAtAnnouncement": 143.8,
-        "priceNow": 88.35,
-        "changePct": -38.6,
+        "priceNow": 87.2,
+        "changePct": -39.4,
         "firstAnnouncementDate": "2026-01-02",
         "currency": "HKD",
         "updatedAt": "2026-09-21"
@@ -3830,7 +3871,7 @@
       "stockCode": "01766",
       "stockName": "中國中車",
       "ticker": "01766.HK",
-      "lastPrice": 5.17,
+      "lastPrice": 5.25,
       "latestDate": "2025-12-28",
       "firstDate": "2025-11-27",
       "announcements": [
@@ -4213,8 +4254,8 @@
       "parentMarketCap": 168.6,
       "pricePerf": {
         "priceAtAnnouncement": 5.846,
-        "priceNow": 5.175,
-        "changePct": -11.5,
+        "priceNow": 5.13,
+        "changePct": -12.2,
         "firstAnnouncementDate": "2025-11-27",
         "currency": "HKD",
         "updatedAt": "2026-09-21"
@@ -4291,7 +4332,7 @@
       },
       "_status": "completed",
       "listingDate": "2025-12-11",
-      "marketCap": 47.4,
+      "marketCap": 48.2,
       "parentMarketCap": 367.5,
       "spinoffPricePerf": [
         {
@@ -4299,8 +4340,8 @@
           "spinoffName": "京東工業",
           "spinoffDate": "2025-12-11",
           "spinoffPriceAtListing": 14.1,
-          "spinoffPriceNow": 13.66,
-          "spinoffChangePct": -3.1,
+          "spinoffPriceNow": 14.0,
+          "spinoffChangePct": -0.7,
           "currency": "HKD",
           "confidence": 100,
           "autoMatched": false,
@@ -4310,8 +4351,8 @@
       ],
       "pricePerf": {
         "priceAtAnnouncement": 113.789,
-        "priceNow": 105.5,
-        "changePct": -7.3,
+        "priceNow": 105.0,
+        "changePct": -7.7,
         "firstAnnouncementDate": "2025-12-11",
         "currency": "HKD",
         "updatedAt": "2026-09-21"
@@ -4325,7 +4366,7 @@
       "stockCode": "00142",
       "stockName": "第一太平",
       "ticker": "00142.HK",
-      "lastPrice": 4.8,
+      "lastPrice": 4.81,
       "latestDate": "2025-12-09",
       "firstDate": "2025-10-21",
       "announcements": [
@@ -4539,8 +4580,8 @@
       "parentMarketCap": 27.7,
       "pricePerf": {
         "priceAtAnnouncement": 6.01,
-        "priceNow": 4.815,
-        "changePct": -19.9,
+        "priceNow": 4.78,
+        "changePct": -20.5,
         "firstAnnouncementDate": "2025-10-21",
         "currency": "HKD",
         "updatedAt": "2026-09-21"
@@ -4554,7 +4595,7 @@
       "stockCode": "00400",
       "stockName": "硬蛋創新",
       "ticker": "00400.HK",
-      "lastPrice": 4.735,
+      "lastPrice": 4.71,
       "latestDate": "2025-11-25",
       "firstDate": "2025-11-25",
       "announcements": [
@@ -4614,8 +4655,8 @@
       "parentMarketCap": 10.7,
       "pricePerf": {
         "priceAtAnnouncement": 2.94,
-        "priceNow": 4.735,
-        "changePct": 61.1,
+        "priceNow": 4.58,
+        "changePct": 55.8,
         "firstAnnouncementDate": "2025-11-25",
         "currency": "HKD",
         "updatedAt": "2026-09-21"
@@ -4629,7 +4670,7 @@
       "stockCode": "00762",
       "stockName": "中國聯通",
       "ticker": "00762.HK",
-      "lastPrice": 5.765,
+      "lastPrice": 5.76,
       "latestDate": "2025-10-22",
       "firstDate": "2025-10-22",
       "announcements": [
@@ -4688,8 +4729,8 @@
       "parentMarketCap": 244.4,
       "pricePerf": {
         "priceAtAnnouncement": 9.05,
-        "priceNow": 5.76,
-        "changePct": -36.4,
+        "priceNow": 5.73,
+        "changePct": -36.7,
         "firstAnnouncementDate": "2025-10-22",
         "currency": "HKD",
         "updatedAt": "2026-09-21"
@@ -4703,7 +4744,7 @@
       "stockCode": "00019",
       "stockName": "太古股份公司Ａ",
       "ticker": "00019.HK",
-      "lastPrice": 101.3,
+      "lastPrice": 101.9,
       "latestDate": "2025-10-15",
       "firstDate": "2025-10-15",
       "announcements": [
@@ -4761,8 +4802,8 @@
       "parentMarketCap": 386.4,
       "pricePerf": {
         "priceAtAnnouncement": 61.689,
-        "priceNow": 101.5,
-        "changePct": 64.5,
+        "priceNow": 100.0,
+        "changePct": 62.1,
         "firstAnnouncementDate": "2025-10-15",
         "currency": "HKD",
         "updatedAt": "2026-09-21"
@@ -4948,7 +4989,7 @@
       },
       "_status": "completed",
       "listingDate": "2025-10-15",
-      "marketCap": 6.4,
+      "marketCap": 6.1,
       "parentMarketCap": 10.5,
       "spinoffPricePerf": [
         {
@@ -4956,8 +4997,8 @@
           "spinoffName": "軒竹生物-B",
           "spinoffDate": "2025-10-15",
           "spinoffPriceAtListing": 26.3,
-          "spinoffPriceNow": 9.6,
-          "spinoffChangePct": -63.5,
+          "spinoffPriceNow": 9.255,
+          "spinoffChangePct": -64.8,
           "currency": "HKD",
           "confidence": 100,
           "autoMatched": false,
@@ -4967,8 +5008,8 @@
       ],
       "pricePerf": {
         "priceAtAnnouncement": 1.887,
-        "priceNow": 0.755,
-        "changePct": -60.0,
+        "priceNow": 0.72,
+        "changePct": -61.8,
         "firstAnnouncementDate": "2025-10-06",
         "currency": "HKD",
         "updatedAt": "2026-09-21"
@@ -4982,7 +5023,7 @@
       "stockCode": "09896",
       "stockName": "名創優品",
       "ticker": "09896.HK",
-      "lastPrice": 17.28,
+      "lastPrice": 17.33,
       "latestDate": "2025-09-26",
       "firstDate": "2025-09-26",
       "announcements": [
@@ -5037,8 +5078,8 @@
       "parentMarketCap": 36.0,
       "pricePerf": {
         "priceAtAnnouncement": 43.149,
-        "priceNow": 17.28,
-        "changePct": -60.0,
+        "priceNow": 16.96,
+        "changePct": -60.7,
         "firstAnnouncementDate": "2025-09-26",
         "currency": "HKD",
         "updatedAt": "2026-09-21"
@@ -5052,7 +5093,7 @@
       "stockCode": "00156",
       "stockName": "力寶華潤",
       "ticker": "00156.HK",
-      "lastPrice": 1.1,
+      "lastPrice": 1.07,
       "latestDate": "2025-09-23",
       "firstDate": "2025-09-23",
       "announcements": [
@@ -5113,8 +5154,8 @@
       "parentMarketCap": 1.2,
       "pricePerf": {
         "priceAtAnnouncement": 0.84,
-        "priceNow": 1.1,
-        "changePct": 31.0,
+        "priceNow": 1.09,
+        "changePct": 29.8,
         "firstAnnouncementDate": "2025-09-23",
         "currency": "HKD",
         "updatedAt": "2026-09-21"
@@ -5128,7 +5169,7 @@
       "stockCode": "06655",
       "stockName": "華新水泥",
       "ticker": "06655.HK",
-      "lastPrice": 16.31,
+      "lastPrice": 16.29,
       "latestDate": "2025-10-08",
       "firstDate": "2025-10-08",
       "announcements": [
@@ -5183,8 +5224,8 @@
       "parentMarketCap": 43.0,
       "pricePerf": {
         "priceAtAnnouncement": 13.989,
-        "priceNow": 16.26,
-        "changePct": 16.2,
+        "priceNow": 16.33,
+        "changePct": 16.7,
         "firstAnnouncementDate": "2025-10-08",
         "currency": "HKD",
         "updatedAt": "2026-09-21"
@@ -5197,6 +5238,181 @@
     }
   ],
   "events": [
+    {
+      "id": "hk:00902:unresolved",
+      "mergedIds": [],
+      "market": "hk",
+      "parentTicker": "00902.HK",
+      "parentName": "華能國際電力股份",
+      "targetName": "華能煤電 REIT",
+      "targetTicker": "",
+      "identityVerified": true,
+      "identityKind": "business",
+      "identityEvidence": {
+        "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0428/2026042804564_c.pdf",
+        "date": "2026-04-28",
+        "quote": "（即「華能煤電 REIT」）"
+      },
+      "identityState": "resolved",
+      "status": "announced",
+      "evidence": {
+        "status": "announced",
+        "quote": "擬分拆並在上海證券交易所獨立上市的基礎設施領域不動產投資信託基金及關連交易獨立財務顧問茲提述華能國際電力股份有限公司（「公司」或「本公司」）於二零二五年五月二十九日發佈的關於開展基礎設施公募 REITs 申報工作及建議分拆的公告（「該公告」）",
+        "typeVersion": 1,
+        "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0428/2026042804564_c.pdf",
+        "date": "2026-04-28",
+        "targetName": "華能煤電 REIT",
+        "targetTicker": "",
+        "targetAliases": [],
+        "identityVersion": 1,
+        "identityQuote": "（即「華能煤電 REIT」）",
+        "identityKind": "business",
+        "distributedEntity": false,
+        "separatedEntity": false,
+        "identityReason": "",
+        "dates": {},
+        "method": "rule",
+        "ruleVersion": 2,
+        "accession": "",
+        "identityReferences": [
+          "2025-05-29"
+        ]
+      },
+      "dates": {},
+      "missing": [
+        "ticker",
+        "recordDate",
+        "distributionDate"
+      ],
+      "type": {
+        "code": "reit_sh",
+        "exchange_zh": "上交所",
+        "exchange_en": "SSE",
+        "label_zh": "REIT·上交所",
+        "label_en": "REIT·SSE",
+        "is_reit": true
+      },
+      "announcements": [
+        {
+          "date": "2026-09-21",
+          "title": "公開募集基礎設施領域不動產投資信託基金之建議分拆及於上海證券交易所獨立上市有關監管部門的批准",
+          "docUrl": "/listedco/listconews/sehk/2026/0921/2026092101283_c.pdf",
+          "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0921/2026092101283_c.pdf",
+          "direct": true,
+          "relevance": "unverified"
+        },
+        {
+          "date": "2026-04-28",
+          "title": "擬分拆並在上海證券交易所獨立上市的基礎設施領域不動產投資信託基金及關連交易",
+          "docUrl": "/listedco/listconews/sehk/2026/0428/2026042804564_c.pdf",
+          "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0428/2026042804564_c.pdf",
+          "direct": true,
+          "relevance": "candidate"
+        }
+      ],
+      "latestDate": "2026-04-28",
+      "sourceUpdatedAt": "2026-09-21T18:36:48Z",
+      "parentMarketCap": 110.1,
+      "pricePairs": [],
+      "parentPrice": {
+        "priceAtAnnouncement": 5.915,
+        "priceNow": 5.66,
+        "changePct": -4.3,
+        "firstAnnouncementDate": "2026-04-28",
+        "currency": "HKD",
+        "updatedAt": "2026-09-21"
+      },
+      "fingerprint": "0e2562d88dbeec78cee9fe2f36e06b7dc67460f82f296e034d0162151cae8e1f",
+      "firstSeenAt": "2026-09-16T02:58:58Z",
+      "changedAt": "2026-09-16T07:31:38Z"
+    },
+    {
+      "id": "hk:00902:unattributed",
+      "mergedIds": [],
+      "market": "hk",
+      "parentTicker": "00902.HK",
+      "parentName": "華能國際電力股份",
+      "targetName": "",
+      "targetTicker": "",
+      "identityVerified": false,
+      "identityKind": "",
+      "identityEvidence": null,
+      "identityState": "missing_name",
+      "status": "announced",
+      "evidence": {
+        "status": "announced",
+        "quote": "公開募集基礎設施領域不動產投資信託基金之建議分拆及於上海證券交易所獨立上市有關監管部門的批准茲提述華能國際電力股份有限公司（「 公司 」）日期為二零二五年五月二十九日的關於開展基礎設施公募 REITs 申報工作及建議分拆的公告、",
+        "typeVersion": 1,
+        "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0921/2026092101283_c.pdf",
+        "date": "2026-09-21",
+        "targetName": "",
+        "targetTicker": "",
+        "targetAliases": [],
+        "identityVersion": 1,
+        "identityQuote": "",
+        "identityKind": "",
+        "distributedEntity": false,
+        "separatedEntity": false,
+        "identityReason": "not_identified",
+        "dates": {},
+        "method": "rule",
+        "ruleVersion": 2,
+        "accession": "",
+        "identityReferences": [
+          "2025-05-29",
+          "2026-04-29",
+          "2026-05-14"
+        ]
+      },
+      "dates": {},
+      "missing": [
+        "target",
+        "ticker",
+        "recordDate",
+        "distributionDate"
+      ],
+      "type": {
+        "code": "reit_sh",
+        "exchange_zh": "上交所",
+        "exchange_en": "SSE",
+        "label_zh": "REIT·上交所",
+        "label_en": "REIT·SSE",
+        "is_reit": true
+      },
+      "announcements": [
+        {
+          "date": "2026-09-21",
+          "title": "公開募集基礎設施領域不動產投資信託基金之建議分拆及於上海證券交易所獨立上市有關監管部門的批准",
+          "docUrl": "/listedco/listconews/sehk/2026/0921/2026092101283_c.pdf",
+          "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0921/2026092101283_c.pdf",
+          "direct": true,
+          "relevance": "candidate"
+        },
+        {
+          "date": "2026-04-28",
+          "title": "擬分拆並在上海證券交易所獨立上市的基礎設施領域不動產投資信託基金及關連交易",
+          "docUrl": "/listedco/listconews/sehk/2026/0428/2026042804564_c.pdf",
+          "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0428/2026042804564_c.pdf",
+          "direct": true,
+          "relevance": "unverified"
+        }
+      ],
+      "latestDate": "2026-09-21",
+      "sourceUpdatedAt": "2026-09-21T18:36:48Z",
+      "parentMarketCap": 110.1,
+      "pricePairs": [],
+      "parentPrice": {
+        "priceAtAnnouncement": 5.915,
+        "priceNow": 5.66,
+        "changePct": -4.3,
+        "firstAnnouncementDate": "2026-04-28",
+        "currency": "HKD",
+        "updatedAt": "2026-09-21"
+      },
+      "fingerprint": "8e2fe2acd138ba95430867eb471ba1f64939b1e39a44d5036a7ecdb909828ed0",
+      "firstSeenAt": "2026-09-21T18:36:48Z",
+      "changedAt": "2026-09-21T18:36:48Z"
+    },
     {
       "id": "hk:00017:097c4d6fac96",
       "mergedIds": [],
@@ -5270,13 +5486,13 @@
         }
       ],
       "latestDate": "2026-09-21",
-      "sourceUpdatedAt": "2026-09-21T03:45:07Z",
+      "sourceUpdatedAt": "2026-09-21T18:36:48Z",
       "parentMarketCap": 18.7,
       "pricePairs": [],
       "parentPrice": {
         "priceAtAnnouncement": 5.815,
-        "priceNow": 5.87,
-        "changePct": 0.9,
+        "priceNow": 5.78,
+        "changePct": -0.6,
         "firstAnnouncementDate": "2026-09-17",
         "currency": "HKD",
         "updatedAt": "2026-09-21"
@@ -5286,95 +5502,10 @@
       "changedAt": "2026-09-21T03:45:07Z"
     },
     {
-      "id": "hk:00688:unattributed",
-      "mergedIds": [],
-      "market": "hk",
-      "parentTicker": "00688.HK",
-      "parentName": "中國海外發展",
-      "targetName": "",
-      "targetTicker": "",
-      "identityVerified": false,
-      "identityKind": "",
-      "identityEvidence": null,
-      "identityState": "missing_name",
-      "status": "approved",
-      "evidence": {
-        "status": "approved",
-        "quote": "（於香港註冊成立之有限公司）（股份代號：688）建議分拆獲聯交所批准兹提述中國海外發展有限公司（「本公司」）日期為二零二六年九月七日之公告，內容有關建議分拆（「該公告」）",
-        "typeVersion": 1,
-        "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0911/2026091101166_c.pdf",
-        "date": "2026-09-11",
-        "targetName": "",
-        "targetTicker": "",
-        "targetAliases": [],
-        "identityVersion": 1,
-        "identityQuote": "",
-        "identityKind": "business",
-        "distributedEntity": false,
-        "separatedEntity": false,
-        "identityReason": "not_identified",
-        "dates": {},
-        "method": "rule",
-        "ruleVersion": 2,
-        "accession": "",
-        "identityReferences": [
-          "2026-09-07"
-        ],
-        "identitySourceUrl": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0907/2026090700914_c.pdf",
-        "identitySourceDate": "2026-09-07"
-      },
-      "dates": {},
-      "missing": [
-        "target",
-        "ticker",
-        "recordDate",
-        "distributionDate"
-      ],
-      "type": {
-        "code": "unknown",
-        "exchange_zh": "港交所",
-        "exchange_en": "HKEX",
-        "label_zh": "类型待核实",
-        "label_en": "Type to verify",
-        "is_reit": false
-      },
-      "announcements": [
-        {
-          "date": "2026-09-11",
-          "title": "建議分拆獲聯交所批准",
-          "docUrl": "/listedco/listconews/sehk/2026/0911/2026091101166_c.pdf",
-          "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0911/2026091101166_c.pdf",
-          "direct": true,
-          "relevance": "candidate"
-        },
-        {
-          "date": "2026-09-07",
-          "title": "公開募集商業不動產投資信託基金之建議分拆及在深圳證券交易所獨立上市",
-          "docUrl": "/listedco/listconews/sehk/2026/0907/2026090700914_c.pdf",
-          "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0907/2026090700914_c.pdf",
-          "direct": true,
-          "relevance": "unverified"
-        }
-      ],
-      "latestDate": "2026-09-11",
-      "sourceUpdatedAt": "2026-09-21T03:45:07Z",
-      "parentMarketCap": 169.5,
-      "pricePairs": [],
-      "parentPrice": {
-        "priceAtAnnouncement": 12.665,
-        "priceNow": 12.22,
-        "changePct": -3.5,
-        "firstAnnouncementDate": "2026-09-07",
-        "currency": "HKD",
-        "updatedAt": "2026-09-21"
-      },
-      "fingerprint": "db221da121275c1eabda6135b080ece82c4c1cd149b9e0c206801d4fad3d5374",
-      "firstSeenAt": "2026-09-21T03:46:53Z",
-      "changedAt": "2026-09-21T03:46:53Z"
-    },
-    {
       "id": "hk:00688:unresolved",
-      "mergedIds": [],
+      "mergedIds": [
+        "hk:00688:unattributed"
+      ],
       "market": "hk",
       "parentTicker": "00688.HK",
       "parentName": "中國海外發展",
@@ -5388,13 +5519,13 @@
         "quote": "REIT 的相關資產為位於中國廣東省佛山市南海區的購物中心（佛山千燈湖環宇城項目），即"
       },
       "identityState": "resolved",
-      "status": "announced",
+      "status": "approved",
       "evidence": {
-        "status": "announced",
-        "quote": "（於香港註冊成立之有限公司）（股份代號：688）公開募集商業不動產投資信託基金之建議分拆及在深圳證券交易所獨立上市董事局欣然宣布，於二零二六年九月七日，華夏基金及中信證券向中國證監會及深圳證券交易所提交了公募基金註册及上市的申請材料",
+        "status": "approved",
+        "quote": "（於香港註冊成立之有限公司）（股份代號：688）建議分拆獲聯交所批准兹提述中國海外發展有限公司（「本公司」）日期為二零二六年九月七日之公告，內容有關建議分拆（「該公告」）",
         "typeVersion": 1,
-        "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0907/2026090700914_c.pdf",
-        "date": "2026-09-07",
+        "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0911/2026091101166_c.pdf",
+        "date": "2026-09-11",
         "targetName": "位於中國廣東省佛山市南海區的購物中心（佛山千燈湖環宇城項目）",
         "targetTicker": "",
         "targetAliases": [],
@@ -5403,12 +5534,16 @@
         "identityKind": "business",
         "distributedEntity": false,
         "separatedEntity": false,
-        "identityReason": "",
+        "identityReason": "dated_reference",
         "dates": {},
         "method": "rule",
         "ruleVersion": 2,
         "accession": "",
-        "identityReferences": []
+        "identityReferences": [
+          "2026-09-07"
+        ],
+        "identitySourceUrl": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0907/2026090700914_c.pdf",
+        "identitySourceDate": "2026-09-07"
       },
       "dates": {},
       "missing": [
@@ -5431,7 +5566,7 @@
           "docUrl": "/listedco/listconews/sehk/2026/0911/2026091101166_c.pdf",
           "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0911/2026091101166_c.pdf",
           "direct": true,
-          "relevance": "unverified"
+          "relevance": "candidate"
         },
         {
           "date": "2026-09-07",
@@ -5442,113 +5577,27 @@
           "relevance": "candidate"
         }
       ],
-      "latestDate": "2026-09-07",
-      "sourceUpdatedAt": "2026-09-21T03:45:07Z",
+      "latestDate": "2026-09-11",
+      "sourceUpdatedAt": "2026-09-21T18:36:48Z",
       "parentMarketCap": 169.5,
       "pricePairs": [],
       "parentPrice": {
         "priceAtAnnouncement": 12.665,
-        "priceNow": 12.22,
-        "changePct": -3.5,
+        "priceNow": 12.2,
+        "changePct": -3.7,
         "firstAnnouncementDate": "2026-09-07",
         "currency": "HKD",
         "updatedAt": "2026-09-21"
       },
-      "fingerprint": "9fd1667078b1b08ce2e01e69ac6722ff022de59bb44d5797ee652017474c4c8e",
+      "fingerprint": "bfe35d870fd38e58bb94a91f5d9b663caa1e34fbbc6363901c249999f34f099c",
       "firstSeenAt": "2026-09-16T02:58:58Z",
-      "changedAt": "2026-09-21T03:46:53Z"
-    },
-    {
-      "id": "hk:01030:unresolved",
-      "mergedIds": [],
-      "market": "hk",
-      "parentTicker": "01030.HK",
-      "parentName": "新城發展",
-      "targetName": "",
-      "targetTicker": "",
-      "identityVerified": false,
-      "identityKind": "",
-      "identityEvidence": null,
-      "identityState": "missing_name",
-      "status": "announced",
-      "evidence": {
-        "status": "announced",
-        "quote": "新城發展控股有限公司（於開曼群島註冊成立的有限責任公司）（股份代號：1030）須予披露交易有關建議分拆若干商業物業權益並於上海證券交易所獨立上市的視作出售事項建議分拆茲提述於2026年3月9日有關建議分拆兩座零售商場的該公告",
-        "typeVersion": 1,
-        "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0904/2026090402494_c.pdf",
-        "date": "2026-09-04",
-        "targetName": "",
-        "targetTicker": "",
-        "targetAliases": [],
-        "identityVersion": 1,
-        "identityQuote": "",
-        "identityKind": "business",
-        "distributedEntity": false,
-        "separatedEntity": false,
-        "identityReason": "not_identified",
-        "dates": {},
-        "method": "rule",
-        "ruleVersion": 2,
-        "accession": "",
-        "identityReferences": [
-          "2026-03-09"
-        ],
-        "identitySourceUrl": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0309/2026030900004_c.pdf",
-        "identitySourceDate": "2026-03-09"
-      },
-      "dates": {},
-      "missing": [
-        "target",
-        "ticker",
-        "recordDate",
-        "distributionDate"
-      ],
-      "type": {
-        "code": "ipo_a_sh",
-        "exchange_zh": "上交所",
-        "exchange_en": "SSE",
-        "label_zh": "分拆上市·上交所",
-        "label_en": "Spin-off IPO·SSE",
-        "is_reit": false
-      },
-      "announcements": [
-        {
-          "date": "2026-09-04",
-          "title": "須予披露交易 有關建議分拆若干商業物業權益 並於上海證券交易所獨立上市 的視作出售事項",
-          "docUrl": "/listedco/listconews/sehk/2026/0904/2026090402494_c.pdf",
-          "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0904/2026090402494_c.pdf",
-          "direct": true,
-          "relevance": "candidate"
-        },
-        {
-          "date": "2026-03-09",
-          "title": "自願公告 建議分拆商業不動產REITs",
-          "docUrl": "/listedco/listconews/sehk/2026/0309/2026030900004_c.pdf",
-          "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0309/2026030900004_c.pdf",
-          "direct": true,
-          "relevance": "unverified"
-        }
-      ],
-      "latestDate": "2026-09-04",
-      "sourceUpdatedAt": "2026-09-21T03:45:07Z",
-      "parentMarketCap": 13.0,
-      "pricePairs": [],
-      "parentPrice": {
-        "priceAtAnnouncement": 2.22,
-        "priceNow": 1.485,
-        "changePct": -33.1,
-        "firstAnnouncementDate": "2026-03-09",
-        "currency": "HKD",
-        "updatedAt": "2026-09-21"
-      },
-      "fingerprint": "8e2fe2acd138ba95430867eb471ba1f64939b1e39a44d5036a7ecdb909828ed0",
-      "firstSeenAt": "2026-09-21T03:46:53Z",
-      "changedAt": "2026-09-21T03:46:53Z"
+      "changedAt": "2026-09-21T18:39:52Z"
     },
     {
       "id": "hk:01030:ba584c93d424",
       "mergedIds": [
-        "hk:01030:unattributed"
+        "hk:01030:unattributed",
+        "hk:01030:unresolved"
       ],
       "market": "hk",
       "parentTicker": "01030.HK",
@@ -5566,24 +5615,30 @@
       "status": "announced",
       "evidence": {
         "status": "announced",
-        "quote": "新城發展控股有限公司（於開曼群島註冊成立的有限公司）（股份代號：1030）自願公告建議分拆商業不動產 REITs",
+        "quote": "新城發展控股有限公司（於開曼群島註冊成立的有限責任公司）（股份代號：1030）須予披露交易有關建議分拆若干商業物業權益並於上海證券交易所獨立上市的視作出售事項建議分拆茲提述於2026年3月9日有關建議分拆兩座零售商場的該公告",
         "typeVersion": 1,
-        "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0309/2026030900004_c.pdf",
-        "date": "2026-03-09",
+        "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0904/2026090402494_c.pdf",
+        "date": "2026-09-04",
         "targetName": "商業不動產REITs",
         "targetTicker": "",
-        "targetAliases": [],
+        "targetAliases": [
+          "若干商業物業權益"
+        ],
         "identityVersion": 1,
         "identityQuote": "自願公告建議分拆商業不動產REITs",
         "identityKind": "business",
         "distributedEntity": false,
         "separatedEntity": false,
-        "identityReason": "",
+        "identityReason": "dated_reference",
         "dates": {},
         "method": "rule",
         "ruleVersion": 2,
         "accession": "",
-        "identityReferences": []
+        "identityReferences": [
+          "2026-03-09"
+        ],
+        "identitySourceUrl": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0309/2026030900004_c.pdf",
+        "identitySourceDate": "2026-03-09"
       },
       "dates": {},
       "missing": [
@@ -5592,11 +5647,11 @@
         "distributionDate"
       ],
       "type": {
-        "code": "reit",
-        "exchange_zh": "待定",
-        "exchange_en": "TBD",
-        "label_zh": "REIT·待定",
-        "label_en": "REIT·TBD",
+        "code": "reit_sh",
+        "exchange_zh": "上交所",
+        "exchange_en": "SSE",
+        "label_zh": "REIT·上交所",
+        "label_en": "REIT·SSE",
         "is_reit": true
       },
       "announcements": [
@@ -5606,7 +5661,7 @@
           "docUrl": "/listedco/listconews/sehk/2026/0904/2026090402494_c.pdf",
           "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0904/2026090402494_c.pdf",
           "direct": true,
-          "relevance": "unverified"
+          "relevance": "candidate"
         },
         {
           "date": "2026-03-09",
@@ -5617,8 +5672,8 @@
           "relevance": "candidate"
         }
       ],
-      "latestDate": "2026-03-09",
-      "sourceUpdatedAt": "2026-09-21T03:45:07Z",
+      "latestDate": "2026-09-04",
+      "sourceUpdatedAt": "2026-09-21T18:36:48Z",
       "parentMarketCap": 13.0,
       "pricePairs": [],
       "parentPrice": {
@@ -5697,13 +5752,13 @@
         }
       ],
       "latestDate": "2026-09-04",
-      "sourceUpdatedAt": "2026-09-21T03:45:07Z",
+      "sourceUpdatedAt": "2026-09-21T18:36:48Z",
       "parentMarketCap": 92.6,
       "pricePairs": [],
       "parentPrice": {
         "priceAtAnnouncement": 31.46,
-        "priceNow": 41.22,
-        "changePct": 31.0,
+        "priceNow": 39.34,
+        "changePct": 25.0,
         "firstAnnouncementDate": "2026-09-04",
         "currency": "HKD",
         "updatedAt": "2026-09-21"
@@ -5798,13 +5853,13 @@
         }
       ],
       "latestDate": "2026-08-28",
-      "sourceUpdatedAt": "2026-09-21T03:45:07Z",
+      "sourceUpdatedAt": "2026-09-21T18:36:48Z",
       "parentMarketCap": 42.8,
       "pricePairs": [],
       "parentPrice": {
         "priceAtAnnouncement": 3.87,
-        "priceNow": 5.085,
-        "changePct": 31.4,
+        "priceNow": 5.045,
+        "changePct": 30.4,
         "firstAnnouncementDate": "2026-03-26",
         "currency": "HKD",
         "updatedAt": "2026-09-21"
@@ -5902,13 +5957,13 @@
         }
       ],
       "latestDate": "2026-03-30",
-      "sourceUpdatedAt": "2026-09-21T03:45:07Z",
+      "sourceUpdatedAt": "2026-09-21T18:36:48Z",
       "parentMarketCap": 42.8,
       "pricePairs": [],
       "parentPrice": {
         "priceAtAnnouncement": 3.87,
-        "priceNow": 5.085,
-        "changePct": 31.4,
+        "priceNow": 5.045,
+        "changePct": 30.4,
         "firstAnnouncementDate": "2026-03-26",
         "currency": "HKD",
         "updatedAt": "2026-09-21"
@@ -6004,13 +6059,13 @@
         }
       ],
       "latestDate": "2026-06-26",
-      "sourceUpdatedAt": "2026-09-21T03:45:07Z",
+      "sourceUpdatedAt": "2026-09-21T18:36:48Z",
       "parentMarketCap": 42.8,
       "pricePairs": [],
       "parentPrice": {
         "priceAtAnnouncement": 3.87,
-        "priceNow": 5.085,
-        "changePct": 31.4,
+        "priceNow": 5.045,
+        "changePct": 30.4,
         "firstAnnouncementDate": "2026-03-26",
         "currency": "HKD",
         "updatedAt": "2026-09-21"
@@ -6081,13 +6136,13 @@
         }
       ],
       "latestDate": "2026-08-24",
-      "sourceUpdatedAt": "2026-09-21T03:45:07Z",
+      "sourceUpdatedAt": "2026-09-21T18:36:48Z",
       "parentMarketCap": 51.9,
       "pricePairs": [],
       "parentPrice": {
         "priceAtAnnouncement": 16.07,
-        "priceNow": 16.74,
-        "changePct": 4.2,
+        "priceNow": 17.22,
+        "changePct": 7.2,
         "firstAnnouncementDate": "2026-08-24",
         "currency": "HKD",
         "updatedAt": "2026-09-21"
@@ -6201,13 +6256,13 @@
         }
       ],
       "latestDate": "2026-08-06",
-      "sourceUpdatedAt": "2026-09-21T03:45:07Z",
+      "sourceUpdatedAt": "2026-09-21T18:36:48Z",
       "parentMarketCap": 138.6,
       "pricePairs": [],
       "parentPrice": {
         "priceAtAnnouncement": 35.843,
-        "priceNow": 33.78,
-        "changePct": -5.8,
+        "priceNow": 34.0,
+        "changePct": -5.1,
         "firstAnnouncementDate": "2026-04-30",
         "currency": "HKD",
         "updatedAt": "2026-09-21"
@@ -6316,13 +6371,13 @@
         }
       ],
       "latestDate": "2026-04-30",
-      "sourceUpdatedAt": "2026-09-21T03:45:07Z",
+      "sourceUpdatedAt": "2026-09-21T18:36:48Z",
       "parentMarketCap": 138.6,
       "pricePairs": [],
       "parentPrice": {
         "priceAtAnnouncement": 35.843,
-        "priceNow": 33.78,
-        "changePct": -5.8,
+        "priceNow": 34.0,
+        "changePct": -5.1,
         "firstAnnouncementDate": "2026-04-30",
         "currency": "HKD",
         "updatedAt": "2026-09-21"
@@ -6393,7 +6448,7 @@
         }
       ],
       "latestDate": "2026-07-17",
-      "sourceUpdatedAt": "2026-09-21T03:45:07Z",
+      "sourceUpdatedAt": "2026-09-21T18:36:48Z",
       "parentMarketCap": 2.1,
       "pricePairs": [],
       "parentPrice": {
@@ -6491,13 +6546,13 @@
         }
       ],
       "latestDate": "2026-06-30",
-      "sourceUpdatedAt": "2026-09-21T03:45:07Z",
+      "sourceUpdatedAt": "2026-09-21T18:36:48Z",
       "parentMarketCap": 147.1,
       "pricePairs": [],
       "parentPrice": {
         "priceAtAnnouncement": 12.771,
-        "priceNow": 12.23,
-        "changePct": -4.2,
+        "priceNow": 12.02,
+        "changePct": -5.9,
         "firstAnnouncementDate": "2026-02-13",
         "currency": "HKD",
         "updatedAt": "2026-09-21"
@@ -6589,13 +6644,13 @@
         }
       ],
       "latestDate": "2026-02-13",
-      "sourceUpdatedAt": "2026-09-21T03:45:07Z",
+      "sourceUpdatedAt": "2026-09-21T18:36:48Z",
       "parentMarketCap": 147.1,
       "pricePairs": [],
       "parentPrice": {
         "priceAtAnnouncement": 12.771,
-        "priceNow": 12.23,
-        "changePct": -4.2,
+        "priceNow": 12.02,
+        "changePct": -5.9,
         "firstAnnouncementDate": "2026-02-13",
         "currency": "HKD",
         "updatedAt": "2026-09-21"
@@ -6623,7 +6678,7 @@
       "status": "announced",
       "evidence": {
         "status": "announced",
-        "quote": "（於開曼群島註冊成立的有限公司）（股份代號：）3337潛在須予披露交易建議分拆通奧檢測集團股份有限公司並於香港聯合交易所有限公司主板獨立上市背景茲提述本公司日期為2022298月年日及202516月年建議分拆本集團透過通奧檢測集團股份有限公司（日的公告（「該等公告」），內容有關",
+        "quote": "（於開曼群島註冊成立的有限公司）（股份代號：）3337潛在須予披露交易建議分拆通奧檢測集團股份有限公司並於香港聯合交易所有限公司主板獨立上市背景茲提述本公司日期為2022298月年日及202561月年建議分拆本集團透過通奧檢測集團股份有限公司（日的公告（「該等公告」），內容有關",
         "typeVersion": 1,
         "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0630/2026063003740_c.pdf",
         "date": "2026-06-30",
@@ -6666,7 +6721,7 @@
         }
       ],
       "latestDate": "2026-06-30",
-      "sourceUpdatedAt": "2026-09-21T03:45:07Z",
+      "sourceUpdatedAt": "2026-09-21T18:36:48Z",
       "parentMarketCap": 2.9,
       "pricePairs": [],
       "parentPrice": {
@@ -6811,13 +6866,13 @@
         }
       ],
       "latestDate": "2026-06-30",
-      "sourceUpdatedAt": "2026-09-21T03:45:07Z",
+      "sourceUpdatedAt": "2026-09-21T18:36:48Z",
       "parentMarketCap": 114.7,
       "pricePairs": [],
       "parentPrice": {
         "priceAtAnnouncement": 18.559,
-        "priceNow": 18.91,
-        "changePct": 1.9,
+        "priceNow": 18.89,
+        "changePct": 1.8,
         "firstAnnouncementDate": "2026-04-29",
         "currency": "HKD",
         "updatedAt": "2026-09-21"
@@ -6942,13 +6997,13 @@
         }
       ],
       "latestDate": "2026-04-30",
-      "sourceUpdatedAt": "2026-09-21T03:45:07Z",
+      "sourceUpdatedAt": "2026-09-21T18:36:48Z",
       "parentMarketCap": 114.7,
       "pricePairs": [],
       "parentPrice": {
         "priceAtAnnouncement": 18.559,
-        "priceNow": 18.91,
-        "changePct": 1.9,
+        "priceNow": 18.89,
+        "changePct": 1.8,
         "firstAnnouncementDate": "2026-04-29",
         "currency": "HKD",
         "updatedAt": "2026-09-21"
@@ -7126,13 +7181,13 @@
         }
       ],
       "latestDate": "2026-06-26",
-      "sourceUpdatedAt": "2026-09-21T03:45:07Z",
+      "sourceUpdatedAt": "2026-09-21T18:36:48Z",
       "parentMarketCap": 57.2,
       "pricePairs": [],
       "parentPrice": {
         "priceAtAnnouncement": 22.391,
-        "priceNow": 17.98,
-        "changePct": -19.7,
+        "priceNow": 17.32,
+        "changePct": -22.6,
         "firstAnnouncementDate": "2025-10-28",
         "currency": "HKD",
         "updatedAt": "2026-09-21"
@@ -7308,13 +7363,13 @@
         }
       ],
       "latestDate": "2025-10-28",
-      "sourceUpdatedAt": "2026-09-21T03:45:07Z",
+      "sourceUpdatedAt": "2026-09-21T18:36:48Z",
       "parentMarketCap": 57.2,
       "pricePairs": [],
       "parentPrice": {
         "priceAtAnnouncement": 22.391,
-        "priceNow": 17.98,
-        "changePct": -19.7,
+        "priceNow": 17.32,
+        "changePct": -22.6,
         "firstAnnouncementDate": "2025-10-28",
         "currency": "HKD",
         "updatedAt": "2026-09-21"
@@ -7487,13 +7542,13 @@
         }
       ],
       "latestDate": "2026-01-22",
-      "sourceUpdatedAt": "2026-09-21T03:45:07Z",
+      "sourceUpdatedAt": "2026-09-21T18:36:48Z",
       "parentMarketCap": 57.2,
       "pricePairs": [],
       "parentPrice": {
         "priceAtAnnouncement": 22.391,
-        "priceNow": 17.98,
-        "changePct": -19.7,
+        "priceNow": 17.32,
+        "changePct": -22.6,
         "firstAnnouncementDate": "2025-10-28",
         "currency": "HKD",
         "updatedAt": "2026-09-21"
@@ -7573,13 +7628,13 @@
         }
       ],
       "latestDate": "2026-05-20",
-      "sourceUpdatedAt": "2026-09-21T03:45:07Z",
+      "sourceUpdatedAt": "2026-09-21T18:36:48Z",
       "parentMarketCap": 7.5,
       "pricePairs": [],
       "parentPrice": {
         "priceAtAnnouncement": 1.19,
-        "priceNow": 1.155,
-        "changePct": -2.9,
+        "priceNow": 1.13,
+        "changePct": -5.0,
         "firstAnnouncementDate": "2026-05-20",
         "currency": "HKD",
         "updatedAt": "2026-09-21"
@@ -7594,95 +7649,10 @@
       "changedAt": "2026-09-16T07:31:38Z"
     },
     {
-      "id": "hk:01109:unattributed",
-      "mergedIds": [],
-      "market": "hk",
-      "parentTicker": "01109.HK",
-      "parentName": "華潤置地",
-      "targetName": "",
-      "targetTicker": "",
-      "identityVerified": false,
-      "identityKind": "",
-      "identityEvidence": null,
-      "identityState": "missing_name",
-      "status": "approved",
-      "evidence": {
-        "status": "approved",
-        "quote": "（於開曼群島註冊成立的有限公司）（股份代號：01109.HK）建議分拆獲聯交所批准兹提述華潤置地有限公司（「 本公司 」）日期為二零二六年四月二十八日之公告，內容有關建議分拆（「 該公告 」）",
-        "typeVersion": 1,
-        "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0518/2026051801187_c.pdf",
-        "date": "2026-05-18",
-        "targetName": "",
-        "targetTicker": "",
-        "targetAliases": [],
-        "identityVersion": 1,
-        "identityQuote": "",
-        "identityKind": "business",
-        "distributedEntity": false,
-        "separatedEntity": false,
-        "identityReason": "not_identified",
-        "dates": {},
-        "method": "rule",
-        "ruleVersion": 2,
-        "accession": "",
-        "identityReferences": [
-          "2026-04-28"
-        ],
-        "identitySourceUrl": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0428/2026042803126_c.pdf",
-        "identitySourceDate": "2026-04-28"
-      },
-      "dates": {},
-      "missing": [
-        "target",
-        "ticker",
-        "recordDate",
-        "distributionDate"
-      ],
-      "type": {
-        "code": "unknown",
-        "exchange_zh": "港交所",
-        "exchange_en": "HKEX",
-        "label_zh": "类型待核实",
-        "label_en": "Type to verify",
-        "is_reit": false
-      },
-      "announcements": [
-        {
-          "date": "2026-05-18",
-          "title": "建議分拆獲聯交所批准",
-          "docUrl": "/listedco/listconews/sehk/2026/0518/2026051801187_c.pdf",
-          "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0518/2026051801187_c.pdf",
-          "direct": true,
-          "relevance": "candidate"
-        },
-        {
-          "date": "2026-04-28",
-          "title": "公開募集商業不動產投資信託基金之建議分拆及在深圳證券交易所上市",
-          "docUrl": "/listedco/listconews/sehk/2026/0428/2026042803126_c.pdf",
-          "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0428/2026042803126_c.pdf",
-          "direct": true,
-          "relevance": "unverified"
-        }
-      ],
-      "latestDate": "2026-05-18",
-      "sourceUpdatedAt": "2026-09-21T03:45:07Z",
-      "parentMarketCap": 293.0,
-      "pricePairs": [],
-      "parentPrice": {
-        "priceAtAnnouncement": 29.788,
-        "priceNow": 28.5,
-        "changePct": -4.3,
-        "firstAnnouncementDate": "2026-04-28",
-        "currency": "HKD",
-        "updatedAt": "2026-09-21"
-      },
-      "fingerprint": "db221da121275c1eabda6135b080ece82c4c1cd149b9e0c206801d4fad3d5374",
-      "firstSeenAt": "2026-09-21T03:46:53Z",
-      "changedAt": "2026-09-21T03:46:53Z"
-    },
-    {
       "id": "hk:01109:unresolved",
-      "mergedIds": [],
+      "mergedIds": [
+        "hk:01109:unattributed"
+      ],
       "market": "hk",
       "parentTicker": "01109.HK",
       "parentName": "華潤置地",
@@ -7696,13 +7666,13 @@
         "quote": "REIT 的相關資產為兩個購物商場，分別位於中國江蘇省南通市及山東省臨沂市，即"
       },
       "identityState": "resolved",
-      "status": "announced",
+      "status": "approved",
       "evidence": {
-        "status": "announced",
-        "quote": "（於開曼群島註冊成立的有限公司）（股份代號：01109.HK）公開募集商業不動產投資信託基金之建議分拆及在深圳證券交易所上市建議分拆董事會欣然宣佈，於二零二六年四月二十八日，華夏基金及中信證券向深圳證券交易所及中國證監會提交了公募基金註冊及上市的申請材料",
+        "status": "approved",
+        "quote": "（於開曼群島註冊成立的有限公司）（股份代號：01109.HK）建議分拆獲聯交所批准兹提述華潤置地有限公司（「 本公司 」）日期為二零二六年四月二十八日之公告，內容有關建議分拆（「 該公告 」）",
         "typeVersion": 1,
-        "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0428/2026042803126_c.pdf",
-        "date": "2026-04-28",
+        "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0518/2026051801187_c.pdf",
+        "date": "2026-05-18",
         "targetName": "兩個購物商場，分別位於中國江蘇省南通市及山東省臨沂市",
         "targetTicker": "",
         "targetAliases": [],
@@ -7711,12 +7681,16 @@
         "identityKind": "business",
         "distributedEntity": false,
         "separatedEntity": false,
-        "identityReason": "",
+        "identityReason": "dated_reference",
         "dates": {},
         "method": "rule",
         "ruleVersion": 2,
         "accession": "",
-        "identityReferences": []
+        "identityReferences": [
+          "2026-04-28"
+        ],
+        "identitySourceUrl": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0428/2026042803126_c.pdf",
+        "identitySourceDate": "2026-04-28"
       },
       "dates": {},
       "missing": [
@@ -7739,7 +7713,7 @@
           "docUrl": "/listedco/listconews/sehk/2026/0518/2026051801187_c.pdf",
           "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0518/2026051801187_c.pdf",
           "direct": true,
-          "relevance": "unverified"
+          "relevance": "candidate"
         },
         {
           "date": "2026-04-28",
@@ -7750,21 +7724,21 @@
           "relevance": "candidate"
         }
       ],
-      "latestDate": "2026-04-28",
-      "sourceUpdatedAt": "2026-09-21T03:45:07Z",
+      "latestDate": "2026-05-18",
+      "sourceUpdatedAt": "2026-09-21T18:36:48Z",
       "parentMarketCap": 293.0,
       "pricePairs": [],
       "parentPrice": {
         "priceAtAnnouncement": 29.788,
-        "priceNow": 28.5,
-        "changePct": -4.3,
+        "priceNow": 28.64,
+        "changePct": -3.9,
         "firstAnnouncementDate": "2026-04-28",
         "currency": "HKD",
         "updatedAt": "2026-09-21"
       },
-      "fingerprint": "9d6601296786a259666a6d576963a6f9057afb1e6652ab3d480803a80b927230",
+      "fingerprint": "86ee234488b9649d0f9e5be6c5ec07552eeb99ea829f350e771d69b8d584d140",
       "firstSeenAt": "2026-09-16T02:58:58Z",
-      "changedAt": "2026-09-21T03:46:53Z"
+      "changedAt": "2026-09-21T18:39:52Z"
     },
     {
       "id": "hk:01979:unresolved",
@@ -7830,7 +7804,7 @@
         }
       ],
       "latestDate": "2026-05-14",
-      "sourceUpdatedAt": "2026-09-21T03:45:07Z",
+      "sourceUpdatedAt": "2026-09-21T18:36:48Z",
       "parentMarketCap": 2.7,
       "pricePairs": [],
       "parentPrice": {
@@ -7842,86 +7816,6 @@
         "updatedAt": "2026-09-21"
       },
       "fingerprint": "4ae04d8af2782003bfaff841e2067e32549ab229e9bad0a7c080495fd4ca07cf",
-      "firstSeenAt": "2026-09-16T02:58:58Z",
-      "changedAt": "2026-09-16T07:31:38Z"
-    },
-    {
-      "id": "hk:00902:unresolved",
-      "mergedIds": [],
-      "market": "hk",
-      "parentTicker": "00902.HK",
-      "parentName": "華能國際電力股份",
-      "targetName": "華能煤電 REIT",
-      "targetTicker": "",
-      "identityVerified": true,
-      "identityKind": "business",
-      "identityEvidence": {
-        "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0428/2026042804564_c.pdf",
-        "date": "2026-04-28",
-        "quote": "（即「華能煤電 REIT」）"
-      },
-      "identityState": "resolved",
-      "status": "announced",
-      "evidence": {
-        "status": "announced",
-        "quote": "擬分拆並在上海證券交易所獨立上市的基礎設施領域不動產投資信託基金及關連交易獨立財務顧問茲提述華能國際電力股份有限公司（「公司」或「本公司」）於二零二五年五月二十九日發佈的關於開展基礎設施公募 REITs 申報工作及建議分拆的公告（「該公告」）",
-        "typeVersion": 1,
-        "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0428/2026042804564_c.pdf",
-        "date": "2026-04-28",
-        "targetName": "華能煤電 REIT",
-        "targetTicker": "",
-        "targetAliases": [],
-        "identityVersion": 1,
-        "identityQuote": "（即「華能煤電 REIT」）",
-        "identityKind": "business",
-        "distributedEntity": false,
-        "separatedEntity": false,
-        "identityReason": "",
-        "dates": {},
-        "method": "rule",
-        "ruleVersion": 2,
-        "accession": "",
-        "identityReferences": [
-          "2025-05-29"
-        ]
-      },
-      "dates": {},
-      "missing": [
-        "ticker",
-        "recordDate",
-        "distributionDate"
-      ],
-      "type": {
-        "code": "reit_sh",
-        "exchange_zh": "上交所",
-        "exchange_en": "SSE",
-        "label_zh": "REIT·上交所",
-        "label_en": "REIT·SSE",
-        "is_reit": true
-      },
-      "announcements": [
-        {
-          "date": "2026-04-28",
-          "title": "擬分拆並在上海證券交易所獨立上市的基礎設施領域不動產投資信託基金及關連交易",
-          "docUrl": "/listedco/listconews/sehk/2026/0428/2026042804564_c.pdf",
-          "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0428/2026042804564_c.pdf",
-          "direct": true,
-          "relevance": "candidate"
-        }
-      ],
-      "latestDate": "2026-04-28",
-      "sourceUpdatedAt": "2026-09-21T03:45:07Z",
-      "parentMarketCap": 110.1,
-      "pricePairs": [],
-      "parentPrice": {
-        "priceAtAnnouncement": 5.915,
-        "priceNow": 5.65,
-        "changePct": -4.5,
-        "firstAnnouncementDate": "2026-04-28",
-        "currency": "HKD",
-        "updatedAt": "2026-09-21"
-      },
-      "fingerprint": "0e2562d88dbeec78cee9fe2f36e06b7dc67460f82f296e034d0162151cae8e1f",
       "firstSeenAt": "2026-09-16T02:58:58Z",
       "changedAt": "2026-09-16T07:31:38Z"
     },
@@ -7987,13 +7881,13 @@
         }
       ],
       "latestDate": "2026-04-27",
-      "sourceUpdatedAt": "2026-09-21T03:45:07Z",
+      "sourceUpdatedAt": "2026-09-21T18:36:48Z",
       "parentMarketCap": 2341.7,
       "pricePairs": [],
       "parentPrice": {
         "priceAtAnnouncement": 130.054,
-        "priceNow": 110.8,
-        "changePct": -14.8,
+        "priceNow": 109.3,
+        "changePct": -16.0,
         "firstAnnouncementDate": "2026-04-27",
         "currency": "HKD",
         "updatedAt": "2026-09-21"
@@ -8043,12 +7937,12 @@
         }
       ],
       "latestDate": "2026-04-07",
-      "sourceUpdatedAt": "2026-09-21T03:45:07Z",
+      "sourceUpdatedAt": "2026-09-21T18:36:48Z",
       "parentMarketCap": 1048.3,
       "pricePairs": [],
       "parentPrice": {
         "priceAtAnnouncement": 36.135,
-        "priceNow": 34.16,
+        "priceNow": 34.14,
         "changePct": -5.5,
         "firstAnnouncementDate": "2026-04-07",
         "currency": "HKD",
@@ -8135,12 +8029,12 @@
         }
       ],
       "latestDate": "",
-      "sourceUpdatedAt": "2026-09-21T03:45:07Z",
+      "sourceUpdatedAt": "2026-09-21T18:36:48Z",
       "parentMarketCap": 1048.3,
       "pricePairs": [],
       "parentPrice": {
         "priceAtAnnouncement": 36.135,
-        "priceNow": 34.16,
+        "priceNow": 34.14,
         "changePct": -5.5,
         "firstAnnouncementDate": "2026-04-07",
         "currency": "HKD",
@@ -8278,7 +8172,7 @@
         }
       ],
       "latestDate": "2026-04-01",
-      "sourceUpdatedAt": "2026-09-21T03:45:07Z",
+      "sourceUpdatedAt": "2026-09-21T18:36:48Z",
       "parentMarketCap": 1.9,
       "pricePairs": [],
       "parentPrice": {
@@ -8380,13 +8274,13 @@
         }
       ],
       "latestDate": "2026-03-30",
-      "sourceUpdatedAt": "2026-09-21T03:45:07Z",
+      "sourceUpdatedAt": "2026-09-21T18:36:48Z",
       "parentMarketCap": 62.0,
       "pricePairs": [],
       "parentPrice": {
         "priceAtAnnouncement": 31.929,
-        "priceNow": 16.82,
-        "changePct": -47.3,
+        "priceNow": 15.75,
+        "changePct": -50.7,
         "firstAnnouncementDate": "2025-11-20",
         "currency": "HKD",
         "updatedAt": "2026-09-21"
@@ -8460,13 +8354,13 @@
         }
       ],
       "latestDate": "2026-03-20",
-      "sourceUpdatedAt": "2026-09-21T03:45:07Z",
+      "sourceUpdatedAt": "2026-09-21T18:36:48Z",
       "parentMarketCap": 38.8,
       "pricePairs": [],
       "parentPrice": {
         "priceAtAnnouncement": 7.543,
-        "priceNow": 5.39,
-        "changePct": -28.5,
+        "priceNow": 5.4,
+        "changePct": -28.4,
         "firstAnnouncementDate": "2026-03-20",
         "currency": "HKD",
         "updatedAt": "2026-09-21"
@@ -8537,13 +8431,13 @@
         }
       ],
       "latestDate": "2026-02-25",
-      "sourceUpdatedAt": "2026-09-21T03:45:07Z",
+      "sourceUpdatedAt": "2026-09-21T18:36:48Z",
       "parentMarketCap": 10.8,
       "pricePairs": [],
       "parentPrice": {
         "priceAtAnnouncement": 8.08,
-        "priceNow": 7.64,
-        "changePct": -5.4,
+        "priceNow": 7.535,
+        "changePct": -6.7,
         "firstAnnouncementDate": "2026-02-25",
         "currency": "HKD",
         "updatedAt": "2026-09-21"
@@ -8635,13 +8529,13 @@
         }
       ],
       "latestDate": "2026-02-25",
-      "sourceUpdatedAt": "2026-09-21T03:45:07Z",
+      "sourceUpdatedAt": "2026-09-21T18:36:48Z",
       "parentMarketCap": 14.9,
       "pricePairs": [],
       "parentPrice": {
         "priceAtAnnouncement": 14.089,
-        "priceNow": 14.44,
-        "changePct": 2.5,
+        "priceNow": 14.34,
+        "changePct": 1.8,
         "firstAnnouncementDate": "2025-10-08",
         "currency": "HKD",
         "updatedAt": "2026-09-21"
@@ -8694,7 +8588,7 @@
         }
       ],
       "latestDate": "2026-02-12",
-      "sourceUpdatedAt": "2026-09-21T03:45:07Z",
+      "sourceUpdatedAt": "2026-09-21T18:36:48Z",
       "parentMarketCap": 13.0,
       "pricePairs": [],
       "parentPrice": {},
@@ -8769,13 +8663,13 @@
         }
       ],
       "latestDate": "2026-01-27",
-      "sourceUpdatedAt": "2026-09-21T03:45:07Z",
+      "sourceUpdatedAt": "2026-09-21T18:36:48Z",
       "parentMarketCap": 29.0,
       "pricePairs": [],
       "parentPrice": {
         "priceAtAnnouncement": 23.645,
-        "priceNow": 13.76,
-        "changePct": -41.8,
+        "priceNow": 13.93,
+        "changePct": -41.1,
         "firstAnnouncementDate": "2026-01-27",
         "currency": "HKD",
         "updatedAt": "2026-09-21"
@@ -8859,13 +8753,13 @@
         }
       ],
       "latestDate": "2026-01-27",
-      "sourceUpdatedAt": "2026-09-21T03:45:07Z",
+      "sourceUpdatedAt": "2026-09-21T18:36:48Z",
       "parentMarketCap": 76.7,
       "pricePairs": [],
       "parentPrice": {
         "priceAtAnnouncement": 66.756,
-        "priceNow": 66.85,
-        "changePct": 0.1,
+        "priceNow": 67.05,
+        "changePct": 0.4,
         "firstAnnouncementDate": "2026-01-05",
         "currency": "HKD",
         "updatedAt": "2026-09-21"
@@ -8918,13 +8812,13 @@
         }
       ],
       "latestDate": "2026-01-26",
-      "sourceUpdatedAt": "2026-09-21T03:45:07Z",
+      "sourceUpdatedAt": "2026-09-21T18:36:48Z",
       "parentMarketCap": 26.0,
       "pricePairs": [],
       "parentPrice": {
         "priceAtAnnouncement": 7.865,
-        "priceNow": 4.095,
-        "changePct": -47.9,
+        "priceNow": 4.035,
+        "changePct": -48.7,
         "firstAnnouncementDate": "2026-01-26",
         "currency": "HKD",
         "updatedAt": "2026-09-21"
@@ -8998,13 +8892,13 @@
         }
       ],
       "latestDate": "2026-01-23",
-      "sourceUpdatedAt": "2026-09-21T03:45:07Z",
+      "sourceUpdatedAt": "2026-09-21T18:36:48Z",
       "parentMarketCap": 33.7,
       "pricePairs": [],
       "parentPrice": {
         "priceAtAnnouncement": 3.66,
-        "priceNow": 2.445,
-        "changePct": -33.2,
+        "priceNow": 2.35,
+        "changePct": -35.8,
         "firstAnnouncementDate": "2026-01-23",
         "currency": "HKD",
         "updatedAt": "2026-09-21"
@@ -9075,13 +8969,13 @@
         }
       ],
       "latestDate": "2026-01-09",
-      "sourceUpdatedAt": "2026-09-21T03:45:07Z",
+      "sourceUpdatedAt": "2026-09-21T18:36:48Z",
       "parentMarketCap": 39.3,
       "pricePairs": [],
       "parentPrice": {
         "priceAtAnnouncement": 11.897,
-        "priceNow": 11.71,
-        "changePct": -1.6,
+        "priceNow": 11.17,
+        "changePct": -6.1,
         "firstAnnouncementDate": "2026-01-09",
         "currency": "HKD",
         "updatedAt": "2026-09-21"
@@ -9155,13 +9049,13 @@
         }
       ],
       "latestDate": "2026-01-02",
-      "sourceUpdatedAt": "2026-09-21T03:45:07Z",
+      "sourceUpdatedAt": "2026-09-21T18:36:48Z",
       "parentMarketCap": 382.6,
       "pricePairs": [],
       "parentPrice": {
         "priceAtAnnouncement": 143.8,
-        "priceNow": 88.35,
-        "changePct": -38.6,
+        "priceNow": 87.2,
+        "changePct": -39.4,
         "firstAnnouncementDate": "2026-01-02",
         "currency": "HKD",
         "updatedAt": "2026-09-21"
@@ -9315,13 +9209,13 @@
         }
       ],
       "latestDate": "2025-12-28",
-      "sourceUpdatedAt": "2026-09-21T03:45:07Z",
+      "sourceUpdatedAt": "2026-09-21T18:36:48Z",
       "parentMarketCap": 168.6,
       "pricePairs": [],
       "parentPrice": {
         "priceAtAnnouncement": 5.846,
-        "priceNow": 5.175,
-        "changePct": -11.5,
+        "priceNow": 5.13,
+        "changePct": -12.2,
         "firstAnnouncementDate": "2025-11-27",
         "currency": "HKD",
         "updatedAt": "2026-09-21"
@@ -9470,13 +9364,13 @@
         }
       ],
       "latestDate": "2025-11-27",
-      "sourceUpdatedAt": "2026-09-21T03:45:07Z",
+      "sourceUpdatedAt": "2026-09-21T18:36:48Z",
       "parentMarketCap": 168.6,
       "pricePairs": [],
       "parentPrice": {
         "priceAtAnnouncement": 5.846,
-        "priceNow": 5.175,
-        "changePct": -11.5,
+        "priceNow": 5.13,
+        "changePct": -12.2,
         "firstAnnouncementDate": "2025-11-27",
         "currency": "HKD",
         "updatedAt": "2026-09-21"
@@ -9565,13 +9459,13 @@
         }
       ],
       "latestDate": "2025-12-11",
-      "sourceUpdatedAt": "2026-09-21T03:45:07Z",
+      "sourceUpdatedAt": "2026-09-21T18:36:48Z",
       "parentMarketCap": 367.5,
       "pricePairs": [],
       "parentPrice": {
         "priceAtAnnouncement": 113.789,
-        "priceNow": 105.5,
-        "changePct": -7.3,
+        "priceNow": 105.0,
+        "changePct": -7.7,
         "firstAnnouncementDate": "2025-12-11",
         "currency": "HKD",
         "updatedAt": "2026-09-21"
@@ -9681,13 +9575,13 @@
         }
       ],
       "latestDate": "2025-12-09",
-      "sourceUpdatedAt": "2026-09-21T03:45:07Z",
+      "sourceUpdatedAt": "2026-09-21T18:36:48Z",
       "parentMarketCap": 27.7,
       "pricePairs": [],
       "parentPrice": {
         "priceAtAnnouncement": 6.01,
-        "priceNow": 4.815,
-        "changePct": -19.9,
+        "priceNow": 4.78,
+        "changePct": -20.5,
         "firstAnnouncementDate": "2025-10-21",
         "currency": "HKD",
         "updatedAt": "2026-09-21"
@@ -9763,13 +9657,13 @@
         }
       ],
       "latestDate": "2025-11-25",
-      "sourceUpdatedAt": "2026-09-21T03:45:07Z",
+      "sourceUpdatedAt": "2026-09-21T18:36:48Z",
       "parentMarketCap": 10.7,
       "pricePairs": [],
       "parentPrice": {
         "priceAtAnnouncement": 2.94,
-        "priceNow": 4.735,
-        "changePct": 61.1,
+        "priceNow": 4.58,
+        "changePct": 55.8,
         "firstAnnouncementDate": "2025-11-25",
         "currency": "HKD",
         "updatedAt": "2026-09-21"
@@ -9844,13 +9738,13 @@
         }
       ],
       "latestDate": "2025-10-22",
-      "sourceUpdatedAt": "2026-09-21T03:45:07Z",
+      "sourceUpdatedAt": "2026-09-21T18:36:48Z",
       "parentMarketCap": 244.4,
       "pricePairs": [],
       "parentPrice": {
         "priceAtAnnouncement": 9.05,
-        "priceNow": 5.76,
-        "changePct": -36.4,
+        "priceNow": 5.73,
+        "changePct": -36.7,
         "firstAnnouncementDate": "2025-10-22",
         "currency": "HKD",
         "updatedAt": "2026-09-21"
@@ -9924,13 +9818,13 @@
         }
       ],
       "latestDate": "2025-10-15",
-      "sourceUpdatedAt": "2026-09-21T03:45:07Z",
+      "sourceUpdatedAt": "2026-09-21T18:36:48Z",
       "parentMarketCap": 386.4,
       "pricePairs": [],
       "parentPrice": {
         "priceAtAnnouncement": 61.689,
-        "priceNow": 101.5,
-        "changePct": 64.5,
+        "priceNow": 100.0,
+        "changePct": 62.1,
         "firstAnnouncementDate": "2025-10-15",
         "currency": "HKD",
         "updatedAt": "2026-09-21"
@@ -10035,13 +9929,13 @@
         }
       ],
       "latestDate": "2025-10-15",
-      "sourceUpdatedAt": "2026-09-21T03:45:07Z",
+      "sourceUpdatedAt": "2026-09-21T18:36:48Z",
       "parentMarketCap": 10.5,
       "pricePairs": [],
       "parentPrice": {
         "priceAtAnnouncement": 1.887,
-        "priceNow": 0.755,
-        "changePct": -60.0,
+        "priceNow": 0.72,
+        "changePct": -61.8,
         "firstAnnouncementDate": "2025-10-06",
         "currency": "HKD",
         "updatedAt": "2026-09-21"
@@ -10112,13 +10006,13 @@
         }
       ],
       "latestDate": "2025-09-26",
-      "sourceUpdatedAt": "2026-09-21T03:45:07Z",
+      "sourceUpdatedAt": "2026-09-21T18:36:48Z",
       "parentMarketCap": 36.0,
       "pricePairs": [],
       "parentPrice": {
         "priceAtAnnouncement": 43.149,
-        "priceNow": 17.28,
-        "changePct": -60.0,
+        "priceNow": 16.96,
+        "changePct": -60.7,
         "firstAnnouncementDate": "2025-09-26",
         "currency": "HKD",
         "updatedAt": "2026-09-21"
@@ -10170,13 +10064,13 @@
         }
       ],
       "latestDate": "2025-09-23",
-      "sourceUpdatedAt": "2026-09-21T03:45:07Z",
+      "sourceUpdatedAt": "2026-09-21T18:36:48Z",
       "parentMarketCap": 1.2,
       "pricePairs": [],
       "parentPrice": {
         "priceAtAnnouncement": 0.84,
-        "priceNow": 1.1,
-        "changePct": 31.0,
+        "priceNow": 1.09,
+        "changePct": 29.8,
         "firstAnnouncementDate": "2025-09-23",
         "currency": "HKD",
         "updatedAt": "2026-09-21"
@@ -10244,13 +10138,13 @@
         }
       ],
       "latestDate": "2025-10-08",
-      "sourceUpdatedAt": "2026-09-21T03:45:07Z",
+      "sourceUpdatedAt": "2026-09-21T18:36:48Z",
       "parentMarketCap": 43.0,
       "pricePairs": [],
       "parentPrice": {
         "priceAtAnnouncement": 13.989,
-        "priceNow": 16.26,
-        "changePct": 16.2,
+        "priceNow": 16.33,
+        "changePct": 16.7,
         "firstAnnouncementDate": "2025-10-08",
         "currency": "HKD",
         "updatedAt": "2026-09-21"
@@ -10261,7 +10155,7 @@
     }
   ],
   "eventsSchemaVersion": 1,
-  "eventsNormalizedAt": "2026-09-21T03:47:35Z",
+  "eventsNormalizedAt": "2026-09-21T18:41:49Z",
   "changes": [
     {
       "eventId": "hk:01030:unresolved",
@@ -13595,6 +13489,100 @@
       },
       "fromStatus": "approved",
       "toStatus": "announced"
+    },
+    {
+      "eventId": "hk:00902:unattributed",
+      "at": "2026-09-21T18:36:48Z",
+      "kind": "new",
+      "parentTicker": "00902.HK",
+      "parentName": "華能國際電力股份",
+      "fields": [
+        "status",
+        "targetName",
+        "targetTicker",
+        "dates"
+      ],
+      "before": null,
+      "after": {
+        "status": "announced",
+        "targetName": "",
+        "targetTicker": "",
+        "dates": {}
+      },
+      "fromStatus": null,
+      "toStatus": "announced"
+    },
+    {
+      "eventId": "hk:01030:unresolved",
+      "at": "2026-09-21T18:36:48Z",
+      "kind": "updated",
+      "parentTicker": "01030.HK",
+      "parentName": "新城發展",
+      "fields": [
+        "targetName"
+      ],
+      "before": {
+        "status": "announced",
+        "targetName": "",
+        "targetTicker": "",
+        "dates": {}
+      },
+      "after": {
+        "status": "announced",
+        "targetName": "若干商業物業權益",
+        "targetTicker": "",
+        "dates": {}
+      },
+      "fromStatus": "announced",
+      "toStatus": "announced"
+    },
+    {
+      "eventId": "hk:00688:unresolved",
+      "at": "2026-09-21T18:39:52Z",
+      "kind": "updated",
+      "parentTicker": "00688.HK",
+      "parentName": "中國海外發展",
+      "fields": [
+        "status"
+      ],
+      "before": {
+        "status": "announced",
+        "targetName": "位於中國廣東省佛山市南海區的購物中心（佛山千燈湖環宇城項目）",
+        "targetTicker": "",
+        "dates": {}
+      },
+      "after": {
+        "status": "approved",
+        "targetName": "位於中國廣東省佛山市南海區的購物中心（佛山千燈湖環宇城項目）",
+        "targetTicker": "",
+        "dates": {}
+      },
+      "fromStatus": "announced",
+      "toStatus": "approved"
+    },
+    {
+      "eventId": "hk:01109:unresolved",
+      "at": "2026-09-21T18:39:52Z",
+      "kind": "updated",
+      "parentTicker": "01109.HK",
+      "parentName": "華潤置地",
+      "fields": [
+        "status"
+      ],
+      "before": {
+        "status": "announced",
+        "targetName": "兩個購物商場，分別位於中國江蘇省南通市及山東省臨沂市",
+        "targetTicker": "",
+        "dates": {}
+      },
+      "after": {
+        "status": "approved",
+        "targetName": "兩個購物商場，分別位於中國江蘇省南通市及山東省臨沂市",
+        "targetTicker": "",
+        "dates": {}
+      },
+      "fromStatus": "announced",
+      "toStatus": "approved"
     }
   ],
   "trackingStartedAt": "2026-09-16T02:58:58Z"
