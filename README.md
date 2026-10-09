@@ -306,7 +306,7 @@ publisher-side reconstruction rejects altered prose, swapped numbers, duplicate
 IDs and changed source snapshots. Source data can still be incorrect: this
 verifies faithfulness to the input, not the accuracy of an underlying filing.
 
-Schema v2 / renderer v3 invalidates legacy free-form summaries. Model failures
+Schema v2 / renderer v4 invalidates legacy free-form summaries. Model failures
 produce a deterministic summary from current facts and remain queued for retry;
 fallbacks are counted separately from successful model selections. Existing
 validated summaries survive only while their input still matches. The UI also
@@ -340,3 +340,6 @@ thinking. Do not expose this endpoint as a public service.
 常规更新发现内部缺季时，先查询 SEC submissions 的现行及归档索引，再由 `sec_history_index.py` 检查同一 CIK 在报告期之后两个申报季度的 SEC `master.gz` 总索引。它读取原始提交文件中的报告期、申报日期、CIK 和 accession 进行交叉核对，不能把申报季度误当持仓季度。原始 13F-HR 或明确的 RESTATEMENT 可成为回补候选；Form D、13F-NT 和仅追加持仓的修订不能填充完整组合。
 
 每轮最多读取8个总索引、核对16份提交文件；已成功检查的索引缓存7天，未完成或失败部分在后续更新重试。`history.coverage.expandedLookup` 保存核查范围、来源、候选文件和错误；页面区分“已补查仍无可核实数据”和“补查未完成”。不存在可靠原始记录时保留图表断点，不用零值、邻季或估算值补齐。此检索范围不能证明某季度从未申报、未持仓或清仓。
+
+
+The [2026-10-09 portfolio, AI and HK review](docs/portfolio-ai-hk-review-2026-10-09.md) documents complete change counts, instrument classification, source-bound summaries and dated HK holdings. All filers group duplicate rows by CUSIP and instrument type. The data updater refreshes safe summaries independently of model availability; AI selects highlights and the complete change list remains accessible.

@@ -10,6 +10,12 @@ on:
       - ".github/workflows/update.yml"
       - "monitor_hk_disclosures.py"
       - "hk_disclosures.py"
+      - "hk_financial_evidence.py"
+      - "holdings_diff.py"
+      - "portfolio_review.py"
+      - "ai_supplement.py"
+      - "tests/test_portfolio_review.py"
+      - "tests/test_hk_financial_evidence.py"
       - "investors.json"
       - "tests/test_hk_automation.py"
       - "fetch_13f_all.py"
@@ -68,7 +74,9 @@ jobs:
       - name: Verify HKEX disclosures (all configured investors)
         id: hk_disclosures
         continue-on-error: true
-        run: python3 -u monitor_hk_disclosures.py
+        run: |
+          python3 -u monitor_hk_disclosures.py
+          python3 -u hk_financial_evidence.py
 
       - name: Status - HK disclosures
         if: ${{ !cancelled() && steps.init_status.outcome == 'success' }}
@@ -554,6 +562,7 @@ jobs:
         run: |
           python3 resolve_spinoff_names.py
           python3 spinoff_events.py
+          python3 ai_supplement.py --refresh-fallbacks
 
       - name: Finish run status
         run: python3 update_status.py --finish
@@ -573,7 +582,9 @@ jobs:
             # 拉取远端变更，对 prices*.json 用 ours 策略（CI计算结果优先），其余文件正常merge
             git fetch origin master
             git merge origin/master --no-edit -X ours
-            python3 validate_data.py
+            python3 ai_supplement.py --refresh-fallbacks
+            python3 validate_data.py --stage
+            if ! git diff --cached --quiet; then git commit -m "auto: bind summaries to merged source data"; fi
             git push
             echo "Changes pushed!"
           fi

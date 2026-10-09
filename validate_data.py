@@ -13,7 +13,7 @@ EXTRA_FILES = (
     "metadata_cache.json", "alerts_hk_persons.json", "spinoff.json", "spinoff_us.json",
     "run_status.json", "homework_summary.json", "value_screen.json",
 )
-OPTIONAL_FILES = ("resolved_cusip_map.json",)
+OPTIONAL_FILES = ("resolved_cusip_map.json", "ai_supplement.json")
 
 
 def read_json(path):
@@ -68,6 +68,14 @@ def validate_hk_evidence(value):
             shares, pct = record.get("shares"), record.get("pct")
             if type(shares) is not int or shares < 0 or type(pct) not in (int,float) or not math.isfinite(pct) or not 0 <= pct <= 100:
                 raise ValueError("Invalid HK post-event position")
+        for record in holding.get('financial_disclosures', []):
+            date.fromisoformat(record.get('as_of', ''))
+            url = urlsplit(record.get('source_url', ''))
+            if url.scheme != 'https' or url.netloc != 'www.sec.gov' or not url.path.startswith('/Archives/edgar/data/'):
+                raise ValueError('Financial evidence must link to SEC EDGAR')
+            amount, precision = record.get('reported_value_usd'), record.get('precision_usd')
+            if type(amount) is not int or amount < 0 or type(precision) is not int or precision <= 0 or record.get('shares') is not None:
+                raise ValueError('Investment value cannot be converted into HK shares')
 
 
 def validate(root):
@@ -91,6 +99,11 @@ def validate(root):
     for name, role in roles.items():
         try:
             value = read_json(root / name)
+            if name == 'ai_supplement.json':
+                from ai_supplement import tasks, valid_entry
+                for task in tasks(root):
+                    if not valid_entry(value.get('entries', {}).get(task['id']), task):
+                        raise ValueError('AI summary does not match current source facts: '+task['id'])
             if name in ("spinoff.json", "spinoff_us.json"):
                 validate_events(value)
             if role == "dataFile":

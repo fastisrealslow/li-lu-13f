@@ -29,7 +29,7 @@ class FixtureClient:
         if 'NSForm' in url:
             if self.fail_form:
                 raise OSError('fixture unavailable')
-            return fixture('psbc_form')
+            return fixture('psbc_previous_form' if 'IS20241211E00055' in url else 'psbc_form')
         return fixture('lilu_psbc_notices')
 
 

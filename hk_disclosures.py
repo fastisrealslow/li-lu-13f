@@ -281,11 +281,28 @@ def crawl_notices(client, hit, aliases, cached_records, binding=None, max_pages=
         except Exception as exc:
             complete=False;errors.append({'reason':str(exc)})
     by_ref={}
+    cached_by_ref={r['filing_ref']:r for r in cached_records if r.get('verification')=='hkex_form'}
     for record in records:
-        record.update(ticker=form['ticker'], entity=hit['entity'], share_class=form['share_class'],
+        record.update(ticker=form['ticker'], entity=hit['entity'], share_class='',
                       source_key=source_key(url), checked_at=now_iso())
+        cached=cached_by_ref.get(record['filing_ref'])
+        if cached and all(cached.get(k)==record.get(k) for k in ('event_date','shares','pct')):
+            record.update(cached)
         by_ref[record['filing_ref']]=record
     by_ref[form['filing_ref']]={**by_ref[form['filing_ref']],**form}
+    # Verify the preceding original form too. Notice-list columns alone do not
+    # establish a matching share class, so they cannot justify a change figure.
+    prior=next((r for r in sorted(applicable,key=lambda r:(r['event_date'],r['filing_ref']),reverse=True)
+                if r['filing_ref']!=form['filing_ref']),None)
+    if prior and by_ref[prior['filing_ref']].get('verification')!='hkex_form':
+        try:
+            verified=parse_form(client.get(prior['form_url']),prior['form_url'],aliases)
+            if verified['ticker']!=form['ticker'] or not entity_matches(verified['entity'],[hit['entity']]) or any(
+                    verified.get(k)!=prior.get(k) for k in ('filing_ref','event_date','shares','pct')):
+                raise ValueError('Previous original form disagrees with notice table')
+            by_ref[prior['filing_ref']].update(verified)
+        except Exception as exc:
+            errors.append({'filing_ref':prior['filing_ref'],'reason':str(exc)})
     binding={**form,'history_complete':complete and not errors,'notice_url':url}
     return list(by_ref.values()),binding,errors
 

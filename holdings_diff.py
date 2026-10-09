@@ -23,7 +23,31 @@ def share_adjustment(holding, previous_quarter, current_quarter):
     return {"factor": factor, "date": actions[-1]["date"], "source": actions[-1]["source"]}
 
 
+def instrument(holding):
+    return (str(holding.get('putCall') or '').upper(), str(holding.get('shareType') or 'SH').upper())
+
+
+def consolidate_holdings(holdings):
+    """Sum manager/discretion rows, keeping options and principal distinct."""
+    merged = {}
+    for holding in holdings:
+        identity = holding.get('cusip') or (re.sub(r'[./-]', '', holding.get('ticker', '').upper()), holding.get('cls', ''))
+        key = (identity, *instrument(holding))
+        if key not in merged:
+            merged[key] = dict(holding)
+        else:
+            row = merged[key]
+            for field in ('shares', 'value', 'prevShares', 'prevValue'):
+                if field in row or field in holding:
+                    row[field] = None if field.startswith('prev') and (row.get(field) is None or holding.get(field) is None) else (row.get(field) or 0) + (holding.get(field) or 0)
+            # Cached per-line split adjustments cannot describe a grouped position.
+            row.pop('shareAdjustment', None)
+    return list(merged.values())
+
+
 def same_security(a, b):
+    if instrument(a) != instrument(b):
+        return False
     if a.get("cusip") and b.get("cusip"):
         return a["cusip"] == b["cusip"]
     ticker = lambda h: re.sub(r"[./-]", "", h.get("ticker", "").upper())
@@ -35,7 +59,8 @@ def same_security(a, b):
 
 
 def compare_holdings(current, previous, *, previous_quarter=None, current_quarter=None):
-    remaining = list(previous)
+    current = consolidate_holdings(current)
+    remaining = consolidate_holdings(previous)
     rows = []
     for holding in current:
         match = next((i for i, p in enumerate(remaining) if same_security(holding, p)), None)

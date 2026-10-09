@@ -24,6 +24,9 @@ on:
     paths:
       - .github/workflows/ai-supplement.yml
       - ai_supplement.py
+      - portfolio_review.py
+      - holdings_diff.py
+      - tests/test_portfolio_review.py
       - tests/test_ai_supplement.py
 
 permissions:
@@ -98,13 +101,16 @@ jobs:
       - name: Publish only AI supplement against latest source data
         if: ${{ !cancelled() && steps.plan.outputs.pending != '0' }}
         run: |
-          if [ ! -f "$AI_REPORT" ]; then exit 0; fi
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           for attempt in 1 2 3 4; do
             git fetch origin master
             git reset --hard origin/master
-            python3 ai_supplement.py --merge "$AI_REPORT"
+            if [ -f "$AI_REPORT" ]; then
+              python3 ai_supplement.py --merge "$AI_REPORT"
+            else
+              python3 ai_supplement.py --refresh-fallbacks
+            fi
             git add -- ai_supplement.json
             if git diff --cached --quiet; then exit 0; fi
             git commit -m "auto: supplement AI summaries with local Qwen"
@@ -128,7 +134,7 @@ jobs:
                       seconds = d['results'].get(key, {}).get('metrics', {}).get('seconds', '—')
                       out.write(f"| {key} | {a['status']} | {seconds} |\n")
               else:
-                  out.write('No inference report: inputs unchanged or model setup failed. Existing summaries retained.\n')
+                  out.write('No inference report: inputs unchanged or model setup failed. Current source-bound deterministic summaries published; inference will retry.\n')
           PY
       - uses: actions/upload-artifact@v4
         if: always()

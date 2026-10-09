@@ -207,7 +207,7 @@ test('different share classes do not match merely because issuer names are equal
 
 test('decreases have negative quantities and all used coal sectors are translated', () => {
   const a = app();
-  assert.match(a.run('fmtShareChg(1744050, 1810831)'), /-66.8K \(-3.7%\)/);
+  assert.match(a.run('fmtShareChg(1744050, 1810831)'), /-66,781 \(-3.7%\)/);
   for (const sector of ['煤炭','油气钻探','冶金/煤炭']) assert.equal(a.run(`ts(${JSON.stringify(sector)})`), sector);
 });
 
@@ -253,9 +253,9 @@ test('status drawer separates messages, escapes source text, and omits steps abs
 
 test('independent AI summary matches exact investor snapshot, not just quarter',()=>{
   const a=app();
-  a.run("data={current:{quarter:'2026Q2',holdings:[{ticker:'AAA',shares:10,value:100}]}}; _aiSupplement={entries:{'investor:lilu':{source:aiInvestorSource(data),renderVersion:3,mode:'model_selection',summary:'已有摘要'}}}");
+  a.run("data={current:{quarter:'2026Q2',holdings:[{ticker:'AAA',shares:10,value:100}]}}; _aiSupplement={entries:{'investor:lilu':{source:aiInvestorSource(data),renderVersion:4,mode:'model_selection',summary:'已有摘要'}}}");
   assert.equal(a.run("aiMatchingEntry('investor:lilu',aiInvestorSource(data)).summary"),'已有摘要');
-  a.run("const s=_aiSupplement.entries['investor:lilu'].source; _aiSupplement.entries['investor:lilu'].source={previousHoldings:s.previousHoldings,holdings:s.holdings,quarter:s.quarter}");
+  a.run("const s=_aiSupplement.entries['investor:lilu'].source; _aiSupplement.entries['investor:lilu'].source=Object.fromEntries(Object.entries(s).reverse())");
   assert.equal(a.run("aiMatchingEntry('investor:lilu',aiInvestorSource(data)).summary"),'已有摘要');
   a.run('data.current.holdings[0].shares=20');
   assert.equal(a.run("aiMatchingEntry('investor:lilu',aiInvestorSource(data))"),null);
@@ -270,7 +270,7 @@ test('unverified and stale summaries cannot reappear through fallback',()=>{
   assert.equal(a.run("aiMatchingEntry('investor:lilu',aiInvestorSource(data))"),null);
   const text=a.run('aiInvestorFallback(data)');
   assert.match(text,/阿里巴巴（BABA）：减持42.3%/);
-  assert.doesNotMatch(text,/旧的错误摘要|增持/);
+  assert.doesNotMatch(text,/旧的错误摘要|阿里巴巴（BABA）：增持/);
   a.run('delete data.current.previousHoldings');
   assert.match(a.run('aiInvestorFallback(data)'),/上季股数未知/);
 });
@@ -281,4 +281,46 @@ test('value fallback binds weights and directions to investors without implying 
   assert.match(text,/阿克瑞：布鲁克菲尔德（BN）减持，占其披露组合市值10.1%/);
   assert.match(text,/阿克曼：布鲁克菲尔德（BN）股数不变，占其披露组合市值17.6%/);
   assert.doesNotMatch(text,/持股比例|股权/);
+});
+
+test('complete facts and rendered summaries agree with Python for every published investor',async()=>{
+  const a=app();await a.run('loadInvestorConfig()');
+  const {execFileSync}=require('node:child_process');
+  const expected=JSON.parse(execFileSync('python3',['-c',"import json;from ai_supplement import tasks; print(json.dumps(tasks('.'),ensure_ascii=False))"],{cwd:root,encoding:'utf8'}));
+  const cache=JSON.parse(fs.readFileSync(path.join(root,'ai_supplement.json')));
+  for(const task of expected.filter(t=>t.id.startsWith('investor:'))) {
+    const id=task.id.split(':')[1];await a.run(`switchInvestor('${id}')`);
+    const source=JSON.parse(a.run('JSON.stringify(aiInvestorSource(data))'));
+    assert.deepEqual(source,task.source,id+' source');
+    const facts=JSON.parse(a.run('JSON.stringify((({rows,...facts})=>facts)(portfolioFacts(data,INVESTOR_CFG_BY_ID[investor].name)))'));
+    assert.deepEqual(facts,task.facts,id+' complete facts');
+    if(facts.comparisonState==='comparable') {
+      const entry=cache.entries[task.id];
+      const summary=a.run(`investorSummary(data,${JSON.stringify(entry.selection.factIds)},INVESTOR_CFG_BY_ID[investor].name,false)`);
+      assert.equal(summary,entry.summary,id+' exact summary');
+    }
+  }
+  const value=expected.find(t=>t.id==='value');
+  if(value) assert.equal(a.run(`aiValueFromSource(${JSON.stringify(value.source)},${JSON.stringify(cache.entries.value.selection.factIds)})`),cache.entries.value.summary);
+});
+
+test('tiny reductions are visible, duplicate rows combine, and option categories stay separate',()=>{
+  const a=app();
+  const rows=JSON.parse(a.run(`JSON.stringify(quarterlyHoldings({current:{holdings:[{ticker:'A',cusip:'1',shares:40,value:40},{ticker:'A',cusip:'1',shares:59,value:59},{ticker:'A',cusip:'1',shares:5,value:5,putCall:'Put'}],previousHoldings:[{ticker:'A',cusip:'1',shares:100,value:100}]}}))`));
+  assert.equal(rows.length,2);assert.equal(rows[0].shares,99);assert.equal(rows[0].prevShares,100);assert.equal(rows[1].prevShares,0);
+  assert.match(a.run('fmtShareChg(99999,100000)'),/-1.*0.05/);
+  assert.doesNotMatch(a.run('fmtShareChg(99999,100000)'),/0.0%/);
+  assert.match(a.run('fmtShareChg(1,null)'),/待比较/);
+});
+
+test('HK comparisons keep different owners and share classes separate',()=>{
+  const a=app();
+  const base={event_date:'2026-06-01',shares:100,pct:5,filing_ref:'FIRST',source_url:'https://di.hkex.com.hk/di/NSForm1.aspx',verification:'hkex_form',share_class:'H Shares',entity:'Person'};
+  a.context.hkSample=[{ticker:'01211.HK',verified_disclosures:[base,{...base,event_date:'2026-07-01',shares:90,filing_ref:'SECOND'},{...base,event_date:'2026-08-01',shares:1000,entity:'Other owner',filing_ref:'OTHER'},{...base,event_date:'2026-09-01',share_class:'A Shares',shares:10,filing_ref:'A'}]}];
+  const groups=JSON.parse(a.run('JSON.stringify(hkDisclosureGroups(hkSample))'));
+  assert.equal(groups.length,3);
+  const h=groups.find(g=>g.entity==='Person' && g.shareClass==='H Shares');
+  assert.equal(h.latest.shares,90);assert.equal(h.previous.shares,100);
+  assert.equal(groups.find(g=>g.entity==='Other owner').previous,undefined);
+  assert.equal(groups.find(g=>g.shareClass==='A Shares').previous,undefined);
 });

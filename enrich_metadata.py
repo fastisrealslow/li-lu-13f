@@ -413,7 +413,8 @@ def _gen_13f_summaries(api_key):
 
         cur = d.get('current', {})
         quarter = cur.get('quarter', '')
-        holdings = cur.get('holdings', [])
+        instrument_tickers = {h['ticker'] for h in cur.get('holdings', []) + cur.get('previousHoldings', []) if h.get('putCall') or h.get('shareType', 'SH') != 'SH'}
+        holdings = [h for h in cur.get('holdings', []) if h.get('ticker') not in instrument_tickers]
         if isinstance(cur.get('previousHoldings'), list):
             holdings = compare_holdings(holdings, cur['previousHoldings'])
         if not holdings:
@@ -493,52 +494,39 @@ def _hold_quarters(first_q, cur_q):
 
 
 def _ticker_quarter_series(dr, tk):
-    """
-    从 dr['history']['holdings'] 中提取某 ticker 在每个季度的持仓股数（同 ticker 多条记录求和），
-    返回按季度升序排列的 [(quarter, shares), ...]，仅包含存在该 ticker 的季度（shares=0 不会出现，
-    因为清仓季度通常不再出现在该季度的 13F holdings 列表里）。
-    """
-    hist = dr.get('history', {})
-    quarters = hist.get('quarters', [])
-    hk = hist.get('holdings', {})
-    series = []
-    for q in quarters:
-        entries = hk.get(q, [])
-        sh = sum(e.get('shares', 0) or 0 for e in entries if e.get('ticker') == tk)
-        if sh > 0:
-            series.append((q, sh))
-    series.sort(key=lambda x: _q2n(x[0]))
-    return series
+    from holdings_diff import consolidate_holdings
+    hist=dr.get('history',{});latest=dr.get('current',{}).get('quarter','')
+    series=[]
+    for q in hist.get('quarters',[]):
+        if q not in hist.get('holdings',{}):continue
+        if tk in dr.get('meta',{}).get('instrumentHistoryTickers',[]) and q<dr['meta']['instrumentHistoryFrom']:continue
+        shares=0
+        for h in consolidate_holdings(hist['holdings'][q]):
+            if h['ticker']!=tk or h.get('putCall') or h.get('shareType','SH')!='SH':continue
+            factor=1
+            for action in dr.get('meta',{}).get('shareActions',[]):
+                if (h.get('cusip')==action.get('cusip') or tk==action['ticker']) and q<action['quarter']<=latest:factor*=action['factor']
+            shares+=h['shares']*factor
+        series.append((q,shares))
+    return sorted(series,key=lambda item:_q2n(item[0]))
 
 
 def _analyze_holding_pattern(series):
-    """
-    基于 (quarter, shares) 序列分析持仓模式：
-    - trend: 'accumulating' 连续>=3季且无减仓地加仓(末3季) / 'reducing' 连续减仓 / 'stable' 其他
-    - reentry: True 若历史上存在 gap>4 季的清仓断层（与 fetch_prices_all.py 里 gap>4 重置规则保持一致）
-    - exit_quarter: 若 reentry 为 True，返回最后一次清仓前的最后持仓季度（用于文案提及）
-    """
-    result = {'trend': 'stable', 'reentry': False, 'exit_quarter': None, 'reentry_quarter': None}
-    if len(series) < 2:
-        return result
-    # 检测 gap>4 断层（取最后一次断层）
-    for i in range(1, len(series)):
-        gap = _q2n(series[i][0]) - _q2n(series[i - 1][0])
-        if gap > 4:
-            result['reentry'] = True
-            result['exit_quarter'] = series[i - 1][0]
-            result['reentry_quarter'] = series[i][0]
-    # 连续趋势仅看最近一段连续持仓（断层后的部分）
-    run = series
-    if result['reentry']:
-        rq = result['reentry_quarter']
-        run = [s for s in series if _q2n(s[0]) >= _q2n(rq)]
-    if len(run) >= 3:
-        recent3 = run[-3:]
-        if recent3[0][1] < recent3[1][1] < recent3[2][1]:
-            result['trend'] = 'accumulating'
-        elif recent3[0][1] > recent3[1][1] > recent3[2][1]:
-            result['trend'] = 'reducing'
+    result={'trend':'stable','reentry':False,'exit_quarter':None,'reentry_quarter':None}
+    last_positive=None;zero_seen=False;run=[]
+    for q,shares in series:
+        if shares<=0:
+            if last_positive:zero_seen=True
+            run=[];continue
+        if zero_seen:
+            result.update(reentry=True,exit_quarter=last_positive,reentry_quarter=q)
+            zero_seen=False
+        if run and _q2n(q)-_q2n(run[-1][0])!=1:run=[]
+        run.append((q,shares));last_positive=q
+    if len(run)>=3:
+        a,b,c=[row[1] for row in run[-3:]]
+        if a<b<c:result['trend']='accumulating'
+        elif a>b>c:result['trend']='reducing'
     return result
 
 
@@ -741,6 +729,8 @@ def _build_homework_prompt():
         except Exception:
             continue
         for h in dr0.get('current', {}).get('holdings', []):
+            if h.get('putCall') or h.get('shareType', 'SH') != 'SH':
+                continue
             tk0 = h.get('ticker', '')
             if not tk0 or tk0.startswith('?') or tk0.endswith('.HK'):
                 continue
@@ -757,7 +747,8 @@ def _build_homework_prompt():
         cur = dr.get('current', {})
         if cur.get('valueQuality') or dr.get('meta', {}).get('reportingTransition', {}).get('fromQuarter') == cur.get('quarter'):
             continue
-        holdings = cur.get('holdings', [])
+        instrument_tickers = {h['ticker'] for h in cur.get('holdings', []) + cur.get('previousHoldings', []) if h.get('putCall') or h.get('shareType', 'SH') != 'SH'}
+        holdings = [h for h in cur.get('holdings', []) if h.get('ticker') not in instrument_tickers]
         total_val = cur.get('totalValue', 0)
         cur_q = cur.get('quarter', '')
         quotes = pr.get('quotes', {})
@@ -805,9 +796,9 @@ def _build_homework_prompt():
             cur_sh = h['shares']
             if prev == 0 and cur_sh > 0:
                 chg = 'new'
-            elif prev > 0 and cur_sh > prev * 1.05:
+            elif prev > 0 and cur_sh > prev:
                 chg = 'added'
-            elif prev > 0 and cur_sh < prev * 0.95:
+            elif prev > 0 and cur_sh < prev:
                 chg = 'trimmed'
             else:
                 chg = 'hold'
@@ -984,6 +975,8 @@ def _build_value_screen():
         except Exception:
             continue
         for h in dr0.get('current', {}).get('holdings', []):
+            if h.get('putCall') or h.get('shareType', 'SH') != 'SH':
+                continue
             tk0 = h.get('ticker', '')
             if not tk0 or tk0.startswith('?') or tk0.endswith('.HK'):
                 continue
@@ -1003,7 +996,8 @@ def _build_value_screen():
         cur = dr.get('current', {})
         if cur.get('valueQuality') or dr.get('meta', {}).get('reportingTransition', {}).get('fromQuarter') == cur.get('quarter'):
             continue
-        holdings = cur.get('holdings', [])
+        instrument_tickers = {h['ticker'] for h in cur.get('holdings', []) + cur.get('previousHoldings', []) if h.get('putCall') or h.get('shareType', 'SH') != 'SH'}
+        holdings = [h for h in cur.get('holdings', []) if h.get('ticker') not in instrument_tickers]
         total_val = cur.get('totalValue', 0)
         quotes = pr.get('quotes', {})
         cb = pr.get('costBasis', {})
@@ -1053,9 +1047,9 @@ def _build_value_screen():
             cur_sh = h['shares']
             if prev == 0 and cur_sh > 0:
                 chg = 'new'
-            elif prev > 0 and cur_sh > prev * 1.05:
+            elif prev > 0 and cur_sh > prev:
                 chg = 'added'
-            elif prev > 0 and cur_sh < prev * 0.95:
+            elif prev > 0 and cur_sh < prev:
                 chg = 'trimmed'
             else:
                 chg = 'hold'
@@ -1064,7 +1058,7 @@ def _build_value_screen():
 
             investor_entry = {
                 'id': inv_id, 'name': name_cn, 'nameEn': name_en,
-                'weight': round(weight, 1), 'chg': chg,
+                'weight': round(weight, 1), 'chg': chg, 'reportQuarter':cur.get('quarter'),
             }
 
             entry = candidates.get(tk)
@@ -1171,7 +1165,9 @@ def _gen_homework_summary(api_key):
             print("  homework summary LLM 失败（整体归纳），仍写入逐股数据")
             overall = prev_overall if signal_hash == prev_hash else ""
 
+    from ai_supplement import value_source
     out = {
+        'valueSource': value_source(_build_value_screen()),
         'overallSummary': overall,
         'stockNotes': stock_notes,
         'droppedOut': [

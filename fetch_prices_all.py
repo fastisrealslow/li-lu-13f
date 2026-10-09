@@ -21,7 +21,7 @@
 
 import json, os, sys, time, re, urllib.request, urllib.error
 from datetime import datetime, timezone, date
-from holdings_diff import share_adjustment
+from holdings_diff import share_adjustment, consolidate_holdings
 
 
 def comparable_price_history(history, current_quarter):
@@ -29,7 +29,7 @@ def comparable_price_history(history, current_quarter):
     result = {}
     for quarter, holdings in history.items():
         result[quarter] = []
-        for h in holdings:
+        for h in consolidate_holdings(holdings):
             adjustment = share_adjustment(h, quarter, current_quarter)
             result[quarter].append({**h, "shares": h["shares"] * adjustment["factor"]} if adjustment else h)
     return result
@@ -187,7 +187,7 @@ def yahoo_chart(symbol, from_ts, to_ts):
         end_dt   = datetime.fromtimestamp(to_ts,   tz=timezone.utc).strftime('%Y-%m-%d')
         # yfinance 用短杠格式（BRK-B/BRK-A），上游 13F 数据里同时存在点号（BRK.B）和斜杠（BRK/B）两种写法，都需归一化，
         # 否则斜杠会被 yfinance 内部请求拼进 URL 路径导致请求失败。
-        yf_symbol = symbol.replace('.B', '-B').replace('/B', '-B').replace('.A', '-A').replace('/A', '-A') if symbol.startswith('BRK') else symbol
+        yf_symbol = symbol.replace('.B', '-B').replace('/B', '-B').replace('.A', '-A').replace('/A', '-A')
         t = yf.Ticker(yf_symbol)
         hist = t.history(start=start_dt, end=end_dt)
         if hist is None or len(hist) == 0:
@@ -277,7 +277,11 @@ def fetch_us(investor, cfg):
         print(f"  Quote {tk}...", end=" ", flush=True)
         # Finnhub 标准代码用句点（BRK.A/BRK.B），13F 原始数据里部分申报人用斜杠写法（BRK/A、BRK/B），
         # 若直接把斜杠传给 URL 路径会被当成路径分隔符，导致请求错误的接口地址而失败，这里统一归一化。
-        if tk in ("BRK.B", "BRK/B"):
+        if tk.endswith(("/B", ".B")):
+            sym = tk.replace("/B", "%2EB").replace(".B", "%2EB")
+        elif tk.endswith(("/A", ".A")):
+            sym = tk.replace("/A", "%2EA").replace(".A", "%2EA")
+        elif tk in ("BRK.B", "BRK/B"):
             sym = "BRK%2EB"
         elif tk in ("BRK.A", "BRK/A"):
             sym = "BRK%2EA"
@@ -305,7 +309,10 @@ def fetch_us(investor, cfg):
 
     # ── Part 2: 成本估算 ──
     cost_basis = {}
+    instrument_tickers = {h['ticker'] for rows in [holdings, data.get('current', {}).get('previousHoldings', [])] for h in rows if h.get('putCall') or h.get('shareType', 'SH') != 'SH'}
     for h in holdings:
+        if h['ticker'] in instrument_tickers:
+            continue
         tk = h["ticker"]
         if data.get("current", {}).get("valueQuality") or data.get("meta", {}).get("reportingTransition", {}).get("fromQuarter") == quarter:
             continue
@@ -317,6 +324,7 @@ def fetch_us(investor, cfg):
         if h.get("prevShares", 0) > 0 and h["shares"] <= h["prevShares"]:
             prev_shares = None
             for q_key in sorted(hist_holdings.keys()):
+                if tk in data.get('meta', {}).get('instrumentHistoryTickers', []) and q_key < data['meta']['instrumentHistoryFrom']: continue
                 for qh in hist_holdings.get(q_key, []):
                     if qh["ticker"] == tk and qh.get("shares", 0) > 0:
                         if prev_shares is None:
@@ -325,11 +333,12 @@ def fetch_us(investor, cfg):
                             buy_q = q_key
                         prev_shares = qh["shares"]
 
-        # 预先推导本轮连续持有起点（gap>4 规则），用于下面的外层缓存短路判断——
+        # 预先推导本轮连续持有起点（gap>1 规则），用于下面的外层缓存短路判断——
         # 必须在这里就先算好，否则外层短路会在 allTime.first 需要修正时仍然直接 continue 跳过重算
         _run_first_precheck = None
         _qk_precheck = None
         for q_key, q_h in sorted(hist_holdings.items()):
+            if tk in data.get('meta', {}).get('instrumentHistoryTickers', []) and q_key < data['meta']['instrumentHistoryFrom']: continue
             for qh in q_h:
                 if qh["ticker"] == tk and qh.get("shares", 0) > 0:
                     if _qk_precheck is None:
@@ -340,7 +349,7 @@ def fetch_us(investor, cfg):
                 y, qn = q.split(" Q"); return int(y) * 4 + int(qn)
             _run_first_precheck = _qk_precheck[0]
             for _i in range(1, len(_qk_precheck)):
-                if _q2n_pre(_qk_precheck[_i]) - _q2n_pre(_qk_precheck[_i - 1]) > 4:
+                if _q2n_pre(_qk_precheck[_i]) - _q2n_pre(_qk_precheck[_i - 1]) > 1:
                     _run_first_precheck = _qk_precheck[_i]
 
         # 近期成本缓存检查（只有 allTime 也有值且 allTime.first 与本轮连续起点一致时才跳过，
@@ -375,9 +384,10 @@ def fetch_us(investor, cfg):
             print(f"estim=${est} (13F fallback)")
 
         # all-time 成本：平均成本法（AVCO）
-        # 买入 → 更新持仓均价；卖出 → 均价不变；gap>4季 → 重置
+        # 买入 → 更新持仓均价；卖出 → 均价不变；gap>1季 → 重置
         quarterly_data = []
         for q_key, q_h in sorted(hist_holdings.items()):
+            if tk in data.get('meta', {}).get('instrumentHistoryTickers', []) and q_key < data['meta']['instrumentHistoryFrom']: continue
             for qh in q_h:
                 if qh["ticker"] == tk and qh.get("shares", 0) > 0:
                     quarterly_data.append({"quarter": q_key, "shares": qh["shares"], "value": qh["value"]})
@@ -386,12 +396,12 @@ def fetch_us(investor, cfg):
         if quarterly_data:
             ex_a = existing_cb.get(tk, {}).get("allTime")
             q_keys = [q["quarter"] for q in quarterly_data]
-            # 重新推导本轮连续持有起点（与下方正式计算循环同一个 gap>4 规则），用于缓存比对
+            # 重新推导本轮连续持有起点（与下方正式计算循环同一个 gap>1 规则），用于缓存比对
             def _q2n(q):
                 y, qn = q.split(" Q"); return int(y) * 4 + int(qn)
             _run_first = q_keys[0]
             for _i in range(1, len(q_keys)):
-                if _q2n(q_keys[_i]) - _q2n(q_keys[_i - 1]) > 4:
+                if _q2n(q_keys[_i]) - _q2n(q_keys[_i - 1]) > 1:
                     _run_first = q_keys[_i]
             # 缓存检查：first(本轮起点)/last 季度一致且 allTime 有值，直接复用
             if (ex_a and ex_a.get("avg") and ex_a.get("first") == _run_first
@@ -411,7 +421,7 @@ def fetch_us(investor, cfg):
                         def q2n(q):
                             y, qn = q.split(" Q"); return int(y)*4 + int(qn)
                         gap = q2n(qd["quarter"]) - q2n(prev_q)
-                        if gap > 4:  # 清仓重置：同时重置连续持有起点
+                        if gap > 1:  # 清仓重置：同时重置连续持有起点
                             avco_price  = 0.0
                             avco_shares = 0
                             prev_sh     = 0
@@ -424,8 +434,6 @@ def fetch_us(investor, cfg):
                             buy_price = min(c2["lows"]) * 0.7 + (sum(c2["closes"]) / len(c2["closes"])) * 0.3
                         else:
                             buy_price = qd["value"] / cur_sh
-                            if buy_price > 5000:
-                                buy_price /= 1000
                         # AVCO 更新：(旧均价×旧仓 + 买入价×新增量) / 新仓
                         avco_price  = (avco_price * avco_shares + buy_price * delta) / (avco_shares + delta)
                         avco_shares += delta
@@ -508,7 +516,7 @@ def fetch_us(investor, cfg):
                         sh2 = h["shares"]
                         if prev_q2:
                             def q2n(q): y, qn = q.split(" Q"); return int(y) * 4 + int(qn)
-                            if q2n(q2) - q2n(prev_q2) > 4:
+                            if q2n(q2) - q2n(prev_q2) > 1:
                                 avco_p2 = 0.0; avco_s2 = 0; prev_sh2 = 0
                         if sh2 > prev_sh2:
                             delta2 = sh2 - prev_sh2
@@ -607,7 +615,7 @@ def fetch_hk(investor, cfg):
                         buy_q = q_key
                     prev_shares = qh["shares"]
 
-        # 预先推导本轮连续持有起点（gap>4 规则），防止外层短路在 allTime.first 需要修正时仍直接 continue 跳过重算（与美股分支同样的历史 bug）
+        # 预先推导本轮连续持有起点（gap>1 规则），防止外层短路在 allTime.first 需要修正时仍直接 continue 跳过重算（与美股分支同样的历史 bug）
         _qt_precheck_hk = []
         for q_key in sorted(hist_holdings.keys()):
             for qh in hist_holdings[q_key]:
@@ -619,7 +627,7 @@ def fetch_hk(investor, cfg):
                 y, qn = q.split(" Q"); return int(y) * 4 + int(qn)
             _run_first_hk_precheck = _qt_precheck_hk[0]
             for _i in range(1, len(_qt_precheck_hk)):
-                if _q2n_pre_hk(_qt_precheck_hk[_i]) - _q2n_pre_hk(_qt_precheck_hk[_i - 1]) > 4:
+                if _q2n_pre_hk(_qt_precheck_hk[_i]) - _q2n_pre_hk(_qt_precheck_hk[_i - 1]) > 1:
                     _run_first_hk_precheck = _qt_precheck_hk[_i]
 
         if tk in existing_cb:
@@ -664,7 +672,7 @@ def fetch_hk(investor, cfg):
                 def q2n(q):
                     y, qn = q.split(" Q"); return int(y)*4 + int(qn)
                 gap = q2n(qd["quarter"]) - q2n(prev_q_hk)
-                if gap > 4:
+                if gap > 1:
                     buy_qtrs_hk = []
                     prev_sh_hk = 0
                     current_run_first_hk = qd["quarter"]

@@ -21,7 +21,7 @@ INVESTOR_CONFIG 会在启动时从该文件自动构建，无需在本文件手�
 只依赖标准库，无需 pip install。
 """
 
-from holdings_diff import attach_previous, update_history, VERIFIED_SPLITS
+from holdings_diff import attach_previous, update_history, VERIFIED_SPLITS, consolidate_holdings
 
 import json
 import os
@@ -391,6 +391,10 @@ TICKER_CLASS_MAP = {
 # CUSIP → ticker（当名称匹配失败或有多股票类别歧义时优先使用，人工逐条核对）
 # 由 Klarman/Ackman/Abrams/Berkowitz/Hawkins 5 位投资者持仓补充
 CUSIP_TICKER_MAP = {
+    "526057104": "LEN",
+    "526057302": "LEN/B",
+    "530909100": "LLYVA",
+    "530909308": "LLYVK",
     # RV Capital holdings: security identifiers from original SEC information tables.
     "146869102": "CVNA",  # CARVANA CO
     "244199105": "DE",    # DEERE & CO
@@ -767,6 +771,8 @@ def parse_holdings(xml_bytes: bytes, consolidate: bool = False, *, filing_date: 
         cusip_el = info.find("ns:cusip", NS)
         val_el = info.find("ns:value", NS)
         shares_el = info.find(".//ns:sshPrnamt", NS)
+        share_type = info.findtext('.//ns:sshPrnamtType', default='SH', namespaces=NS).strip()
+        put_call = info.findtext('ns:putCall', default='', namespaces=NS).strip()
         name_val = name_el.text.strip() if name_el is not None and name_el.text else ""
         cls_val = cls_el.text.strip() if cls_el is not None and cls_el.text else ""
         cusip_val = cusip_el.text.strip() if cusip_el is not None and cusip_el.text else ""
@@ -776,6 +782,7 @@ def parse_holdings(xml_bytes: bytes, consolidate: bool = False, *, filing_date: 
         raw_entries.append({
             "ticker": tk, "name": name_val, "cls": cls_val, "cusip": cusip_val,
             "shares": shares, "value": value,
+            "shareType": share_type, "putCall": put_call,
         })
 
     # SEC amended Form 13F is mandatory for filings from 2023-01-03.
@@ -786,22 +793,11 @@ def parse_holdings(xml_bytes: bytes, consolidate: bool = False, *, filing_date: 
         for e in raw_entries:
             e["value"] *= 1000
 
-    if consolidate:
-        # 合并同一 ticker 的多个子公司持仓（主要针对 Berkshire）
-        merged: dict[str, dict] = {}
-        for e in raw_entries:
-            tk = e["ticker"]
-            if tk not in merged:
-                merged[tk] = dict(e)
-                merged[tk]["sector"] = SECTORS.get(tk, "其他")
-            else:
-                merged[tk]["shares"] += e["shares"]
-                merged[tk]["value"] += e["value"]
-        holdings = list(merged.values())
-    else:
-        for e in raw_entries:
-            e["sector"] = SECTORS.get(e["ticker"], "其他")
-        holdings = raw_entries
+    # Every filing may contain multiple manager/discretion rows for one security.
+    # Ticker alone cannot distinguish common shares, PUT/CALL and principal.
+    holdings = consolidate_holdings(raw_entries)
+    for e in holdings:
+        e['sector'] = SECTORS.get(e['ticker'], '其他')
 
     holdings.sort(key=lambda h: h["value"], reverse=True)
     return holdings
@@ -878,6 +874,40 @@ def investor_filings(config, full_mode=False):
     return sorted(by_period.values(), key=lambda f: (f['reportDate'], f['filingDate']), reverse=True)
 
 
+def backfill_security_classes(data, filings, max_quarters=4):
+    """Gradually repair legacy option/class history from original SEC tables."""
+    holdings=data['current']['holdings']+data['current'].get('previousHoldings',[])
+    by_name={}
+    for h in holdings:
+        by_name.setdefault(h.get('name') or h['ticker'],set()).add((h.get('cusip'),h.get('putCall','')))
+    names={name for name,classes in by_name.items() if len(classes)>1}
+    affected={h['ticker'] for h in holdings if h.get('putCall') or h.get('shareType','SH')!='SH' or (h.get('name') or h['ticker']) in names}
+    if not affected: return
+    data['meta']['instrumentHistoryTickers']=sorted(affected)
+    history=data.get('history',{}).get('holdings',{})
+    pending=[q for q,rows in history.items() if any(h['ticker'] in affected and ('putCall' not in h or 'shareType' not in h) for h in rows)]
+    filings_by_quarter={quarter_label(f['reportDate']):f for f in reversed(filings)}
+    errors={}
+    for q in sorted(pending,reverse=True)[:max_quarters]:
+        f=filings_by_quarter.get(q)
+        if not f:
+            errors[q]='No original filing found';continue
+        try:
+            path=find_info_table_xml(f['cik'],f['accession'],f['accessionDashed'])
+            parsed=parse_holdings(sec_fetch(path),filing_date=f['filingDate'])
+            for h in parsed:
+                old=next((r for r in history[q] if r.get('cusip')==h['cusip']),{})
+                for key in ('cnName','sector'):
+                    if old.get(key): h[key]=old[key]
+            update_history(data,q,parsed)
+            data['history'].setdefault('filing_sources',{})[q]={**f,'url':'https://www.sec.gov'+path}
+        except Exception as exc: errors[q]=str(exc)
+    pending=[q for q,rows in history.items() if any(h['ticker'] in affected and ('putCall' not in h or 'shareType' not in h) for h in rows)]
+    known=[q for q in sorted(history) if not pending or q>max(pending)]
+    data['meta']['instrumentHistoryFrom']=known[0] if known else data['current']['prevQuarter']
+    data['history']['instrumentVerification']={'pendingQuarters':sorted(pending),'errors':errors,'checkedAt':datetime.now(timezone.utc).isoformat()}
+
+
 def process_investor(key: str, config: dict, full_mode: bool):
     print(f"\n{'='*60}")
     print(f"Processing {key.upper()}: {config['manager']}")
@@ -886,7 +916,7 @@ def process_investor(key: str, config: dict, full_mode: bool):
 
     cik = config["cik"]
     consolidate = config.get("consolidate", False)
-    filings = investor_filings(config, full_mode)
+    filings = investor_filings(config, True)
     if len(filings) < 2:
         print(f"ERROR: only found {len(filings)} filings, need ≥2")
         sys.exit(1)
@@ -953,6 +983,7 @@ def process_investor(key: str, config: dict, full_mode: bool):
         quarter_label(cur_f['reportDate']): {**cur_f, 'url': 'https://www.sec.gov' + cur_path},
         quarter_label(prev_f['reportDate']): {**prev_f, 'url': 'https://www.sec.gov' + prev_path},
     })
+    backfill_security_classes(data, filings)
     backfill_history_gaps(cik, data, filings, consolidate)
     remaining = data["history"]["coverage"]["missingQuarters"]
     if remaining:
@@ -991,7 +1022,8 @@ def process_full(key: str, config: dict, filings: list[dict], data: dict):
 
         print(f"  [{i+1}/{len(filings_sorted)}] Fetching {q_label} (filed {f['filingDate']})...")
         try:
-            xml_bytes = sec_fetch(find_info_table_xml(f.get('cik', cik), f["accession"], f["accessionDashed"]))
+            xml_path = find_info_table_xml(f.get('cik', cik), f["accession"], f["accessionDashed"])
+            xml_bytes = sec_fetch(xml_path)
             holdings = parse_holdings(xml_bytes, consolidate=consolidate, filing_date=f["filingDate"])
             all_fetched[q_label] = holdings
 
@@ -1004,15 +1036,10 @@ def process_full(key: str, config: dict, filings: list[dict], data: dict):
                     break
 
             if prev_q:
-                prev_map = {h["ticker"]: h for h in all_fetched[prev_q]}
-                for h in holdings:
-                    p = prev_map.get(h["ticker"], {})
-                    h["prevShares"] = p.get("shares", 0)
-                    h["prevValue"]  = p.get("value", 0)
+                attach_previous(holdings,all_fetched[prev_q],previous_quarter=prev_q,current_quarter=q_label)
             else:
-                for h in holdings:
-                    h["prevShares"] = 0
-                    h["prevValue"]  = 0
+                for h in holdings: h.update(prevShares=None,prevValue=None)
+            data['history'].setdefault('filing_sources',{})[q_label]={**f,'url':'https://www.sec.gov'+xml_path}
 
             total = sum(h["value"] for h in holdings)
             update_history(data, q_label, holdings)
