@@ -21,19 +21,21 @@
       "status": "ok"
     },
     "investor:buffett": {
-      "at": "2026-09-17T03:15:07.858994+00:00",
-      "sourceHash": "f391174e250bc3e7b27bfed6860e32d20e446aec601caf511ca8142f6325b909",
-      "status": "ok"
+      "at": "2026-10-09T06:48:39.426280+00:00",
+      "sourceHash": "beeeb267e04789b21a1ff1967a72e53d0c84a62f6b59a4a80a1e965527ff4cac",
+      "status": "failed",
+      "error": "Selection omitted an available change direction"
     },
     "investor:duan": {
-      "at": "2026-09-17T03:13:42.373228+00:00",
-      "sourceHash": "acf594e8bc00966af0ac9f2c8d1673bf48a964b76d01b3d4c2813ca266ca8b59",
+      "at": "2026-10-09T06:45:12.660486+00:00",
+      "sourceHash": "8d6f54855021b5e8c02cd84a01f563d3fa2b8c76c4d11ad9b132c18dedcaadf6",
       "status": "ok"
     },
     "investor:greenberg": {
-      "at": "2026-09-17T03:16:43.592377+00:00",
-      "sourceHash": "a71eea7642388fab94545730ca138438c226a5e77cadf0194ac386b4eef275bf",
-      "status": "ok"
+      "at": "2026-10-09T06:50:22.673423+00:00",
+      "sourceHash": "98f262a06890762bf616b1e529b487f21e9bb5cfc276dd258d0c11126e4e1ba6",
+      "status": "failed",
+      "error": "Selection omitted an available change direction"
     },
     "investor:hawkins": {
       "at": "2026-10-09T00:44:05.057127+00:00",
@@ -46,19 +48,20 @@
       "status": "ok"
     },
     "investor:lilu": {
-      "at": "2026-09-17T03:12:22.541738+00:00",
-      "sourceHash": "b23ab3edca0ab8fc474ca7bf32a8172266c649a57f5605f0f79869baa57bb1f1",
+      "at": "2026-10-09T06:43:12.918809+00:00",
+      "sourceHash": "df06571f934a0b6bc119ff78d4425e88894a07c66abac6db321cb8f033143a61",
       "status": "ok"
     },
     "investor:pabrai": {
-      "at": "2026-09-17T03:13:21.170873+00:00",
-      "sourceHash": "b64a2e77935e73957918ba7bc280b1dd2fa586ab91d97a5105dae1e1014698d6",
+      "at": "2026-10-09T06:44:36.259786+00:00",
+      "sourceHash": "7ed28f7410cfb0b356d6466255dfa9bdc48b0db184758138ee2856f7b974f1ed",
       "status": "ok"
     },
     "investor:tepper": {
-      "at": "2026-09-17T03:14:25.068602+00:00",
-      "sourceHash": "a09d500717ca42ccdc06687916ec88dcc67bfa215eeea59541a5367316a80301",
-      "status": "ok"
+      "at": "2026-10-09T06:46:56.177201+00:00",
+      "sourceHash": "9d70ccb23e24f1fc795c68e9154ffe49cf9ea09f0824764e0b184e7736f8cc31",
+      "status": "failed",
+      "error": "Selection omitted an available change direction"
     },
     "value": {
       "at": "2026-10-09T05:39:39.532410+00:00",
@@ -1897,7 +1900,7 @@
       "renderVersion": 4,
       "mode": "deterministic",
       "summary": "格伦·格林伯格 2026 Q2（按披露股数比较）：新建仓7项、增持6项、减持15项、清仓3项、不变12项、待比较0项。重点（非完整名单）：ICON PUB LTD CO：增持5.2%；TD 辛纳克斯（SNX）：减持52.8%；OneMain 控股（OMF）：减持1.5%；阿瑟 J. 加拉格尔（AJG）：新建仓；阿雷斯管理（ARES）：清仓。",
-      "generatedAt": "2026-10-09T06:28:00.278529+00:00",
+      "generatedAt": "2026-10-09T06:52:09.156331+00:00",
       "model": null,
       "metrics": {}
     },
@@ -4267,11 +4270,14 @@
         ]
       },
       "renderVersion": 4,
-      "mode": "deterministic",
+      "mode": "model_selection",
       "summary": "李录 2026 Q2（按披露股数比较）：新建仓0项、增持2项、减持0项、清仓6项、不变6项、待比较0项。重点（非完整名单）：拼多多（PDD）：增持133.5%；伯克希尔哈撒韦 B 类（BRK/B）：增持23.5%；美国银行（BAC）：清仓；西方石油（OXY）：清仓；标普全球（SPGI）：清仓。",
-      "generatedAt": "2026-10-09T06:28:00.276768+00:00",
-      "model": null,
-      "metrics": {}
+      "generatedAt": "2026-10-09T06:44:36.259077+00:00",
+      "model": "qwen3.5:9b-q4_K_M",
+      "metrics": {
+        "seconds": 83.31,
+        "tokens": 20
+      }
     },
     "investor:pabrai": {
       "source": {
@@ -4393,11 +4399,14 @@
         ]
       },
       "renderVersion": 4,
-      "mode": "deterministic",
+      "mode": "model_selection",
       "summary": "帕伯莱 2026 Q2（按披露股数比较）：新建仓1项、增持1项、减持2项、清仓0项、不变0项、待比较0项。重点（非完整名单）：冶金煤业（HCC）：减持3.7%；越洋钻探（RIG）：增持（微量变动）；阿尔法金属（AMR）：减持10.8%；Joint Stock Company Kaspi.kz（KSPI）：新建仓。",
-      "generatedAt": "2026-10-09T06:28:00.277532+00:00",
-      "model": null,
-      "metrics": {}
+      "generatedAt": "2026-10-09T06:45:12.659394+00:00",
+      "model": "qwen3.5:9b-q4_K_M",
+      "metrics": {
+        "seconds": 36.4,
+        "tokens": 17
+      }
     },
     "value": {
       "source": [
@@ -5289,18 +5298,21 @@
       "selection": {
         "factIds": [
           "f0",
-          "f1",
-          "f2",
+          "f3",
           "f11",
-          "f12"
+          "f12",
+          "f16"
         ]
       },
       "renderVersion": 4,
-      "mode": "deterministic",
-      "summary": "段永平 2026 Q2（按披露股数比较）：新建仓1项、增持3项、减持7项、清仓2项、不变7项、待比较0项。重点（非完整名单）：苹果（AAPL）：减持6.4%；伯克希尔哈撒韦 B 类（BRK/B）：增持0.9%；英伟达（NVDA）：减持54.6%；台积电（TSM）：清仓；阿里巴巴（BABA）：新建仓。",
-      "generatedAt": "2026-10-09T06:28:00.277738+00:00",
-      "model": null,
-      "metrics": {}
+      "mode": "model_selection",
+      "summary": "段永平 2026 Q2（按披露股数比较）：新建仓1项、增持3项、减持7项、清仓2项、不变7项、待比较0项。重点（非完整名单）：苹果（AAPL）：减持6.4%；拼多多（PDD）：增持26.7%；台积电（TSM）：清仓；阿里巴巴（BABA）：新建仓；CrowdStrike Holdings, Inc.（CRWD）：清仓。",
+      "generatedAt": "2026-10-09T06:46:56.175719+00:00",
+      "model": "qwen3.5:9b-q4_K_M",
+      "metrics": {
+        "seconds": 103.51,
+        "tokens": 23
+      }
     },
     "investor:tepper": {
       "source": {
@@ -6139,7 +6151,7 @@
       "renderVersion": 4,
       "mode": "deterministic",
       "summary": "大卫·泰珀 2026 Q2（按披露股数比较）：新建仓8项、增持11项、减持5项、清仓12项、不变3项、待比较0项。重点（非完整名单）：亚马逊（AMZN）：增持15.7%；美光科技（MU）：减持41.4%；台积电（TSM）：增持24.3%；苹果（AAPL PUT）：新建仓；闪迪（SNDK）：清仓。",
-      "generatedAt": "2026-10-09T06:28:00.277948+00:00",
+      "generatedAt": "2026-10-09T06:48:39.421876+00:00",
       "model": null,
       "metrics": {}
     },
@@ -8310,16 +8322,16 @@
     }
   },
   "lastRun": {
-    "startedAt": "2026-10-09T05:38:46.204983+00:00",
+    "startedAt": "2026-10-09T06:43:12.918789+00:00",
     "model": "qwen3.5:9b-q4_K_M",
-    "pendingBefore": 2,
-    "cached": 12,
-    "finishedAt": "2026-10-09T05:41:05.513485+00:00",
-    "pendingAfter": 13,
-    "accepted": 2,
-    "fallback": 0,
+    "pendingBefore": 13,
+    "cached": 1,
+    "finishedAt": "2026-10-09T06:52:09.160298+00:00",
+    "pendingAfter": 10,
+    "accepted": 3,
+    "fallback": 3,
     "rejected": 0,
-    "failed": 0
+    "failed": 3
   },
   "schemaVersion": 2,
   "fallbackRefresh": {
