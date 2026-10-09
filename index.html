@@ -57,7 +57,22 @@ body{font-family:var(--sans);color:var(--text);background:var(--bg);line-height:
 .status-drawer-title{font-family:var(--serif);font-size:.95rem;font-weight:600;color:var(--navy);}
 .status-drawer-close{background:none;border:none;cursor:pointer;color:var(--text-lighter);font-size:1.1rem;padding:4px 8px;border-radius:4px;line-height:1;}
 .status-drawer-close:hover{background:var(--cream);}
-.status-drawer-body{overflow-y:auto;padding:16px 20px 24px;flex:1;}
+.status-drawer-body{overflow-y:auto;padding:16px 20px 24px;flex:1;min-height:0;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;}
+.status-run{border:1px solid var(--border-light);border-left:3px solid var(--status-color);border-radius:8px;padding:14px;margin-bottom:16px;min-width:0;}
+.status-run-header{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:12px;}
+.status-run-badge{font-size:.75rem;padding:2px 8px;border-radius:12px;background:var(--status-bg);color:var(--status-color);font-weight:600;overflow-wrap:anywhere;}
+.status-run-count{font-size:.72rem;color:var(--text-lighter);width:100%;}
+.status-steps{display:grid;grid-template-columns:minmax(0,1fr);gap:8px;}
+.status-step{display:grid;grid-template-columns:18px minmax(0,1fr) auto;align-items:start;column-gap:6px;row-gap:4px;padding:10px;border-radius:6px;font-size:.8rem;min-width:0;background:#f9fafb;border:1px solid var(--border-light);}
+.status-step.ok{background:#f0fdf4;border-color:#bbf7d0;}
+.status-step.warn,.status-step.skip{background:#fffbeb;border-color:#fde68a;}
+.status-step.fail{background:#fef2f2;border-color:#fecaca;}
+.status-step-label{color:var(--text);min-width:0;overflow-wrap:anywhere;}
+.status-step-time{font-size:.7rem;color:var(--text-lighter);white-space:nowrap;}
+.status-step-message{grid-column:2 / -1;font-size:.78rem;line-height:1.65;color:var(--text-light);overflow-wrap:anywhere;}
+.status-step.warn .status-step-message{color:#92400e;}
+.status-step.fail .status-step-message{color:#b91c1c;}
+@media(max-width:639px){.status-drawer{max-height:80dvh;}.status-drawer-body{padding:12px 12px max(20px,env(safe-area-inset-bottom));}.status-drawer-close{min-width:44px;min-height:44px;}}
 .nav-hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;margin-left:auto;padding:8px}
 .nav-hamburger span{width:20px;height:1.5px;background:#fff}
 @media(max-width:768px){
@@ -585,7 +600,7 @@ th .info-wrap{position:relative;display:inline-flex}
   </div>
 </footer>
 
-<script src="app.js?v=62"></script>
+<script src="app.js?v=63"></script>
 <script src="spinoff_ui.js?v=10"></script>
 <script>
 const nav=document.getElementById('mainNav');

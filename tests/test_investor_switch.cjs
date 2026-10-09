@@ -220,6 +220,32 @@ test('status distinguishes success, degradation, failure, incomplete and stale r
   assert.equal(health(null).state, 'warn');
 });
 
+test('status messages distinguish historical coverage from a failed holdings load', () => {
+  const a = app();
+  const message = {status:'warn', msg:'lilu 历史缺 4 季：已补查SEC历史索引，仍无可用原始持仓报告；不作零持仓'};
+  assert.match(a.run(`statusStepMessage('lilu_13f', ${JSON.stringify(message)})`), /缺 4 个季度.*不表示最新持仓加载失败/);
+  a.run("lang='en'");
+  assert.match(a.run(`statusStepMessage('lilu_13f', ${JSON.stringify(message)})`), /4 early historical quarters.*not a failure to load/);
+  assert.equal(a.run("statusStepMessage('lilu_13f', {status:'fail',msg:'HTTP 503'})"), 'HTTP 503');
+});
+
+test('status drawer separates messages, escapes source text, and omits steps absent from that run', async () => {
+  const a = app();
+  const now = new Date().toISOString();
+  a.context.fetch = async () => ({ok:true, json:async () => ({runs:[{
+    schemaVersion:2, run_id:now, completedAt:now,
+    steps:{lilu_13f:{status:'warn',ts:now,msg:'历史缺 4 季'},
+      custom:{status:'fail',label:'<img src=x onerror=alert(1)>',msg:'<script>bad()</script>'}}
+  }]})});
+  await a.run('renderStatusDrawer()');
+  const html = a.element('statusDrawerBody').innerHTML;
+  assert.match(html, /class="status-step-message"/);
+  assert.match(html, /不表示最新持仓加载失败/);
+  assert.match(html, /&lt;script&gt;/);
+  assert.doesNotMatch(html, /<script>|<img |data-step="vinall_13f"/);
+  assert.equal((html.match(/data-step=/g) || []).length, 2);
+});
+
 test('independent AI summary matches exact investor snapshot, not just quarter',()=>{
   const a=app();
   a.run("data={current:{quarter:'2026Q2',holdings:[{ticker:'AAA',shares:10,value:100}]}}; _aiSupplement={entries:{'investor:lilu':{source:aiInvestorSource(data),renderVersion:3,mode:'model_selection',summary:'已有摘要'}}}");

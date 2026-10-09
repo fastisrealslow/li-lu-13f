@@ -2146,7 +2146,7 @@ function runHealth(run, now = Date.now()) {
   if (steps.some(s => s.status === 'fail')) return {state: 'fail', label: lang === 'en' ? 'Some updates failed' : '部分更新失败'};
   const ts = Date.parse(run.completedAt || run.run_id);
   if (!Number.isFinite(ts) || now - ts > 36 * 3600000) return {state: 'warn', label: lang === 'en' ? 'Update record is stale' : '更新记录已过期，请检查自动更新'};
-  if (steps.some(s => s.status === 'warn')) return {state: 'warn', label: lang === 'en' ? 'Partial update; see details' : '部分功能未完整更新，请查看详情'};
+  if (steps.some(s => s.status === 'warn')) return {state: 'warn', label: lang === 'en' ? 'Update notices; see details' : '有更新提示，请查看详情'};
   if (run.schemaVersion !== 2) return {state: 'warn', label: lang === 'en' ? 'Older record; AI status unknown' : '旧版记录，未包含 AI 可用状态'};
   if (!run.completedAt || !steps.length) return {state: 'warn', label: lang === 'en' ? 'Update not completed' : '更新尚未完成'};
   return {state: 'ok', label: lang === 'en' ? 'Update completed' : '更新完成'};
@@ -2292,10 +2292,7 @@ async function renderStatusDrawer() {
 
   let html = `
     <div style="margin-bottom:20px;">
-      <h3 style="font-family:var(--serif);font-size:1.1rem;color:var(--navy);font-weight:600;margin-bottom:4px;">
-        🔍 自动更新状态
-      </h3>
-      <p style="font-size:.8rem;color:var(--text-lighter);">显示最近 ${runs.length} 次 workflow 执行结果，每步骤标记成功 / 部分更新 / 失败 / 跳过。绿色表示更新完成，黄色表示降级、未完成或记录过期。</p>
+      <p style="font-size:.8rem;color:var(--text-lighter);">最近 ${runs.length} 次更新记录。黄色表示需留意的更新提示；红色表示更新失败。历史资料缺失的具体范围会注明。</p>
     </div>`;
 
   runs.forEach((run, idx) => {
@@ -2304,31 +2301,31 @@ async function renderStatusDrawer() {
     // Freshness applies to the latest run; older cards describe their state at completion.
     const health = runHealth(run, idx === 0 ? Date.now() : Date.parse(run.completedAt || run.run_id));
     const borderColor = health.state === 'ok' ? '#15803d' : health.state === 'fail' ? '#b91c1c' : '#b45309';
-    const bgBadge = `<span style="font-size:.7rem;padding:2px 10px;border-radius:12px;background:${borderColor}15;color:${borderColor};font-weight:600;">${health.label}</span>`;
+    const bgBadge = `<span class="status-run-badge">${hkEscape(health.label)}</span>`;
 
     html += `
-    <div style="border:1px solid var(--border-light);border-left:3px solid ${borderColor};border-radius:8px;padding:16px 20px;margin-bottom:16px;">
-      <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:14px;">
+    <div class="status-run" style="--status-color:${borderColor};--status-bg:${borderColor}15;">
+      <div class="status-run-header">
         <span style="font-size:.78rem;color:var(--text-lighter);font-family:monospace;">${fmtTime(run.run_id)}</span>
         ${triggerBadge(run.trigger)}
         ${bgBadge}
-        <span style="font-size:.72rem;color:var(--text-lighter);margin-left:auto;">${ok}✓ ${warn}! ${skip}↷ ${fail}✗ / ${total} 步</span>
+        <span class="status-run-count">${ok}✓ ${warn}! ${skip}↷ ${fail}✗ / ${total} 步</span>
       </div>
-      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:6px;">`;
+      <div class="status-steps">`;
 
     [...new Set([...STEP_ORDER, ...Object.keys(steps)])].forEach(stepKey => {
       const s = steps[stepKey];
+      if (!s) return;
       const label = STEP_LABELS[stepKey] || s?.label || stepKey;
       const icon = statusIcon(s ? s.status : null);
-      const msg = s && s.msg ? `<span style="font-size:.65rem;color:#b91c1c;margin-left:4px;">${s.msg}</span>` : '';
-      const ts = s && s.ts ? `<span style="font-size:.62rem;color:#9ca3af;margin-left:auto;">${fmtTime(s.ts).slice(-5)}</span>` : '';
-      const bg = !s ? '#f9fafb' : s.status === 'ok' ? '#f0fdf4' : ['skip', 'warn'].includes(s.status) ? '#fffbeb' : '#fef2f2';
-      const border = !s ? 'var(--border-light)' : s.status === 'ok' ? '#bbf7d0' : ['skip', 'warn'].includes(s.status) ? '#fde68a' : '#fecaca';
+      const msg = s.msg ? `<div class="status-step-message">${hkEscape(statusStepMessage(stepKey, s))}</div>` : '';
+      const ts = s.ts ? `<span class="status-step-time">${hkEscape(fmtTime(s.ts).slice(-5))}</span>` : '';
+      const state = ['ok','warn','skip','fail'].includes(s.status) ? s.status : 'unknown';
 
-      html += `<div style="display:flex;align-items:center;gap:6px;padding:6px 10px;border-radius:6px;background:${bg};border:1px solid ${border};font-size:.78rem;">
+      html += `<div class="status-step ${state}" data-step="${hkEscape(stepKey)}">
         ${icon}
-        <span style="color:var(--text);flex:1;min-width:0;">${label}</span>
-        ${msg}${ts}
+        <span class="status-step-label">${hkEscape(label)}</span>
+        ${ts}${msg}
       </div>`;
     });
 
@@ -2336,5 +2333,14 @@ async function renderStatusDrawer() {
   });
 
   el.innerHTML = html;
+}
+
+function statusStepMessage(stepKey, step) {
+  const msg = String(step?.msg || '');
+  const missing = stepKey === 'lilu_13f' && step.status === 'warn' && msg.match(/历史缺\s*(\d+)\s*季/);
+  if (missing) return lang === 'en'
+    ? `${missing[1]} early historical quarters lack verifiable SEC holdings reports, even after checking historical indexes. This notice concerns historical coverage, not a failure to load the latest holdings; gaps remain in the history chart.`
+    : `早期历史资料缺 ${missing[1]} 个季度：补查 SEC 历史索引后，仍未找到可核实的原始持仓报告。这项提示针对历史覆盖，不表示最新持仓加载失败；历史图保留断点。`;
+  return msg;
 }
 
