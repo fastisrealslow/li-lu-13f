@@ -21,6 +21,18 @@
 
 import json, os, sys, time, re, urllib.request, urllib.error
 from datetime import datetime, timezone, date
+from holdings_diff import share_adjustment
+
+
+def comparable_price_history(history, current_quarter):
+    """Use today's split basis for cost estimates; keep filed snapshots unchanged."""
+    result = {}
+    for quarter, holdings in history.items():
+        result[quarter] = []
+        for h in holdings:
+            adjustment = share_adjustment(h, quarter, current_quarter)
+            result[quarter].append({**h, "shares": h["shares"] * adjustment["factor"]} if adjustment else h)
+    return result
 
 # ─────────────────────────────────────────────
 # 投资者配置表 — 从 investors.json 动态构建，见 _load_investor_config()
@@ -219,7 +231,10 @@ def fetch_us(investor, cfg):
     holdings     = current["holdings"]
     quarter      = current["quarter"]
     prev_quarter = current.get("prevQuarter", quarter)
-    hist_holdings = data.get("history", {}).get("holdings", {})
+    raw_history = data.get("history", {}).get("holdings", {})
+    hist_holdings = comparable_price_history(raw_history, quarter)
+    split_tickers = {h["ticker"] for q, hs in raw_history.items() for h in hs
+                     if share_adjustment(h, q, quarter)}
 
     print(f"[{investor}] Fetching prices: {len(holdings)} tickers ({quarter} ← {prev_quarter})")
 
@@ -235,6 +250,10 @@ def fetch_us(investor, cfg):
             print(f"  Loaded cache: {len(existing_quotes)} quotes, {len(existing_cb)} cost basis")
     except FileNotFoundError:
         pass
+
+    for ticker in split_tickers:
+        if existing_cb.get(ticker, {}).get("splitAdjustedThrough") != quarter:
+            existing_cb.pop(ticker, None)
 
     today_str = date.today().isoformat()
 
@@ -527,6 +546,9 @@ def fetch_us(investor, cfg):
         time.sleep(0.3)
 
     # ── 写出 ──
+    for ticker in split_tickers:
+        if ticker in cost_basis:
+            cost_basis[ticker]["splitAdjustedThrough"] = quarter
     out = {"updated": datetime.utcnow().isoformat() + "Z",
            "quotes": quotes, "costBasis": cost_basis, "exitPerf": exit_perf}
     with open(prices_file, "w") as f:

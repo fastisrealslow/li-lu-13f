@@ -91,6 +91,8 @@ def tasks(root):
             else:
                 pct = abs(shares / previous - 1) * 100
                 change = ('增持' if shares > previous else '减持') + (f'{pct:.1f}%' if pct >= 0.05 else '（微量变动）')
+            if h.get('shareAdjustment'):
+                change += '（拆股调整后）'
             facts.append({'ticker': h['ticker'], 'name': h.get('cnName') or h.get('name', ''),
                           'change': change, 'value': h.get('value', 0), 'previousValue': h.get('prevValue', 0)})
         facts.sort(key=lambda h: max(h['value'], h['previousValue']), reverse=True)

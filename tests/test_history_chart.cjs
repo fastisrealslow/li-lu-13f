@@ -130,3 +130,31 @@ test('history distinguishes completed source searches from fetch failures',()=>{
   assert.match(text,/尚未完成，将自动重试/);
   assert.ok(!text.includes('已补查 SEC'));
 });
+
+test('RV Capital biography and investment principles render in both languages',()=>{
+  const a=app();
+  a.context.document.querySelector=selector=>a.el(selector);
+  a.context.document.querySelectorAll=()=>[];
+  a.context.sample=JSON.parse(fs.readFileSync(path.join(__dirname,'../vinall.json'),'utf8'));
+  a.run("investor='vinall';data=sample;INVESTOR_CFG_BY_ID.vinall={name:'罗布·维纳尔',nameEn:'Rob Vinall',source13F:true}");
+  for (const language of ['zh','en']) {
+    a.run(`lang='${language}';updateInvestorContent()`);
+    assert.match(a.el('.ref-text').innerHTML,/RV Capital/);
+    assert.match(a.el('.ref-text').innerHTML,/Business Owner Fund/);
+    assert.match(a.el('.ref-text').innerHTML,/CIK=1766596/);
+    assert.equal((a.el('.phil-grid').innerHTML.match(/class="phil-card"/g)||[]).length,6);
+    assert.ok(!a.el('.ref-grid .timeline').innerHTML.includes('Himalaya'));
+    assert.match(a.el('.articles-grid').innerHTML,/rvcapital.ch\/articles-en/);
+    assert.equal(a.el('[data-i18n="footerTitle"]').textContent,language==='en'?'Rob Vinall 13F Tracker':'罗布·维纳尔 13F 持仓追踪');
+  }
+});
+
+test('quarterly UI and summary retain the split-adjusted comparison',()=>{
+  const a=app();
+  a.run(`data={current:{quarter:'2026 Q2',prevQuarter:'2026 Q1',holdings:[{ticker:'CVNA',shares:1763296,value:116060143,prevShares:1886490,shareAdjustment:{reportedShares:377298,factor:5}}],previousHoldings:[{ticker:'CVNA',shares:377298,value:118818309}]}}`);
+  assert.equal(a.run('quarterlyHoldings()[0].prevShares'),1886490);
+  a.run('renderChanges()');
+  assert.match(a.el('changesBody').innerHTML,/-6.5%/);
+  assert.match(a.el('changesBody').innerHTML,/377,298/);
+  assert.match(a.run('aiInvestorFallback(data)'),/减持6.5%（拆股调整后）/);
+});

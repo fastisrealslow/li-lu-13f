@@ -21,7 +21,7 @@ INVESTOR_CONFIG 会在启动时从该文件自动构建，无需在本文件手�
 只依赖标准库，无需 pip install。
 """
 
-from holdings_diff import attach_previous, update_history
+from holdings_diff import attach_previous, update_history, VERIFIED_SPLITS
 
 import json
 import os
@@ -385,6 +385,17 @@ TICKER_CLASS_MAP = {
 # CUSIP → ticker（当名称匹配失败或有多股票类别歧义时优先使用，人工逐条核对）
 # 由 Klarman/Ackman/Abrams/Berkowitz/Hawkins 5 位投资者持仓补充
 CUSIP_TICKER_MAP = {
+    # RV Capital holdings: security identifiers from original SEC information tables.
+    "146869102": "CVNA",  # CARVANA CO
+    "244199105": "DE",    # DEERE & CO
+    "45841N107": "IBKR",  # INTERACTIVE BROKERS GROUP IN
+    "617700109": "MORN",  # MORNINGSTAR INC
+    "70432V102": "PAYC",  # PAYCOM SOFTWARE INC
+    "819047101": "SHAK",  # SHAKE SHACK INC
+    "83088V102": "WORK",  # SLACK TECHNOLOGIES INC (historical, acquired)
+    "L8681T102": "SPOT",  # SPOTIFY TECHNOLOGY S A
+    "898202106": "TRUP",  # TRUPANION INC
+    "M98068105": "WIX",   # WIX COM LTD
     "00108J109": "ACMR",  # ACM RESH INC
     "008252108": "AMG",  # AFFILIATED MANAGERS GROUP
     "013091103": "ACI",  # ALBERTSONS COS INC
@@ -816,6 +827,11 @@ def _sort_history_in_place(data: dict):
 
 def save_data(path: str, data: dict):
     _sort_history_in_place(data)
+    holdings = [h for rows in data.get("history", {}).get("holdings", {}).values() for h in rows]
+    actions = [action for action in VERIFIED_SPLITS if any(
+        h.get("cusip") == action["cusip"] or h.get("ticker") == action["ticker"] for h in holdings)]
+    if actions:
+        data.setdefault("meta", {})["shareActions"] = actions
     with open(path, "w") as f:
         json.dump(data, f, ensure_ascii=False, indent=2)
         f.write("\n")
@@ -882,7 +898,9 @@ def process_investor(key: str, config: dict, full_mode: bool):
     cur_holdings  = parse_holdings(cur_xml, consolidate=consolidate, filing_date=cur_f["filingDate"])
     prev_holdings = parse_holdings(prev_xml, consolidate=consolidate, filing_date=prev_f["filingDate"])
 
-    attach_previous(cur_holdings, prev_holdings)
+    attach_previous(cur_holdings, prev_holdings,
+                    previous_quarter=quarter_label(prev_f["reportDate"]),
+                    current_quarter=quarter_label(cur_f["reportDate"]))
 
     total      = sum(h["value"] for h in cur_holdings)
     prev_total = sum(h["value"] for h in prev_holdings)
@@ -988,7 +1006,8 @@ def process_full(key: str, config: dict, filings: list[dict], data: dict):
         xml_bytes = sec_fetch(find_info_table_xml(cik, prev_f["accession"], prev_f["accessionDashed"]))
         prev_holdings = parse_holdings(xml_bytes, consolidate=consolidate, filing_date=prev_f["filingDate"])
 
-    attach_previous(latest_holdings, prev_holdings)
+    attach_previous(latest_holdings, prev_holdings,
+                    previous_quarter=prev_q, current_quarter=latest_q)
 
     latest_total = sum(h["value"] for h in latest_holdings)
     data["current"] = {

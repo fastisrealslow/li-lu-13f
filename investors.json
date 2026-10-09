@@ -1,5 +1,5 @@
 {
-  "_comment": "单一权威投资者配置。新增投资者时只需在此文件加一条记录，Python 抓取脚本与前端结构性逻辑（导航列表、tab切换、港股fallback、metadata文件列表、价值筛选参与名单）都会自动读取这里，无需在多处手工同步。详情页文案（人物简介/时间线/投资理念/推荐阅读）仍需在 app.js 的 updateInvestorContent() 里手工撰写，因为是创作性内容，无法自动生成。",
+  "_comment": "单一权威投资者配置。新增投资者时在此文件加一条记录，并在 update.yml 配置定时抓取步骤，Python 抓取脚本与前端结构性逻辑（导航列表、tab切换、港股fallback、metadata文件列表、价值筛选参与名单）都会自动读取这里，无需在多处手工同步。详情页文案（人物简介/时间线/投资理念/推荐阅读）仍需在 app.js 的 updateInvestorContent() 里手工撰写，因为是创作性内容，无法自动生成。",
   "investors": [
     {
       "id": "lilu",
@@ -363,6 +363,37 @@
           "Mason Hawkins"
         ]
       }
+    },
+    {
+      "id": "vinall",
+      "name": "罗布·维纳尔",
+      "nameEn": "Rob Vinall",
+      "cik": "1766596",
+      "manager": "RV Capital AG",
+      "people": [
+        "Rob Vinall"
+      ],
+      "dataFile": "vinall.json",
+      "pricesFile": "prices_vinall.json",
+      "hkFile": "vinall_hk.json",
+      "market": "US",
+      "source13F": true,
+      "consolidate": false,
+      "inValueScreen": true,
+      "hkDisclosure": {
+        "queries": [
+          "RV Capital",
+          "Robert Vinall",
+          "Rob Vinall"
+        ],
+        "entities": [
+          "RV Capital AG",
+          "RV Capital GmbH",
+          "Robert Vinall",
+          "Rob Vinall"
+        ]
+      },
+      "officialWebsite": "https://www.rvcapital.ch/"
     }
   ]
 }

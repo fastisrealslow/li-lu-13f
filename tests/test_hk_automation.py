@@ -151,12 +151,13 @@ class HKAutomationTests(unittest.TestCase):
 
     def test_all_investors_have_automatic_hk_coverage(self):
         configs = list(hk.load_configs('investors.json'))
-        self.assertEqual(len(configs), 13)
+        configured = json.loads(Path('investors.json').read_text())['investors']
+        self.assertEqual({c['id'] for c in configs}, {c['id'] for c in configured})
         for inv in configs:
             self.assertTrue(inv['queries'])
             self.assertTrue(inv['entities'])
             self.assertTrue(Path(inv['hkFile']).exists())
-        self.assertEqual(len({c['hkFile'] for c in configs}), 13)
+        self.assertEqual(len({c['hkFile'] for c in configs}), len(configured))
 
     def test_webb_secondary_fetch_does_not_overwrite_official_evidence(self):
         import fetch_webb_holdings as webb

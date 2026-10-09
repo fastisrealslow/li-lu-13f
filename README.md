@@ -4,7 +4,7 @@
 
 ## 投资者配置（单一数据源）
 
-**`investors.json` 是全部 13 位投资者的唯一配置源**（2026-07-26 重构后）。新增/修改投资者只需编辑这一个文件，无需再碰 `app.js`、`fetch_13f_all.py`、`fetch_prices_all.py`、`enrich_metadata.py` 里的任何硬编码列表。
+**`investors.json` 是全部 14 位投资者的唯一结构化配置源**。新增投资者后，还需在 `.github/workflows/update.yml` 配置持仓与股价抓取步骤，并为详情页补充文案；通用 Python 脚本自动读取配置。
 
 每条投资者配置包含：`id`、`name`/`nameEn`、`cik`（无 13F 义务的投资者为 `null`，如 webb）、`manager`、`people`、`dataFile`、`pricesFile`、`hkFile`（无港股持仓为 `null`）、`market`（US/HK）、`source13F`（是否走 13F 抓取流程）、`consolidate`（是否合并多基金持仓，仅 buffett 为 true）、`inValueScreen`（是否进入价值筛选候选池，仅 webb 为 false）。
 
@@ -26,6 +26,7 @@
 | `greenberg.json` | 格林伯格 13F |
 | `klarman.json` / `ackman.json` / `abrams.json` / `berkowitz.json` / `hawkins.json` | 塞斯·克拉曼 / 比尔·阿克曼 / 大卫·艾布拉姆斯 / 布鲁斯·伯科威茨 / 梅森·霍金斯 13F（2026-07-26 新增） |
 | `webb.json` | David Webb 港股持仓 |
+| `vinall.json` | 罗布·维纳尔 / RV Capital AG 13F（CIK 1766596） |
 | `spinoff.json` | 港股分拆公告（手动 + CI 追加） |
 | `spinoff_us.json` | 美股分拆公告（KNOWN_SPINOFFS 手动维护 + CI 追加） |
 
@@ -72,6 +73,16 @@
 **发现新的未识别 ticker/未翻译中文名**（见下方 2026-07-26 第二条记录）：不需要手工处理。CI 会在每次运行时自动调用 `resolve_unmapped_tickers.py`（CUSIP 解析）+ `enrich_metadata.py`（LLM 翻译）。若某个 ticker/公司名长期保持未解析，大概率是已退市/被并购公司，OpenFIGI 和 SEC 都查不到，属预期行为，不需要人工干预。
 
 ## 架构决策与 bug 修复记录
+
+### 2026-10-09：新增 Rob Vinall / RV Capital
+
+罗布·维纳尔使用与其他投资人相同的持仓、季度变化、历史趋势、时间轴、价值筛选和中英文介绍布局。`vinall.json` 从 SEC 原始文件回补 2018 Q4–2026 Q2 的 31 季数据；最新披露为 13 只证券、市值 US$382,887,143。13F 仅代表 RV Capital AG 的申报范围，不等于 Business Owner Fund 的全部全球资产。简介与投资原则取自 [RV 官网](https://www.rvcapital.ch/)，原始申报见 [SEC](https://www.sec.gov/edgar/browse/?CIK=1766596)。可通过 `?investor=vinall` 直接打开该投资人。
+
+`prices_vinall.json` 首次报价使用 Yahoo Finance chart，并逐项保留来源与时间；后续进入现有 Finnhub 定时更新。成本继续采用已有估算方法。`vinall_hk.json` 完成现行及历史 HKEX 主体检索，无匹配结果；页面保留“未找到披露不等于没有港股持仓”的说明。AI 摘要先使用确定性事实摘要，独立 Qwen 流程会按配置补充。
+
+新页面回归发现 CVNA 在 2026-05-08 的 1 拆 5 会被原逻辑误识别为加仓 367%。`holdings_diff.py` 按 [Carvana 原始 10-Q](https://www.sec.gov/Archives/edgar/data/1690820/000169082026000055/cvna-20260630.htm) 记录已确认公司行动，保留原申报股数、按可比口径显示减持 6.5%，同步用于标签、季度表、摘要、时间轴与成本估算。历史原始持仓及市值不改写；尚未登记的其他公司行动仍需要单独核实。
+
+同时修复港股代码列显示 HTML 标签文字、页脚身份与更新时间缺失，以及语言切换后时间轴未重绘。全页初查结果及后续优先项见 [页面检查记录](docs/audit-2026-10-09.md)。
 
 ### 2026-07-26：investors.json 单一数据源重构
 

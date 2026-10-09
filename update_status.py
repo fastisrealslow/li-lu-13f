@@ -34,6 +34,8 @@ MAX_RUNS    = 30
 
 # 所有步骤的显示名（用于前端）
 STEP_LABELS = {
+    "vinall_13f":      "罗布·维纳尔 13F",
+    "vinall_prices":   "罗布·维纳尔 股价",
     "lilu_13f":        "李录 13F",
     "lilu_prices":     "李录 股价",
     "pabrai_13f":      "Pabrai 13F",

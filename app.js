@@ -451,6 +451,7 @@ function switchLang() {
   applyLanguageLabels();
   renderSummary(); renderHoldings(); renderChanges(); renderInsights(); renderHistoryChart();
   updateInvestorContent();
+  renderTimelineTable();
   if (_runStatusData) updateStatusDot(_runStatusData);
   _homeworkCache = null;
   if (!document.getElementById('tab-homework').classList.contains('d-none')) renderHomework();
@@ -791,6 +792,7 @@ function renderHoldings() {
       const cutPct = ((prev - cur) / prev * 100).toFixed(0);
       chgTag = `<span title="${isEn?'Trimmed':'减仓'} -${cutPct}%" style="display:inline-flex;align-items:center;gap:2px;padding:2px 6px;background:rgba(245,158,11,0.1);border:1px solid rgba(245,158,11,0.25);border-radius:4px;font-size:.6rem;color:#d97706;font-weight:600;white-space:nowrap;margin-top:3px;">📉 -${cutPct}%</span>`;
     }
+    if (h.shareAdjustment) chgTag += `<small style="font-size:.6rem;color:var(--text-lighter);">${lang === 'en' ? 'Split adjusted' : '拆股后可比'}</small>`;
     const mosCellHtml = `<div style="display:flex;flex-direction:column;align-items:center;gap:2px;">${mosHtml || '<span style="color:var(--text-lighter);font-size:.7rem;">--</span>'}${chgTag}</div>`;
     
     return `<tr><td class="idx-cell"><span class="idx-num">${i+1}</span></td><td class="stock-cell"><span class="ticker-line">${fmtTicker(h.ticker)}</span><span class="name-line">${cn(h.name, h)}</span><span class="sector-badge">${ts(h.sector)}</span></td><td class="shares-value-cell"><div style="font-weight:600">${fmtNum(h.shares)}</div><div style="font-size:.68rem;color:var(--text-lighter);margin-top:2px;">$${h.value.toLocaleString()}</div><div class="mobile-weight-inline" style="display:none;font-size:.65rem;color:var(--navy);font-weight:600;margin-top:3px;"><span style="font-weight:400;color:var(--text-lighter);">${isEn?'Wt':'仓位'}</span> ${pct}%</div></td><td class="price-cell">${priceHtml}</td><td class="cost-cell">${costHtml}</td><td style="width:100px;"><div class="bar-wrap"><div class="bar-fill" style="width:${pct*3.5}%"></div><span style="font-size:.7rem;font-weight:600;color:var(--navy);margin-left:6px;">${pct}%</span></div></td><td style="width:80px;text-align:center;">${mosCellHtml}</td></tr>`;
@@ -889,7 +891,9 @@ function quarterlyHoldings(snapshot = data) {
     const index = remaining.findIndex(p => sameSecurity(h, p));
     const p = index < 0 ? null : remaining.splice(index, 1)[0];
     return {...h,
-      prevShares: authoritative ? (p?.shares || 0) : (h.prevShares ?? p?.shares ?? 0),
+      prevShares: authoritative
+        ? (h.shareAdjustment && h.shareAdjustment.reportedShares === p?.shares ? h.prevShares : (p?.shares || 0))
+        : (h.prevShares ?? p?.shares ?? 0),
       prevValue: authoritative ? (p?.value || 0) : (h.prevValue ?? p?.value ?? 0)};
   });
   for (const p of remaining) {
@@ -912,7 +916,8 @@ function renderChanges() {
     const vs = vd > 0 ? '+' : vd < 0 ? '-' : '';
     const symbol = currSymbol(h.ticker);
     const exited = h.exited ? `<span class="qoq-down"> · ${en ? 'Exited' : '清仓'}</span>` : '';
-    return `<tr><td class="stock-cell"><span class="ticker-line">${fmtTicker(h.ticker)}${exited}</span><span class="name-line">${cn(h.name, h)}</span><span class="sector-badge">${ts(h.sector)}</span></td><td>${h.prevShares===0?'-':fmtNum(h.prevShares)}</td><td>${fmtNum(h.shares)}</td><td>${fmtShareChg(h.shares,h.prevShares)}</td><td>${h.prevValue===0?'-':symbol+fmtVal(h.prevValue)}</td><td>${symbol}${fmtVal(h.value)}</td><td class="${vc}">${h.prevValue===0?(en?'New':'新进'):`${vs}${symbol}${fmtVal(Math.abs(vd))} (${fmtPct(h.value,h.prevValue)})`}</td></tr>`;
+    const splitNote = h.shareAdjustment ? `<div style="font-size:.65rem;color:var(--text-lighter);">${en ? 'Split adjusted; reported ' : '拆股后可比；原申报 '}${h.shareAdjustment.reportedShares.toLocaleString('en-US')} · ×${h.shareAdjustment.factor}</div>` : '';
+    return `<tr><td class="stock-cell"><span class="ticker-line">${fmtTicker(h.ticker)}${exited}</span><span class="name-line">${cn(h.name, h)}</span><span class="sector-badge">${ts(h.sector)}</span></td><td>${h.prevShares===0?'-':fmtNum(h.prevShares)}${splitNote}</td><td>${fmtNum(h.shares)}</td><td>${fmtShareChg(h.shares,h.prevShares)}</td><td>${h.prevValue===0?'-':symbol+fmtVal(h.prevValue)}</td><td>${symbol}${fmtVal(h.value)}</td><td class="${vc}">${h.prevValue===0?(en?'New':'新进'):`${vs}${symbol}${fmtVal(Math.abs(vd))} (${fmtPct(h.value,h.prevValue)})`}</td></tr>`;
   }).join('');
 }
 
@@ -962,6 +967,7 @@ function aiInvestorFallback(snapshot) {
       else if(h.shares===prev) change='股数不变';
       else { const pct=Math.abs(h.shares/prev-1)*100; change=(h.shares>prev?'增持':'减持')+(pct<0.05?'（微量变动）':pct.toFixed(1)+'%'); }
     }
+    if (h.shareAdjustment) change+='（拆股调整后）';
     const name=h.cnName || h.name || '';
     return (h.ticker.startsWith('?') ? name || h.ticker.slice(1) : name && name!==h.ticker ? `${name}（${h.ticker}）`:h.ticker)+'：'+change;
   }).join('；')+'。';
@@ -1337,8 +1343,13 @@ async function renderTimelineTable() {
       if (!tickerInfo[tk]) tickerInfo[tk] = {first: q, last: q, quarters: [], sector: h.sector, name: h.name, cnName: h.cnName||'', maxShares: 0, curShares: 0};
       else tickerInfo[tk].last = q;
       tickerInfo[tk].quarters.push(q);
-      if (h.shares > tickerInfo[tk].maxShares) tickerInfo[tk].maxShares = h.shares;
-      if (q === latest) tickerInfo[tk].curShares = h.shares;
+      const factor = (data.meta?.shareActions || []).filter(a =>
+        (a.cusip === h.cusip || a.ticker === tk) && q < a.quarter && a.quarter <= latest
+      ).reduce((product, a) => product * a.factor, 1);
+      const comparableShares = h.shares * factor;
+      if (comparableShares > tickerInfo[tk].maxShares) tickerInfo[tk].maxShares = comparableShares;
+      if (q === latest) tickerInfo[tk].curShares = comparableShares;
+      if (factor !== 1) tickerInfo[tk].splitAdjusted = true;
     }
   }
   const entries = Object.entries(tickerInfo)
@@ -1361,7 +1372,7 @@ async function renderTimelineTable() {
         ? `<span style="color:#10b981;">${isEn ? 'At peak shares' : '持股处于历史峰值'}</span>`
         : `<span style="color:#f59e0b;">${isEn ? `Shares at ${ratio}% of peak` : `持股为峰值的 ${ratio}%`}</span>`;
       const shareInfo = ratio < 100 ? `<br><span style="font-size:.68rem;color:var(--text-lighter);">最高 ${fmtNum(e.maxShares)} → 当前 ${fmtNum(e.curShares)}</span>` : '';
-      e.shareInfo = s + shareInfo;
+      e.shareInfo = s + shareInfo + (e.splitAdjusted ? `<br><small>${isEn ? 'Split-adjusted shares' : '拆股后可比股数'}</small>` : '');
     } else {
       e.shareInfo = '<span style="color:var(--text-lighter);">—</span>';
     }
@@ -1449,7 +1460,7 @@ async function renderHKHoldings() {
         const history = evidence.records.length ? `<details><summary>已核实历史（${evidence.records.length}条）</summary>${[...evidence.records].reverse().map(record => `<div style="padding:5px 0;border-bottom:1px solid var(--border);">${record.event_date} · ${hkEscape(record.entity)}<br>${record.shares.toLocaleString('en-US')}股 / ${record.pct}% · ${hkEscape(record.share_class || '原披露类别')}<br><a href="${hkEscape(record.form_url || record.source_url)}" target="_blank" rel="noopener noreferrer">${hkEscape(record.filing_ref)}</a></div>`).join('')}</details>` : '';
         const notes = h.evidence_schema === 2 ? h.notes : '历史记录尚未逐项核实；旧状态、峰值及日期不能作为当前持仓依据。';
         return `<tr>
-          <td>${hkEscape(fmtTicker(h.ticker))}</td><td>${hkEscape(cn(h.name, h))}</td>
+          <td><span class="ticker">${hkEscape(h.ticker)}</span></td><td>${hkEscape(cn(h.name, h))}</td>
           <td>${hkEscape(h.sector)}</td><td style="font-size:.75rem;">${hkEscape(r?.entity || h.entity)}</td>
           <td>${evidence.first?.event_date || '待核实'}</td><td>${r?.event_date || '待核实'}</td>
           <td style="font-size:.75rem;">${quantity}</td><td><span class="tag">${evidence.status}</span></td>
@@ -1716,7 +1727,71 @@ async function renderHomework() {
 async function renderSpinoff() { return renderSpinoffDashboard('hk'); }
 async function renderSpinoffUS() { return renderSpinoffDashboard('us'); }
 
+function renderVinallContent() {
+  const en = lang === 'en';
+  const text = (zh, english) => en ? english : zh;
+  const setText = (selector, value) => { const el = document.querySelector(selector); if (el) el.textContent = value; };
+  setText('[data-i18n="heroTitle"]', text('罗布·维纳尔 13F 持仓追踪', 'Rob Vinall 13F Tracker'));
+  setText('.hero-title .sub', text('RV Capital AG · SEC 13F · 企业所有者视角', 'RV Capital AG · SEC 13F · Business Ownership'));
+  // A paraphrase of RV's published approach, rather than an invented quotation.
+  setText('.quote-block blockquote', text('以企业所有者的视角投资，长期陪伴优秀企业。', 'Invest with an owner’s perspective and a long-term horizon.'));
+  setText('.quote-block .attr', text('— RV Capital 投资理念概述 · 来源：rvcapital.ch', '— RV Capital approach, paraphrased · rvcapital.ch'));
+  setText('#aboutLabel', 'About Rob Vinall');
+  setText('#aboutTitle', text('罗布·维纳尔与 RV Capital', 'Rob Vinall & RV Capital'));
+  setText('#philLabel', 'Philosophy');
+  setText('#philTitle', text('投资理念 — 像企业所有者一样思考', 'Philosophy — Think Like a Business Owner'));
+  setText('#readLabel', 'Readings');
+  setText('[data-i18n="navAbout"]', text('关于维纳尔', 'About Vinall'));
+  const about = document.querySelector('.ref-text');
+  if (about) about.innerHTML = text(
+    '<p>罗布·维纳尔（Rob Vinall）于 2006 年创立 <strong>RV Capital</strong>，现任公司管理董事，总部位于瑞士。</p><p>RV 管理机构客户的独立账户，并为 <strong>Business Owner Fund</strong> 提供投资顾问服务，以企业所有者视角进行全球投资。</p><p>本页持仓来自 <a href="https://www.sec.gov/edgar/browse/?CIK=1766596" target="_blank" rel="noopener noreferrer">RV Capital AG 的 SEC 13F</a>，仅覆盖申报范围内证券，不代表基金全部全球资产。简介与理念来源于 <a href="https://www.rvcapital.ch/" target="_blank" rel="noopener noreferrer">RV 官方网站</a>。</p>',
+    '<p>Rob Vinall founded <strong>RV Capital</strong> in 2006 and is its managing director in Switzerland.</p><p>RV manages institutional separate accounts and advises the <strong>Business Owner Fund</strong>, investing globally with an owner’s perspective.</p><p>Holdings come from <a href="https://www.sec.gov/edgar/browse/?CIK=1766596" target="_blank" rel="noopener noreferrer">RV Capital AG’s SEC 13F filings</a>; they do not represent all global fund assets. Biography and approach: <a href="https://www.rvcapital.ch/" target="_blank" rel="noopener noreferrer">RV’s official website</a>.</p>'
+  );
+  const timeline = document.querySelector('.ref-grid .timeline');
+  const quarters = historySeries(data?.history).quarters;
+  if (timeline) timeline.innerHTML = [
+    ['2006', text('创立 RV Capital', 'Founded RV Capital')],
+    [quarters[0] || 'SEC', text('本页可核实 13F 历史起点', 'First verified 13F quarter on this page')],
+    [data?.current?.quarter || 'SEC', text('最新披露组合；报告期与提交日见页首', 'Latest disclosed portfolio; period and filing date above')],
+  ].map(([year, description]) => `<div class="tl-item"><div class="tl-year">${year}</div><div class="tl-text">${description}</div></div>`).join('');
+  const principles = [
+    ['🏢', '长期存续', 'Durable Business', '评估企业十年后能否继续发展。', 'Assess whether the business can thrive a decade from now.'],
+    ['🏰', '竞争优势', 'Competitive Advantage', '寻找持续积累长期竞争优势的企业。', 'Look for a growing long-term competitive advantage.'],
+    ['🤝', '管理层榜样', 'Management Example', '关注管理层是否以身作则、理性经营。', 'Study management’s conduct and rationality.'],
+    ['⚖️', '有吸引力的价格', 'Attractive Price', '优秀企业也需要合理的买入价格。', 'Require an attractive purchase price.'],
+    ['⏳', '长期持有', 'Long-Term Ownership', '满足投资标准后，以长期拥有为目标。', 'Invest with the intention to own for years.'],
+    ['🎯', '集中研究', 'Concentrated Research', '深入理解少数企业，组合通常约十只持仓。', 'Research a focused portfolio of roughly ten businesses.'],
+  ];
+  const philosophy = document.querySelector('.phil-grid');
+  if (philosophy) philosophy.innerHTML = principles.map(([icon, zh, english, bodyZh, bodyEn]) => `<div class="phil-card"><div class="icon">${icon}</div><h4>${text(zh, english)}</h4><p>${text(bodyZh, bodyEn)}</p></div>`).join('');
+  const resources = [
+    ['https://www.rvcapital.ch/', 'Official', 'RV Capital', '公司介绍与投资框架。', 'Firm overview and investment approach.'],
+    ['https://www.rvcapital.ch/articles-en', 'Letters', 'Business Owner Fund', '官方投资者信。', 'Official investor letters.'],
+    ['https://www.rvcapital.ch/videos', 'Videos', 'RV Capital Videos', '官方访谈与年会视频。', 'Official interviews and gathering videos.'],
+    ['https://www.rvcapital.ch/podcast', 'Podcast', 'RV Capital Podcast', '官方播客。', 'Official podcast.'],
+    ['https://www.sec.gov/edgar/browse/?CIK=1766596&owner=exclude', 'SEC EDGAR', text('全部原始申报', 'Original Filings'), '核对 RV Capital AG 原始持仓报告。', 'Verify RV Capital AG’s original filings.'],
+  ];
+  const readings = document.querySelector('.articles-grid');
+  if (readings) readings.innerHTML = resources.map(([url, label, title, zh, english]) => `<a class="article-card" href="${url}" target="_blank" rel="noopener noreferrer"><div class="year">${label}</div><h4>${title}</h4><p>${text(zh, english)}</p></a>`).join('');
+}
+
 function updateInvestorContent() {
+  const cfg = INVESTOR_CFG_BY_ID[investor];
+  const footerTitle = document.querySelector('[data-i18n="footerTitle"]');
+  if (footerTitle && cfg) footerTitle.textContent = lang === 'en'
+    ? `${cfg.nameEn} ${cfg.source13F ? '13F Tracker' : 'HK Holdings'}`
+    : `${cfg.name} ${cfg.source13F ? '13F 持仓追踪' : '港股持仓'}`;
+  const updated = document.getElementById('updateTime');
+  if (updated) updated.textContent = data?.meta?.lastUpdated || '—';
+  const sec = document.getElementById('footerSEC');
+  if (sec && cfg) { sec.hidden = !cfg.cik; if (cfg.cik) sec.href = `https://www.sec.gov/edgar/browse/?CIK=${cfg.cik}`; }
+  const official = document.getElementById('footerOfficial');
+  if (official && cfg) {
+    const url = cfg.officialWebsite || (investor === 'lilu' ? 'https://www.himcap.com/' : '');
+    official.hidden = !url;
+    if (url) { official.href = url; official.textContent = investor === 'lilu' ? 'Himalaya Capital' : cfg.manager; }
+  }
+  if (investor === 'vinall') { renderVinallContent(); return; }
   var en = lang === 'en', isP = investor === 'pabrai', isD = investor === 'duan', isT = investor === 'tepper', isW = investor === 'webb', isB = investor === 'buffett', isA = investor === 'akre', isG = investor === 'greenberg', isK = investor === 'klarman', isAck = investor === 'ackman', isAb = investor === 'abrams', isBk = investor === 'berkowitz', isHw = investor === 'hawkins';
   // Hero
   var ht = document.querySelector('[data-i18n="heroTitle"]');
@@ -2092,7 +2167,8 @@ async function initApp() {
   // 先加载 investors.json（单一权威来源），再切换投资者，避免导航按钮/数据加载
   // 发生在 INVESTOR_CFG 为空时的竞态。
   await loadInvestorConfig();
-  await switchInvestor('lilu');
+  const selected = new URLSearchParams(window.location.search).get('investor');
+  await switchInvestor(INVESTORS.includes(selected) ? selected : 'lilu');
   refreshAISupplements();
   initStatusDot();
 }
@@ -2150,7 +2226,7 @@ async function renderStatusDrawer() {
   }
 
   const STEP_ORDER = [
-    'lilu_13f','lilu_prices',
+    'lilu_13f','lilu_prices','vinall_13f','vinall_prices',
     'pabrai_13f','pabrai_prices',
     'duan_13f','duan_prices',
     'tepper_13f','tepper_prices',
@@ -2163,6 +2239,7 @@ async function renderStatusDrawer() {
 
   const STEP_LABELS = {
     lilu_13f:'李录 13F', lilu_prices:'李录 股价',
+    vinall_13f:'罗布·维纳尔 13F', vinall_prices:'罗布·维纳尔 股价',
     pabrai_13f:'Pabrai 13F', pabrai_prices:'Pabrai 股价',
     duan_13f:'段永平 13F', duan_prices:'段永平 股价',
     tepper_13f:'Tepper 13F', tepper_prices:'Tepper 股价',

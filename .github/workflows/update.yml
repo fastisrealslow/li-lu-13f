@@ -186,7 +186,37 @@ jobs:
             python3 update_status.py --step batch2_13f --status fail --msg "Step exited with error"
           fi
 
+      - name: Fetch Rob Vinall 13F from SEC EDGAR
+        id: vinall_13f
+        continue-on-error: true
+        run: python3 fetch_13f_all.py --investor vinall
+
+      - name: Status - Rob Vinall 13F
+        if: ${{ !cancelled() && steps.init_status.outcome == 'success' }}
+        run: |
+          if [ "${{ steps.vinall_13f.outcome }}" = "success" ]; then
+            python3 update_status.py --step vinall_13f --status ok
+          else
+            python3 update_status.py --step vinall_13f --status fail --msg "Step exited with error"
+          fi
+
       # ─────────────── 股价抓取（使用通用脚本）───────────────
+
+      - name: Fetch Rob Vinall stock prices
+        id: vinall_prices
+        continue-on-error: true
+        env:
+          FINNHUB_KEY: ${{ secrets.FINNHUB_KEY }}
+        run: python3 fetch_prices_all.py --investor vinall
+
+      - name: Status - Rob Vinall prices
+        if: ${{ !cancelled() && steps.init_status.outcome == 'success' }}
+        run: |
+          if [ "${{ steps.vinall_prices.outcome }}" = "success" ]; then
+            python3 update_status.py --step vinall_prices --status ok
+          else
+            python3 update_status.py --step vinall_prices --status fail --msg "Step exited with error"
+          fi
 
       - name: Fetch Li Lu stock prices
         id: lilu_prices
