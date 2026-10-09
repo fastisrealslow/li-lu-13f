@@ -22,7 +22,7 @@ Li Lu's last original HK events in the automated October 9 check are BYD (2021),
 
 HK shares appear directly in the existing main table with their date and original link. Undisclosed value, price, cost, portfolio weight and margin of safety are left blank. The summary count, USD value and quarterly change statistics remain explicitly scoped to 13F. Loading, refresh and investor changes update the supplementary rows atomically with their corresponding investor. A delayed HK response cannot overwrite a later selection.
 
-The SEC numerical fixes, complete change counts, split/option handling, source-bound AI summaries and daily automated updates remain in place. The asset/configuration version is 67 to avoid mixed browser caches.
+The SEC numerical fixes, complete change counts, split/option handling, source-bound AI summaries and daily automated updates remain in place. The asset/configuration version is 68 to avoid mixed browser caches.
 
 ## Verification
 
