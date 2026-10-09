@@ -21,7 +21,7 @@
       "status": "ok"
     },
     "investor:buffett": {
-      "at": "2026-10-09T07:09:49.155291+00:00",
+      "at": "2026-10-09T15:32:11.522711+00:00",
       "sourceHash": "dab4b99b7527a37298f2cd641d12df52d3aa360b5e67ee0e2c2c7d19496ac583",
       "status": "failed",
       "error": "Selection omitted an available change direction"
@@ -32,7 +32,7 @@
       "status": "ok"
     },
     "investor:greenberg": {
-      "at": "2026-10-09T07:10:32.682447+00:00",
+      "at": "2026-10-09T15:33:17.959021+00:00",
       "sourceHash": "98f262a06890762bf616b1e529b487f21e9bb5cfc276dd258d0c11126e4e1ba6",
       "status": "failed",
       "error": "Selection omitted an available change direction"
@@ -44,7 +44,7 @@
       "error": "Selection omitted an available change direction"
     },
     "investor:klarman": {
-      "at": "2026-10-09T11:28:25.775581+00:00",
+      "at": "2026-10-09T15:34:26.561099+00:00",
       "sourceHash": "18eb3807aa03eae672141ac9981175c5595b2b8a50308c9c3f5c4ffd8155de28",
       "status": "failed",
       "error": "Selection omitted an available change direction"
@@ -66,8 +66,8 @@
       "error": "Selection omitted an available change direction"
     },
     "value": {
-      "at": "2026-10-09T07:08:16.278700+00:00",
-      "sourceHash": "4634b4231c6fc2951fd24611dd9d96b5c15206625f7ab202eb83e5268866513a",
+      "at": "2026-10-09T15:30:47.389474+00:00",
+      "sourceHash": "0e8c0e074283e7e7403134f5ded4430167d5e4d7912b1d518f95f7c4901fb5e5",
       "status": "ok"
     },
     "investor:vinall": {
@@ -1905,7 +1905,7 @@
       "renderVersion": 4,
       "mode": "deterministic",
       "summary": "格伦·格林伯格 2026 Q2（按披露股数比较）：新建仓7项、增持6项、减持15项、清仓3项、不变12项、待比较0项。重点（非完整名单）：ICON PUB LTD CO：增持5.2%；TD 辛纳克斯（SNX）：减持52.8%；OneMain 控股（OMF）：减持1.5%；阿瑟 J. 加拉格尔（AJG）：新建仓；阿雷斯管理（ARES）：清仓。",
-      "generatedAt": "2026-10-09T07:11:17.960870+00:00",
+      "generatedAt": "2026-10-09T15:34:26.559171+00:00",
       "model": null,
       "metrics": {}
     },
@@ -3940,7 +3940,7 @@
       "renderVersion": 4,
       "mode": "deterministic",
       "summary": "塞斯·克拉曼 2026 Q2（按披露股数比较）：新建仓3项、增持6项、减持9项、清仓2项、不变5项、待比较0项。重点（非完整名单）：亚马逊（AMZN）：增持20.0%；餐饮品牌国际（QSR）：减持16.4%；谷歌C（GOOG）：增持16.2%；威利斯塔塔 Watson（WTW）：清仓；芝商所（CME）：新建仓。",
-      "generatedAt": "2026-10-09T11:30:17.525532+00:00",
+      "generatedAt": "2026-10-09T15:35:34.544020+00:00",
       "model": null,
       "metrics": {}
     },
@@ -4776,11 +4776,14 @@
         ]
       },
       "renderVersion": 4,
-      "mode": "deterministic",
+      "mode": "model_selection",
       "summary": "按各投资人最新披露组合：格伦·格林伯格（2026 Q2）：莱纳建筑（LEN）减持，占其披露组合市值4.7%；大卫·泰珀（2026 Q2）：惠而浦（WHR）减持，占其披露组合市值0.4%；查克·阿克瑞（2026 Q2）：布鲁克菲尔德（BN）减持，占其披露组合市值10.1%。",
-      "generatedAt": "2026-10-09T15:28:19.814503+00:00",
-      "model": null,
-      "metrics": {}
+      "generatedAt": "2026-10-09T15:32:11.522028+00:00",
+      "model": "qwen3.5:9b-q4_K_M",
+      "metrics": {
+        "seconds": 84.11,
+        "tokens": 14
+      }
     },
     "investor:duan": {
       "source": {
@@ -7010,7 +7013,7 @@
       "renderVersion": 4,
       "mode": "deterministic",
       "summary": "巴菲特 2026 Q2（按披露股数比较）：新建仓1项、增持7项、减持6项、清仓1项、不变15项、待比较0项。重点（非完整名单）：谷歌A（GOOGL）：增持45.2%；美国银行（BAC）：减持5.9%；谷歌C（GOOG）：增持658.3%；星座品牌（STZ）：清仓；D.R. 霍顿（DHI）：新建仓。",
-      "generatedAt": "2026-10-09T07:10:32.678929+00:00",
+      "generatedAt": "2026-10-09T15:33:17.957573+00:00",
       "model": null,
       "metrics": {}
     },
@@ -8345,13 +8348,13 @@
     }
   },
   "lastRun": {
-    "startedAt": "2026-10-09T11:28:25.775559+00:00",
+    "startedAt": "2026-10-09T15:30:47.389453+00:00",
     "model": "qwen3.5:9b-q4_K_M",
-    "pendingBefore": 5,
-    "cached": 9,
-    "finishedAt": "2026-10-09T11:33:46.886184+00:00",
-    "pendingAfter": 6,
-    "accepted": 0,
+    "pendingBefore": 6,
+    "cached": 8,
+    "finishedAt": "2026-10-09T15:35:34.546630+00:00",
+    "pendingAfter": 5,
+    "accepted": 1,
     "fallback": 3,
     "rejected": 0,
     "failed": 3
