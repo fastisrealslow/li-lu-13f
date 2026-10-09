@@ -64,6 +64,11 @@
       "at": "2026-10-08T19:24:55.636508+00:00",
       "sourceHash": "e5bd09a2c01610d6d043670176a9634a9687eecfbc329fba9f0ffcc8dcf1246f",
       "status": "ok"
+    },
+    "investor:vinall": {
+      "at": "2026-10-09T00:23:58.616523+00:00",
+      "sourceHash": "4100a922dfa9f03731521c1aa7e5c3d373bb7536f88aa5586281450492886455",
+      "status": "ok"
     }
   },
   "entries": {
@@ -6817,24 +6822,31 @@
           "f1",
           "f2",
           "f3",
-          "f4"
+          "f6"
         ]
       },
       "renderVersion": 3,
-      "mode": "deterministic",
-      "summary": "罗布·维纳尔 2026 Q2（按披露股数比较）：卡瓦纳（CVNA）：减持6.5%（拆股调整后）；Meta（META）：减持4.5%；信贷承兑（CACC）：减持12.8%；盈透证券（IBKR）：减持26.0%；华住集团（HTHT）：减持8.1%。",
-      "generatedAt": "2026-10-09T00:17:14.336719+00:00",
-      "model": null,
-      "metrics": {}
+      "mode": "model_selection",
+      "summary": "罗布·维纳尔 2026 Q2（按披露股数比较）：卡瓦纳（CVNA）：减持6.5%（拆股调整后）；Meta（META）：减持4.5%；信贷承兑（CACC）：减持12.8%；盈透证券（IBKR）：减持26.0%；微软（MSFT）：增持31.2%。",
+      "generatedAt": "2026-10-09T00:24:20.093651+00:00",
+      "model": "qwen3.5:9b-q4_K_M",
+      "metrics": {
+        "seconds": 21.46,
+        "tokens": 20
+      }
     }
   },
   "lastRun": {
-    "kind": "schema_migration",
-    "finishedAt": "2026-10-09T00:17:14.337296+00:00",
-    "accepted": 0,
-    "fallback": 1,
-    "failed": 0,
-    "pendingAfter": 1
+    "startedAt": "2026-10-09T00:23:58.616496+00:00",
+    "model": "qwen3.5:9b-q4_K_M",
+    "pendingBefore": 1,
+    "cached": 13,
+    "finishedAt": "2026-10-09T00:24:20.094212+00:00",
+    "pendingAfter": 0,
+    "accepted": 1,
+    "fallback": 0,
+    "rejected": 0,
+    "failed": 0
   },
   "schemaVersion": 2
 }
