@@ -1,5 +1,5 @@
 {
-  "_comment": "投资人、申报主体和经过核实的人物资料统一配置。profile 内容为来源摘要而非逐字引言；reviewedAt 为人工核对日期。新增投资人仍需在 update.yml 配置自动抓取。legacyFilers 仅允许由 SEC 明确通知核实的历史申报主体。",
+  "_comment": "投资人、申报主体和人物资料统一配置。quote 为注明出处的引言或治理格言，summary/principles 为编辑概述；reviewedAt 为资料核对日期。新增投资人仍需在 update.yml 配置自动抓取。legacyFilers 仅允许由 SEC 明确通知核实的历史申报主体。",
   "investors": [
     {
       "id": "lilu",
@@ -36,12 +36,16 @@
         "reviewedAt": "2026-10-09",
         "about": [
           [
-            "李录是喜马拉雅资本创始人兼董事长，自 1997 年管理其主要基金；在哥伦比亚大学取得 BA、JD 和 MBA 学位。",
-            "Li Lu founded Himalaya Capital and is its chairman. He has managed its principal fund since 1997 and earned BA, JD and MBA degrees at Columbia."
+            "李录是喜马拉雅资本创始人兼董事长。1997 年创立公司后，一直管理其主要基金；他在哥伦比亚大学同时取得 BA、JD 和 MBA 三个学位。",
+            "Li Lu is the founder and chairman of Himalaya Capital. He has managed its principal fund since founding the firm in 1997, after earning BA, JD and MBA degrees simultaneously at Columbia University."
           ],
           [
-            "公司以长期拥有具有竞争优势、增长潜力及可信管理层的企业为目标，投资范围主要为亚洲和北美。",
-            "The firm invests mainly in Asia and North America, seeking durable businesses with growth potential and trustworthy managers."
+            "他的投资脉络承接格雷厄姆、巴菲特与芒格：把股票背后的企业研究透，在自己的能力圈里等待好机会，机会真正出现时敢于集中投入。喜马拉雅主要投资亚洲和北美，关注护城河、成长空间与值得信任的管理层。",
+            "His approach follows Graham, Buffett and Munger: understand the underlying business, wait patiently within a circle of competence, and commit decisively when an exceptional opportunity appears. Himalaya focuses mainly on Asia and North America, looking for durable moats, growth and trustworthy managers."
+          ],
+          [
+            "深度研究和长期持有，是理解李录的两个关键词。喜马拉雅的一些投资已持有二十年；他也在公开演讲中反复讨论，如何在无法左右的宏观环境里，找到自己能够理解并有所作为的企业。",
+            "Deep research and long-term ownership define his approach. Some Himalaya investments have been held for twenty years. His public talks examine how an investor can understand individual businesses while accepting a macro environment beyond their control."
           ]
         ],
         "summary": [
@@ -59,63 +63,69 @@
         ],
         "principles": [
           {
+            "icon": "📖",
             "title": [
-              "企业所有者",
-              "Business ownership"
+              "深度研究",
+              "Deep Research"
             ],
             "text": [
-              "评估企业的长期经营价值。",
-              "Evaluate long-term business economics."
+              "穿透财务报表，理解行业格局、竞争优势和管理层；研究到能说清楚企业如何赚钱，也能说清楚自己不知道什么。",
+              "Understand the financials, industry, competitive advantage and management. Be able to explain how the business earns money—and what remains outside your knowledge."
             ]
           },
           {
+            "icon": "🎯",
             "title": [
-              "竞争优势",
-              "Competitive advantage"
+              "集中持仓",
+              "Concentrated Portfolio"
             ],
             "text": [
-              "研究企业竞争优势能否持续。",
-              "Study how advantages endure."
+              "把资金集中在少数真正理解、有足够安全边际的机会里；长期等待，也要在好球出现时敢于挥棒。",
+              "Concentrate on a few deeply understood opportunities with a margin of safety. Wait patiently, then swing decisively at an exceptional pitch."
             ]
           },
           {
-            "title": [
-              "可信管理层",
-              "Trustworthy management"
-            ],
-            "text": [
-              "重视管理层的诚信与能力。",
-              "Assess integrity and ability."
-            ]
-          },
-          {
+            "icon": "⏳",
             "title": [
               "长期视角",
-              "Long-term perspective"
+              "Long-Term View"
             ],
             "text": [
-              "让经营增长与复利逐步积累。",
-              "Allow growth and compounding time."
+              "用多年经营成果检验判断，让优秀企业的增长与复利发挥作用，不被短期报价牵着走。",
+              "Let years of business results test the thesis and allow growth and compounding to work, without being driven by short-term quotes."
             ]
           },
           {
+            "icon": "🛡️",
             "title": [
-              "耐心选择",
-              "Patient selection"
+              "安全边际",
+              "Margin of Safety"
             ],
             "text": [
-              "等待自己真正理解的投资机会。",
-              "Wait for opportunities you understand."
+              "以显著低于内在价值的价格买入。",
+              "Buying well below intrinsic value."
             ]
           },
           {
+            "icon": "🔭",
             "title": [
-              "集中研究",
-              "Focused research"
+              "能力圈",
+              "Circle of Competence"
             ],
             "text": [
-              "对高确信度企业做深入研究。",
-              "Research high-conviction businesses deeply."
+              "清楚知道自己理解什么、不理解什么。",
+              "Invest only where you have a genuine edge."
+            ]
+          },
+          {
+            "icon": "🎣",
+            "title": [
+              "在对的地方钓鱼",
+              "Fish Where the Fish Are"
+            ],
+            "text": [
+              "找到自己能钓到鱼的水域。",
+              "Focus where you can catch fish."
             ]
           }
         ],
@@ -129,6 +139,10 @@
             "kind": [
               "SEC EDGAR",
               "SEC EDGAR"
+            ],
+            "description": [
+              "核对各季度的原始持仓与申报日期。",
+              "Check original quarterly holdings and filing dates."
             ]
           },
           {
@@ -140,6 +154,10 @@
             "kind": [
               "官方资料",
               "Official source"
+            ],
+            "description": [
+              "从好球区、能力圈与长期持有理解喜马拉雅的投资方法。",
+              "Explore Himalaya’s approach to the circle of competence, exceptional opportunities and long-term ownership."
             ]
           },
           {
@@ -151,6 +169,10 @@
             "kind": [
               "官方资料",
               "Official source"
+            ],
+            "description": [
+              "北京大学演讲、芒格纪念文章及价值投资访谈。",
+              "Peking University speeches, his tribute to Munger and value-investing interviews."
             ]
           }
         ],
@@ -158,7 +180,26 @@
           "https://www.sec.gov/edgar/browse/?CIK=1709323&owner=exclude",
           "https://www.himcap.com/",
           "https://www.himcap.com/publications"
-        ]
+        ],
+        "aboutTitle": [
+          "关于李录与喜马拉雅资本",
+          "About Li Lu & Himalaya Capital"
+        ],
+        "philosophyTitle": [
+          "投资理念 — 格雷厄姆 → 巴菲特 → 芒格 → 李录",
+          "Philosophy — Graham → Buffett → Munger → Li Lu"
+        ],
+        "quote": {
+          "text": [
+            "“宏观是我们必须接受的，微观是我们有所作为的。”",
+            "“The macro is what we must accept; the micro is what we can act on.”"
+          ],
+          "attribution": [
+            "— 李录，北京大学演讲，2024年12月",
+            "— Li Lu, Peking University, December 2024 · English translation"
+          ],
+          "url": "https://www.himcap.com/publications"
+        }
       }
     },
     {
@@ -196,8 +237,12 @@
             "Mohnish Pabrai founded Pabrai Investment Funds and is its managing partner. He also manages the Pabrai Wagons Fund; the first Pabrai fund launched in 1999."
           ],
           [
-            "著有 The Dhandho Investor，创办 Dakshana Foundation，并在个人网站 Chai with Pabrai 发布访谈和研究思考。",
-            "He wrote The Dhandho Investor, founded Dakshana Foundation, and publishes interviews and investment discussions on Chai with Pabrai."
+            "帕布莱最鲜明的两张名片是 Cloning 与 Dhandho：前者是坦然学习巴菲特、芒格等人的有效方法，再做自己的研究；后者是寻找“正面我赢，反面我也输不了多少”的机会，先想清楚会损失什么，再考虑能赚多少。",
+            "Pabrai is closely associated with Cloning and Dhandho. Cloning means learning openly from effective methods, then doing independent research. Dhandho seeks asymmetric opportunities: first understand what could be lost, then assess what could be gained."
+          ],
+          [
+            "著作 The Dhandho Investor 将这套思路讲得直白而生动。他通过 Chai with Pabrai 分享访谈与投资思考，也创办 Dakshana Foundation，将教育公益作为投资之外的长期事业。",
+            "The Dhandho Investor presents this framework in direct, memorable terms. He shares interviews and investment thinking on Chai with Pabrai and founded Dakshana Foundation as a long-term commitment to educational philanthropy."
           ]
         ],
         "summary": [
@@ -215,63 +260,69 @@
         ],
         "principles": [
           {
+            "icon": "🎲",
             "title": [
-              "借鉴方法",
-              "Learn from others"
+              "正面我赢，反面我也输不了多少",
+              "Heads I Win, Tails I Don’t Lose Much"
             ],
             "text": [
-              "借鉴优秀投资者的研究方法。",
-              "Learn from experienced investors."
+              "Dhandho 核心——寻找高度不对称的赌注。",
+              "Core Dhandho principle — asymmetric bets with limited downside."
             ]
           },
           {
+            "icon": "💰",
             "title": [
-              "能力圈",
-              "Circle of competence"
+              "50 美分买 1 美元",
+              "Buy $1 for 50 Cents"
             ],
             "text": [
-              "把难以理解的企业留在能力圈外。",
-              "Recognize businesses that are too hard."
+              "买入显著低于内在价值的股票。困境反转是最爱的狩猎场。",
+              "Purchase well below intrinsic value. Distressed turnarounds are the favorite hunting ground."
             ]
           },
           {
+            "icon": "📋",
             "title": [
-              "投资清单",
-              "Investment checklist"
+              "清单投资法",
+              "Checklist Investing"
             ],
             "text": [
-              "用清单检查容易忽略的风险。",
-              "Use checklists to examine overlooked risks."
+              "受 Atul Gawande 启发，严格的买入前检查清单。",
+              "Rigorous pre-investment checklists to avoid cognitive biases."
             ]
           },
           {
+            "icon": "🐑",
             "title": [
-              "异常机会",
-              "Market anomalies"
+              "克隆大师",
+              "Clone the Best"
             ],
             "text": [
-              "研究市场定价中的异常。",
-              "Investigate unusual market pricing."
+              "不羞于复制顶级投资者的最佳想法。",
+              "Copy the best ideas of top investors. Cloning is a wonderful strategy."
             ]
           },
           {
+            "icon": "🎯",
             "title": [
-              "资本配置",
-              "Capital allocation"
+              "极度集中",
+              "Ultra-Concentrated"
             ],
             "text": [
-              "关注管理层如何运用资本。",
-              "Study management’s use of capital."
+              "把资金集中在少数研究充分的机会中；具体持仓数量以当期披露为准。",
+              "Concentrate capital in a few thoroughly researched opportunities; the actual number of holdings depends on the reporting period."
             ]
           },
           {
+            "icon": "☕",
             "title": [
-              "卖出纪律",
-              "Selling discipline"
+              "耐心等待",
+              "Patience"
             ],
             "text": [
-              "持续复核持有与卖出的理由。",
-              "Revisit reasons to hold or sell."
+              "大部分时间什么都不做，只在最佳击球区挥棒。",
+              "Do nothing most of the time. Only swing in your sweet spot."
             ]
           }
         ],
@@ -285,6 +336,10 @@
             "kind": [
               "SEC EDGAR",
               "SEC EDGAR"
+            ],
+            "description": [
+              "核对 Dalal Street 的机构持仓申报。",
+              "Check Dalal Street’s institutional holdings filings."
             ]
           },
           {
@@ -296,6 +351,10 @@
             "kind": [
               "官方资料",
               "Official source"
+            ],
+            "description": [
+              "阅读 Cloning、Dhandho、清单投资与卖出决策的讨论。",
+              "Explore discussions of Cloning, Dhandho, checklists and selling decisions."
             ]
           },
           {
@@ -307,6 +366,10 @@
             "kind": [
               "官方资料",
               "Official source"
+            ],
+            "description": [
+              "了解基金沿革与帕布莱的管理职责。",
+              "Learn about the funds’ history and Pabrai’s management roles."
             ]
           },
           {
@@ -318,6 +381,10 @@
             "kind": [
               "官方资料",
               "Official source"
+            ],
+            "description": [
+              "了解其教育公益事业与 Dakshana 学者项目。",
+              "Learn about his educational philanthropy and the Dakshana scholars program."
             ]
           }
         ],
@@ -325,8 +392,28 @@
           "https://www.sec.gov/edgar/browse/?CIK=1549575&owner=exclude",
           "https://www.chaiwithpabrai.com/",
           "https://pabraifunds.com/about/",
-          "https://www.dakshana.org/"
-        ]
+          "https://www.dakshana.org/",
+          "https://www.chaiwithpabrai.com/uploads/5/5/1/3/55139655/20240620_mohnish_pabrais_session_at_the_university_of_nebraska_omaha_on_may_3_2024_v2.pdf"
+        ],
+        "aboutTitle": [
+          "Mohnish Pabrai — 从 Cloning 到 Dhandho",
+          "Mohnish Pabrai — Cloning & Dhandho"
+        ],
+        "philosophyTitle": [
+          "投资理念 — Dhandho 法",
+          "Philosophy — The Dhandho Way"
+        ],
+        "quote": {
+          "text": [
+            "“正面我赢，反面我也输不了多少。”",
+            "“Heads I win, tails I don’t lose much.”"
+          ],
+          "attribution": [
+            "— Mohnish Pabrai，Dhandho 投资框架",
+            "— Mohnish Pabrai, the Dhandho framework"
+          ],
+          "url": "https://www.chaiwithpabrai.com/uploads/5/5/1/3/55139655/20240620_mohnish_pabrais_session_at_the_university_of_nebraska_omaha_on_may_3_2024_v2.pdf"
+        }
       },
       "officialWebsiteLabel": "Chai with Pabrai"
     },
@@ -361,78 +448,84 @@
         "reviewedAt": "2026-10-09",
         "about": [
           [
-            "段永平是企业家和投资者，在雪球以“大道无形我有型”分享个人观点；其已核实账号为 1247347556。",
-            "Duan Yongping is an entrepreneur and investor who publishes personal views on Xueqiu as 大道无形我有型, account 1247347556."
+            "段永平是从企业经营走向投资的企业家，曾领导小霸王，后创立步步高。在雪球上，他以“大道无形我有型”分享对生意、管理和投资的理解。",
+            "Duan Yongping is an entrepreneur who moved from operating businesses into investing. He led Subor and later founded BBK, and shares his views on business, management and investing on Xueqiu as 大道无形我有型."
           ],
           [
-            "本页沿用“段永平”标签追踪 H&H International Investment, LLC 的机构申报。雪球观点和 H&H 的 SEC 持仓分别展示，不把个人发言直接推断为机构交易原因。",
-            "This tab uses the Duan label to track H&H International Investment, LLC filings. Personal Xueqiu views are separate from institutional disclosures and do not establish the reasons for trades."
+            "“买股票就是买公司”贯穿他的思路：先问生意能否持续赚钱、管理层是否可靠，再问价格是否合适。“不做空、不借钱、不懂不做”，把能力圈和不做什么放在同样重要的位置。",
+            "“Buying stocks is buying companies” defines his approach: study a business’s lasting earning power and its managers before assessing price. Avoiding shorting, borrowing and investments outside his understanding puts restraint alongside conviction."
           ]
         ],
         "summary": [
-          "从企业经营和自己的能力圈出发理解投资。",
-          "Understand investments through business economics and your own competence."
+          "买股票就是买公司；不做空，不借钱，不懂不做。",
+          "Buying stocks is buying companies; avoid shorting, borrowing and businesses you do not understand."
         ],
         "timeline": [],
         "principles": [
           {
+            "icon": "🏢",
             "title": [
-              "企业经营",
-              "Business economics"
+              "买股票就是买公司",
+              "Buy Companies, Not Stocks"
             ],
             "text": [
-              "关注公司如何创造经营利润。",
-              "Understand how a company earns profits."
+              "把股票当作整家公司来评估，看生意本质而非报价波动。",
+              "\"Buying stocks is buying companies\" — evaluate businesses as if buying the whole company."
             ]
           },
           {
+            "icon": "🚫",
+            "title": [
+              "三不原则",
+              "Three Don’ts"
+            ],
+            "text": [
+              "不做空，不借钱，不懂不做——坚守能力圈，拒绝诱惑。",
+              "Don’t short, don’t use margin, don’t invest in what you don’t understand (不做空，不借钱，不懂不做)."
+            ]
+          },
+          {
+            "icon": "⏳",
+            "title": [
+              "长期集中",
+              "Long-Term Concentration"
+            ],
+            "text": [
+              "对理解深刻的企业保持耐心，集中程度来自研究和判断，不来自对短期行情的预测。",
+              "Be patient with deeply understood businesses. Concentration should follow research and judgment rather than a forecast of short-term prices."
+            ]
+          },
+          {
+            "icon": "🎯",
             "title": [
               "能力圈",
-              "Circle of competence"
+              "Circle of Competence"
             ],
             "text": [
-              "承认自己不了解的公司。",
-              "Recognize what you do not understand."
+              "只投真正理解的生意，能解释赚钱的逻辑，也知道哪些问题自己答不上来。",
+              "Invest only in businesses whose economics you understand, and recognize the questions you cannot answer."
             ]
           },
           {
+            "icon": "🔍",
             "title": [
-              "长期思考",
-              "Long-term thinking"
+              "生意本质优先",
+              "Business First"
             ],
             "text": [
-              "关注企业持续经营的基础。",
-              "Study the basis of durable operations."
+              "先看商业模式、护城河、管理层，再看价格。",
+              "Focus on business model, competitive moat, and management quality before price."
             ]
           },
           {
+            "icon": "💡",
             "title": [
-              "独立判断",
-              "Independent judgment"
+              "师从巴菲特",
+              "Learn from the Best"
             ],
             "text": [
-              "个人发言不是交易指令。",
-              "Treat commentary as views, not instructions."
-            ]
-          },
-          {
-            "title": [
-              "原始观点",
-              "Original commentary"
-            ],
-            "text": [
-              "核对真实账号及原始贴文。",
-              "Check the authentic account and original posts."
-            ]
-          },
-          {
-            "title": [
-              "机构披露",
-              "Institutional disclosure"
-            ],
-            "text": [
-              "H&H 报告不等于个人资产明细。",
-              "H&H filings are not personal asset statements."
+              "追随巴菲特和芒格的理念，2006 年亲历巴菲特慈善午餐。",
+              "Follow Buffett’s and Munger’s principles. Met Buffett at the 2006 charity lunch."
             ]
           }
         ],
@@ -446,6 +539,10 @@
             "kind": [
               "SEC EDGAR",
               "SEC EDGAR"
+            ],
+            "description": [
+              "核对 H&H 的报告期持仓，区分机构申报与个人观点。",
+              "Check H&H’s dated holdings, separately from personal commentary."
             ]
           },
           {
@@ -457,6 +554,10 @@
             "kind": [
               "原始发布",
               "Original publication"
+            ],
+            "description": [
+              "阅读段永平对生意本质、能力圈与长期投资的讨论。",
+              "Read Duan’s discussions of business economics, competence and long-term investing."
             ]
           },
           {
@@ -468,6 +569,10 @@
             "kind": [
               "监管资料",
               "Regulatory source"
+            ],
+            "description": [
+              "核对申报机构的名称与注册身份。",
+              "Verify the reporting institution’s name and registration."
             ]
           }
         ],
@@ -475,6 +580,14 @@
           "https://www.sec.gov/edgar/browse/?CIK=1759760&owner=exclude",
           "https://xueqiu.com/u/1247347556",
           "https://adviserinfo.sec.gov/firm/summary/292451"
+        ],
+        "aboutTitle": [
+          "段永平 — 中国巴菲特",
+          "Duan Yongping — China’s Buffett"
+        ],
+        "philosophyTitle": [
+          "投资理念 — 买股票就是买公司",
+          "Philosophy — Buy Companies, Not Stocks"
         ]
       }
     },
@@ -514,13 +627,17 @@
             "David Tepper founded Appaloosa in 1993. He graduated from Pittsburgh in 1978, earned his Carnegie Mellon MBA in 1982 and joined Goldman Sachs in 1985."
           ],
           [
-            "早期在信用与高收益债券领域工作。他同时是 Carolina Panthers 的所有者；球队官方履历提供可核实的职业时间线。",
-            "His earlier career focused on credit and high-yield debt. He also owns the Carolina Panthers, whose official biography documents his career."
+            "泰珀的投资底色来自信用研究和困境债务。面对被恐慌抛售的资产，他关注的是资产价值、偿付能力与生存概率：市场究竟低估了风险，还是把仍有价值的企业一并抛弃？",
+            "Tepper’s investment roots lie in credit analysis and distressed debt. In a sell-off, the questions are asset value, repayment capacity and survival: is risk being underestimated, or is a viable business being discarded with everything else?"
+          ],
+          [
+            "他的风格也强调宏观环境与仓位调整。利率、政策和流动性变化会改变投资逻辑；有把握时集中投入，判断改变时重新评估。他同时是 Carolina Panthers 的所有者。",
+            "His approach also considers macro conditions and portfolio positioning. Rates, policy and liquidity can change an investment thesis; strong conviction warrants commitment, while changed evidence calls for reassessment. He also owns the Carolina Panthers."
           ]
         ],
         "summary": [
-          "结合信用研究与市场环境，理解困境资产和风险。",
-          "Study credit, market conditions and distressed-asset risks."
+          "在恐慌中寻找错价，以信用研究判断企业能否走出困境。",
+          "Look for mispricing in market panic; use credit research to assess whether a business can survive its distress."
         ],
         "timeline": [
           {
@@ -547,63 +664,69 @@
         ],
         "principles": [
           {
+            "icon": "🌍",
             "title": [
-              "信用研究",
-              "Credit research"
+              "宏观视野",
+              "Macro Vision"
             ],
             "text": [
-              "研究债务结构与偿付能力。",
-              "Study debt structures and repayment capacity."
+              "自上而下的宏观分析指导仓位。利率、经济周期和政策转向是核心驱动。",
+              "Top-down macro analysis guides portfolio positioning. Interest rates, economic cycles, and policy shifts drive decisions."
             ]
           },
           {
+            "icon": "🎯",
             "title": [
-              "困境资产",
-              "Distressed assets"
+              "集中押注",
+              "Concentrated Bets"
             ],
             "text": [
-              "区分经营困难与资产价值。",
-              "Distinguish distress from asset value."
+              "高确信度的集中持仓。当逻辑足够强，就下大注。",
+              "High conviction positions in a focused portfolio. When the thesis is strong, bet big."
             ]
           },
           {
+            "icon": "🔥",
             "title": [
-              "市场环境",
-              "Market conditions"
+              "危机中的错价",
+              "Mispricing in a Crisis"
             ],
             "text": [
-              "把市场环境纳入研究。",
-              "Consider changing market conditions."
+              "恐慌会把风险与机会同时放大。分清价格崩跌与企业永久受损，研究仍有生存能力的困境资产。",
+              "Panic can magnify both risk and opportunity. Distinguish a price collapse from permanent business impairment and study the prospects for survival."
             ]
           },
           {
+            "icon": "⚡",
             "title": [
-              "风险识别",
-              "Risk identification"
+              "积极交易",
+              "Aggressive Trading"
             ],
             "text": [
-              "分析潜在损失与不确定性。",
-              "Assess losses and uncertainty."
+              "宏观形势变化时迅速调整仓位。不是纯粹的买入持有型投资者。",
+              "Willing to reposition quickly when the macro picture changes. Not a buy-and-hold purist."
             ]
           },
           {
+            "icon": "📊",
             "title": [
-              "申报持仓",
-              "Reported holdings"
+              "深度尽调",
+              "Deep Due Diligence"
             ],
             "text": [
-              "13F 不覆盖全部信用策略。",
-              "13F omits much of a credit strategy."
+              "对每个仓位进行深入研究。了解生意、数据和风险。",
+              "Intensive research on every position. Understand the business, the numbers, and the risks."
             ]
           },
           {
+            "icon": "🛡️",
             "title": [
-              "交易边界",
-              "Disclosure limits"
+              "风险管理",
+              "Risk Management"
             ],
             "text": [
-              "季度快照不能还原完整交易路径。",
-              "Quarterly snapshots do not reveal every trade."
+              "把下行情景、偿付能力和仓位大小一起评估；投资前先想清楚判断出错时会损失什么。",
+              "Evaluate downside scenarios, repayment capacity and position size together. Understand the potential loss before committing capital."
             ]
           }
         ],
@@ -617,6 +740,10 @@
             "kind": [
               "SEC EDGAR",
               "SEC EDGAR"
+            ],
+            "description": [
+              "核对 Appaloosa 的季度持仓与证券类别。",
+              "Check Appaloosa’s quarterly holdings and security types."
             ]
           },
           {
@@ -628,6 +755,10 @@
             "kind": [
               "官方资料",
               "Official source"
+            ],
+            "description": [
+              "从信用研究、高盛经历到创立 Appaloosa 的职业时间线。",
+              "A career timeline from credit research and Goldman Sachs to founding Appaloosa."
             ]
           },
           {
@@ -639,6 +770,10 @@
             "kind": [
               "官方资料",
               "Official source"
+            ],
+            "description": [
+              "教育经历、职业发展与公益事业的官方介绍。",
+              "An official account of his education, career and philanthropy."
             ]
           }
         ],
@@ -646,6 +781,14 @@
           "https://www.sec.gov/edgar/browse/?CIK=1656456&owner=exclude",
           "https://www.panthers.com/team/ownership_business/test-david-a-tepper",
           "https://admission.enrollment.cmu.edu/sites/default/files/2025-05/bio-tepper-david.pdf"
+        ],
+        "aboutTitle": [
+          "大卫·泰珀 — 宏观押注与困境债务",
+          "David Tepper — Macro Bets & Distressed Debt"
+        ],
+        "philosophyTitle": [
+          "投资理念 — 宏观视野与集中押注",
+          "Philosophy — Macro Vision & Concentrated Bets"
         ]
       }
     },
@@ -684,8 +827,12 @@
             "David Webb (1965–2026) founded Webb-site.com and advocated corporate governance and minority-shareholder rights in Hong Kong. He died on 13 January 2026."
           ],
           [
-            "原 Webb-site 主服务器于 2025 年 10 月 31 日停止服务。文章转移至其 Substack；数据库镜像是历史档案，不是新的官方实时持仓服务。",
-            "The main Webb-site server closed on 31 October 2025. His writing moved to Substack; the database mirror is an archive, not an official live portfolio service."
+            "韦伯把价值投资与公司治理研究放在一起：寻找被忽视的港股小型企业，也追查关联交易、股权网络和信息披露中的疑点。Webb-site 的文章与数据库，让普通投资者也能沿着公开文件核对上市公司的来龙去脉。",
+            "Webb combined value investing with governance research: studying overlooked Hong Kong small companies while tracing related-party transactions, ownership networks and disclosure gaps. Webb-site gave ordinary investors the tools to follow the public evidence themselves."
+          ],
+          [
+            "“阳光是最好的消毒剂”最能概括这份坚持：研究不只服务于自己的投资，也通过公开信息、质疑不公和捍卫小股东，让市场更透明。他的文章现保存在 Substack，数据库镜像保留了历史档案。",
+            "“Sunlight is the best disinfectant” captures that commitment: research could serve both an investment and a more transparent market through open information and minority-shareholder advocacy. His writing is preserved on Substack, with database mirrors retaining historical records."
           ]
         ],
         "summary": [
@@ -710,63 +857,69 @@
         ],
         "principles": [
           {
+            "icon": "🔍",
             "title": [
-              "原始披露",
-              "Original disclosures"
+              "法证式研究",
+              "Forensic Research"
             ],
             "text": [
-              "以港交所权益披露为依据。",
-              "Use HKEX ownership disclosures."
+              "深入财务报表，发掘管理层不愿让你看到的问题。",
+              "Deep-dive into financial statements. Uncover issues management won't show you."
             ]
           },
           {
+            "icon": "📖",
             "title": [
-              "公司治理",
-              "Corporate governance"
+              "逐字细读",
+              "Read Every Word"
             ],
             "text": [
-              "研究治理结构和关联交易。",
-              "Examine governance and related-party dealings."
+              "逐行阅读申报文件，交叉比对关联交易。",
+              "Read filings line by line. Cross-reference related-party transactions."
             ]
           },
           {
+            "icon": "☀️",
             "title": [
-              "小股东权益",
-              "Minority shareholders"
+              "阳光是最好的消毒剂",
+              "Sunlight as Disinfectant"
             ],
             "text": [
-              "关注少数股东能否获得公平待遇。",
-              "Examine fairness to minority shareholders."
+              "透明度是公司治理不善的终极解药。",
+              "Transparency is the ultimate remedy for corporate misgovernance."
             ]
           },
           {
+            "icon": "🛡️",
             "title": [
-              "透明度",
-              "Transparency"
+              "捍卫小股东",
+              "Minority Shareholder Rights"
             ],
             "text": [
-              "交叉核对公开记录。",
-              "Cross-check public records."
+              "为小投资者争取权益。",
+              "Fight for the small investor."
             ]
           },
           {
+            "icon": "📈",
             "title": [
-              "披露门槛",
-              "Disclosure threshold"
+              "小盘价值投资",
+              "Small-Cap Value"
             ],
             "text": [
-              "通常只见 5% 以上公开权益。",
-              "The archive generally covers stakes above 5%."
+              "被低估、被忽视的港股小型股是狩猎场。",
+              "Undervalued, overlooked HK small-caps are the hunting ground."
             ]
           },
           {
+            "icon": "📡",
             "title": [
-              "历史边界",
-              "Historical limits"
+              "公开研究",
+              "Open Research"
             ],
             "text": [
-              "未披露不等于清仓，档案不等于现仓。",
-              "Missing disclosures do not establish an exit."
+              "公开分享研究成果。知识自由流通时最有力量。",
+              "Share findings publicly. Knowledge is most powerful when it's free."
             ]
           }
         ],
@@ -780,6 +933,10 @@
             "kind": [
               "原作者发布",
               "Original publication"
+            ],
+            "description": [
+              "阅读韦伯的公司治理、关联交易与股东权益研究。",
+              "Read Webb’s research on governance, related-party transactions and shareholder rights."
             ]
           },
           {
@@ -791,6 +948,10 @@
             "kind": [
               "历史镜像",
               "Historical mirror"
+            ],
+            "description": [
+              "查阅历史 Webb-chips 记录；镜像保留的是档案。",
+              "Explore historical Webb-chips records preserved in the archive mirror."
             ]
           },
           {
@@ -802,6 +963,10 @@
             "kind": [
               "监管资料",
               "Regulatory source"
+            ],
+            "description": [
+              "按姓名核对港交所原始披露及事件日期。",
+              "Check original HKEX disclosures and their event dates by name."
             ]
           },
           {
@@ -813,6 +978,10 @@
             "kind": [
               "新闻报道",
               "News report"
+            ],
+            "description": [
+              "了解韦伯的生平与香港市场治理工作。",
+              "An account of Webb’s life and governance work in Hong Kong."
             ]
           }
         ],
@@ -821,7 +990,26 @@
           "https://webbsite.0xmd.com/dbpub/webbchips",
           "https://di.hkex.com.hk/di/NSSrchPerson.aspx?src=MAIN&lang=EN",
           "https://apnews.com/article/a7b7b3bc19b286eed7a7d0d518deeca4"
-        ]
+        ],
+        "aboutTitle": [
+          "大卫·韦伯 — 维权投资者",
+          "David Webb — The Activist Investor"
+        ],
+        "philosophyTitle": [
+          "投资理念 — 用研究与透明度捍卫小股东",
+          "Philosophy — Research, Transparency & Shareholder Rights"
+        ],
+        "quote": {
+          "text": [
+            "“阳光是最好的消毒剂。”",
+            "“Sunlight is the best disinfectant.”"
+          ],
+          "attribution": [
+            "— 透明治理格言（Louis D. Brandeis）；韦伯所倡导的信念",
+            "— Louis D. Brandeis · A guiding principle of Webb’s transparency work"
+          ],
+          "url": "https://webbhk.substack.com/"
+        }
       },
       "officialWebsiteLabel": "Webb-site 文章档案"
     },
@@ -882,12 +1070,16 @@
         "reviewedAt": "2026-10-09",
         "about": [
           [
-            "沃伦·巴菲特长期领导伯克希尔·哈撒韦。Greg Abel 自 2026 年 1 月接任 CEO；公司于 2026 年 9 月 18 日宣布巴菲特转任荣誉董事长并继续担任董事，Howard Buffett 接任董事长。",
-            "Warren Buffett led Berkshire Hathaway for decades. Greg Abel became CEO in January 2026. On 18 September 2026, Buffett became chairman emeritus and remained a director; Howard Buffett became chairman."
+            "沃伦·巴菲特长期领导伯克希尔·哈撒韦，被称为“奥马哈先知”。他的投资道路从格雷厄姆的低估值方法出发，在芒格的影响下，更重视优秀企业、持久竞争优势和长期复利。",
+            "Warren Buffett led Berkshire Hathaway for decades and is known as the Oracle of Omaha. Starting with Graham’s valuation discipline, he came to place greater weight on outstanding businesses, durable advantages and long-term compounding, influenced by Charlie Munger."
           ],
           [
-            "本页追踪伯克希尔集团的合并 13F 披露。集团由团队管理，不能把每次买卖都归于巴菲特本人，也不能用 13F 市值代表集团全部资产。",
-            "This tab tracks Berkshire’s consolidated 13F. Its investments are managed by a team; individual trades should not all be attributed to Buffett, and 13F value is not total group assets."
+            "从买入股票到收购整家企业，核心始终是生意本身：可靠的管理层、可持续的现金创造能力，以及合理的购买价格。他的年度股东信把资本配置、错误与经验讲得坦诚，是理解其思想的重要入口。",
+            "Whether buying shares or entire companies, the focus is the business: trustworthy managers, sustainable cash generation and a sensible purchase price. His shareholder letters discuss capital allocation, mistakes and experience with unusual candour."
+          ],
+          [
+            "沃伦·巴菲特长期领导伯克希尔·哈撒韦。Greg Abel 自 2026 年 1 月接任 CEO；公司于 2026 年 9 月 18 日宣布巴菲特转任荣誉董事长并继续担任董事，Howard Buffett 接任董事长。",
+            "Warren Buffett led Berkshire Hathaway for decades. Greg Abel became CEO in January 2026. On 18 September 2026, Buffett became chairman emeritus and remained a director; Howard Buffett became chairman."
           ]
         ],
         "summary": [
@@ -919,63 +1111,69 @@
         ],
         "principles": [
           {
+            "icon": "🏢",
             "title": [
-              "企业价值",
-              "Business value"
+              "买入优秀企业",
+              "Buy Wonderful Businesses"
             ],
             "text": [
-              "重视企业的长期盈利能力。",
-              "Study sustainable earning power."
+              "以合理价格买入具有持久竞争优势的企业。",
+              "Buy companies with durable competitive advantages at fair prices."
             ]
           },
           {
+            "icon": "🛡️",
             "title": [
-              "经营优势",
-              "Business advantages"
+              "安全边际",
+              "Margin of Safety"
             ],
             "text": [
-              "研究竞争地位和长期经济性。",
-              "Study competitive positions and economics."
+              "永远不要多付。价格与内在价值的差距是你的保护。",
+              "Never overpay. The difference between price and intrinsic value is your protection."
             ]
           },
           {
+            "icon": "⏳",
             "title": [
-              "管理层",
-              "Management"
+              "长期持有",
+              "Long-Term Horizon"
             ],
             "text": [
-              "关注经营者与股东的利益关系。",
-              "Assess alignment with shareholders."
+              "我们最喜欢的持有期限是永远。让赢家持续复利。",
+              "Our favorite holding period is forever. Let winners compound."
             ]
           },
           {
+            "icon": "🎯",
             "title": [
-              "资本配置",
-              "Capital allocation"
+              "能力圈",
+              "Circle of Competence"
             ],
             "text": [
-              "比较再投资、收购与回购的机会。",
-              "Compare reinvestment, acquisitions and repurchases."
+              "留在你理解的范围内。",
+              "Stay within what you understand."
             ]
           },
           {
+            "icon": "💰",
             "title": [
-              "长期视角",
-              "Long-term perspective"
+              "企业主思维",
+              "Owner's Mindset"
             ],
             "text": [
-              "理解长期经营而非短期价格波动。",
-              "Study long-term operations beyond price movements."
+              "像企业主一样思考，而非股票交易员。",
+              "Think like a business owner, not a stock trader."
             ]
           },
           {
+            "icon": "📖",
             "title": [
-              "合并披露",
-              "Consolidated disclosures"
+              "大量阅读",
+              "Read Everything"
             ],
             "text": [
-              "区分集团报告与个人决策。",
-              "Distinguish group reports from personal decisions."
+              "持续阅读年报与商业历史，让知识、判断力和经验一起积累。",
+              "Read annual reports and business history continuously, allowing knowledge, judgment and experience to accumulate."
             ]
           }
         ],
@@ -989,6 +1187,10 @@
             "kind": [
               "SEC EDGAR",
               "SEC EDGAR"
+            ],
+            "description": [
+              "核对伯克希尔集团的合并季度持仓。",
+              "Check Berkshire’s consolidated quarterly holdings."
             ]
           },
           {
@@ -1000,6 +1202,10 @@
             "kind": [
               "官方资料",
               "Official source"
+            ],
+            "description": [
+              "股东信、年度报告与公司公告的官方入口。",
+              "The official gateway to shareholder letters, annual reports and announcements."
             ]
           },
           {
@@ -1011,6 +1217,10 @@
             "kind": [
               "官方资料",
               "Official source"
+            ],
+            "description": [
+              "阅读资本配置、优秀企业与长期复利的经典论述。",
+              "Read his discussions of capital allocation, outstanding businesses and long-term compounding."
             ]
           },
           {
@@ -1022,6 +1232,10 @@
             "kind": [
               "官方资料",
               "Official source"
+            ],
+            "description": [
+              "核对董事长交接与巴菲特的最新职务。",
+              "Check the chairman transition and Buffett’s latest role."
             ]
           },
           {
@@ -1033,6 +1247,10 @@
             "kind": [
               "官方资料",
               "Official source"
+            ],
+            "description": [
+              "结合经营业务、现金与负债理解集团全貌。",
+              "Place the portfolio alongside Berkshire’s operating businesses, cash and liabilities."
             ]
           }
         ],
@@ -1041,8 +1259,28 @@
           "https://www.berkshirehathaway.com/",
           "https://www.berkshirehathaway.com/letters/letters.html",
           "https://www.berkshirehathaway.com/news/sep1826.pdf",
-          "https://www.berkshirehathaway.com/reports.html"
-        ]
+          "https://www.berkshirehathaway.com/reports.html",
+          "https://www.berkshirehathaway.com/letters/1986.html"
+        ],
+        "aboutTitle": [
+          "沃伦·巴菲特 — 奥马哈先知",
+          "Warren Buffett — The Oracle of Omaha"
+        ],
+        "philosophyTitle": [
+          "投资理念 — 价值投资原则",
+          "Philosophy — Value Investing Principles"
+        ],
+        "quote": {
+          "text": [
+            "“别人贪婪时我恐惧，别人恐惧时我贪婪。”",
+            "“Be fearful when others are greedy, and greedy when others are fearful.”"
+          ],
+          "attribution": [
+            "— 沃伦·巴菲特，伯克希尔股东信",
+            "— Warren Buffett, Berkshire shareholder letter"
+          ],
+          "url": "https://www.berkshirehathaway.com/letters/1986.html"
+        }
       }
     },
     {
@@ -1081,13 +1319,17 @@
             "Chuck Akre founded Akre Capital Management in 1989. Its three-legged framework examines businesses, managers and reinvestment opportunities."
           ],
           [
+            "“复利机器”是理解阿克雷的关键词：企业能否持续赚取高资本回报，管理层能否诚实而有效地配置资金，赚到的钱又是否还有地方可以高回报地再投资。三条腿缺一条，长期复利的基础就会动摇。",
+            "“Compounding machines” captures Akre’s approach: attractive returns on capital, honest and effective capital allocation, and room to reinvest the proceeds at high returns. If one leg is missing, the foundation for long-term compounding weakens."
+          ],
+          [
             "现任 CEO 和 CIO 是 John Neff，也是 Akre Focus ETF 的组合经理。当前机构持仓不能全部当作 Chuck Akre 本人正在管理的个人组合。",
             "John Neff is now CEO and CIO and manages the Akre Focus ETF. Current firm holdings should not all be presented as Chuck Akre’s personal portfolio."
           ]
         ],
         "summary": [
-          "研究能以高回报率持续再投资的企业。",
-          "Study businesses able to reinvest at attractive returns."
+          "找到复利机器：卓越的生意、可信的管理层、持续的再投资机会。",
+          "Find compounding machines: an exceptional business, trustworthy managers and enduring reinvestment opportunities."
         ],
         "timeline": [
           {
@@ -1107,63 +1349,69 @@
         ],
         "principles": [
           {
+            "icon": "🪑",
             "title": [
-              "商业模式",
-              "Business model"
+              "三条腿的凳子",
+              "Three-Legged Stool"
             ],
             "text": [
-              "研究企业的经济性与竞争地位。",
-              "Study economics and competitive positions."
+              "卓越商业模式 + 优秀管理层 + 再投资机会。",
+              "Extraordinary business + excellent management + reinvestment."
             ]
           },
           {
+            "icon": "⚙️",
             "title": [
-              "管理者",
-              "Managers"
+              "复利机器",
+              "Compounding Machines"
             ],
             "text": [
-              "评估诚信、能力与资本配置。",
-              "Assess integrity, ability and capital allocation."
+              "寻找能持续以高回报率再投资利润的企业。",
+              "Find businesses that reinvest at high rates of return."
             ]
           },
           {
+            "icon": "🎯",
             "title": [
-              "再投资",
-              "Reinvestment"
+              "集中投资",
+              "Concentration"
             ],
             "text": [
-              "寻找长期高回报再投资机会。",
-              "Look for durable reinvestment opportunities."
+              "把研究精力放在真正理解的企业上，用经营质量支持长期持有。",
+              "Focus research on well-understood businesses whose quality supports long-term ownership."
             ]
           },
           {
+            "icon": "⏳",
             "title": [
-              "复利",
-              "Compounding"
+              "长期持有",
+              "Long Holding Periods"
             ],
             "text": [
-              "关注长期盈利积累。",
-              "Study long-term accumulation of earnings."
+              "耐心持有优质企业，同时持续核对经营与最初的判断是否一致。",
+              "Own quality businesses patiently while checking that operations continue to support the original thesis."
             ]
           },
           {
+            "icon": "📈",
             "title": [
-              "估值纪律",
-              "Valuation discipline"
+              "资本回报率",
+              "Returns on Capital"
             ],
             "text": [
-              "区分好企业与合适的买入价格。",
-              "Consider the price of a good business."
+              "看企业能否持续取得高资本回报，也看增长需要投入多少新资本。",
+              "Examine both the durability of returns on capital and the additional capital required for growth."
             ]
           },
           {
+            "icon": "💼",
             "title": [
-              "团队管理",
-              "Team management"
+              "管理层至上",
+              "Management First"
             ],
             "text": [
-              "辨别创始人与现任组合经理。",
-              "Distinguish founder from current portfolio manager."
+              "诚实、能干、善于资本配置的管理层。",
+              "Honest, capable, skilled capital allocators."
             ]
           }
         ],
@@ -1177,6 +1425,10 @@
             "kind": [
               "SEC EDGAR",
               "SEC EDGAR"
+            ],
+            "description": [
+              "核对机构申报，区分普通股与期权。",
+              "Check institutional filings, distinguishing common shares and options."
             ]
           },
           {
@@ -1188,6 +1440,10 @@
             "kind": [
               "官方资料",
               "Official source"
+            ],
+            "description": [
+              "了解复利机器与三条腿投资框架。",
+              "Explore compounding machines and the three-legged investment framework."
             ]
           },
           {
@@ -1199,6 +1455,10 @@
             "kind": [
               "官方资料",
               "Official source"
+            ],
+            "description": [
+              "现任管理职责与投资经历。",
+              "Current responsibilities and investment experience."
             ]
           },
           {
@@ -1210,6 +1470,10 @@
             "kind": [
               "官方资料",
               "Official source"
+            ],
+            "description": [
+              "商业模式、管理层与高回报再投资机会。",
+              "Business economics, managers and opportunities to reinvest at high returns."
             ]
           },
           {
@@ -1221,6 +1485,10 @@
             "kind": [
               "官方资料",
               "Official source"
+            ],
+            "description": [
+              "了解基金结构、现任经理与公开报告。",
+              "Learn about the fund structure, current managers and public reports."
             ]
           }
         ],
@@ -1230,6 +1498,14 @@
           "https://www.akrecapital.com/people/john-neff/",
           "https://www.akrecapital.com/investment-approach/our-investment-philosophy/",
           "https://www.akrefund.com/our-team/"
+        ],
+        "aboutTitle": [
+          "查克·阿克雷 — 三条腿的凳子",
+          "Chuck Akre — The Three-Legged Stool"
+        ],
+        "philosophyTitle": [
+          "投资理念 — 复利机器",
+          "Philosophy — Compounding Machines"
         ]
       }
     },
@@ -1263,17 +1539,21 @@
         "reviewedAt": "2026-10-09",
         "about": [
           [
-            "Glenn Greenberg 是 Brave Warrior Advisors 的管理董事和首席投资官。SEC 登记资料及其本人提交的意见信可核对其身份与机构。",
-            "Glenn Greenberg is managing director and chief investment officer of Brave Warrior Advisors. SEC records and his submitted comment letter document his identity and firm."
+            "格伦·格林伯格是 Brave Warrior Advisors 的管理董事和首席投资官，以集中研究和长期价值投资著称。",
+            "Glenn Greenberg is managing director and chief investment officer of Brave Warrior Advisors, known for concentrated research and long-term value investing."
           ],
           [
-            "Brave Warrior 的公开投资方法强调长期持有、集中研究和治理质量。本页只反映机构申报范围内的证券，不能据此推断其全部资产。",
-            "His 2010 SEC letter describes investing in US equities for clients and discusses shareholder governance. Current holdings should be read from dated filings."
+            "他关注企业的竞争地位、现金创造能力与资本回报，把研究集中在少数能真正理解的生意上。与其频繁猜测市场，不如弄清企业为什么能赚钱、优势能保持多久，以及当前价格给了多少余地。",
+            "He focuses on competitive position, cash generation and returns on capital, concentrating research on a manageable set of understandable businesses. The central questions are why a business earns money, how long its advantages can last and what room the price leaves for error."
+          ],
+          [
+            "公司治理也是其公开观点的一部分。他曾向 SEC 提交关于股东参与治理的意见；这种关注与长期持有相连，因为管理层的资本配置最终会落到股东的回报上。",
+            "Governance also appears in his published views, including a submission to the SEC on shareholder participation. That concern connects to long-term ownership: management’s capital allocation ultimately affects shareholder outcomes."
           ]
         ],
         "summary": [
-          "从机构原始披露与公开治理观点出发研究组合。",
-          "Study the portfolio through original filings and published governance views."
+          "深入理解少数好生意，把竞争优势、现金流与管理层放在一起评估。",
+          "Understand a focused set of good businesses, assessing competitive advantage, cash flows and management together."
         ],
         "timeline": [
           {
@@ -1286,63 +1566,69 @@
         ],
         "principles": [
           {
+            "icon": "🎯",
             "title": [
-              "机构身份",
-              "Firm identity"
+              "极度集中",
+              "Extreme Concentration"
             ],
             "text": [
-              "以 SEC 登记核对管理人。",
-              "Verify the adviser through SEC records."
+              "少数深入理解的企业，比一长串浅尝辄止的想法更值得投入研究。",
+              "A focused set of deeply understood businesses deserves more attention than a long list of shallow ideas."
             ]
           },
           {
+            "icon": "📈",
             "title": [
-              "股票研究",
-              "Equity research"
+              "高 ROIC",
+              "High ROIC"
             ],
             "text": [
-              "从原始持仓报告开始研究。",
-              "Start with original holdings reports."
+              "关注资本回报的质量与持续性，核对利润能否转化为现金。",
+              "Study the quality and durability of returns on capital and whether profits turn into cash."
             ]
           },
           {
+            "icon": "🏰",
             "title": [
-              "集中度",
-              "Concentration"
+              "强护城河",
+              "Strong Moats"
             ],
             "text": [
-              "集中程度以报告期数据为准。",
-              "Measure concentration from dated filings."
+              "寻找具有持久竞争优势和定价权的企业。",
+              "Durable competitive advantages and pricing power."
             ]
           },
           {
+            "icon": "👔",
             "title": [
-              "股东治理",
-              "Shareholder governance"
+              "优秀管理层",
+              "Excellent Management"
             ],
             "text": [
-              "关注股东表达和投票机制。",
-              "Study shareholder voice and voting."
+              "管理层必须诚实、能干、以股东利益为重。",
+              "Honest, capable, shareholder-aligned."
             ]
           },
           {
+            "icon": "⚡",
             "title": [
-              "组合边界",
-              "Portfolio boundaries"
+              "逆向买入",
+              "Contrarian Buying"
             ],
             "text": [
-              "13F 不能覆盖全部客户资产。",
-              "13F does not cover all client assets."
+              "在市场恐慌时敢于大举买入。",
+              "Buy aggressively during panics."
             ]
           },
           {
+            "icon": "📅",
             "title": [
-              "事实与推断",
-              "Facts and inference"
+              "长期持有",
+              "Long-Term Hold"
             ],
             "text": [
-              "持仓变化本身不证明交易动机。",
-              "Position changes do not establish motives."
+              "耐心持有优质企业，同时持续核对经营与最初的判断是否一致。",
+              "Own quality businesses patiently while checking that operations continue to support the original thesis."
             ]
           }
         ],
@@ -1356,6 +1642,10 @@
             "kind": [
               "SEC EDGAR",
               "SEC EDGAR"
+            ],
+            "description": [
+              "核对 Brave Warrior 的季度持仓与申报主体。",
+              "Check Brave Warrior’s quarterly holdings and reporting identity."
             ]
           },
           {
@@ -1367,6 +1657,10 @@
             "kind": [
               "监管资料",
               "Regulatory source"
+            ],
+            "description": [
+              "核对机构注册名称与顾问身份。",
+              "Verify the firm’s registered name and adviser identity."
             ]
           },
           {
@@ -1378,6 +1672,10 @@
             "kind": [
               "原始文件",
               "Original document"
+            ],
+            "description": [
+              "阅读其本人关于股东参与公司治理的观点。",
+              "Read his views on shareholder participation in corporate governance."
             ]
           }
         ],
@@ -1385,6 +1683,14 @@
           "https://www.sec.gov/edgar/browse/?CIK=1553733&owner=exclude",
           "https://adviserinfo.sec.gov/firm/summary/108894",
           "https://www.sec.gov/comments/s7-14-10/s71410-20.pdf"
+        ],
+        "aboutTitle": [
+          "格伦·格林伯格 — 集中价值投资",
+          "Glenn Greenberg — Concentrated Value"
+        ],
+        "philosophyTitle": [
+          "投资理念 — 集中价值投资",
+          "Philosophy — Concentrated Value"
         ]
       }
     },
@@ -1423,13 +1729,17 @@
             "Baupost was established in 1982. Seth Klarman has overseen investments since inception and is CEO and portfolio manager, working alongside president Jim Mooney."
           ],
           [
-            "Baupost 的授权范围包括公开股票和债券、私人信贷、私募股权及房地产，不能把本页的股票披露视为其全部策略。",
-            "Baupost invests across public equities and debt, private credit, private equity and real estate. Its reported equities are only part of its strategy."
+            "“安全边际”是克拉曼思想的核心，也是其著作 Margin of Safety 的主题：价格必须给判断错误和意外变化留下空间。先保护本金，机会不够好时愿意等待，而不是为了满仓而投资。",
+            "Margin of safety is central to Klarman’s thinking and to his book of the same name: price must leave room for analytical error and unforeseen change. Capital preservation comes first; insufficiently attractive opportunities warrant patience."
+          ],
+          [
+            "Baupost 的机会范围跨越股票、债券、私人信贷与房地产，常研究复杂、被忽视或有价值实现催化剂的投资。安全边际是一种估值和风险纪律，不是一套固定的股票名单。",
+            "Baupost invests across equities, debt, private credit and real estate, often studying complex, overlooked opportunities or investments with catalysts for value realization. Margin of safety is a valuation and risk discipline rather than a fixed stock list."
           ]
         ],
         "summary": [
-          "以基本面、估值和风险分析研究多种资产机会。",
-          "Study opportunities through fundamentals, valuation and risk."
+          "先保全资本，再寻找回报；没有足够的安全边际，就耐心等待。",
+          "Preserve capital first; when the margin of safety is insufficient, wait patiently."
         ],
         "timeline": [
           {
@@ -1442,63 +1752,69 @@
         ],
         "principles": [
           {
+            "icon": "🛡️",
             "title": [
-              "估值",
-              "Valuation"
+              "安全边际",
+              "Margin of Safety"
             ],
             "text": [
-              "将价格与资产价值进行比较。",
-              "Compare price with asset value."
+              "永不多付：只在价格显著低于保守估计的内在价值时买入。",
+              "Never overpay. Always buy at a significant discount to conservatively estimated intrinsic value."
             ]
           },
           {
+            "icon": "💰",
             "title": [
-              "基本面",
-              "Fundamentals"
+              "无机会时持现",
+              "Hold Cash When Idle"
             ],
             "text": [
-              "深入研究经营与资产基础。",
-              "Research operations and underlying assets."
+              "宁愿持有大量现金，也不强行将资金投入平庸的机会。",
+              "Willing to hold large cash positions rather than force capital into mediocre ideas."
             ]
           },
           {
+            "icon": "🎯",
             "title": [
-              "风险",
-              "Risk"
+              "绝对收益优先",
+              "Absolute Return Focus"
             ],
             "text": [
-              "考虑损失情景和不确定性。",
-              "Examine downside scenarios and uncertainty."
+              "以保全资本为优先，而非追求相对于基准的表现。",
+              "Prioritize capital preservation over relative benchmark performance."
             ]
           },
           {
+            "icon": "🔍",
             "title": [
-              "灵活授权",
-              "Flexible mandate"
+              "深入的基本面研究",
+              "Deep Fundamental Research"
             ],
             "text": [
-              "研究不同资产类别的机会。",
-              "Consider opportunities across asset classes."
+              "每一仓位背后都是严谨、独立的分析。",
+              "Rigorous, independent analysis before every position."
             ]
           },
           {
+            "icon": "🧠",
             "title": [
-              "耐心",
-              "Patience"
+              "逆向自律",
+              "Contrarian Discipline"
             ],
             "text": [
-              "采用长期、价值导向的视角。",
-              "Use a long-term value perspective."
+              "愿意提前、孤独地下注，避免集体心理。",
+              "Willing to be early and alone; avoid crowd psychology."
             ]
           },
           {
+            "icon": "🤐",
             "title": [
-              "披露边界",
-              "Disclosure boundaries"
+              "保持低调",
+              "Low Public Profile"
             ],
             "text": [
-              "美股报告不代表全部多资产组合。",
-              "Equity filings do not represent all assets."
+              "很少接受采访，让业绩自己说话。",
+              "Rarely gives interviews; lets results speak."
             ]
           }
         ],
@@ -1512,6 +1828,10 @@
             "kind": [
               "SEC EDGAR",
               "SEC EDGAR"
+            ],
+            "description": [
+              "核对 Baupost 的申报证券；13F 只覆盖部分资产。",
+              "Check Baupost’s reported securities; 13F covers only part of its assets."
             ]
           },
           {
@@ -1523,6 +1843,10 @@
             "kind": [
               "官方资料",
               "Official source"
+            ],
+            "description": [
+              "机构介绍与公开投资资料。",
+              "Firm information and published investment materials."
             ]
           },
           {
@@ -1534,6 +1858,10 @@
             "kind": [
               "官方资料",
               "Official source"
+            ],
+            "description": [
+              "了解机构沿革与现任投资团队。",
+              "Learn about the firm’s history and current investment team."
             ]
           },
           {
@@ -1545,6 +1873,10 @@
             "kind": [
               "官方资料",
               "Official source"
+            ],
+            "description": [
+              "安全边际、错价、价值实现催化剂与持现纪律。",
+              "Margin of safety, mispricing, catalysts and the discipline of holding cash."
             ]
           }
         ],
@@ -1553,6 +1885,14 @@
           "https://www.baupost.com/",
           "https://www.baupost.com/About",
           "https://www.baupost.com/investment_philosophy"
+        ],
+        "aboutTitle": [
+          "塞斯·克拉曼 — 安全边际",
+          "Seth Klarman — The Margin of Safety"
+        ],
+        "philosophyTitle": [
+          "投资理念 — 安全边际",
+          "Philosophy — Margin of Safety"
         ]
       }
     },
@@ -1599,13 +1939,17 @@
             "Bill Ackman founded and leads Pershing Square. The group uses long-term concentrated investing and may employ hedges; its vehicles have separate disclosures."
           ],
           [
-            "2026 Q2 起，原申报人 Pershing Square Capital Management, L.P. 提交 13F-NT，明确其持仓改由母公司 Pershing Square Inc.（CIK 2026053）报告。本页已改为追踪该母公司，并保留旧主体历史。",
-            "From 2026 Q2, Pershing Square Capital Management filed a 13F notice stating that its holdings are reported by parent Pershing Square Inc., CIK 2026053. This page now follows the parent and retains predecessor history."
+            "阿克曼偏好简单、可预测、能持续产生自由现金流的企业，并把研究集中在少数高确信度的投资上。他也因股东行动而闻名：投资之后，通过治理、管理层和战略层面的参与推动价值实现。",
+            "Ackman favours understandable, predictable businesses with durable free cash flows, concentrating research on a few high-conviction investments. He is also known for shareholder activism, engaging with governance, management and strategy to help realize value."
+          ],
+          [
+            "公开阐述投资逻辑，是 Pershing Square 的鲜明特点。其股东报告既可用来理解企业分析，也可用来观察长期持仓与组合对冲如何配合；基金报告和机构 13F 各有不同的披露范围。",
+            "Publicly explaining investment theses is a distinctive feature of Pershing Square. Its shareholder reports offer insight into business analysis and how long-term positions can work alongside portfolio hedges; fund reports and institutional 13F filings cover different scopes."
           ]
         ],
         "summary": [
-          "研究长期现金流、经营优势和集中投资的风险。",
-          "Study durable cash flows, business advantages and concentration risks."
+          "寻找简单、可预测、能产生自由现金流的企业，以集中投资和积极参与推动价值实现。",
+          "Seek simple, predictable, cash-generative businesses, combining concentrated ownership with active engagement."
         ],
         "timeline": [
           {
@@ -1618,63 +1962,69 @@
         ],
         "principles": [
           {
+            "icon": "🎯",
             "title": [
-              "长期投资",
-              "Long-term investing"
+              "简单、可预测的企业",
+              "Simple, Predictable Businesses"
             ],
             "text": [
-              "理解企业长期现金流。",
-              "Study long-term cash flows."
+              "寻找能产生自由现金流、拥有持久竞争优势的公司。",
+              "Free-cash-flow generative companies with durable competitive advantages."
             ]
           },
           {
+            "icon": "📢",
             "title": [
-              "经营优势",
-              "Business advantages"
+              "维权介入",
+              "Activist Engagement"
             ],
             "text": [
-              "关注可持续的竞争地位。",
-              "Study durable competitive positions."
+              "推动改选董事会、更换管理层或调整战略方向。",
+              "Push for board seats, management changes, and strategic shifts."
             ]
           },
           {
+            "icon": "🧩",
             "title": [
-              "集中投资",
-              "Concentration"
+              "极度集中",
+              "Ultra-Concentrated"
             ],
             "text": [
-              "深入研究有限数量的企业。",
-              "Research a limited number of businesses."
+              "持仓集中，因此每一项投资都需要深入研究和足够强的判断。",
+              "A concentrated portfolio requires deep research and strong conviction behind each investment."
             ]
           },
           {
+            "icon": "🛡️",
             "title": [
-              "管理与治理",
-              "Management and governance"
+              "非对称对冲",
+              "Asymmetric Hedges"
             ],
             "text": [
-              "理解经营者和股东利益。",
-              "Assess managers and shareholder interests."
+              "使用期权与信用对冲工具防范尾部风险。",
+              "Uses options and credit hedges to protect against tail risk."
             ]
           },
           {
+            "icon": "💬",
             "title": [
-              "对冲边界",
-              "Hedging limits"
+              "公开分享逻辑",
+              "Public Thesis-Sharing"
             ],
             "text": [
-              "13F 不能展示全部宏观对冲。",
-              "13F does not show every macro hedge."
+              "乐于在社交媒体上详细分享投资逻辑。",
+              "Openly shares detailed investment cases on social media."
             ]
           },
           {
+            "icon": "⏳",
             "title": [
-              "申报主体",
-              "Reporting entity"
+              "耐心资本",
+              "Patient Capital"
             ],
             "text": [
-              "区分母公司、管理人和旗下基金。",
-              "Distinguish parent, adviser and fund."
+              "愿意为一个逻辑充分展开而持有多年。",
+              "Willing to hold for years for a thesis to play out."
             ]
           }
         ],
@@ -1688,6 +2038,10 @@
             "kind": [
               "SEC EDGAR",
               "SEC EDGAR"
+            ],
+            "description": [
+              "核对母公司当前合并申报。",
+              "Check the parent company’s current consolidated filings."
             ]
           },
           {
@@ -1699,6 +2053,10 @@
             "kind": [
               "官方资料",
               "Official source"
+            ],
+            "description": [
+              "了解机构、长期投资方式与公开资料。",
+              "Explore the firm, its long-term approach and published materials."
             ]
           },
           {
@@ -1710,6 +2068,10 @@
             "kind": [
               "监管文件",
               "Regulatory filing"
+            ],
+            "description": [
+              "原始通知解释持仓改由哪一主体报告。",
+              "The original notice identifies the replacement reporting manager."
             ]
           },
           {
@@ -1721,6 +2083,10 @@
             "kind": [
               "历史申报",
               "Historical filings"
+            ],
+            "description": [
+              "查阅旧主体的历史持仓与申报。",
+              "Explore historical holdings and filings of the predecessor."
             ]
           },
           {
@@ -1732,6 +2098,10 @@
             "kind": [
               "官方资料",
               "Official source"
+            ],
+            "description": [
+              "股东报告、投资逻辑与组合对冲的公开说明。",
+              "Shareholder reports, investment theses and explanations of portfolio hedges."
             ]
           }
         ],
@@ -1741,6 +2111,14 @@
           "https://www.sec.gov/Archives/edgar/data/1336528/000117266126003777/xslForm13F_X02/primary_doc.xml",
           "https://www.sec.gov/edgar/browse/?CIK=1336528&owner=exclude",
           "https://pershingsquareholdings.com/"
+        ],
+        "aboutTitle": [
+          "比尔·阿克曼 — 维权投资者",
+          "Bill Ackman — The Activist Investor"
+        ],
+        "philosophyTitle": [
+          "投资理念 — 简单、可预测、自由现金流",
+          "Philosophy — Simple, Predictable, Free Cash Flow"
         ]
       },
       "reportingFrom": "2026-06-30",
@@ -1787,13 +2165,17 @@
             "David Abrams founded Abrams Capital in 1999 and is its CEO and portfolio manager. The firm is based in Boston."
           ],
           [
+            "艾布拉姆斯的风格低调而耐心：研究能理解的价值机会，在合适的价格投入资本，让企业经营和时间发挥作用。公司公开介绍强调灵活性，不把机会限定在某一个行业或某一类证券。",
+            "Abrams takes a low-profile, patient approach: understand a value opportunity, commit at a sensible price, and give the business time to develop. The firm emphasizes flexibility rather than restricting opportunities to one industry or security type."
+          ],
+          [
             "官网介绍的策略覆盖公开与私人市场、流动与非流动投资、不同资本结构，并强调与企业管理层长期合作。",
             "Its published strategy spans public and private markets, liquid and illiquid opportunities and different capital structures, with long-term partnerships with management."
           ]
         ],
         "summary": [
-          "采用耐心、灵活的长期投资方式，与企业共同积累价值。",
-          "Invest patiently and flexibly, building value alongside businesses."
+          "低调、耐心、独立判断；让深入理解的投资有时间兑现价值。",
+          "Remain patient and independent; give well-understood investments time to realize their value."
         ],
         "timeline": [
           {
@@ -1806,63 +2188,69 @@
         ],
         "principles": [
           {
+            "icon": "🎯",
             "title": [
-              "长期合作",
-              "Long-term partnership"
+              "集中研究",
+              "Focused Research"
             ],
             "text": [
-              "研究企业与管理层的长期关系。",
-              "Study businesses and management relationships."
+              "把资本和研究精力投入少数充分理解的机会，仓位应与风险和确信度相匹配。",
+              "Commit capital and attention to well-understood opportunities, sizing positions to risk and conviction."
             ]
           },
           {
+            "icon": "🛡️",
             "title": [
-              "耐心",
-              "Patience"
+              "安全边际",
+              "Margin of Safety"
             ],
             "text": [
-              "关注价值随经营逐步积累。",
-              "Allow business value time to develop."
+              "延续 Baupost 风格：买入价显著低于内在价值。",
+              "Baupost-style discipline: buy well below intrinsic value."
             ]
           },
           {
+            "icon": "🤐",
             "title": [
-              "灵活策略",
-              "Flexible strategy"
+              "极度低调",
+              "Extreme Privacy"
             ],
             "text": [
-              "不把研究局限于单一行业。",
-              "Research across sectors."
+              "几乎不对外发声，13F 申报是外界了解其思路的主要窗口。",
+              "Almost no public statements; 13F filings are the main public signal."
             ]
           },
           {
+            "icon": "🔍",
             "title": [
-              "资本结构",
-              "Capital structure"
+              "深入、独立的研究",
+              "Deep, Independent Research"
             ],
             "text": [
-              "分析不同资本层级。",
-              "Examine different capital structures."
+              "投资前做好独立研究，用企业事实检验判断。",
+              "Research independently and test the thesis against business facts."
             ]
           },
           {
+            "icon": "⏳",
             "title": [
-              "公开与私人",
-              "Public and private"
+              "长期持有",
+              "Long Holding Periods"
             ],
             "text": [
-              "区分公开市场和私人投资。",
-              "Distinguish public and private investments."
+              "换手率低，耐心复利。",
+              "Low turnover, patient compounding."
             ]
           },
           {
+            "icon": "💪",
             "title": [
-              "披露范围",
-              "Disclosure scope"
+              "信念决定仓位大小",
+              "High Conviction Sizing"
             ],
             "text": [
-              "13F 仅是策略的一部分。",
-              "13F captures only part of the strategy."
+              "仓位大小与对逻辑的确信程度直接相关。",
+              "Position size scales directly with confidence in the thesis."
             ]
           }
         ],
@@ -1876,6 +2264,10 @@
             "kind": [
               "SEC EDGAR",
               "SEC EDGAR"
+            ],
+            "description": [
+              "核对 Abrams Capital 的季度持仓。",
+              "Check Abrams Capital’s quarterly holdings."
             ]
           },
           {
@@ -1887,6 +2279,10 @@
             "kind": [
               "官方资料",
               "Official source"
+            ],
+            "description": [
+              "了解公司的长期投资方式与机构信息。",
+              "Explore the firm’s long-term approach and institutional information."
             ]
           },
           {
@@ -1898,6 +2294,10 @@
             "kind": [
               "官方资料",
               "Official source"
+            ],
+            "description": [
+              "公开与私人市场、流动与非流动机会的投资框架。",
+              "The approach to public and private, liquid and illiquid opportunities."
             ]
           },
           {
@@ -1909,6 +2309,10 @@
             "kind": [
               "官方资料",
               "Official source"
+            ],
+            "description": [
+              "创始人的现任职责与团队介绍。",
+              "The founder’s current role and the management team."
             ]
           }
         ],
@@ -1917,6 +2321,14 @@
           "https://www.abramscapital.com/",
           "https://www.abramscapital.com/about",
           "https://www.abramscapital.com/leadership"
+        ],
+        "aboutTitle": [
+          "大卫·艾布拉姆斯 — 沉默的复利者",
+          "David Abrams — The Silent Compounder"
+        ],
+        "philosophyTitle": [
+          "投资理念 — 耐心资本与独立判断",
+          "Philosophy — Patient Capital & Independent Judgment"
         ]
       }
     },
@@ -1955,13 +2367,17 @@
             "Bruce Berkowitz founded Fairholme. Official fund documents state that he has been CIO since the manager’s inception in 1997 and is responsible for portfolio management."
           ],
           [
-            "13F 只覆盖申报范围内证券，不能代替旗下基金的全部资产；本页集中度以报告期持仓计算。",
-            "13F covers reportable securities and does not represent every asset of the funds; concentration on this page is calculated from the reported holdings."
+            "伯科威茨的风格是先看现金与资产，再看市场情绪：企业真正能产生多少现金，资产在保守假设下值多少，买入价格是否已经留下足够保护。",
+            "Berkowitz starts with cash and assets: how much cash a business can actually generate, what its assets are worth under conservative assumptions and whether the purchase price already provides protection."
+          ],
+          [
+            "集中、逆向与耐心是这套方法的另一面。少数研究充分的机会可能获得较大仓位，但集中程度与投资对象会随时间改变；理解其方法，应结合具体报告期的基金说明和持仓。",
+            "Concentration, contrarian judgment and patience are the other side of this method. Deeply researched opportunities may receive large allocations, while holdings and concentration change over time; dated fund reports provide the context."
           ]
         ],
         "summary": [
-          "研究资产、现金流与集中持仓的风险。",
-          "Study assets, cash flows and concentration risks."
+          "跟着现金走，算清资产价值；价格足够便宜时，才为少数机会投入资本。",
+          "Follow the cash and assess asset value; commit capital when the price offers sufficient protection."
         ],
         "timeline": [
           {
@@ -1974,63 +2390,69 @@
         ],
         "principles": [
           {
+            "icon": "🏠",
             "title": [
-              "资产研究",
-              "Asset research"
+              "实物资产价值",
+              "Real Asset Value"
             ],
             "text": [
-              "核对企业资产与负债。",
-              "Examine assets and liabilities."
+              "深入分析底层土地与房地产资产价值。",
+              "Deep analysis of underlying land and real-estate asset value."
             ]
           },
           {
+            "icon": "🎯",
             "title": [
-              "现金流",
-              "Cash flow"
+              "深度资产研究",
+              "Deep Asset Research"
             ],
             "text": [
-              "研究现金流的可持续性。",
-              "Study sustainable cash generation."
+              "穿透账面数字，研究土地、经营资产和现金流真正能实现的价值。",
+              "Look beyond book figures to the realizable value of land, operating assets and cash flows."
             ]
           },
           {
+            "icon": "🧭",
             "title": [
-              "估值",
-              "Valuation"
+              "逆向耐心",
+              "Contrarian Patience"
             ],
             "text": [
-              "比较买入价格与研究判断。",
-              "Compare price with researched value."
+              "只要逻辑未变，即使年年遭质疑仍愿持有。",
+              "Holds through years of skepticism when the thesis is intact."
             ]
           },
           {
+            "icon": "📊",
             "title": [
-              "长期持有",
-              "Long-term holding"
+              "资产导向估值",
+              "Asset-Based Valuation"
             ],
             "text": [
-              "持续复核企业的长期变化。",
-              "Review long-term business changes."
+              "以重置成本/资产价值估值，而不仅仅看盈余倍数。",
+              "Values businesses on replacement/asset value, not just earnings multiples."
             ]
           },
           {
+            "icon": "🛡️",
             "title": [
-              "集中风险",
-              "Concentration risk"
+              "安全边际",
+              "Margin of Safety"
             ],
             "text": [
-              "集中持仓也需要分析损失情景。",
-              "Examine losses in concentrated positions."
+              "仅在价格显著低于评估资产价值时买入。",
+              "Buys only when price is well below appraised asset value."
             ]
           },
           {
+            "icon": "⏳",
             "title": [
-              "报告期",
-              "Reporting period"
+              "数十年视角",
+              "Multi-Decade Horizon"
             ],
             "text": [
-              "仓位比例以最新报告为准。",
-              "Use dated reports for position weights."
+              "土地与实物资产的逻辑需要数十年才能充分展现。",
+              "Land and real-asset theses play out over decades, not quarters."
             ]
           }
         ],
@@ -2044,6 +2466,10 @@
             "kind": [
               "SEC EDGAR",
               "SEC EDGAR"
+            ],
+            "description": [
+              "核对 Fairholme 的机构持仓申报。",
+              "Check Fairholme’s institutional holdings filings."
             ]
           },
           {
@@ -2055,6 +2481,10 @@
             "kind": [
               "官方资料",
               "Official source"
+            ],
+            "description": [
+              "基金报告、公告与投资者资料。",
+              "Fund reports, announcements and investor materials."
             ]
           },
           {
@@ -2066,6 +2496,10 @@
             "kind": [
               "官方资料",
               "Official source"
+            ],
+            "description": [
+              "阅读基金报告中的现金流、资产价值与持仓讨论。",
+              "Read the fund’s discussions of cash flow, asset value and holdings."
             ]
           },
           {
@@ -2077,6 +2511,10 @@
             "kind": [
               "官方资料",
               "Official source"
+            ],
+            "description": [
+              "核对管理人职责、投资授权与基金运作。",
+              "Check management responsibilities, the mandate and fund operations."
             ]
           }
         ],
@@ -2085,6 +2523,14 @@
           "https://www.fairholmefunds.com/",
           "https://www.fairholmefunds.com/overview",
           "https://www.fairholmefunds.com/s/StatutoryProspectus-raaj.pdf"
+        ],
+        "aboutTitle": [
+          "布鲁斯·伯科威茨 — 集中实物资产",
+          "Bruce Berkowitz — Concentrated Real Assets"
+        ],
+        "philosophyTitle": [
+          "投资理念 — 重仓实物资产",
+          "Philosophy — Concentrated Bets on Real Assets"
         ]
       },
       "officialWebsiteLabel": "Fairholme Funds"
@@ -2124,13 +2570,17 @@
             "Mason Hawkins founded Southeastern Asset Management in 1975. He is chairman and co-portfolio manager of several Longleaf Partners funds. Ross Glotzbach is CEO and head of research."
           ],
           [
-            "公司采用长期、集中、积极参与的价值投资方法，关注企业、管理者与价格。Longleaf Partners 是基金系列，不是另一位投资人。",
-            "The firm uses a long-term, concentrated, engaged value approach, evaluating businesses, people and price. Longleaf Partners is its fund family, not a separate investor."
+            "霍金斯的框架可以用“企业、管理者、价格”来理解：像买下整家企业的私人买家一样估值，找值得合作的管理层，再以显著折价买入。便宜本身不够，生意与人也必须经得起研究。",
+            "Hawkins’s framework brings together business, people and price: appraise the company as a private buyer would, seek capable partners in management and buy at a substantial discount. A low price alone is insufficient."
+          ],
+          [
+            "Longleaf 的长期投资也带有积极参与的色彩。团队关注管理层如何配置资本、释放企业价值，并愿意用多年时间等待经营改善和价值兑现。",
+            "Longleaf combines long-term investing with engagement. The team studies capital allocation and how business value can be realized, giving operating improvements and value realization years to develop."
           ]
         ],
         "summary": [
-          "研究企业价值、管理团队以及价格与价值的差距。",
-          "Study business value, management and the gap between price and value."
+          "像私人买家一样估值：好生意、好管理层，再加足够便宜的价格。",
+          "Appraise like a private buyer: a good business, capable managers and a sufficiently attractive price."
         ],
         "timeline": [
           {
@@ -2143,63 +2593,69 @@
         ],
         "principles": [
           {
+            "icon": "📊",
             "title": [
-              "企业",
-              "Business"
+              "内在价值评估",
+              "Intrinsic Value Appraisal"
             ],
             "text": [
-              "研究企业质量与经营价值。",
-              "Study business quality and value."
+              "像私人买家一样估算企业价值。",
+              "Estimate business value as a private buyer would."
             ]
           },
           {
+            "icon": "🏷️",
             "title": [
-              "管理者",
-              "People"
+              "以显著折价买入",
+              "Buy at a Substantial Discount"
             ],
             "text": [
-              "评估管理团队与股东利益关系。",
-              "Assess management alignment with shareholders."
+              "目标是以显著低于评估内在价值的价格买入。",
+              "Target a significant discount to appraised intrinsic value."
             ]
           },
           {
+            "icon": "👥",
             "title": [
-              "价格",
-              "Price"
+              "管理层能力",
+              "Qualified Management"
             ],
             "text": [
-              "寻找价格低于研究估值的机会。",
-              "Compare price with researched valuation."
+              "要求能干且与股东利益一致的管理团队。",
+              "Require capable, aligned management teams before investing."
             ]
           },
           {
+            "icon": "🏢",
             "title": [
-              "长期",
-              "Long-term"
+              "企业价值优先",
+              "Enterprise Value Focus"
             ],
             "text": [
-              "以长期经营结果衡量投资。",
-              "Evaluate investments over the long term."
+              "穿透报表倍数看底层业务与资产价值。",
+              "Look past headline multiples to underlying business and asset value."
             ]
           },
           {
+            "icon": "🌐",
             "title": [
-              "集中",
-              "Concentrated"
+              "集中研究、积极参与",
+              "Focused Research & Engagement"
             ],
             "text": [
-              "对重点企业做深入研究。",
-              "Research core businesses deeply."
+              "深入理解企业，与管理层讨论资本配置和价值实现，而不只等待市场报价变化。",
+              "Understand the business and engage with managers on capital allocation and value realization, rather than relying solely on market prices."
             ]
           },
           {
+            "icon": "⏳",
             "title": [
-              "参与",
-              "Engaged"
+              "长期主义",
+              "Long-Term Discipline"
             ],
             "text": [
-              "通过与企业沟通理解经营变化。",
-              "Engage with businesses to understand change."
+              "耐心持有多年，等待价值充分实现。",
+              "Patient, multi-year holding periods for value to be realized."
             ]
           }
         ],
@@ -2213,6 +2669,10 @@
             "kind": [
               "SEC EDGAR",
               "SEC EDGAR"
+            ],
+            "description": [
+              "核对 Southeastern 的季度机构持仓。",
+              "Check Southeastern’s quarterly institutional holdings."
             ]
           },
           {
@@ -2224,6 +2684,10 @@
             "kind": [
               "官方资料",
               "Official source"
+            ],
+            "description": [
+              "企业、管理者、价格三者结合的价值投资框架。",
+              "The value framework combining business, people and price."
             ]
           },
           {
@@ -2235,6 +2699,10 @@
             "kind": [
               "官方资料",
               "Official source"
+            ],
+            "description": [
+              "霍金斯、Ross Glotzbach 与现任团队的职责。",
+              "The roles of Hawkins, Ross Glotzbach and the current team."
             ]
           },
           {
@@ -2246,6 +2714,10 @@
             "kind": [
               "官方资料",
               "Official source"
+            ],
+            "description": [
+              "阅读基金报告、企业估值与资本配置讨论。",
+              "Read fund reports and discussions of business valuation and capital allocation."
             ]
           }
         ],
@@ -2254,6 +2726,14 @@
           "https://southeasternasset.com/",
           "https://southeasternasset.com/our-people/",
           "https://southeasternasset.com/investment-offerings/longleaf-partners-fund/"
+        ],
+        "aboutTitle": [
+          "梅森·霍金斯 — 企业内在价值",
+          "Mason Hawkins — Intrinsic Value & Business Value"
+        ],
+        "philosophyTitle": [
+          "投资理念 — 内在价值与深度折价",
+          "Philosophy — Intrinsic Value & Deep Discount"
         ]
       }
     },
@@ -2295,13 +2775,17 @@
             "Rob Vinall founded RV Capital in 2006 and is its managing director. Andreas Lechner is co-managing director. The firm is based in Switzerland."
           ],
           [
-            "RV 为机构客户管理独立账户，并为 Business Owner Fund 提供投资顾问服务；本页的 RV Capital AG 13F 不代表基金所有全球资产。",
-            "RV manages institutional separate accounts and advises the Business Owner Fund. Its RV Capital AG 13F does not represent all global fund assets."
+            "Business Owner Fund 的名字就是投资方法：像长期股东一样选择企业，重点看多年后生意能否继续发展、竞争优势能否变强，以及管理层是否理性、诚实并与股东站在一起。",
+            "The Business Owner Fund’s name expresses the approach: choose businesses as a long-term owner, asking whether they can thrive years from now, strengthen their competitive advantages and be led by rational, honest managers aligned with shareholders."
+          ],
+          [
+            "维纳尔通过投资者信、年会交流与访谈公开分享思考。对他而言，长期资本、企业与管理层需要彼此匹配，持有的耐心来自对生意的理解，而不是忽略变化。",
+            "Vinall shares his thinking through letters, annual gatherings and interviews. Long-term capital must fit the business and its managers; patience comes from understanding the business while remaining attentive to change."
           ]
         ],
         "summary": [
-          "以企业所有者视角，长期陪伴具有竞争优势和理性管理层的企业。",
-          "Think as an owner of durable businesses with rational management."
+          "像长期股东一样选择生意：看清竞争优势，也看清与谁共同经营。",
+          "Choose businesses as a long-term owner: understand the competitive advantage and the people you are partnering with."
         ],
         "timeline": [
           {
@@ -2314,63 +2798,69 @@
         ],
         "principles": [
           {
+            "icon": "🏢",
             "title": [
               "长期存续",
-              "Durability"
+              "Durable Business"
             ],
             "text": [
-              "评估企业十年后的发展基础。",
-              "Assess the business a decade ahead."
+              "评估企业十年后能否继续发展。",
+              "Assess whether the business can thrive a decade from now."
             ]
           },
           {
+            "icon": "🏰",
             "title": [
               "竞争优势",
-              "Competitive advantage"
+              "Competitive Advantage"
             ],
             "text": [
-              "寻找能持续积累的竞争优势。",
-              "Study enduring competitive advantages."
+              "寻找持续积累长期竞争优势的企业。",
+              "Look for a growing long-term competitive advantage."
             ]
           },
           {
+            "icon": "🤝",
             "title": [
-              "管理层",
-              "Management"
+              "管理层榜样",
+              "Management Example"
             ],
             "text": [
-              "关注管理层的行为与理性。",
-              "Study management conduct and rationality."
+              "关注管理层是否以身作则、理性经营。",
+              "Study management’s conduct and rationality."
             ]
           },
           {
+            "icon": "⚖️",
             "title": [
-              "价格",
-              "Price"
+              "有吸引力的价格",
+              "Attractive Price"
             ],
             "text": [
-              "优秀企业也需要合理买入价格。",
+              "优秀企业也需要合理的买入价格。",
               "Require an attractive purchase price."
             ]
           },
           {
+            "icon": "⏳",
             "title": [
               "长期持有",
-              "Long-term ownership"
+              "Long-Term Ownership"
             ],
             "text": [
-              "以长期拥有为投资目标。",
-              "Invest with a long ownership horizon."
+              "满足投资标准后，以长期拥有为目标。",
+              "Invest with the intention to own for years."
             ]
           },
           {
+            "icon": "🎯",
             "title": [
               "集中研究",
-              "Focused research"
+              "Concentrated Research"
             ],
             "text": [
-              "深入理解少数企业。",
-              "Understand a focused set of businesses."
+              "深入研究少数企业，用投资者信持续检验最初的判断与经营变化。",
+              "Study a focused set of businesses deeply, using investor letters to revisit the thesis and changes in operating performance."
             ]
           }
         ],
@@ -2384,6 +2874,10 @@
             "kind": [
               "SEC EDGAR",
               "SEC EDGAR"
+            ],
+            "description": [
+              "核对 RV Capital AG 的季度原始申报。",
+              "Check RV Capital AG’s original quarterly filings."
             ]
           },
           {
@@ -2395,6 +2889,10 @@
             "kind": [
               "官方资料",
               "Official source"
+            ],
+            "description": [
+              "企业长期存续、竞争优势、管理层与价格的投资框架。",
+              "The framework for business durability, competitive advantage, managers and price."
             ]
           },
           {
@@ -2406,6 +2904,10 @@
             "kind": [
               "官方资料",
               "Official source"
+            ],
+            "description": [
+              "从年度回顾与企业分析理解维纳尔的长期判断。",
+              "Explore Vinall’s long-term thinking through annual reviews and business analysis."
             ]
           },
           {
@@ -2417,6 +2919,10 @@
             "kind": [
               "官方资料",
               "Official source"
+            ],
+            "description": [
+              "年会交流、企业家对谈与投资方法访谈。",
+              "Annual gatherings, conversations with entrepreneurs and investment interviews."
             ]
           },
           {
@@ -2428,6 +2934,10 @@
             "kind": [
               "官方资料",
               "Official source"
+            ],
+            "description": [
+              "长期股东视角下的企业与管理层讨论。",
+              "Discussions of businesses and managers from a long-term owner’s perspective."
             ]
           }
         ],
@@ -2437,6 +2947,14 @@
           "https://www.rvcapital.ch/articles-en",
           "https://www.rvcapital.ch/videos",
           "https://www.rvcapital.ch/podcast"
+        ],
+        "aboutTitle": [
+          "罗布·维纳尔与 RV Capital",
+          "Rob Vinall & RV Capital"
+        ],
+        "philosophyTitle": [
+          "投资理念 — 像企业所有者一样思考",
+          "Philosophy — Think Like a Business Owner"
         ]
       }
     }

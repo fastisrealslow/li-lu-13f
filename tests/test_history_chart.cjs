@@ -81,6 +81,30 @@ test('HK search-derived active status and old peak are not current evidence',()=
   assert.equal(result.status,'当前持仓未核实');
   assert.equal(result.latest,undefined);
 });
+test('main table accepts only recent original manager holdings and never adds overlapping interests',()=>{
+  const a=app();
+  const now=Date.parse('2026-10-09T12:00:00Z');
+  const cfg=JSON.parse(fs.readFileSync(path.join(__dirname,'../investors.json'),'utf8')).investors;
+  a.context.now=now;
+  for(const inv of cfg){
+    a.context.config=inv;
+    a.context.payload=JSON.parse(fs.readFileSync(path.join(__dirname,'../'+inv.hkFile),'utf8'));
+    const rows=JSON.parse(a.run("JSON.stringify(latestReportedHKHoldings(payload,config,'2026 Q2',now))"));
+    if(inv.id==='duan'){
+      assert.equal(rows.length,1);
+      assert.equal(rows[0].ticker,'09992.HK');
+      assert.equal(rows[0].shares,106716000);
+      assert.equal(rows[0].asOf,'2026-09-01');
+      assert.match(rows[0].sourceURL,/NSForm2.aspx/);
+    }else assert.equal(rows.length,0,inv.id);
+  }
+  a.context.config=cfg.find(x=>x.id==='duan');
+  const payload=JSON.parse(fs.readFileSync(path.join(__dirname,'../duan_hk.json'),'utf8'));
+  for(const mutate of [p=>p.audit.status='partial',p=>p.audit.checkedAt='2026-09-01T00:00:00Z',p=>p.holdings.forEach(h=>h.verified_disclosures?.forEach(r=>r.event_date='2024-01-01')),p=>p.holdings.forEach(h=>h.verified_disclosures?.forEach(r=>r.pct=4.99)),p=>p.holdings.forEach(h=>h.verified_disclosures?.forEach(r=>r.verification='search_result'))]){
+    a.context.payload=structuredClone(payload);mutate(a.context.payload);
+    assert.equal(a.run("latestReportedHKHoldings(payload,config,'2026 Q2',now).length"),0);
+  }
+});
 test('HK dated disclosures display historic quantities only with primary evidence',()=>{
   const a=app();
   const result=JSON.parse(a.run(`JSON.stringify(hkEvidenceView({verified_disclosures:[{event_date:'2021-01-15',shares:1274411000,pct:6.42,filing_ref:'CS20210120E00331',source_url:'https://di.hkex.com.hk/di/NSAllFormList.aspx'},{event_date:'2026',shares:99,pct:9,source_url:'https://example.com'}]}))`));
@@ -89,26 +113,28 @@ test('HK dated disclosures display historic quantities only with primary evidenc
   assert.equal(result.status,'当前持仓未核实');
 });
 
-test('HK automated checked-empty and partial results remain distinct',async()=>{
-  const a=app();
-  a.run("investor='lilu';INVESTOR_CFG_BY_ID.lilu={hkFile:'hk_holdings.json'}");
-  for (const status of ['checked','partial']) {
-    a.context.fetch=async()=>({ok:true,json:async()=>({holdings:[],audit:{checkedAt:'2026-09-20T12:00:00Z',status}})});
-    await a.run('renderHKHoldings()');
-    const html=a.el('hkHoldingsTable').innerHTML;
-    assert.match(html,/最近自动检查/);
-    if(status==='checked') assert.match(html,/不等于没有港股持仓/);
-    else assert.match(html,/部分来源未能核实/);
-  }
+test('quarterly insights follow tables and archived HK interests have no duplicate display',()=>{
+  const html=fs.readFileSync(path.join(__dirname,'../index.html'),'utf8');
+  const insights=html.indexOf('<div class="insights-box">');
+  assert.ok(insights>html.indexOf('id="holdingsBody"'));
+  assert.ok(insights>html.indexOf('id="changesBody"'));
+  assert.ok(!html.includes('id="currentHKHoldings"'));
+  assert.ok(!html.includes('id="hkHoldingsTable"'));
 });
-test('HK historical records show dates, entity and original filing links',async()=>{
+test('distinctive quotations retain source links in both languages',()=>{
   const a=app();
-  a.run("investor='lilu';INVESTOR_CFG_BY_ID.lilu={hkFile:'hk_holdings.json'}");
-  const record={event_date:'2025-05-08',entity:'Li Lu',shares:985618000,pct:4.96,filing_ref:'IS20250513E00008',source_url:'https://di.hkex.com.hk/di/NSForm1.aspx?fn=IS20250513E00008'};
-  a.context.fetch=async()=>({ok:true,json:async()=>({holdings:[{ticker:'01658.HK',name:'PSBC',verified_disclosures:[record]}]})});
-  await a.run('renderHKHoldings()');
-  const html=a.el('hkHoldingsTable').innerHTML;
-  for(const expected of ['2025-05-08','985,618,000','4.96%','已核实历史','当前持仓未核实','IS20250513E00008']) assert.ok(html.includes(expected));
+  a.context.document.querySelector=a.el;
+  a.context.document.querySelectorAll=()=>[];
+  const cfg=JSON.parse(fs.readFileSync(path.join(__dirname,'../investors.json'),'utf8')).investors;
+  a.context.cfg=cfg;
+  a.run('INVESTOR_CFG_BY_ID=Object.fromEntries(cfg.map(x=>[x.id,x]));data={}');
+  for(const [id,zh,en] of [['lilu','宏观是我们必须接受的','The macro'],['pabrai','正面我赢','Heads I win'],['webb','阳光是最好的消毒剂','Sunlight is the best disinfectant']]){
+    a.run(`investor='${id}';lang='zh';updateInvestorContent()`);
+    assert.ok(a.el('.quote-block blockquote').textContent.includes(zh));
+    assert.match(a.el('.quote-block .attr').innerHTML,/href="https:\/\//);
+    a.run("lang='en';updateInvestorContent()");
+    assert.ok(a.el('.quote-block blockquote').textContent.includes(en));
+  }
 });
 
 test('superseded HK filings cannot replace a corrected record',()=>{

@@ -65,7 +65,7 @@ function deferred() {
   return {promise, resolve};
 }
 
-for (const slowFile of ['buffett.json', 'prices_buffett.json']) {
+for (const slowFile of ['buffett.json', 'prices_buffett.json', 'buffett_hk.json']) {
   test(`late ${slowFile} response cannot overwrite a later investor choice`, async () => {
     const a = app();
     await a.run('loadInvestorConfig()');
