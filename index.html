@@ -108,7 +108,7 @@ body{font-family:var(--sans);color:var(--text);background:var(--bg);line-height:
 
 /* ========== DATA TABS ========== */
 .data-wrap{background:var(--white);border-top:3px solid var(--gold);padding:32px}
-.data-inner{max-width:1100px;margin:0 auto}
+.data-inner{max-width:1280px;margin:0 auto}
 .tabs{display:flex;gap:6px;margin-bottom:24px;border-bottom:1px solid var(--border-light);padding-bottom:0}
 .tab-btn{padding:10px 20px;border:none;background:transparent;cursor:pointer;font-size:.85rem;font-weight:500;color:var(--text-light);transition:all .2s;border-bottom:2px solid transparent;margin-bottom:-1px}
 .tab-btn:hover{color:var(--navy)}
@@ -353,6 +353,17 @@ th .info-wrap{position:relative;display:inline-flex}
 .change-detail-list {padding-left:16px;margin-top:8px}.change-detail-list li {margin:6px 0;line-height:1.65}.change-detail-list .instrument-tag {display:inline-block}
 .insights-box li:has(> details)::before {content:none}.change-detail-list li::before {content:none}
 #insightsList details summary {cursor:pointer;font-weight:600}#insightsList small {color:var(--text-light);line-height:1.6}
+.scope-heading{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:14px}
+.scope-heading h3{margin:0}.scope-badge{font-size:.68rem;color:var(--text-light)}
+.scope-lens{font-size:.82rem;line-height:1.8;margin-bottom:16px;color:var(--text-light)}
+.scope-lens strong{color:var(--navy);display:block;margin-bottom:3px}
+.scope-facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:12px;padding:0;list-style:none}
+.insights-box .scope-facts li{background:var(--white);border:1px solid var(--border-light);border-radius:8px;padding:14px 16px;line-height:1.85;font-size:.82rem;min-width:0;overflow-wrap:anywhere}
+.insights-box .scope-facts li::before{content:none}.scope-footnote{font-size:.7rem;color:var(--text-lighter);line-height:1.7;margin-top:14px}
+.philosophy-signature{padding:18px 22px;margin-top:20px;background:var(--cream);border-left:3px solid var(--gold);border-radius:8px;line-height:1.8}
+.philosophy-signature strong{display:block;font-family:var(--serif);font-size:1.1rem;color:var(--navy);margin-bottom:5px}.philosophy-signature p{font-size:.88rem;color:var(--text-light)}
+@media(min-width:1000px){.phil-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:640px){.insights-box{padding:16px}.scope-facts{grid-template-columns:1fr}.scope-heading{align-items:flex-start}.philosophy-signature{padding:16px}}
 </style>
 <link rel="stylesheet" href="spinoff_ui.css?v=8">
 </head>
@@ -436,11 +447,13 @@ th .info-wrap{position:relative;display:inline-flex}
       <div id="priceFoot" class="price-note">
         
       </div></div>
+      <div id="holdingsInsight" class="insights-box"></div>
     </div>
     <div id="tab-changes" class="d-none">
       <div class="table-wrap"><table><thead><tr>
         <th data-i18n="thStock">股票</th><th id="chPS">上季 持股</th><th id="chCS">本季 持股</th><th data-i18n="changesChg">股数变化</th><th id="chPV">上季 市值</th><th id="chCV">本季 市值</th><th data-i18n="changesVChg">市值变化</th>
       </tr></thead><tbody id="changesBody"></tbody></table></div>
+      <div id="changesInsight" class="insights-box"><div id="changesAISummary"></div><ul id="insightsList"></ul></div>
     </div>
     <div id="tab-homework" class="d-none">
       <div id="homeworkContent"></div>
@@ -459,15 +472,12 @@ th .info-wrap{position:relative;display:inline-flex}
       <div class="chart-wrap"><canvas id="historyChart"></canvas></div>
       <!-- 手机卡片视图（JS 控制显示/隐藏）-->
       <div id="historyMobileWrap" style="display:none;"></div>
-      <!-- AI 趋势解读 -->
-      <div id="historyInsight" style="margin-top:14px;padding:12px 16px;background:linear-gradient(135deg,rgba(99,102,241,0.06),rgba(139,92,246,0.06));border:1px solid rgba(99,102,241,0.18);border-radius:8px;font-size:.8rem;line-height:1.7;color:var(--text);display:none;"></div>
       <div style="margin-top:36px;">
         <h3 style="font-family:var(--serif);font-size:1.05rem;color:var(--navy);margin-bottom:12px;font-weight:600;"><span data-i18n="tlTitle">持仓时间轴</span></h3>
         <div id="timelineCanvas" class="chart-wrap" style="padding:16px;"></div>
       </div>
-
+      <div id="historyInsight" class="insights-box"></div>
     </div>
-    <div class="insights-box"><h3><span data-i18n="insightTitle">📌 本季度关键动态</span></h3><ul id="insightsList"></ul></div>
 
   </div>
 </div>
@@ -504,6 +514,7 @@ th .info-wrap{position:relative;display:inline-flex}
   <div class="ref-inner">
     <div class="ref-label" id="philLabel">Philosophy</div>
     <div class="ref-title" id="philTitle"><span data-i18n="philTitle">投资理念 — 格雷厄姆 → 巴菲特 → 芒格 → 李录</span></div>
+    <div id="philosophySignature" class="philosophy-signature"></div>
     <div class="ref-divider"></div>
     <div class="phil-grid">
       <div class="phil-card">
@@ -567,7 +578,7 @@ th .info-wrap{position:relative;display:inline-flex}
   </div>
 </footer>
 
-<script src="app.js?v=68"></script>
+<script src="app.js?v=69"></script>
 <script src="spinoff_ui.js?v=10"></script>
 <script>
 const nav=document.getElementById('mainNav');

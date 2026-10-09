@@ -17,13 +17,15 @@ on:
       limit:
         description: Maximum changed summaries to process
         type: choice
-        options: ["3", "6", "13"]
-        default: "13"
+        options: ["6", "13", "20"]
+        default: "20"
   push:
     branches: [master]
     paths:
       - .github/workflows/ai-supplement.yml
       - ai_supplement.py
+      - tab_insights.py
+      - tests/test_tab_insights.py
       - portfolio_review.py
       - holdings_diff.py
       - tests/test_portfolio_review.py
@@ -45,7 +47,7 @@ jobs:
       contents: write
     env:
       AI_MODEL: ${{ inputs.model || 'qwen3.5:9b-q4_K_M' }}
-      AI_LIMIT: ${{ inputs.limit || '13' }}
+      AI_LIMIT: ${{ inputs.limit || '20' }}
       OLLAMA_HOST: '127.0.0.1:11434'
       OLLAMA_NUM_PARALLEL: '1'
       OLLAMA_MAX_LOADED_MODELS: '1'
@@ -62,7 +64,9 @@ jobs:
         with:
           python-version: '3.12'
       - name: Test cache, validation and concurrent data protection
-        run: python3 -m unittest discover -s tests -p test_ai_supplement.py -v
+        run: |
+          python3 -m unittest discover -s tests -p test_ai_supplement.py -v
+          python3 -m unittest discover -s tests -p test_tab_insights.py -v
       - name: Check changed input before installing a model
         id: plan
         run: |

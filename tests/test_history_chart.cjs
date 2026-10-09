@@ -57,7 +57,7 @@ test('desktop and mobile render gaps and single zero values without NaN and clea
   a.run('data={};renderHistoryChart()');
   assert.equal(a.el('historyMobileWrap').innerHTML,'');
   assert.equal(a.el('historyChart').onmousemove,null);
-  assert.match(a.el('historyInsight').textContent,/暂无历史数据/);
+  assert.match(a.el('historyInsight').innerHTML,/暂无历史数据/);
 });
 test('timeline remaining share ratio is not labeled sold percentage',async()=>{
   const a=app();
@@ -70,7 +70,7 @@ test('unverified historical snapshots are not charted as confirmed values',async
  const a=app();
  a.run("data={history:{quarters:['2026 Q1'],values:[14791],verification:{status:'unverified'}}};renderHistoryChart()");
  assert.equal(a.run('historySeries(data.history).values.length'),0);
- assert.match(a.el('historyInsight').textContent,/无法与披露日期核对/);
+ assert.match(a.el('historyInsight').innerHTML,/缺少可比、带日期/);
  await a.run('renderHKHoldings=()=>{};renderTimelineTable()');
  assert.match(a.el('timelineCanvas').innerHTML,/暂不展示/);
 });
@@ -83,7 +83,7 @@ test('HK search-derived active status and old peak are not current evidence',()=
 });
 test('main table accepts only recent original manager holdings and never adds overlapping interests',()=>{
   const a=app();
-  const now=Date.parse('2026-10-09T12:00:00Z');
+  const now=Date.parse(JSON.parse(fs.readFileSync(path.join(__dirname,'../duan_hk.json'),'utf8')).audit.checkedAt)+3600000;
   const cfg=JSON.parse(fs.readFileSync(path.join(__dirname,'../investors.json'),'utf8')).investors;
   a.context.now=now;
   for(const inv of cfg){
@@ -115,9 +115,9 @@ test('HK dated disclosures display historic quantities only with primary evidenc
 
 test('quarterly insights follow tables and archived HK interests have no duplicate display',()=>{
   const html=fs.readFileSync(path.join(__dirname,'../index.html'),'utf8');
-  const insights=html.indexOf('<div class="insights-box">');
-  assert.ok(insights>html.indexOf('id="holdingsBody"'));
-  assert.ok(insights>html.indexOf('id="changesBody"'));
+  assert.ok(html.indexOf('id="holdingsInsight"')>html.indexOf('id="holdingsBody"'));
+  assert.ok(html.indexOf('id="changesInsight"')>html.indexOf('id="changesBody"'));
+  assert.ok(html.indexOf('id="historyInsight"')>html.indexOf('id="timelineCanvas"'));
   assert.ok(!html.includes('id="currentHKHoldings"'));
   assert.ok(!html.includes('id="hkHoldingsTable"'));
 });

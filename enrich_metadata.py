@@ -550,140 +550,48 @@ def _investor_en(name_cn):
 
 
 def _gen_verdict(v, mos_tier):
-    """
-    规则式生成逐股判断结论句（代码拼接，不经过LLM，保证可复现、不编造）。
-    综合维度：安全边际深浅、共识人数、持有人动作是否分化（有人加仓有人减仓）、
-    是否新开仓、最大持仓权重。返回 (中文判断语, 英文判断语) 二元组。
-    """
-    holders = v['holders']
-    n = len(holders)
-    max_weight = max((h['weight'] for h in holders), default=0)
-    chgs = set(h['chg'] for h in holders)
-    has_added = 'added' in chgs or 'new' in chgs
-    has_trimmed = 'trimmed' in chgs
-    divergent = has_added and has_trimmed
-    all_new = n >= 1 and all(h['chg'] == 'new' for h in holders)
-    all_added = n >= 1 and all(h['chg'] in ('new', 'added') for h in holders)
-    all_trimmed = n >= 1 and all(h['chg'] == 'trimmed' for h in holders)
-    deep = mos_tier == '深度折价'
-    shallow = mos_tier == '轻度折价'
-
-    # 多人共识 + 动作分化
-    if n >= 2 and divergent:
-        depth_desc = '但折价浅' if shallow else ('且折价充足' if deep else '折价适中')
-        depth_en = 'but the discount is shallow' if shallow else ('and the discount is deep enough' if deep else 'with a moderate discount')
-        return (
-            f"共识度高{depth_desc}、且持有人动作分化，属于\"关注但不宜追高\"的类型。",
-            f"High consensus {depth_en}, but holders are diverging (some adding, some trimming) — worth watching but not chasing."
-        )
-
-    # 多人共识 + 一致加仓/新开仓
-    if n >= 2 and all_added:
-        depth_desc = '安全边际也较为充足' if deep else '但安全边际仅属中等'
-        depth_en = 'with an ample margin of safety' if deep else 'though the margin of safety is only moderate'
-        return (
-            f"多位投资人一致看多且{depth_desc}，属于本期信号最强的共识股之一。",
-            f"Multiple investors are unanimously bullish, {depth_en} — one of the strongest consensus signals this period."
-        )
-
-    # 多人共识 + 一致减仓/无动作
-    if n >= 2 and all_trimmed:
-        return (
-            "多人持有但本季集体减仓，共识度虽高，动能已在减弱，宜观察后续变化。",
-            "Held by multiple investors but collectively trimmed this quarter — consensus is high but momentum is fading; watch for further changes."
-        )
-
-    # 单人持有 + 深度折价 + 长期持有 + 本季减仓（如惠而浦案例）
-    if n == 1 and deep and has_trimmed and (holders[0].get('hold_years') or 0) >= 5:
-        yrs = int(holders[0]['hold_years'])
-        return (
-            f"持仓超{yrs}年的老仓位却在深度折价区减仓，可能反映基本面担忧大于估值吸引力，需警惕价值陷阱。",
-            f"A position held for over {yrs} years is being trimmed despite trading at a deep discount — may signal fundamental concerns outweighing valuation appeal; watch for a value trap."
-        )
-
-    # 单人持有 + 深度折价 + 长期持有 + 仓位未变
-    if n == 1 and deep and 'hold' in chgs and (holders[0].get('hold_years') or 0) >= 5:
-        size_desc = '，但仓位并不重' if max_weight < 3 else ''
-        size_en = ', though the position size is not large,' if max_weight < 3 else ''
-        return (
-            f"深度折价且长期持有未动{size_desc}，更像是低成本的安心底仓，而非新的买入信号。",
-            f"Deep discount with a long-held, unchanged position{size_en} looks more like a low-cost core holding than a fresh buy signal."
-        )
-
-    # 单人 + 新开仓 + 高仓位（如帕伯莱AMR、段永平特斯拉案例）
-    if n == 1 and all_new and max_weight >= 3:
-        return (
-            f"新开仓即给到{max_weight}%的高仓位，显示极强的信心，值得重点关注。",
-            f"A brand-new position sized at {max_weight}% right away signals very strong conviction — worth watching closely."
-        )
-
-    # 单人 + 加仓 + 高仓位
-    if n == 1 and 'added' in chgs and max_weight >= 10:
-        return (
-            f"单一持有人以{max_weight}%重仓且本季继续加仓，属于高确定性的重仓信号。",
-            f"A single holder has {max_weight}% weighted in and kept adding this quarter — a high-conviction, heavily-weighted signal."
-        )
-
-    # 单人 + 加仓（仓位不到十但仍在主动加仓）+ 深度/中等折价
-    if n == 1 and 'added' in chgs and deep:
-        return (
-            f"单一持有人在深度折价区主动加仓（{max_weight}%仓位），虽无共识但信心明确，值得关注。",
-            f"A single holder is actively adding at a deep discount ({max_weight}% position) — no consensus yet, but conviction is clear; worth watching."
-        )
-    if n == 1 and 'added' in chgs:
-        return (
-            f"单一持有人本季主动加仓（{max_weight}%仓位），属于积极信号，但安全边际仅属中等，可作为次优先观察。",
-            f"A single holder added this quarter ({max_weight}% position) — a positive signal, though the margin of safety is only moderate; a secondary watchlist candidate."
-        )
-
-    # 单人 + 新开仓 + 小仓位
-    if n == 1 and all_new and max_weight < 3:
-        who = holders[0]['investor']
-        who_en = _investor_en(who)
-        return (
-            f"{who}新开仓但仓位较小（{max_weight}%），更像是试探性布局，信心程度有待后续季度验证。",
-            f"{who_en}'s new position is small ({max_weight}%) — looks more like an exploratory stake; conviction level remains to be confirmed in future quarters."
-        )
-
-    # 单人 + 减仓
-    if n == 1 and has_trimmed:
-        return (
-            "仅单一持有人且本季减仓，安全边际虽达标，但缺乏共识支持，须谨慎看待。",
-            "Only one holder, and they trimmed this quarter — the margin of safety qualifies, but there's no consensus support; approach with caution."
-        )
-
-    # 单人 + 仓位未变，兜底（若近3季存在真实连续加仓/减仓趋势，优先用趋势描述而不是"未变"）
-    if n == 1 and 'hold' in chgs:
-        if deep:
-            depth_desc, depth_en = '安全边际充足', 'the margin of safety is ample'
-        elif shallow:
-            depth_desc, depth_en = '安全边际仅略微达标', 'the margin of safety only barely qualifies'
+    """Describe screened evidence without inventing conviction or trade motives."""
+    holders=v['holders']
+    n=len(holders)
+    weight=max((h.get('weight',0) for h in holders if isinstance(h.get('weight'),(int,float)) and 0<=h['weight']<=100),default=0)
+    adding=any(h['chg'] in ('new','added') for h in holders)
+    reducing=any(h['chg']=='trimmed' for h in holders)
+    if n>=2 and adding and reducing:
+        zh='多位持有者同时满足筛选，但有人增加股数、有人减少股数。先分别核对报告季度和变化，不能合并成一致买入。'
+        en='Multiple holders pass the screen, with opposing share-count directions. Check their report quarters separately; this is not a unanimous purchase.'
+    elif n>=2 and all(h['chg'] in ('new','added') for h in holders):
+        zh='符合筛选的多位持有者都出现新建仓或增持。这是披露方向一致，仍需核对成本估算与企业经营，不能据此认定买入价格或未来回报。'
+        en='All qualifying holders show an entry or addition. This is agreement in disclosures, not proof of entry prices or future returns; cost estimates and business results need separate review.'
+    elif n>=2 and all(h['chg']=='trimmed' for h in holders):
+        zh='符合筛选的多位持有者均减少了股数。价格低于估算成本与减仓同时存在，不能只看折价而忽略这项变化。'
+        en='All qualifying holders reduced their shares. A price below estimated cost coexists with reductions; the discount should not hide the change.'
+    elif n==1 and holders[0]['chg']=='new':
+        zh=f'新进入可比季度披露，当前占该投资人申报组合 {weight:g}%。这个比例描述本期结构，不证明实际买入成本，也不证明试探或强烈信心。'
+        en=f'New in the comparable quarterly disclosure, at {weight:g}% of that investor’s reported value. This describes the current structure, not actual entry cost or a level of conviction.'
+    elif n==1 and holders[0]['chg']=='added':
+        zh=f'当前占该投资人申报组合 {weight:g}%，本季披露股数增加。需要区分股数增加、股价变化和成本估算，不能把权重直接当成增持幅度。'
+        en=f'Currently {weight:g}% of that investor’s reported value, with more disclosed shares this quarter. Weight is not the addition percentage; prices and estimated cost have separate meanings.'
+    elif n==1 and holders[0]['chg']=='trimmed':
+        zh='当前价格通过成本差筛选，但本季披露股数减少。两项事实都要保留，不能仅凭减持推断基本面担忧或价值陷阱。'
+        en='The price passes the estimated-cost-gap screen, while reported shares fell this quarter. Both facts matter; the reduction alone does not establish fundamental concerns or a value trap.'
+    elif n==1:
+        h=holders[0]
+        if h.get('hold_quarters'):
+            zh=f'成本参考记录起点距本期 {h["hold_quarters"]} 个季度，本季股数未变。时间跨度不证明连续持仓，也不是新的买入信号。'
+            en=f'The cost-reference record spans {h["hold_quarters"]} quarters to this filing, with unchanged shares this quarter. Elapsed time does not prove continuous holdings or a new purchase.'
         else:
-            depth_desc, depth_en = '安全边际仅属中等', 'the margin of safety is only moderate'
-        trend = holders[0].get('trend')
-        if trend == 'accumulating':
-            return (
-                f"仅单一持有人持有，本季环比变化轻微但近3季实际上在持续加仓，{depth_desc}，倾向性信号偏积极。",
-                f"Only one holder, and while the quarter-over-quarter change is small, they've been steadily accumulating over the past 3 quarters; {depth_en} — a mildly positive signal."
-            )
-        if trend == 'reducing':
-            return (
-                f"仅单一持有人持有，本季环比变化轻微但近3季实际上在持续减仓，即使{depth_desc}，仍建议谨慎对待。",
-                f"Only one holder, and while the quarter-over-quarter change is small, they've been steadily trimming over the past 3 quarters; even though {depth_en}, caution is still advised."
-            )
-        return (
-            f"仅单一持有人持有且仓位未变，{depth_desc}，可作为观察名单但暂无新增信号。",
-            f"Only one holder, position unchanged, and {depth_en} — fine as a watchlist name but no new signal for now."
-        )
-
-
-    # 默认兜底
-    depth_desc = '折价充足' if deep else ('折价较浅' if shallow else '折价适中')
-    depth_en = 'the discount is ample' if deep else ('the discount is shallow' if shallow else 'the discount is moderate')
-    return (
-        f"{depth_desc}，共{n}人持有，暂无明显一致性信号，建议结合基本面进一步验证。",
-        f"{depth_en.capitalize()}, held by {n} investor(s), with no clear consistent signal — recommend further fundamental validation."
-    )
+            zh='只有一位持有者满足本轮筛选，本季未记录新增股数。先核对成本估算与企业价值，而不是从持有状态推断后续动作。'
+            en='One holder qualifies in this screen, with no added shares recorded this quarter. Examine estimated cost and business value without inferring the next trade.'
+    else:
+        zh=f'{n} 位持有者符合筛选，股数变化并非全部一致。分别研究报告期、持仓占比与企业经营。'
+        en=f'{n} holders pass the screen without a uniform share-count direction. Examine their periods, portfolio weights and business results separately.'
+    if n==1:
+        investor=next((i for i in load_investors() if i['name']==holders[0]['investor']),None)
+        signature=investor.get('profile',{}).get('signature') if investor else None
+        if signature:
+            zh+=' 研究视角：'+signature['title'][0]+'。'
+            en+=' Research perspective: '+signature['title'][1]+'.'
+    return zh,en
 
 
 def _build_homework_prompt():
@@ -868,11 +776,11 @@ def _build_homework_prompt():
             w_desc = f"{h['weight']}%仓位" if h['weight'] >= 0.5 else "极小仓位(<0.5%)"
             if h.get('reentry') and h['hold_quarters']:
                 # 清仓重入：明确标注本轮重建仓时间，避免用户误以为“持仓年限”是一直未断的
-                hold_desc = f"本轮{h['reentry_quarter']}重建仓后持有{h['hold_quarters']}季/{h['hold_years']}年（此前于{h['exit_quarter']}清仓过）"
+                hold_desc = f"{h['reentry_quarter']}重新出现于披露（此前最后出现{h['exit_quarter']}）；成本参考跨度{h['hold_quarters']}季/{h['hold_years']}年"
             elif h['hold_quarters']:
-                hold_desc = f"持有{h['hold_quarters']}季/{h['hold_years']}年"
+                hold_desc = f"成本参考跨度{h['hold_quarters']}季/{h['hold_years']}年，非连续持仓证明"
             else:
-                hold_desc = "首次建仓"
+                hold_desc = "持仓起点未核实"
             trend_desc = ''
             if h.get('trend') == 'accumulating':
                 trend_desc = "，近3季连续加仓"

@@ -3,10 +3,25 @@ import unittest
 from holdings_diff import compare_holdings,consolidate_holdings
 from portfolio_review import review,investor_facts
 from ai_supplement import fallback_selection,validate_selection,investor_source
-from enrich_metadata import _ticker_quarter_series,_analyze_holding_pattern
+from enrich_metadata import _ticker_quarter_series,_analyze_holding_pattern,_gen_verdict
 
 
 class PortfolioReviewTests(unittest.TestCase):
+    def test_stock_context_keeps_opposite_directions_and_does_not_invent_conviction(self):
+        mixed={'holders':[{'investor':'Test','chg':'added','weight':5},{'investor':'Other','chg':'trimmed','weight':2}]}
+        zh,en=_gen_verdict(mixed,'深度折价')
+        self.assertIn('有人增加股数、有人减少股数',zh)
+        self.assertIn('opposing share-count directions',en)
+        zh,en=_gen_verdict({'holders':[{'investor':'Test','chg':'new','weight':.4}]},'深度折价')
+        self.assertIn('0.4%',zh);self.assertNotIn('更像是试探性布局',zh)
+        self.assertNotIn('signals very strong conviction',en)
+
+    def test_cost_record_span_is_not_a_verified_continuous_holding_record(self):
+        zh,en=_gen_verdict({'holders':[{'investor':'Test','chg':'hold','weight':4,'hold_quarters':8}]},'深度折价')
+        self.assertIn('8 个季度',zh);self.assertIn('时间跨度不证明连续持仓',zh)
+        self.assertNotIn('8 个可核实季度',zh)
+        self.assertIn('does not prove continuous holdings',en)
+
     def test_discretion_rows_are_grouped_before_matching(self):
         current=[dict(ticker='A',cusip='1',shares=40,value=400),dict(ticker='A',cusip='1',shares=50,value=500)]
         previous=[dict(ticker='A',cusip='1',shares=100,value=1000)]

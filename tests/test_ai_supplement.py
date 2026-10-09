@@ -35,7 +35,7 @@ class AISupplementTests(unittest.TestCase):
         self.assertEqual(len(ai.pending([self.task],cache,'other')),1)
         self.data['current']['holdings'][0]['shares']=250
         ai.write(self.root/'data.json',self.data)
-        self.assertEqual(len(ai.pending(ai.tasks(self.root),cache,ai.MODEL)),1)
+        self.assertEqual(len(ai.pending(ai.tasks(self.root),cache,ai.MODEL)),len(ai.tasks(self.root)))
 
     def test_failure_replaces_unverified_legacy_prose_with_current_facts_and_retries(self):
         ai.write(self.root/'ai_supplement.json',{'entries':{self.task['id']:{'summary':'旧的错误摘要'}},'attempts':{}})
@@ -47,10 +47,10 @@ class AISupplementTests(unittest.TestCase):
         self.assertTrue(ai.valid_entry(entry,self.task))
         self.assertEqual(entry['mode'],'deterministic')
         self.assertNotIn('旧的错误摘要',entry['summary'])
-        self.assertEqual(cache['lastRun']['failed'],1)
+        self.assertEqual(cache['lastRun']['failed'],len(ai.tasks(self.root)))
         self.assertEqual(cache['lastRun']['accepted'],0)
-        self.assertEqual(cache['lastRun']['fallback'],1)
-        self.assertEqual(cache['lastRun']['pendingAfter'],1)
+        self.assertEqual(cache['lastRun']['fallback'],len(ai.tasks(self.root)))
+        self.assertEqual(cache['lastRun']['pendingAfter'],len(ai.tasks(self.root)))
         self.assertTrue((self.root/'report.json').exists())
 
     def test_publish_rejects_results_if_source_changed_during_inference(self):
@@ -66,7 +66,7 @@ class AISupplementTests(unittest.TestCase):
     def test_valid_output_does_not_touch_source_files(self):
         before=(self.root/'data.json').read_bytes()
         report=ai.run(self.root,ai.MODEL,13,10,self.root/'report.json',self.generate)
-        self.assertEqual(ai.merge(self.root,report),1)
+        self.assertEqual(ai.merge(self.root,report),len(ai.tasks(self.root)))
         self.assertEqual((self.root/'data.json').read_bytes(),before)
         self.assertEqual(ai.read(self.root/'ai_supplement.json')['lastRun']['pendingAfter'],0)
 
@@ -146,7 +146,7 @@ class AISupplementTests(unittest.TestCase):
         ai.merge(self.root,report)
         cache=ai.read(self.root/'ai_supplement.json')
         self.assertEqual(cache['lastRun']['accepted'],0)
-        self.assertEqual(cache['lastRun']['pendingAfter'],1)
+        self.assertEqual(cache['lastRun']['pendingAfter'],len(ai.tasks(self.root)))
         self.assertTrue(ai.valid_entry(cache['entries'][self.task['id']],self.task))
 
     def test_fallback_does_not_replace_valid_same_source_model_output(self):
