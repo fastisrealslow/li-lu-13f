@@ -146,3 +146,48 @@ class RunStatusTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+class SourceNoticeTests(unittest.TestCase):
+    def test_completed_source_notice_survives_success_and_cannot_hide_failure(self):
+        with tempfile.TemporaryDirectory() as directory, patch.object(update_status,'STATUS_FILE',str(Path(directory)/'status.json')), contextlib.redirect_stdout(io.StringIO()):
+            update_status.init_run('test')
+            update_status.update_step('lilu_13f','info','historical source missing')
+            update_status.update_step('lilu_13f','ok')
+            self.assertEqual(update_status.load()['runs'][0]['steps']['lilu_13f']['status'],'info')
+            update_status.update_step('lilu_13f','fail','SEC unavailable')
+            update_status.update_step('lilu_13f','info','historical source missing')
+            self.assertEqual(update_status.load()['runs'][0]['steps']['lilu_13f']['status'],'fail')
+
+class HistoricalWebbSnapshotTests(unittest.TestCase):
+    def test_refresh_recomputes_hkd_total_and_does_not_claim_new_quarter_or_sale(self):
+        import fetch_webb_holdings as webb
+        with tempfile.TemporaryDirectory() as directory, contextlib.redirect_stdout(io.StringIO()):
+            path=Path(directory)/'webb.json'
+            original={'meta':{},'current':{'quarter':'2026 Q1','totalValue':999999,
+                'holdings':[{'ticker':'0709.HK','shares':10,'value':10},
+                            {'ticker':'0001.HK','shares':20,'value':20}]}}
+            path.write_text(json.dumps(original))
+            rows=[dict(ticker='0709.HK',name='GIORDANO',shares=10,value=50,price=5,eventDate='2025-01-01',priceDate='2025-10-10')]
+            with patch.object(webb,'WEBB_JSON',str(path)):
+                self.assertTrue(webb.update_webb_json(rows))
+                first=json.loads(path.read_text())
+                self.assertTrue(webb.update_webb_json(rows))
+                second=json.loads(path.read_text())
+            self.assertEqual(first['current'],second['current'])
+            self.assertEqual(first['current']['totalValue'],50)
+            self.assertEqual(first['meta']['currency'],'HKD')
+            self.assertIsNone(first['current']['periodEnd'])
+            self.assertIsNone(first['current']['holdings'][0]['prevShares'])
+            self.assertEqual(first['meta']['valuationDate'],'2025-10-10')
+
+    def test_historical_hk_price_refresh_does_not_estimate_from_unverified_history(self):
+        import fetch_prices_all as prices
+        with tempfile.TemporaryDirectory() as directory, contextlib.redirect_stdout(io.StringIO()):
+            data=Path(directory)/'holdings.json';output=Path(directory)/'prices.json'
+            data.write_text(json.dumps({'meta':{'snapshotType':'historical_disclosure_snapshot'},
+                'current':{'quarter':'历史快照','holdings':[dict(ticker='0709.HK',shares=10,value=50)]}}))
+            with patch.object(prices,'get_hk_prices',return_value={'0709.HK':{'c':5}}):
+                prices.fetch_hk('webb',{'data':str(data),'prices':str(output)})
+            result=json.loads(output.read_text())
+            self.assertEqual(result['quotes']['0709.HK']['c'],5)
+            self.assertEqual(result['costBasis'],{})

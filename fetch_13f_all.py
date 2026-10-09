@@ -65,6 +65,10 @@ def _load_investor_config():
         }
         if inv.get("consolidate"):
             entry["consolidate"] = True
+        if inv.get("legacyFilers"):
+            entry["legacyFilers"] = inv["legacyFilers"]
+        for field in ("reportingFrom", "reportingTransition"):
+            if inv.get(field): entry[field] = inv[field]
         cfg[inv["id"]] = entry
     return cfg
 
@@ -262,6 +266,8 @@ TICKER_MAP = {
     "CREDO TECHNOLOGY GROUP HOLDI": "CRDO",
     # 娱乐/媒体
     "NETFLIX INC": "NFLX",
+    "NETFLIX INC.": "NFLX",
+    "PERSHING SQUARE USA LTD": "PSUS",
     "WALT DISNEY CO": "DIS",
     "DISNEY WALT CO": "DIS",
     "COMCAST CORP NEW": "CMCSA",
@@ -644,7 +650,7 @@ def backfill_history_gaps(cik, data, filings, consolidate=False, limit=4):
         known = {quarter_label(f["reportDate"]) for f in filings}
         if any(q not in known for q in missing):
             try:
-                filings = get_recent_filings(cik, include_archives=True)
+                filings = filings + get_recent_filings(cik, include_archives=True)
             except Exception as exc:
                 errors["archive_index"] = str(exc)
         by_quarter = {}
@@ -671,7 +677,7 @@ def backfill_history_gaps(cik, data, filings, consolidate=False, limit=4):
             filing = by_quarter[quarter]
             attempts[quarter] = attempts.get(quarter, 0) + 1
             try:
-                path = find_info_table_xml(cik, filing["accession"], filing["accessionDashed"])
+                path = find_info_table_xml(filing.get("cik", cik), filing["accession"], filing["accessionDashed"])
                 rows = parse_holdings(sec_fetch(path), consolidate=consolidate,
                                       filing_date=filing["filingDate"])
                 if not rows:
@@ -857,6 +863,21 @@ def warn_unmapped(data: dict):
 # 主流程
 # ─────────────────────────────────────────────────────────────
 
+def investor_filings(config, full_mode=False):
+    """Prefer the current reporter; retain dated, explicitly verified predecessors."""
+    sources = [(config['cik'], None)] + [(old['cik'], old['beforePeriod']) for old in config.get('legacyFilers', [])]
+    by_period = {}
+    for cik, before in sources:
+        rows = get_recent_filings(cik, include_archives=True) if full_mode else get_recent_filings(cik)
+        for filing in rows:
+            period = filing['reportDate']
+            if (before and period >= before) or (not before and config.get('reportingFrom') and period < config['reportingFrom']):
+                continue
+            # Current reporting entity wins over a predecessor for the same period.
+            by_period.setdefault(period, {**filing, 'cik': cik})
+    return sorted(by_period.values(), key=lambda f: (f['reportDate'], f['filingDate']), reverse=True)
+
+
 def process_investor(key: str, config: dict, full_mode: bool):
     print(f"\n{'='*60}")
     print(f"Processing {key.upper()}: {config['manager']}")
@@ -865,7 +886,7 @@ def process_investor(key: str, config: dict, full_mode: bool):
 
     cik = config["cik"]
     consolidate = config.get("consolidate", False)
-    filings = get_recent_filings(cik, include_archives=True) if full_mode else get_recent_filings(cik)
+    filings = investor_filings(config, full_mode)
     if len(filings) < 2:
         print(f"ERROR: only found {len(filings)} filings, need ≥2")
         sys.exit(1)
@@ -885,6 +906,11 @@ def process_investor(key: str, config: dict, full_mode: bool):
             "history": {"quarters": [], "values": [], "holdings": {}},
         }
 
+    data['meta'].update(manager=config['manager'], managerCIK=cik.zfill(10))
+    if config.get('legacyFilers'):
+        data['meta']['legacyFilers'] = config['legacyFilers']
+    if config.get('reportingTransition'):
+        data['meta']['reportingTransition'] = config['reportingTransition']
     if full_mode:
         return process_full(key, config, filings, data)
 
@@ -893,8 +919,10 @@ def process_investor(key: str, config: dict, full_mode: bool):
     print(f"  Latest:   {quarter_label(cur_f['reportDate'])} (filed {cur_f['filingDate']})")
     print(f"  Previous: {quarter_label(prev_f['reportDate'])} (filed {prev_f['filingDate']})")
 
-    cur_xml  = sec_fetch(find_info_table_xml(cik, cur_f["accession"], cur_f["accessionDashed"]))
-    prev_xml = sec_fetch(find_info_table_xml(cik, prev_f["accession"], prev_f["accessionDashed"]))
+    cur_path = find_info_table_xml(cur_f.get('cik', cik), cur_f['accession'], cur_f['accessionDashed'])
+    prev_path = find_info_table_xml(prev_f.get('cik', cik), prev_f['accession'], prev_f['accessionDashed'])
+    cur_xml  = sec_fetch(cur_path)
+    prev_xml = sec_fetch(prev_path)
     cur_holdings  = parse_holdings(cur_xml, consolidate=consolidate, filing_date=cur_f["filingDate"])
     prev_holdings = parse_holdings(prev_xml, consolidate=consolidate, filing_date=prev_f["filingDate"])
 
@@ -905,6 +933,7 @@ def process_investor(key: str, config: dict, full_mode: bool):
     total      = sum(h["value"] for h in cur_holdings)
     prev_total = sum(h["value"] for h in prev_holdings)
 
+    quality = data.get("current", {}).get("valueQuality") if data.get("current", {}).get("quarter") == quarter_label(cur_f["reportDate"]) else None
     data["current"] = {
         "quarter":        quarter_label(cur_f["reportDate"]),
         "filingDate":     cur_f["filingDate"],
@@ -915,18 +944,25 @@ def process_investor(key: str, config: dict, full_mode: bool):
         "previousHoldings": prev_holdings,
         "prevTotalValue": prev_total,
     }
+    if quality: data["current"]["valueQuality"] = quality
     data["meta"]["lastUpdated"] = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
 
     update_history(data, quarter_label(prev_f["reportDate"]), prev_holdings)
     update_history(data, quarter_label(cur_f["reportDate"]), cur_holdings)
+    data['history'].setdefault('filing_sources', {}).update({
+        quarter_label(cur_f['reportDate']): {**cur_f, 'url': 'https://www.sec.gov' + cur_path},
+        quarter_label(prev_f['reportDate']): {**prev_f, 'url': 'https://www.sec.gov' + prev_path},
+    })
     backfill_history_gaps(cik, data, filings, consolidate)
     remaining = data["history"]["coverage"]["missingQuarters"]
     if remaining:
-        from update_status import record_source_warning
+        from update_status import record_source_warning, record_source_notice
         step = "akre_greenberg_13f" if key in ("akre", "greenberg") else f"{key}_13f"
         audit = data["history"]["coverage"].get("expandedLookup") or {}
-        reason = "已补查SEC历史索引，仍无可用原始持仓报告" if audit.get("status") == "checked" else "补查未完成或原表未核实，后续重试"
-        record_source_warning(step, f"{key} 历史缺 {len(remaining)} 季：{reason}；不作零持仓")
+        source_gap = audit.get("status") == "checked" and all(str(error).startswith(("No matching complete 13F portfolio", "Related notice/additive amendment found")) for error in data["history"]["coverage"]["errors"].values())
+        reason = "已补查SEC历史索引，仍无可用原始持仓报告" if source_gap else "补查未完成或原表未核实，后续重试"
+        record = record_source_notice if source_gap else record_source_warning
+        record(step, f"{key} 历史缺 {len(remaining)} 季（{', '.join(remaining)}）：{reason}；不作零持仓")
 
     save_data(config["path"], data)
     warn_unmapped(data)
@@ -955,7 +991,7 @@ def process_full(key: str, config: dict, filings: list[dict], data: dict):
 
         print(f"  [{i+1}/{len(filings_sorted)}] Fetching {q_label} (filed {f['filingDate']})...")
         try:
-            xml_bytes = sec_fetch(find_info_table_xml(cik, f["accession"], f["accessionDashed"]))
+            xml_bytes = sec_fetch(find_info_table_xml(f.get('cik', cik), f["accession"], f["accessionDashed"]))
             holdings = parse_holdings(xml_bytes, consolidate=consolidate, filing_date=f["filingDate"])
             all_fetched[q_label] = holdings
 
@@ -995,7 +1031,7 @@ def process_full(key: str, config: dict, filings: list[dict], data: dict):
     if latest_q in all_fetched:
         latest_holdings = all_fetched[latest_q]
     else:
-        xml_bytes = sec_fetch(find_info_table_xml(cik, latest["accession"], latest["accessionDashed"]))
+        xml_bytes = sec_fetch(find_info_table_xml(latest.get('cik', cik), latest["accession"], latest["accessionDashed"]))
         latest_holdings = parse_holdings(xml_bytes, consolidate=consolidate, filing_date=latest["filingDate"])
 
     prev_f = filings[1]
@@ -1003,13 +1039,14 @@ def process_full(key: str, config: dict, filings: list[dict], data: dict):
     if prev_q in all_fetched:
         prev_holdings = all_fetched[prev_q]
     else:
-        xml_bytes = sec_fetch(find_info_table_xml(cik, prev_f["accession"], prev_f["accessionDashed"]))
+        xml_bytes = sec_fetch(find_info_table_xml(prev_f.get('cik', cik), prev_f["accession"], prev_f["accessionDashed"]))
         prev_holdings = parse_holdings(xml_bytes, consolidate=consolidate, filing_date=prev_f["filingDate"])
 
     attach_previous(latest_holdings, prev_holdings,
                     previous_quarter=prev_q, current_quarter=latest_q)
 
     latest_total = sum(h["value"] for h in latest_holdings)
+    quality = data.get("current", {}).get("valueQuality") if data.get("current", {}).get("quarter") == latest_q else None
     data["current"] = {
         "quarter":        quarter_label(latest["reportDate"]),
         "filingDate":     latest["filingDate"],
@@ -1020,6 +1057,7 @@ def process_full(key: str, config: dict, filings: list[dict], data: dict):
         "previousHoldings": prev_holdings,
         "prevTotalValue": sum(h["value"] for h in prev_holdings),
     }
+    if quality: data["current"]["valueQuality"] = quality
     data["meta"]["lastUpdated"] = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
 
     update_history(data, prev_q, prev_holdings)

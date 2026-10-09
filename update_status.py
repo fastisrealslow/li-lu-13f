@@ -96,17 +96,19 @@ def update_step(step, status, msg=""):
     previous = current_run["steps"].get(step, {})
     if status == "warn" and previous.get("status") == "warn" and previous.get("msg"):
         msg = previous["msg"] if msg in previous["msg"] else previous["msg"] + "；" + msg
+    if status == "info" and previous.get("status") in ("warn", "fail"):
+        status, msg = previous["status"], previous.get("msg", "")
     # A successful process can still have unavailable optional AI features.
-    if status == "ok" and previous.get("status") == "warn":
-        status, msg = "warn", previous.get("msg", "AI 更新不完整，保留已有内容")
+    if status == "ok" and previous.get("status") in ("warn", "info"):
+        status, msg = previous["status"], previous.get("msg", "AI 更新不完整，保留已有内容")
     current_run["steps"][step] = {
-        "status": status,  # "ok" | "warn" | "fail" | "skip"
+        "status": status,  # "ok" | "info" | "warn" | "fail" | "skip"
         "ts":     datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
         "msg":    msg,
         "label":  STEP_LABELS.get(step, step),
     }
     save(data)
-    icon = "✅" if status == "ok" else ("⚠️" if status in ("skip", "warn") else "❌")
+    icon = "ℹ️" if status == "info" else "✅" if status == "ok" else ("⚠️" if status in ("skip", "warn") else "❌")
     print(f"{icon} Step [{step}] → {status}" + (f": {msg}" if msg else ""))
 
 
@@ -118,6 +120,11 @@ def record_ai_warning(step, code=None):
     reason = reasons.get(code, "AI 请求失败或模型不可用")
     update_step(os.environ.get("RUN_STATUS_STEP", step), "warn",
                 reason + "；相关内容未完整更新，保留已有内容")
+
+
+def record_source_notice(step, message):
+    if os.environ.get("TRACK_RUN_STATUS") == "1" and load().get("runs"):
+        update_step(step, "info", message)
 
 
 def record_source_warning(step, message):

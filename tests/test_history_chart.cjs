@@ -136,7 +136,8 @@ test('RV Capital biography and investment principles render in both languages',(
   a.context.document.querySelector=selector=>a.el(selector);
   a.context.document.querySelectorAll=()=>[];
   a.context.sample=JSON.parse(fs.readFileSync(path.join(__dirname,'../vinall.json'),'utf8'));
-  a.run("investor='vinall';data=sample;INVESTOR_CFG_BY_ID.vinall={name:'罗布·维纳尔',nameEn:'Rob Vinall',source13F:true}");
+  a.context.profileConfig=JSON.parse(fs.readFileSync(path.join(__dirname,'../investors.json'),'utf8')).investors.find(x=>x.id==='vinall');
+  a.run("investor='vinall';data=sample;INVESTOR_CFG_BY_ID.vinall=profileConfig");
   for (const language of ['zh','en']) {
     a.run(`lang='${language}';updateInvestorContent()`);
     assert.match(a.el('.ref-text').innerHTML,/RV Capital/);
@@ -157,4 +158,37 @@ test('quarterly UI and summary retain the split-adjusted comparison',()=>{
   assert.match(a.el('changesBody').innerHTML,/-6.5%/);
   assert.match(a.el('changesBody').innerHTML,/377,298/);
   assert.match(a.run('aiInvestorFallback(data)'),/减持6.5%（拆股调整后）/);
+});
+
+test('verified profiles have matching source links for every investor in both languages',()=>{
+ const a=app();
+ a.context.document.querySelector=selector=>a.el(selector);
+ a.context.document.querySelectorAll=()=>[];
+ const configs=JSON.parse(fs.readFileSync(path.join(__dirname,'../investors.json'),'utf8')).investors;
+ for (const cfg of configs) {
+   a.context.cfg=cfg;
+   a.context.sample=JSON.parse(fs.readFileSync(path.join(__dirname,'../'+cfg.dataFile),'utf8'));
+   for (const language of ['zh','en']) {
+     a.run(`lang='${language}';investor=cfg.id;INVESTOR_CFG_BY_ID[cfg.id]=cfg;data=sample;updateInvestorContent()`);
+     assert.equal((a.el('.phil-grid').innerHTML.match(/class="phil-card"/g)||[]).length,6,cfg.id);
+     if(cfg.cik) assert.match(a.el('.ref-text').innerHTML,new RegExp('CIK='+cfg.cik));
+     for(const item of cfg.profile.resources) assert.ok(a.el('.articles-grid').innerHTML.includes(item.url.replace(/&/g,'&amp;')),cfg.id+': '+item.url);
+     assert.match(a.el('.ref-text').innerHTML,/2026-10-09/);
+   }
+ }
+});
+test('missing or stale quotes cannot produce a margin-of-safety badge',()=>{
+ const a=app();
+ a.context.document.querySelector=selector=>a.el(selector);
+ a.context.document.getElementById=id=>id==='priceFoot'?null:a.el(id);
+ for(const q of [{error:true},{c:5,stale:true}]) {
+  a.context.quote=q;
+  a.run("data={current:{quarter:'2026 Q2',totalValue:100,holdings:[{ticker:'ABC',name:'ABC',shares:10,value:100}]}}; prices={quotes:{ABC:quote},costBasis:{ABC:{recent:{buy:20,quarter:'2026 Q1',source:'yahoo'}}}};renderHoldings()");
+  assert.ok(!a.el('holdingsBody').innerHTML.includes('mosPulse'));
+  assert.match(a.el('holdingsBody').innerHTML,/暂无报价/);
+ }
+});
+test('unverified value units are excluded from historical valuation series',()=>{
+ const a=app();
+ assert.equal(a.run("historySeries({quarters:['2025 Q4','2026 Q1'],values:[5000,5],excludedValueQuarters:['2026 Q1']}).quarters.length"),1);
 });

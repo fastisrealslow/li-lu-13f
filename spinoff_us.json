@@ -775,15 +775,17 @@
           "typeVersion": 1,
           "url": "https://www.sec.gov/Archives/edgar/data/2128626/000119312526402928/ck0002128626-20260924.htm",
           "date": "2026-09-25",
-          "targetName": "",
+          "targetName": "Vylor Inc",
           "targetTicker": "",
-          "targetAliases": [],
+          "targetAliases": [
+            "Vylor"
+          ],
           "identityVersion": 1,
-          "identityQuote": "",
-          "identityKind": "",
+          "identityQuote": "Vylor Inc. (the “Company” or “Vylor”) … separation (the “Spin-Off”) of the Company",
+          "identityKind": "entity",
           "distributedEntity": false,
-          "separatedEntity": false,
-          "identityReason": "not_identified",
+          "separatedEntity": true,
+          "identityReason": "",
           "dates": {
             "distributionDate": {
               "date": "2026-10-01",
@@ -793,8 +795,7 @@
           },
           "method": "rule",
           "ruleVersion": 2,
-          "accession": "0001193125-26-402928",
-          "identityReferences": []
+          "accession": "0001193125-26-402928"
         }
       ],
       "nameCN": "",
@@ -803,7 +804,13 @@
         "zh": "待验证：分派比例、子公司债务与现金流、管理层持股及机构持仓变化。市值与股价变化不能单独证明强制卖压或低估。",
         "en": "Research checklist: distribution ratio, child debt and cash flow, management ownership, and institutional holdings. Size and price changes alone do not establish forced selling or undervaluation."
       },
-      "identityChecks": {}
+      "identityChecks": {
+        "https://www.sec.gov/Archives/edgar/data/2128626/000119312526402928/ck0002128626-20260924.htm": {
+          "version": 1,
+          "checkedAt": "2026-10-09",
+          "result": "named"
+        }
+      }
     },
     {
       "ticker": "AA",
@@ -20774,12 +20781,16 @@
       "market": "us",
       "parentTicker": "VYLR",
       "parentName": "Vylor Inc.  (VYLR)",
-      "targetName": "",
+      "targetName": "Vylor Inc",
       "targetTicker": "",
-      "identityVerified": false,
-      "identityKind": "",
-      "identityEvidence": null,
-      "identityState": "missing_name",
+      "identityVerified": true,
+      "identityKind": "entity",
+      "identityEvidence": {
+        "url": "https://www.sec.gov/Archives/edgar/data/2128626/000119312526402928/ck0002128626-20260924.htm",
+        "date": "2026-09-25",
+        "quote": "Vylor Inc. (the “Company” or “Vylor”) … separation (the “Spin-Off”) of the Company"
+      },
+      "identityState": "resolved",
       "status": "announced",
       "evidence": {
         "status": "announced",
@@ -20787,15 +20798,17 @@
         "typeVersion": 1,
         "url": "https://www.sec.gov/Archives/edgar/data/2128626/000119312526402928/ck0002128626-20260924.htm",
         "date": "2026-09-25",
-        "targetName": "",
+        "targetName": "Vylor Inc",
         "targetTicker": "",
-        "targetAliases": [],
+        "targetAliases": [
+          "Vylor"
+        ],
         "identityVersion": 1,
-        "identityQuote": "",
-        "identityKind": "",
+        "identityQuote": "Vylor Inc. (the “Company” or “Vylor”) … separation (the “Spin-Off”) of the Company",
+        "identityKind": "entity",
         "distributedEntity": false,
-        "separatedEntity": false,
-        "identityReason": "not_identified",
+        "separatedEntity": true,
+        "identityReason": "",
         "dates": {
           "distributionDate": {
             "date": "2026-10-01",
@@ -20805,8 +20818,7 @@
         },
         "method": "rule",
         "ruleVersion": 2,
-        "accession": "0001193125-26-402928",
-        "identityReferences": []
+        "accession": "0001193125-26-402928"
       },
       "dates": {
         "distributionDate": {
@@ -20818,7 +20830,6 @@
         }
       },
       "missing": [
-        "target",
         "ticker",
         "recordDate"
       ],
@@ -20839,9 +20850,9 @@
       "parentMarketCap": null,
       "pricePairs": [],
       "parentPrice": {},
-      "fingerprint": "d454e4abbad1e4dcdd654254c551daef176827c8ca6e3012eae96758b8596ff7",
+      "fingerprint": "2f93d70abfe7054d0817819663bd74cd87c0b4b0dc7b3bb5282fc4acef6fa324",
       "firstSeenAt": "2026-09-26T02:22:38Z",
-      "changedAt": "2026-09-26T02:22:38Z"
+      "changedAt": "2026-10-09T05:05:35Z"
     },
     {
       "id": "us:AA:unresolved",
@@ -35021,34 +35032,8 @@
     }
   ],
   "eventsSchemaVersion": 1,
-  "eventsNormalizedAt": "2026-10-09T03:31:42Z",
+  "eventsNormalizedAt": "2026-10-09T05:05:35Z",
   "changes": [
-    {
-      "eventId": "us:CTVA:unresolved",
-      "at": "2026-09-16T06:53:54Z",
-      "kind": "updated",
-      "parentTicker": "CTVA",
-      "parentName": "Corteva, Inc.  (CTVA)",
-      "fields": [
-        "dates"
-      ],
-      "before": {
-        "status": "announced",
-        "targetName": "",
-        "targetTicker": "",
-        "dates": {}
-      },
-      "after": {
-        "status": "announced",
-        "targetName": "",
-        "targetTicker": "",
-        "dates": {
-          "recordDate": "2026-09-24"
-        }
-      },
-      "fromStatus": "announced",
-      "toStatus": "announced"
-    },
     {
       "eventId": "us:HXL:unresolved",
       "at": "2026-09-16T06:53:54Z",
@@ -41969,6 +41954,34 @@
       },
       "fromStatus": null,
       "toStatus": "needs_review"
+    },
+    {
+      "eventId": "us:VYLR:unresolved",
+      "at": "2026-10-09T05:05:35Z",
+      "kind": "updated",
+      "parentTicker": "VYLR",
+      "parentName": "Vylor Inc.  (VYLR)",
+      "fields": [
+        "targetName"
+      ],
+      "before": {
+        "status": "announced",
+        "targetName": "",
+        "targetTicker": "",
+        "dates": {
+          "distributionDate": "2026-10-01"
+        }
+      },
+      "after": {
+        "status": "announced",
+        "targetName": "Vylor Inc",
+        "targetTicker": "",
+        "dates": {
+          "distributionDate": "2026-10-01"
+        }
+      },
+      "fromStatus": "announced",
+      "toStatus": "announced"
     }
   ],
   "trackingStartedAt": "2026-09-16T02:58:58Z"

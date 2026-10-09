@@ -1,5 +1,5 @@
 {
-  "_comment": "单一权威投资者配置。新增投资者时在此文件加一条记录，并在 update.yml 配置定时抓取步骤，Python 抓取脚本与前端结构性逻辑（导航列表、tab切换、港股fallback、metadata文件列表、价值筛选参与名单）都会自动读取这里，无需在多处手工同步。详情页文案（人物简介/时间线/投资理念/推荐阅读）仍需在 app.js 的 updateInvestorContent() 里手工撰写，因为是创作性内容，无法自动生成。",
+  "_comment": "投资人、申报主体和经过核实的人物资料统一配置。profile 内容为来源摘要而非逐字引言；reviewedAt 为人工核对日期。新增投资人仍需在 update.yml 配置自动抓取。legacyFilers 仅允许由 SEC 明确通知核实的历史申报主体。",
   "investors": [
     {
       "id": "lilu",
@@ -30,6 +30,135 @@
           "Himalaya Management LLC",
           "LL Group LLC"
         ]
+      },
+      "officialWebsite": "https://www.himcap.com/",
+      "profile": {
+        "reviewedAt": "2026-10-09",
+        "about": [
+          [
+            "李录是喜马拉雅资本创始人兼董事长，自 1997 年管理其主要基金；在哥伦比亚大学取得 BA、JD 和 MBA 学位。",
+            "Li Lu founded Himalaya Capital and is its chairman. He has managed its principal fund since 1997 and earned BA, JD and MBA degrees at Columbia."
+          ],
+          [
+            "公司以长期拥有具有竞争优势、增长潜力及可信管理层的企业为目标，投资范围主要为亚洲和北美。",
+            "The firm invests mainly in Asia and North America, seeking durable businesses with growth potential and trustworthy managers."
+          ]
+        ],
+        "summary": [
+          "以企业所有者视角，耐心研究有长期竞争优势的企业。",
+          "Study durable businesses patiently, with an owner’s perspective."
+        ],
+        "timeline": [
+          {
+            "date": "1997",
+            "text": [
+              "创立喜马拉雅资本",
+              "Founded Himalaya Capital"
+            ]
+          }
+        ],
+        "principles": [
+          {
+            "title": [
+              "企业所有者",
+              "Business ownership"
+            ],
+            "text": [
+              "评估企业的长期经营价值。",
+              "Evaluate long-term business economics."
+            ]
+          },
+          {
+            "title": [
+              "竞争优势",
+              "Competitive advantage"
+            ],
+            "text": [
+              "研究企业竞争优势能否持续。",
+              "Study how advantages endure."
+            ]
+          },
+          {
+            "title": [
+              "可信管理层",
+              "Trustworthy management"
+            ],
+            "text": [
+              "重视管理层的诚信与能力。",
+              "Assess integrity and ability."
+            ]
+          },
+          {
+            "title": [
+              "长期视角",
+              "Long-term perspective"
+            ],
+            "text": [
+              "让经营增长与复利逐步积累。",
+              "Allow growth and compounding time."
+            ]
+          },
+          {
+            "title": [
+              "耐心选择",
+              "Patient selection"
+            ],
+            "text": [
+              "等待自己真正理解的投资机会。",
+              "Wait for opportunities you understand."
+            ]
+          },
+          {
+            "title": [
+              "集中研究",
+              "Focused research"
+            ],
+            "text": [
+              "对高确信度企业做深入研究。",
+              "Research high-conviction businesses deeply."
+            ]
+          }
+        ],
+        "resources": [
+          {
+            "url": "https://www.sec.gov/edgar/browse/?CIK=1709323&owner=exclude",
+            "title": [
+              "Himalaya Capital Management, LLC：原始申报",
+              "Himalaya Capital Management, LLC: original filings"
+            ],
+            "kind": [
+              "SEC EDGAR",
+              "SEC EDGAR"
+            ]
+          },
+          {
+            "url": "https://www.himcap.com/",
+            "title": [
+              "喜马拉雅资本官网与人物介绍",
+              "Himalaya Capital: firm and biography"
+            ],
+            "kind": [
+              "官方资料",
+              "Official source"
+            ]
+          },
+          {
+            "url": "https://www.himcap.com/publications",
+            "title": [
+              "李录公开著作与演讲",
+              "Li Lu publications and talks"
+            ],
+            "kind": [
+              "官方资料",
+              "Official source"
+            ]
+          }
+        ],
+        "sources": [
+          "https://www.sec.gov/edgar/browse/?CIK=1709323&owner=exclude",
+          "https://www.himcap.com/",
+          "https://www.himcap.com/publications"
+        ]
       }
     },
     {
@@ -57,7 +186,149 @@
           "Mohnish Pabrai",
           "Dalal Street LLC"
         ]
-      }
+      },
+      "officialWebsite": "https://www.chaiwithpabrai.com/",
+      "profile": {
+        "reviewedAt": "2026-10-09",
+        "about": [
+          [
+            "Mohnish Pabrai 是 Pabrai Investment Funds 创始人及管理合伙人，也是 Pabrai Wagons Fund 的组合经理。首只 Pabrai 基金于 1999 年启动。",
+            "Mohnish Pabrai founded Pabrai Investment Funds and is its managing partner. He also manages the Pabrai Wagons Fund; the first Pabrai fund launched in 1999."
+          ],
+          [
+            "著有 The Dhandho Investor，创办 Dakshana Foundation，并在个人网站 Chai with Pabrai 发布访谈和研究思考。",
+            "He wrote The Dhandho Investor, founded Dakshana Foundation, and publishes interviews and investment discussions on Chai with Pabrai."
+          ]
+        ],
+        "summary": [
+          "学习成熟投资方法，研究风险、估值与自己能理解的企业。",
+          "Learn from established methods and study risk, valuation and understandable businesses."
+        ],
+        "timeline": [
+          {
+            "date": "1999",
+            "text": [
+              "首只 Pabrai Investment Fund 启动",
+              "First Pabrai Investment Fund launched"
+            ]
+          }
+        ],
+        "principles": [
+          {
+            "title": [
+              "借鉴方法",
+              "Learn from others"
+            ],
+            "text": [
+              "借鉴优秀投资者的研究方法。",
+              "Learn from experienced investors."
+            ]
+          },
+          {
+            "title": [
+              "能力圈",
+              "Circle of competence"
+            ],
+            "text": [
+              "把难以理解的企业留在能力圈外。",
+              "Recognize businesses that are too hard."
+            ]
+          },
+          {
+            "title": [
+              "投资清单",
+              "Investment checklist"
+            ],
+            "text": [
+              "用清单检查容易忽略的风险。",
+              "Use checklists to examine overlooked risks."
+            ]
+          },
+          {
+            "title": [
+              "异常机会",
+              "Market anomalies"
+            ],
+            "text": [
+              "研究市场定价中的异常。",
+              "Investigate unusual market pricing."
+            ]
+          },
+          {
+            "title": [
+              "资本配置",
+              "Capital allocation"
+            ],
+            "text": [
+              "关注管理层如何运用资本。",
+              "Study management’s use of capital."
+            ]
+          },
+          {
+            "title": [
+              "卖出纪律",
+              "Selling discipline"
+            ],
+            "text": [
+              "持续复核持有与卖出的理由。",
+              "Revisit reasons to hold or sell."
+            ]
+          }
+        ],
+        "resources": [
+          {
+            "url": "https://www.sec.gov/edgar/browse/?CIK=1549575&owner=exclude",
+            "title": [
+              "Dalal Street, LLC：原始申报",
+              "Dalal Street, LLC: original filings"
+            ],
+            "kind": [
+              "SEC EDGAR",
+              "SEC EDGAR"
+            ]
+          },
+          {
+            "url": "https://www.chaiwithpabrai.com/",
+            "title": [
+              "Chai with Pabrai：原创访谈与文章",
+              "Chai with Pabrai: original interviews"
+            ],
+            "kind": [
+              "官方资料",
+              "Official source"
+            ]
+          },
+          {
+            "url": "https://pabraifunds.com/about/",
+            "title": [
+              "Pabrai Investment Funds 介绍",
+              "Pabrai Investment Funds overview"
+            ],
+            "kind": [
+              "官方资料",
+              "Official source"
+            ]
+          },
+          {
+            "url": "https://www.dakshana.org/",
+            "title": [
+              "Dakshana Foundation",
+              "Dakshana Foundation"
+            ],
+            "kind": [
+              "官方资料",
+              "Official source"
+            ]
+          }
+        ],
+        "sources": [
+          "https://www.sec.gov/edgar/browse/?CIK=1549575&owner=exclude",
+          "https://www.chaiwithpabrai.com/",
+          "https://pabraifunds.com/about/",
+          "https://www.dakshana.org/"
+        ]
+      },
+      "officialWebsiteLabel": "Chai with Pabrai"
     },
     {
       "id": "duan",
@@ -84,6 +355,126 @@
           "H&H International Investment LLC",
           "Duan Yong Ping",
           "Duan Yongping"
+        ]
+      },
+      "profile": {
+        "reviewedAt": "2026-10-09",
+        "about": [
+          [
+            "段永平是企业家和投资者，在雪球以“大道无形我有型”分享个人观点；其已核实账号为 1247347556。",
+            "Duan Yongping is an entrepreneur and investor who publishes personal views on Xueqiu as 大道无形我有型, account 1247347556."
+          ],
+          [
+            "本页沿用“段永平”标签追踪 H&H International Investment, LLC 的机构申报。雪球观点和 H&H 的 SEC 持仓分别展示，不把个人发言直接推断为机构交易原因。",
+            "This tab uses the Duan label to track H&H International Investment, LLC filings. Personal Xueqiu views are separate from institutional disclosures and do not establish the reasons for trades."
+          ]
+        ],
+        "summary": [
+          "从企业经营和自己的能力圈出发理解投资。",
+          "Understand investments through business economics and your own competence."
+        ],
+        "timeline": [],
+        "principles": [
+          {
+            "title": [
+              "企业经营",
+              "Business economics"
+            ],
+            "text": [
+              "关注公司如何创造经营利润。",
+              "Understand how a company earns profits."
+            ]
+          },
+          {
+            "title": [
+              "能力圈",
+              "Circle of competence"
+            ],
+            "text": [
+              "承认自己不了解的公司。",
+              "Recognize what you do not understand."
+            ]
+          },
+          {
+            "title": [
+              "长期思考",
+              "Long-term thinking"
+            ],
+            "text": [
+              "关注企业持续经营的基础。",
+              "Study the basis of durable operations."
+            ]
+          },
+          {
+            "title": [
+              "独立判断",
+              "Independent judgment"
+            ],
+            "text": [
+              "个人发言不是交易指令。",
+              "Treat commentary as views, not instructions."
+            ]
+          },
+          {
+            "title": [
+              "原始观点",
+              "Original commentary"
+            ],
+            "text": [
+              "核对真实账号及原始贴文。",
+              "Check the authentic account and original posts."
+            ]
+          },
+          {
+            "title": [
+              "机构披露",
+              "Institutional disclosure"
+            ],
+            "text": [
+              "H&H 报告不等于个人资产明细。",
+              "H&H filings are not personal asset statements."
+            ]
+          }
+        ],
+        "resources": [
+          {
+            "url": "https://www.sec.gov/edgar/browse/?CIK=1759760&owner=exclude",
+            "title": [
+              "H&H International Investment, LLC：原始申报",
+              "H&H International Investment, LLC: original filings"
+            ],
+            "kind": [
+              "SEC EDGAR",
+              "SEC EDGAR"
+            ]
+          },
+          {
+            "url": "https://xueqiu.com/u/1247347556",
+            "title": [
+              "大道无形我有型：已核实雪球主页",
+              "Verified Xueqiu account"
+            ],
+            "kind": [
+              "原始发布",
+              "Original publication"
+            ]
+          },
+          {
+            "url": "https://adviserinfo.sec.gov/firm/summary/292451",
+            "title": [
+              "H&H：SEC 投资顾问登记",
+              "H&H: SEC adviser registration"
+            ],
+            "kind": [
+              "监管资料",
+              "Regulatory source"
+            ]
+          }
+        ],
+        "sources": [
+          "https://www.sec.gov/edgar/browse/?CIK=1759760&owner=exclude",
+          "https://xueqiu.com/u/1247347556",
+          "https://adviserinfo.sec.gov/firm/summary/292451"
         ]
       }
     },
@@ -114,6 +505,148 @@
           "David Tepper",
           "David A Tepper"
         ]
+      },
+      "profile": {
+        "reviewedAt": "2026-10-09",
+        "about": [
+          [
+            "大卫·泰珀于 1993 年创立 Appaloosa。此前于 1978 年取得匹兹堡大学学位，1982 年获得卡内基梅隆 MBA，1985 年加入高盛。",
+            "David Tepper founded Appaloosa in 1993. He graduated from Pittsburgh in 1978, earned his Carnegie Mellon MBA in 1982 and joined Goldman Sachs in 1985."
+          ],
+          [
+            "早期在信用与高收益债券领域工作。他同时是 Carolina Panthers 的所有者；球队官方履历提供可核实的职业时间线。",
+            "His earlier career focused on credit and high-yield debt. He also owns the Carolina Panthers, whose official biography documents his career."
+          ]
+        ],
+        "summary": [
+          "结合信用研究与市场环境，理解困境资产和风险。",
+          "Study credit, market conditions and distressed-asset risks."
+        ],
+        "timeline": [
+          {
+            "date": "1982",
+            "text": [
+              "获得卡内基梅隆 MBA",
+              "Earned Carnegie Mellon MBA"
+            ]
+          },
+          {
+            "date": "1985",
+            "text": [
+              "加入高盛",
+              "Joined Goldman Sachs"
+            ]
+          },
+          {
+            "date": "1993",
+            "text": [
+              "创立 Appaloosa",
+              "Founded Appaloosa"
+            ]
+          }
+        ],
+        "principles": [
+          {
+            "title": [
+              "信用研究",
+              "Credit research"
+            ],
+            "text": [
+              "研究债务结构与偿付能力。",
+              "Study debt structures and repayment capacity."
+            ]
+          },
+          {
+            "title": [
+              "困境资产",
+              "Distressed assets"
+            ],
+            "text": [
+              "区分经营困难与资产价值。",
+              "Distinguish distress from asset value."
+            ]
+          },
+          {
+            "title": [
+              "市场环境",
+              "Market conditions"
+            ],
+            "text": [
+              "把市场环境纳入研究。",
+              "Consider changing market conditions."
+            ]
+          },
+          {
+            "title": [
+              "风险识别",
+              "Risk identification"
+            ],
+            "text": [
+              "分析潜在损失与不确定性。",
+              "Assess losses and uncertainty."
+            ]
+          },
+          {
+            "title": [
+              "申报持仓",
+              "Reported holdings"
+            ],
+            "text": [
+              "13F 不覆盖全部信用策略。",
+              "13F omits much of a credit strategy."
+            ]
+          },
+          {
+            "title": [
+              "交易边界",
+              "Disclosure limits"
+            ],
+            "text": [
+              "季度快照不能还原完整交易路径。",
+              "Quarterly snapshots do not reveal every trade."
+            ]
+          }
+        ],
+        "resources": [
+          {
+            "url": "https://www.sec.gov/edgar/browse/?CIK=1656456&owner=exclude",
+            "title": [
+              "Appaloosa LP：原始申报",
+              "Appaloosa LP: original filings"
+            ],
+            "kind": [
+              "SEC EDGAR",
+              "SEC EDGAR"
+            ]
+          },
+          {
+            "url": "https://www.panthers.com/team/ownership_business/test-david-a-tepper",
+            "title": [
+              "Carolina Panthers：泰珀官方履历",
+              "Carolina Panthers: official biography"
+            ],
+            "kind": [
+              "官方资料",
+              "Official source"
+            ]
+          },
+          {
+            "url": "https://admission.enrollment.cmu.edu/sites/default/files/2025-05/bio-tepper-david.pdf",
+            "title": [
+              "卡内基梅隆：泰珀履历",
+              "Carnegie Mellon: Tepper biography"
+            ],
+            "kind": [
+              "官方资料",
+              "Official source"
+            ]
+          }
+        ],
+        "sources": [
+          "https://www.sec.gov/edgar/browse/?CIK=1656456&owner=exclude",
+          "https://www.panthers.com/team/ownership_business/test-david-a-tepper",
+          "https://admission.enrollment.cmu.edu/sites/default/files/2025-05/bio-tepper-david.pdf"
+        ]
       }
     },
     {
@@ -141,7 +674,156 @@
           "David Michael Webb",
           "David Webb"
         ]
-      }
+      },
+      "officialWebsite": "https://webbhk.substack.com/",
+      "profile": {
+        "reviewedAt": "2026-10-09",
+        "about": [
+          [
+            "大卫·韦伯（David Webb，1965–2026）是香港企业管治及小股东权益倡导者，创办 Webb-site.com，2026 年 1 月 13 日去世。",
+            "David Webb (1965–2026) founded Webb-site.com and advocated corporate governance and minority-shareholder rights in Hong Kong. He died on 13 January 2026."
+          ],
+          [
+            "原 Webb-site 主服务器于 2025 年 10 月 31 日停止服务。文章转移至其 Substack；数据库镜像是历史档案，不是新的官方实时持仓服务。",
+            "The main Webb-site server closed on 31 October 2025. His writing moved to Substack; the database mirror is an archive, not an official live portfolio service."
+          ]
+        ],
+        "summary": [
+          "研究公开披露、公司治理与小股东权益。",
+          "Study disclosures, governance and minority-shareholder rights."
+        ],
+        "timeline": [
+          {
+            "date": "2025-10-31",
+            "text": [
+              "原 Webb-site 服务器停止服务",
+              "Original Webb-site server closed"
+            ]
+          },
+          {
+            "date": "2026-01-13",
+            "text": [
+              "逝世；本页保留历史披露资料",
+              "Died; this page retains historical disclosures"
+            ]
+          }
+        ],
+        "principles": [
+          {
+            "title": [
+              "原始披露",
+              "Original disclosures"
+            ],
+            "text": [
+              "以港交所权益披露为依据。",
+              "Use HKEX ownership disclosures."
+            ]
+          },
+          {
+            "title": [
+              "公司治理",
+              "Corporate governance"
+            ],
+            "text": [
+              "研究治理结构和关联交易。",
+              "Examine governance and related-party dealings."
+            ]
+          },
+          {
+            "title": [
+              "小股东权益",
+              "Minority shareholders"
+            ],
+            "text": [
+              "关注少数股东能否获得公平待遇。",
+              "Examine fairness to minority shareholders."
+            ]
+          },
+          {
+            "title": [
+              "透明度",
+              "Transparency"
+            ],
+            "text": [
+              "交叉核对公开记录。",
+              "Cross-check public records."
+            ]
+          },
+          {
+            "title": [
+              "披露门槛",
+              "Disclosure threshold"
+            ],
+            "text": [
+              "通常只见 5% 以上公开权益。",
+              "The archive generally covers stakes above 5%."
+            ]
+          },
+          {
+            "title": [
+              "历史边界",
+              "Historical limits"
+            ],
+            "text": [
+              "未披露不等于清仓，档案不等于现仓。",
+              "Missing disclosures do not establish an exit."
+            ]
+          }
+        ],
+        "resources": [
+          {
+            "url": "https://webbhk.substack.com/",
+            "title": [
+              "Webb-site：原作者文章",
+              "Webb-site: author’s writing"
+            ],
+            "kind": [
+              "原作者发布",
+              "Original publication"
+            ]
+          },
+          {
+            "url": "https://webbsite.0xmd.com/dbpub/webbchips",
+            "title": [
+              "Webb-chips：历史数据库镜像",
+              "Webb-chips: archived database"
+            ],
+            "kind": [
+              "历史镜像",
+              "Historical mirror"
+            ]
+          },
+          {
+            "url": "https://di.hkex.com.hk/di/NSSrchPerson.aspx?src=MAIN&lang=EN",
+            "title": [
+              "港交所：按姓名检索权益披露",
+              "HKEX: ownership disclosure search"
+            ],
+            "kind": [
+              "监管资料",
+              "Regulatory source"
+            ]
+          },
+          {
+            "url": "https://apnews.com/article/a7b7b3bc19b286eed7a7d0d518deeca4",
+            "title": [
+              "韦伯逝世：AP 报道",
+              "AP: David Webb obituary"
+            ],
+            "kind": [
+              "新闻报道",
+              "News report"
+            ]
+          }
+        ],
+        "sources": [
+          "https://webbhk.substack.com/",
+          "https://webbsite.0xmd.com/dbpub/webbchips",
+          "https://di.hkex.com.hk/di/NSSrchPerson.aspx?src=MAIN&lang=EN",
+          "https://apnews.com/article/a7b7b3bc19b286eed7a7d0d518deeca4"
+        ]
+      },
+      "officialWebsiteLabel": "Webb-site 文章档案"
     },
     {
       "id": "buffett",
@@ -172,6 +854,173 @@
           "Warren E Buffett",
           "Warren Edward Buffett"
         ]
+      },
+      "officialWebsite": "https://www.berkshirehathaway.com/",
+      "profile": {
+        "reviewedAt": "2026-10-09",
+        "about": [
+          [
+            "沃伦·巴菲特长期领导伯克希尔·哈撒韦。Greg Abel 自 2026 年 1 月接任 CEO；公司于 2026 年 9 月 18 日宣布巴菲特转任荣誉董事长并继续担任董事，Howard Buffett 接任董事长。",
+            "Warren Buffett led Berkshire Hathaway for decades. Greg Abel became CEO in January 2026. On 18 September 2026, Buffett became chairman emeritus and remained a director; Howard Buffett became chairman."
+          ],
+          [
+            "本页追踪伯克希尔集团的合并 13F 披露。集团由团队管理，不能把每次买卖都归于巴菲特本人，也不能用 13F 市值代表集团全部资产。",
+            "This tab tracks Berkshire’s consolidated 13F. Its investments are managed by a team; individual trades should not all be attributed to Buffett, and 13F value is not total group assets."
+          ]
+        ],
+        "summary": [
+          "以所有者视角理解企业价值、管理层与长期资本配置。",
+          "Study business value, managers and long-term capital allocation as an owner."
+        ],
+        "timeline": [
+          {
+            "date": "1965",
+            "text": [
+              "巴菲特开始领导伯克希尔",
+              "Buffett began leading Berkshire"
+            ]
+          },
+          {
+            "date": "2026-01",
+            "text": [
+              "Greg Abel 接任 CEO",
+              "Greg Abel became CEO"
+            ]
+          },
+          {
+            "date": "2026-09-18",
+            "text": [
+              "巴菲特转任荣誉董事长，仍任董事",
+              "Buffett became chairman emeritus and remained a director"
+            ]
+          }
+        ],
+        "principles": [
+          {
+            "title": [
+              "企业价值",
+              "Business value"
+            ],
+            "text": [
+              "重视企业的长期盈利能力。",
+              "Study sustainable earning power."
+            ]
+          },
+          {
+            "title": [
+              "经营优势",
+              "Business advantages"
+            ],
+            "text": [
+              "研究竞争地位和长期经济性。",
+              "Study competitive positions and economics."
+            ]
+          },
+          {
+            "title": [
+              "管理层",
+              "Management"
+            ],
+            "text": [
+              "关注经营者与股东的利益关系。",
+              "Assess alignment with shareholders."
+            ]
+          },
+          {
+            "title": [
+              "资本配置",
+              "Capital allocation"
+            ],
+            "text": [
+              "比较再投资、收购与回购的机会。",
+              "Compare reinvestment, acquisitions and repurchases."
+            ]
+          },
+          {
+            "title": [
+              "长期视角",
+              "Long-term perspective"
+            ],
+            "text": [
+              "理解长期经营而非短期价格波动。",
+              "Study long-term operations beyond price movements."
+            ]
+          },
+          {
+            "title": [
+              "合并披露",
+              "Consolidated disclosures"
+            ],
+            "text": [
+              "区分集团报告与个人决策。",
+              "Distinguish group reports from personal decisions."
+            ]
+          }
+        ],
+        "resources": [
+          {
+            "url": "https://www.sec.gov/edgar/browse/?CIK=1067983&owner=exclude",
+            "title": [
+              "Berkshire Hathaway Inc：原始申报",
+              "Berkshire Hathaway Inc: original filings"
+            ],
+            "kind": [
+              "SEC EDGAR",
+              "SEC EDGAR"
+            ]
+          },
+          {
+            "url": "https://www.berkshirehathaway.com/",
+            "title": [
+              "伯克希尔官方网站",
+              "Berkshire official website"
+            ],
+            "kind": [
+              "官方资料",
+              "Official source"
+            ]
+          },
+          {
+            "url": "https://www.berkshirehathaway.com/letters/letters.html",
+            "title": [
+              "巴菲特历史股东信",
+              "Buffett’s historical shareholder letters"
+            ],
+            "kind": [
+              "官方资料",
+              "Official source"
+            ]
+          },
+          {
+            "url": "https://www.berkshirehathaway.com/news/sep1826.pdf",
+            "title": [
+              "2026-09-18：董事长交接公告",
+              "18 Sep 2026: chairman succession"
+            ],
+            "kind": [
+              "官方资料",
+              "Official source"
+            ]
+          },
+          {
+            "url": "https://www.berkshirehathaway.com/reports.html",
+            "title": [
+              "伯克希尔年度与中期报告",
+              "Berkshire annual and interim reports"
+            ],
+            "kind": [
+              "官方资料",
+              "Official source"
+            ]
+          }
+        ],
+        "sources": [
+          "https://www.sec.gov/edgar/browse/?CIK=1067983&owner=exclude",
+          "https://www.berkshirehathaway.com/",
+          "https://www.berkshirehathaway.com/letters/letters.html",
+          "https://www.berkshirehathaway.com/news/sep1826.pdf",
+          "https://www.berkshirehathaway.com/reports.html"
+        ]
       }
     },
     {
@@ -200,6 +1049,166 @@
           "Chuck Akre",
           "Charles T Akre Jr"
         ]
+      },
+      "officialWebsite": "https://www.akrecapital.com/",
+      "profile": {
+        "reviewedAt": "2026-10-09",
+        "about": [
+          [
+            "Chuck Akre 创立的 Akre Capital Management 成立于 1989 年。其公开方法以商业模式、管理者及高回报再投资机会构成“三条腿的凳子”。",
+            "Chuck Akre founded Akre Capital Management in 1989. Its three-legged framework examines businesses, managers and reinvestment opportunities."
+          ],
+          [
+            "现任 CEO 和 CIO 是 John Neff，也是 Akre Focus ETF 的组合经理。当前机构持仓不能全部当作 Chuck Akre 本人正在管理的个人组合。",
+            "John Neff is now CEO and CIO and manages the Akre Focus ETF. Current firm holdings should not all be presented as Chuck Akre’s personal portfolio."
+          ]
+        ],
+        "summary": [
+          "研究能以高回报率持续再投资的企业。",
+          "Study businesses able to reinvest at attractive returns."
+        ],
+        "timeline": [
+          {
+            "date": "1989",
+            "text": [
+              "Akre Capital Management 成立",
+              "Akre Capital Management founded"
+            ]
+          },
+          {
+            "date": "2009",
+            "text": [
+              "Akre Focus Fund 开始运营",
+              "Akre Focus Fund began operations"
+            ]
+          }
+        ],
+        "principles": [
+          {
+            "title": [
+              "商业模式",
+              "Business model"
+            ],
+            "text": [
+              "研究企业的经济性与竞争地位。",
+              "Study economics and competitive positions."
+            ]
+          },
+          {
+            "title": [
+              "管理者",
+              "Managers"
+            ],
+            "text": [
+              "评估诚信、能力与资本配置。",
+              "Assess integrity, ability and capital allocation."
+            ]
+          },
+          {
+            "title": [
+              "再投资",
+              "Reinvestment"
+            ],
+            "text": [
+              "寻找长期高回报再投资机会。",
+              "Look for durable reinvestment opportunities."
+            ]
+          },
+          {
+            "title": [
+              "复利",
+              "Compounding"
+            ],
+            "text": [
+              "关注长期盈利积累。",
+              "Study long-term accumulation of earnings."
+            ]
+          },
+          {
+            "title": [
+              "估值纪律",
+              "Valuation discipline"
+            ],
+            "text": [
+              "区分好企业与合适的买入价格。",
+              "Consider the price of a good business."
+            ]
+          },
+          {
+            "title": [
+              "团队管理",
+              "Team management"
+            ],
+            "text": [
+              "辨别创始人与现任组合经理。",
+              "Distinguish founder from current portfolio manager."
+            ]
+          }
+        ],
+        "resources": [
+          {
+            "url": "https://www.sec.gov/edgar/browse/?CIK=1112520&owner=exclude",
+            "title": [
+              "Akre Capital Management, LLC：原始申报",
+              "Akre Capital Management, LLC: original filings"
+            ],
+            "kind": [
+              "SEC EDGAR",
+              "SEC EDGAR"
+            ]
+          },
+          {
+            "url": "https://www.akrecapital.com/",
+            "title": [
+              "Akre Capital Management 官网",
+              "Akre Capital Management website"
+            ],
+            "kind": [
+              "官方资料",
+              "Official source"
+            ]
+          },
+          {
+            "url": "https://www.akrecapital.com/people/john-neff/",
+            "title": [
+              "John Neff：现任 CEO、CIO",
+              "John Neff: current CEO and CIO"
+            ],
+            "kind": [
+              "官方资料",
+              "Official source"
+            ]
+          },
+          {
+            "url": "https://www.akrecapital.com/investment-approach/our-investment-philosophy/",
+            "title": [
+              "三条腿的凳子：官方投资方法",
+              "Official three-legged investment framework"
+            ],
+            "kind": [
+              "官方资料",
+              "Official source"
+            ]
+          },
+          {
+            "url": "https://www.akrefund.com/our-team/",
+            "title": [
+              "Akre Focus ETF：现任团队",
+              "Akre Focus ETF: current team"
+            ],
+            "kind": [
+              "官方资料",
+              "Official source"
+            ]
+          }
+        ],
+        "sources": [
+          "https://www.sec.gov/edgar/browse/?CIK=1112520&owner=exclude",
+          "https://www.akrecapital.com/",
+          "https://www.akrecapital.com/people/john-neff/",
+          "https://www.akrecapital.com/investment-approach/our-investment-philosophy/",
+          "https://www.akrefund.com/our-team/"
+        ]
       }
     },
     {
@@ -226,6 +1235,134 @@
         "entities": [
           "Brave Warrior Advisors LLC",
           "Glenn Greenberg"
+        ]
+      },
+      "profile": {
+        "reviewedAt": "2026-10-09",
+        "about": [
+          [
+            "Glenn Greenberg 是 Brave Warrior Advisors 的管理董事和首席投资官。SEC 登记资料及其本人提交的意见信可核对其身份与机构。",
+            "Glenn Greenberg is managing director and chief investment officer of Brave Warrior Advisors. SEC records and his submitted comment letter document his identity and firm."
+          ],
+          [
+            "Brave Warrior 的公开投资方法强调长期持有、集中研究和治理质量。本页只反映机构申报范围内的证券，不能据此推断其全部资产。",
+            "His 2010 SEC letter describes investing in US equities for clients and discusses shareholder governance. Current holdings should be read from dated filings."
+          ]
+        ],
+        "summary": [
+          "从机构原始披露与公开治理观点出发研究组合。",
+          "Study the portfolio through original filings and published governance views."
+        ],
+        "timeline": [
+          {
+            "date": "2010-07",
+            "text": [
+              "以 Brave Warrior 管理董事身份向 SEC 提交意见信",
+              "Submitted SEC comment as Brave Warrior managing director"
+            ]
+          }
+        ],
+        "principles": [
+          {
+            "title": [
+              "机构身份",
+              "Firm identity"
+            ],
+            "text": [
+              "以 SEC 登记核对管理人。",
+              "Verify the adviser through SEC records."
+            ]
+          },
+          {
+            "title": [
+              "股票研究",
+              "Equity research"
+            ],
+            "text": [
+              "从原始持仓报告开始研究。",
+              "Start with original holdings reports."
+            ]
+          },
+          {
+            "title": [
+              "集中度",
+              "Concentration"
+            ],
+            "text": [
+              "集中程度以报告期数据为准。",
+              "Measure concentration from dated filings."
+            ]
+          },
+          {
+            "title": [
+              "股东治理",
+              "Shareholder governance"
+            ],
+            "text": [
+              "关注股东表达和投票机制。",
+              "Study shareholder voice and voting."
+            ]
+          },
+          {
+            "title": [
+              "组合边界",
+              "Portfolio boundaries"
+            ],
+            "text": [
+              "13F 不能覆盖全部客户资产。",
+              "13F does not cover all client assets."
+            ]
+          },
+          {
+            "title": [
+              "事实与推断",
+              "Facts and inference"
+            ],
+            "text": [
+              "持仓变化本身不证明交易动机。",
+              "Position changes do not establish motives."
+            ]
+          }
+        ],
+        "resources": [
+          {
+            "url": "https://www.sec.gov/edgar/browse/?CIK=1553733&owner=exclude",
+            "title": [
+              "Brave Warrior Advisors, LLC：原始申报",
+              "Brave Warrior Advisors, LLC: original filings"
+            ],
+            "kind": [
+              "SEC EDGAR",
+              "SEC EDGAR"
+            ]
+          },
+          {
+            "url": "https://adviserinfo.sec.gov/firm/summary/108894",
+            "title": [
+              "Brave Warrior：SEC 顾问登记",
+              "Brave Warrior: SEC adviser registration"
+            ],
+            "kind": [
+              "监管资料",
+              "Regulatory source"
+            ]
+          },
+          {
+            "url": "https://www.sec.gov/comments/s7-14-10/s71410-20.pdf",
+            "title": [
+              "格林伯格：2010 年 SEC 原始意见信",
+              "Greenberg: original 2010 SEC letter"
+            ],
+            "kind": [
+              "原始文件",
+              "Original document"
+            ]
+          }
+        ],
+        "sources": [
+          "https://www.sec.gov/edgar/browse/?CIK=1553733&owner=exclude",
+          "https://adviserinfo.sec.gov/firm/summary/108894",
+          "https://www.sec.gov/comments/s7-14-10/s71410-20.pdf"
         ]
       }
     },
@@ -254,14 +1391,155 @@
           "Baupost Group, LLC",
           "Seth Klarman"
         ]
+      },
+      "officialWebsite": "https://www.baupost.com/",
+      "profile": {
+        "reviewedAt": "2026-10-09",
+        "about": [
+          [
+            "Baupost 于 1982 年成立。Seth Klarman 自公司成立以来负责投资，现任 CEO 和组合经理；其团队也包括总裁 Jim Mooney。",
+            "Baupost was established in 1982. Seth Klarman has overseen investments since inception and is CEO and portfolio manager, working alongside president Jim Mooney."
+          ],
+          [
+            "Baupost 的授权范围包括公开股票和债券、私人信贷、私募股权及房地产，不能把本页的股票披露视为其全部策略。",
+            "Baupost invests across public equities and debt, private credit, private equity and real estate. Its reported equities are only part of its strategy."
+          ]
+        ],
+        "summary": [
+          "以基本面、估值和风险分析研究多种资产机会。",
+          "Study opportunities through fundamentals, valuation and risk."
+        ],
+        "timeline": [
+          {
+            "date": "1982",
+            "text": [
+              "Baupost 成立；克拉曼开始负责投资",
+              "Baupost established; Klarman began overseeing investments"
+            ]
+          }
+        ],
+        "principles": [
+          {
+            "title": [
+              "估值",
+              "Valuation"
+            ],
+            "text": [
+              "将价格与资产价值进行比较。",
+              "Compare price with asset value."
+            ]
+          },
+          {
+            "title": [
+              "基本面",
+              "Fundamentals"
+            ],
+            "text": [
+              "深入研究经营与资产基础。",
+              "Research operations and underlying assets."
+            ]
+          },
+          {
+            "title": [
+              "风险",
+              "Risk"
+            ],
+            "text": [
+              "考虑损失情景和不确定性。",
+              "Examine downside scenarios and uncertainty."
+            ]
+          },
+          {
+            "title": [
+              "灵活授权",
+              "Flexible mandate"
+            ],
+            "text": [
+              "研究不同资产类别的机会。",
+              "Consider opportunities across asset classes."
+            ]
+          },
+          {
+            "title": [
+              "耐心",
+              "Patience"
+            ],
+            "text": [
+              "采用长期、价值导向的视角。",
+              "Use a long-term value perspective."
+            ]
+          },
+          {
+            "title": [
+              "披露边界",
+              "Disclosure boundaries"
+            ],
+            "text": [
+              "美股报告不代表全部多资产组合。",
+              "Equity filings do not represent all assets."
+            ]
+          }
+        ],
+        "resources": [
+          {
+            "url": "https://www.sec.gov/edgar/browse/?CIK=1061768&owner=exclude",
+            "title": [
+              "Baupost Group, LLC：原始申报",
+              "Baupost Group, LLC: original filings"
+            ],
+            "kind": [
+              "SEC EDGAR",
+              "SEC EDGAR"
+            ]
+          },
+          {
+            "url": "https://www.baupost.com/",
+            "title": [
+              "Baupost 官方网站",
+              "Baupost official website"
+            ],
+            "kind": [
+              "官方资料",
+              "Official source"
+            ]
+          },
+          {
+            "url": "https://www.baupost.com/About",
+            "title": [
+              "Baupost：机构与管理团队介绍",
+              "Baupost: firm and leadership"
+            ],
+            "kind": [
+              "官方资料",
+              "Official source"
+            ]
+          },
+          {
+            "url": "https://www.baupost.com/investment_philosophy",
+            "title": [
+              "Baupost：公开投资方法",
+              "Baupost: published investment approach"
+            ],
+            "kind": [
+              "官方资料",
+              "Official source"
+            ]
+          }
+        ],
+        "sources": [
+          "https://www.sec.gov/edgar/browse/?CIK=1061768&owner=exclude",
+          "https://www.baupost.com/",
+          "https://www.baupost.com/About",
+          "https://www.baupost.com/investment_philosophy"
+        ]
       }
     },
     {
       "id": "ackman",
       "name": "比尔·阿克曼",
       "nameEn": "Bill Ackman",
-      "cik": "1336528",
-      "manager": "Pershing Square Capital Management, L.P.",
+      "cik": "2026053",
+      "manager": "Pershing Square Inc.",
       "people": [
         "Bill Ackman"
       ],
@@ -270,7 +1548,7 @@
       "hkFile": "ackman_hk.json",
       "market": "US",
       "source13F": true,
-      "consolidate": false,
+      "consolidate": true,
       "inValueScreen": true,
       "hkDisclosure": {
         "queries": [
@@ -281,6 +1559,175 @@
           "Pershing Square Capital Management, L.P.",
           "Bill Ackman"
         ]
+      },
+      "legacyFilers": [
+        {
+          "cik": "1336528",
+          "manager": "Pershing Square Capital Management, L.P.",
+          "beforePeriod": "2026-06-30",
+          "noticeSource": "https://www.sec.gov/Archives/edgar/data/1336528/000117266126003777/xslForm13F_X02/primary_doc.xml"
+        }
+      ],
+      "officialWebsite": "https://pershingsquareinc.com/",
+      "profile": {
+        "reviewedAt": "2026-10-09",
+        "about": [
+          [
+            "Bill Ackman 创建并领导 Pershing Square 投资机构。集团采用长期、集中投资方式，也可能运用对冲；旗下投资载体各有独立披露。",
+            "Bill Ackman founded and leads Pershing Square. The group uses long-term concentrated investing and may employ hedges; its vehicles have separate disclosures."
+          ],
+          [
+            "2026 Q2 起，原申报人 Pershing Square Capital Management, L.P. 提交 13F-NT，明确其持仓改由母公司 Pershing Square Inc.（CIK 2026053）报告。本页已改为追踪该母公司，并保留旧主体历史。",
+            "From 2026 Q2, Pershing Square Capital Management filed a 13F notice stating that its holdings are reported by parent Pershing Square Inc., CIK 2026053. This page now follows the parent and retains predecessor history."
+          ]
+        ],
+        "summary": [
+          "研究长期现金流、经营优势和集中投资的风险。",
+          "Study durable cash flows, business advantages and concentration risks."
+        ],
+        "timeline": [
+          {
+            "date": "2026 Q2",
+            "text": [
+              "13F 报告转由 Pershing Square Inc. 申报",
+              "13F reporting moved to Pershing Square Inc."
+            ]
+          }
+        ],
+        "principles": [
+          {
+            "title": [
+              "长期投资",
+              "Long-term investing"
+            ],
+            "text": [
+              "理解企业长期现金流。",
+              "Study long-term cash flows."
+            ]
+          },
+          {
+            "title": [
+              "经营优势",
+              "Business advantages"
+            ],
+            "text": [
+              "关注可持续的竞争地位。",
+              "Study durable competitive positions."
+            ]
+          },
+          {
+            "title": [
+              "集中投资",
+              "Concentration"
+            ],
+            "text": [
+              "深入研究有限数量的企业。",
+              "Research a limited number of businesses."
+            ]
+          },
+          {
+            "title": [
+              "管理与治理",
+              "Management and governance"
+            ],
+            "text": [
+              "理解经营者和股东利益。",
+              "Assess managers and shareholder interests."
+            ]
+          },
+          {
+            "title": [
+              "对冲边界",
+              "Hedging limits"
+            ],
+            "text": [
+              "13F 不能展示全部宏观对冲。",
+              "13F does not show every macro hedge."
+            ]
+          },
+          {
+            "title": [
+              "申报主体",
+              "Reporting entity"
+            ],
+            "text": [
+              "区分母公司、管理人和旗下基金。",
+              "Distinguish parent, adviser and fund."
+            ]
+          }
+        ],
+        "resources": [
+          {
+            "url": "https://www.sec.gov/edgar/browse/?CIK=2026053&owner=exclude",
+            "title": [
+              "Pershing Square Inc.：原始申报",
+              "Pershing Square Inc.: original filings"
+            ],
+            "kind": [
+              "SEC EDGAR",
+              "SEC EDGAR"
+            ]
+          },
+          {
+            "url": "https://pershingsquareinc.com/",
+            "title": [
+              "Pershing Square Inc.：集团官网",
+              "Pershing Square Inc.: group website"
+            ],
+            "kind": [
+              "官方资料",
+              "Official source"
+            ]
+          },
+          {
+            "url": "https://www.sec.gov/Archives/edgar/data/1336528/000117266126003777/xslForm13F_X02/primary_doc.xml",
+            "title": [
+              "2026 Q2：申报主体变更通知",
+              "2026 Q2: reporting-entity notice"
+            ],
+            "kind": [
+              "监管文件",
+              "Regulatory filing"
+            ]
+          },
+          {
+            "url": "https://www.sec.gov/edgar/browse/?CIK=1336528&owner=exclude",
+            "title": [
+              "旧管理人历史申报",
+              "Predecessor adviser filings"
+            ],
+            "kind": [
+              "历史申报",
+              "Historical filings"
+            ]
+          },
+          {
+            "url": "https://pershingsquareholdings.com/",
+            "title": [
+              "Pershing Square Holdings：旗下上市基金",
+              "Pershing Square Holdings: listed fund"
+            ],
+            "kind": [
+              "官方资料",
+              "Official source"
+            ]
+          }
+        ],
+        "sources": [
+          "https://www.sec.gov/edgar/browse/?CIK=2026053&owner=exclude",
+          "https://pershingsquareinc.com/",
+          "https://www.sec.gov/Archives/edgar/data/1336528/000117266126003777/xslForm13F_X02/primary_doc.xml",
+          "https://www.sec.gov/edgar/browse/?CIK=1336528&owner=exclude",
+          "https://pershingsquareholdings.com/"
+        ]
+      },
+      "reportingFrom": "2026-06-30",
+      "reportingTransition": {
+        "fromQuarter": "2026 Q2",
+        "comparisonScopeChanged": true,
+        "noticeSource": "https://www.sec.gov/Archives/edgar/data/1336528/000117266126003777/xslForm13F_X02/primary_doc.xml",
+        "fromCIK": "1336528",
+        "toCIK": "2026053"
       }
     },
     {
@@ -307,6 +1754,147 @@
         "entities": [
           "Abrams Capital Management, L.P.",
           "David Abrams"
+        ]
+      },
+      "officialWebsite": "https://www.abramscapital.com/",
+      "profile": {
+        "reviewedAt": "2026-10-09",
+        "about": [
+          [
+            "David Abrams 于 1999 年创立 Abrams Capital，现任 CEO 和组合经理。公司总部位于波士顿。",
+            "David Abrams founded Abrams Capital in 1999 and is its CEO and portfolio manager. The firm is based in Boston."
+          ],
+          [
+            "官网介绍的策略覆盖公开与私人市场、流动与非流动投资、不同资本结构，并强调与企业管理层长期合作。",
+            "Its published strategy spans public and private markets, liquid and illiquid opportunities and different capital structures, with long-term partnerships with management."
+          ]
+        ],
+        "summary": [
+          "采用耐心、灵活的长期投资方式，与企业共同积累价值。",
+          "Invest patiently and flexibly, building value alongside businesses."
+        ],
+        "timeline": [
+          {
+            "date": "1999",
+            "text": [
+              "创立 Abrams Capital",
+              "Founded Abrams Capital"
+            ]
+          }
+        ],
+        "principles": [
+          {
+            "title": [
+              "长期合作",
+              "Long-term partnership"
+            ],
+            "text": [
+              "研究企业与管理层的长期关系。",
+              "Study businesses and management relationships."
+            ]
+          },
+          {
+            "title": [
+              "耐心",
+              "Patience"
+            ],
+            "text": [
+              "关注价值随经营逐步积累。",
+              "Allow business value time to develop."
+            ]
+          },
+          {
+            "title": [
+              "灵活策略",
+              "Flexible strategy"
+            ],
+            "text": [
+              "不把研究局限于单一行业。",
+              "Research across sectors."
+            ]
+          },
+          {
+            "title": [
+              "资本结构",
+              "Capital structure"
+            ],
+            "text": [
+              "分析不同资本层级。",
+              "Examine different capital structures."
+            ]
+          },
+          {
+            "title": [
+              "公开与私人",
+              "Public and private"
+            ],
+            "text": [
+              "区分公开市场和私人投资。",
+              "Distinguish public and private investments."
+            ]
+          },
+          {
+            "title": [
+              "披露范围",
+              "Disclosure scope"
+            ],
+            "text": [
+              "13F 仅是策略的一部分。",
+              "13F captures only part of the strategy."
+            ]
+          }
+        ],
+        "resources": [
+          {
+            "url": "https://www.sec.gov/edgar/browse/?CIK=1358706&owner=exclude",
+            "title": [
+              "Abrams Capital Management, L.P.：原始申报",
+              "Abrams Capital Management, L.P.: original filings"
+            ],
+            "kind": [
+              "SEC EDGAR",
+              "SEC EDGAR"
+            ]
+          },
+          {
+            "url": "https://www.abramscapital.com/",
+            "title": [
+              "Abrams Capital 官方网站",
+              "Abrams Capital official website"
+            ],
+            "kind": [
+              "官方资料",
+              "Official source"
+            ]
+          },
+          {
+            "url": "https://www.abramscapital.com/about",
+            "title": [
+              "Abrams Capital：公开策略",
+              "Abrams Capital: published strategy"
+            ],
+            "kind": [
+              "官方资料",
+              "Official source"
+            ]
+          },
+          {
+            "url": "https://www.abramscapital.com/leadership",
+            "title": [
+              "David Abrams：管理团队介绍",
+              "David Abrams: leadership biography"
+            ],
+            "kind": [
+              "官方资料",
+              "Official source"
+            ]
+          }
+        ],
+        "sources": [
+          "https://www.sec.gov/edgar/browse/?CIK=1358706&owner=exclude",
+          "https://www.abramscapital.com/",
+          "https://www.abramscapital.com/about",
+          "https://www.abramscapital.com/leadership"
         ]
       }
     },
@@ -335,7 +1923,149 @@
           "Fairholme Capital Management, LLC",
           "Bruce Berkowitz"
         ]
-      }
+      },
+      "officialWebsite": "https://www.fairholmefunds.com/",
+      "profile": {
+        "reviewedAt": "2026-10-09",
+        "about": [
+          [
+            "Bruce Berkowitz 是 Fairholme 的创始人及投资负责人。官方基金文件注明，他自管理公司 1997 年成立起担任 CIO，并负责基金的日常组合管理。",
+            "Bruce Berkowitz founded Fairholme. Official fund documents state that he has been CIO since the manager’s inception in 1997 and is responsible for portfolio management."
+          ],
+          [
+            "13F 只覆盖申报范围内证券，不能代替旗下基金的全部资产；本页集中度以报告期持仓计算。",
+            "13F covers reportable securities and does not represent every asset of the funds; concentration on this page is calculated from the reported holdings."
+          ]
+        ],
+        "summary": [
+          "研究资产、现金流与集中持仓的风险。",
+          "Study assets, cash flows and concentration risks."
+        ],
+        "timeline": [
+          {
+            "date": "1997",
+            "text": [
+              "Fairholme 管理公司成立",
+              "Fairholme manager established"
+            ]
+          }
+        ],
+        "principles": [
+          {
+            "title": [
+              "资产研究",
+              "Asset research"
+            ],
+            "text": [
+              "核对企业资产与负债。",
+              "Examine assets and liabilities."
+            ]
+          },
+          {
+            "title": [
+              "现金流",
+              "Cash flow"
+            ],
+            "text": [
+              "研究现金流的可持续性。",
+              "Study sustainable cash generation."
+            ]
+          },
+          {
+            "title": [
+              "估值",
+              "Valuation"
+            ],
+            "text": [
+              "比较买入价格与研究判断。",
+              "Compare price with researched value."
+            ]
+          },
+          {
+            "title": [
+              "长期持有",
+              "Long-term holding"
+            ],
+            "text": [
+              "持续复核企业的长期变化。",
+              "Review long-term business changes."
+            ]
+          },
+          {
+            "title": [
+              "集中风险",
+              "Concentration risk"
+            ],
+            "text": [
+              "集中持仓也需要分析损失情景。",
+              "Examine losses in concentrated positions."
+            ]
+          },
+          {
+            "title": [
+              "报告期",
+              "Reporting period"
+            ],
+            "text": [
+              "仓位比例以最新报告为准。",
+              "Use dated reports for position weights."
+            ]
+          }
+        ],
+        "resources": [
+          {
+            "url": "https://www.sec.gov/edgar/browse/?CIK=1056831&owner=exclude",
+            "title": [
+              "Fairholme Capital Management, LLC：原始申报",
+              "Fairholme Capital Management, LLC: original filings"
+            ],
+            "kind": [
+              "SEC EDGAR",
+              "SEC EDGAR"
+            ]
+          },
+          {
+            "url": "https://www.fairholmefunds.com/",
+            "title": [
+              "Fairholme 官方网站",
+              "Fairholme official website"
+            ],
+            "kind": [
+              "官方资料",
+              "Official source"
+            ]
+          },
+          {
+            "url": "https://www.fairholmefunds.com/overview",
+            "title": [
+              "The Fairholme Fund：基金资料",
+              "The Fairholme Fund: fund information"
+            ],
+            "kind": [
+              "官方资料",
+              "Official source"
+            ]
+          },
+          {
+            "url": "https://www.fairholmefunds.com/s/StatutoryProspectus-raaj.pdf",
+            "title": [
+              "基金文件：管理人职责",
+              "Fund document: manager responsibilities"
+            ],
+            "kind": [
+              "官方资料",
+              "Official source"
+            ]
+          }
+        ],
+        "sources": [
+          "https://www.sec.gov/edgar/browse/?CIK=1056831&owner=exclude",
+          "https://www.fairholmefunds.com/",
+          "https://www.fairholmefunds.com/overview",
+          "https://www.fairholmefunds.com/s/StatutoryProspectus-raaj.pdf"
+        ]
+      },
+      "officialWebsiteLabel": "Fairholme Funds"
     },
     {
       "id": "hawkins",
@@ -361,6 +2091,147 @@
         "entities": [
           "Southeastern Asset Management, Inc.",
           "Mason Hawkins"
+        ]
+      },
+      "officialWebsite": "https://southeasternasset.com/",
+      "profile": {
+        "reviewedAt": "2026-10-09",
+        "about": [
+          [
+            "Mason Hawkins 于 1975 年创立 Southeastern Asset Management，现任董事长及多个 Longleaf Partners 基金的共同组合经理。CEO 和研究负责人是 Ross Glotzbach。",
+            "Mason Hawkins founded Southeastern Asset Management in 1975. He is chairman and co-portfolio manager of several Longleaf Partners funds. Ross Glotzbach is CEO and head of research."
+          ],
+          [
+            "公司采用长期、集中、积极参与的价值投资方法，关注企业、管理者与价格。Longleaf Partners 是基金系列，不是另一位投资人。",
+            "The firm uses a long-term, concentrated, engaged value approach, evaluating businesses, people and price. Longleaf Partners is its fund family, not a separate investor."
+          ]
+        ],
+        "summary": [
+          "研究企业价值、管理团队以及价格与价值的差距。",
+          "Study business value, management and the gap between price and value."
+        ],
+        "timeline": [
+          {
+            "date": "1975",
+            "text": [
+              "创立 Southeastern Asset Management",
+              "Founded Southeastern Asset Management"
+            ]
+          }
+        ],
+        "principles": [
+          {
+            "title": [
+              "企业",
+              "Business"
+            ],
+            "text": [
+              "研究企业质量与经营价值。",
+              "Study business quality and value."
+            ]
+          },
+          {
+            "title": [
+              "管理者",
+              "People"
+            ],
+            "text": [
+              "评估管理团队与股东利益关系。",
+              "Assess management alignment with shareholders."
+            ]
+          },
+          {
+            "title": [
+              "价格",
+              "Price"
+            ],
+            "text": [
+              "寻找价格低于研究估值的机会。",
+              "Compare price with researched valuation."
+            ]
+          },
+          {
+            "title": [
+              "长期",
+              "Long-term"
+            ],
+            "text": [
+              "以长期经营结果衡量投资。",
+              "Evaluate investments over the long term."
+            ]
+          },
+          {
+            "title": [
+              "集中",
+              "Concentrated"
+            ],
+            "text": [
+              "对重点企业做深入研究。",
+              "Research core businesses deeply."
+            ]
+          },
+          {
+            "title": [
+              "参与",
+              "Engaged"
+            ],
+            "text": [
+              "通过与企业沟通理解经营变化。",
+              "Engage with businesses to understand change."
+            ]
+          }
+        ],
+        "resources": [
+          {
+            "url": "https://www.sec.gov/edgar/browse/?CIK=807985&owner=exclude",
+            "title": [
+              "Southeastern Asset Management, Inc.：原始申报",
+              "Southeastern Asset Management, Inc.: original filings"
+            ],
+            "kind": [
+              "SEC EDGAR",
+              "SEC EDGAR"
+            ]
+          },
+          {
+            "url": "https://southeasternasset.com/",
+            "title": [
+              "Southeastern 官方网站",
+              "Southeastern official website"
+            ],
+            "kind": [
+              "官方资料",
+              "Official source"
+            ]
+          },
+          {
+            "url": "https://southeasternasset.com/our-people/",
+            "title": [
+              "Hawkins 与现任管理团队",
+              "Hawkins and current leadership"
+            ],
+            "kind": [
+              "官方资料",
+              "Official source"
+            ]
+          },
+          {
+            "url": "https://southeasternasset.com/investment-offerings/longleaf-partners-fund/",
+            "title": [
+              "Longleaf Partners：基金与共同经理",
+              "Longleaf Partners: fund and co-managers"
+            ],
+            "kind": [
+              "官方资料",
+              "Official source"
+            ]
+          }
+        ],
+        "sources": [
+          "https://www.sec.gov/edgar/browse/?CIK=807985&owner=exclude",
+          "https://southeasternasset.com/",
+          "https://southeasternasset.com/our-people/",
+          "https://southeasternasset.com/investment-offerings/longleaf-partners-fund/"
         ]
       }
     },
@@ -393,7 +2264,159 @@
           "Rob Vinall"
         ]
       },
-      "officialWebsite": "https://www.rvcapital.ch/"
+      "officialWebsite": "https://www.rvcapital.ch/",
+      "profile": {
+        "reviewedAt": "2026-10-09",
+        "about": [
+          [
+            "Rob Vinall 于 2006 年创立 RV Capital，现任管理董事；Andreas Lechner 是共同管理董事。公司位于瑞士。",
+            "Rob Vinall founded RV Capital in 2006 and is its managing director. Andreas Lechner is co-managing director. The firm is based in Switzerland."
+          ],
+          [
+            "RV 为机构客户管理独立账户，并为 Business Owner Fund 提供投资顾问服务；本页的 RV Capital AG 13F 不代表基金所有全球资产。",
+            "RV manages institutional separate accounts and advises the Business Owner Fund. Its RV Capital AG 13F does not represent all global fund assets."
+          ]
+        ],
+        "summary": [
+          "以企业所有者视角，长期陪伴具有竞争优势和理性管理层的企业。",
+          "Think as an owner of durable businesses with rational management."
+        ],
+        "timeline": [
+          {
+            "date": "2006",
+            "text": [
+              "创立 RV Capital",
+              "Founded RV Capital"
+            ]
+          }
+        ],
+        "principles": [
+          {
+            "title": [
+              "长期存续",
+              "Durability"
+            ],
+            "text": [
+              "评估企业十年后的发展基础。",
+              "Assess the business a decade ahead."
+            ]
+          },
+          {
+            "title": [
+              "竞争优势",
+              "Competitive advantage"
+            ],
+            "text": [
+              "寻找能持续积累的竞争优势。",
+              "Study enduring competitive advantages."
+            ]
+          },
+          {
+            "title": [
+              "管理层",
+              "Management"
+            ],
+            "text": [
+              "关注管理层的行为与理性。",
+              "Study management conduct and rationality."
+            ]
+          },
+          {
+            "title": [
+              "价格",
+              "Price"
+            ],
+            "text": [
+              "优秀企业也需要合理买入价格。",
+              "Require an attractive purchase price."
+            ]
+          },
+          {
+            "title": [
+              "长期持有",
+              "Long-term ownership"
+            ],
+            "text": [
+              "以长期拥有为投资目标。",
+              "Invest with a long ownership horizon."
+            ]
+          },
+          {
+            "title": [
+              "集中研究",
+              "Focused research"
+            ],
+            "text": [
+              "深入理解少数企业。",
+              "Understand a focused set of businesses."
+            ]
+          }
+        ],
+        "resources": [
+          {
+            "url": "https://www.sec.gov/edgar/browse/?CIK=1766596&owner=exclude",
+            "title": [
+              "RV Capital AG：原始申报",
+              "RV Capital AG: original filings"
+            ],
+            "kind": [
+              "SEC EDGAR",
+              "SEC EDGAR"
+            ]
+          },
+          {
+            "url": "https://www.rvcapital.ch/",
+            "title": [
+              "RV Capital 官网与管理团队",
+              "RV Capital: firm and management"
+            ],
+            "kind": [
+              "官方资料",
+              "Official source"
+            ]
+          },
+          {
+            "url": "https://www.rvcapital.ch/articles-en",
+            "title": [
+              "Business Owner Fund 投资者信",
+              "Business Owner Fund letters"
+            ],
+            "kind": [
+              "官方资料",
+              "Official source"
+            ]
+          },
+          {
+            "url": "https://www.rvcapital.ch/videos",
+            "title": [
+              "RV Capital 官方视频",
+              "RV Capital videos"
+            ],
+            "kind": [
+              "官方资料",
+              "Official source"
+            ]
+          },
+          {
+            "url": "https://www.rvcapital.ch/podcast",
+            "title": [
+              "RV Capital 官方播客",
+              "RV Capital podcast"
+            ],
+            "kind": [
+              "官方资料",
+              "Official source"
+            ]
+          }
+        ],
+        "sources": [
+          "https://www.sec.gov/edgar/browse/?CIK=1766596&owner=exclude",
+          "https://www.rvcapital.ch/",
+          "https://www.rvcapital.ch/articles-en",
+          "https://www.rvcapital.ch/videos",
+          "https://www.rvcapital.ch/podcast"
+        ]
+      }
     }
   ]
 }

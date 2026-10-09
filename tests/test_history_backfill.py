@@ -61,3 +61,16 @@ class BackfillTests(unittest.TestCase):
             fetch.backfill_history_gaps('1709323',d,[])
         get.assert_not_called();request.assert_not_called()
         self.assertEqual(d['history']['coverage']['missingQuarters'],[])
+
+class ReporterTransitionTests(unittest.TestCase):
+    def test_parent_history_before_transition_does_not_replace_adviser_history(self):
+        parent = [dict(reportDate='2026-06-30', filingDate='2026-08-14'),
+                  dict(reportDate='2026-03-31', filingDate='2026-05-14')]
+        adviser = [dict(reportDate='2026-03-31', filingDate='2026-05-15'),
+                   dict(reportDate='2025-12-31', filingDate='2026-02-17')]
+        config = dict(cik='2026053',reportingFrom='2026-06-30',
+                      legacyFilers=[dict(cik='1336528',beforePeriod='2026-06-30')])
+        with patch.object(fetch,'get_recent_filings',side_effect=[parent,adviser]):
+            result = fetch.investor_filings(config)
+        self.assertEqual([f['cik'] for f in result],['2026053','1336528','1336528'])
+        self.assertEqual(result[1]['filingDate'],'2026-05-15')

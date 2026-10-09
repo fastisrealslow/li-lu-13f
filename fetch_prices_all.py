@@ -307,6 +307,8 @@ def fetch_us(investor, cfg):
     cost_basis = {}
     for h in holdings:
         tk = h["ticker"]
+        if data.get("current", {}).get("valueQuality") or data.get("meta", {}).get("reportingTransition", {}).get("fromQuarter") == quarter:
+            continue
         if tk.startswith("?") or tk.endswith(".HK"):
             continue
 
@@ -594,7 +596,7 @@ def fetch_hk(investor, cfg):
     cost_basis = {}
     for h in holdings:
         tk = h["ticker"]
-        if not tk.endswith(".HK"):
+        if not tk.endswith(".HK") or data.get("meta", {}).get("snapshotType"):
             continue
         buy_q = quarter
         prev_shares = None

@@ -99,6 +99,7 @@ def fetch_webbchips():
             code = row[1].strip()
             name = row[2].strip()
             event_date = row[3].strip()
+            price_date = row[7].strip() if len(row) > 7 else ""
             shares_str = row[4].replace(",", "").strip()
             stake_str = row[5].strip()
             price_str = row[6].strip()
@@ -117,6 +118,7 @@ def fetch_webbchips():
                 "stake": stake,
                 "eventDate": event_date,
                 "price": price,
+                "priceDate": price_date,
             })
             print(f"  {ticker}: {shares:,} shares @ HK${price:.3f} ({stake}%)")
         except Exception as e:
@@ -133,45 +135,23 @@ def update_webb_json(new_holdings):
         print(f"ERROR loading {WEBB_JSON}: {e}", file=sys.stderr)
         return False
 
-    existing = {h["ticker"]: h for h in d["current"]["holdings"]}
-    new_map = {h["ticker"]: h for h in new_holdings}
-
-    updated = 0
-    for ticker, nh in new_map.items():
-        if ticker in existing:
-            old_shares = existing[ticker].get("shares", 0)
-            existing[ticker]["prevShares"] = old_shares
-            existing[ticker]["prevValue"] = existing[ticker].get("value", 0)
-            existing[ticker]["shares"] = nh["shares"]
-            existing[ticker]["value"] = nh["value"]
-            existing[ticker]["eventDate"] = nh["eventDate"]
-            if old_shares != nh["shares"]:
-                updated += 1
-                print(f"  ✅ {ticker}: {old_shares:,} → {nh['shares']:,}")
-        else:
-            # 新股票，从 webb.json 历史或默认值补充
-            print(f"  🆕 {ticker}: 新进 {nh['shares']:,} shares")
-            existing[ticker] = {
-                "ticker": ticker,
-                "name": nh["name"],
-                "cnName": "",
-                "shares": nh["shares"],
-                "value": nh["value"],
-                "prevShares": 0,
-                "prevValue": 0,
-                "sector": "其他",
-                "eventDate": nh["eventDate"],
-            }
-            updated += 1
-
-    # 检测清仓：原来有但新数据里没有的（可能跌破5%，不一定真清仓）
-    for ticker in list(existing.keys()):
-        if ticker not in new_map:
-            print(f"  ⚠️  {ticker}: 不在最新披露中（可能跌破5%或已清仓）")
-
-    d["current"]["holdings"] = list(existing.values())
-    d["meta"]["lastUpdated"] = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
-    d["meta"]["source"] = "webbsite.0xmd.com"
+    if not new_holdings or len({h['ticker'] for h in new_holdings}) != len(new_holdings):
+        return False
+    existing = {h['ticker']: h for h in d['current']['holdings']}
+    rows = []
+    for nh in new_holdings:
+        # Disappearance from a thresholded archive is not evidence of a sale.
+        old = existing.get(nh['ticker'], {})
+        rows.append({**old, **nh, 'prevShares': None, 'prevValue': None})
+    rows.sort(key=lambda h: h['value'], reverse=True)
+    dates = [h.get('priceDate', '') for h in rows if re.fullmatch(r'\d{4}-\d{2}-\d{2}', h.get('priceDate', ''))]
+    d['current'] = {'quarter': '历史快照', 'periodEnd': None, 'filingDate': None,
+                    'totalValue': sum(h['value'] for h in rows), 'holdings': rows,
+                    'prevQuarter': None, 'prevTotalValue': None}
+    d['meta'].update(lastUpdated=datetime.now(timezone.utc).strftime('%Y-%m-%dT%H:%M:%SZ'),
+        currency='HKD', source=URL, snapshotType='historical_disclosure_snapshot',
+        valuationDate=max(dates) if len(dates) == len(rows) else None)
+    updated = len(rows)
 
     with open(WEBB_JSON, "w") as f:
         json.dump(d, f, ensure_ascii=False, indent=2)
@@ -195,7 +175,8 @@ def main():
         sys.exit(1)
 
     print(f"\n共获取 {len(holdings)} 条持仓（5%以上披露）")
-    update_webb_json(holdings)
+    if not update_webb_json(holdings):
+        sys.exit(1)
 
 
 if __name__ == "__main__":

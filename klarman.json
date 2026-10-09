@@ -514,7 +514,11 @@
         "cnName": "DNOW Inc."
       }
     ],
-    "prevTotalValue": 5115380
+    "prevTotalValue": 5115380,
+    "valueQuality": {
+      "status": "units_unverified",
+      "source": "https://www.sec.gov/Archives/edgar/data/1061768/000106176826000010/0001061768-26-000010-index.htm"
+    }
   },
   "history": {
     "quarters": [
@@ -21165,6 +21169,11 @@
       "attempts": {},
       "expandedLookup": null,
       "status": "continuous_within_stored_range"
-    }
+    },
+    "excludedValueQuarters": [
+      "2026 Q1",
+      "2026 Q2"
+    ],
+    "valueQualityNote": "2026 Q1/Q2 amounts match the SEC information tables but their per-share scale appears inconsistent; raw amounts retained, pending verified corrected filings."
   }
 }

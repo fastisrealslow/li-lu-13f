@@ -45,6 +45,11 @@ test('quarterly rows and headers refresh for all investors without leaving the t
     await a.run(`switchInvestor(${JSON.stringify(inv.id)})`);
     const current = JSON.parse(fs.readFileSync(path.join(root, inv.dataFile))).current;
     const rows = a.element('changesBody').innerHTML;
+    if (['webb','ackman'].includes(inv.id)) {
+      assert.match(rows, /历史披露快照|申报主体与范围变更/);
+      assert.ok(!rows.includes('新进'));
+      continue;
+    }
     assert.ok((rows.match(/<tr>/g) || []).length >= current.holdings.length, inv.id);
     assert.equal(a.run('data.current.holdings.length'), current.holdings.length, 'Current holdings count must exclude exits');
     for (const h of current.holdings) assert.ok(rows.includes(`>${h.ticker.replace(/^\?/, '')}</span>`), `${inv.id}: ${h.ticker}`);

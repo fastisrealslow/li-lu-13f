@@ -419,6 +419,18 @@ class AutomaticIdentityTests(unittest.TestCase):
         conflict={**old,'targetName':'Other Inc'}
         self.assertFalse(link_references([dict(update),old,conflict])[0].get('targetName'))
 
+    def test_business_reference_is_stable_across_daily_runs(self):
+        import copy
+        from resolve_spinoff_names import link_references
+        source={'url':'https://example.org/old.pdf','date':'2026-09-07',
+                'targetName':'物業管理業務','identityKind':'business','identityQuote':'建議分拆物業管理業務'}
+        latest={'url':'https://example.org/new.pdf','date':'2026-09-11',
+                'identityReferences':['2026-09-07']}
+        proofs=link_references([source,latest])
+        expected=copy.deepcopy(proofs)
+        self.assertEqual(proofs[1]['targetName'],source['targetName'])
+        self.assertEqual(link_references(proofs),expected)
+
     def test_legacy_sec_url_recovered_only_for_unique_same_date_filing(self):
         import json
         from resolve_spinoff_names import recover_sec_announcements
@@ -467,3 +479,9 @@ class AutomaticIdentityTests(unittest.TestCase):
         refreshed=link_references(merge_evidence(history,[shallow]))
         self.assertEqual(refreshed[1]['targetName'],'Child Inc')
         self.assertEqual(refreshed[1]['identityReferences'],['2026-01-01'])
+
+class SecSectionIdentityTests(unittest.TestCase):
+    def test_heading_and_the_company_do_not_hide_distributed_child(self):
+        from spinoff_identity import resolve_identity
+        text='Item 8.01 Other Events Vylor Inc. (the “Company” or “Vylor”) previously announced the separation (the “Spin-Off”) of the Company from Corteva, Inc.'
+        self.assertEqual(resolve_identity(text)['name'],'Vylor Inc')

@@ -98,6 +98,8 @@ def validate(root):
                 current = value.get("current", {})
                 if not isinstance(current.get("holdings"), list) or not current.get("quarter"):
                     raise ValueError("Missing current holdings or quarter")
+                if "totalValue" in current and abs(current["totalValue"] - sum(h["value"] for h in current["holdings"])) > .01:
+                    raise ValueError("Current total disagrees with holdings")
                 for h in current["holdings"] + current.get("previousHoldings", []):
                     if not h.get("ticker"):
                         raise ValueError("Missing holding ticker")

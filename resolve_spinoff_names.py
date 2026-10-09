@@ -148,7 +148,9 @@ def link_references(proofs):
         visited=visited|{marker}
         return [q for date in proof.get('identityReferences',[]) for p in by_date.get(date,[]) for q in explicit_sources(p,visited)]
     for p in proofs:
-        business = p.get('targetName') and p.get('identityKind') == 'business'
+        # An inherited business name is already a resolved reference. Reapplying
+        # the entity-only promotion rule would erase it on the next daily run.
+        business = p.get('targetName') and p.get('identityKind') == 'business' and p.get('identityReason') != 'dated_reference'
         if p.get('targetName') and p.get('identityReason') != 'dated_reference' and not business:continue
         linked=([q for date in p.get('identityReferences',[]) for source in by_date.get(date,[]) for q in explicit_sources(source,{p.get('url')})] if business else explicit_sources(p,set()))
         if business and not re.match('若干',p['targetName']):

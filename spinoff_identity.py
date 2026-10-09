@@ -11,6 +11,8 @@ SPIN = r'spin[-‑ ]off|separation|分拆|分立|實物分派|实物分派'
 def resolve_identity(text, title=''):
     from spinoff_events import filing_text, clean_name, title_target, target_key
     text = re.sub(r'\s+', ' ', filing_text(text)).strip()
+    # SEC section headings are not part of the following legal entity name.
+    text = re.sub(r'\bItem\s+\d+\.\d+\s*\.?\s*(?:Other Events|Financial Statements and Exhibits)\b\.?', '. ', text, flags=re.I)
     title = re.sub(r'^(?:內幕消息|内幕消息)[：: ]*', '', filing_text(title))
     definitions = []
     # Legal entity + explicitly defined alias. Legal qualifiers before parentheses
@@ -57,7 +59,7 @@ def resolve_identity(text, title=''):
     candidates = []
     # Match the object of a separation/distribution, then resolve any defined alias.
     atom = rf'(?:{LEGAL}|[A-Z][A-Za-z0-9&-]*(?: [A-Z][A-Za-z0-9&-]*){{0,4}})'
-    for p in [rf'(?:spin[-‑ ]off|separation)(?:\s*\([^)]{{1,65}}\))?\s+of\s+({atom})(?=\s*(?:[,(.;]|from\b))',
+    for p in [rf'(?:spin[-‑ ]off|separation)(?:\s*\([^)]{{1,65}}\))?\s+of\s+(?:the\s+)?({atom})(?=\s*(?:[,(.;]|from\b))',
               rf'distribut\w*[^.;]{{0,150}}?(?:common stock|ordinary shares|shares)\s+(?:of|in)\s+({atom})(?=\s*(?:[,(.;]|to\b|from\b))',
               rf'(?:independent,? publicly traded company|company named)\s*,?\s*[“"]?({LEGAL})',
               rf'(?:分拆|分立)(?:(?:其|本公司|所屬|所属|附屬公司|附属公司|非全資|非全资|子公司)\s*)*({ZHLEGAL})']:

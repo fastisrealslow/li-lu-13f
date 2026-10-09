@@ -755,6 +755,8 @@ def _build_homework_prompt():
         except Exception:
             continue
         cur = dr.get('current', {})
+        if cur.get('valueQuality') or dr.get('meta', {}).get('reportingTransition', {}).get('fromQuarter') == cur.get('quarter'):
+            continue
         holdings = cur.get('holdings', [])
         total_val = cur.get('totalValue', 0)
         cur_q = cur.get('quarter', '')
@@ -785,7 +787,7 @@ def _build_homework_prompt():
                 continue
             q = quotes.get(tk)
             c = cb.get(tk)
-            if not q or q.get('error') or not c:
+            if not q or q.get('error') or q.get('stale') or not c:
                 continue
             rc = c.get('recent')
             if not rc or not rc.get('buy'):
@@ -999,6 +1001,8 @@ def _build_value_screen():
         except Exception:
             continue
         cur = dr.get('current', {})
+        if cur.get('valueQuality') or dr.get('meta', {}).get('reportingTransition', {}).get('fromQuarter') == cur.get('quarter'):
+            continue
         holdings = cur.get('holdings', [])
         total_val = cur.get('totalValue', 0)
         quotes = pr.get('quotes', {})
@@ -1028,7 +1032,7 @@ def _build_value_screen():
                 continue
             q = quotes.get(tk)
             c = cb.get(tk)
-            if not q or q.get('error') or not c:
+            if not q or q.get('error') or q.get('stale') or not c:
                 continue
             rc = c.get('recent')
             if not rc or not rc.get('buy'):

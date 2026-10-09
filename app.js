@@ -64,7 +64,7 @@ const T = {
   philFishBody: ['芒格钓鱼的故事——投资者不需要理解所有公司。','Mungers fishing story: you need not understand every company.'],
 
   // Footer
-  ftDisclaimer: ['本页面仅展示 SEC 13F 公开披露信息，不构成投资建议。13F 仅披露美股多头持仓。','Displays public SEC 13F disclosures only. Not investment advice.'],
+  ftDisclaimer: ['本页展示机构 13F 与港股权益披露资料，披露期不等于实时持仓；估算成本不代表真实买入价。不构成投资建议。','Institutional 13F and HK disclosures are dated reports, not live portfolios. Estimated costs are not actual purchase prices. Not investment advice.'],
   ftUpdate: ['数据更新：','Updated: '],
   ftAuto: ['· GitHub Actions 每日自动更新','· Auto-updated daily via GitHub Actions'],
   // Margin of Safety
@@ -348,14 +348,16 @@ let INVESTORS = [];              // 按 investors.json 顺序排列的 id 列表
 let INVESTOR_LABELS = {};        // id -> 中文名
 let INVESTOR_LABELS_EN = {};     // id -> 英文名
 
-async function loadInvestorConfig() {
+async function loadInvestorConfig({fresh = false, signal} = {}) {
   try {
-    const resp = await fetch('investors.json?t=' + Math.floor(Date.now()/300000));
+    const resp = await fetch('investors.json?t=' + (fresh ? Date.now() : Math.floor(Date.now()/300000)), {signal, cache:fresh ? 'no-store' : 'default'});
+    if (!resp.ok) throw new Error('investors.json HTTP ' + resp.status);
     const json = await resp.json();
-    INVESTOR_CFG = json.investors || [];
+    if (!Array.isArray(json.investors) || !json.investors.length) throw new Error('Invalid investor configuration');
+    INVESTOR_CFG = json.investors;
   } catch (e) {
     console.error('investors.json 加载失败，将无法正常显示投资者列表:', e);
-    INVESTOR_CFG = [];
+    return false;
   }
   INVESTOR_CFG_BY_ID = {};
   INVESTORS = [];
@@ -367,6 +369,7 @@ async function loadInvestorConfig() {
     INVESTOR_LABELS[inv.id] = inv.name;
     INVESTOR_LABELS_EN[inv.id] = inv.nameEn;
   }
+  return true;
 }
 function renderInvestorBtns() {
   const bar = document.getElementById('investorBtn');
@@ -403,9 +406,10 @@ async function switchInvestor(v, {fresh = false, signal} = {}) {
     const updated = data.meta?.lastUpdated;
     const age = Date.now() - Date.parse(updated);
     const maxAge = (cfg.source13F === false ? 9 * 24 : 48) * 3600000;
-    const stale = !Number.isFinite(age) || age > maxAge;
+    const archived = !!data.meta?.snapshotType;
+    const stale = !archived && (!Number.isFinite(age) || age > maxAge);
     if (src) src.textContent = (stale || !pricesOK ? '⚠ ' : '✓ ') +
-      (lang === 'en' ? 'Published data' : '已发布数据') +
+      (archived ? (lang === 'en' ? 'Historical archive' : '历史归档披露') : (lang === 'en' ? 'Published data' : '已发布数据')) +
       (updated ? ' · ' + new Date(updated).toLocaleString(lang === 'en' ? 'en-US' : 'zh-CN', {timeZone: 'Asia/Shanghai'}) : '') +
       (stale ? (lang === 'en' ? ' · Check update status' : ' · 数据较旧，请查看更新状态') : '') +
       (!pricesOK ? (lang === 'en' ? ' · Prices unavailable' : ' · 股价暂不可用') : '');
@@ -538,7 +542,13 @@ async function refreshLive() {
   btn.disabled = true;
   btn.textContent = lang === 'en' ? '⏳ Refreshing…' : '⏳ 刷新中…';
   try {
+    if (!INVESTORS.length && !await loadInvestorConfig({fresh:true, signal:ctrl.signal})) {
+      document.getElementById('dataSource').textContent = lang === 'en' ? 'Investor list unavailable; tap Refresh to retry.' : '投资人列表暂不可用，点击刷新可重试。';
+      return;
+    }
+    _homeworkCache = null;
     await switchInvestor(investor, {fresh: true, signal: ctrl.signal});
+    if (document.getElementById('tab-homework') && !document.getElementById('tab-homework').classList.contains('d-none') && !ctrl.signal.aborted) await renderHomework();
     if (!ctrl.signal.aborted) await initStatusDot(ctrl.signal);
   } finally {
     clearTimeout(timeout);
@@ -684,7 +694,7 @@ function renderSummary() {
     metaRow.innerHTML =
       `<span><strong>${isEn ? 'Period' : '\u62a5\u544a\u671f'}</strong> ${d.periodEnd || '--'}</span>` +
       `<span><strong>${isEn ? 'Filed' : '\u63d0\u4ea4\u65e5'}</strong> ${d.filingDate || '--'}</span>` +
-      cikHtml;
+      cikHtml + (data.current.valueQuality ? `<span class="data-quality-note">${lang === 'en' ? 'Reported values have an unresolved scale discrepancy; raw SEC amounts retained. Cost estimates are suspended.' : '原表市值存在量级疑点，保留 SEC 原始数值；成本估算暂停。'} <a href="${hkEscape(data.current.valueQuality.source)}" target="_blank" rel="noopener noreferrer">${lang === 'en' ? 'Original filing' : '原始申报'}</a></span>` : '') + (data.meta?.snapshotType ? `<span class="data-quality-note">${lang === 'en' ? 'Historical archived disclosures. Valuation dates could not be verified; totals are HKD, not a complete current portfolio.' : '历史归档披露；估值日期未能核实。合计单位为港元，不代表当前完整组合。'}</span>` : '') + (!comparableQuarter() && !data.meta?.snapshotType ? `<span class="data-quality-note">${comparisonNotice()} <a href="${hkEscape(data.meta.reportingTransition.noticeSource)}" target="_blank" rel="noopener noreferrer">${lang === 'en' ? 'SEC notice' : 'SEC 通知'}</a></span>` : '');
   }
   const tc = d.totalValue - (d.prevTotalValue||0);
   const tp = d.prevTotalValue ? (tc/d.prevTotalValue*100) : 0;
@@ -692,9 +702,9 @@ function renderSummary() {
   const t3 = d.holdings.slice(0,3);
   document.getElementById('summaryCards').innerHTML = `
       <div class="stat-item">
-        <span class="stat-num" style="font-size:1.5rem;">$${fmtVal(d.totalValue)}</span>
-        <span class="stat-change ${cls}">${sign}${tp.toFixed(1)}%</span>
-        <span class="stat-desc">${t('statValue')} · ${t('statVs')} ${d.prevQuarter||''}</span>
+        <span class="stat-num" style="font-size:1.5rem;">${investor === "webb" ? "HK$" : "US$"}${fmtVal(d.totalValue)}</span>
+        <span class="stat-change ${cls}">${comparableQuarter() && !d.valueQuality ? sign+tp.toFixed(1)+"%" : "—"}</span>
+        <span class="stat-desc">${d.valueQuality ? (lang === 'en' ? 'Raw reported value; scale unverified' : '原表申报值，量级待核实') : t('statValue')} · ${comparableQuarter() ? t('statVs')+" "+(d.prevQuarter||" ") : comparisonNotice()}</span>
       </div>
       <div class="stat-sep"></div>
       <div class="stat-item">
@@ -708,8 +718,8 @@ function renderSummary() {
       </div>
       <div class="stat-sep"></div>
       <div class="stat-item">
-        <span class="stat-num">${d.quarter}</span>
-        <span class="stat-desc">${t('statQuarter')} · ${t('metaPeriod')} ${d.periodEnd}</span>
+        <span class="stat-num">${data.meta?.snapshotType ? (lang === 'en' ? 'Historical' : '历史快照') : d.quarter}</span>
+        <span class="stat-desc">${t('statQuarter')} · ${t('metaPeriod')} ${d.periodEnd || '—'}</span>
       </div>
   `;
 }
@@ -726,27 +736,28 @@ function renderHoldings() {
   const rows = d.holdings.map((h,i)=>{
     const pct=(h.value/d.totalValue*100).toFixed(2);
     const q = quotes[h.ticker];
-    const cb = costBasis[h.ticker];
-    const currentPrice = (q && !q.error) ? q.c : (h.value / h.shares);
+    const cb = data.current.valueQuality || data.meta?.snapshotType || !comparableQuarter() ? null : costBasis[h.ticker];
+    const quoteOK = q && !q.error && Number.isFinite(q.c) && q.c > 0;
+    const currentPrice = quoteOK && !q.stale ? q.c : null;
     const staleTitle = lang === 'en' ? 'Live quote temporarily unavailable — showing last known price' : '实时报价暂时拉取失败，显示为最后一次成功报价';
-    const priceHtml = (q && !q.error)
+    const priceHtml = quoteOK
       ? `${currSymbol(h.ticker)}${q.c.toFixed(2)}${q.stale ? ` <span title="${staleTitle}" style="color:var(--warn,#c9812f);font-size:.7em;">⏱</span>` : ''}`
       : '<span style="color:var(--text-lighter)">--</span>';
     
     let mosHtml = '';
     let costHtml = '<span style="color:var(--text-lighter)">--</span>';
     
-    if (cb && cb.recent && !cb.recent.error) {
+    if (cb && cb.recent && !cb.recent.error && Number.isFinite(cb.recent.buy) && cb.recent.buy > 0) {
       const rc = cb.recent;
       const at = cb.allTime;
-      const pnl = ((currentPrice - rc.buy) / rc.buy * 100).toFixed(1);
+      const pnl = currentPrice == null ? null : ((currentPrice - rc.buy) / rc.buy * 100).toFixed(1);
       const pnlClass = pnl >= 0 ? 'qoq-up' : 'qoq-down';
       const pnlSign = pnl >= 0 ? '+' : '';
       const isYahoo = rc.source === 'yahoo' || rc.source === 'yfinance';
       const srcBadge = isYahoo ? '<span style="color:#10b981;font-size:.55rem;">K线</span>' : '<span style="color:#f59e0b;font-size:.55rem;">13F估</span>';
       
       // Margin of Safety calculation
-      const mos = ((rc.buy - currentPrice) / rc.buy * 100);
+      const mos = currentPrice == null ? null : ((rc.buy - currentPrice) / rc.buy * 100);
       if (mos >= 20) {
         mosItems.push({ ticker: h.ticker, name: h.name, cnName: h.cnName||'', mos: mos.toFixed(1), cost: rc.buy, price: currentPrice });
         mosHtml = `<span title="${t('mosBadge')}: ${mos.toFixed(1)}%" style="display:inline-flex;align-items:center;gap:3px;padding:2px 6px;background:rgba(16,185,129,0.12);border:1px solid rgba(16,185,129,0.3);border-radius:4px;font-size:.65rem;color:#059669;font-weight:600;white-space:nowrap;animation:mosPulse 2s ease-in-out infinite;">🟢${mos.toFixed(0)}%</span>`;
@@ -760,7 +771,7 @@ function renderHoldings() {
       if (at) costHtml += `\n\n全周期 (${at.first}~${at.last}, ${at.buy_quarters ?? at.quarters}季): 均价 $${at.avg}`;
       costHtml += `" style="cursor:help">`;
       costHtml += `<div style="font-weight:600">${cur$}${rc.buy}</div>`;
-      costHtml += `<div style="font-size:.65rem;color:var(--text-lighter);">${t('costRecent')} ${srcBadge} <span class="${pnlClass}" style="font-weight:500;">${pnlSign}${pnl}%</span></div>`;
+      costHtml += `<div style="font-size:.65rem;color:var(--text-lighter);">${t('costRecent')} ${srcBadge} ${pnl == null ? `<span>${lang === 'en' ? 'Quote unavailable' : '暂无报价'}</span>` : `<span class="${pnlClass}" style="font-weight:500;">${pnlSign}${pnl}%</span>`}</div>`;
       if (at) {
         costHtml += `<div style="font-weight:500;color:var(--navy);margin-top:3px;">$${at.avg}</div>`;
         // 持仓时间：从首次建仓到当前报告季
@@ -781,7 +792,7 @@ function renderHoldings() {
     const prev = h.prevShares || 0;
     const cur = h.shares || 0;
     let chgTag = '';
-    if (prev === 0 && cur > 0) {
+    if (!comparableQuarter()) { chgTag = ""; } else if (prev === 0 && cur > 0) {
       chgTag = `<span title="${isEn?'New position this quarter':'本季新开仓'}" style="display:inline-flex;align-items:center;gap:2px;padding:2px 6px;background:rgba(59,130,246,0.12);border:1px solid rgba(59,130,246,0.3);border-radius:4px;font-size:.6rem;color:#3b82f6;font-weight:600;white-space:nowrap;margin-top:3px;">🆕 ${isEn?'New':'新开仓'}</span>`;
     } else if (prev > 0 && cur === 0) {
       chgTag = `<span title="${isEn?'Fully exited this quarter':'本季已清仓'}" style="display:inline-flex;align-items:center;gap:2px;padding:2px 6px;background:rgba(239,68,68,0.12);border:1px solid rgba(239,68,68,0.3);border-radius:4px;font-size:.6rem;color:#ef4444;font-weight:600;white-space:nowrap;margin-top:3px;">🚪 ${isEn?'Exited':'已清仓'}</span>`;
@@ -792,10 +803,11 @@ function renderHoldings() {
       const cutPct = ((prev - cur) / prev * 100).toFixed(0);
       chgTag = `<span title="${isEn?'Trimmed':'减仓'} -${cutPct}%" style="display:inline-flex;align-items:center;gap:2px;padding:2px 6px;background:rgba(245,158,11,0.1);border:1px solid rgba(245,158,11,0.25);border-radius:4px;font-size:.6rem;color:#d97706;font-weight:600;white-space:nowrap;margin-top:3px;">📉 -${cutPct}%</span>`;
     }
-    if (h.shareAdjustment) chgTag += `<small style="font-size:.6rem;color:var(--text-lighter);">${lang === 'en' ? 'Split adjusted' : '拆股后可比'}</small>`;
+    if (!comparableQuarter()) chgTag = "";
+    if (h.shareAdjustment && comparableQuarter()) chgTag += `<small style="font-size:.6rem;color:var(--text-lighter);">${lang === 'en' ? 'Split adjusted' : '拆股后可比'}</small>`;
     const mosCellHtml = `<div style="display:flex;flex-direction:column;align-items:center;gap:2px;">${mosHtml || '<span style="color:var(--text-lighter);font-size:.7rem;">--</span>'}${chgTag}</div>`;
     
-    return `<tr><td class="idx-cell"><span class="idx-num">${i+1}</span></td><td class="stock-cell"><span class="ticker-line">${fmtTicker(h.ticker)}</span><span class="name-line">${cn(h.name, h)}</span><span class="sector-badge">${ts(h.sector)}</span></td><td class="shares-value-cell"><div style="font-weight:600">${fmtNum(h.shares)}</div><div style="font-size:.68rem;color:var(--text-lighter);margin-top:2px;">$${h.value.toLocaleString()}</div><div class="mobile-weight-inline" style="display:none;font-size:.65rem;color:var(--navy);font-weight:600;margin-top:3px;"><span style="font-weight:400;color:var(--text-lighter);">${isEn?'Wt':'仓位'}</span> ${pct}%</div></td><td class="price-cell">${priceHtml}</td><td class="cost-cell">${costHtml}</td><td style="width:100px;"><div class="bar-wrap"><div class="bar-fill" style="width:${pct*3.5}%"></div><span style="font-size:.7rem;font-weight:600;color:var(--navy);margin-left:6px;">${pct}%</span></div></td><td style="width:80px;text-align:center;">${mosCellHtml}</td></tr>`;
+    return `<tr><td class="idx-cell"><span class="idx-num">${i+1}</span></td><td class="stock-cell"><span class="ticker-line">${fmtTicker(h.ticker)}</span><span class="name-line">${cn(h.name, h)}</span><span class="sector-badge">${ts(h.sector)}</span></td><td class="shares-value-cell"><div style="font-weight:600">${fmtNum(h.shares)}</div><div style="font-size:.68rem;color:var(--text-lighter);margin-top:2px;">${currSymbol(h.ticker)}${h.value.toLocaleString()}</div><div class="mobile-weight-inline" style="display:none;font-size:.65rem;color:var(--navy);font-weight:600;margin-top:3px;"><span style="font-weight:400;color:var(--text-lighter);">${isEn?'Wt':'仓位'}</span> ${pct}%</div></td><td class="price-cell">${priceHtml}</td><td class="cost-cell">${costHtml}</td><td style="width:100px;"><div class="bar-wrap"><div class="bar-fill" style="width:${pct*3.5}%"></div><span style="font-size:.7rem;font-weight:600;color:var(--navy);margin-left:6px;">${pct}%</span></div></td><td style="width:80px;text-align:center;">${mosCellHtml}</td></tr>`;
   }).join('');
   
   // Legend for tags
@@ -902,8 +914,18 @@ function quarterlyHoldings(snapshot = data) {
   return rows;
 }
 
+function comparableQuarter(snapshot = data) {
+  const transition = snapshot?.meta?.reportingTransition;
+  return !snapshot?.meta?.snapshotType && !(transition?.comparisonScopeChanged && transition.fromQuarter === snapshot?.current?.quarter);
+}
+function comparisonNotice(snapshot = data) {
+  return snapshot?.meta?.snapshotType
+    ? (lang === 'en' ? 'Historical disclosure snapshot; no verified quarterly comparison.' : '历史披露快照；没有可核实的季度比较。')
+    : (lang === 'en' ? 'Reporting entity and scope changed this quarter; changes cannot be treated as purchases or sales.' : '本季申报主体与范围变更，持仓差异不能直接视为买卖。');
+}
 function renderChanges() {
   const d = data.current, en = lang === 'en';
+  if (!comparableQuarter()) { document.getElementById('changesBody').innerHTML = `<tr><td colspan="7">${comparisonNotice()}</td></tr>`; return; }
   const pq = d.prevQuarter || (en ? 'Previous' : '上季');
   const cq = d.quarter || (en ? 'Current' : '本季');
   document.getElementById('chPS').textContent = pq + (en ? ' Shares' : ' 持股');
@@ -954,6 +976,7 @@ async function refreshAISupplements() {
 }
 
 function aiInvestorFallback(snapshot) {
+  if (!comparableQuarter(snapshot)) return comparisonNotice(snapshot);
   const cur=snapshot.current, hasPrevious=Array.isArray(cur.previousHoldings) || Array.isArray(snapshot.history?.holdings?.[cur.prevQuarter]);
   const rows=quarterlyHoldings(snapshot).sort((a,b)=>Math.max(b.value||0,b.prevValue||0)-Math.max(a.value||0,a.prevValue||0));
   const ranked=rows.filter(h=>h.shares!==h.prevShares).concat(rows.filter(h=>h.shares===h.prevShares));
@@ -984,12 +1007,12 @@ function aiValueFallback(candidates) {
 }
 
 function renderInsights() {
-  const d = data.current, ins = [], changes = quarterlyHoldings();
+  const d = data.current, ins = [], changes = comparableQuarter() ? quarterlyHoldings() : [];
 
   // AI 摘要（如果有）
   const localAI = aiMatchingEntry('investor:'+investor,aiInvestorSource(data));
   // Unverified legacy prose is never used as a fallback.
-  const aiSummary = localAI?.summary || aiInvestorFallback(data);
+  const aiSummary = comparableQuarter() ? localAI?.summary || aiInvestorFallback(data) : comparisonNotice();
   const aiQuarter = localAI?.source?.quarter || d.quarter || '';
   const aiUpdated = localAI?.generatedAt;
   const aiLabel = localAI?.mode==='model_selection' ? '✨ AI' : (lang==='en'?'Quarterly summary':'季度摘要');
@@ -1029,7 +1052,7 @@ function historySeries(history) {
   if (history?.verification?.status === 'unverified') return {quarters: [], values: []};
   const points = new Map();
   (history?.quarters || []).forEach((q, i) => {
-    if (!Number.isFinite(historyQuarterIndex(q))) return;
+    if (!Number.isFinite(historyQuarterIndex(q)) || history?.excludedValueQuarters?.includes(q)) return;
     const holdings = history.holdings?.[q];
     // Prefer exact filed totals to old rounded summary values.
     const v = Array.isArray(holdings) && holdings.length && holdings.every(h => typeof h.value === 'number' && Number.isFinite(h.value) && h.value >= 0)
@@ -1193,7 +1216,7 @@ function renderHistoryChart() {
   // Render deterministic data summary
   const insightEl = document.getElementById('historyInsight');
   if (insightEl) {
-    const txt = generateHistoryInsight(quarters, values);
+    const txt = generateHistoryInsight(quarters, values) + (data.history?.excludedValueQuarters?.length ? (lang === 'en' ? ' The 2026 Q1/Q2 reported value scale is unverified; those values are excluded from this chart.' : ' 2026 Q1/Q2 原表市值量级待核实，暂不纳入趋势图。') : '');
     const label = lang === 'en' ? '📊 Summary' : '📊 数据摘要';
     insightEl.innerHTML = txt ? `<div style="display:flex;gap:8px;align-items:flex-start;"><span style="font-size:.72rem;color:var(--text-lighter);font-weight:600;flex-shrink:0;margin-top:1px;">${label}</span><span>${txt}</span></div>` : '';
     insightEl.style.display = txt ? '' : 'none';
@@ -1523,10 +1546,11 @@ function renderGame() {
 }
 
 let _homeworkCache = null;
+let _homeworkCachedAt = 0;
 async function renderHomework() {
   const el = document.getElementById('homeworkContent');
   if (!el) return;
-  if (_homeworkCache) { el.innerHTML = _homeworkCache; return; }
+  if (_homeworkCache && Date.now()-_homeworkCachedAt < 300000) { el.innerHTML = _homeworkCache; return; }
   el.innerHTML = '<p style="padding:24px;color:var(--text-lighter);">加载中...</p>';
 
   // 预计算架构：全部 MOS/共识人数/打分排序/加减仓标签 计算已搬到后端
@@ -1721,408 +1745,55 @@ async function renderHomework() {
     </p>
   `;
   _homeworkCache = el.innerHTML;
+  _homeworkCachedAt = Date.now();
 }
 
 // ========== Spin-off Tab ==========
 async function renderSpinoff() { return renderSpinoffDashboard('hk'); }
 async function renderSpinoffUS() { return renderSpinoffDashboard('us'); }
 
-function renderVinallContent() {
-  const en = lang === 'en';
-  const text = (zh, english) => en ? english : zh;
-  const setText = (selector, value) => { const el = document.querySelector(selector); if (el) el.textContent = value; };
-  setText('[data-i18n="heroTitle"]', text('罗布·维纳尔 13F 持仓追踪', 'Rob Vinall 13F Tracker'));
-  setText('.hero-title .sub', text('RV Capital AG · SEC 13F · 企业所有者视角', 'RV Capital AG · SEC 13F · Business Ownership'));
-  // A paraphrase of RV's published approach, rather than an invented quotation.
-  setText('.quote-block blockquote', text('以企业所有者的视角投资，长期陪伴优秀企业。', 'Invest with an owner’s perspective and a long-term horizon.'));
-  setText('.quote-block .attr', text('— RV Capital 投资理念概述 · 来源：rvcapital.ch', '— RV Capital approach, paraphrased · rvcapital.ch'));
-  setText('#aboutLabel', 'About Rob Vinall');
-  setText('#aboutTitle', text('罗布·维纳尔与 RV Capital', 'Rob Vinall & RV Capital'));
-  setText('#philLabel', 'Philosophy');
-  setText('#philTitle', text('投资理念 — 像企业所有者一样思考', 'Philosophy — Think Like a Business Owner'));
-  setText('#readLabel', 'Readings');
-  setText('[data-i18n="navAbout"]', text('关于维纳尔', 'About Vinall'));
-  const about = document.querySelector('.ref-text');
-  if (about) about.innerHTML = text(
-    '<p>罗布·维纳尔（Rob Vinall）于 2006 年创立 <strong>RV Capital</strong>，现任公司管理董事，总部位于瑞士。</p><p>RV 管理机构客户的独立账户，并为 <strong>Business Owner Fund</strong> 提供投资顾问服务，以企业所有者视角进行全球投资。</p><p>本页持仓来自 <a href="https://www.sec.gov/edgar/browse/?CIK=1766596" target="_blank" rel="noopener noreferrer">RV Capital AG 的 SEC 13F</a>，仅覆盖申报范围内证券，不代表基金全部全球资产。简介与理念来源于 <a href="https://www.rvcapital.ch/" target="_blank" rel="noopener noreferrer">RV 官方网站</a>。</p>',
-    '<p>Rob Vinall founded <strong>RV Capital</strong> in 2006 and is its managing director in Switzerland.</p><p>RV manages institutional separate accounts and advises the <strong>Business Owner Fund</strong>, investing globally with an owner’s perspective.</p><p>Holdings come from <a href="https://www.sec.gov/edgar/browse/?CIK=1766596" target="_blank" rel="noopener noreferrer">RV Capital AG’s SEC 13F filings</a>; they do not represent all global fund assets. Biography and approach: <a href="https://www.rvcapital.ch/" target="_blank" rel="noopener noreferrer">RV’s official website</a>.</p>'
-  );
-  const timeline = document.querySelector('.ref-grid .timeline');
-  const quarters = historySeries(data?.history).quarters;
-  if (timeline) timeline.innerHTML = [
-    ['2006', text('创立 RV Capital', 'Founded RV Capital')],
-    [quarters[0] || 'SEC', text('本页可核实 13F 历史起点', 'First verified 13F quarter on this page')],
-    [data?.current?.quarter || 'SEC', text('最新披露组合；报告期与提交日见页首', 'Latest disclosed portfolio; period and filing date above')],
-  ].map(([year, description]) => `<div class="tl-item"><div class="tl-year">${year}</div><div class="tl-text">${description}</div></div>`).join('');
-  const principles = [
-    ['🏢', '长期存续', 'Durable Business', '评估企业十年后能否继续发展。', 'Assess whether the business can thrive a decade from now.'],
-    ['🏰', '竞争优势', 'Competitive Advantage', '寻找持续积累长期竞争优势的企业。', 'Look for a growing long-term competitive advantage.'],
-    ['🤝', '管理层榜样', 'Management Example', '关注管理层是否以身作则、理性经营。', 'Study management’s conduct and rationality.'],
-    ['⚖️', '有吸引力的价格', 'Attractive Price', '优秀企业也需要合理的买入价格。', 'Require an attractive purchase price.'],
-    ['⏳', '长期持有', 'Long-Term Ownership', '满足投资标准后，以长期拥有为目标。', 'Invest with the intention to own for years.'],
-    ['🎯', '集中研究', 'Concentrated Research', '深入理解少数企业，组合通常约十只持仓。', 'Research a focused portfolio of roughly ten businesses.'],
-  ];
-  const philosophy = document.querySelector('.phil-grid');
-  if (philosophy) philosophy.innerHTML = principles.map(([icon, zh, english, bodyZh, bodyEn]) => `<div class="phil-card"><div class="icon">${icon}</div><h4>${text(zh, english)}</h4><p>${text(bodyZh, bodyEn)}</p></div>`).join('');
-  const resources = [
-    ['https://www.rvcapital.ch/', 'Official', 'RV Capital', '公司介绍与投资框架。', 'Firm overview and investment approach.'],
-    ['https://www.rvcapital.ch/articles-en', 'Letters', 'Business Owner Fund', '官方投资者信。', 'Official investor letters.'],
-    ['https://www.rvcapital.ch/videos', 'Videos', 'RV Capital Videos', '官方访谈与年会视频。', 'Official interviews and gathering videos.'],
-    ['https://www.rvcapital.ch/podcast', 'Podcast', 'RV Capital Podcast', '官方播客。', 'Official podcast.'],
-    ['https://www.sec.gov/edgar/browse/?CIK=1766596&owner=exclude', 'SEC EDGAR', text('全部原始申报', 'Original Filings'), '核对 RV Capital AG 原始持仓报告。', 'Verify RV Capital AG’s original filings.'],
-  ];
-  const readings = document.querySelector('.articles-grid');
-  if (readings) readings.innerHTML = resources.map(([url, label, title, zh, english]) => `<a class="article-card" href="${url}" target="_blank" rel="noopener noreferrer"><div class="year">${label}</div><h4>${title}</h4><p>${text(zh, english)}</p></a>`).join('');
+function profileText(value) {
+  return Array.isArray(value) ? value[lang === 'en' ? 1 : 0] : (value || '');
 }
-
 function updateInvestorContent() {
   const cfg = INVESTOR_CFG_BY_ID[investor];
-  const footerTitle = document.querySelector('[data-i18n="footerTitle"]');
-  if (footerTitle && cfg) footerTitle.textContent = lang === 'en'
-    ? `${cfg.nameEn} ${cfg.source13F ? '13F Tracker' : 'HK Holdings'}`
-    : `${cfg.name} ${cfg.source13F ? '13F 持仓追踪' : '港股持仓'}`;
+  if (!cfg?.profile) return;
+  const p = cfg.profile, en = lang === 'en', name = en ? cfg.nameEn : cfg.name;
+  const text = (zh, english) => en ? english : zh;
+  const setText = (selector, value) => { const el = document.querySelector(selector); if (el) el.textContent = value; };
+  const setHTML = (selector, value) => { const el = document.querySelector(selector); if (el) el.innerHTML = value; };
+  const title = `${name} ${cfg.source13F ? text('13F 持仓追踪', '13F Tracker') : text('港股历史披露', 'Historical HK Disclosures')}`;
+  setText('[data-i18n="heroTitle"]', title);
+  document.title = title;
+  setText('[data-i18n="footerTitle"]', title);
+  setText('.hero-title .sub', `${cfg.manager} · ${cfg.source13F ? 'SEC 13F' : text('历史权益披露快照', 'Historical disclosure snapshot')}`);
+  setText('.quote-block blockquote', profileText(p.summary));
+  setText('.quote-block .attr', text('投资方法摘要 · 非逐字引言 · 原始资料见下方', 'Approach summary · Paraphrased · Sources below'));
+  setText('#aboutLabel', 'About');
+  setText('#aboutTitle', text(`关于${cfg.name}`, `About ${cfg.nameEn}`));
+  setText('#philLabel', 'Philosophy');
+  setText('#philTitle', text('投资方法与阅读要点', 'Investment Approach & Reading Notes'));
+  setText('#readLabel', 'Sources');
+  setText('#readTitle', text('原始资料与延伸阅读', 'Primary Sources & Further Reading'));
+  setText('[data-i18n="navAbout"]', text('投资人资料', 'Investor Profile'));
+  const sourceURL = cfg.cik ? `https://www.sec.gov/edgar/browse/?CIK=${cfg.cik}&owner=exclude` : 'https://di.hkex.com.hk/di/NSAllFormList.aspx';
+  const scope = cfg.source13F
+    ? text('本页来自机构的 SEC 13F 申报，只覆盖申报范围内证券，不代表个人财富、基金全部资产或所有投资决策。', 'This page uses the institution’s SEC 13F filings. It covers reportable securities, not personal wealth, every fund asset or every investment decision.')
+    : text('本页保留历史港股披露快照；披露有日期和门槛，不能据此判断当前完整持仓。', 'This page retains historical HK disclosure snapshots. Disclosure dates and thresholds limit what can be inferred about a complete current portfolio.');
+  setHTML('.ref-text', p.about.map(paragraph => `<p>${hkEscape(profileText(paragraph))}</p>`).join('') + `<p>${scope} <a href="${sourceURL}" target="_blank" rel="noopener noreferrer">${text('核对原始申报', 'Check original filings')}</a>。</p><p style="font-size:.75rem;color:var(--text-lighter);">${text('资料核对日期', 'Profile reviewed')}: ${hkEscape(p.reviewedAt)}</p>`);
+  const timeline = [...p.timeline];
+  const quarters = historySeries(data?.history).quarters;
+  if (quarters.length) timeline.push({date:quarters[0],text:['本页可核实的持仓历史起点', 'First verified holdings quarter on this page']});
+  setHTML('.ref-grid .timeline', timeline.map(item => `<div class="tl-item"><div class="tl-year">${hkEscape(item.date)}</div><div class="tl-text">${hkEscape(profileText(item.text))}</div></div>`).join(''));
+  const icons = ['🏢','🏰','🤝','⚖️','⏳','🎯'];
+  setHTML('.phil-grid', p.principles.map((item,i) => `<div class="phil-card"><div class="icon">${icons[i % icons.length]}</div><h4>${hkEscape(profileText(item.title))}</h4><p>${hkEscape(profileText(item.text))}</p></div>`).join(''));
+  setHTML('.articles-grid', p.resources.filter(item => /^https:\/\//.test(item.url)).map(item => `<a class="article-card" href="${hkEscape(item.url)}" target="_blank" rel="noopener noreferrer"><div class="year">${hkEscape(profileText(item.kind))}</div><h4>${hkEscape(profileText(item.title))}</h4><p>${text('打开资料，核对内容与日期。', 'Open the source to verify its content and date.')}</p></a>`).join(''));
   const updated = document.getElementById('updateTime');
   if (updated) updated.textContent = data?.meta?.lastUpdated || '—';
   const sec = document.getElementById('footerSEC');
-  if (sec && cfg) { sec.hidden = !cfg.cik; if (cfg.cik) sec.href = `https://www.sec.gov/edgar/browse/?CIK=${cfg.cik}`; }
+  if (sec) { sec.hidden = !cfg.cik; if (cfg.cik) sec.href = sourceURL; }
   const official = document.getElementById('footerOfficial');
-  if (official && cfg) {
-    const url = cfg.officialWebsite || (investor === 'lilu' ? 'https://www.himcap.com/' : '');
-    official.hidden = !url;
-    if (url) { official.href = url; official.textContent = investor === 'lilu' ? 'Himalaya Capital' : cfg.manager; }
-  }
-  if (investor === 'vinall') { renderVinallContent(); return; }
-  var en = lang === 'en', isP = investor === 'pabrai', isD = investor === 'duan', isT = investor === 'tepper', isW = investor === 'webb', isB = investor === 'buffett', isA = investor === 'akre', isG = investor === 'greenberg', isK = investor === 'klarman', isAck = investor === 'ackman', isAb = investor === 'abrams', isBk = investor === 'berkowitz', isHw = investor === 'hawkins';
-  // Hero
-  var ht = document.querySelector('[data-i18n="heroTitle"]');
-  if (ht) ht.textContent = isB ? (en?'Buffett 13F Tracker':'巴菲特 13F 持仓追踪') : (isW ? (en?'David Webb HK Holdings':'大卫·韦伯 港股持仓') : (isP ? (en?'Pabrai 13F Tracker':'帕伯莱 13F 持仓追踪') : (isD ? (en?'Duan Yongping 13F Tracker':'段永平 13F 持仓追踪') : (isT ? (en?'David Tepper 13F Tracker':'大卫·泰珀 13F 持仓追踪') : (isA ? (en?'Chuck Akre 13F Tracker':'查克·阿克雷 13F 持仓追踪') : (isG ? (en?'Glenn Greenberg 13F Tracker':'格伦·格林伯格 13F 持仓追踪') : (isK ? (en?'Seth Klarman 13F Tracker':'塞斯·克拉曼 13F 持仓追踪') : (isAck ? (en?'Bill Ackman 13F Tracker':'比尔·阿克曼 13F 持仓追踪') : (isAb ? (en?'David Abrams 13F Tracker':'大卫·艾布拉姆斯 13F 持仓追踪') : (isBk ? (en?'Bruce Berkowitz 13F Tracker':'布鲁斯·伯科威茨 13F 持仓追踪') : (isHw ? (en?'Mason Hawkins 13F Tracker':'梅森·霍金斯 13F 持仓追踪') : (en?'Li Lu 13F Tracker':'李录 13F 持仓追踪'))))))))))));
-  var hsub = document.querySelector('.hero-title .sub');
-  if (hsub) hsub.textContent = isB ? (en ? 'Berkshire Hathaway · SEC 13F · Largest 13F Filer' : '伯克希尔·哈撒韦 · SEC 13F · 最大 13F 申报人') : (isW ? (en ? 'Webb-site.com · HKEX Disclosures · Activist Investor' : 'Webb-site.com · 港股披露 · 维权投资者') : (isP ? (en ? 'Dalal Street, LLC — Tracking Master Moves' : 'Dalal Street, LLC — 学习大师持仓变化') : (isD ? (en ? 'H&H International Investment · Value Investing' : 'H&H International Investment · 价值投资') : (isT ? (en ? 'Appaloosa LP · SEC 13F · Macro & Concentrated Bets' : 'Appaloosa LP · SEC 13F · 宏观与集中持仓') : (isA ? (en ? 'Akre Capital Management · Compounding Machines' : 'Akre Capital Management · 复利机器') : (isG ? (en ? 'Brave Warrior Advisors · Concentrated Value' : 'Brave Warrior Advisors · 集中价值投资') : (isK ? (en ? 'Baupost Group · SEC 13F · Margin of Safety' : 'Baupost Group · SEC 13F · 安全边际') : (isAck ? (en ? 'Pershing Square · SEC 13F · Activist Investing' : 'Pershing Square · SEC 13F · 维权投资') : (isAb ? (en ? 'Abrams Capital · SEC 13F · Ultra-Concentrated Value' : 'Abrams Capital · SEC 13F · 极度集中价值投资') : (isBk ? (en ? 'Fairholme Capital · SEC 13F · Concentrated Real Assets' : 'Fairholme Capital · SEC 13F · 集中实物资产') : (isHw ? (en ? 'Southeastern Asset Management · SEC 13F · Intrinsic Value' : 'Southeastern Asset Management · SEC 13F · 企业内在价值') : (en ? 'Himalaya Capital — Tracking Master Moves' : 'Himalaya Capital Management — 学习大师持仓变化'))))))))))));
-  // Quote
-  var qb = document.querySelector('.quote-block blockquote');
-  if (qb) qb.textContent = isB
-    ? (en?'"Be fearful when others are greedy, and greedy when others are fearful."':'"别人贪婪时我恐惧，别人恐惧时我贪婪。"')
-    : (isP)
-    ? (en?'"Heads I win, tails I don\u2019t lose much."':'"正面我赢，反面我也输不了多少。"')
-    : (isD ? (en?'"Buying stocks is buying companies."':'"买股票就是买公司。"') : (isT ? (en?'"The best time to buy is when there\u2019s blood in the streets."':'"最好的买入时机是街头流血时。"') : (isW ? (en?'"Sunlight is the best disinfectant."':'"阳光是最好的消毒剂。"') : (isA ? (en?'"The key to investing is to find a business that\u2019s a compounding machine, and then let it compound."':'"投资的关键是找到一台复利机器，然后让它持续复利。"') : (isG ? (en?'"We look for companies that generate high returns on capital, have strong competitive positions, and are run by good people."':'"我们寻找资本回报率高、竞争优势强、由优秀人才经营的企业。"') : (isK ? (en?'"Investors should recognize that Wall Street forecasters exist to make astrologers look good."':'"投资者应该意识到，华尔街的预测家存在的意义，只是为了让占星师显得靠谱。"') : (isAck ? (en?'"I only want to be in businesses that are simple, predictable, free-cash-flow generative."':'"我只想投资于简单、可预测、能产生自由现金流的企业。"') : (isAb ? (en?'"Concentrate on a small number of ideas you understand deeply, and size positions accordingly."':'"集中于少数你真正深入理解的想法，并据此确定仓位大小。"') : (isBk ? (en?'"Investing is about putting a small amount of money at risk to make a lot of money."':'"投资就是用少量资金承担风险，以赚取巨大回报。"') : (isHw ? (en?'"We seek to buy businesses at a significant discount to their intrinsic value."':'"我们寻求以显著低于内在价值的价格买入企业。"') : (en?'"The macro is what we must accept; the micro is what we can act on."':'"宏观是我们必须接受的，微观是我们有所作为的。"')))))))))));
-  var qa = document.querySelector('.quote-block .attr');
-  if (qa) qa.textContent = isB
-    ? (en?'— Warren Buffett, Berkshire Hathaway Annual Letter':'— 沃伦·巴菲特，伯克希尔·哈撒韦年度信')
-    : (isP)
-    ? '— Mohnish Pabrai, The Dhandho Investor'
-    : (isD ? (en?'— Duan Yongping, Xueqiu (大道无形我有型)':'— 段永平，雪球（大道无形我有型）') : (isT ? (en?'— David Tepper, Appaloosa Management':'— 大卫·泰珀，Appaloosa Management') : (isW ? (en?'— David Webb, Webb-site.com':'— 大卫·韦伯，Webb-site.com') : (isA ? (en?'— Chuck Akre':'— 查克·阿克雷') : (isG ? (en?'— Glenn Greenberg':'— 格伦·格林伯格') : (isK ? (en?'— Seth Klarman, Baupost Group':'— 塞斯·克拉曼，Baupost Group') : (isAck ? (en?'— Bill Ackman, Pershing Square':'— 比尔·阿克曼，Pershing Square') : (isAb ? (en?'— David Abrams, Abrams Capital':'— 大卫·艾布拉姆斯，Abrams Capital') : (isBk ? (en?'— Bruce Berkowitz, Fairholme Capital':'— 布鲁斯·伯科威茨，Fairholme Capital') : (isHw ? (en?'— Mason Hawkins, Southeastern Asset Management':'— 梅森·霍金斯，Southeastern Asset Management') : (en?'— Li Lu, Peking University, Dec 2024':'— 李录，北京大学演讲，2024年12月')))))))))));
-  // Labels
-  var al = document.getElementById('aboutLabel'); if (al) al.textContent = isB ? 'About Buffett' : (isW ? 'About Webb' : (isP ? (en?'About Pabrai':'关于帕伯莱') : (isD ? (en?'About Duan':'关于段永平') : (isT ? (en?'About Tepper':'关于泰珀') : (isA ? (en?'About Akre':'关于阿克雷') : (isG ? (en?'About Greenberg':'关于格林伯格') : (isK ? (en?'About Klarman':'关于克拉曼') : (isAck ? (en?'About Ackman':'关于阿克曼') : (isAb ? (en?'About Abrams':'关于艾布拉姆斯') : (isBk ? (en?'About Berkowitz':'关于伯科威茨') : (isHw ? (en?'About Hawkins':'关于霍金斯') : (en?'About Li Lu':'关于李录'))))))))))));
-  var at = document.getElementById('aboutTitle'); if (at) at.innerHTML = isB
-    ? (en?'Warren Buffett \u2014 The Oracle of Omaha':'沃伦·巴菲特 \u2014 奥马哈先知')
-    : (isP)
-    ? (en?'Mohnish Pabrai — Cloning & Dhandho':'Mohnish Pabrai — 从 Cloning 到 Dhandho')
-    : (isD ? (en?"Duan Yongping \u2014 China\u2019s Buffett":'段永平 \u2014 中国巴菲特') : (isT ? (en?'David Tepper \u2014 Macro Bets & Distressed Debt':'大卫·泰珀 \u2014 宏观押注与困境债务') : (isW ? (en?'David Webb \u2014 The Activist Investor':'大卫·韦伯 \u2014 维权投资者') : (isA ? (en?'Chuck Akre \u2014 The Three-Legged Stool':'查克·阿克雷 \u2014 三条腿的凳子') : (isG ? (en?'Glenn Greenberg \u2014 Concentrated Value':'格伦·格林伯格 \u2014 集中价值投资') : (isK ? (en?'Seth Klarman \u2014 The Margin of Safety':'塞斯·克拉曼 \u2014 安全边际') : (isAck ? (en?'Bill Ackman \u2014 The Activist Investor':'比尔·阿克曼 \u2014 维权投资者') : (isAb ? (en?'David Abrams \u2014 The Silent Compounder':'大卫·艾布拉姆斯 \u2014 沉默的复利者') : (isBk ? (en?'Bruce Berkowitz \u2014 Concentrated Real Assets':'布鲁斯·伯科威茨 \u2014 集中实物资产') : (isHw ? (en?'Mason Hawkins \u2014 Intrinsic Value & Business Value':'梅森·霍金斯 \u2014 企业内在价值') : (en?'About Li Lu & Himalaya Capital':'关于李录与喜马拉雅资本')))))))))));
-  var pl = document.getElementById('philLabel'); if (pl) pl.textContent = isB ? 'Philosophy' : (isW ? 'Philosophy' : (isP ? 'Dhandho' : (isD ? (en?'Philosophy':'投资理念') : (isT ? (en?'Philosophy':'投资理念') : (isA ? (en?'Philosophy':'投资理念') : (isG ? (en?'Philosophy':'投资理念') : (isK ? (en?'Philosophy':'投资理念') : (isAck ? (en?'Philosophy':'投资理念') : (isAb ? (en?'Philosophy':'投资理念') : (isBk ? (en?'Philosophy':'投资理念') : (isHw ? (en?'Philosophy':'投资理念') : (en?'Philosophy':'投资理念'))))))))))));
-  var pt = document.getElementById('philTitle'); if (pt) pt.innerHTML = isB
-    ? (en?'Philosophy \u2014 Value Investing Principles':'投资理念 \u2014 价值投资原则')
-    : (isP)
-    ? (en?'Philosophy \u2014 The Dhandho Way':'投资理念 \u2014 Dhandho 法')
-    : (isD ? (en?'Philosophy \u2014 Buy Companies, Not Stocks':'投资理念 \u2014 买股票就是买公司') : (isT ? (en?'Philosophy \u2014 Macro Vision & Concentrated Bets':'投资理念 \u2014 宏观视野与集中押注') : (isW ? (en?'Philosophy \u2014 Activist Principles':'投资理念 \u2014 维权原则') : (isA ? (en?'Philosophy \u2014 Compounding Machines':'投资理念 \u2014 复利机器') : (isG ? (en?'Philosophy \u2014 Concentrated Value':'投资理念 \u2014 集中价值投资') : (isK ? (en?'Philosophy \u2014 Margin of Safety':'投资理念 \u2014 安全边际') : (isAck ? (en?'Philosophy \u2014 Simple, Predictable, Free Cash Flow':'投资理念 \u2014 简单、可预测、自由现金流') : (isAb ? (en?'Philosophy \u2014 Ultra-Concentrated Conviction':'投资理念 \u2014 极度集中的信念') : (isBk ? (en?'Philosophy \u2014 Concentrated Bets on Real Assets':'投资理念 \u2014 重仓实物资产') : (isHw ? (en?'Philosophy \u2014 Intrinsic Value & Deep Discount':'投资理念 \u2014 内在价值与深度折价') : (en?'Philosophy \u2014 Graham \u2192 Buffett \u2192 Munger \u2192 Li Lu':'投资理念 \u2014 格雷厄姆 \u2192 巴菲特 \u2192 芒格 \u2192 李录')))))))))));
-  var rl = document.getElementById('readLabel'); if (rl) rl.textContent = isB ? 'Readings' : (isW ? 'Readings' : (isP ? (en?'Resources':'资源') : (isT ? (en?'Readings':'延伸阅读') : (isA ? (en?'Readings':'延伸阅读') : (isG ? (en?'Readings':'延伸阅读') : (isK ? (en?'Readings':'延伸阅读') : (isAck ? (en?'Readings':'延伸阅读') : (isAb ? (en?'Readings':'延伸阅读') : (isBk ? (en?'Readings':'延伸阅读') : (isHw ? (en?'Readings':'延伸阅读') : (en?'Readings':'延伸阅读')))))))))));
-  var navAb = document.querySelector('[data-i18n="navAbout"]'); if (navAb) navAb.textContent = isB ? (en?'About Buffett':'关于巴菲特') : (isW ? (en?'About Webb':'关于韦伯') : (isP ? (en?'About Pabrai':'关于帕伯莱') : (isD ? (en?'About Duan':'关于段永平') : (isT ? (en?'About Tepper':'关于泰珀') : (isA ? (en?'About Akre':'关于阿克雷') : (isG ? (en?'About Greenberg':'关于格林伯格') : (isK ? (en?'About Klarman':'关于克拉曼') : (isAck ? (en?'About Ackman':'关于阿克曼') : (isAb ? (en?'About Abrams':'关于艾布拉姆斯') : (isBk ? (en?'About Berkowitz':'关于伯科威茨') : (isHw ? (en?'About Hawkins':'关于霍金斯') : (en?'About':'关于李录'))))))))))));
-  // About text
-  var rt = document.querySelector('.ref-text');
-  if (rt) {
-    if (isP) {
-      rt.innerHTML = en
-        ? '<p>Mohnish Pabrai (b. 1964), Indian-American value investor, founder of Pabrai Investment Funds. Started with $1M in 1999 after selling his IT company.</p><p>Created the <strong>Dhandho</strong> framework \u2014 Heads I win, tails I don\u2019t lose much \u2014 focused on distressed turnarounds. Won Buffett charity lunch for $650K in 2007.</p><p>Author of <em>The Dhandho Investor</em>, runs blog <a href=https://www.chaiwithpabrai.com target=_blank>Chai with Pabrai</a>.</p>'
-        : '<p>Mohnish Pabrai\uff0c1964 年生于印度\uff0cPabrai Investment Funds 创始人。1999 年以 100 万美元起步投身价值投资。</p><p>提出 <strong>Dhandho</strong> 投资框架\u2014\u2014正面我赢\uff0c反面我也输不了多少\uff0c专注于困境反转和深度价值。2007 年以 65 万美元拍下巴菲特慈善午餐。</p><p>著有 <em>The Dhandho Investor</em>\uff0c运营博客 <a href=https://www.chaiwithpabrai.com target=_blank>Chai with Pabrai</a>\u3002</p>';
-    } else if (isD) {
-      rt.innerHTML = en
-        ? '<p>Duan Yongping (b. 1961, Nanchang), Chinese entrepreneur and value investor. Founded Subor (\u5c0f\u9738\u738b, 1989) and BBK Electronics (\u6b65\u6b65\u9ad8, 1995), which spawned OPPO, vivo, OnePlus, and realme.</p><p>Known as <strong>"China\u2019s Buffett"</strong> (\u4e2d\u56fd\u5df4\u7279\u83f2). Heavy AAPL holder since ~2011. Philosophy: "Buying stocks is buying companies" (\u4e70\u80a1\u7968\u5c31\u662f\u4e70\u516c\u53f8). "Don\u2019t short, don\u2019t use margin, don\u2019t invest in what you don\u2019t understand" (\u4e0d\u505a\u7a7a\uff0c\u4e0d\u501f\u94b1\uff0c\u4e0d\u61c2\u4e0d\u505a).</p><p>Active on Xueqiu (\u96ea\u7403) as "\u5927\u9053\u65e0\u5f62\u6211\u6709\u578b". Retired early, focused on investing and philanthropy.</p>'
-        : '<p>\u6bb5\u6c38\u5e73\uff0c1961 年生于江西南昌\uff0c企业家、价值投资者。1989 年创立小霸王\uff0c1995 年创立步步高\uff0c后衍生出 OPPO、vivo、一加、realme 等品牌。</p><p>被称为<strong>"中国巴菲特"</strong>。自 2011 年起重仓苹果。投资理念\uff1a"买股票就是买公司"、"不做空\uff0c不借钱\uff0c不懂不做"。</p><p>活跃于雪球平台\uff0c网名"大道无形我有型"\uff0c分享投资思考。早年退出一线\uff0c专注于投资和公益。</p>';
-    } else if (isB) {
-      rt.innerHTML = en
-        ? '<p>Warren Buffett (b. 1930), Chairman and CEO of <strong>Berkshire Hathaway</strong>, widely regarded as the greatest investor of all time. Learned value investing from Benjamin Graham at Columbia Business School.</p><p>Built Berkshire Hathaway from a failing textile mill into a $1+ trillion conglomerate over six decades. Known for his long-term, concentrated approach: buying wonderful businesses at fair prices and holding them forever.</p><p>His annual shareholder letters are considered the bible of value investing. Philanthropically, he has pledged 99% of his wealth to the Gates Foundation and other charities through the Giving Pledge.</p>'
-        : '<p>沃伦·巴菲特（Warren Buffett），1930 年出生，<strong>伯克希尔·哈撒韦</strong>董事长兼 CEO，被公认为史上最伟大的投资者。在哥伦比亚商学院师从本杰明·格雷厄姆学习价值投资。</p><p>用六十年时间将伯克希尔从一家衰落的纺织厂打造成万亿美元企业集团。以长期、集中投资而闻名：以合理价格买入优秀企业并永久持有。</p><p>他的年度股东信被誉为价值投资的圣经。慈善方面，通过“捐赠誓言”承诺将 99% 的财富捐给盖茨基金会等慈善机构。</p>';
-    } else if (isW) {
-      rt.innerHTML = en
-        ? '<p>David Webb (1965\u20132026), British-born corporate governance activist and value investor based in Hong Kong. Founder of <strong>Webb-site.com</strong>, the most influential independent source of HK corporate governance intelligence.</p><p>A fierce advocate for minority shareholder rights, Webb exposed corporate governance failures at dozens of Hong Kong-listed companies. His "Enigma Network" research in 2017 triggered a regulatory investigation into a web of interconnected HK-listed firms.</p><p>Webb lived modestly, invested in undervalued small-cap HK stocks, and shared his research openly. Diagnosed with prostate cancer in 2018, he continued publishing until his death in 2026. His motto: <em>"Sunlight is the best disinfectant."</em></p>'
-        : '<p>大卫·韦伯（David Webb，1965\u20132026），英国出生的企业管治维权者与价值投资者，长期驻香港。<strong>Webb-site.com</strong> 创始人，香港最具影响力的独立企业管治信息来源。</p><p>以坚定维护小股东权益著称，揭露数十家港股公司的管治问题。2017 年发布的“谜网”（Enigma Network）研究报告引发监管层对一批相互关联港股公司的调查。</p><p>韦伯生活简朴，专投被低估的港股小型股，并公开分享研究。2018 年确诊前列腺癌，仍坚持发布分析直至 2026 年去世。他的信条：<em>“阳光是最好的消毒剂。”</em></p>';
-    } else if (isA) {
-      rt.innerHTML = en
-        ? '<p>Chuck Akre, founder of Akre Capital Management, is known for his <strong>three-legged stool</strong> investment framework: an extraordinary business (high ROE, low capital reinvestment needs), excellent management (honest, capable, skilled capital allocators), and abundant reinvestment opportunities.</p><p>Akre managed the FBR Focus Fund for 13 years with annualized returns exceeding 20%, beating 99% of peers. He founded Akre Capital Management in 2009, concentrating on a handful of "compounding machine" companies held for the long term with minimal turnover.</p><p>His portfolio typically holds ~20 high-quality companies. His philosophy: find a business that can reinvest its profits at high rates of return, then hold on and let compounding do its work.</p>'
-        : '<p>查克·阿克雷（Chuck Akre），Akre Capital Management 创始人，以<strong>“三条腿的凳子”</strong>投资框架闻名：卓越的商业模式（高ROE、无需大量资本再投资）、优秀的管理层（诚实能干、善于资本配置）、以及持续的再投资机会。</p><p>阿克雷管理 FBR Focus Fund 长达 13 年，年化回报率超过 20%，击败了 99% 的同类基金。2009 年创立 Akre Capital Management，坚持集中投资于少数“复利机器”型公司，长期持有，极少交易。</p><p>他的投资组合通常持有约 20 只高质量公司。他信奉：找到能以高回报率持续再投资的企业，然后让复利发挥作用。</p>';
-    } else if (isG) {
-      rt.innerHTML = en
-        ? '<p>Glenn Greenberg, founder of Brave Warrior Advisors, is one of the most respected <strong>concentrated value investors</strong>. He began his career at Chieftain Capital Management, studying under value investing masters, and founded Brave Warrior in 2010.</p><p>Greenberg is known for extremely concentrated portfolios \u2014 typically just 8-12 stocks, each deeply researched. He focuses on businesses with high returns on capital, strong competitive moats, and excellent management, willing to buy aggressively during market panics.</p><p>His investment style is deeply influenced by Buffett and Munger, emphasizing "buy wonderful businesses and hold them for the long term." As of 2026, Brave Warrior manages approximately $4 billion, concentrated in financial services and quality compounders.</p>'
-        : '<p>格伦·格林伯格（Glenn Greenberg），Brave Warrior Advisors 创始人，是价值投资领域最受尊敬的<strong>集中投资者</strong>之一。他在 Chieftain Capital Management 开始了投资生涯，师从价值投资大师，2010 年创立 Brave Warrior。</p><p>格林伯格以极度集中的投资组合闻名\u2014\u2014通常仅持有 8-12 只股票，每只都经过深入研究。他专注于具有高资本回报率、强竞争优势和优秀管理层的企业，愿意在市场恐慌时大举买入。</p><p>他的投资风格深受巴菲特和芒格影响，强调“买入优秀企业并长期持有”。截至 2026 年，Brave Warrior 管理约 40 亿美元，持仓集中于金融服务和高质量复利企业。</p>';
-    } else if (isT) {
-      rt.innerHTML = en
-        ? '<p>David Tepper (b. 1957, Pittsburgh), founder of <strong>Appaloosa Management</strong>. Started at Goldman Sachs trading junk bonds, then founded Appaloosa in 1993.</p><p>Known for his bold macro bets during crises. In 2009, he made ~$7B profit buying distressed bank stocks during the financial crisis — one of the greatest trades in hedge fund history.</p><p>His philosophy: top-down macro analysis, concentrated bets when conviction is high, and aggressive repositioning when the picture changes. Not a buy-and-hold investor — willing to exit quickly.</p>'
-        : '<p>大卫·泰珀（David Tepper），1957 年生于匹兹堡，<strong>Appaloosa Management</strong> 创始人。早年在高盛从事垃圾债券交易，1993 年创立 Appaloosa。</p><p>以危机中大胆押注著称。2009 年金融危机中大举买入银行股，获利约 70 亿美元，是对冲基金史上最成功的交易之一。</p><p>他的理念：自上而下的宏观分析，高确信度时集中下注，形势变化时迅速调仓。不是买入持有型投资者，敢于快速止盈止损。</p>';
-    } else if (isK) {
-      rt.innerHTML = en
-        ? '<p>Seth Klarman (b. 1957), founder and CEO of <strong>Baupost Group</strong>, one of the most respected value investors of his generation. Started Baupost in 1982 with $27M in seed capital from four families.</p><p>Author of <em>Margin of Safety</em> (1991), a book so sought-after in its out-of-print years that used copies sold for thousands of dollars \u2014 now considered a value-investing bible alongside Graham\'s work.</p><p>Klarman runs an extremely concentrated, low-turnover portfolio and keeps a notoriously low public profile, rarely giving interviews. Baupost is known for holding large cash positions when it can\'t find bargains, and for opportunistic bets in distressed debt and special situations.</p>'
-        : '<p>塞斯·克拉曼（Seth Klarman），1957 年生，<strong>Baupost Group</strong> 创始人兼 CEO，是同代最受尊敬的价值投资者之一。1982 年以四个家族提供的 2700 万美元种子资金创立 Baupost。</p><p>著有《安全边际》（Margin of Safety，1991），该书绝版期间二手书曾被炒到数千美元，被视为继格雷厄姆之后的价值投资圣经。</p><p>克拉曼的持仓极度集中、换手率很低，本人极少公开露面或接受采访。Baupost 以在找不到便宜筹码时持有大量现金、并在困境债务和特殊情形中机会性下注而闻名。</p>';
-    } else if (isAck) {
-      rt.innerHTML = en
-        ? '<p>Bill Ackman (b. 1966), founder and CEO of <strong>Pershing Square Capital Management</strong>, a New York-based hedge fund known for highly concentrated, activist positions in public companies.</p><p>Ackman built his reputation on bold, high-conviction bets \u2014 both long and short \u2014 and often pushes for board seats, management changes, or strategic shifts at the companies he invests in.</p><p>Pershing Square typically holds fewer than 12 positions at a time. Ackman is also known for his active presence on social media (X/Twitter), where he shares detailed investment theses and commentary on markets and public policy.</p>'
-        : '<p>比尔·阿克曼（Bill Ackman），1966 年生，<strong>Pershing Square Capital Management</strong> 创始人兼 CEO，是一家总部位于纽约、以高度集中的维权式持仓闻名的对冲基金。</p><p>阿克曼以大胆的高确信度押注（做多与做空皆有）建立起自己的声誉，常常推动目标公司改选董事会、更换管理层或调整战略方向。</p><p>Pershing Square 通常同时持有不到 12 个仓位。阿克曼也活跃于社交媒体（X/Twitter），常公开分享详细的投资逻辑及对市场与公共政策的评论。</p>';
-    } else if (isAb) {
-      rt.innerHTML = en
-        ? '<p>David Abrams (b. 1957), founder of <strong>Abrams Capital Management</strong>, is one of the most private and consistently successful value investors in the industry. He began his career as an analyst under Seth Klarman at Baupost Group before founding Abrams Capital in 1999.</p><p>Abrams runs an ultra-concentrated portfolio \u2014 often just 10-15 positions, with single names occasionally approaching 40% of assets \u2014 reflecting extremely high conviction backed by deep research.</p><p>He rarely gives interviews or public statements, and Abrams Capital\'s SEC 13F filings are one of the few public windows into his thinking. His approach closely mirrors the Baupost/Klarman tradition of patient, safety-margin-driven value investing.</p>'
-        : '<p>大卫·艾布拉姆斯（David Abrams），1957 年生，<strong>Abrams Capital Management</strong> 创始人，是业内最为低调、同时长期业绩最稳健的价值投资者之一。他早年在 Baupost Group 师从塞斯·克拉曼担任分析师，1999 年创立 Abrams Capital。</p><p>艾布拉姆斯的持仓极度集中\u2014\u2014通常只有 10-15 个仓位，单一仓位有时接近资产的 40%，体现出经过深度研究后的极高确信度。</p><p>他极少接受采访或公开发言，SEC 13F 申报文件几乎是外界了解其思路的唯一窗口。他的投资风格深受 Baupost/克拉曼传统的影响：耐心等待，坚守安全边际。</p>';
-    } else if (isBk) {
-      rt.innerHTML = en
-        ? '<p>Bruce Berkowitz (b. 1958), founder of <strong>Fairholme Capital Management</strong>, made his name running the Fairholme Fund to top-decile returns in the 2000s before a series of concentrated, contrarian bets defined his later career.</p><p>Berkowitz is best known for an extraordinarily concentrated position in <strong>The St. Joe Company (JOE)</strong>, a Florida real estate and land development company \u2014 a bet on the long-term value of undeveloped Florida panhandle land that at times has represented nearly 80% of his portfolio.</p><p>His investment philosophy centers on deep asset-value analysis and a willingness to hold a handful of high-conviction ideas for years, tolerating short-term volatility and skepticism from the market.</p>'
-        : '<p>布鲁斯·伯科威茨（Bruce Berkowitz），1958 年生，<strong>Fairholme Capital Management</strong> 创始人，2000 年代凭借 Fairholme Fund 的顶尖业绩崭露头角，此后以一系列集中、逆向的重仓押注定义了自己的投资风格。</p><p>他最广为人知的是对 <strong>圣祖公司（The St. Joe Company, JOE）</strong>\u2014\u2014一家佛罗里达地产与土地开发公司\u2014\u2014的超高比例持仓，押注佛罗里达狹长地带未开发土地的长期价值，该仓位一度占其组合近 80%。</p><p>他的投资理念聚焦于深度资产价值分析，并愿意长年持有少数高确信度的想法，容忍短期波动和市场的质疑。</p>';
-    } else if (isHw) {
-      rt.innerHTML = en
-        ? '<p>Mason Hawkins (b. 1945), co-founder and Chairman of <strong>Southeastern Asset Management</strong>, which he founded in 1975 and which manages the Longleaf Partners family of mutual funds.</p><p>Hawkins is a disciplined <strong>intrinsic value</strong> investor: he and his team estimate a business\'s appraised value as a private buyer would, then buy only at a significant discount (Southeastern targets buying at ~60% of appraised value) with a qualified management team in place.</p><p>Southeastern\'s style is close to deep-value, enterprise-value investing \u2014 look past headline multiples to underlying business and asset value \u2014 an approach with clear echoes of Li Lu\'s own value framework.</p>'
-        : '<p>梅森·霍金斯（Mason Hawkins），1945 年生，<strong>Southeastern Asset Management</strong> 联合创始人兼董事长，1975 年创立该公司，旗下管理 Longleaf Partners 系列共同基金。</p><p>霍金斯是严格的<strong>企业内在价值</strong>投资者：他和团队像私人买家一样估算企业的评估价值，只在价格显著低于该价值时买入（Southeastern 的目标是以约 60% 的评估价值买入），同时要求公司具备称职的管理团队。</p><p>Southeastern 的风格接近深度价值与企业价值投资\u2014\u2014穿透报表倍数看底层业务与资产价值\u2014\u2014这一思路与李录本人的价值投资框架有明显的相通之处。</p>';
-    } else {
-      rt.innerHTML = en
-        ? '<p>Li Lu (b. 1966), Chinese-American value investor, founder of Himalaya Capital. Moved to the US in 1989 and earned a BA, JD, and MBA simultaneously at Columbia University \u2014 a rare "triple degree" achievement.</p><p>Founded Himalaya Capital in 1997, focused on long-term value investing. Recommended BYD to Charlie Munger in 2002, leading to Berkshire\'s $230M investment in 2008. Munger once publicly praised him: "Li Lu is a genius, and we\'ve made a lot of money together."</p><p>Active in philanthropy through his humanitarian foundation, focused on human rights, education, and disaster relief.</p>'
-        : '<p>李录（Li Lu），1966 年生于唐山，美籍华裔价值投资者，喜马拉雅资本创始人。1989 年赴美，在哥伦比亚大学同时取得经济学学士、法学博士 (JD) 和 MBA 三个学位——哥大罕见的“三学位”成就者。</p><p>1997 年创立喜马拉雅资本，专注长期价值投资。2002 年向查理·芒格推荐比亚迪，后由伯克希尔 2008 年投资 2.3 亿美元。芒格曾公开赞誉：“李录是一个天才，我们一起赚了很多钱。”</p><p>除投资外，李录也热心公益，设立了人道主义基金会，关注人权、教育和救灾。</p>';
-    }
-  }
-  // Timeline
-  // 先移除静态时间线元素的 data-i18n 属性，防止 applyI18n 把它覆盖回李录版本
-  document.querySelectorAll('.ref-grid .timeline [data-i18n]').forEach(function(el){ el.removeAttribute('data-i18n'); });
-  var tl = document.querySelector('.ref-grid .timeline');
-  if (tl) {
-    function tlItem(year, zh, en_) { return '<div class="tl-item"><div class="tl-year">'+year+'</div><div class="tl-text">'+(en?en_:zh)+'</div></div>'; }
-    var now = en ? 'Present' : '至今';
-    if (isP) {
-      tl.innerHTML = [
-        tlItem('1964','出生于印度','Born in India'),
-        tlItem('1999','100 万美元起步投资','Started investing with $1M'),
-        tlItem('2007','出版 The Dhandho Investor','Published The Dhandho Investor'),
-        tlItem('2007','65 万美元拍下巴菲特午餐','Paid $650K for Buffett lunch'),
-        tlItem(now,'管理 Pabrai Funds + 博客','Managing Pabrai Funds + blog'),
-      ].join('');
-    } else if (isD) {
-      tl.innerHTML = [
-        tlItem('1961','出生于江西南昌','Born in Nanchang, Jiangxi'),
-        tlItem('1982','浙江大学无线电工程专业','Radio Engineering, Zhejiang Univ.'),
-        tlItem('1989','创立小霸王电子工业公司','Founded Subor Electronics'),
-        tlItem('1995','创立步步高电子','Founded BBK Electronics'),
-        tlItem('2001','退出一线，移居美国','Retired from ops, moved to US'),
-        tlItem('2002','结识巴菲特，开始投资','Met Buffett, began investing'),
-        tlItem('2006','62 万美元拍下巴菲特午餐（与黄峥）','$620K Buffett lunch (with Huang Zheng)'),
-        tlItem('~2011','开始大量买入苹果','Began heavy buying of Apple'),
-        tlItem(now,'管理 H&H International Investment','Managing H&H International Investment'),
-      ].join('');
-    } else if (isT) {
-      tl.innerHTML = [
-        tlItem('1957','出生于匹兹堡','Born in Pittsburgh'),
-        tlItem('~1980','卡内基梅隆大学，后获 MBA','Carnegie Mellon, then MBA'),
-        tlItem('~1982','加入高盛，从事垃圾债券交易','Goldman Sachs, junk bond trading'),
-        tlItem('1993','创立 Appaloosa Management','Founded Appaloosa Management'),
-        tlItem('2009','金融危机中大胆买入银行股','Bought distressed bank stocks, ~$7B profit'),
-        tlItem(now,'管理 Appaloosa LP，宏观押注与集中持仓','Managing Appaloosa LP, macro & concentrated bets'),
-      ].join('');
-    } else if (isB) {
-      tl.innerHTML = [
-        tlItem('1930','出生于内布拉斯加州奥马哈','Born in Omaha, Nebraska'),
-        tlItem('1951','师从格雷厄姆，哥伦比亚 MBA','Studied under Graham, Columbia MBA'),
-        tlItem('1956','创立 Buffett Partnership','Founded Buffett Partnership'),
-        tlItem('1965','收购 Berkshire Hathaway','Acquired Berkshire Hathaway'),
-        tlItem('1988','开始大量买入可口可乐','Began buying Coca-Cola heavily'),
-        tlItem('2016','开始买入苹果，迄今最大持仓','Started buying Apple, now largest position'),
-        tlItem(now,'管理伯克希尔·哈撒韦，$263B 组合','Managing Berkshire Hathaway, $263B portfolio'),
-      ].join('');
-    } else if (isW) {
-      tl.innerHTML = [
-        tlItem('1965','出生于英国','Born in UK'),
-        tlItem('~1990','牛津大学数学系','Mathematics, Oxford University'),
-        tlItem('1998','创立 Webb-site.com','Founded Webb-site.com'),
-        tlItem('2003','获选港交所独立非执行董事','Elected independent director of HKEX'),
-        tlItem('2017','发布"谜网"报告，揭露 50 只不可投资港股','Published "Network of Influence" report'),
-        tlItem('2018','确诊前列腺癌','Diagnosed with prostate cancer'),
-        tlItem('2026','去世，享年 60 岁','Passed away, aged 60'),
-      ].join('');
-    } else if (isA) {
-      tl.innerHTML = [
-        tlItem('1996','创立 Akre Capital Management','Founded Akre Capital Management'),
-        tlItem('1997','开始管理 FBR Focus Fund','Began managing FBR Focus Fund'),
-        tlItem('2000','互联网泡沫中坚持价值投资','Stayed the course during dot-com bust'),
-        tlItem('2009','重组 Akre Capital，推出 Akre Focus Fund','Relaunched as Akre Focus Fund'),
-        tlItem('2021','管理资产规模突破 150 亿美元','AUM surpassed $15B'),
-        tlItem(now,'集中持有约 20 只高质量复利企业','~20 high-quality compounders'),
-      ].join('');
-    } else if (isG) {
-      tl.innerHTML = [
-        tlItem('1984','加入 Chieftain Capital，师从 John Shapiro','Joined Chieftain Capital under John Shapiro'),
-        tlItem('1990','成为 Chieftain 合伙人','Became partner at Chieftain'),
-        tlItem('2000','互联网泡沫中坚持价值投资','Stayed disciplined through dot-com bubble'),
-        tlItem('2009','金融危机中逆势大举买入','Bought aggressively during financial crisis'),
-        tlItem('2010','创立 Brave Warrior Advisors','Founded Brave Warrior Advisors'),
-        tlItem(now,'管理约 40 亿美元，集中于高质量企业','Managing ~$4B, concentrated in quality compounders'),
-      ].join('');
-    } else if (isK) {
-      tl.innerHTML = [
-        tlItem('1957','出生','Born'),
-        tlItem('1979','康乃尔大学经济学学士，后获哈佛 MBA','Economics degree from Cornell, later Harvard MBA'),
-        tlItem('1982','创立 Baupost Group，初始资金 2700 万美元','Founded Baupost Group with $27M seed capital'),
-        tlItem('1991','出版《安全边际》','Published Margin of Safety'),
-        tlItem('2008','金融危机中机会性买入困境资产','Opportunistic buying during 2008 financial crisis'),
-        tlItem(now,'管理 Baupost Group，持仓集中且换手率极低','Managing Baupost Group, highly concentrated & low turnover'),
-      ].join('');
-    } else if (isAck) {
-      tl.innerHTML = [
-        tlItem('1966','出生于纽约','Born in New York'),
-        tlItem('1992','哈佛大学 MBA','Harvard MBA'),
-        tlItem('2004','创立 Pershing Square Capital Management','Founded Pershing Square Capital Management'),
-        tlItem('2012','公开做空 Herbalife，引发市场争议','Public short of Herbalife sparks market debate'),
-        tlItem('2020','疫情对冲交易获利约 26 亿美元','COVID hedge trade nets ~$2.6B profit'),
-        tlItem(now,'管理 Pershing Square，极度集中的维权式持仓','Managing Pershing Square, ultra-concentrated activist positions'),
-      ].join('');
-    } else if (isAb) {
-      tl.innerHTML = [
-        tlItem('1957','出生','Born'),
-        tlItem('~1980s','在 Baupost Group 师从塞斯·克拉曼任分析师','Analyst under Seth Klarman at Baupost Group'),
-        tlItem('1999','创立 Abrams Capital Management','Founded Abrams Capital Management'),
-        tlItem(now,'持仓极度集中，单一仓位有时接近 40%','Ultra-concentrated portfolio, single positions sometimes near 40%'),
-      ].join('');
-    } else if (isBk) {
-      tl.innerHTML = [
-        tlItem('1958','出生','Born'),
-        tlItem('1997','创立 Fairholme Capital Management','Founded Fairholme Capital Management'),
-        tlItem('2000s','Fairholme Fund 业绩位居行业前列','Fairholme Fund posts top-decile returns'),
-        tlItem('~2010','开始重仓圣祖公司 (JOE)','Began building concentrated position in The St. Joe Company (JOE)'),
-        tlItem(now,'JOE 持仓占组合接近 80%','JOE position nears 80% of portfolio'),
-      ].join('');
-    } else if (isHw) {
-      tl.innerHTML = [
-        tlItem('1945','出生','Born'),
-        tlItem('1975','创立 Southeastern Asset Management','Co-founded Southeastern Asset Management'),
-        tlItem('1987','推出 Longleaf Partners 基金系列','Launched the Longleaf Partners mutual fund family'),
-        tlItem(now,'坚持企业内在价值投资，定义性买入价格占评估价值约 60%','Disciplined intrinsic-value investing, targets buying at ~60% of appraised value'),
-      ].join('');
-    } else {
-      tl.innerHTML = [
-        tlItem('1966','出生于唐山，十岁时亲历唐山大地震','Born in Tangshan; survived the 1976 earthquake at age 10'),
-        tlItem('1985','考入南京大学','Entered Nanjing University'),
-        tlItem('1989','赴美，入读哥伦比亚大学','Emigrated to US, enrolled at Columbia'),
-        tlItem('1996','哥大 BA/JD/MBA 三学位','Columbia BA/JD/MBA triple degree'),
-        tlItem('1997','创立喜马拉雅资本','Founded Himalaya Capital'),
-        tlItem('2002','向芒格推荐比亚迪','Introduced BYD to Charlie Munger'),
-        tlItem(now,'持续管理喜马拉雅资本','Continues managing Himalaya Capital'),
-      ].join('');
-    }
-  }
-  // Philosophy
-  var pg = document.querySelector('.phil-grid');
-  if (pg) {
-    if (isP) {
-      pg.innerHTML = en
-        ? '<div class="phil-card"><div class="icon">\ud83c\udfb2</div><h4>Heads I Win, Tails I Don\u2019t Lose Much</h4><p>Core Dhandho principle \u2014 asymmetric bets with limited downside.</p></div><div class="phil-card"><div class="icon">\ud83d\udcb0</div><h4>Buy $1 for 50 Cents</h4><p>Purchase well below intrinsic value. Distressed turnarounds are the favorite hunting ground.</p></div><div class="phil-card"><div class="icon">\ud83d\udccb</div><h4>Checklist Investing</h4><p>Rigorous pre-investment checklists to avoid cognitive biases.</p></div><div class="phil-card"><div class="icon">\ud83d\udc11</div><h4>Clone the Best</h4><p>Copy the best ideas of top investors. Cloning is a wonderful strategy.</p></div><div class="phil-card"><div class="icon">\ud83c\udfaf</div><h4>Ultra-Concentrated</h4><p>3-5 stocks. Diversification is protection against ignorance.</p></div><div class="phil-card"><div class="icon">\u2615</div><h4>Patience</h4><p>Do nothing most of the time. Only swing in your sweet spot.</p></div>'
-        : '<div class="phil-card"><div class="icon">\ud83c\udfb2</div><h4>正面我赢，反面我也输不了多少</h4><p>Dhandho 核心\u2014\u2014寻找高度不对称的赌注。</p></div><div class="phil-card"><div class="icon">\ud83d\udcb0</div><h4>50 美分买 1 美元</h4><p>买入显著低于内在价值的股票。困境反转是最爱的狩猎场。</p></div><div class="phil-card"><div class="icon">\ud83d\udccb</div><h4>清单投资法</h4><p>受 Atul Gawande 启发，严格的买入前检查清单。</p></div><div class="phil-card"><div class="icon">\ud83d\udc11</div><h4>克隆大师</h4><p>不羞于复制顶级投资者的最佳想法。</p></div><div class="phil-card"><div class="icon">\ud83c\udfaf</div><h4>极度集中</h4><p>通常 3-5 只股票，偶尔只持有一只。</p></div><div class="phil-card"><div class="icon">\u2615</div><h4>耐心等待</h4><p>大部分时间什么都不做，只在最佳击球区挥棒。</p></div>';
-    } else if (isD) {
-      pg.innerHTML = en
-        ? '<div class="phil-card"><div class="icon">\ud83c\udfe2</div><h4>Buy Companies, Not Stocks</h4><p>"Buying stocks is buying companies" \u2014 evaluate businesses as if buying the whole company.</p></div><div class="phil-card"><div class="icon">\ud83d\udeab</div><h4>Three Don\u2019ts</h4><p>Don\u2019t short, don\u2019t use margin, don\u2019t invest in what you don\u2019t understand (\u4e0d\u505a\u7a7a\uff0c\u4e0d\u501f\u94b1\uff0c\u4e0d\u61c2\u4e0d\u505a).</p></div><div class="phil-card"><div class="icon">\u23f3</div><h4>Long-Term Concentration</h4><p>Heavy AAPL position since 2011. Concentrated bets on deeply understood businesses.</p></div><div class="phil-card"><div class="icon">\ud83c\udfaf</div><h4>Circle of Competence</h4><p>Only invest in businesses you truly understand. Consumer tech and internet are sweet spots.</p></div><div class="phil-card"><div class="icon">\ud83d\udd0d</div><h4>Business First</h4><p>Focus on business model, competitive moat, and management quality before price.</p></div><div class="phil-card"><div class="icon">\ud83d\udca1</div><h4>Learn from the Best</h4><p>Follow Buffett\u2019s and Munger\u2019s principles. Met Buffett at the 2006 charity lunch.</p></div>'
-        : '<div class="phil-card"><div class="icon">\ud83c\udfe2</div><h4>买股票就是买公司</h4><p>把股票当作整家公司来评估，看生意本质而非报价波动。</p></div><div class="phil-card"><div class="icon">\ud83d\udeab</div><h4>三不原则</h4><p>不做空，不借钱，不懂不做\u2014\u2014坚守能力圈，拒绝诱惑。</p></div><div class="phil-card"><div class="icon">\u23f3</div><h4>长期集中</h4><p>2011 年起重仓苹果，对理解深刻的企业下重注。</p></div><div class="phil-card"><div class="icon">\ud83c\udfaf</div><h4>能力圈</h4><p>只投真正理解的生意。消费电子和互联网是舒适区。</p></div><div class="phil-card"><div class="icon">\ud83d\udd0d</div><h4>生意本质优先</h4><p>先看商业模式、护城河、管理层，再看价格。</p></div><div class="phil-card"><div class="icon">\ud83d\udca1</div><h4>师从巴菲特</h4><p>追随巴菲特和芒格的理念，2006 年亲历巴菲特慈善午餐。</p></div>';
-    } else if (isT) {
-      pg.innerHTML = en
-        ? '<div class="phil-card"><div class="icon">\ud83c\udf0d</div><h4>Macro Vision</h4><p>Top-down macro analysis guides portfolio positioning. Interest rates, economic cycles, and policy shifts drive decisions.</p></div><div class="phil-card"><div class="icon">\ud83c\udfaf</div><h4>Concentrated Bets</h4><p>High conviction positions in a focused portfolio. When the thesis is strong, bet big.</p></div><div class="phil-card"><div class="icon">\ud83d\udd25</div><h4>Blood in the Streets</h4><p>The best opportunities come during crises. Distressed assets and panic selling are the hunting grounds.</p></div><div class="phil-card"><div class="icon">\u26a1</div><h4>Aggressive Trading</h4><p>Willing to reposition quickly when the macro picture changes. Not a buy-and-hold purist.</p></div><div class="phil-card"><div class="icon">\ud83d\udcca</div><h4>Deep Due Diligence</h4><p>Intensive research on every position. Understand the business, the numbers, and the risks.</p></div><div class="phil-card"><div class="icon">\ud83d\udee1\ufe0f</div><h4>Risk Management</h4><p>Know when to cut losses. Position sizing and stop-losses protect the downside.</p></div>'
-        : '<div class="phil-card"><div class="icon">\ud83c\udf0d</div><h4>宏观视野</h4><p>自上而下的宏观分析指导仓位。利率、经济周期和政策转向是核心驱动。</p></div><div class="phil-card"><div class="icon">\ud83c\udfaf</div><h4>集中押注</h4><p>高确信度的集中持仓。当逻辑足够强，就下大注。</p></div><div class="phil-card"><div class="icon">\ud83d\udd25</div><h4>街头流血时买入</h4><p>最佳机会来自危机。困境资产和恐慌性抛售是狩猎场。</p></div><div class="phil-card"><div class="icon">\u26a1</div><h4>积极交易</h4><p>宏观形势变化时迅速调整仓位。不是纯粹的买入持有型投资者。</p></div><div class="phil-card"><div class="icon">\ud83d\udcca</div><h4>深度尽调</h4><p>对每个仓位进行深入研究。了解生意、数据和风险。</p></div><div class="phil-card"><div class="icon">\ud83d\udee1\ufe0f</div><h4>风险管理</h4><p>知道何时止损。仓位大小和止损线保护下行风险。</p></div>';
-    } else if (isB) {
-      pg.innerHTML = en
-        ? '<div class="phil-card"><div class="icon">\ud83c\udfe2</div><h4>Buy Wonderful Businesses</h4><p>Buy companies with durable competitive advantages at fair prices.</p></div><div class="phil-card"><div class="icon">\ud83d\udee1\ufe0f</div><h4>Margin of Safety</h4><p>Never overpay. The difference between price and intrinsic value is your protection.</p></div><div class="phil-card"><div class="icon">\u23f3</div><h4>Long-Term Horizon</h4><p>Our favorite holding period is forever. Let winners compound.</p></div><div class="phil-card"><div class="icon">\ud83c\udfaf</div><h4>Circle of Competence</h4><p>Stay within what you understand.</p></div><div class="phil-card"><div class="icon">\ud83d\udcb0</div><h4>Owner\'s Mindset</h4><p>Think like a business owner, not a stock trader.</p></div><div class="phil-card"><div class="icon">\ud83d\udcd6</div><h4>Read Everything</h4><p>Read 500 pages a day. Knowledge builds like compound interest.</p></div>'
-        : '<div class="phil-card"><div class="icon">\ud83c\udfe2</div><h4>买入优秀企业</h4><p>以合理价格买入具有持久竞争优势的企业。</p></div><div class="phil-card"><div class="icon">\ud83d\udee1\ufe0f</div><h4>安全边际</h4><p>永远不要多付。价格与内在价值的差距是你的保护。</p></div><div class="phil-card"><div class="icon">\u23f3</div><h4>长期持有</h4><p>我们最喜欢的持有期限是永远。让赢家持续复利。</p></div><div class="phil-card"><div class="icon">\ud83c\udfaf</div><h4>能力圈</h4><p>留在你理解的范围内。</p></div><div class="phil-card"><div class="icon">\ud83d\udcb0</div><h4>企业主思维</h4><p>像企业主一样思考，而非股票交易员。</p></div><div class="phil-card"><div class="icon">\ud83d\udcd6</div><h4>大量阅读</h4><p>每天读 500 页。知识像复利一样积累。</p></div>';
-    } else if (isW) {
-      pg.innerHTML = en
-        ? '<div class="phil-card"><div class="icon">\ud83d\udd0d</div><h4>Forensic Research</h4><p>Deep-dive into financial statements. Uncover issues management won\'t show you.</p></div><div class="phil-card"><div class="icon">\ud83d\udcd6</div><h4>Read Every Word</h4><p>Read filings line by line. Cross-reference related-party transactions.</p></div><div class="phil-card"><div class="icon">\u2600\ufe0f</div><h4>Sunlight as Disinfectant</h4><p>Transparency is the ultimate remedy for corporate misgovernance.</p></div><div class="phil-card"><div class="icon">\ud83d\udee1\ufe0f</div><h4>Minority Shareholder Rights</h4><p>Fight for the small investor.</p></div><div class="phil-card"><div class="icon">\ud83d\udcc8</div><h4>Small-Cap Value</h4><p>Undervalued, overlooked HK small-caps are the hunting ground.</p></div><div class="phil-card"><div class="icon">\ud83d\udce1</div><h4>Open Research</h4><p>Share findings publicly. Knowledge is most powerful when it\'s free.</p></div>'
-        : '<div class="phil-card"><div class="icon">\ud83d\udd0d</div><h4>法证式研究</h4><p>深入财务报表，发掘管理层不愿让你看到的问题。</p></div><div class="phil-card"><div class="icon">\ud83d\udcd6</div><h4>逐字细读</h4><p>逐行阅读申报文件，交叉比对关联交易。</p></div><div class="phil-card"><div class="icon">\u2600\ufe0f</div><h4>阳光是最好的消毒剂</h4><p>透明度是公司治理不善的终极解药。</p></div><div class="phil-card"><div class="icon">\ud83d\udee1\ufe0f</div><h4>捍卫小股东</h4><p>为小投资者争取权益。</p></div><div class="phil-card"><div class="icon">\ud83d\udcc8</div><h4>小盘价值投资</h4><p>被低估、被忽视的港股小型股是狩猎场。</p></div><div class="phil-card"><div class="icon">\ud83d\udce1</div><h4>公开研究</h4><p>公开分享研究成果。知识自由流通时最有力量。</p></div>';
-    } else if (isA) {
-      pg.innerHTML = en
-        ? '<div class="phil-card"><div class="icon">\ud83e\ude91</div><h4>Three-Legged Stool</h4><p>Extraordinary business + excellent management + reinvestment.</p></div><div class="phil-card"><div class="icon">\u2699\ufe0f</div><h4>Compounding Machines</h4><p>Find businesses that reinvest at high rates of return.</p></div><div class="phil-card"><div class="icon">\ud83c\udfaf</div><h4>Concentration</h4><p>~20 stocks only. Deep research over diversification.</p></div><div class="phil-card"><div class="icon">\u23f3</div><h4>Long Holding Periods</h4><p>Minimal turnover. Let compounding do the work.</p></div><div class="phil-card"><div class="icon">\ud83d\udcc8</div><h4>High ROE Focus</h4><p>Prefers ROE >20% with low capex needs.</p></div><div class="phil-card"><div class="icon">\ud83d\udcbc</div><h4>Management First</h4><p>Honest, capable, skilled capital allocators.</p></div>'
-        : '<div class="phil-card"><div class="icon">\ud83e\ude91</div><h4>三条腿的凳子</h4><p>卓越商业模式 + 优秀管理层 + 再投资机会。</p></div><div class="phil-card"><div class="icon">\u2699\ufe0f</div><h4>复利机器</h4><p>寻找能持续以高回报率再投资利润的企业。</p></div><div class="phil-card"><div class="icon">\ud83c\udfaf</div><h4>集中投资</h4><p>仅持有约 20 只股票，深度研究而非广泛分散。</p></div><div class="phil-card"><div class="icon">\u23f3</div><h4>长期持有</h4><p>年换手率极低，让复利充分发挥作用。</p></div><div class="phil-card"><div class="icon">\ud83d\udcc8</div><h4>高 ROE</h4><p>偏好 ROE 持续高于 20% 且无需大量资本支出。</p></div><div class="phil-card"><div class="icon">\ud83d\udcbc</div><h4>管理层至上</h4><p>诚实、能干、善于资本配置的管理层。</p></div>';
-    } else if (isG) {
-      pg.innerHTML = en
-        ? '<div class="phil-card"><div class="icon">\ud83c\udfaf</div><h4>Extreme Concentration</h4><p>Only 8-12 stocks. Deep research on each.</p></div><div class="phil-card"><div class="icon">\ud83d\udcc8</div><h4>High ROIC</h4><p>Prefers ROIC >15% and strong cash flow.</p></div><div class="phil-card"><div class="icon">\ud83c\udff0</div><h4>Strong Moats</h4><p>Durable competitive advantages and pricing power.</p></div><div class="phil-card"><div class="icon">\ud83d\udc54</div><h4>Excellent Management</h4><p>Honest, capable, shareholder-aligned.</p></div><div class="phil-card"><div class="icon">\u26a1</div><h4>Contrarian Buying</h4><p>Buy aggressively during panics.</p></div><div class="phil-card"><div class="icon">\ud83d\udcc5</div><h4>Long-Term Hold</h4><p>Minimal turnover. Let quality businesses compound.</p></div>'
-        : '<div class="phil-card"><div class="icon">\ud83c\udfaf</div><h4>极度集中</h4><p>仅持有 8-12 只股票。</p></div><div class="phil-card"><div class="icon">\ud83d\udcc8</div><h4>高 ROIC</h4><p>偏好 ROIC 持续高于 15%的企业。</p></div><div class="phil-card"><div class="icon">\ud83c\udff0</div><h4>强护城河</h4><p>寻找具有持久竞争优势和定价权的企业。</p></div><div class="phil-card"><div class="icon">\ud83d\udc54</div><h4>优秀管理层</h4><p>管理层必须诚实、能干、以股东利益为重。</p></div><div class="phil-card"><div class="icon">\u26a1</div><h4>逆向买入</h4><p>在市场恐慌时敢于大举买入。</p></div><div class="phil-card"><div class="icon">\ud83d\udcc5</div><h4>长期持有</h4><p>年换手率极低，让优质企业持续创造价值。</p></div>';
-    } else if (isK) {
-      pg.innerHTML = en
-        ? '<div class="phil-card"><div class="icon">\ud83d\udee1\ufe0f</div><h4>Margin of Safety</h4><p>Never overpay. Always buy at a significant discount to conservatively estimated intrinsic value.</p></div><div class="phil-card"><div class="icon">\ud83d\udcb0</div><h4>Hold Cash When Idle</h4><p>Willing to hold large cash positions rather than force capital into mediocre ideas.</p></div><div class="phil-card"><div class="icon">\ud83c\udfaf</div><h4>Absolute Return Focus</h4><p>Prioritize capital preservation over relative benchmark performance.</p></div><div class="phil-card"><div class="icon">\ud83d\udd0d</div><h4>Deep Fundamental Research</h4><p>Rigorous, independent analysis before every position.</p></div><div class="phil-card"><div class="icon">\ud83e\udde0</div><h4>Contrarian Discipline</h4><p>Willing to be early and alone; avoid crowd psychology.</p></div><div class="phil-card"><div class="icon">\ud83e\udd10</div><h4>Low Public Profile</h4><p>Rarely gives interviews; lets results speak.</p></div>'
-        : '<div class="phil-card"><div class="icon">\ud83d\udee1\ufe0f</div><h4>安全边际</h4><p>永不多付：只在价格显著低于保守估计的内在价值时买入。</p></div><div class="phil-card"><div class="icon">\ud83d\udcb0</div><h4>无机会时持现</h4><p>宁愿持有大量现金，也不强行将资金投入平庸的机会。</p></div><div class="phil-card"><div class="icon">\ud83c\udfaf</div><h4>绝对收益优先</h4><p>以保全资本为优先，而非追求相对于基准的表现。</p></div><div class="phil-card"><div class="icon">\ud83d\udd0d</div><h4>深入的基本面研究</h4><p>每一仓位背后都是严谨、独立的分析。</p></div><div class="phil-card"><div class="icon">\ud83e\udde0</div><h4>逆向自律</h4><p>愿意提前、孤独地下注，避免集体心理。</p></div><div class="phil-card"><div class="icon">\ud83e\udd10</div><h4>保持低调</h4><p>很少接受采访，让业绩自己说话。</p></div>';
-    } else if (isAck) {
-      pg.innerHTML = en
-        ? '<div class="phil-card"><div class="icon">\ud83c\udfaf</div><h4>Simple, Predictable Businesses</h4><p>Free-cash-flow generative companies with durable competitive advantages.</p></div><div class="phil-card"><div class="icon">\ud83d\udce2</div><h4>Activist Engagement</h4><p>Push for board seats, management changes, and strategic shifts.</p></div><div class="phil-card"><div class="icon">\ud83e\udde9</div><h4>Ultra-Concentrated</h4><p>Fewer than 12 positions at a time; each backed by deep conviction.</p></div><div class="phil-card"><div class="icon">\ud83d\udee1\ufe0f</div><h4>Asymmetric Hedges</h4><p>Uses options and credit hedges to protect against tail risk.</p></div><div class="phil-card"><div class="icon">\ud83d\udcac</div><h4>Public Thesis-Sharing</h4><p>Openly shares detailed investment cases on social media.</p></div><div class="phil-card"><div class="icon">\u23f3</div><h4>Patient Capital</h4><p>Willing to hold for years for a thesis to play out.</p></div>'
-        : '<div class="phil-card"><div class="icon">\ud83c\udfaf</div><h4>简单、可预测的企业</h4><p>寻找能产生自由现金流、拥有持久竞争优势的公司。</p></div><div class="phil-card"><div class="icon">\ud83d\udce2</div><h4>维权介入</h4><p>推动改选董事会、更换管理层或调整战略方向。</p></div><div class="phil-card"><div class="icon">\ud83e\udde9</div><h4>极度集中</h4><p>同时持仓通常不超过 12 个，每个仓位背后都是极高确信度。</p></div><div class="phil-card"><div class="icon">\ud83d\udee1\ufe0f</div><h4>非对称对冲</h4><p>使用期权与信用对冲工具防范尾部风险。</p></div><div class="phil-card"><div class="icon">\ud83d\udcac</div><h4>公开分享逻辑</h4><p>乐于在社交媒体上详细分享投资逻辑。</p></div><div class="phil-card"><div class="icon">\u23f3</div><h4>耐心资本</h4><p>愿意为一个逻辑充分展开而持有年。</p></div>';
-    } else if (isAb) {
-      pg.innerHTML = en
-        ? '<div class="phil-card"><div class="icon">\ud83c\udfaf</div><h4>Ultra-Concentration</h4><p>10-15 positions; single names can approach 40% of assets.</p></div><div class="phil-card"><div class="icon">\ud83d\udee1\ufe0f</div><h4>Margin of Safety</h4><p>Baupost-style discipline: buy well below intrinsic value.</p></div><div class="phil-card"><div class="icon">\ud83e\udd10</div><h4>Extreme Privacy</h4><p>Almost no public statements; 13F filings are the main public signal.</p></div><div class="phil-card"><div class="icon">\ud83d\udd0d</div><h4>Deep, Independent Research</h4><p>Each position backed by exhaustive due diligence.</p></div><div class="phil-card"><div class="icon">\u23f3</div><h4>Long Holding Periods</h4><p>Low turnover, patient compounding.</p></div><div class="phil-card"><div class="icon">\ud83d\udcaa</div><h4>High Conviction Sizing</h4><p>Position size scales directly with confidence in the thesis.</p></div>'
-        : '<div class="phil-card"><div class="icon">\ud83c\udfaf</div><h4>极度集中</h4><p>通常仅 10-15 个仓位，单一仓位有时接近资产的 40%。</p></div><div class="phil-card"><div class="icon">\ud83d\udee1\ufe0f</div><h4>安全边际</h4><p>延续 Baupost 风格：买入价显著低于内在价值。</p></div><div class="phil-card"><div class="icon">\ud83e\udd10</div><h4>极度低调</h4><p>几乎不对外发声，13F 申报是外界了解其思路的主要窗口。</p></div><div class="phil-card"><div class="icon">\ud83d\udd0d</div><h4>深入、独立的研究</h4><p>每个仓位背后都有穷尽的尽调支撑。</p></div><div class="phil-card"><div class="icon">\u23f3</div><h4>长期持有</h4><p>换手率低，耐心复利。</p></div><div class="phil-card"><div class="icon">\ud83d\udcaa</div><h4>信念决定仓位大小</h4><p>仓位大小与对逻辑的确信程度直接相关。</p></div>';
-    } else if (isBk) {
-      pg.innerHTML = en
-        ? '<div class="phil-card"><div class="icon">\ud83c\udfe0</div><h4>Real Asset Value</h4><p>Deep analysis of underlying land and real-estate asset value.</p></div><div class="phil-card"><div class="icon">\ud83c\udfaf</div><h4>Extreme Concentration</h4><p>Willing to size a single conviction position near 80% of the portfolio.</p></div><div class="phil-card"><div class="icon">\ud83e\udded</div><h4>Contrarian Patience</h4><p>Holds through years of skepticism when the thesis is intact.</p></div><div class="phil-card"><div class="icon">\ud83d\udcca</div><h4>Asset-Based Valuation</h4><p>Values businesses on replacement/asset value, not just earnings multiples.</p></div><div class="phil-card"><div class="icon">\ud83d\udee1\ufe0f</div><h4>Margin of Safety</h4><p>Buys only when price is well below appraised asset value.</p></div><div class="phil-card"><div class="icon">\u23f3</div><h4>Multi-Decade Horizon</h4><p>Land and real-asset theses play out over decades, not quarters.</p></div>'
-        : '<div class="phil-card"><div class="icon">\ud83c\udfe0</div><h4>实物资产价值</h4><p>深入分析底层土地与房地产资产价值。</p></div><div class="phil-card"><div class="icon">\ud83c\udfaf</div><h4>极度集中</h4><p>愿意将单一信念仓位押到接近组合的 80%。</p></div><div class="phil-card"><div class="icon">\ud83e\udded</div><h4>逆向耐心</h4><p>只要逻辑未变，即使年年遭质疑仍愿持有。</p></div><div class="phil-card"><div class="icon">\ud83d\udcca</div><h4>资产导向估值</h4><p>以重置成本/资产价值估值，而不仅仅看盈余倍数。</p></div><div class="phil-card"><div class="icon">\ud83d\udee1\ufe0f</div><h4>安全边际</h4><p>仅在价格显著低于评估资产价值时买入。</p></div><div class="phil-card"><div class="icon">\u23f3</div><h4>数十年视角</h4><p>土地与实物资产的逻辑需要数十年才能充分展现。</p></div>';
-    } else if (isHw) {
-      pg.innerHTML = en
-        ? '<div class="phil-card"><div class="icon">\ud83d\udcca</div><h4>Intrinsic Value Appraisal</h4><p>Estimate business value as a private buyer would.</p></div><div class="phil-card"><div class="icon">\ud83c\udff7\ufe0f</div><h4>Buy at ~60% of Value</h4><p>Target a significant discount to appraised intrinsic value.</p></div><div class="phil-card"><div class="icon">\ud83d\udc65</div><h4>Qualified Management</h4><p>Require capable, aligned management teams before investing.</p></div><div class="phil-card"><div class="icon">\ud83c\udfe2</div><h4>Enterprise Value Focus</h4><p>Look past headline multiples to underlying business and asset value.</p></div><div class="phil-card"><div class="icon">\ud83c\udf10</div><h4>Diversified Deep Value</h4><p>Broader portfolio (dozens of names) than most concentrated peers.</p></div><div class="phil-card"><div class="icon">\u23f3</div><h4>Long-Term Discipline</h4><p>Patient, multi-year holding periods for value to be realized.</p></div>'
-        : '<div class="phil-card"><div class="icon">\ud83d\udcca</div><h4>内在价值评估</h4><p>像私人买家一样估算企业价值。</p></div><div class="phil-card"><div class="icon">\ud83c\udff7\ufe0f</div><h4>以约 60% 估值买入</h4><p>目标是以显著低于评估内在价值的价格买入。</p></div><div class="phil-card"><div class="icon">\ud83d\udc65</div><h4>管理层能力</h4><p>要求能干且与股东利益一致的管理团队。</p></div><div class="phil-card"><div class="icon">\ud83c\udfe2</div><h4>企业价值优先</h4><p>穿透报表倍数看底层业务与资产价值。</p></div><div class="phil-card"><div class="icon">\ud83c\udf10</div><h4>分散式深度价值</h4><p>比大部分集中型同行持有更广泛的组合（数十只股票）。</p></div><div class="phil-card"><div class="icon">\u23f3</div><h4>长期主义</h4><p>耐心持有多年，等待价值充分实现。</p></div>';
-    } else {
-      pg.innerHTML = en
-        ? '<div class="phil-card"><div class="icon">\ud83d\udcd6</div><h4>Deep Research</h4><p>Thorough due diligence on financials, industry dynamics, and competitive positioning.</p></div><div class="phil-card"><div class="icon">\ud83c\udfaf</div><h4>Concentrated Portfolio</h4><p>Capital in a few high-conviction investments.</p></div><div class="phil-card"><div class="icon">\u23f3</div><h4>Long-Term View</h4><p>Holding for decades, letting compounding work.</p></div><div class="phil-card"><div class="icon">\ud83d\udee1\ufe0f</div><h4>Margin of Safety</h4><p>Buying well below intrinsic value.</p></div><div class="phil-card"><div class="icon">\ud83d\udd2d</div><h4>Circle of Competence</h4><p>Invest only where you have a genuine edge.</p></div><div class="phil-card"><div class="icon">\ud83c\udfa3</div><h4>Fish Where the Fish Are</h4><p>Focus where you can catch fish.</p></div>'
-        : '<div class="phil-card"><div class="icon">\ud83d\udcd6</div><h4>深度研究</h4><p>财务报表、行业动态、竞争地位。</p></div><div class="phil-card"><div class="icon">\ud83c\udfaf</div><h4>集中持仓</h4><p>资金集中在少数高确信度投资上。</p></div><div class="phil-card"><div class="icon">\u23f3</div><h4>长期视角</h4><p>以十年为周期持有，让复利充分发挥。</p></div><div class="phil-card"><div class="icon">\ud83d\udee1\ufe0f</div><h4>安全边际</h4><p>以显著低于内在价值的价格买入。</p></div><div class="phil-card"><div class="icon">\ud83d\udd2d</div><h4>能力圈</h4><p>清楚知道自己理解什么、不理解什么。</p></div><div class="phil-card"><div class="icon">\ud83c\udfa3</div><h4>在对的地方钓鱼</h4><p>找到自己能钓到鱼的水域。</p></div>';
-    }
-  }
-  // Readings
-  var rg = document.querySelector('.articles-grid');
-  if (rg) {
-    if (isP) {
-      rg.innerHTML = en
-        ? '<a class="article-card" href="https://www.chaiwithpabrai.com" target="_blank"><div class="year">Blog</div><h4>Chai with Pabrai</h4><p>Investment thoughts & portfolio updates.</p></a><a class="article-card" href="https://www.amazon.com/Dhandho-Investor-Low-Risk-Method-Returns/dp/047004389X" target="_blank"><div class="year">2007</div><h4>The Dhandho Investor</h4><p>Low-risk, high-return framework.</p></a><a class="article-card" href="https://www.youtube.com/@mohnishpabrai" target="_blank"><div class="year">YouTube</div><h4>Video Channel</h4><p>Speeches, interviews, annual meetings.</p></a><a class="article-card" href="https://www.dakshana.org/" target="_blank"><div class="year">Charity</div><h4>Dakshana Foundation</h4><p>Helping underprivileged students in India.</p></a><a class="article-card" href="https://www.forbes.com/sites/investor-hub/2024/11/01/the-unconventional-fund-from-an-investing-legend-poised-to-outperform/" target="_blank"><div class="year">2024 Forbes</div><h4>Forbes Profile</h4><p>An unconventional fund legend.</p></a><a class="article-card" href="https://open.spotify.com/show/7LX2ps7irNRtxj8I12jFSq" target="_blank"><div class="year">Podcast</div><h4>Chai with Pabrai</h4><p>Full podcast on Spotify.</p></a>'
-        : '<a class="article-card" href="https://www.chaiwithpabrai.com" target="_blank"><div class="year">Blog</div><h4>Chai with Pabrai</h4><p>Pabrai 个人博客，投资思考与组合更新。</p></a><a class="article-card" href="https://www.amazon.com/Dhandho-Investor-Low-Risk-Method-Returns/dp/047004389X" target="_blank"><div class="year">2007</div><h4>The Dhandho Investor</h4><p>Pabrai 经典著作。</p></a><a class="article-card" href="https://www.youtube.com/@mohnishpabrai" target="_blank"><div class="year">YouTube</div><h4>视频频道</h4><p>演讲、访谈合集。</p></a><a class="article-card" href="https://www.dakshana.org/" target="_blank"><div class="year">慈善</div><h4>Dakshana Foundation</h4><p>Pabrai 公益组织。</p></a><a class="article-card" href="https://www.forbes.com/sites/investor-hub/2024/11/01/the-unconventional-fund-from-an-investing-legend-poised-to-outperform/" target="_blank"><div class="year">2024 Forbes</div><h4>Forbes 深度报道</h4><p>非传统基金传奇。</p></a><a class="article-card" href="https://open.spotify.com/show/7LX2ps7irNRtxj8I12jFSq" target="_blank"><div class="year">Podcast</div><h4>Chai with Pabrai 播客</h4><p>Spotify 全集。</p></a>';
-    } else if (isD) {
-      rg.innerHTML = en
-        ? '<a class="article-card" href="https://xueqiu.com/P/ZH2256330" target="_blank"><div class="year">Xueqiu</div><h4>\u5927\u9053\u65e0\u5f62\u6211\u6709\u578b</h4><p>Duan\u2019s Xueqiu portfolio & investment thoughts.</p></a><a class="article-card" href="https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=0001759760&type=13F" target="_blank"><div class="year">SEC EDGAR</div><h4>All 13F Filings (H&H)</h4><p>View H&H International Investment SEC submissions.</p></a><a class="article-card" href="https://www.gelonghui.com/search?keyword=%E6%AE%B5%E6%B0%B8%E5%B9%B3" target="_blank"><div class="year">格隆汇</div><h4>\u6bb5\u6c38\u5e73\uff1a\u6295\u8d44\u5c31\u662f\u4e70\u516c\u53f8</h4><p>"Buying stocks is buying companies" \u2014 core philosophy explained.</p></a><a class="article-card" href="https://xueqiu.com/u/5819606876" target="_blank"><div class="year">Xueqiu</div><h4>\u6bb5\u6c38\u5e73\u96ea\u7403\u4e3b\u9875</h4><p>Duan Yongping\'s Xueqiu account \u2014 posts and Q&A.</p></a><a class="article-card" href="https://www.huxiu.com/search?query=\u6bb5\u6c38\u5e73" target="_blank"><div class="year">Huxiu</div><h4>\u864e\u55c5 \u00b7 \u6bb5\u6c38\u5e73</h4><p>News and analysis about Duan Yongping.</p></a><a class="article-card" href="https://36kr.com/search/articles/%E6%AE%B5%E6%B0%B8%E5%B9%B3" target="_blank"><div class="year">36Kr</div><h4>36\u6c2a \u00b7 \u6bb5\u6c38\u5e73</h4><p>Business coverage of Duan Yongping and BBK ecosystem.</p></a>'
-        : '<a class="article-card" href="https://xueqiu.com/P/ZH2256330" target="_blank"><div class="year">\u96ea\u7403</div><h4>\u5927\u9053\u65e0\u5f62\u6211\u6709\u578b</h4><p>\u6bb5\u6c38\u5e73\u5728\u96ea\u7403\u7684\u6295\u8d44\u7ec4\u5408\u4e0e\u601d\u8003\u3002</p></a><a class="article-card" href="https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=0001759760&type=13F" target="_blank"><div class="year">SEC EDGAR</div><h4>\u5168\u90e8 13F \u539f\u59cb\u6587\u4ef6</h4><p>\u5728 SEC \u6570\u636e\u5e93\u67e5\u770b H&H International \u5168\u90e8\u63d0\u4ea4\u3002</p></a><a class="article-card" href="https://www.gelonghui.com/search?keyword=%E6%AE%B5%E6%B0%B8%E5%B9%B3" target="_blank"><div class="year">\u683c\u9686\u6c47</div><h4>\u6bb5\u6c38\u5e73\uff1a\u6295\u8d44\u5c31\u662f\u4e70\u516c\u53f8</h4><p>"\u4e70\u80a1\u7968\u5c31\u662f\u4e70\u516c\u53f8"\u2014\u2014\u6838\u5fc3\u6295\u8d44\u7406\u5ff5\u89e3\u8bfb\u3002</p></a><a class="article-card" href="https://xueqiu.com/u/5819606876" target="_blank"><div class="year">\u96ea\u7403\u4e3b\u9875</div><h4>\u6bb5\u6c38\u5e73\u96ea\u7403\u4e3b\u9875</h4><p>\u6bb5\u6c38\u5e73\u96ea\u7403\u8d26\u53f7\uff0c\u539f\u521b\u8d34\u6587\u4e0e\u95ee\u7b54\u3002</p></a><a class="article-card" href="https://www.huxiu.com/search?query=\u6bb5\u6c38\u5e73" target="_blank"><div class="year">\u864e\u55c5</div><h4>\u864e\u55c5 \u00b7 \u6bb5\u6c38\u5e73</h4><p>\u6bb5\u6c38\u5e73\u76f8\u5173\u65b0\u95fb\u4e0e\u5206\u6790\u3002</p></a><a class="article-card" href="https://36kr.com/search/articles/%E6%AE%B5%E6%B0%B8%E5%B9%B3" target="_blank"><div class="year">36\u6c2a</div><h4>36\u6c2a \u00b7 \u6bb5\u6c38\u5e73</h4><p>\u6bb5\u6c38\u5e73\u53ca\u6b65\u6b65\u9ad8\u7cfb\u5546\u4e1a\u62a5\u9053\u3002</p></a>';
-    } else if (isT) {
-      rg.innerHTML = en
-        ? '<a class="article-card" href="https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=0001656456&type=13F" target="_blank"><div class="year">SEC EDGAR</div><h4>All 13F Filings (Appaloosa)</h4><p>View Appaloosa LP SEC submissions.</p></a><a class="article-card" href="https://www.forbes.com/profile/david-tepper/" target="_blank"><div class="year">Forbes</div><h4>Forbes Profile</h4><p>David Tepper billionaire profile and net worth.</p></a><a class="article-card" href="https://en.wikipedia.org/wiki/David_Tepper" target="_blank"><div class="year">Wikipedia</div><h4>David Tepper</h4><p>Biography, career, and investing philosophy.</p></a><a class="article-card" href="https://www.bloomberg.com/news/articles/2023-05-25/david-tepper-appaloosa-says-he-s-fully-invested-in-stocks" target="_blank"><div class="year">Bloomberg</div><h4>Tepper: "I\u2019m Fully Invested"</h4><p>Interview on market outlook and portfolio strategy.</p></a><a class="article-card" href="https://www.cnbc.com/david-tepper/" target="_blank"><div class="year">CNBC</div><h4>CNBC Coverage</h4><p>Latest news and interviews about David Tepper.</p></a><a class="article-card" href="https://www.businessinsider.com/search?q=david+tepper" target="_blank"><div class="year">Business Insider</div><h4>Tepper Archive</h4><p>Collection of articles and analysis.</p></a>'
-        : '<a class="article-card" href="https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=0001656456&type=13F" target="_blank"><div class="year">SEC EDGAR</div><h4>全部 13F 原始文件</h4><p>在 SEC 数据库查看 Appaloosa LP 全部提交。</p></a><a class="article-card" href="https://www.forbes.com/profile/david-tepper/" target="_blank"><div class="year">Forbes</div><h4>Forbes 富豪档案</h4><p>大卫·泰珀个人简介与净资产。</p></a><a class="article-card" href="https://en.wikipedia.org/wiki/David_Tepper" target="_blank"><div class="year">Wikipedia</div><h4>大卫·泰珀</h4><p>生平、职业历程与投资哲学。</p></a><a class="article-card" href="https://www.bloomberg.com/news/articles/2023-05-25/david-tepper-appaloosa-says-he-s-fully-invested-in-stocks" target="_blank"><div class="year">Bloomberg</div><h4>泰珀："我全仓了"</h4><p>市场前景与组合策略访谈。</p></a><a class="article-card" href="https://www.cnbc.com/david-tepper/" target="_blank"><div class="year">CNBC</div><h4>CNBC 报道</h4><p>大卫·泰珀最新新闻与访谈。</p></a><a class="article-card" href="https://www.businessinsider.com/search?q=david+tepper" target="_blank"><div class="year">Business Insider</div><h4>泰珀文章集</h4><p>相关文章与分析合集。</p></a>';
-    } else if (isB) {
-      rg.innerHTML = en
-        ? '<a class="article-card" href="https://www.berkshirehathaway.com/letters/letters.html" target="_blank"><div class="year">Letters</div><h4>Shareholder Letters</h4><p>All Berkshire Hathaway annual letters by Buffett.</p></a><a class="article-card" href="https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=0001067983&type=13F" target="_blank"><div class="year">SEC EDGAR</div><h4>All 13F Filings</h4><p>View Berkshire Hathaway SEC submissions.</p></a><a class="article-card" href="https://www.berkshirehathaway.com/" target="_blank"><div class="year">Official</div><h4>berkshirehathaway.com</h4><p>Official BRK website, letters, and more.</p></a><a class="article-card" href="https://www.amazon.com/Snowball-Warren-Buffett-Business/dp/0553384846" target="_blank"><div class="year">Book</div><h4>The Snowball</h4><p>Alice Schroeder\'s authorized biography of Buffett.</p></a><a class="article-card" href="https://www.cnbc.com/warren-buffett/" target="_blank"><div class="year">CNBC</div><h4>CNBC Buffett Archive</h4><p>News, interviews, and market commentary.</p></a><a class="article-card" href="https://www.youtube.com/results?search_query=berkshire+hathaway+annual+meeting" target="_blank"><div class="year">YouTube</div><h4>Annual Meeting Videos</h4><p>Woodstock for Capitalists — full meeting recordings.</p></a>'
-        : '<a class="article-card" href="https://www.berkshirehathaway.com/letters/letters.html" target="_blank"><div class="year">股东信</div><h4>年度股东信全集</h4><p>巴菲特亲笔撰写的所有伯克希尔年度信。</p></a><a class="article-card" href="https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=0001067983&type=13F" target="_blank"><div class="year">SEC EDGAR</div><h4>全部 13F 原始文件</h4><p>在 SEC 数据库查看伯克希尔全部提交。</p></a><a class="article-card" href="https://www.berkshirehathaway.com/" target="_blank"><div class="year">官网</div><h4>berkshirehathaway.com</h4><p>伯克希尔官网，股东信与公司信息。</p></a><a class="article-card" href="https://www.amazon.com/Snowball-Warren-Buffett-Business/dp/0553384846" target="_blank"><div class="year">书籍</div><h4>滚雪球</h4><p>艾丽斯·施罗德授权的巴菲特传记。</p></a><a class="article-card" href="https://www.cnbc.com/warren-buffett/" target="_blank"><div class="year">CNBC</div><h4>CNBC 巴菲特档案</h4><p>新闻、访谈与市场评论。</p></a><a class="article-card" href="https://www.youtube.com/results?search_query=berkshire+hathaway+annual+meeting" target="_blank"><div class="year">YouTube</div><h4>年度股东大会视频</h4><p>资本家的伍德斯托克——完整会议录像。</p></a>';
-    } else if (isW) {
-      rg.innerHTML = en
-        ? '<a class="article-card" href="https://webb-site.com/" target="_blank"><div class="year">Official</div><h4>webb-site.com</h4><p>Webb\'s independent HK corporate governance platform.</p></a><a class="article-card" href="https://webb-site.com/database/" target="_blank"><div class="year">Database</div><h4>Webb-site Database</h4><p>Searchable database of HK-listed companies and directors.</p></a><a class="article-card" href="https://webb-site.com/articles/" target="_blank"><div class="year">Articles</div><h4>Enigma Network & Articles</h4><p>Webb\'s investigations and governance articles.</p></a><a class="article-card" href="https://en.wikipedia.org/wiki/David_Webb_(activist)" target="_blank"><div class="year">Wikipedia</div><h4>David Webb</h4><p>Biography and career summary.</p></a><a class="article-card" href="https://www.reuters.com/" target="_blank"><div class="year">Reuters</div><h4>Reuters Coverage</h4><p>News about Webb\'s activism and passing.</p></a><a class="article-card" href="https://www.youtube.com/results?search_query=david+webb+hkex" target="_blank"><div class="year">YouTube</div><h4>Interviews & Talks</h4><p>Webb\'s public appearances and interviews.</p></a>'
-        : '<a class="article-card" href="https://webb-site.com/" target="_blank"><div class="year">官网</div><h4>webb-site.com</h4><p>韦伯的独立港股企业管治平台。</p></a><a class="article-card" href="https://webb-site.com/database/" target="_blank"><div class="year">数据库</div><h4>Webb-site 数据库</h4><p>可搜索的港股公司和董事数据库。</p></a><a class="article-card" href="https://webb-site.com/articles/" target="_blank"><div class="year">文章</div><h4>谜网与文章合集</h4><p>韦伯的调查报道与管治分析文章。</p></a><a class="article-card" href="https://en.wikipedia.org/wiki/David_Webb_(activist)" target="_blank"><div class="year">维基百科</div><h4>David Webb</h4><p>生平与职业概述。</p></a><a class="article-card" href="https://www.reuters.com/" target="_blank"><div class="year">路透社</div><h4>路透社报道</h4><p>关于韦伯维权活动与逝世的新闻。</p></a><a class="article-card" href="https://www.youtube.com/results?search_query=david+webb+hkex" target="_blank"><div class="year">YouTube</div><h4>访谈与演讲</h4><p>韦伯的公开露面与访谈录像。</p></a>';
-    } else if (isA) {
-      rg.innerHTML = en
-        ? '<a class="article-card" href="https://www.akrecapital.com/" target="_blank"><div class="year">Official</div><h4>akrecapital.com</h4><p>Official Akre Capital Management website.</p></a><a class="article-card" href="https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=0001499406&type=13F" target="_blank"><div class="year">SEC EDGAR</div><h4>All 13F Filings</h4><p>View Akre Capital SEC submissions.</p></a><a class="article-card" href="https://www.youtube.com/results?search_query=chuck+akre+interview" target="_blank"><div class="year">YouTube</div><h4>Akre Interviews</h4><p>Chuck Akre on compounding machines and the three-legged stool.</p></a><a class="article-card" href="https://en.wikipedia.org/wiki/Chuck_Akre" target="_blank"><div class="year">Wikipedia</div><h4>Chuck Akre</h4><p>Biography and career.</p></a><a class="article-card" href="https://www.validea.com/" target="_blank"><div class="year">Validea</div><h4>Three-Legged Stool</h4><p>Validea\'s analysis of the Akre framework.</p></a><a class="article-card" href="https://www.gurufocus.com/investor/chuck-akre" target="_blank"><div class="year">GuruFocus</div><h4>Akre Portfolio</h4><p>Current holdings and performance tracking.</p></a>'
-        : '<a class="article-card" href="https://www.akrecapital.com/" target="_blank"><div class="year">官网</div><h4>akrecapital.com</h4><p>Akre Capital Management 官方网站。</p></a><a class="article-card" href="https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=0001499406&type=13F" target="_blank"><div class="year">SEC EDGAR</div><h4>全部 13F 原始文件</h4><p>在 SEC 数据库查看 Akre Capital 全部提交。</p></a><a class="article-card" href="https://www.youtube.com/results?search_query=chuck+akre+interview" target="_blank"><div class="year">YouTube</div><h4>阿克雷访谈</h4><p>查克·阿克雷谈复利机器与三条腿的凳子。</p></a><a class="article-card" href="https://en.wikipedia.org/wiki/Chuck_Akre" target="_blank"><div class="year">维基百科</div><h4>Chuck Akre</h4><p>生平与职业概述。</p></a><a class="article-card" href="https://www.validea.com/" target="_blank"><div class="year">Validea</div><h4>三条腿的凳子</h4><p>Validea 对阿克雷投资框架的分析。</p></a><a class="article-card" href="https://www.gurufocus.com/investor/chuck-akre" target="_blank"><div class="year">GuruFocus</div><h4>阿克雷持仓</h4><p>当前持仓与表现追踪。</p></a>';
-    } else if (isG) {
-      rg.innerHTML = en
-        ? '<a class="article-card" href="https://www.linkedin.com/company/brave-warrior-advisors" target="_blank"><div class="year">LinkedIn</div><h4>Brave Warrior Advisors</h4><p>Official LinkedIn page.</p></a><a class="article-card" href="https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=0001495196&type=13F" target="_blank"><div class="year">SEC EDGAR</div><h4>All 13F Filings</h4><p>View Brave Warrior Advisors SEC submissions.</p></a><a class="article-card" href="https://www.gurufocus.com/investor/glenn-greenberg" target="_blank"><div class="year">GuruFocus</div><h4>Greenberg Profile</h4><p>Holdings history and performance analysis.</p></a><a class="article-card" href="https://www.youtube.com/results?search_query=glenn+greenberg+investor" target="_blank"><div class="year">YouTube</div><h4>Greenberg Interviews</h4><p>Glenn Greenberg on concentrated value investing.</p></a><a class="article-card" href="https://www.dataroma.com/m/home.php?g=gg" target="_blank"><div class="year">Dataroma</div><h4>Portfolio Tracker</h4><p>Brave Warrior 13F portfolio tracking.</p></a><a class="article-card" href="https://www.gurufocus.com/portfolio/brave-warrior-advisors" target="_blank"><div class="year">GuruFocus</div><h4>Current Portfolio</h4><p>Latest Brave Warrior holdings and allocation.</p></a>'
-        : '<a class="article-card" href="https://www.linkedin.com/company/brave-warrior-advisors" target="_blank"><div class="year">LinkedIn</div><h4>Brave Warrior Advisors</h4><p>官方 LinkedIn 页面。</p></a><a class="article-card" href="https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=0001495196&type=13F" target="_blank"><div class="year">SEC EDGAR</div><h4>全部 13F 原始文件</h4><p>在 SEC 数据库查看 Brave Warrior 全部提交。</p></a><a class="article-card" href="https://www.gurufocus.com/investor/glenn-greenberg" target="_blank"><div class="year">GuruFocus</div><h4>格林伯格档案</h4><p>持仓历史与表现分析。</p></a><a class="article-card" href="https://www.youtube.com/results?search_query=glenn+greenberg+investor" target="_blank"><div class="year">YouTube</div><h4>格林伯格访谈</h4><p>格伦·格林伯格谈集中价值投资。</p></a><a class="article-card" href="https://www.dataroma.com/m/home.php?g=gg" target="_blank"><div class="year">Dataroma</div><h4>组合追踪</h4><p>Brave Warrior 13F 组合追踪。</p></a><a class="article-card" href="https://www.gurufocus.com/portfolio/brave-warrior-advisors" target="_blank"><div class="year">GuruFocus</div><h4>当前持仓</h4><p>最新 Brave Warrior 持仓与配置。</p></a>';
-    } else if (isK) {
-      rg.innerHTML = en
-        ? '<a class="article-card" href="https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=0001061768&type=13F" target="_blank"><div class="year">SEC EDGAR</div><h4>All 13F Filings</h4><p>View Baupost Group SEC submissions.</p></a><a class="article-card" href="https://www.dataroma.com/m/holdings.php?m=BG" target="_blank"><div class="year">Dataroma</div><h4>Baupost Portfolio</h4><p>Holdings history and performance tracking.</p></a><a class="article-card" href="https://www.gurufocus.com/institution/Baupost+Group%2C+LLC" target="_blank"><div class="year">GuruFocus</div><h4>Baupost Profile</h4><p>Current holdings and portfolio analysis.</p></a><a class="article-card" href="https://en.wikipedia.org/wiki/Seth_Klarman" target="_blank"><div class="year">Wikipedia</div><h4>Seth Klarman</h4><p>Biography, career, and investing philosophy.</p></a><a class="article-card" href="https://www.amazon.com/Margin-Safety-Value-Investment-Strategies/dp/0887305105" target="_blank"><div class="year">1991</div><h4>Margin of Safety</h4><p>Klarman\'s famous out-of-print value investing classic.</p></a><a class="article-card" href="https://www.youtube.com/results?search_query=seth+klarman+interview" target="_blank"><div class="year">YouTube</div><h4>Rare Interviews</h4><p>Klarman\'s rare public talks and lectures.</p></a>'
-        : '<a class="article-card" href="https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=0001061768&type=13F" target="_blank"><div class="year">SEC EDGAR</div><h4>全部 13F 原始文件</h4><p>在 SEC 数据库查看 Baupost Group 全部提交。</p></a><a class="article-card" href="https://www.dataroma.com/m/holdings.php?m=BG" target="_blank"><div class="year">Dataroma</div><h4>Baupost 组合追踪</h4><p>持仓历史与表现追踪。</p></a><a class="article-card" href="https://www.gurufocus.com/institution/Baupost+Group%2C+LLC" target="_blank"><div class="year">GuruFocus</div><h4>Baupost 档案</h4><p>当前持仓与组合分析。</p></a><a class="article-card" href="https://en.wikipedia.org/wiki/Seth_Klarman" target="_blank"><div class="year">维基百科</div><h4>塞斯·克拉曼</h4><p>生平、职业历程与投资哲学。</p></a><a class="article-card" href="https://www.amazon.com/Margin-Safety-Value-Investment-Strategies/dp/0887305105" target="_blank"><div class="year">1991</div><h4>安全边际</h4><p>克拉曼的经典绝版价值投资著作。</p></a><a class="article-card" href="https://www.youtube.com/results?search_query=seth+klarman+interview" target="_blank"><div class="year">YouTube</div><h4>罕见访谈</h4><p>克拉曼罕有的公开演讲与访谈。</p></a>';
-    } else if (isAck) {
-      rg.innerHTML = en
-        ? '<a class="article-card" href="https://pershingsquareholdings.com/" target="_blank"><div class="year">Official</div><h4>Pershing Square Holdings</h4><p>Official investor relations site.</p></a><a class="article-card" href="https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=0001336528&type=13F" target="_blank"><div class="year">SEC EDGAR</div><h4>All 13F Filings</h4><p>View Pershing Square Capital SEC submissions.</p></a><a class="article-card" href="https://www.dataroma.com/m/holdings.php?m=PSC" target="_blank"><div class="year">Dataroma</div><h4>Pershing Square Portfolio</h4><p>Holdings history and performance tracking.</p></a><a class="article-card" href="https://en.wikipedia.org/wiki/Bill_Ackman" target="_blank"><div class="year">Wikipedia</div><h4>Bill Ackman</h4><p>Biography and career summary.</p></a><a class="article-card" href="https://x.com/BillAckman" target="_blank"><div class="year">X</div><h4>@BillAckman</h4><p>Ackman\'s public thesis-sharing and commentary.</p></a><a class="article-card" href="https://www.cnbc.com/bill-ackman/" target="_blank"><div class="year">CNBC</div><h4>CNBC Coverage</h4><p>Latest news and interviews about Bill Ackman.</p></a>'
-        : '<a class="article-card" href="https://pershingsquareholdings.com/" target="_blank"><div class="year">官网</div><h4>Pershing Square Holdings</h4><p>官方投资者关系网站。</p></a><a class="article-card" href="https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=0001336528&type=13F" target="_blank"><div class="year">SEC EDGAR</div><h4>全部 13F 原始文件</h4><p>在 SEC 数据库查看 Pershing Square 全部提交。</p></a><a class="article-card" href="https://www.dataroma.com/m/holdings.php?m=PSC" target="_blank"><div class="year">Dataroma</div><h4>Pershing Square 组合追踪</h4><p>持仓历史与表现追踪。</p></a><a class="article-card" href="https://en.wikipedia.org/wiki/Bill_Ackman" target="_blank"><div class="year">维基百科</div><h4>比尔·阿克曼</h4><p>生平与职业概述。</p></a><a class="article-card" href="https://x.com/BillAckman" target="_blank"><div class="year">X</div><h4>@BillAckman</h4><p>阿克曼公开分享投资逻辑与市场评论。</p></a><a class="article-card" href="https://www.cnbc.com/bill-ackman/" target="_blank"><div class="year">CNBC</div><h4>CNBC 报道</h4><p>比尔·阿克曼最新新闻与访谈。</p></a>';
-    } else if (isAb) {
-      rg.innerHTML = en
-        ? '<a class="article-card" href="https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=0001358706&type=13F" target="_blank"><div class="year">SEC EDGAR</div><h4>All 13F Filings</h4><p>View Abrams Capital Management SEC submissions.</p></a><a class="article-card" href="https://www.dataroma.com/m/holdings.php?m=AC" target="_blank"><div class="year">Dataroma</div><h4>Abrams Capital Portfolio</h4><p>Holdings history and performance tracking.</p></a><a class="article-card" href="https://www.gurufocus.com/institution/Abrams+Capital+Management%2C+LLC" target="_blank"><div class="year">GuruFocus</div><h4>Abrams Capital Profile</h4><p>Current holdings and portfolio analysis.</p></a><a class="article-card" href="https://en.wikipedia.org/wiki/David_Abrams_(investor)" target="_blank"><div class="year">Wikipedia</div><h4>David Abrams</h4><p>Biography and career summary.</p></a>'
-        : '<a class="article-card" href="https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=0001358706&type=13F" target="_blank"><div class="year">SEC EDGAR</div><h4>全部 13F 原始文件</h4><p>在 SEC 数据库查看 Abrams Capital Management 全部提交。</p></a><a class="article-card" href="https://www.dataroma.com/m/holdings.php?m=AC" target="_blank"><div class="year">Dataroma</div><h4>Abrams Capital 组合追踪</h4><p>持仓历史与表现追踪。</p></a><a class="article-card" href="https://www.gurufocus.com/institution/Abrams+Capital+Management%2C+LLC" target="_blank"><div class="year">GuruFocus</div><h4>Abrams Capital 档案</h4><p>当前持仓与组合分析。</p></a><a class="article-card" href="https://en.wikipedia.org/wiki/David_Abrams_(investor)" target="_blank"><div class="year">维基百科</div><h4>大卫·艾布拉姆斯</h4><p>生平与职业概述。</p></a>';
-    } else if (isBk) {
-      rg.innerHTML = en
-        ? '<a class="article-card" href="https://fairholmefunds.com/" target="_blank"><div class="year">Official</div><h4>fairholmefunds.com</h4><p>Official Fairholme Funds website.</p></a><a class="article-card" href="https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=0001056831&type=13F" target="_blank"><div class="year">SEC EDGAR</div><h4>All 13F Filings</h4><p>View Fairholme Capital SEC submissions.</p></a><a class="article-card" href="https://www.dataroma.com/m/holdings.php?m=FC" target="_blank"><div class="year">Dataroma</div><h4>Fairholme Portfolio</h4><p>Holdings history and performance tracking.</p></a><a class="article-card" href="https://en.wikipedia.org/wiki/Bruce_Berkowitz" target="_blank"><div class="year">Wikipedia</div><h4>Bruce Berkowitz</h4><p>Biography and career summary.</p></a><a class="article-card" href="https://www.cnbc.com/bruce-berkowitz/" target="_blank"><div class="year">CNBC</div><h4>CNBC Coverage</h4><p>News and interviews about Bruce Berkowitz.</p></a>'
-        : '<a class="article-card" href="https://fairholmefunds.com/" target="_blank"><div class="year">官网</div><h4>fairholmefunds.com</h4><p>Fairholme Funds 官方网站。</p></a><a class="article-card" href="https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=0001056831&type=13F" target="_blank"><div class="year">SEC EDGAR</div><h4>全部 13F 原始文件</h4><p>在 SEC 数据库查看 Fairholme Capital 全部提交。</p></a><a class="article-card" href="https://www.dataroma.com/m/holdings.php?m=FC" target="_blank"><div class="year">Dataroma</div><h4>Fairholme 组合追踪</h4><p>持仓历史与表现追踪。</p></a><a class="article-card" href="https://en.wikipedia.org/wiki/Bruce_Berkowitz" target="_blank"><div class="year">维基百科</div><h4>布鲁斯·伯科威茨</h4><p>生平与职业概述。</p></a><a class="article-card" href="https://www.cnbc.com/bruce-berkowitz/" target="_blank"><div class="year">CNBC</div><h4>CNBC 报道</h4><p>布鲁斯·伯科威茨相关新闻与访谈。</p></a>';
-    } else if (isHw) {
-      rg.innerHTML = en
-        ? '<a class="article-card" href="https://www.southeasternasset.com/" target="_blank"><div class="year">Official</div><h4>southeasternasset.com</h4><p>Official Southeastern Asset Management website.</p></a><a class="article-card" href="https://www.longleafpartners.com/" target="_blank"><div class="year">Funds</div><h4>Longleaf Partners Funds</h4><p>Southeastern\'s mutual fund family managed by Hawkins\' team.</p></a><a class="article-card" href="https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=0000807985&type=13F" target="_blank"><div class="year">SEC EDGAR</div><h4>All 13F Filings</h4><p>View Southeastern Asset Management SEC submissions.</p></a><a class="article-card" href="https://www.dataroma.com/m/holdings.php?m=SAM" target="_blank"><div class="year">Dataroma</div><h4>Southeastern Portfolio</h4><p>Holdings history and performance tracking.</p></a><a class="article-card" href="https://en.wikipedia.org/wiki/Mason_Hawkins" target="_blank"><div class="year">Wikipedia</div><h4>Mason Hawkins</h4><p>Biography and career summary.</p></a>'
-        : '<a class="article-card" href="https://www.southeasternasset.com/" target="_blank"><div class="year">官网</div><h4>southeasternasset.com</h4><p>Southeastern Asset Management 官方网站。</p></a><a class="article-card" href="https://www.longleafpartners.com/" target="_blank"><div class="year">基金</div><h4>Longleaf Partners 基金</h4><p>霍金斯团队管理的共同基金系列。</p></a><a class="article-card" href="https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=0000807985&type=13F" target="_blank"><div class="year">SEC EDGAR</div><h4>全部 13F 原始文件</h4><p>在 SEC 数据库查看 Southeastern Asset Management 全部提交。</p></a><a class="article-card" href="https://www.dataroma.com/m/holdings.php?m=SAM" target="_blank"><div class="year">Dataroma</div><h4>Southeastern 组合追踪</h4><p>持仓历史与表现追踪。</p></a><a class="article-card" href="https://en.wikipedia.org/wiki/Mason_Hawkins" target="_blank"><div class="year">维基百科</div><h4>梅森·霍金斯</h4><p>生平与职业概述。</p></a>';
-    } else {
-      rg.innerHTML = en
-        ? '<a class="article-card" href="https://cdn.prod.website-files.com/5ef3c7300432b40ed865991a/67a4f75703627bd3a927077e_Global%20Value%20Investing%20in%20Our%20Era%20(2024-12-07).pdf" target="_blank"><div class="year">2024 PDF</div><h4>Global Value Investing in Our Era</h4><p>Peking University lecture on six core principles.</p></a><a class="article-card" href="https://acquirersmultiple.com/2025/04/li-lu-how-to-invest-during-turbulent-times/" target="_blank"><div class="year">2025</div><h4>How to Invest in Turbulent Times</h4><p>Macro vs micro, essence of wealth.</p></a><a class="article-card" href="https://roiss.substack.com/p/transcript-of-li-lu-and-bruce-greenwald" target="_blank"><div class="year">2021</div><h4>On Value Investing in China</h4><p>Conversation with Prof. Bruce Greenwald.</p></a><a class="article-card" href="https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=0001709323&type=13F" target="_blank"><div class="year">SEC</div><h4>All 13F Filings</h4><p>View original SEC submissions.</p></a><a class="article-card" href="https://www.himcap.com/" target="_blank"><div class="year">Official</div><h4>Himalaya Capital</h4><p>Official website of the firm.</p></a><a class="article-card" href="https://monkeyenroute.medium.com/book-review-civilization-modernization-value-investing-china-by-li-lu-22398102583c" target="_blank"><div class="year">Book</div><h4>Civilization & Investment</h4><p>Book review: Civilization, Modernization and China.</p></a>'
-        : '<a class="article-card" href="https://cdn.prod.website-files.com/5ef3c7300432b40ed865991a/67a4f75703627bd3a927077e_Global%20Value%20Investing%20in%20Our%20Era%20(2024-12-07).pdf" target="_blank"><div class="year">2024 \u00b7 PDF</div><h4>\u6211\u4eec\u65f6\u4ee3\u7684\u5168\u7403\u4ef7\u503c\u6295\u8d44</h4><p>\u5317\u5927\u4e3b\u9898\u6f14\u8bb2\uff0c\u4ef7\u503c\u6295\u8d44\u516d\u5927\u6838\u5fc3\u539f\u5219\u3002</p></a><a class="article-card" href="https://acquirersmultiple.com/2025/04/li-lu-how-to-invest-during-turbulent-times/" target="_blank"><div class="year">2025 \u00b7 04</div><h4>\u52a8\u8361\u65f6\u671f\u5982\u4f55\u6295\u8d44</h4><p>\u5b8f\u89c2\u4e0e\u5fae\u89c2\u7684\u5e73\u8861\u3001\u8d22\u5bcc\u7684\u672c\u8d28\u3002</p></a><a class="article-card" href="https://roiss.substack.com/p/transcript-of-li-lu-and-bruce-greenwald" target="_blank"><div class="year">2021 \u00b7 04</div><h4>\u5bf9\u8bdd\u683c\u6797\u6c83\u5c14\u5fb7</h4><p>\u4e0e\u54e5\u5927\u4ef7\u503c\u6295\u8d44\u6743\u5a01\u7684\u5bf9\u8bdd\u5b9e\u5f55\u3002</p></a><a class="article-card" href="https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=0001709323&type=13F" target="_blank"><div class="year">SEC EDGAR</div><h4>\u5168\u90e8 13F \u539f\u59cb\u6587\u4ef6</h4><p>\u5728 SEC \u6570\u636e\u5e93\u67e5\u770b\u6240\u6709 13F\u3002</p></a><a class="article-card" href="https://www.himcap.com/" target="_blank"><div class="year">\u5b98\u7f51</div><h4>Himalaya Capital</h4><p>\u4e86\u89e3\u66f4\u591a\u6295\u8d44\u7406\u5ff5\u3002</p></a><a class="article-card" href="https://monkeyenroute.medium.com/book-review-civilization-modernization-value-investing-china-by-li-lu-22398102583c" target="_blank"><div class="year">\u4e66\u8bc4</div><h4>\u6587\u660e\u3001\u73b0\u4ee3\u5316\u4e0e\u6295\u8d44</h4><p>\u300a\u6587\u660e\u3001\u73b0\u4ee3\u5316\u4e0e\u4e2d\u56fd\u300b\u4e66\u8bc4\u3002</p></a>';
-    }
-  }
+  if (official) { official.hidden = !cfg.officialWebsite; if (cfg.officialWebsite) { official.href = cfg.officialWebsite; official.textContent = cfg.officialWebsiteLabel || cfg.manager; } }
 }
 
 // ========== AUTO-INIT ==========
@@ -2142,7 +1813,7 @@ async function initStatusDot(signal) {
 
 function runHealth(run, now = Date.now()) {
   if (!run) return {state: 'warn', label: lang === 'en' ? 'Update status unavailable' : '更新状态暂不可用'};
-  const steps = Object.values(run.steps || {});
+  const steps = Object.entries(run.steps || {}).map(([key,s])=>({...s,status:effectiveStepStatus(key,s)}));
   if (steps.some(s => s.status === 'fail')) return {state: 'fail', label: lang === 'en' ? 'Some updates failed' : '部分更新失败'};
   const ts = Date.parse(run.completedAt || run.run_id);
   if (!Number.isFinite(ts) || now - ts > 36 * 3600000) return {state: 'warn', label: lang === 'en' ? 'Update record is stale' : '更新记录已过期，请检查自动更新'};
@@ -2166,7 +1837,11 @@ async function initApp() {
   applyLanguageLabels();
   // 先加载 investors.json（单一权威来源），再切换投资者，避免导航按钮/数据加载
   // 发生在 INVESTOR_CFG 为空时的竞态。
-  await loadInvestorConfig();
+  if (!await loadInvestorConfig()) {
+    const source = document.getElementById('dataSource');
+    if (source) source.textContent = lang === 'en' ? 'Investor list could not load. Tap Refresh to retry.' : '投资人列表暂时未能加载，点击刷新重试。';
+    return;
+  }
   const selected = new URLSearchParams(window.location.search).get('investor');
   await switchInvestor(INVESTORS.includes(selected) ? selected : 'lilu');
   refreshAISupplements();
@@ -2271,6 +1946,7 @@ async function renderStatusDrawer() {
 
   function statusIcon(s) {
     if (!s) return '<span style="color:#9ca3af;font-size:.95rem;">—</span>';
+    if (s === 'info') return '<span style="color:#2563eb;font-size:.95rem;" title="资料说明">ℹ</span>';
     if (s === 'ok')   return '<span style="color:#15803d;font-size:.95rem;" title="成功">✓</span>';
     if (s === 'warn') return '<span style="color:#d97706;font-size:.85rem;" title="部分功能未更新">!</span>';
     if (s === 'skip') return '<span style="color:#d97706;font-size:.85rem;" title="跳过">↷</span>';
@@ -2279,15 +1955,17 @@ async function renderStatusDrawer() {
 
   // 统计 ok/fail/skip 数量
   function runSummary(steps) {
-    let ok=0, fail=0, skip=0, warn=0, total=0;
-    Object.values(steps).forEach(s => {
+    let ok=0, fail=0, skip=0, warn=0, info=0, total=0;
+    Object.entries(steps).forEach(([key, raw]) => {
+      const s = {...raw,status:effectiveStepStatus(key,raw)};
       total++;
       if (s.status === 'ok') ok++;
       else if (s.status === 'skip') skip++;
       else if (s.status === 'warn') warn++;
+      else if (s.status === 'info') info++;
       else fail++;
     });
-    return { ok, fail, skip, warn, total };
+    return { ok, fail, skip, warn, info, total };
   }
 
   let html = `
@@ -2297,7 +1975,7 @@ async function renderStatusDrawer() {
 
   runs.forEach((run, idx) => {
     const steps = run.steps || {};
-    const { ok, fail, skip, warn, total } = runSummary(steps);
+    const { ok, fail, skip, warn, info, total } = runSummary(steps);
     // Freshness applies to the latest run; older cards describe their state at completion.
     const health = runHealth(run, idx === 0 ? Date.now() : Date.parse(run.completedAt || run.run_id));
     const borderColor = health.state === 'ok' ? '#15803d' : health.state === 'fail' ? '#b91c1c' : '#b45309';
@@ -2309,7 +1987,7 @@ async function renderStatusDrawer() {
         <span style="font-size:.78rem;color:var(--text-lighter);font-family:monospace;">${fmtTime(run.run_id)}</span>
         ${triggerBadge(run.trigger)}
         ${bgBadge}
-        <span class="status-run-count">${ok}✓ ${warn}! ${skip}↷ ${fail}✗ / ${total} 步</span>
+        <span class="status-run-count">${ok}✓ ${info}ℹ ${warn}! ${skip}↷ ${fail}✗ / ${total} 步</span>
       </div>
       <div class="status-steps">`;
 
@@ -2317,10 +1995,11 @@ async function renderStatusDrawer() {
       const s = steps[stepKey];
       if (!s) return;
       const label = STEP_LABELS[stepKey] || s?.label || stepKey;
-      const icon = statusIcon(s ? s.status : null);
+      const icon = statusIcon(effectiveStepStatus(stepKey,s));
       const msg = s.msg ? `<div class="status-step-message">${hkEscape(statusStepMessage(stepKey, s))}</div>` : '';
       const ts = s.ts ? `<span class="status-step-time">${hkEscape(fmtTime(s.ts).slice(-5))}</span>` : '';
-      const state = ['ok','warn','skip','fail'].includes(s.status) ? s.status : 'unknown';
+      const status = effectiveStepStatus(stepKey,s);
+      const state = ['ok','info','warn','skip','fail'].includes(status) ? status : 'unknown';
 
       html += `<div class="status-step ${state}" data-step="${hkEscape(stepKey)}">
         ${icon}
@@ -2335,12 +2014,19 @@ async function renderStatusDrawer() {
   el.innerHTML = html;
 }
 
+function effectiveStepStatus(key, step) {
+  // Reclassify only an explicitly completed search, never an interrupted fetch.
+  return key === 'lilu_13f' && step?.status === 'warn' && /^lilu 历史缺 \d+ 季：已补查SEC历史索引，仍无可用原始持仓报告；不作零持仓$/.test(step.msg || '') ? 'info' : step?.status;
+}
 function statusStepMessage(stepKey, step) {
   const msg = String(step?.msg || '');
-  const missing = stepKey === 'lilu_13f' && step.status === 'warn' && msg.match(/历史缺\s*(\d+)\s*季/);
-  if (missing) return lang === 'en'
-    ? `${missing[1]} early historical quarters lack verifiable SEC holdings reports, even after checking historical indexes. This notice concerns historical coverage, not a failure to load the latest holdings; gaps remain in the history chart.`
-    : `早期历史资料缺 ${missing[1]} 个季度：补查 SEC 历史索引后，仍未找到可核实的原始持仓报告。这项提示针对历史覆盖，不表示最新持仓加载失败；历史图保留断点。`;
+  const missing = stepKey === 'lilu_13f' && ['warn','info'].includes(step.status) && msg.match(/历史缺\s*(\d+)\s*季/);
+  const scope = msg.match(/季（([^）]+)）/);
+  const quarters = scope ? ` (${scope[1]})` : '';
+  if (missing && (step.status === 'info' || effectiveStepStatus(stepKey,step) === 'info' || /已补查/.test(msg))) return lang === 'en'
+    ? `${missing[1]} early historical quarters${quarters} lack verifiable SEC holdings reports, even after checking historical indexes. This notice concerns historical coverage, not a failure to load the latest holdings; gaps remain in the history chart.`
+    : `早期历史资料缺 ${missing[1]} 个季度${quarters}：补查 SEC 历史索引后，仍未找到可核实的原始持仓报告。这项提示针对历史覆盖，不表示最新持仓加载失败；历史图保留断点。`;
+  if (missing) return lang === 'en' ? `${missing[1]} historical quarters have no verified holdings report. See historical coverage; this is separate from the latest holdings update.` : `历史持仓缺 ${missing[1]} 个季度，请查看历史覆盖说明；此提示不表示最新持仓加载失败。`;
   return msg;
 }
 
