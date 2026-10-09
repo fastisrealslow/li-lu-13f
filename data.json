@@ -6,9 +6,14 @@
       "Li Lu"
     ],
     "location": "Seattle, WA",
-    "lastUpdated": "2026-10-09T05:19:22Z",
+    "lastUpdated": "2026-10-09T06:45:30Z",
     "aiSummary": "李录 Q2 新建腾讯音乐仓位并大幅增持拼多多与伯克希尔，显示其持续看好中国互联网及价值投资方向。",
-    "aiSummaryQuarter": "2026 Q2"
+    "aiSummaryQuarter": "2026 Q2",
+    "instrumentHistoryTickers": [
+      "GOOG",
+      "GOOGL"
+    ],
+    "instrumentHistoryFrom": "2025 Q1"
   },
   "current": {
     "quarter": "2026 Q2",
@@ -26,9 +31,9 @@
         "shareType": "SH",
         "putCall": "",
         "sector": "互联网",
-        "cnName": "谷歌A",
         "prevShares": 2543300,
-        "prevValue": 731351348
+        "prevValue": 731351348,
+        "cnName": "谷歌A"
       },
       {
         "ticker": "GOOG",
@@ -40,9 +45,9 @@
         "shareType": "SH",
         "putCall": "",
         "sector": "互联网",
-        "cnName": "谷歌C",
         "prevShares": 2451300,
-        "prevValue": 703179918
+        "prevValue": 703179918,
+        "cnName": "谷歌C"
       },
       {
         "ticker": "PDD",
@@ -54,9 +59,9 @@
         "shareType": "SH",
         "putCall": "",
         "sector": "电商",
-        "cnName": "拼多多",
         "prevShares": 4608000,
-        "prevValue": 470845440
+        "prevValue": 470845440,
+        "cnName": "拼多多"
       },
       {
         "ticker": "BRK/B",
@@ -68,9 +73,9 @@
         "shareType": "SH",
         "putCall": "",
         "sector": "其他",
-        "cnName": "伯克希尔哈撒韦 B 类",
         "prevShares": 897749,
-        "prevValue": 430201321
+        "prevValue": 430201321,
+        "cnName": "伯克希尔哈撒韦 B 类"
       },
       {
         "ticker": "EWBC",
@@ -82,9 +87,9 @@
         "shareType": "SH",
         "putCall": "",
         "sector": "金融/银行",
-        "cnName": "华美银行",
         "prevShares": 2776351,
-        "prevValue": 296403233
+        "prevValue": 296403233,
+        "cnName": "华美银行"
       },
       {
         "ticker": "CROX",
@@ -96,9 +101,9 @@
         "shareType": "SH",
         "putCall": "",
         "sector": "消费",
-        "cnName": "卡骆驰",
         "prevShares": 887093,
-        "prevValue": 73646461
+        "prevValue": 73646461,
+        "cnName": "卡骆驰"
       },
       {
         "ticker": "TME",
@@ -110,9 +115,9 @@
         "shareType": "SH",
         "putCall": "",
         "sector": "娱乐",
-        "cnName": "腾讯音乐",
         "prevShares": 6590836,
-        "prevValue": 61162958
+        "prevValue": 61162958,
+        "cnName": "腾讯音乐"
       },
       {
         "ticker": "AAPL",
@@ -124,9 +129,9 @@
         "shareType": "SH",
         "putCall": "",
         "sector": "科技",
-        "cnName": "苹果",
         "prevShares": 110600,
-        "prevValue": 28069174
+        "prevValue": 28069174,
+        "cnName": "苹果"
       }
     ],
     "prevQuarter": "2026 Q1",
@@ -370,10 +375,10 @@
       2562,
       2472,
       2711,
-      2212,
-      2689,
-      3230,
-      3569,
+      2212.436862,
+      2689.202442,
+      3230.264839,
+      3568.876223,
       3201.226867,
       3702.921099
     ],
@@ -1955,87 +1960,95 @@
           "ticker": "BAC",
           "name": "BK OF AMERICA CORP",
           "cls": "COM",
+          "cusip": "060505104",
           "shares": 13846633,
           "value": 577819995,
-          "sector": "金融",
-          "prevShares": 18081133,
-          "prevValue": 794665795,
+          "shareType": "SH",
+          "putCall": "",
+          "sector": "金融/银行",
           "cnName": "美国银行"
         },
         {
-          "ticker": "BRK.B",
+          "ticker": "BRK/B",
           "name": "BERKSHIRE HATHAWAY INC DEL",
           "cls": "CL B NEW",
+          "cusip": "084670702",
           "shares": 897749,
           "value": 478123162,
-          "sector": "综合金融",
-          "prevShares": 897749,
-          "prevValue": 406931667,
-          "cnName": "伯克希尔·哈撒韦B"
+          "shareType": "SH",
+          "putCall": "",
+          "sector": "其他",
+          "cnName": "伯克希尔哈撒韦 B 类"
         },
         {
           "ticker": "GOOGL",
           "name": "ALPHABET INC",
           "cls": "CAP STK CL A",
+          "cusip": "02079K305",
           "shares": 2543300,
           "value": 393295912,
+          "shareType": "SH",
+          "putCall": "",
           "sector": "互联网",
-          "prevShares": 2543300,
-          "prevValue": 481446690,
           "cnName": "谷歌A"
         },
         {
           "ticker": "GOOG",
           "name": "ALPHABET INC",
           "cls": "CAP STK CL C",
+          "cusip": "02079K107",
           "shares": 2451300,
           "value": 382966599,
+          "shareType": "SH",
+          "putCall": "",
           "sector": "互联网",
-          "prevShares": 3044000,
-          "prevValue": 579699360,
           "cnName": "谷歌C"
         },
         {
           "ticker": "EWBC",
           "name": "EAST WEST BANCORP INC",
           "cls": "COM",
+          "cusip": "27579R104",
           "shares": 2776351,
           "value": 249205266,
-          "sector": "金融",
-          "prevShares": 2776351,
-          "prevValue": 265863372,
+          "shareType": "SH",
+          "putCall": "",
+          "sector": "金融/银行",
           "cnName": "华美银行"
         },
         {
           "ticker": "OXY",
           "name": "OCCIDENTAL PETE CORP",
           "cls": "COM",
+          "cusip": "674599105",
           "shares": 1466500,
           "value": 72386440,
+          "shareType": "SH",
+          "putCall": "",
           "sector": "能源",
-          "prevShares": 1466500,
-          "prevValue": 72459765,
           "cnName": "西方石油"
         },
         {
-          "ticker": "?SABLE OFFSHORE CORP",
+          "ticker": "SABLE",
           "name": "SABLE OFFSHORE CORP",
           "cls": "COM",
+          "cusip": "78574H104",
           "shares": 1343000,
           "value": 34071910,
-          "sector": "其他",
-          "prevShares": 1343000,
-          "prevValue": 30754700
+          "shareType": "SH",
+          "putCall": "",
+          "sector": "能源"
         },
         {
           "ticker": "AAPL",
           "name": "APPLE INC",
           "cls": "COM",
+          "cusip": "037833100",
           "shares": 110600,
           "value": 24567578,
+          "shareType": "SH",
+          "putCall": "",
           "sector": "科技",
-          "prevShares": 317700,
-          "prevValue": 79558434,
           "cnName": "苹果"
         }
       ],
@@ -2044,98 +2057,107 @@
           "ticker": "BAC",
           "name": "BK OF AMERICA CORP",
           "cls": "COM",
+          "cusip": "060505104",
           "shares": 10431387,
           "value": 493613233,
-          "sector": "金融",
-          "prevShares": 13846633,
-          "prevValue": 577819995,
+          "shareType": "SH",
+          "putCall": "",
+          "sector": "金融/银行",
           "cnName": "美国银行"
         },
         {
           "ticker": "PDD",
           "name": "PDD HOLDINGS INC",
           "cls": "SPONSORED ADS",
+          "cusip": "722304102",
           "shares": 4608000,
           "value": 482273280,
+          "shareType": "SH",
+          "putCall": "",
           "sector": "电商",
-          "prevShares": 0,
-          "prevValue": 0,
           "cnName": "拼多多"
         },
         {
           "ticker": "GOOGL",
           "name": "ALPHABET INC",
           "cls": "CAP STK CL A",
+          "cusip": "02079K305",
           "shares": 2543300,
           "value": 448205759,
+          "shareType": "SH",
+          "putCall": "",
           "sector": "互联网",
-          "prevShares": 2543300,
-          "prevValue": 393295912,
           "cnName": "谷歌A"
         },
         {
-          "ticker": "BRK.B",
+          "ticker": "BRK/B",
           "name": "BERKSHIRE HATHAWAY INC DEL",
           "cls": "CL B NEW",
+          "cusip": "084670702",
           "shares": 897749,
           "value": 436099532,
-          "sector": "综合金融",
-          "prevShares": 897749,
-          "prevValue": 478123162,
-          "cnName": "伯克希尔·哈撒韦B"
+          "shareType": "SH",
+          "putCall": "",
+          "sector": "其他",
+          "cnName": "伯克希尔哈撒韦 B 类"
         },
         {
           "ticker": "GOOG",
           "name": "ALPHABET INC",
           "cls": "CAP STK CL C",
+          "cusip": "02079K107",
           "shares": 2451300,
           "value": 434836107,
+          "shareType": "SH",
+          "putCall": "",
           "sector": "互联网",
-          "prevShares": 2451300,
-          "prevValue": 382966599,
           "cnName": "谷歌C"
         },
         {
           "ticker": "EWBC",
           "name": "EAST WEST BANCORP INC",
           "cls": "COM",
+          "cusip": "27579R104",
           "shares": 2776351,
           "value": 280355924,
-          "sector": "金融",
-          "prevShares": 2776351,
-          "prevValue": 249205266,
+          "shareType": "SH",
+          "putCall": "",
+          "sector": "金融/银行",
           "cnName": "华美银行"
         },
         {
           "ticker": "OXY",
           "name": "OCCIDENTAL PETE CORP",
           "cls": "COM",
+          "cusip": "674599105",
           "shares": 1466500,
           "value": 61607665,
+          "shareType": "SH",
+          "putCall": "",
           "sector": "能源",
-          "prevShares": 1466500,
-          "prevValue": 72386440,
           "cnName": "西方石油"
         },
         {
-          "ticker": "?SABLE OFFSHORE CORP",
+          "ticker": "SABLE",
           "name": "SABLE OFFSHORE CORP",
           "cls": "COM",
+          "cusip": "78574H104",
           "shares": 1343000,
           "value": 29519140,
-          "sector": "其他",
-          "prevShares": 1343000,
-          "prevValue": 34071910
+          "shareType": "SH",
+          "putCall": "",
+          "sector": "能源"
         },
         {
           "ticker": "AAPL",
           "name": "APPLE INC",
           "cls": "COM",
+          "cusip": "037833100",
           "shares": 110600,
           "value": 22691802,
+          "shareType": "SH",
+          "putCall": "",
           "sector": "科技",
-          "prevShares": 110600,
-          "prevValue": 24567578,
           "cnName": "苹果"
         }
       ],
@@ -2144,99 +2166,108 @@
           "ticker": "GOOGL",
           "name": "ALPHABET INC",
           "cls": "CAP STK CL A",
+          "cusip": "02079K305",
           "shares": 2543300,
           "value": 618276230,
+          "shareType": "SH",
+          "putCall": "",
           "sector": "互联网",
-          "prevShares": 2543300,
-          "prevValue": 448205759,
           "cnName": "谷歌A"
         },
         {
           "ticker": "PDD",
           "name": "PDD HOLDINGS INC",
           "cls": "SPONSORED ADS",
+          "cusip": "722304102",
           "shares": 4608000,
           "value": 609039360,
+          "shareType": "SH",
+          "putCall": "",
           "sector": "电商",
-          "prevShares": 4608000,
-          "prevValue": 482273280,
           "cnName": "拼多多"
         },
         {
           "ticker": "GOOG",
           "name": "ALPHABET INC",
           "cls": "CAP STK CL C",
+          "cusip": "02079K107",
           "shares": 2451300,
           "value": 597014115,
+          "shareType": "SH",
+          "putCall": "",
           "sector": "互联网",
-          "prevShares": 2451300,
-          "prevValue": 434836107,
           "cnName": "谷歌C"
         },
         {
           "ticker": "BAC",
           "name": "BK OF AMERICA CORP",
           "cls": "COM",
+          "cusip": "060505104",
           "shares": 10431387,
           "value": 538155255,
-          "sector": "金融",
-          "prevShares": 10431387,
-          "prevValue": 493613233,
+          "shareType": "SH",
+          "putCall": "",
+          "sector": "金融/银行",
           "cnName": "美国银行"
         },
         {
-          "ticker": "BRK.B",
+          "ticker": "BRK/B",
           "name": "BERKSHIRE HATHAWAY INC DEL",
           "cls": "CL B NEW",
+          "cusip": "084670702",
           "shares": 897749,
           "value": 451334332,
-          "sector": "综合金融",
-          "prevShares": 897749,
-          "prevValue": 436099532,
-          "cnName": "伯克希尔·哈撒韦B"
+          "shareType": "SH",
+          "putCall": "",
+          "sector": "其他",
+          "cnName": "伯克希尔哈撒韦 B 类"
         },
         {
           "ticker": "EWBC",
           "name": "EAST WEST BANCORP INC",
           "cls": "COM",
+          "cusip": "27579R104",
           "shares": 2776351,
           "value": 295542564,
-          "sector": "金融",
-          "prevShares": 2776351,
-          "prevValue": 280355924,
+          "shareType": "SH",
+          "putCall": "",
+          "sector": "金融/银行",
           "cnName": "华美银行"
         },
         {
           "ticker": "OXY",
           "name": "OCCIDENTAL PETE CORP",
           "cls": "COM",
+          "cusip": "674599105",
           "shares": 1466500,
           "value": 69292125,
+          "shareType": "SH",
+          "putCall": "",
           "sector": "能源",
-          "prevShares": 1466500,
-          "prevValue": 61607665,
           "cnName": "西方石油"
         },
         {
           "ticker": "AAPL",
           "name": "APPLE INC",
           "cls": "COM",
+          "cusip": "037833100",
           "shares": 110600,
           "value": 28162078,
+          "shareType": "SH",
+          "putCall": "",
           "sector": "科技",
-          "prevShares": 110600,
-          "prevValue": 22691802,
           "cnName": "苹果"
         },
         {
-          "ticker": "?SABLE OFFSHORE CORP",
+          "ticker": "SABLE",
           "name": "SABLE OFFSHORE CORP",
           "cls": "COM",
+          "cusip": "78574H104",
           "shares": 1343000,
           "value": 23448780,
-          "sector": "其他",
-          "prevShares": 1343000,
-          "prevValue": 29519140
+          "shareType": "SH",
+          "putCall": "",
+          "sector": "能源"
         }
       ],
       "2025 Q4": [
@@ -2244,99 +2275,108 @@
           "ticker": "GOOG",
           "name": "ALPHABET INC",
           "cls": "CAP STK CL C",
+          "cusip": "02079K107",
           "shares": 2543300,
           "value": 796052900,
+          "shareType": "SH",
+          "putCall": "",
           "sector": "互联网",
-          "prevShares": 2451300,
-          "prevValue": 597014115,
           "cnName": "谷歌C"
         },
         {
           "ticker": "GOOGL",
           "name": "ALPHABET INC",
           "cls": "CAP STK CL A",
+          "cusip": "02079K305",
           "shares": 2451300,
           "value": 769217940,
+          "shareType": "SH",
+          "putCall": "",
           "sector": "互联网",
-          "prevShares": 2543300,
-          "prevValue": 618276230,
           "cnName": "谷歌A"
         },
         {
           "ticker": "BAC",
           "name": "BK OF AMERICA CORP",
           "cls": "COM",
+          "cusip": "060505104",
           "shares": 10431387,
           "value": 573726285,
-          "sector": "金融",
-          "prevShares": 10431387,
-          "prevValue": 538155255,
+          "shareType": "SH",
+          "putCall": "",
+          "sector": "金融/银行",
           "cnName": "美国银行"
         },
         {
           "ticker": "PDD",
           "name": "PDD HOLDINGS INC",
           "cls": "SPONSORED ADS",
+          "cusip": "722304102",
           "shares": 4608000,
           "value": 522501120,
+          "shareType": "SH",
+          "putCall": "",
           "sector": "电商",
-          "prevShares": 4608000,
-          "prevValue": 609039360,
           "cnName": "拼多多"
         },
         {
-          "ticker": "BRK.B",
+          "ticker": "BRK/B",
           "name": "BERKSHIRE HATHAWAY INC DEL",
           "cls": "CL B NEW",
+          "cusip": "084670702",
           "shares": 897749,
           "value": 451253535,
-          "sector": "综合金融",
-          "prevShares": 897749,
-          "prevValue": 451334332,
-          "cnName": "伯克希尔·哈撒韦B"
+          "shareType": "SH",
+          "putCall": "",
+          "sector": "其他",
+          "cnName": "伯克希尔哈撒韦 B 类"
         },
         {
           "ticker": "EWBC",
           "name": "EAST WEST BANCORP INC",
           "cls": "COM",
+          "cusip": "27579R104",
           "shares": 2776351,
           "value": 312034089,
-          "sector": "金融",
-          "prevShares": 2776351,
-          "prevValue": 295542564,
+          "shareType": "SH",
+          "putCall": "",
+          "sector": "金融/银行",
           "cnName": "华美银行"
         },
         {
           "ticker": "OXY",
           "name": "OCCIDENTAL PETE CORP",
           "cls": "COM",
+          "cusip": "674599105",
           "shares": 1466500,
           "value": 60302480,
+          "shareType": "SH",
+          "putCall": "",
           "sector": "能源",
-          "prevShares": 1466500,
-          "prevValue": 69292125,
           "cnName": "西方石油"
         },
         {
           "ticker": "CROX",
           "name": "CROCS INC",
           "cls": "COM",
+          "cusip": "227046109",
           "shares": 628159,
           "value": 53720158,
+          "shareType": "SH",
+          "putCall": "",
           "sector": "消费",
-          "prevShares": 0,
-          "prevValue": 0,
           "cnName": "卡骆驰"
         },
         {
           "ticker": "AAPL",
           "name": "APPLE INC",
           "cls": "COM",
+          "cusip": "037833100",
           "shares": 110600,
           "value": 30067716,
+          "shareType": "SH",
+          "putCall": "",
           "sector": "科技",
-          "prevShares": 110600,
-          "prevValue": 28162078,
           "cnName": "苹果"
         }
       ],
@@ -2521,9 +2561,9 @@
           "shareType": "SH",
           "putCall": "",
           "sector": "互联网",
-          "cnName": "谷歌A",
           "prevShares": 2543300,
-          "prevValue": 731351348
+          "prevValue": 731351348,
+          "cnName": "谷歌A"
         },
         {
           "ticker": "GOOG",
@@ -2535,9 +2575,9 @@
           "shareType": "SH",
           "putCall": "",
           "sector": "互联网",
-          "cnName": "谷歌C",
           "prevShares": 2451300,
-          "prevValue": 703179918
+          "prevValue": 703179918,
+          "cnName": "谷歌C"
         },
         {
           "ticker": "PDD",
@@ -2549,9 +2589,9 @@
           "shareType": "SH",
           "putCall": "",
           "sector": "电商",
-          "cnName": "拼多多",
           "prevShares": 4608000,
-          "prevValue": 470845440
+          "prevValue": 470845440,
+          "cnName": "拼多多"
         },
         {
           "ticker": "BRK/B",
@@ -2563,9 +2603,9 @@
           "shareType": "SH",
           "putCall": "",
           "sector": "其他",
-          "cnName": "伯克希尔哈撒韦 B 类",
           "prevShares": 897749,
-          "prevValue": 430201321
+          "prevValue": 430201321,
+          "cnName": "伯克希尔哈撒韦 B 类"
         },
         {
           "ticker": "EWBC",
@@ -2577,9 +2617,9 @@
           "shareType": "SH",
           "putCall": "",
           "sector": "金融/银行",
-          "cnName": "华美银行",
           "prevShares": 2776351,
-          "prevValue": 296403233
+          "prevValue": 296403233,
+          "cnName": "华美银行"
         },
         {
           "ticker": "CROX",
@@ -2591,9 +2631,9 @@
           "shareType": "SH",
           "putCall": "",
           "sector": "消费",
-          "cnName": "卡骆驰",
           "prevShares": 887093,
-          "prevValue": 73646461
+          "prevValue": 73646461,
+          "cnName": "卡骆驰"
         },
         {
           "ticker": "TME",
@@ -2605,9 +2645,9 @@
           "shareType": "SH",
           "putCall": "",
           "sector": "娱乐",
-          "cnName": "腾讯音乐",
           "prevShares": 6590836,
-          "prevValue": 61162958
+          "prevValue": 61162958,
+          "cnName": "腾讯音乐"
         },
         {
           "ticker": "AAPL",
@@ -2619,14 +2659,14 @@
           "shareType": "SH",
           "putCall": "",
           "sector": "科技",
-          "cnName": "苹果",
           "prevShares": 110600,
-          "prevValue": 28069174
+          "prevValue": 28069174,
+          "cnName": "苹果"
         }
       ]
     },
     "coverage": {
-      "checkedAt": "2026-10-09T05:19:23Z",
+      "checkedAt": "2026-10-09T06:45:32Z",
       "missingQuarters": [
         "2018 Q4",
         "2019 Q1",
@@ -2645,7 +2685,7 @@
         "schemaVersion": 1,
         "cik": "1709323",
         "checkedAt": "2026-10-06T03:28:44Z",
-        "attemptedAt": "2026-10-09T05:19:23Z",
+        "attemptedAt": "2026-10-09T06:45:32Z",
         "status": "checked",
         "indexes": {
           "2019/QTR1": {
@@ -2732,7 +2772,64 @@
         "reportDate": "2026-03-31",
         "cik": "1709323",
         "url": "https://www.sec.gov/Archives/edgar/data/1709323/000204358526000013/13fhciq126.xml"
+      },
+      "2025 Q4": {
+        "accession": "000204358526000011",
+        "accessionDashed": "0002043585-26-000011",
+        "filingDate": "2026-02-17",
+        "reportDate": "2025-12-31",
+        "cik": "1709323",
+        "url": "https://www.sec.gov/Archives/edgar/data/1709323/000204358526000011/13fhciq425.xml"
+      },
+      "2025 Q3": {
+        "accession": "000204358525000015",
+        "accessionDashed": "0002043585-25-000015",
+        "filingDate": "2025-11-12",
+        "reportDate": "2025-09-30",
+        "cik": "1709323",
+        "url": "https://www.sec.gov/Archives/edgar/data/1709323/000204358525000015/13fhciq325.xml"
+      },
+      "2025 Q2": {
+        "accession": "000204358525000010",
+        "accessionDashed": "0002043585-25-000010",
+        "filingDate": "2025-08-14",
+        "reportDate": "2025-06-30",
+        "cik": "1709323",
+        "url": "https://www.sec.gov/Archives/edgar/data/1709323/000204358525000010/13fhciq225.xml"
+      },
+      "2025 Q1": {
+        "accession": "000204358525000004",
+        "accessionDashed": "0002043585-25-000004",
+        "filingDate": "2025-05-15",
+        "reportDate": "2025-03-31",
+        "cik": "1709323",
+        "url": "https://www.sec.gov/Archives/edgar/data/1709323/000204358525000004/13fhciq125.xml"
       }
+    },
+    "instrumentVerification": {
+      "pendingQuarters": [
+        "2020 Q2",
+        "2020 Q3",
+        "2020 Q4",
+        "2021 Q1",
+        "2021 Q2",
+        "2021 Q3",
+        "2021 Q4",
+        "2022 Q1",
+        "2022 Q2",
+        "2022 Q3",
+        "2022 Q4",
+        "2023 Q1",
+        "2023 Q2",
+        "2023 Q3",
+        "2023 Q4",
+        "2024 Q1",
+        "2024 Q2",
+        "2024 Q3",
+        "2024 Q4"
+      ],
+      "errors": {},
+      "checkedAt": "2026-10-09T06:45:32.401301+00:00"
     }
   }
 }

@@ -235,38 +235,51 @@
       ]
     ],
     [
+      "UHAL",
+      "U-Haul 控股",
+      [
+        [
+          "abrams",
+          0.0,
+          "hold",
+          "大卫·艾布拉姆斯",
+          "2026 Q2"
+        ]
+      ]
+    ],
+    [
+      "FIS",
+      "Fidelity 国家信息服务",
+      [
+        [
+          "hawkins",
+          1.6,
+          "trimmed",
+          "梅森·霍金斯",
+          "2026 Q2"
+        ]
+      ]
+    ],
+    [
+      "FNF",
+      "fidelity 国家金融",
+      [
+        [
+          "greenberg",
+          3.5,
+          "trimmed",
+          "格伦·格林伯格",
+          "2026 Q2"
+        ]
+      ]
+    ],
+    [
       "GLIBA",
       "自由资本",
       [
         [
           "hawkins",
           0.1,
-          "trimmed",
-          "梅森·霍金斯",
-          "2026 Q2"
-        ]
-      ]
-    ],
-    [
-      "IAC",
-      "People Inc",
-      [
-        [
-          "hawkins",
-          7.5,
-          "trimmed",
-          "梅森·霍金斯",
-          "2026 Q2"
-        ]
-      ]
-    ],
-    [
-      "MGM",
-      "米高梅国际度假",
-      [
-        [
-          "hawkins",
-          2.9,
           "trimmed",
           "梅森·霍金斯",
           "2026 Q2"
@@ -313,19 +326,6 @@
       ]
     ],
     [
-      "SHEN",
-      "谢南多厄电信",
-      [
-        [
-          "hawkins",
-          2.1,
-          "trimmed",
-          "梅森·霍金斯",
-          "2026 Q2"
-        ]
-      ]
-    ],
-    [
       "MLCO",
       "美高梅",
       [
@@ -334,32 +334,6 @@
           0.4,
           "trimmed",
           "梅森·霍金斯",
-          "2026 Q2"
-        ]
-      ]
-    ],
-    [
-      "FIS",
-      "Fidelity 国家信息服务",
-      [
-        [
-          "hawkins",
-          1.6,
-          "trimmed",
-          "梅森·霍金斯",
-          "2026 Q2"
-        ]
-      ]
-    ],
-    [
-      "FNF",
-      "fidelity 国家金融",
-      [
-        [
-          "greenberg",
-          3.5,
-          "trimmed",
-          "格伦·格林伯格",
           "2026 Q2"
         ]
       ]
@@ -390,9 +364,15 @@
         }
       ],
       "holderText": "巴菲特（2.6%仓位，持有41季/10.2年，仓位未变）",
-      "nearMiss": [],
-      "verdict": "深度折价且长期持有未动，但仓位并不重，更像是低成本的安心底仓，而非新的买入信号。",
-      "verdictEn": "Deep discount with a long-held, unchanged position, though the position size is not large, looks more like a low-cost core holding than a fresh buy signal."
+      "nearMiss": [
+        {
+          "investor": "梅森·霍金斯",
+          "mos": 0.3,
+          "investorEn": "Mason Hawkins"
+        }
+      ],
+      "verdict": "深度折价且长期持有未动，但仓位并不重，更像是低成本的安心底仓，而非新的买入信号。另外梅森·霍金斯（0.3%）也持有本股，但安全边际尚未达到10%门槛，未计入共识持有人。",
+      "verdictEn": "Deep discount with a long-held, unchanged position, though the position size is not large, looks more like a low-cost core holding than a fresh buy signal. Mason Hawkins (0.3%) also holds this stock, but the margin of safety hasn't reached the 10% threshold yet, so it is not counted among the consensus holders."
     },
     {
       "ticker": "TME",
@@ -453,12 +433,12 @@
       "nearMiss": [
         {
           "investor": "巴菲特",
-          "mos": 6.6,
+          "mos": 6.0,
           "investorEn": "Buffett"
         }
       ],
-      "verdict": "仅单一持有人且本季减仓，安全边际虽达标，但缺乏共识支持，须谨慎看待。另外巴菲特（6.6%）也持有本股，但安全边际尚未达到10%门槛，未计入共识持有人。",
-      "verdictEn": "Only one holder, and they trimmed this quarter — the margin of safety qualifies, but there's no consensus support; approach with caution. Buffett (6.6%) also holds this stock, but the margin of safety hasn't reached the 10% threshold yet, so it is not counted among the consensus holders."
+      "verdict": "仅单一持有人且本季减仓，安全边际虽达标，但缺乏共识支持，须谨慎看待。另外巴菲特（6.0%）也持有本股，但安全边际尚未达到10%门槛，未计入共识持有人。",
+      "verdictEn": "Only one holder, and they trimmed this quarter — the margin of safety qualifies, but there's no consensus support; approach with caution. Buffett (6.0%) also holds this stock, but the margin of safety hasn't reached the 10% threshold yet, so it is not counted among the consensus holders."
     },
     {
       "ticker": "NUVB",
@@ -612,12 +592,12 @@
           "hold_quarters": 1,
           "hold_years": 0.2,
           "trend": "stable",
-          "reentry": false,
-          "exit_quarter": null,
-          "reentry_quarter": null
+          "reentry": true,
+          "exit_quarter": "2017 Q1",
+          "reentry_quarter": "2026 Q2"
         }
       ],
-      "holderText": "大卫·泰珀（极小仓位(<0.5%)，持有1季/0.2年，本季新开仓）",
+      "holderText": "大卫·泰珀（极小仓位(<0.5%)，本轮2026 Q2重建仓后持有1季/0.2年（此前于2017 Q1清仓过），本季新开仓）",
       "nearMiss": [],
       "verdict": "大卫·泰珀新开仓但仓位较小（0.1%），更像是试探性布局，信心程度有待后续季度验证。",
       "verdictEn": "David Tepper's new position is small (0.1%) — looks more like an exploratory stake; conviction level remains to be confirmed in future quarters."
@@ -815,9 +795,9 @@
       "ticker": "UHAL.B",
       "name": "U HAUL HOLDING COMPANY",
       "sector": "工业",
-      "mos": 11.9,
+      "mos": 12.5,
       "mosTier": "轻度折价",
-      "buy": 57.7,
+      "buy": 58.1,
       "price": 50.85,
       "holderCount": 1,
       "holders": [
@@ -825,15 +805,15 @@
           "investor": "大卫·艾布拉姆斯",
           "chg": "hold",
           "weight": 3.4,
-          "hold_quarters": 15,
-          "hold_years": 3.8,
+          "hold_quarters": 6,
+          "hold_years": 1.5,
           "trend": "stable",
           "reentry": false,
           "exit_quarter": null,
           "reentry_quarter": null
         }
       ],
-      "holderText": "大卫·艾布拉姆斯（3.4%仓位，持有15季/3.8年，仓位未变）",
+      "holderText": "大卫·艾布拉姆斯（3.4%仓位，持有6季/1.5年，仓位未变）",
       "nearMiss": [],
       "verdict": "仅单一持有人持有且仓位未变，安全边际仅略微达标，可作为观察名单但暂无新增信号。",
       "verdictEn": "Only one holder, position unchanged, and the margin of safety only barely qualifies — fine as a watchlist name but no new signal for now."
@@ -866,6 +846,87 @@
       "verdictEn": "Only one holder, and they trimmed this quarter — the margin of safety qualifies, but there's no consensus support; approach with caution."
     },
     {
+      "ticker": "UHAL",
+      "name": "U-Haul 控股",
+      "sector": "工业",
+      "mos": 10.1,
+      "mosTier": "轻度折价",
+      "buy": 64.27,
+      "price": 57.8,
+      "holderCount": 1,
+      "holders": [
+        {
+          "investor": "大卫·艾布拉姆斯",
+          "chg": "hold",
+          "weight": 0.0,
+          "hold_quarters": 6,
+          "hold_years": 1.5,
+          "trend": "stable",
+          "reentry": false,
+          "exit_quarter": null,
+          "reentry_quarter": null
+        }
+      ],
+      "holderText": "大卫·艾布拉姆斯（极小仓位(<0.5%)，持有6季/1.5年，仓位未变）",
+      "nearMiss": [],
+      "verdict": "仅单一持有人持有且仓位未变，安全边际仅略微达标，可作为观察名单但暂无新增信号。",
+      "verdictEn": "Only one holder, position unchanged, and the margin of safety only barely qualifies — fine as a watchlist name but no new signal for now."
+    },
+    {
+      "ticker": "FIS",
+      "name": "Fidelity 国家信息服务",
+      "sector": "金融服务",
+      "mos": 27.0,
+      "mosTier": "中等折价",
+      "buy": 47.01,
+      "price": 34.34,
+      "holderCount": 1,
+      "holders": [
+        {
+          "investor": "梅森·霍金斯",
+          "chg": "trimmed",
+          "weight": 1.6,
+          "hold_quarters": 14,
+          "hold_years": 3.5,
+          "trend": "stable",
+          "reentry": false,
+          "exit_quarter": null,
+          "reentry_quarter": null
+        }
+      ],
+      "holderText": "梅森·霍金斯（1.6%仓位，持有14季/3.5年，本季减仓）",
+      "nearMiss": [],
+      "verdict": "仅单一持有人且本季减仓，安全边际虽达标，但缺乏共识支持，须谨慎看待。",
+      "verdictEn": "Only one holder, and they trimmed this quarter — the margin of safety qualifies, but there's no consensus support; approach with caution."
+    },
+    {
+      "ticker": "FNF",
+      "name": "fidelity 国家金融",
+      "sector": "金融服务",
+      "mos": 22.1,
+      "mosTier": "中等折价",
+      "buy": 51.02,
+      "price": 39.77,
+      "holderCount": 1,
+      "holders": [
+        {
+          "investor": "格伦·格林伯格",
+          "chg": "trimmed",
+          "weight": 3.5,
+          "hold_quarters": 6,
+          "hold_years": 1.5,
+          "trend": "reducing",
+          "reentry": false,
+          "exit_quarter": null,
+          "reentry_quarter": null
+        }
+      ],
+      "holderText": "格伦·格林伯格（3.5%仓位，持有6季/1.5年，近3季连续减仓，本季减仓）",
+      "nearMiss": [],
+      "verdict": "仅单一持有人且本季减仓，安全边际虽达标，但缺乏共识支持，须谨慎看待。",
+      "verdictEn": "Only one holder, and they trimmed this quarter — the margin of safety qualifies, but there's no consensus support; approach with caution."
+    },
+    {
       "ticker": "GLIBA",
       "name": "自由资本",
       "sector": "通讯",
@@ -888,60 +949,6 @@
         }
       ],
       "holderText": "梅森·霍金斯（极小仓位(<0.5%)，持有4季/1.0年，本季减仓）",
-      "nearMiss": [],
-      "verdict": "仅单一持有人且本季减仓，安全边际虽达标，但缺乏共识支持，须谨慎看待。",
-      "verdictEn": "Only one holder, and they trimmed this quarter — the margin of safety qualifies, but there's no consensus support; approach with caution."
-    },
-    {
-      "ticker": "IAC",
-      "name": "People Inc",
-      "sector": "互联网",
-      "mos": 19.9,
-      "mosTier": "中等折价",
-      "buy": 46.16,
-      "price": 36.98,
-      "holderCount": 1,
-      "holders": [
-        {
-          "investor": "梅森·霍金斯",
-          "chg": "trimmed",
-          "weight": 7.5,
-          "hold_quarters": 20,
-          "hold_years": 5.0,
-          "trend": "stable",
-          "reentry": false,
-          "exit_quarter": null,
-          "reentry_quarter": null
-        }
-      ],
-      "holderText": "梅森·霍金斯（7.5%仓位，持有20季/5.0年，本季减仓）",
-      "nearMiss": [],
-      "verdict": "仅单一持有人且本季减仓，安全边际虽达标，但缺乏共识支持，须谨慎看待。",
-      "verdictEn": "Only one holder, and they trimmed this quarter — the margin of safety qualifies, but there's no consensus support; approach with caution."
-    },
-    {
-      "ticker": "MGM",
-      "name": "米高梅国际度假",
-      "sector": "娱乐",
-      "mos": 19.2,
-      "mosTier": "中等折价",
-      "buy": 37.16,
-      "price": 30.01,
-      "holderCount": 1,
-      "holders": [
-        {
-          "investor": "梅森·霍金斯",
-          "chg": "trimmed",
-          "weight": 2.9,
-          "hold_quarters": 24,
-          "hold_years": 6.0,
-          "trend": "reducing",
-          "reentry": false,
-          "exit_quarter": null,
-          "reentry_quarter": null
-        }
-      ],
-      "holderText": "梅森·霍金斯（2.9%仓位，持有24季/6.0年，近3季连续减仓，本季减仓）",
       "nearMiss": [],
       "verdict": "仅单一持有人且本季减仓，安全边际虽达标，但缺乏共识支持，须谨慎看待。",
       "verdictEn": "Only one holder, and they trimmed this quarter — the margin of safety qualifies, but there's no consensus support; approach with caution."
@@ -1028,33 +1035,6 @@
       "verdictEn": "Only one holder, and they trimmed this quarter — the margin of safety qualifies, but there's no consensus support; approach with caution."
     },
     {
-      "ticker": "SHEN",
-      "name": "谢南多厄电信",
-      "sector": "通讯",
-      "mos": 16.9,
-      "mosTier": "中等折价",
-      "buy": 13.87,
-      "price": 11.52,
-      "holderCount": 1,
-      "holders": [
-        {
-          "investor": "梅森·霍金斯",
-          "chg": "trimmed",
-          "weight": 2.1,
-          "hold_quarters": 6,
-          "hold_years": 1.5,
-          "trend": "stable",
-          "reentry": false,
-          "exit_quarter": null,
-          "reentry_quarter": null
-        }
-      ],
-      "holderText": "梅森·霍金斯（2.1%仓位，持有6季/1.5年，本季减仓）",
-      "nearMiss": [],
-      "verdict": "仅单一持有人且本季减仓，安全边际虽达标，但缺乏共识支持，须谨慎看待。",
-      "verdictEn": "Only one holder, and they trimmed this quarter — the margin of safety qualifies, but there's no consensus support; approach with caution."
-    },
-    {
       "ticker": "MLCO",
       "name": "美高梅",
       "sector": "娱乐",
@@ -1080,65 +1060,27 @@
       "nearMiss": [],
       "verdict": "仅单一持有人且本季减仓，安全边际虽达标，但缺乏共识支持，须谨慎看待。",
       "verdictEn": "Only one holder, and they trimmed this quarter — the margin of safety qualifies, but there's no consensus support; approach with caution."
-    },
-    {
-      "ticker": "FIS",
-      "name": "Fidelity 国家信息服务",
-      "sector": "金融服务",
-      "mos": 12.1,
-      "mosTier": "轻度折价",
-      "buy": 39.08,
-      "price": 34.34,
-      "holderCount": 1,
-      "holders": [
-        {
-          "investor": "梅森·霍金斯",
-          "chg": "trimmed",
-          "weight": 1.6,
-          "hold_quarters": 14,
-          "hold_years": 3.5,
-          "trend": "stable",
-          "reentry": false,
-          "exit_quarter": null,
-          "reentry_quarter": null
-        }
-      ],
-      "holderText": "梅森·霍金斯（1.6%仓位，持有14季/3.5年，本季减仓）",
-      "nearMiss": [],
-      "verdict": "仅单一持有人且本季减仓，安全边际虽达标，但缺乏共识支持，须谨慎看待。",
-      "verdictEn": "Only one holder, and they trimmed this quarter — the margin of safety qualifies, but there's no consensus support; approach with caution."
-    },
-    {
-      "ticker": "FNF",
-      "name": "fidelity 国家金融",
-      "sector": "金融服务",
-      "mos": 11.4,
-      "mosTier": "轻度折价",
-      "buy": 44.91,
-      "price": 39.77,
-      "holderCount": 1,
-      "holders": [
-        {
-          "investor": "格伦·格林伯格",
-          "chg": "trimmed",
-          "weight": 3.5,
-          "hold_quarters": 2,
-          "hold_years": 0.5,
-          "trend": "stable",
-          "reentry": false,
-          "exit_quarter": null,
-          "reentry_quarter": null
-        }
-      ],
-      "holderText": "格伦·格林伯格（3.5%仓位，持有2季/0.5年，本季减仓）",
-      "nearMiss": [],
-      "verdict": "仅单一持有人且本季减仓，安全边际虽达标，但缺乏共识支持，须谨慎看待。",
-      "verdictEn": "Only one holder, and they trimmed this quarter — the margin of safety qualifies, but there's no consensus support; approach with caution."
     }
   ],
-  "droppedOut": [],
-  "generatedAt": "2026-10-09T06:27:59Z",
-  "candidateCount": 28,
+  "droppedOut": [
+    {
+      "ticker": "IAC",
+      "name": "People Inc",
+      "prevMos": 19.9
+    },
+    {
+      "ticker": "MGM",
+      "name": "米高梅国际度假",
+      "prevMos": 19.2
+    },
+    {
+      "ticker": "SHEN",
+      "name": "谢南多厄电信",
+      "prevMos": 16.9
+    }
+  ],
+  "generatedAt": "2026-10-09T06:56:48Z",
+  "candidateCount": 26,
   "consensusCount": 0,
   "signalHash": "e84056f8a71d0626fc6f7c79f27e1390a6934c9d41cb9a41022874d702491f65"
 }
