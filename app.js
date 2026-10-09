@@ -339,9 +339,8 @@ let investor = 'lilu';
 let investorRequestId = 0;
 
 // ========== 投资者结构化配置（单一权威来源：investors.json） ==========
-// 详情页文案（人物简介/时间线/投资理念/推荐阅读）仍在 updateInvestorContent() 里手工维护，
-// 因为是创作性内容无法自动生成。但导航/tab切换/港股fallback/数据文件列表/价值筛选候选名单
-// 这些结构性逻辑均从下面的 INVESTOR_CFG 派生，新增投资者只需编辑 investors.json。
+// 人物资料、原始链接与导航均来自核对过的 investors.json。
+// 发布版本参数避免新界面读取上一版缓存的配置、持仓和预计算结果。
 let INVESTOR_CFG = [];           // investors.json 里的 investors 数组原样（加载后充实）
 let INVESTOR_CFG_BY_ID = {};     // id -> 配置对象，方便查找
 let INVESTORS = [];              // 按 investors.json 顺序排列的 id 列表
@@ -350,7 +349,7 @@ let INVESTOR_LABELS_EN = {};     // id -> 英文名
 
 async function loadInvestorConfig({fresh = false, signal} = {}) {
   try {
-    const resp = await fetch('investors.json?t=' + (fresh ? Date.now() : Math.floor(Date.now()/300000)), {signal, cache:fresh ? 'no-store' : 'default'});
+    const resp = await fetch('investors.json?v=65&t=' + (fresh ? Date.now() : Math.floor(Date.now()/300000)), {signal, cache:fresh ? 'no-store' : 'default'});
     if (!resp.ok) throw new Error('investors.json HTTP ' + resp.status);
     const json = await resp.json();
     if (!Array.isArray(json.investors) || !json.investors.length) throw new Error('Invalid investor configuration');
@@ -390,7 +389,7 @@ async function switchInvestor(v, {fresh = false, signal} = {}) {
   try {
     if (!cfg) throw new Error('Unknown investor: ' + target);
     const stamp = fresh ? Date.now() : Math.floor(Date.now()/300000);
-    const r = await fetch(cfg.dataFile + '?t=' + stamp, {signal, cache: fresh ? 'no-store' : 'default'});
+    const r = await fetch(cfg.dataFile + '?v=65&t=' + stamp, {signal, cache: fresh ? 'no-store' : 'default'});
     if (!r.ok) throw new Error(cfg.dataFile + ' HTTP ' + r.status);
     const newData = await r.json();
     if (requestId !== investorRequestId) return false;
@@ -503,7 +502,7 @@ let hkHoldings = null;  // loaded from hk_holdings.json
 async function loadPrices(pf, requestId = investorRequestId, {signal, stamp = Math.floor(Date.now()/300000), fresh = false} = {}) {
   const file = pf || 'prices.json';
   try {
-    const resp = await fetch(file + '?t=' + stamp, {signal, cache: fresh ? 'no-store' : 'default'});
+    const resp = await fetch(file + '?v=65&t=' + stamp, {signal, cache: fresh ? 'no-store' : 'default'});
     if (!resp.ok) throw new Error(file + ' HTTP ' + resp.status);
     const newPrices = await resp.json();
     if (!newPrices || typeof newPrices.quotes !== 'object' || !newPrices.quotes) throw new Error('Invalid prices');
@@ -563,7 +562,7 @@ async function loadHKHoldings() {
     const cfg = INVESTOR_CFG_BY_ID[investor];
     const hkUrl = cfg ? cfg.hkFile : null;
     if (!hkUrl) { hkHoldings = { holdings: [], disclaimer: '' }; return; }
-    const resp = await fetch(hkUrl + '?t=' + Math.floor(Date.now()/300000));
+    const resp = await fetch(hkUrl + '?v=65&t=' + Math.floor(Date.now()/300000));
     hkHoldings = await resp.json();
   } catch(e) {
     console.log('hk_holdings.json unavailable');
@@ -965,7 +964,7 @@ function aiMatchingEntry(key, source) {
 async function refreshAISupplements() {
   const ctrl=new AbortController(), timer=setTimeout(()=>ctrl.abort(),6000);
   try {
-    const response=await fetch('ai_supplement.json?t='+Math.floor(Date.now()/300000),{signal:ctrl.signal});
+    const response=await fetch('ai_supplement.json?v=65&t='+Math.floor(Date.now()/300000),{signal:ctrl.signal});
     if (!response.ok) return;
     const payload=await response.json();
     if (payload.schemaVersion!==2 || !payload.entries || typeof payload.entries!=='object') return;
@@ -1463,7 +1462,7 @@ async function renderHKHoldings() {
     const cfg = INVESTOR_CFG_BY_ID[investor];
     const hkUrl = cfg ? cfg.hkFile : null;
     if (!hkUrl) { container.innerHTML = '<p style="color:var(--text-lighter);padding:16px;">暂无港股持仓数据。</p>'; return; }
-    const resp = await fetch(hkUrl + '?t=' + Math.floor(Date.now()/300000));
+    const resp = await fetch(hkUrl + '?v=65&t=' + Math.floor(Date.now()/300000));
     if (!resp.ok) throw new Error('HK disclosures unavailable');
     const hk = await resp.json();
     if (investor !== requestedInvestor) return;
@@ -1562,7 +1561,7 @@ async function renderHomework() {
   let nearMissMap = {};
   const isEn2 = lang === 'en';
   try {
-    const vs = await fetch('value_screen.json?t=' + Math.floor(Date.now()/300000)).then(r => r.ok ? r.json() : null);
+    const vs = await fetch('value_screen.json?v=65&t=' + Math.floor(Date.now()/300000)).then(r => r.ok ? r.json() : null);
     if (!vs) throw new Error('value_screen.json fetch failed');
     // investors 数组里的 name/nameEn 已由后端算好，这里按当前语言态选择展示哪个
     candidates = (vs.candidates || []).map(c => ({
@@ -1664,7 +1663,7 @@ async function renderHomework() {
   // 跨投资者 AI 总结（预生成 homework_summary.json：逐股点评 + 整体归纳）
   let hwAiHtml = '';
   try {
-    const hwSum = await fetch('homework_summary.json?t=' + Math.floor(Date.now()/300000)).then(r => r.ok ? r.json() : null).catch(()=>null) || {};
+    const hwSum = await fetch('homework_summary.json?v=65&t=' + Math.floor(Date.now()/300000)).then(r => r.ok ? r.json() : null).catch(()=>null) || {};
     const localOverall = aiMatchingEntry('value',aiValueSource(candidates));
     hwSum.overallSummary=localOverall?.summary || aiValueFallback(candidates);
     if (hwSum && (hwSum.overallSummary || (hwSum.stockNotes && hwSum.stockNotes.length))) {
