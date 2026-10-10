@@ -10,6 +10,24 @@ function app() {
  return {run:code=>vm.runInContext(code,context),context};
 }
 const event={id:'us:P:unresolved',parentTicker:'P',parentName:'Parent',targetName:'Child',targetTicker:'C',type:'spinoff',status:'needs_review',missing:['evidence'],identityVerified:false,latestDate:'2026-09-16',dates:{distributionDate:{date:'2026-09-20'}},announcements:[],fingerprint:'v1'};
+test('issuer updates group multiple targets without losing links or before/after values',()=>{
+ const a=app();a.context.events=[event,{...event,id:'us:P:second',targetName:'Different project',mergedIds:['us:P:old']},{...event,id:'us:OTHER:one',parentTicker:'OTHER',parentName:'Other'}];
+ a.context.changes=[{eventId:event.id,at:new Date().toISOString(),kind:'updated',fields:['status'],fromStatus:'announced',toStatus:'approved'},{eventId:'us:P:old',at:new Date().toISOString(),kind:'updated',fields:['targetName'],before:{targetName:'Prior name'},after:{targetName:'Different project'}},{eventId:'us:OTHER:one',at:new Date().toISOString(),kind:'new'}];
+ const html=a.run('spinChangesHTML({events,changes},true)');
+ assert.equal(a.run('spinChangeGroups({events,changes}).length'),2);
+ assert.match(html,/2 次更新 · 2 个对应档案/);
+ assert.match(html,/data-open-event="us:P:second"/);assert.ok(!html.includes('data-open-event="us:P:old"'));
+ assert.match(html,/Prior name → Different project/);assert.match(html,/最近原公告 2026-09-16/);
+ a.run('spinDash.us.data={events,changes};spinDash.us.view="changes"');assert.equal(a.run('spinVisible(spinDash.us,{}).length'),3);
+});
+test('auto watch includes every introduction, persists across refresh and preserves manual notes',()=>{
+ const a=app();a.context.events=[{...event,id:'hk:1',type:{code:'intro_hk'}},{...event,id:'hk:2',type:'intro_th'},{...event,id:'hk:3',type:{code:'reit_sh',is_reit:true}}];
+ a.run('spinSave("hk:1",{note:"keep",read:"v1"});spinSave("manual",{watch:true});spinAutoWatchIntroductions({events})');
+ assert.equal(a.run('spinPrefs()["hk:1"].watch'),true);assert.equal(a.run('spinPrefs()["hk:2"].autoIntro'),true);
+ assert.equal(a.run('spinPrefs()["hk:1"].note'),'keep');assert.equal(a.run('spinPrefs()["hk:1"].read'),'v1');assert.equal(a.run('spinPrefs()["manual"].watch'),true);assert.equal(a.run('spinPrefs()["hk:3"]'),undefined);
+ a.run('spinSave("hk:1",{watch:false});spinAutoWatchIntroductions({events})');assert.equal(a.run('spinPrefs()["hk:1"].watch'),true);
+ a.context.events.push({...event,id:'hk:new',type:{code:'intro_hk'}});a.run('spinAutoWatchIntroductions({events})');assert.equal(a.run('spinPrefs()["hk:new"].watch'),true);
+});
 test('watchlist, unread, upcoming and search filters use event identity',()=>{
  const a=app(); a.context.event=event;
  a.run("spinDash.us.data={events:[event],changes:[]}; spinSave(event.id,{watch:true,read:'v1',note:'研究'}); spinDash.us.view='watch'");
@@ -80,7 +98,9 @@ test('empty change records are excluded and all changes remain accessible',()=>{
  const a=app();a.context.event=event;
  assert.equal(a.run("spinRecentChanges({changes:[{at:new Date().toISOString(),kind:'updated',fields:[]}]}).length"),0);
  const html=a.run("spinChangesHTML({events:[event],changes:Array.from({length:8},()=>({eventId:event.id,at:new Date().toISOString(),kind:'new',toStatus:'needs_review'}))})");
- assert.match(html,/查看全部 8 条变化/);
+ assert.match(html,/8 次更新 · 1 个对应档案/);
+ assert.equal((html.match(/<strong>Parent<\/strong>/g)||[]).length,1);
+ assert.equal((html.match(/新收录分拆线索/g)||[]).length,8);
 });
 test('cards show key facts without internal data checklists',()=>{
  const a=app();a.context.event=event;

@@ -104,7 +104,7 @@
   function counts() {return Object.keys(state.answers).length+state.missions.length;}
   function render() {
     app.replaceChildren();
-    const top=node('header','game-top');const brand=link('思维试炼 / THE MUNGER TRIALS','index.html?v=4','brand');top.append(brand,link('阅读演讲解读 ↗','article.html?v=4'));app.append(top);
+    const top=node('header','game-top');const brand=link('思维试炼 / THE MUNGER TRIALS','index.html?v=5','brand');top.append(brand,link('阅读演讲解读 ↗','article.html?v=5'));app.append(top);
     const shell=node('div','shell');const rail=node('aside','chapter-rail');rail.setAttribute('aria-label','章节导航');
     rail.append(node('p','eyebrow','1884 → 2034'),node('h2','','一份商业推演笔记'),node('p','rail-summary','先判断，再计算。用五个思维透镜检验同一个商业故事。'));
     const nav=node('nav','chapter-list');const unlocked=firstIncomplete(state);
@@ -119,7 +119,7 @@
     if (state.screen==='chapter') chapter(main);
     if (state.screen==='board') board(main);
     if (state.screen==='ending') ending(main);
-    const foot=node('footer','game-footer','基于 1996 年演讲的原创学习练习 · 题目、压力测试和资源分配为游戏设计');foot.append(link('资料与数字说明','article.html?v=4#sources'));app.append(foot);
+    const foot=node('footer','game-footer','基于 1996 年演讲的原创学习练习 · 题目、压力测试和资源分配为游戏设计');foot.append(link('资料与数字说明','article.html?v=5#sources'));app.append(foot);
   }
   function heading(main,kicker,title,desc) {main.append(node('p','eyebrow',kicker),node('h1','',title),node('p','lead',desc));}
   function actions(main,items) {const bar=node('div','actions');items.forEach(e=>bar.append(e));main.append(bar);}
@@ -127,7 +127,7 @@
     heading(main,'商业不是一道单选题','格罗茨的试炼：\n2 万亿的答案','回到 1884 年。如果给你 200 万美元，你能提出一条通往 2034 年、价值 2 万亿美元的商业路径吗？');
     const stats=node('div','hero-stats');[['5','思维透镜'],['16','决策与数字实验'],['15–25 分钟','建议游戏时长']].forEach(([n,l])=>{const c=node('div');c.append(node('b','',n),node('span','',l));stats.append(c);});main.append(stats);
     main.append(section('从“选答案”到“说清楚为什么”','你的每个选择都会留下理由。第三关可以改变参数，第六关需要分配有限资源。最后的复盘会指出你理解了什么，以及哪些假设仍经不起压力。'));
-    actions(main,[button(counts()?'继续上次推演':'打开格罗茨的委任书',()=>change(counts()?(firstIncomplete(state)<5?'chapter':state.submitted?'ending':'board'):'letter',Math.min(4,firstIncomplete(state)))),link('先读完整解读','article.html?v=4','button subtle')]);
+    actions(main,[button(counts()?'继续上次推演':'打开格罗茨的委任书',()=>change(counts()?(firstIncomplete(state)<5?'chapter':state.submitted?'ending':'board'):'letter',Math.min(4,firstIncomplete(state)))),link('先读完整解读','article.html?v=5','button subtle')]);
     main.append(node('p','small','电脑可用 Tab / Enter 操作，答题时也可按 1、2、3 选择。手机直接点选，算账滑块支持拖动与加减按钮。'));
   }
   function letter(main) {
@@ -210,8 +210,8 @@
     main.append(section(r.balanced?'你的方案覆盖了三个环节':'你的方案仍有一个薄弱环节',r.balanced?'资源同时支持体验、识别与交付。下一步需要验证各环节是否真的影响复购、份额与成本。':'优先复查'+{product:'产品体验和单位利润',brand:'识别度和客户选择',channel:'供货覆盖和实际购买'}[r.weakest]+'：模型里的高金额并不能补上这一段经营证据。'));
     main.append(metrics(r));main.append(node('p','small','按你的资源方案计算；数字由终局公开规则产生，非可口可乐实际经营数据。'));
     const review=node('div','review-grid');chapters.forEach((c,i)=>{const n=i===2?'3 / 3 次实验':score(i)+' / '+c.questions.length+' 次判断';const item=section(c.lens+' · '+n,c.takeaway);const misses=(c.questions||[]).filter(q=>!q[2][state.answers[q[0]]][2]);if(misses.length)item.append(node('p','small','建议重读：'+misses.map(q=>q[1]).join('；')));item.append(button('查看本关笔记',()=>change('chapter',i),'text-button'));review.append(item);});main.append(review);
-    const history=section('真实历史 · 与虚构设定分开看','1884 年和 200 万美元是演讲的思想实验，不是可口可乐真实创办记录。可口可乐的官方历史记载创始饮料诞生于 1886 年、1899 年出售装瓶权；1985 年的新可乐在消费者抗议后，于 79 天后恢复原配方供应。');history.append(link('查看原始资料和详细解读','article.html?v=4#history'));main.append(history);
-    actions(main,[button('重新调整资源方案',()=>change('board')),link('读解读：从故事到证据','article.html?v=4','button subtle')]);
+    const history=section('真实历史 · 与虚构设定分开看','1884 年和 200 万美元是演讲的思想实验，不是可口可乐真实创办记录。可口可乐的官方历史记载创始饮料诞生于 1886 年、1899 年出售装瓶权；1985 年的新可乐在消费者抗议后，于 79 天后恢复原配方供应。');history.append(link('查看原始资料和详细解读','article.html?v=5#history'));main.append(history);
+    actions(main,[button('重新调整资源方案',()=>change('board')),link('读解读：从故事到证据','article.html?v=5','button subtle')]);
   }
   document.addEventListener('keydown',e=>{
     if(e.defaultPrevented||e.altKey||e.ctrlKey||e.metaKey||!['1','2','3'].includes(e.key)||state.screen!=='chapter'||state.chapter===2)return;

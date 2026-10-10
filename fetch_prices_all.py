@@ -19,9 +19,9 @@
 每个投资者的 data_file / prices_file / market 配置来自仓库根目录的 investors.json（单一权威来源）。
 """
 
-import json, os, sys, time, re, urllib.request, urllib.error
+import json, os, sys, time, re, hashlib, urllib.request, urllib.error
 from datetime import datetime, timezone, date
-from holdings_diff import share_adjustment, consolidate_holdings
+from holdings_diff import share_adjustment, consolidate_holdings, same_security
 
 
 def comparable_price_history(history, current_quarter):
@@ -33,6 +33,13 @@ def comparable_price_history(history, current_quarter):
             adjustment = share_adjustment(h, quarter, current_quarter)
             result[quarter].append({**h, "shares": h["shares"] * adjustment["factor"]} if adjustment else h)
     return result
+
+
+def cost_history_fingerprint(history):
+    # Ignore descriptive metadata: only a change to the calculation inputs
+    # should invalidate estimates, including corrections to older quarters.
+    inputs=[(q,sorted((str(r.get('cusip','')),r.get('shares',0),r.get('value',0)) for r in rows)) for q,rows in sorted(history.items())]
+    return hashlib.sha256(json.dumps(inputs).encode()).hexdigest()
 
 # ─────────────────────────────────────────────
 # 投资者配置表 — 从 investors.json 动态构建，见 _load_investor_config()
@@ -309,35 +316,37 @@ def fetch_us(investor, cfg):
 
     # ── Part 2: 成本估算 ──
     cost_basis = {}
-    instrument_tickers = {h['ticker'] for rows in [holdings, data.get('current', {}).get('previousHoldings', [])] for h in rows if h.get('putCall') or h.get('shareType', 'SH') != 'SH'}
     for h in holdings:
-        if h['ticker'] in instrument_tickers:
+        if h.get('putCall') or h.get('shareType', 'SH') != 'SH':
             continue
         tk = h["ticker"]
+        boundary = data.get('meta',{}).get('instrumentHistoryFrom','') if tk in data.get('meta',{}).get('instrumentHistoryTickers',[]) else ''
+        security_history = {q: [row for row in rows if same_security(h,row)] for q,rows in hist_holdings.items() if boundary <= q <= quarter}
         if data.get("current", {}).get("valueQuality") or data.get("meta", {}).get("reportingTransition", {}).get("fromQuarter") == quarter:
             continue
         if tk.startswith("?") or tk.endswith(".HK"):
             continue
+        history_fingerprint=cost_history_fingerprint(security_history)
+        if existing_cb.get(tk,{}).get('historyFingerprint') != history_fingerprint:
+            existing_cb.pop(tk,None)
 
         # 找买入季度
         buy_q = quarter
-        if h.get("prevShares", 0) > 0 and h["shares"] <= h["prevShares"]:
-            prev_shares = None
-            for q_key in sorted(hist_holdings.keys()):
-                if tk in data.get('meta', {}).get('instrumentHistoryTickers', []) and q_key < data['meta']['instrumentHistoryFrom']: continue
-                for qh in hist_holdings.get(q_key, []):
-                    if qh["ticker"] == tk and qh.get("shares", 0) > 0:
-                        if prev_shares is None:
-                            buy_q = q_key
-                        elif qh["shares"] > prev_shares:
-                            buy_q = q_key
-                        prev_shares = qh["shares"]
+        prev_shares, previous_index = 0, None
+        for q_key in sorted(security_history):
+            if q_key > quarter: continue
+            if tk in data.get('meta', {}).get('instrumentHistoryTickers', []) and q_key < data['meta']['instrumentHistoryFrom']: continue
+            year,number=q_key.split(' Q'); index=int(year)*4+int(number)
+            if previous_index is not None and index-previous_index>1:prev_shares=0
+            shares=sum(row.get('shares',0) for row in security_history[q_key])
+            if shares>prev_shares:buy_q=q_key
+            prev_shares,previous_index=shares,index
 
         # 预先推导本轮连续持有起点（gap>1 规则），用于下面的外层缓存短路判断——
         # 必须在这里就先算好，否则外层短路会在 allTime.first 需要修正时仍然直接 continue 跳过重算
         _run_first_precheck = None
         _qk_precheck = None
-        for q_key, q_h in sorted(hist_holdings.items()):
+        for q_key, q_h in sorted(security_history.items()):
             if tk in data.get('meta', {}).get('instrumentHistoryTickers', []) and q_key < data['meta']['instrumentHistoryFrom']: continue
             for qh in q_h:
                 if qh["ticker"] == tk and qh.get("shares", 0) > 0:
@@ -376,17 +385,17 @@ def fetch_us(investor, cfg):
                       "quarter": buy_q, "source": "yahoo"}
             print(f"buy≈${buy_est} [{low:.2f}-{high:.2f}]")
         else:
-            est = round(h["value"] / h["shares"], 2)
-            if h.get("prevValue", 0) > 0 and h.get("prevShares", 0) > 0 and buy_q == prev_quarter:
-                est = round(h["prevValue"] / h["prevShares"], 2)
+            proxy = next((row for row in security_history.get(buy_q,[]) if row.get('shares',0)>0),None)
+            est = round(proxy['value'] / proxy['shares'],2) if proxy else None
             recent = {"buy": est, "low": est, "high": est,
                       "quarter": buy_q, "source": "13f-estimate"}
+            if est is None:recent['error']=True
             print(f"estim=${est} (13F fallback)")
 
         # all-time 成本：平均成本法（AVCO）
         # 买入 → 更新持仓均价；卖出 → 均价不变；gap>1季 → 重置
         quarterly_data = []
-        for q_key, q_h in sorted(hist_holdings.items()):
+        for q_key, q_h in sorted(security_history.items()):
             if tk in data.get('meta', {}).get('instrumentHistoryTickers', []) and q_key < data['meta']['instrumentHistoryFrom']: continue
             for qh in q_h:
                 if qh["ticker"] == tk and qh.get("shares", 0) > 0:
@@ -425,6 +434,7 @@ def fetch_us(investor, cfg):
                             avco_price  = 0.0
                             avco_shares = 0
                             prev_sh     = 0
+                            buy_q_count = 0
                             current_run_first = qd["quarter"]
                     if cur_sh > prev_sh:  # 买入
                         delta = cur_sh - prev_sh
@@ -451,7 +461,7 @@ def fetch_us(investor, cfg):
                                 "method": "avco"}
                     print(f"| all-time avco=${all_avg} ({buy_q_count}q buy, run-first={current_run_first})")
 
-        cost_basis[tk] = {"recent": recent, "allTime": all_time}
+        cost_basis[tk] = {"recent": recent, "allTime": all_time, "historyFingerprint":history_fingerprint}
         time.sleep(0.3)
 
     # ── exitPerf：已清仓持仓估算盈亏 ──────────────────────────────────

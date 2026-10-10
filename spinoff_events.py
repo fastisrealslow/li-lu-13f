@@ -9,7 +9,7 @@ from urllib.parse import urlparse
 from spinoff_identity import resolve_identity, IDENTITY_VERSION
 
 STATUSES = {'needs_review', 'announced', 'approved', 'record_set', 'prospectus', 'completed', 'terminated', 'paused'}
-RULE_VERSION = 2
+RULE_VERSION = 3
 TYPE_RULE_VERSION = 1
 INTRO_PATTERN = r'以介紹方式|以介绍方式|以介紹式|以介绍式|介紹(?:式)?上市|介绍(?:式)?上市|listing by (?:way of )?introduction'
 
@@ -183,6 +183,13 @@ def infer_status(text):
         # are not evidence of a corporate separation transaction.
         if re.search(r'separation from service|severance|stock split.{0,180}(?:recapitalization|reclassification)|annual award limits|adjustment.{0,100}outstanding award|distribution of (?:the )?offered securities|renesas base distribution|non-binding.*compensation proposal', s, re.I):
             continue
+        # REIT approvals describe registration of the named fund; the same
+        # sentence need not repeat "spin-off". Require transaction context
+        # and an issued regulator decision, not a prospective condition.
+        reit_approval = re.search(r'分拆|spin[- ]?off',text,re.I) and re.search(r'(?:出具了|出具|發出|发出)《關於准予[^《》]{2,100}基金註冊的批覆》|(?:出具了|出具|发出)《关于准予[^《》]{2,100}基金注册的批复》',s)
+        if reit_approval and not re.search(r'尚未|尚需|待|如獲|如获|將|将|擬|拟|預計|预计',s):
+            candidates.append(('approved',s))
+            continue
         spin = re.search(r'spin[- ]?off|split[- ]?off|separation|分拆|分派|分立|\bDistribution\b', s)
         spin = spin or re.search(r'spin[- ]?off|split[- ]?off|separation|distribution of.{0,90}shares', s, re.I)
         if not spin:
@@ -314,7 +321,9 @@ def normalize(data, market, previous=None, now=None):
         if not groups:
             groups[''] = []
         for key, group in groups.items():
-            named = next((clean_name(p.get('targetName')) for p in group if clean_name(p.get('targetName'))), '')
+            named_proofs = [p for p in group if clean_name(p.get('targetName'))]
+            named_proof = max(named_proofs, key=lambda p: (p.get('identityKind') in ('entity','instrument'), p.get('date','')), default={})
+            named = clean_name(named_proof.get('targetName'))
             candidate_name = clean_name(c.get('spinTarget') or c.get('spinoffName'))
             parent_key = entity_key(c.get('stockName') or c.get('name'))
             if candidate_name and entity_key(candidate_name) == parent_key:

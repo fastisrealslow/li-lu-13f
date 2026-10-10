@@ -40,3 +40,18 @@ body.spin-research .nav{background:var(--navy-dark);box-shadow:0 1px 8px rgba(0,
 .sd-type-ipo-hk{background:#e0f2fe;color:#0369a1;border-color:#bae6fd}.sd-type-ipo-a{background:#fef9c3;color:#854d0e;border-color:#fde68a}.sd-type-ipo-us{background:#fff7ed;color:#9a3412;border-color:#fed7aa}.sd-type-ipo-th{background:#fdf4ff;color:#7e22ce;border-color:#e9d5ff}.sd-type-intro{background:#f5f3ff;color:#6d28d9;border-color:#ddd6fe}.sd-type-ipo-dist{background:#ede9fe;color:#4c1d95;border-color:#c4b5fd}.sd-type-reit{background:#f0fdf4;color:#166534;border-color:#bbf7d0}.sd-type-distribution{background:#fdf2f8;color:#9d174d;border-color:#fbcfe8}.sd-type-spinoff{background:#e0f2fe;color:#0369a1;border-color:#bae6fd}
 .sd-status{font-weight:600;border:1px solid transparent}.sd-announced{background:#dbeafe;color:#1e40af;border-color:#93c5fd}.sd-approved{background:#ccfbf1;color:#115e59;border-color:#5eead4}.sd-record_set{background:#ffedd5;color:#9a3412;border-color:#fdba74}.sd-prospectus{background:#ede9fe;color:#5b21b6;border-color:#c4b5fd}.sd-completed{background:#dcfce7;color:#166534;border-color:#86efac}.sd-terminated{background:#fee2e2;color:#991b1b;border-color:#fca5a5}.sd-paused{background:#fef3c7;color:#92400e;border-color:#fcd34d}.sd-needs_review{background:#f1f5f9;color:#475569;border-color:#cbd5e1}
 .sd-latest{min-width:0}.sd-latest-title{font-size:12px;line-height:1.5;margin-bottom:3px;overflow-wrap:anywhere}.sd-latest-title a{color:#1d4ed8;text-decoration:none;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}.sd-latest-title a:hover{text-decoration:underline}.sd-announcements h4{color:var(--navy)}.sd-announcements h4 small{font-weight:400;color:var(--text-light)}.sd-announcements a{color:#1d4ed8}.sd-sources{margin:0}.sd-sources li:last-child{border-bottom:0}
+.sd-change-groups>.sd-change-body{min-width:0}
+.sd-change-body{display:block!important;min-width:0}
+.sd-change-total{display:block;color:var(--text-light);font-size:11px;margin:4px 0 7px}
+.sd-change-targets{display:grid;gap:4px;margin:8px 0}
+.sd-change-targets .sd-change-company{text-align:left;white-space:normal;line-height:1.7;color:var(--brand-blue);text-decoration:underline;font-size:12px;overflow-wrap:anywhere}
+.sd-change-targets small{color:var(--text-light);font-size:11px;margin-bottom:6px}
+.sd-update-history summary{cursor:pointer;color:var(--text-light);font-size:11px;min-height:32px;padding:7px 0}
+.sd-changes .sd-update-history ol{list-style:decimal;margin:6px 0;padding-left:20px}
+.sd-changes .sd-update-history li{display:block;padding:8px 0}
+.sd-changes .sd-update-history p{font-size:11px;line-height:1.8;margin:3px 0;overflow-wrap:anywhere}
+.sd-linked-notice{background:#edf3fa;color:var(--navy);border-left:3px solid var(--brand-blue);padding:12px 14px;font-size:12px;line-height:1.8;margin:12px 0}
+.sd-linked-notice button{color:var(--brand-blue);background:white;border:1px solid var(--border);padding:5px 8px;cursor:pointer}
+.sd-card.sd-linked{border:2px solid var(--brand-blue);scroll-margin-top:100px;background:#f7faff}
+
+.sd-auto-note,.sd-auto-intro{color:var(--brand-blue);font-size:11px;line-height:1.7}.sd-auto-intro{display:block;margin-top:5px}

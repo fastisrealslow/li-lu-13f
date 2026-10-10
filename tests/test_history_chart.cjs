@@ -213,7 +213,8 @@ test('missing or stale quotes cannot produce a margin-of-safety badge',()=>{
   a.context.quote=q;
   a.run("data={current:{quarter:'2026 Q2',totalValue:100,holdings:[{ticker:'ABC',name:'ABC',shares:10,value:100}]}}; prices={quotes:{ABC:quote},costBasis:{ABC:{recent:{buy:20,quarter:'2026 Q1',source:'yahoo'}}}};renderHoldings()");
   assert.ok(!a.el('holdingsBody').innerHTML.includes('mosPulse'));
-  assert.match(a.el('holdingsBody').innerHTML,/暂无报价/);
+  assert.match(a.el('holdingsBody').innerHTML,/暂无报价|报价待更新/);
+  assert.ok(!a.el('holdingsBody').innerHTML.includes('class="cost-gap'));
  }
 });
 test('unverified value units are excluded from historical valuation series',()=>{

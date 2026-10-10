@@ -33,6 +33,26 @@
   --new: #275486;
 }
 body { background: var(--white); color: var(--text); font-family: var(--sans); }
+.mobile-cost-detail { display: none; }
+.current-price { font-size: .96rem; font-weight: 650; color: var(--navy); }
+.quote-stale { color: var(--text-light); }
+.cost-estimate { display: grid; gap: 4px; }
+.cost-estimate strong { color: var(--navy); font-size: .92rem; }
+.average-cost { margin-top: 6px; padding-top: 7px; border-top: 1px solid var(--border-light); color: var(--navy); font-weight: 500; }
+.average-cost small { display: block; margin-top: 4px; }
+.mobile-average-cost { color: var(--text-light); line-height: 1.6; }
+.cost-estimate small, .estimate-method, .estimate-unavailable { color: var(--text-light); font-size: .7rem; line-height: 1.6; white-space: normal; }
+.cost-gap { display: grid; gap: 4px; line-height: 1.5; }
+.cost-gap strong { font-size: .91rem; }
+.cost-gap small { font-size: .67rem; font-weight: 400; white-space: normal; }
+.cost-gap.deep, .cost-gap.positive { color: #216447; }
+.cost-gap.watch { color: #806020; }
+.cost-gap.negative { color: #9b3e3e; }
+.cost-gap.neutral { color: var(--text-light); }
+.cost-method-note { margin-bottom: 10px; line-height: 1.8; }
+.table-subhead { display: block; font-size: .65rem; font-weight: 400; }
+.timeline-source { display: inline-block; margin-top: 5px; font-size: .72rem; color: var(--brand-blue); }
+.timeline-heading { color: var(--navy); font-size: .88rem; font-weight: 600; margin-bottom: 24px; }
 a { text-underline-offset: 4px; }
 button, input, select, textarea { font-family: inherit; }
 :where(button, a, input, select, summary):focus-visible { outline: 2px solid var(--brand-blue); outline-offset: 4px; }
@@ -65,7 +85,7 @@ button, input, select, textarea { font-family: inherit; }
 .hero-title { color: var(--navy); font-size: clamp(2rem,3.4vw,3.1rem); font-weight: 400; line-height: 1.35; letter-spacing: 0; }
 .hero-title .sub { color: var(--text-light); font-size: .86rem; line-height: 1.85; margin-top: 14px; }
 .hero-actions { flex-wrap: wrap; justify-content: flex-end; max-width: 360px; }
-.btn-refresh { color: var(--navy); background: white; border: 1px solid var(--border); border-radius: 2px; min-height: 44px; padding: 9px 18px; }
+.btn-refresh { color: white; background: var(--brand-blue); border: 1px solid var(--brand-blue); border-radius: 2px; min-height: 44px; padding: 9px 18px; }
 .btn-refresh:hover { color: var(--brand-blue); background: var(--cream); border-color: var(--brand-blue); }
 .data-source-tag { color: var(--text-lighter); font-size: .7rem; }
 .hero-meta { color: var(--text-light); font-size: .75rem; gap: 24px; line-height: 1.8; margin-bottom: 0; }
@@ -83,13 +103,13 @@ body.spin-research .data-wrap { padding-top: 112px; }
 .investor-button[aria-pressed="true"] { color: var(--brand-blue); border-bottom-color: var(--brand-blue); font-weight: 600; }
 #investorSelect { display: none; }
 .stat-line { padding: 16px 0 24px; border-color: var(--border); gap: 0; }
-.stat-num { font-family: var(--serif); font-weight: 400; font-variant-numeric: lining-nums tabular-nums; }
+.stat-num { font-family: var(--serif); font-weight: 600; font-size: 1.8rem; font-variant-numeric: lining-nums tabular-nums; }
 .stat-item { flex-wrap: wrap; }
 .stat-desc { font-size: .72rem; color: var(--text-light); }
 .stat-sep { margin: 0 24px; background: var(--border); }
 .tabs { gap: 20px; margin-bottom: 28px; }
 .tab-btn { padding: 13px 0; font-size: .86rem; min-height: 48px; color: var(--text-light); }
-.tab-btn.active { border-bottom-color: var(--brand-blue); color: var(--navy); font-weight: 500; }
+.tab-btn.active { border-bottom-color: var(--brand-blue); color: white; background: var(--brand-blue); padding-left: 14px; padding-right: 14px; font-weight: 600; }
 .table-wrap { border-radius: 0; border-color: var(--border); }
 table { font-variant-numeric: tabular-nums; }
 thead th { background: #f6f7f7; color: var(--text-light); letter-spacing: .3px; font-weight: 500; padding: 14px; }
@@ -233,7 +253,7 @@ tbody tr:hover { background: #f8f9fa; }
   .stat-line { gap: 0!important; padding: 0!important; border-top: 1px solid var(--border); margin-bottom: 24px!important; }
   .stat-item { padding: 16px 8px; background: transparent; border: 0; border-bottom: 1px solid var(--border-light); border-radius: 0; gap: 6px; }
   .stat-item:nth-of-type(1), .stat-item:nth-of-type(5) { border-right: 1px solid var(--border-light); }
-  .stat-num { font-size: 1.22rem!important; line-height: 1.4; }
+  .stat-num { font-size: 1.4rem!important; line-height: 1.4; }
   .stat-desc { font-size: .68rem; line-height: 1.8; }
   .stat-change { font-size: .73rem; }
   .tabs { gap: 24px; margin-bottom: 24px; }
@@ -243,6 +263,19 @@ tbody tr:hover { background: #f8f9fa; }
   .table-wrap table th { font-size: .68rem; }
   .table-wrap table td { padding: 12px 10px; }
   .ticker-line { font-size: .8rem; }
+  #tab-current .table-wrap table { min-width: 0; table-layout: fixed; }
+  #tab-current .table-wrap th:nth-child(1), #tab-current .table-wrap td:nth-child(1) { width: 23px; padding-left: 3px; padding-right: 3px; }
+  #tab-current .table-wrap th:nth-child(2), #tab-current .table-wrap td:nth-child(2) { width: 28%; overflow-wrap: anywhere; }
+  #tab-current .table-wrap th:nth-child(3), #tab-current .table-wrap td:nth-child(3) { width: 31%; overflow-wrap: anywhere; }
+  #tab-current .table-wrap th:nth-child(4), #tab-current .table-wrap td:nth-child(4) { width: auto; min-width: 0; text-align: right; padding: 12px 6px; }
+  #tab-current .table-wrap th:nth-child(5), #tab-current .table-wrap td:nth-child(5), #tab-current .table-wrap th:nth-child(7), #tab-current .table-wrap td:nth-child(7) { display: none; }
+  #tab-current .table-wrap td { white-space: normal; }
+  #tab-current .mobile-cost-detail { display: grid; gap: 5px; margin-top: 8px; font-size: .68rem; }
+  #tab-current .mobile-estimate-label { display: block; color: var(--navy); font-weight: 600; }
+  #tab-current .mobile-estimate-quarter { display: block; color: var(--text-light); font-size: .65rem; }
+  #tab-current .cost-gap { gap: 0; }
+  #tab-current .cost-gap strong { font-size: .75rem; }
+  #tab-current .current-price { font-size: .83rem; }
   .name-line { font-size: .71rem; }
   .sector-badge { font-size: .66rem; }
   #homeworkContent .table-wrap table { font-size: .73rem; }

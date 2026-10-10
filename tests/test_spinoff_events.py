@@ -481,6 +481,34 @@ class AutomaticIdentityTests(unittest.TestCase):
         self.assertEqual(refreshed[1]['identityReferences'],['2026-01-01'])
 
 class SecSectionIdentityTests(unittest.TestCase):
+    def test_reit_registration_approval_requires_an_issued_decision(self):
+        text='建議分拆基礎設施REIT。中國證券監督管理委員會出具了《關於准予長城華能燃煤發電封閉式基礎設施證券投資基金註冊的批覆》。'
+        self.assertEqual(infer_status(text)['status'],'approved')
+        self.assertNotEqual(infer_status(text.replace('出具了','將出具'))['status'],'approved')
+        self.assertNotEqual(infer_status(text.split('。',1)[1])['status'],'approved')
+
+    def test_named_reit_approval_and_signed_date_merge_the_original_proposal(self):
+        from resolve_spinoff_names import link_references
+        old=parse_evidence('建議分拆基礎設施REIT（即「華能煤電 REIT」）',{'date':'2026-04-28','url':'https://www1.hkexnews.hk/listedco/proposal.pdf'})
+        old.update(documentDate='2026-04-29')
+        new=parse_evidence('關於准予長城華能燃煤發電封閉式基礎設施證券投資基金註冊的批覆。建議分拆項目已獲批准。',{'date':'2026-09-21','url':'https://www1.hkexnews.hk/listedco/approval.pdf'})
+        self.assertEqual(new['targetName'],'長城華能燃煤發電封閉式基礎設施證券投資基金')
+        self.assertEqual(new['identityKind'],'instrument')
+        new['identityReferences']=['2026-04-29']
+        proofs=link_references([old,new])
+        data={'companies':[{'stockCode':'00902','ticker':'00902.HK','stockName':'華能國際電力股份','filingEvidence':proofs,'announcements':[{'date':p['date'],'url':p['url'],'title':'建議分拆'} for p in proofs]}]}
+        normalize(data,'hk');self.assertEqual(len(data['events']),1)
+        self.assertEqual(data['events'][0]['targetName'],new['targetName'])
+        self.assertEqual(len([a for a in data['events'][0]['announcements'] if a['relevance']=='candidate']),2)
+        changes=copy.deepcopy(data['changes']);normalize(data,'hk');self.assertEqual(data['changes'],changes)
+
+    def test_asset_based_reit_does_not_merge_with_sibling_company_ipo(self):
+        reit=parse_evidence('建議分拆。基礎設施 REIT 的相關資產為位於中國河南省焦作市的焦作燃煤發電廠（「該項目」）。',{'date':'2026-04-30','url':'https://www1.hkexnews.hk/listedco/reit.pdf'})
+        self.assertEqual(reit['targetName'],'位於中國河南省焦作市的焦作燃煤發電廠')
+        other={**reit,'url':'https://www1.hkexnews.hk/listedco/ipo.pdf','targetName':'華潤新能源控股有限公司','identityKind':'entity'}
+        data={'companies':[{'stockCode':'00836','ticker':'00836.HK','stockName':'華潤電力','filingEvidence':[reit,other]}]}
+        normalize(data,'hk');self.assertEqual(len(data['events']),2)
+
     def test_heading_and_the_company_do_not_hide_distributed_child(self):
         from spinoff_identity import resolve_identity
         text='Item 8.01 Other Events Vylor Inc. (the “Company” or “Vylor”) previously announced the separation (the “Spin-Off”) of the Company from Corteva, Inc.'

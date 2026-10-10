@@ -19,7 +19,7 @@ from urllib.parse import urljoin, urlparse
 from urllib.request import Request, build_opener
 
 from spinoff_events import (parse_evidence, source_url, direct_source, filing_url,
-                            merge_evidence, normalize, validate_events, iso_date, TYPE_RULE_VERSION)
+                            merge_evidence, normalize, validate_events, iso_date, TYPE_RULE_VERSION, RULE_VERSION)
 from spinoff_identity import IDENTITY_VERSION
 
 _request_lock = threading.Lock()
@@ -140,7 +140,9 @@ def document(ann, cik, opener, cache=None):
 def link_references(proofs):
     """Unnamed updates inherit identities only through explicit dated references."""
     by_date={}
-    for proof in proofs:by_date.setdefault(proof.get('date'),[]).append(proof)
+    for proof in proofs:
+        for date in {proof.get('date'), proof.get('documentDate')} - {None, ''}:
+            by_date.setdefault(date,[]).append(proof)
     def explicit_sources(proof,visited):
         marker=proof.get('accession') or proof.get('url') or id(proof)
         if marker in visited:return []
@@ -151,10 +153,17 @@ def link_references(proofs):
         # An inherited business name is already a resolved reference. Reapplying
         # the entity-only promotion rule would erase it on the next daily run.
         business = p.get('targetName') and p.get('identityKind') == 'business' and p.get('identityReason') != 'dated_reference'
-        if p.get('targetName') and p.get('identityReason') != 'dated_reference' and not business:continue
+        if p.get('targetName') and p.get('identityReason') != 'dated_reference' and not business:
+            # A formally named REIT approval may refer to the proposal using
+            # its earlier project name. This is an explicit identity bridge.
+            if p.get('identityKind') == 'instrument' and re.search('基礎設施證券投資基金|基础设施证券投资基金',p['targetName']):
+                linked=[q for date in p.get('identityReferences',[]) for source in by_date.get(date,[]) for q in explicit_sources(source,{p.get('url')})]
+                names={q['targetName'] for q in linked if q.get('identityKind') == 'business' and re.search('REIT',q['targetName'],re.I)}
+                if len(names)==1:p['targetAliases']=list(dict.fromkeys([*(p.get('targetAliases') or []),*names]))
+            continue
         linked=([q for date in p.get('identityReferences',[]) for source in by_date.get(date,[]) for q in explicit_sources(source,{p.get('url')})] if business else explicit_sources(p,set()))
         if business and not re.match('若干',p['targetName']):
-            linked=[q for q in linked if q.get('identityKind')=='entity']
+            linked=[q for q in linked if q.get('identityKind') in ('entity','instrument')]
         from spinoff_events import target_key
         names={target_key(q['targetName']) for q in linked}
         if len(names)==1:
@@ -182,7 +191,7 @@ def refresh_company(company, market, opener, cache=None, limit=3):
     for ann in anns:
         url=source_url(ann,company.get('cik',''))
         check = checks.get(url, {})
-        current = check.get('version') == IDENTITY_VERSION and (market != 'hk' or check.get('typeVersion') == TYPE_RULE_VERSION)
+        current = check.get('version') == IDENTITY_VERSION and check.get('ruleVersion') == RULE_VERSION and (market != 'hk' or check.get('typeVersion') == TYPE_RULE_VERSION)
         if not direct_source(url) or current:continue
         if done>=limit:break
         done+=1
@@ -197,6 +206,11 @@ def refresh_company(company, market, opener, cache=None, limit=3):
             refs=[]
             from spinoff_events import filing_text
             body=filing_text(content['text'])
+            # HKEX publication date can precede the date signed on a filing.
+            # Match only the dated signature/location block, not arbitrary
+            # transaction dates in the body.
+            signed=re.search(r'(?:中國北京|中国北京|香港)[，, ]*(20\d{2}年\d{1,2}月\d{1,2}日|[二零〇一三四五六七八九]{4}年[一二三四五六七八九十]{1,3}月[一二三四五六七八九十]{1,3}日)',body)
+            if signed:proof['documentDate']=iso_date(signed[1])
             for m in re.finditer(r'(?:茲提述|兹提述|謹此提述)[^。]{0,1300}',body):
                 refs.extend(iso_date(t) for t in re.findall(r'(?:20\d{2}年\d{1,2}月\d{1,2}日|[二零〇一三四五六七八九]{4}年[一二三四五六七八九十]{1,3}月[一二三四五六七八九十]{1,3}日)',m.group()))
             for m in re.finditer(r'本公司日期為(20\d{2}年\d{1,2}月\d{1,2}日)的公告，內容有關(?:建議)?分拆',body):
@@ -206,7 +220,7 @@ def refresh_company(company, market, opener, cache=None, limit=3):
             if content.get('supplementUnavailable'):
                 failures.append(url+': supplemental source unavailable')
             else:
-                checks[url]={'version':IDENTITY_VERSION,'typeVersion':TYPE_RULE_VERSION,'checkedAt':datetime.now(timezone.utc).strftime('%Y-%m-%d'),'result':'named' if proof['targetName'] else 'no_name'}
+                checks[url]={'version':IDENTITY_VERSION,'typeVersion':TYPE_RULE_VERSION,'ruleVersion':RULE_VERSION,'checkedAt':datetime.now(timezone.utc).strftime('%Y-%m-%d'),'result':'named' if proof['targetName'] else 'no_name'}
         except Exception as error:
             failures.append(url+': '+type(error).__name__)
     company['filingEvidence']=link_references(proofs)

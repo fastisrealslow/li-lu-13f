@@ -1,7 +1,7 @@
 """Deterministic, source-bound target identity extraction (no paid AI dependency)."""
 import re
 
-IDENTITY_VERSION = 1
+IDENTITY_VERSION = 2
 # Capitalization bounds prevent consuming prose before an English legal name.
 LEGAL = r"[A-Z][A-Za-z0-9&’'\-]*(?: [A-Z][A-Za-z0-9&’'\-]*){0,7},? (?:Inc\.?|Corporation|Corp\.?|Limited|LIMITED|Ltd\.?|LTD\.?|PLC|LLC|Group)"
 ZHLEGAL = r'[\u4e00-\u9fffA-Za-z（）()]{2,45}?(?:股份有限公司|有限公司)'
@@ -117,7 +117,13 @@ def resolve_identity(text, title=''):
     if not candidates:
         for m in re.finditer(r'(?:分拆|分立)(?:本集團|本集团|其|旗下)?([\u4e00-\u9fff]{2,16}(?:業務|业务|REITs))',title):add(m[1],title,'business')
     if not candidates:
+        # Registration / listing approvals name the fund itself. Do not treat
+        # its manager or the asset-backed special plan as the spun-off fund.
+        for m in re.finditer(r'(?:關於准予|关于准予|關於對|关于对)([\u4e00-\u9fff]{2,35}(?:封閉式|封闭式)基礎設施證券投資基金|[\u4e00-\u9fff]{2,35}(?:封閉式|封闭式)基础设施证券投资基金)(?=註冊|注册|上市)',text):add(m[1],m.group(),'instrument')
+    if not candidates:
         for m in re.finditer(r'[（(](?:即|簡稱|简称)?[「“"]([^」”"]{2,35}REITs?)[」”"][）)]',text,re.I):add(m[1],m.group(),'business')
+    if not candidates:
+        for m in re.finditer(r'(?:基礎設施|基础设施)?\s*REIT\s*(?:的相關資產為|的相关资产为)([^。]{2,80}?)[（(][「“"](?:該項目|该项目)[」”"][）)]',text,re.I):add(m[1],m.group(),'business')
     if not candidates:
         for m in re.finditer(r'REIT\s*的相關資產為([^。]{2,65}?)，即',text,re.I):add(m[1],m.group(),'business')
     if not candidates:

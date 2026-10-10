@@ -3,6 +3,10 @@ import re
 
 # Confirmed issuer actions only; never infer a split from a price/share change.
 VERIFIED_SPLITS = (
+    {"ticker": "GOOG", "cusip": "02079K107", "quarter": "2022 Q3", "factor": 20,
+     "date": "2022-07-15", "source": "https://www.sec.gov/Archives/edgar/data/1652044/000165204422000071/goog-20220630.htm"},
+    {"ticker": "GOOGL", "cusip": "02079K305", "quarter": "2022 Q3", "factor": 20,
+     "date": "2022-07-15", "source": "https://www.sec.gov/Archives/edgar/data/1652044/000165204422000071/goog-20220630.htm"},
     {"ticker": "CVNA", "cusip": "146869102", "quarter": "2026 Q2", "factor": 5,
      "date": "2026-05-08", "source": "https://www.sec.gov/Archives/edgar/data/1690820/000169082026000055/cvna-20260630.htm"},
 )
