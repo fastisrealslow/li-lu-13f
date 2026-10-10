@@ -373,6 +373,7 @@ th .info-wrap{position:relative;display:inline-flex}
 @media(max-width:640px){.insights-box{padding:16px}.scope-facts{grid-template-columns:1fr}.scope-heading{align-items:flex-start}.philosophy-signature{padding:16px}}
 </style>
 <link rel="stylesheet" href="spinoff_ui.css?v=8">
+<link rel="stylesheet" href="theme.css?v=1">
 </head>
 <body>
 
@@ -388,9 +389,9 @@ th .info-wrap{position:relative;display:inline-flex}
     </ul>
     <button id="statusDot" class="status-dot" onclick="openStatusDrawer()" title="更新状态"><span id="statusDotInner"></span></button>
     <button id="langBtn" class="lang-btn" onclick="switchLang()">EN</button>
-    <div class="nav-hamburger" id="hamburger" onclick="document.getElementById('navLinks').classList.toggle('open')">
+    <button type="button" class="nav-hamburger" id="hamburger" aria-label="导航菜单 / Navigation" aria-controls="navLinks" aria-expanded="false" onclick="toggleNavigation()">
       <span></span><span></span><span></span>
-    </div>
+    </button>
   </div>
 </nav>
 
@@ -409,13 +410,14 @@ th .info-wrap{position:relative;display:inline-flex}
   <div class="hero-inner">
     <div class="hero-top">
       <div>
-        <div class="hero-title">
+        <p class="hero-eyebrow">PORTFOLIO RESEARCH</p>
+        <h1 class="hero-title">
           <span data-i18n="heroTitle">李录 13F 持仓追踪</span><span class="accent"></span>
           <span class="sub">Himalaya Capital Management — 学习大师持仓变化</span>
-        </div>
+        </h1>
       </div>
       <div class="hero-actions">
-        <button class="btn-refresh" id="btnRefresh" onclick="refreshLive()" title="重新读取当前投资人最新发布的持仓和股价">🔄 刷新</button>
+        <button class="btn-refresh" id="btnRefresh" onclick="refreshLive()" title="重新读取当前投资人最新发布的持仓和股价">刷新</button>
         <div class="data-source-tag" id="dataSource"></div>
       </div>
     </div>
@@ -429,19 +431,20 @@ th .info-wrap{position:relative;display:inline-flex}
 <div class="data-wrap">
   <div class="data-inner">
     <div id="investorSelectorBar" style="margin-bottom:16px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
-      <span style="font-size:.72rem;color:var(--text-lighter);white-space:nowrap;" data-i18n="selLabel">切换投资者：</span>
+      <label class="investor-selector-label" for="investorSelect" data-i18n="selLabel">研究对象</label>
+      <select id="investorSelect" onchange="switchInvestor(this.value)" aria-label="投资者 / Investor"></select>
       <div id="investorBtn" style="display:flex;flex-wrap:wrap;gap:6px;"></div>
     </div>
     <div id="summaryCards" class="stat-line" style="margin-bottom:20px;width:100%;"></div>
     <div class="tabs-wrap" id="tabsWrap">
     <div class="tabs" id="tabsScroll">
-      <button class="tab-btn active" onclick="switchTab('current')"><span data-i18n="tabCurrent">📊 持仓明细</span></button>
-      <button class="tab-btn" onclick="switchTab('changes')"><span data-i18n="tabChanges">📈 季度变化</span></button>
-      <button class="tab-btn" onclick="switchTab('history')"><span data-i18n="tabHistory">📉 历史趋势</span></button>
-      <button class="tab-btn" onclick="switchTab('homework')" style="position:relative;"><span data-i18n="tabHomework">📋 价值筛选</span></button>
-      <button class="tab-btn" onclick="switchTab('spinoff')" style="position:relative;"><span data-i18n="tabSpinoff">🇭🇰 港股分拆</span></button>
-      <button class="tab-btn" onclick="switchTab('spinoff_us')" style="position:relative;"><span data-i18n="tabSpinoffUS">🇺🇸 美股分拆</span></button>
-      <button class="tab-btn" onclick="switchTab('game')" style="position:relative;"><span data-i18n="tabGame">🎴 思维试炼</span></button>
+      <button class="tab-btn active" onclick="switchTab('current')"><span data-i18n="tabCurrent">持仓明细</span></button>
+      <button class="tab-btn" onclick="switchTab('changes')"><span data-i18n="tabChanges">季度变化</span></button>
+      <button class="tab-btn" onclick="switchTab('history')"><span data-i18n="tabHistory">历史趋势</span></button>
+      <button class="tab-btn" onclick="switchTab('homework')" style="position:relative;"><span data-i18n="tabHomework">价值筛选</span></button>
+      <button class="tab-btn" onclick="switchTab('spinoff')" style="position:relative;"><span data-i18n="tabSpinoff">港股分拆</span></button>
+      <button class="tab-btn" onclick="switchTab('spinoff_us')" style="position:relative;"><span data-i18n="tabSpinoffUS">美股分拆</span></button>
+      <button class="tab-btn" onclick="switchTab('game')" style="position:relative;"><span data-i18n="tabGame">思维试炼</span></button>
     </div>
     </div>
     <div id="tab-current">
@@ -499,7 +502,7 @@ th .info-wrap{position:relative;display:inline-flex}
 <section class="ref-section" id="about">
   <div class="ref-inner">
     <div class="ref-label" id="aboutLabel">About Li Lu</div>
-    <div class="ref-title" id="aboutTitle"><span data-i18n="aboutTitle">关于李录与喜马拉雅资本</span></div>
+    <h2 class="ref-title" id="aboutTitle"><span data-i18n="aboutTitle">关于李录与喜马拉雅资本</span></h2>
     <div class="ref-divider"></div>
     <div class="ref-grid">
       <div>
@@ -520,37 +523,37 @@ th .info-wrap{position:relative;display:inline-flex}
 <section class="ref-section ref-alt" id="philosophy">
   <div class="ref-inner">
     <div class="ref-label" id="philLabel">Philosophy</div>
-    <div class="ref-title" id="philTitle"><span data-i18n="philTitle">投资理念 — 格雷厄姆 → 巴菲特 → 芒格 → 李录</span></div>
+    <h2 class="ref-title" id="philTitle"><span data-i18n="philTitle">投资理念 — 格雷厄姆 → 巴菲特 → 芒格 → 李录</span></h2>
     <div id="philosophySignature" class="philosophy-signature"></div>
     <div class="ref-divider"></div>
     <div class="phil-grid">
       <div class="phil-card">
-        <div class="icon">📖</div>
+        <div class="icon">01.</div>
         <h4 data-i18n="philDeep">深度研究</h4>
         <p data-i18n="philDBody">全面尽职调查——财务报表、行业动态、竞争地位，确保充分了解企业基本面。</p>
       </div>
       <div class="phil-card">
-        <div class="icon">🎯</div>
+        <div class="icon">02.</div>
         <h4 data-i18n="philFocus">集中持仓</h4>
         <p data-i18n="philFBody1">不追求广泛分散，资金集中在少数高确信度投资上。当前仅 <span id="philoCount">—</span> 只持仓。</p>
       </div>
       <div class="phil-card">
-        <div class="icon">⏳</div>
+        <div class="icon">03.</div>
         <h4 data-i18n="philLong">长期视角</h4>
         <p data-i18n="philLBody">以十年为周期持有，让复利充分发挥。不追逐短期波动，陪伴优秀企业成长。</p>
       </div>
       <div class="phil-card">
-        <div class="icon">🛡️</div>
+        <div class="icon">04.</div>
         <h4 data-i18n="philMargin">安全边际</h4>
         <p data-i18n="philMBody">以显著低于内在价值的价格买入，为不可预见的风险提供缓冲。</p>
       </div>
       <div class="phil-card">
-        <div class="icon">🔭</div>
+        <div class="icon">05.</div>
         <h4 data-i18n="philCircle">能力圈</h4>
         <p data-i18n="philCBody">清楚知道自己理解什么、不理解什么。只在真正有优势的领域投资。</p>
       </div>
       <div class="phil-card">
-        <div class="icon">🎣</div>
+        <div class="icon">06.</div>
         <h4 data-i18n="philFish">在对的地方钓鱼</h4>
         <p data-i18n="philFishBody">芒格钓鱼的故事——投资者不需要理解所有公司，关键是找到自己能"钓到鱼"的水域。</p>
       </div>
@@ -562,7 +565,7 @@ th .info-wrap{position:relative;display:inline-flex}
 <section class="ref-section" id="readings">
   <div class="ref-inner">
     <div class="ref-label" id="readLabel">Readings</div>
-    <div class="ref-title" id="readTitle"><span data-i18n="readTitle">学习材料</span></div>
+    <h2 class="ref-title" id="readTitle"><span data-i18n="readTitle">学习材料</span></h2>
     <div class="ref-divider"></div>
     <div class="articles-grid">
     </div>
@@ -585,12 +588,16 @@ th .info-wrap{position:relative;display:inline-flex}
   </div>
 </footer>
 
-<script src="app.js?v=71"></script>
+<script src="app.js?v=72"></script>
 <script src="spinoff_ui.js?v=10"></script>
 <script>
+function toggleNavigation(){
+  const open=document.getElementById('navLinks').classList.toggle('open');
+  document.getElementById('hamburger').setAttribute('aria-expanded',String(open));
+}
 const nav=document.getElementById('mainNav');
 window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',window.scrollY>60));
-document.querySelectorAll('.nav-links a').forEach(a=>a.addEventListener('click',()=>{ if(document.body.classList.contains('spin-research')) switchTab('current'); document.getElementById('navLinks').classList.remove('open'); }));
+document.querySelectorAll('.nav-links a').forEach(a=>a.addEventListener('click',()=>{ if(document.body.classList.contains('spin-research')) switchTab('current'); document.getElementById('navLinks').classList.remove('open'); document.getElementById('hamburger').setAttribute('aria-expanded','false'); }));
 // Tab 栏滞动渐隐效果
 (function(){
   const wrap=document.getElementById('tabsWrap');
