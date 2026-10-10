@@ -358,6 +358,13 @@ th .info-wrap{position:relative;display:inline-flex}
 .scope-lens{font-size:.82rem;line-height:1.8;margin-bottom:16px;color:var(--text-light)}
 .scope-lens strong{color:var(--navy);display:block;margin-bottom:3px}
 .scope-facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:12px;padding:0;list-style:none}
+.briefing-headline{font-size:1.14rem;line-height:1.65;color:var(--navy);margin:16px 0 10px;font-weight:700;max-width:1000px}
+.briefing-lead{font-size:.9rem;line-height:1.95;color:var(--text);margin:0 0 18px;max-width:1050px}
+.briefing-drivers{list-style:none;counter-reset:briefing;padding:0;margin:0;display:grid;gap:0}
+.briefing-drivers li{counter-increment:briefing;position:relative;padding:16px 0 16px 40px;border-top:1px solid var(--border-light);line-height:1.9;font-size:.84rem;min-width:0;overflow-wrap:anywhere}
+.insights-box .briefing-drivers li::before{content:counter(briefing,decimal-leading-zero);position:absolute;left:0;top:17px;color:var(--gold);font-size:.75rem;font-weight:700}
+.briefing-drivers strong{color:var(--navy);font-size:.84rem}.briefing-drivers p{margin:4px 0 0;color:var(--text-light);max-width:1050px}
+.briefing-notes{font-size:.72rem;line-height:1.8;color:var(--text-lighter);margin-top:12px}.briefing-notes summary{cursor:pointer}.briefing-notes p{margin:8px 0 0}
 .insights-box .scope-facts li{background:var(--white);border:1px solid var(--border-light);border-radius:8px;padding:14px 16px;line-height:1.85;font-size:.82rem;min-width:0;overflow-wrap:anywhere}
 .insights-box .scope-facts li::before{content:none}.scope-footnote{font-size:.7rem;color:var(--text-lighter);line-height:1.7;margin-top:14px}
 .philosophy-signature{padding:18px 22px;margin-top:20px;background:var(--cream);border-left:3px solid var(--gold);border-radius:8px;line-height:1.8}
@@ -578,7 +585,7 @@ th .info-wrap{position:relative;display:inline-flex}
   </div>
 </footer>
 
-<script src="app.js?v=69"></script>
+<script src="app.js?v=70"></script>
 <script src="spinoff_ui.js?v=10"></script>
 <script>
 const nav=document.getElementById('mainNav');

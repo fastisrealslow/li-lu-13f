@@ -34,8 +34,9 @@ test('published summaries match each investor and each independent tab source in
         assert.equal(a.run('lang=language;!!scopedSummaryEntry(kind,data)'), true, `${kind}/${cfg.id}/${language}`);
         a.run('renderScopedInsight(kind)');
         const html=a.el(kind==='holdings'?'holdingsInsight':'historyInsight').innerHTML;
-        a.context.signature=cfg.profile.signature.title[language==='en'?1:0];
-        assert.ok(html.includes(a.run('aiEscape(signature)')),`${kind}/${cfg.id}/${language}`);
+        assert.ok(html.includes('briefing-headline'),`${kind}/${cfg.id}/${language}`);
+        assert.ok(html.includes('briefing-lead'),`${kind}/${cfg.id}/${language}`);
+        assert.ok(!html.includes('scope-lens'));
         assert.ok(!html.includes('重点（非完整名单）'));
       }
     }
@@ -76,6 +77,21 @@ test('value overview counts qualifying holders and preserves opposite share dire
   assert.match(zh,/本轮 3 只/);assert.match(zh,/其中 2 只价格/);assert.match(zh,/1 只同时有至少两位/);
   assert.match(zh,/2 只出现新建仓或增持，1 只出现减持/);assert.match(zh,/1 只存在方向分歧（MIX）/);
   assert.match(a.run('valueScreenOverview(rows,true)'),/These groups can overlap/);
+});
+test('narrative headings and evidence are escaped and generic advice does not replace the figures',()=>{
+  const a=app();a.context.b={version:1,headline:['<img src=x>','<img src=x>'],lead:['90% 与 10%','90% and 10%'],details:[{label:['重点','Evidence'],text:['<script>bad</script>','<script>bad</script>']}],notes:[]};
+  const html=a.run('briefingHTML(b)');
+  assert.match(html,/&lt;img/);assert.match(html,/&lt;script/);assert.ok(!html.includes('<script>'));
+  assert.match(html,/90% 与 10%/);
+  assert.ok(!html.includes('scope-lens'));
+});
+test('model topic ordering preserves the whole narrative and rejects foreign topics',()=>{
+  const a=app();a.context.b={version:1,headline:['主线','Main point'],lead:['50%','50%'],details:[{label:['第一','First'],text:['10%','10%']},{label:['第二','Second'],text:['20%','20%']},{label:['第三','Third'],text:['30%','30%']}],notes:[]};
+  const ordered=JSON.parse(a.run("JSON.stringify(orderedBriefing(b,['t2','t0']))"));
+  assert.deepEqual(ordered.details.map(d=>d.text[0]),['30%','10%','20%']);
+  assert.deepEqual(ordered.headline,a.context.b.headline);assert.equal(ordered.lead[0],'50%');
+  assert.equal(a.run("orderedBriefing(b,['t0','t0'])"),null);
+  assert.equal(a.run("orderedBriefing(b,['t999'])"),null);
 });
 test('reporting scope changes break chart lines and never produce a cross-scope growth claim', () => {
   const a=app();a.run("data={current:{quarter:'2026 Q2'},meta:{reportingTransition:{comparisonScopeChanged:true,fromQuarter:'2026 Q2'}}}");

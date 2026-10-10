@@ -25,6 +25,8 @@ on:
       - .github/workflows/ai-supplement.yml
       - ai_supplement.py
       - tab_insights.py
+      - portfolio_briefing.py
+      - tests/test_portfolio_briefing.py
       - tests/test_tab_insights.py
       - portfolio_review.py
       - holdings_diff.py
@@ -67,6 +69,7 @@ jobs:
         run: |
           python3 -m unittest discover -s tests -p test_ai_supplement.py -v
           python3 -m unittest discover -s tests -p test_tab_insights.py -v
+          python3 -m unittest discover -s tests -p test_portfolio_briefing.py -v
       - name: Check changed input before installing a model
         id: plan
         run: |

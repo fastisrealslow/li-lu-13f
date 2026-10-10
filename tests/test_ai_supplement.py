@@ -137,7 +137,7 @@ class AISupplementTests(unittest.TestCase):
         body=json.loads(call.call_args.args[0].data)
         self.assertFalse(body['think'])
         self.assertEqual(body['options']['num_gpu'],0)
-        self.assertEqual(set(body['format']['properties']),{'factIds'})
+        self.assertEqual(set(body['format']['properties']),{'factIds','topicIds'})
         self.assertEqual(body['format']['properties']['factIds']['items']['enum'],['f0','f1'])
         self.assertEqual(selection,self.selection)
 

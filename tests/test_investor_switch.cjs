@@ -293,7 +293,10 @@ test('complete facts and rendered summaries agree with Python for every publishe
     const source=JSON.parse(a.run('JSON.stringify(aiInvestorSource(data))'));
     assert.deepEqual(source,task.source,id+' source');
     const facts=JSON.parse(a.run('JSON.stringify((({rows,...facts})=>facts)(portfolioFacts(data,INVESTOR_CFG_BY_ID[investor].name)))'));
-    assert.deepEqual(facts,task.facts,id+' complete facts');
+    const {briefing,...comparisonFacts}=task.facts;
+    assert.deepEqual(facts,comparisonFacts,id+' complete facts');
+    a.context.baseBriefing=briefing;a.context.topicIds=cache.entries[task.id].selection.topicIds || [];
+    assert.deepEqual(cache.entries[task.id].briefing,JSON.parse(a.run('JSON.stringify(orderedBriefing(baseBriefing,topicIds))')),id+' published narrative');
     if(facts.comparisonState==='comparable') {
       const entry=cache.entries[task.id];
       const summary=a.run(`investorSummary(data,${JSON.stringify(entry.selection.factIds)},INVESTOR_CFG_BY_ID[investor].name,false)`);

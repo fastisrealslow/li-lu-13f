@@ -26,6 +26,9 @@ def history_source(data):
                 instrumentHistoryFrom=meta.get('instrumentHistoryFrom'), instrumentHistoryTickers=meta.get('instrumentHistoryTickers'),
                 quarters=h.get('quarters', []), values=h.get('values', []), verification=h.get('verification'),
                 excludedValueQuarters=h.get('excludedValueQuarters', []),
+                recentHoldings={q:[[r.get(k) for k in CURRENT_FIELDS] for r in rows] for q,rows in h.get('holdings',{}).items()
+                    if quarter_index(q) is not None and quarter_index(data.get('current',{}).get('quarter')) is not None
+                    and 0<=quarter_index(data['current']['quarter'])-quarter_index(q)<4},
                 holdings={q:dict(totalValue=sum(r['value'] for r in rows) if rows and all(valid_number(r.get('value')) for r in rows) else None,
                     securities=sorted({json.dumps(identity(r),separators=(',',':'),ensure_ascii=False) for r in rows if valid_number(r.get('shares')) and r['shares']>0}))
                     for q, rows in h.get('holdings', {}).items()})
