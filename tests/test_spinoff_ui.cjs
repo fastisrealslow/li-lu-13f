@@ -26,7 +26,7 @@ test('auto watch includes every introduction, persists across refresh and preser
  assert.equal(a.run('spinPrefs()["hk:1"].watch'),true);assert.equal(a.run('spinPrefs()["hk:2"].autoIntro'),true);
  assert.equal(a.run('spinPrefs()["hk:1"].note'),'keep');assert.equal(a.run('spinPrefs()["hk:1"].read'),'v1');assert.equal(a.run('spinPrefs()["manual"].watch'),true);assert.equal(a.run('spinPrefs()["hk:3"]'),undefined);
  a.run('spinSave("hk:1",{watch:false});spinAutoWatchIntroductions({events})');assert.equal(a.run('spinPrefs()["hk:1"].watch'),true);
- a.context.events.push({...event,id:'hk:new',type:{code:'intro_hk'}});a.run('spinAutoWatchIntroductions({events})');assert.equal(a.run('spinPrefs()["hk:new"].watch'),true);
+ a.context.events.push({...event,id:'hk:new',type:{code:'intro_hk',is_reit:true}});a.run('spinAutoWatchIntroductions({events})');assert.equal(a.run('spinPrefs()["hk:new"].watch'),true);
 });
 test('watchlist, unread, upcoming and search filters use event identity',()=>{
  const a=app(); a.context.event=event;

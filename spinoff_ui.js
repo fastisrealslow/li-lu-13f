@@ -55,7 +55,8 @@ function spinSave(id, patch) {
 function spinAutoWatchIntroductions(data) {
   const prefs=spinPrefs();let changed=false;
   for (const e of data.events || []) {
-    if (spinTypeClass(e.type)!=='intro') continue;
+    const code=typeof e.type==='object'?e.type?.code || '':e.type || '';
+    if (!/^intro(?:_|$)/.test(code)) continue;
     if (prefs[e.id]?.watch && prefs[e.id]?.autoIntro) continue;
     prefs[e.id]={...prefs[e.id],watch:true,autoIntro:true};changed=true;
   }
@@ -238,7 +239,7 @@ function spinRenderList(market) {
   const prefs = spinPrefs(), events = spinVisible(state,prefs), base = spinBaseEvents(state);
   root.querySelector('.sd-results').innerHTML = events.length ? `<div class="sd-list-head"><span>${spinLabel('公司 / 代码','Company / ticker')}</span><span>${spinLabel('分拆标的 / 类型','Target / type')}</span><span>${spinLabel('进度','Status')}</span><span>${spinLabel('最新公告','Latest filing')}</span><span></span></div>`+events.map(e=>spinCard(e,prefs[e.id])).join('') : `<div class="sd-empty">${spinLabel('暂无符合条件的事件。可清空搜索或调整筛选。','No matching events. Clear the search or adjust filters.')}</div>`;
   root.querySelector('.sd-count').textContent = spinLabel(`显示 ${events.length} / ${base.length} 个档案`,`Showing ${events.length} / ${base.length} dossiers`);
-  const linked=state.data.events.find(e=>e.id===state.linkedEvent);
+  const linked=events.find(e=>e.id===state.linkedEvent);
   if (linked) {
     root.querySelector('.sd-results').insertAdjacentHTML('afterbegin',`<p class="sd-linked-notice">${spinLabel('上方变化对应：','Linked from updates: ')}<strong>${spinEscape(spinIssuerName(linked))} · ${spinEscape(spinTargetLabel(linked))}</strong> · ${spinLabel('对应档案已标出；其余为全部档案。','The matching dossier is highlighted; other rows show the full archive.')} <button data-action="reset">${spinLabel('取消定位','Clear highlight')}</button></p>`);
     Array.from(root.querySelectorAll('[data-event]')).find(e=>e.dataset.event===linked.id)?.classList.add('sd-linked');
