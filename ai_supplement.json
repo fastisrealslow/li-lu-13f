@@ -21,10 +21,9 @@
       "status": "ok"
     },
     "investor:buffett": {
-      "at": "2026-10-10T03:21:14.151861+00:00",
-      "sourceHash": "dab4b99b7527a37298f2cd641d12df52d3aa360b5e67ee0e2c2c7d19496ac583",
-      "status": "failed",
-      "error": "Selection omitted an available change direction"
+      "at": "2026-10-10T13:06:09.833404+00:00",
+      "sourceHash": "251edf6f328531ee31efdfd38f53e41c37f7b7e30e32e3ae816cfb9bfa8980f8",
+      "status": "ok"
     },
     "investor:duan": {
       "at": "2026-10-10T04:36:37.712454+00:00",
@@ -32,7 +31,7 @@
       "status": "ok"
     },
     "investor:greenberg": {
-      "at": "2026-10-10T10:48:32.875574+00:00",
+      "at": "2026-10-10T13:08:54.963461+00:00",
       "sourceHash": "6e8678dd15fdab9c1d49a80ca6d16d1ced6ae56b100ae750a35ecb23d8306439",
       "status": "failed",
       "error": "Selection omitted an available change direction"
@@ -79,7 +78,7 @@
       "status": "ok"
     },
     "history:lilu": {
-      "at": "2026-10-10T10:53:22.546517+00:00",
+      "at": "2026-10-10T13:11:35.023528+00:00",
       "sourceHash": "f6cb66ccc1b9cf4ff1f5580db698c931ad1710b9ff5474bea5c3b139e7a260a8",
       "status": "failed",
       "error": "Selection omitted a required scope or evidence limitation"
@@ -105,7 +104,7 @@
       "status": "ok"
     },
     "holdings:tepper": {
-      "at": "2026-10-10T10:54:59.235779+00:00",
+      "at": "2026-10-10T13:13:15.717340+00:00",
       "sourceHash": "4f484b535756e0955ac1d6eda53e544394565be9af3bb0aa2eabec81b0d6f0f5",
       "status": "failed",
       "error": "Selection omitted a required scope or evidence limitation"
@@ -2693,7 +2692,7 @@
       "renderVersion": 4,
       "mode": "deterministic",
       "summary": "格伦·格林伯格 2026 Q2（按披露股数比较）：新建仓7项、增持6项、减持15项、清仓3项、不变12项、待比较0项。重点（非完整名单）：ICON PUB LTD CO：增持5.2%；TD 辛纳克斯（SNX）：减持52.8%；OneMain 控股（OMF）：减持1.5%；阿瑟 J. 加拉格尔（AJG）：新建仓；阿雷斯管理（ARES）：清仓。",
-      "generatedAt": "2026-10-10T10:51:09.077076+00:00",
+      "generatedAt": "2026-10-10T13:11:35.020137+00:00",
       "model": null,
       "metrics": {}
     },
@@ -9545,14 +9544,21 @@
           "f7",
           "f17",
           "f19"
+        ],
+        "topicIds": [
+          "t0",
+          "t1"
         ]
       },
       "renderVersion": 4,
-      "mode": "deterministic",
+      "mode": "model_selection",
       "summary": "巴菲特 2026 Q2（按披露股数比较）：新建仓1项、增持7项、减持6项、清仓1项、不变15项、待比较0项。重点（非完整名单）：谷歌A（GOOGL）：增持45.2%；美国银行（BAC）：减持5.9%；谷歌C（GOOG）：增持658.3%；星座品牌（STZ）：清仓；D.R. 霍顿（DHI）：新建仓。",
-      "generatedAt": "2026-10-10T04:26:28.438527+00:00",
-      "model": null,
-      "metrics": {}
+      "generatedAt": "2026-10-10T13:08:54.961917+00:00",
+      "model": "qwen3.5:9b-q4_K_M",
+      "metrics": {
+        "seconds": 165.1,
+        "tokens": 31
+      }
     },
     "investor:akre": {
       "facts": {
@@ -13071,7 +13077,7 @@
       "renderVersion": 4,
       "mode": "deterministic",
       "summary": "李录 · 历史轨迹：可用于市值趋势的记录有 35 个季度，覆盖 2016 Q4 至 2026 Q2。这段历史反映披露范围内证券，不是基金净值曲线。披露市值从 US$111.64M 变为 US$3,702.92M（变化 +3216.8%）。金额同时受价格、买卖、资金流及披露范围影响，不能当作投资回报。缺少或排除的市值季度：2018 Q4、2019 Q1、2019 Q2、2019 Q3。不填零、不推断清仓，也不跨缺口计算季度变化。",
-      "generatedAt": "2026-10-10T10:54:59.226064+00:00",
+      "generatedAt": "2026-10-10T13:13:15.713117+00:00",
       "model": null,
       "metrics": {}
     },
@@ -16898,7 +16904,7 @@
       "renderVersion": 4,
       "mode": "deterministic",
       "summary": "大卫·泰珀 · 持仓结构：本次披露 27 项证券：普通股 25 项、PUT 2 项。不同股份类别和期权分别计数。最大单项证券是 亚马逊（AMZN），申报值 US$1,191.70M，占本次披露 15.4%。期权共 2 项。13F 中期权申报值对应标的证券价值，不能当作期权权利金，也不能仅凭 PUT/CALL 判断完整对冲策略。",
-      "generatedAt": "2026-10-10T10:56:15.490870+00:00",
+      "generatedAt": "2026-10-10T13:14:36.322804+00:00",
       "model": null,
       "metrics": {}
     },
@@ -52330,7 +52336,7 @@
     }
   },
   "lastRun": {
-    "startedAt": "2026-10-10T10:46:09.626712+00:00",
+    "startedAt": "2026-10-10T13:06:09.833378+00:00",
     "model": "qwen3.5:9b-q4_K_M",
     "pendingBefore": 12,
     "cached": 28,
@@ -52339,7 +52345,7 @@
     "accepted": 7,
     "fallback": 4,
     "rejected": 0,
-    "failed": 4
+    "failed": 3
   },
   "schemaVersion": 2,
   "fallbackRefresh": {

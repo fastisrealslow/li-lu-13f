@@ -372,8 +372,8 @@ th .info-wrap{position:relative;display:inline-flex}
 @media(min-width:1000px){.phil-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media(max-width:640px){.insights-box{padding:16px}.scope-facts{grid-template-columns:1fr}.scope-heading{align-items:flex-start}.philosophy-signature{padding:16px}}
 </style>
-<link rel="stylesheet" href="spinoff_ui.css?v=9">
-<link rel="stylesheet" href="theme.css?v=2">
+<link rel="stylesheet" href="spinoff_ui.css?v=10">
+<link rel="stylesheet" href="theme.css?v=3">
 </head>
 <body>
 
@@ -450,9 +450,10 @@ th .info-wrap{position:relative;display:inline-flex}
     <div id="tab-current">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
       </div>
+      <section id="costReadingGuide" class="cost-reading-guide"></section>
       <div class="scroll-hint-mobile" style="display:none;text-align:right;font-size:.65rem;color:var(--text-lighter);margin-bottom:4px;padding-right:4px;">← 左右滑动查看更多 →</div>
       <div class="table-wrap"><table><thead><tr>
-        <th>#</th><th>股票</th><th>持股 / 市值</th><th><span data-i18n="thPrice">参考股价</span> <span class="info-wrap"><span class="info-badge" onclick="this.parentElement.querySelector('.info-popover').classList.toggle('show')">ⓘ</span><span class="info-popover">Finnhub 每日拉取，非实时行情，仅供参考</span></span></th><th><span data-i18n="thCost">估算成本</span> <span class="info-wrap"><span class="info-badge" onclick="this.parentElement.querySelector('.info-popover').classList.toggle('show')">ⓘ</span><span class="info-popover">最近增持季度的历史行情估价：低价×70%＋均价×30%。另列按股数变化加权的持仓均价估算。13F 不披露真实成交成本；这些数值不是内在价值。</span></span></th><th data-i18n="thWeight">权重</th><th><span data-i18n="thGap">安全边际</span><small class="table-subhead" data-i18n="gapSub">（相对估价）</small></th>
+        <th>#</th><th>股票</th><th>持股 / 市值</th><th><span data-i18n="thPrice">参考股价</span> <span class="info-wrap"><span class="info-badge" onclick="this.parentElement.querySelector('.info-popover').classList.toggle('show')">ⓘ</span><span class="info-popover">Finnhub 每日拉取，非实时行情，仅供参考</span></span></th><th><span data-i18n="thCost">历史参考成本</span> <span class="info-wrap"><span class="info-badge" onclick="this.parentElement.querySelector('.info-popover').classList.toggle('show')">ⓘ</span><span class="info-popover">最近加仓参考价对应最近股数增加季度；历次加仓均价综合本轮持仓的估计建仓、加仓价格。方法见表格上方说明。</span></span></th><th data-i18n="thWeight">权重</th><th><span data-i18n="thGap">现价与加仓价对比</span><small class="table-subhead" data-i18n="gapSub">（以最近加仓参考价为基准）</small></th>
       </tr></thead><tbody id="holdingsBody"></tbody></table>
       <div id="priceFoot" class="price-note">
         
@@ -588,8 +589,8 @@ th .info-wrap{position:relative;display:inline-flex}
   </div>
 </footer>
 
-<script src="app.js?v=73"></script>
-<script src="spinoff_ui.js?v=11"></script>
+<script src="app.js?v=74"></script>
+<script src="spinoff_ui.js?v=13"></script>
 <script>
 function toggleNavigation(){
   const open=document.getElementById('navLinks').classList.toggle('open');

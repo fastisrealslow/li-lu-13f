@@ -1,7 +1,7 @@
 """Deterministic, source-bound target identity extraction (no paid AI dependency)."""
 import re
 
-IDENTITY_VERSION = 2
+IDENTITY_VERSION = 3
 # Capitalization bounds prevent consuming prose before an English legal name.
 LEGAL = r"[A-Z][A-Za-z0-9&’'\-]*(?: [A-Z][A-Za-z0-9&’'\-]*){0,7},? (?:Inc\.?|Corporation|Corp\.?|Limited|LIMITED|Ltd\.?|LTD\.?|PLC|LLC|Group)"
 ZHLEGAL = r'[\u4e00-\u9fffA-Za-z（）()]{2,45}?(?:股份有限公司|有限公司)'
@@ -38,6 +38,21 @@ def resolve_identity(text, title=''):
             name = full
             quote = definition + ' … ' + quote if definition not in quote else quote
         candidates.append(dict(name=name, aliases=[a for a in aliases if a not in ('Company', '本公司', '本集團', '本集团', '公司', 'SpinCo', 'we', 'us', 'our')], quote=quote[:1100], kind=kind))
+    # A named fund being spun off may use a short name in the headline and
+    # define its formal name much later in the filing. Bind only that fund;
+    # the manager and underlying project companies are different entities.
+    funds = []
+    for pattern, body in [(r'(?:進行|进行)([\u4e00-\u9fff]{2,40}基金)(?:中國|中国)上市', title),
+                          (r'分拆(?:將涉及|将涉及)([\u4e00-\u9fff]{2,40}?基金)(?:於|于)', text)]:
+        for m in re.finditer(pattern, body):
+            alias = m[1]
+            definition = re.search(r'[「“"]'+re.escape(alias)+r'[」”"](?:\s*[（(][^（）()]{0,140}[）)])?\s*指\s*([\u4e00-\u9fff]{2,60}?(?:基礎設施證券投資基金|基础设施证券投资基金))', text)
+            funds.append({'name': definition[1] if definition else alias,
+                          'aliases': [alias] if definition else [],
+                          'quote': m.group()+((' … '+definition.group()) if definition else ''),
+                          'kind': 'instrument'})
+    if len({target_key(f['name']) for f in funds}) == 1:
+        return funds[0]
     # First consider explicit headline subjects, including names before 分拆.
     headline = title_target(title)
     if headline: add(headline, title, 'business' if re.search(r'業務|业务|物業|物业|REIT|項目|项目', headline, re.I) else 'entity')

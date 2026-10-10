@@ -55,3 +55,7 @@ body.spin-research .nav{background:var(--navy-dark);box-shadow:0 1px 8px rgba(0,
 .sd-card.sd-linked{border:2px solid var(--brand-blue);scroll-margin-top:100px;background:#f7faff}
 
 .sd-auto-note,.sd-auto-intro{color:var(--brand-blue);font-size:11px;line-height:1.7}.sd-auto-intro{display:block;margin-top:5px}
+
+.sd-overview,.sd-view-help,.sd-change-explanation{font-size:12px;color:var(--text-light);line-height:1.8;margin:12px 0}.sd-changes>summary{cursor:pointer;color:var(--navy);font-weight:600;padding:6px 0;min-height:36px}.sd-changes>summary>span{font-size:11px;color:var(--text-light);font-weight:400;margin-left:8px}.sd-changes .sd-change-content{margin-top:10px}.sd-list-heading{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-top:20px}.sd-list-title{font-family:var(--serif);font-size:20px;color:var(--navy);margin:0;scroll-margin-top:120px}.sd-list-heading .sd-count{margin-left:0}.sd-view-help{margin:7px 0 12px}.sd-target .sd-joint-label{color:var(--brand-blue);line-height:1.7}.sd-joint-explanation{font-size:12px;line-height:1.8;margin:0 0 14px}.sd-joint-explanation button{margin-top:6px}.sd-kpis button{min-height:44px}
+@media(max-width:650px){.sd-changes>summary>span{display:block;margin:5px 0 0}.sd-list-heading{flex-wrap:wrap;gap:4px}.sd-list-heading .sd-count{width:auto}.sd-list-title{font-size:18px}.sd-overview,.sd-view-help,.sd-change-explanation{font-size:11px}.sd-kpis button{font-size:12px;gap:9px}.sd-dossier>summary{min-height:120px}}
+.sd-target b{display:block;-webkit-line-clamp:unset;overflow:visible}

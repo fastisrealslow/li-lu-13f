@@ -26,9 +26,9 @@ const T = {
   thSector: ['行业','Sector'],
   thShares: ['持股数','Shares'],
   thPrice: ['参考股价','Price'],
-  thCost: ['估算成本','Estimated cost'],
-  thGap: ['安全边际','Cost gap'],
-  gapSub: ['（相对估价）','(vs. estimate)'],
+  thCost: ['历史参考成本','Historical cost estimates'],
+  thGap: ['现价与加仓价对比','Price vs. buying reference'],
+  gapSub: ['（以最近加仓参考价为基准）','(vs. latest buying reference)'],
   thWeight: ['权重','Weight'],
   thValue: ['市值 (USD)','Value (USD)'],
   thWeight: ['申报占比','Reported %'],
@@ -71,16 +71,16 @@ const T = {
   ftUpdate: ['数据更新：','Updated: '],
   ftAuto: ['· GitHub Actions 每日自动更新','· Auto-updated daily via GitHub Actions'],
   // Margin of Safety
-  mosTitle: ['股价低于增持季估价 ≥20%','Price below buying-quarter estimate ≥20%'],
-  mosSubtitle: ['以下仅比较参考股价与最近增持季度的历史行情估价，不是实际买入成本或企业内在价值。','These figures compare reference quotes with historical buying-quarter estimates, not actual purchase costs or intrinsic value.'],
+  mosTitle: ['现价比最近加仓参考价低至少 20%','Price at least 20% below latest buying reference'],
+  mosSubtitle: ['仅比较今日参考股价与加仓季度的历史价格，不表示股票被低估。','Compares the daily quote with the historical buying reference; it does not imply undervaluation.'],
   mosGreen: ['🟢 安全边际充足','Green Light'],
-  mosWatch: ['⚡ 值得关注','Watch List'],
+  mosWatch: ['现价比最近加仓参考价低 10%–20%','Price 10%–20% below latest buying reference'],
   mosNoMOS: ['暂无安全边际机会','No margin of safety opportunities right now'],
   mosBadge: ['安全边际','Margin of Safety'],
 
   // Cost labels
-  costRecent: ['最近增持季估价','Last buying-quarter estimate'],
-  costAllTime: ['持仓均价估算','Estimated position average'],
+  costRecent: ['最近加仓参考价','Latest buying reference'],
+  costAllTime: ['历次加仓均价（估算）','Average across purchases (estimated)'],
   // Sector translations
   secTech: ['科技','Tech'],
   secInternet: ['互联网','Internet'],
@@ -129,7 +129,7 @@ const T = {
   hkTitle: ['港股权益披露','HK Disclosures'],
   hkSub: ['港股披露与 13F 分开列示，逐项标注日期、主体与原始文件。','Dated HK disclosures are shown separately from 13F, with entities and original sources.'],
   // Price note
-  priceNote: ['参考股价为每日行情，非实时。最近增持季估价取该季低价×70%＋均价×30%；长期均价按披露股数变化加权估算，减仓不改变均价。13F 不披露真实成交成本。安全边际＝（最近增持季估价－股价）÷估价：正数为低于估价，负数为高于估价，不代表企业内在价值折价。','Quotes are daily, not real-time. Buying-quarter estimates use low × 70% + average × 30%; position averages weight estimated purchases by disclosed share changes. Reductions retain the average. 13F does not report actual purchase cost. Cost gap = (estimate − price) / estimate: positive means below, negative means above; this is not a discount to intrinsic value.'],
+  priceNote: ['加仓参考价取最近披露股数增加的季度：历史低价×70%＋均价×30%；缺少行情时使用该季申报市值÷股数，并标明来源。历次加仓均价按各次估计新增股数加权，减仓保留原均价，清仓后重新累计；拆股按比例校正。价差＝（现价－最近加仓参考价）÷参考价。季度披露无法还原每笔交易；这些是历史成本参考，不是投资者实际成本或企业合理估值。','Latest buying references use the last quarter with a reported share increase: historical low × 70% + average × 30%, or a labeled quarter-end value-per-share proxy when prices are unavailable. The position average weights estimated share additions, retains the average on reductions, restarts after exits, and adjusts for splits. Difference = (price − latest buying reference) / reference. Quarterly filings cannot reconstruct every trade. These historical references are neither actual costs nor fair value.'],
   // Quote
   quote: ['"宏观是我们必须接受的，微观是我们有所作为的。"','"The macro is what we must accept; the micro is what we can act on."'],
   quoteAttr: ['— 李录，北京大学演讲，2024年12月','— Li Lu, Peking University, Dec 2024'],
@@ -179,8 +179,8 @@ const T = {
   chCurValue: ['本季市值','Cur Value'],
   chValueChg: ['市值变化','Δ Value'],
   // Cost basis labels
-  costRecent: ['最近增持季估价','Last buying-quarter estimate'],
-  costAllTime: ['持仓均价估算','Estimated position average'],
+  costRecent: ['最近加仓参考价','Latest buying reference'],
+  costAllTime: ['历次加仓均价（估算）','Average across purchases (estimated)'],
   // Data source
   srcAuto: ['📦 GitHub Actions 每日自动更新','📦 Auto-updated daily via GitHub Actions'],
   srcLive: ['✅ SEC 实时数据','✅ SEC live data'],
@@ -763,8 +763,8 @@ function costGap(price, cost) {
 function costGapHTML(gap, reason, en = lang === 'en') {
   if (gap === null) return `<span class="estimate-unavailable">${hkEscape(reason || (en ? 'Quote unavailable' : '报价待更新'))}</span>`;
   const tone = gap >= 20 ? 'deep' : gap >= 10 ? 'watch' : gap > 0 ? 'positive' : gap < 0 ? 'negative' : 'neutral';
-  const label = gap > 0 ? (en ? 'Below estimate' : '低于估价') : gap < 0 ? (en ? 'Above estimate' : '高于估价') : (en ? 'At estimate' : '等于估价');
-  return `<span class="cost-gap ${tone}"><strong>${gap > 0 ? '+' : ''}${gap.toFixed(1)}%</strong><small>${label}</small></span>`;
+  const label = gap > 0 ? (en ? 'Price below buying reference' : '现价低于加仓参考价') : gap < 0 ? (en ? 'Price above buying reference' : '现价高于加仓参考价') : (en ? 'Price equals buying reference' : '现价等于加仓参考价');
+  return `<span class="cost-gap ${tone}"><small>${label}</small><strong>${Math.abs(gap).toFixed(1)}%</strong></span>`;
 }
 function renderHoldings() {
   const d = data.current;
@@ -780,7 +780,7 @@ function renderHoldings() {
     const cb = costState.basis;
     const quoteOK = q && !q.error && Number.isFinite(q.c) && q.c > 0;
     const currentPrice = quoteOK && !q.stale ? q.c : null;
-    const staleTitle = lang === 'en' ? 'Live quote temporarily unavailable — showing last known price' : '实时报价暂时拉取失败，显示为最后一次成功报价';
+    const staleTitle = lang === 'en' ? 'Daily quote unavailable — showing last known price' : '今日报价拉取失败，显示上次成功获取的报价';
     const priceHtml = quoteOK
       ? `<span class="current-price">${currSymbol(h.ticker)}${q.c.toFixed(2)}</span>${q.stale ? ` <span title="${staleTitle}" class="quote-stale">⏱</span>` : ''}`
       : `<span class="estimate-unavailable">${lang === 'en' ? 'Quote unavailable' : '暂无报价'}</span>`;
@@ -799,8 +799,8 @@ function renderHoldings() {
       if (at) costHtml += `<div class="average-cost">${symbol}${at.avg.toFixed(2)}<small>${t('costAllTime')} · ${hkEscape(at.first)}–${hkEscape(at.last)}</small></div>`;
       else if (costState.averagePending) costHtml += `<small>${lang === 'en' ? 'Average awaiting split correction' : '长期均价待拆股校正'}</small>`;
       costHtml += '</div>';
-      compactCost = `<span class="mobile-estimate-label">${lang === 'en' ? 'Est.' : '估价'} <strong>${symbol}${rc.buy.toFixed(2)}</strong></span><small>${hkEscape(rc.quarter)}</small>`;
-      if (at) compactCost += `<small class="mobile-average-cost">${lang==='en'?'Avg.':'持仓均价'} ${symbol}${at.avg.toFixed(2)}</small>`;
+      compactCost = `<span class="mobile-estimate-label">${lang === 'en' ? 'Buy ref.' : '加仓参考'} <strong>${symbol}${rc.buy.toFixed(2)}</strong></span><small>${hkEscape(rc.quarter)}</small>`;
+      if (at) compactCost += `<small class="mobile-average-cost">${lang==='en'?'Avg. (est.)':'历次均价（估）'} ${symbol}${at.avg.toFixed(2)}</small>`;
       if (mos !== null && mos >= 10) mosItems.push({ticker:h.ticker,name:h.name,cnName:h.cnName||'',mos:mos.toFixed(1),cost:rc.buy,price:currentPrice});
     }
     const mobileCostHtml = `<div class="mobile-cost-detail">${compactCost}${cb?mosHtml:''}</div>`;
@@ -835,8 +835,8 @@ function renderHoldings() {
     <span style="display:inline-flex;align-items:center;gap:3px;font-size:.62rem;"><span style="padding:1px 6px;background:rgba(16,185,129,0.1);border:1px solid rgba(16,185,129,0.25);border-radius:4px;color:#10b981;font-weight:600;">📈 +N%</span> ${lang==='en'?'Share count increased':'披露股数增加'}</span>
     <span style="display:inline-flex;align-items:center;gap:3px;font-size:.62rem;"><span style="padding:1px 6px;background:rgba(245,158,11,0.1);border:1px solid rgba(245,158,11,0.25);border-radius:4px;color:#d97706;font-weight:600;">📉 -N%</span> ${lang==='en'?'Share count decreased':'披露股数减少'}</span>
     <span style="display:inline-flex;align-items:center;gap:3px;font-size:.62rem;"><span style="padding:1px 6px;background:rgba(239,68,68,0.12);border:1px solid rgba(239,68,68,0.3);border-radius:4px;color:#ef4444;font-weight:600;">🚪 ${lang==='en'?'Exited':'已清仓'}</span> ${lang==='en'?'Fully exited':'本季完全卖出'}</span>
-    <span style="display:inline-flex;align-items:center;gap:3px;font-size:.62rem;"><span style="padding:1px 6px;background:rgba(16,185,129,0.12);border:1px solid rgba(16,185,129,0.3);border-radius:4px;color:#059669;font-weight:600;">🟢 N%</span> ${lang==='en'?'Margin of Safety ≥20%':'安全边际≥20%'}</span>
-    <span style="display:inline-flex;align-items:center;gap:3px;font-size:.62rem;"><span style="padding:1px 6px;background:rgba(245,158,11,0.1);border:1px solid rgba(245,158,11,0.25);border-radius:4px;color:#d97706;font-weight:600;">⚡ N%</span> ${lang==='en'?'Margin of Safety 10-20%':'安全边际10-20%'}</span>
+    <span style="display:inline-flex;align-items:center;gap:3px;font-size:.62rem;"><span style="padding:1px 6px;background:rgba(16,185,129,0.12);border:1px solid rgba(16,185,129,0.3);border-radius:4px;color:#059669;font-weight:600;">🟢 N%</span> ${lang==='en'?'Price ≥20% below buying reference':'现价低于加仓参考价≥20%'}</span>
+    <span style="display:inline-flex;align-items:center;gap:3px;font-size:.62rem;"><span style="padding:1px 6px;background:rgba(245,158,11,0.1);border:1px solid rgba(245,158,11,0.25);border-radius:4px;color:#d97706;font-weight:600;">⚡ N%</span> ${lang==='en'?'Price 10–20% below buying reference':'现价低于加仓参考价10%–20%'}</span>
   </div>`;
 
   // MOS summary section
@@ -846,7 +846,7 @@ function renderHoldings() {
   let mosSummaryHtml = '';
   if (greenItems.length > 0) {
     const listHtml = greenItems.map(m => 
-      `<span style="display:inline-flex;align-items:center;gap:4px;padding:4px 10px;background:rgba(16,185,129,0.08);border:1px solid rgba(16,185,129,0.2);border-radius:6px;font-size:.8rem;"><span style="font-weight:600;color:#059669;">${m.ticker}</span><span style="color:#4b5563;font-size:.68rem;">${cn(m.name,m)}</span><span style="color:#6b7280;font-size:.7rem;">MOS ${m.mos}%</span><span style="color:#9ca3af;font-size:.65rem;">${currSymbol(m.ticker)}${m.cost} → ${currSymbol(m.ticker)}${m.price}</span></span>`
+      `<span style="display:inline-flex;align-items:center;gap:4px;padding:4px 10px;background:rgba(16,185,129,0.08);border:1px solid rgba(16,185,129,0.2);border-radius:6px;font-size:.8rem;"><span style="font-weight:600;color:#059669;">${m.ticker}</span><span style="color:#4b5563;font-size:.68rem;">${cn(m.name,m)}</span><span style="color:#6b7280;font-size:.7rem;">${lang==='en'?'Price lower by':'现价低'} ${m.mos}%</span><span style="color:#9ca3af;font-size:.65rem;">${currSymbol(m.ticker)}${m.cost} → ${currSymbol(m.ticker)}${m.price}</span></span>`
     ).join('');
     mosSummaryHtml = `<div class="position-note">
       <div class="position-note-heading">
@@ -857,7 +857,7 @@ function renderHoldings() {
     </div>`;
   } else if (watchItems.length > 0) {
     const listHtml = watchItems.map(m => 
-      `<span style="display:inline-flex;align-items:center;gap:4px;padding:4px 10px;background:rgba(245,158,11,0.06);border:1px solid rgba(245,158,11,0.15);border-radius:6px;font-size:.8rem;"><span style="font-weight:600;color:#d97706;">${m.ticker}</span><span style="color:#4b5563;font-size:.68rem;">${cn(m.name,m)}</span><span style="color:#6b7280;font-size:.7rem;">MOS ${m.mos}%</span></span>`
+      `<span style="display:inline-flex;align-items:center;gap:4px;padding:4px 10px;background:rgba(245,158,11,0.06);border:1px solid rgba(245,158,11,0.15);border-radius:6px;font-size:.8rem;"><span style="font-weight:600;color:#d97706;">${m.ticker}</span><span style="color:#4b5563;font-size:.68rem;">${cn(m.name,m)}</span><span style="color:#6b7280;font-size:.7rem;">${lang==='en'?'Price lower by':'现价低'} ${m.mos}%</span></span>`
     ).join('');
     mosSummaryHtml = `<div class="position-note watch">
       <div class="position-note-heading"><span>${t('mosWatch')}</span><b>${watchItems.length}</b>
@@ -891,6 +891,17 @@ function renderHoldings() {
     <td class="price-cell"><span class="estimate-unavailable">${lang==='en'?'Not disclosed':'未披露报价'}</span><div class="mobile-cost-detail"><span class="estimate-unavailable">${lang==='en'?'Cost not disclosed':'未披露成本'}</span></div></td><td>—</td><td>—</td><td>—</td>
   </tr>`).join('');
   document.getElementById('holdingsBody').innerHTML = rows + hkRows;
+  const guide = document.getElementById('costReadingGuide');
+  if (guide) {
+    const example = d.holdings.find(h => {const q=quotes[h.ticker],c=holdingCostState(h).basis;return c && q && !q.error && !q.stale && Number.isFinite(q.c) && q.c>0;});
+    let exampleHTML='';
+    if (example) {
+      const c=holdingCostState(example).basis,q=quotes[example.ticker],symbol=currSymbol(example.ticker),diff=(q.c-c.recent.buy)/c.recent.buy*100;
+      const relation=diff>0?(lang==='en'?'higher':'高'):diff<0?(lang==='en'?'lower':'低'):(lang==='en'?'equal':'相同');
+      exampleHTML=`<p class="cost-reading-example">${lang==='en'?'Example':'用本页数字看'} · <b>${hkEscape(example.ticker)}</b>：${lang==='en'?'buying reference':'加仓参考价'} ${symbol}${c.recent.buy.toFixed(2)} → ${lang==='en'?'daily quote':'今日参考股价'} ${symbol}${q.c.toFixed(2)} · ${lang==='en'?`price is ${relation}${diff?` by ${Math.abs(diff).toFixed(1)}%`:''}`:`现价比加仓参考价${relation}${diff?` ${Math.abs(diff).toFixed(1)}%`:''}`}。${lang==='en'?'This compares historical prices, not fair value.':'这里只是和过去加仓时的价格比较，不是说它比合理估值贵或便宜。'}</p>`;
+    }
+    guide.innerHTML=`<h3>${lang==='en'?'How to read these prices':'这几个价格怎么看？'}</h3><div class="cost-reading-grid"><p><b>${t('costRecent')}</b><span>${lang==='en'?'Estimated historical price in the last quarter when reported shares increased. The date identifies that quarter.':'最近一次披露股数增加时，那个季度的历史价格参考；旁边日期就是加仓季度。'}</span></p><p><b>${t('costAllTime')}</b><span>${lang==='en'?'Estimated average across entries and additions in the current holding run; differs from the latest buying reference.':'把这一轮持仓的建仓、历次加仓价格按新增股数加权；所以它和最近加仓价通常不同。'}</span></p><p><b>${lang==='en'?'Price higher / lower by X%':'现价高 / 低 X%'}</b><span>${lang==='en'?'Compares the daily quote with the latest buying reference, rather than with the position average.':'今日参考股价相对“最近加仓参考价”的差距；不与历次加仓均价比较。'}</span></p></div>${exampleHTML}<details class="cost-reading-method"><summary>${lang==='en'?'Calculation and limits':'展开计算方法与数据限制'}</summary><p>${t('priceNote')}</p></details>`;
+  }
   const priceFoot = document.getElementById('priceFoot');
   if (priceFoot) {
     // Remove existing legend if any, then append
@@ -898,7 +909,7 @@ function renderHoldings() {
     if (existingLegend) existingLegend.remove();
     const legendDiv = document.createElement('div');
     legendDiv.className = 'holdings-legend';
-    legendDiv.innerHTML = `<p class="cost-method-note">${t('priceNote')}</p>` + legendHtml + (recentHKRows.length ? `<p>${lang==='en'?'HK rows show the latest reported share counts and their dates. Value and portfolio weight were not disclosed; summary totals and quarterly changes cover 13F securities only.':'港股行列出最新披露股数与日期；未披露市值及组合权重。上方统计和季度变化仅覆盖 13F 证券。'}</p>` : '');
+    legendDiv.innerHTML = legendHtml + (recentHKRows.length ? `<p>${lang==='en'?'HK rows show the latest reported share counts and their dates. Value and portfolio weight were not disclosed; summary totals and quarterly changes cover 13F securities only.':'港股行列出最新披露股数与日期；未披露市值及组合权重。上方统计和季度变化仅覆盖 13F 证券。'}</p>` : '');
     priceFoot.appendChild(legendDiv);
   }
 }
