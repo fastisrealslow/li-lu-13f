@@ -21,6 +21,12 @@ def merge_evidence(previous, current):
         key = proof.get('accession') or proof.get('url')
         if key:
             old = merged.get(key, {})
+            # Generic headline/short-body re-reads cannot erase a stronger,
+            # issuer-bound completion extracted from this very same document.
+            if (old.get('listingCompletionVersion') or old.get('distributionCompletionVersion')) and not (
+                    proof.get('listingCompletionVersion') or proof.get('distributionCompletionVersion')):
+                merged[key] = {**proof, **old}
+                continue
             same_rules = old.get('identityVersion', 0) >= proof.get('identityVersion', 0)
             if same_rules and old.get('identityReferences') and 'identityReferences' not in proof:
                 proof = {**proof, 'identityReferences': old['identityReferences']}
@@ -75,7 +81,7 @@ def iso_date(value):
                 return str(int(digits.get(a, '1')) * 10 + int(digits.get(b, '0')))
             return ''.join(digits[c] for c in token)
         value = re.sub(r'[零〇一二三四五六七八九十]+', number, value)
-    for fmt in ('%Y-%m-%d', '%B %d, %Y', '%b %d, %Y', '%B %d %Y', '%b %d %Y', '%Y年%m月%d日'):
+    for fmt in ('%Y-%m-%d', '%B %d, %Y', '%b %d, %Y', '%B %d %Y', '%b %d %Y', '%d %B %Y', '%d %b %Y', '%Y年%m月%d日'):
         try:
             return datetime.strptime(value, fmt).date().isoformat()
         except ValueError:
@@ -252,15 +258,20 @@ def parse_evidence(text, ann, cik=''):
         identity['kind'] = 'entity'
     target_aliases = re.findall(re.escape(target_name) + r'（(?:以下简称|以下簡稱)?[「“"]([^」”"]{2,40})[」”"]', text) if target_name else []
     target_aliases = list(dict.fromkeys([*target_aliases, *identity.get('aliases', [])]))
+    # Glossaries may define a listed trust before naming it ("信託" 指 ...).
+    # Such an explicit alias can bind its stock code without using the parent.
+    if target_name:
+        target_aliases += [a for a in re.findall(r'「([^」]{1,30})」\s*指[^。；]{0,80}?' + re.escape(target_name), text)
+                           if a not in {'本公司', '本集團', '公司', '集團'}]
     dates = extract_dates(text)
     if match['status'] == 'record_set':
         dates.update(extract_dates(match['quote']))
     ticker = ''
     if target_name and urlparse(url).hostname in {'www1.hkexnews.hk', 'www.hkexnews.hk'}:
-        aliases = re.findall(re.escape(target_name) + r'（「([^」]{2,30})」）', text)
+        aliases = [*target_aliases, *re.findall(re.escape(target_name) + r'（「([^」]{2,30})」）', text)]
         subject = '(?:' + '|'.join(re.escape(n) for n in [target_name, '分拆公司', *aliases]) + ')'
         # Bind the code to the child, not the parent's code in the letterhead.
-        codes = set(re.findall(subject + r'[^。\n]{0,100}?股份代號(?:為|：|:)\s*(\d{1,5})(?!\d)', text))
+        codes = set(re.findall(subject + r'[^。\n]{0,160}?股份代號(?:為|：|:)\s*(\d{1,5})(?!\d)', text))
         if len(codes) == 1:
             ticker = codes.pop().zfill(5) + '.HK'
         if match['status'] == 'completed':
@@ -275,10 +286,22 @@ def parse_evidence(text, ann, cik=''):
     type_fields = {'typeVersion': TYPE_RULE_VERSION}
     if type_quote and identity.get('reason') != 'conflicting_names':
         type_fields.update(listingType=classify_hk_type([ann.get('title', ''), type_quote]), typeQuote=type_quote)
-    return {**match, **type_fields, 'url': url, 'date': iso_date(ann.get('date')), 'targetName': target_name,
+    return {**match, **type_fields, 'url': url, 'date': iso_date(ann.get('date')), 'title': ann.get('title', ''), 'targetName': target_name,
             'targetTicker': ticker, 'targetAliases': target_aliases,
             'identityVersion': IDENTITY_VERSION, 'identityQuote': identity.get('quote', ''),
             'identityKind': identity.get('kind', ''), 'distributedEntity': identity.get('distributedEntity', False), 'separatedEntity': identity.get('separatedEntity', False), 'identityReason': identity.get('reason', ''), 'dates': dates, 'method': 'rule', 'ruleVersion': RULE_VERSION, 'accession': ann.get('adsh', '')}
+
+
+def listed_target_code(text, target):
+    """A glossary definition and an explicit listing clause bind a child code."""
+    text=re.sub(r'\s+',' ',filing_text(text))
+    if not target or target not in text:return ''
+    aliases=re.findall(r'「([^」]{1,30})」\s*指[^。；]{0,80}?'+re.escape(target),text)
+    aliases=[a for a in aliases if a not in {'本公司','本集團','公司','集團'}]
+    subject='(?:'+'|'.join(re.escape(n) for n in [target,*aliases])+')'
+    codes=re.findall(subject+r'(?:及[^。；]{1,25}?)?(?:之|的)?(?:股份合訂單位|股份|單位)[^。；]{0,70}?(?:於聯交所上市|在联交所上市|已上市)[^。；]{0,20}?股份代號\s*[:：]\s*(\d{1,5})(?!\d)',text)
+    codes={v.zfill(5)+'.HK' for v in codes}
+    return codes.pop() if len(codes)==1 else ''
 
 
 def normalize(data, market, previous=None, now=None):
@@ -301,22 +324,50 @@ def normalize(data, market, previous=None, now=None):
             if proof.get('method') == 'rule' and proof.get('ruleVersion', 0) < RULE_VERSION:
                 # Revalidate legacy status quotes when rules change. Missing full
                 # text must never preserve a known boilerplate false positive.
-                proof.update(infer_status(proof.get('quote', '')), ruleVersion=RULE_VERSION)
+                if proof.get('distributionCompletionVersion'):
+                    from hk_listing_completion import distribution_proof
+                    checked=distribution_proof(proof.get('identityQuote','')+' '+proof.get('quote',''),proof,proof.get('targetName',''),proof.get('targetTicker',''),parent)
+                    proof.update(checked or {'status':'needs_review','quote':''},ruleVersion=RULE_VERSION)
+                elif proof.get('listingCompletionVersion'):
+                    from hk_listing_completion import listing_proof
+                    checked=listing_proof(proof.get('identityQuote','')+' '+proof.get('quote',''),proof,proof.get('targetName',''),proof.get('targetTicker',''))
+                    proof.update(checked or {'status':'needs_review','quote':''},ruleVersion=RULE_VERSION)
+                else:
+                    proof.update(infer_status(proof.get('quote', '')), ruleVersion=RULE_VERSION)
         parsed_urls = {p.get('url') for p in proofs}
         parsed_ids = {p.get('accession') for p in proofs if p.get('accession')}
         proofs += [parse_evidence(a.get('title', ''), a, c.get('cik', '')) for a in announcements
                    if a['direct'] and a['relevance'] == 'candidate' and a['url'] not in parsed_urls and a.get('adsh') not in parsed_ids]
+        # Supporting filings discovered outside keyword searches belong to the
+        # same archive. A proof must never be visible only in an update log.
+        announced_urls = {a['url'] for a in announcements}
+        for proof in proofs:
+            if direct_source(proof.get('url', '')) and proof['url'] not in announced_urls:
+                announcements.append({'url': proof['url'], 'date': proof.get('date', ''),
+                    'title': proof.get('title') or '公司公告（档案依据）', 'direct': True, 'relevance': 'candidate'})
+                announced_urls.add(proof['url'])
+        announcements.sort(key=lambda a: a.get('date', ''), reverse=True)
         # Separate explicit legal entities; unresolved material is kept in its own dossier.
         groups = {}
         aliases = {}
+        ticker_names = {}
         for proof in proofs:
-            canonical = target_key(clean_name(proof.get('targetName')))
+            if proof.get('targetTicker') and clean_name(proof.get('targetName')) and direct_source(proof.get('url', '')):
+                ticker_names.setdefault(proof['targetTicker'], set()).add(target_key(proof['targetName']))
+        code_canonical = {}
+        for names in ticker_names.values():
+            # Names bound to the very same security code are one traded target.
+            canonical = max(names, key=lambda n: (len(n), n))
+            for name in names:
+                code_canonical[name] = canonical
+        for proof in proofs:
+            canonical = code_canonical.get(target_key(clean_name(proof.get('targetName'))), target_key(clean_name(proof.get('targetName'))))
             if canonical:
                 for alias in proof.get('targetAliases', []):
                     aliases.setdefault(target_key(alias), set()).add(canonical)
         def group_key(name):
             key = target_key(clean_name(name))
-            return next(iter(aliases[key])) if len(aliases.get(key, [])) == 1 else key
+            return code_canonical.get(key) or (next(iter(aliases[key])) if len(aliases.get(key, [])) == 1 else key)
         for proof in proofs:
             name = clean_name(proof.get('targetName'))
             groups.setdefault(group_key(name), []).append(proof)
@@ -359,6 +410,15 @@ def normalize(data, market, previous=None, now=None):
                 eid = f'{market}:{parent}:unattributed'
             valid = [p for p in group if direct_source(p.get('url', '')) and p.get('quote') and p.get('status') in STATUSES - {'needs_review'}]
             valid.sort(key=lambda p: p.get('date', ''), reverse=True)
+            if market == 'hk' and classify_hk_type([p.get('title', '') for p in group] +
+                    [a.get('title', '') for a in announcements if a.get('url') in group_urls])['code'] == 'distribution':
+                # An already-listed subsidiary can be distributed repeatedly.
+                # Its old listing or last year's distribution cannot complete
+                # a later round that has a new shareholder record date.
+                latest_record = max((p.get('dates', {}).get('recordDate', {}).get('date', '') for p in group), default='')
+                valid = [p for p in valid if p['status'] != 'completed' or
+                         (not p.get('dates', {}).get('listingDate') and
+                          (p.get('dates', {}).get('distributionDate', {}).get('date') or p.get('date', '')) >= latest_record)]
             # Later prospectus references must not undo an evidenced completion.
             terminal = [p for p in valid if p['status'] in {'completed', 'terminated'}]
             completed = [p for p in terminal if p['status'] == 'completed']
@@ -426,17 +486,34 @@ def normalize(data, market, previous=None, now=None):
                 return result
             semantic = snapshot(event)
             old_semantic = snapshot(old) if old else {}
+            def sources(value):
+                return sorted({a['url'] for a in value.get('announcements', [])
+                               if a.get('direct') and a.get('relevance') != 'unverified' and a.get('url')})
+            semantic['sources'] = sources(event)
+            if old:
+                old_semantic['sources'] = sources(old)
             fingerprint = hashlib.sha256(json.dumps(semantic, sort_keys=True, ensure_ascii=False).encode()).hexdigest()
             event['fingerprint'] = fingerprint
             event['firstSeenAt'] = old.get('firstSeenAt', now) if old else now
-            event['changedAt'] = old.get('changedAt', now) if old and old.get('fingerprint') == fingerprint else now
-            if initialized and (not old or old.get('fingerprint') != fingerprint):
+            changed = not old or semantic != old_semantic
+            event['changedAt'] = old.get('changedAt', now) if old and not changed else now
+            if initialized and changed:
                 fields = [k for k in semantic if not old or old_semantic.get(k) != semantic[k]]
                 if fields or not old:
+                    added = sorted(set(semantic['sources']) - set(old_semantic.get('sources', [])))
+                    source_dates = [a.get('date', '') for a in event_announcements if a.get('url') in added]
+                    recent_cutoff = (datetime.fromisoformat(now.replace('Z', '+00:00')).date().toordinal() - 7)
+                    fresh = any(iso_date(d) and datetime.fromisoformat(d).date().toordinal() >= recent_cutoff for d in source_dates)
                     changes.append({'eventId': eid, 'at': now, 'kind': 'updated' if old else 'new',
+                                    'updateKind': 'new_filing' if added and fresh else 'backfill' if added else 'correction',
+                                    'addedSources': added, 'sourceDates': source_dates,
                                     'parentTicker': event['parentTicker'], 'parentName': event['parentName'],
                                     'fields': fields, 'before': old_semantic if old else None, 'after': semantic,
                                     'fromStatus': old.get('status') if old else None, 'toStatus': status})
+            event_updates = [ch for ch in changes if ch.get('eventId') in {eid, *event['mergedIds']}]
+            event['recordUpdatedAt'] = max([event['changedAt'], *[ch['at'] for ch in event_updates]])
+            last_update = max(event_updates, key=lambda ch: ch['at'], default={})
+            event['updateKind'] = last_update.get('updateKind', 'correction' if last_update else 'initial')
             events.append(event)
     live_ids = {e['id'] for e in events}
     for event in events:

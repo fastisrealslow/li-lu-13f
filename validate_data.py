@@ -46,6 +46,21 @@ def validate_history(history):
             if abs(sum(amounts) / 1_000_000 - value) > .500001:
                 raise ValueError(f"History total disagrees with holdings: {q}")
 
+    from audit_13f_history import VERSION,digest
+    from urllib.parse import urlparse
+    for q,proof in history.get('valueAudit',{}).items():
+        if proof.get('version') != VERSION or proof.get('status') != 'verified':continue
+        if proof.get('normalizedHash') != digest(history.get('holdings',{}).get(q,[])):
+            raise ValueError(f'Historical values no longer match verified primary source: {q}')
+        url=urlparse(proof.get('source',''))
+        if url.scheme!='https' or url.hostname!='www.sec.gov' or not url.path.startswith('/Archives/'):
+            raise ValueError(f'Value audit lacks primary SEC filing: {q}')
+        anchors=proof.get('anchors',[])
+        if len({a.get('ticker') for a in anchors})<3 or proof.get('factor') not in (1,1000,.001):
+            raise ValueError(f'Value audit lacks independent unit proofs: {q}')
+        if any(a.get('currency')!='USD' or proof['factor'] not in a.get('candidates',[]) for a in anchors):
+            raise ValueError(f'Value audit contains conflicting unit proofs: {q}')
+
 
 def validate_hk_evidence(value):
     from datetime import date

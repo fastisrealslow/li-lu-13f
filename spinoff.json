@@ -2424,7 +2424,8 @@
       "greenblattNote": {
         "zh": "母公司参考市值约 7.5 亿美元（快照，非实时）。 待验证：分派比例、子公司债务与现金流、管理层持股及机构持仓变化。市值与股价变化不能单独证明强制卖压或低估。",
         "en": "Parent reference market cap: $0.75B (snapshot, not live). Research checklist: distribution ratio, child debt and cash flow, management ownership, and institutional holdings. Size and price changes alone do not establish forced selling or undervaluation."
-      }
+      },
+      "listingChecks": {}
     },
     {
       "stockCode": "01109",
@@ -3458,6 +3459,11 @@
           "date": "2026-02-25",
           "title": "(1) 以實物分派股份合訂單位方式宣派特別股息；及(2) 記錄日期及暫停辦理股份過戶登記手續",
           "docUrl": "/listedco/listconews/sehk/2026/0225/2026022500757_c.pdf"
+        },
+        {
+          "date": "2026-08-26",
+          "title": "2026 Interim Results Announcement",
+          "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0826/2026082601083.pdf"
         }
       ],
       "spinTarget": "",
@@ -3478,7 +3484,7 @@
           "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0225/2026022500757_c.pdf",
           "date": "2026-02-25",
           "targetName": "朗廷酒店投資",
-          "targetTicker": "",
+          "targetTicker": "01270.HK",
           "targetAliases": [],
           "identityVersion": 3,
           "identityQuote": "「信託」 指根據信託契約組成的朗廷酒店投資",
@@ -3506,7 +3512,7 @@
           "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2025/1008/2025100801821_c.pdf",
           "date": "2025-10-08",
           "targetName": "朗廷酒店投資",
-          "targetTicker": "",
+          "targetTicker": "01270.HK",
           "targetAliases": [],
           "identityVersion": 1,
           "identityQuote": "「信託」 指根據信託契約組成的朗廷酒店投資",
@@ -3527,6 +3533,31 @@
           "identityReferences": [
             "2025-08-26"
           ]
+        },
+        {
+          "status": "completed",
+          "quote": "A special dividend was distributed on 2 April 2026 in the form of distribution in specie of share stapled units (“SSU(s)”) of LHI (Stock Code: 1270) to qualifying Shareholders on the basis of 1 SSU for every 15 shares of the Company (“Shares”) held",
+          "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0826/2026082601083.pdf",
+          "date": "2026-08-26",
+          "title": "2026 Interim Results Announcement",
+          "targetName": "朗廷酒店投資",
+          "targetTicker": "01270.HK",
+          "identityKind": "instrument",
+          "identityQuote": "Hong Kong Exchanges and Clearing Limited and The Stock Exchange of Hong Kong Limited take no responsibility for the contents of this announcement, make no representation as to its accuracy or completeness and expressly disclaim any liability whatsoever for any loss howsoever arising from or in reliance upon the whole or any part of the contents of this announcement. 2026 INTERIM RESULTS ANNOUNCEMENT The Board of Directors (the “Board”) of Great Eagle Holdings Limited (the “Company”) announces the unaudited consolidated financial results of the Company and its subsidiaries (collectively the “Group”) for the six months ended 30 June 2026 as follows: Six months ended 30 June 20262025 HK$ millio",
+          "identityReason": "issuer_bound_distribution",
+          "identityVersion": 3,
+          "method": "rule",
+          "ruleVersion": 3,
+          "sourceIssuerName": "GREAT EAGLE H",
+          "sourceIssuerCode": "00041",
+          "distributionCompletionVersion": 2,
+          "dates": {
+            "distributionDate": {
+              "date": "2026-04-02",
+              "quote": "A special dividend was distributed on 2 April 2026 in the form of distribution in specie of share stapled units (“SSU(s)”) of LHI (Stock Code: 1270) to qualifying Shareholders on the basis of 1 SSU for every 15 shares of the Company (“Shares”) held",
+              "kind": "actual"
+            }
+          }
         }
       ],
       "identityChecks": {
@@ -3560,6 +3591,28 @@
       "greenblattNote": {
         "zh": "母公司参考市值约 14.9 亿美元（快照，非实时）。 待验证：分派比例、子公司债务与现金流、管理层持股及机构持仓变化。市值与股价变化不能单独证明强制卖压或低估。",
         "en": "Parent reference market cap: $1.49B (snapshot, not live). Research checklist: distribution ratio, child debt and cash flow, management ownership, and institutional holdings. Size and price changes alone do not establish forced selling or undervaluation."
+      },
+      "listingChecks": {
+        "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0225/2026022500757_c.pdf|distribution_identity": {
+          "version": 2,
+          "checkedAt": "2026-10-10",
+          "result": "bound_code"
+        },
+        "https://www1.hkexnews.hk/listedco/listconews/sehk/2025/1008/2025100801821_c.pdf|distribution_identity": {
+          "version": 2,
+          "checkedAt": "2026-10-10",
+          "result": "bound_code"
+        },
+        "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0826/2026082601083.pdf|distribution|朗廷酒店投資": {
+          "version": 2,
+          "checkedAt": "2026-10-10",
+          "result": "completed"
+        },
+        "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0512/2026051201220.pdf|distribution|朗廷酒店投資": {
+          "version": 1,
+          "checkedAt": "2026-10-10",
+          "result": "no_actual_distribution"
+        }
       }
     },
     {
@@ -3621,6 +3674,33 @@
           "identityReferences": [
             "2026-02-13"
           ]
+        },
+        {
+          "status": "completed",
+          "quote": "The shares of the Company have been listed on the Main Board of the Stock Exchange of Hong Kong Limited (the “Stock Exchange”) since 19 March 2026",
+          "typeVersion": 2,
+          "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0827/2026082700155.pdf",
+          "date": "2026-08-27",
+          "targetName": "嵐圖汽車科技股份有限公司",
+          "targetTicker": "07489.HK",
+          "targetAliases": [],
+          "identityVersion": 3,
+          "identityQuote": "Hong Kong Exchanges and Clearing Limited and The Stock Exchange of Hong Kong Limited take no responsibility for the contents of this announcement, make no representation as to its accuracy or completeness and expressly disclaim any liability whatsoever for any loss howsoever arising from or in reliance upon the whole or any part of the contents of this announcement. VOYAH AUTOMOTIVE TECHNOLOGY CO., LTD. 嵐圖汽車科技股份有限公司(A joint stock company incorporated in the People’s Republic of China with limited liability)(Stock Code: 7489) INTERIM RESULTS ANNOUNCEMENT FOR THE SIX MONTHS ENDED JUNE 30, 2026 The board (the “Board”) of directors (the “Directors”) of VOYAH Automotive Technology Co., Ltd. (the ",
+          "identityKind": "entity",
+          "distributedEntity": false,
+          "separatedEntity": false,
+          "identityReason": "issuer_bound_listing",
+          "dates": {
+            "listingDate": {
+              "date": "2026-03-19",
+              "quote": "The shares of the Company have been listed on the Main Board of the Stock Exchange of Hong Kong Limited (the “Stock Exchange”) since 19 March 2026",
+              "kind": "actual"
+            }
+          },
+          "method": "rule",
+          "ruleVersion": 3,
+          "accession": "",
+          "listingCompletionVersion": 2
         }
       ],
       "identityChecks": {
@@ -3639,7 +3719,7 @@
         {
           "spinoff": "7489.HK",
           "spinoffName": "嵐圖汽車",
-          "spinoffDate": "2026-02-12",
+          "spinoffDate": "2026-03-19",
           "spinoffPriceAtListing": null,
           "spinoffPriceNow": 1.79,
           "spinoffChangePct": null,
@@ -3648,13 +3728,46 @@
           "autoMatched": false,
           "source": "known_db",
           "updatedAt": "2026-10-10",
-          "note": "介紹上市，無發行價"
+          "note": "介紹上市，無發行價",
+          "listingDateSource": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0827/2026082700155.pdf"
         }
       ],
       "lastUpdated": "2026-10-10T13:56:57Z",
       "greenblattNote": {
         "zh": "母公司参考市值约 13.0 亿美元（快照，非实时）。 待验证：分派比例、子公司债务与现金流、管理层持股及机构持仓变化。市值与股价变化不能单独证明强制卖压或低估。",
         "en": "Parent reference market cap: $1.30B (snapshot, not live). Research checklist: distribution ratio, child debt and cash flow, management ownership, and institutional holdings. Size and price changes alone do not establish forced selling or undervaluation."
+      },
+      "listingChecks": {
+        "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0330/2026033000644.pdf|嵐圖汽車科技股份有限公司": {
+          "version": 2,
+          "checkedAt": "2026-10-10",
+          "result": "no_actual_listing"
+        },
+        "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0827/2026082700155.pdf|嵐圖汽車科技股份有限公司": {
+          "version": 2,
+          "checkedAt": "2026-10-10",
+          "result": "completed"
+        },
+        "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0212/2026021201452.pdf|嵐圖汽車科技股份有限公司": {
+          "version": 1,
+          "checkedAt": "2026-10-10",
+          "result": "no_actual_listing"
+        },
+        "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0212/2026021201386.pdf|嵐圖汽車科技股份有限公司": {
+          "version": 1,
+          "checkedAt": "2026-10-10",
+          "result": "no_actual_listing"
+        },
+        "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0429/2026042905474.pdf|嵐圖汽車科技股份有限公司": {
+          "version": 1,
+          "checkedAt": "2026-10-10",
+          "result": "no_actual_listing"
+        },
+        "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0429/2026042905690.pdf|嵐圖汽車科技股份有限公司": {
+          "version": 1,
+          "checkedAt": "2026-10-10",
+          "result": "no_actual_listing"
+        }
       }
     },
     {
@@ -5400,9 +5513,11 @@
         "date": "2026-09-27",
         "quote": "進行信義能源新能源基金中國上市 … 「信義能源新能源基金」指國泰海通信義能源新能源封閉式基礎設施證券投資基金"
       },
-      "fingerprint": "8b7e29b8257b204c8acea472be7b7e074a5ba1b025fe6fa4c04fbd35783a3018",
+      "fingerprint": "9119eebad52202645bd0b66aa41c2bae0c59810f165dd5b943f44e0869cf0769",
       "firstSeenAt": "2026-09-27T17:33:14Z",
-      "changedAt": "2026-10-10T13:57:15Z"
+      "changedAt": "2026-10-10T13:57:15Z",
+      "recordUpdatedAt": "2026-10-10T13:57:15Z",
+      "updateKind": "correction"
     },
     {
       "id": "hk:03868:unresolved",
@@ -5495,9 +5610,11 @@
         "date": "2026-09-27",
         "quote": "進行信義能源新能源基金中國上市 … 「信義能源新能源基金」指國泰海通信義能源新能源封閉式基礎設施證券投資基金"
       },
-      "fingerprint": "8b7e29b8257b204c8acea472be7b7e074a5ba1b025fe6fa4c04fbd35783a3018",
+      "fingerprint": "71f13905b60bb4eeb778d99a78beacd3262224c303f81f31cbd18fc891c30f6c",
       "firstSeenAt": "2026-09-27T17:33:14Z",
-      "changedAt": "2026-10-10T13:57:15Z"
+      "changedAt": "2026-10-10T13:57:15Z",
+      "recordUpdatedAt": "2026-10-10T13:57:15Z",
+      "updateKind": "correction"
     },
     {
       "id": "hk:00902:d56f3a597693",
@@ -5606,9 +5723,11 @@
         "date": "2026-09-21",
         "quote": "關於准予長城華能燃煤發電封閉式基礎設施證券投資基金"
       },
-      "fingerprint": "eff88e44ab95a030ce1ae72853b57b32dde2425e02193896c493fc902b32fa65",
+      "fingerprint": "a219709c30e9751c5cacd25b9f3e2cea5fcefc519dddec3b203969f933c9e7df",
       "firstSeenAt": "2026-10-10T12:49:57Z",
-      "changedAt": "2026-10-10T13:01:55Z"
+      "changedAt": "2026-10-10T13:01:55Z",
+      "recordUpdatedAt": "2026-10-10T13:01:55Z",
+      "updateKind": "correction"
     },
     {
       "id": "hk:00017:097c4d6fac96",
@@ -5693,9 +5812,11 @@
         "currency": "HKD",
         "updatedAt": "2026-10-10"
       },
-      "fingerprint": "375d43561460523a218a1ec294d1ffe76e6875e235ba44e7e09c8a116539b477",
+      "fingerprint": "eb1041b6a5c0ecef167eaab420f07ca037dff4b4964f715e5cfbc73cc4dbbfd7",
       "firstSeenAt": "2026-09-17T17:30:56Z",
-      "changedAt": "2026-10-10T13:53:18Z"
+      "changedAt": "2026-10-10T13:53:18Z",
+      "recordUpdatedAt": "2026-10-10T13:53:18Z",
+      "updateKind": "correction"
     },
     {
       "id": "hk:00017:fb0edb845715",
@@ -5781,9 +5902,11 @@
         "currency": "HKD",
         "updatedAt": "2026-10-10"
       },
-      "fingerprint": "674b69c83d01d054e241956c4c8a1410e6abea592448ee86faf514c38f168278",
+      "fingerprint": "ce959838d22cebb7c635a658034d2e3bcc724ee56b0334f77624a958824cdceb",
       "firstSeenAt": "2026-10-10T13:53:18Z",
-      "changedAt": "2026-10-10T13:57:15Z"
+      "changedAt": "2026-10-10T13:57:15Z",
+      "recordUpdatedAt": "2026-10-10T13:57:15Z",
+      "updateKind": "initial"
     },
     {
       "id": "hk:00688:unresolved",
@@ -5874,9 +5997,11 @@
         "currency": "HKD",
         "updatedAt": "2026-10-10"
       },
-      "fingerprint": "bfe35d870fd38e58bb94a91f5d9b663caa1e34fbbc6363901c249999f34f099c",
+      "fingerprint": "7efd19e9df240a51fb8188f2a89535cab851f69148ff9140f2dd3f2a488ceb75",
       "firstSeenAt": "2026-09-16T02:58:58Z",
-      "changedAt": "2026-10-10T13:57:15Z"
+      "changedAt": "2026-10-10T13:57:15Z",
+      "recordUpdatedAt": "2026-10-10T13:57:15Z",
+      "updateKind": "correction"
     },
     {
       "id": "hk:01030:ba584c93d424",
@@ -5970,9 +6095,11 @@
         "currency": "HKD",
         "updatedAt": "2026-10-10"
       },
-      "fingerprint": "1111d7d4fe576383a6137f656c696b4946d9539c2f0755ebb41c587c05df9539",
+      "fingerprint": "bc705e9cfa0db23d79fd654bb4af5fb959106ff876c06e133ed888ced743866c",
       "firstSeenAt": "2026-09-16T17:39:19Z",
-      "changedAt": "2026-09-16T17:39:19Z"
+      "changedAt": "2026-09-16T17:39:19Z",
+      "recordUpdatedAt": "2026-10-09T03:30:37Z",
+      "updateKind": "correction"
     },
     {
       "id": "hk:01548:unresolved",
@@ -6051,9 +6178,11 @@
         "currency": "HKD",
         "updatedAt": "2026-10-10"
       },
-      "fingerprint": "de96e040831071ebd8107102705b5d753ecf6964a6acd77e65b587a3e9ab37a1",
+      "fingerprint": "01bdd2dffc99f1b8190e9a6762f557e2edc19c43fbfbfdb6ee420663dc01dcfc",
       "firstSeenAt": "2026-09-16T02:58:58Z",
-      "changedAt": "2026-09-16T07:31:38Z"
+      "changedAt": "2026-09-16T07:31:38Z",
+      "recordUpdatedAt": "2026-09-16T07:31:38Z",
+      "updateKind": "correction"
     },
     {
       "id": "hk:00656:223427a6a39d",
@@ -6152,9 +6281,11 @@
         "currency": "HKD",
         "updatedAt": "2026-10-10"
       },
-      "fingerprint": "02861fceac24156ea1b7b9345f3054183eb3699cfc0674d5f7c0c216dbb0bd2b",
+      "fingerprint": "cc25a931a262da91f4002f8a97fe6db99a4273cda9ef4320caa5bcc4ea5171eb",
       "firstSeenAt": "2026-09-16T06:53:54Z",
-      "changedAt": "2026-09-16T06:53:54Z"
+      "changedAt": "2026-09-16T06:53:54Z",
+      "recordUpdatedAt": "2026-09-16T06:53:54Z",
+      "updateKind": "correction"
     },
     {
       "id": "hk:00656:unattributed",
@@ -6256,9 +6387,11 @@
         "currency": "HKD",
         "updatedAt": "2026-10-10"
       },
-      "fingerprint": "d9eb92b5d93e6e219097e3a32e26b061b0775ebbe0a062341c84594abf95de72",
+      "fingerprint": "6a941ec8a5f4fd62ef17c808a4bc4dab845f93ffa04803fccd361767ab8d9f75",
       "firstSeenAt": "2026-09-16T06:53:54Z",
-      "changedAt": "2026-09-16T07:31:38Z"
+      "changedAt": "2026-09-16T07:31:38Z",
+      "recordUpdatedAt": "2026-09-16T07:31:38Z",
+      "updateKind": "correction"
     },
     {
       "id": "hk:00656:unresolved",
@@ -6358,9 +6491,11 @@
         "currency": "HKD",
         "updatedAt": "2026-10-10"
       },
-      "fingerprint": "4fbd32ecf4b33bd8dea8c354afbf893fdda0882052c21a564e22b3bba4237466",
+      "fingerprint": "08144071d1f4bcc5199eb4bcc1654e0a6604388ca92c91e4117fb91435a884d8",
       "firstSeenAt": "2026-09-16T02:58:58Z",
-      "changedAt": "2026-09-16T03:57:43Z"
+      "changedAt": "2026-09-16T03:57:43Z",
+      "recordUpdatedAt": "2026-09-16T03:57:43Z",
+      "updateKind": "initial"
     },
     {
       "id": "hk:01070:unresolved",
@@ -6436,9 +6571,11 @@
         "currency": "HKD",
         "updatedAt": "2026-10-10"
       },
-      "fingerprint": "08e928e562694fb0dcb97560b86b1f6d3789ea3584bf3adffb3429d6e8ad923b",
+      "fingerprint": "85274d423a3c43577ac65c142b440a61c53d54fb20a9ccd597deb845f48502e5",
       "firstSeenAt": "2026-09-16T02:58:58Z",
-      "changedAt": "2026-09-16T07:31:38Z"
+      "changedAt": "2026-09-16T07:31:38Z",
+      "recordUpdatedAt": "2026-09-16T07:31:38Z",
+      "updateKind": "correction"
     },
     {
       "id": "hk:00358:af0f59be722e",
@@ -6556,9 +6693,11 @@
         "currency": "HKD",
         "updatedAt": "2026-10-10"
       },
-      "fingerprint": "22603c2546efb60b9d725eac6589b9471d6172acfe7e426b5049f4661b6325ea",
+      "fingerprint": "6188db59cb5526d78fb344d2112df376230afcac37f7668f0986f0af0b401f41",
       "firstSeenAt": "2026-09-16T03:57:43Z",
-      "changedAt": "2026-09-16T07:31:38Z"
+      "changedAt": "2026-09-16T07:31:38Z",
+      "recordUpdatedAt": "2026-09-16T07:31:38Z",
+      "updateKind": "correction"
     },
     {
       "id": "hk:00358:unattributed",
@@ -6671,9 +6810,11 @@
         "currency": "HKD",
         "updatedAt": "2026-10-10"
       },
-      "fingerprint": "db221da121275c1eabda6135b080ece82c4c1cd149b9e0c206801d4fad3d5374",
+      "fingerprint": "c7db322290995909cf6cba51ed85d40cbb736002acccc37b821d470244378e05",
       "firstSeenAt": "2026-09-16T07:31:38Z",
-      "changedAt": "2026-09-16T07:31:38Z"
+      "changedAt": "2026-09-16T07:31:38Z",
+      "recordUpdatedAt": "2026-09-16T07:31:38Z",
+      "updateKind": "correction"
     },
     {
       "id": "hk:02161:unresolved",
@@ -6750,9 +6891,11 @@
         "currency": "HKD",
         "updatedAt": "2026-10-10"
       },
-      "fingerprint": "f5375d144a41b93fa99c3d9965e3f09d33aec22f6ea7061ec9a79ca14b711b8a",
+      "fingerprint": "7925d85c572a32320bd1b5e0ab1d5767658ba57d99f1c3b743e1fa821c344806",
       "firstSeenAt": "2026-09-16T02:58:58Z",
-      "changedAt": "2026-09-16T06:53:54Z"
+      "changedAt": "2026-09-16T06:53:54Z",
+      "recordUpdatedAt": "2026-09-16T06:53:54Z",
+      "updateKind": "correction"
     },
     {
       "id": "hk:01171:a43f73d8c3c9",
@@ -6848,9 +6991,11 @@
         "currency": "HKD",
         "updatedAt": "2026-10-10"
       },
-      "fingerprint": "a661c2f6c3ea1bf98e7934f17cc6d179cc293d571a542c4550f0974f533748dc",
+      "fingerprint": "67cd4e29faeb7881a35ef375932cf1293202fb7f7e0153d8f3d84e61fc75be40",
       "firstSeenAt": "2026-09-16T06:53:54Z",
-      "changedAt": "2026-09-16T06:53:54Z"
+      "changedAt": "2026-09-16T06:53:54Z",
+      "recordUpdatedAt": "2026-09-16T06:53:54Z",
+      "updateKind": "correction"
     },
     {
       "id": "hk:01171:unresolved",
@@ -6946,9 +7091,11 @@
         "currency": "HKD",
         "updatedAt": "2026-10-10"
       },
-      "fingerprint": "ddd3baf52c9bbfb78a9e86f4ac4499434b455058df2423fa04a3ae87dddb04de",
+      "fingerprint": "381d6d9acf201c34527923179249ad73d2579dfcf40b5634b86494beada18d05",
       "firstSeenAt": "2026-09-16T02:58:58Z",
-      "changedAt": "2026-09-16T07:31:38Z"
+      "changedAt": "2026-09-16T07:31:38Z",
+      "recordUpdatedAt": "2026-09-16T07:31:38Z",
+      "updateKind": "correction"
     },
     {
       "id": "hk:03337:unresolved",
@@ -7024,9 +7171,11 @@
         "currency": "HKD",
         "updatedAt": "2026-10-10"
       },
-      "fingerprint": "47fe290f740d0ead204c056058820a4a14a20ea2f72bfe89e0aaca550f7ff03c",
+      "fingerprint": "2040e06451fbc67a7108f35e299fd503aaed3d97a911c4415cd60fcea5595ec2",
       "firstSeenAt": "2026-09-16T02:58:58Z",
-      "changedAt": "2026-09-16T02:58:58Z"
+      "changedAt": "2026-09-16T02:58:58Z",
+      "recordUpdatedAt": "2026-09-16T02:58:58Z",
+      "updateKind": "initial"
     },
     {
       "id": "hk:00836:unresolved",
@@ -7157,9 +7306,11 @@
         "currency": "HKD",
         "updatedAt": "2026-10-10"
       },
-      "fingerprint": "c1a0669892a01e50c4c8e79f34cb7d29ff8f9ec5a796706bc7fef5edda48217b",
+      "fingerprint": "031411cd5bd7603d938805e55d51d1fffe528a6a635b4c97d0f5516479e8ca2a",
       "firstSeenAt": "2026-09-16T02:58:58Z",
-      "changedAt": "2026-09-16T07:31:38Z"
+      "changedAt": "2026-09-16T07:31:38Z",
+      "recordUpdatedAt": "2026-09-16T07:31:38Z",
+      "updateKind": "correction"
     },
     {
       "id": "hk:00836:unattributed",
@@ -7294,9 +7445,11 @@
         "currency": "HKD",
         "updatedAt": "2026-10-10"
       },
-      "fingerprint": "b490744fd486709cb9be3704d8ef4f6d520abca1675cfad01bd41e797ebfdbb9",
+      "fingerprint": "824a05ed6fe150976b998daf8578f6bdf50e23d86b44d90b62eeaa992bccb7e4",
       "firstSeenAt": "2026-09-16T07:31:38Z",
-      "changedAt": "2026-10-10T12:48:46Z"
+      "changedAt": "2026-10-10T12:48:46Z",
+      "recordUpdatedAt": "2026-10-10T12:48:46Z",
+      "updateKind": "correction"
     },
     {
       "id": "hk:02196:223f5dfead37",
@@ -7478,9 +7631,11 @@
         "currency": "HKD",
         "updatedAt": "2026-10-10"
       },
-      "fingerprint": "e63e65e0b27428c1271949309c7397698f9e6a0266ad770c036e73595107488d",
+      "fingerprint": "eae68b95ac554ee1b346f23a3dcab1211ddd1e34eafadb1045cb3fed92d8c120",
       "firstSeenAt": "2026-09-16T03:57:43Z",
-      "changedAt": "2026-09-16T07:31:38Z"
+      "changedAt": "2026-09-16T07:31:38Z",
+      "recordUpdatedAt": "2026-09-16T07:31:38Z",
+      "updateKind": "correction"
     },
     {
       "id": "hk:02196:4414ce23ef58",
@@ -7660,9 +7815,11 @@
         "currency": "HKD",
         "updatedAt": "2026-10-10"
       },
-      "fingerprint": "37a5322a0adba203fd669945d3a6b4000ed9b03675ac604bf40d14acf4c426f6",
+      "fingerprint": "c9543bdf00baa5743bf1e87330bc4803a846d0995cdee574ef01fcd788d8e7e6",
       "firstSeenAt": "2026-09-16T07:31:38Z",
-      "changedAt": "2026-09-16T07:31:38Z"
+      "changedAt": "2026-09-16T07:31:38Z",
+      "recordUpdatedAt": "2026-09-16T07:31:38Z",
+      "updateKind": "correction"
     },
     {
       "id": "hk:02196:unresolved",
@@ -7839,9 +7996,11 @@
         "currency": "HKD",
         "updatedAt": "2026-10-10"
       },
-      "fingerprint": "db221da121275c1eabda6135b080ece82c4c1cd149b9e0c206801d4fad3d5374",
+      "fingerprint": "722035b1f01fff6e804612649a357c8751998d4190f6c4e9ad4a80f3c9341ab8",
       "firstSeenAt": "2026-09-16T02:58:58Z",
-      "changedAt": "2026-09-16T17:39:19Z"
+      "changedAt": "2026-09-16T17:39:19Z",
+      "recordUpdatedAt": "2026-09-16T17:39:19Z",
+      "updateKind": "correction"
     },
     {
       "id": "hk:00308:unresolved",
@@ -7932,9 +8091,11 @@
         "date": "2026-05-20",
         "quote": "建議分拆董事局謹此宣佈，本公司計劃以實物分派方式分拆港澳文旅及以介紹方式將港澳文旅股份於聯交所主板獨立上市"
       },
-      "fingerprint": "c7344a2b9d2832bf4ea35b4bbd609650c4f6f533acb2ad0f64fb122857de4938",
+      "fingerprint": "c1374efd02407db1b4b6da0ca75389aa631ef577ea545fbc301200672741bbab",
       "firstSeenAt": "2026-09-16T02:58:58Z",
-      "changedAt": "2026-09-16T07:31:38Z"
+      "changedAt": "2026-09-16T07:31:38Z",
+      "recordUpdatedAt": "2026-09-16T07:31:38Z",
+      "updateKind": "correction"
     },
     {
       "id": "hk:01109:unresolved",
@@ -8024,9 +8185,11 @@
         "currency": "HKD",
         "updatedAt": "2026-10-10"
       },
-      "fingerprint": "86ee234488b9649d0f9e5be6c5ec07552eeb99ea829f350e771d69b8d584d140",
+      "fingerprint": "193af9f6fb3c992c85eb095a85c3d054aa4161634a91749a4bb116cc4afa5835",
       "firstSeenAt": "2026-09-16T02:58:58Z",
-      "changedAt": "2026-10-10T13:57:15Z"
+      "changedAt": "2026-10-10T13:57:15Z",
+      "recordUpdatedAt": "2026-10-10T13:57:15Z",
+      "updateKind": "correction"
     },
     {
       "id": "hk:01979:unresolved",
@@ -8105,9 +8268,11 @@
         "currency": "HKD",
         "updatedAt": "2026-10-10"
       },
-      "fingerprint": "4ae04d8af2782003bfaff841e2067e32549ab229e9bad0a7c080495fd4ca07cf",
+      "fingerprint": "f3ebfb3f33adea2a61b426b5f6ba715656bd38bebb38403259c0c23204d0efb5",
       "firstSeenAt": "2026-09-16T02:58:58Z",
-      "changedAt": "2026-09-16T07:31:38Z"
+      "changedAt": "2026-09-16T07:31:38Z",
+      "recordUpdatedAt": "2026-09-16T07:31:38Z",
+      "updateKind": "correction"
     },
     {
       "id": "hk:09988:unresolved",
@@ -8184,9 +8349,11 @@
         "currency": "HKD",
         "updatedAt": "2026-10-10"
       },
-      "fingerprint": "97c5dd7be5569fa412ad977cb1fab875c7e271676310a7a1ab0ead44553d87a0",
+      "fingerprint": "be102fd2358cfda4b4c89d9baaf13a736a1c684e98aa6a58bca5e2b9945ea574",
       "firstSeenAt": "2026-09-16T02:58:58Z",
-      "changedAt": "2026-09-16T07:31:38Z"
+      "changedAt": "2026-09-16T07:31:38Z",
+      "recordUpdatedAt": "2026-09-16T07:31:38Z",
+      "updateKind": "correction"
     },
     {
       "id": "hk:02899:unresolved",
@@ -8226,6 +8393,13 @@
           "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0407/2026040700038_c.pdf",
           "direct": true,
           "relevance": "candidate"
+        },
+        {
+          "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2025/1008/2025100802075_c.pdf",
+          "date": "2025-10-08",
+          "title": "公司公告（档案依据）",
+          "direct": true,
+          "relevance": "unverified"
         }
       ],
       "latestDate": "2026-04-07",
@@ -8240,9 +8414,11 @@
         "currency": "HKD",
         "updatedAt": "2026-10-10"
       },
-      "fingerprint": "92339099ffd8ba4f14285efd3efcd8fe96d99aa73ad0f5ba8f9688728c40e09d",
+      "fingerprint": "ab9541614b2ec82aa7e511892119457677d5d8f68ff2080e2684d861755dafec",
       "firstSeenAt": "2026-09-16T07:31:38Z",
-      "changedAt": "2026-09-16T07:31:38Z"
+      "changedAt": "2026-09-16T07:31:38Z",
+      "recordUpdatedAt": "2026-09-16T07:31:38Z",
+      "updateKind": "correction"
     },
     {
       "id": "hk:02899:120a060e2783",
@@ -8318,9 +8494,16 @@
           "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0407/2026040700038_c.pdf",
           "direct": true,
           "relevance": "unverified"
+        },
+        {
+          "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2025/1008/2025100802075_c.pdf",
+          "date": "2025-10-08",
+          "title": "公司公告（档案依据）",
+          "direct": true,
+          "relevance": "candidate"
         }
       ],
-      "latestDate": "",
+      "latestDate": "2025-10-08",
       "sourceUpdatedAt": "2026-10-10T13:53:18Z",
       "parentMarketCap": 1048.3,
       "pricePairs": [],
@@ -8332,9 +8515,11 @@
         "currency": "HKD",
         "updatedAt": "2026-10-10"
       },
-      "fingerprint": "71992977ce1ddd7caff5f312f4cf2ea8f731b2100047cd6d9795242a6b94cfe7",
+      "fingerprint": "8dae300e31541f1609ef3c820e361fe91c6cb21d2fff5106f4ce2781cec283d0",
       "firstSeenAt": "2026-09-16T03:57:43Z",
-      "changedAt": "2026-09-16T06:53:54Z"
+      "changedAt": "2026-10-10T14:27:41Z",
+      "recordUpdatedAt": "2026-10-10T14:27:41Z",
+      "updateKind": "backfill"
     },
     {
       "id": "hk:00842:unattributed",
@@ -8440,6 +8625,13 @@
           "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2025/1231/2025123100006_c.pdf",
           "direct": true,
           "relevance": "unverified"
+        },
+        {
+          "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2025/1212/2025121200388.pdf",
+          "date": "2025-12-15",
+          "title": "公司公告（档案依据）",
+          "direct": true,
+          "relevance": "unverified"
         }
       ],
       "latestDate": "2026-04-01",
@@ -8454,9 +8646,11 @@
         "currency": "HKD",
         "updatedAt": "2026-10-10"
       },
-      "fingerprint": "3f78b7b4406ab746c507893a816d1ea1c520da7096fbee5c2706282e27fccaee",
+      "fingerprint": "06aea5ff93215204d7e9055dc792806333ccf227b7c792fcb483457aaa9498ef",
       "firstSeenAt": "2026-10-10T13:31:34Z",
-      "changedAt": "2026-10-10T13:31:34Z"
+      "changedAt": "2026-10-10T13:31:34Z",
+      "recordUpdatedAt": "2026-10-10T13:31:34Z",
+      "updateKind": "initial"
     },
     {
       "id": "hk:00842:unresolved",
@@ -8589,6 +8783,13 @@
           "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2025/1231/2025123100006_c.pdf",
           "direct": true,
           "relevance": "candidate"
+        },
+        {
+          "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2025/1212/2025121200388.pdf",
+          "date": "2025-12-15",
+          "title": "公司公告（档案依据）",
+          "direct": true,
+          "relevance": "candidate"
         }
       ],
       "latestDate": "2026-03-30",
@@ -8603,9 +8804,11 @@
         "currency": "HKD",
         "updatedAt": "2026-10-10"
       },
-      "fingerprint": "36e4a5232fcdb8ef2d284c841e7f26a548fbd37c519bea2359c0e94e081c4110",
+      "fingerprint": "a9a043b453643dcbc81bbb89eb04ea06aeaefe12d15ffa6863dfcd92eb10b697",
       "firstSeenAt": "2026-09-16T02:58:58Z",
-      "changedAt": "2026-10-10T13:31:34Z"
+      "changedAt": "2026-10-10T14:27:41Z",
+      "recordUpdatedAt": "2026-10-10T14:27:41Z",
+      "updateKind": "backfill"
     },
     {
       "id": "hk:01530:unresolved",
@@ -8706,9 +8909,11 @@
         "currency": "HKD",
         "updatedAt": "2026-10-10"
       },
-      "fingerprint": "541aa9c2f65146bf3f9c10c7fb0e4f523d506caf78a7a64191e3e11aa94b6201",
+      "fingerprint": "e5c0d52719fb0230af2b9e98e88565eb1196f4857a486fca4ee6f9ffc84e2ac6",
       "firstSeenAt": "2026-09-16T02:58:58Z",
-      "changedAt": "2026-09-16T06:53:54Z"
+      "changedAt": "2026-09-16T06:53:54Z",
+      "recordUpdatedAt": "2026-09-16T06:53:54Z",
+      "updateKind": "correction"
     },
     {
       "id": "hk:00384:unresolved",
@@ -8787,9 +8992,11 @@
         "currency": "HKD",
         "updatedAt": "2026-10-10"
       },
-      "fingerprint": "ef04c34c37e297e6240acd4b7ba7cd7469de0e034e730181ba1d2e48527eefa2",
+      "fingerprint": "ece45f1458d0246fd33869de87968c0873e6774e9e6c4d2d1692ab73b0085507",
       "firstSeenAt": "2026-09-16T02:58:58Z",
-      "changedAt": "2026-09-16T07:31:38Z"
+      "changedAt": "2026-09-16T07:31:38Z",
+      "recordUpdatedAt": "2026-09-16T07:31:38Z",
+      "updateKind": "correction"
     },
     {
       "id": "hk:01523:unresolved",
@@ -8866,9 +9073,11 @@
         "currency": "HKD",
         "updatedAt": "2026-10-10"
       },
-      "fingerprint": "3a2bbb2211fe7c0272b1ea1335cc239961f82b9e4add7f627fe71ee3150a85e9",
+      "fingerprint": "63f699d44b81fa7022be41da4c1bc692b72e0efbf5b17d20027b8aa3f25b372f",
       "firstSeenAt": "2026-09-16T02:58:58Z",
-      "changedAt": "2026-10-10T13:57:15Z"
+      "changedAt": "2026-10-10T13:57:15Z",
+      "recordUpdatedAt": "2026-10-10T13:57:15Z",
+      "updateKind": "correction"
     },
     {
       "id": "hk:00041:unresolved",
@@ -8879,43 +9088,40 @@
       "parentTicker": "00041.HK",
       "parentName": "鷹君",
       "targetName": "朗廷酒店投資",
-      "targetTicker": "",
+      "targetTicker": "01270.HK",
       "identityVerified": true,
       "identityKind": "instrument",
       "identityEvidence": {
-        "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0225/2026022500757_c.pdf",
-        "date": "2026-02-25",
-        "quote": "「信託」 指根據信託契約組成的朗廷酒店投資"
+        "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0826/2026082601083.pdf",
+        "date": "2026-08-26",
+        "quote": "Hong Kong Exchanges and Clearing Limited and The Stock Exchange of Hong Kong Limited take no responsibility for the contents of this announcement, make no representation as to its accuracy or completeness and expressly disclaim any liability whatsoever for any loss howsoever arising from or in reliance upon the whole or any part of the contents of this announcement. 2026 INTERIM RESULTS ANNOUNCEMENT The Board of Directors (the “Board”) of Great Eagle Holdings Limited (the “Company”) announces the unaudited consolidated financial results of the Company and its subsidiaries (collectively the “Group”) for the six months ended 30 June 2026 as follows: Six months ended 30 June 20262025 HK$ millio"
       },
       "identityState": "resolved",
-      "status": "record_set",
+      "status": "completed",
       "evidence": {
-        "status": "record_set",
-        "quote": "釐定股東於實物分派的權利的記錄日期為2026年3月17日（星期二）",
-        "typeVersion": 2,
-        "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0225/2026022500757_c.pdf",
-        "date": "2026-02-25",
+        "status": "completed",
+        "quote": "A special dividend was distributed on 2 April 2026 in the form of distribution in specie of share stapled units (“SSU(s)”) of LHI (Stock Code: 1270) to qualifying Shareholders on the basis of 1 SSU for every 15 shares of the Company (“Shares”) held",
+        "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0826/2026082601083.pdf",
+        "date": "2026-08-26",
         "targetName": "朗廷酒店投資",
-        "targetTicker": "",
-        "targetAliases": [],
+        "targetTicker": "01270.HK",
         "identityVersion": 3,
-        "identityQuote": "「信託」 指根據信託契約組成的朗廷酒店投資",
+        "identityQuote": "Hong Kong Exchanges and Clearing Limited and The Stock Exchange of Hong Kong Limited take no responsibility for the contents of this announcement, make no representation as to its accuracy or completeness and expressly disclaim any liability whatsoever for any loss howsoever arising from or in reliance upon the whole or any part of the contents of this announcement. 2026 INTERIM RESULTS ANNOUNCEMENT The Board of Directors (the “Board”) of Great Eagle Holdings Limited (the “Company”) announces the unaudited consolidated financial results of the Company and its subsidiaries (collectively the “Group”) for the six months ended 30 June 2026 as follows: Six months ended 30 June 20262025 HK$ millio",
         "identityKind": "instrument",
-        "distributedEntity": false,
-        "separatedEntity": false,
-        "identityReason": "",
+        "identityReason": "issuer_bound_distribution",
         "dates": {
-          "recordDate": {
-            "date": "2026-03-17",
-            "quote": "記錄日期為2026年3月17日",
-            "kind": "scheduled"
+          "distributionDate": {
+            "date": "2026-04-02",
+            "quote": "A special dividend was distributed on 2 April 2026 in the form of distribution in specie of share stapled units (“SSU(s)”) of LHI (Stock Code: 1270) to qualifying Shareholders on the basis of 1 SSU for every 15 shares of the Company (“Shares”) held",
+            "kind": "actual"
           }
         },
         "method": "rule",
         "ruleVersion": 3,
-        "accession": "",
-        "documentDate": "2026-02-25",
-        "identityReferences": []
+        "title": "2026 Interim Results Announcement",
+        "sourceIssuerName": "GREAT EAGLE H",
+        "sourceIssuerCode": "00041",
+        "distributionCompletionVersion": 2
       },
       "dates": {
         "recordDate": {
@@ -8924,12 +9130,16 @@
           "kind": "scheduled",
           "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0225/2026022500757_c.pdf",
           "sourceDate": "2026-02-25"
+        },
+        "distributionDate": {
+          "date": "2026-04-02",
+          "quote": "A special dividend was distributed on 2 April 2026 in the form of distribution in specie of share stapled units (“SSU(s)”) of LHI (Stock Code: 1270) to qualifying Shareholders on the basis of 1 SSU for every 15 shares of the Company (“Shares”) held",
+          "kind": "actual",
+          "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0826/2026082601083.pdf",
+          "sourceDate": "2026-08-26"
         }
       },
-      "missing": [
-        "ticker",
-        "distributionDate"
-      ],
+      "missing": [],
       "type": {
         "code": "distribution",
         "exchange_zh": "待定",
@@ -8940,15 +9150,29 @@
       },
       "announcements": [
         {
+          "date": "2026-08-26",
+          "title": "2026 Interim Results Announcement",
+          "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0826/2026082601083.pdf",
+          "direct": true,
+          "relevance": "candidate"
+        },
+        {
           "date": "2026-02-25",
           "title": "(1) 以實物分派股份合訂單位方式宣派特別股息；及(2) 記錄日期及暫停辦理股份過戶登記手續",
           "docUrl": "/listedco/listconews/sehk/2026/0225/2026022500757_c.pdf",
           "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0225/2026022500757_c.pdf",
           "direct": true,
           "relevance": "candidate"
+        },
+        {
+          "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2025/1008/2025100801821_c.pdf",
+          "date": "2025-10-08",
+          "title": "公司公告（档案依据）",
+          "direct": true,
+          "relevance": "candidate"
         }
       ],
-      "latestDate": "2026-02-25",
+      "latestDate": "2026-08-26",
       "sourceUpdatedAt": "2026-10-10T13:53:18Z",
       "parentMarketCap": 14.9,
       "pricePairs": [],
@@ -8960,9 +9184,11 @@
         "currency": "HKD",
         "updatedAt": "2026-10-10"
       },
-      "fingerprint": "9c8e9483580f990e6e3b51afba4bc7d6503db99f0782f2474c778d38855a5b2f",
+      "fingerprint": "d8f212a1d73d8ffc95cc3b7af40baba6d94ab3cc673abd9dda34657f29f641d2",
       "firstSeenAt": "2026-09-16T02:58:58Z",
-      "changedAt": "2026-10-10T13:57:15Z"
+      "changedAt": "2026-10-10T14:29:52Z",
+      "recordUpdatedAt": "2026-10-10T14:29:52Z",
+      "updateKind": "backfill"
     },
     {
       "id": "hk:07489:unresolved",
@@ -8971,21 +9197,53 @@
       "parentTicker": "07489.HK",
       "parentName": "嵐圖汽車",
       "targetName": "嵐圖汽車科技股份有限公司",
-      "targetTicker": "",
+      "targetTicker": "07489.HK",
       "identityVerified": true,
       "identityKind": "entity",
       "identityEvidence": {
-        "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0212/2026021201387_c.pdf",
-        "date": "2026-02-12",
-        "quote": "茲提述嵐圖汽車科技股份有限公司（「本公司」） … 將獲得0.3552608股本公司內資股"
+        "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0827/2026082700155.pdf",
+        "date": "2026-08-27",
+        "quote": "Hong Kong Exchanges and Clearing Limited and The Stock Exchange of Hong Kong Limited take no responsibility for the contents of this announcement, make no representation as to its accuracy or completeness and expressly disclaim any liability whatsoever for any loss howsoever arising from or in reliance upon the whole or any part of the contents of this announcement. VOYAH AUTOMOTIVE TECHNOLOGY CO., LTD. 嵐圖汽車科技股份有限公司(A joint stock company incorporated in the People’s Republic of China with limited liability)(Stock Code: 7489) INTERIM RESULTS ANNOUNCEMENT FOR THE SIX MONTHS ENDED JUNE 30, 2026 The board (the “Board”) of directors (the “Directors”) of VOYAH Automotive Technology Co., Ltd. (the "
       },
       "identityState": "resolved",
-      "status": "needs_review",
-      "evidence": null,
-      "dates": {},
+      "status": "completed",
+      "evidence": {
+        "status": "completed",
+        "quote": "The shares of the Company have been listed on the Main Board of the Stock Exchange of Hong Kong Limited (the “Stock Exchange”) since 19 March 2026",
+        "typeVersion": 2,
+        "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0827/2026082700155.pdf",
+        "date": "2026-08-27",
+        "targetName": "嵐圖汽車科技股份有限公司",
+        "targetTicker": "07489.HK",
+        "targetAliases": [],
+        "identityVersion": 3,
+        "identityQuote": "Hong Kong Exchanges and Clearing Limited and The Stock Exchange of Hong Kong Limited take no responsibility for the contents of this announcement, make no representation as to its accuracy or completeness and expressly disclaim any liability whatsoever for any loss howsoever arising from or in reliance upon the whole or any part of the contents of this announcement. VOYAH AUTOMOTIVE TECHNOLOGY CO., LTD. 嵐圖汽車科技股份有限公司(A joint stock company incorporated in the People’s Republic of China with limited liability)(Stock Code: 7489) INTERIM RESULTS ANNOUNCEMENT FOR THE SIX MONTHS ENDED JUNE 30, 2026 The board (the “Board”) of directors (the “Directors”) of VOYAH Automotive Technology Co., Ltd. (the ",
+        "identityKind": "entity",
+        "distributedEntity": false,
+        "separatedEntity": false,
+        "identityReason": "issuer_bound_listing",
+        "dates": {
+          "listingDate": {
+            "date": "2026-03-19",
+            "quote": "The shares of the Company have been listed on the Main Board of the Stock Exchange of Hong Kong Limited (the “Stock Exchange”) since 19 March 2026",
+            "kind": "actual"
+          }
+        },
+        "method": "rule",
+        "ruleVersion": 3,
+        "accession": "",
+        "listingCompletionVersion": 2
+      },
+      "dates": {
+        "listingDate": {
+          "date": "2026-03-19",
+          "quote": "The shares of the Company have been listed on the Main Board of the Stock Exchange of Hong Kong Limited (the “Stock Exchange”) since 19 March 2026",
+          "kind": "actual",
+          "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0827/2026082700155.pdf",
+          "sourceDate": "2026-08-27"
+        }
+      },
       "missing": [
-        "ticker",
-        "evidence",
         "recordDate",
         "distributionDate"
       ],
@@ -8999,6 +9257,13 @@
       },
       "announcements": [
         {
+          "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0827/2026082700155.pdf",
+          "date": "2026-08-27",
+          "title": "公司公告（档案依据）",
+          "direct": true,
+          "relevance": "candidate"
+        },
+        {
           "date": "2026-02-12",
           "title": "885,381,529股H股(每股人民幣1.00元)以介紹方式於香港聯合交易所有限公司主板上市",
           "docUrl": "/listedco/listconews/sehk/2026/0212/2026021201387_c.pdf",
@@ -9007,7 +9272,7 @@
           "relevance": "candidate"
         }
       ],
-      "latestDate": "2026-02-12",
+      "latestDate": "2026-08-27",
       "sourceUpdatedAt": "2026-10-10T13:53:18Z",
       "parentMarketCap": 13.0,
       "pricePairs": [],
@@ -9017,9 +9282,11 @@
         "date": "2026-02-12",
         "quote": "嵐圖汽車科技股份有限公司（於中華人民共和國註冊成立的股份有限公司）股份代號：7489885,381,529股H股（每股人民幣1.00元）以介紹方式於香港聯合交易所有限公司主板上市獨家保薦人本公司已向聯交所申請批准885,381,529股H股於聯交所上市及買賣"
       },
-      "fingerprint": "7dd172a18f7f1086a89bd1d32f74c1ea402df61f49a3c7d82c959fc50c46cb44",
+      "fingerprint": "4c584e7a4f448ec4e0932af9ae493eb9968956273dfd483d4ac56618e8f2b033",
       "firstSeenAt": "2026-09-16T02:58:58Z",
-      "changedAt": "2026-09-16T07:31:38Z"
+      "changedAt": "2026-10-10T14:27:41Z",
+      "recordUpdatedAt": "2026-10-10T14:27:41Z",
+      "updateKind": "backfill"
     },
     {
       "id": "hk:03393:unresolved",
@@ -9096,9 +9363,11 @@
         "currency": "HKD",
         "updatedAt": "2026-10-10"
       },
-      "fingerprint": "2b761abf3ef0750a1baaf733f43d884a5f6128e510bc2b88f7a4ac47b4fcd45e",
+      "fingerprint": "d1c419ba9b30ff4fdab5931b8a539a699e2533da96705805acb972ab5b6af6f1",
       "firstSeenAt": "2026-09-16T02:58:58Z",
-      "changedAt": "2026-09-16T06:53:54Z"
+      "changedAt": "2026-09-16T06:53:54Z",
+      "recordUpdatedAt": "2026-09-16T06:53:54Z",
+      "updateKind": "correction"
     },
     {
       "id": "hk:02382:d2f5019a5947",
@@ -9191,9 +9460,11 @@
         "currency": "HKD",
         "updatedAt": "2026-10-10"
       },
-      "fingerprint": "ba462e0f076c3dd761b3302ac0bf8ecd321f1d5398bb2b4add8b058696076055",
+      "fingerprint": "55662651c09b6f46c962655cb533ec8d09901aff6966a2f9c46235f838509d87",
       "firstSeenAt": "2026-10-10T13:34:48Z",
-      "changedAt": "2026-10-10T13:34:48Z"
+      "changedAt": "2026-10-10T13:34:48Z",
+      "recordUpdatedAt": "2026-10-10T13:34:48Z",
+      "updateKind": "correction"
     },
     {
       "id": "hk:01357:unresolved",
@@ -9250,9 +9521,11 @@
         "currency": "HKD",
         "updatedAt": "2026-10-10"
       },
-      "fingerprint": "2dcd45469df1d8770a1190185110daa652d4764d4501807008b6547f90510fd1",
+      "fingerprint": "e686fd0522c68976bd22558e4b992d20a2cd256e407a0458f4faef63d0a92b04",
       "firstSeenAt": "2026-09-16T02:58:58Z",
-      "changedAt": "2026-09-16T07:31:38Z"
+      "changedAt": "2026-09-16T07:31:38Z",
+      "recordUpdatedAt": "2026-09-16T07:31:38Z",
+      "updateKind": "correction"
     },
     {
       "id": "hk:02202:1932d33c150f",
@@ -9330,9 +9603,11 @@
         "currency": "HKD",
         "updatedAt": "2026-10-10"
       },
-      "fingerprint": "a12d18f29582ac9ebd8b67a087345925a31d7084a1d48197e4fe63979ce53e33",
+      "fingerprint": "01b5ca42e28fdcf43bcbd1d17520ae12358f5ee80dcc34912e7b861e96e05735",
       "firstSeenAt": "2026-09-16T13:35:46Z",
-      "changedAt": "2026-09-16T13:35:46Z"
+      "changedAt": "2026-09-16T13:35:46Z",
+      "recordUpdatedAt": "2026-09-16T13:35:46Z",
+      "updateKind": "correction"
     },
     {
       "id": "hk:02096:unresolved",
@@ -9409,9 +9684,11 @@
         "currency": "HKD",
         "updatedAt": "2026-10-10"
       },
-      "fingerprint": "1794d46cb869dbcf714dcb6c6d571c7916247ea11792d28e723a8eafb9f9165f",
+      "fingerprint": "17b59edf337cb8d06ef4e560f2a1b2d9a80bba74983ba96f9ab710ae93f146ef",
       "firstSeenAt": "2026-09-16T02:58:58Z",
-      "changedAt": "2026-09-16T03:57:43Z"
+      "changedAt": "2026-09-16T03:57:43Z",
+      "recordUpdatedAt": "2026-09-16T03:57:43Z",
+      "updateKind": "correction"
     },
     {
       "id": "hk:09888:unresolved",
@@ -9490,9 +9767,11 @@
         "currency": "HKD",
         "updatedAt": "2026-10-10"
       },
-      "fingerprint": "b5d85fbbc041429aa892abdc5af9a1fb3d3a5c750d7100ece5d83703557cbaf0",
+      "fingerprint": "f1f98174187692662ae5b4c3847dd3b2d158f1f29285835c5259610377b3ee0b",
       "firstSeenAt": "2026-09-16T02:58:58Z",
-      "changedAt": "2026-09-16T06:53:54Z"
+      "changedAt": "2026-09-16T06:53:54Z",
+      "recordUpdatedAt": "2026-09-16T06:53:54Z",
+      "updateKind": "correction"
     },
     {
       "id": "hk:01766:1a0b071e347a",
@@ -9650,9 +9929,11 @@
         "currency": "HKD",
         "updatedAt": "2026-10-10"
       },
-      "fingerprint": "db3492dc08fde6332fe00e3bbf98738f963f72902bdcf421ee981ebeef03be25",
+      "fingerprint": "c32e3171b8df3d48a21d0bb7b22eefc00949776ad020f0faca927a1bddf43645",
       "firstSeenAt": "2026-09-16T03:57:43Z",
-      "changedAt": "2026-09-16T07:31:38Z"
+      "changedAt": "2026-09-16T07:31:38Z",
+      "recordUpdatedAt": "2026-09-16T07:31:38Z",
+      "updateKind": "correction"
     },
     {
       "id": "hk:01766:unresolved",
@@ -9805,9 +10086,11 @@
         "currency": "HKD",
         "updatedAt": "2026-10-10"
       },
-      "fingerprint": "db221da121275c1eabda6135b080ece82c4c1cd149b9e0c206801d4fad3d5374",
+      "fingerprint": "60cd2311eec8e424c55b9318144e4dffaf82d9e3747ccc818cbd2e8943a22fa9",
       "firstSeenAt": "2026-09-16T02:58:58Z",
-      "changedAt": "2026-09-16T07:31:38Z"
+      "changedAt": "2026-09-16T07:31:38Z",
+      "recordUpdatedAt": "2026-09-16T07:31:38Z",
+      "updateKind": "correction"
     },
     {
       "id": "hk:09618:unresolved",
@@ -9901,9 +10184,11 @@
         "currency": "HKD",
         "updatedAt": "2026-10-10"
       },
-      "fingerprint": "c3b6c7759c4a7985e146ae1f4e3b3b816eead29c01bc7c64934a3598bb3d4cde",
+      "fingerprint": "cb6e825ece8ff986aad00147fb2ac89c7b7d554a09292856b052dbac1335bcf1",
       "firstSeenAt": "2026-09-16T02:58:58Z",
-      "changedAt": "2026-09-16T06:32:31Z"
+      "changedAt": "2026-09-16T06:32:31Z",
+      "recordUpdatedAt": "2026-09-16T06:32:31Z",
+      "updateKind": "correction"
     },
     {
       "id": "hk:00142:unresolved",
@@ -10018,9 +10303,11 @@
         "currency": "HKD",
         "updatedAt": "2026-10-10"
       },
-      "fingerprint": "4b678b5cb44360617bbfd7054ee0698e72bbe85cfcf85a8d7da3e5186daa52d8",
+      "fingerprint": "c062d25adfb022fa6874f8b9d6d43f65112b614af90b51441f6194a91e43cb04",
       "firstSeenAt": "2026-09-16T02:58:58Z",
-      "changedAt": "2026-09-16T06:53:54Z"
+      "changedAt": "2026-09-16T06:53:54Z",
+      "recordUpdatedAt": "2026-09-16T06:53:54Z",
+      "updateKind": "correction"
     },
     {
       "id": "hk:00400:unresolved",
@@ -10101,9 +10388,11 @@
         "currency": "HKD",
         "updatedAt": "2026-10-10"
       },
-      "fingerprint": "66cacd9ea2b651f3a5ff6f7c4d6a760c05ee543b8e178bc8e87b1223b91b06ac",
+      "fingerprint": "45a7a5f7e760513c29c5621724f288171357660e580bbfe59da27e827c1c67fe",
       "firstSeenAt": "2026-09-16T02:58:58Z",
-      "changedAt": "2026-09-16T06:53:54Z"
+      "changedAt": "2026-09-16T06:53:54Z",
+      "recordUpdatedAt": "2026-09-16T06:53:54Z",
+      "updateKind": "correction"
     },
     {
       "id": "hk:00762:unresolved",
@@ -10183,9 +10472,11 @@
         "currency": "HKD",
         "updatedAt": "2026-10-10"
       },
-      "fingerprint": "109de93be3387c908a0562085f8cb6bd2dac0fc73100f2f2d20a7a6cc1b68277",
+      "fingerprint": "ba27d4d33e20ab153f6959ab3c20c9dc3c2f137c21466f530dc4e1ab1f1dc107",
       "firstSeenAt": "2026-09-16T02:58:58Z",
-      "changedAt": "2026-09-16T07:31:38Z"
+      "changedAt": "2026-09-16T07:31:38Z",
+      "recordUpdatedAt": "2026-09-16T07:31:38Z",
+      "updateKind": "correction"
     },
     {
       "id": "hk:00019:unresolved",
@@ -10264,9 +10555,11 @@
         "currency": "HKD",
         "updatedAt": "2026-10-10"
       },
-      "fingerprint": "42f641cd406f09c640c26769d38f2271265e9f88e18bf1b4497e7f50049ee79b",
+      "fingerprint": "632778fb1b4e4f9d16a97dcc5b6e1f95a7196ea4240191aa25d88cedf8f29f91",
       "firstSeenAt": "2026-09-16T02:58:58Z",
-      "changedAt": "2026-09-16T06:53:54Z"
+      "changedAt": "2026-09-16T06:53:54Z",
+      "recordUpdatedAt": "2026-09-16T06:53:54Z",
+      "updateKind": "correction"
     },
     {
       "id": "hk:00460:unresolved",
@@ -10354,6 +10647,27 @@
           "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2025/1015/2025101500144_c.pdf",
           "direct": true,
           "relevance": "candidate"
+        },
+        {
+          "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2025/1006/2025100601213_c.pdf",
+          "date": "2025-10-06",
+          "title": "公司公告（档案依据）",
+          "direct": true,
+          "relevance": "candidate"
+        },
+        {
+          "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2025/0917/2025091701339_c.pdf",
+          "date": "2025-09-17",
+          "title": "公司公告（档案依据）",
+          "direct": true,
+          "relevance": "candidate"
+        },
+        {
+          "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2025/0917/2025091701329_c.pdf",
+          "date": "2025-09-17",
+          "title": "公司公告（档案依据）",
+          "direct": true,
+          "relevance": "candidate"
         }
       ],
       "latestDate": "2025-10-15",
@@ -10368,14 +10682,628 @@
         "currency": "HKD",
         "updatedAt": "2026-10-10"
       },
-      "fingerprint": "a91a0ff58d3f957d2ea5568d27f27e9521943fa627b9bf363646b0dabe6db434",
+      "fingerprint": "5c886f7297ac519ace35ac28225a503fcf02366093d136cbce9825d92b54cb31",
       "firstSeenAt": "2026-09-16T02:58:58Z",
-      "changedAt": "2026-09-16T07:31:38Z"
+      "changedAt": "2026-10-10T14:27:41Z",
+      "recordUpdatedAt": "2026-10-10T14:27:41Z",
+      "updateKind": "backfill"
     }
   ],
   "eventsSchemaVersion": 1,
-  "eventsNormalizedAt": "2026-10-10T13:59:16Z",
+  "eventsNormalizedAt": "2026-10-10T14:31:01Z",
   "changes": [
+    {
+      "eventId": "hk:01530:unresolved",
+      "at": "2026-09-16T03:57:43Z",
+      "kind": "updated",
+      "fields": [
+        "status"
+      ],
+      "fromStatus": "needs_review",
+      "toStatus": "announced"
+    },
+    {
+      "eventId": "hk:02382:unresolved",
+      "at": "2026-09-16T03:57:43Z",
+      "kind": "updated",
+      "fields": [
+        "targetName"
+      ],
+      "fromStatus": "announced",
+      "toStatus": "announced"
+    },
+    {
+      "eventId": "hk:02096:unresolved",
+      "at": "2026-09-16T03:57:43Z",
+      "kind": "updated",
+      "fields": [
+        "targetName"
+      ],
+      "fromStatus": "announced",
+      "toStatus": "announced"
+    },
+    {
+      "eventId": "hk:01766:unresolved",
+      "at": "2026-09-16T03:57:43Z",
+      "kind": "updated",
+      "fields": [
+        "targetName"
+      ],
+      "fromStatus": "needs_review",
+      "toStatus": "needs_review"
+    },
+    {
+      "eventId": "hk:01766:1a0b071e347a",
+      "at": "2026-09-16T03:57:43Z",
+      "kind": "new",
+      "fields": [
+        "status",
+        "targetName",
+        "targetTicker",
+        "dates"
+      ],
+      "fromStatus": null,
+      "toStatus": "needs_review"
+    },
+    {
+      "eventId": "hk:00142:unresolved",
+      "at": "2026-09-16T03:57:43Z",
+      "kind": "updated",
+      "fields": [
+        "status"
+      ],
+      "fromStatus": "needs_review",
+      "toStatus": "announced"
+    },
+    {
+      "eventId": "hk:00460:unresolved",
+      "at": "2026-09-16T03:57:43Z",
+      "kind": "updated",
+      "fields": [
+        "status"
+      ],
+      "fromStatus": "needs_review",
+      "toStatus": "prospectus"
+    },
+    {
+      "eventId": "hk:09618:unresolved",
+      "at": "2026-09-16T06:32:31Z",
+      "kind": "updated",
+      "parentTicker": "09618.HK",
+      "parentName": "京東集團－ＳＷ",
+      "fields": [
+        "status",
+        "targetName",
+        "targetTicker",
+        "dates"
+      ],
+      "before": {
+        "status": "needs_review",
+        "targetName": "",
+        "targetTicker": "",
+        "dates": {}
+      },
+      "after": {
+        "status": "completed",
+        "targetName": "京東工業股份有限公司",
+        "targetTicker": "07618.HK",
+        "dates": {
+          "listingDate": "2025-12-11"
+        }
+      },
+      "fromStatus": "needs_review",
+      "toStatus": "completed"
+    },
+    {
+      "eventId": "hk:00460:unresolved",
+      "at": "2026-09-16T06:32:31Z",
+      "kind": "updated",
+      "parentTicker": "00460.HK",
+      "parentName": "四環醫藥",
+      "fields": [
+        "status",
+        "targetName",
+        "targetTicker",
+        "dates"
+      ],
+      "before": {
+        "status": "prospectus",
+        "targetName": "",
+        "targetTicker": "",
+        "dates": {}
+      },
+      "after": {
+        "status": "completed",
+        "targetName": "軒竹生物",
+        "targetTicker": "02575.HK",
+        "dates": {
+          "listingDate": "2025-10-15"
+        }
+      },
+      "fromStatus": "prospectus",
+      "toStatus": "completed"
+    },
+    {
+      "eventId": "hk:01030:unattributed",
+      "at": "2026-09-16T06:53:54Z",
+      "kind": "new",
+      "parentTicker": "01030.HK",
+      "parentName": "新城發展",
+      "fields": [
+        "status",
+        "targetName",
+        "targetTicker",
+        "dates"
+      ],
+      "before": null,
+      "after": {
+        "status": "announced",
+        "targetName": "",
+        "targetTicker": "",
+        "dates": {}
+      },
+      "fromStatus": null,
+      "toStatus": "announced"
+    },
+    {
+      "eventId": "hk:00656:223427a6a39d",
+      "at": "2026-09-16T06:53:54Z",
+      "kind": "new",
+      "parentTicker": "00656.HK",
+      "parentName": "復星國際",
+      "fields": [
+        "status",
+        "targetName",
+        "targetTicker",
+        "dates"
+      ],
+      "before": null,
+      "after": {
+        "status": "announced",
+        "targetName": "CLUBMED LIFESTYLE",
+        "targetTicker": "",
+        "dates": {}
+      },
+      "fromStatus": null,
+      "toStatus": "announced"
+    },
+    {
+      "eventId": "hk:00656:unattributed",
+      "at": "2026-09-16T06:53:54Z",
+      "kind": "new",
+      "parentTicker": "00656.HK",
+      "parentName": "復星國際",
+      "fields": [
+        "status",
+        "targetName",
+        "targetTicker",
+        "dates"
+      ],
+      "before": null,
+      "after": {
+        "status": "announced",
+        "targetName": "",
+        "targetTicker": "",
+        "dates": {}
+      },
+      "fromStatus": null,
+      "toStatus": "announced"
+    },
+    {
+      "eventId": "hk:01070:unresolved",
+      "at": "2026-09-16T06:53:54Z",
+      "kind": "updated",
+      "parentTicker": "01070.HK",
+      "parentName": "ＴＣＬ電子",
+      "fields": [
+        "status"
+      ],
+      "before": {
+        "status": "needs_review",
+        "targetName": "",
+        "targetTicker": "",
+        "dates": {}
+      },
+      "after": {
+        "status": "announced",
+        "targetName": "",
+        "targetTicker": "",
+        "dates": {}
+      },
+      "fromStatus": "needs_review",
+      "toStatus": "announced"
+    },
+    {
+      "eventId": "hk:00358:af0f59be722e",
+      "at": "2026-09-16T06:53:54Z",
+      "kind": "updated",
+      "parentTicker": "00358.HK",
+      "parentName": "江西銅業股份",
+      "fields": [
+        "status"
+      ],
+      "before": {
+        "status": "needs_review",
+        "targetName": "江西省江銅銅箔科技股份有限公司",
+        "targetTicker": "",
+        "dates": {}
+      },
+      "after": {
+        "status": "announced",
+        "targetName": "江西省江銅銅箔科技股份有限公司",
+        "targetTicker": "",
+        "dates": {}
+      },
+      "fromStatus": "needs_review",
+      "toStatus": "announced"
+    },
+    {
+      "eventId": "hk:02161:unresolved",
+      "at": "2026-09-16T06:53:54Z",
+      "kind": "updated",
+      "parentTicker": "02161.HK",
+      "parentName": "健倍苗苗",
+      "fields": [
+        "status",
+        "targetName"
+      ],
+      "before": {
+        "status": "needs_review",
+        "targetName": "",
+        "targetTicker": "",
+        "dates": {}
+      },
+      "after": {
+        "status": "announced",
+        "targetName": "保濟元和(TCM)有限公司",
+        "targetTicker": "",
+        "dates": {}
+      },
+      "fromStatus": "needs_review",
+      "toStatus": "announced"
+    },
+    {
+      "eventId": "hk:01171:a43f73d8c3c9",
+      "at": "2026-09-16T06:53:54Z",
+      "kind": "new",
+      "parentTicker": "01171.HK",
+      "parentName": "兗礦能源",
+      "fields": [
+        "status",
+        "targetName",
+        "targetTicker",
+        "dates"
+      ],
+      "before": null,
+      "after": {
+        "status": "announced",
+        "targetName": "物泊科技",
+        "targetTicker": "",
+        "dates": {}
+      },
+      "fromStatus": null,
+      "toStatus": "announced"
+    },
+    {
+      "eventId": "hk:02196:223f5dfead37",
+      "at": "2026-09-16T06:53:54Z",
+      "kind": "updated",
+      "parentTicker": "02196.HK",
+      "parentName": "復星醫藥",
+      "fields": [
+        "status",
+        "targetName"
+      ],
+      "before": {
+        "status": "needs_review",
+        "targetName": "復星安特金（成都）生物製藥股份有限公司",
+        "targetTicker": "",
+        "dates": {}
+      },
+      "after": {
+        "status": "announced",
+        "targetName": "复星安特金（成都）生物制药股份有限公司",
+        "targetTicker": "",
+        "dates": {}
+      },
+      "fromStatus": "needs_review",
+      "toStatus": "announced"
+    },
+    {
+      "eventId": "hk:01109:unresolved",
+      "at": "2026-09-16T06:53:54Z",
+      "kind": "updated",
+      "parentTicker": "01109.HK",
+      "parentName": "華潤置地",
+      "fields": [
+        "status"
+      ],
+      "before": {
+        "status": "announced",
+        "targetName": "",
+        "targetTicker": "",
+        "dates": {}
+      },
+      "after": {
+        "status": "approved",
+        "targetName": "",
+        "targetTicker": "",
+        "dates": {}
+      },
+      "fromStatus": "announced",
+      "toStatus": "approved"
+    },
+    {
+      "eventId": "hk:00902:unresolved",
+      "at": "2026-09-16T06:53:54Z",
+      "kind": "updated",
+      "parentTicker": "00902.HK",
+      "parentName": "華能國際電力股份",
+      "fields": [
+        "status"
+      ],
+      "before": {
+        "status": "needs_review",
+        "targetName": "",
+        "targetTicker": "",
+        "dates": {}
+      },
+      "after": {
+        "status": "announced",
+        "targetName": "",
+        "targetTicker": "",
+        "dates": {}
+      },
+      "fromStatus": "needs_review",
+      "toStatus": "announced"
+    },
+    {
+      "eventId": "hk:02899:120a060e2783",
+      "at": "2026-09-16T06:53:54Z",
+      "kind": "updated",
+      "parentTicker": "02899.HK",
+      "parentName": "紫金礦業",
+      "fields": [
+        "status"
+      ],
+      "before": {
+        "status": "needs_review",
+        "targetName": "紫金黃金國際有限公司",
+        "targetTicker": "",
+        "dates": {}
+      },
+      "after": {
+        "status": "announced",
+        "targetName": "紫金黃金國際有限公司",
+        "targetTicker": "",
+        "dates": {}
+      },
+      "fromStatus": "needs_review",
+      "toStatus": "announced"
+    },
+    {
+      "eventId": "hk:00842:unresolved",
+      "at": "2026-09-16T06:53:54Z",
+      "kind": "updated",
+      "parentTicker": "00842.HK",
+      "parentName": "理士國際",
+      "fields": [
+        "status"
+      ],
+      "before": {
+        "status": "announced",
+        "targetName": "",
+        "targetTicker": "",
+        "dates": {}
+      },
+      "after": {
+        "status": "paused",
+        "targetName": "",
+        "targetTicker": "",
+        "dates": {}
+      },
+      "fromStatus": "announced",
+      "toStatus": "paused"
+    },
+    {
+      "eventId": "hk:01530:unresolved",
+      "at": "2026-09-16T06:53:54Z",
+      "kind": "updated",
+      "parentTicker": "01530.HK",
+      "parentName": "三生製藥",
+      "fields": [
+        "dates"
+      ],
+      "before": {
+        "status": "announced",
+        "targetName": "蔓迪國際",
+        "targetTicker": "",
+        "dates": {}
+      },
+      "after": {
+        "status": "announced",
+        "targetName": "蔓迪國際",
+        "targetTicker": "",
+        "dates": {
+          "recordDate": "2026-03-30"
+        }
+      },
+      "fromStatus": "announced",
+      "toStatus": "announced"
+    },
+    {
+      "eventId": "hk:00384:unresolved",
+      "at": "2026-09-16T06:53:54Z",
+      "kind": "updated",
+      "parentTicker": "00384.HK",
+      "parentName": "中國燃氣",
+      "fields": [
+        "status"
+      ],
+      "before": {
+        "status": "needs_review",
+        "targetName": "",
+        "targetTicker": "",
+        "dates": {}
+      },
+      "after": {
+        "status": "announced",
+        "targetName": "",
+        "targetTicker": "",
+        "dates": {}
+      },
+      "fromStatus": "needs_review",
+      "toStatus": "announced"
+    },
+    {
+      "eventId": "hk:00041:unresolved",
+      "at": "2026-09-16T06:53:54Z",
+      "kind": "updated",
+      "parentTicker": "00041.HK",
+      "parentName": "鷹君",
+      "fields": [
+        "status",
+        "dates"
+      ],
+      "before": {
+        "status": "announced",
+        "targetName": "",
+        "targetTicker": "",
+        "dates": {}
+      },
+      "after": {
+        "status": "record_set",
+        "targetName": "",
+        "targetTicker": "",
+        "dates": {
+          "recordDate": "2026-03-17"
+        }
+      },
+      "fromStatus": "announced",
+      "toStatus": "record_set"
+    },
+    {
+      "eventId": "hk:03393:unresolved",
+      "at": "2026-09-16T06:53:54Z",
+      "kind": "updated",
+      "parentTicker": "03393.HK",
+      "parentName": "威勝控股",
+      "fields": [
+        "status"
+      ],
+      "before": {
+        "status": "needs_review",
+        "targetName": "惟遠能源技術股份有限公司",
+        "targetTicker": "",
+        "dates": {}
+      },
+      "after": {
+        "status": "announced",
+        "targetName": "惟遠能源技術股份有限公司",
+        "targetTicker": "",
+        "dates": {}
+      },
+      "fromStatus": "needs_review",
+      "toStatus": "announced"
+    },
+    {
+      "eventId": "hk:09888:unresolved",
+      "at": "2026-09-16T06:53:54Z",
+      "kind": "updated",
+      "parentTicker": "09888.HK",
+      "parentName": "百度集團－ＳＷ",
+      "fields": [
+        "targetName"
+      ],
+      "before": {
+        "status": "announced",
+        "targetName": "",
+        "targetTicker": "",
+        "dates": {}
+      },
+      "after": {
+        "status": "announced",
+        "targetName": "崑崙芯",
+        "targetTicker": "",
+        "dates": {}
+      },
+      "fromStatus": "announced",
+      "toStatus": "announced"
+    },
+    {
+      "eventId": "hk:00142:unresolved",
+      "at": "2026-09-16T06:53:54Z",
+      "kind": "updated",
+      "parentTicker": "00142.HK",
+      "parentName": "第一太平",
+      "fields": [
+        "status",
+        "targetName"
+      ],
+      "before": {
+        "status": "announced",
+        "targetName": "",
+        "targetTicker": "",
+        "dates": {}
+      },
+      "after": {
+        "status": "completed",
+        "targetName": "MAYNILAD WATER SERVICES, INC",
+        "targetTicker": "",
+        "dates": {}
+      },
+      "fromStatus": "announced",
+      "toStatus": "completed"
+    },
+    {
+      "eventId": "hk:00400:unresolved",
+      "at": "2026-09-16T06:53:54Z",
+      "kind": "updated",
+      "parentTicker": "00400.HK",
+      "parentName": "硬蛋創新",
+      "fields": [
+        "status",
+        "targetName"
+      ],
+      "before": {
+        "status": "needs_review",
+        "targetName": "",
+        "targetTicker": "",
+        "dates": {}
+      },
+      "after": {
+        "status": "announced",
+        "targetName": "深圳市科通技術股份有限公司",
+        "targetTicker": "",
+        "dates": {}
+      },
+      "fromStatus": "needs_review",
+      "toStatus": "announced"
+    },
+    {
+      "eventId": "hk:00019:unresolved",
+      "at": "2026-09-16T06:53:54Z",
+      "kind": "updated",
+      "parentTicker": "00019.HK",
+      "parentName": "太古股份公司Ａ",
+      "fields": [
+        "targetName"
+      ],
+      "before": {
+        "status": "announced",
+        "targetName": "",
+        "targetTicker": "",
+        "dates": {}
+      },
+      "after": {
+        "status": "announced",
+        "targetName": "THAINAMTHIP CORPORATION PUBLIC COMPANY LIMITED",
+        "targetTicker": "",
+        "dates": {}
+      },
+      "fromStatus": "announced",
+      "toStatus": "announced"
+    },
     {
       "eventId": "hk:09896:unresolved",
       "at": "2026-09-16T06:53:54Z",
@@ -16469,247 +17397,176 @@
       "toStatus": "approved"
     },
     {
-      "eventId": "hk:00902:4747ad838542",
-      "at": "2026-10-10T13:31:34Z",
-      "kind": "new",
-      "parentTicker": "00902.HK",
-      "parentName": "華能國際電力股份",
-      "fields": [
-        "status",
-        "targetName",
-        "targetTicker",
-        "dates"
-      ],
-      "before": null,
-      "after": {
-        "status": "announced",
-        "targetName": "華能煤電 REIT",
-        "targetTicker": "",
-        "dates": {}
-      },
-      "fromStatus": null,
-      "toStatus": "announced"
-    },
-    {
-      "eventId": "hk:00688:unattributed",
-      "at": "2026-10-10T13:31:34Z",
-      "kind": "new",
-      "parentTicker": "00688.HK",
-      "parentName": "中國海外發展",
-      "fields": [
-        "status",
-        "targetName",
-        "targetTicker",
-        "dates"
-      ],
-      "before": null,
-      "after": {
-        "status": "approved",
-        "targetName": "",
-        "targetTicker": "",
-        "dates": {}
-      },
-      "fromStatus": null,
-      "toStatus": "approved"
-    },
-    {
-      "eventId": "hk:00688:unresolved",
-      "at": "2026-10-10T13:31:34Z",
+      "eventId": "hk:00968:unresolved",
+      "at": "2026-10-10T13:16:57Z",
       "kind": "updated",
-      "parentTicker": "00688.HK",
-      "parentName": "中國海外發展",
+      "parentTicker": "00968.HK",
+      "parentName": "信義光能",
       "fields": [
-        "status"
+        "targetName"
       ],
       "before": {
-        "status": "approved",
-        "targetName": "位於中國廣東省佛山市南海區的購物中心（佛山千燈湖環宇城項目）",
-        "targetTicker": "",
-        "dates": {}
-      },
-      "after": {
         "status": "announced",
-        "targetName": "位於中國廣東省佛山市南海區的購物中心（佛山千燈湖環宇城項目）",
-        "targetTicker": "",
-        "dates": {}
-      },
-      "fromStatus": "approved",
-      "toStatus": "announced"
-    },
-    {
-      "eventId": "hk:01030:df90904a7a82",
-      "at": "2026-10-10T13:31:34Z",
-      "kind": "new",
-      "parentTicker": "01030.HK",
-      "parentName": "新城發展",
-      "fields": [
-        "status",
-        "targetName",
-        "targetTicker",
-        "dates"
-      ],
-      "before": null,
-      "after": {
-        "status": "announced",
-        "targetName": "若干商業物業權益",
-        "targetTicker": "",
-        "dates": {}
-      },
-      "fromStatus": null,
-      "toStatus": "announced"
-    },
-    {
-      "eventId": "hk:01109:unattributed",
-      "at": "2026-10-10T13:31:34Z",
-      "kind": "new",
-      "parentTicker": "01109.HK",
-      "parentName": "華潤置地",
-      "fields": [
-        "status",
-        "targetName",
-        "targetTicker",
-        "dates"
-      ],
-      "before": null,
-      "after": {
-        "status": "approved",
         "targetName": "",
         "targetTicker": "",
         "dates": {}
       },
-      "fromStatus": null,
-      "toStatus": "approved"
+      "after": {
+        "status": "announced",
+        "targetName": "國泰海通信義能源新能源封閉式基礎設施證券投資基金",
+        "targetTicker": "",
+        "dates": {}
+      },
+      "fromStatus": "announced",
+      "toStatus": "announced"
     },
     {
-      "eventId": "hk:01109:unresolved",
-      "at": "2026-10-10T13:31:34Z",
+      "eventId": "hk:03868:unresolved",
+      "at": "2026-10-10T13:16:57Z",
       "kind": "updated",
-      "parentTicker": "01109.HK",
-      "parentName": "華潤置地",
+      "parentTicker": "03868.HK",
+      "parentName": "信義能源",
       "fields": [
-        "status"
+        "targetName"
       ],
       "before": {
-        "status": "approved",
-        "targetName": "兩個購物商場，分別位於中國江蘇省南通市及山東省臨沂市",
+        "status": "announced",
+        "targetName": "",
         "targetTicker": "",
         "dates": {}
       },
       "after": {
         "status": "announced",
-        "targetName": "兩個購物商場，分別位於中國江蘇省南通市及山東省臨沂市",
+        "targetName": "國泰海通信義能源新能源封閉式基礎設施證券投資基金",
         "targetTicker": "",
         "dates": {}
       },
-      "fromStatus": "approved",
+      "fromStatus": "announced",
       "toStatus": "announced"
     },
     {
-      "eventId": "hk:00842:unattributed",
-      "at": "2026-10-10T13:31:34Z",
-      "kind": "new",
-      "parentTicker": "00842.HK",
-      "parentName": "理士國際",
+      "eventId": "hk:07489:unresolved",
+      "at": "2026-10-10T13:58:52Z",
+      "kind": "updated",
+      "parentTicker": "07489.HK",
+      "parentName": "嵐圖汽車",
       "fields": [
         "status",
-        "targetName",
         "targetTicker",
         "dates"
       ],
-      "before": null,
-      "after": {
-        "status": "paused",
-        "targetName": "",
+      "before": {
+        "status": "needs_review",
+        "targetName": "嵐圖汽車科技股份有限公司",
         "targetTicker": "",
         "dates": {}
       },
-      "fromStatus": null,
-      "toStatus": "paused"
+      "after": {
+        "status": "completed",
+        "targetName": "嵐圖汽車科技股份有限公司",
+        "targetTicker": "07489.HK",
+        "dates": {
+          "listingDate": "2026-03-19"
+        }
+      },
+      "fromStatus": "needs_review",
+      "toStatus": "completed"
+    },
+    {
+      "eventId": "hk:02899:120a060e2783",
+      "at": "2026-10-10T14:27:41Z",
+      "kind": "updated",
+      "parentTicker": "02899.HK",
+      "parentName": "紫金礦業",
+      "fields": [
+        "sources"
+      ],
+      "before": {
+        "status": "announced",
+        "targetName": "紫金黃金國際有限公司",
+        "targetTicker": "",
+        "dates": {},
+        "sources": []
+      },
+      "after": {
+        "status": "announced",
+        "targetName": "紫金黃金國際有限公司",
+        "targetTicker": "",
+        "dates": {},
+        "sources": [
+          "https://www1.hkexnews.hk/listedco/listconews/sehk/2025/1008/2025100802075_c.pdf"
+        ]
+      },
+      "fromStatus": "announced",
+      "toStatus": "announced",
+      "updateKind": "backfill",
+      "addedSources": [
+        "https://www1.hkexnews.hk/listedco/listconews/sehk/2025/1008/2025100802075_c.pdf"
+      ],
+      "sourceDates": [
+        "2025-10-08"
+      ]
     },
     {
       "eventId": "hk:00842:unresolved",
-      "at": "2026-10-10T13:31:34Z",
+      "at": "2026-10-10T14:27:41Z",
       "kind": "updated",
       "parentTicker": "00842.HK",
       "parentName": "理士國際",
       "fields": [
-        "status"
+        "sources"
       ],
       "before": {
-        "status": "paused",
-        "targetName": "Leoch Energy Inc",
-        "targetTicker": "",
-        "dates": {
-          "recordDate": "2026-05-29"
-        }
-      },
-      "after": {
         "status": "announced",
         "targetName": "Leoch Energy Inc",
         "targetTicker": "",
         "dates": {
           "recordDate": "2026-05-29"
-        }
-      },
-      "fromStatus": "paused",
-      "toStatus": "announced"
-    },
-    {
-      "eventId": "hk:01523:unresolved",
-      "at": "2026-10-10T13:31:34Z",
-      "kind": "updated",
-      "parentTicker": "01523.HK",
-      "parentName": "珩灣科技",
-      "fields": [
-        "targetName"
-      ],
-      "before": {
-        "status": "announced",
-        "targetName": "Peplink Holdings Limited",
-        "targetTicker": "",
-        "dates": {}
+        },
+        "sources": [
+          "https://www1.hkexnews.hk/listedco/listconews/sehk/2025/1231/2025123100006_c.pdf",
+          "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0113/2026011301400_c.pdf",
+          "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0202/2026020201305_c.pdf",
+          "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0227/2026022701176_c.pdf",
+          "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0310/2026031000054_c.pdf",
+          "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0330/2026033004043_c.pdf"
+        ]
       },
       "after": {
         "status": "announced",
-        "targetName": "",
-        "targetTicker": "",
-        "dates": {}
-      },
-      "fromStatus": "announced",
-      "toStatus": "announced"
-    },
-    {
-      "eventId": "hk:00041:unattributed",
-      "at": "2026-10-10T13:31:34Z",
-      "kind": "new",
-      "parentTicker": "00041.HK",
-      "parentName": "鷹君",
-      "fields": [
-        "status",
-        "targetName",
-        "targetTicker",
-        "dates"
-      ],
-      "before": null,
-      "after": {
-        "status": "record_set",
-        "targetName": "",
+        "targetName": "Leoch Energy Inc",
         "targetTicker": "",
         "dates": {
-          "recordDate": "2026-03-17"
-        }
+          "recordDate": "2026-05-29"
+        },
+        "sources": [
+          "https://www1.hkexnews.hk/listedco/listconews/sehk/2025/1212/2025121200388.pdf",
+          "https://www1.hkexnews.hk/listedco/listconews/sehk/2025/1231/2025123100006_c.pdf",
+          "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0113/2026011301400_c.pdf",
+          "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0202/2026020201305_c.pdf",
+          "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0227/2026022701176_c.pdf",
+          "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0310/2026031000054_c.pdf",
+          "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0330/2026033004043_c.pdf"
+        ]
       },
-      "fromStatus": null,
-      "toStatus": "record_set"
+      "fromStatus": "announced",
+      "toStatus": "announced",
+      "updateKind": "backfill",
+      "addedSources": [
+        "https://www1.hkexnews.hk/listedco/listconews/sehk/2025/1212/2025121200388.pdf"
+      ],
+      "sourceDates": [
+        "2025-12-15"
+      ]
     },
     {
       "eventId": "hk:00041:unresolved",
-      "at": "2026-10-10T13:31:34Z",
+      "at": "2026-10-10T14:27:41Z",
       "kind": "updated",
       "parentTicker": "00041.HK",
       "parentName": "鷹君",
       "fields": [
-        "dates"
+        "sources"
       ],
       "before": {
         "status": "record_set",
@@ -16717,153 +17574,10 @@
         "targetTicker": "",
         "dates": {
           "recordDate": "2026-03-17"
-        }
-      },
-      "after": {
-        "status": "record_set",
-        "targetName": "朗廷酒店投資",
-        "targetTicker": "",
-        "dates": {
-          "recordDate": "2025-10-24"
-        }
-      },
-      "fromStatus": "record_set",
-      "toStatus": "record_set"
-    },
-    {
-      "eventId": "hk:02382:28998458e55b",
-      "at": "2026-10-10T13:31:34Z",
-      "kind": "new",
-      "parentTicker": "02382.HK",
-      "parentName": "舜宇光學科技",
-      "fields": [
-        "status",
-        "targetName",
-        "targetTicker",
-        "dates"
-      ],
-      "before": null,
-      "after": {
-        "status": "announced",
-        "targetName": "車載相關光學業務",
-        "targetTicker": "",
-        "dates": {}
-      },
-      "fromStatus": null,
-      "toStatus": "announced"
-    },
-    {
-      "eventId": "hk:00017:097c4d6fac96",
-      "at": "2026-10-10T13:34:48Z",
-      "kind": "updated",
-      "parentTicker": "00017.HK",
-      "parentName": "新世界發展",
-      "fields": [
-        "status"
-      ],
-      "before": {
-        "status": "announced",
-        "targetName": "證券投資基金於上交所",
-        "targetTicker": "",
-        "dates": {}
-      },
-      "after": {
-        "status": "completed",
-        "targetName": "證券投資基金於上交所",
-        "targetTicker": "",
-        "dates": {}
-      },
-      "fromStatus": "announced",
-      "toStatus": "completed"
-    },
-    {
-      "eventId": "hk:00688:unresolved",
-      "at": "2026-10-10T13:34:48Z",
-      "kind": "updated",
-      "parentTicker": "00688.HK",
-      "parentName": "中國海外發展",
-      "fields": [
-        "status"
-      ],
-      "before": {
-        "status": "announced",
-        "targetName": "位於中國廣東省佛山市南海區的購物中心（佛山千燈湖環宇城項目）",
-        "targetTicker": "",
-        "dates": {}
-      },
-      "after": {
-        "status": "approved",
-        "targetName": "位於中國廣東省佛山市南海區的購物中心（佛山千燈湖環宇城項目）",
-        "targetTicker": "",
-        "dates": {}
-      },
-      "fromStatus": "announced",
-      "toStatus": "approved"
-    },
-    {
-      "eventId": "hk:01109:unresolved",
-      "at": "2026-10-10T13:34:48Z",
-      "kind": "updated",
-      "parentTicker": "01109.HK",
-      "parentName": "華潤置地",
-      "fields": [
-        "status"
-      ],
-      "before": {
-        "status": "announced",
-        "targetName": "兩個購物商場，分別位於中國江蘇省南通市及山東省臨沂市",
-        "targetTicker": "",
-        "dates": {}
-      },
-      "after": {
-        "status": "approved",
-        "targetName": "兩個購物商場，分別位於中國江蘇省南通市及山東省臨沂市",
-        "targetTicker": "",
-        "dates": {}
-      },
-      "fromStatus": "announced",
-      "toStatus": "approved"
-    },
-    {
-      "eventId": "hk:01523:unresolved",
-      "at": "2026-10-10T13:34:48Z",
-      "kind": "updated",
-      "parentTicker": "01523.HK",
-      "parentName": "珩灣科技",
-      "fields": [
-        "targetName"
-      ],
-      "before": {
-        "status": "announced",
-        "targetName": "",
-        "targetTicker": "",
-        "dates": {}
-      },
-      "after": {
-        "status": "announced",
-        "targetName": "Peplink Holdings Limited",
-        "targetTicker": "",
-        "dates": {}
-      },
-      "fromStatus": "announced",
-      "toStatus": "announced"
-    },
-    {
-      "eventId": "hk:00041:unresolved",
-      "at": "2026-10-10T13:34:48Z",
-      "kind": "updated",
-      "parentTicker": "00041.HK",
-      "parentName": "鷹君",
-      "fields": [
-        "dates"
-      ],
-      "before": {
-        "status": "record_set",
-        "targetName": "朗廷酒店投資",
-        "targetTicker": "",
-        "dates": {
-          "recordDate": "2025-10-24"
-        }
+        },
+        "sources": [
+          "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0225/2026022500757_c.pdf"
+        ]
       },
       "after": {
         "status": "record_set",
@@ -16871,533 +17585,199 @@
         "targetTicker": "",
         "dates": {
           "recordDate": "2026-03-17"
-        }
+        },
+        "sources": [
+          "https://www1.hkexnews.hk/listedco/listconews/sehk/2025/1008/2025100801821_c.pdf",
+          "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0225/2026022500757_c.pdf"
+        ]
       },
       "fromStatus": "record_set",
-      "toStatus": "record_set"
-    },
-    {
-      "eventId": "hk:02382:d2f5019a5947",
-      "at": "2026-10-10T13:34:48Z",
-      "kind": "new",
-      "parentTicker": "02382.HK",
-      "parentName": "舜宇光學科技",
-      "fields": [
-        "status",
-        "targetName",
-        "targetTicker",
-        "dates"
+      "toStatus": "record_set",
+      "updateKind": "backfill",
+      "addedSources": [
+        "https://www1.hkexnews.hk/listedco/listconews/sehk/2025/1008/2025100801821_c.pdf"
       ],
-      "before": null,
-      "after": {
-        "status": "announced",
-        "targetName": "寧波舜宇智行科技股份有限公司",
-        "targetTicker": "",
-        "dates": {}
-      },
-      "fromStatus": null,
-      "toStatus": "announced"
+      "sourceDates": [
+        "2025-10-08"
+      ]
     },
     {
-      "eventId": "hk:00968:unresolved",
-      "at": "2026-10-10T13:53:18Z",
+      "eventId": "hk:07489:unresolved",
+      "at": "2026-10-10T14:27:41Z",
       "kind": "updated",
-      "parentTicker": "00968.HK",
-      "parentName": "信義光能",
+      "parentTicker": "07489.HK",
+      "parentName": "嵐圖汽車",
       "fields": [
-        "targetName"
-      ],
-      "before": {
-        "status": "announced",
-        "targetName": "國泰海通信義能源新能源封閉式基礎設施證券投資基金",
-        "targetTicker": "",
-        "dates": {}
-      },
-      "after": {
-        "status": "announced",
-        "targetName": "信義能源新能源基金",
-        "targetTicker": "",
-        "dates": {}
-      },
-      "fromStatus": "announced",
-      "toStatus": "announced"
-    },
-    {
-      "eventId": "hk:03868:unresolved",
-      "at": "2026-10-10T13:53:18Z",
-      "kind": "updated",
-      "parentTicker": "03868.HK",
-      "parentName": "信義能源",
-      "fields": [
-        "targetName"
-      ],
-      "before": {
-        "status": "announced",
-        "targetName": "國泰海通信義能源新能源封閉式基礎設施證券投資基金",
-        "targetTicker": "",
-        "dates": {}
-      },
-      "after": {
-        "status": "announced",
-        "targetName": "信義能源新能源基金",
-        "targetTicker": "",
-        "dates": {}
-      },
-      "fromStatus": "announced",
-      "toStatus": "announced"
-    },
-    {
-      "eventId": "hk:00902:4747ad838542",
-      "at": "2026-10-10T13:53:18Z",
-      "kind": "new",
-      "parentTicker": "00902.HK",
-      "parentName": "華能國際電力股份",
-      "fields": [
-        "status",
-        "targetName",
-        "targetTicker",
-        "dates"
-      ],
-      "before": null,
-      "after": {
-        "status": "announced",
-        "targetName": "華能煤電 REIT",
-        "targetTicker": "",
-        "dates": {}
-      },
-      "fromStatus": null,
-      "toStatus": "announced"
-    },
-    {
-      "eventId": "hk:00017:097c4d6fac96",
-      "at": "2026-10-10T13:53:18Z",
-      "kind": "updated",
-      "parentTicker": "00017.HK",
-      "parentName": "新世界發展",
-      "fields": [
-        "status"
+        "sources"
       ],
       "before": {
         "status": "completed",
-        "targetName": "證券投資基金於上交所",
-        "targetTicker": "",
-        "dates": {}
+        "targetName": "嵐圖汽車科技股份有限公司",
+        "targetTicker": "07489.HK",
+        "dates": {
+          "listingDate": "2026-03-19"
+        },
+        "sources": [
+          "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0212/2026021201387_c.pdf"
+        ]
       },
       "after": {
-        "status": "announced",
-        "targetName": "證券投資基金於上交所",
-        "targetTicker": "",
-        "dates": {}
+        "status": "completed",
+        "targetName": "嵐圖汽車科技股份有限公司",
+        "targetTicker": "07489.HK",
+        "dates": {
+          "listingDate": "2026-03-19"
+        },
+        "sources": [
+          "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0212/2026021201387_c.pdf",
+          "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0827/2026082700155.pdf"
+        ]
       },
       "fromStatus": "completed",
-      "toStatus": "announced"
-    },
-    {
-      "eventId": "hk:00017:fb0edb845715",
-      "at": "2026-10-10T13:53:18Z",
-      "kind": "new",
-      "parentTicker": "00017.HK",
-      "parentName": "新世界發展",
-      "fields": [
-        "status",
-        "targetName",
-        "targetTicker",
-        "dates"
+      "toStatus": "completed",
+      "updateKind": "backfill",
+      "addedSources": [
+        "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0827/2026082700155.pdf"
       ],
-      "before": null,
-      "after": {
-        "status": "announced",
-        "targetName": "證券投資基金",
-        "targetTicker": "",
-        "dates": {}
-      },
-      "fromStatus": null,
-      "toStatus": "announced"
+      "sourceDates": [
+        "2026-08-27"
+      ]
     },
     {
-      "eventId": "hk:00688:unattributed",
-      "at": "2026-10-10T13:53:18Z",
-      "kind": "new",
-      "parentTicker": "00688.HK",
-      "parentName": "中國海外發展",
-      "fields": [
-        "status",
-        "targetName",
-        "targetTicker",
-        "dates"
-      ],
-      "before": null,
-      "after": {
-        "status": "approved",
-        "targetName": "",
-        "targetTicker": "",
-        "dates": {}
-      },
-      "fromStatus": null,
-      "toStatus": "approved"
-    },
-    {
-      "eventId": "hk:00688:unresolved",
-      "at": "2026-10-10T13:53:18Z",
+      "eventId": "hk:00460:unresolved",
+      "at": "2026-10-10T14:27:41Z",
       "kind": "updated",
-      "parentTicker": "00688.HK",
-      "parentName": "中國海外發展",
+      "parentTicker": "00460.HK",
+      "parentName": "四環醫藥",
       "fields": [
-        "status"
+        "sources"
       ],
       "before": {
-        "status": "approved",
-        "targetName": "位於中國廣東省佛山市南海區的購物中心（佛山千燈湖環宇城項目）",
-        "targetTicker": "",
-        "dates": {}
-      },
-      "after": {
-        "status": "announced",
-        "targetName": "位於中國廣東省佛山市南海區的購物中心（佛山千燈湖環宇城項目）",
-        "targetTicker": "",
-        "dates": {}
-      },
-      "fromStatus": "approved",
-      "toStatus": "announced"
-    },
-    {
-      "eventId": "hk:01030:df90904a7a82",
-      "at": "2026-10-10T13:53:18Z",
-      "kind": "new",
-      "parentTicker": "01030.HK",
-      "parentName": "新城發展",
-      "fields": [
-        "status",
-        "targetName",
-        "targetTicker",
-        "dates"
-      ],
-      "before": null,
-      "after": {
-        "status": "announced",
-        "targetName": "若干商業物業權益",
-        "targetTicker": "",
-        "dates": {}
-      },
-      "fromStatus": null,
-      "toStatus": "announced"
-    },
-    {
-      "eventId": "hk:01109:unattributed",
-      "at": "2026-10-10T13:53:18Z",
-      "kind": "new",
-      "parentTicker": "01109.HK",
-      "parentName": "華潤置地",
-      "fields": [
-        "status",
-        "targetName",
-        "targetTicker",
-        "dates"
-      ],
-      "before": null,
-      "after": {
-        "status": "approved",
-        "targetName": "",
-        "targetTicker": "",
-        "dates": {}
-      },
-      "fromStatus": null,
-      "toStatus": "approved"
-    },
-    {
-      "eventId": "hk:01109:unresolved",
-      "at": "2026-10-10T13:53:18Z",
-      "kind": "updated",
-      "parentTicker": "01109.HK",
-      "parentName": "華潤置地",
-      "fields": [
-        "status"
-      ],
-      "before": {
-        "status": "approved",
-        "targetName": "兩個購物商場，分別位於中國江蘇省南通市及山東省臨沂市",
-        "targetTicker": "",
-        "dates": {}
-      },
-      "after": {
-        "status": "announced",
-        "targetName": "兩個購物商場，分別位於中國江蘇省南通市及山東省臨沂市",
-        "targetTicker": "",
-        "dates": {}
-      },
-      "fromStatus": "approved",
-      "toStatus": "announced"
-    },
-    {
-      "eventId": "hk:01523:unresolved",
-      "at": "2026-10-10T13:53:18Z",
-      "kind": "updated",
-      "parentTicker": "01523.HK",
-      "parentName": "珩灣科技",
-      "fields": [
-        "targetName"
-      ],
-      "before": {
-        "status": "announced",
-        "targetName": "Peplink Holdings Limited",
-        "targetTicker": "",
-        "dates": {}
-      },
-      "after": {
-        "status": "announced",
-        "targetName": "",
-        "targetTicker": "",
-        "dates": {}
-      },
-      "fromStatus": "announced",
-      "toStatus": "announced"
-    },
-    {
-      "eventId": "hk:00041:unattributed",
-      "at": "2026-10-10T13:53:18Z",
-      "kind": "new",
-      "parentTicker": "00041.HK",
-      "parentName": "鷹君",
-      "fields": [
-        "status",
-        "targetName",
-        "targetTicker",
-        "dates"
-      ],
-      "before": null,
-      "after": {
-        "status": "record_set",
-        "targetName": "",
-        "targetTicker": "",
+        "status": "completed",
+        "targetName": "軒竹生物",
+        "targetTicker": "02575.HK",
         "dates": {
-          "recordDate": "2026-03-17"
-        }
+          "recordDate": "2025-09-18",
+          "listingDate": "2025-10-15"
+        },
+        "sources": [
+          "https://www1.hkexnews.hk/listedco/listconews/sehk/2025/1015/2025101500144_c.pdf"
+        ]
       },
-      "fromStatus": null,
-      "toStatus": "record_set"
+      "after": {
+        "status": "completed",
+        "targetName": "軒竹生物",
+        "targetTicker": "02575.HK",
+        "dates": {
+          "recordDate": "2025-09-18",
+          "listingDate": "2025-10-15"
+        },
+        "sources": [
+          "https://www1.hkexnews.hk/listedco/listconews/sehk/2025/0917/2025091701329_c.pdf",
+          "https://www1.hkexnews.hk/listedco/listconews/sehk/2025/0917/2025091701339_c.pdf",
+          "https://www1.hkexnews.hk/listedco/listconews/sehk/2025/1006/2025100601213_c.pdf",
+          "https://www1.hkexnews.hk/listedco/listconews/sehk/2025/1015/2025101500144_c.pdf"
+        ]
+      },
+      "fromStatus": "completed",
+      "toStatus": "completed",
+      "updateKind": "backfill",
+      "addedSources": [
+        "https://www1.hkexnews.hk/listedco/listconews/sehk/2025/0917/2025091701329_c.pdf",
+        "https://www1.hkexnews.hk/listedco/listconews/sehk/2025/0917/2025091701339_c.pdf",
+        "https://www1.hkexnews.hk/listedco/listconews/sehk/2025/1006/2025100601213_c.pdf"
+      ],
+      "sourceDates": [
+        "2025-10-06",
+        "2025-09-17",
+        "2025-09-17"
+      ]
     },
     {
       "eventId": "hk:00041:unresolved",
-      "at": "2026-10-10T13:53:18Z",
+      "at": "2026-10-10T14:28:35Z",
       "kind": "updated",
       "parentTicker": "00041.HK",
       "parentName": "鷹君",
       "fields": [
-        "dates"
-      ],
-      "before": {
-        "status": "record_set",
-        "targetName": "朗廷酒店投資",
-        "targetTicker": "",
-        "dates": {
-          "recordDate": "2026-03-17"
-        }
-      },
-      "after": {
-        "status": "record_set",
-        "targetName": "朗廷酒店投資",
-        "targetTicker": "",
-        "dates": {
-          "recordDate": "2025-10-24"
-        }
-      },
-      "fromStatus": "record_set",
-      "toStatus": "record_set"
-    },
-    {
-      "eventId": "hk:02382:28998458e55b",
-      "at": "2026-10-10T13:53:18Z",
-      "kind": "new",
-      "parentTicker": "02382.HK",
-      "parentName": "舜宇光學科技",
-      "fields": [
-        "status",
-        "targetName",
-        "targetTicker",
-        "dates"
-      ],
-      "before": null,
-      "after": {
-        "status": "announced",
-        "targetName": "車載相關光學業務",
-        "targetTicker": "",
-        "dates": {}
-      },
-      "fromStatus": null,
-      "toStatus": "announced"
-    },
-    {
-      "eventId": "hk:00968:unresolved",
-      "at": "2026-10-10T13:57:15Z",
-      "kind": "updated",
-      "parentTicker": "00968.HK",
-      "parentName": "信義光能",
-      "fields": [
-        "targetName"
-      ],
-      "before": {
-        "status": "announced",
-        "targetName": "信義能源新能源基金",
-        "targetTicker": "",
-        "dates": {}
-      },
-      "after": {
-        "status": "announced",
-        "targetName": "國泰海通信義能源新能源封閉式基礎設施證券投資基金",
-        "targetTicker": "",
-        "dates": {}
-      },
-      "fromStatus": "announced",
-      "toStatus": "announced"
-    },
-    {
-      "eventId": "hk:03868:unresolved",
-      "at": "2026-10-10T13:57:15Z",
-      "kind": "updated",
-      "parentTicker": "03868.HK",
-      "parentName": "信義能源",
-      "fields": [
-        "targetName"
-      ],
-      "before": {
-        "status": "announced",
-        "targetName": "信義能源新能源基金",
-        "targetTicker": "",
-        "dates": {}
-      },
-      "after": {
-        "status": "announced",
-        "targetName": "國泰海通信義能源新能源封閉式基礎設施證券投資基金",
-        "targetTicker": "",
-        "dates": {}
-      },
-      "fromStatus": "announced",
-      "toStatus": "announced"
-    },
-    {
-      "eventId": "hk:00017:fb0edb845715",
-      "at": "2026-10-10T13:57:15Z",
-      "kind": "updated",
-      "parentTicker": "00017.HK",
-      "parentName": "新世界發展",
-      "fields": [
-        "status",
         "targetTicker"
       ],
       "before": {
-        "status": "announced",
-        "targetName": "證券投資基金",
-        "targetTicker": "",
-        "dates": {}
-      },
-      "after": {
-        "status": "completed",
-        "targetName": "證券投資基金",
-        "targetTicker": "01776.HK",
-        "dates": {}
-      },
-      "fromStatus": "announced",
-      "toStatus": "completed"
-    },
-    {
-      "eventId": "hk:00688:unresolved",
-      "at": "2026-10-10T13:57:15Z",
-      "kind": "updated",
-      "parentTicker": "00688.HK",
-      "parentName": "中國海外發展",
-      "fields": [
-        "status"
-      ],
-      "before": {
-        "status": "announced",
-        "targetName": "位於中國廣東省佛山市南海區的購物中心（佛山千燈湖環宇城項目）",
-        "targetTicker": "",
-        "dates": {}
-      },
-      "after": {
-        "status": "approved",
-        "targetName": "位於中國廣東省佛山市南海區的購物中心（佛山千燈湖環宇城項目）",
-        "targetTicker": "",
-        "dates": {}
-      },
-      "fromStatus": "announced",
-      "toStatus": "approved"
-    },
-    {
-      "eventId": "hk:01109:unresolved",
-      "at": "2026-10-10T13:57:15Z",
-      "kind": "updated",
-      "parentTicker": "01109.HK",
-      "parentName": "華潤置地",
-      "fields": [
-        "status"
-      ],
-      "before": {
-        "status": "announced",
-        "targetName": "兩個購物商場，分別位於中國江蘇省南通市及山東省臨沂市",
-        "targetTicker": "",
-        "dates": {}
-      },
-      "after": {
-        "status": "approved",
-        "targetName": "兩個購物商場，分別位於中國江蘇省南通市及山東省臨沂市",
-        "targetTicker": "",
-        "dates": {}
-      },
-      "fromStatus": "announced",
-      "toStatus": "approved"
-    },
-    {
-      "eventId": "hk:01523:unresolved",
-      "at": "2026-10-10T13:57:15Z",
-      "kind": "updated",
-      "parentTicker": "01523.HK",
-      "parentName": "珩灣科技",
-      "fields": [
-        "targetName"
-      ],
-      "before": {
-        "status": "announced",
-        "targetName": "",
-        "targetTicker": "",
-        "dates": {}
-      },
-      "after": {
-        "status": "announced",
-        "targetName": "Peplink Holdings Limited",
-        "targetTicker": "",
-        "dates": {}
-      },
-      "fromStatus": "announced",
-      "toStatus": "announced"
-    },
-    {
-      "eventId": "hk:00041:unresolved",
-      "at": "2026-10-10T13:57:15Z",
-      "kind": "updated",
-      "parentTicker": "00041.HK",
-      "parentName": "鷹君",
-      "fields": [
-        "dates"
-      ],
-      "before": {
-        "status": "record_set",
-        "targetName": "朗廷酒店投資",
-        "targetTicker": "",
-        "dates": {
-          "recordDate": "2025-10-24"
-        }
-      },
-      "after": {
         "status": "record_set",
         "targetName": "朗廷酒店投資",
         "targetTicker": "",
         "dates": {
           "recordDate": "2026-03-17"
-        }
+        },
+        "sources": [
+          "https://www1.hkexnews.hk/listedco/listconews/sehk/2025/1008/2025100801821_c.pdf",
+          "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0225/2026022500757_c.pdf"
+        ]
+      },
+      "after": {
+        "status": "record_set",
+        "targetName": "朗廷酒店投資",
+        "targetTicker": "01270.HK",
+        "dates": {
+          "recordDate": "2026-03-17"
+        },
+        "sources": [
+          "https://www1.hkexnews.hk/listedco/listconews/sehk/2025/1008/2025100801821_c.pdf",
+          "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0225/2026022500757_c.pdf"
+        ]
       },
       "fromStatus": "record_set",
-      "toStatus": "record_set"
+      "toStatus": "record_set",
+      "updateKind": "correction",
+      "addedSources": [],
+      "sourceDates": []
+    },
+    {
+      "eventId": "hk:00041:unresolved",
+      "at": "2026-10-10T14:29:52Z",
+      "kind": "updated",
+      "parentTicker": "00041.HK",
+      "parentName": "鷹君",
+      "fields": [
+        "status",
+        "dates",
+        "sources"
+      ],
+      "before": {
+        "status": "record_set",
+        "targetName": "朗廷酒店投資",
+        "targetTicker": "01270.HK",
+        "dates": {
+          "recordDate": "2026-03-17"
+        },
+        "sources": [
+          "https://www1.hkexnews.hk/listedco/listconews/sehk/2025/1008/2025100801821_c.pdf",
+          "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0225/2026022500757_c.pdf"
+        ]
+      },
+      "after": {
+        "status": "completed",
+        "targetName": "朗廷酒店投資",
+        "targetTicker": "01270.HK",
+        "dates": {
+          "recordDate": "2026-03-17",
+          "distributionDate": "2026-04-02"
+        },
+        "sources": [
+          "https://www1.hkexnews.hk/listedco/listconews/sehk/2025/1008/2025100801821_c.pdf",
+          "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0225/2026022500757_c.pdf",
+          "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0826/2026082601083.pdf"
+        ]
+      },
+      "fromStatus": "record_set",
+      "toStatus": "completed",
+      "updateKind": "backfill",
+      "addedSources": [
+        "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0826/2026082601083.pdf"
+      ],
+      "sourceDates": [
+        "2026-08-26"
+      ]
     }
   ],
   "trackingStartedAt": "2026-09-16T02:58:58Z"

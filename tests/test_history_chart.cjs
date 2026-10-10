@@ -221,3 +221,9 @@ test('unverified value units are excluded from historical valuation series',()=>
  const a=app();
  assert.equal(a.run("historySeries({quarters:['2025 Q4','2026 Q1'],values:[5000,5],excludedValueQuarters:['2026 Q1']}).quarters.length"),1);
 });
+
+test('quarterly changes retain share reductions and exits while withholding unverified money',()=>{
+ const a=app();
+ a.run("data={meta:{},current:{quarter:'2026 Q2',prevQuarter:'2026 Q1',valueQuality:{status:'units_unverified'},holdings:[{ticker:'ABC',cusip:'a',name:'ABC',shares:20,value:20000}],previousHoldings:[{ticker:'ABC',cusip:'a',name:'ABC',shares:100,value:100000},{ticker:'XYZ',cusip:'x',name:'XYZ',shares:50,value:50000}]},history:{}};renderChanges()");
+ const html=a.el('changesBody').innerHTML;assert.match(html,/金额待核实/);assert.match(html,/80.0%/);assert.match(html,/清仓/);assert.ok(!html.includes('$20 K'));assert.ok(!html.includes('$100 K'));
+});

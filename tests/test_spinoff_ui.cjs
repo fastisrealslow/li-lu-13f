@@ -10,6 +10,16 @@ function app() {
  return {run:code=>vm.runInContext(code,context),context};
 }
 const event={id:'us:P:unresolved',parentTicker:'P',parentName:'Parent',targetName:'Child',targetTicker:'C',type:'spinoff',status:'needs_review',missing:['evidence'],identityVerified:false,latestDate:'2026-09-16',dates:{distributionDate:{date:'2026-09-20'}},announcements:[],fingerprint:'v1'};
+test('recent records are an ordered subset of all and show the same current status',()=>{
+ const a=app();a.context.events=[{...event,id:'older',changedAt:'2026-10-01T01:00:00Z',latestDate:'2026-10-10'},
+  {...event,id:'corrected',changedAt:'2026-10-10T01:00:00Z',latestDate:'2026-02-25',status:'completed',updateKind:'correction'},
+  {...event,id:'new-filing',changedAt:'2026-10-09T01:00:00Z',latestDate:'2026-10-08',updateKind:'new_filing'}];
+ a.run('spinDash.hk.data={events,changes:[{eventId:"gone",at:"2026-10-10T03:00:00Z",kind:"new"}]};spinDash.hk.view="all"');
+ assert.equal(a.run('spinVisible(spinDash.hk,{}).map(e=>e.id).join(",")'),'corrected,new-filing,older');
+ a.run('spinDash.hk.view="changes"');assert.equal(a.run('spinVisible(spinDash.hk,{},Date.parse("2026-10-10T12:00:00Z")).map(e=>e.id).join(",")'),'corrected,new-filing');
+ const html=a.run('spinCard(events[1])');assert.match(html,/档案信息修正/);assert.match(html,/公告：2026-02-25/);assert.match(html,/公告称已完成/);
+ assert.equal(a.run('spinDash.us.view'),'all');
+});
 test('issuer updates group multiple targets without losing links or before/after values',()=>{
  const a=app();a.context.events=[event,{...event,id:'us:P:second',targetName:'Different project',mergedIds:['us:P:old']},{...event,id:'us:OTHER:one',parentTicker:'OTHER',parentName:'Other'}];
  a.context.changes=[{eventId:event.id,at:new Date().toISOString(),kind:'updated',fields:['status'],fromStatus:'announced',toStatus:'approved'},{eventId:'us:P:old',at:new Date().toISOString(),kind:'updated',fields:['targetName'],before:{targetName:'Prior name'},after:{targetName:'Different project'}},{eventId:'us:OTHER:one',at:new Date().toISOString(),kind:'new'}];
@@ -104,7 +114,7 @@ test('empty change records are excluded and all changes remain accessible',()=>{
 });
 test('cards show key facts without internal data checklists',()=>{
  const a=app();a.context.event=event;
- const html=a.run('spinCard(event)');assert.match(html,/分拆标的：/);assert.ok(!/状态依据|公司对应关系|待补全 \/ 核实|研究待办/.test(html));assert.match(html,/最新公告：/);
+ const html=a.run('spinCard(event)');assert.match(html,/分拆 \/ 分派标的：/);assert.ok(!/状态依据|公司对应关系|待补全 \/ 核实|研究待办/.test(html));assert.match(html,/公告：/);
  assert.equal(a.run("spinTypeName('carveout')"),'分拆上市');
  assert.equal(a.run("spinIssuerName({parentName:'Example Inc. (ABC)',parentTicker:'ABC'})"),'Example Inc.');
 });

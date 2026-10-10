@@ -696,9 +696,9 @@ function renderSummary() {
   const t3 = d.holdings.slice(0,3);
   document.getElementById('summaryCards').innerHTML = `
       <div class="stat-item">
-        <span class="stat-num" style="font-size:1.5rem;">${investor === "webb" ? "HK$" : "US$"}${fmtVal(d.totalValue)}</span>
+        <span class="stat-num" style="font-size:1.5rem;">${d.valueQuality?(lang==='en'?'Value unverified':'金额待核实'):(investor === "webb" ? "HK$" : "US$")+fmtVal(d.totalValue)}</span>
         <span class="stat-change ${cls}">${comparisonState()==='comparable' && !d.valueQuality ? sign+tp.toFixed(1)+"%" : "—"}</span>
-        <span class="stat-desc">${d.valueQuality ? (lang === 'en' ? 'Raw reported value; scale unverified' : '原表申报值，量级待核实') : t('statValue')} · ${comparableQuarter() ? t('statVs')+" "+(d.prevQuarter||" ") : comparisonNotice()}</span>
+        <span class="stat-desc">${d.valueQuality ? (lang === 'en' ? 'Reported value units unverified' : '申报金额单位待核实') : t('statValue')} · ${comparableQuarter() ? t('statVs')+" "+(d.prevQuarter||" ") : comparisonNotice()}</span>
       </div>
       <div class="stat-sep"></div>
       <div class="stat-item">
@@ -707,7 +707,7 @@ function renderSummary() {
       </div>
       <div class="stat-sep"></div>
       <div class="stat-item">
-        <span class="stat-num">${(t3.reduce((s,h)=>s+h.value,0)/d.totalValue*100).toFixed(1)}%</span>
+        <span class="stat-num">${d.valueQuality?'—':(t3.reduce((s,h)=>s+h.value,0)/d.totalValue*100).toFixed(1)+'%'}</span>
         <span class="stat-desc">${t('statTop3')} ${t3.map(h=>h.ticker).join('·')}</span>
       </div>
       <div class="stat-sep"></div>
@@ -732,9 +732,12 @@ function holdingCostState(h, snapshot = data, priceSnapshot = prices) {
   if (!cb?.recent || cb.recent.error || !Number.isFinite(cb.recent.buy) || cb.recent.buy <= 0) return unavailable('missing');
   const recentQuarter = historyQuarterIndex(cb.recent.quarter), currentQuarter = historyQuarterIndex(current.quarter);
   if (!Number.isFinite(recentQuarter) || recentQuarter > currentQuarter) return unavailable('stale_cost');
-  const verified = quarter => (snapshot?.history?.holdings?.[quarter] || []).some(row =>
+  const verified = quarter => !(snapshot?.history?.excludedValueQuarters || []).includes(quarter) && (snapshot?.history?.holdings?.[quarter] || []).some(row =>
     row.ticker === h.ticker && row.cusip === h.cusip && row.shareType === 'SH' && row.putCall === '' && row.shares > 0);
+  if ((snapshot?.history?.excludedValueQuarters || []).includes(cb.recent.quarter) && !['yahoo','yfinance'].includes(cb.recent.source)) return unavailable('units');
   let allTime = cb.allTime;
+  const pendingUnits=cb.averageUnavailable==='units' || allTime && (snapshot?.history?.excludedValueQuarters || []).some(q=>historyQuarterIndex(q)>=historyQuarterIndex(allTime.first) && historyQuarterIndex(q)<=historyQuarterIndex(allTime.last));
+  if (pendingUnits) allTime=null;
   if (allTime?.first && recentQuarter < historyQuarterIndex(allTime.first)) return unavailable('stale_cost');
   if (meta.instrumentHistoryTickers?.includes(h.ticker)) {
     const boundary = historyQuarterIndex(meta.instrumentHistoryFrom);
@@ -746,7 +749,7 @@ function holdingCostState(h, snapshot = data, priceSnapshot = prices) {
     historyQuarterIndex(allTime?.first) < historyQuarterIndex(a.quarter) && historyQuarterIndex(a.quarter) <= currentQuarter);
   const pendingSplit = allTime && actions.length && cb.splitAdjustedThrough !== current.quarter;
   if (pendingSplit || !Number.isFinite(allTime?.avg) || allTime.avg <= 0) allTime = null;
-  return {basis: {...cb, allTime}, reason: null, averagePending: !!pendingSplit};
+  return {basis: {...cb, allTime}, reason: null, averagePending: !!pendingSplit || !!pendingUnits, averageReason: pendingUnits?'units':'split'};
 }
 function costUnavailableText(reason, en = lang === 'en') {
   const messages = {
@@ -774,7 +777,9 @@ function renderHoldings() {
   const mosItems = [];
   
   const rows = d.holdings.map((h,i)=>{
-    const pct=(h.value/d.totalValue*100).toFixed(2);
+    const pct=d.valueQuality?0:(h.value/d.totalValue*100).toFixed(2);
+    const weightText=d.valueQuality?'—':pct+'%';
+    const amountText=d.valueQuality?(lang==='en'?'Value unverified':'金额待核实'):currSymbol(h.ticker)+h.value.toLocaleString();
     const q = h.putCall || (h.shareType && h.shareType!=='SH') ? null : quotes[h.ticker];
     const costState = holdingCostState(h);
     const cb = costState.basis;
@@ -795,12 +800,13 @@ function renderHoldings() {
       const method = isYahoo ? (lang === 'en' ? 'Quarter low × 70% + average × 30%' : '该季低价×70%＋均价×30%')
         : (lang === 'en' ? 'Filed quarter-end value per share; a price proxy, not purchase cost' : '季末申报市值÷股数，仅作价格代理，不是买入成本');
       costHtml = `<div class="cost-estimate" title="${hkEscape(method)}"><strong>${symbol}${rc.buy.toFixed(2)}</strong>
-        <small>${t('costRecent')} · ${hkEscape(rc.quarter)}</small><small class="estimate-method">${isYahoo ? (lang === 'en' ? 'Historical prices' : '历史行情估算') : (lang === 'en' ? '13F price proxy' : '13F 季末价代理')}</small>`;
-      if (at) costHtml += `<div class="average-cost">${symbol}${at.avg.toFixed(2)}<small>${t('costAllTime')} · ${hkEscape(at.first)}–${hkEscape(at.last)}</small></div>`;
-      else if (costState.averagePending) costHtml += `<small>${lang === 'en' ? 'Average awaiting split correction' : '长期均价待拆股校正'}</small>`;
+        <small>${t('costRecent')}</small><small>${lang==='en'?'Last reported addition: ':'最近加仓季度：'}${hkEscape(rc.quarter)}</small><small class="estimate-method">${isYahoo ? (lang === 'en' ? 'Historical prices' : '历史行情估算') : (lang === 'en' ? '13F price proxy' : '13F 季末价代理')}</small>`;
+      if (at) costHtml += `<div class="average-cost">${symbol}${at.avg.toFixed(2)}<small>${t('costAllTime')}</small><small>${costSpanText(at)}</small></div>`;
+      else if (costState.averagePending) costHtml += `<small>${costState.averageReason==='units'?(lang==='en'?'Average awaits historical value verification':'历史金额待核实，暂不显示长期均价'):(lang==='en'?'Average awaiting split correction':'长期均价待拆股校正')}</small>`;
       costHtml += '</div>';
-      compactCost = `<span class="mobile-estimate-label">${lang === 'en' ? 'Buy ref.' : '加仓参考'} <strong>${symbol}${rc.buy.toFixed(2)}</strong></span><small>${hkEscape(rc.quarter)}</small>`;
-      if (at) compactCost += `<small class="mobile-average-cost">${lang==='en'?'Avg. (est.)':'历次均价（估）'} ${symbol}${at.avg.toFixed(2)}</small>`;
+      compactCost = `<span class="mobile-estimate-label">${lang === 'en' ? 'Buy ref.' : '加仓参考'} <strong>${symbol}${rc.buy.toFixed(2)}</strong></span><small>${lang==='en'?'Last addition: ':'最近加仓：'}${hkEscape(rc.quarter)}</small>`;
+      if (costState.averagePending) compactCost += `<small>${costState.averageReason==='units'?(lang==='en'?'Average awaits historical value verification':'历史金额待核实，长期均价暂缺'):(lang==='en'?'Average awaits split correction':'长期均价待拆股校正')}</small>`;
+      if (at) compactCost += `<small class="mobile-average-cost">${lang==='en'?'Avg. (est.)':'历次均价（估）'} ${symbol}${at.avg.toFixed(2)}</small><small>${costSpanText(at)}</small>`;
       if (mos !== null && mos >= 10) mosItems.push({ticker:h.ticker,name:h.name,cnName:h.cnName||'',mos:mos.toFixed(1),cost:rc.buy,price:currentPrice});
     }
     const mobileCostHtml = `<div class="mobile-cost-detail">${compactCost}${cb?mosHtml:''}</div>`;
@@ -825,7 +831,7 @@ function renderHoldings() {
     if (h.shareAdjustment && comparableQuarter()) chgTag += `<small style="font-size:.6rem;color:var(--text-lighter);">${lang === 'en' ? 'Split adjusted' : '拆股后可比'}</small>`;
     const mosCellHtml = `<div style="display:flex;flex-direction:column;align-items:center;gap:2px;">${mosHtml}${chgTag}</div>`;
     
-    return `<tr><td class="idx-cell"><span class="idx-num">${i+1}</span></td><td class="stock-cell"><span class="ticker-line">${fmtTicker(h.ticker)}</span>${instrumentTag(h)}<span class="name-line">${cn(h.name, h)}</span><span class="sector-badge">${ts(h.sector)}</span></td><td class="shares-value-cell"><div style="font-weight:600">${h.shares.toLocaleString('en-US')}</div><div style="font-size:.68rem;color:var(--text-lighter);margin-top:2px;">${currSymbol(h.ticker)}${h.value.toLocaleString()}</div><div class="mobile-weight-inline" style="display:none;font-size:.65rem;color:var(--navy);font-weight:600;margin-top:3px;"><span style="font-weight:400;color:var(--text-lighter);">${isEn?'Wt':'仓位'}</span> ${pct}%</div></td><td class="price-cell">${priceHtml}${mobileCostHtml}</td><td class="cost-cell">${costHtml}</td><td style="width:100px;"><div class="weight-cell"><span class="weight-percent">${pct}%</span><div class="bar-wrap"><div class="bar-fill" style="width:${Math.max(0,Math.min(100,Number(pct)||0))}%"></div></div></div></td><td style="width:80px;text-align:center;">${mosCellHtml}</td></tr>`;
+    return `<tr><td class="idx-cell"><span class="idx-num">${i+1}</span></td><td class="stock-cell"><span class="ticker-line">${fmtTicker(h.ticker)}</span>${instrumentTag(h)}<span class="name-line">${cn(h.name, h)}</span><span class="sector-badge">${ts(h.sector)}</span></td><td class="shares-value-cell"><div style="font-weight:600">${h.shares.toLocaleString('en-US')}</div><div style="font-size:.68rem;color:var(--text-lighter);margin-top:2px;">${amountText}</div><div class="mobile-weight-inline" style="display:none;font-size:.65rem;color:var(--navy);font-weight:600;margin-top:3px;"><span style="font-weight:400;color:var(--text-lighter);">${isEn?'Wt':'仓位'}</span> ${weightText}</div></td><td class="price-cell">${priceHtml}${mobileCostHtml}</td><td class="cost-cell">${costHtml}</td><td style="width:100px;"><div class="weight-cell"><span class="weight-percent">${weightText}</span><div class="bar-wrap"><div class="bar-fill" style="width:${Math.max(0,Math.min(100,Number(pct)||0))}%"></div></div></div></td><td style="width:80px;text-align:center;">${mosCellHtml}</td></tr>`;
   }).join('');
   
   // Legend for tags
@@ -891,17 +897,6 @@ function renderHoldings() {
     <td class="price-cell"><span class="estimate-unavailable">${lang==='en'?'Not disclosed':'未披露报价'}</span><div class="mobile-cost-detail"><span class="estimate-unavailable">${lang==='en'?'Cost not disclosed':'未披露成本'}</span></div></td><td>—</td><td>—</td><td>—</td>
   </tr>`).join('');
   document.getElementById('holdingsBody').innerHTML = rows + hkRows;
-  const guide = document.getElementById('costReadingGuide');
-  if (guide) {
-    const example = d.holdings.find(h => {const q=quotes[h.ticker],c=holdingCostState(h).basis;return c && q && !q.error && !q.stale && Number.isFinite(q.c) && q.c>0;});
-    let exampleHTML='';
-    if (example) {
-      const c=holdingCostState(example).basis,q=quotes[example.ticker],symbol=currSymbol(example.ticker),diff=(q.c-c.recent.buy)/c.recent.buy*100;
-      const relation=diff>0?(lang==='en'?'higher':'高'):diff<0?(lang==='en'?'lower':'低'):(lang==='en'?'equal':'相同');
-      exampleHTML=`<p class="cost-reading-example">${lang==='en'?'Example':'用本页数字看'} · <b>${hkEscape(example.ticker)}</b>：${lang==='en'?'buying reference':'加仓参考价'} ${symbol}${c.recent.buy.toFixed(2)} → ${lang==='en'?'daily quote':'今日参考股价'} ${symbol}${q.c.toFixed(2)} · ${lang==='en'?`price is ${relation}${diff?` by ${Math.abs(diff).toFixed(1)}%`:''}`:`现价比加仓参考价${relation}${diff?` ${Math.abs(diff).toFixed(1)}%`:''}`}。${lang==='en'?'This compares historical prices, not fair value.':'这里只是和过去加仓时的价格比较，不是说它比合理估值贵或便宜。'}</p>`;
-    }
-    guide.innerHTML=`<h3>${lang==='en'?'How to read these prices':'这几个价格怎么看？'}</h3><div class="cost-reading-grid"><p><b>${t('costRecent')}</b><span>${lang==='en'?'Estimated historical price in the last quarter when reported shares increased. The date identifies that quarter.':'最近一次披露股数增加时，那个季度的历史价格参考；旁边日期就是加仓季度。'}</span></p><p><b>${t('costAllTime')}</b><span>${lang==='en'?'Estimated average across entries and additions in the current holding run; differs from the latest buying reference.':'把这一轮持仓的建仓、历次加仓价格按新增股数加权；所以它和最近加仓价通常不同。'}</span></p><p><b>${lang==='en'?'Price higher / lower by X%':'现价高 / 低 X%'}</b><span>${lang==='en'?'Compares the daily quote with the latest buying reference, rather than with the position average.':'今日参考股价相对“最近加仓参考价”的差距；不与历次加仓均价比较。'}</span></p></div>${exampleHTML}<details class="cost-reading-method"><summary>${lang==='en'?'Calculation and limits':'展开计算方法与数据限制'}</summary><p>${t('priceNote')}</p></details>`;
-  }
   const priceFoot = document.getElementById('priceFoot');
   if (priceFoot) {
     // Remove existing legend if any, then append
@@ -909,7 +904,7 @@ function renderHoldings() {
     if (existingLegend) existingLegend.remove();
     const legendDiv = document.createElement('div');
     legendDiv.className = 'holdings-legend';
-    legendDiv.innerHTML = legendHtml + (recentHKRows.length ? `<p>${lang==='en'?'HK rows show the latest reported share counts and their dates. Value and portfolio weight were not disclosed; summary totals and quarterly changes cover 13F securities only.':'港股行列出最新披露股数与日期；未披露市值及组合权重。上方统计和季度变化仅覆盖 13F 证券。'}</p>` : '');
+    legendDiv.innerHTML = legendHtml + `<details class="cost-method-note"><summary>${lang==='en'?'Cost estimation method':'价格估算方法'}</summary><p>${t('priceNote')}</p></details>` + (recentHKRows.length ? `<p>${lang==='en'?'HK rows show the latest reported share counts and their dates. Value and portfolio weight were not disclosed; summary totals and quarterly changes cover 13F securities only.':'港股行列出最新披露股数与日期；未披露市值及组合权重。上方统计和季度变化仅覆盖 13F 证券。'}</p>` : '');
     priceFoot.appendChild(legendDiv);
   }
 }
@@ -1020,23 +1015,38 @@ function investorSummary(snapshot,ids,name,en=lang==='en') {
   return en?`${name} ${facts.quarter} (reported shares): ${overview}. Highlights (partial list): ${clauses.join('; ')}.`:
     `${name} ${facts.quarter}（按披露股数比较）：${overview}。重点（非完整名单）：${clauses.join('；')}。`;
 }
+function costSpanText(at) {
+  const first=historyQuarterIndex(at.first),last=historyQuarterIndex(at.last);
+  const span=Number.isFinite(first) && Number.isFinite(last) && last>=first?last-first+1:null;
+  const buys=at.buy_quarters ?? at.quarters;
+  const count=Number.isInteger(buys) && buys>0?(lang==='en'?` · ${buys} buying quarters`:` · 其中${buys}季加仓`):'';
+  return `${span?(lang==='en'?`${span} quarters · `:`覆盖${span}个季度 · `):''}${hkEscape(at.first || '')}–${hkEscape(at.last || '')}${count}`;
+}
+
 function renderChanges() {
   const d = data.current, en = lang === 'en';
   if (!comparableQuarter()) { document.getElementById('changesBody').innerHTML = `<tr><td colspan="7">${comparisonNotice()}</td></tr>`; return; }
   const pq = d.prevQuarter || (en ? 'Previous' : '上季');
   const cq = d.quarter || (en ? 'Current' : '本季');
-  document.getElementById('chPS').textContent = pq + (en ? ' Shares' : ' 持股');
+  const valueVerified=!d.valueQuality && !data.history?.excludedValueQuarters?.includes(d.prevQuarter);
+  document.getElementById('chPS').innerHTML = `<span class="desktop-change-detail">${hkEscape(pq)} ${en?'Shares':'持股'}</span><span class="mobile-change-detail">${en?'Shares: previous → current':'股数：上季 → 本季'}</span>`;
   document.getElementById('chCS').textContent = cq + (en ? ' Shares' : ' 持股');
-  document.getElementById('chPV').textContent = pq + (en ? ' Value' : ' 市值');
+  document.getElementById('chPV').innerHTML = `<span class="desktop-change-detail">${hkEscape(pq)} ${en?'Value':'市值'}</span><span class="mobile-change-detail">${en?'Value: previous → current':'市值：上季 → 本季'}</span>`;
   document.getElementById('chCV').textContent = cq + (en ? ' Value' : ' 市值');
   document.getElementById('changesBody').innerHTML = quarterlyHoldings().map(h => {
     const vd = h.value - h.prevValue;
-    const vc = h.prevValue === 0 ? 'qoq-new' : (vd > 0 ? 'qoq-up' : (vd < 0 ? 'qoq-down' : 'qoq-flat'));
+    const vc = !valueVerified?'qoq-flat':h.prevValue === 0 ? 'qoq-new' : (vd > 0 ? 'qoq-up' : (vd < 0 ? 'qoq-down' : 'qoq-flat'));
     const vs = vd > 0 ? '+' : vd < 0 ? '-' : '';
     const symbol = currSymbol(h.ticker);
     const exited = h.exited ? `<span class="qoq-down"> · ${en ? 'Exited' : '清仓'}</span>` : '';
     const splitNote = h.shareAdjustment ? `<div style="font-size:.65rem;color:var(--text-lighter);">${en ? 'Split adjusted; reported ' : '拆股后可比；原申报 '}${h.shareAdjustment.reportedShares.toLocaleString('en-US')} · ×${h.shareAdjustment.factor}</div>` : '';
-    return `<tr><td class="stock-cell"><span class="ticker-line">${fmtTicker(h.ticker)}${exited}</span>${instrumentTag(h)}<span class="name-line">${cn(h.name, h)}</span><span class="sector-badge">${ts(h.sector)}</span></td><td>${h.prevShares===0?'-':(h.prevShares==null?'—':h.prevShares.toLocaleString('en-US'))}${splitNote}</td><td>${h.shares.toLocaleString('en-US')}</td><td>${fmtShareChg(h.shares,h.prevShares)}</td><td>${h.prevValue==null?'—':h.prevValue===0?'-':symbol+fmtVal(h.prevValue)}</td><td>${symbol}${fmtVal(h.value)}</td><td class="${vc}">${h.prevValue==null?(en?'Unverified':'待比较'):h.prevValue===0?(en?'New':'新进'):`${vs}${symbol}${fmtVal(Math.abs(vd))} (${fmtPct(h.value,h.prevValue)})`}</td></tr>`;
+    const sharePrevious=h.prevShares==null?'—':h.prevShares.toLocaleString('en-US');
+    const valuePrevious=!valueVerified || h.prevValue==null?'—':symbol+fmtVal(h.prevValue);
+    const valueCurrent=valueVerified?symbol+fmtVal(h.value):(en?'Value unverified':'金额待核实');
+    const valueChange=!valueVerified?'—':h.prevValue==null?(en?'Unverified':'待比较'):h.prevValue===0?(en?'New':'新进'):`${vs}${symbol}${fmtVal(Math.abs(vd))} (${fmtPct(h.value,h.prevValue)})`;
+    const mobileShares=`<div class="mobile-change-detail"><small>${hkEscape(pq)} → ${hkEscape(cq)}</small><span>${sharePrevious} → ${h.shares.toLocaleString('en-US')}</span><div>${fmtShareChg(h.shares,h.prevShares)}</div>${splitNote}</div>`;
+    const mobileValues=`<div class="mobile-change-detail"><small>${hkEscape(pq)} → ${hkEscape(cq)}</small><span>${valuePrevious} → ${valueCurrent}</span><div class="${vc}">${valueChange}</div></div>`;
+    return `<tr><td class="stock-cell"><span class="ticker-line">${fmtTicker(h.ticker)}${exited}</span>${instrumentTag(h)}<span class="name-line">${cn(h.name, h)}</span><span class="sector-badge">${ts(h.sector)}</span></td><td class="change-shares"><span class="desktop-change-detail">${h.prevShares===0?'-':(h.prevShares==null?'—':h.prevShares.toLocaleString('en-US'))}${splitNote}</span>${mobileShares}</td><td>${h.shares.toLocaleString('en-US')}</td><td>${fmtShareChg(h.shares,h.prevShares)}</td><td class="change-values"><span class="desktop-change-detail">${!valueVerified || h.prevValue==null?'—':h.prevValue===0?'-':symbol+fmtVal(h.prevValue)}</span>${mobileValues}</td><td>${valueCurrent}</td><td class="${vc}">${valueChange}</td></tr>`;
   }).join('');
 }
 

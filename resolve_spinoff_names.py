@@ -35,8 +35,19 @@ def read_url(url, opener):
     with _request_lock:
         time.sleep(max(0, _next_request-time.monotonic()))
         _next_request=time.monotonic()+.22  # Global cap across all workers.
-    with opener.open(Request(url, headers={'User-Agent': USER_AGENT}), timeout=25) as response:
-        body = response.read(20_000_001)
+    try:
+        with opener.open(Request(url, headers={'User-Agent': USER_AGENT}), timeout=25) as response:
+            body = response.read(20_000_001)
+    except (OSError, TimeoutError):
+        import requests
+        with requests.get(url,headers={'User-Agent':USER_AGENT},timeout=25,stream=True) as response:
+            response.raise_for_status()
+            chunks=[];size=0
+            for chunk in response.iter_content(65536):
+                size+=len(chunk)
+                if size>20_000_000:raise ValueError('Filing exceeds download limit')
+                chunks.append(chunk)
+            body=b''.join(chunks)
     if len(body) > 20_000_000:
         raise ValueError('Filing exceeds download limit')
     return body
@@ -232,8 +243,15 @@ def refresh_company(company, market, opener, cache=None, limit=3):
         if done>=limit:break
         done+=1
         try:
-            content=document(ann,company.get('cik',''),opener,cache)
-            proof=parse_evidence(content['text'],ann,company.get('cik',''))
+            listing=next((p for p in proofs if p.get('url')==url and p.get('listingCompletionVersion')),None)
+            if listing:
+                from hk_listing_completion import listing_proof,listing_document
+                content=listing_document(ann,'',opener,cache)
+                proof=listing_proof(content['text'],ann,listing['targetName'],listing['targetTicker'])
+                if not proof:proof=parse_evidence(content['text'],ann,company.get('cik',''))
+            else:
+                content=document(ann,company.get('cik',''),opener,cache)
+                proof=parse_evidence(content['text'],ann,company.get('cik',''))
             supplement=content.get('identitySupplement')
             if supplement and not proof['targetName']:
                 for field in ('targetName','targetAliases','identityQuote','identityKind','distributedEntity','separatedEntity','identitySourceUrl'):

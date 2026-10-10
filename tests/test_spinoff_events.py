@@ -6,6 +6,40 @@ from spinoff_events import (infer_status, extract_name, extract_dates, filing_ur
 
 
 class SpinEvidenceTests(unittest.TestCase):
+    def test_followup_filings_merge_and_move_existing_project_without_state_change(self):
+        first={'date':'2026-09-01','title':'建議分拆測試能源有限公司於香港上市','docUrl':'/listedco/one.pdf'}
+        base={'companies':[{'stockCode':'00001','ticker':'00001.HK','announcements':[first]}]}
+        previous=normalize(copy.deepcopy(base),'hk',now='2026-09-02T01:00:00Z')
+        eid=previous['events'][0]['id']
+        second={**first,'date':'2026-10-10','docUrl':'/listedco/two.pdf'}
+        base['companies'][0]['announcements'].append(second)
+        result=normalize(base,'hk',previous=previous,now='2026-10-10T01:00:00Z')
+        self.assertEqual(len(result['events']),1);self.assertEqual(result['events'][0]['id'],eid)
+        self.assertEqual(result['events'][0]['status'],previous['events'][0]['status'])
+        self.assertEqual(result['events'][0]['recordUpdatedAt'],'2026-10-10T01:00:00Z')
+        self.assertEqual(result['changes'][-1]['updateKind'],'new_filing')
+        self.assertEqual(len(result['events'][0]['announcements']),2)
+        again=normalize(copy.deepcopy(result),'hk',now='2026-10-11T01:00:00Z')
+        self.assertEqual(again['changes'],result['changes'])
+        self.assertEqual(again['events'][0]['recordUpdatedAt'],result['events'][0]['recordUpdatedAt'])
+
+    def test_rolling_search_retains_existing_archive_and_deduplicates_full_urls(self):
+        from fetch_spinoff import merge_by_company
+        old={'stockCode':'00001','stockName':'公司','ticker':'00001.HK','firstDate':'2024-01-01','latestDate':'2024-01-01','announcements':[{'date':'2024-01-01','title':'分拆舊標的','docUrl':'/listedco/one.pdf'}]}
+        rows=[{'stockCode':'00001','stockName':'公司','ticker':'00001.HK','date':'2024-01-01','title':'分拆舊標的','docUrl':'https://www1.hkexnews.hk/listedco/one.pdf'},
+              {'stockCode':'00001','stockName':'公司','ticker':'00001.HK','date':'2026-10-10','title':'分拆最新公告','docUrl':'/listedco/two.pdf'}]
+        result=merge_by_company(rows,{'00001':old})
+        self.assertEqual(len(result),1);self.assertEqual(len(result[0]['announcements']),2)
+        self.assertEqual(result[0]['firstDate'],'2024-01-01');self.assertEqual(len(old['announcements']),1)
+        self.assertEqual(len(merge_by_company([],{'00001':old})),1)
+
+    def test_same_target_code_unifies_names_and_keeps_both_source_documents(self):
+        proofs=[{'url':'https://www1.hkexnews.hk/listedco/one.pdf','date':'2026-01-01','status':'record_set','quote':'記錄日已定','targetName':'測試能源','targetTicker':'01234.HK'},
+                {'url':'https://www1.hkexnews.hk/listedco/two.pdf','date':'2026-02-01','status':'completed','quote':'分派已完成','targetName':'測試能源有限公司','targetTicker':'01234.HK'}]
+        result=normalize({'companies':[{'stockCode':'00001','filingEvidence':proofs}]},'hk')
+        self.assertEqual(len(result['events']),1);self.assertEqual(len(result['events'][0]['announcements']),2)
+        self.assertEqual(result['events'][0]['status'],'completed')
+
     def test_shared_filing_cannot_assign_one_old_identity_to_two_targets(self):
         url = 'https://www1.hkexnews.hk/listedco/shared.pdf'
         proof = {'url': url, 'date': '2026-09-16', 'status': 'announced',

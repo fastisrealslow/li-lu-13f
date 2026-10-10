@@ -234,7 +234,7 @@ def _classify_spinoff_type(titles):
     return classify_hk_type(titles)
 
 
-def merge_by_company(all_items):
+def merge_by_company(all_items, previous=None):
     """
     按股票代码合并，每家公司汇总为一个事件：
     {
@@ -247,7 +247,10 @@ def merge_by_company(all_items):
       summary           # 自动生成的脉络摘要
     }
     """
-    companies = {}
+    # A rolling search window is a discovery mechanism, not the archive.
+    # Keep prior filings and projects when they age out or one query fails.
+    import copy
+    companies = {code: copy.deepcopy(c) for code, c in (previous or {}).items()}
     for item in all_items:
         code = item["stockCode"]
         if code not in companies:
@@ -267,8 +270,8 @@ def merge_by_company(all_items):
         if item["date"] < c["firstDate"]:
             c["firstDate"] = item["date"]
         # 去重
-        existing_urls = {a["docUrl"] for a in c["announcements"]}
-        if item["docUrl"] not in existing_urls:
+        existing_urls = {_full_url(a.get("docUrl") or a.get("url", "")) for a in c["announcements"]}
+        if _full_url(item["docUrl"]) not in existing_urls:
             c["announcements"].append({
                 "date":   item["date"],
                 "title":  item["title"],
@@ -277,7 +280,10 @@ def merge_by_company(all_items):
 
     # 每家公司公告按日期倒序
     for c in companies.values():
+        code = c['stockCode']
         c["announcements"].sort(key=lambda x: x["date"], reverse=True)
+        c['latestDate'] = max((a['date'] for a in c['announcements']), default=c.get('latestDate', ''))
+        c['firstDate'] = min((a['date'] for a in c['announcements']), default=c.get('firstDate', ''))
         # 自动生成脉络摘要（包含分拆标的）
         n = len(c["announcements"])
         # 尝试提取分拆子公司名称
@@ -398,6 +404,7 @@ def refine_status_from_pdf(companies, opener):
     for c in companies:
         c['filingEvidence'] = list(previous.get(c['stockCode'], {}).get('filingEvidence', []))
         c['identityChecks'] = dict(previous.get(c['stockCode'], {}).get('identityChecks', {}))
+        c['listingChecks'] = dict(previous.get(c['stockCode'], {}).get('listingChecks', {}))
     try:
         from pdfminer.high_level import extract_text_to_fp
         from pdfminer.layout import LAParams
@@ -837,12 +844,15 @@ def main():
 
     raw_items = []
     seen_urls = set()
+    successful_keywords, failed_keywords = [], []
 
     for kw in KEYWORDS:
         print(f"\n搜索「{kw}」...")
         html = search_keyword(opener, kw)
         if not html:
+            failed_keywords.append(kw)
             continue
+        successful_keywords.append(kw)
         rows = parse_rows(html)
         print(f"  解析到: {len(rows)} 条")
         for item in rows:
@@ -857,11 +867,7 @@ def main():
         raise RuntimeError('No HKEX results; refusing to overwrite the last successful dataset')
 
     # 按公司合并
-    companies = merge_by_company(raw_items)
-    seen_codes = {c['stockCode'] for c in companies}
-    for code, old in load_prev_data().items():
-        if code not in seen_codes and old.get('latestDate', '') >= datetime.strptime(date_from, '%Y%m%d').date().isoformat():
-            companies.append(old)
+    companies = merge_by_company(raw_items, load_prev_data())
     print(f"合并后共 {len(companies)} 家公司")
 
     # 剔除纯拆股（拆股/合股，无子公司上市）
@@ -954,6 +960,11 @@ def main():
         "dateTo":    date_to,
         "count":     len(companies),
         "companies": companies,
+        "sourceCollection": {"provider": "HKEXnews", "method": "keyword_search_and_issuer_filings",
+            "checkedAt": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
+            "keywords": KEYWORDS, "successfulKeywords": successful_keywords, "failedKeywords": failed_keywords,
+            "from": datetime.strptime(date_from, '%Y%m%d').date().isoformat(),
+            "to": datetime.strptime(date_to, '%Y%m%d').date().isoformat()},
     }
 
     try:

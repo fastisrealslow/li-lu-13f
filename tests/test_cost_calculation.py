@@ -44,3 +44,15 @@ class CostCalculationTests(unittest.TestCase):
         self.assertEqual(adjusted['2022 Q2'][0]['shares'],200);self.assertEqual(history,original)
         rows=compare_holdings([new],[old],previous_quarter='2022 Q2',current_quarter='2022 Q3');self.assertEqual(rows[0]['prevShares'],200)
 
+
+    def test_unverified_amount_quarter_keeps_shares_and_never_invents_reentry(self):
+        h=dict(ticker='TEST',cusip='test',shares=20,value=2000,putCall='',shareType='SH')
+        history={'2025 Q3':[h],'2025 Q4':[{**h,'value':2}],'2026 Q1':[h],'2026 Q2':[h]}
+        snapshot={'meta':{},'current':{'quarter':'2026 Q2','prevQuarter':'2026 Q1','holdings':[h]},'history':{'holdings':history,'excludedValueQuarters':['2025 Q4']}}
+        with tempfile.TemporaryDirectory() as tmp:
+            data=Path(tmp)/'data.json';prices=Path(tmp)/'prices.json';data.write_text(json.dumps(snapshot))
+            with patch.object(fetch_prices_all,'finnhub',return_value={'c':100,'h':100,'l':100,'o':100,'pc':100,'t':1}),patch.object(fetch_prices_all,'yahoo_chart',return_value={'closes':[100],'lows':[100],'highs':[100]}),patch.object(fetch_prices_all.time,'sleep'),contextlib.redirect_stdout(io.StringIO()):
+                fetch_prices_all.fetch_us('test',{'data':str(data),'prices':str(prices)})
+            cost=json.loads(prices.read_text())['costBasis']['TEST']
+            self.assertEqual(cost['recent']['quarter'],'2025 Q3')
+            self.assertIsNone(cost['allTime']);self.assertEqual(cost['averageUnavailable'],'units')

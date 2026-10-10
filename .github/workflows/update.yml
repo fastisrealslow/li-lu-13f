@@ -26,6 +26,10 @@ on:
       - "tests/test_hk_automation.py"
       - "fetch_13f_all.py"
       - "sec_history_index.py"
+      - "audit_13f_history.py"
+      - "tests/test_value_audit.py"
+      - "tests/test_listing_completion.py"
+      - "hk_listing_completion.py"
       - "tests/test_sec_history_index.py"
       - "tests/test_hk_disclosure_evidence.py"
       - "tests/test_history_backfill.py"
@@ -35,6 +39,7 @@ on:
       - "spinoff_identity.py"
       - "resolve_spinoff_names.py"
       - "fetch_spinoff_us.py"
+      - "fetch_spinoff.py"
       - "tests/test_sec_primary.py"
       - "tests/test_spinoff_events.py"
 
@@ -59,6 +64,9 @@ jobs:
         with:
           token: ${{ github.token }}
           ref: ${{ github.ref_name }}
+
+      - name: Record source rules used by this run
+        run: echo "TRACKER_SOURCE_SHA=$(git rev-parse HEAD)" >> "$GITHUB_ENV"
 
       - uses: actions/setup-python@v5
         with:
@@ -214,6 +222,9 @@ jobs:
           else
             python3 update_status.py --step vinall_13f --status fail --msg "Step exited with error"
           fi
+
+      - name: Audit historical filing units before prices and AI
+        run: python3 -u audit_13f_history.py --limit 6
 
       # ─────────────── 股价抓取（使用通用脚本）───────────────
 
@@ -530,6 +541,9 @@ jobs:
           else
             python3 update_status.py --step spinoff_us --status fail --msg "Step exited with error"
           fi
+      - name: Follow listings and in-specie distributions to actual completion
+        run: python3 -u hk_listing_completion.py --limit 3
+
       - name: Refresh HK/US spinoff child company prices
         id: spinoff_prices
         continue-on-error: true
@@ -581,6 +595,11 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
+          git fetch origin master
+          if ! git diff --quiet "$TRACKER_SOURCE_SHA" origin/master -- '*.py' '.github/workflows/*.yml' investors.json; then
+            echo "::notice::Source rules changed during this run; the queued fresh run will publish updated data."
+            exit 0
+          fi
           python3 validate_data.py --stage
           if git diff --cached --quiet; then
             echo "No changes to commit"

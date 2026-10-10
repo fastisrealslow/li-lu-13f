@@ -303,6 +303,20 @@ tbody tr:hover { background: #f8f9fa; }
   *, *::before, *::after { animation: none!important; transition: none!important; }
 }
 
-.cost-reading-guide{border:1px solid var(--border);border-left:3px solid var(--brand-blue);padding:16px 18px;margin-bottom:18px;background:#fafbfc;color:var(--text);font-size:.76rem;line-height:1.8}
-.cost-reading-guide h3{font-size:.9rem;color:var(--navy);margin:0 0 10px}.cost-reading-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}.cost-reading-grid p{margin:0}.cost-reading-grid b,.cost-reading-grid span{display:block}.cost-reading-grid b{color:var(--navy);margin-bottom:4px}.cost-reading-example{padding-top:12px;margin:12px 0 0;border-top:1px solid var(--border)}.cost-reading-method{margin-top:10px}.cost-reading-method summary{cursor:pointer;color:var(--brand-blue);padding:6px 0}.cost-reading-method p{margin:6px 0 0}.cost-gap small{font-size:.7rem}.cost-gap strong{white-space:normal}
-@media(max-width:650px){.cost-reading-guide{padding:12px;font-size:.72rem}.cost-reading-grid{grid-template-columns:1fr;gap:9px}.cost-reading-grid b{margin-bottom:0}.cost-reading-example{font-size:.7rem}.cost-gap small{font-size:.63rem}}
+.cost-gap small{font-size:.7rem}.cost-gap strong{white-space:normal}
+.cost-method-note{font-size:.72rem;line-height:1.8;margin:8px 0}.cost-method-note summary{cursor:pointer;color:var(--brand-blue)}
+.mobile-change-detail{display:none}
+@media(max-width:650px){
+ .cost-gap small{font-size:.63rem}
+ #tab-changes .table-wrap{overflow:visible}
+ #tab-changes table{width:100%;min-width:0;table-layout:fixed}
+ #tab-changes th,#tab-changes td{white-space:normal;overflow-wrap:anywhere;padding:12px 5px;font-size:.7rem;vertical-align:top}
+ #tab-changes th:nth-child(1){width:25%}
+ #tab-changes th:nth-child(2),#tab-changes th:nth-child(5){width:37.5%}
+ #tab-changes th:nth-child(3),#tab-changes td:nth-child(3),#tab-changes th:nth-child(4),#tab-changes td:nth-child(4),#tab-changes th:nth-child(6),#tab-changes td:nth-child(6),#tab-changes th:nth-child(7),#tab-changes td:nth-child(7){display:none!important}
+ #tab-changes .desktop-change-detail{display:none}
+ #tab-changes .mobile-change-detail{display:flex;flex-direction:column;gap:5px;font-variant-numeric:tabular-nums}
+ #tab-changes .mobile-change-detail small{font-size:.6rem;color:var(--text-lighter)}
+ #tab-changes .stock-cell{min-width:0!important;max-width:none;width:auto!important}
+ #tab-changes .name-line{font-size:.65rem;white-space:normal}
+}

@@ -93,7 +93,9 @@
         "shareType": "SH",
         "putCall": "",
         "sector": "煤炭",
-        "cnName": "冶金煤业"
+        "cnName": "冶金煤业",
+        "prevShares": 1799831,
+        "prevValue": 158691099
       },
       {
         "ticker": "RIG",
@@ -105,7 +107,9 @@
         "shareType": "SH",
         "putCall": "",
         "sector": "油气钻探",
-        "cnName": "越洋钻探"
+        "cnName": "越洋钻探",
+        "prevShares": 27040133,
+        "prevValue": 111675749
       },
       {
         "ticker": "AMR",
@@ -117,7 +121,9 @@
         "shareType": "SH",
         "putCall": "",
         "sector": "冶金/煤炭",
-        "cnName": "阿尔法金属"
+        "cnName": "阿尔法金属",
+        "prevShares": 543000,
+        "prevValue": 108534840
       }
     ],
     "prevTotalValue": 422885142
@@ -179,57 +185,57 @@
       "2026 Q2"
     ],
     "values": [
-      421,
-      460,
-      544,
-      464,
-      481,
-      414,
-      552,
-      536,
-      475,
-      377,
-      379,
-      345,
-      296,
-      338,
-      347,
-      389,
-      405,
-      413,
-      386,
-      317,
-      302,
-      230,
-      207,
-      265,
-      294,
-      261,
-      271,
-      81,
-      148,
-      149,
-      206,
-      262,
-      278,
-      191,
-      217,
-      142,
-      101,
-      99,
-      121,
-      121,
-      73,
-      170,
-      248,
-      216,
-      233,
-      247,
-      253,
-      235,
-      272,
-      337,
-      402,
+      421.255,
+      459.677,
+      543.92,
+      464.073,
+      480.775,
+      413.951,
+      552.408,
+      535.876,
+      474.619,
+      377.078,
+      379.059,
+      345.109,
+      296.267,
+      338.144,
+      347.088,
+      388.956,
+      404.505,
+      412.685,
+      385.825,
+      316.763,
+      301.789,
+      229.544,
+      206.754,
+      264.841,
+      294.142,
+      261.282,
+      271.228,
+      80.774,
+      147.737,
+      149.143,
+      206.334,
+      262.037,
+      277.651,
+      190.77,
+      216.627,
+      142.29,
+      100.838,
+      98.776,
+      120.558334,
+      121.274277,
+      73.402592,
+      169.629696,
+      248.125343,
+      215.703152,
+      232.83031,
+      246.895462,
+      253.439237,
+      234.824008,
+      271.601546,
+      336.857377,
+      402.040227,
       422.885142,
       326.74998
     ],
@@ -242,18 +248,20 @@
           "shares": 5928876,
           "value": 96937000,
           "sector": "其他",
-          "prevShares": 0,
-          "prevValue": 0
+          "cusip": "37045V126",
+          "shareType": "SH",
+          "putCall": ""
         },
         {
-          "ticker": "?BANK OF AMERICA CORPORATION",
+          "ticker": "BAC",
           "name": "BANK OF AMERICA CORPORATION",
           "cls": "COM",
+          "cusip": "060505104",
           "shares": 7502000,
           "value": 96476000,
-          "sector": "其他",
-          "prevShares": 0,
-          "prevValue": 0
+          "shareType": "SH",
+          "putCall": "",
+          "sector": "金融/银行"
         },
         {
           "ticker": "C",
@@ -261,10 +269,10 @@
           "cls": "COM",
           "shares": 1560000,
           "value": 74833000,
-          "sector": "金融",
-          "prevShares": 0,
-          "prevValue": 0,
-          "cnName": "花旗集团"
+          "sector": "金融/银行",
+          "cusip": "172967424",
+          "shareType": "SH",
+          "putCall": ""
         },
         {
           "ticker": "CHK",
@@ -273,8 +281,9 @@
           "shares": 3268145,
           "value": 66605000,
           "sector": "油气",
-          "prevShares": 0,
-          "prevValue": 0
+          "cusip": "165167107",
+          "shareType": "SH",
+          "putCall": ""
         },
         {
           "ticker": "?HORSEHEAD HLDG CORP",
@@ -283,8 +292,9 @@
           "shares": 5070000,
           "value": 64947000,
           "sector": "其他",
-          "prevShares": 0,
-          "prevValue": 0
+          "cusip": "440694305",
+          "shareType": "SH",
+          "putCall": ""
         },
         {
           "ticker": "GS",
@@ -292,10 +302,10 @@
           "cls": "COM",
           "shares": 141863,
           "value": 21457000,
-          "sector": "金融",
-          "prevShares": 0,
-          "prevValue": 0,
-          "cnName": "高盛集团"
+          "sector": "金融服务",
+          "cusip": "38141G104",
+          "shareType": "SH",
+          "putCall": ""
         }
       ],
       "2013 Q3": [
@@ -307,15 +317,21 @@
           "value": 110277000,
           "sector": "其他",
           "prevShares": 5928876,
-          "prevValue": 96937000
+          "prevValue": 96937000,
+          "cusip": "37045V126",
+          "shareType": "SH",
+          "putCall": ""
         },
         {
-          "ticker": "?BANK OF AMERICA CORPORATION",
+          "ticker": "BAC",
           "name": "BANK OF AMERICA CORPORATION",
           "cls": "COM",
+          "cusip": "060505104",
           "shares": 7502000,
           "value": 103528000,
-          "sector": "其他",
+          "shareType": "SH",
+          "putCall": "",
+          "sector": "金融/银行",
           "prevShares": 7502000,
           "prevValue": 96476000
         },
@@ -327,7 +343,10 @@
           "value": 84580000,
           "sector": "油气",
           "prevShares": 3268145,
-          "prevValue": 66605000
+          "prevValue": 66605000,
+          "cusip": "165167107",
+          "shareType": "SH",
+          "putCall": ""
         },
         {
           "ticker": "C",
@@ -335,10 +354,12 @@
           "cls": "COM",
           "shares": 1560000,
           "value": 75676000,
-          "sector": "金融",
+          "sector": "金融/银行",
           "prevShares": 1560000,
           "prevValue": 74833000,
-          "cnName": "花旗集团"
+          "cusip": "172967424",
+          "shareType": "SH",
+          "putCall": ""
         },
         {
           "ticker": "?HORSEHEAD HLDG CORP",
@@ -348,7 +369,10 @@
           "value": 63172000,
           "sector": "其他",
           "prevShares": 5070000,
-          "prevValue": 64947000
+          "prevValue": 64947000,
+          "cusip": "440694305",
+          "shareType": "SH",
+          "putCall": ""
         },
         {
           "ticker": "GS",
@@ -356,10 +380,12 @@
           "cls": "COM",
           "shares": 141863,
           "value": 22444000,
-          "sector": "金融",
+          "sector": "金融服务",
           "prevShares": 141863,
           "prevValue": 21457000,
-          "cnName": "高盛集团"
+          "cusip": "38141G104",
+          "shareType": "SH",
+          "putCall": ""
         }
       ],
       "2013 Q4": [
@@ -371,15 +397,21 @@
           "value": 137091000,
           "sector": "其他",
           "prevShares": 5928876,
-          "prevValue": 110277000
+          "prevValue": 110277000,
+          "cusip": "37045V126",
+          "shareType": "SH",
+          "putCall": ""
         },
         {
-          "ticker": "?BANK OF AMERICA CORPORATION",
+          "ticker": "BAC",
           "name": "BANK OF AMERICA CORPORATION",
           "cls": "COM",
+          "cusip": "060505104",
           "shares": 7401000,
           "value": 115234000,
-          "sector": "其他",
+          "shareType": "SH",
+          "putCall": "",
+          "sector": "金融/银行",
           "prevShares": 7502000,
           "prevValue": 103528000
         },
@@ -391,7 +423,10 @@
           "value": 102663000,
           "sector": "其他",
           "prevShares": 5070000,
-          "prevValue": 63172000
+          "prevValue": 63172000,
+          "cusip": "440694305",
+          "shareType": "SH",
+          "putCall": ""
         },
         {
           "ticker": "CHK",
@@ -401,7 +436,10 @@
           "value": 88697000,
           "sector": "油气",
           "prevShares": 3268145,
-          "prevValue": 84580000
+          "prevValue": 84580000,
+          "cusip": "165167107",
+          "shareType": "SH",
+          "putCall": ""
         },
         {
           "ticker": "C",
@@ -409,10 +447,12 @@
           "cls": "COM",
           "shares": 1560000,
           "value": 81292000,
-          "sector": "金融",
+          "sector": "金融/银行",
           "prevShares": 1560000,
           "prevValue": 75676000,
-          "cnName": "花旗集团"
+          "cusip": "172967424",
+          "shareType": "SH",
+          "putCall": ""
         },
         {
           "ticker": "GS",
@@ -420,10 +460,12 @@
           "cls": "COM",
           "shares": 106863,
           "value": 18943000,
-          "sector": "金融",
+          "sector": "金融服务",
           "prevShares": 141863,
           "prevValue": 22444000,
-          "cnName": "高盛集团"
+          "cusip": "38141G104",
+          "shareType": "SH",
+          "putCall": ""
         }
       ],
       "2014 Q1": [
@@ -435,7 +477,10 @@
           "value": 106526000,
           "sector": "其他",
           "prevShares": 6333296,
-          "prevValue": 102663000
+          "prevValue": 102663000,
+          "cusip": "440694305",
+          "shareType": "SH",
+          "putCall": ""
         },
         {
           "ticker": "?GENERAL MTRS CO",
@@ -445,15 +490,21 @@
           "value": 103329000,
           "sector": "其他",
           "prevShares": 5929529,
-          "prevValue": 137091000
+          "prevValue": 137091000,
+          "cusip": "37045V126",
+          "shareType": "SH",
+          "putCall": ""
         },
         {
-          "ticker": "?BANK OF AMERICA CORPORATION",
+          "ticker": "BAC",
           "name": "BANK OF AMERICA CORPORATION",
           "cls": "COM",
+          "cusip": "060505104",
           "shares": 4875000,
           "value": 83850000,
-          "sector": "其他",
+          "shareType": "SH",
+          "putCall": "",
+          "sector": "金融/银行",
           "prevShares": 7401000,
           "prevValue": 115234000
         },
@@ -465,7 +516,10 @@
           "value": 83586000,
           "sector": "油气",
           "prevShares": 3268145,
-          "prevValue": 88697000
+          "prevValue": 88697000,
+          "cusip": "165167107",
+          "shareType": "SH",
+          "putCall": ""
         },
         {
           "ticker": "C",
@@ -473,10 +527,12 @@
           "cls": "COM NEW",
           "shares": 1420000,
           "value": 67592000,
-          "sector": "金融",
+          "sector": "金融/银行",
           "prevShares": 1560000,
           "prevValue": 81292000,
-          "cnName": "花旗集团"
+          "cusip": "172967424",
+          "shareType": "SH",
+          "putCall": ""
         },
         {
           "ticker": "GS",
@@ -484,31 +540,38 @@
           "cls": "COM",
           "shares": 106863,
           "value": 17510000,
-          "sector": "金融",
+          "sector": "金融服务",
           "prevShares": 106863,
           "prevValue": 18943000,
-          "cnName": "高盛集团"
+          "cusip": "38141G104",
+          "shareType": "SH",
+          "putCall": ""
         },
         {
-          "ticker": "BRK.B",
+          "ticker": "BRK/B",
           "name": "BERKSHIRE HATHAWAY INC DEL",
           "cls": "CL B NEW",
+          "cusip": "084670702",
           "shares": 7025,
           "value": 878000,
-          "sector": "综合金融",
+          "shareType": "SH",
+          "putCall": "",
+          "sector": "其他",
           "prevShares": 0,
-          "prevValue": 0,
-          "cnName": "伯克希尔·哈撒韦B"
+          "prevValue": 0
         },
         {
-          "ticker": "?GENERAL MTRS CO",
+          "ticker": "GM",
           "name": "GENERAL MTRS CO",
           "cls": "COM",
+          "cusip": "37045V100",
           "shares": 23305,
           "value": 802000,
+          "shareType": "SH",
+          "putCall": "",
           "sector": "其他",
-          "prevShares": 5929529,
-          "prevValue": 137091000
+          "prevShares": 0,
+          "prevValue": 0
         }
       ],
       "2014 Q2": [
@@ -520,7 +583,10 @@
           "value": 115646000,
           "sector": "其他",
           "prevShares": 6333296,
-          "prevValue": 106526000
+          "prevValue": 106526000,
+          "cusip": "440694305",
+          "shareType": "SH",
+          "putCall": ""
         },
         {
           "ticker": "?GENERAL MTRS CO",
@@ -529,16 +595,22 @@
           "shares": 5935015,
           "value": 110154000,
           "sector": "其他",
-          "prevShares": 23305,
-          "prevValue": 802000
+          "prevShares": 5935015,
+          "prevValue": 103329000,
+          "cusip": "37045V126",
+          "shareType": "SH",
+          "putCall": ""
         },
         {
-          "ticker": "?BANK OF AMERICA CORPORATION",
+          "ticker": "BAC",
           "name": "BANK OF AMERICA CORPORATION",
           "cls": "COM",
+          "cusip": "060505104",
           "shares": 4875000,
           "value": 74929000,
-          "sector": "其他",
+          "shareType": "SH",
+          "putCall": "",
+          "sector": "金融/银行",
           "prevShares": 4875000,
           "prevValue": 83850000
         },
@@ -550,7 +622,10 @@
           "value": 72775000,
           "sector": "其他",
           "prevShares": 0,
-          "prevValue": 0
+          "prevValue": 0,
+          "cusip": "693483109",
+          "shareType": "SH",
+          "putCall": ""
         },
         {
           "ticker": "C",
@@ -558,10 +633,12 @@
           "cls": "COM",
           "shares": 1420000,
           "value": 66882000,
-          "sector": "金融",
+          "sector": "金融/银行",
           "prevShares": 1420000,
           "prevValue": 67592000,
-          "cnName": "花旗集团"
+          "cusip": "172967424",
+          "shareType": "SH",
+          "putCall": ""
         },
         {
           "ticker": "CHK",
@@ -571,7 +648,10 @@
           "value": 20761000,
           "sector": "油气",
           "prevShares": 3262545,
-          "prevValue": 83586000
+          "prevValue": 83586000,
+          "cusip": "165167107",
+          "shareType": "SH",
+          "putCall": ""
         },
         {
           "ticker": "GS",
@@ -579,28 +659,35 @@
           "cls": "COM",
           "shares": 106863,
           "value": 17893000,
-          "sector": "金融",
+          "sector": "金融服务",
           "prevShares": 106863,
           "prevValue": 17510000,
-          "cnName": "高盛集团"
+          "cusip": "38141G104",
+          "shareType": "SH",
+          "putCall": ""
         },
         {
-          "ticker": "BRK.B",
+          "ticker": "BRK/B",
           "name": "BERKSHIRE HATHAWAY INC DEL",
           "cls": "CL B",
+          "cusip": "084670702",
           "shares": 7025,
           "value": 889000,
-          "sector": "综合金融",
+          "shareType": "SH",
+          "putCall": "",
+          "sector": "其他",
           "prevShares": 7025,
-          "prevValue": 878000,
-          "cnName": "伯克希尔·哈撒韦B"
+          "prevValue": 878000
         },
         {
-          "ticker": "?GENERAL MTRS CO",
+          "ticker": "GM",
           "name": "GENERAL MTRS CO",
           "cls": "COM",
+          "cusip": "37045V100",
           "shares": 23305,
           "value": 846000,
+          "shareType": "SH",
+          "putCall": "",
           "sector": "其他",
           "prevShares": 23305,
           "prevValue": 802000
@@ -624,8 +711,8 @@
           "shares": 5935015,
           "value": 85820000,
           "sector": "其他",
-          "prevShares": 23305,
-          "prevValue": 846000
+          "prevShares": 5935015,
+          "prevValue": 110154000
         },
         {
           "ticker": "?BANK AMER CORP",
@@ -718,8 +805,8 @@
           "shares": 5935175,
           "value": 100898000,
           "sector": "其他",
-          "prevShares": 23305,
-          "prevValue": 744000
+          "prevShares": 5935015,
+          "prevValue": 85820000
         },
         {
           "ticker": "?HORSEHEAD HLDG CORP",
@@ -779,8 +866,8 @@
           "shares": 453538,
           "value": 5261000,
           "sector": "其他",
-          "prevShares": 14711,
-          "prevValue": 157000
+          "prevShares": 41144,
+          "prevValue": 407000
         },
         {
           "ticker": "?WL ROSS HLDG CORP",
@@ -832,8 +919,8 @@
           "shares": 5986470,
           "value": 117634000,
           "sector": "其他",
-          "prevShares": 23762,
-          "prevValue": 830000
+          "prevShares": 5935175,
+          "prevValue": 100898000
         },
         {
           "ticker": "?HORSEHEAD HLDG CORP",
@@ -872,8 +959,8 @@
           "shares": 1485188,
           "value": 15565000,
           "sector": "其他",
-          "prevShares": 245670,
-          "prevValue": 2521000
+          "prevShares": 453538,
+          "prevValue": 5261000
         },
         {
           "ticker": "?WL ROSS HLDG CORP",
@@ -955,8 +1042,8 @@
           "shares": 1485288,
           "value": 16888000,
           "sector": "其他",
-          "prevShares": 310386,
-          "prevValue": 3104000
+          "prevShares": 1485188,
+          "prevValue": 15565000
         },
         {
           "ticker": "?WL ROSS HLDG CORP",
@@ -1027,8 +1114,8 @@
           "shares": 1485288,
           "value": 16680000,
           "sector": "其他",
-          "prevShares": 310386,
-          "prevValue": 3231000
+          "prevShares": 1485288,
+          "prevValue": 16888000
         },
         {
           "ticker": "?WL ROSS HLDG CORP",
@@ -1101,8 +1188,8 @@
           "shares": 895374,
           "value": 9178000,
           "sector": "其他",
-          "prevShares": 310386,
-          "prevValue": 3222000
+          "prevShares": 1485288,
+          "prevValue": 16680000
         },
         {
           "ticker": "?WL ROSS HLDG CORP",
@@ -1174,8 +1261,8 @@
           "shares": 990534,
           "value": 10391000,
           "sector": "其他",
-          "prevShares": 247870,
-          "prevValue": 2469000
+          "prevShares": 895374,
+          "prevValue": 9178000
         },
         {
           "ticker": "BRK.B",
@@ -2080,8 +2167,8 @@
           "shares": 230428,
           "value": 21464000,
           "sector": "其他",
-          "prevShares": 1579150,
-          "prevValue": 112088000
+          "prevShares": 57347,
+          "prevValue": 8490000
         }
       ],
       "2022 Q1": [
@@ -2092,8 +2179,8 @@
           "shares": 1593384,
           "value": 124109000,
           "sector": "其他",
-          "prevShares": 230428,
-          "prevValue": 21464000
+          "prevShares": 1823812,
+          "prevValue": 169888000
         },
         {
           "ticker": "?MICRON TECHNOLOGY INC",
@@ -2102,8 +2189,8 @@
           "shares": 230428,
           "value": 17948000,
           "sector": "其他",
-          "prevShares": 230428,
-          "prevValue": 21464000
+          "prevShares": 3522118,
+          "prevValue": 46739000
         },
         {
           "ticker": "?SERITAGE GROWTH PPTYS",
@@ -2124,8 +2211,8 @@
           "shares": 1593384,
           "value": 88082000,
           "sector": "其他",
-          "prevShares": 230428,
-          "prevValue": 17948000
+          "prevShares": 1823812,
+          "prevValue": 142057000
         },
         {
           "ticker": "?MICRON TECHNOLOGY INC",
@@ -2134,8 +2221,8 @@
           "shares": 230428,
           "value": 12738000,
           "sector": "其他",
-          "prevShares": 230428,
-          "prevValue": 17948000
+          "prevShares": 18451,
+          "prevValue": 233000
         },
         {
           "ticker": "?SERITAGE GROWTH PPTYS",
@@ -2156,8 +2243,8 @@
           "shares": 1593384,
           "value": 79829000,
           "sector": "其他",
-          "prevShares": 230428,
-          "prevValue": 12738000
+          "prevShares": 1823812,
+          "prevValue": 100820000
         },
         {
           "ticker": "?MICRON TECHNOLOGY INC",
@@ -2166,8 +2253,8 @@
           "shares": 230428,
           "value": 11544000,
           "sector": "其他",
-          "prevShares": 230428,
-          "prevValue": 12738000
+          "prevShares": 0,
+          "prevValue": 0
         },
         {
           "ticker": "?BROOKFIELD ASSET MGMT INC",
@@ -2176,8 +2263,8 @@
           "shares": 180303,
           "value": 7373000,
           "sector": "其他",
-          "prevShares": 0,
-          "prevValue": 0
+          "prevShares": 3375,
+          "prevValue": 18000
         },
         {
           "ticker": "?SERITAGE GROWTH PPTYS",
@@ -2198,8 +2285,8 @@
           "shares": 1630384,
           "value": 81486592,
           "sector": "其他",
-          "prevShares": 230428,
-          "prevValue": 11544000
+          "prevShares": 1823812,
+          "prevValue": 91373000
         },
         {
           "ticker": "?BROOKFIELD CORP",
@@ -2218,8 +2305,8 @@
           "shares": 230428,
           "value": 11516792,
           "sector": "其他",
-          "prevShares": 230428,
-          "prevValue": 11544000
+          "prevShares": 0,
+          "prevValue": 0
         },
         {
           "ticker": "?BROOKFIELD ASSET MANAGMT LTD",
@@ -2228,8 +2315,8 @@
           "shares": 178077,
           "value": 5105468,
           "sector": "其他",
-          "prevShares": 0,
-          "prevValue": 0
+          "prevShares": 3375,
+          "prevValue": 30000
         },
         {
           "ticker": "?SERITAGE GROWTH PPTYS",
@@ -2238,8 +2325,8 @@
           "shares": 3375,
           "value": 39926,
           "sector": "其他",
-          "prevShares": 3375,
-          "prevValue": 30000
+          "prevShares": 180303,
+          "prevValue": 7373000
         }
       ],
       "2023 Q1": [
@@ -2250,8 +2337,8 @@
           "shares": 1592134,
           "value": 96069366,
           "sector": "其他",
-          "prevShares": 230428,
-          "prevValue": 11516792
+          "prevShares": 1860812,
+          "prevValue": 93003384
         },
         {
           "ticker": "?BROOKFIELD CORP",
@@ -2759,7 +2846,9 @@
           "shareType": "SH",
           "putCall": "",
           "sector": "煤炭",
-          "cnName": "冶金煤业"
+          "cnName": "冶金煤业",
+          "prevShares": 1799831,
+          "prevValue": 158691099
         },
         {
           "ticker": "RIG",
@@ -2771,7 +2860,9 @@
           "shareType": "SH",
           "putCall": "",
           "sector": "油气钻探",
-          "cnName": "越洋钻探"
+          "cnName": "越洋钻探",
+          "prevShares": 27040133,
+          "prevValue": 111675749
         },
         {
           "ticker": "AMR",
@@ -2783,7 +2874,9 @@
           "shareType": "SH",
           "putCall": "",
           "sector": "冶金/煤炭",
-          "cnName": "阿尔法金属"
+          "cnName": "阿尔法金属",
+          "prevShares": 543000,
+          "prevValue": 108534840
         }
       ],
       "2026 Q2": [
@@ -2870,7 +2963,404 @@
         "reportDate": "2026-03-31",
         "cik": "1549575",
         "url": "https://www.sec.gov/Archives/edgar/data/1549575/000154957526000009/infotable.xml"
+      },
+      "2013 Q2": {
+        "accession": "000154692713000141",
+        "accessionDashed": "0001546927-13-000141",
+        "filingDate": "2013-08-12",
+        "reportDate": "2013-06-30",
+        "cik": "1549575",
+        "url": "https://www.sec.gov/Archives/edgar/data/1549575/000154692713000141/infotable.xml"
+      },
+      "2013 Q3": {
+        "accession": "000154692713000203",
+        "accessionDashed": "0001546927-13-000203",
+        "filingDate": "2013-11-12",
+        "reportDate": "2013-09-30",
+        "cik": "1549575",
+        "url": "https://www.sec.gov/Archives/edgar/data/1549575/000154692713000203/infotable.xml"
+      },
+      "2013 Q4": {
+        "accession": "000154692714000056",
+        "accessionDashed": "0001546927-14-000056",
+        "filingDate": "2014-02-13",
+        "reportDate": "2013-12-31",
+        "cik": "1549575",
+        "url": "https://www.sec.gov/Archives/edgar/data/1549575/000154692714000056/infotable.xml"
+      },
+      "2014 Q1": {
+        "accession": "000154957514000002",
+        "accessionDashed": "0001549575-14-000002",
+        "filingDate": "2014-05-13",
+        "reportDate": "2014-03-31",
+        "cik": "1549575",
+        "url": "https://www.sec.gov/Archives/edgar/data/1549575/000154957514000002/infotable.xml"
+      },
+      "2014 Q2": {
+        "accession": "000154957514000006",
+        "accessionDashed": "0001549575-14-000006",
+        "filingDate": "2014-08-13",
+        "reportDate": "2014-06-30",
+        "cik": "1549575",
+        "url": "https://www.sec.gov/Archives/edgar/data/1549575/000154957514000006/infotable.xml"
       }
-    }
+    },
+    "valueAudit": {
+      "2026 Q2": {
+        "version": 1,
+        "checkedAt": "2026-10-10",
+        "source": "https://www.sec.gov/Archives/edgar/data/1549575/000154957526000015/infotable.xml",
+        "filingDate": "2026-08-13",
+        "sourceDigest": "7383ae425797db0c6df9b28b8fc877856afcf3f44f473d72c8b74ccb3ee7896c",
+        "sourceHash": "70a928351df18af8ab86b4217c945292470c76eb9e51ee67374b5cecd47d1c95",
+        "status": "verified",
+        "factor": 1,
+        "anchors": [
+          {
+            "ticker": "RIG",
+            "cusip": "H8817H100",
+            "filedPrice": 4.8900000240211865,
+            "price": 4.889999866485596,
+            "date": "2026-06-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/RIG?period1=0&period2=1791727004&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "HCC",
+            "cusip": "93627C101",
+            "filedPrice": 81.16,
+            "price": 81.16000366210938,
+            "date": "2026-06-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/HCC?period1=0&period2=1791727005&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "AMR",
+            "cusip": "020764106",
+            "filedPrice": 164.93999930393625,
+            "price": 164.94000244140625,
+            "date": "2026-06-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/AMR?period1=0&period2=1791727007&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "KSPI",
+            "cusip": "48581R205",
+            "filedPrice": 86.63983548766157,
+            "price": 86.63999938964844,
+            "date": "2026-06-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/KSPI?period1=0&period2=1791727008&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          }
+        ],
+        "normalizedHash": "70a928351df18af8ab86b4217c945292470c76eb9e51ee67374b5cecd47d1c95"
+      },
+      "2013 Q2": {
+        "version": 1,
+        "checkedAt": "2026-10-10",
+        "source": "https://www.sec.gov/Archives/edgar/data/1549575/000154692713000141/infotable.xml",
+        "filingDate": "2013-08-12",
+        "sourceDigest": "c8a9c6eb2cad5d92f82fcedf6d89a574f6e5acb62df84fe1ad41ab0511486f10",
+        "sourceHash": "2ff19cad0c5dc15cd23f14de7900ab244045ffd87caf27cf9c16cc1ff3907110",
+        "status": "verified",
+        "factor": 1,
+        "anchors": [
+          {
+            "ticker": "BAC",
+            "cusip": "060505104",
+            "filedPrice": 12.860037323380432,
+            "price": 12.859999656677246,
+            "date": "2013-06-28",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/BAC?period1=0&period2=1791727013&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "C",
+            "cusip": "172967424",
+            "filedPrice": 47.96987179487179,
+            "price": 47.970001220703125,
+            "date": "2013-06-28",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/C?period1=0&period2=1791727015&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "GS",
+            "cusip": "38141G104",
+            "filedPrice": 151.25155960327922,
+            "price": 151.25,
+            "date": "2013-06-28",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/GS?period1=0&period2=1791727018&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          }
+        ],
+        "normalizedHash": "2ff19cad0c5dc15cd23f14de7900ab244045ffd87caf27cf9c16cc1ff3907110"
+      },
+      "2013 Q3": {
+        "version": 1,
+        "checkedAt": "2026-10-10",
+        "source": "https://www.sec.gov/Archives/edgar/data/1549575/000154692713000203/infotable.xml",
+        "filingDate": "2013-11-12",
+        "sourceDigest": "5453938fedc803cbb5cd93404c3c808ec5f51f49aaf629e0075ae0b64ff85759",
+        "sourceHash": "a4363c88065222ce7eb617efe652a816818519eca93bb68273d173c8707a6e49",
+        "status": "verified",
+        "factor": 1,
+        "anchors": [
+          {
+            "ticker": "BAC",
+            "cusip": "060505104",
+            "filedPrice": 13.800053319114904,
+            "price": 13.800000190734863,
+            "date": "2013-09-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/BAC?period1=0&period2=1791727013&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "C",
+            "cusip": "172967424",
+            "filedPrice": 48.51025641025641,
+            "price": 48.5099983215332,
+            "date": "2013-09-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/C?period1=0&period2=1791727015&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "GS",
+            "cusip": "38141G104",
+            "filedPrice": 158.20897626583394,
+            "price": 158.2100067138672,
+            "date": "2013-09-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/GS?period1=0&period2=1791727018&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          }
+        ],
+        "normalizedHash": "a4363c88065222ce7eb617efe652a816818519eca93bb68273d173c8707a6e49"
+      },
+      "2013 Q4": {
+        "version": 1,
+        "checkedAt": "2026-10-10",
+        "source": "https://www.sec.gov/Archives/edgar/data/1549575/000154692714000056/infotable.xml",
+        "filingDate": "2014-02-13",
+        "sourceDigest": "8997fdc77e967ad23725d7a0a58928b321edcfe81869b382f564c1fc8d9c660c",
+        "sourceHash": "e8ea41a4c05ad77e024fc9d6128757fa08030f50cdcf1c7fb4091b71a6be2ff8",
+        "status": "verified",
+        "factor": 1,
+        "anchors": [
+          {
+            "ticker": "BAC",
+            "cusip": "060505104",
+            "filedPrice": 15.570058100256722,
+            "price": 15.569999694824219,
+            "date": "2013-12-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/BAC?period1=0&period2=1791727013&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "C",
+            "cusip": "172967424",
+            "filedPrice": 52.11025641025641,
+            "price": 52.11000061035156,
+            "date": "2013-12-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/C?period1=0&period2=1791727015&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "GS",
+            "cusip": "38141G104",
+            "filedPrice": 177.26434780981256,
+            "price": 177.25999450683594,
+            "date": "2013-12-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/GS?period1=0&period2=1791727018&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          }
+        ],
+        "normalizedHash": "e8ea41a4c05ad77e024fc9d6128757fa08030f50cdcf1c7fb4091b71a6be2ff8"
+      },
+      "2014 Q1": {
+        "version": 1,
+        "checkedAt": "2026-10-10",
+        "source": "https://www.sec.gov/Archives/edgar/data/1549575/000154957514000002/infotable.xml",
+        "filingDate": "2014-05-13",
+        "sourceDigest": "870ddd339c5c07f20ff71b9ee5a03a7938299e5a3ac73ebbc3410c460f6ffd1f",
+        "sourceHash": "7515644573d84c888e5d2aaa428d849426268b0143783a0bf866d80c3a853c2c",
+        "status": "verified",
+        "factor": 1,
+        "anchors": [
+          {
+            "ticker": "BAC",
+            "cusip": "060505104",
+            "filedPrice": 17.2,
+            "price": 17.200000762939453,
+            "date": "2014-03-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/BAC?period1=0&period2=1791727013&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "C",
+            "cusip": "172967424",
+            "filedPrice": 47.6,
+            "price": 47.599998474121094,
+            "date": "2014-03-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/C?period1=0&period2=1791727015&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "GS",
+            "cusip": "38141G104",
+            "filedPrice": 163.85465502559353,
+            "price": 163.85000610351562,
+            "date": "2014-03-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/GS?period1=0&period2=1791727018&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "GM",
+            "cusip": "37045V100",
+            "filedPrice": 34.41321604805836,
+            "price": 34.41999816894531,
+            "date": "2014-03-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/GM?period1=0&period2=1791727024&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "BRK/B",
+            "cusip": "084670702",
+            "filedPrice": 124.98220640569394,
+            "price": 124.97000122070312,
+            "date": "2014-03-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/BRK-B?period1=0&period2=1791727025&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          }
+        ],
+        "normalizedHash": "7515644573d84c888e5d2aaa428d849426268b0143783a0bf866d80c3a853c2c"
+      },
+      "2014 Q2": {
+        "version": 1,
+        "checkedAt": "2026-10-10",
+        "source": "https://www.sec.gov/Archives/edgar/data/1549575/000154957514000006/infotable.xml",
+        "filingDate": "2014-08-13",
+        "sourceDigest": "b0446d103c21951c014f6c738dfae07bf99ddb58e4823aff0374b053e33fd812",
+        "sourceHash": "e107bd57485563ff3bcde979709d9c177f501a38ce74bc0db467e2d61f7297e5",
+        "status": "verified",
+        "factor": 1,
+        "anchors": [
+          {
+            "ticker": "BAC",
+            "cusip": "060505104",
+            "filedPrice": 15.370051282051282,
+            "price": 15.369999885559082,
+            "date": "2014-06-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/BAC?period1=0&period2=1791727013&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "C",
+            "cusip": "172967424",
+            "filedPrice": 47.1,
+            "price": 47.099998474121094,
+            "date": "2014-06-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/C?period1=0&period2=1791727015&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "GS",
+            "cusip": "38141G104",
+            "filedPrice": 167.43868317378326,
+            "price": 167.44000244140625,
+            "date": "2014-06-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/GS?period1=0&period2=1791727018&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "GM",
+            "cusip": "37045V100",
+            "filedPrice": 36.30122291353787,
+            "price": 36.29999923706055,
+            "date": "2014-06-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/GM?period1=0&period2=1791727024&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "BRK/B",
+            "cusip": "084670702",
+            "filedPrice": 126.54804270462634,
+            "price": 126.55999755859375,
+            "date": "2014-06-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/BRK-B?period1=0&period2=1791727025&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          }
+        ],
+        "normalizedHash": "e107bd57485563ff3bcde979709d9c177f501a38ce74bc0db467e2d61f7297e5"
+      }
+    },
+    "excludedValueQuarters": []
   }
 }

@@ -609,6 +609,11 @@ def merge_into_json(results: list[dict], dry_run=False) -> int:
         # Fix 3: 如果上市价为 None 但有上市日期，尝试拉取首日收盘价
         price_at_listing = r.get('price_at_listing')
         listing_date     = r.get('listing_date', '')
+        actual_dates={e['dates']['listingDate']['date'] for e in data.get('events',[]) if e.get('parentTicker')==parent_tk and e.get('targetTicker','').lstrip('0')==spinoff_tk.lstrip('0') and e.get('dates',{}).get('listingDate',{}).get('kind')=='actual'}
+        if len(actual_dates)==1:
+            actual=actual_dates.pop()
+            if listing_date!=actual:price_at_listing=None
+            listing_date=actual
         if price_at_listing is None and listing_date:
             p0 = fetch_price_on_date(spinoff_tk, listing_date)
             if p0:

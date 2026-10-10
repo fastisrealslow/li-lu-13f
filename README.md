@@ -343,3 +343,14 @@ thinking. Do not expose this endpoint as a public service.
 
 
 The [2026-10-09 portfolio, AI and HK review](docs/portfolio-ai-hk-review-2026-10-09.md) documents complete change counts, instrument classification, source-bound summaries and dated HK holdings. All filers group duplicate rows by CUSIP and instrument type. The data updater refreshes safe summaries independently of model availability; AI selects highlights and the complete change list remains accessible.
+
+
+### 自动核对历史金额与上市完成状态
+
+每天两次更新中，`audit_13f_history.py` 在股价和 AI 摘要之前运行，按投资人配置自动扫描历史缓存。每次每人最多重查 6 季，优先处理缺少来源、单位异常和待核实季度；旧核对结果每 180 天滚动复查，失败会重试，并补查同一报告期的重述修订申报；新增持仓式修订不会替代完整持仓。以 SEC 原始信息表重建持仓，只有至少 3 个不同普通股的独立季末行情一致支持同一美元/千美元单位时才统一金额，并保留来源、原表摘要、换算倍数和行情证据。行情核对会还原季末之后的拆股，期权、权证和债券不参与单位判断。不能核实的金额不补零，股数记录仍保留以避免假造重新建仓；受影响的长期均价暂不显示；数值改动会使成本与各 tab 的 AI 缓存自动失效。发布前校验确保金额仍与核对证据一致。
+
+`hk_listing_completion.py` 自动查询已识别介绍上市标的自身的 HKEX 公告与财报，不依赖公告再次出现“分拆”关键词。只有正文中的发行人名称、股票代码和实际上市日期一致，才转为已完成；预期时间表、母公司报价和其他公司的上市不作为完成证据。完成项目保留在档案和介绍上市自选，实际日期替代公告日期作为首日价格基准。文档版本缓存、限量补查和失败重试适用于后续项目，无须为单家公司写例外。
+
+自动任务发布前检查本轮使用的代码版本；规则已更新时由新任务重新计算，避免旧任务覆盖修正。
+
+港股分拆档案按「关联公司＋标的」增量合并，以原文链接去重，搜索窗口外的项目和证据持续保留。已绑定同一证券代码的名称归为同一标的；同一公司不同标的不混并。后续财报中明确的实物分派完成日期也会自动核验，既有上市不能替代新一轮分派的完成证据。最近检查时间、原公告日期、补录和档案修正分别标示；全部与近 7 天筛选读取同一份档案并按最近更新排序。纯价格刷新和重复抓取不会算作项目新进展。
