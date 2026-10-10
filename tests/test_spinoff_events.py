@@ -22,6 +22,11 @@ class SpinEvidenceTests(unittest.TestCase):
         again=normalize(copy.deepcopy(result),'hk',now='2026-10-11T01:00:00Z')
         self.assertEqual(again['changes'],result['changes'])
         self.assertEqual(again['events'][0]['recordUpdatedAt'],result['events'][0]['recordUpdatedAt'])
+        trimmed=copy.deepcopy(result);trimmed['changes']=[]
+        trimmed['events'][0]['changedAt']='2026-09-01T01:00:00Z'
+        normalize(trimmed,'hk',now='2026-10-12T01:00:00Z')
+        self.assertEqual(trimmed['events'][0]['updateKind'],'new_filing')
+        self.assertEqual(trimmed['events'][0]['recordUpdatedAt'],result['events'][0]['recordUpdatedAt'])
 
     def test_rolling_search_retains_existing_archive_and_deduplicates_full_urls(self):
         from fetch_spinoff import merge_by_company

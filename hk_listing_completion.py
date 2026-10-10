@@ -106,7 +106,7 @@ def distribution_proof(text, ann, target, ticker, parent_code):
     if len({iso_date(m[1]) for m in matches})!=1:return None
     m=matches[0];date=iso_date(m[1])
     return {'status':'completed','quote':m[0],'url':ann['url'],'date':ann['date'],'title':ann.get('title',''),
-        'targetName':target,'targetTicker':ticker,'identityKind':'instrument','identityQuote':header[:700],
+        'targetName':target,'targetTicker':ticker,'identityKind':'instrument','identityQuote':'','issuerQuote':header[:700],
         'identityReason':'issuer_bound_distribution','identityVersion':3,'method':'rule','ruleVersion':RULE_VERSION,
         'sourceIssuerName':ann.get('sourceIssuerName') or ann.get('issuerName',''),
         'sourceIssuerCode':expected,

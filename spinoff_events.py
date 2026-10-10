@@ -319,6 +319,13 @@ def normalize(data, market, previous=None, now=None):
             relevant = market == 'hk' or bool(ann.get('adsh')) or not re.search(r'公告（|签订.*（|交割完成.*（|变动.*（', ann.get('title', ''))
             announcements.append({**ann, 'url': url, 'direct': direct_source(url), 'relevance': 'candidate' if relevant else 'unverified'})
         announcements.sort(key=lambda a: a.get('date', ''), reverse=True)
+        for proof in c.get('filingEvidence') or []:
+            if proof.get('distributionCompletionVersion'):
+                # The parent's letterhead verifies the filing issuer, not the
+                # child's legal name. Retain the original naming document.
+                if not proof.get('issuerQuote'):
+                    proof['issuerQuote'] = proof.get('identityQuote', '')
+                proof['identityQuote'] = ''
         proofs = [{**p, 'quote': html.unescape(p.get('quote', ''))} for p in c.get('filingEvidence') or []]
         for proof in proofs:
             if proof.get('method') == 'rule' and proof.get('ruleVersion', 0) < RULE_VERSION:
@@ -326,7 +333,7 @@ def normalize(data, market, previous=None, now=None):
                 # text must never preserve a known boilerplate false positive.
                 if proof.get('distributionCompletionVersion'):
                     from hk_listing_completion import distribution_proof
-                    checked=distribution_proof(proof.get('identityQuote','')+' '+proof.get('quote',''),proof,proof.get('targetName',''),proof.get('targetTicker',''),parent)
+                    checked=distribution_proof(proof.get('issuerQuote','')+' '+proof.get('quote',''),proof,proof.get('targetName',''),proof.get('targetTicker',''),parent)
                     proof.update(checked or {'status':'needs_review','quote':''},ruleVersion=RULE_VERSION)
                 elif proof.get('listingCompletionVersion'):
                     from hk_listing_completion import listing_proof
@@ -511,9 +518,9 @@ def normalize(data, market, previous=None, now=None):
                                     'fields': fields, 'before': old_semantic if old else None, 'after': semantic,
                                     'fromStatus': old.get('status') if old else None, 'toStatus': status})
             event_updates = [ch for ch in changes if ch.get('eventId') in {eid, *event['mergedIds']}]
-            event['recordUpdatedAt'] = max([event['changedAt'], *[ch['at'] for ch in event_updates]])
+            event['recordUpdatedAt'] = max([event['changedAt'], (old or {}).get('recordUpdatedAt', ''), *[ch['at'] for ch in event_updates]])
             last_update = max(event_updates, key=lambda ch: ch['at'], default={})
-            event['updateKind'] = last_update.get('updateKind', 'correction' if last_update else 'initial')
+            event['updateKind'] = last_update.get('updateKind') or (old or {}).get('updateKind') or ('correction' if last_update else 'initial')
             events.append(event)
     live_ids = {e['id'] for e in events}
     for event in events:

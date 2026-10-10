@@ -9,6 +9,10 @@ class ListingCompletion(unittest.TestCase):
   text='Issuer (Stock Code: 41) A special dividend was distributed on 2 April 2026 in the form of distribution in specie of share stapled units of Child (Stock Code: 1270) to qualifying Shareholders.'
   proof=listing.distribution_proof(text,ann,'Child','01270.HK','00041')
   self.assertEqual(proof['dates']['distributionDate']['date'],'2026-04-02')
+  named={'url':'https://www1.hkexnews.hk/listedco/naming.pdf','date':'2026-02-25','targetName':'Child','targetTicker':'01270.HK','identityQuote':'Trust means Child','identityKind':'instrument','status':'record_set','quote':'Record date set'}
+  data={'companies':[{'stockCode':'00041','filingEvidence':[named,proof]}]}
+  normalize(data,'hk');self.assertEqual(data['events'][0]['identityEvidence']['url'],named['url'])
+  self.assertEqual(data['events'][0]['evidence']['url'],ann['url'])
   from spinoff_events import merge_evidence
   weaker={**ann,'targetName':'','status':'needs_review','quote':''}
   self.assertEqual(merge_evidence([proof],[weaker])[0]['status'],'completed')
