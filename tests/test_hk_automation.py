@@ -79,6 +79,21 @@ class HKAutomationTests(unittest.TestCase):
         hits, total, pages = hk.parse_search('<p>No records found</p>', hk.BASE+'NSSrchPersonList.aspx', ALIASES)
         self.assertEqual((hits, total, pages), ([], 0, []))
 
+    def test_nested_derivative_interests_are_not_silently_zero(self):
+        html = fixture('psbc_form') + '''<span id="lblDIssued">19,856,167,000</span>
+        <table id="grdDer_SS"><tr><td>Derivatives code</td><td>Number of shares</td></tr>
+        <tr><td><table><tr><td>4101</td><td>Listed derivatives - Physically settled</td></tr></table></td>
+        <td><table><tr><td>Long position</td><td>10,000,000</td></tr></table></td></tr></table>'''
+        r = hk.parse_form(html, hk.BASE+'NSForm1.aspx', ALIASES)
+        self.assertEqual(r['ticker'], '01658.HK')
+        self.assertEqual(r['shares'], 985618000)
+        self.assertEqual(r['issued_shares'], 19856167000)
+        self.assertEqual(r['derivative_interests'], [{'code':'4101 Listed derivatives - Physically settled','shares':10000000}])
+        self.assertEqual(r['position_details_schema'], hk.POSITION_DETAILS_SCHEMA)
+        self.assertIsNone(hk.parse_form(fixture('psbc_form'), hk.BASE+'NSForm1.aspx', ALIASES)['derivative_interests'])
+        with self.assertRaises(ValueError):
+            hk.parse_form(html.replace('10,000,000', 'unknown'), hk.BASE+'NSForm1.aspx', ALIASES)
+
     def test_only_long_positions_and_valid_dates(self):
         self.assertEqual(hk.long_number('1,234 (L) 98 (S)', True), 1234)
         for bad in ['98 (S)', '-', '1.5 (L)', '1 (L) 2 (L)', '-100 (L)', '1,,234 (L)', '1e9 (L)']:

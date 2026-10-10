@@ -96,6 +96,17 @@ class ValidationTests(unittest.TestCase):
         self.assertIn("hk.json", files)
         self.assertIn("spinoff.json", files)
 
+    def test_hk_detail_fields_reject_invalid_quantities(self):
+        record = dict(event_date='2025-05-08', filing_ref='TEST', shares=985618000, pct=4.96,
+                      source_url='https://di.hkex.com.hk/di/NSForm1.aspx')
+        for extra in ({'issued_shares': -1}, {'derivative_interests': [{'code': '4101', 'shares': '100'}]},
+                      {'derivative_interests': {}}, {'short_shares': 1, 'short_pct': None}):
+            with self.subTest(extra=extra), self.assertRaises(ValueError):
+                validate_data.validate_hk_evidence({'holdings': [{'ticker': '01658.HK', 'verified_disclosures': [{**record, **extra}]}]})
+        validate_data.validate_hk_evidence({'holdings': [{'ticker': '01658.HK', 'verified_disclosures': [
+            {**record, 'issued_shares': 19856167000, 'derivative_interests': [{'code': '4101', 'shares': 10000000}],
+             'short_shares': 0, 'short_pct': 0}]}]})
+
     def test_malformed_extra_file_causes_nonzero_cli_exit(self):
         (self.root / "spinoff.json").write_text('{broken')
         result = subprocess.run([sys.executable, str(ROOT / "validate_data.py")], cwd=self.root,

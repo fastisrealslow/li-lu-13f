@@ -45,8 +45,11 @@ def detail(label, text):
     return dict(label=label, text=text)
 
 
-def brief(headline, lead, details=None, notes=None):
-    return dict(version=1, headline=headline, lead=lead, details=details or [], notes=notes or [])
+def brief(headline, lead, details=None, notes=None, reader_guide=None):
+    result = dict(version=1, headline=headline, lead=lead, details=details or [], notes=notes or [])
+    if reader_guide:
+        result['readerGuide'] = reader_guide
+    return result
 
 
 def names(rows, en=False):
@@ -101,7 +104,9 @@ def holdings_briefing(data):
     notes=[pair('统计仅覆盖本期 13F；港股补充行按各自披露日期单列。','Figures cover this 13F filing; supplementary HK rows retain their individual disclosure dates.')]
     options=[h for h in rows if h.get('putCall')]
     if options:notes.append(pair(f'含 {len(options)} 项期权：申报值是标的证券价值，不是权利金；未与普通股公司敞口相抵。',f'{len(options)} option positions report underlying security values, not premiums; they are not netted against ordinary-share issuer exposure.'))
-    return brief(headline,lead,details[:3],notes)
+    guide=pair(f'先研究 {names(top[:2])}：它们是本期最大的申报证券。把企业经营与最新估值放在一起核对；持仓权重说明研究重点，不等于今天仍值得买入。',
+               f'Start your research with {names(top[:2],True)}, the largest reported securities. Compare business performance with current valuation; disclosed weight identifies a research focus, not a buy signal today.')
+    return brief(headline,lead,details[:3],notes,guide)
 
 
 def share_clause(h, en=False):
@@ -126,7 +131,7 @@ def changes_briefing(data):
         reasons={'snapshot':pair('历史快照没有完整季度对照','The archive has no complete quarterly comparison'),
                  'scope_changed':pair('本季申报范围改变，不能把差异读成交易','The reporting scope changed; differences cannot establish trades'),
                  'gap':pair('中间季度缺失，当前只能做跨期观察','A missing quarter prevents a quarter-on-quarter comparison')}
-        return brief(reasons[state],pair(f'{cur["quarter"]} 的证券记录可以查看，但本页没有同一范围、相邻季度的完整对照，因此不列加减仓结论。',f'The securities in {cur["quarter"]} remain visible, but a complete comparison of adjacent quarters within the same scope is unavailable.'))
+        return brief(reasons[state],pair(f'{cur["quarter"]} 的证券记录可以查看，但本页没有同一范围、相邻季度的完整对照，因此不列加减仓结论。',f'The securities in {cur["quarter"]} remain visible, but a complete comparison of adjacent quarters within the same scope is unavailable.'),reader_guide=pair('先核对申报主体、范围和季度是否一致，不要把范围变化或历史缺口当成加减仓。','Verify the reporting entity, scope and consecutive quarters before treating differences as additions or reductions.'))
     rows=r['rows'];up=[h for h in rows if category(h) in ('new','added')];down=[h for h in rows if category(h) in ('trimmed','exited')]
     values_ok=not cur.get('valueQuality') and all(valid_number(h.get('prevValue')) and valid_number(h.get('value')) for h in rows)
     total=sum(h['value'] for h in rows);previous=sum(h.get('prevValue') or 0 for h in rows)
@@ -190,7 +195,9 @@ def changes_briefing(data):
     if cur.get('valueQuality'):notes.append(pair('申报值量级待核实，仅总结股数，不比较金额或权重。','Reported value scale is unresolved; only share counts are compared.'))
     if any(h.get('putCall') for h in rows):notes.append(pair('期权行的股数与申报值指其标的证券，不是期权权利金。','Option rows compare underlying shares and reported values, not option premiums.'))
     notes.append(pair('股数按披露净变化；金额不是成交资金。全部变动名单保留在下方。','Share counts are net disclosure differences; value changes are not transaction cash flows. Complete changes follow below.'))
-    return brief(headline,lead,details[:3],notes)
+    guide=pair(f'先看 {names(ranked[:2])} 的股数方向，再看它们在组合中的体量。回到公司同期财报核对变化；这里不能证明经理买卖的理由。',
+               f'Check the share-count direction and portfolio scale of {names(ranked[:2],True)} first, then read the companies’ contemporaneous filings. These differences do not establish the manager’s trade motives.') if ranked else pair('股数没有已核实的增减时，先区分股价带来的金额变化与实际持仓变化，避免把上涨当成加仓。','Without verified share-count changes, distinguish price-driven value changes from position changes; a rise in value is not an addition.')
+    return brief(headline,lead,details[:3],notes,guide)
 
 
 def history_briefing(data):
@@ -261,4 +268,6 @@ def history_briefing(data):
         gaps=list(dict.fromkeys(missing+h.get('excludedValueQuarters',[])))
         notes.append(pair('缺少或排除的金额季度：'+'、'.join(gaps)+'。图表在缺口断开。','Missing/excluded value quarters: '+', '.join(gaps)+'. The chart breaks at these gaps.'))
     notes.append(pair('这里是披露证券的市值与结构变化，不是基金净值或投资回报。','This is evolution in disclosed security values and composition, not fund NAV or investment return.'))
-    return brief(headline,lead,details[:3],notes)
+    guide=pair(f'先对照 {start} 至 {end} 的连续披露，看核心证券是否延续、集中度是否改变。图表金额不是收益率，缺失季度也不能推断为清仓。',
+               f'Compare the continuous {start}–{end} disclosures for persistence in core holdings and changing concentration. Chart values are not returns, and a missing quarter is not evidence of an exit.')
+    return brief(headline,lead,details[:3],notes,guide)

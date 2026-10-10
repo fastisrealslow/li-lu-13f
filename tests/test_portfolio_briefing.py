@@ -15,6 +15,20 @@ def text(b):
 
 
 class PortfolioBriefingTests(unittest.TestCase):
+    def test_reading_guides_are_source_bound_and_do_not_turn_disclosures_into_buy_signals(self):
+        d=json.loads((ROOT/'data.json').read_text())
+        for fn in (holdings_briefing, changes_briefing, history_briefing):
+            b=fn(d)
+            self.assertEqual(len(b['readerGuide']),2)
+            self.assertTrue(all(b['readerGuide']))
+        self.assertIn('不等于今天仍值得买入',holdings_briefing(d)['readerGuide'][0])
+        self.assertIn('不能证明经理买卖的理由',changes_briefing(d)['readerGuide'][0])
+        self.assertIn('不是收益率',history_briefing(d)['readerGuide'][0])
+        task=next(t for t in ai.tasks(ROOT) if t['id']=='holdings:lilu')
+        entry=ai.make_entry(task,ai.fallback_selection(task['facts']))
+        entry['briefing']['readerGuide'][0]='捏造的确定买入建议'
+        self.assertFalse(ai.valid_entry(entry,task))
+
     def test_principal_quantities_are_not_shares_and_tiny_percentages_are_nonzero(self):
         h=dict(ticker='BOND',shareType='PRN',shares=200,prevShares=100,value=300)
         self.assertIn('本金',share_clause(h));self.assertIn('principal',share_clause(h,True))

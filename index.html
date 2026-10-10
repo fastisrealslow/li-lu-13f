@@ -373,7 +373,7 @@ th .info-wrap{position:relative;display:inline-flex}
 @media(max-width:640px){.insights-box{padding:16px}.scope-facts{grid-template-columns:1fr}.scope-heading{align-items:flex-start}.philosophy-signature{padding:16px}}
 </style>
 <link rel="stylesheet" href="spinoff_ui.css?v=11">
-<link rel="stylesheet" href="theme.css?v=4">
+<link rel="stylesheet" href="theme.css?v=5">
 </head>
 <body>
 
@@ -458,6 +458,7 @@ th .info-wrap{position:relative;display:inline-flex}
         
       </div></div>
       <div id="holdingsInsight" class="insights-box"></div>
+      <section id="hkDisclosureSection" class="hk-disclosure-section" hidden></section>
     </div>
     <div id="tab-changes" class="d-none">
       <div class="table-wrap"><table><thead><tr>
@@ -484,7 +485,7 @@ th .info-wrap{position:relative;display:inline-flex}
       <div id="historyMobileWrap" style="display:none;"></div>
       <div style="margin-top:36px;">
         <h3 style="font-family:var(--serif);font-size:1.05rem;color:var(--navy);margin-bottom:12px;font-weight:600;"><span data-i18n="tlTitle">持仓时间轴</span></h3>
-        <div id="timelineCanvas" class="chart-wrap" style="padding:16px;"></div>
+        <div id="timelineCanvas" class="holdings-timeline"></div>
       </div>
       <div id="historyInsight" class="insights-box"></div>
     </div>
@@ -588,7 +589,7 @@ th .info-wrap{position:relative;display:inline-flex}
   </div>
 </footer>
 
-<script src="app.js?v=75"></script>
+<script src="app.js?v=76"></script>
 <script src="spinoff_ui.js?v=14"></script>
 <script>
 function toggleNavigation(){

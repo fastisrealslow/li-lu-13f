@@ -83,6 +83,20 @@ def validate_hk_evidence(value):
             shares, pct = record.get("shares"), record.get("pct")
             if type(shares) is not int or shares < 0 or type(pct) not in (int,float) or not math.isfinite(pct) or not 0 <= pct <= 100:
                 raise ValueError("Invalid HK post-event position")
+            issued = record.get('issued_shares')
+            if issued is not None and (type(issued) is not int or issued <= 0):
+                raise ValueError('Invalid HK issued share count')
+            derivatives = record.get('derivative_interests')
+            if derivatives is not None:
+                if not isinstance(derivatives, list) or any(
+                    not isinstance(d, dict) or not isinstance(d.get('code'), str) or
+                    type(d.get('shares')) is not int or d['shares'] < 0 for d in derivatives
+                ):
+                    raise ValueError('Invalid HK derivative interest quantity')
+            if 'short_shares' in record or 'short_pct' in record:
+                short, short_pct = record.get('short_shares'), record.get('short_pct')
+                if type(short) is not int or short < 0 or type(short_pct) not in (int,float) or not math.isfinite(short_pct) or not 0 <= short_pct <= 100:
+                    raise ValueError('Invalid HK short interest')
         for record in holding.get('financial_disclosures', []):
             date.fromisoformat(record.get('as_of', ''))
             url = urlsplit(record.get('source_url', ''))

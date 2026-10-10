@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-10T13:41:34Z",
+  "updatedAt": "2026-10-10T16:58:54.023034+00:00",
   "knownStocks": {
     "duan": [
       "09992.HK"
@@ -5422,7 +5422,7 @@
   "verificationRuns": [
     {
       "investor": "abrams",
-      "checkedAt": "2026-10-10T13:38:54Z",
+      "checkedAt": "2026-10-10T16:45:49Z",
       "status": "checked",
       "queries": [
         {
@@ -5463,7 +5463,7 @@
     },
     {
       "investor": "ackman",
-      "checkedAt": "2026-10-10T13:38:45Z",
+      "checkedAt": "2026-10-10T16:45:43Z",
       "status": "checked",
       "queries": [
         {
@@ -5504,7 +5504,7 @@
     },
     {
       "investor": "akre",
-      "checkedAt": "2026-10-10T13:38:24Z",
+      "checkedAt": "2026-10-10T16:45:05Z",
       "status": "checked",
       "queries": [
         {
@@ -5545,7 +5545,7 @@
     },
     {
       "investor": "berkowitz",
-      "checkedAt": "2026-10-10T13:39:02Z",
+      "checkedAt": "2026-10-10T16:46:01Z",
       "status": "checked",
       "queries": [
         {
@@ -5586,7 +5586,7 @@
     },
     {
       "investor": "buffett",
-      "checkedAt": "2026-10-10T13:37:48Z",
+      "checkedAt": "2026-10-10T16:44:00Z",
       "status": "checked",
       "queries": [
         {
@@ -5627,48 +5627,67 @@
     },
     {
       "investor": "duan",
-      "checkedAt": "2026-10-10T13:37:14Z",
-      "status": "checked",
+      "checkedAt": "2026-10-10T16:53:26Z",
+      "status": "partial",
       "queries": [
         {
           "query": "H&H International Investment",
-          "archive": "dion",
-          "status": "ok",
-          "matchedSecurities": 1,
+          "status": "failed",
           "url": "https://di.hkex.com.hk/di/NSSrchPersonList.aspx?sa1=pl&scsd=03%2F07%2F2017&sced=10%2F10%2F2026&pn=H%26H+International+Investment&src=MAIN&lang=EN&g_lang=en"
         },
         {
           "query": "Duan Yong",
-          "archive": "dion",
-          "status": "ok",
-          "matchedSecurities": 1,
+          "status": "failed",
           "url": "https://di.hkex.com.hk/di/NSSrchPersonList.aspx?sa1=pl&scsd=03%2F07%2F2017&sced=10%2F10%2F2026&pn=Duan+Yong&src=MAIN&lang=EN&g_lang=en"
         },
         {
           "query": "H&H International Investment",
-          "archive": "legacy",
-          "status": "ok",
-          "matchedSecurities": 0,
+          "status": "failed",
           "url": "https://di.hkex.com.hk/filing/di/NSSrchPersonList.aspx?sa1=pl&scsd=01%2F04%2F2003&sced=02%2F10%2F2017&pn=H%26H+International+Investment&src=MAIN&lang=EN&g_lang=en"
         },
         {
           "query": "Duan Yong",
-          "archive": "legacy",
-          "status": "ok",
-          "matchedSecurities": 0,
+          "status": "failed",
           "url": "https://di.hkex.com.hk/filing/di/NSSrchPersonList.aspx?sa1=pl&scsd=01%2F04%2F2003&sced=02%2F10%2F2017&pn=Duan+Yong&src=MAIN&lang=EN&g_lang=en"
         }
       ],
       "discoveredSources": 2,
       "verifiedSecurities": 1,
       "pendingSecurities": 2,
-      "recordsFetched": 22,
-      "errors": [],
+      "recordsFetched": 11,
+      "errors": [
+        {
+          "query": "H&H International Investment",
+          "url": "https://di.hkex.com.hk/di/NSSrchPersonList.aspx?sa1=pl&scsd=03%2F07%2F2017&sced=10%2F10%2F2026&pn=H%26H+International+Investment&src=MAIN&lang=EN&g_lang=en",
+          "reason": "HKEX fetch failed: The read operation timed out"
+        },
+        {
+          "query": "Duan Yong",
+          "url": "https://di.hkex.com.hk/di/NSSrchPersonList.aspx?sa1=pl&scsd=03%2F07%2F2017&sced=10%2F10%2F2026&pn=Duan+Yong&src=MAIN&lang=EN&g_lang=en",
+          "reason": "HKEX fetch failed: The read operation timed out"
+        },
+        {
+          "query": "H&H International Investment",
+          "url": "https://di.hkex.com.hk/filing/di/NSSrchPersonList.aspx?sa1=pl&scsd=01%2F04%2F2003&sced=02%2F10%2F2017&pn=H%26H+International+Investment&src=MAIN&lang=EN&g_lang=en",
+          "reason": "HKEX fetch failed: The read operation timed out"
+        },
+        {
+          "query": "Duan Yong",
+          "url": "https://di.hkex.com.hk/filing/di/NSSrchPersonList.aspx?sa1=pl&scsd=01%2F04%2F2003&sced=02%2F10%2F2017&pn=Duan+Yong&src=MAIN&lang=EN&g_lang=en",
+          "reason": "HKEX fetch failed: The read operation timed out"
+        },
+        {
+          "entity": "H&H International Investment, LLC",
+          "security": "Pop Mart International Group Ltd.",
+          "url": "https://di.hkex.com.hk/di/NSNoticePersonList.aspx?sa2=np&scpid1=156901&scpid3=0&scpid2=312028&sa1=pl&scsd=03%2F07%2F2017&sced=10%2F10%2F2026&pn=H%26H+International+Investment&src=MAIN&lang=EN&g_lang=en",
+          "reason": "HKEX fetch failed: The read operation timed out"
+        }
+      ],
       "scope": "匹配已配置主体的公开多头权益披露；不等于完整投资组合或当前持仓"
     },
     {
       "investor": "greenberg",
-      "checkedAt": "2026-10-10T13:38:31Z",
+      "checkedAt": "2026-10-10T16:45:20Z",
       "status": "checked",
       "queries": [
         {
@@ -5709,7 +5728,7 @@
     },
     {
       "investor": "hawkins",
-      "checkedAt": "2026-10-10T13:39:10Z",
+      "checkedAt": "2026-10-10T16:46:09Z",
       "status": "partial",
       "queries": [
         {
@@ -5744,8 +5763,20 @@
       "discoveredSources": 5,
       "verifiedSecurities": 4,
       "pendingSecurities": 0,
-      "recordsFetched": 54,
+      "recordsFetched": 33,
       "errors": [
+        {
+          "entity": "Southeastern Asset Management, Inc.",
+          "security": "Hopewell Holdings Ltd.",
+          "url": "https://di.hkex.com.hk/filing/di/NSNoticePersonList.aspx?sa2=np&scpid=2360056&sa1=pl&scsd=01%2f04%2f2003&sced=02%2f10%2f2017&pn=Southeastern+Asset+Management%2c+Inc.&src=MAIN&lang=EN&g_lang=en&",
+          "reason": "HKEX fetch failed: The read operation timed out"
+        },
+        {
+          "entity": "Southeastern Asset Management, Inc.",
+          "security": "K. Wah International Holdings Ltd.",
+          "url": "https://di.hkex.com.hk/filing/di/NSNoticePersonList.aspx?sa2=np&scpid=2338119&sa1=pl&scsd=01%2f04%2f2003&sced=02%2f10%2f2017&pn=Southeastern+Asset+Management%2c+Inc.&src=MAIN&lang=EN&g_lang=en&",
+          "reason": "HKEX fetch failed: The read operation timed out"
+        },
         {
           "entity": "Southeastern Asset Management, Inc.",
           "security": "Melco International Development Ltd.",
@@ -5757,7 +5788,7 @@
     },
     {
       "investor": "klarman",
-      "checkedAt": "2026-10-10T13:38:41Z",
+      "checkedAt": "2026-10-10T16:45:36Z",
       "status": "checked",
       "queries": [
         {
@@ -5798,7 +5829,7 @@
     },
     {
       "investor": "lilu",
-      "checkedAt": "2026-10-10T13:37:14Z",
+      "checkedAt": "2026-10-10T16:43:21Z",
       "status": "checked",
       "queries": [
         {
@@ -5839,7 +5870,7 @@
     },
     {
       "investor": "pabrai",
-      "checkedAt": "2026-10-10T13:37:14Z",
+      "checkedAt": "2026-10-10T16:43:21Z",
       "status": "checked",
       "queries": [
         {
@@ -5880,7 +5911,7 @@
     },
     {
       "investor": "tepper",
-      "checkedAt": "2026-10-10T13:37:31Z",
+      "checkedAt": "2026-10-10T16:43:41Z",
       "status": "checked",
       "queries": [
         {
@@ -5921,7 +5952,7 @@
     },
     {
       "investor": "vinall",
-      "checkedAt": "2026-10-10T13:39:23Z",
+      "checkedAt": "2026-10-10T16:47:10Z",
       "status": "checked",
       "queries": [
         {

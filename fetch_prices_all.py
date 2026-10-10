@@ -20,6 +20,7 @@
 """
 
 import json, os, sys, time, re, hashlib, urllib.request, urllib.error
+from zoneinfo import ZoneInfo
 from datetime import datetime, timezone, date
 from holdings_diff import share_adjustment, consolidate_holdings, same_security
 
@@ -61,6 +62,7 @@ def _load_investor_config():
             "data": inv["dataFile"],
             "prices": inv["pricesFile"],
             "market": inv["market"],
+            "hk": inv.get("hkFile"),
         }
         for inv in investors
     }
@@ -173,8 +175,10 @@ def get_hk_prices(tickers):
                 if not tk: continue
                 try:
                     price = round(float(fields[6]), 3)
-                    if price > 0:
-                        result[tk] = {"c": price, "currency": "HKD"}
+                    quote_time = datetime.strptime(fields[17]+' '+fields[18], '%Y/%m/%d %H:%M').replace(tzinfo=ZoneInfo('Asia/Hong_Kong'))
+                    if price > 0 and quote_time.timestamp() <= time.time()+300:
+                        result[tk] = {"c": price, "currency": "HKD", "t": int(quote_time.timestamp()),
+                                      "source": "sina_hk", "sourceURL": 'https://finance.sina.com.cn/stock/hkstock/quotes/'+tk.replace('.HK','').zfill(5)+'.html'}
                         print(f"  {tk}: HK${price:.3f}")
                     else:
                         print(f"  {tk}: price=0 (no data)")
@@ -184,6 +188,39 @@ def get_hk_prices(tickers):
             print(f"  新浪 API 请求失败: {e}", file=sys.stderr)
         time.sleep(0.2)
     return result
+
+
+def disclosed_hk_tickers(payload):
+    """Quote only identified HK-listed classes; never guesses or A-share interests."""
+    from hk_disclosures import official_url
+    tickers = set()
+    for h in payload.get('holdings', []):
+        if not re.fullmatch(r'\d{5}\.HK', h.get('ticker', '')):
+            continue
+        for r in h.get('verified_disclosures', []):
+            share_class = r.get('share_class', '').casefold().replace('-', ' ')
+            if (r.get('verification') == 'hkex_form' and not r.get('superseded_by')
+                    and r.get('position') == 'long' and r.get('shares', 0) > 0
+                    and official_url(r.get('form_url') or r.get('source_url', ''))
+                    and share_class in ('ordinary shares', 'h shares')):
+                tickers.add(h['ticker'])
+    return sorted(tickers)
+
+
+def supplement_hk_quotes(cfg, quotes, cached=None):
+    """Separate HK reference quotes from 13F cost calculations and USD totals."""
+    if not cfg.get('hk') or not os.path.exists(cfg['hk']):
+        return quotes
+    with open(cfg['hk'], encoding='utf-8') as f:
+        tickers = disclosed_hk_tickers(json.load(f))
+    fetched = get_hk_prices(tickers) if tickers else {}
+    for ticker in tickers:
+        q = fetched.get(ticker, {'error': True})
+        old = (cached or {}).get(ticker, {})
+        if q.get('error') and old.get('currency') == 'HKD' and old.get('t') and old.get('c', 0) > 0:
+            q = {**old, 'stale': True}
+        quotes[ticker] = q
+    return quotes
 
 # ─────────────────────────────────────────────
 # Yahoo Finance 历史 K 线
@@ -571,6 +608,7 @@ def fetch_us(investor, cfg):
         time.sleep(0.3)
 
     # ── 写出 ──
+    supplement_hk_quotes(cfg, quotes, existing_quotes)
     for ticker in split_tickers:
         if ticker in cost_basis:
             cost_basis[ticker]["splitAdjustedThrough"] = quarter
@@ -728,6 +766,7 @@ def fetch_hk(investor, cfg):
         cost_basis[tk] = {"recent": recent, "allTime": all_time}
         time.sleep(1)
 
+    supplement_hk_quotes(cfg, quotes, existing.get('quotes', {}))
     out = {"quarter": quarter,
            "updatedAt": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
            "currency": "HKD", "quotes": quotes, "costBasis": cost_basis}
@@ -747,6 +786,16 @@ def main():
         get_finnhub_key(finnhub_key)
 
     cfg = INVESTOR_CONFIG[investor]
+
+    if '--hk-only' in sys.argv:
+        with open(cfg['prices'], encoding='utf-8') as f:
+            existing = json.load(f)
+        existing['quotes'] = supplement_hk_quotes(cfg, dict(existing.get('quotes', {})), existing.get('quotes', {}))
+        existing['hkQuotesUpdatedAt'] = datetime.now(timezone.utc).isoformat()
+        with open(cfg['prices'], 'w', encoding='utf-8') as f:
+            json.dump(existing, f, ensure_ascii=False, indent=2)
+            f.write('\n')
+        return
 
     if cfg["market"] == "HK":
         fetch_hk(investor, cfg)

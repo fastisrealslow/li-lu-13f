@@ -201,7 +201,7 @@ test('verified profiles have matching source links for every investor in both la
      assert.equal((a.el('.phil-grid').innerHTML.match(/class="phil-card"/g)||[]).length,6,cfg.id);
      if(cfg.cik) assert.match(a.el('.ref-text').innerHTML,new RegExp('CIK='+cfg.cik));
      for(const item of cfg.profile.resources) assert.ok(a.el('.articles-grid').innerHTML.includes(item.url.replace(/&/g,'&amp;')),cfg.id+': '+item.url);
-     assert.match(a.el('.ref-text').innerHTML,/2026-10-09/);
+     assert.ok(a.el('.ref-text').innerHTML.includes(cfg.profile.reviewedAt));
    }
  }
 });
@@ -226,4 +226,73 @@ test('quarterly changes retain share reductions and exits while withholding unve
  const a=app();
  a.run("data={meta:{},current:{quarter:'2026 Q2',prevQuarter:'2026 Q1',valueQuality:{status:'units_unverified'},holdings:[{ticker:'ABC',cusip:'a',name:'ABC',shares:20,value:20000}],previousHoldings:[{ticker:'ABC',cusip:'a',name:'ABC',shares:100,value:100000},{ticker:'XYZ',cusip:'x',name:'XYZ',shares:50,value:50000}]},history:{}};renderChanges()");
  const html=a.el('changesBody').innerHTML;assert.match(html,/金额待核实/);assert.match(html,/80.0%/);assert.match(html,/清仓/);assert.ok(!html.includes('$20 K'));assert.ok(!html.includes('$100 K'));
+});
+
+test('holdings timeline has a single table border rather than a nested chart card',()=>{
+  const html=fs.readFileSync(path.join(__dirname,'../index.html'),'utf8');
+  assert.match(html,/id="timelineCanvas" class="holdings-timeline"/);
+  assert.doesNotMatch(html,/id="timelineCanvas"[^>]*chart-wrap/);
+});
+
+test('profiles prioritize verified milestones, distinguishing auction and meal years',()=>{
+  const profiles=JSON.parse(fs.readFileSync(path.join(__dirname,'../investors.json'),'utf8')).investors;
+  for(const cfg of profiles) {
+    assert.ok(cfg.profile.timeline.length>=4 && cfg.profile.timeline.length<=6,cfg.id);
+    for(const node of cfg.profile.timeline) {
+      assert.ok(node.text.length===2 && node.text.every(t=>t.trim()));
+      assert.match(node.source,/^https:\/\//);
+    }
+  }
+  const duan=profiles.find(p=>p.id==='duan').profile.timeline;
+  const pabrai=profiles.find(p=>p.id==='pabrai').profile.timeline;
+  assert.match(duan.find(n=>n.date==='2006–2007').text[0],/62.01.*2007 年 5 月/);
+  assert.match(pabrai.find(n=>n.date==='2007–2008').text[0],/65.01.*2008 年 6 月/);
+  assert.ok(!profiles.find(p=>p.id==='akre').profile.timeline.some(n=>n.date==='2002'));
+});
+
+test('HK quote references require HKD, dated prices, matching share class and freshness',()=>{
+  const a=app();
+  a.run("prices={quotes:{'01658.HK':{c:5.42,currency:'HKD',t:1791533280}}}");
+  a.context.now=1791533280000+86400000;
+  assert.equal(a.run("hkQuoteState('01658.HK','H Shares',now).usable"),true);
+  assert.equal(a.run("hkQuoteState('01658.HK','A Shares',now).valid"),false);
+  assert.equal(a.run("hkQuoteState('01658.HK','H Shares',now+8*86400000).usable"),false);
+  a.run("prices.quotes['01658.HK'].currency='USD'");
+  assert.equal(a.run("hkQuoteState('01658.HK','H Shares',now).valid"),false);
+  a.run("prices.quotes['01658.HK'].currency='HKD'; prices.quotes['01658.HK'].stale=true");
+  assert.equal(a.run("hkQuoteState('01658.HK','H Shares',now).usable"),false);
+});
+
+test('HK cards preserve old disclosure dates, separate owners and expose derivatives',()=>{
+  const a=app();
+  const r={event_date:'2025-05-08',shares:985618000,pct:4.96,filing_ref:'BANK',source_url:'https://di.hkex.com.hk/di/NSForm1.aspx',verification:'hkex_form',share_class:'H Shares',entity:'Li Lu',derivative_interests:[{code:'4101',shares:10000000}]};
+  a.context.payload={holdings:[{ticker:'01658.HK',name:'PSBC',verified_disclosures:[r,{...r,entity:'Himalaya',filing_ref:'FUND'}]}]};
+  a.run("hkDisclosures=payload;investor='lilu';prices={quotes:{}};renderHKDisclosures()");
+  const html=a.el('hkDisclosureSection').innerHTML;
+  assert.match(html,/985,618,000/);assert.match(html,/4.96%/);assert.match(html,/2025-05-08/);
+  assert.match(html,/10,000,000 股衍生品/);assert.match(html,/不可相加/);assert.match(html,/当前持仓未核实/);
+  assert.match(html,/无法核实：缺少完整同日组合/);
+  assert.doesNotMatch(html,/1,971,236,000/);
+});
+
+test('published Pop Mart disclosure retains its stock code and derivative component',()=>{
+  const payload=JSON.parse(fs.readFileSync(path.join(__dirname,'../duan_hk.json'),'utf8'));
+  const holding=payload.holdings.find(h=>h.ticker==='09992.HK');
+  const record=holding.verified_disclosures.find(r=>r.filing_ref==='CS20260905E00003');
+  assert.equal(record.ticker,'09992.HK');
+  assert.equal(record.shares,106716000);
+  assert.equal(record.pct,8.01);
+  assert.equal(record.issued_shares,1331779203);
+  assert.equal(record.derivative_interests.reduce((sum,d)=>sum+d.shares,0),10000000);
+});
+
+test('mobile action badges are attached to the stock cell and unknown data has no direction',()=>{
+  const source=fs.readFileSync(path.join(__dirname,'../app.js'),'utf8');
+  assert.match(source,/mobile-holding-change">\$\{chgTag\}/);
+  const a=app();
+  assert.match(a.run('positionChangeBadge(120,100)'),/▲.*加仓/);
+  assert.match(a.run('positionChangeBadge(80,100)'),/▼.*减仓/);
+  assert.match(a.run('positionChangeBadge(0,100)'),/×.*清仓/);
+  assert.equal(a.run('positionChangeBadge(100,null)'),'');
+  assert.match(a.run('fmtShareChg(100,null)'),/待比较/);
 });

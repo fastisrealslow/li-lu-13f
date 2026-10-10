@@ -23,6 +23,7 @@ ORIGIN = 'https://di.hkex.com.hk'
 BASE = ORIGIN + '/di/'
 LEGACY = ORIGIN + '/filing/di/'
 SCHEMA = 3
+POSITION_DETAILS_SCHEMA = 2
 _RATE_LOCK = threading.Lock()
 _LAST_REQUEST = 0.0
 
@@ -182,11 +183,46 @@ def parse_form(html, url, aliases):
     pct = float(long_rows[0][2].replace(',', ''))
     if shares < 0 or not math.isfinite(pct) or not 0 <= pct <= 100:
         raise ValueError('Invalid post-event position')
+    issued_text = get('lblDIssued').replace(',', '')
+    issued = int(issued_text) if issued_text.isdigit() else None
+    derivatives = []
+    derivative_table = soup.find(id='grdDer_SS')
+    if derivative_table:
+        for row in derivative_table.find_all('tr'):
+            values = [text(c) for c in row.find_all('td', recursive=False)]
+            if len(values) >= 2 and values[-2].casefold() == 'long position':
+                quantity = values[-1].replace(',', '')
+                derivative_code = values[0] if len(values) >= 3 else ''
+                if not derivative_code:
+                    # HKEX nests the code/description and position in separate tables.
+                    parent = row.find_parent('tr')
+                    parent_cells = parent.find_all('td', recursive=False) if parent else []
+                    derivative_code = text(parent_cells[0]) if len(parent_cells) >= 2 else ''
+                if quantity.isdigit():
+                    derivatives.append({'code': derivative_code, 'shares': int(quantity)})
+                else:
+                    raise ValueError('Invalid derivative interest quantity')
+        if 'long position' in text(derivative_table).casefold() and not derivatives:
+            raise ValueError('Unrecognized derivative-interest layout')
+    short_rows = []
+    for row in table.find_all('tr'):
+        values = [text(c) for c in row.find_all('td', recursive=False)]
+        if len(values) == 3 and values[0].casefold() == 'short position':
+            short_rows.append(values)
+    if len(short_rows) > 1:
+        raise ValueError('Multiple post-event short positions')
+    details = {'position_details_schema': POSITION_DETAILS_SCHEMA, 'issued_shares': issued,
+               'derivative_interests': derivatives if derivative_table else None}
+    if short_rows:
+        details['short_shares'] = int(short_rows[0][1].replace(',', ''))
+        details['short_pct'] = float(short_rows[0][2].replace(',', ''))
+        if details['short_shares'] < 0 or not math.isfinite(details['short_pct']) or not 0 <= details['short_pct'] <= 100:
+            raise ValueError('Invalid post-event short position')
     return dict(ticker=code.zfill(5)+'.HK', filing_ref=serial, entity=name,
                 event_date=dated(get('lblDEventDate')), filing_date=dated(get('lblDSignDate')),
                 issuer_name=get('lblViewCorpName'), share_class=get('lblDClass'),
                 shares=shares, pct=pct, position='long', source_url=url, form_url=url,
-                verification='hkex_form', supplementary=get('lblDSuppInfo'))
+                verification='hkex_form', supplementary=get('lblDSuppInfo'), **details)
 
 
 class Client:
@@ -251,7 +287,7 @@ def crawl_notices(client, hit, aliases, cached_records, binding=None, max_pages=
         raise ValueError('No non-superseded long-position disclosure')
     newest = max(applicable, key=lambda r:(r['event_date'],r['filing_ref']))
     # Reuse an already validated exact form, never a guessed security mapping.
-    if binding and all(binding.get(k) == newest[k] for k in ('filing_ref', 'event_date', 'shares', 'pct')):
+    if binding and binding.get('position_details_schema') == POSITION_DETAILS_SCHEMA and all(binding.get(k) == newest[k] for k in ('filing_ref', 'event_date', 'shares', 'pct')):
         form = binding
     else:
         form = parse_form(client.get(newest['form_url']),newest['form_url'],aliases)
@@ -294,7 +330,7 @@ def crawl_notices(client, hit, aliases, cached_records, binding=None, max_pages=
     # establish a matching share class, so they cannot justify a change figure.
     prior=next((r for r in sorted(applicable,key=lambda r:(r['event_date'],r['filing_ref']),reverse=True)
                 if r['filing_ref']!=form['filing_ref']),None)
-    if prior and by_ref[prior['filing_ref']].get('verification')!='hkex_form':
+    if prior and (by_ref[prior['filing_ref']].get('verification')!='hkex_form' or by_ref[prior['filing_ref']].get('position_details_schema') != POSITION_DETAILS_SCHEMA):
         try:
             verified=parse_form(client.get(prior['form_url']),prior['form_url'],aliases)
             if verified['ticker']!=form['ticker'] or not entity_matches(verified['entity'],[hit['entity']]) or any(
