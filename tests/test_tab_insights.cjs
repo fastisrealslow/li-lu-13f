@@ -85,6 +85,17 @@ test('narrative headings and evidence are escaped and generic advice does not re
   assert.match(html,/90% 与 10%/);
   assert.ok(!html.includes('scope-lens'));
 });
+test('reading guidance is available before AI loads without changing source-bound entries',()=>{
+  const a=app();a.context.snapshot=read('data.json');a.run("investor='lilu';data=snapshot;_aiSupplement={entries:{}}");
+  a.run("renderScopedInsight('holdings')");
+  assert.match(a.el('holdingsInsight').innerHTML,/怎么用这页/);
+  assert.match(a.el('holdingsInsight').innerHTML,/本次披露/);
+  a.run("data.current.valueQuality='unverified'");
+  assert.match(a.run("scopePanelHTML('holdings',['数字待核实'])"),/金额未核实/);
+  a.context.entry={briefing:{version:1,headline:['标题','Title'],lead:['8 项','8 securities'],details:[],notes:[]}};
+  assert.match(a.run("scopePanelHTML('holdings',['数字待核实'],entry)"),/briefing-takeaway/);
+  assert.equal(a.context.entry.briefing.readerGuide,undefined);
+});
 test('model topic ordering preserves the whole narrative and rejects foreign topics',()=>{
   const a=app();a.context.b={version:1,headline:['主线','Main point'],lead:['50%','50%'],details:[{label:['第一','First'],text:['10%','10%']},{label:['第二','Second'],text:['20%','20%']},{label:['第三','Third'],text:['30%','30%']}],notes:[]};
   const ordered=JSON.parse(a.run("JSON.stringify(orderedBriefing(b,['t2','t0']))"));

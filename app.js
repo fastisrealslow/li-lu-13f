@@ -1110,7 +1110,7 @@ function aiValueFromSource(source,ids,en=lang==='en') {
 async function refreshAISupplements() {
   const ctrl=new AbortController(), timer=setTimeout(()=>ctrl.abort(),15000);
   try {
-    const response=await fetch('ai_supplement.json?v=73&t='+Math.floor(Date.now()/300000),{signal:ctrl.signal});
+    const response=await fetch('ai_supplement.json?v=77&t='+Math.floor(Date.now()/300000),{signal:ctrl.signal});
     if (!response.ok) return;
     const payload=await response.json();
     if (payload.schemaVersion!==2 || !payload.entries || typeof payload.entries!=='object') return;
@@ -1156,9 +1156,19 @@ function scopePanelHTML(kind,texts,entry=null) {
     : (en?'All reported share changes are included below. Net differences are not transaction records or evidence of trading motives.':'下方保留全部披露股数变化；净变化不是逐笔成交记录，也不证明交易动机。');
   const fallbackTitle=data.meta?.snapshotType?(en?'Historical archive: present holdings are unconfirmed':'历史档案：当前持仓尚不能确认'):
     kind==='history' && data.history?.verification?.status==='unverified'?(en?'Dated history is insufficient for a reliable trend':'历史日期与范围不完整，暂不形成趋势结论'):profileText(titles[kind]);
-  const fallback={version:1,headline:[fallbackTitle,fallbackTitle],lead:[texts.join(' '),texts.join(' ')],details:[],notes:[[explanation,explanation]]};
+  const readerGuide=scopedReaderGuide(kind);
+  const fallback={version:1,headline:[fallbackTitle,fallbackTitle],lead:[texts.join(' '),texts.join(' ')],readerGuide,details:[],notes:[[explanation,explanation]]};
+  const selected=validBriefing(entry?.briefing)?{...entry.briefing,readerGuide:entry.briefing.readerGuide || readerGuide}:fallback;
   return `<div class="scope-heading"><h3>${profileText(titles[kind])}</h3><span class="scope-badge">${en?'Disclosure summary':'披露总结'} · ${aiEscape(data.current?.quarter || '')}</span></div>
-    ${briefingHTML(validBriefing(entry?.briefing)?entry.briefing:fallback)}`;
+    ${briefingHTML(selected)}`;
+}
+function scopedReaderGuide(kind) {
+  if(data.meta?.snapshotType) return ['先核对档案的申报主体和日期，再研究当时的证券；历史快照不代表今天仍持有。','Check the archive’s reporting entity and date before researching its securities. A historical snapshot does not establish present holdings.'];
+  if(kind==='holdings') return data.current?.valueQuality
+    ? ['先核对原始申报的金额单位。股数可单独研究；金额未核实时，不按市值或集中度判断投资重点。','Verify reported value units first. Share counts can be studied separately; unresolved values cannot establish concentration or priorities.']
+    : ['先看组合集中在哪些证券，再核对企业经营与当前估值。申报权重提供研究线索，不代表今天的买入建议。','Identify the securities that dominate the filing, then check their businesses and current valuations. Reported weight is a research lead, not a buy recommendation today.'];
+  if(kind==='changes') return ['先确认季度与申报范围可比，再看股数增减和组合体量；金额变化不是成交资金，也不能证明买卖动机。','Check that quarters and reporting scope are comparable, then examine share-count direction and position scale. Value changes are not transaction cash flows or evidence of motives.'];
+  return ['对照连续披露，看核心证券是否延续和集中度怎样变化。缺失季度不等于清仓，披露市值不是投资收益。','Compare continuous disclosures for persistence in core securities and changing concentration. Missing quarters are not exits, and reported values are not investment returns.'];
 }
 function validBriefing(b) {
   const bilingual=x=>Array.isArray(x) && x.length===2 && x.every(t=>typeof t==='string' && t.trim());
