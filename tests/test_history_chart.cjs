@@ -83,12 +83,14 @@ test('HK search-derived active status and old peak are not current evidence',()=
 });
 test('main table accepts only recent original manager holdings and never adds overlapping interests',()=>{
   const a=app();
-  const now=Date.parse(JSON.parse(fs.readFileSync(path.join(__dirname,'../duan_hk.json'),'utf8')).audit.checkedAt)+3600000;
+  // A fetch timeout in live JSON must not turn a positive evidence test into a flaky deployment failure.
+  const fixture=JSON.parse(fs.readFileSync(path.join(__dirname,'fixtures/hk_current_manager.json'),'utf8'));
+  const now=Date.parse(fixture.audit.checkedAt)+3600000;
   const cfg=JSON.parse(fs.readFileSync(path.join(__dirname,'../investors.json'),'utf8')).investors;
   a.context.now=now;
   for(const inv of cfg){
     a.context.config=inv;
-    a.context.payload=JSON.parse(fs.readFileSync(path.join(__dirname,'../'+inv.hkFile),'utf8'));
+    a.context.payload=structuredClone(fixture);
     const rows=JSON.parse(a.run("JSON.stringify(latestReportedHKHoldings(payload,config,'2026 Q2',now))"));
     if(inv.id==='duan'){
       assert.equal(rows.length,1);
@@ -99,7 +101,7 @@ test('main table accepts only recent original manager holdings and never adds ov
     }else assert.equal(rows.length,0,inv.id);
   }
   a.context.config=cfg.find(x=>x.id==='duan');
-  const payload=JSON.parse(fs.readFileSync(path.join(__dirname,'../duan_hk.json'),'utf8'));
+  const payload=structuredClone(fixture);
   for(const mutate of [p=>p.audit.status='partial',p=>p.audit.checkedAt='2026-09-01T00:00:00Z',p=>p.holdings.forEach(h=>h.verified_disclosures?.forEach(r=>r.event_date='2024-01-01')),p=>p.holdings.forEach(h=>h.verified_disclosures?.forEach(r=>r.pct=4.99)),p=>p.holdings.forEach(h=>h.verified_disclosures?.forEach(r=>r.verification='search_result'))]){
     a.context.payload=structuredClone(payload);mutate(a.context.payload);
     assert.equal(a.run("latestReportedHKHoldings(payload,config,'2026 Q2',now).length"),0);
