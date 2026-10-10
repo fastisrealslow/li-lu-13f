@@ -66,6 +66,19 @@
       ]
     ],
     [
+      "CMCSA",
+      "康卡斯特",
+      [
+        [
+          "greenberg",
+          0.0,
+          "hold",
+          "格伦·格林伯格",
+          "2026 Q2"
+        ]
+      ]
+    ],
+    [
       "HDB",
       "印度住房金融",
       [
@@ -92,19 +105,6 @@
       ]
     ],
     [
-      "BN",
-      "布鲁克菲尔德",
-      [
-        [
-          "akre",
-          10.1,
-          "trimmed",
-          "查克·阿克瑞",
-          "2026 Q2"
-        ]
-      ]
-    ],
-    [
       "GT",
       "固特异",
       [
@@ -113,6 +113,19 @@
           0.1,
           "new",
           "大卫·泰珀",
+          "2026 Q2"
+        ]
+      ]
+    ],
+    [
+      "BN",
+      "布鲁克菲尔德",
+      [
+        [
+          "akre",
+          10.1,
+          "trimmed",
+          "查克·阿克瑞",
           "2026 Q2"
         ]
       ]
@@ -178,19 +191,6 @@
           6.1,
           "added",
           "梅森·霍金斯",
-          "2026 Q2"
-        ]
-      ]
-    ],
-    [
-      "CMCSA",
-      "康卡斯特",
-      [
-        [
-          "greenberg",
-          0.0,
-          "hold",
-          "格伦·格林伯格",
           "2026 Q2"
         ]
       ]
@@ -332,9 +332,9 @@
       "ticker": "KHC",
       "name": "卡夫亨氏",
       "sector": "消费",
-      "mos": 54.7,
+      "mos": 54.0,
       "mosTier": "深度折价",
-      "buy": 49.17,
+      "buy": 48.4,
       "price": 22.27,
       "holderCount": 1,
       "holders": [
@@ -392,9 +392,9 @@
       "ticker": "LEN",
       "name": "莱纳建筑",
       "sector": "工业",
-      "mos": 28.1,
+      "mos": 27.7,
       "mosTier": "中等折价",
-      "buy": 106.73,
+      "buy": 106.04,
       "price": 76.69,
       "holderCount": 1,
       "holders": [
@@ -476,6 +476,33 @@
       "verdictEn": "The price passes the estimated-cost-gap screen, while reported shares fell this quarter. Both facts matter; the reduction alone does not establish fundamental concerns or a value trap. Research perspective: Assessing Survival in Market Panic."
     },
     {
+      "ticker": "CMCSA",
+      "name": "康卡斯特",
+      "sector": "娱乐",
+      "mos": 42.6,
+      "mosTier": "深度折价",
+      "buy": 35.97,
+      "price": 20.66,
+      "holderCount": 1,
+      "holders": [
+        {
+          "investor": "格伦·格林伯格",
+          "chg": "hold",
+          "weight": 0.0,
+          "hold_quarters": 18,
+          "hold_years": 4.5,
+          "trend": "stable",
+          "reentry": false,
+          "exit_quarter": null,
+          "reentry_quarter": null
+        }
+      ],
+      "holderText": "格伦·格林伯格（极小仓位(<0.5%)，成本参考跨度18季/4.5年，非连续持仓证明，仓位未变）",
+      "nearMiss": [],
+      "verdict": "成本参考记录起点距本期 18 个季度，本季股数未变。时间跨度不证明连续持仓，也不是新的买入信号。 研究视角：少而精的好生意。",
+      "verdictEn": "The cost-reference record spans 18 quarters to this filing, with unchanged shares this quarter. Elapsed time does not prove continuous holdings or a new purchase. Research perspective: A Focused Set of Good Businesses."
+    },
+    {
       "ticker": "HDB",
       "name": "印度住房金融",
       "sector": "金融/银行",
@@ -530,33 +557,6 @@
       "verdictEn": "The cost-reference record spans 11 quarters to this filing, with unchanged shares this quarter. Elapsed time does not prove continuous holdings or a new purchase. Research perspective: Business, People & Price."
     },
     {
-      "ticker": "BN",
-      "name": "布鲁克菲尔德",
-      "sector": "金融服务",
-      "mos": 13.5,
-      "mosTier": "轻度折价",
-      "buy": 42.88,
-      "price": 37.09,
-      "holderCount": 1,
-      "holders": [
-        {
-          "investor": "查克·阿克瑞",
-          "chg": "trimmed",
-          "weight": 10.1,
-          "hold_quarters": 15,
-          "hold_years": 3.8,
-          "trend": "reducing",
-          "reentry": false,
-          "exit_quarter": null,
-          "reentry_quarter": null
-        }
-      ],
-      "holderText": "查克·阿克瑞（10.1%仓位，成本参考跨度15季/3.8年，非连续持仓证明，近3季连续减仓，本季减仓）",
-      "nearMiss": [],
-      "verdict": "当前价格通过成本差筛选，但本季披露股数减少。两项事实都要保留，不能仅凭减持推断基本面担忧或价值陷阱。 研究视角：三条腿的凳子。",
-      "verdictEn": "The price passes the estimated-cost-gap screen, while reported shares fell this quarter. Both facts matter; the reduction alone does not establish fundamental concerns or a value trap. Research perspective: The Three-Legged Stool."
-    },
-    {
       "ticker": "GT",
       "name": "固特异",
       "sector": "消费",
@@ -582,6 +582,33 @@
       "nearMiss": [],
       "verdict": "新进入可比季度披露，当前占该投资人申报组合 0.1%。这个比例描述本期结构，不证明实际买入成本，也不证明试探或强烈信心。 研究视角：在恐慌中算清生存概率。",
       "verdictEn": "New in the comparable quarterly disclosure, at 0.1% of that investor’s reported value. This describes the current structure, not actual entry cost or a level of conviction. Research perspective: Assessing Survival in Market Panic."
+    },
+    {
+      "ticker": "BN",
+      "name": "布鲁克菲尔德",
+      "sector": "金融服务",
+      "mos": 13.3,
+      "mosTier": "轻度折价",
+      "buy": 42.8,
+      "price": 37.09,
+      "holderCount": 1,
+      "holders": [
+        {
+          "investor": "查克·阿克瑞",
+          "chg": "trimmed",
+          "weight": 10.1,
+          "hold_quarters": 15,
+          "hold_years": 3.8,
+          "trend": "reducing",
+          "reentry": false,
+          "exit_quarter": null,
+          "reentry_quarter": null
+        }
+      ],
+      "holderText": "查克·阿克瑞（10.1%仓位，成本参考跨度15季/3.8年，非连续持仓证明，近3季连续减仓，本季减仓）",
+      "nearMiss": [],
+      "verdict": "当前价格通过成本差筛选，但本季披露股数减少。两项事实都要保留，不能仅凭减持推断基本面担忧或价值陷阱。 研究视角：三条腿的凳子。",
+      "verdictEn": "The price passes the estimated-cost-gap screen, while reported shares fell this quarter. Both facts matter; the reduction alone does not establish fundamental concerns or a value trap. Research perspective: The Three-Legged Stool."
     },
     {
       "ticker": "BIDU",
@@ -719,33 +746,6 @@
       "verdictEn": "Currently 6.1% of that investor’s reported value, with more disclosed shares this quarter. Weight is not the addition percentage; prices and estimated cost have separate meanings. Research perspective: Business, People & Price."
     },
     {
-      "ticker": "CMCSA",
-      "name": "康卡斯特",
-      "sector": "娱乐",
-      "mos": 19.0,
-      "mosTier": "中等折价",
-      "buy": 25.5,
-      "price": 20.66,
-      "holderCount": 1,
-      "holders": [
-        {
-          "investor": "格伦·格林伯格",
-          "chg": "hold",
-          "weight": 0.0,
-          "hold_quarters": 53,
-          "hold_years": 13.2,
-          "trend": "stable",
-          "reentry": false,
-          "exit_quarter": null,
-          "reentry_quarter": null
-        }
-      ],
-      "holderText": "格伦·格林伯格（极小仓位(<0.5%)，成本参考跨度53季/13.2年，非连续持仓证明，仓位未变）",
-      "nearMiss": [],
-      "verdict": "成本参考记录起点距本期 53 个季度，本季股数未变。时间跨度不证明连续持仓，也不是新的买入信号。 研究视角：少而精的好生意。",
-      "verdictEn": "The cost-reference record spans 53 quarters to this filing, with unchanged shares this quarter. Elapsed time does not prove continuous holdings or a new purchase. Research perspective: A Focused Set of Good Businesses."
-    },
-    {
       "ticker": "FICO",
       "name": "公平信息公司",
       "sector": "科技",
@@ -803,9 +803,9 @@
       "ticker": "FG",
       "name": "F&G 年金与寿险",
       "sector": "保险",
-      "mos": 32.9,
+      "mos": 32.1,
       "mosTier": "深度折价",
-      "buy": 28.69,
+      "buy": 28.38,
       "price": 19.26,
       "holderCount": 1,
       "holders": [
@@ -938,9 +938,9 @@
       "ticker": "MRP",
       "name": "密罗斯地产",
       "sector": "金融服务",
-      "mos": 18.1,
+      "mos": 15.4,
       "mosTier": "中等折价",
-      "buy": 27.31,
+      "buy": 26.44,
       "price": 22.36,
       "holderCount": 1,
       "holders": [
@@ -1017,7 +1017,7 @@
     }
   ],
   "droppedOut": [],
-  "generatedAt": "2026-10-10T04:44:22Z",
+  "generatedAt": "2026-10-10T13:29:02Z",
   "candidateCount": 25,
   "consensusCount": 0,
   "signalHash": "e84056f8a71d0626fc6f7c79f27e1390a6934c9d41cb9a41022874d702491f65"

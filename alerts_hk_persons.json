@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-10T04:36:10Z",
+  "updatedAt": "2026-10-10T13:09:15Z",
   "knownStocks": {
     "duan": [
       "09992.HK"
@@ -5422,7 +5422,7 @@
   "verificationRuns": [
     {
       "investor": "abrams",
-      "checkedAt": "2026-10-10T04:33:44Z",
+      "checkedAt": "2026-10-10T13:06:59Z",
       "status": "checked",
       "queries": [
         {
@@ -5463,7 +5463,7 @@
     },
     {
       "investor": "ackman",
-      "checkedAt": "2026-10-10T04:33:34Z",
+      "checkedAt": "2026-10-10T13:06:43Z",
       "status": "checked",
       "queries": [
         {
@@ -5504,7 +5504,7 @@
     },
     {
       "investor": "akre",
-      "checkedAt": "2026-10-10T04:33:11Z",
+      "checkedAt": "2026-10-10T13:06:18Z",
       "status": "checked",
       "queries": [
         {
@@ -5545,7 +5545,7 @@
     },
     {
       "investor": "berkowitz",
-      "checkedAt": "2026-10-10T04:33:53Z",
+      "checkedAt": "2026-10-10T13:07:00Z",
       "status": "checked",
       "queries": [
         {
@@ -5586,7 +5586,7 @@
     },
     {
       "investor": "buffett",
-      "checkedAt": "2026-10-10T04:32:40Z",
+      "checkedAt": "2026-10-10T13:05:50Z",
       "status": "checked",
       "queries": [
         {
@@ -5627,12 +5627,14 @@
     },
     {
       "investor": "duan",
-      "checkedAt": "2026-10-10T04:31:02Z",
-      "status": "partial",
+      "checkedAt": "2026-10-10T13:05:12Z",
+      "status": "checked",
       "queries": [
         {
           "query": "H&H International Investment",
-          "status": "failed",
+          "archive": "dion",
+          "status": "ok",
+          "matchedSecurities": 1,
           "url": "https://di.hkex.com.hk/di/NSSrchPersonList.aspx?sa1=pl&scsd=03%2F07%2F2017&sced=10%2F10%2F2026&pn=H%26H+International+Investment&src=MAIN&lang=EN&g_lang=en"
         },
         {
@@ -5661,18 +5663,12 @@
       "verifiedSecurities": 1,
       "pendingSecurities": 2,
       "recordsFetched": 22,
-      "errors": [
-        {
-          "query": "H&H International Investment",
-          "url": "https://di.hkex.com.hk/di/NSSrchPersonList.aspx?sa1=pl&scsd=03%2F07%2F2017&sced=10%2F10%2F2026&pn=H%26H+International+Investment&src=MAIN&lang=EN&g_lang=en",
-          "reason": "HKEX fetch failed: The read operation timed out"
-        }
-      ],
+      "errors": [],
       "scope": "匹配已配置主体的公开多头权益披露；不等于完整投资组合或当前持仓"
     },
     {
       "investor": "greenberg",
-      "checkedAt": "2026-10-10T04:33:16Z",
+      "checkedAt": "2026-10-10T13:06:26Z",
       "status": "checked",
       "queries": [
         {
@@ -5713,7 +5709,7 @@
     },
     {
       "investor": "hawkins",
-      "checkedAt": "2026-10-10T04:34:02Z",
+      "checkedAt": "2026-10-10T13:07:13Z",
       "status": "checked",
       "queries": [
         {
@@ -5754,7 +5750,7 @@
     },
     {
       "investor": "klarman",
-      "checkedAt": "2026-10-10T04:33:27Z",
+      "checkedAt": "2026-10-10T13:06:38Z",
       "status": "checked",
       "queries": [
         {
@@ -5795,12 +5791,14 @@
     },
     {
       "investor": "lilu",
-      "checkedAt": "2026-10-10T04:31:02Z",
-      "status": "partial",
+      "checkedAt": "2026-10-10T13:05:12Z",
+      "status": "checked",
       "queries": [
         {
           "query": "Li Lu",
-          "status": "failed",
+          "archive": "dion",
+          "status": "ok",
+          "matchedSecurities": 3,
           "url": "https://di.hkex.com.hk/di/NSSrchPersonList.aspx?sa1=pl&scsd=03%2F07%2F2017&sced=10%2F10%2F2026&pn=Li+Lu&src=MAIN&lang=EN&g_lang=en"
         },
         {
@@ -5829,23 +5827,19 @@
       "verifiedSecurities": 3,
       "pendingSecurities": 0,
       "recordsFetched": 45,
-      "errors": [
-        {
-          "query": "Li Lu",
-          "url": "https://di.hkex.com.hk/di/NSSrchPersonList.aspx?sa1=pl&scsd=03%2F07%2F2017&sced=10%2F10%2F2026&pn=Li+Lu&src=MAIN&lang=EN&g_lang=en",
-          "reason": "HKEX fetch failed: The read operation timed out"
-        }
-      ],
+      "errors": [],
       "scope": "匹配已配置主体的公开多头权益披露；不等于完整投资组合或当前持仓"
     },
     {
       "investor": "pabrai",
-      "checkedAt": "2026-10-10T04:31:02Z",
-      "status": "partial",
+      "checkedAt": "2026-10-10T13:05:12Z",
+      "status": "checked",
       "queries": [
         {
           "query": "Mohnish Pabrai",
-          "status": "failed",
+          "archive": "dion",
+          "status": "ok",
+          "matchedSecurities": 0,
           "url": "https://di.hkex.com.hk/di/NSSrchPersonList.aspx?sa1=pl&scsd=03%2F07%2F2017&sced=10%2F10%2F2026&pn=Mohnish+Pabrai&src=MAIN&lang=EN&g_lang=en"
         },
         {
@@ -5874,18 +5868,12 @@
       "verifiedSecurities": 0,
       "pendingSecurities": 1,
       "recordsFetched": 0,
-      "errors": [
-        {
-          "query": "Mohnish Pabrai",
-          "url": "https://di.hkex.com.hk/di/NSSrchPersonList.aspx?sa1=pl&scsd=03%2F07%2F2017&sced=10%2F10%2F2026&pn=Mohnish+Pabrai&src=MAIN&lang=EN&g_lang=en",
-          "reason": "HKEX fetch failed: The read operation timed out"
-        }
-      ],
+      "errors": [],
       "scope": "匹配已配置主体的公开多头权益披露；不等于完整投资组合或当前持仓"
     },
     {
       "investor": "tepper",
-      "checkedAt": "2026-10-10T04:32:23Z",
+      "checkedAt": "2026-10-10T13:05:31Z",
       "status": "checked",
       "queries": [
         {
@@ -5926,7 +5914,7 @@
     },
     {
       "investor": "vinall",
-      "checkedAt": "2026-10-10T04:34:17Z",
+      "checkedAt": "2026-10-10T13:07:19Z",
       "status": "checked",
       "queries": [
         {
@@ -5981,7 +5969,7 @@
     },
     {
       "investor": "webb",
-      "checkedAt": "2026-10-10T04:32:31Z",
+      "checkedAt": "2026-10-10T13:05:33Z",
       "status": "checked",
       "queries": [
         {

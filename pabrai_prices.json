@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-10T04:37:14.228807Z",
+  "updated": "2026-10-10T13:11:21.716931Z",
   "quotes": {
     "HCC": {
       "c": 93.07,
@@ -37,18 +37,20 @@
   "costBasis": {
     "HCC": {
       "recent": {
-        "buy": 79.96,
-        "low": 75.71,
-        "high": 105.15,
+        "buy": 79.89,
+        "low": 75.65,
+        "high": 105.06,
         "quarter": "2026 Q1",
         "source": "yahoo"
       },
       "allTime": {
-        "avg": 52.14,
-        "quarters": 8,
+        "avg": 52.62,
+        "buy_quarters": 8,
         "first": "2023 Q4",
-        "last": "2026 Q1"
-      }
+        "last": "2026 Q2",
+        "method": "avco"
+      },
+      "historyFingerprint": "23db03aaa6f7365230df57e0c0df1188f8f32673189c8d08ae51a8f87844a2d7"
     },
     "RIG": {
       "recent": {
@@ -64,7 +66,8 @@
         "first": "2025 Q3",
         "last": "2026 Q2",
         "method": "avco"
-      }
+      },
+      "historyFingerprint": "0131ccc67690c82155041092b554a84c3f68ea3ae9519cbecac96a929af9d59d"
     },
     "AMR": {
       "recent": {
@@ -75,30 +78,54 @@
         "source": "yahoo"
       },
       "allTime": {
-        "avg": 153.62,
-        "quarters": 10,
+        "avg": 153.24,
+        "buy_quarters": 10,
         "first": "2023 Q2",
-        "last": "2026 Q1"
-      }
+        "last": "2026 Q2",
+        "method": "avco"
+      },
+      "historyFingerprint": "80736bd98b5013ba54eb781ee1f405a044e16a2f2eacf73fdd9498588e9cd365"
     },
     "KSPI": {
       "recent": {
-        "buy": 73.3,
-        "low": 69.13,
-        "high": 95.2,
+        "buy": 71.72,
+        "low": 67.64,
+        "high": 93.16,
         "quarter": "2026 Q2",
         "source": "yahoo"
       },
       "allTime": {
-        "avg": 73.3,
+        "avg": 71.72,
         "buy_quarters": 1,
         "first": "2026 Q2",
         "last": "2026 Q2",
         "method": "avco"
-      }
+      },
+      "historyFingerprint": "e7bd4420483160ab9d5349fc9bc5caf5f14e0c726ce050c9a9f6eb20e72a7dab"
     }
   },
   "exitPerf": {
+    "GS": {
+      "entryQuarter": "2013 Q2",
+      "entryPrice": 151.25,
+      "exitQuarter": "2014 Q2",
+      "exitPrice": 127.4,
+      "changePct": -15.8
+    },
+    "BRK.B": {
+      "entryQuarter": "2014 Q1",
+      "entryPrice": 131.47,
+      "exitQuarter": "2016 Q3",
+      "exitPrice": 146.28,
+      "changePct": 11.3
+    },
+    "GOOG": {
+      "entryQuarter": "2015 Q4",
+      "entryPrice": 758.87,
+      "exitQuarter": "2017 Q4",
+      "exitPrice": 50.45,
+      "changePct": -93.4
+    },
     "C": {
       "entryQuarter": "2013 Q2",
       "entryPrice": 47.97,
@@ -112,27 +139,6 @@
       "exitQuarter": "2014 Q2",
       "exitPrice": 31.08,
       "changePct": 52.5
-    },
-    "BRK.B": {
-      "entryQuarter": "2014 Q1",
-      "entryPrice": 131.47,
-      "exitQuarter": "2016 Q3",
-      "exitPrice": 146.28,
-      "changePct": 11.3
-    },
-    "GS": {
-      "entryQuarter": "2013 Q2",
-      "entryPrice": 151.25,
-      "exitQuarter": "2014 Q2",
-      "exitPrice": 127.4,
-      "changePct": -15.8
-    },
-    "GOOG": {
-      "entryQuarter": "2015 Q4",
-      "entryPrice": 758.87,
-      "exitQuarter": "2017 Q4",
-      "exitPrice": 50.45,
-      "changePct": -93.4
     }
   }
 }
