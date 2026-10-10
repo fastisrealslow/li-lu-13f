@@ -513,3 +513,32 @@ class SecSectionIdentityTests(unittest.TestCase):
         from spinoff_identity import resolve_identity
         text='Item 8.01 Other Events Vylor Inc. (the “Company” or “Vylor”) previously announced the separation (the “Spin-Off”) of the Company from Corteva, Inc.'
         self.assertEqual(resolve_identity(text)['name'],'Vylor Inc')
+
+class FundDefinitionLayoutTests(unittest.TestCase):
+    def test_wrapped_definition_notes_do_not_interrupt_the_formal_fund_name(self):
+        from resolve_spinoff_names import definition_rows
+        lines=[(65,499,222,'「信義能源新能源基金」 指'),
+               (255,499,524,'國泰海通信義能源新能源封閉式基礎設施證券投'),
+               (71,479,209,'（於過往聯合自願公告'),
+               (255,479,524,'資基金，根據中國適用法律法規設立持有目標項'),
+               (70,459,192,'中稱為「信義能源新'),
+               (255,459,454,'目的封閉式基礎設施證券投資基金；'),
+               (70,439,192,'能源基金」）'),
+               (65,419,222,'「信義光能董事會」 指'),
+               (255,419,392,'信義光能的董事會；')]
+        definitions=definition_rows(lines)
+        ann={'date':'2026-09-27','title':'聯合自願公告 - 可能分拆及於深圳證券交易所進行信義能源新能源基金中國上市',
+             'url':'https://www1.hkexnews.hk/listedco/xinyi.pdf'}
+        text='董事會建議分拆。可能分拆將涉及信義能源新能源基金於深交所的獨立上市。基金管理人為某證券有限公司。\n'+definitions
+        proof=parse_evidence(text,ann)
+        self.assertEqual(proof['targetName'],'國泰海通信義能源新能源封閉式基礎設施證券投資基金')
+        self.assertEqual(proof['identityKind'],'instrument')
+        self.assertIn('信義能源新能源基金',proof['targetAliases'])
+        self.assertEqual(proof['listingType']['code'],'reit_sz')
+        self.assertEqual(proof['status'],'announced')
+        self.assertNotIn('董事會',proof['identityQuote'])
+
+    def test_unrelated_reit_manager_cannot_reclassify_a_company_ipo(self):
+        ann={'date':'2026-09-27','title':'建議分拆新公司有限公司於深交所上市','url':'https://www1.hkexnews.hk/listedco/ipo.pdf'}
+        proof=parse_evidence('分拆新公司有限公司於深交所上市。基金管理人另管理基礎設施證券投資基金。',ann)
+        self.assertFalse(proof.get('listingType',{}).get('is_reit'))

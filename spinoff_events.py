@@ -10,7 +10,7 @@ from spinoff_identity import resolve_identity, IDENTITY_VERSION
 
 STATUSES = {'needs_review', 'announced', 'approved', 'record_set', 'prospectus', 'completed', 'terminated', 'paused'}
 RULE_VERSION = 3
-TYPE_RULE_VERSION = 1
+TYPE_RULE_VERSION = 2
 INTRO_PATTERN = r'以介紹方式|以介绍方式|以介紹式|以介绍式|介紹(?:式)?上市|介绍(?:式)?上市|listing by (?:way of )?introduction'
 
 
@@ -270,6 +270,8 @@ def parse_evidence(text, ann, cik=''):
             if len(values) == 1:
                 dates['listingDate'] = {'date': values.pop(), 'quote': found[0].group(0), 'kind': 'actual'}
     type_quote = introduction_quote(text) if urlparse(url).hostname in {'www1.hkexnews.hk', 'www.hkexnews.hk'} else ''
+    if not type_quote and identity.get('kind') == 'instrument' and re.search(r'基礎設施證券投資基金|基础设施证券投资基金', target_name):
+        type_quote = identity.get('quote', '')
     type_fields = {'typeVersion': TYPE_RULE_VERSION}
     if type_quote and identity.get('reason') != 'conflicting_names':
         type_fields.update(listingType=classify_hk_type([ann.get('title', ''), type_quote]), typeQuote=type_quote)

@@ -164,3 +164,17 @@ test('introduction listing filter works with search, status and both type format
  assert.equal(a.run('spinBaseEvents(spinDash.hk).length'),1);
  assert.equal(a.run('spinVisible(spinDash.hk,{})[0].id'),'intro1');
 });
+test('selecting watchlist clears conflicting filters and prior update highlights',()=>{
+ const a=app();a.context.events=[event,{...event,id:'new',targetName:'',identityState:'missing_name'}];
+ a.run('spinDash.us.data={events};spinSave(events[0].id,{watch:true});Object.assign(spinDash.us,{query:"wrong",type:"reit",status:"terminated",linkedEvent:"old"});spinSelectView(spinDash.us,"watch")');
+ assert.equal(a.run('spinVisible(spinDash.us,spinPrefs()).length'),1);
+ assert.equal(a.run('spinDash.us.query'),'');assert.equal(a.run('spinDash.us.linkedEvent'),null);
+ a.run('spinSelectView(spinDash.us,"confirmed")');assert.equal(a.run('spinVisible(spinDash.us,{}).length'),1);
+ a.run('spinSelectView(spinDash.us,"unconfirmed")');assert.equal(a.run('spinVisible(spinDash.us,{}).length'),1);
+});
+test('joint filings link the same verified fund across issuers without joining unrelated projects',()=>{
+ const a=app();a.context.events=[{...event,identityKind:'instrument',announcements:[{title:'聯合公告',date:'2026-09-27'}]},{...event,id:'us:Q:one',parentName:'Second issuer',parentTicker:'Q',announcements:[{title:'聯合公告',date:'2026-09-27'}]},{...event,id:'us:Z:one',parentTicker:'Z',announcements:[{title:'Different filing',date:'2026-09-27'}]}];
+ assert.equal(a.run('spinJointRecords({events},events[0]).length'),1);
+ const html=a.run('spinCard(events[0],{},spinJointRecords({events},events[0]))');assert.match(html,/同一项目/);assert.match(html,/data-open-event="us:Q:one"/);
+ a.context.events[0].targetName='';assert.equal(a.run('spinJointRecords({events},events[0]).length'),0);
+});

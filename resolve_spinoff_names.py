@@ -74,18 +74,54 @@ def html_text(raw):
     return re.sub(r'\s+',' ',html.unescape(re.sub(r'<[^>]+>',' ',value))).strip()
 
 
+def definition_rows(lines):
+    """Read HK definition-table cells without interleaving wrapped left notes."""
+    rows=[]
+    for x0,y,x1,value in sorted(lines,key=lambda row:(-row[1],row[0])):
+        alias=re.match(r'\s*[「“"]([^」”"]{2,60})[」”"]',value)
+        if not alias:continue
+        markers=[row for row in lines if abs(row[1]-y)<3 and re.search(r'指\s*$',row[3]) and row[0]>=x0]
+        if not markers:continue
+        marker=min(markers,key=lambda row:row[0]);right=marker[2]
+        next_y=max((row[1] for row in lines if row[1]<y-3 and row[0]<=x0+5 and re.match(r'\s*[「“"]',row[3])),default=-1)
+        cell=''.join(row[3].strip() for row in sorted(lines,key=lambda row:(-row[1],row[0])) if row[0]>right+5 and next_y+3<row[1]<=y+3)
+        cell=cell.split('；')[0]
+        if cell and len(cell)<500:rows.append('「'+alias[1]+'」指'+cell)
+    return '\n'.join(rows)
+
+
+def pdf_definitions(raw):
+    from pdfminer.high_level import extract_pages
+    from pdfminer.layout import LAParams,LTContainer,LTTextLine
+    def lines(node):
+        if isinstance(node,LTTextLine):yield (node.x0,node.y1,node.x1,node.get_text())
+        elif isinstance(node,LTContainer):
+            for child in node:yield from lines(child)
+    return '\n'.join(definition_rows(list(lines(page))) for page in extract_pages(io.BytesIO(raw),maxpages=30,laparams=LAParams(boxes_flow=None)))
+
+
+def needs_fund_definition(text,ann,cik):
+    proof=parse_evidence(text,ann,cik)
+    return proof.get('identityKind')=='instrument' and proof.get('targetName','').endswith('基金') and not re.search(r'基礎設施證券投資基金|基础设施证券投资基金',proof['targetName'])
+
+
 def document(ann, cik, opener, cache=None):
     url=source_url(ann,cik)
     key=hashlib.sha256(url.encode()).hexdigest()
     cached=cache/(key+'.json') if cache else None
     prior = json.loads(cached.read_text()) if cached and cached.exists() else None
-    if prior and prior.get('cacheVersion') == 3 and not prior.get('supplementUnavailable'):return prior
+    if prior and prior.get('cacheVersion') == 3 and not prior.get('supplementUnavailable') and not (needs_fund_definition(prior['text'],ann,cik) and not prior.get('definitionTableVersion')):return prior
     if url.lower().endswith('.pdf'):
         from pdfminer.high_level import extract_text
         # Definition tables often come after page 6, which the old fetcher omitted.
         raw=None if prior else read_url(url,opener)
         text=prior['text'] if prior else extract_text(io.BytesIO(raw),maxpages=30)
         result={'text':text,'url':url}
+        if needs_fund_definition(text,ann,cik):
+            raw=raw or read_url(url,opener)
+            definitions=pdf_definitions(raw)
+            text=text+'\n'+definitions
+            result.update(text=text,definitionTableVersion=1)
         if not parse_evidence(text,ann,cik)['targetName']:
             # A second reading order handles mixed Chinese/English text boxes.
             from pdfminer.layout import LAParams
