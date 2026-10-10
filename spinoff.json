@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-10T13:31:34Z",
+  "updatedAt": "2026-10-10T13:53:18Z",
   "dateFrom": "20251010",
   "dateTo": "20261010",
   "count": 39,
@@ -46,10 +46,12 @@
           "date": "2026-09-27",
           "targetName": "國泰海通信義能源新能源封閉式基礎設施證券投資基金",
           "targetTicker": "",
-          "targetAliases": [],
-          "identityVersion": 2,
-          "identityQuote": "",
-          "identityKind": "",
+          "targetAliases": [
+            "信義能源新能源基金"
+          ],
+          "identityVersion": 3,
+          "identityQuote": "進行信義能源新能源基金中國上市 … 「信義能源新能源基金」指國泰海通信義能源新能源封閉式基礎設施證券投資基金",
+          "identityKind": "instrument",
           "distributedEntity": false,
           "separatedEntity": false,
           "identityReason": "",
@@ -63,11 +65,11 @@
       ],
       "identityChecks": {
         "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0927/2026092700034_c.pdf": {
-          "version": 2,
-          "typeVersion": 1,
+          "version": 3,
+          "typeVersion": 2,
           "ruleVersion": 3,
           "checkedAt": "2026-10-10",
-          "result": "no_name"
+          "result": "named"
         }
       },
       "_status": "announced",
@@ -81,7 +83,7 @@
         "currency": "HKD",
         "updatedAt": "2026-10-10"
       },
-      "lastUpdated": "2026-10-10T13:34:18Z",
+      "lastUpdated": "2026-10-10T13:56:57Z",
       "greenblattNote": {
         "zh": "母公司参考市值约 22.4 亿美元（快照，非实时）。 待验证：分派比例、子公司债务与现金流、管理层持股及机构持仓变化。市值与股价变化不能单独证明强制卖压或低估。",
         "en": "Parent reference market cap: $2.24B (snapshot, not live). Research checklist: distribution ratio, child debt and cash flow, management ownership, and institutional holdings. Size and price changes alone do not establish forced selling or undervaluation."
@@ -129,10 +131,12 @@
           "date": "2026-09-27",
           "targetName": "國泰海通信義能源新能源封閉式基礎設施證券投資基金",
           "targetTicker": "",
-          "targetAliases": [],
-          "identityVersion": 2,
-          "identityQuote": "",
-          "identityKind": "",
+          "targetAliases": [
+            "信義能源新能源基金"
+          ],
+          "identityVersion": 3,
+          "identityQuote": "進行信義能源新能源基金中國上市 … 「信義能源新能源基金」指國泰海通信義能源新能源封閉式基礎設施證券投資基金",
+          "identityKind": "instrument",
           "distributedEntity": false,
           "separatedEntity": false,
           "identityReason": "",
@@ -146,11 +150,11 @@
       ],
       "identityChecks": {
         "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0927/2026092700032_c.pdf": {
-          "version": 2,
-          "typeVersion": 1,
+          "version": 3,
+          "typeVersion": 2,
           "ruleVersion": 3,
           "checkedAt": "2026-10-10",
-          "result": "no_name"
+          "result": "named"
         }
       },
       "_status": "announced",
@@ -164,7 +168,7 @@
         "currency": "HKD",
         "updatedAt": "2026-10-10"
       },
-      "lastUpdated": "2026-10-10T13:34:18Z",
+      "lastUpdated": "2026-10-10T13:56:57Z",
       "greenblattNote": {
         "zh": "母公司参考市值约 8.5 亿美元（快照，非实时）。 待验证：分派比例、子公司债务与现金流、管理层持股及机构持仓变化。市值与股价变化不能单独证明强制卖压或低估。",
         "en": "Parent reference market cap: $0.85B (snapshot, not live). Research checklist: distribution ratio, child debt and cash flow, management ownership, and institutional holdings. Size and price changes alone do not establish forced selling or undervaluation."
@@ -203,13 +207,13 @@
         {
           "status": "announced",
           "quote": "擬分拆並在上海證券交易所獨立上市的基礎設施領域不動產投資信託基金及關連交易獨立財務顧問茲提述華能國際電力股份有限公司（「公司」或「本公司」）於二零二五年五月二十九日發佈的關於開展基礎設施公募 REITs 申報工作及建議分拆的公告（「該公告」）",
-          "typeVersion": 1,
+          "typeVersion": 2,
           "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0428/2026042804564_c.pdf",
           "date": "2026-04-28",
           "targetName": "華能煤電 REIT",
           "targetTicker": "",
           "targetAliases": [],
-          "identityVersion": 2,
+          "identityVersion": 3,
           "identityQuote": "（即「華能煤電 REIT」）",
           "identityKind": "business",
           "distributedEntity": false,
@@ -227,7 +231,16 @@
         {
           "status": "approved",
           "quote": "中國證券監督管理委員會於二零二六年九月二十日向長城基金管理有限公司（「長城基金」）出具了《關於准予長城華能燃煤發電封閉式基礎設施證券投資基金註冊的批覆》（證監許可 [2026]2573號），據此，中國證券監督管理委員會准予本次基礎設施公募 REITs 項目的註冊申請",
-          "typeVersion": 1,
+          "typeVersion": 2,
+          "listingType": {
+            "code": "reit_sh",
+            "exchange_zh": "上交所",
+            "exchange_en": "SSE",
+            "label_zh": "REIT·上交所",
+            "label_en": "REIT·SSE",
+            "is_reit": true
+          },
+          "typeQuote": "關於准予長城華能燃煤發電封閉式基礎設施證券投資基金",
           "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0921/2026092101283_c.pdf",
           "date": "2026-09-21",
           "targetName": "長城華能燃煤發電封閉式基礎設施證券投資基金",
@@ -235,7 +248,7 @@
           "targetAliases": [
             "華能煤電 REIT"
           ],
-          "identityVersion": 2,
+          "identityVersion": 3,
           "identityQuote": "關於准予長城華能燃煤發電封閉式基礎設施證券投資基金",
           "identityKind": "instrument",
           "distributedEntity": false,
@@ -255,15 +268,15 @@
       ],
       "identityChecks": {
         "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0428/2026042804564_c.pdf": {
-          "version": 2,
-          "typeVersion": 1,
+          "version": 3,
+          "typeVersion": 2,
           "ruleVersion": 3,
           "checkedAt": "2026-10-10",
           "result": "named"
         },
         "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0921/2026092101283_c.pdf": {
-          "version": 2,
-          "typeVersion": 1,
+          "version": 3,
+          "typeVersion": 2,
           "ruleVersion": 3,
           "checkedAt": "2026-10-10",
           "result": "named"
@@ -280,7 +293,7 @@
         "currency": "HKD",
         "updatedAt": "2026-10-10"
       },
-      "lastUpdated": "2026-10-10T13:34:18Z",
+      "lastUpdated": "2026-10-10T13:56:57Z",
       "greenblattNote": {
         "zh": "母公司参考市值约 110.1 亿美元（快照，非实时）。 待验证：分派比例、子公司债务与现金流、管理层持股及机构持仓变化。市值与股价变化不能单独证明强制卖压或低估。",
         "en": "Parent reference market cap: $11.01B (snapshot, not live). Research checklist: distribution ratio, child debt and cash flow, management ownership, and institutional holdings. Size and price changes alone do not establish forced selling or undervaluation."
@@ -319,13 +332,13 @@
         {
           "status": "announced",
           "quote": "（股份代號：0017）建議分拆及證券投資基金於上交所獨立上市",
-          "typeVersion": 1,
+          "typeVersion": 2,
           "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0917/2026091701554_c.pdf",
           "date": "2026-09-17",
           "targetName": "證券投資基金於上交所",
           "targetTicker": "",
           "targetAliases": [],
-          "identityVersion": 2,
+          "identityVersion": 3,
           "identityQuote": "建議分拆及證券投資基金於上交所獨立上市",
           "identityKind": "entity",
           "distributedEntity": false,
@@ -341,15 +354,15 @@
         {
           "status": "completed",
           "quote": "本集團進行建議分拆的主要商業目的為釋放資產價值及自資產出售收取所得款項總額，而證券投資基金的成功上市是完成建議分拆的先決條件",
-          "typeVersion": 1,
+          "typeVersion": 2,
           "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0921/2026092100138_c.pdf",
           "date": "2026-09-21",
-          "targetName": "證券投資基金於上交所",
-          "targetTicker": "",
+          "targetName": "證券投資基金",
+          "targetTicker": "01776.HK",
           "targetAliases": [],
-          "identityVersion": 2,
-          "identityQuote": "有關建議分拆及證券投資基金於上交所獨立上市的可能主要交易及有關證券投資基金認購的可能須予披露交易",
-          "identityKind": "entity",
+          "identityVersion": 3,
+          "identityQuote": "分拆將涉及證券投資基金於",
+          "identityKind": "instrument",
           "distributedEntity": false,
           "separatedEntity": false,
           "identityReason": "",
@@ -365,15 +378,15 @@
       ],
       "identityChecks": {
         "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0917/2026091701554_c.pdf": {
-          "version": 2,
-          "typeVersion": 1,
+          "version": 3,
+          "typeVersion": 2,
           "ruleVersion": 3,
           "checkedAt": "2026-10-10",
           "result": "named"
         },
         "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0921/2026092100138_c.pdf": {
-          "version": 2,
-          "typeVersion": 1,
+          "version": 3,
+          "typeVersion": 2,
           "ruleVersion": 3,
           "checkedAt": "2026-10-10",
           "result": "named"
@@ -390,7 +403,7 @@
         "currency": "HKD",
         "updatedAt": "2026-10-10"
       },
-      "lastUpdated": "2026-10-10T13:34:18Z",
+      "lastUpdated": "2026-10-10T13:56:57Z",
       "greenblattNote": {
         "zh": "母公司参考市值约 18.7 亿美元（快照，非实时）。 待验证：分派比例、子公司债务与现金流、管理层持股及机构持仓变化。市值与股价变化不能单独证明强制卖压或低估。",
         "en": "Parent reference market cap: $1.87B (snapshot, not live). Research checklist: distribution ratio, child debt and cash flow, management ownership, and institutional holdings. Size and price changes alone do not establish forced selling or undervaluation."
@@ -429,13 +442,13 @@
         {
           "status": "approved",
           "quote": "（於香港註冊成立之有限公司）（股份代號：688）建議分拆獲聯交所批准兹提述中國海外發展有限公司（「本公司」）日期為二零二六年九月七日之公告，內容有關建議分拆（「該公告」）",
-          "typeVersion": 1,
+          "typeVersion": 2,
           "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0911/2026091101166_c.pdf",
           "date": "2026-09-11",
           "targetName": "位於中國廣東省佛山市南海區的購物中心（佛山千燈湖環宇城項目）",
           "targetTicker": "",
           "targetAliases": [],
-          "identityVersion": 2,
+          "identityVersion": 3,
           "identityQuote": "REIT 的相關資產為位於中國廣東省佛山市南海區的購物中心（佛山千燈湖環宇城項目），即",
           "identityKind": "business",
           "distributedEntity": false,
@@ -455,13 +468,13 @@
         {
           "status": "announced",
           "quote": "（於香港註冊成立之有限公司）（股份代號：688）公開募集商業不動產投資信託基金之建議分拆及在深圳證券交易所獨立上市董事局欣然宣布，於二零二六年九月七日，華夏基金及中信證券向中國證監會及深圳證券交易所提交了公募基金註册及上市的申請材料",
-          "typeVersion": 1,
+          "typeVersion": 2,
           "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0907/2026090700914_c.pdf",
           "date": "2026-09-07",
           "targetName": "位於中國廣東省佛山市南海區的購物中心（佛山千燈湖環宇城項目）",
           "targetTicker": "",
           "targetAliases": [],
-          "identityVersion": 2,
+          "identityVersion": 3,
           "identityQuote": "REIT 的相關資產為位於中國廣東省佛山市南海區的購物中心（佛山千燈湖環宇城項目），即",
           "identityKind": "business",
           "distributedEntity": false,
@@ -477,15 +490,15 @@
       ],
       "identityChecks": {
         "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0907/2026090700914_c.pdf": {
-          "version": 2,
-          "typeVersion": 1,
+          "version": 3,
+          "typeVersion": 2,
           "ruleVersion": 3,
           "checkedAt": "2026-10-10",
           "result": "named"
         },
         "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0911/2026091101166_c.pdf": {
-          "version": 2,
-          "typeVersion": 1,
+          "version": 3,
+          "typeVersion": 2,
           "ruleVersion": 3,
           "checkedAt": "2026-10-10",
           "result": "no_name"
@@ -502,7 +515,7 @@
         "currency": "HKD",
         "updatedAt": "2026-10-10"
       },
-      "lastUpdated": "2026-10-10T13:34:18Z",
+      "lastUpdated": "2026-10-10T13:56:57Z",
       "greenblattNote": {
         "zh": "母公司参考市值约 169.5 亿美元（快照，非实时）。 待验证：分派比例、子公司债务与现金流、管理层持股及机构持仓变化。市值与股价变化不能单独证明强制卖压或低估。",
         "en": "Parent reference market cap: $16.95B (snapshot, not live). Research checklist: distribution ratio, child debt and cash flow, management ownership, and institutional holdings. Size and price changes alone do not establish forced selling or undervaluation."
@@ -541,7 +554,7 @@
         {
           "status": "announced",
           "quote": "新城發展控股有限公司（於開曼群島註冊成立的有限責任公司）（股份代號：1030）須予披露交易有關建議分拆若干商業物業權益並於上海證券交易所獨立上市的視作出售事項建議分拆茲提述於2026年3月9日有關建議分拆兩座零售商場的該公告",
-          "typeVersion": 1,
+          "typeVersion": 2,
           "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0904/2026090402494_c.pdf",
           "date": "2026-09-04",
           "targetName": "商業不動產REITs",
@@ -549,7 +562,7 @@
           "targetAliases": [
             "若干商業物業權益"
           ],
-          "identityVersion": 2,
+          "identityVersion": 3,
           "identityQuote": "自願公告建議分拆商業不動產REITs",
           "identityKind": "business",
           "distributedEntity": false,
@@ -568,13 +581,13 @@
         {
           "status": "announced",
           "quote": "新城發展控股有限公司（於開曼群島註冊成立的有限公司）（股份代號：1030）自願公告建議分拆商業不動產 REITs",
-          "typeVersion": 1,
+          "typeVersion": 2,
           "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0309/2026030900004_c.pdf",
           "date": "2026-03-09",
           "targetName": "商業不動產REITs",
           "targetTicker": "",
           "targetAliases": [],
-          "identityVersion": 2,
+          "identityVersion": 3,
           "identityQuote": "自願公告建議分拆商業不動產REITs",
           "identityKind": "business",
           "distributedEntity": false,
@@ -589,15 +602,15 @@
       ],
       "identityChecks": {
         "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0309/2026030900004_c.pdf": {
-          "version": 2,
-          "typeVersion": 1,
+          "version": 3,
+          "typeVersion": 2,
           "ruleVersion": 3,
           "checkedAt": "2026-10-10",
           "result": "named"
         },
         "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0904/2026090402494_c.pdf": {
-          "version": 2,
-          "typeVersion": 1,
+          "version": 3,
+          "typeVersion": 2,
           "ruleVersion": 3,
           "checkedAt": "2026-10-10",
           "result": "named"
@@ -614,7 +627,7 @@
         "currency": "HKD",
         "updatedAt": "2026-10-10"
       },
-      "lastUpdated": "2026-10-10T13:34:18Z",
+      "lastUpdated": "2026-10-10T13:56:57Z",
       "greenblattNote": {
         "zh": "母公司参考市值约 13.0 亿美元（快照，非实时）。 待验证：分派比例、子公司债务与现金流、管理层持股及机构持仓变化。市值与股价变化不能单独证明强制卖压或低估。",
         "en": "Parent reference market cap: $1.30B (snapshot, not live). Research checklist: distribution ratio, child debt and cash flow, management ownership, and institutional holdings. Size and price changes alone do not establish forced selling or undervaluation."
@@ -648,7 +661,7 @@
         {
           "status": "announced",
           "quote": "PROBIO TECHNOLOGY LIMITED 建議分拆及獨立上市本公告由金斯瑞生物科技股份有限公司（「本公司」，連同其附屬公司，稱爲「本集團」）董事會（「董事會」）根據香港聯合交易所有限公司證券上市規則（「上市規則」）第13.09條與香港法例第571章證券及期貨條例第 XIVA 部內幕消息條文（定義見上市規則）以及上市規則第15項應用指引（「第15項應用指引」）而作出",
-          "typeVersion": 1,
+          "typeVersion": 2,
           "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0904/2026090400068_c.pdf",
           "date": "2026-09-04",
           "targetName": "Probio Technology Limited",
@@ -656,7 +669,7 @@
           "targetAliases": [
             "蓬勃生物"
           ],
-          "identityVersion": 2,
+          "identityVersion": 3,
           "identityQuote": "Probio Technology Limited（「蓬勃生物」，為本公司的間接非全資附屬公司，負責本集團的生物製劑及先進療法合約研究、開發及生產組織服務） … PROBIO TECHNOLOGY LIMITED建議分拆及獨立上市",
           "identityKind": "entity",
           "distributedEntity": false,
@@ -672,8 +685,8 @@
       ],
       "identityChecks": {
         "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0904/2026090400068_c.pdf": {
-          "version": 2,
-          "typeVersion": 1,
+          "version": 3,
+          "typeVersion": 2,
           "ruleVersion": 3,
           "checkedAt": "2026-10-10",
           "result": "named"
@@ -690,7 +703,7 @@
         "currency": "HKD",
         "updatedAt": "2026-10-10"
       },
-      "lastUpdated": "2026-10-10T13:34:18Z",
+      "lastUpdated": "2026-10-10T13:56:57Z",
       "greenblattNote": {
         "zh": "母公司参考市值约 92.6 亿美元（快照，非实时）。 待验证：分派比例、子公司债务与现金流、管理层持股及机构持仓变化。市值与股价变化不能单独证明强制卖压或低估。",
         "en": "Parent reference market cap: $9.26B (snapshot, not live). Research checklist: distribution ratio, child debt and cash flow, management ownership, and institutional holdings. Size and price changes alone do not establish forced selling or undervaluation."
@@ -739,13 +752,13 @@
         {
           "status": "announced",
           "quote": "可能進行的須予披露交易有關建議分拆 CLUBMED LIFESTYLE 並於香港聯交所主板獨立上市本公告乃由復星國際有限公司（「 本公司 」）根據香港聯合交易所有限公司（「 香港聯交所 」）證券上市規則（「 上市規則 」）之第15項應用指引（「 第15項應用指引 」）作出",
-          "typeVersion": 1,
+          "typeVersion": 2,
           "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0828/2026082804231_c.pdf",
           "date": "2026-08-28",
           "targetName": "CLUBMED LIFESTYLE",
           "targetTicker": "",
           "targetAliases": [],
-          "identityVersion": 2,
+          "identityVersion": 3,
           "identityQuote": "可能進行的須予披露交易 - 有關建議分拆CLUBMED LIFESTYLE並於香港聯交所主板獨立上市",
           "identityKind": "entity",
           "distributedEntity": false,
@@ -759,13 +772,13 @@
         {
           "status": "announced",
           "quote": "擬通過中國商業不動產證券投資基金在上海證券交易所分拆並獨立上市之三亞亞特蘭蒂斯項目擬分拆事項於2026年3月26日，本集團已向中國證監會及上交所提交了有關基金註冊及上市以及基金份額上市的申請材料",
-          "typeVersion": 1,
+          "typeVersion": 2,
           "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0326/2026032601745_c.pdf",
           "date": "2026-03-26",
           "targetName": "三亞亞特蘭蒂斯項目",
           "targetTicker": "",
           "targetAliases": [],
-          "identityVersion": 2,
+          "identityVersion": 3,
           "identityQuote": "擬通過中國商業不動產證券投資基金在上海證券交易所分拆並獨立上市之三亞亞特蘭蒂斯項目",
           "identityKind": "business",
           "distributedEntity": false,
@@ -780,13 +793,13 @@
         {
           "status": "announced",
           "quote": "進展公告擬通過中國商業不動產證券投資基金在上海證券交易所分拆並獨立上市之三亞亞特蘭蒂斯項目茲提述復星國際有限公司（「 本公司 」）日期為2026年3月26日之公告（「 該公告 」），有關擬通過中國商業不動產證券投資基金在上交所分拆並獨立上市之三亞亞特蘭蒂斯項目",
-          "typeVersion": 1,
+          "typeVersion": 2,
           "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0330/2026033001895_c.pdf",
           "date": "2026-03-30",
           "targetName": "三亞亞特蘭蒂斯項目",
           "targetTicker": "",
           "targetAliases": [],
-          "identityVersion": 2,
+          "identityVersion": 3,
           "identityQuote": "進展公告 - 擬通過中國商業不動產證券投資基金在上海證券交易所分拆並獨立上市之三亞亞特蘭蒂斯項目",
           "identityKind": "business",
           "distributedEntity": false,
@@ -803,13 +816,13 @@
         {
           "status": "announced",
           "quote": "建議分拆復星安特金並於香港聯交所主板獨立上市本公告乃由復星國際有限公司（「 本公司 」）根據香港聯合交易所有限公司（「 香港聯交所 」）證券上市規則（「 香港上市規則 」）之第15項應用指引（「 第15項應用指引 」）作出",
-          "typeVersion": 1,
+          "typeVersion": 2,
           "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0626/2026062601696_c.pdf",
           "date": "2026-06-26",
           "targetName": "復星安特金",
           "targetTicker": "",
           "targetAliases": [],
-          "identityVersion": 2,
+          "identityVersion": 3,
           "identityQuote": "建議分拆復星安特金並於香港聯交所主板獨立上市",
           "identityKind": "entity",
           "distributedEntity": false,
@@ -824,22 +837,22 @@
       ],
       "identityChecks": {
         "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0326/2026032601745_c.pdf": {
-          "version": 2,
-          "typeVersion": 1,
+          "version": 3,
+          "typeVersion": 2,
           "ruleVersion": 3,
           "checkedAt": "2026-10-10",
           "result": "named"
         },
         "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0330/2026033001895_c.pdf": {
-          "version": 2,
-          "typeVersion": 1,
+          "version": 3,
+          "typeVersion": 2,
           "ruleVersion": 3,
           "checkedAt": "2026-10-10",
           "result": "named"
         },
         "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0626/2026062601696_c.pdf": {
-          "version": 2,
-          "typeVersion": 1,
+          "version": 3,
+          "typeVersion": 2,
           "ruleVersion": 3,
           "checkedAt": "2026-10-10",
           "result": "named"
@@ -862,7 +875,7 @@
         "currency": "HKD",
         "updatedAt": "2026-10-10"
       },
-      "lastUpdated": "2026-10-10T13:34:18Z",
+      "lastUpdated": "2026-10-10T13:56:57Z",
       "greenblattNote": {
         "zh": "母公司参考市值约 42.8 亿美元（快照，非实时）。 待验证：分派比例、子公司债务与现金流、管理层持股及机构持仓变化。市值与股价变化不能单独证明强制卖压或低估。",
         "en": "Parent reference market cap: $4.28B (snapshot, not live). Research checklist: distribution ratio, child debt and cash flow, management ownership, and institutional holdings. Size and price changes alone do not establish forced selling or undervaluation."
@@ -896,13 +909,13 @@
         {
           "status": "announced",
           "quote": "電子控股有限公司（於開曼群島註冊成立之有限公司）（股份代號：）01070內幕消息光伏業務擬分立獨立上市",
-          "typeVersion": 1,
+          "typeVersion": 2,
           "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0824/2026082401764_c.pdf",
           "date": "2026-08-24",
           "targetName": "光伏業務",
           "targetTicker": "",
           "targetAliases": [],
-          "identityVersion": 2,
+          "identityVersion": 3,
           "identityQuote": "光伏業務擬分立獨立上市",
           "identityKind": "business",
           "distributedEntity": false,
@@ -917,8 +930,8 @@
       ],
       "identityChecks": {
         "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0824/2026082401764_c.pdf": {
-          "version": 2,
-          "typeVersion": 1,
+          "version": 3,
+          "typeVersion": 2,
           "ruleVersion": 3,
           "checkedAt": "2026-10-10",
           "result": "named"
@@ -935,7 +948,7 @@
         "currency": "HKD",
         "updatedAt": "2026-10-10"
       },
-      "lastUpdated": "2026-10-10T13:34:18Z",
+      "lastUpdated": "2026-10-10T13:56:57Z",
       "greenblattNote": {
         "zh": "母公司参考市值约 51.9 亿美元（快照，非实时）。 待验证：分派比例、子公司债务与现金流、管理层持股及机构持仓变化。市值与股价变化不能单独证明强制卖压或低估。",
         "en": "Parent reference market cap: $5.19B (snapshot, not live). Research checklist: distribution ratio, child debt and cash flow, management ownership, and institutional holdings. Size and price changes alone do not establish forced selling or undervaluation."
@@ -994,13 +1007,13 @@
         {
           "status": "announced",
           "quote": "江西铜业股份有限公司（以下简称江西铜业、上市公司或公司）于2026年5月1日在上海证券交易所网站披露了《江西铜业股份有限公司关于拟筹划控股子公司分拆上市的提示性公告》（临2026-021），首次披露公司拟分拆所属子公司江西省江铜铜箔科技股份有限公司（以下简称江铜铜箔）于香港联合交易所有限公司（以下简称香港联交所）主板上市（以下简称本次分拆）有关事宜",
-          "typeVersion": 1,
+          "typeVersion": 2,
           "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0806/2026080601575_c.pdf",
           "date": "2026-08-06",
           "targetName": "江西省江铜铜箔科技股份有限公司",
           "targetTicker": "",
           "targetAliases": [],
-          "identityVersion": 2,
+          "identityVersion": 3,
           "identityQuote": "分拆所属子公司江西省江铜铜箔科技股份有限公司",
           "identityKind": "entity",
           "distributedEntity": false,
@@ -1014,13 +1027,13 @@
         {
           "status": "approved",
           "quote": "本次分拆上市能否獲得上述批准、核准或同意以及最終獲得的時間均存在不確定性",
-          "typeVersion": 1,
+          "typeVersion": 2,
           "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0430/2026043004591_c.pdf",
           "date": "2026-04-30",
           "targetName": "",
           "targetTicker": "",
           "targetAliases": [],
-          "identityVersion": 2,
+          "identityVersion": 3,
           "identityQuote": "",
           "identityKind": "",
           "distributedEntity": false,
@@ -1035,7 +1048,7 @@
         {
           "status": "announced",
           "quote": "中国国际金融股份有限公司关于江西铜业股份有限公司分拆所属子公司江西省江铜铜箔科技股份有限公司至香港联合交易所有限公司主板上市之独立财务顾问核查意见独立财务顾问二〇二六年七月释义本核查意见中，除非文意另有所指，下列简称具有如下含义：公司 、 本公司 、 上市公司、江西铜业指江西铜业股份有限公司江铜铜箔、拟分拆主体指江西省江铜铜箔科技股份有限公司江铜集团江西国控指江西铜业集团有限公司指江西省国有资本运营控股集团有限公司本次分拆、本次分拆上市指本次发行、本次发行上市指预案、本预案指核查意见、本核查意见指江西铜业股份有限公司分拆所属子公司江西省江铜铜箔科技股份有限公司至香港联合交易所有限公司主板上市江西省江铜铜箔科技股份有限公司于境外首次公开发行股票（H 股）并在香港联合交易所有限公司主板上市",
-          "typeVersion": 1,
+          "typeVersion": 2,
           "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0716/2026071601403_c.pdf",
           "date": "2026-07-16",
           "targetName": "江西省江铜铜箔科技股份有限公司",
@@ -1043,7 +1056,7 @@
           "targetAliases": [
             "江铜铜箔"
           ],
-          "identityVersion": 2,
+          "identityVersion": 3,
           "identityQuote": "担任公司分拆所属子公司江西省江铜铜箔科技股份有限公司（以下简称“江铜铜箔”） … 分拆所属子公司江西省江铜铜箔科技股份有限公司",
           "identityKind": "entity",
           "distributedEntity": false,
@@ -1058,13 +1071,13 @@
         {
           "status": "approved",
           "quote": "本次分拆能否获得上述批准或备案以及最终获得相关批准或备案时间均存在不确定性，敬请广大投资者注意投资风险",
-          "typeVersion": 1,
+          "typeVersion": 2,
           "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0716/2026071601379_c.pdf",
           "date": "2026-07-16",
           "targetName": "江西省江铜铜箔科技股份有限公司",
           "targetTicker": "",
           "targetAliases": [],
-          "identityVersion": 2,
+          "identityVersion": 3,
           "identityQuote": "分拆所属子公司江西省江铜铜箔科技股份有限公司",
           "identityKind": "entity",
           "distributedEntity": false,
@@ -1125,8 +1138,8 @@
       ],
       "identityChecks": {
         "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0716/2026071601379_c.pdf": {
-          "version": 2,
-          "typeVersion": 1,
+          "version": 3,
+          "typeVersion": 2,
           "ruleVersion": 3,
           "checkedAt": "2026-10-10",
           "result": "named"
@@ -1144,15 +1157,15 @@
           "result": "named"
         },
         "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0430/2026043004591_c.pdf": {
-          "version": 2,
-          "typeVersion": 1,
+          "version": 3,
+          "typeVersion": 2,
           "ruleVersion": 3,
           "checkedAt": "2026-10-10",
           "result": "no_name"
         },
         "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0716/2026071601403_c.pdf": {
-          "version": 2,
-          "typeVersion": 1,
+          "version": 3,
+          "typeVersion": 2,
           "ruleVersion": 3,
           "checkedAt": "2026-10-10",
           "result": "named"
@@ -1175,7 +1188,7 @@
         "currency": "HKD",
         "updatedAt": "2026-10-10"
       },
-      "lastUpdated": "2026-10-10T13:34:18Z",
+      "lastUpdated": "2026-10-10T13:56:57Z",
       "greenblattNote": {
         "zh": "母公司参考市值约 138.6 亿美元（快照，非实时）。 待验证：分派比例、子公司债务与现金流、管理层持股及机构持仓变化。市值与股价变化不能单独证明强制卖压或低估。",
         "en": "Parent reference market cap: $13.86B (snapshot, not live). Research checklist: distribution ratio, child debt and cash flow, management ownership, and institutional holdings. Size and price changes alone do not establish forced selling or undervaluation."
@@ -1209,13 +1222,13 @@
         {
           "status": "announced",
           "quote": "(健倍苗苗保健有限公司（於開曼群島註冊成立的有限公司）（股份代號：2161）)建議分拆保濟元和(TCM)有限公司於香港聯合交易所有限公司主板獨立上市建議分拆本公司建議分拆本集團的品牌中成藥產品及中醫診所服務業務於聯交所主板獨立上市，方式為全球發售保濟元和股份",
-          "typeVersion": 1,
+          "typeVersion": 2,
           "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0717/2026071701273_c.pdf",
           "date": "2026-07-17",
           "targetName": "保濟元和(TCM)有限公司",
           "targetTicker": "",
           "targetAliases": [],
-          "identityVersion": 2,
+          "identityVersion": 3,
           "identityQuote": "建議分拆保濟元和(TCM)有限公司於香港聯合交易所有限公司主板獨立上市",
           "identityKind": "entity",
           "distributedEntity": false,
@@ -1231,8 +1244,8 @@
       ],
       "identityChecks": {
         "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0717/2026071701273_c.pdf": {
-          "version": 2,
-          "typeVersion": 1,
+          "version": 3,
+          "typeVersion": 2,
           "ruleVersion": 3,
           "checkedAt": "2026-10-10",
           "result": "named"
@@ -1249,7 +1262,7 @@
         "currency": "HKD",
         "updatedAt": "2026-10-10"
       },
-      "lastUpdated": "2026-10-10T13:34:18Z",
+      "lastUpdated": "2026-10-10T13:56:57Z",
       "greenblattNote": {
         "zh": "母公司参考市值约 2.1 亿美元（快照，非实时）。 待验证：分派比例、子公司债务与现金流、管理层持股及机构持仓变化。市值与股价变化不能单独证明强制卖压或低估。",
         "en": "Parent reference market cap: $0.21B (snapshot, not live). Research checklist: distribution ratio, child debt and cash flow, management ownership, and institutional holdings. Size and price changes alone do not establish forced selling or undervaluation."
@@ -1293,13 +1306,13 @@
         {
           "status": "announced",
           "quote": "（在中華人民共和國註冊成立的股份有限公司）（股份代碼：01171）建議分拆物泊科技於香港聯合交易所有限公司主板上市之進展公告茲提述兗礦能源集團股份有限公司（「本公司」，連同其附屬公司，統稱「本集團」）日期為2026年3月27日之內幕消息公告，內容有關建議分拆本公司非全資附屬公司物泊科技股份有限公司（「物泊科技」）的股份並於香港聯合交易所有限公司（「香港聯交所」）主板獨立上市（「建議分拆」）以及本公司日期為2026年6月10日之通函及本公司日期為2026年6月26日之投票結果公告",
-          "typeVersion": 1,
+          "typeVersion": 2,
           "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0630/2026063003934_c.pdf",
           "date": "2026-06-30",
           "targetName": "物泊科技",
           "targetTicker": "",
           "targetAliases": [],
-          "identityVersion": 2,
+          "identityVersion": 3,
           "identityQuote": "建議分拆物泊科技於香港聯合交易所有限公司主板上市之進展公告",
           "identityKind": "entity",
           "distributedEntity": false,
@@ -1318,7 +1331,7 @@
         {
           "status": "announced",
           "quote": "（在中華人民共和國註冊成立的股份有限公司）（股份代碼：01171）建議分拆卡松科技於全國中小企業股份轉讓系統掛牌之進展茲提述兗礦能源集團股份有限公司（「本公司」）日期為2025年9月22日之公告（「該公告」），內容有關本公司控股附屬公司卡松科技股份有限公司（「卡松科技」）於全國中小企業股份轉讓系統（「全國中小企業股份轉讓系統」，即「新三板」）掛牌之建議分拆（「建議分拆」）",
-          "typeVersion": 1,
+          "typeVersion": 2,
           "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0213/2026021300694_c.pdf",
           "date": "2026-02-13",
           "targetName": "卡松科技股份有限公司",
@@ -1326,7 +1339,7 @@
           "targetAliases": [
             "卡松科技"
           ],
-          "identityVersion": 2,
+          "identityVersion": 3,
           "identityQuote": "內容有關本公司控股附屬公司卡松科技股份有限公司（「卡松科技」） … 建議分拆卡松科技於全國中小企業股份轉讓系統掛牌之進展",
           "identityKind": "entity",
           "distributedEntity": false,
@@ -1343,13 +1356,13 @@
         {
           "status": "announced",
           "quote": "（在中華人民共和國註冊成立的股份有限公司）（股份代碼：01171）內幕消息建議分拆物泊科技於香港聯合交易所有限公司主板上市兗礦能源集團股份有限公司（「本公司」，連同其附屬公司，統稱「本集團」）根據香港聯合交易所有限公司（「香港聯交所」）證券上市規則（「香港上市規則」）第13.09(2)條以及香港法例第571章證券及期貨條例第XIVA 部項下內幕消息條文（定義見香港上市規則條文）刊發本公告",
-          "typeVersion": 1,
+          "typeVersion": 2,
           "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0327/2026032701577_c.pdf",
           "date": "2026-03-27",
           "targetName": "物泊科技",
           "targetTicker": "",
           "targetAliases": [],
-          "identityVersion": 2,
+          "identityVersion": 3,
           "identityQuote": "建議分拆物泊科技於香港聯合交易所有限公司主板上市",
           "identityKind": "entity",
           "distributedEntity": false,
@@ -1364,22 +1377,22 @@
       ],
       "identityChecks": {
         "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0213/2026021300694_c.pdf": {
-          "version": 2,
-          "typeVersion": 1,
+          "version": 3,
+          "typeVersion": 2,
           "ruleVersion": 3,
           "checkedAt": "2026-10-10",
           "result": "named"
         },
         "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0327/2026032701577_c.pdf": {
-          "version": 2,
-          "typeVersion": 1,
+          "version": 3,
+          "typeVersion": 2,
           "ruleVersion": 3,
           "checkedAt": "2026-10-10",
           "result": "named"
         },
         "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0630/2026063003934_c.pdf": {
-          "version": 2,
-          "typeVersion": 1,
+          "version": 3,
+          "typeVersion": 2,
           "ruleVersion": 3,
           "checkedAt": "2026-10-10",
           "result": "named"
@@ -1396,7 +1409,7 @@
         "currency": "HKD",
         "updatedAt": "2026-10-10"
       },
-      "lastUpdated": "2026-10-10T13:34:18Z",
+      "lastUpdated": "2026-10-10T13:56:57Z",
       "greenblattNote": {
         "zh": "母公司参考市值约 147.1 亿美元（快照，非实时）。 待验证：分派比例、子公司债务与现金流、管理层持股及机构持仓变化。市值与股价变化不能单独证明强制卖压或低估。",
         "en": "Parent reference market cap: $14.71B (snapshot, not live). Research checklist: distribution ratio, child debt and cash flow, management ownership, and institutional holdings. Size and price changes alone do not establish forced selling or undervaluation."
@@ -1430,13 +1443,13 @@
         {
           "status": "announced",
           "quote": "（於開曼群島註冊成立的有限公司）（股份代號：）3337潛在須予披露交易建議分拆通奧檢測集團股份有限公司並於香港聯合交易所有限公司主板獨立上市背景茲提述本公司日期為2022298月年日及202516月年建議分拆本集團透過通奧檢測集團股份有限公司（日的公告（「該等公告」），內容有關",
-          "typeVersion": 1,
+          "typeVersion": 2,
           "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0630/2026063003740_c.pdf",
           "date": "2026-06-30",
           "targetName": "通奧檢測集團股份有限公司",
           "targetTicker": "",
           "targetAliases": [],
-          "identityVersion": 2,
+          "identityVersion": 3,
           "identityQuote": "潛在須予披露交易 - 建議分拆通奧檢測集團股份有限公司並於香港聯合交易所有限公司主板獨立上市",
           "identityKind": "entity",
           "distributedEntity": false,
@@ -1451,8 +1464,8 @@
       ],
       "identityChecks": {
         "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0630/2026063003740_c.pdf": {
-          "version": 2,
-          "typeVersion": 1,
+          "version": 3,
+          "typeVersion": 2,
           "ruleVersion": 3,
           "checkedAt": "2026-10-10",
           "result": "named"
@@ -1469,7 +1482,7 @@
         "currency": "HKD",
         "updatedAt": "2026-10-10"
       },
-      "lastUpdated": "2026-10-10T13:34:18Z",
+      "lastUpdated": "2026-10-10T13:56:57Z",
       "greenblattNote": {
         "zh": "母公司参考市值约 2.9 亿美元（快照，非实时）。 待验证：分派比例、子公司债务与现金流、管理层持股及机构持仓变化。市值与股价变化不能单独证明强制卖压或低估。",
         "en": "Parent reference market cap: $0.29B (snapshot, not live). Research checklist: distribution ratio, child debt and cash flow, management ownership, and institutional holdings. Size and price changes alone do not establish forced selling or undervaluation."
@@ -1538,13 +1551,13 @@
         {
           "status": "announced",
           "quote": "（根據公司條例在香港註冊成立之有限責任公司）（股份代號：836）華潤新能源控股有限公司建議分拆及A股上市之最新情況本公告乃由華潤電力控股有限公司（「本公司」）之董事會（「董事會」）根據香港聯合交易所有限公司證券上市規則（「上市規則」）第13.09(2)條及香港法例第571章證券及期貨條例第XIVA部之內幕消息條文（定義見上市規則）而作出",
-          "typeVersion": 1,
+          "typeVersion": 2,
           "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0630/2026063003120_c.pdf",
           "date": "2026-06-30",
           "targetName": "華潤新能源控股有限公司",
           "targetTicker": "",
           "targetAliases": [],
-          "identityVersion": 2,
+          "identityVersion": 3,
           "identityQuote": "華潤新能源控股有限公司建議分拆及A股上市之最新情況",
           "identityKind": "entity",
           "distributedEntity": false,
@@ -1553,30 +1566,18 @@
           "dates": {},
           "method": "rule",
           "ruleVersion": 3,
-          "accession": "",
-          "identityReferences": [
-            "2023-03-22",
-            "2023-06-18",
-            "2023-06-21",
-            "2025-03-14",
-            "2026-04-29",
-            "2026-05-06",
-            "2026-05-15",
-            "2026-06-10",
-            "2026-06-18",
-            "2026-06-25"
-          ]
+          "accession": ""
         },
         {
           "status": "announced",
           "quote": "（根據公司條例在香港註冊成立之有限責任公司）（股份代號：836）華潤新能源控股有限公司建議分拆及A股上市之最新情況本公佈乃由華潤電力控股有限公司（「本公司」）之董事會（「董事會」）根據香港聯合交易所有限公司證券上市規則（「上市規則」）第13.09(2)(a)條及香港法例第571章證券及期貨條例第XIVA部之內幕消息條文（定義見上市規則）而作出",
-          "typeVersion": 1,
+          "typeVersion": 2,
           "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0429/2026042900186_c.pdf",
           "date": "2026-04-29",
           "targetName": "華潤新能源控股有限公司",
           "targetTicker": "",
           "targetAliases": [],
-          "identityVersion": 2,
+          "identityVersion": 3,
           "identityQuote": "華潤新能源控股有限公司建議分拆及A股上市之最新情況",
           "identityKind": "entity",
           "distributedEntity": false,
@@ -1597,7 +1598,7 @@
         {
           "status": "announced",
           "quote": "（根據公司條例在香港註冊成立的有限責任公司）（股份代號：836)公開募集基礎設施證券投資基金之建議分拆及在深圳證券交易所獨立上市建議分拆董事會欣然宣佈，於2026年4月30日，華夏基金及中信証券向中國證監會及深圳證券交易所提交了公募基金註冊及上市的申請材料",
-          "typeVersion": 1,
+          "typeVersion": 2,
           "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0430/2026043000905_c.pdf",
           "date": "2026-04-30",
           "targetName": "位於中國河南省焦作市的焦作燃煤發電廠",
@@ -1605,7 +1606,7 @@
           "targetAliases": [
             "該項目"
           ],
-          "identityVersion": 2,
+          "identityVersion": 3,
           "identityQuote": "基礎設施 REIT 的相關資產為位於中國河南省焦作市的焦作燃煤發電廠（「該項目」）",
           "identityKind": "business",
           "distributedEntity": false,
@@ -1621,13 +1622,13 @@
         {
           "status": "announced",
           "quote": "（根據公司條例在香港註冊成立之有限責任公司）（股份代號：836）華潤新能源控股有限公司建議分拆及A股上市之最新情況本公告乃由華潤電力控股有限公司（「本公司」）之董事會（「董事會」）根據香港聯合交易所有限公司證券上市規則（「上市規則」）第13.09(2)(a)條及香港法例第571章證券及期貨條例第XIVA部之內幕消息條文（定義見上市規則）而作出",
-          "typeVersion": 1,
+          "typeVersion": 2,
           "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0506/2026050600408_c.pdf",
           "date": "2026-05-06",
           "targetName": "華潤新能源控股有限公司",
           "targetTicker": "",
           "targetAliases": [],
-          "identityVersion": 2,
+          "identityVersion": 3,
           "identityQuote": "華潤新能源控股有限公司建議分拆及A股上市之最新情況",
           "identityKind": "entity",
           "distributedEntity": false,
@@ -1771,15 +1772,15 @@
       ],
       "identityChecks": {
         "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0429/2026042900186_c.pdf": {
-          "version": 2,
-          "typeVersion": 1,
+          "version": 3,
+          "typeVersion": 2,
           "ruleVersion": 3,
           "checkedAt": "2026-10-10",
           "result": "named"
         },
         "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0506/2026050600408_c.pdf": {
-          "version": 2,
-          "typeVersion": 1,
+          "version": 3,
+          "typeVersion": 2,
           "ruleVersion": 3,
           "checkedAt": "2026-10-10",
           "result": "named"
@@ -1815,8 +1816,8 @@
           "result": "named"
         },
         "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0430/2026043000905_c.pdf": {
-          "version": 2,
-          "typeVersion": 1,
+          "version": 3,
+          "typeVersion": 2,
           "ruleVersion": 3,
           "checkedAt": "2026-10-10",
           "result": "named"
@@ -1833,7 +1834,7 @@
         "currency": "HKD",
         "updatedAt": "2026-10-10"
       },
-      "lastUpdated": "2026-10-10T13:34:18Z",
+      "lastUpdated": "2026-10-10T13:56:57Z",
       "greenblattNote": {
         "zh": "母公司参考市值约 114.7 亿美元（快照，非实时）。 待验证：分派比例、子公司债务与现金流、管理层持股及机构持仓变化。市值与股价变化不能单独证明强制卖压或低估。",
         "en": "Parent reference market cap: $11.47B (snapshot, not live). Research checklist: distribution ratio, child debt and cash flow, management ownership, and institutional holdings. Size and price changes alone do not establish forced selling or undervaluation."
@@ -1932,7 +1933,7 @@
         {
           "status": "announced",
           "quote": "茲載列上海復星醫藥（集團）股份有限公司（「本公司」）在上海證券交易所網站刊登的《 關於建議分拆子公司並於香港聯合交易所有限公司主板獨立上市的進展公告 》，僅供參閱",
-          "typeVersion": 1,
+          "typeVersion": 2,
           "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0626/2026062601537_c.pdf",
           "date": "2026-06-26",
           "targetName": "复星安特金（成都）生物制药股份有限公司",
@@ -1940,7 +1941,7 @@
           "targetAliases": [
             "复星安特金"
           ],
-          "identityVersion": 2,
+          "identityVersion": 3,
           "identityQuote": "第十届董事会第二十二次会议审议通过关于分拆所属子公司复星安特金（成都）生物制药股份有限公司（以下简称“复星安特金”） … 分拆所属子公司复星安特金（成都）生物制药股份有限公司",
           "identityKind": "entity",
           "distributedEntity": false,
@@ -1954,13 +1955,13 @@
         {
           "status": "approved",
           "quote": "建议分拆上市能否获得上述批准或核准以及最终获得相关批准或核准的时间均存在不确定性",
-          "typeVersion": 1,
+          "typeVersion": 2,
           "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2025/1028/2025102801379_c.pdf",
           "date": "2025-10-28",
           "targetName": "复星安特金（成都）生物制药有限公司",
           "targetTicker": "",
           "targetAliases": [],
-          "identityVersion": 2,
+          "identityVersion": 3,
           "identityQuote": "分拆控股子公司复星安特金（成都）生物制药有限公司",
           "identityKind": "entity",
           "distributedEntity": false,
@@ -1975,13 +1976,13 @@
         {
           "status": "announced",
           "quote": "（於中華人民共和國註冊成立的股份有限公司）（股份代號：02196）自願公告建議籌劃復星安特金於聯交所分拆上市本公告乃由上海復星醫藥（集團）股份有限公司（「 本公司 」）自願作出",
-          "typeVersion": 1,
+          "typeVersion": 2,
           "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2025/1028/2025102801120_c.pdf",
           "date": "2025-10-28",
           "targetName": "",
           "targetTicker": "",
           "targetAliases": [],
-          "identityVersion": 2,
+          "identityVersion": 3,
           "identityQuote": "",
           "identityKind": "",
           "distributedEntity": false,
@@ -1996,7 +1997,7 @@
         {
           "status": "announced",
           "quote": "（详见附件）本意见函仅供复星医药申请拟分拆所属子公司复星安特金至香港联合交易所有限公司主板上市之目的而向上海证券交易所报送申请文件使用，不得用作任何其他目的",
-          "typeVersion": 1,
+          "typeVersion": 2,
           "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0122/2026012201053_c.pdf",
           "date": "2026-01-22",
           "targetName": "复星安特金（成都）生物制药股份有限公司",
@@ -2004,7 +2005,7 @@
           "targetAliases": [
             "复星安特金"
           ],
-          "identityVersion": 2,
+          "identityVersion": 3,
           "identityQuote": "对复星医药编制的分拆所属子公司复星安特金（成都）生物制药股份有限公司（以下简称“复星安特金”） … 分拆所属子公司复星安特金（成都）生物制药股份有限公司",
           "identityKind": "entity",
           "distributedEntity": false,
@@ -2274,22 +2275,22 @@
           "result": "named"
         },
         "https://www1.hkexnews.hk/listedco/listconews/sehk/2025/1028/2025102801379_c.pdf": {
-          "version": 2,
-          "typeVersion": 1,
+          "version": 3,
+          "typeVersion": 2,
           "ruleVersion": 3,
           "checkedAt": "2026-10-10",
           "result": "named"
         },
         "https://www1.hkexnews.hk/listedco/listconews/sehk/2025/1028/2025102801120_c.pdf": {
-          "version": 2,
-          "typeVersion": 1,
+          "version": 3,
+          "typeVersion": 2,
           "ruleVersion": 3,
           "checkedAt": "2026-10-10",
           "result": "no_name"
         },
         "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0122/2026012201053_c.pdf": {
-          "version": 2,
-          "typeVersion": 1,
+          "version": 3,
+          "typeVersion": 2,
           "ruleVersion": 3,
           "checkedAt": "2026-10-10",
           "result": "named"
@@ -2336,7 +2337,7 @@
         "currency": "HKD",
         "updatedAt": "2026-10-10"
       },
-      "lastUpdated": "2026-10-10T13:34:18Z",
+      "lastUpdated": "2026-10-10T13:56:57Z",
       "greenblattNote": {
         "zh": "母公司参考市值约 57.2 亿美元（快照，非实时）。 待验证：分派比例、子公司债务与现金流、管理层持股及机构持仓变化。市值与股价变化不能单独证明强制卖压或低估。",
         "en": "Parent reference market cap: $5.72B (snapshot, not live). Research checklist: distribution ratio, child debt and cash flow, management ownership, and institutional holdings. Size and price changes alone do not establish forced selling or undervaluation."
@@ -2370,7 +2371,7 @@
         {
           "status": "announced",
           "quote": "（於香港註冊成立之有限公司）（股份代號：308）中旅港澳文旅控股有限公司之建議分拆及於香港聯合交易所有限公司主板獨立上市本公告乃根據上市規則應用指引第15項作出",
-          "typeVersion": 1,
+          "typeVersion": 2,
           "listingType": {
             "code": "intro_hk",
             "exchange_zh": "港交所",
@@ -2385,7 +2386,7 @@
           "targetName": "中旅港澳文旅控股有限公司",
           "targetTicker": "",
           "targetAliases": [],
-          "identityVersion": 2,
+          "identityVersion": 3,
           "identityQuote": "中旅港澳文旅控股有限公司之建議分拆及於香港聯合交易所有限公司主板獨立上市",
           "identityKind": "entity",
           "distributedEntity": false,
@@ -2401,8 +2402,8 @@
       ],
       "identityChecks": {
         "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0520/2026052001869_c.pdf": {
-          "version": 2,
-          "typeVersion": 1,
+          "version": 3,
+          "typeVersion": 2,
           "ruleVersion": 3,
           "checkedAt": "2026-10-10",
           "result": "named"
@@ -2419,7 +2420,7 @@
         "currency": "HKD",
         "updatedAt": "2026-10-10"
       },
-      "lastUpdated": "2026-10-10T13:34:18Z",
+      "lastUpdated": "2026-10-10T13:56:57Z",
       "greenblattNote": {
         "zh": "母公司参考市值约 7.5 亿美元（快照，非实时）。 待验证：分派比例、子公司债务与现金流、管理层持股及机构持仓变化。市值与股价变化不能单独证明强制卖压或低估。",
         "en": "Parent reference market cap: $0.75B (snapshot, not live). Research checklist: distribution ratio, child debt and cash flow, management ownership, and institutional holdings. Size and price changes alone do not establish forced selling or undervaluation."
@@ -2458,13 +2459,13 @@
         {
           "status": "approved",
           "quote": "（於開曼群島註冊成立的有限公司）（股份代號：01109.HK）建議分拆獲聯交所批准兹提述華潤置地有限公司（「 本公司 」）日期為二零二六年四月二十八日之公告，內容有關建議分拆（「 該公告 」）",
-          "typeVersion": 1,
+          "typeVersion": 2,
           "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0518/2026051801187_c.pdf",
           "date": "2026-05-18",
           "targetName": "兩個購物商場，分別位於中國江蘇省南通市及山東省臨沂市",
           "targetTicker": "",
           "targetAliases": [],
-          "identityVersion": 2,
+          "identityVersion": 3,
           "identityQuote": "REIT 的相關資產為兩個購物商場，分別位於中國江蘇省南通市及山東省臨沂市，即",
           "identityKind": "business",
           "distributedEntity": false,
@@ -2483,13 +2484,13 @@
         {
           "status": "announced",
           "quote": "（於開曼群島註冊成立的有限公司）（股份代號：01109.HK）公開募集商業不動產投資信託基金之建議分拆及在深圳證券交易所上市建議分拆董事會欣然宣佈，於二零二六年四月二十八日，華夏基金及中信證券向深圳證券交易所及中國證監會提交了公募基金註冊及上市的申請材料",
-          "typeVersion": 1,
+          "typeVersion": 2,
           "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0428/2026042803126_c.pdf",
           "date": "2026-04-28",
           "targetName": "兩個購物商場，分別位於中國江蘇省南通市及山東省臨沂市",
           "targetTicker": "",
           "targetAliases": [],
-          "identityVersion": 2,
+          "identityVersion": 3,
           "identityQuote": "REIT 的相關資產為兩個購物商場，分別位於中國江蘇省南通市及山東省臨沂市，即",
           "identityKind": "business",
           "distributedEntity": false,
@@ -2504,15 +2505,15 @@
       ],
       "identityChecks": {
         "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0428/2026042803126_c.pdf": {
-          "version": 2,
-          "typeVersion": 1,
+          "version": 3,
+          "typeVersion": 2,
           "ruleVersion": 3,
           "checkedAt": "2026-10-10",
           "result": "named"
         },
         "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0518/2026051801187_c.pdf": {
-          "version": 2,
-          "typeVersion": 1,
+          "version": 3,
+          "typeVersion": 2,
           "ruleVersion": 3,
           "checkedAt": "2026-10-10",
           "result": "no_name"
@@ -2529,7 +2530,7 @@
         "currency": "HKD",
         "updatedAt": "2026-10-10"
       },
-      "lastUpdated": "2026-10-10T13:34:18Z",
+      "lastUpdated": "2026-10-10T13:56:57Z",
       "greenblattNote": {
         "zh": "母公司参考市值约 293.0 亿美元（快照，非实时）。 待验证：分派比例、子公司债务与现金流、管理层持股及机构持仓变化。市值与股价变化不能单独证明强制卖压或低估。",
         "en": "Parent reference market cap: $29.30B (snapshot, not live). Research checklist: distribution ratio, child debt and cash flow, management ownership, and institutional holdings. Size and price changes alone do not establish forced selling or undervaluation."
@@ -2563,7 +2564,7 @@
         {
           "status": "announced",
           "quote": "天寶集團控股有限公司（於開曼群島註冊成立的有限公司）（股份代號：1979）內幕消息廣東天寶電子科技股份有限公司的建議分拆並於中國證券交易所進行獨立A股上市本公佈乃由天寶集團控股有限公司（「本公司」，連同其附屬公司統稱為「本集團」）根據香港聯合交易所有限公司（「聯交所」）證券上市規則（「上市規則」）第13.09條及香港法例第571章證券及期貨條例第XIVA部作出",
-          "typeVersion": 1,
+          "typeVersion": 2,
           "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0514/2026051401481_c.pdf",
           "date": "2026-05-14",
           "targetName": "廣東天寶電子科技股份有限公司",
@@ -2571,7 +2572,7 @@
           "targetAliases": [
             "分拆公司"
           ],
-          "identityVersion": 2,
+          "identityVersion": 3,
           "identityQuote": "廣東天寶電子科技股份有限公司的建議分拆並於中國證券交易所進行獨立A股上市",
           "identityKind": "entity",
           "distributedEntity": false,
@@ -2587,8 +2588,8 @@
       ],
       "identityChecks": {
         "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0514/2026051401481_c.pdf": {
-          "version": 2,
-          "typeVersion": 1,
+          "version": 3,
+          "typeVersion": 2,
           "ruleVersion": 3,
           "checkedAt": "2026-10-10",
           "result": "named"
@@ -2605,7 +2606,7 @@
         "currency": "HKD",
         "updatedAt": "2026-10-10"
       },
-      "lastUpdated": "2026-10-10T13:34:18Z",
+      "lastUpdated": "2026-10-10T13:56:57Z",
       "greenblattNote": {
         "zh": "母公司参考市值约 2.7 亿美元（快照，非实时）。 待验证：分派比例、子公司债务与现金流、管理层持股及机构持仓变化。市值与股价变化不能单独证明强制卖压或低估。",
         "en": "Parent reference market cap: $0.27B (snapshot, not live). Research checklist: distribution ratio, child debt and cash flow, management ownership, and institutional holdings. Size and price changes alone do not establish forced selling or undervaluation."
@@ -2639,13 +2640,13 @@
         {
           "status": "approved",
           "quote": "阿里巴巴集團控股有限公司（於開曼群島註冊成立的有限責任公司）（股份代號：9988（港幣櫃台）及89988（人民幣櫃台））擬議分拆獲香港聯交所批准本公告乃根據香港上市規則第15項應用指引而作出",
-          "typeVersion": 1,
+          "typeVersion": 2,
           "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0427/2026042702683_c.pdf",
           "date": "2026-04-27",
           "targetName": "嘉興園區",
           "targetTicker": "",
           "targetAliases": [],
-          "identityVersion": 2,
+          "identityVersion": 3,
           "identityQuote": "分拆的底層資產為嘉興園區",
           "identityKind": "business",
           "distributedEntity": false,
@@ -2661,8 +2662,8 @@
       ],
       "identityChecks": {
         "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0427/2026042702683_c.pdf": {
-          "version": 2,
-          "typeVersion": 1,
+          "version": 3,
+          "typeVersion": 2,
           "ruleVersion": 3,
           "checkedAt": "2026-10-10",
           "result": "named"
@@ -2679,7 +2680,7 @@
         "currency": "HKD",
         "updatedAt": "2026-10-10"
       },
-      "lastUpdated": "2026-10-10T13:34:18Z",
+      "lastUpdated": "2026-10-10T13:56:57Z",
       "greenblattNote": {
         "zh": "母公司参考市值约 2341.7 亿美元（快照，非实时）。 待验证：分派比例、子公司债务与现金流、管理层持股及机构持仓变化。市值与股价变化不能单独证明强制卖压或低估。",
         "en": "Parent reference market cap: $234.17B (snapshot, not live). Research checklist: distribution ratio, child debt and cash flow, management ownership, and institutional holdings. Size and price changes alone do not establish forced selling or undervaluation."
@@ -2713,13 +2714,13 @@
         {
           "status": "needs_review",
           "quote": "",
-          "typeVersion": 1,
+          "typeVersion": 2,
           "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0407/2026040700038_c.pdf",
           "date": "2026-04-07",
           "targetName": "",
           "targetTicker": "",
           "targetAliases": [],
-          "identityVersion": 2,
+          "identityVersion": 3,
           "identityQuote": "",
           "identityKind": "",
           "distributedEntity": false,
@@ -2775,8 +2776,8 @@
           "result": "named"
         },
         "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0407/2026040700038_c.pdf": {
-          "version": 2,
-          "typeVersion": 1,
+          "version": 3,
+          "typeVersion": 2,
           "ruleVersion": 3,
           "checkedAt": "2026-10-10",
           "result": "no_name"
@@ -2808,7 +2809,7 @@
         "currency": "HKD",
         "updatedAt": "2026-10-10"
       },
-      "lastUpdated": "2026-10-10T13:34:18Z",
+      "lastUpdated": "2026-10-10T13:56:57Z",
       "greenblattNote": {
         "zh": "母公司参考市值约 1048.3 亿美元（快照，非实时）。 待验证：分派比例、子公司债务与现金流、管理层持股及机构持仓变化。市值与股价变化不能单独证明强制卖压或低估。",
         "en": "Parent reference market cap: $104.83B (snapshot, not live). Research checklist: distribution ratio, child debt and cash flow, management ownership, and institutional holdings. Size and price changes alone do not establish forced selling or undervaluation."
@@ -2872,13 +2873,13 @@
         {
           "status": "paused",
           "quote": "經諮詢其建議分拆的顧問，分拆公司於考慮現時市場及監管狀況等多項因素後，決定於現階段不進行建議分拆及建議於美國證券交易所上市",
-          "typeVersion": 1,
+          "typeVersion": 2,
           "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0401/2026040104407_c.pdf",
           "date": "2026-04-01",
           "targetName": "",
           "targetTicker": "",
           "targetAliases": [],
-          "identityVersion": 2,
+          "identityVersion": 3,
           "identityQuote": "",
           "identityKind": "",
           "distributedEntity": false,
@@ -2892,13 +2893,13 @@
         {
           "status": "announced",
           "quote": "理士國際技術有限公司（於開曼群島註冊成立的有限公司）（股份代號：）842有關分拆公司的建議分拆及在美國單獨上市之最新消息茲提述理士國際技術有限公司（「本公司」）日期為二零二五年二月十二日的公告，以",
-          "typeVersion": 1,
+          "typeVersion": 2,
           "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2025/1231/2025123100006_c.pdf",
           "date": "2025-12-31",
           "targetName": "Leoch Energy Inc",
           "targetTicker": "",
           "targetAliases": [],
-          "identityVersion": 2,
+          "identityVersion": 3,
           "identityQuote": "‘‘SpinCo’’ Leoch Energy Inc",
           "identityKind": "entity",
           "distributedEntity": false,
@@ -2919,13 +2920,13 @@
         {
           "status": "announced",
           "quote": "理士國際技術有限公司（於開曼群島註冊成立的有限公司）（股份代號：）842有關建議分拆及建議分派之最新消息茲提述本公司日期為二零二五年二月十二日及十二月三十一日之公告，以及本公司日期為二零二五年十二月十五日之通函（「通函」），內容有關建議分拆及建議分派",
-          "typeVersion": 1,
+          "typeVersion": 2,
           "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0113/2026011301400_c.pdf",
           "date": "2026-01-13",
           "targetName": "Leoch Energy Inc",
           "targetTicker": "",
           "targetAliases": [],
-          "identityVersion": 2,
+          "identityVersion": 3,
           "identityQuote": "‘‘SpinCo’’ Leoch Energy Inc",
           "identityKind": "entity",
           "distributedEntity": false,
@@ -2952,13 +2953,13 @@
         {
           "status": "announced",
           "quote": "理士國際技術有限公司（於開曼群島註冊成立的有限公司）（股份代號：）842有關建議分拆及建議分派之最新消息茲提述本公司日期為二零二五年二月十二日、二零二五年十二月三十一日及二零二五年一月十三日之公告（「分拆公告」），以及本公司日期為二零二五年十二月十五日之通函（「通函」），內容有關建議分拆及建議分派",
-          "typeVersion": 1,
+          "typeVersion": 2,
           "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0202/2026020201305_c.pdf",
           "date": "2026-02-02",
           "targetName": "Leoch Energy Inc",
           "targetTicker": "",
           "targetAliases": [],
-          "identityVersion": 2,
+          "identityVersion": 3,
           "identityQuote": "‘‘SpinCo’’ Leoch Energy Inc",
           "identityKind": "entity",
           "distributedEntity": false,
@@ -3110,8 +3111,8 @@
       ],
       "identityChecks": {
         "https://www1.hkexnews.hk/listedco/listconews/sehk/2025/1231/2025123100006_c.pdf": {
-          "version": 2,
-          "typeVersion": 1,
+          "version": 3,
+          "typeVersion": 2,
           "ruleVersion": 3,
           "checkedAt": "2026-10-10",
           "result": "no_name"
@@ -3122,15 +3123,15 @@
           "result": "named"
         },
         "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0113/2026011301400_c.pdf": {
-          "version": 2,
-          "typeVersion": 1,
+          "version": 3,
+          "typeVersion": 2,
           "ruleVersion": 3,
           "checkedAt": "2026-10-10",
           "result": "no_name"
         },
         "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0202/2026020201305_c.pdf": {
-          "version": 2,
-          "typeVersion": 1,
+          "version": 3,
+          "typeVersion": 2,
           "ruleVersion": 3,
           "checkedAt": "2026-10-10",
           "result": "no_name"
@@ -3171,7 +3172,7 @@
         "currency": "HKD",
         "updatedAt": "2026-10-10"
       },
-      "lastUpdated": "2026-10-10T13:34:18Z",
+      "lastUpdated": "2026-10-10T13:56:57Z",
       "greenblattNote": {
         "zh": "母公司参考市值约 1.9 亿美元（快照，非实时）。 待验证：分派比例、子公司债务与现金流、管理层持股及机构持仓变化。市值与股价变化不能单独证明强制卖压或低估。",
         "en": "Parent reference market cap: $0.19B (snapshot, not live). Research checklist: distribution ratio, child debt and cash flow, management ownership, and institutional holdings. Size and price changes alone do not establish forced selling or undervaluation."
@@ -3210,13 +3211,13 @@
         {
           "status": "announced",
           "quote": "（於開曼群島註冊成立的有限公司）（股份代號：01530）建議分拆蔓迪國際並於香港聯合交易所有限公司主板獨立上市及以實物分派方式宣派附條件特別股息茲提述本公司日期為二零二五年十一月二十日及二零二六年三月十七日的公告",
-          "typeVersion": 1,
+          "typeVersion": 2,
           "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0330/2026033002423_c.pdf",
           "date": "2026-03-30",
           "targetName": "蔓迪國際",
           "targetTicker": "",
           "targetAliases": [],
-          "identityVersion": 2,
+          "identityVersion": 3,
           "identityQuote": "建議分拆蔓迪國際並於香港聯合交易所有限公司主板獨立上市及以實物分派方式宣派附條件特別股息",
           "identityKind": "entity",
           "distributedEntity": false,
@@ -3241,13 +3242,13 @@
         {
           "status": "announced",
           "quote": "（於開曼群島註冊成立的有限公司）（股份代號：01530）建議分拆蔓迪国际並於香港聯合交易所有限公司主板獨立上市本公司建議將本公司附屬公司蔓迪股份分拆並於聯交所主板獨立上市",
-          "typeVersion": 1,
+          "typeVersion": 2,
           "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2025/1120/2025112001395_c.pdf",
           "date": "2025-11-20",
           "targetName": "蔓迪国际",
           "targetTicker": "",
           "targetAliases": [],
-          "identityVersion": 2,
+          "identityVersion": 3,
           "identityQuote": "建議分拆蔓迪国际並於香港聯合交易所有限公司主板獨立上市",
           "identityKind": "entity",
           "distributedEntity": false,
@@ -3263,15 +3264,15 @@
       ],
       "identityChecks": {
         "https://www1.hkexnews.hk/listedco/listconews/sehk/2025/1120/2025112001395_c.pdf": {
-          "version": 2,
-          "typeVersion": 1,
+          "version": 3,
+          "typeVersion": 2,
           "ruleVersion": 3,
           "checkedAt": "2026-10-10",
           "result": "named"
         },
         "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0330/2026033002423_c.pdf": {
-          "version": 2,
-          "typeVersion": 1,
+          "version": 3,
+          "typeVersion": 2,
           "ruleVersion": 3,
           "checkedAt": "2026-10-10",
           "result": "named"
@@ -3289,7 +3290,7 @@
         "currency": "HKD",
         "updatedAt": "2026-10-10"
       },
-      "lastUpdated": "2026-10-10T13:34:18Z",
+      "lastUpdated": "2026-10-10T13:56:57Z",
       "greenblattNote": {
         "zh": "母公司参考市值约 62.0 亿美元（快照，非实时）。 待验证：分派比例、子公司债务与现金流、管理层持股及机构持仓变化。市值与股价变化不能单独证明强制卖压或低估。",
         "en": "Parent reference market cap: $6.20B (snapshot, not live). Research checklist: distribution ratio, child debt and cash flow, management ownership, and institutional holdings. Size and price changes alone do not establish forced selling or undervaluation."
@@ -3323,13 +3324,13 @@
         {
           "status": "announced",
           "quote": "（於百慕達註冊成立的有限公司）（股份代號：384）自願性公告有關建議分拆上市之最新進展本公告乃本公司作出之自願性公告",
-          "typeVersion": 1,
+          "typeVersion": 2,
           "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0320/2026032001769_c.pdf",
           "date": "2026-03-20",
           "targetName": "壹品慧",
           "targetTicker": "",
           "targetAliases": [],
-          "identityVersion": 2,
+          "identityVersion": 3,
           "identityQuote": "「分拆公司」指「壹品慧」",
           "identityKind": "entity",
           "distributedEntity": false,
@@ -3347,8 +3348,8 @@
       ],
       "identityChecks": {
         "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0320/2026032001769_c.pdf": {
-          "version": 2,
-          "typeVersion": 1,
+          "version": 3,
+          "typeVersion": 2,
           "ruleVersion": 3,
           "checkedAt": "2026-10-10",
           "result": "named"
@@ -3365,7 +3366,7 @@
         "currency": "HKD",
         "updatedAt": "2026-10-10"
       },
-      "lastUpdated": "2026-10-10T13:34:18Z",
+      "lastUpdated": "2026-10-10T13:56:57Z",
       "greenblattNote": {
         "zh": "母公司参考市值约 38.8 亿美元（快照，非实时）。 待验证：分派比例、子公司债务与现金流、管理层持股及机构持仓变化。市值与股价变化不能单独证明强制卖压或低估。",
         "en": "Parent reference market cap: $3.88B (snapshot, not live). Research checklist: distribution ratio, child debt and cash flow, management ownership, and institutional holdings. Size and price changes alone do not establish forced selling or undervaluation."
@@ -3399,13 +3400,13 @@
         {
           "status": "announced",
           "quote": "（於開曼群島註冊成立之有限公司）（股份代號：1523）擬議分拆及將分拆實體於納斯達克獨立上市本公告乃根據《上市規則》的第15項應用指引而作出",
-          "typeVersion": 1,
+          "typeVersion": 2,
           "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0225/2026022500599_c.pdf",
           "date": "2026-02-25",
           "targetName": "Peplink Holdings Limited",
           "targetTicker": "",
           "targetAliases": [],
-          "identityVersion": 2,
+          "identityVersion": 3,
           "identityQuote": "「分拆實體」 指 Peplink Holdings Limited，一間於英屬維爾京群島註冊成立之公司，於本公告日期為本公司之全資附屬公司，亦為擬議分拆中被分拆之實體",
           "identityKind": "entity",
           "distributedEntity": false,
@@ -3421,8 +3422,8 @@
       ],
       "identityChecks": {
         "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0225/2026022500599_c.pdf": {
-          "version": 2,
-          "typeVersion": 1,
+          "version": 3,
+          "typeVersion": 2,
           "ruleVersion": 3,
           "checkedAt": "2026-10-10",
           "result": "named"
@@ -3439,7 +3440,7 @@
         "currency": "HKD",
         "updatedAt": "2026-10-10"
       },
-      "lastUpdated": "2026-10-10T13:34:18Z",
+      "lastUpdated": "2026-10-10T13:56:57Z",
       "greenblattNote": {
         "zh": "母公司参考市值约 10.8 亿美元（快照，非实时）。 待验证：分派比例、子公司债务与现金流、管理层持股及机构持仓变化。市值与股价变化不能单独证明强制卖压或低估。",
         "en": "Parent reference market cap: $1.08B (snapshot, not live). Research checklist: distribution ratio, child debt and cash flow, management ownership, and institutional holdings. Size and price changes alone do not establish forced selling or undervaluation."
@@ -3473,13 +3474,13 @@
         {
           "status": "record_set",
           "quote": "釐定股東於實物分派的權利的記錄日期為2026年3月17日（星期二）",
-          "typeVersion": 1,
+          "typeVersion": 2,
           "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0225/2026022500757_c.pdf",
           "date": "2026-02-25",
           "targetName": "朗廷酒店投資",
           "targetTicker": "",
           "targetAliases": [],
-          "identityVersion": 2,
+          "identityVersion": 3,
           "identityQuote": "「信託」 指根據信託契約組成的朗廷酒店投資",
           "identityKind": "instrument",
           "distributedEntity": false,
@@ -3536,8 +3537,8 @@
           "result": "named"
         },
         "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0225/2026022500757_c.pdf": {
-          "version": 2,
-          "typeVersion": 1,
+          "version": 3,
+          "typeVersion": 2,
           "ruleVersion": 3,
           "checkedAt": "2026-10-10",
           "result": "named"
@@ -3555,7 +3556,7 @@
         "currency": "HKD",
         "updatedAt": "2026-10-10"
       },
-      "lastUpdated": "2026-10-10T13:34:18Z",
+      "lastUpdated": "2026-10-10T13:56:57Z",
       "greenblattNote": {
         "zh": "母公司参考市值约 14.9 亿美元（快照，非实时）。 待验证：分派比例、子公司债务与现金流、管理层持股及机构持仓变化。市值与股价变化不能单独证明强制卖压或低估。",
         "en": "Parent reference market cap: $1.49B (snapshot, not live). Research checklist: distribution ratio, child debt and cash flow, management ownership, and institutional holdings. Size and price changes alone do not establish forced selling or undervaluation."
@@ -3589,7 +3590,7 @@
         {
           "status": "needs_review",
           "quote": "",
-          "typeVersion": 1,
+          "typeVersion": 2,
           "listingType": {
             "code": "intro_hk",
             "exchange_zh": "港交所",
@@ -3606,7 +3607,7 @@
           "targetAliases": [
             "本公司"
           ],
-          "identityVersion": 2,
+          "identityVersion": 3,
           "identityQuote": "茲提述嵐圖汽車科技股份有限公司（「本公司」） … 將獲得0.3552608股本公司內資股",
           "identityKind": "entity",
           "distributedEntity": true,
@@ -3624,8 +3625,8 @@
       ],
       "identityChecks": {
         "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0212/2026021201387_c.pdf": {
-          "version": 2,
-          "typeVersion": 1,
+          "version": 3,
+          "typeVersion": 2,
           "ruleVersion": 3,
           "checkedAt": "2026-10-10",
           "result": "named"
@@ -3650,7 +3651,7 @@
           "note": "介紹上市，無發行價"
         }
       ],
-      "lastUpdated": "2026-10-10T13:34:18Z",
+      "lastUpdated": "2026-10-10T13:56:57Z",
       "greenblattNote": {
         "zh": "母公司参考市值约 13.0 亿美元（快照，非实时）。 待验证：分派比例、子公司债务与现金流、管理层持股及机构持仓变化。市值与股价变化不能单独证明强制卖压或低估。",
         "en": "Parent reference market cap: $1.30B (snapshot, not live). Research checklist: distribution ratio, child debt and cash flow, management ownership, and institutional holdings. Size and price changes alone do not establish forced selling or undervaluation."
@@ -3684,13 +3685,13 @@
         {
           "status": "announced",
           "quote": "（於開曼群島註冊成立之有限公司）（股份代號 ︰ 3393）建議分拆惟遠能源技術股份有限公司並於香港聯合交易所有限公司主板獨立上市本公司已根據上市規則第15項應用指引就建議分拆向香港聯交所提交建議，而香港聯交所已確認本公司可繼續進行建議分拆",
-          "typeVersion": 1,
+          "typeVersion": 2,
           "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0127/2026012700892_c.pdf",
           "date": "2026-01-27",
           "targetName": "惟遠能源技術股份有限公司",
           "targetTicker": "",
           "targetAliases": [],
-          "identityVersion": 2,
+          "identityVersion": 3,
           "identityQuote": "建議分拆惟遠能源技術股份有限公司並於香港聯合交易所有限公司主板獨立上市",
           "identityKind": "entity",
           "distributedEntity": false,
@@ -3706,8 +3707,8 @@
       ],
       "identityChecks": {
         "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0127/2026012700892_c.pdf": {
-          "version": 2,
-          "typeVersion": 1,
+          "version": 3,
+          "typeVersion": 2,
           "ruleVersion": 3,
           "checkedAt": "2026-10-10",
           "result": "named"
@@ -3724,7 +3725,7 @@
         "currency": "HKD",
         "updatedAt": "2026-10-10"
       },
-      "lastUpdated": "2026-10-10T13:34:18Z",
+      "lastUpdated": "2026-10-10T13:56:57Z",
       "greenblattNote": {
         "zh": "母公司参考市值约 29.0 亿美元（快照，非实时）。 待验证：分派比例、子公司债务与现金流、管理层持股及机构持仓变化。市值与股价变化不能单独证明强制卖压或低估。",
         "en": "Parent reference market cap: $2.90B (snapshot, not live). Research checklist: distribution ratio, child debt and cash flow, management ownership, and institutional holdings. Size and price changes alone do not establish forced selling or undervaluation."
@@ -3763,7 +3764,7 @@
         {
           "status": "announced",
           "quote": "舜宇光學科技（集團）有限公司（於開曼群島註冊成立的有限公司）（股份代號：2382.HK）內幕消息有關建議分拆本集團車載相關光學業務及獨立上市的最新情況本公告乃由本公司根據上市規則第13.09條及香港法例第571章證券及期貨條例第XIVA部項下內幕消息條文（定義見上市規則）而作出",
-          "typeVersion": 1,
+          "typeVersion": 2,
           "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0127/2026012700056_c.pdf",
           "date": "2026-01-27",
           "targetName": "寧波舜宇智行科技股份有限公司",
@@ -3771,7 +3772,7 @@
           "targetAliases": [
             "車載相關光學業務"
           ],
-          "identityVersion": 2,
+          "identityVersion": 3,
           "identityQuote": "「分拆公司」 指寧波舜宇智行科技股份有限公司，一間在中國成立的股份有限公司，於本公告日期為本公司的附屬公司2 ",
           "identityKind": "entity",
           "distributedEntity": false,
@@ -3790,13 +3791,13 @@
         {
           "status": "announced",
           "quote": "舜宇光學科技（集團）有限公司（於開曼群島註冊成立的有限公司）（股份代號：2382.HK）內幕消息建議分拆本集團車載相關光學業務並在香港聯合交易所有限公司主板獨立上市本公告乃由本公司根據上市規則第13.09條及香港法例第571章證券及期貨條例第",
-          "typeVersion": 1,
+          "typeVersion": 2,
           "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0105/2026010502011_c.pdf",
           "date": "2026-01-05",
           "targetName": "寧波舜宇智行科技股份有限公司",
           "targetTicker": "",
           "targetAliases": [],
-          "identityVersion": 2,
+          "identityVersion": 3,
           "identityQuote": "「分拆公司」 指寧波舜宇智行科技股份有限公司，一間在中國成立的股份有限公司，於本公告日期為本公司的附屬公司2 ",
           "identityKind": "entity",
           "distributedEntity": false,
@@ -3811,15 +3812,15 @@
       ],
       "identityChecks": {
         "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0105/2026010502011_c.pdf": {
-          "version": 2,
-          "typeVersion": 1,
+          "version": 3,
+          "typeVersion": 2,
           "ruleVersion": 3,
           "checkedAt": "2026-10-10",
           "result": "named"
         },
         "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0127/2026012700056_c.pdf": {
-          "version": 2,
-          "typeVersion": 1,
+          "version": 3,
+          "typeVersion": 2,
           "ruleVersion": 3,
           "checkedAt": "2026-10-10",
           "result": "named"
@@ -3836,7 +3837,7 @@
         "currency": "HKD",
         "updatedAt": "2026-10-10"
       },
-      "lastUpdated": "2026-10-10T13:34:18Z",
+      "lastUpdated": "2026-10-10T13:56:57Z",
       "greenblattNote": {
         "zh": "母公司参考市值约 76.7 亿美元（快照，非实时）。 待验证：分派比例、子公司债务与现金流、管理层持股及机构持仓变化。市值与股价变化不能单独证明强制卖压或低估。",
         "en": "Parent reference market cap: $7.67B (snapshot, not live). Research checklist: distribution ratio, child debt and cash flow, management ownership, and institutional holdings. Size and price changes alone do not establish forced selling or undervaluation."
@@ -3870,7 +3871,7 @@
         {
           "status": "needs_review",
           "quote": "",
-          "typeVersion": 1,
+          "typeVersion": 2,
           "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0126/2026012602065_c.pdf",
           "date": "2026-01-26",
           "targetName": "深圳護家科技(集團)股份有限公司",
@@ -3878,7 +3879,7 @@
           "targetAliases": [
             "HBN"
           ],
-          "identityVersion": 2,
+          "identityVersion": 3,
           "identityQuote": "業務發展最新情況 - 深圳護家科技(集團)股份有限公司之擬獨立上市",
           "identityKind": "entity",
           "distributedEntity": false,
@@ -3894,8 +3895,8 @@
       ],
       "identityChecks": {
         "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0126/2026012602065_c.pdf": {
-          "version": 2,
-          "typeVersion": 1,
+          "version": 3,
+          "typeVersion": 2,
           "ruleVersion": 3,
           "checkedAt": "2026-10-10",
           "result": "named"
@@ -3912,7 +3913,7 @@
         "currency": "HKD",
         "updatedAt": "2026-10-10"
       },
-      "lastUpdated": "2026-10-10T13:34:18Z",
+      "lastUpdated": "2026-10-10T13:56:57Z",
       "greenblattNote": {
         "zh": "母公司参考市值约 26.0 亿美元（快照，非实时）。 待验证：分派比例、子公司债务与现金流、管理层持股及机构持仓变化。市值与股价变化不能单独证明强制卖压或低估。",
         "en": "Parent reference market cap: $2.60B (snapshot, not live). Research checklist: distribution ratio, child debt and cash flow, management ownership, and institutional holdings. Size and price changes alone do not establish forced selling or undervaluation."
@@ -3946,13 +3947,13 @@
         {
           "status": "announced",
           "quote": "萬科企業股份有限公司（於中華人民共和國註冊成立的股份有限公司）（股份代號：2202）關於撤回建議分拆三個倉儲物流園項目並通過公開募集基礎設施證券投資基金於深圳證券交易所獨立上市的申請並獲准的公告兹提述萬科企業股份有限公司（「本公司」）日期為2024年3月1日的公告，內容有關（其中包括）本公司建議以萬緯物流擁有的部分高標準倉儲物流園開展不動產投資信託基金（「本項目」）申報發行工作，並於2024年3月1日收到中國證監會的申請受理通知書（「首次公告」）",
-          "typeVersion": 1,
+          "typeVersion": 2,
           "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0123/2026012301109_c.pdf",
           "date": "2026-01-23",
           "targetName": "三個倉儲物流園項目並通過公開募集基礎設施證券投資基金",
           "targetTicker": "",
           "targetAliases": [],
-          "identityVersion": 2,
+          "identityVersion": 3,
           "identityQuote": "關於撤回建議分拆三個倉儲物流園項目並通過公開募集基礎設施證券投資基金於深圳證券交易所獨立上市的申請並獲准的公告",
           "identityKind": "business",
           "distributedEntity": false,
@@ -3969,8 +3970,8 @@
       ],
       "identityChecks": {
         "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0123/2026012301109_c.pdf": {
-          "version": 2,
-          "typeVersion": 1,
+          "version": 3,
+          "typeVersion": 2,
           "ruleVersion": 3,
           "checkedAt": "2026-10-10",
           "result": "named"
@@ -3987,7 +3988,7 @@
         "currency": "HKD",
         "updatedAt": "2026-10-10"
       },
-      "lastUpdated": "2026-10-10T13:34:18Z",
+      "lastUpdated": "2026-10-10T13:56:57Z",
       "greenblattNote": {
         "zh": "母公司参考市值约 33.7 亿美元（快照，非实时）。 待验证：分派比例、子公司债务与现金流、管理层持股及机构持仓变化。市值与股价变化不能单独证明强制卖压或低估。",
         "en": "Parent reference market cap: $3.37B (snapshot, not live). Research checklist: distribution ratio, child debt and cash flow, management ownership, and institutional holdings. Size and price changes alone do not establish forced selling or undervaluation."
@@ -4021,13 +4022,13 @@
         {
           "status": "announced",
           "quote": "先聲藥業集團有限公司（於香港註冊成立的有限公司）（股份代號：2096）建議分拆先聲再明醫藥股份有限公司及在香港聯合交易所有限公司主板獨立上市建議分拆本公司建議分拆本公司附屬公司先聲再明的H 股在聯交所主板獨立上市",
-          "typeVersion": 1,
+          "typeVersion": 2,
           "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0109/2026010901364_c.pdf",
           "date": "2026-01-09",
           "targetName": "先聲再明醫藥股份有限公司",
           "targetTicker": "",
           "targetAliases": [],
-          "identityVersion": 2,
+          "identityVersion": 3,
           "identityQuote": "建議分拆先聲再明醫藥股份有限公司及在香港聯合交易所有限公司主板獨立上市",
           "identityKind": "entity",
           "distributedEntity": false,
@@ -4043,8 +4044,8 @@
       ],
       "identityChecks": {
         "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0109/2026010901364_c.pdf": {
-          "version": 2,
-          "typeVersion": 1,
+          "version": 3,
+          "typeVersion": 2,
           "ruleVersion": 3,
           "checkedAt": "2026-10-10",
           "result": "named"
@@ -4061,7 +4062,7 @@
         "currency": "HKD",
         "updatedAt": "2026-10-10"
       },
-      "lastUpdated": "2026-10-10T13:34:18Z",
+      "lastUpdated": "2026-10-10T13:56:57Z",
       "greenblattNote": {
         "zh": "母公司参考市值约 39.3 亿美元（快照，非实时）。 待验证：分派比例、子公司债务与现金流、管理层持股及机构持仓变化。市值与股价变化不能单独证明强制卖压或低估。",
         "en": "Parent reference market cap: $3.93B (snapshot, not live). Research checklist: distribution ratio, child debt and cash flow, management ownership, and institutional holdings. Size and price changes alone do not establish forced selling or undervaluation."
@@ -4095,13 +4096,13 @@
         {
           "status": "announced",
           "quote": "百度集團股份有限公司（於開曼群島註冊成立以不同投票權控制的有限責任公司）（股份代號：9888（港元櫃台）及89888（人民幣櫃台））建議分拆崑崙芯於香港聯合交易所有限公司主板獨立上市茲提述本公司日期為2025年12月7日的有關評估可能分拆崑崙芯獨立上市的自願性公告",
-          "typeVersion": 1,
+          "typeVersion": 2,
           "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0102/2026010200014_c.pdf",
           "date": "2026-01-02",
           "targetName": "崑崙芯",
           "targetTicker": "",
           "targetAliases": [],
-          "identityVersion": 2,
+          "identityVersion": 3,
           "identityQuote": "建議分拆崑崙芯於香港聯合交易所有限公司主板獨立上市",
           "identityKind": "entity",
           "distributedEntity": false,
@@ -4119,8 +4120,8 @@
       ],
       "identityChecks": {
         "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0102/2026010200014_c.pdf": {
-          "version": 2,
-          "typeVersion": 1,
+          "version": 3,
+          "typeVersion": 2,
           "ruleVersion": 3,
           "checkedAt": "2026-10-10",
           "result": "named"
@@ -4137,7 +4138,7 @@
         "currency": "HKD",
         "updatedAt": "2026-10-10"
       },
-      "lastUpdated": "2026-10-10T13:34:18Z",
+      "lastUpdated": "2026-10-10T13:56:57Z",
       "greenblattNote": {
         "zh": "母公司参考市值约 382.6 亿美元（快照，非实时）。 待验证：分派比例、子公司债务与现金流、管理层持股及机构持仓变化。市值与股价变化不能单独证明强制卖压或低估。",
         "en": "Parent reference market cap: $38.26B (snapshot, not live). Research checklist: distribution ratio, child debt and cash flow, management ownership, and institutional holdings. Size and price changes alone do not establish forced selling or undervaluation."
@@ -4221,13 +4222,13 @@
         {
           "status": "needs_review",
           "quote": "",
-          "typeVersion": 1,
+          "typeVersion": 2,
           "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2025/1228/2025122800065_c.pdf",
           "date": "2025-12-28",
           "targetName": "中車戚墅堰機車車輛工藝研究所股份有限公司",
           "targetTicker": "",
           "targetAliases": [],
-          "identityVersion": 2,
+          "identityVersion": 3,
           "identityQuote": "分拆所屬子公司中車戚墅堰機車車輛工藝研究所股份有限公司",
           "identityKind": "entity",
           "distributedEntity": false,
@@ -4241,7 +4242,7 @@
         {
           "status": "approved",
           "quote": "本次分拆能否获得上述批准、审核同意、注册以及最终获得相关批准、审核同意、注册的时间，均存在不确定性，敬请广大投资者注意投资风险",
-          "typeVersion": 1,
+          "typeVersion": 2,
           "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2025/1127/2025112701496_c.pdf",
           "date": "2025-11-27",
           "targetName": "中车戚墅堰机车车辆工艺研究所股份有限公司",
@@ -4249,7 +4250,7 @@
           "targetAliases": [
             "中车戚所"
           ],
-          "identityVersion": 2,
+          "identityVersion": 3,
           "identityQuote": "拟分拆所属子公司中车戚墅堰机车车辆工艺研究所股份有限公司（以下简称“中车戚所”） … 分拆所属子公司中车戚墅堰机车车辆工艺研究所股份有限公司",
           "identityKind": "entity",
           "distributedEntity": false,
@@ -4264,13 +4265,13 @@
         {
           "status": "needs_review",
           "quote": "",
-          "typeVersion": 1,
+          "typeVersion": 2,
           "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2025/1127/2025112701490_c.pdf",
           "date": "2025-11-27",
           "targetName": "中車戚墅堰機車車輛工藝研究所股份有限公司",
           "targetTicker": "",
           "targetAliases": [],
-          "identityVersion": 2,
+          "identityVersion": 3,
           "identityQuote": "分拆所屬子公司中車戚墅堰機車車輛工藝研究所股份有限公司",
           "identityKind": "entity",
           "distributedEntity": false,
@@ -4285,13 +4286,13 @@
         {
           "status": "announced",
           "quote": "中国国际金融股份有限公司关于中国中车股份有限公司分拆所属子公司中车戚墅堰机车车辆工艺研究所股份有限公司至深圳证券交易所创业板上市的核查意见独立财务顾问二〇二五年十一月中国国际金融股份有限公司关于中国中车股份有限公司分拆所属子公司中车戚墅堰机车车辆工艺研究所股份有限公司至深圳证券交易所创业板上市的核查意见中国中车股份有限公司（以下简称“中国中车”、“上市公司”或“公司”）拟将其控股子公司中车戚墅堰机车车辆工艺研究所股份有限公司（以下简称“中车戚所”）分拆至深圳证券交易所（以下简称“深交所”）创业板上市（以下简称",
-          "typeVersion": 1,
+          "typeVersion": 2,
           "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2025/1127/2025112701480_c.pdf",
           "date": "2025-11-27",
           "targetName": "",
           "targetTicker": "",
           "targetAliases": [],
-          "identityVersion": 2,
+          "identityVersion": 3,
           "identityQuote": "",
           "identityKind": "",
           "distributedEntity": false,
@@ -4459,15 +4460,15 @@
       ],
       "identityChecks": {
         "https://www1.hkexnews.hk/listedco/listconews/sehk/2025/1127/2025112701496_c.pdf": {
-          "version": 2,
-          "typeVersion": 1,
+          "version": 3,
+          "typeVersion": 2,
           "ruleVersion": 3,
           "checkedAt": "2026-10-10",
           "result": "named"
         },
         "https://www1.hkexnews.hk/listedco/listconews/sehk/2025/1127/2025112701490_c.pdf": {
-          "version": 2,
-          "typeVersion": 1,
+          "version": 3,
+          "typeVersion": 2,
           "ruleVersion": 3,
           "checkedAt": "2026-10-10",
           "result": "named"
@@ -4491,8 +4492,8 @@
           "result": "named"
         },
         "https://www1.hkexnews.hk/listedco/listconews/sehk/2025/1127/2025112701480_c.pdf": {
-          "version": 2,
-          "typeVersion": 1,
+          "version": 3,
+          "typeVersion": 2,
           "ruleVersion": 3,
           "checkedAt": "2026-10-10",
           "result": "no_name"
@@ -4539,7 +4540,7 @@
         "currency": "HKD",
         "updatedAt": "2026-10-10"
       },
-      "lastUpdated": "2026-10-10T13:34:18Z",
+      "lastUpdated": "2026-10-10T13:56:57Z",
       "greenblattNote": {
         "zh": "母公司参考市值约 168.6 亿美元（快照，非实时）。 待验证：分派比例、子公司债务与现金流、管理层持股及机构持仓变化。市值与股价变化不能单独证明强制卖压或低估。",
         "en": "Parent reference market cap: $16.86B (snapshot, not live). Research checklist: distribution ratio, child debt and cash flow, management ownership, and institutional holdings. Size and price changes alone do not establish forced selling or undervaluation."
@@ -4573,7 +4574,7 @@
         {
           "status": "completed",
           "quote": "京東集團股份有限公司（於開曼群島註冊成立以不同投票權控制的有限責任公司）（股份代號：9618（港幣櫃台）及89618（人民幣櫃台））分拆京東工業股份有限公司於香港聯合交易所有限公司主板獨立上市京東工業股份有限公司上市及京東工業股份有限公司股份開始買賣董事會欣然宣佈，於全球發售完成後，京東工業股份有限公司（「京東工業」）於2025年12月11日在香港聯交所主板上市，及京東工業股份於2025年12月11日上午九時正在香港聯交所主板開始買賣",
-          "typeVersion": 1,
+          "typeVersion": 2,
           "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2025/1211/2025121101039_c.pdf",
           "date": "2025-12-11",
           "targetName": "京東工業股份有限公司",
@@ -4581,7 +4582,7 @@
           "targetAliases": [
             "京東工業"
           ],
-          "identityVersion": 2,
+          "identityVersion": 3,
           "identityQuote": "京東工業股份有限公司（「京東工業」） … 分拆京東工業股份有限公司於香港聯合交易所有限公司主板獨立上市 - 京東工業股份有限公司上市及京東工業股份有限公司股份開始買賣",
           "identityKind": "entity",
           "distributedEntity": false,
@@ -4605,8 +4606,8 @@
       ],
       "identityChecks": {
         "https://www1.hkexnews.hk/listedco/listconews/sehk/2025/1211/2025121101039_c.pdf": {
-          "version": 2,
-          "typeVersion": 1,
+          "version": 3,
+          "typeVersion": 2,
           "ruleVersion": 3,
           "checkedAt": "2026-10-10",
           "result": "named"
@@ -4639,7 +4640,7 @@
         "currency": "HKD",
         "updatedAt": "2026-10-10"
       },
-      "lastUpdated": "2026-10-10T13:34:18Z",
+      "lastUpdated": "2026-10-10T13:56:57Z",
       "greenblattNote": {
         "zh": "母公司参考市值约 367.5 亿美元（快照，非实时）。 待验证：分派比例、子公司债务与现金流、管理层持股及机构持仓变化。市值与股价变化不能单独证明强制卖压或低估。",
         "en": "Parent reference market cap: $36.75B (snapshot, not live). Research checklist: distribution ratio, child debt and cash flow, management ownership, and institutional holdings. Size and price changes alone do not establish forced selling or undervaluation."
@@ -4693,13 +4694,13 @@
         {
           "status": "announced",
           "quote": "海外股東及滬深港通投資者根據上市規則第13.36(2)條，倘上市發行人建議向其股東分派證券，如董事考慮到有關地區的法例或該地有關監管機構或證券交易所的規定後，認為因此有必要或適宜不將有關海外股東包括在內，則可不包括該等股東",
-          "typeVersion": 1,
+          "typeVersion": 2,
           "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2025/1209/2025120901373_c.pdf",
           "date": "2025-12-09",
           "targetName": "MAYNILAD WATER SERVICES, INC",
           "targetTicker": "",
           "targetAliases": [],
-          "identityVersion": 2,
+          "identityVersion": 3,
           "identityQuote": "分拆MAYNILAD WATER SERVICES, INC.及於菲律賓證券交易所獨立上市: 以實物分派方式提供保證的權利",
           "identityKind": "entity",
           "distributedEntity": false,
@@ -4713,13 +4714,13 @@
         {
           "status": "completed",
           "quote": "（股份代號：00142）完成建議分拆MAYNILAD WATER SERVICES, INC.及於菲律賓證券交易所獨立上市茲提述本公司日期為2024年12月3日、2025年3月17日、2025年6月23日及2025年10月21日之公告以及日期為2025年5月23日之通函（「該通函」），內容有關建議分拆",
-          "typeVersion": 1,
+          "typeVersion": 2,
           "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2025/1107/2025110700300_c.pdf",
           "date": "2025-11-07",
           "targetName": "MAYNILAD WATER SERVICES, INC",
           "targetTicker": "",
           "targetAliases": [],
-          "identityVersion": 2,
+          "identityVersion": 3,
           "identityQuote": "完成建議分拆MAYNILAD WATER SERVICES, INC.及於菲律賓證券交易所獨立上市",
           "identityKind": "entity",
           "distributedEntity": false,
@@ -4741,13 +4742,13 @@
         {
           "status": "announced",
           "quote": "（股份代號：00142）有關建議分拆MAYNILAD WATER SERVICES, INC.及於菲律賓證券交易所獨立上市之更新資料茲提述本公司日期為2024年12月3日、2025年3月17日及2025年6月23日之公告以及日期為2025年5月23日之通函（「該通函」），內容有關建議分拆Maynilad（其為本集團之菲律賓聯號公司）及於菲律賓證券交易所上市",
-          "typeVersion": 1,
+          "typeVersion": 2,
           "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2025/1021/2025102100030_c.pdf",
           "date": "2025-10-21",
           "targetName": "MAYNILAD WATER SERVICES, INC",
           "targetTicker": "",
           "targetAliases": [],
-          "identityVersion": 2,
+          "identityVersion": 3,
           "identityQuote": "有關建議分拆MAYNILAD WATER SERVICES, INC.及於菲律賓證券交易所獨立上市之更新資料",
           "identityKind": "entity",
           "distributedEntity": false,
@@ -4768,13 +4769,13 @@
         {
           "status": "needs_review",
           "quote": "",
-          "typeVersion": 1,
+          "typeVersion": 2,
           "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2025/1128/2025112801284_c.pdf",
           "date": "2025-11-28",
           "targetName": "MAYNILAD WATER SERVICES, INC",
           "targetTicker": "",
           "targetAliases": [],
-          "identityVersion": 2,
+          "identityVersion": 3,
           "identityQuote": "分拆MAYNILAD WATER SERVICES, INC.及於菲律賓證券交易所獨立上市: 有關保證的權利之記錄日期及暫停辦理股份過戶登記手續",
           "identityKind": "entity",
           "distributedEntity": false,
@@ -4821,22 +4822,22 @@
       ],
       "identityChecks": {
         "https://www1.hkexnews.hk/listedco/listconews/sehk/2025/1021/2025102100030_c.pdf": {
-          "version": 2,
-          "typeVersion": 1,
+          "version": 3,
+          "typeVersion": 2,
           "ruleVersion": 3,
           "checkedAt": "2026-10-10",
           "result": "named"
         },
         "https://www1.hkexnews.hk/listedco/listconews/sehk/2025/1107/2025110700300_c.pdf": {
-          "version": 2,
-          "typeVersion": 1,
+          "version": 3,
+          "typeVersion": 2,
           "ruleVersion": 3,
           "checkedAt": "2026-10-10",
           "result": "named"
         },
         "https://www1.hkexnews.hk/listedco/listconews/sehk/2025/1128/2025112801284_c.pdf": {
-          "version": 2,
-          "typeVersion": 1,
+          "version": 3,
+          "typeVersion": 2,
           "ruleVersion": 3,
           "checkedAt": "2026-10-10",
           "result": "named"
@@ -4865,7 +4866,7 @@
         "currency": "HKD",
         "updatedAt": "2026-10-10"
       },
-      "lastUpdated": "2026-10-10T13:34:18Z",
+      "lastUpdated": "2026-10-10T13:56:57Z",
       "greenblattNote": {
         "zh": "母公司参考市值约 27.7 亿美元（快照，非实时）。 待验证：分派比例、子公司债务与现金流、管理层持股及机构持仓变化。市值与股价变化不能单独证明强制卖压或低估。",
         "en": "Parent reference market cap: $2.77B (snapshot, not live). Research checklist: distribution ratio, child debt and cash flow, management ownership, and institutional holdings. Size and price changes alone do not establish forced selling or undervaluation."
@@ -4899,7 +4900,7 @@
         {
           "status": "announced",
           "quote": "硬蛋創新（於開曼群島註冊成立的有限公司）（股份代號：400）建議分拆深圳市科通技術股份有限公司及建議 A 股上市的最新進展茲提述本公司日期為2025年3月27日的公告，內容有關科通技術於中國一間證券交易所進行建議分拆及建議 A 股上市",
-          "typeVersion": 1,
+          "typeVersion": 2,
           "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2025/1125/2025112500672_c.pdf",
           "date": "2025-11-25",
           "targetName": "深圳市科通技術股份有限公司",
@@ -4907,7 +4908,7 @@
           "targetAliases": [
             " 科通技術 "
           ],
-          "identityVersion": 2,
+          "identityVersion": 3,
           "identityQuote": "建議分拆深圳市科通技術股份有限公司及建議A股上市的最新進展",
           "identityKind": "entity",
           "distributedEntity": false,
@@ -4925,8 +4926,8 @@
       ],
       "identityChecks": {
         "https://www1.hkexnews.hk/listedco/listconews/sehk/2025/1125/2025112500672_c.pdf": {
-          "version": 2,
-          "typeVersion": 1,
+          "version": 3,
+          "typeVersion": 2,
           "ruleVersion": 3,
           "checkedAt": "2026-10-10",
           "result": "named"
@@ -4943,7 +4944,7 @@
         "currency": "HKD",
         "updatedAt": "2026-10-10"
       },
-      "lastUpdated": "2026-10-10T13:34:18Z",
+      "lastUpdated": "2026-10-10T13:56:57Z",
       "greenblattNote": {
         "zh": "母公司参考市值约 10.7 亿美元（快照，非实时）。 待验证：分派比例、子公司债务与现金流、管理层持股及机构持仓变化。市值与股价变化不能单独证明强制卖压或低估。",
         "en": "Parent reference market cap: $1.07B (snapshot, not live). Research checklist: distribution ratio, child debt and cash flow, management ownership, and institutional holdings. Size and price changes alone do not establish forced selling or undervaluation."
@@ -4977,13 +4978,13 @@
         {
           "status": "announced",
           "quote": "中國聯合網絡通信(香港)股份有限公司(在香港註冊成立之有限公司)(股份代碼: 762)建議分拆智網科技獨立上市之進展茲提述中國聯合網絡通信(香港)股份有限公司（「本公司」）日期為2021年8月19日及2023年5月4日的公告（「該公告」），內容有關建議分拆聯通智網科技股份有限公司（「智網科技」）於中國境内證券交易所獨立上市（「建議分拆」）",
-          "typeVersion": 1,
+          "typeVersion": 2,
           "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2025/1022/2025102200695_c.pdf",
           "date": "2025-10-22",
           "targetName": "智網科技",
           "targetTicker": "",
           "targetAliases": [],
-          "identityVersion": 2,
+          "identityVersion": 3,
           "identityQuote": "建議分拆智網科技獨立上市之進展",
           "identityKind": "entity",
           "distributedEntity": false,
@@ -5002,8 +5003,8 @@
       ],
       "identityChecks": {
         "https://www1.hkexnews.hk/listedco/listconews/sehk/2025/1022/2025102200695_c.pdf": {
-          "version": 2,
-          "typeVersion": 1,
+          "version": 3,
+          "typeVersion": 2,
           "ruleVersion": 3,
           "checkedAt": "2026-10-10",
           "result": "named"
@@ -5020,7 +5021,7 @@
         "currency": "HKD",
         "updatedAt": "2026-10-10"
       },
-      "lastUpdated": "2026-10-10T13:34:18Z",
+      "lastUpdated": "2026-10-10T13:56:57Z",
       "greenblattNote": {
         "zh": "母公司参考市值约 244.4 亿美元（快照，非实时）。 待验证：分派比例、子公司债务与现金流、管理层持股及机构持仓变化。市值与股价变化不能单独证明强制卖压或低估。",
         "en": "Parent reference market cap: $24.44B (snapshot, not live). Research checklist: distribution ratio, child debt and cash flow, management ownership, and institutional holdings. Size and price changes alone do not establish forced selling or undervaluation."
@@ -5054,13 +5055,13 @@
         {
           "status": "announced",
           "quote": "太古股份有限公司（於香港註冊成立的有限公司）（股份代號：00019及00087）有關建議分拆 THAINAMTHIP CORPORATION PUBLIC COMPANY LIMITED",
-          "typeVersion": 1,
+          "typeVersion": 2,
           "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2025/1015/2025101500316_c.pdf",
           "date": "2025-10-15",
           "targetName": "THAINAMTHIP CORPORATION PUBLIC COMPANY LIMITED",
           "targetTicker": "",
           "targetAliases": [],
-          "identityVersion": 2,
+          "identityVersion": 3,
           "identityQuote": "有關建議分拆THAINAMTHIP CORPORATION PUBLIC COMPANY LIMITED並於泰國證券交易所獨立上市的更新",
           "identityKind": "entity",
           "distributedEntity": false,
@@ -5078,8 +5079,8 @@
       ],
       "identityChecks": {
         "https://www1.hkexnews.hk/listedco/listconews/sehk/2025/1015/2025101500316_c.pdf": {
-          "version": 2,
-          "typeVersion": 1,
+          "version": 3,
+          "typeVersion": 2,
           "ruleVersion": 3,
           "checkedAt": "2026-10-10",
           "result": "named"
@@ -5096,7 +5097,7 @@
         "currency": "HKD",
         "updatedAt": "2026-10-10"
       },
-      "lastUpdated": "2026-10-10T13:34:18Z",
+      "lastUpdated": "2026-10-10T13:56:57Z",
       "greenblattNote": {
         "zh": "母公司参考市值约 386.4 亿美元（快照，非实时）。 待验证：分派比例、子公司债务与现金流、管理层持股及机构持仓变化。市值与股价变化不能单独证明强制卖压或低估。",
         "en": "Parent reference market cap: $38.64B (snapshot, not live). Research checklist: distribution ratio, child debt and cash flow, management ownership, and institutional holdings. Size and price changes alone do not establish forced selling or undervaluation."
@@ -5130,13 +5131,13 @@
         {
           "status": "completed",
           "quote": "四環醫藥控股集團有限公司（於百慕達註冊成立的有限公司）（股份代號：0460）建議分拆及軒竹生物於香港聯合交易所有限公司主板獨立上市之更新資料軒竹生物上市及開始買賣",
-          "typeVersion": 1,
+          "typeVersion": 2,
           "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2025/1015/2025101500144_c.pdf",
           "date": "2025-10-15",
           "targetName": "軒竹生物",
           "targetTicker": "02575.HK",
           "targetAliases": [],
-          "identityVersion": 2,
+          "identityVersion": 3,
           "identityQuote": "建議分拆及軒竹生物於香港聯合交易所有限公司主板獨立上市之更新資料 - 軒竹生物上市及開始買賣",
           "identityKind": "entity",
           "distributedEntity": false,
@@ -5266,8 +5267,8 @@
           "result": "named"
         },
         "https://www1.hkexnews.hk/listedco/listconews/sehk/2025/1015/2025101500144_c.pdf": {
-          "version": 2,
-          "typeVersion": 1,
+          "version": 3,
+          "typeVersion": 2,
           "ruleVersion": 3,
           "checkedAt": "2026-10-10",
           "result": "named"
@@ -5300,7 +5301,7 @@
         "currency": "HKD",
         "updatedAt": "2026-10-10"
       },
-      "lastUpdated": "2026-10-10T13:34:18Z",
+      "lastUpdated": "2026-10-10T13:56:57Z",
       "greenblattNote": {
         "zh": "母公司参考市值约 10.5 亿美元（快照，非实时）。 待验证：分派比例、子公司债务与现金流、管理层持股及机构持仓变化。市值与股价变化不能单独证明强制卖压或低估。",
         "en": "Parent reference market cap: $1.05B (snapshot, not live). Research checklist: distribution ratio, child debt and cash flow, management ownership, and institutional holdings. Size and price changes alone do not establish forced selling or undervaluation."
@@ -5342,10 +5343,12 @@
         "date": "2026-09-27",
         "targetName": "國泰海通信義能源新能源封閉式基礎設施證券投資基金",
         "targetTicker": "",
-        "targetAliases": [],
-        "identityVersion": 2,
-        "identityQuote": "",
-        "identityKind": "",
+        "targetAliases": [
+          "信義能源新能源基金"
+        ],
+        "identityVersion": 3,
+        "identityQuote": "進行信義能源新能源基金中國上市 … 「信義能源新能源基金」指國泰海通信義能源新能源封閉式基礎設施證券投資基金",
+        "identityKind": "instrument",
         "distributedEntity": false,
         "separatedEntity": false,
         "identityReason": "",
@@ -5381,7 +5384,7 @@
         }
       ],
       "latestDate": "2026-09-27",
-      "sourceUpdatedAt": "2026-10-10T13:31:34Z",
+      "sourceUpdatedAt": "2026-10-10T13:53:18Z",
       "parentMarketCap": 22.4,
       "pricePairs": [],
       "parentPrice": {
@@ -5399,7 +5402,7 @@
       },
       "fingerprint": "8b7e29b8257b204c8acea472be7b7e074a5ba1b025fe6fa4c04fbd35783a3018",
       "firstSeenAt": "2026-09-27T17:33:14Z",
-      "changedAt": "2026-10-10T13:16:57Z"
+      "changedAt": "2026-10-10T13:57:15Z"
     },
     {
       "id": "hk:03868:unresolved",
@@ -5435,10 +5438,12 @@
         "date": "2026-09-27",
         "targetName": "國泰海通信義能源新能源封閉式基礎設施證券投資基金",
         "targetTicker": "",
-        "targetAliases": [],
-        "identityVersion": 2,
-        "identityQuote": "",
-        "identityKind": "",
+        "targetAliases": [
+          "信義能源新能源基金"
+        ],
+        "identityVersion": 3,
+        "identityQuote": "進行信義能源新能源基金中國上市 … 「信義能源新能源基金」指國泰海通信義能源新能源封閉式基礎設施證券投資基金",
+        "identityKind": "instrument",
         "distributedEntity": false,
         "separatedEntity": false,
         "identityReason": "",
@@ -5474,7 +5479,7 @@
         }
       ],
       "latestDate": "2026-09-27",
-      "sourceUpdatedAt": "2026-10-10T13:31:34Z",
+      "sourceUpdatedAt": "2026-10-10T13:53:18Z",
       "parentMarketCap": 8.5,
       "pricePairs": [],
       "parentPrice": {
@@ -5492,7 +5497,7 @@
       },
       "fingerprint": "8b7e29b8257b204c8acea472be7b7e074a5ba1b025fe6fa4c04fbd35783a3018",
       "firstSeenAt": "2026-09-27T17:33:14Z",
-      "changedAt": "2026-10-10T13:16:57Z"
+      "changedAt": "2026-10-10T13:57:15Z"
     },
     {
       "id": "hk:00902:d56f3a597693",
@@ -5518,7 +5523,16 @@
       "evidence": {
         "status": "approved",
         "quote": "中國證券監督管理委員會於二零二六年九月二十日向長城基金管理有限公司（「長城基金」）出具了《關於准予長城華能燃煤發電封閉式基礎設施證券投資基金註冊的批覆》（證監許可 [2026]2573號），據此，中國證券監督管理委員會准予本次基礎設施公募 REITs 項目的註冊申請",
-        "typeVersion": 1,
+        "typeVersion": 2,
+        "listingType": {
+          "code": "reit_sh",
+          "exchange_zh": "上交所",
+          "exchange_en": "SSE",
+          "label_zh": "REIT·上交所",
+          "label_en": "REIT·SSE",
+          "is_reit": true
+        },
+        "typeQuote": "關於准予長城華能燃煤發電封閉式基礎設施證券投資基金",
         "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0921/2026092101283_c.pdf",
         "date": "2026-09-21",
         "targetName": "長城華能燃煤發電封閉式基礎設施證券投資基金",
@@ -5526,7 +5540,7 @@
         "targetAliases": [
           "華能煤電 REIT"
         ],
-        "identityVersion": 2,
+        "identityVersion": 3,
         "identityQuote": "關於准予長城華能燃煤發電封閉式基礎設施證券投資基金",
         "identityKind": "instrument",
         "distributedEntity": false,
@@ -5576,7 +5590,7 @@
         }
       ],
       "latestDate": "2026-09-21",
-      "sourceUpdatedAt": "2026-10-10T13:31:34Z",
+      "sourceUpdatedAt": "2026-10-10T13:53:18Z",
       "parentMarketCap": 110.1,
       "pricePairs": [],
       "parentPrice": {
@@ -5586,6 +5600,11 @@
         "firstAnnouncementDate": "2026-04-28",
         "currency": "HKD",
         "updatedAt": "2026-10-10"
+      },
+      "typeEvidence": {
+        "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0921/2026092101283_c.pdf",
+        "date": "2026-09-21",
+        "quote": "關於准予長城華能燃煤發電封閉式基礎設施證券投資基金"
       },
       "fingerprint": "eff88e44ab95a030ce1ae72853b57b32dde2425e02193896c493fc902b32fa65",
       "firstSeenAt": "2026-10-10T12:49:57Z",
@@ -5602,24 +5621,111 @@
       "identityVerified": true,
       "identityKind": "entity",
       "identityEvidence": {
+        "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0917/2026091701554_c.pdf",
+        "date": "2026-09-17",
+        "quote": "建議分拆及證券投資基金於上交所獨立上市"
+      },
+      "identityState": "resolved",
+      "status": "announced",
+      "evidence": {
+        "status": "announced",
+        "quote": "（股份代號：0017）建議分拆及證券投資基金於上交所獨立上市",
+        "typeVersion": 2,
+        "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0917/2026091701554_c.pdf",
+        "date": "2026-09-17",
+        "targetName": "證券投資基金於上交所",
+        "targetTicker": "",
+        "targetAliases": [],
+        "identityVersion": 3,
+        "identityQuote": "建議分拆及證券投資基金於上交所獨立上市",
+        "identityKind": "entity",
+        "distributedEntity": false,
+        "separatedEntity": false,
+        "identityReason": "",
+        "dates": {},
+        "method": "rule",
+        "ruleVersion": 3,
+        "accession": "",
+        "documentDate": "2026-09-17",
+        "identityReferences": []
+      },
+      "dates": {},
+      "missing": [
+        "ticker",
+        "recordDate",
+        "distributionDate"
+      ],
+      "type": {
+        "code": "ipo_a_sh",
+        "exchange_zh": "上交所",
+        "exchange_en": "SSE",
+        "label_zh": "分拆上市·上交所",
+        "label_en": "Spin-off IPO·SSE",
+        "is_reit": false
+      },
+      "announcements": [
+        {
+          "date": "2026-09-21",
+          "title": "有關建議分拆及證券投資基金於上交所獨立上市的可能主要交易及有關證券投資基金認購的可能須予披露交易",
+          "docUrl": "/listedco/listconews/sehk/2026/0921/2026092100138_c.pdf",
+          "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0921/2026092100138_c.pdf",
+          "direct": true,
+          "relevance": "unverified"
+        },
+        {
+          "date": "2026-09-17",
+          "title": "建議分拆及證券投資基金於上交所獨立上市",
+          "docUrl": "/listedco/listconews/sehk/2026/0917/2026091701554_c.pdf",
+          "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0917/2026091701554_c.pdf",
+          "direct": true,
+          "relevance": "candidate"
+        }
+      ],
+      "latestDate": "2026-09-17",
+      "sourceUpdatedAt": "2026-10-10T13:53:18Z",
+      "parentMarketCap": 18.7,
+      "pricePairs": [],
+      "parentPrice": {
+        "priceAtAnnouncement": 5.815,
+        "priceNow": 5.335,
+        "changePct": -8.3,
+        "firstAnnouncementDate": "2026-09-17",
+        "currency": "HKD",
+        "updatedAt": "2026-10-10"
+      },
+      "fingerprint": "375d43561460523a218a1ec294d1ffe76e6875e235ba44e7e09c8a116539b477",
+      "firstSeenAt": "2026-09-17T17:30:56Z",
+      "changedAt": "2026-10-10T13:53:18Z"
+    },
+    {
+      "id": "hk:00017:fb0edb845715",
+      "mergedIds": [],
+      "market": "hk",
+      "parentTicker": "00017.HK",
+      "parentName": "新世界發展",
+      "targetName": "證券投資基金",
+      "targetTicker": "01776.HK",
+      "identityVerified": true,
+      "identityKind": "instrument",
+      "identityEvidence": {
         "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0921/2026092100138_c.pdf",
         "date": "2026-09-21",
-        "quote": "有關建議分拆及證券投資基金於上交所獨立上市的可能主要交易及有關證券投資基金認購的可能須予披露交易"
+        "quote": "分拆將涉及證券投資基金於"
       },
       "identityState": "resolved",
       "status": "completed",
       "evidence": {
         "status": "completed",
         "quote": "本集團進行建議分拆的主要商業目的為釋放資產價值及自資產出售收取所得款項總額，而證券投資基金的成功上市是完成建議分拆的先決條件",
-        "typeVersion": 1,
+        "typeVersion": 2,
         "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0921/2026092100138_c.pdf",
         "date": "2026-09-21",
-        "targetName": "證券投資基金於上交所",
-        "targetTicker": "",
+        "targetName": "證券投資基金",
+        "targetTicker": "01776.HK",
         "targetAliases": [],
-        "identityVersion": 2,
-        "identityQuote": "有關建議分拆及證券投資基金於上交所獨立上市的可能主要交易及有關證券投資基金認購的可能須予披露交易",
-        "identityKind": "entity",
+        "identityVersion": 3,
+        "identityQuote": "分拆將涉及證券投資基金於",
+        "identityKind": "instrument",
         "distributedEntity": false,
         "separatedEntity": false,
         "identityReason": "",
@@ -5634,7 +5740,6 @@
       },
       "dates": {},
       "missing": [
-        "ticker",
         "recordDate",
         "distributionDate"
       ],
@@ -5661,11 +5766,11 @@
           "docUrl": "/listedco/listconews/sehk/2026/0917/2026091701554_c.pdf",
           "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0917/2026091701554_c.pdf",
           "direct": true,
-          "relevance": "candidate"
+          "relevance": "unverified"
         }
       ],
       "latestDate": "2026-09-21",
-      "sourceUpdatedAt": "2026-10-10T13:31:34Z",
+      "sourceUpdatedAt": "2026-10-10T13:53:18Z",
       "parentMarketCap": 18.7,
       "pricePairs": [],
       "parentPrice": {
@@ -5676,9 +5781,9 @@
         "currency": "HKD",
         "updatedAt": "2026-10-10"
       },
-      "fingerprint": "6e1f017df178d0c788c60cb358451f7f386e9da9332f2e553fd0373e86871c2c",
-      "firstSeenAt": "2026-09-17T17:30:56Z",
-      "changedAt": "2026-10-10T13:34:48Z"
+      "fingerprint": "674b69c83d01d054e241956c4c8a1410e6abea592448ee86faf514c38f168278",
+      "firstSeenAt": "2026-10-10T13:53:18Z",
+      "changedAt": "2026-10-10T13:57:15Z"
     },
     {
       "id": "hk:00688:unresolved",
@@ -5702,13 +5807,13 @@
       "evidence": {
         "status": "approved",
         "quote": "（於香港註冊成立之有限公司）（股份代號：688）建議分拆獲聯交所批准兹提述中國海外發展有限公司（「本公司」）日期為二零二六年九月七日之公告，內容有關建議分拆（「該公告」）",
-        "typeVersion": 1,
+        "typeVersion": 2,
         "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0911/2026091101166_c.pdf",
         "date": "2026-09-11",
         "targetName": "位於中國廣東省佛山市南海區的購物中心（佛山千燈湖環宇城項目）",
         "targetTicker": "",
         "targetAliases": [],
-        "identityVersion": 2,
+        "identityVersion": 3,
         "identityQuote": "REIT 的相關資產為位於中國廣東省佛山市南海區的購物中心（佛山千燈湖環宇城項目），即",
         "identityKind": "business",
         "distributedEntity": false,
@@ -5758,7 +5863,7 @@
         }
       ],
       "latestDate": "2026-09-11",
-      "sourceUpdatedAt": "2026-10-10T13:31:34Z",
+      "sourceUpdatedAt": "2026-10-10T13:53:18Z",
       "parentMarketCap": 169.5,
       "pricePairs": [],
       "parentPrice": {
@@ -5771,7 +5876,7 @@
       },
       "fingerprint": "bfe35d870fd38e58bb94a91f5d9b663caa1e34fbbc6363901c249999f34f099c",
       "firstSeenAt": "2026-09-16T02:58:58Z",
-      "changedAt": "2026-10-10T13:34:48Z"
+      "changedAt": "2026-10-10T13:57:15Z"
     },
     {
       "id": "hk:01030:ba584c93d424",
@@ -5797,7 +5902,7 @@
       "evidence": {
         "status": "announced",
         "quote": "新城發展控股有限公司（於開曼群島註冊成立的有限責任公司）（股份代號：1030）須予披露交易有關建議分拆若干商業物業權益並於上海證券交易所獨立上市的視作出售事項建議分拆茲提述於2026年3月9日有關建議分拆兩座零售商場的該公告",
-        "typeVersion": 1,
+        "typeVersion": 2,
         "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0904/2026090402494_c.pdf",
         "date": "2026-09-04",
         "targetName": "商業不動產REITs",
@@ -5805,7 +5910,7 @@
         "targetAliases": [
           "若干商業物業權益"
         ],
-        "identityVersion": 2,
+        "identityVersion": 3,
         "identityQuote": "自願公告建議分拆商業不動產REITs",
         "identityKind": "business",
         "distributedEntity": false,
@@ -5854,7 +5959,7 @@
         }
       ],
       "latestDate": "2026-09-04",
-      "sourceUpdatedAt": "2026-10-10T13:31:34Z",
+      "sourceUpdatedAt": "2026-10-10T13:53:18Z",
       "parentMarketCap": 13.0,
       "pricePairs": [],
       "parentPrice": {
@@ -5889,7 +5994,7 @@
       "evidence": {
         "status": "announced",
         "quote": "PROBIO TECHNOLOGY LIMITED 建議分拆及獨立上市本公告由金斯瑞生物科技股份有限公司（「本公司」，連同其附屬公司，稱爲「本集團」）董事會（「董事會」）根據香港聯合交易所有限公司證券上市規則（「上市規則」）第13.09條與香港法例第571章證券及期貨條例第 XIVA 部內幕消息條文（定義見上市規則）以及上市規則第15項應用指引（「第15項應用指引」）而作出",
-        "typeVersion": 1,
+        "typeVersion": 2,
         "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0904/2026090400068_c.pdf",
         "date": "2026-09-04",
         "targetName": "Probio Technology Limited",
@@ -5897,7 +6002,7 @@
         "targetAliases": [
           "蓬勃生物"
         ],
-        "identityVersion": 2,
+        "identityVersion": 3,
         "identityQuote": "Probio Technology Limited（「蓬勃生物」，為本公司的間接非全資附屬公司，負責本集團的生物製劑及先進療法合約研究、開發及生產組織服務） … PROBIO TECHNOLOGY LIMITED建議分拆及獨立上市",
         "identityKind": "entity",
         "distributedEntity": false,
@@ -5935,7 +6040,7 @@
         }
       ],
       "latestDate": "2026-09-04",
-      "sourceUpdatedAt": "2026-10-10T13:31:34Z",
+      "sourceUpdatedAt": "2026-10-10T13:53:18Z",
       "parentMarketCap": 92.6,
       "pricePairs": [],
       "parentPrice": {
@@ -5970,13 +6075,13 @@
       "evidence": {
         "status": "announced",
         "quote": "可能進行的須予披露交易有關建議分拆 CLUBMED LIFESTYLE 並於香港聯交所主板獨立上市本公告乃由復星國際有限公司（「 本公司 」）根據香港聯合交易所有限公司（「 香港聯交所 」）證券上市規則（「 上市規則 」）之第15項應用指引（「 第15項應用指引 」）作出",
-        "typeVersion": 1,
+        "typeVersion": 2,
         "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0828/2026082804231_c.pdf",
         "date": "2026-08-28",
         "targetName": "CLUBMED LIFESTYLE",
         "targetTicker": "",
         "targetAliases": [],
-        "identityVersion": 2,
+        "identityVersion": 3,
         "identityQuote": "可能進行的須予披露交易 - 有關建議分拆CLUBMED LIFESTYLE並於香港聯交所主板獨立上市",
         "identityKind": "entity",
         "distributedEntity": false,
@@ -6036,7 +6141,7 @@
         }
       ],
       "latestDate": "2026-08-28",
-      "sourceUpdatedAt": "2026-10-10T13:31:34Z",
+      "sourceUpdatedAt": "2026-10-10T13:53:18Z",
       "parentMarketCap": 42.8,
       "pricePairs": [],
       "parentPrice": {
@@ -6071,13 +6176,13 @@
       "evidence": {
         "status": "announced",
         "quote": "進展公告擬通過中國商業不動產證券投資基金在上海證券交易所分拆並獨立上市之三亞亞特蘭蒂斯項目茲提述復星國際有限公司（「 本公司 」）日期為2026年3月26日之公告（「 該公告 」），有關擬通過中國商業不動產證券投資基金在上交所分拆並獨立上市之三亞亞特蘭蒂斯項目",
-        "typeVersion": 1,
+        "typeVersion": 2,
         "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0330/2026033001895_c.pdf",
         "date": "2026-03-30",
         "targetName": "三亞亞特蘭蒂斯項目",
         "targetTicker": "",
         "targetAliases": [],
-        "identityVersion": 2,
+        "identityVersion": 3,
         "identityQuote": "進展公告 - 擬通過中國商業不動產證券投資基金在上海證券交易所分拆並獨立上市之三亞亞特蘭蒂斯項目",
         "identityKind": "business",
         "distributedEntity": false,
@@ -6140,7 +6245,7 @@
         }
       ],
       "latestDate": "2026-03-30",
-      "sourceUpdatedAt": "2026-10-10T13:31:34Z",
+      "sourceUpdatedAt": "2026-10-10T13:53:18Z",
       "parentMarketCap": 42.8,
       "pricePairs": [],
       "parentPrice": {
@@ -6175,13 +6280,13 @@
       "evidence": {
         "status": "announced",
         "quote": "建議分拆復星安特金並於香港聯交所主板獨立上市本公告乃由復星國際有限公司（「 本公司 」）根據香港聯合交易所有限公司（「 香港聯交所 」）證券上市規則（「 香港上市規則 」）之第15項應用指引（「 第15項應用指引 」）作出",
-        "typeVersion": 1,
+        "typeVersion": 2,
         "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0626/2026062601696_c.pdf",
         "date": "2026-06-26",
         "targetName": "復星安特金",
         "targetTicker": "",
         "targetAliases": [],
-        "identityVersion": 2,
+        "identityVersion": 3,
         "identityQuote": "建議分拆復星安特金並於香港聯交所主板獨立上市",
         "identityKind": "entity",
         "distributedEntity": false,
@@ -6242,7 +6347,7 @@
         }
       ],
       "latestDate": "2026-06-26",
-      "sourceUpdatedAt": "2026-10-10T13:31:34Z",
+      "sourceUpdatedAt": "2026-10-10T13:53:18Z",
       "parentMarketCap": 42.8,
       "pricePairs": [],
       "parentPrice": {
@@ -6277,13 +6382,13 @@
       "evidence": {
         "status": "announced",
         "quote": "電子控股有限公司（於開曼群島註冊成立之有限公司）（股份代號：）01070內幕消息光伏業務擬分立獨立上市",
-        "typeVersion": 1,
+        "typeVersion": 2,
         "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0824/2026082401764_c.pdf",
         "date": "2026-08-24",
         "targetName": "光伏業務",
         "targetTicker": "",
         "targetAliases": [],
-        "identityVersion": 2,
+        "identityVersion": 3,
         "identityQuote": "光伏業務擬分立獨立上市",
         "identityKind": "business",
         "distributedEntity": false,
@@ -6320,7 +6425,7 @@
         }
       ],
       "latestDate": "2026-08-24",
-      "sourceUpdatedAt": "2026-10-10T13:31:34Z",
+      "sourceUpdatedAt": "2026-10-10T13:53:18Z",
       "parentMarketCap": 51.9,
       "pricePairs": [],
       "parentPrice": {
@@ -6357,13 +6462,13 @@
       "evidence": {
         "status": "approved",
         "quote": "本次分拆能否获得上述批准或备案以及最终获得相关批准或备案时间均存在不确定性，敬请广大投资者注意投资风险",
-        "typeVersion": 1,
+        "typeVersion": 2,
         "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0716/2026071601379_c.pdf",
         "date": "2026-07-16",
         "targetName": "江西省江铜铜箔科技股份有限公司",
         "targetTicker": "",
         "targetAliases": [],
-        "identityVersion": 2,
+        "identityVersion": 3,
         "identityQuote": "分拆所属子公司江西省江铜铜箔科技股份有限公司",
         "identityKind": "entity",
         "distributedEntity": false,
@@ -6440,7 +6545,7 @@
         }
       ],
       "latestDate": "2026-08-06",
-      "sourceUpdatedAt": "2026-10-10T13:31:34Z",
+      "sourceUpdatedAt": "2026-10-10T13:53:18Z",
       "parentMarketCap": 138.6,
       "pricePairs": [],
       "parentPrice": {
@@ -6471,13 +6576,13 @@
       "evidence": {
         "status": "approved",
         "quote": "本次分拆上市能否獲得上述批准、核准或同意以及最終獲得的時間均存在不確定性",
-        "typeVersion": 1,
+        "typeVersion": 2,
         "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0430/2026043004591_c.pdf",
         "date": "2026-04-30",
         "targetName": "",
         "targetTicker": "",
         "targetAliases": [],
-        "identityVersion": 2,
+        "identityVersion": 3,
         "identityQuote": "",
         "identityKind": "",
         "distributedEntity": false,
@@ -6555,7 +6660,7 @@
         }
       ],
       "latestDate": "2026-04-30",
-      "sourceUpdatedAt": "2026-10-10T13:31:34Z",
+      "sourceUpdatedAt": "2026-10-10T13:53:18Z",
       "parentMarketCap": 138.6,
       "pricePairs": [],
       "parentPrice": {
@@ -6590,13 +6695,13 @@
       "evidence": {
         "status": "announced",
         "quote": "(健倍苗苗保健有限公司（於開曼群島註冊成立的有限公司）（股份代號：2161）)建議分拆保濟元和(TCM)有限公司於香港聯合交易所有限公司主板獨立上市建議分拆本公司建議分拆本集團的品牌中成藥產品及中醫診所服務業務於聯交所主板獨立上市，方式為全球發售保濟元和股份",
-        "typeVersion": 1,
+        "typeVersion": 2,
         "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0717/2026071701273_c.pdf",
         "date": "2026-07-17",
         "targetName": "保濟元和(TCM)有限公司",
         "targetTicker": "",
         "targetAliases": [],
-        "identityVersion": 2,
+        "identityVersion": 3,
         "identityQuote": "建議分拆保濟元和(TCM)有限公司於香港聯合交易所有限公司主板獨立上市",
         "identityKind": "entity",
         "distributedEntity": false,
@@ -6634,7 +6739,7 @@
         }
       ],
       "latestDate": "2026-07-17",
-      "sourceUpdatedAt": "2026-10-10T13:31:34Z",
+      "sourceUpdatedAt": "2026-10-10T13:53:18Z",
       "parentMarketCap": 2.1,
       "pricePairs": [],
       "parentPrice": {
@@ -6669,13 +6774,13 @@
       "evidence": {
         "status": "announced",
         "quote": "（在中華人民共和國註冊成立的股份有限公司）（股份代碼：01171）建議分拆物泊科技於香港聯合交易所有限公司主板上市之進展公告茲提述兗礦能源集團股份有限公司（「本公司」，連同其附屬公司，統稱「本集團」）日期為2026年3月27日之內幕消息公告，內容有關建議分拆本公司非全資附屬公司物泊科技股份有限公司（「物泊科技」）的股份並於香港聯合交易所有限公司（「香港聯交所」）主板獨立上市（「建議分拆」）以及本公司日期為2026年6月10日之通函及本公司日期為2026年6月26日之投票結果公告",
-        "typeVersion": 1,
+        "typeVersion": 2,
         "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0630/2026063003934_c.pdf",
         "date": "2026-06-30",
         "targetName": "物泊科技",
         "targetTicker": "",
         "targetAliases": [],
-        "identityVersion": 2,
+        "identityVersion": 3,
         "identityQuote": "建議分拆物泊科技於香港聯合交易所有限公司主板上市之進展公告",
         "identityKind": "entity",
         "distributedEntity": false,
@@ -6732,7 +6837,7 @@
         }
       ],
       "latestDate": "2026-06-30",
-      "sourceUpdatedAt": "2026-10-10T13:31:34Z",
+      "sourceUpdatedAt": "2026-10-10T13:53:18Z",
       "parentMarketCap": 147.1,
       "pricePairs": [],
       "parentPrice": {
@@ -6767,7 +6872,7 @@
       "evidence": {
         "status": "announced",
         "quote": "（在中華人民共和國註冊成立的股份有限公司）（股份代碼：01171）建議分拆卡松科技於全國中小企業股份轉讓系統掛牌之進展茲提述兗礦能源集團股份有限公司（「本公司」）日期為2025年9月22日之公告（「該公告」），內容有關本公司控股附屬公司卡松科技股份有限公司（「卡松科技」）於全國中小企業股份轉讓系統（「全國中小企業股份轉讓系統」，即「新三板」）掛牌之建議分拆（「建議分拆」）",
-        "typeVersion": 1,
+        "typeVersion": 2,
         "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0213/2026021300694_c.pdf",
         "date": "2026-02-13",
         "targetName": "卡松科技股份有限公司",
@@ -6775,7 +6880,7 @@
         "targetAliases": [
           "卡松科技"
         ],
-        "identityVersion": 2,
+        "identityVersion": 3,
         "identityQuote": "內容有關本公司控股附屬公司卡松科技股份有限公司（「卡松科技」） … 建議分拆卡松科技於全國中小企業股份轉讓系統掛牌之進展",
         "identityKind": "entity",
         "distributedEntity": false,
@@ -6830,7 +6935,7 @@
         }
       ],
       "latestDate": "2026-02-13",
-      "sourceUpdatedAt": "2026-10-10T13:31:34Z",
+      "sourceUpdatedAt": "2026-10-10T13:53:18Z",
       "parentMarketCap": 147.1,
       "pricePairs": [],
       "parentPrice": {
@@ -6865,13 +6970,13 @@
       "evidence": {
         "status": "announced",
         "quote": "（於開曼群島註冊成立的有限公司）（股份代號：）3337潛在須予披露交易建議分拆通奧檢測集團股份有限公司並於香港聯合交易所有限公司主板獨立上市背景茲提述本公司日期為2022298月年日及202516月年建議分拆本集團透過通奧檢測集團股份有限公司（日的公告（「該等公告」），內容有關",
-        "typeVersion": 1,
+        "typeVersion": 2,
         "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0630/2026063003740_c.pdf",
         "date": "2026-06-30",
         "targetName": "通奧檢測集團股份有限公司",
         "targetTicker": "",
         "targetAliases": [],
-        "identityVersion": 2,
+        "identityVersion": 3,
         "identityQuote": "潛在須予披露交易 - 建議分拆通奧檢測集團股份有限公司並於香港聯合交易所有限公司主板獨立上市",
         "identityKind": "entity",
         "distributedEntity": false,
@@ -6908,7 +7013,7 @@
         }
       ],
       "latestDate": "2026-06-30",
-      "sourceUpdatedAt": "2026-10-10T13:31:34Z",
+      "sourceUpdatedAt": "2026-10-10T13:53:18Z",
       "parentMarketCap": 2.9,
       "pricePairs": [],
       "parentPrice": {
@@ -6943,13 +7048,13 @@
       "evidence": {
         "status": "announced",
         "quote": "（根據公司條例在香港註冊成立之有限責任公司）（股份代號：836）華潤新能源控股有限公司建議分拆及A股上市之最新情況本公告乃由華潤電力控股有限公司（「本公司」）之董事會（「董事會」）根據香港聯合交易所有限公司證券上市規則（「上市規則」）第13.09(2)條及香港法例第571章證券及期貨條例第XIVA部之內幕消息條文（定義見上市規則）而作出",
-        "typeVersion": 1,
+        "typeVersion": 2,
         "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0630/2026063003120_c.pdf",
         "date": "2026-06-30",
         "targetName": "華潤新能源控股有限公司",
         "targetTicker": "",
         "targetAliases": [],
-        "identityVersion": 2,
+        "identityVersion": 3,
         "identityQuote": "華潤新能源控股有限公司建議分拆及A股上市之最新情況",
         "identityKind": "entity",
         "distributedEntity": false,
@@ -6958,19 +7063,7 @@
         "dates": {},
         "method": "rule",
         "ruleVersion": 3,
-        "accession": "",
-        "identityReferences": [
-          "2023-03-22",
-          "2023-06-18",
-          "2023-06-21",
-          "2025-03-14",
-          "2026-04-29",
-          "2026-05-06",
-          "2026-05-15",
-          "2026-06-10",
-          "2026-06-18",
-          "2026-06-25"
-        ]
+        "accession": ""
       },
       "dates": {},
       "missing": [
@@ -7053,7 +7146,7 @@
         }
       ],
       "latestDate": "2026-06-30",
-      "sourceUpdatedAt": "2026-10-10T13:31:34Z",
+      "sourceUpdatedAt": "2026-10-10T13:53:18Z",
       "parentMarketCap": 114.7,
       "pricePairs": [],
       "parentPrice": {
@@ -7088,7 +7181,7 @@
       "evidence": {
         "status": "announced",
         "quote": "（根據公司條例在香港註冊成立的有限責任公司）（股份代號：836)公開募集基礎設施證券投資基金之建議分拆及在深圳證券交易所獨立上市建議分拆董事會欣然宣佈，於2026年4月30日，華夏基金及中信証券向中國證監會及深圳證券交易所提交了公募基金註冊及上市的申請材料",
-        "typeVersion": 1,
+        "typeVersion": 2,
         "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0430/2026043000905_c.pdf",
         "date": "2026-04-30",
         "targetName": "位於中國河南省焦作市的焦作燃煤發電廠",
@@ -7096,7 +7189,7 @@
         "targetAliases": [
           "該項目"
         ],
-        "identityVersion": 2,
+        "identityVersion": 3,
         "identityQuote": "基礎設施 REIT 的相關資產為位於中國河南省焦作市的焦作燃煤發電廠（「該項目」）",
         "identityKind": "business",
         "distributedEntity": false,
@@ -7190,7 +7283,7 @@
         }
       ],
       "latestDate": "2026-04-30",
-      "sourceUpdatedAt": "2026-10-10T13:31:34Z",
+      "sourceUpdatedAt": "2026-10-10T13:53:18Z",
       "parentMarketCap": 114.7,
       "pricePairs": [],
       "parentPrice": {
@@ -7374,7 +7467,7 @@
         }
       ],
       "latestDate": "2026-06-26",
-      "sourceUpdatedAt": "2026-10-10T13:31:34Z",
+      "sourceUpdatedAt": "2026-10-10T13:53:18Z",
       "parentMarketCap": 57.2,
       "pricePairs": [],
       "parentPrice": {
@@ -7409,13 +7502,13 @@
       "evidence": {
         "status": "approved",
         "quote": "建议分拆上市能否获得上述批准或核准以及最终获得相关批准或核准的时间均存在不确定性",
-        "typeVersion": 1,
+        "typeVersion": 2,
         "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2025/1028/2025102801379_c.pdf",
         "date": "2025-10-28",
         "targetName": "复星安特金（成都）生物制药有限公司",
         "targetTicker": "",
         "targetAliases": [],
-        "identityVersion": 2,
+        "identityVersion": 3,
         "identityQuote": "分拆控股子公司复星安特金（成都）生物制药有限公司",
         "identityKind": "entity",
         "distributedEntity": false,
@@ -7556,7 +7649,7 @@
         }
       ],
       "latestDate": "2025-10-28",
-      "sourceUpdatedAt": "2026-10-10T13:31:34Z",
+      "sourceUpdatedAt": "2026-10-10T13:53:18Z",
       "parentMarketCap": 57.2,
       "pricePairs": [],
       "parentPrice": {
@@ -7735,7 +7828,7 @@
         }
       ],
       "latestDate": "2026-01-22",
-      "sourceUpdatedAt": "2026-10-10T13:31:34Z",
+      "sourceUpdatedAt": "2026-10-10T13:53:18Z",
       "parentMarketCap": 57.2,
       "pricePairs": [],
       "parentPrice": {
@@ -7770,7 +7863,7 @@
       "evidence": {
         "status": "announced",
         "quote": "（於香港註冊成立之有限公司）（股份代號：308）中旅港澳文旅控股有限公司之建議分拆及於香港聯合交易所有限公司主板獨立上市本公告乃根據上市規則應用指引第15項作出",
-        "typeVersion": 1,
+        "typeVersion": 2,
         "listingType": {
           "code": "intro_hk",
           "exchange_zh": "港交所",
@@ -7785,7 +7878,7 @@
         "targetName": "中旅港澳文旅控股有限公司",
         "targetTicker": "",
         "targetAliases": [],
-        "identityVersion": 2,
+        "identityVersion": 3,
         "identityQuote": "中旅港澳文旅控股有限公司之建議分拆及於香港聯合交易所有限公司主板獨立上市",
         "identityKind": "entity",
         "distributedEntity": false,
@@ -7823,7 +7916,7 @@
         }
       ],
       "latestDate": "2026-05-20",
-      "sourceUpdatedAt": "2026-10-10T13:31:34Z",
+      "sourceUpdatedAt": "2026-10-10T13:53:18Z",
       "parentMarketCap": 7.5,
       "pricePairs": [],
       "parentPrice": {
@@ -7865,13 +7958,13 @@
       "evidence": {
         "status": "approved",
         "quote": "（於開曼群島註冊成立的有限公司）（股份代號：01109.HK）建議分拆獲聯交所批准兹提述華潤置地有限公司（「 本公司 」）日期為二零二六年四月二十八日之公告，內容有關建議分拆（「 該公告 」）",
-        "typeVersion": 1,
+        "typeVersion": 2,
         "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0518/2026051801187_c.pdf",
         "date": "2026-05-18",
         "targetName": "兩個購物商場，分別位於中國江蘇省南通市及山東省臨沂市",
         "targetTicker": "",
         "targetAliases": [],
-        "identityVersion": 2,
+        "identityVersion": 3,
         "identityQuote": "REIT 的相關資產為兩個購物商場，分別位於中國江蘇省南通市及山東省臨沂市，即",
         "identityKind": "business",
         "distributedEntity": false,
@@ -7920,7 +8013,7 @@
         }
       ],
       "latestDate": "2026-05-18",
-      "sourceUpdatedAt": "2026-10-10T13:31:34Z",
+      "sourceUpdatedAt": "2026-10-10T13:53:18Z",
       "parentMarketCap": 293.0,
       "pricePairs": [],
       "parentPrice": {
@@ -7933,7 +8026,7 @@
       },
       "fingerprint": "86ee234488b9649d0f9e5be6c5ec07552eeb99ea829f350e771d69b8d584d140",
       "firstSeenAt": "2026-09-16T02:58:58Z",
-      "changedAt": "2026-10-10T13:34:48Z"
+      "changedAt": "2026-10-10T13:57:15Z"
     },
     {
       "id": "hk:01979:unresolved",
@@ -7955,7 +8048,7 @@
       "evidence": {
         "status": "announced",
         "quote": "天寶集團控股有限公司（於開曼群島註冊成立的有限公司）（股份代號：1979）內幕消息廣東天寶電子科技股份有限公司的建議分拆並於中國證券交易所進行獨立A股上市本公佈乃由天寶集團控股有限公司（「本公司」，連同其附屬公司統稱為「本集團」）根據香港聯合交易所有限公司（「聯交所」）證券上市規則（「上市規則」）第13.09條及香港法例第571章證券及期貨條例第XIVA部作出",
-        "typeVersion": 1,
+        "typeVersion": 2,
         "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0514/2026051401481_c.pdf",
         "date": "2026-05-14",
         "targetName": "廣東天寶電子科技股份有限公司",
@@ -7963,7 +8056,7 @@
         "targetAliases": [
           "分拆公司"
         ],
-        "identityVersion": 2,
+        "identityVersion": 3,
         "identityQuote": "廣東天寶電子科技股份有限公司的建議分拆並於中國證券交易所進行獨立A股上市",
         "identityKind": "entity",
         "distributedEntity": false,
@@ -8001,7 +8094,7 @@
         }
       ],
       "latestDate": "2026-05-14",
-      "sourceUpdatedAt": "2026-10-10T13:31:34Z",
+      "sourceUpdatedAt": "2026-10-10T13:53:18Z",
       "parentMarketCap": 2.7,
       "pricePairs": [],
       "parentPrice": {
@@ -8036,13 +8129,13 @@
       "evidence": {
         "status": "approved",
         "quote": "阿里巴巴集團控股有限公司（於開曼群島註冊成立的有限責任公司）（股份代號：9988（港幣櫃台）及89988（人民幣櫃台））擬議分拆獲香港聯交所批准本公告乃根據香港上市規則第15項應用指引而作出",
-        "typeVersion": 1,
+        "typeVersion": 2,
         "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0427/2026042702683_c.pdf",
         "date": "2026-04-27",
         "targetName": "嘉興園區",
         "targetTicker": "",
         "targetAliases": [],
-        "identityVersion": 2,
+        "identityVersion": 3,
         "identityQuote": "分拆的底層資產為嘉興園區",
         "identityKind": "business",
         "distributedEntity": false,
@@ -8080,7 +8173,7 @@
         }
       ],
       "latestDate": "2026-04-27",
-      "sourceUpdatedAt": "2026-10-10T13:31:34Z",
+      "sourceUpdatedAt": "2026-10-10T13:53:18Z",
       "parentMarketCap": 2341.7,
       "pricePairs": [],
       "parentPrice": {
@@ -8136,7 +8229,7 @@
         }
       ],
       "latestDate": "2026-04-07",
-      "sourceUpdatedAt": "2026-10-10T13:31:34Z",
+      "sourceUpdatedAt": "2026-10-10T13:53:18Z",
       "parentMarketCap": 1048.3,
       "pricePairs": [],
       "parentPrice": {
@@ -8228,7 +8321,7 @@
         }
       ],
       "latestDate": "",
-      "sourceUpdatedAt": "2026-10-10T13:31:34Z",
+      "sourceUpdatedAt": "2026-10-10T13:53:18Z",
       "parentMarketCap": 1048.3,
       "pricePairs": [],
       "parentPrice": {
@@ -8259,13 +8352,13 @@
       "evidence": {
         "status": "paused",
         "quote": "經諮詢其建議分拆的顧問，分拆公司於考慮現時市場及監管狀況等多項因素後，決定於現階段不進行建議分拆及建議於美國證券交易所上市",
-        "typeVersion": 1,
+        "typeVersion": 2,
         "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0401/2026040104407_c.pdf",
         "date": "2026-04-01",
         "targetName": "",
         "targetTicker": "",
         "targetAliases": [],
-        "identityVersion": 2,
+        "identityVersion": 3,
         "identityQuote": "",
         "identityKind": "",
         "distributedEntity": false,
@@ -8350,7 +8443,7 @@
         }
       ],
       "latestDate": "2026-04-01",
-      "sourceUpdatedAt": "2026-10-10T13:31:34Z",
+      "sourceUpdatedAt": "2026-10-10T13:53:18Z",
       "parentMarketCap": 1.9,
       "pricePairs": [],
       "parentPrice": {
@@ -8499,7 +8592,7 @@
         }
       ],
       "latestDate": "2026-03-30",
-      "sourceUpdatedAt": "2026-10-10T13:31:34Z",
+      "sourceUpdatedAt": "2026-10-10T13:53:18Z",
       "parentMarketCap": 1.9,
       "pricePairs": [],
       "parentPrice": {
@@ -8534,13 +8627,13 @@
       "evidence": {
         "status": "announced",
         "quote": "（於開曼群島註冊成立的有限公司）（股份代號：01530）建議分拆蔓迪國際並於香港聯合交易所有限公司主板獨立上市及以實物分派方式宣派附條件特別股息茲提述本公司日期為二零二五年十一月二十日及二零二六年三月十七日的公告",
-        "typeVersion": 1,
+        "typeVersion": 2,
         "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0330/2026033002423_c.pdf",
         "date": "2026-03-30",
         "targetName": "蔓迪國際",
         "targetTicker": "",
         "targetAliases": [],
-        "identityVersion": 2,
+        "identityVersion": 3,
         "identityQuote": "建議分拆蔓迪國際並於香港聯合交易所有限公司主板獨立上市及以實物分派方式宣派附條件特別股息",
         "identityKind": "entity",
         "distributedEntity": false,
@@ -8602,7 +8695,7 @@
         }
       ],
       "latestDate": "2026-03-30",
-      "sourceUpdatedAt": "2026-10-10T13:31:34Z",
+      "sourceUpdatedAt": "2026-10-10T13:53:18Z",
       "parentMarketCap": 62.0,
       "pricePairs": [],
       "parentPrice": {
@@ -8637,13 +8730,13 @@
       "evidence": {
         "status": "announced",
         "quote": "（於百慕達註冊成立的有限公司）（股份代號：384）自願性公告有關建議分拆上市之最新進展本公告乃本公司作出之自願性公告",
-        "typeVersion": 1,
+        "typeVersion": 2,
         "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0320/2026032001769_c.pdf",
         "date": "2026-03-20",
         "targetName": "壹品慧",
         "targetTicker": "",
         "targetAliases": [],
-        "identityVersion": 2,
+        "identityVersion": 3,
         "identityQuote": "「分拆公司」指「壹品慧」",
         "identityKind": "entity",
         "distributedEntity": false,
@@ -8683,7 +8776,7 @@
         }
       ],
       "latestDate": "2026-03-20",
-      "sourceUpdatedAt": "2026-10-10T13:31:34Z",
+      "sourceUpdatedAt": "2026-10-10T13:53:18Z",
       "parentMarketCap": 38.8,
       "pricePairs": [],
       "parentPrice": {
@@ -8718,13 +8811,13 @@
       "evidence": {
         "status": "announced",
         "quote": "（於開曼群島註冊成立之有限公司）（股份代號：1523）擬議分拆及將分拆實體於納斯達克獨立上市本公告乃根據《上市規則》的第15項應用指引而作出",
-        "typeVersion": 1,
+        "typeVersion": 2,
         "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0225/2026022500599_c.pdf",
         "date": "2026-02-25",
         "targetName": "Peplink Holdings Limited",
         "targetTicker": "",
         "targetAliases": [],
-        "identityVersion": 2,
+        "identityVersion": 3,
         "identityQuote": "「分拆實體」 指 Peplink Holdings Limited，一間於英屬維爾京群島註冊成立之公司，於本公告日期為本公司之全資附屬公司，亦為擬議分拆中被分拆之實體",
         "identityKind": "entity",
         "distributedEntity": false,
@@ -8762,7 +8855,7 @@
         }
       ],
       "latestDate": "2026-02-25",
-      "sourceUpdatedAt": "2026-10-10T13:31:34Z",
+      "sourceUpdatedAt": "2026-10-10T13:53:18Z",
       "parentMarketCap": 10.8,
       "pricePairs": [],
       "parentPrice": {
@@ -8775,7 +8868,7 @@
       },
       "fingerprint": "3a2bbb2211fe7c0272b1ea1335cc239961f82b9e4add7f627fe71ee3150a85e9",
       "firstSeenAt": "2026-09-16T02:58:58Z",
-      "changedAt": "2026-10-10T13:34:48Z"
+      "changedAt": "2026-10-10T13:57:15Z"
     },
     {
       "id": "hk:00041:unresolved",
@@ -8799,13 +8892,13 @@
       "evidence": {
         "status": "record_set",
         "quote": "釐定股東於實物分派的權利的記錄日期為2026年3月17日（星期二）",
-        "typeVersion": 1,
+        "typeVersion": 2,
         "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0225/2026022500757_c.pdf",
         "date": "2026-02-25",
         "targetName": "朗廷酒店投資",
         "targetTicker": "",
         "targetAliases": [],
-        "identityVersion": 2,
+        "identityVersion": 3,
         "identityQuote": "「信託」 指根據信託契約組成的朗廷酒店投資",
         "identityKind": "instrument",
         "distributedEntity": false,
@@ -8856,7 +8949,7 @@
         }
       ],
       "latestDate": "2026-02-25",
-      "sourceUpdatedAt": "2026-10-10T13:31:34Z",
+      "sourceUpdatedAt": "2026-10-10T13:53:18Z",
       "parentMarketCap": 14.9,
       "pricePairs": [],
       "parentPrice": {
@@ -8869,7 +8962,7 @@
       },
       "fingerprint": "9c8e9483580f990e6e3b51afba4bc7d6503db99f0782f2474c778d38855a5b2f",
       "firstSeenAt": "2026-09-16T02:58:58Z",
-      "changedAt": "2026-10-10T13:34:48Z"
+      "changedAt": "2026-10-10T13:57:15Z"
     },
     {
       "id": "hk:07489:unresolved",
@@ -8915,7 +9008,7 @@
         }
       ],
       "latestDate": "2026-02-12",
-      "sourceUpdatedAt": "2026-10-10T13:31:34Z",
+      "sourceUpdatedAt": "2026-10-10T13:53:18Z",
       "parentMarketCap": 13.0,
       "pricePairs": [],
       "parentPrice": {},
@@ -8948,13 +9041,13 @@
       "evidence": {
         "status": "announced",
         "quote": "（於開曼群島註冊成立之有限公司）（股份代號 ︰ 3393）建議分拆惟遠能源技術股份有限公司並於香港聯合交易所有限公司主板獨立上市本公司已根據上市規則第15項應用指引就建議分拆向香港聯交所提交建議，而香港聯交所已確認本公司可繼續進行建議分拆",
-        "typeVersion": 1,
+        "typeVersion": 2,
         "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0127/2026012700892_c.pdf",
         "date": "2026-01-27",
         "targetName": "惟遠能源技術股份有限公司",
         "targetTicker": "",
         "targetAliases": [],
-        "identityVersion": 2,
+        "identityVersion": 3,
         "identityQuote": "建議分拆惟遠能源技術股份有限公司並於香港聯合交易所有限公司主板獨立上市",
         "identityKind": "entity",
         "distributedEntity": false,
@@ -8992,7 +9085,7 @@
         }
       ],
       "latestDate": "2026-01-27",
-      "sourceUpdatedAt": "2026-10-10T13:31:34Z",
+      "sourceUpdatedAt": "2026-10-10T13:53:18Z",
       "parentMarketCap": 29.0,
       "pricePairs": [],
       "parentPrice": {
@@ -9030,7 +9123,7 @@
       "evidence": {
         "status": "announced",
         "quote": "舜宇光學科技（集團）有限公司（於開曼群島註冊成立的有限公司）（股份代號：2382.HK）內幕消息有關建議分拆本集團車載相關光學業務及獨立上市的最新情況本公告乃由本公司根據上市規則第13.09條及香港法例第571章證券及期貨條例第XIVA部項下內幕消息條文（定義見上市規則）而作出",
-        "typeVersion": 1,
+        "typeVersion": 2,
         "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0127/2026012700056_c.pdf",
         "date": "2026-01-27",
         "targetName": "寧波舜宇智行科技股份有限公司",
@@ -9038,7 +9131,7 @@
         "targetAliases": [
           "車載相關光學業務"
         ],
-        "identityVersion": 2,
+        "identityVersion": 3,
         "identityQuote": "「分拆公司」 指寧波舜宇智行科技股份有限公司，一間在中國成立的股份有限公司，於本公告日期為本公司的附屬公司2 ",
         "identityKind": "entity",
         "distributedEntity": false,
@@ -9087,7 +9180,7 @@
         }
       ],
       "latestDate": "2026-01-27",
-      "sourceUpdatedAt": "2026-10-10T13:31:34Z",
+      "sourceUpdatedAt": "2026-10-10T13:53:18Z",
       "parentMarketCap": 76.7,
       "pricePairs": [],
       "parentPrice": {
@@ -9146,7 +9239,7 @@
         }
       ],
       "latestDate": "2026-01-26",
-      "sourceUpdatedAt": "2026-10-10T13:31:34Z",
+      "sourceUpdatedAt": "2026-10-10T13:53:18Z",
       "parentMarketCap": 26.0,
       "pricePairs": [],
       "parentPrice": {
@@ -9181,13 +9274,13 @@
       "evidence": {
         "status": "announced",
         "quote": "萬科企業股份有限公司（於中華人民共和國註冊成立的股份有限公司）（股份代號：2202）關於撤回建議分拆三個倉儲物流園項目並通過公開募集基礎設施證券投資基金於深圳證券交易所獨立上市的申請並獲准的公告兹提述萬科企業股份有限公司（「本公司」）日期為2024年3月1日的公告，內容有關（其中包括）本公司建議以萬緯物流擁有的部分高標準倉儲物流園開展不動產投資信託基金（「本項目」）申報發行工作，並於2024年3月1日收到中國證監會的申請受理通知書（「首次公告」）",
-        "typeVersion": 1,
+        "typeVersion": 2,
         "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0123/2026012301109_c.pdf",
         "date": "2026-01-23",
         "targetName": "三個倉儲物流園項目並通過公開募集基礎設施證券投資基金",
         "targetTicker": "",
         "targetAliases": [],
-        "identityVersion": 2,
+        "identityVersion": 3,
         "identityQuote": "關於撤回建議分拆三個倉儲物流園項目並通過公開募集基礎設施證券投資基金於深圳證券交易所獨立上市的申請並獲准的公告",
         "identityKind": "business",
         "distributedEntity": false,
@@ -9226,7 +9319,7 @@
         }
       ],
       "latestDate": "2026-01-23",
-      "sourceUpdatedAt": "2026-10-10T13:31:34Z",
+      "sourceUpdatedAt": "2026-10-10T13:53:18Z",
       "parentMarketCap": 33.7,
       "pricePairs": [],
       "parentPrice": {
@@ -9261,13 +9354,13 @@
       "evidence": {
         "status": "announced",
         "quote": "先聲藥業集團有限公司（於香港註冊成立的有限公司）（股份代號：2096）建議分拆先聲再明醫藥股份有限公司及在香港聯合交易所有限公司主板獨立上市建議分拆本公司建議分拆本公司附屬公司先聲再明的H 股在聯交所主板獨立上市",
-        "typeVersion": 1,
+        "typeVersion": 2,
         "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0109/2026010901364_c.pdf",
         "date": "2026-01-09",
         "targetName": "先聲再明醫藥股份有限公司",
         "targetTicker": "",
         "targetAliases": [],
-        "identityVersion": 2,
+        "identityVersion": 3,
         "identityQuote": "建議分拆先聲再明醫藥股份有限公司及在香港聯合交易所有限公司主板獨立上市",
         "identityKind": "entity",
         "distributedEntity": false,
@@ -9305,7 +9398,7 @@
         }
       ],
       "latestDate": "2026-01-09",
-      "sourceUpdatedAt": "2026-10-10T13:31:34Z",
+      "sourceUpdatedAt": "2026-10-10T13:53:18Z",
       "parentMarketCap": 39.3,
       "pricePairs": [],
       "parentPrice": {
@@ -9340,13 +9433,13 @@
       "evidence": {
         "status": "announced",
         "quote": "百度集團股份有限公司（於開曼群島註冊成立以不同投票權控制的有限責任公司）（股份代號：9888（港元櫃台）及89888（人民幣櫃台））建議分拆崑崙芯於香港聯合交易所有限公司主板獨立上市茲提述本公司日期為2025年12月7日的有關評估可能分拆崑崙芯獨立上市的自願性公告",
-        "typeVersion": 1,
+        "typeVersion": 2,
         "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0102/2026010200014_c.pdf",
         "date": "2026-01-02",
         "targetName": "崑崙芯",
         "targetTicker": "",
         "targetAliases": [],
-        "identityVersion": 2,
+        "identityVersion": 3,
         "identityQuote": "建議分拆崑崙芯於香港聯合交易所有限公司主板獨立上市",
         "identityKind": "entity",
         "distributedEntity": false,
@@ -9386,7 +9479,7 @@
         }
       ],
       "latestDate": "2026-01-02",
-      "sourceUpdatedAt": "2026-10-10T13:31:34Z",
+      "sourceUpdatedAt": "2026-10-10T13:53:18Z",
       "parentMarketCap": 382.6,
       "pricePairs": [],
       "parentPrice": {
@@ -9421,7 +9514,7 @@
       "evidence": {
         "status": "approved",
         "quote": "本次分拆能否获得上述批准、审核同意、注册以及最终获得相关批准、审核同意、注册的时间，均存在不确定性，敬请广大投资者注意投资风险",
-        "typeVersion": 1,
+        "typeVersion": 2,
         "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2025/1127/2025112701496_c.pdf",
         "date": "2025-11-27",
         "targetName": "中车戚墅堰机车车辆工艺研究所股份有限公司",
@@ -9429,7 +9522,7 @@
         "targetAliases": [
           "中车戚所"
         ],
-        "identityVersion": 2,
+        "identityVersion": 3,
         "identityQuote": "拟分拆所属子公司中车戚墅堰机车车辆工艺研究所股份有限公司（以下简称“中车戚所”） … 分拆所属子公司中车戚墅堰机车车辆工艺研究所股份有限公司",
         "identityKind": "entity",
         "distributedEntity": false,
@@ -9546,7 +9639,7 @@
         }
       ],
       "latestDate": "2025-12-28",
-      "sourceUpdatedAt": "2026-10-10T13:31:34Z",
+      "sourceUpdatedAt": "2026-10-10T13:53:18Z",
       "parentMarketCap": 168.6,
       "pricePairs": [],
       "parentPrice": {
@@ -9701,7 +9794,7 @@
         }
       ],
       "latestDate": "2025-11-27",
-      "sourceUpdatedAt": "2026-10-10T13:31:34Z",
+      "sourceUpdatedAt": "2026-10-10T13:53:18Z",
       "parentMarketCap": 168.6,
       "pricePairs": [],
       "parentPrice": {
@@ -9736,7 +9829,7 @@
       "evidence": {
         "status": "completed",
         "quote": "京東集團股份有限公司（於開曼群島註冊成立以不同投票權控制的有限責任公司）（股份代號：9618（港幣櫃台）及89618（人民幣櫃台））分拆京東工業股份有限公司於香港聯合交易所有限公司主板獨立上市京東工業股份有限公司上市及京東工業股份有限公司股份開始買賣董事會欣然宣佈，於全球發售完成後，京東工業股份有限公司（「京東工業」）於2025年12月11日在香港聯交所主板上市，及京東工業股份於2025年12月11日上午九時正在香港聯交所主板開始買賣",
-        "typeVersion": 1,
+        "typeVersion": 2,
         "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2025/1211/2025121101039_c.pdf",
         "date": "2025-12-11",
         "targetName": "京東工業股份有限公司",
@@ -9744,7 +9837,7 @@
         "targetAliases": [
           "京東工業"
         ],
-        "identityVersion": 2,
+        "identityVersion": 3,
         "identityQuote": "京東工業股份有限公司（「京東工業」） … 分拆京東工業股份有限公司於香港聯合交易所有限公司主板獨立上市 - 京東工業股份有限公司上市及京東工業股份有限公司股份開始買賣",
         "identityKind": "entity",
         "distributedEntity": false,
@@ -9797,7 +9890,7 @@
         }
       ],
       "latestDate": "2025-12-11",
-      "sourceUpdatedAt": "2026-10-10T13:31:34Z",
+      "sourceUpdatedAt": "2026-10-10T13:53:18Z",
       "parentMarketCap": 367.5,
       "pricePairs": [],
       "parentPrice": {
@@ -9832,13 +9925,13 @@
       "evidence": {
         "status": "completed",
         "quote": "（股份代號：00142）完成建議分拆MAYNILAD WATER SERVICES, INC.及於菲律賓證券交易所獨立上市茲提述本公司日期為2024年12月3日、2025年3月17日、2025年6月23日及2025年10月21日之公告以及日期為2025年5月23日之通函（「該通函」），內容有關建議分拆",
-        "typeVersion": 1,
+        "typeVersion": 2,
         "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2025/1107/2025110700300_c.pdf",
         "date": "2025-11-07",
         "targetName": "MAYNILAD WATER SERVICES, INC",
         "targetTicker": "",
         "targetAliases": [],
-        "identityVersion": 2,
+        "identityVersion": 3,
         "identityQuote": "完成建議分拆MAYNILAD WATER SERVICES, INC.及於菲律賓證券交易所獨立上市",
         "identityKind": "entity",
         "distributedEntity": false,
@@ -9914,7 +10007,7 @@
         }
       ],
       "latestDate": "2025-12-09",
-      "sourceUpdatedAt": "2026-10-10T13:31:34Z",
+      "sourceUpdatedAt": "2026-10-10T13:53:18Z",
       "parentMarketCap": 27.7,
       "pricePairs": [],
       "parentPrice": {
@@ -9949,7 +10042,7 @@
       "evidence": {
         "status": "announced",
         "quote": "硬蛋創新（於開曼群島註冊成立的有限公司）（股份代號：400）建議分拆深圳市科通技術股份有限公司及建議 A 股上市的最新進展茲提述本公司日期為2025年3月27日的公告，內容有關科通技術於中國一間證券交易所進行建議分拆及建議 A 股上市",
-        "typeVersion": 1,
+        "typeVersion": 2,
         "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2025/1125/2025112500672_c.pdf",
         "date": "2025-11-25",
         "targetName": "深圳市科通技術股份有限公司",
@@ -9957,7 +10050,7 @@
         "targetAliases": [
           " 科通技術 "
         ],
-        "identityVersion": 2,
+        "identityVersion": 3,
         "identityQuote": "建議分拆深圳市科通技術股份有限公司及建議A股上市的最新進展",
         "identityKind": "entity",
         "distributedEntity": false,
@@ -9997,7 +10090,7 @@
         }
       ],
       "latestDate": "2025-11-25",
-      "sourceUpdatedAt": "2026-10-10T13:31:34Z",
+      "sourceUpdatedAt": "2026-10-10T13:53:18Z",
       "parentMarketCap": 10.7,
       "pricePairs": [],
       "parentPrice": {
@@ -10032,13 +10125,13 @@
       "evidence": {
         "status": "announced",
         "quote": "中國聯合網絡通信(香港)股份有限公司(在香港註冊成立之有限公司)(股份代碼: 762)建議分拆智網科技獨立上市之進展茲提述中國聯合網絡通信(香港)股份有限公司（「本公司」）日期為2021年8月19日及2023年5月4日的公告（「該公告」），內容有關建議分拆聯通智網科技股份有限公司（「智網科技」）於中國境内證券交易所獨立上市（「建議分拆」）",
-        "typeVersion": 1,
+        "typeVersion": 2,
         "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2025/1022/2025102200695_c.pdf",
         "date": "2025-10-22",
         "targetName": "智網科技",
         "targetTicker": "",
         "targetAliases": [],
-        "identityVersion": 2,
+        "identityVersion": 3,
         "identityQuote": "建議分拆智網科技獨立上市之進展",
         "identityKind": "entity",
         "distributedEntity": false,
@@ -10079,7 +10172,7 @@
         }
       ],
       "latestDate": "2025-10-22",
-      "sourceUpdatedAt": "2026-10-10T13:31:34Z",
+      "sourceUpdatedAt": "2026-10-10T13:53:18Z",
       "parentMarketCap": 244.4,
       "pricePairs": [],
       "parentPrice": {
@@ -10114,13 +10207,13 @@
       "evidence": {
         "status": "announced",
         "quote": "太古股份有限公司（於香港註冊成立的有限公司）（股份代號：00019及00087）有關建議分拆 THAINAMTHIP CORPORATION PUBLIC COMPANY LIMITED",
-        "typeVersion": 1,
+        "typeVersion": 2,
         "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2025/1015/2025101500316_c.pdf",
         "date": "2025-10-15",
         "targetName": "THAINAMTHIP CORPORATION PUBLIC COMPANY LIMITED",
         "targetTicker": "",
         "targetAliases": [],
-        "identityVersion": 2,
+        "identityVersion": 3,
         "identityQuote": "有關建議分拆THAINAMTHIP CORPORATION PUBLIC COMPANY LIMITED並於泰國證券交易所獨立上市的更新",
         "identityKind": "entity",
         "distributedEntity": false,
@@ -10160,7 +10253,7 @@
         }
       ],
       "latestDate": "2025-10-15",
-      "sourceUpdatedAt": "2026-10-10T13:31:34Z",
+      "sourceUpdatedAt": "2026-10-10T13:53:18Z",
       "parentMarketCap": 386.4,
       "pricePairs": [],
       "parentPrice": {
@@ -10195,13 +10288,13 @@
       "evidence": {
         "status": "completed",
         "quote": "四環醫藥控股集團有限公司（於百慕達註冊成立的有限公司）（股份代號：0460）建議分拆及軒竹生物於香港聯合交易所有限公司主板獨立上市之更新資料軒竹生物上市及開始買賣",
-        "typeVersion": 1,
+        "typeVersion": 2,
         "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2025/1015/2025101500144_c.pdf",
         "date": "2025-10-15",
         "targetName": "軒竹生物",
         "targetTicker": "02575.HK",
         "targetAliases": [],
-        "identityVersion": 2,
+        "identityVersion": 3,
         "identityQuote": "建議分拆及軒竹生物於香港聯合交易所有限公司主板獨立上市之更新資料 - 軒竹生物上市及開始買賣",
         "identityKind": "entity",
         "distributedEntity": false,
@@ -10264,7 +10357,7 @@
         }
       ],
       "latestDate": "2025-10-15",
-      "sourceUpdatedAt": "2026-10-10T13:31:34Z",
+      "sourceUpdatedAt": "2026-10-10T13:53:18Z",
       "parentMarketCap": 10.5,
       "pricePairs": [],
       "parentPrice": {
@@ -10281,518 +10374,8 @@
     }
   ],
   "eventsSchemaVersion": 1,
-  "eventsNormalizedAt": "2026-10-10T13:36:48Z",
+  "eventsNormalizedAt": "2026-10-10T13:59:16Z",
   "changes": [
-    {
-      "eventId": "hk:00460:unresolved",
-      "at": "2026-09-16T06:32:31Z",
-      "kind": "updated",
-      "parentTicker": "00460.HK",
-      "parentName": "四環醫藥",
-      "fields": [
-        "status",
-        "targetName",
-        "targetTicker",
-        "dates"
-      ],
-      "before": {
-        "status": "prospectus",
-        "targetName": "",
-        "targetTicker": "",
-        "dates": {}
-      },
-      "after": {
-        "status": "completed",
-        "targetName": "軒竹生物",
-        "targetTicker": "02575.HK",
-        "dates": {
-          "listingDate": "2025-10-15"
-        }
-      },
-      "fromStatus": "prospectus",
-      "toStatus": "completed"
-    },
-    {
-      "eventId": "hk:01030:unattributed",
-      "at": "2026-09-16T06:53:54Z",
-      "kind": "new",
-      "parentTicker": "01030.HK",
-      "parentName": "新城發展",
-      "fields": [
-        "status",
-        "targetName",
-        "targetTicker",
-        "dates"
-      ],
-      "before": null,
-      "after": {
-        "status": "announced",
-        "targetName": "",
-        "targetTicker": "",
-        "dates": {}
-      },
-      "fromStatus": null,
-      "toStatus": "announced"
-    },
-    {
-      "eventId": "hk:00656:223427a6a39d",
-      "at": "2026-09-16T06:53:54Z",
-      "kind": "new",
-      "parentTicker": "00656.HK",
-      "parentName": "復星國際",
-      "fields": [
-        "status",
-        "targetName",
-        "targetTicker",
-        "dates"
-      ],
-      "before": null,
-      "after": {
-        "status": "announced",
-        "targetName": "CLUBMED LIFESTYLE",
-        "targetTicker": "",
-        "dates": {}
-      },
-      "fromStatus": null,
-      "toStatus": "announced"
-    },
-    {
-      "eventId": "hk:00656:unattributed",
-      "at": "2026-09-16T06:53:54Z",
-      "kind": "new",
-      "parentTicker": "00656.HK",
-      "parentName": "復星國際",
-      "fields": [
-        "status",
-        "targetName",
-        "targetTicker",
-        "dates"
-      ],
-      "before": null,
-      "after": {
-        "status": "announced",
-        "targetName": "",
-        "targetTicker": "",
-        "dates": {}
-      },
-      "fromStatus": null,
-      "toStatus": "announced"
-    },
-    {
-      "eventId": "hk:01070:unresolved",
-      "at": "2026-09-16T06:53:54Z",
-      "kind": "updated",
-      "parentTicker": "01070.HK",
-      "parentName": "ＴＣＬ電子",
-      "fields": [
-        "status"
-      ],
-      "before": {
-        "status": "needs_review",
-        "targetName": "",
-        "targetTicker": "",
-        "dates": {}
-      },
-      "after": {
-        "status": "announced",
-        "targetName": "",
-        "targetTicker": "",
-        "dates": {}
-      },
-      "fromStatus": "needs_review",
-      "toStatus": "announced"
-    },
-    {
-      "eventId": "hk:00358:af0f59be722e",
-      "at": "2026-09-16T06:53:54Z",
-      "kind": "updated",
-      "parentTicker": "00358.HK",
-      "parentName": "江西銅業股份",
-      "fields": [
-        "status"
-      ],
-      "before": {
-        "status": "needs_review",
-        "targetName": "江西省江銅銅箔科技股份有限公司",
-        "targetTicker": "",
-        "dates": {}
-      },
-      "after": {
-        "status": "announced",
-        "targetName": "江西省江銅銅箔科技股份有限公司",
-        "targetTicker": "",
-        "dates": {}
-      },
-      "fromStatus": "needs_review",
-      "toStatus": "announced"
-    },
-    {
-      "eventId": "hk:02161:unresolved",
-      "at": "2026-09-16T06:53:54Z",
-      "kind": "updated",
-      "parentTicker": "02161.HK",
-      "parentName": "健倍苗苗",
-      "fields": [
-        "status",
-        "targetName"
-      ],
-      "before": {
-        "status": "needs_review",
-        "targetName": "",
-        "targetTicker": "",
-        "dates": {}
-      },
-      "after": {
-        "status": "announced",
-        "targetName": "保濟元和(TCM)有限公司",
-        "targetTicker": "",
-        "dates": {}
-      },
-      "fromStatus": "needs_review",
-      "toStatus": "announced"
-    },
-    {
-      "eventId": "hk:01171:a43f73d8c3c9",
-      "at": "2026-09-16T06:53:54Z",
-      "kind": "new",
-      "parentTicker": "01171.HK",
-      "parentName": "兗礦能源",
-      "fields": [
-        "status",
-        "targetName",
-        "targetTicker",
-        "dates"
-      ],
-      "before": null,
-      "after": {
-        "status": "announced",
-        "targetName": "物泊科技",
-        "targetTicker": "",
-        "dates": {}
-      },
-      "fromStatus": null,
-      "toStatus": "announced"
-    },
-    {
-      "eventId": "hk:02196:223f5dfead37",
-      "at": "2026-09-16T06:53:54Z",
-      "kind": "updated",
-      "parentTicker": "02196.HK",
-      "parentName": "復星醫藥",
-      "fields": [
-        "status",
-        "targetName"
-      ],
-      "before": {
-        "status": "needs_review",
-        "targetName": "復星安特金（成都）生物製藥股份有限公司",
-        "targetTicker": "",
-        "dates": {}
-      },
-      "after": {
-        "status": "announced",
-        "targetName": "复星安特金（成都）生物制药股份有限公司",
-        "targetTicker": "",
-        "dates": {}
-      },
-      "fromStatus": "needs_review",
-      "toStatus": "announced"
-    },
-    {
-      "eventId": "hk:01109:unresolved",
-      "at": "2026-09-16T06:53:54Z",
-      "kind": "updated",
-      "parentTicker": "01109.HK",
-      "parentName": "華潤置地",
-      "fields": [
-        "status"
-      ],
-      "before": {
-        "status": "announced",
-        "targetName": "",
-        "targetTicker": "",
-        "dates": {}
-      },
-      "after": {
-        "status": "approved",
-        "targetName": "",
-        "targetTicker": "",
-        "dates": {}
-      },
-      "fromStatus": "announced",
-      "toStatus": "approved"
-    },
-    {
-      "eventId": "hk:00902:unresolved",
-      "at": "2026-09-16T06:53:54Z",
-      "kind": "updated",
-      "parentTicker": "00902.HK",
-      "parentName": "華能國際電力股份",
-      "fields": [
-        "status"
-      ],
-      "before": {
-        "status": "needs_review",
-        "targetName": "",
-        "targetTicker": "",
-        "dates": {}
-      },
-      "after": {
-        "status": "announced",
-        "targetName": "",
-        "targetTicker": "",
-        "dates": {}
-      },
-      "fromStatus": "needs_review",
-      "toStatus": "announced"
-    },
-    {
-      "eventId": "hk:02899:120a060e2783",
-      "at": "2026-09-16T06:53:54Z",
-      "kind": "updated",
-      "parentTicker": "02899.HK",
-      "parentName": "紫金礦業",
-      "fields": [
-        "status"
-      ],
-      "before": {
-        "status": "needs_review",
-        "targetName": "紫金黃金國際有限公司",
-        "targetTicker": "",
-        "dates": {}
-      },
-      "after": {
-        "status": "announced",
-        "targetName": "紫金黃金國際有限公司",
-        "targetTicker": "",
-        "dates": {}
-      },
-      "fromStatus": "needs_review",
-      "toStatus": "announced"
-    },
-    {
-      "eventId": "hk:00842:unresolved",
-      "at": "2026-09-16T06:53:54Z",
-      "kind": "updated",
-      "parentTicker": "00842.HK",
-      "parentName": "理士國際",
-      "fields": [
-        "status"
-      ],
-      "before": {
-        "status": "announced",
-        "targetName": "",
-        "targetTicker": "",
-        "dates": {}
-      },
-      "after": {
-        "status": "paused",
-        "targetName": "",
-        "targetTicker": "",
-        "dates": {}
-      },
-      "fromStatus": "announced",
-      "toStatus": "paused"
-    },
-    {
-      "eventId": "hk:01530:unresolved",
-      "at": "2026-09-16T06:53:54Z",
-      "kind": "updated",
-      "parentTicker": "01530.HK",
-      "parentName": "三生製藥",
-      "fields": [
-        "dates"
-      ],
-      "before": {
-        "status": "announced",
-        "targetName": "蔓迪國際",
-        "targetTicker": "",
-        "dates": {}
-      },
-      "after": {
-        "status": "announced",
-        "targetName": "蔓迪國際",
-        "targetTicker": "",
-        "dates": {
-          "recordDate": "2026-03-30"
-        }
-      },
-      "fromStatus": "announced",
-      "toStatus": "announced"
-    },
-    {
-      "eventId": "hk:00384:unresolved",
-      "at": "2026-09-16T06:53:54Z",
-      "kind": "updated",
-      "parentTicker": "00384.HK",
-      "parentName": "中國燃氣",
-      "fields": [
-        "status"
-      ],
-      "before": {
-        "status": "needs_review",
-        "targetName": "",
-        "targetTicker": "",
-        "dates": {}
-      },
-      "after": {
-        "status": "announced",
-        "targetName": "",
-        "targetTicker": "",
-        "dates": {}
-      },
-      "fromStatus": "needs_review",
-      "toStatus": "announced"
-    },
-    {
-      "eventId": "hk:00041:unresolved",
-      "at": "2026-09-16T06:53:54Z",
-      "kind": "updated",
-      "parentTicker": "00041.HK",
-      "parentName": "鷹君",
-      "fields": [
-        "status",
-        "dates"
-      ],
-      "before": {
-        "status": "announced",
-        "targetName": "",
-        "targetTicker": "",
-        "dates": {}
-      },
-      "after": {
-        "status": "record_set",
-        "targetName": "",
-        "targetTicker": "",
-        "dates": {
-          "recordDate": "2026-03-17"
-        }
-      },
-      "fromStatus": "announced",
-      "toStatus": "record_set"
-    },
-    {
-      "eventId": "hk:03393:unresolved",
-      "at": "2026-09-16T06:53:54Z",
-      "kind": "updated",
-      "parentTicker": "03393.HK",
-      "parentName": "威勝控股",
-      "fields": [
-        "status"
-      ],
-      "before": {
-        "status": "needs_review",
-        "targetName": "惟遠能源技術股份有限公司",
-        "targetTicker": "",
-        "dates": {}
-      },
-      "after": {
-        "status": "announced",
-        "targetName": "惟遠能源技術股份有限公司",
-        "targetTicker": "",
-        "dates": {}
-      },
-      "fromStatus": "needs_review",
-      "toStatus": "announced"
-    },
-    {
-      "eventId": "hk:09888:unresolved",
-      "at": "2026-09-16T06:53:54Z",
-      "kind": "updated",
-      "parentTicker": "09888.HK",
-      "parentName": "百度集團－ＳＷ",
-      "fields": [
-        "targetName"
-      ],
-      "before": {
-        "status": "announced",
-        "targetName": "",
-        "targetTicker": "",
-        "dates": {}
-      },
-      "after": {
-        "status": "announced",
-        "targetName": "崑崙芯",
-        "targetTicker": "",
-        "dates": {}
-      },
-      "fromStatus": "announced",
-      "toStatus": "announced"
-    },
-    {
-      "eventId": "hk:00142:unresolved",
-      "at": "2026-09-16T06:53:54Z",
-      "kind": "updated",
-      "parentTicker": "00142.HK",
-      "parentName": "第一太平",
-      "fields": [
-        "status",
-        "targetName"
-      ],
-      "before": {
-        "status": "announced",
-        "targetName": "",
-        "targetTicker": "",
-        "dates": {}
-      },
-      "after": {
-        "status": "completed",
-        "targetName": "MAYNILAD WATER SERVICES, INC",
-        "targetTicker": "",
-        "dates": {}
-      },
-      "fromStatus": "announced",
-      "toStatus": "completed"
-    },
-    {
-      "eventId": "hk:00400:unresolved",
-      "at": "2026-09-16T06:53:54Z",
-      "kind": "updated",
-      "parentTicker": "00400.HK",
-      "parentName": "硬蛋創新",
-      "fields": [
-        "status",
-        "targetName"
-      ],
-      "before": {
-        "status": "needs_review",
-        "targetName": "",
-        "targetTicker": "",
-        "dates": {}
-      },
-      "after": {
-        "status": "announced",
-        "targetName": "深圳市科通技術股份有限公司",
-        "targetTicker": "",
-        "dates": {}
-      },
-      "fromStatus": "needs_review",
-      "toStatus": "announced"
-    },
-    {
-      "eventId": "hk:00019:unresolved",
-      "at": "2026-09-16T06:53:54Z",
-      "kind": "updated",
-      "parentTicker": "00019.HK",
-      "parentName": "太古股份公司Ａ",
-      "fields": [
-        "targetName"
-      ],
-      "before": {
-        "status": "announced",
-        "targetName": "",
-        "targetTicker": "",
-        "dates": {}
-      },
-      "after": {
-        "status": "announced",
-        "targetName": "THAINAMTHIP CORPORATION PUBLIC COMPANY LIMITED",
-        "targetTicker": "",
-        "dates": {}
-      },
-      "fromStatus": "announced",
-      "toStatus": "announced"
-    },
     {
       "eventId": "hk:09896:unresolved",
       "at": "2026-09-16T06:53:54Z",
@@ -17314,6 +16897,507 @@
       },
       "fromStatus": null,
       "toStatus": "announced"
+    },
+    {
+      "eventId": "hk:00968:unresolved",
+      "at": "2026-10-10T13:53:18Z",
+      "kind": "updated",
+      "parentTicker": "00968.HK",
+      "parentName": "信義光能",
+      "fields": [
+        "targetName"
+      ],
+      "before": {
+        "status": "announced",
+        "targetName": "國泰海通信義能源新能源封閉式基礎設施證券投資基金",
+        "targetTicker": "",
+        "dates": {}
+      },
+      "after": {
+        "status": "announced",
+        "targetName": "信義能源新能源基金",
+        "targetTicker": "",
+        "dates": {}
+      },
+      "fromStatus": "announced",
+      "toStatus": "announced"
+    },
+    {
+      "eventId": "hk:03868:unresolved",
+      "at": "2026-10-10T13:53:18Z",
+      "kind": "updated",
+      "parentTicker": "03868.HK",
+      "parentName": "信義能源",
+      "fields": [
+        "targetName"
+      ],
+      "before": {
+        "status": "announced",
+        "targetName": "國泰海通信義能源新能源封閉式基礎設施證券投資基金",
+        "targetTicker": "",
+        "dates": {}
+      },
+      "after": {
+        "status": "announced",
+        "targetName": "信義能源新能源基金",
+        "targetTicker": "",
+        "dates": {}
+      },
+      "fromStatus": "announced",
+      "toStatus": "announced"
+    },
+    {
+      "eventId": "hk:00902:4747ad838542",
+      "at": "2026-10-10T13:53:18Z",
+      "kind": "new",
+      "parentTicker": "00902.HK",
+      "parentName": "華能國際電力股份",
+      "fields": [
+        "status",
+        "targetName",
+        "targetTicker",
+        "dates"
+      ],
+      "before": null,
+      "after": {
+        "status": "announced",
+        "targetName": "華能煤電 REIT",
+        "targetTicker": "",
+        "dates": {}
+      },
+      "fromStatus": null,
+      "toStatus": "announced"
+    },
+    {
+      "eventId": "hk:00017:097c4d6fac96",
+      "at": "2026-10-10T13:53:18Z",
+      "kind": "updated",
+      "parentTicker": "00017.HK",
+      "parentName": "新世界發展",
+      "fields": [
+        "status"
+      ],
+      "before": {
+        "status": "completed",
+        "targetName": "證券投資基金於上交所",
+        "targetTicker": "",
+        "dates": {}
+      },
+      "after": {
+        "status": "announced",
+        "targetName": "證券投資基金於上交所",
+        "targetTicker": "",
+        "dates": {}
+      },
+      "fromStatus": "completed",
+      "toStatus": "announced"
+    },
+    {
+      "eventId": "hk:00017:fb0edb845715",
+      "at": "2026-10-10T13:53:18Z",
+      "kind": "new",
+      "parentTicker": "00017.HK",
+      "parentName": "新世界發展",
+      "fields": [
+        "status",
+        "targetName",
+        "targetTicker",
+        "dates"
+      ],
+      "before": null,
+      "after": {
+        "status": "announced",
+        "targetName": "證券投資基金",
+        "targetTicker": "",
+        "dates": {}
+      },
+      "fromStatus": null,
+      "toStatus": "announced"
+    },
+    {
+      "eventId": "hk:00688:unattributed",
+      "at": "2026-10-10T13:53:18Z",
+      "kind": "new",
+      "parentTicker": "00688.HK",
+      "parentName": "中國海外發展",
+      "fields": [
+        "status",
+        "targetName",
+        "targetTicker",
+        "dates"
+      ],
+      "before": null,
+      "after": {
+        "status": "approved",
+        "targetName": "",
+        "targetTicker": "",
+        "dates": {}
+      },
+      "fromStatus": null,
+      "toStatus": "approved"
+    },
+    {
+      "eventId": "hk:00688:unresolved",
+      "at": "2026-10-10T13:53:18Z",
+      "kind": "updated",
+      "parentTicker": "00688.HK",
+      "parentName": "中國海外發展",
+      "fields": [
+        "status"
+      ],
+      "before": {
+        "status": "approved",
+        "targetName": "位於中國廣東省佛山市南海區的購物中心（佛山千燈湖環宇城項目）",
+        "targetTicker": "",
+        "dates": {}
+      },
+      "after": {
+        "status": "announced",
+        "targetName": "位於中國廣東省佛山市南海區的購物中心（佛山千燈湖環宇城項目）",
+        "targetTicker": "",
+        "dates": {}
+      },
+      "fromStatus": "approved",
+      "toStatus": "announced"
+    },
+    {
+      "eventId": "hk:01030:df90904a7a82",
+      "at": "2026-10-10T13:53:18Z",
+      "kind": "new",
+      "parentTicker": "01030.HK",
+      "parentName": "新城發展",
+      "fields": [
+        "status",
+        "targetName",
+        "targetTicker",
+        "dates"
+      ],
+      "before": null,
+      "after": {
+        "status": "announced",
+        "targetName": "若干商業物業權益",
+        "targetTicker": "",
+        "dates": {}
+      },
+      "fromStatus": null,
+      "toStatus": "announced"
+    },
+    {
+      "eventId": "hk:01109:unattributed",
+      "at": "2026-10-10T13:53:18Z",
+      "kind": "new",
+      "parentTicker": "01109.HK",
+      "parentName": "華潤置地",
+      "fields": [
+        "status",
+        "targetName",
+        "targetTicker",
+        "dates"
+      ],
+      "before": null,
+      "after": {
+        "status": "approved",
+        "targetName": "",
+        "targetTicker": "",
+        "dates": {}
+      },
+      "fromStatus": null,
+      "toStatus": "approved"
+    },
+    {
+      "eventId": "hk:01109:unresolved",
+      "at": "2026-10-10T13:53:18Z",
+      "kind": "updated",
+      "parentTicker": "01109.HK",
+      "parentName": "華潤置地",
+      "fields": [
+        "status"
+      ],
+      "before": {
+        "status": "approved",
+        "targetName": "兩個購物商場，分別位於中國江蘇省南通市及山東省臨沂市",
+        "targetTicker": "",
+        "dates": {}
+      },
+      "after": {
+        "status": "announced",
+        "targetName": "兩個購物商場，分別位於中國江蘇省南通市及山東省臨沂市",
+        "targetTicker": "",
+        "dates": {}
+      },
+      "fromStatus": "approved",
+      "toStatus": "announced"
+    },
+    {
+      "eventId": "hk:01523:unresolved",
+      "at": "2026-10-10T13:53:18Z",
+      "kind": "updated",
+      "parentTicker": "01523.HK",
+      "parentName": "珩灣科技",
+      "fields": [
+        "targetName"
+      ],
+      "before": {
+        "status": "announced",
+        "targetName": "Peplink Holdings Limited",
+        "targetTicker": "",
+        "dates": {}
+      },
+      "after": {
+        "status": "announced",
+        "targetName": "",
+        "targetTicker": "",
+        "dates": {}
+      },
+      "fromStatus": "announced",
+      "toStatus": "announced"
+    },
+    {
+      "eventId": "hk:00041:unattributed",
+      "at": "2026-10-10T13:53:18Z",
+      "kind": "new",
+      "parentTicker": "00041.HK",
+      "parentName": "鷹君",
+      "fields": [
+        "status",
+        "targetName",
+        "targetTicker",
+        "dates"
+      ],
+      "before": null,
+      "after": {
+        "status": "record_set",
+        "targetName": "",
+        "targetTicker": "",
+        "dates": {
+          "recordDate": "2026-03-17"
+        }
+      },
+      "fromStatus": null,
+      "toStatus": "record_set"
+    },
+    {
+      "eventId": "hk:00041:unresolved",
+      "at": "2026-10-10T13:53:18Z",
+      "kind": "updated",
+      "parentTicker": "00041.HK",
+      "parentName": "鷹君",
+      "fields": [
+        "dates"
+      ],
+      "before": {
+        "status": "record_set",
+        "targetName": "朗廷酒店投資",
+        "targetTicker": "",
+        "dates": {
+          "recordDate": "2026-03-17"
+        }
+      },
+      "after": {
+        "status": "record_set",
+        "targetName": "朗廷酒店投資",
+        "targetTicker": "",
+        "dates": {
+          "recordDate": "2025-10-24"
+        }
+      },
+      "fromStatus": "record_set",
+      "toStatus": "record_set"
+    },
+    {
+      "eventId": "hk:02382:28998458e55b",
+      "at": "2026-10-10T13:53:18Z",
+      "kind": "new",
+      "parentTicker": "02382.HK",
+      "parentName": "舜宇光學科技",
+      "fields": [
+        "status",
+        "targetName",
+        "targetTicker",
+        "dates"
+      ],
+      "before": null,
+      "after": {
+        "status": "announced",
+        "targetName": "車載相關光學業務",
+        "targetTicker": "",
+        "dates": {}
+      },
+      "fromStatus": null,
+      "toStatus": "announced"
+    },
+    {
+      "eventId": "hk:00968:unresolved",
+      "at": "2026-10-10T13:57:15Z",
+      "kind": "updated",
+      "parentTicker": "00968.HK",
+      "parentName": "信義光能",
+      "fields": [
+        "targetName"
+      ],
+      "before": {
+        "status": "announced",
+        "targetName": "信義能源新能源基金",
+        "targetTicker": "",
+        "dates": {}
+      },
+      "after": {
+        "status": "announced",
+        "targetName": "國泰海通信義能源新能源封閉式基礎設施證券投資基金",
+        "targetTicker": "",
+        "dates": {}
+      },
+      "fromStatus": "announced",
+      "toStatus": "announced"
+    },
+    {
+      "eventId": "hk:03868:unresolved",
+      "at": "2026-10-10T13:57:15Z",
+      "kind": "updated",
+      "parentTicker": "03868.HK",
+      "parentName": "信義能源",
+      "fields": [
+        "targetName"
+      ],
+      "before": {
+        "status": "announced",
+        "targetName": "信義能源新能源基金",
+        "targetTicker": "",
+        "dates": {}
+      },
+      "after": {
+        "status": "announced",
+        "targetName": "國泰海通信義能源新能源封閉式基礎設施證券投資基金",
+        "targetTicker": "",
+        "dates": {}
+      },
+      "fromStatus": "announced",
+      "toStatus": "announced"
+    },
+    {
+      "eventId": "hk:00017:fb0edb845715",
+      "at": "2026-10-10T13:57:15Z",
+      "kind": "updated",
+      "parentTicker": "00017.HK",
+      "parentName": "新世界發展",
+      "fields": [
+        "status",
+        "targetTicker"
+      ],
+      "before": {
+        "status": "announced",
+        "targetName": "證券投資基金",
+        "targetTicker": "",
+        "dates": {}
+      },
+      "after": {
+        "status": "completed",
+        "targetName": "證券投資基金",
+        "targetTicker": "01776.HK",
+        "dates": {}
+      },
+      "fromStatus": "announced",
+      "toStatus": "completed"
+    },
+    {
+      "eventId": "hk:00688:unresolved",
+      "at": "2026-10-10T13:57:15Z",
+      "kind": "updated",
+      "parentTicker": "00688.HK",
+      "parentName": "中國海外發展",
+      "fields": [
+        "status"
+      ],
+      "before": {
+        "status": "announced",
+        "targetName": "位於中國廣東省佛山市南海區的購物中心（佛山千燈湖環宇城項目）",
+        "targetTicker": "",
+        "dates": {}
+      },
+      "after": {
+        "status": "approved",
+        "targetName": "位於中國廣東省佛山市南海區的購物中心（佛山千燈湖環宇城項目）",
+        "targetTicker": "",
+        "dates": {}
+      },
+      "fromStatus": "announced",
+      "toStatus": "approved"
+    },
+    {
+      "eventId": "hk:01109:unresolved",
+      "at": "2026-10-10T13:57:15Z",
+      "kind": "updated",
+      "parentTicker": "01109.HK",
+      "parentName": "華潤置地",
+      "fields": [
+        "status"
+      ],
+      "before": {
+        "status": "announced",
+        "targetName": "兩個購物商場，分別位於中國江蘇省南通市及山東省臨沂市",
+        "targetTicker": "",
+        "dates": {}
+      },
+      "after": {
+        "status": "approved",
+        "targetName": "兩個購物商場，分別位於中國江蘇省南通市及山東省臨沂市",
+        "targetTicker": "",
+        "dates": {}
+      },
+      "fromStatus": "announced",
+      "toStatus": "approved"
+    },
+    {
+      "eventId": "hk:01523:unresolved",
+      "at": "2026-10-10T13:57:15Z",
+      "kind": "updated",
+      "parentTicker": "01523.HK",
+      "parentName": "珩灣科技",
+      "fields": [
+        "targetName"
+      ],
+      "before": {
+        "status": "announced",
+        "targetName": "",
+        "targetTicker": "",
+        "dates": {}
+      },
+      "after": {
+        "status": "announced",
+        "targetName": "Peplink Holdings Limited",
+        "targetTicker": "",
+        "dates": {}
+      },
+      "fromStatus": "announced",
+      "toStatus": "announced"
+    },
+    {
+      "eventId": "hk:00041:unresolved",
+      "at": "2026-10-10T13:57:15Z",
+      "kind": "updated",
+      "parentTicker": "00041.HK",
+      "parentName": "鷹君",
+      "fields": [
+        "dates"
+      ],
+      "before": {
+        "status": "record_set",
+        "targetName": "朗廷酒店投資",
+        "targetTicker": "",
+        "dates": {
+          "recordDate": "2025-10-24"
+        }
+      },
+      "after": {
+        "status": "record_set",
+        "targetName": "朗廷酒店投資",
+        "targetTicker": "",
+        "dates": {
+          "recordDate": "2026-03-17"
+        }
+      },
+      "fromStatus": "record_set",
+      "toStatus": "record_set"
     }
   ],
   "trackingStartedAt": "2026-09-16T02:58:58Z"

@@ -2,6 +2,194 @@
   "runs": [
     {
       "schemaVersion": 2,
+      "run_id": "2026-10-10T13:37:14Z",
+      "trigger": "push",
+      "steps": {
+        "hk_disclosures": {
+          "status": "warn",
+          "ts": "2026-10-10T13:41:35Z",
+          "msg": "hawkins 港股披露部分未核实，保留已有证据",
+          "label": "港股披露监控"
+        },
+        "lilu_13f": {
+          "status": "info",
+          "ts": "2026-10-10T13:41:37Z",
+          "msg": "lilu 历史缺 4 季（2018 Q4, 2019 Q1, 2019 Q2, 2019 Q3）：已补查SEC历史索引，仍无可用原始持仓报告；不作零持仓",
+          "label": "李录 13F"
+        },
+        "pabrai_13f": {
+          "status": "ok",
+          "ts": "2026-10-10T13:41:38Z",
+          "msg": "",
+          "label": "Pabrai 13F"
+        },
+        "duan_13f": {
+          "status": "ok",
+          "ts": "2026-10-10T13:41:39Z",
+          "msg": "",
+          "label": "段永平 13F"
+        },
+        "tepper_13f": {
+          "status": "ok",
+          "ts": "2026-10-10T13:41:41Z",
+          "msg": "",
+          "label": "Tepper 13F"
+        },
+        "buffett_13f": {
+          "status": "ok",
+          "ts": "2026-10-10T13:41:42Z",
+          "msg": "",
+          "label": "巴菲特 13F"
+        },
+        "akre_greenberg_13f": {
+          "status": "ok",
+          "ts": "2026-10-10T13:41:47Z",
+          "msg": "",
+          "label": "Akre/Greenberg 13F"
+        },
+        "batch2_13f": {
+          "status": "ok",
+          "ts": "2026-10-10T13:41:58Z",
+          "msg": "",
+          "label": "batch2_13f"
+        },
+        "vinall_13f": {
+          "status": "ok",
+          "ts": "2026-10-10T13:41:59Z",
+          "msg": "",
+          "label": "罗布·维纳尔 13F"
+        },
+        "vinall_prices": {
+          "status": "ok",
+          "ts": "2026-10-10T13:42:16Z",
+          "msg": "",
+          "label": "罗布·维纳尔 股价"
+        },
+        "lilu_prices": {
+          "status": "ok",
+          "ts": "2026-10-10T13:42:27Z",
+          "msg": "",
+          "label": "李录 股价"
+        },
+        "pabrai_prices": {
+          "status": "ok",
+          "ts": "2026-10-10T13:42:32Z",
+          "msg": "",
+          "label": "Pabrai 股价"
+        },
+        "duan_prices": {
+          "status": "ok",
+          "ts": "2026-10-10T13:42:54Z",
+          "msg": "",
+          "label": "段永平 股价"
+        },
+        "tepper_prices": {
+          "status": "ok",
+          "ts": "2026-10-10T13:43:41Z",
+          "msg": "",
+          "label": "Tepper 股价"
+        },
+        "webb_prices": {
+          "status": "ok",
+          "ts": "2026-10-10T13:43:43Z",
+          "msg": "",
+          "label": "Webb 股价"
+        },
+        "buffett_prices": {
+          "status": "ok",
+          "ts": "2026-10-10T13:44:19Z",
+          "msg": "",
+          "label": "巴菲特 股价"
+        },
+        "akre_prices": {
+          "status": "ok",
+          "ts": "2026-10-10T13:44:45Z",
+          "msg": "",
+          "label": "Akre 股价"
+        },
+        "greenberg_prices": {
+          "status": "ok",
+          "ts": "2026-10-10T13:46:27Z",
+          "msg": "",
+          "label": "Greenberg 股价"
+        },
+        "klarman_prices": {
+          "status": "ok",
+          "ts": "2026-10-10T13:46:57Z",
+          "msg": "",
+          "label": "klarman_prices"
+        },
+        "ackman_prices": {
+          "status": "ok",
+          "ts": "2026-10-10T13:47:16Z",
+          "msg": "",
+          "label": "ackman_prices"
+        },
+        "abrams_prices": {
+          "status": "ok",
+          "ts": "2026-10-10T13:47:33Z",
+          "msg": "",
+          "label": "abrams_prices"
+        },
+        "berkowitz_prices": {
+          "status": "ok",
+          "ts": "2026-10-10T13:47:53Z",
+          "msg": "",
+          "label": "berkowitz_prices"
+        },
+        "hawkins_prices": {
+          "status": "ok",
+          "ts": "2026-10-10T13:48:53Z",
+          "msg": "",
+          "label": "hawkins_prices"
+        },
+        "webb_holdings": {
+          "status": "skip",
+          "ts": "2026-10-10T13:48:53Z",
+          "msg": "非周一，跳过",
+          "label": "Webb 港股持仓"
+        },
+        "resolve_cusip": {
+          "status": "ok",
+          "ts": "2026-10-10T13:50:48Z",
+          "msg": "",
+          "label": "resolve_cusip"
+        },
+        "metadata": {
+          "status": "ok",
+          "ts": "2026-10-10T13:50:49Z",
+          "msg": "",
+          "label": "元数据富化"
+        },
+        "spinoff_hk": {
+          "status": "ok",
+          "ts": "2026-10-10T13:53:19Z",
+          "msg": "",
+          "label": "港股分拆"
+        },
+        "spinoff_us": {
+          "status": "ok",
+          "ts": "2026-10-10T13:56:12Z",
+          "msg": "",
+          "label": "美股分拆"
+        },
+        "spinoff_prices": {
+          "status": "ok",
+          "ts": "2026-10-10T13:56:57Z",
+          "msg": "",
+          "label": "分拆股价刷新"
+        },
+        "greenblatt_notes": {
+          "status": "ok",
+          "ts": "2026-10-10T13:56:58Z",
+          "msg": "",
+          "label": "格林布拉特点评"
+        }
+      },
+      "completedAt": "2026-10-10T13:59:17Z"
+    },
+    {
+      "schemaVersion": 2,
       "run_id": "2026-10-10T13:05:12Z",
       "trigger": "push",
       "steps": {
@@ -5223,182 +5411,6 @@
         }
       },
       "completedAt": "2026-09-29T03:11:37Z"
-    },
-    {
-      "schemaVersion": 2,
-      "run_id": "2026-09-28T19:52:22Z",
-      "trigger": "schedule",
-      "steps": {
-        "hk_disclosures": {
-          "status": "ok",
-          "ts": "2026-09-28T19:55:22Z",
-          "msg": "",
-          "label": "港股披露监控"
-        },
-        "lilu_13f": {
-          "status": "warn",
-          "ts": "2026-09-28T19:55:26Z",
-          "msg": "lilu 历史缺 4 季：已补查SEC历史索引，仍无可用原始持仓报告；不作零持仓",
-          "label": "李录 13F"
-        },
-        "pabrai_13f": {
-          "status": "ok",
-          "ts": "2026-09-28T19:55:27Z",
-          "msg": "",
-          "label": "Pabrai 13F"
-        },
-        "duan_13f": {
-          "status": "ok",
-          "ts": "2026-09-28T19:55:29Z",
-          "msg": "",
-          "label": "段永平 13F"
-        },
-        "tepper_13f": {
-          "status": "ok",
-          "ts": "2026-09-28T19:55:30Z",
-          "msg": "",
-          "label": "Tepper 13F"
-        },
-        "buffett_13f": {
-          "status": "ok",
-          "ts": "2026-09-28T19:55:31Z",
-          "msg": "",
-          "label": "巴菲特 13F"
-        },
-        "akre_greenberg_13f": {
-          "status": "ok",
-          "ts": "2026-09-28T19:55:33Z",
-          "msg": "",
-          "label": "Akre/Greenberg 13F"
-        },
-        "batch2_13f": {
-          "status": "ok",
-          "ts": "2026-09-28T19:55:39Z",
-          "msg": "",
-          "label": "batch2_13f"
-        },
-        "lilu_prices": {
-          "status": "ok",
-          "ts": "2026-09-28T19:55:50Z",
-          "msg": "",
-          "label": "李录 股价"
-        },
-        "pabrai_prices": {
-          "status": "ok",
-          "ts": "2026-09-28T19:55:55Z",
-          "msg": "",
-          "label": "Pabrai 股价"
-        },
-        "duan_prices": {
-          "status": "ok",
-          "ts": "2026-09-28T19:56:22Z",
-          "msg": "",
-          "label": "段永平 股价"
-        },
-        "tepper_prices": {
-          "status": "ok",
-          "ts": "2026-09-28T19:56:59Z",
-          "msg": "",
-          "label": "Tepper 股价"
-        },
-        "webb_prices": {
-          "status": "ok",
-          "ts": "2026-09-28T19:57:01Z",
-          "msg": "",
-          "label": "Webb 股价"
-        },
-        "buffett_prices": {
-          "status": "ok",
-          "ts": "2026-09-28T19:57:33Z",
-          "msg": "",
-          "label": "巴菲特 股价"
-        },
-        "akre_prices": {
-          "status": "ok",
-          "ts": "2026-09-28T19:57:58Z",
-          "msg": "",
-          "label": "Akre 股价"
-        },
-        "greenberg_prices": {
-          "status": "ok",
-          "ts": "2026-09-28T19:58:47Z",
-          "msg": "",
-          "label": "Greenberg 股价"
-        },
-        "klarman_prices": {
-          "status": "ok",
-          "ts": "2026-09-28T19:59:17Z",
-          "msg": "",
-          "label": "klarman_prices"
-        },
-        "ackman_prices": {
-          "status": "ok",
-          "ts": "2026-09-28T19:59:31Z",
-          "msg": "",
-          "label": "ackman_prices"
-        },
-        "abrams_prices": {
-          "status": "ok",
-          "ts": "2026-09-28T19:59:46Z",
-          "msg": "",
-          "label": "abrams_prices"
-        },
-        "berkowitz_prices": {
-          "status": "ok",
-          "ts": "2026-09-28T20:00:06Z",
-          "msg": "",
-          "label": "berkowitz_prices"
-        },
-        "hawkins_prices": {
-          "status": "ok",
-          "ts": "2026-09-28T20:01:43Z",
-          "msg": "",
-          "label": "hawkins_prices"
-        },
-        "webb_holdings": {
-          "status": "fail",
-          "ts": "2026-09-28T20:01:43Z",
-          "msg": "Step exited with error",
-          "label": "Webb 港股持仓"
-        },
-        "resolve_cusip": {
-          "status": "ok",
-          "ts": "2026-09-28T20:03:18Z",
-          "msg": "",
-          "label": "resolve_cusip"
-        },
-        "metadata": {
-          "status": "ok",
-          "ts": "2026-09-28T20:03:19Z",
-          "msg": "",
-          "label": "元数据富化"
-        },
-        "spinoff_hk": {
-          "status": "ok",
-          "ts": "2026-09-28T20:06:19Z",
-          "msg": "",
-          "label": "港股分拆"
-        },
-        "spinoff_us": {
-          "status": "warn",
-          "ts": "2026-09-28T20:10:52Z",
-          "msg": "1 份名称补全来源暂不可读，将自动重试；已保留历史证据",
-          "label": "美股分拆"
-        },
-        "spinoff_prices": {
-          "status": "ok",
-          "ts": "2026-09-28T20:08:55Z",
-          "msg": "",
-          "label": "分拆股价刷新"
-        },
-        "greenblatt_notes": {
-          "status": "ok",
-          "ts": "2026-09-28T20:08:55Z",
-          "msg": "",
-          "label": "格林布拉特点评"
-        }
-      },
-      "completedAt": "2026-09-28T20:10:52Z"
     }
   ]
 }
