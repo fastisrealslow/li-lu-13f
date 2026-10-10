@@ -488,7 +488,7 @@ def normalize(data, market, previous=None, now=None):
                 event['typeEvidence'] = type_evidence
             old = old_events.get(eid)
             def snapshot(value):
-                result = {k: value.get(k) for k in ('status', 'targetName', 'targetTicker')}
+                result = {k: value.get(k) for k in ('status', 'targetName', 'targetTicker', 'type')}
                 result['dates'] = {k: v['date'] for k, v in value.get('dates', {}).items()}
                 return result
             semantic = snapshot(event)

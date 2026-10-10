@@ -6,6 +6,17 @@ from spinoff_events import (infer_status, extract_name, extract_dates, filing_ur
 
 
 class SpinEvidenceTests(unittest.TestCase):
+    def test_transaction_type_correction_updates_same_dossier(self):
+        proof={'url':'https://www.sec.gov/Archives/edgar/data/1/test.htm','date':'2026-09-01','status':'announced','quote':'Proposed spin-off','targetName':'Child'}
+        base={'companies':[{'ticker':'P','type':'spinoff','filingEvidence':[proof]}]}
+        old=normalize(copy.deepcopy(base),'us',now='2026-09-02T01:00:00Z')
+        base['companies'][0]['type']='carveout'
+        result=normalize(base,'us',previous=old,now='2026-10-10T01:00:00Z')
+        self.assertEqual(result['events'][0]['id'],old['events'][0]['id'])
+        self.assertEqual(result['changes'][-1]['fields'],['type'])
+        self.assertEqual(result['events'][0]['updateKind'],'correction')
+        self.assertEqual(result['events'][0]['recordUpdatedAt'],'2026-10-10T01:00:00Z')
+
     def test_followup_filings_merge_and_move_existing_project_without_state_change(self):
         first={'date':'2026-09-01','title':'建議分拆測試能源有限公司於香港上市','docUrl':'/listedco/one.pdf'}
         base={'companies':[{'stockCode':'00001','ticker':'00001.HK','announcements':[first]}]}
