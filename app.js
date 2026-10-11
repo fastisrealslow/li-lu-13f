@@ -1809,7 +1809,11 @@ function switchTab(name) {
   if (name==='spinoff') { renderSpinoff(); }
   if (name==='spinoff_us') { renderSpinoffUS(); }
   if (name==='game') { renderGame(); }
-  if (name==='personal' && typeof renderPersonalPortfolio === 'function') renderPersonalPortfolio();
+  if (name==='personal') {
+    const strip=document.getElementById('tabsScroll');
+    if (strip) strip.scrollLeft=strip.scrollWidth;
+    if (typeof renderPersonalPortfolio === 'function') renderPersonalPortfolio();
+  }
   renderInsights();
 }
 

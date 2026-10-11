@@ -27,6 +27,9 @@ jobs:
     timeout-minutes: 25
     steps:
       - uses: actions/checkout@v4
+        with:
+          # Queued runs must begin with the preceding updater's published data.
+          ref: master
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
@@ -49,8 +52,20 @@ jobs:
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add personal_portfolio.json personal_report_profiles.json
-          if git diff --cached --quiet; then exit 0; fi
-          git commit -m 'Refresh report-backed personal portfolio calculations'
-          git pull --rebase origin master
-          git push origin master
+          for attempt in 1 2 3; do
+            git fetch origin master
+            if [ "$(git rev-parse HEAD)" != "$(git rev-parse origin/master)" ]; then
+              # This is the disposable Actions checkout. Recalculate against
+              # the latest source rules instead of merging generated ledgers.
+              git reset --hard origin/master
+              python update_personal_portfolio.py --verify-reports
+              python -c "import json; from magic_formula import validate_dataset; validate_dataset(json.load(open('personal_portfolio.json')))"
+              node --test tests/personal_portfolio.cjs
+            fi
+            git add personal_portfolio.json personal_report_profiles.json
+            if git diff --cached --quiet; then exit 0; fi
+            git commit -m 'Refresh report-backed personal portfolio calculations'
+            if git push origin master; then exit 0; fi
+          done
+          echo 'Portfolio publication could not acquire the latest branch after three validated attempts.' >&2
+          exit 1
