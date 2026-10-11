@@ -94,6 +94,16 @@ class FormulaTests(unittest.TestCase):
             if change=='eligibility':r['status']='ranked' if r['status']!='ranked' else 'not_ranked'
             with self.assertRaises(ValueError,msg=change):validate_dataset(data)
 
+    def test_explanatory_other_gains_have_report_evidence_and_never_add_to_ebit_twice(self):
+        data=json.loads((ROOT/'personal_portfolio.json').read_text())
+        c=next(c for c in data['companies'] if c['id']=='tme')
+        annual=c['annuals'][0];q=c['results'][c['listings'][0]['ticker']]['1']['quote']
+        before=calculate(c,q)
+        annual['facts']['otherGains']['value']*=2
+        self.assertEqual(calculate(c,q)['ebit'],before['ebit'])
+        annual['facts']['otherGains']['sourceId']='missing-original-report'
+        with self.assertRaises(ValueError):validate_dataset(data)
+
 
 class ExtractionTests(unittest.TestCase):
     def inline(self, extra=''):

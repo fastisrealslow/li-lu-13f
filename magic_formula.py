@@ -128,10 +128,12 @@ def validate_company(company):
         if p is (company.get('latestBalance') or max(company['annuals'],key=lambda a:a['end'])):
             required+=('ordinaryShares',)
         for key in required:
-            f=p['facts'][key];number(f['value'])
+            if key not in p['facts']:raise ValueError('Missing financial input: '+key)
+        for key,f in p['facts'].items():
+            number(f['value'])
             if f.get('sourceId') not in sources or not f.get('label') or not f.get('evidence'):
                 raise ValueError('Missing row-level source evidence: '+key)
-            if key!='operatingProfit' and f['value']<0:
+            if key in BALANCE_FIELDS+('ordinaryShares',) and f['value']<0:
                 raise ValueError('Negative balance sheet fact: '+key)
         detail=p['evCashLikeFinancialAssets'];number(detail['value'])
         if detail.get('sourceId') not in sources or not detail.get('evidence'):
