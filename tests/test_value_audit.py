@@ -110,4 +110,35 @@ class ValueAudit(unittest.TestCase):
     with self.assertRaisesRegex(ValueError,'no longer match'):
      validate_data.validate_history(json.loads(p.read_text())['history'])
 
+ def test_resolved_symbol_keeps_raw_unit_replay_and_rejects_quantity_changes(self):
+  for factor in (1000, .001):
+   with self.subTest(factor=factor),tempfile.TemporaryDirectory() as tmp:
+    normalized=rows()+[{**rows()[0],'cusip':'DDD','ticker':'?UNRESOLVED'}]
+    raw=copy.deepcopy(normalized)
+    for row in raw:row['value']=round(row['value']/factor)
+    proof={'version':audit.VERSION,'status':'verified','factor':factor,
+           'sourceHash':audit.digest(raw),'normalizedHash':audit.digest(normalized),
+           'sourceDigest':'unchanged-primary-document',
+           'source':'https://www.sec.gov/Archives/test.xml',
+           'checkedAt':datetime.now(timezone.utc).date().isoformat(),
+           'anchors':audit.verify_units(raw,'2023 Q1',lambda tk,q:price(tk,q))['anchors']}
+    d={'meta':{},'current':{'quarter':'2023 Q1','holdings':copy.deepcopy(normalized)},
+       'history':{'quarters':['2023 Q1'],'values':[.4],'holdings':{'2023 Q1':normalized},'valueAudit':{'2023 Q1':proof}}}
+    p=Path(tmp)/'d.json';p.write_text(json.dumps(d))
+    backfill_data_files([str(p)],{'DDD':'DDD'})
+    resolved=json.loads(p.read_text());validate_data.validate_history(resolved['history'])
+    rebound=resolved['history']['valueAudit']['2023 Q1']
+    self.assertEqual(rebound['sourceDigest'],proof['sourceDigest'])
+    self.assertEqual(rebound['sourceHash'],proof['sourceHash'])
+    raw[-1]['ticker']='DDD'
+    self.assertTrue(audit.matches_source(raw,rebound))
+    tampered=copy.deepcopy(raw);tampered[0]['shares']+=1
+    self.assertFalse(audit.matches_source(tampered,rebound))
+    resolved['history']['holdings']['2023 Q1']=raw
+    resolved['history']['values']=[sum(row['value'] for row in raw)/1e6]
+    resolved['current']['holdings']=copy.deepcopy(raw);p.write_text(json.dumps(resolved))
+    replayed=audit.audit_investor('test',{'path':str(p),'cik':'1'},0)
+    self.assertEqual(replayed['current']['totalValue'],400000)
+    validate_data.validate_history(replayed['history'])
+
 if __name__=='__main__':unittest.main()

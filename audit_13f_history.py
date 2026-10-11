@@ -26,6 +26,25 @@ def digest(rows):
     return hashlib.sha256(json.dumps(sorted([(h.get('cusip'), h.get('ticker'), h.get('putCall',''),h.get('shareType','SH'),h.get('shares'),h.get('value')) for h in rows],key=str),separators=(',',':')).encode()).hexdigest()
 
 
+def matches_source(rows, record):
+    """Replay the original hash across recorded CUSIP-only symbol resolutions.
+
+    Keep the original raw-unit proof: even after a display alias is resolved,
+    quantities, dollar values, option side and share class must match exactly.
+    """
+    if digest(rows) == record.get('sourceHash'):
+        return True
+    original = copy.deepcopy(rows)
+    for alias in reversed(record.get('sourceTickerAliases', [])):
+        for holding in original:
+            if (holding.get('cusip') == alias['cusip']
+                    and holding.get('putCall', '') == alias['putCall']
+                    and holding.get('shareType', 'SH') == alias['shareType']
+                    and holding.get('ticker') == alias['to']):
+                holding['ticker'] = alias['from']
+    return digest(original) == record.get('sourceHash')
+
+
 def actual_close(chart, end):
     """Yahoo close is split adjusted: undo ONLY splits after the sampled day."""
     meta = chart.get('meta',{})
@@ -164,7 +183,7 @@ def audit_investor(key,config,limit=6,fetcher=None,price=quarter_price):
     excluded=set(history.get('excludedValueQuarters',[]));changed=[];attempts=0
     # Enforce previously verified normalization after a normal latest-two fetch.
     for q,record in records.items():
-        if record.get('version')==VERSION and record.get('status')=='verified' and q in rows and digest(rows[q])==record.get('sourceHash') and record.get('factor')!=1:
+        if record.get('version')==VERSION and record.get('status')=='verified' and q in rows and matches_source(rows[q],record) and record.get('factor')!=1:
             normalized=copy.deepcopy(rows[q])
             for h in normalized:h['value']=round(h['value']*record['factor'])
             update_history(data,q,normalized);changed.append(q)

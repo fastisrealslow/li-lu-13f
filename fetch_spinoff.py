@@ -20,7 +20,7 @@ API（从浏览器 Network 面板确认）：
 过滤：现价 < 0.5 HKD 的仙股排除。
 """
 
-from spinoff_events import parse_evidence, normalize, merge_evidence, classify_hk_type, introduction_quote
+from spinoff_events import parse_evidence, normalize, merge_evidence, classify_hk_type, introduction_quote, source_url
 from update_status import record_ai_warning, record_source_warning
 
 import json, os, re, sys, time, http.cookiejar, urllib.parse
@@ -835,6 +835,23 @@ def filter_low_price(companies):
     return result
 
 
+def github_summary(data):
+    """Describe normalized announcements; both old docUrl and new url work."""
+    companies = data.get('companies', [])
+    if not companies:
+        return ''
+    lines = [f"\n## 📋 港股分拆公告（{len(companies)} 家公司）\n"]
+    for company in companies[:10]:
+        latest = next(iter(company.get('announcements') or []), {})
+        title = str(latest.get('title') or '公告详情')[:50].replace('\n', ' ')
+        title = title.replace('[', '\\[').replace(']', '\\]')
+        url = source_url(latest)
+        link = f'[{title}](<{url}>)' if url else title
+        lines.append(f"- **{company.get('ticker', '')}** {company.get('stockName', '')} "
+                     f"{link} {company.get('latestDate') or latest.get('date', '')}\n")
+    return ''.join(lines)
+
+
 def main():
     print("=== fetch_spinoff.py ===")
     print(f"搜索范围: {date_from} ~ {date_to}")
@@ -978,12 +995,13 @@ def main():
     print(f"\n✅ {len(companies)} 家公司分拆事件 → {OUT_FILE}")
 
     summary_file = os.environ.get("GITHUB_STEP_SUMMARY", "")
-    if summary_file and companies:
-        with open(summary_file, "a") as f:
-            f.write(f"\n## 📋 港股分拆公告（{len(companies)} 家公司）\n")
-            for c in companies[:10]:
-                latest = c["announcements"][0]
-                f.write(f"- **{c['ticker']}** {c['stockName']} [{latest['title'][:50]}]({latest['docUrl']}) {c['latestDate']}\n")
+    if summary_file:
+        try:
+            with open(summary_file, "a", encoding='utf-8') as f:
+                f.write(github_summary(data))
+        except OSError as error:
+            # An optional CI report cannot invalidate successfully saved data.
+            print(f"⚠️ GitHub summary unavailable: {type(error).__name__}")
 
 
 if __name__ == "__main__":

@@ -57,6 +57,10 @@ STEP_LABELS = {
     "spinoff_us":      "美股分拆",
     "spinoff_prices":  "分拆股价刷新",
     "greenblatt_notes":"格林布拉特点评",
+    "resolve_cusip":   "股票代码补齐",
+    "validation":      "发布前数据校验",
+    "pipeline":        "更新流程",
+    "publication":     "数据发布",
 }
 
 def load():
@@ -81,6 +85,9 @@ def init_run(trigger):
         "trigger": trigger,
         "steps":   {},
     }
+    if os.environ.get('GITHUB_RUN_ID') and os.environ.get('GITHUB_REPOSITORY'):
+        new_run['workflowUrl'] = (f"https://github.com/{os.environ['GITHUB_REPOSITORY']}"
+                                  f"/actions/runs/{os.environ['GITHUB_RUN_ID']}")
     data["runs"].insert(0, new_run)
     data["runs"] = data["runs"][:MAX_RUNS]
     save(data)

@@ -17,7 +17,9 @@ permissions:
 
 jobs:
   deploy:
-    if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success' }}
+    # A failed updater can commit status ONLY. Always validate a fresh master
+    # checkout; never deploy the failed job's working tree or its artifacts.
+    if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success' || (github.event.workflow_run.name == 'Update 13F Data' && github.event.workflow_run.conclusion == 'failure') }}
     # A skipped workflow_run must not cancel a real deployment in progress.
     concurrency:
       group: pages

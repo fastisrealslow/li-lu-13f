@@ -32,6 +32,7 @@ OpenFIGI 和 SEC 官方 ticker 表都只维护当前活跃证券）保持原样�
 """
 
 import json
+import copy
 import os
 import sys
 import time
@@ -176,6 +177,7 @@ def backfill_data_files(data_files, resolved_map):
         for quarter, holdings in history.get("holdings", {}).items():
             proof = history.get("valueAudit", {}).get(quarter, {})
             before = digest(holdings)
+            original = copy.deepcopy(holdings)
             fix_holdings(holdings)
             after = digest(holdings)
             # This operation changes only a symbol for the same CUSIP. Carry
@@ -189,6 +191,17 @@ def backfill_data_files(data_files, resolved_map):
                 # It is safe to translate the raw hash only when raw==normal.
                 if proof.get("sourceHash") == before:
                     proof["sourceHash"] = after
+                else:
+                    # Raw SEC units may differ from normalized dollars. Keep
+                    # their original hash and a reversible, security-bound alias
+                    # translation for subsequent latest-filing normalization.
+                    aliases = proof.setdefault("sourceTickerAliases", [])
+                    for old, new in zip(original, holdings):
+                        if old.get("ticker") != new.get("ticker"):
+                            aliases.append({"cusip": old.get("cusip"),
+                                "putCall": old.get("putCall", ""),
+                                "shareType": old.get("shareType", "SH"),
+                                "from": old.get("ticker"), "to": new.get("ticker")})
 
         if changed:
             with open(path, "w", encoding="utf-8") as f:

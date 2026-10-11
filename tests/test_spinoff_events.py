@@ -6,6 +6,23 @@ from spinoff_events import (infer_status, extract_name, extract_dates, filing_ur
 
 
 class SpinEvidenceTests(unittest.TestCase):
+    def test_ci_summary_accepts_normalized_url_legacy_docurl_and_empty_announcements(self):
+        from fetch_spinoff import github_summary
+        data={'companies':[
+            {'ticker':'00001.HK','stockName':'测试','announcements':[
+                {'url':'https://www1.hkexnews.hk/listedco/new.pdf','date':'2026-10-11','title':'分拆公告'}]},
+            {'ticker':'00002.HK','announcements':[{'docUrl':'/listedco/old.pdf','title':'旧公告'}]},
+            {'ticker':'00003.HK','announcements':[]},
+            {'ticker':'00004.HK','announcements':[{'url':'javascript:alert(1)'}]},
+        ]}
+        result=github_summary(data)
+        self.assertIn('https://www1.hkexnews.hk/listedco/new.pdf',result)
+        self.assertIn('https://www1.hkexnews.hk/listedco/old.pdf',result)
+        self.assertIn('2026-10-11',result)
+        self.assertIn('00003.HK',result)
+        self.assertNotIn('javascript:',result)
+        self.assertEqual(github_summary({'companies':[]}), '')
+
     def test_transaction_type_correction_updates_same_dossier(self):
         proof={'url':'https://www.sec.gov/Archives/edgar/data/1/test.htm','date':'2026-09-01','status':'announced','quote':'Proposed spin-off','targetName':'Child'}
         base={'companies':[{'ticker':'P','type':'spinoff','filingEvidence':[proof]}]}

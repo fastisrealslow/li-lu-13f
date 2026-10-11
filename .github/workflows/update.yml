@@ -26,6 +26,10 @@ on:
       - "tests/test_hk_automation.py"
       - "fetch_13f_all.py"
       - "resolve_unmapped_tickers.py"
+      - "publish_update_failure.py"
+      - "update_status.py"
+      - "validate_data.py"
+      - "tests/test_update_recovery.py"
       - "sec_history_index.py"
       - "audit_13f_history.py"
       - "tests/test_value_audit.py"
@@ -586,11 +590,21 @@ jobs:
           python3 spinoff_events.py
           python3 ai_supplement.py --refresh-fallbacks
 
-      - name: Finish run status
-        run: python3 update_status.py --finish
-
       - name: Validate JSON files before commit
+        id: validate_data
         run: python3 validate_data.py
+
+      - name: Finish run status including validation outcome
+        if: ${{ !cancelled() && steps.init_status.outcome == 'success' }}
+        run: |
+          if [ "${{ steps.validate_data.outcome }}" = "success" ]; then
+            python3 update_status.py --step validation --status ok
+          elif [ "${{ steps.validate_data.outcome }}" = "failure" ]; then
+            python3 update_status.py --step validation --status fail --msg "数据校验失败，未发布本次数据；保留上一次有效数据。详情见 GitHub Actions 日志。"
+          else
+            python3 update_status.py --step pipeline --status fail --msg "更新流程未完成，未发布本次数据；保留上一次有效数据。"
+          fi
+          python3 update_status.py --finish
 
       - name: Commit and push if changed
         run: |
@@ -615,5 +629,20 @@ jobs:
             git push
             echo "Changes pushed!"
           fi
+
+      - name: Report failed publication without releasing unvalidated data
+        if: ${{ failure() && !cancelled() && steps.init_status.outcome == 'success' }}
+        run: |
+          python3 update_status.py --step publication --status fail --msg "本次更新未发布；线上保留上一次有效数据。"
+          python3 update_status.py --finish
+          python3 publish_update_failure.py
+
+      - name: Retain failure status for diagnosis
+        if: ${{ failure() && steps.init_status.outcome == 'success' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: failed-update-status
+          path: run_status.json
+          retention-days: 14
 
 
