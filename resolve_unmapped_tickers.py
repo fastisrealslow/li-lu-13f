@@ -151,6 +151,7 @@ def backfill_data_files(data_files, resolved_map):
     返回: (修改的文件数, 回填的记录数)。"""
     files_changed = 0
     records_fixed = 0
+    from audit_13f_history import VERSION, digest
     for path in data_files:
         if not os.path.exists(path):
             continue
@@ -171,8 +172,23 @@ def backfill_data_files(data_files, resolved_map):
 
         fix_holdings(data.get("current", {}).get("holdings", []))
         fix_holdings(data.get("current", {}).get("previousHoldings", []))
-        for holdings in data.get("history", {}).get("holdings", {}).values():
+        history = data.get("history", {})
+        for quarter, holdings in history.get("holdings", {}).items():
+            proof = history.get("valueAudit", {}).get(quarter, {})
+            before = digest(holdings)
             fix_holdings(holdings)
+            after = digest(holdings)
+            # This operation changes only a symbol for the same CUSIP. Carry
+            # an intact primary-source proof across that display-name change;
+            # never bless quantities/values that already failed the proof.
+            if (after != before and proof.get("version") == VERSION
+                    and proof.get("status") == "verified"
+                    and proof.get("normalizedHash") == before):
+                proof["normalizedHash"] = after
+                # Unit-factor replay also needs the symbol-only translation.
+                # It is safe to translate the raw hash only when raw==normal.
+                if proof.get("sourceHash") == before:
+                    proof["sourceHash"] = after
 
         if changed:
             with open(path, "w", encoding="utf-8") as f:
@@ -188,6 +204,10 @@ def main():
     data_files = load_investor_data_files()
     resolved_map = load_resolved_map()
     print(f"已缓存的 CUSIP 映射: {len(resolved_map)} 条")
+
+    if not dry_run:
+        files_changed, records_fixed = backfill_data_files(data_files, resolved_map)
+        print(f"已缓存映射回填：{files_changed} 个文件，{records_fixed} 条记录")
 
     unresolved_counts = scan_unresolved_cusips(data_files, resolved_map)
     print(f"待解析 CUSIP 数（去重，排除已缓存）: {len(unresolved_counts)}")

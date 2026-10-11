@@ -5,6 +5,7 @@ from unittest.mock import patch
 import audit_13f_history as audit
 import fetch_13f_all as sec
 import validate_data
+from resolve_unmapped_tickers import backfill_data_files
 
 
 def rows(scale=1):
@@ -83,5 +84,30 @@ class ValueAudit(unittest.TestCase):
    replacements=audit.discover_restatements({'cik':'1'},history,{'2023 Q1'},fetch)
   self.assertEqual(replacements['2023 Q1']['accessionDashed'],'0000000001-23-000003')
   self.assertEqual(history['restatementChecks']['0000000001-23-000002']['result'],'additive')
+
+ def test_symbol_resolution_preserves_intact_source_proof_and_is_idempotent(self):
+  holdings=rows();holdings[0]['ticker']='?UNRESOLVED COMPANY'
+  proof={'version':audit.VERSION,'status':'verified','factor':1,'normalizedHash':audit.digest(holdings),'sourceHash':audit.digest(holdings),'source':'https://www.sec.gov/Archives/test.xml','anchors':audit.verify_units(rows(),'2023 Q1',price)['anchors']}
+  d={'current':{'holdings':copy.deepcopy(holdings)},'history':{'quarters':['2023 Q1'],'values':[.3],'holdings':{'2023 Q1':holdings},'valueAudit':{'2023 Q1':proof}}}
+  with tempfile.TemporaryDirectory() as tmp:
+   p=Path(tmp)/'d.json';p.write_text(json.dumps(d))
+   self.assertEqual(backfill_data_files([str(p)],{'AAA':'AAA'}),(1,2))
+   resolved=json.loads(p.read_text());validate_data.validate_history(resolved['history'])
+   self.assertEqual(resolved['history']['holdings']['2023 Q1'][0]['ticker'],'AAA')
+   self.assertEqual(resolved['history']['valueAudit']['2023 Q1']['sourceHash'],audit.digest(rows()))
+   self.assertEqual(backfill_data_files([str(p)],{'AAA':'AAA'}),(0,0))
+   self.assertEqual([(r['shares'],r['value']) for r in holdings],[(r['shares'],r['value']) for r in resolved['history']['holdings']['2023 Q1']])
+
+ def test_symbol_resolution_does_not_bless_changed_source_facts(self):
+  for field in ['shares','value','cusip','putCall','shareType']:
+   with self.subTest(field=field),tempfile.TemporaryDirectory() as tmp:
+    holdings=rows();holdings[0]['ticker']='?UNRESOLVED COMPANY'
+    proof={'version':audit.VERSION,'status':'verified','normalizedHash':audit.digest(holdings)}
+    holdings[1][field]=holdings[1][field]+1 if field in ['shares','value'] else 'CHANGED'
+    h={'quarters':['2023 Q1'],'values':[sum(r['value'] for r in holdings)/1e6],'holdings':{'2023 Q1':holdings},'valueAudit':{'2023 Q1':proof}}
+    p=Path(tmp)/'d.json';p.write_text(json.dumps({'history':h}))
+    backfill_data_files([str(p)],{'AAA':'AAA'})
+    with self.assertRaisesRegex(ValueError,'no longer match'):
+     validate_data.validate_history(json.loads(p.read_text())['history'])
 
 if __name__=='__main__':unittest.main()
