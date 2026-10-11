@@ -35,6 +35,17 @@ function app() {
   return {context, element, run: code => vm.runInContext(code, context)};
 }
 
+test('personal portfolio changes language while investor data is still unavailable',()=>{
+  const a=app();
+  ['homework','spinoff','spinoff_us','game'].forEach(t=>a.element('tab-'+t).classList.add('d-none'));
+  a.element('tab-personal').classList.remove('d-none');
+  a.run("data=null; let personalLanguages=[]; renderPersonalPortfolio=()=>personalLanguages.push(lang); renderChanges=()=>{throw Error('Investor data is not ready');};");
+  assert.doesNotThrow(()=>a.run('switchLang()'));
+  assert.equal(a.run('lang'),'en');assert.equal(a.run('personalLanguages.join()'),'en');
+  assert.doesNotThrow(()=>a.run('switchLang()'));
+  assert.equal(a.run('personalLanguages.join()'),'en,zh');
+});
+
 test('quarterly rows and headers refresh for all investors without leaving the tab', async () => {
   const a = app();
   await a.run('loadInvestorConfig()');

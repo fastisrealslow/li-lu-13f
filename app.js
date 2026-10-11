@@ -464,9 +464,11 @@ function switchLang() {
   localStorage.setItem('lang', lang);
   renderInvestorBtns();
   applyLanguageLabels();
-  renderSummary(); renderHoldings(); renderChanges(); renderHistoryChart(); renderInsights();
-  updateInvestorContent();
-  renderTimelineTable();
+  if (data) {
+    renderSummary(); renderHoldings(); renderChanges(); renderHistoryChart(); renderInsights();
+    updateInvestorContent();
+    renderTimelineTable();
+  }
   if (_runStatusData) updateStatusDot(_runStatusData);
   if (!document.getElementById('tab-personal')?.classList.contains('d-none') && typeof renderPersonalPortfolio === 'function') renderPersonalPortfolio();
   _homeworkCache = null;
