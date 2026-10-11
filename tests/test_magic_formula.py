@@ -136,7 +136,11 @@ class ExtractionTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as tmp,patch('update_personal_portfolio.discover',side_effect=ValueError('ambiguous report')):
             after,_=update(data,config,Path(tmp),quotes_enabled=False)
         for old,new in zip(before['companies'],after['companies']):
-            self.assertEqual(old['annuals'],new['annuals']);self.assertEqual(old['results'],new['results'])
+            self.assertEqual(old['annuals'],new['annuals'])
+            for ticker,group in old['results'].items():
+                for years,result in group.items():
+                    self.assertEqual(result['quote'],new['results'][ticker][years]['quote'])
+                    self.assertEqual(calculate(old,result['quote'],int(years)),new['results'][ticker][years])
             self.assertEqual(new['financialStatus']['status'],'retained')
 
     def test_future_report_retargets_year_text_without_templating_numbers(self):
