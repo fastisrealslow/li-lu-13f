@@ -5,7 +5,7 @@
     "notablePeople": [
       "Glenn Greenberg"
     ],
-    "lastUpdated": "2026-10-11T03:05:43Z",
+    "lastUpdated": "2026-10-11T17:53:48Z",
     "aiSummary": "格林伯格 Q2 大幅增持微软、亚马逊及 HCA 医疗，同时减持部分金融与地产股，显示其持续聚焦科技与医疗领域的成长机会。",
     "aiSummaryQuarter": "2026 Q2",
     "instrumentHistoryTickers": [
@@ -1726,20 +1726,14 @@
       ],
       "2016 Q2": [
         {
-          "ticker": "JPM",
-          "name": "JPMORGAN CHASE & CO",
-          "shares": 7382908,
-          "value": 267426000,
-          "sector": "金融/银行",
-          "prevShares": 9367486,
-          "prevValue": 361954000,
-          "cnName": "摩根大通"
-        },
-        {
           "ticker": "?ANTERO RES CORP",
           "name": "ANTERO RES CORP",
+          "cls": "COM",
+          "cusip": "03674x106",
           "shares": 9285336,
           "value": 241233000,
+          "shareType": "SH",
+          "putCall": "",
           "sector": "其他",
           "prevShares": 4205195,
           "prevValue": 104583000
@@ -1747,26 +1741,39 @@
         {
           "ticker": "?BROOKFIELD ASSET MGMT INC",
           "name": "BROOKFIELD ASSET MGMT INC",
+          "cls": "CL A LTD VT SH",
+          "cusip": "112585104",
           "shares": 7133576,
           "value": 235907000,
+          "shareType": "SH",
+          "putCall": "",
           "sector": "其他",
           "prevShares": 6930194,
           "prevValue": 241101000
         },
         {
-          "ticker": "?SCHWAB CHARLES CORP NEW",
+          "ticker": "SCHW",
           "name": "SCHWAB CHARLES CORP NEW",
+          "cls": "COM",
+          "cusip": "808513105",
           "shares": 9299975,
           "value": 235382000,
-          "sector": "其他",
+          "shareType": "SH",
+          "putCall": "",
+          "sector": "金融服务",
           "prevShares": 9554406,
-          "prevValue": 267714000
+          "prevValue": 267714000,
+          "cnName": "嘉信理财"
         },
         {
           "ticker": "?CIMPRESS N V",
           "name": "CIMPRESS N V",
+          "cls": "SHS EURO",
+          "cusip": "n20146101",
           "shares": 2542574,
           "value": 235137000,
+          "shareType": "SH",
+          "putCall": "",
           "sector": "其他",
           "prevShares": 3393765,
           "prevValue": 307781000
@@ -1774,8 +1781,12 @@
         {
           "ticker": "?LIBERTY GLOBAL PLC",
           "name": "LIBERTY GLOBAL PLC",
-          "shares": 7925945,
-          "value": 227729000,
+          "cls": "SHS CL C",
+          "cusip": "g5480u120",
+          "shares": 6620387,
+          "value": 189674000,
+          "shareType": "SH",
+          "putCall": "",
           "sector": "其他",
           "prevShares": 5144323,
           "prevValue": 193221000
@@ -1783,36 +1794,107 @@
         {
           "ticker": "PRI",
           "name": "PRIMERICA INC",
+          "cls": "COM",
+          "cusip": "74164m108",
           "shares": 3272256,
           "value": 187304000,
-          "sector": "金融",
+          "shareType": "SH",
+          "putCall": "",
+          "sector": "保险",
           "prevShares": 3311941,
           "prevValue": 147481000,
           "cnName": "Primerica"
         },
         {
+          "ticker": "JPM",
+          "name": "JPMORGAN CHASE & CO",
+          "cls": "COM",
+          "cusip": "46625h100",
+          "shares": 2815045,
+          "value": 174927000,
+          "shareType": "SH",
+          "putCall": "",
+          "sector": "金融/银行",
+          "prevShares": 4724238,
+          "prevValue": 279769000,
+          "cnName": "摩根大通"
+        },
+        {
+          "ticker": "JPM",
+          "name": "JPMORGAN CHASE & CO",
+          "cls": "*W EXP 10/28/201",
+          "cusip": "46634e114",
+          "shares": 4567863,
+          "value": 92499000,
+          "shareType": "SH",
+          "putCall": "",
+          "sector": "金融/银行",
+          "prevShares": 4643248,
+          "prevValue": 82185000,
+          "cnName": "摩根大通"
+        },
+        {
           "ticker": "?AXALTA COATING SYS LTD",
           "name": "AXALTA COATING SYS LTD",
+          "cls": "COM",
+          "cusip": "g0750c108",
           "shares": 3021244,
           "value": 80154000,
+          "shareType": "SH",
+          "putCall": "",
           "sector": "其他",
           "prevShares": 4825715,
           "prevValue": 140911000
         },
         {
-          "ticker": "?HALLIBURTON CO",
+          "ticker": "HAL",
           "name": "HALLIBURTON CO",
+          "cls": "COM",
+          "cusip": "406216101",
           "shares": 1619013,
           "value": 73325000,
-          "sector": "其他",
+          "shareType": "SH",
+          "putCall": "",
+          "sector": "能源",
           "prevShares": 6461858,
-          "prevValue": 230818000
+          "prevValue": 230818000,
+          "cnName": "Halliburton Company"
+        },
+        {
+          "ticker": "?LIBERTY GLOBAL PLC",
+          "name": "LIBERTY GLOBAL PLC",
+          "cls": "SHS CL A",
+          "cusip": "g5480u104",
+          "shares": 1269488,
+          "value": 36891000,
+          "shareType": "SH",
+          "putCall": "",
+          "sector": "其他",
+          "prevShares": 0,
+          "prevValue": 0
         },
         {
           "ticker": "?BROOKFIELD BUSINESS PARTNERS",
           "name": "BROOKFIELD BUSINESS PARTNERS",
+          "cls": "UNIT LTD LP",
+          "cusip": "g16234109",
           "shares": 135022,
           "value": 2578000,
+          "shareType": "SH",
+          "putCall": "",
+          "sector": "其他",
+          "prevShares": 0,
+          "prevValue": 0
+        },
+        {
+          "ticker": "?LIBERTY GLOBAL PLC",
+          "name": "LIBERTY GLOBAL PLC",
+          "cls": "LILAC SHS CL A",
+          "cusip": "g5480u138",
+          "shares": 36070,
+          "value": 1164000,
+          "shareType": "SH",
+          "putCall": "",
           "sector": "其他",
           "prevShares": 0,
           "prevValue": 0
@@ -1820,8 +1902,12 @@
         {
           "ticker": "CMCSA",
           "name": "COMCAST CORP NEW",
+          "cls": "CL A",
+          "cusip": "20030n101",
           "shares": 15547,
           "value": 1014000,
+          "shareType": "SH",
+          "putCall": "",
           "sector": "娱乐",
           "prevShares": 15547,
           "prevValue": 950000,
@@ -1830,26 +1916,39 @@
         {
           "ticker": "?AT&T INC",
           "name": "AT&T INC",
+          "cls": "COM",
+          "cusip": "00206r102",
           "shares": 4994,
           "value": 216000,
+          "shareType": "SH",
+          "putCall": "",
           "sector": "其他",
           "prevShares": 0,
           "prevValue": 0
         },
         {
-          "ticker": "?BANK AMER CORP",
+          "ticker": "BAC",
           "name": "BANK AMER CORP",
+          "cls": "COM",
+          "cusip": "060505104",
           "shares": 14532,
           "value": 193000,
-          "sector": "其他",
+          "shareType": "SH",
+          "putCall": "",
+          "sector": "金融/银行",
           "prevShares": 14532,
-          "prevValue": 196000
+          "prevValue": 196000,
+          "cnName": "美国银行"
         },
         {
           "ticker": "?TIDEWATER INC",
           "name": "TIDEWATER INC",
+          "cls": "COM",
+          "cusip": "886423102",
           "shares": 19625,
           "value": 87000,
+          "shareType": "SH",
+          "putCall": "",
           "sector": "其他",
           "prevShares": 19625,
           "prevValue": 134000
@@ -1857,38 +1956,28 @@
       ],
       "2016 Q3": [
         {
-          "ticker": "?SCHWAB CHARLES CORP NEW",
+          "ticker": "SCHW",
           "name": "SCHWAB CHARLES CORP NEW",
+          "cls": "COM",
+          "cusip": "808513105",
           "shares": 9166877,
           "value": 289398000,
-          "sector": "其他",
+          "shareType": "SH",
+          "putCall": "",
+          "sector": "金融服务",
           "prevShares": 9299975,
-          "prevValue": 235382000
-        },
-        {
-          "ticker": "JPM",
-          "name": "JPMORGAN CHASE & CO",
-          "shares": 7089062,
-          "value": 287863000,
-          "sector": "金融/银行",
-          "prevShares": 7382908,
-          "prevValue": 267426000,
-          "cnName": "摩根大通"
-        },
-        {
-          "ticker": "?LIBERTY GLOBAL PLC",
-          "name": "LIBERTY GLOBAL PLC",
-          "shares": 8739723,
-          "value": 285528000,
-          "sector": "其他",
-          "prevShares": 7925945,
-          "prevValue": 227729000
+          "prevValue": 235382000,
+          "cnName": "嘉信理财"
         },
         {
           "ticker": "?ANTERO RES CORP",
           "name": "ANTERO RES CORP",
+          "cls": "COM",
+          "cusip": "03674x106",
           "shares": 9216626,
           "value": 248388000,
+          "shareType": "SH",
+          "putCall": "",
           "sector": "其他",
           "prevShares": 9285336,
           "prevValue": 241233000
@@ -1896,17 +1985,38 @@
         {
           "ticker": "?BROOKFIELD ASSET MGMT INC",
           "name": "BROOKFIELD ASSET MGMT INC",
+          "cls": "CL A LTD VT SH",
+          "cusip": "112585104",
           "shares": 6535212,
           "value": 229909000,
+          "shareType": "SH",
+          "putCall": "",
           "sector": "其他",
           "prevShares": 7133576,
           "prevValue": 235907000
         },
         {
+          "ticker": "?LIBERTY GLOBAL PLC",
+          "name": "LIBERTY GLOBAL PLC",
+          "cls": "SHS CL C",
+          "cusip": "g5480u120",
+          "shares": 6653098,
+          "value": 219818000,
+          "shareType": "SH",
+          "putCall": "",
+          "sector": "其他",
+          "prevShares": 6620387,
+          "prevValue": 189674000
+        },
+        {
           "ticker": "?HCA HOLDINGS INC",
           "name": "HCA HOLDINGS INC",
+          "cls": "COM",
+          "cusip": "40412c101",
           "shares": 2498550,
           "value": 188965000,
+          "shareType": "SH",
+          "putCall": "",
           "sector": "其他",
           "prevShares": 0,
           "prevValue": 0
@@ -1914,18 +2024,40 @@
         {
           "ticker": "?CIMPRESS N V",
           "name": "CIMPRESS N V",
+          "cls": "SHS EURO",
+          "cusip": "n20146101",
           "shares": 1842187,
           "value": 186392000,
+          "shareType": "SH",
+          "putCall": "",
           "sector": "其他",
           "prevShares": 2542574,
           "prevValue": 235137000
         },
         {
+          "ticker": "JPM",
+          "name": "JPMORGAN CHASE & CO",
+          "cls": "COM",
+          "cusip": "46625h100",
+          "shares": 2699238,
+          "value": 179742000,
+          "shareType": "SH",
+          "putCall": "",
+          "sector": "金融/银行",
+          "prevShares": 2815045,
+          "prevValue": 174927000,
+          "cnName": "摩根大通"
+        },
+        {
           "ticker": "PRI",
           "name": "PRIMERICA INC",
+          "cls": "COM",
+          "cusip": "74164m108",
           "shares": 2729998,
           "value": 144772000,
-          "sector": "金融",
+          "shareType": "SH",
+          "putCall": "",
+          "sector": "保险",
           "prevShares": 3272256,
           "prevValue": 187304000,
           "cnName": "Primerica"
@@ -1933,45 +2065,119 @@
         {
           "ticker": "?SENSATA TECHNOLOGIES HLDG NV",
           "name": "SENSATA TECHNOLOGIES HLDG NV",
+          "cls": "SHS",
+          "cusip": "n7902x106",
           "shares": 3085374,
           "value": 119651000,
+          "shareType": "SH",
+          "putCall": "",
           "sector": "其他",
           "prevShares": 0,
           "prevValue": 0
         },
         {
+          "ticker": "JPM",
+          "name": "JPMORGAN CHASE & CO",
+          "cls": "*W EXP 10/28/201",
+          "cusip": "46634e114",
+          "shares": 4389824,
+          "value": 108121000,
+          "shareType": "SH",
+          "putCall": "",
+          "sector": "金融/银行",
+          "prevShares": 4567863,
+          "prevValue": 92499000,
+          "cnName": "摩根大通"
+        },
+        {
           "ticker": "?AXALTA COATING SYS LTD",
           "name": "AXALTA COATING SYS LTD",
+          "cls": "COM",
+          "cusip": "g0750c108",
           "shares": 3005422,
           "value": 84963000,
+          "shareType": "SH",
+          "putCall": "",
           "sector": "其他",
           "prevShares": 3021244,
           "prevValue": 80154000
         },
         {
+          "ticker": "?LIBERTY GLOBAL PLC",
+          "name": "LIBERTY GLOBAL PLC",
+          "cls": "SHS CL A",
+          "cusip": "g5480u104",
+          "shares": 1182895,
+          "value": 40431000,
+          "shareType": "SH",
+          "putCall": "",
+          "sector": "其他",
+          "prevShares": 1269488,
+          "prevValue": 36891000
+        },
+        {
+          "ticker": "?LIBERTY GLOBAL PLC",
+          "name": "LIBERTY GLOBAL PLC",
+          "cls": "LILAC SHS CL C",
+          "cusip": "g5480u153",
+          "shares": 751775,
+          "value": 21087000,
+          "shareType": "SH",
+          "putCall": "",
+          "sector": "其他",
+          "prevShares": 0,
+          "prevValue": 0
+        },
+        {
+          "ticker": "?LIBERTY GLOBAL PLC",
+          "name": "LIBERTY GLOBAL PLC",
+          "cls": "LILAC SHS CL A",
+          "cusip": "g5480u138",
+          "shares": 151955,
+          "value": 4192000,
+          "shareType": "SH",
+          "putCall": "",
+          "sector": "其他",
+          "prevShares": 36070,
+          "prevValue": 1164000
+        },
+        {
           "ticker": "CMCSA",
           "name": "COMCAST CORP NEW",
+          "cls": "CL A",
+          "cusip": "20030n101",
           "shares": 15547,
           "value": 1031000,
+          "shareType": "SH",
+          "putCall": "",
           "sector": "娱乐",
           "prevShares": 15547,
           "prevValue": 1014000,
           "cnName": "康卡斯特"
         },
         {
-          "ticker": "?BANK AMER CORP",
+          "ticker": "BAC",
           "name": "BANK AMER CORP",
+          "cls": "COM",
+          "cusip": "060505104",
           "shares": 14532,
           "value": 227000,
-          "sector": "其他",
+          "shareType": "SH",
+          "putCall": "",
+          "sector": "金融/银行",
           "prevShares": 14532,
-          "prevValue": 193000
+          "prevValue": 193000,
+          "cnName": "美国银行"
         },
         {
           "ticker": "?AT&T INC",
           "name": "AT&T INC",
+          "cls": "COM",
+          "cusip": "00206r102",
           "shares": 4994,
           "value": 203000,
+          "shareType": "SH",
+          "putCall": "",
           "sector": "其他",
           "prevShares": 4994,
           "prevValue": 216000
@@ -1979,8 +2185,12 @@
         {
           "ticker": "?TIDEWATER INC",
           "name": "TIDEWATER INC",
+          "cls": "COM",
+          "cusip": "886423102",
           "shares": 19625,
           "value": 55000,
+          "shareType": "SH",
+          "putCall": "",
           "sector": "其他",
           "prevShares": 19625,
           "prevValue": 87000
@@ -1988,38 +2198,28 @@
       ],
       "2016 Q4": [
         {
-          "ticker": "?SCHWAB CHARLES CORP NEW",
+          "ticker": "SCHW",
           "name": "SCHWAB CHARLES CORP NEW",
+          "cls": "COM",
+          "cusip": "808513105",
           "shares": 8204928,
           "value": 323849000,
-          "sector": "其他",
+          "shareType": "SH",
+          "putCall": "",
+          "sector": "金融服务",
           "prevShares": 9166877,
-          "prevValue": 289398000
-        },
-        {
-          "ticker": "JPM",
-          "name": "JPMORGAN CHASE & CO",
-          "shares": 4200237,
-          "value": 293522000,
-          "sector": "金融/银行",
-          "prevShares": 7089062,
-          "prevValue": 287863000,
-          "cnName": "摩根大通"
-        },
-        {
-          "ticker": "?LIBERTY GLOBAL PLC",
-          "name": "LIBERTY GLOBAL PLC",
-          "shares": 9901298,
-          "value": 278304000,
-          "sector": "其他",
-          "prevShares": 8739723,
-          "prevValue": 285528000
+          "prevValue": 289398000,
+          "cnName": "嘉信理财"
         },
         {
           "ticker": "?HCA HOLDINGS INC",
           "name": "HCA HOLDINGS INC",
+          "cls": "COM",
+          "cusip": "40412c101",
           "shares": 3617751,
           "value": 267786000,
+          "shareType": "SH",
+          "putCall": "",
           "sector": "其他",
           "prevShares": 2498550,
           "prevValue": 188965000
@@ -2027,26 +2227,65 @@
         {
           "ticker": "?ANTERO RES CORP",
           "name": "ANTERO RES CORP",
+          "cls": "COM",
+          "cusip": "03674x106",
           "shares": 9647226,
           "value": 228157000,
+          "shareType": "SH",
+          "putCall": "",
           "sector": "其他",
           "prevShares": 9216626,
           "prevValue": 248388000
         },
         {
+          "ticker": "JPM",
+          "name": "JPMORGAN CHASE & CO",
+          "cls": "COM",
+          "cusip": "46625h100",
+          "shares": 2560143,
+          "value": 220915000,
+          "shareType": "SH",
+          "putCall": "",
+          "sector": "金融/银行",
+          "prevShares": 2699238,
+          "prevValue": 179742000,
+          "cnName": "摩根大通"
+        },
+        {
           "ticker": "?BROOKFIELD ASSET MGMT INC",
           "name": "BROOKFIELD ASSET MGMT INC",
+          "cls": "CL A LTD VT SH",
+          "cusip": "112585104",
           "shares": 6683668,
           "value": 220628000,
+          "shareType": "SH",
+          "putCall": "",
           "sector": "其他",
           "prevShares": 6535212,
           "prevValue": 229909000
         },
         {
+          "ticker": "?LIBERTY GLOBAL PLC",
+          "name": "LIBERTY GLOBAL PLC",
+          "cls": "SHS CL C",
+          "cusip": "g5480u120",
+          "shares": 6761270,
+          "value": 200810000,
+          "shareType": "SH",
+          "putCall": "",
+          "sector": "其他",
+          "prevShares": 6653098,
+          "prevValue": 219818000
+        },
+        {
           "ticker": "?EXPRESS SCRIPTS HLDG CO",
           "name": "EXPRESS SCRIPTS HLDG CO",
+          "cls": "COM",
+          "cusip": "30219g108",
           "shares": 1889317,
           "value": 129966000,
+          "shareType": "SH",
+          "putCall": "",
           "sector": "其他",
           "prevShares": 0,
           "prevValue": 0
@@ -2054,8 +2293,12 @@
         {
           "ticker": "?AXALTA COATING SYS LTD",
           "name": "AXALTA COATING SYS LTD",
+          "cls": "COM",
+          "cusip": "g0750c108",
           "shares": 4443376,
           "value": 120860000,
+          "shareType": "SH",
+          "putCall": "",
           "sector": "其他",
           "prevShares": 3005422,
           "prevValue": 84963000
@@ -2063,8 +2306,12 @@
         {
           "ticker": "?SENSATA TECHNOLOGIES HLDG NV",
           "name": "SENSATA TECHNOLOGIES HLDG NV",
+          "cls": "SHS",
+          "cusip": "n7902x106",
           "shares": 2973093,
           "value": 115802000,
+          "shareType": "SH",
+          "putCall": "",
           "sector": "其他",
           "prevShares": 3085374,
           "prevValue": 119651000
@@ -2072,18 +2319,79 @@
         {
           "ticker": "PRI",
           "name": "PRIMERICA INC",
+          "cls": "COM",
+          "cusip": "74164m108",
           "shares": 1608035,
           "value": 111196000,
-          "sector": "金融",
+          "shareType": "SH",
+          "putCall": "",
+          "sector": "保险",
           "prevShares": 2729998,
           "prevValue": 144772000,
           "cnName": "Primerica"
         },
         {
+          "ticker": "JPM",
+          "name": "JPMORGAN CHASE & CO",
+          "cls": "*W EXP 10/28/201",
+          "cusip": "46634e114",
+          "shares": 1640094,
+          "value": 72607000,
+          "shareType": "SH",
+          "putCall": "",
+          "sector": "金融/银行",
+          "prevShares": 4389824,
+          "prevValue": 108121000,
+          "cnName": "摩根大通"
+        },
+        {
+          "ticker": "?LIBERTY GLOBAL PLC",
+          "name": "LIBERTY GLOBAL PLC",
+          "cls": "LILAC SHS CL C",
+          "cusip": "g5480u153",
+          "shares": 1831055,
+          "value": 38763000,
+          "shareType": "SH",
+          "putCall": "",
+          "sector": "其他",
+          "prevShares": 751775,
+          "prevValue": 21087000
+        },
+        {
+          "ticker": "?LIBERTY GLOBAL PLC",
+          "name": "LIBERTY GLOBAL PLC",
+          "cls": "SHS CL A",
+          "cusip": "g5480u104",
+          "shares": 1157104,
+          "value": 35396000,
+          "shareType": "SH",
+          "putCall": "",
+          "sector": "其他",
+          "prevShares": 1182895,
+          "prevValue": 40431000
+        },
+        {
+          "ticker": "?LIBERTY GLOBAL PLC",
+          "name": "LIBERTY GLOBAL PLC",
+          "cls": "LILAC SHS CL A",
+          "cusip": "g5480u138",
+          "shares": 151869,
+          "value": 3335000,
+          "shareType": "SH",
+          "putCall": "",
+          "sector": "其他",
+          "prevShares": 151955,
+          "prevValue": 4192000
+        },
+        {
           "ticker": "?CIMPRESS N V",
           "name": "CIMPRESS N V",
+          "cls": "SHS EURO",
+          "cusip": "n20146101",
           "shares": 31697,
           "value": 2904000,
+          "shareType": "SH",
+          "putCall": "",
           "sector": "其他",
           "prevShares": 1842187,
           "prevValue": 186392000
@@ -2091,8 +2399,12 @@
         {
           "ticker": "?LIBERTY INTERACTIVE CORP",
           "name": "LIBERTY INTERACTIVE CORP",
+          "cls": "LBT VEN COM A NE",
+          "cusip": "53071m856",
           "shares": 54767,
           "value": 2019000,
+          "shareType": "SH",
+          "putCall": "",
           "sector": "其他",
           "prevShares": 0,
           "prevValue": 0
@@ -2100,27 +2412,40 @@
         {
           "ticker": "CMCSA",
           "name": "COMCAST CORP NEW",
+          "cls": "CL A",
+          "cusip": "20030n101",
           "shares": 16097,
           "value": 1111000,
+          "shareType": "SH",
+          "putCall": "",
           "sector": "娱乐",
           "prevShares": 15547,
           "prevValue": 1031000,
           "cnName": "康卡斯特"
         },
         {
-          "ticker": "?BANK AMER CORP",
+          "ticker": "BAC",
           "name": "BANK AMER CORP",
+          "cls": "COM",
+          "cusip": "060505104",
           "shares": 14532,
           "value": 321000,
-          "sector": "其他",
+          "shareType": "SH",
+          "putCall": "",
+          "sector": "金融/银行",
           "prevShares": 14532,
-          "prevValue": 227000
+          "prevValue": 227000,
+          "cnName": "美国银行"
         },
         {
           "ticker": "?AT&T INC",
           "name": "AT&T INC",
+          "cls": "COM",
+          "cusip": "00206r102",
           "shares": 4994,
           "value": 212000,
+          "shareType": "SH",
+          "putCall": "",
           "sector": "其他",
           "prevShares": 4994,
           "prevValue": 203000
@@ -2128,8 +2453,12 @@
         {
           "ticker": "?TIDEWATER INC",
           "name": "TIDEWATER INC",
+          "cls": "COM",
+          "cusip": "886423102",
           "shares": 19625,
           "value": 67000,
+          "shareType": "SH",
+          "putCall": "",
           "sector": "其他",
           "prevShares": 19625,
           "prevValue": 55000
@@ -2137,28 +2466,28 @@
       ],
       "2017 Q1": [
         {
-          "ticker": "?LIBERTY GLOBAL PLC",
-          "name": "LIBERTY GLOBAL PLC",
-          "shares": 9818711,
-          "value": 321031000,
-          "sector": "其他",
-          "prevShares": 9901298,
-          "prevValue": 278304000
-        },
-        {
-          "ticker": "?SCHWAB CHARLES CORP NEW",
+          "ticker": "SCHW",
           "name": "SCHWAB CHARLES CORP NEW",
+          "cls": "COM",
+          "cusip": "808513105",
           "shares": 7651850,
           "value": 312272000,
-          "sector": "其他",
+          "shareType": "SH",
+          "putCall": "",
+          "sector": "金融服务",
           "prevShares": 8204928,
-          "prevValue": 323849000
+          "prevValue": 323849000,
+          "cnName": "嘉信理财"
         },
         {
           "ticker": "?HCA HOLDINGS INC",
           "name": "HCA HOLDINGS INC",
+          "cls": "COM",
+          "cusip": "40412c101",
           "shares": 3097983,
           "value": 275690000,
+          "shareType": "SH",
+          "putCall": "",
           "sector": "其他",
           "prevShares": 3617751,
           "prevValue": 267786000
@@ -2166,8 +2495,12 @@
         {
           "ticker": "?BROOKFIELD ASSET MGMT INC",
           "name": "BROOKFIELD ASSET MGMT INC",
+          "cls": "CL A LTD VT SH",
+          "cusip": "112585104",
           "shares": 6636977,
           "value": 241984000,
+          "shareType": "SH",
+          "putCall": "",
           "sector": "其他",
           "prevShares": 6683668,
           "prevValue": 220628000
@@ -2175,27 +2508,52 @@
         {
           "ticker": "?ANTERO RES CORP",
           "name": "ANTERO RES CORP",
+          "cls": "COM",
+          "cusip": "03674x106",
           "shares": 10593829,
           "value": 241645000,
+          "shareType": "SH",
+          "putCall": "",
           "sector": "其他",
           "prevShares": 9647226,
           "prevValue": 228157000
         },
         {
+          "ticker": "?LIBERTY GLOBAL PLC",
+          "name": "LIBERTY GLOBAL PLC",
+          "cls": "SHS CL C",
+          "cusip": "g5480u120",
+          "shares": 6733386,
+          "value": 235938000,
+          "shareType": "SH",
+          "putCall": "",
+          "sector": "其他",
+          "prevShares": 6761270,
+          "prevValue": 200810000
+        },
+        {
           "ticker": "JPM",
           "name": "JPMORGAN CHASE & CO",
-          "shares": 2977761,
-          "value": 208171000,
+          "cls": "COM",
+          "cusip": "46625h100",
+          "shares": 1692041,
+          "value": 148629000,
+          "shareType": "SH",
+          "putCall": "",
           "sector": "金融/银行",
-          "prevShares": 4200237,
-          "prevValue": 293522000,
+          "prevShares": 2560143,
+          "prevValue": 220915000,
           "cnName": "摩根大通"
         },
         {
           "ticker": "?AXALTA COATING SYS LTD",
           "name": "AXALTA COATING SYS LTD",
+          "cls": "COM",
+          "cusip": "g0750c108",
           "shares": 4400048,
           "value": 141682000,
+          "shareType": "SH",
+          "putCall": "",
           "sector": "其他",
           "prevShares": 4443376,
           "prevValue": 120860000
@@ -2203,8 +2561,12 @@
         {
           "ticker": "?SENSATA TECHNOLOGIES HLDG NV",
           "name": "SENSATA TECHNOLOGIES HLDG NV",
+          "cls": "SHS",
+          "cusip": "n7902x106",
           "shares": 2947474,
           "value": 128716000,
+          "shareType": "SH",
+          "putCall": "",
           "sector": "其他",
           "prevShares": 2973093,
           "prevValue": 115802000
@@ -2212,9 +2574,13 @@
         {
           "ticker": "PRI",
           "name": "PRIMERICA INC",
+          "cls": "COM",
+          "cusip": "74164m108",
           "shares": 1559965,
           "value": 128229000,
-          "sector": "金融",
+          "shareType": "SH",
+          "putCall": "",
+          "sector": "保险",
           "prevShares": 1608035,
           "prevValue": 111196000,
           "cnName": "Primerica"
@@ -2222,36 +2588,106 @@
         {
           "ticker": "?EXPRESS SCRIPTS HLDG CO",
           "name": "EXPRESS SCRIPTS HLDG CO",
+          "cls": "COM",
+          "cusip": "30219g108",
           "shares": 1413775,
           "value": 93182000,
+          "shareType": "SH",
+          "putCall": "",
           "sector": "其他",
           "prevShares": 1889317,
           "prevValue": 129966000
         },
         {
+          "ticker": "JPM",
+          "name": "JPMORGAN CHASE & CO",
+          "cls": "*W EXP 10/28/201",
+          "cusip": "46634e114",
+          "shares": 1285720,
+          "value": 59542000,
+          "shareType": "SH",
+          "putCall": "",
+          "sector": "金融/银行",
+          "prevShares": 1640094,
+          "prevValue": 72607000,
+          "cnName": "摩根大通"
+        },
+        {
+          "ticker": "?LIBERTY GLOBAL PLC",
+          "name": "LIBERTY GLOBAL PLC",
+          "cls": "LILAC SHS CL C",
+          "cusip": "g5480u153",
+          "shares": 1832210,
+          "value": 42214000,
+          "shareType": "SH",
+          "putCall": "",
+          "sector": "其他",
+          "prevShares": 1831055,
+          "prevValue": 38763000
+        },
+        {
+          "ticker": "?LIBERTY GLOBAL PLC",
+          "name": "LIBERTY GLOBAL PLC",
+          "cls": "SHS CL A",
+          "cusip": "g5480u104",
+          "shares": 1101199,
+          "value": 39500000,
+          "shareType": "SH",
+          "putCall": "",
+          "sector": "其他",
+          "prevShares": 1157104,
+          "prevValue": 35396000
+        },
+        {
+          "ticker": "?LIBERTY GLOBAL PLC",
+          "name": "LIBERTY GLOBAL PLC",
+          "cls": "LILAC SHS CL A",
+          "cusip": "g5480u138",
+          "shares": 151916,
+          "value": 3379000,
+          "shareType": "SH",
+          "putCall": "",
+          "sector": "其他",
+          "prevShares": 151869,
+          "prevValue": 3335000
+        },
+        {
           "ticker": "CMCSA",
           "name": "COMCAST CORP NEW",
+          "cls": "CL A",
+          "cusip": "20030n101",
           "shares": 32194,
           "value": 1210000,
+          "shareType": "SH",
+          "putCall": "",
           "sector": "娱乐",
           "prevShares": 16097,
           "prevValue": 1111000,
           "cnName": "康卡斯特"
         },
         {
-          "ticker": "?BANK AMER CORP",
+          "ticker": "BAC",
           "name": "BANK AMER CORP",
+          "cls": "COM",
+          "cusip": "060505104",
           "shares": 14532,
           "value": 343000,
-          "sector": "其他",
+          "shareType": "SH",
+          "putCall": "",
+          "sector": "金融/银行",
           "prevShares": 14532,
-          "prevValue": 321000
+          "prevValue": 321000,
+          "cnName": "美国银行"
         },
         {
           "ticker": "?AT&T INC",
           "name": "AT&T INC",
+          "cls": "COM",
+          "cusip": "00206r102",
           "shares": 4994,
           "value": 208000,
+          "shareType": "SH",
+          "putCall": "",
           "sector": "其他",
           "prevShares": 4994,
           "prevValue": 212000
@@ -2259,8 +2695,12 @@
         {
           "ticker": "?TIDEWATER INC",
           "name": "TIDEWATER INC",
+          "cls": "COM",
+          "cusip": "886423102",
           "shares": 19625,
           "value": 23000,
+          "shareType": "SH",
+          "putCall": "",
           "sector": "其他",
           "prevShares": 19625,
           "prevValue": 67000
@@ -2268,75 +2708,109 @@
       ],
       "2017 Q2": [
         {
-          "ticker": "?SCHWAB CHARLES CORP NEW",
+          "ticker": "SCHW",
           "name": "SCHWAB CHARLES CORP NEW",
+          "cls": "COM",
+          "cusip": "808513105",
           "shares": 7302503,
           "value": 313716000,
-          "sector": "其他",
+          "shareType": "SH",
+          "putCall": "",
+          "sector": "金融服务",
           "prevShares": 7651850,
-          "prevValue": 312272000
+          "prevValue": 312272000,
+          "cnName": "嘉信理财"
         },
         {
           "ticker": "HCA",
           "name": "HCA HEALTHCARE INC",
+          "cls": "COM",
+          "cusip": "40412c101",
           "shares": 3080347,
           "value": 268606000,
+          "shareType": "SH",
+          "putCall": "",
           "sector": "医药",
-          "prevShares": 0,
-          "prevValue": 0,
-          "cnName": "HCA医疗"
+          "prevShares": 3097983,
+          "prevValue": 275690000,
+          "cnName": "HCA 医疗"
         },
         {
           "ticker": "?ANTERO RES CORP",
           "name": "ANTERO RES CORP",
+          "cls": "COM",
+          "cusip": "03674x106",
           "shares": 11459921,
           "value": 247649000,
+          "shareType": "SH",
+          "putCall": "",
           "sector": "其他",
           "prevShares": 10593829,
           "prevValue": 241645000
         },
         {
-          "ticker": "?ALLIANCE DATA SYSTEMS CORP",
+          "ticker": "BFH",
           "name": "ALLIANCE DATA SYSTEMS CORP",
+          "cls": "COM",
+          "cusip": "018581108",
           "shares": 938698,
           "value": 240954000,
-          "sector": "其他",
+          "shareType": "SH",
+          "putCall": "",
+          "sector": "金融",
           "prevShares": 0,
-          "prevValue": 0
+          "prevValue": 0,
+          "cnName": "Bread Financial Holdings, Inc."
         },
         {
           "ticker": "?LIBERTY GLOBAL PLC",
           "name": "LIBERTY GLOBAL PLC",
-          "shares": 7005482,
-          "value": 218682000,
+          "cls": "SHS CL C",
+          "cusip": "g5480u120",
+          "shares": 6738614,
+          "value": 210110000,
+          "shareType": "SH",
+          "putCall": "",
           "sector": "其他",
-          "prevShares": 9818711,
-          "prevValue": 321031000
-        },
-        {
-          "ticker": "JPM",
-          "name": "JPMORGAN CHASE & CO",
-          "shares": 2760416,
-          "value": 207771000,
-          "sector": "金融/银行",
-          "prevShares": 2977761,
-          "prevValue": 208171000,
-          "cnName": "摩根大通"
+          "prevShares": 6733386,
+          "prevValue": 235938000
         },
         {
           "ticker": "?BROOKFIELD ASSET MGMT INC",
           "name": "BROOKFIELD ASSET MGMT INC",
+          "cls": "CL A LTD VT SH",
+          "cusip": "112585104",
           "shares": 4690948,
           "value": 183932000,
+          "shareType": "SH",
+          "putCall": "",
           "sector": "其他",
           "prevShares": 6636977,
           "prevValue": 241984000
         },
         {
+          "ticker": "JPM",
+          "name": "JPMORGAN CHASE & CO",
+          "cls": "COM",
+          "cusip": "46625h100",
+          "shares": 1677185,
+          "value": 153295000,
+          "shareType": "SH",
+          "putCall": "",
+          "sector": "金融/银行",
+          "prevShares": 1692041,
+          "prevValue": 148629000,
+          "cnName": "摩根大通"
+        },
+        {
           "ticker": "?QUINTILES IMS HOLDINGS INC",
           "name": "QUINTILES IMS HOLDINGS INC",
+          "cls": "COM",
+          "cusip": "74876y101",
           "shares": 1581553,
           "value": 141549000,
+          "shareType": "SH",
+          "putCall": "",
           "sector": "其他",
           "prevShares": 0,
           "prevValue": 0
@@ -2344,8 +2818,12 @@
         {
           "ticker": "?SENSATA TECHNOLOGIES HLDG NV",
           "name": "SENSATA TECHNOLOGIES HLDG NV",
+          "cls": "SHS",
+          "cusip": "n7902x106",
           "shares": 2910230,
           "value": 124325000,
+          "shareType": "SH",
+          "putCall": "",
           "sector": "其他",
           "prevShares": 2947474,
           "prevValue": 128716000
@@ -2353,8 +2831,12 @@
         {
           "ticker": "?AXALTA COATING SYS LTD",
           "name": "AXALTA COATING SYS LTD",
+          "cls": "COM",
+          "cusip": "g0750c108",
           "shares": 3859691,
           "value": 123664000,
+          "shareType": "SH",
+          "putCall": "",
           "sector": "其他",
           "prevShares": 4400048,
           "prevValue": 141682000
@@ -2362,9 +2844,13 @@
         {
           "ticker": "PRI",
           "name": "PRIMERICA INC",
+          "cls": "COM",
+          "cusip": "74164m108",
           "shares": 1518440,
           "value": 115022000,
-          "sector": "金融",
+          "shareType": "SH",
+          "putCall": "",
+          "sector": "保险",
           "prevShares": 1559965,
           "prevValue": 128229000,
           "cnName": "Primerica"
@@ -2372,36 +2858,80 @@
         {
           "ticker": "?SERVICEMASTER GLOBAL HLDGS I",
           "name": "SERVICEMASTER GLOBAL HLDGS I",
+          "cls": "COM",
+          "cusip": "81761r109",
           "shares": 1923916,
           "value": 75398000,
+          "shareType": "SH",
+          "putCall": "",
           "sector": "其他",
           "prevShares": 0,
           "prevValue": 0
         },
         {
+          "ticker": "JPM",
+          "name": "JPMORGAN CHASE & CO",
+          "cls": "*W EXP 10/28/201",
+          "cusip": "46634E114",
+          "shares": 1083231,
+          "value": 54476000,
+          "shareType": "SH",
+          "putCall": "",
+          "sector": "金融/银行",
+          "prevShares": 0,
+          "prevValue": 0,
+          "cnName": "摩根大通"
+        },
+        {
+          "ticker": "?LIBERTY GLOBAL PLC",
+          "name": "LIBERTY GLOBAL PLC",
+          "cls": "SHS CL A",
+          "cusip": "g5480u104",
+          "shares": 266868,
+          "value": 8572000,
+          "shareType": "SH",
+          "putCall": "",
+          "sector": "其他",
+          "prevShares": 1101199,
+          "prevValue": 39500000
+        },
+        {
           "ticker": "CMCSA",
           "name": "COMCAST CORP NEW",
+          "cls": "CL A",
+          "cusip": "20030n101",
           "shares": 32194,
           "value": 1253000,
+          "shareType": "SH",
+          "putCall": "",
           "sector": "娱乐",
           "prevShares": 32194,
           "prevValue": 1210000,
           "cnName": "康卡斯特"
         },
         {
-          "ticker": "?BANK AMER CORP",
+          "ticker": "BAC",
           "name": "BANK AMER CORP",
+          "cls": "COM",
+          "cusip": "060505104",
           "shares": 14532,
           "value": 353000,
-          "sector": "其他",
+          "shareType": "SH",
+          "putCall": "",
+          "sector": "金融/银行",
           "prevShares": 14532,
-          "prevValue": 343000
+          "prevValue": 343000,
+          "cnName": "美国银行"
         },
         {
           "ticker": "?TIDEWATER INC",
           "name": "TIDEWATER INC",
+          "cls": "COM",
+          "cusip": "886423102",
           "shares": 19625,
           "value": 14000,
+          "shareType": "SH",
+          "putCall": "",
           "sector": "其他",
           "prevShares": 19625,
           "prevValue": 23000
@@ -2414,8 +2944,8 @@
           "shares": 7143220,
           "value": 312444000,
           "sector": "其他",
-          "prevShares": 7302503,
-          "prevValue": 313716000
+          "prevShares": 0,
+          "prevValue": 0
         },
         {
           "ticker": "?ALLIANCE DATA SYSTEMS CORP",
@@ -2423,8 +2953,8 @@
           "shares": 1388992,
           "value": 307731000,
           "sector": "其他",
-          "prevShares": 938698,
-          "prevValue": 240954000
+          "prevShares": 0,
+          "prevValue": 0
         },
         {
           "ticker": "?LIBERTY GLOBAL PLC",
@@ -2432,8 +2962,8 @@
           "shares": 7227443,
           "value": 236649000,
           "sector": "其他",
-          "prevShares": 7005482,
-          "prevValue": 218682000
+          "prevShares": 6738614,
+          "prevValue": 210110000
         },
         {
           "ticker": "HCA",
@@ -2460,8 +2990,8 @@
           "shares": 2023336,
           "value": 193249000,
           "sector": "金融/银行",
-          "prevShares": 2760416,
-          "prevValue": 207771000,
+          "prevShares": 1677185,
+          "prevValue": 153295000,
           "cnName": "摩根大通"
         },
         {
@@ -2526,8 +3056,8 @@
           "shares": 14532,
           "value": 368000,
           "sector": "其他",
-          "prevShares": 14532,
-          "prevValue": 353000
+          "prevShares": 0,
+          "prevValue": 0
         }
       ],
       "2017 Q4": [
@@ -14345,8 +14875,8 @@
           "shares": 4074491,
           "value": 239947000,
           "sector": "能源",
-          "prevShares": 4747513,
-          "prevValue": 240936000,
+          "prevShares": 0,
+          "prevValue": 0,
           "cls": "COM",
           "cusip": "406216101",
           "shareType": "SH",
@@ -14372,8 +14902,8 @@
           "shares": 7208932,
           "value": 197020000,
           "sector": "金融",
-          "prevShares": 7954268,
-          "prevValue": 206811000,
+          "prevShares": 0,
+          "prevValue": 0,
           "cls": "COM",
           "cusip": "808513105",
           "shareType": "SH",
@@ -15858,8 +16388,12 @@
         {
           "ticker": "?CIMPRESS N V",
           "name": "CIMPRESS N V",
+          "cls": "SHS EURO",
+          "cusip": "n20146101",
           "shares": 3393765,
           "value": 307781000,
+          "shareType": "SH",
+          "putCall": "",
           "sector": "其他",
           "prevShares": 3907843,
           "prevValue": 317082000
@@ -15867,45 +16401,67 @@
         {
           "ticker": "JPM",
           "name": "JPMORGAN CHASE & CO",
+          "cls": "COM",
+          "cusip": "46625h100",
           "shares": 4724238,
           "value": 279769000,
+          "shareType": "SH",
+          "putCall": "",
           "sector": "金融/银行",
           "prevShares": 4772920,
           "prevValue": 315156000,
           "cnName": "摩根大通"
         },
         {
-          "ticker": "?SCHWAB CHARLES CORP NEW",
+          "ticker": "SCHW",
           "name": "SCHWAB CHARLES CORP NEW",
+          "cls": "COM",
+          "cusip": "808513105",
           "shares": 9554406,
           "value": 267714000,
-          "sector": "其他",
-          "prevShares": 0,
-          "prevValue": 0
+          "shareType": "SH",
+          "putCall": "",
+          "sector": "金融服务",
+          "prevShares": 9602045,
+          "prevValue": 316195000,
+          "cnName": "嘉信理财"
         },
         {
           "ticker": "?BROOKFIELD ASSET MGMT INC",
           "name": "BROOKFIELD ASSET MGMT INC",
+          "cls": "CL A LTD VT SH",
+          "cusip": "112585104",
           "shares": 6930194,
           "value": 241101000,
+          "shareType": "SH",
+          "putCall": "",
           "sector": "其他",
           "prevShares": 8939976,
           "prevValue": 281877000
         },
         {
-          "ticker": "?HALLIBURTON CO",
+          "ticker": "HAL",
           "name": "HALLIBURTON CO",
+          "cls": "COM",
+          "cusip": "406216101",
           "shares": 6461858,
           "value": 230818000,
-          "sector": "其他",
+          "shareType": "SH",
+          "putCall": "",
+          "sector": "能源",
           "prevShares": 6498909,
-          "prevValue": 221223000
+          "prevValue": 221223000,
+          "cnName": "Halliburton Company"
         },
         {
           "ticker": "?LIBERTY GLOBAL PLC",
           "name": "LIBERTY GLOBAL PLC",
+          "cls": "SHS CL C",
+          "cusip": "g5480u120",
           "shares": 5144323,
           "value": 193221000,
+          "shareType": "SH",
+          "putCall": "",
           "sector": "其他",
           "prevShares": 0,
           "prevValue": 0
@@ -15913,8 +16469,12 @@
         {
           "ticker": "PRI",
           "name": "PRIMERICA INC",
+          "cls": "COM",
+          "cusip": "74164m108",
           "shares": 3311941,
           "value": 147481000,
+          "shareType": "SH",
+          "putCall": "",
           "sector": "保险",
           "prevShares": 2968691,
           "prevValue": 140211000,
@@ -15923,8 +16483,12 @@
         {
           "ticker": "?AXALTA COATING SYS LTD",
           "name": "AXALTA COATING SYS LTD",
+          "cls": "COM",
+          "cusip": "g0750c108",
           "shares": 4825715,
           "value": 140911000,
+          "shareType": "SH",
+          "putCall": "",
           "sector": "其他",
           "prevShares": 0,
           "prevValue": 0
@@ -15932,8 +16496,12 @@
         {
           "ticker": "?ANTERO RES CORP",
           "name": "ANTERO RES CORP",
+          "cls": "COM",
+          "cusip": "03674x106",
           "shares": 4205195,
           "value": 104583000,
+          "shareType": "SH",
+          "putCall": "",
           "sector": "其他",
           "prevShares": 3486344,
           "prevValue": 76002000
@@ -15941,49 +16509,70 @@
         {
           "ticker": "JPM",
           "name": "JPMORGAN CHASE & CO",
+          "cls": "*W EXP 10/28/201",
+          "cusip": "46634e114",
           "shares": 4643248,
           "value": 82185000,
+          "shareType": "SH",
+          "putCall": "",
           "sector": "金融/银行",
-          "prevShares": 6252331,
-          "prevValue": 635549000,
+          "prevShares": 4655095,
+          "prevValue": 110279000,
           "cnName": "摩根大通"
         },
         {
           "ticker": "?VALEANT PHARMACEUTICALS INTL",
           "name": "VALEANT PHARMACEUTICALS INTL",
+          "cls": "COM",
+          "cusip": "91911k102",
           "shares": 2034281,
           "value": 53502000,
+          "shareType": "SH",
+          "putCall": "",
           "sector": "其他",
-          "prevShares": 15547,
-          "prevValue": 877000
+          "prevShares": 6252331,
+          "prevValue": 635549000
         },
         {
           "ticker": "CMCSA",
           "name": "COMCAST CORP NEW",
+          "cls": "CL A",
+          "cusip": "20030n101",
           "shares": 15547,
           "value": 950000,
+          "shareType": "SH",
+          "putCall": "",
           "sector": "娱乐",
-          "prevShares": 0,
-          "prevValue": 0,
+          "prevShares": 15547,
+          "prevValue": 877000,
           "cnName": "康卡斯特"
         },
         {
-          "ticker": "?BANK AMER CORP",
+          "ticker": "BAC",
           "name": "BANK AMER CORP",
+          "cls": "COM",
+          "cusip": "060505104",
           "shares": 14532,
           "value": 196000,
-          "sector": "其他",
-          "prevShares": 19625,
-          "prevValue": 137000
+          "shareType": "SH",
+          "putCall": "",
+          "sector": "金融/银行",
+          "prevShares": 14532,
+          "prevValue": 245000,
+          "cnName": "美国银行"
         },
         {
           "ticker": "?TIDEWATER INC",
           "name": "TIDEWATER INC",
+          "cls": "COM",
+          "cusip": "886423102",
           "shares": 19625,
           "value": 134000,
+          "shareType": "SH",
+          "putCall": "",
           "sector": "其他",
-          "prevShares": 9602045,
-          "prevValue": 316195000
+          "prevShares": 19625,
+          "prevValue": 137000
         }
       ],
       "2026 Q2": [
@@ -16548,7 +17137,7 @@
       ]
     },
     "coverage": {
-      "checkedAt": "2026-10-11T03:05:44Z",
+      "checkedAt": "2026-10-11T17:53:48Z",
       "missingQuarters": [],
       "repairedThisRun": [],
       "errors": {},
@@ -16900,12 +17489,60 @@
         "reportDate": "2015-12-31",
         "cik": "1553733",
         "url": "https://www.sec.gov/Archives/edgar/data/1553733/000117266116002673/infotable.xml"
+      },
+      "2016 Q1": {
+        "accession": "000117266116003303",
+        "accessionDashed": "0001172661-16-003303",
+        "filingDate": "2016-05-16",
+        "reportDate": "2016-03-31",
+        "cik": "1553733",
+        "url": "https://www.sec.gov/Archives/edgar/data/1553733/000117266116003303/infotable.xml"
+      },
+      "2016 Q2": {
+        "accession": "000117266116003771",
+        "accessionDashed": "0001172661-16-003771",
+        "filingDate": "2016-08-15",
+        "reportDate": "2016-06-30",
+        "cik": "1553733",
+        "url": "https://www.sec.gov/Archives/edgar/data/1553733/000117266116003771/infotable.xml"
+      },
+      "2016 Q3": {
+        "accession": "000117266116004193",
+        "accessionDashed": "0001172661-16-004193",
+        "filingDate": "2016-11-14",
+        "reportDate": "2016-09-30",
+        "cik": "1553733",
+        "url": "https://www.sec.gov/Archives/edgar/data/1553733/000117266116004193/infotable.xml"
+      },
+      "2016 Q4": {
+        "accession": "000117266117000573",
+        "accessionDashed": "0001172661-17-000573",
+        "filingDate": "2017-02-14",
+        "reportDate": "2016-12-31",
+        "cik": "1553733",
+        "url": "https://www.sec.gov/Archives/edgar/data/1553733/000117266117000573/infotable.xml"
+      },
+      "2017 Q1": {
+        "accession": "000117266117001119",
+        "accessionDashed": "0001172661-17-001119",
+        "filingDate": "2017-05-15",
+        "reportDate": "2017-03-31",
+        "cik": "1553733",
+        "url": "https://www.sec.gov/Archives/edgar/data/1553733/000117266117001119/infotable.xml"
+      },
+      "2017 Q2": {
+        "accession": "000117266117001628",
+        "accessionDashed": "0001172661-17-001628",
+        "filingDate": "2017-08-14",
+        "reportDate": "2017-06-30",
+        "cik": "1553733",
+        "url": "https://www.sec.gov/Archives/edgar/data/1553733/000117266117001628/infotable.xml"
       }
     },
     "instrumentVerification": {
       "pendingQuarters": [],
       "errors": {},
-      "checkedAt": "2026-10-11T03:05:44.474919+00:00"
+      "checkedAt": "2026-10-11T17:53:48.203091+00:00"
     },
     "valueAudit": {
       "2026 Q2": {
@@ -17765,6 +18402,444 @@
           }
         ],
         "normalizedHash": "1f2b0e1a71b087357b87019ece1c9ad9e3890d4a451b57d0a565964bc676de27"
+      },
+      "2016 Q1": {
+        "version": 1,
+        "checkedAt": "2026-10-11",
+        "source": "https://www.sec.gov/Archives/edgar/data/1553733/000117266116003303/infotable.xml",
+        "filingDate": "2016-05-16",
+        "sourceDigest": "4f9fd5a4e2bc53862b1a265334914f26838778fcd6c453484569c7af54a17846",
+        "sourceHash": "2edb04266dacea7325114719a05ce5f55683f8951f55a6a84a870f9f965097ba",
+        "status": "verified",
+        "factor": 1,
+        "anchors": [
+          {
+            "ticker": "SCHW",
+            "cusip": "808513105",
+            "filedPrice": 28.019952260768488,
+            "price": 28.020000457763672,
+            "date": "2016-03-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/SCHW?period1=0&period2=1791827693&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "HAL",
+            "cusip": "406216101",
+            "filedPrice": 35.7200668909778,
+            "price": 35.720001220703125,
+            "date": "2016-03-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/HAL?period1=0&period2=1791827693&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "JPM",
+            "cusip": "46625h100",
+            "filedPrice": 59.21992075759096,
+            "price": 59.220001220703125,
+            "date": "2016-03-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/JPM?period1=0&period2=1791827694&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "PRI",
+            "cusip": "74164m108",
+            "filedPrice": 44.53008069890134,
+            "price": 44.529998779296875,
+            "date": "2016-03-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/PRI?period1=0&period2=1791827694&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "CMCSA",
+            "cusip": "20030n101",
+            "filedPrice": 61.10503634141635,
+            "price": 61.08000276184082,
+            "date": "2016-03-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/CMCSA?period1=0&period2=1791827695&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          }
+        ],
+        "normalizedHash": "2edb04266dacea7325114719a05ce5f55683f8951f55a6a84a870f9f965097ba"
+      },
+      "2016 Q2": {
+        "version": 1,
+        "checkedAt": "2026-10-11",
+        "source": "https://www.sec.gov/Archives/edgar/data/1553733/000117266116003771/infotable.xml",
+        "filingDate": "2016-08-15",
+        "sourceDigest": "85b61f4938a91a7a5c2f4730ef65f157ef3df6e1cf25ca7930299d07d3921050",
+        "sourceHash": "369b0dc1af734a74da3d7cfe3db53af0c8e55574d181ace2d55d2f418117206a",
+        "status": "verified",
+        "factor": 1,
+        "anchors": [
+          {
+            "ticker": "SCHW",
+            "cusip": "808513105",
+            "filedPrice": 25.309960510646533,
+            "price": 25.309999465942383,
+            "date": "2016-06-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/SCHW?period1=0&period2=1791827693&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "PRI",
+            "cusip": "74164m108",
+            "filedPrice": 57.24002034070684,
+            "price": 57.2400016784668,
+            "date": "2016-06-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/PRI?period1=0&period2=1791827694&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "JPM",
+            "cusip": "46625h100",
+            "filedPrice": 62.14003683777702,
+            "price": 62.13999938964844,
+            "date": "2016-06-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/JPM?period1=0&period2=1791827694&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "HAL",
+            "cusip": "406216101",
+            "filedPrice": 45.28993899369554,
+            "price": 45.290000915527344,
+            "date": "2016-06-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/HAL?period1=0&period2=1791827693&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "CMCSA",
+            "cusip": "20030n101",
+            "filedPrice": 65.22158615810125,
+            "price": 65.18999848556518,
+            "date": "2016-06-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/CMCSA?period1=0&period2=1791827695&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          }
+        ],
+        "normalizedHash": "369b0dc1af734a74da3d7cfe3db53af0c8e55574d181ace2d55d2f418117206a"
+      },
+      "2016 Q3": {
+        "version": 1,
+        "checkedAt": "2026-10-11",
+        "source": "https://www.sec.gov/Archives/edgar/data/1553733/000117266116004193/infotable.xml",
+        "filingDate": "2016-11-14",
+        "sourceDigest": "e273f564a8a742dde1d3232bcc3d37544fe9dc838ed624c2e0886a48c47b7dc7",
+        "sourceHash": "8f9d760bf1e9eb478986c794eb812bc0acdc27f7c1ae23a3b7b3c2346ea5af27",
+        "status": "verified",
+        "factor": 1,
+        "anchors": [
+          {
+            "ticker": "SCHW",
+            "cusip": "808513105",
+            "filedPrice": 31.56996652185908,
+            "price": 31.56999969482422,
+            "date": "2016-09-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/SCHW?period1=0&period2=1791827693&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "PRI",
+            "cusip": "74164m108",
+            "filedPrice": 53.030075479908774,
+            "price": 53.029998779296875,
+            "date": "2016-09-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/PRI?period1=0&period2=1791827694&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "JPM",
+            "cusip": "46625h100",
+            "filedPrice": 66.58990426186946,
+            "price": 66.58999633789062,
+            "date": "2016-09-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/JPM?period1=0&period2=1791827694&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "CMCSA",
+            "cusip": "20030n101",
+            "filedPrice": 66.31504470315816,
+            "price": 66.33999967575073,
+            "date": "2016-09-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/CMCSA?period1=0&period2=1791827695&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "BAC",
+            "cusip": "060505104",
+            "filedPrice": 15.620699146710708,
+            "price": 15.649999618530273,
+            "date": "2016-09-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/BAC?period1=0&period2=1791827660&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          }
+        ],
+        "normalizedHash": "8f9d760bf1e9eb478986c794eb812bc0acdc27f7c1ae23a3b7b3c2346ea5af27"
+      },
+      "2016 Q4": {
+        "version": 1,
+        "checkedAt": "2026-10-11",
+        "source": "https://www.sec.gov/Archives/edgar/data/1553733/000117266117000573/infotable.xml",
+        "filingDate": "2017-02-14",
+        "sourceDigest": "5b8a62befac302a312b4ec194b73412871b962beec97e0ce841bc7e90e8a1140",
+        "sourceHash": "436ff3dc36f77d2f89003d824c0f8e7d15cf842adcc5bdd064c82ffdca602278",
+        "status": "verified",
+        "factor": 1,
+        "anchors": [
+          {
+            "ticker": "SCHW",
+            "cusip": "808513105",
+            "filedPrice": 39.47005994446265,
+            "price": 39.470001220703125,
+            "date": "2016-12-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/SCHW?period1=0&period2=1791827693&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "JPM",
+            "cusip": "46625h100",
+            "filedPrice": 86.29010176384679,
+            "price": 86.29000091552734,
+            "date": "2016-12-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/JPM?period1=0&period2=1791827694&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "PRI",
+            "cusip": "74164m108",
+            "filedPrice": 69.15023615779508,
+            "price": 69.1500015258789,
+            "date": "2016-12-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/PRI?period1=0&period2=1791827694&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "CMCSA",
+            "cusip": "20030n101",
+            "filedPrice": 69.01907187674722,
+            "price": 69.0499974899292,
+            "date": "2016-12-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/CMCSA?period1=0&period2=1791827695&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "BAC",
+            "cusip": "060505104",
+            "filedPrice": 22.08918249380677,
+            "price": 22.100000381469727,
+            "date": "2016-12-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/BAC?period1=0&period2=1791827660&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          }
+        ],
+        "normalizedHash": "436ff3dc36f77d2f89003d824c0f8e7d15cf842adcc5bdd064c82ffdca602278"
+      },
+      "2017 Q1": {
+        "version": 1,
+        "checkedAt": "2026-10-11",
+        "source": "https://www.sec.gov/Archives/edgar/data/1553733/000117266117001119/infotable.xml",
+        "filingDate": "2017-05-15",
+        "sourceDigest": "1f7753f39088f2bd444b5d4f4f58abe76e96706c0f723ca5da72695b40e5151a",
+        "sourceHash": "ee0bedbbb786d229573a65f883bb1ac148ce40c9f71067cb47b5580774eabc51",
+        "status": "verified",
+        "factor": 1,
+        "anchors": [
+          {
+            "ticker": "SCHW",
+            "cusip": "808513105",
+            "filedPrice": 40.81000019603103,
+            "price": 40.810001373291016,
+            "date": "2017-03-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/SCHW?period1=0&period2=1791827693&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "JPM",
+            "cusip": "46625h100",
+            "filedPrice": 87.8400700692241,
+            "price": 87.83999633789062,
+            "date": "2017-03-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/JPM?period1=0&period2=1791827694&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "PRI",
+            "cusip": "74164m108",
+            "filedPrice": 82.19992115207712,
+            "price": 82.19999694824219,
+            "date": "2017-03-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/PRI?period1=0&period2=1791827694&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "CMCSA",
+            "cusip": "20030n101",
+            "filedPrice": 37.58464310119898,
+            "price": 37.58999841308594,
+            "date": "2017-03-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/CMCSA?period1=0&period2=1791827695&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "BAC",
+            "cusip": "060505104",
+            "filedPrice": 23.603082851637765,
+            "price": 23.59000015258789,
+            "date": "2017-03-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/BAC?period1=0&period2=1791827660&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          }
+        ],
+        "normalizedHash": "ee0bedbbb786d229573a65f883bb1ac148ce40c9f71067cb47b5580774eabc51"
+      },
+      "2017 Q2": {
+        "version": 1,
+        "checkedAt": "2026-10-11",
+        "source": "https://www.sec.gov/Archives/edgar/data/1553733/000117266117001628/infotable.xml",
+        "filingDate": "2017-08-14",
+        "sourceDigest": "01f8671265a4d20b1b9e8df4ad95485220df1e9771dcd7364c67b23a8761ea53",
+        "sourceHash": "bab1e8d288007c2f4b212a2b21c589a3d2a611f5fe137222bc0a8e89fc60fa84",
+        "status": "verified",
+        "factor": 1,
+        "anchors": [
+          {
+            "ticker": "SCHW",
+            "cusip": "808513105",
+            "filedPrice": 42.96006451486566,
+            "price": 42.959999084472656,
+            "date": "2017-06-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/SCHW?period1=0&period2=1791827693&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "HCA",
+            "cusip": "40412c101",
+            "filedPrice": 87.19991611334697,
+            "price": 87.19999694824219,
+            "date": "2017-06-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/HCA?period1=0&period2=1791827701&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "JPM",
+            "cusip": "46625h100",
+            "filedPrice": 91.40017350500989,
+            "price": 91.4000015258789,
+            "date": "2017-06-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/JPM?period1=0&period2=1791827694&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "PRI",
+            "cusip": "74164m108",
+            "filedPrice": 75.75011195700851,
+            "price": 75.75,
+            "date": "2017-06-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/PRI?period1=0&period2=1791827694&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "BFH",
+            "cusip": "018581108",
+            "filedPrice": 256.6895849357301,
+            "price": 256.6900013885498,
+            "date": "2017-06-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/BFH?period1=0&period2=1791827701&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          }
+        ],
+        "normalizedHash": "bab1e8d288007c2f4b212a2b21c589a3d2a611f5fe137222bc0a8e89fc60fa84"
       }
     },
     "excludedValueQuarters": [],

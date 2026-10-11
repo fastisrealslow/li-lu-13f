@@ -5,7 +5,7 @@
     "notablePeople": [
       "Bruce Berkowitz"
     ],
-    "lastUpdated": "2026-10-11T03:05:52Z",
+    "lastUpdated": "2026-10-11T17:54:00Z",
     "aiSummary": "伯科威茨大幅增持伯克希尔股票并新增辉瑞等仓位，显示其对核心资产信心增强及看好医药消费板块。",
     "aiSummaryQuarter": "2026 Q2",
     "instrumentHistoryTickers": [
@@ -4361,10 +4361,12 @@
           "cusip": "790148100",
           "shares": 24445297,
           "value": 449305000,
+          "shareType": "SH",
+          "putCall": "",
           "sector": "地产",
+          "cnName": "圣乔公司",
           "prevShares": 24450397,
-          "prevValue": 433261000,
-          "cnName": "圣乔公司"
+          "prevValue": 433261000
         },
         {
           "ticker": "?SEARS HLDGS CORP",
@@ -4373,6 +4375,8 @@
           "cusip": "812350106",
           "shares": 27839448,
           "value": 319040000,
+          "shareType": "SH",
+          "putCall": "",
           "sector": "其他",
           "prevShares": 27863548,
           "prevValue": 379223000
@@ -4384,10 +4388,12 @@
           "cusip": "81752R100",
           "shares": 3433750,
           "value": 174022000,
+          "shareType": "SH",
+          "putCall": "",
           "sector": "地产",
+          "cnName": "Seritage成长地产",
           "prevShares": 3433750,
-          "prevValue": 171138000,
-          "cnName": "Seritage成长地产"
+          "prevValue": 171138000
         },
         {
           "ticker": "?AMERICAN INTL GROUP INC",
@@ -4396,6 +4402,8 @@
           "cusip": "026874156",
           "shares": 4368490,
           "value": 92612000,
+          "shareType": "SH",
+          "putCall": "",
           "sector": "其他",
           "prevShares": 5320453,
           "prevValue": 99439000
@@ -4407,10 +4415,12 @@
           "cusip": "060505146",
           "shares": 13023864,
           "value": 60170000,
+          "shareType": "SH",
+          "putCall": "",
           "sector": "金融/银行",
+          "cnName": "美国银行",
           "prevShares": 15794903,
-          "prevValue": 54966000,
-          "cnName": "美国银行"
+          "prevValue": 54966000
         },
         {
           "ticker": "SRSCQ",
@@ -4419,10 +4429,12 @@
           "cusip": "81234D109",
           "shares": 20222179,
           "value": 49747000,
+          "shareType": "SH",
+          "putCall": "",
           "sector": "消费",
+          "cnName": "西尔斯加拿大",
           "prevShares": 19924663,
-          "prevValue": 59375000,
-          "cnName": "西尔斯加拿大"
+          "prevValue": 59375000
         },
         {
           "ticker": "LE",
@@ -4431,10 +4443,12 @@
           "cusip": "51509F105",
           "shares": 3352627,
           "value": 48613000,
+          "shareType": "SH",
+          "putCall": "",
           "sector": "消费",
+          "cnName": "兰斯恩德",
           "prevShares": 2999427,
-          "prevValue": 49251000,
-          "cnName": "兰斯恩德"
+          "prevValue": 49251000
         },
         {
           "ticker": "BAC",
@@ -4443,10 +4457,12 @@
           "cusip": "060505104",
           "shares": 1713203,
           "value": 26812000,
+          "shareType": "SH",
+          "putCall": "",
           "sector": "金融/银行",
+          "cnName": "美国银行",
           "prevShares": 12973003,
-          "prevValue": 172152000,
-          "cnName": "美国银行"
+          "prevValue": 172152000
         },
         {
           "ticker": "?SEARS HLDGS CORP",
@@ -4455,6 +4471,8 @@
           "cusip": "812350155",
           "shares": 6730093,
           "value": 23017000,
+          "shareType": "SH",
+          "putCall": "",
           "sector": "其他",
           "prevShares": 6732415,
           "prevValue": 26122000
@@ -4466,6 +4484,8 @@
           "cusip": "812362101",
           "shares": 776850,
           "value": 3830000,
+          "shareType": "SH",
+          "putCall": "",
           "sector": "其他",
           "prevShares": 776850,
           "prevValue": 5236000
@@ -4477,6 +4497,8 @@
           "cusip": "527288104",
           "shares": 66000,
           "value": 1257000,
+          "shareType": "SH",
+          "putCall": "",
           "sector": "其他",
           "prevShares": 66000,
           "prevValue": 1144000
@@ -4488,10 +4510,12 @@
           "cusip": "060505153",
           "shares": 1455701,
           "value": 146000,
+          "shareType": "SH",
+          "putCall": "",
           "sector": "金融/银行",
+          "cnName": "美国银行",
           "prevShares": 1455701,
-          "prevValue": 121000,
-          "cnName": "美国银行"
+          "prevValue": 121000
         }
       ],
       "2016 Q4": [
@@ -9925,7 +9949,7 @@
       ]
     },
     "coverage": {
-      "checkedAt": "2026-10-11T03:05:52Z",
+      "checkedAt": "2026-10-11T17:54:00Z",
       "missingQuarters": [],
       "repairedThisRun": [],
       "errors": {},
@@ -10237,12 +10261,20 @@
         "reportDate": "2014-09-30",
         "cik": "1056831",
         "url": "https://www.sec.gov/Archives/edgar/data/1056831/000091957414006682/infotable.xml"
+      },
+      "2016 Q3": {
+        "accession": "000091957416016645",
+        "accessionDashed": "0000919574-16-016645",
+        "filingDate": "2016-11-14",
+        "reportDate": "2016-09-30",
+        "cik": "1056831",
+        "url": "https://www.sec.gov/Archives/edgar/data/1056831/000091957416016645/infotable.xml"
       }
     },
     "instrumentVerification": {
       "pendingQuarters": [],
       "errors": {},
-      "checkedAt": "2026-10-11T03:05:52.406460+00:00"
+      "checkedAt": "2026-10-11T17:54:00.073268+00:00"
     },
     "valueAudit": {
       "2013 Q3": {
@@ -10896,7 +10928,7 @@
       },
       "2015 Q4": {
         "version": 1,
-        "checkedAt": "2026-10-10",
+        "checkedAt": "2026-10-11",
         "source": "https://www.sec.gov/Archives/edgar/data/1056831/000091957416011096/infotable.xml",
         "filingDate": "2016-02-16",
         "sourceDigest": "8a51ede20a506f1254c9884f1124a59ef18d924262fb993400ea2d85f0c79934",
@@ -10910,7 +10942,7 @@
             "price": 18.510000228881836,
             "date": "2015-12-31",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/JOE?period1=0&period2=1791726678&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/JOE?period1=0&period2=1791827733&interval=1d&events=splits",
             "candidates": [
               1
             ]
@@ -10922,17 +10954,7 @@
             "price": 12.479999542236328,
             "date": "2015-12-31",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/SRSCQ?period1=0&period2=1791726707&interval=1d&events=splits",
-            "candidates": []
-          },
-          {
-            "ticker": "BAC",
-            "cusip": "060505146",
-            "filedPrice": 5.8100076468755315,
-            "price": 16.829999923706055,
-            "date": "2015-12-31",
-            "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/BAC?period1=0&period2=1791726674&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/SRSCQ?period1=0&period2=1791827734&interval=1d&events=splits",
             "candidates": []
           },
           {
@@ -10942,7 +10964,19 @@
             "price": 15.819999694824219,
             "date": "2015-12-31",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/DNOW?period1=0&period2=1791726715&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/DNOW?period1=0&period2=1791827734&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "BAC",
+            "cusip": "060505104",
+            "filedPrice": 16.830066655527986,
+            "price": 16.829999923706055,
+            "date": "2015-12-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/BAC?period1=0&period2=1791827660&interval=1d&events=splits",
             "candidates": [
               1
             ]
@@ -10954,7 +10988,7 @@
             "price": 40.220001220703125,
             "date": "2015-12-31",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/SRG?period1=0&period2=1791726717&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/SRG?period1=0&period2=1791827652&interval=1d&events=splits",
             "candidates": [
               1
             ]
@@ -10965,7 +10999,7 @@
       },
       "2016 Q1": {
         "version": 1,
-        "checkedAt": "2026-10-10",
+        "checkedAt": "2026-10-11",
         "source": "https://www.sec.gov/Archives/edgar/data/1056831/000091957416013309/infotable.xml",
         "filingDate": "2016-05-16",
         "sourceDigest": "29da74c2855692884865ffbb9d641bf6c5abb816db069ec1aa6843b699d24b40",
@@ -10979,7 +11013,7 @@
             "price": 17.149999618530273,
             "date": "2016-03-31",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/JOE?period1=0&period2=1791726678&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/JOE?period1=0&period2=1791827733&interval=1d&events=splits",
             "candidates": [
               1
             ]
@@ -10991,18 +11025,20 @@
             "price": 12.479999542236328,
             "date": "2016-03-31",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/SRSCQ?period1=0&period2=1791726707&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/SRSCQ?period1=0&period2=1791827734&interval=1d&events=splits",
             "candidates": []
           },
           {
             "ticker": "BAC",
-            "cusip": "060505146",
-            "filedPrice": 3.8900029371656726,
+            "cusip": "060505104",
+            "filedPrice": 13.519998067971695,
             "price": 13.520000457763672,
             "date": "2016-03-31",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/BAC?period1=0&period2=1791726674&interval=1d&events=splits",
-            "candidates": []
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/BAC?period1=0&period2=1791827660&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
           },
           {
             "ticker": "DNOW",
@@ -11011,7 +11047,7 @@
             "price": 17.719999313354492,
             "date": "2016-03-31",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/DNOW?period1=0&period2=1791726715&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/DNOW?period1=0&period2=1791827734&interval=1d&events=splits",
             "candidates": [
               1
             ]
@@ -11023,7 +11059,7 @@
             "price": 49.970001220703125,
             "date": "2016-03-31",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/SRG?period1=0&period2=1791726717&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/SRG?period1=0&period2=1791827652&interval=1d&events=splits",
             "candidates": [
               1
             ]
@@ -11034,7 +11070,7 @@
       },
       "2016 Q2": {
         "version": 1,
-        "checkedAt": "2026-10-10",
+        "checkedAt": "2026-10-11",
         "source": "https://www.sec.gov/Archives/edgar/data/1056831/000091957416014989/infotable.xml",
         "filingDate": "2016-08-15",
         "sourceDigest": "603376b6be8b9be4091deb892d6a3c560cf3fea0b2374de5d005dfde0c270fcf",
@@ -11048,7 +11084,7 @@
             "price": 17.719999313354492,
             "date": "2016-06-30",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/JOE?period1=0&period2=1791726678&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/JOE?period1=0&period2=1791827733&interval=1d&events=splits",
             "candidates": [
               1
             ]
@@ -11060,18 +11096,20 @@
             "price": 12.479999542236328,
             "date": "2016-06-30",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/SRSCQ?period1=0&period2=1791726707&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/SRSCQ?period1=0&period2=1791827734&interval=1d&events=splits",
             "candidates": []
           },
           {
             "ticker": "BAC",
-            "cusip": "060505146",
-            "filedPrice": 3.479983384513346,
+            "cusip": "060505104",
+            "filedPrice": 13.270019285434529,
             "price": 13.270000457763672,
             "date": "2016-06-30",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/BAC?period1=0&period2=1791726674&interval=1d&events=splits",
-            "candidates": []
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/BAC?period1=0&period2=1791827660&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
           },
           {
             "ticker": "SRG",
@@ -11080,7 +11118,7 @@
             "price": 49.84000015258789,
             "date": "2016-06-30",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/SRG?period1=0&period2=1791726717&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/SRG?period1=0&period2=1791827652&interval=1d&events=splits",
             "candidates": [
               1
             ]
@@ -11092,7 +11130,7 @@
             "price": 16.420000076293945,
             "date": "2016-06-30",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/LE?period1=0&period2=1791726699&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/LE?period1=0&period2=1791827737&interval=1d&events=splits",
             "candidates": [
               1
             ]
@@ -11103,12 +11141,13 @@
       },
       "2016 Q3": {
         "version": 1,
-        "checkedAt": "2026-10-10",
+        "checkedAt": "2026-10-11",
         "source": "https://www.sec.gov/Archives/edgar/data/1056831/000091957416016645/infotable.xml",
         "filingDate": "2016-11-14",
         "sourceDigest": "5a0b59463e42e89ddb252252333f3507735cb607a068439190f008decdd24396",
         "sourceHash": "17549ccfe8a8ac21cd4d5cbdba55ed46b9d4ecf51c7fac9860dc449c1f6de942",
-        "status": "pending",
+        "status": "verified",
+        "factor": 1,
         "anchors": [
           {
             "ticker": "JOE",
@@ -11117,7 +11156,7 @@
             "price": 18.3799991607666,
             "date": "2016-09-30",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/JOE?period1=0&period2=1791726678&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/JOE?period1=0&period2=1791827733&interval=1d&events=splits",
             "candidates": [
               1
             ]
@@ -11129,20 +11168,10 @@
             "price": 2.450000047683716,
             "date": "2016-09-30",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/SRSCQ?period1=0&period2=1791726707&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/SRSCQ?period1=0&period2=1791827734&interval=1d&events=splits",
             "candidates": [
               1
             ]
-          },
-          {
-            "ticker": "BAC",
-            "cusip": "060505146",
-            "filedPrice": 4.619980675473884,
-            "price": 15.649999618530273,
-            "date": "2016-09-30",
-            "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/BAC?period1=0&period2=1791726674&interval=1d&events=splits",
-            "candidates": []
           },
           {
             "ticker": "SRG",
@@ -11151,7 +11180,7 @@
             "price": 50.68000030517578,
             "date": "2016-09-30",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/SRG?period1=0&period2=1791726717&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/SRG?period1=0&period2=1791827652&interval=1d&events=splits",
             "candidates": [
               1
             ]
@@ -11163,18 +11192,29 @@
             "price": 14.5,
             "date": "2016-09-30",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/LE?period1=0&period2=1791726699&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/LE?period1=0&period2=1791827737&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "BAC",
+            "cusip": "060505104",
+            "filedPrice": 15.650217750027288,
+            "price": 15.649999618530273,
+            "date": "2016-09-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/BAC?period1=0&period2=1791827660&interval=1d&events=splits",
             "candidates": [
               1
             ]
           }
         ],
-        "errors": [],
         "normalizedHash": "17549ccfe8a8ac21cd4d5cbdba55ed46b9d4ecf51c7fac9860dc449c1f6de942"
       },
       "2017 Q4": {
         "version": 1,
-        "checkedAt": "2026-10-10",
+        "checkedAt": "2026-10-11",
         "source": "https://www.sec.gov/Archives/edgar/data/1056831/000091957418001841/infotable.xml",
         "filingDate": "2018-02-15",
         "sourceDigest": "8f7acec1ea5b29bc84a713b407c6f21896e867e6ce3d9fb3c229fa27a7ddad56",
@@ -11188,7 +11228,7 @@
             "price": 18.049999237060547,
             "date": "2017-12-29",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/JOE?period1=0&period2=1791726678&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/JOE?period1=0&period2=1791827733&interval=1d&events=splits",
             "candidates": [
               1
             ]
@@ -11200,7 +11240,7 @@
             "price": 40.459999084472656,
             "date": "2017-12-29",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/SRG?period1=0&period2=1791726717&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/SRG?period1=0&period2=1791827652&interval=1d&events=splits",
             "candidates": [
               1
             ]
@@ -13365,7 +13405,7 @@
       },
       "2017 Q3": {
         "version": 1,
-        "checkedAt": "2026-10-10",
+        "checkedAt": "2026-10-11",
         "source": "https://www.sec.gov/Archives/edgar/data/1056831/000091957417008128/infotable.xml",
         "filingDate": "2017-11-14",
         "sourceDigest": "bc8072035dff4971eb5668907537907a626b3ac1846e28b743cd10bc15be0aa7",
@@ -13379,7 +13419,7 @@
             "price": 18.850000381469727,
             "date": "2017-09-29",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/JOE?period1=0&period2=1791726678&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/JOE?period1=0&period2=1791827733&interval=1d&events=splits",
             "candidates": [
               1
             ]
@@ -13391,7 +13431,7 @@
             "price": 46.06999969482422,
             "date": "2017-09-29",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/SRG?period1=0&period2=1791726717&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/SRG?period1=0&period2=1791827652&interval=1d&events=splits",
             "candidates": [
               1
             ]
