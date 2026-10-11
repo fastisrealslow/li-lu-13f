@@ -13,7 +13,7 @@ EXTRA_FILES = (
     "metadata_cache.json", "alerts_hk_persons.json", "spinoff.json", "spinoff_us.json",
     "run_status.json", "homework_summary.json", "value_screen.json",
 )
-OPTIONAL_FILES = ("resolved_cusip_map.json", "ai_supplement.json")
+OPTIONAL_FILES = ("resolved_cusip_map.json", "ai_supplement.json", "personal_portfolio.json")
 
 
 def read_json(path):
@@ -128,6 +128,9 @@ def validate(root):
     for name, role in roles.items():
         try:
             value = read_json(root / name)
+            if name == 'personal_portfolio.json':
+                from magic_formula import validate_dataset
+                validate_dataset(value)
             if name == 'ai_supplement.json':
                 from ai_supplement import tasks, valid_entry
                 for task in tasks(root):

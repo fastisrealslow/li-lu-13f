@@ -1,0 +1,56 @@
+name: Update Personal Portfolio
+
+on:
+  schedule:
+    - cron: '35 0,13 * * *' # 08:35 / 21:35 Asia/Shanghai
+  workflow_dispatch:
+  push:
+    branches: [master]
+    paths:
+      - .github/workflows/personal-portfolio.yml
+      - update_personal_portfolio.py
+      - personal_reports.py
+      - magic_formula.py
+      - personal_report_profiles.json
+      - tests/test_magic_formula.py
+
+permissions:
+  contents: write
+
+concurrency:
+  group: personal-portfolio-master
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install report readers
+        run: pip install pymupdf==1.28.2 beautifulsoup4==4.15.0 pdfminer.six==20260107
+      - uses: actions/cache@v4
+        with:
+          path: .cache/personal-reports
+          key: personal-reports-v1-${{ github.run_id }}
+          restore-keys: personal-reports-v1-
+      - name: Test financial calculations and report extraction
+        run: python -m unittest discover -s tests -p test_magic_formula.py -v
+      - name: Discover reports, verify inputs, update prices and recalculate
+        run: python update_personal_portfolio.py --verify-reports
+      - name: Validate personal data before publishing
+        run: |
+          python -c "import json; from magic_formula import validate_dataset; validate_dataset(json.load(open('personal_portfolio.json')))"
+          node --test tests/personal_portfolio.cjs
+      - name: Commit updated portfolio
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add personal_portfolio.json personal_report_profiles.json
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m 'Refresh report-backed personal portfolio calculations'
+          git pull --rebase origin master
+          git push origin master

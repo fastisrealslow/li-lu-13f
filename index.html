@@ -374,6 +374,7 @@ th .info-wrap{position:relative;display:inline-flex}
 </style>
 <link rel="stylesheet" href="spinoff_ui.css?v=11">
 <link rel="stylesheet" href="theme.css?v=5">
+<link rel="stylesheet" href="personal_portfolio.css?v=1">
 </head>
 <body>
 
@@ -445,6 +446,7 @@ th .info-wrap{position:relative;display:inline-flex}
       <button class="tab-btn" onclick="switchTab('spinoff')" style="position:relative;"><span data-i18n="tabSpinoff">港股分拆</span></button>
       <button class="tab-btn" onclick="switchTab('spinoff_us')" style="position:relative;"><span data-i18n="tabSpinoffUS">美股分拆</span></button>
       <button class="tab-btn" onclick="switchTab('game')" style="position:relative;"><span data-i18n="tabGame">思维试炼</span></button>
+      <button class="tab-btn" onclick="switchTab('personal')"><span data-i18n="tabPersonal">我的持仓</span></button>
     </div>
     </div>
     <div id="tab-current">
@@ -478,6 +480,7 @@ th .info-wrap{position:relative;display:inline-flex}
     <div id="tab-game" class="d-none">
       <div id="gameContent"></div>
     </div>
+    <div id="tab-personal" class="d-none"><div id="personalContent" aria-live="polite"></div></div>
     <div id="tab-history" class="d-none">
       <!-- 桌面折线图 -->
       <div class="chart-wrap"><canvas id="historyChart"></canvas></div>
@@ -589,7 +592,8 @@ th .info-wrap{position:relative;display:inline-flex}
   </div>
 </footer>
 
-<script src="app.js?v=77"></script>
+<script src="app.js?v=78"></script>
+<script src="personal_portfolio.js?v=1"></script>
 <script src="spinoff_ui.js?v=14"></script>
 <script>
 function toggleNavigation(){
@@ -598,7 +602,7 @@ function toggleNavigation(){
 }
 const nav=document.getElementById('mainNav');
 window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',window.scrollY>60));
-document.querySelectorAll('.nav-links a').forEach(a=>a.addEventListener('click',()=>{ if(document.body.classList.contains('spin-research')) switchTab('current'); document.getElementById('navLinks').classList.remove('open'); document.getElementById('hamburger').setAttribute('aria-expanded','false'); }));
+document.querySelectorAll('.nav-links a').forEach(a=>a.addEventListener('click',()=>{ if(document.body.classList.contains('spin-research') || document.body.classList.contains('personal-research')) switchTab('current'); document.getElementById('navLinks').classList.remove('open'); document.getElementById('hamburger').setAttribute('aria-expanded','false'); }));
 // Tab 栏滞动渐隐效果
 (function(){
   const wrap=document.getElementById('tabsWrap');

@@ -17,6 +17,7 @@ const T = {
   tabSpinoff:  ['港股分拆','HK Spin-offs'],
   tabSpinoffUS: ['美股分拆','US Spin-offs'],
   tabGame: ['思维试炼','Munger Trials'],
+  tabPersonal: ['我的持仓','My Holdings'],
   selLabel: ['研究对象','Investor'],
   tabTimeline: ['⏳ 时间轴','⏳ Timeline'],
   // Table headers
@@ -467,6 +468,7 @@ function switchLang() {
   updateInvestorContent();
   renderTimelineTable();
   if (_runStatusData) updateStatusDot(_runStatusData);
+  if (!document.getElementById('tab-personal')?.classList.contains('d-none') && typeof renderPersonalPortfolio === 'function') renderPersonalPortfolio();
   _homeworkCache = null;
   if (!document.getElementById('tab-homework').classList.contains('d-none')) renderHomework();
   if (!document.getElementById('tab-spinoff').classList.contains('d-none')) renderSpinoff();
@@ -563,6 +565,10 @@ async function refreshLive() {
   btn.disabled = true;
   btn.textContent = lang === 'en' ? '⏳ Refreshing…' : '⏳ 刷新中…';
   try {
+    if (document.body?.classList?.contains?.('personal-research') && typeof renderPersonalPortfolio === 'function') {
+      await renderPersonalPortfolio(true);
+      return;
+    }
     if (!INVESTORS.length && !await loadInvestorConfig({fresh:true, signal:ctrl.signal})) {
       document.getElementById('dataSource').textContent = lang === 'en' ? 'Investor list unavailable; tap Refresh to retry.' : '投资人列表暂不可用，点击刷新可重试。';
       return;
@@ -1789,12 +1795,13 @@ function renderHKDisclosures() {
 }
 
 function switchTab(name) {
+  document.body?.classList?.toggle('personal-research', name === 'personal');
   document.body?.classList?.toggle('spin-research', ['spinoff','spinoff_us'].includes(name));
-  ['current','changes','history','homework','spinoff','spinoff_us','game'].forEach(t=>{
+  ['current','changes','history','homework','spinoff','spinoff_us','game','personal'].forEach(t=>{
     document.getElementById('tab-'+t).classList.toggle('d-none',t!==name);
   });
   document.querySelectorAll('.tab-btn').forEach((b,i)=>{
-    b.classList.toggle('active',['current','changes','history','homework','spinoff','spinoff_us','game'][i]===name);
+    b.classList.toggle('active',['current','changes','history','homework','spinoff','spinoff_us','game','personal'][i]===name);
   });
   if (name==='changes') { renderChanges(); renderInsights(); }
   if (name==='history') { renderHistoryChart(); renderTimelineTable(); }
@@ -1802,6 +1809,7 @@ function switchTab(name) {
   if (name==='spinoff') { renderSpinoff(); }
   if (name==='spinoff_us') { renderSpinoffUS(); }
   if (name==='game') { renderGame(); }
+  if (name==='personal' && typeof renderPersonalPortfolio === 'function') renderPersonalPortfolio();
   renderInsights();
 }
 
