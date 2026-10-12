@@ -5,7 +5,7 @@
     "notablePeople": [
       "Warren Buffett"
     ],
-    "lastUpdated": "2026-10-12T05:02:59Z",
+    "lastUpdated": "2026-10-12T21:28:31Z",
     "aiSummary": "巴菲特本季度大幅增持谷歌并新增美国银行等仓位，同时减持部分消费股，显示其继续聚焦优质科技龙头与稳健金融板块。",
     "aiSummaryQuarter": "2026 Q2",
     "instrumentHistoryTickers": [
@@ -21466,7 +21466,7 @@
           "value": 20670100,
           "shareType": "SH",
           "putCall": "",
-          "sector": "其他",
+          "sector": "ETF",
           "cnName": "Vanguard S&P 500 ETF",
           "prevShares": 43000,
           "prevValue": 18782400
@@ -21480,7 +21480,7 @@
           "value": 20608958,
           "shareType": "SH",
           "putCall": "",
-          "sector": "其他",
+          "sector": "ETF",
           "cnName": "State Street SPDR S&P 500 ETF Trust",
           "prevShares": 39400,
           "prevValue": 18727214
@@ -22046,7 +22046,7 @@
           "value": 21505590,
           "shareType": "SH",
           "putCall": "",
-          "sector": "其他",
+          "sector": "ETF",
           "cnName": "Vanguard S&P 500 ETF",
           "prevShares": 43000,
           "prevValue": 20670100
@@ -22060,7 +22060,7 @@
           "value": 21442268,
           "shareType": "SH",
           "putCall": "",
-          "sector": "其他",
+          "sector": "ETF",
           "cnName": "State Street SPDR S&P 500 ETF Trust",
           "prevShares": 39400,
           "prevValue": 20608958
@@ -22601,7 +22601,7 @@
           "value": 22689810,
           "shareType": "SH",
           "putCall": "",
-          "sector": "其他",
+          "sector": "ETF",
           "cnName": "Vanguard S&P 500 ETF",
           "prevShares": 43000,
           "prevValue": 21505590
@@ -22615,7 +22615,7 @@
           "value": 22606144,
           "shareType": "SH",
           "putCall": "",
-          "sector": "其他",
+          "sector": "ETF",
           "cnName": "State Street SPDR S&P 500 ETF Trust",
           "prevShares": 39400,
           "prevValue": 21442268
@@ -26230,7 +26230,7 @@
       ]
     },
     "coverage": {
-      "checkedAt": "2026-10-12T05:02:59Z",
+      "checkedAt": "2026-10-12T21:28:31Z",
       "missingQuarters": [],
       "repairedThisRun": [],
       "errors": {},
@@ -26572,7 +26572,7 @@
     "instrumentVerification": {
       "pendingQuarters": [],
       "errors": {},
-      "checkedAt": "2026-10-12T05:02:59.117553+00:00"
+      "checkedAt": "2026-10-12T21:28:31.525734+00:00"
     },
     "valueAudit": {
       "2026 Q2": {
@@ -28764,6 +28764,444 @@
           }
         ],
         "normalizedHash": "cd377fca7ecd11279c36d31d1ecd71910acb48512cf1cb95ee46658ede612522"
+      },
+      "2023 Q3": {
+        "version": 1,
+        "checkedAt": "2026-10-12",
+        "source": "https://www.sec.gov/Archives/edgar/data/1067983/000095012323010898/27893.xml",
+        "filingDate": "2023-11-14",
+        "sourceDigest": "04fec198f3c8f9f258980db79e22c2e1f8f022491fdfe2ef63402c5c955f0f86",
+        "sourceHash": "552b20e5790e5ff0c17e0d6a893cf549cf78a18639c863b609cbae6aae0d4050",
+        "status": "verified",
+        "factor": 1,
+        "anchors": [
+          {
+            "ticker": "BAC",
+            "cusip": "060505104",
+            "filedPrice": 27.379999999728906,
+            "price": 27.3799991607666,
+            "date": "2023-09-29",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/BAC?period1=0&period2=1791926931&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "AAPL",
+            "cusip": "037833100",
+            "filedPrice": 171.2099999997597,
+            "price": 171.2100067138672,
+            "date": "2023-09-29",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/AAPL?period1=0&period2=1791926927&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "KO",
+            "cusip": "191216100",
+            "filedPrice": 55.98,
+            "price": 55.97999954223633,
+            "date": "2023-09-29",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/KO?period1=0&period2=1791926932&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "KHC",
+            "cusip": "500754106",
+            "filedPrice": 33.64000000147404,
+            "price": 33.63999938964844,
+            "date": "2023-09-29",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/KHC?period1=0&period2=1791926932&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "OXY",
+            "cusip": "674599105",
+            "filedPrice": 64.88000000017847,
+            "price": 64.87999725341797,
+            "date": "2023-09-29",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/OXY?period1=0&period2=1791926929&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          }
+        ],
+        "normalizedHash": "552b20e5790e5ff0c17e0d6a893cf549cf78a18639c863b609cbae6aae0d4050"
+      },
+      "2023 Q4": {
+        "version": 1,
+        "checkedAt": "2026-10-12",
+        "source": "https://www.sec.gov/Archives/edgar/data/1067983/000095012324002518/30197.xml",
+        "filingDate": "2024-02-14",
+        "sourceDigest": "03a8214f6dacf90c0b6f51e7f34cb88eaa45c4592d0bf08b0b2d3901c830fb3e",
+        "sourceHash": "5fbe96d64bbb277750db3c9abf959f3b2a36fcb2f207a220a9939ac29182dbda",
+        "status": "verified",
+        "factor": 1,
+        "anchors": [
+          {
+            "ticker": "BAC",
+            "cusip": "060505104",
+            "filedPrice": 33.66999999998064,
+            "price": 33.66999816894531,
+            "date": "2023-12-29",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/BAC?period1=0&period2=1791926931&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "AAPL",
+            "cusip": "037833100",
+            "filedPrice": 192.53,
+            "price": 192.52999877929688,
+            "date": "2023-12-29",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/AAPL?period1=0&period2=1791926927&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "KO",
+            "cusip": "191216100",
+            "filedPrice": 58.93,
+            "price": 58.93000030517578,
+            "date": "2023-12-29",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/KO?period1=0&period2=1791926932&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "KHC",
+            "cusip": "500754106",
+            "filedPrice": 36.98000000110553,
+            "price": 36.97999954223633,
+            "date": "2023-12-29",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/KHC?period1=0&period2=1791926932&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "OXY",
+            "cusip": "674599105",
+            "filedPrice": 59.7100000006565,
+            "price": 59.709999084472656,
+            "date": "2023-12-29",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/OXY?period1=0&period2=1791926929&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          }
+        ],
+        "normalizedHash": "5fbe96d64bbb277750db3c9abf959f3b2a36fcb2f207a220a9939ac29182dbda"
+      },
+      "2024 Q1": {
+        "version": 1,
+        "checkedAt": "2026-10-12",
+        "source": "https://www.sec.gov/Archives/edgar/data/1067983/000095012324005622/32398.xml",
+        "filingDate": "2024-05-15",
+        "sourceDigest": "b1a26b86be4a1348cbcd9da0119374280a229600e3787668a235e5886e3a2789",
+        "sourceHash": "2c23d8b8a6a8be608275903695b4fb8221eaa498290a7fadb5fef0a5e413465d",
+        "status": "verified",
+        "factor": 1,
+        "anchors": [
+          {
+            "ticker": "BAC",
+            "cusip": "060505104",
+            "filedPrice": 37.92000000046473,
+            "price": 37.91999816894531,
+            "date": "2024-03-28",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/BAC?period1=0&period2=1791926931&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "AAPL",
+            "cusip": "037833100",
+            "filedPrice": 171.47999999873318,
+            "price": 171.47999572753906,
+            "date": "2024-03-28",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/AAPL?period1=0&period2=1791926927&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "KO",
+            "cusip": "191216100",
+            "filedPrice": 61.18,
+            "price": 61.18000030517578,
+            "date": "2024-03-28",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/KO?period1=0&period2=1791926932&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "KHC",
+            "cusip": "500754106",
+            "filedPrice": 36.89999999938581,
+            "price": 36.900001525878906,
+            "date": "2024-03-28",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/KHC?period1=0&period2=1791926932&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "OXY",
+            "cusip": "674599105",
+            "filedPrice": 64.99000000112895,
+            "price": 64.98999786376953,
+            "date": "2024-03-28",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/OXY?period1=0&period2=1791926929&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          }
+        ],
+        "normalizedHash": "2c23d8b8a6a8be608275903695b4fb8221eaa498290a7fadb5fef0a5e413465d"
+      },
+      "2024 Q2": {
+        "version": 1,
+        "checkedAt": "2026-10-12",
+        "source": "https://www.sec.gov/Archives/edgar/data/1067983/000095012324008740/34725.xml",
+        "filingDate": "2024-08-14",
+        "sourceDigest": "efcabc8d0e319cc50abb6f8471bdce5722f3009911bd7de6c699a376ccbeab6a",
+        "sourceHash": "30b27e504db4a965c24440d592fe87e97fc4b8b128a040b3e01404d315a63bfa",
+        "status": "verified",
+        "factor": 1,
+        "anchors": [
+          {
+            "ticker": "BAC",
+            "cusip": "060505104",
+            "filedPrice": 39.770000000367915,
+            "price": 39.77000045776367,
+            "date": "2024-06-28",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/BAC?period1=0&period2=1791926931&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "AAPL",
+            "cusip": "037833100",
+            "filedPrice": 210.62,
+            "price": 210.6199951171875,
+            "date": "2024-06-28",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/AAPL?period1=0&period2=1791926927&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "KO",
+            "cusip": "191216100",
+            "filedPrice": 63.65,
+            "price": 63.650001525878906,
+            "date": "2024-06-28",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/KO?period1=0&period2=1791926932&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "KHC",
+            "cusip": "500754106",
+            "filedPrice": 32.22000000012284,
+            "price": 32.220001220703125,
+            "date": "2024-06-28",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/KHC?period1=0&period2=1791926932&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "OXY",
+            "cusip": "674599105",
+            "filedPrice": 63.03000000109683,
+            "price": 63.029998779296875,
+            "date": "2024-06-28",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/OXY?period1=0&period2=1791926929&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          }
+        ],
+        "normalizedHash": "30b27e504db4a965c24440d592fe87e97fc4b8b128a040b3e01404d315a63bfa"
+      },
+      "2024 Q3": {
+        "version": 1,
+        "checkedAt": "2026-10-12",
+        "source": "https://www.sec.gov/Archives/edgar/data/1067983/000095012324011775/36917.xml",
+        "filingDate": "2024-11-14",
+        "sourceDigest": "90190a5e83e7957e350542172aa08396ee311b8a0ac97bf454a2a7a1d98789e7",
+        "sourceHash": "2dab9ebf6b0d398236b9a0bf453d60403f4b76d5e944163e56965e68ed79e6c4",
+        "status": "verified",
+        "factor": 1,
+        "anchors": [
+          {
+            "ticker": "BAC",
+            "cusip": "060505104",
+            "filedPrice": 39.68000000030087,
+            "price": 39.68000030517578,
+            "date": "2024-09-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/BAC?period1=0&period2=1791926931&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "KO",
+            "cusip": "191216100",
+            "filedPrice": 71.86,
+            "price": 71.86000061035156,
+            "date": "2024-09-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/KO?period1=0&period2=1791926932&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "KHC",
+            "cusip": "500754106",
+            "filedPrice": 35.11000000006142,
+            "price": 35.11000061035156,
+            "date": "2024-09-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/KHC?period1=0&period2=1791926932&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "AAPL",
+            "cusip": "037833100",
+            "filedPrice": 233.0,
+            "price": 233.0,
+            "date": "2024-09-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/AAPL?period1=0&period2=1791926927&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "OXY",
+            "cusip": "674599105",
+            "filedPrice": 51.54000000015669,
+            "price": 51.540000915527344,
+            "date": "2024-09-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/OXY?period1=0&period2=1791926929&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          }
+        ],
+        "normalizedHash": "2dab9ebf6b0d398236b9a0bf453d60403f4b76d5e944163e56965e68ed79e6c4"
+      },
+      "2024 Q4": {
+        "version": 1,
+        "checkedAt": "2026-10-12",
+        "source": "https://www.sec.gov/Archives/edgar/data/1067983/000095012325002701/39042.xml",
+        "filingDate": "2025-02-14",
+        "sourceDigest": "ea425f619170a938f1fa7762fde3ac10ea3c602415188b920973c6e5e81cc18d",
+        "sourceHash": "16f55a18730fd1b0f07af1dececc5773e464d3d98b0b28359a9292e28d4acfbd",
+        "status": "verified",
+        "factor": 1,
+        "anchors": [
+          {
+            "ticker": "BAC",
+            "cusip": "060505104",
+            "filedPrice": 43.95000000051453,
+            "price": 43.95000076293945,
+            "date": "2024-12-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/BAC?period1=0&period2=1791926931&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "KO",
+            "cusip": "191216100",
+            "filedPrice": 62.26,
+            "price": 62.2599983215332,
+            "date": "2024-12-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/KO?period1=0&period2=1791926932&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "KHC",
+            "cusip": "500754106",
+            "filedPrice": 30.710000000675603,
+            "price": 30.709999084472656,
+            "date": "2024-12-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/KHC?period1=0&period2=1791926932&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "AAPL",
+            "cusip": "037833100",
+            "filedPrice": 250.42,
+            "price": 250.4199981689453,
+            "date": "2024-12-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/AAPL?period1=0&period2=1791926927&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "OXY",
+            "cusip": "674599105",
+            "filedPrice": 49.41000000098418,
+            "price": 49.40999984741211,
+            "date": "2024-12-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/OXY?period1=0&period2=1791926929&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          }
+        ],
+        "normalizedHash": "16f55a18730fd1b0f07af1dececc5773e464d3d98b0b28359a9292e28d4acfbd"
       }
     },
     "excludedValueQuarters": []

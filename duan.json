@@ -5,7 +5,7 @@
     "notablePeople": [
       "Duan Yongping"
     ],
-    "lastUpdated": "2026-10-12T05:02:56Z",
+    "lastUpdated": "2026-10-12T21:28:29Z",
     "aiSummary": "段永平 2026 年二季度新增阿里、增持拼多与迪士尼，同时大幅减持英伟达、谷歌及微软，显示其持续聚焦中国资产并调整科技股持仓结构。",
     "aiSummaryQuarter": "2026 Q2",
     "shareActions": [
@@ -5346,7 +5346,7 @@
       ]
     },
     "coverage": {
-      "checkedAt": "2026-10-12T05:02:56Z",
+      "checkedAt": "2026-10-12T21:28:29Z",
       "missingQuarters": [],
       "repairedThisRun": [],
       "errors": {},
@@ -7726,8 +7726,82 @@
           }
         ],
         "normalizedHash": "3c5e306a51eeba5f23036e31339b35d4616ccc27e7d16835099066546ce4ad6a"
+      },
+      "2026 Q1": {
+        "version": 1,
+        "checkedAt": "2026-10-12",
+        "source": "https://www.sec.gov/Archives/edgar/data/1759760/000175976026000005/infotable.xml",
+        "filingDate": "2026-05-19",
+        "sourceDigest": "aecb4c6dc16204bd974c0e586f4deaf83f98eb63b5ac5c592a51fa779269004f",
+        "sourceHash": "783d1090f273383da5f7605890e4ce8b081296b23b422b32eec8a094204e4680",
+        "status": "verified",
+        "factor": 1,
+        "anchors": [
+          {
+            "ticker": "AAPL",
+            "cusip": "037833100",
+            "filedPrice": 253.79000001623734,
+            "price": 253.7899932861328,
+            "date": "2026-03-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/AAPL?period1=0&period2=1791926927&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "PDD",
+            "cusip": "722304102",
+            "filedPrice": 102.18000000405098,
+            "price": 102.18000030517578,
+            "date": "2026-03-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/PDD?period1=0&period2=1791926928&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "NVDA",
+            "cusip": "67066G104",
+            "filedPrice": 174.4,
+            "price": 174.39999389648438,
+            "date": "2026-03-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/NVDA?period1=0&period2=1791926928&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "OXY",
+            "cusip": "674599105",
+            "filedPrice": 65.0,
+            "price": 65.0,
+            "date": "2026-03-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/OXY?period1=0&period2=1791926929&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "BRK/B",
+            "cusip": "084670702",
+            "filedPrice": 479.1999999781368,
+            "price": 479.20001220703125,
+            "date": "2026-03-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/BRK-B?period1=0&period2=1791926930&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          }
+        ],
+        "normalizedHash": "783d1090f273383da5f7605890e4ce8b081296b23b422b32eec8a094204e4680"
       }
     },
-    "excludedValueQuarters": []
+    "excludedValueQuarters": [],
+    "restatementChecks": {}
   }
 }

@@ -5,7 +5,7 @@
     "notablePeople": [
       "Rob Vinall"
     ],
-    "lastUpdated": "2026-10-12T05:03:10Z",
+    "lastUpdated": "2026-10-12T21:28:41Z",
     "shareActions": [
       {
         "ticker": "GOOGL",
@@ -3713,7 +3713,7 @@
       ]
     },
     "coverage": {
-      "checkedAt": "2026-10-12T05:03:10Z",
+      "checkedAt": "2026-10-12T21:28:41Z",
       "missingQuarters": [],
       "repairedThisRun": [],
       "errors": {},
@@ -6066,6 +6066,79 @@
           }
         ],
         "normalizedHash": "551b1a7dcc9ce42951325f6c075cade9593e78ee88b84b082e84c87e2747a725"
+      },
+      "2026 Q1": {
+        "version": 1,
+        "checkedAt": "2026-10-12",
+        "source": "https://www.sec.gov/Archives/edgar/data/1766596/000176659626000005/information_table.xml",
+        "filingDate": "2026-05-11",
+        "sourceDigest": "3b6b34f5b524c0d2ff7078064ad0fa8b495d71b0df825b6959b801f5f5b0fd48",
+        "sourceHash": "fef7c81f483a5a0c1545758bd07119805dba8cbef0cf4242d45fd19ea8761470",
+        "status": "verified",
+        "factor": 1,
+        "anchors": [
+          {
+            "ticker": "IBKR",
+            "cusip": "45841N107",
+            "filedPrice": 67.43626561677435,
+            "price": 67.06999969482422,
+            "date": "2026-03-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/IBKR?period1=0&period2=1791926972&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "HTHT",
+            "cusip": "44332N106",
+            "filedPrice": 50.289999641820984,
+            "price": 50.290000915527344,
+            "date": "2026-03-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/HTHT?period1=0&period2=1791926973&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "YUMC",
+            "cusip": "98850P109",
+            "filedPrice": 48.78000137591065,
+            "price": 48.779998779296875,
+            "date": "2026-03-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/YUMC?period1=0&period2=1791926967&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "CVNA",
+            "cusip": "146869102",
+            "filedPrice": 314.9190003657586,
+            "price": 314.37999725341797,
+            "date": "2026-03-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/CVNA?period1=0&period2=1791926973&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "META",
+            "cusip": "30303M102",
+            "filedPrice": 572.4649703849273,
+            "price": 572.1300048828125,
+            "date": "2026-03-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/META?period1=0&period2=1791926973&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          }
+        ],
+        "normalizedHash": "fef7c81f483a5a0c1545758bd07119805dba8cbef0cf4242d45fd19ea8761470"
       }
     },
     "excludedValueQuarters": []
