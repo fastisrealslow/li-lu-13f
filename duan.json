@@ -5,7 +5,7 @@
     "notablePeople": [
       "Duan Yongping"
     ],
-    "lastUpdated": "2026-10-11T17:53:36Z",
+    "lastUpdated": "2026-10-12T02:50:19Z",
     "aiSummary": "段永平 2026 年二季度新增阿里、增持拼多与迪士尼，同时大幅减持英伟达、谷歌及微软，显示其持续聚焦中国资产并调整科技股持仓结构。",
     "aiSummaryQuarter": "2026 Q2",
     "shareActions": [
@@ -3022,13 +3022,13 @@
           "sector": "互联网",
           "prevShares": 4406000,
           "prevValue": 481895000,
+          "cnName": "谷歌C",
           "shareAdjustment": {
             "factor": 20,
             "date": "2022-07-15",
             "source": "https://www.sec.gov/Archives/edgar/data/1652044/000165204422000071/goog-20220630.htm",
             "reportedShares": 220300
-          },
-          "cnName": "谷歌C"
+          }
         },
         {
           "ticker": "BABA",
@@ -3220,30 +3220,39 @@
           "ticker": "AAPL",
           "name": "APPLE INC",
           "cls": "COM",
+          "cusip": "037833100",
           "shares": 63262874,
           "value": 10432047923,
+          "shareType": "SH",
+          "putCall": "",
           "sector": "科技",
           "prevShares": 61232700,
           "prevValue": 7955965000,
           "cnName": "苹果"
         },
         {
-          "ticker": "BRK.B",
+          "ticker": "BRK/B",
           "name": "BERKSHIRE HATHAWAY INC DEL",
           "cls": "CL B NEW",
+          "cusip": "084670702",
           "shares": 5686465,
           "value": 1755809798,
-          "sector": "综合金融",
+          "shareType": "SH",
+          "putCall": "",
+          "sector": "其他",
           "prevShares": 6294465,
           "prevValue": 1944360000,
-          "cnName": "伯克希尔·哈撒韦B"
+          "cnName": "伯克希尔哈撒韦 B 类"
         },
         {
           "ticker": "GOOG",
           "name": "ALPHABET INC",
           "cls": "CAP STK CL C",
+          "cusip": "02079K107",
           "shares": 6085400,
           "value": 632881600,
+          "shareType": "SH",
+          "putCall": "",
           "sector": "互联网",
           "prevShares": 5975200,
           "prevValue": 530179500,
@@ -3253,8 +3262,11 @@
           "ticker": "BABA",
           "name": "ALIBABA GROUP HLDG LTD",
           "cls": "SPONSORED ADS",
+          "cusip": "01609W102",
           "shares": 3117100,
           "value": 318505278,
+          "shareType": "SH",
+          "putCall": "",
           "sector": "电商",
           "prevShares": 3104400,
           "prevValue": 273466600,
@@ -3264,8 +3276,11 @@
           "ticker": "DIS",
           "name": "DISNEY WALT CO",
           "cls": "COM",
+          "cusip": "254687106",
           "shares": 926800,
           "value": 92800484,
+          "shareType": "SH",
+          "putCall": "",
           "sector": "娱乐",
           "prevShares": 926800,
           "prevValue": 80520380,
@@ -3275,39 +3290,53 @@
           "ticker": "OXY",
           "name": "OCCIDENTAL PETE CORP",
           "cls": "COM",
+          "cusip": "674599105",
           "shares": 399600,
           "value": 24947028,
+          "shareType": "SH",
+          "putCall": "",
           "sector": "能源",
           "prevShares": 0,
           "prevValue": 0,
           "cnName": "西方石油"
         },
         {
-          "ticker": "?MODERNA INC",
+          "ticker": "MRNA",
           "name": "MODERNA INC",
           "cls": "COM",
+          "cusip": "60770K107",
           "shares": 150000,
           "value": 23037000,
-          "sector": "其他",
+          "shareType": "SH",
+          "putCall": "",
+          "sector": "医药",
           "prevShares": 160000,
-          "prevValue": 28739200
+          "prevValue": 28739200,
+          "cnName": "Moderna, Inc."
         },
         {
-          "ticker": "YY",
+          "ticker": "JOYY",
           "name": "JOYY INC",
           "cls": "ADS REPSTG COM A",
+          "cusip": "46591M109",
           "shares": 302500,
           "value": 9431950,
-          "sector": "社交",
-          "prevShares": 0,
-          "prevValue": 0
+          "shareType": "SH",
+          "putCall": "",
+          "sector": "传媒",
+          "prevShares": 302500,
+          "prevValue": 9555975,
+          "cnName": "欢聚集团"
         },
         {
           "ticker": "NTES",
           "name": "NETEASE INC",
           "cls": "SPONSORED ADS",
+          "cusip": "64110W102",
           "shares": 100000,
           "value": 8844000,
+          "shareType": "SH",
+          "putCall": "",
           "sector": "游戏",
           "prevShares": 0,
           "prevValue": 0,
@@ -3319,30 +3348,39 @@
           "ticker": "AAPL",
           "name": "APPLE INC",
           "cls": "COM",
+          "cusip": "037833100",
           "shares": 60633974,
           "value": 11761171937,
+          "shareType": "SH",
+          "putCall": "",
           "sector": "科技",
           "prevShares": 63262874,
           "prevValue": 10432047923,
           "cnName": "苹果"
         },
         {
-          "ticker": "BRK.B",
+          "ticker": "BRK/B",
           "name": "BERKSHIRE HATHAWAY INC DEL",
           "cls": "CL B NEW",
+          "cusip": "084670702",
           "shares": 5664465,
           "value": 1931582565,
-          "sector": "综合金融",
+          "shareType": "SH",
+          "putCall": "",
+          "sector": "其他",
           "prevShares": 5686465,
           "prevValue": 1755809798,
-          "cnName": "伯克希尔·哈撒韦B"
+          "cnName": "伯克希尔哈撒韦 B 类"
         },
         {
           "ticker": "GOOG",
           "name": "ALPHABET INC",
           "cls": "CAP STK CL C",
+          "cusip": "02079K107",
           "shares": 5575900,
           "value": 674516623,
+          "shareType": "SH",
+          "putCall": "",
           "sector": "互联网",
           "prevShares": 6085400,
           "prevValue": 632881600,
@@ -3352,8 +3390,11 @@
           "ticker": "BABA",
           "name": "ALIBABA GROUP HLDG LTD",
           "cls": "SPONSORED ADS",
+          "cusip": "01609W102",
           "shares": 3507600,
           "value": 292358460,
+          "shareType": "SH",
+          "putCall": "",
           "sector": "电商",
           "prevShares": 3117100,
           "prevValue": 318505278,
@@ -3363,43 +3404,57 @@
           "ticker": "DIS",
           "name": "DISNEY WALT CO",
           "cls": "COM",
+          "cusip": "254687106",
           "shares": 926800,
           "value": 82744704,
+          "shareType": "SH",
+          "putCall": "",
           "sector": "娱乐",
           "prevShares": 926800,
           "prevValue": 92800484,
           "cnName": "迪士尼"
         },
         {
-          "ticker": "?MODERNA INC",
+          "ticker": "MRNA",
           "name": "MODERNA INC",
           "cls": "COM",
+          "cusip": "60770K107",
           "shares": 140000,
           "value": 17010000,
-          "sector": "其他",
+          "shareType": "SH",
+          "putCall": "",
+          "sector": "医药",
           "prevShares": 150000,
-          "prevValue": 23037000
+          "prevValue": 23037000,
+          "cnName": "Moderna, Inc."
         },
         {
           "ticker": "OXY",
           "name": "OCCIDENTAL PETE CORP",
           "cls": "COM",
+          "cusip": "674599105",
           "shares": 199900,
           "value": 11754120,
+          "shareType": "SH",
+          "putCall": "",
           "sector": "能源",
           "prevShares": 399600,
           "prevValue": 24947028,
           "cnName": "西方石油"
         },
         {
-          "ticker": "YY",
+          "ticker": "JOYY",
           "name": "JOYY INC",
           "cls": "ADS REPSTG COM A",
+          "cusip": "46591M109",
           "shares": 302500,
           "value": 9289775,
-          "sector": "社交",
+          "shareType": "SH",
+          "putCall": "",
+          "sector": "传媒",
           "prevShares": 302500,
-          "prevValue": 9431950
+          "prevValue": 9431950,
+          "cnName": "欢聚集团"
         }
       ],
       "2023 Q3": [
@@ -3407,30 +3462,39 @@
           "ticker": "AAPL",
           "name": "APPLE INC",
           "cls": "COM",
+          "cusip": "037833100",
           "shares": 61019951,
           "value": 10447225811,
+          "shareType": "SH",
+          "putCall": "",
           "sector": "科技",
           "prevShares": 60633974,
           "prevValue": 11761171937,
           "cnName": "苹果"
         },
         {
-          "ticker": "BRK.B",
+          "ticker": "BRK/B",
           "name": "BERKSHIRE HATHAWAY INC DEL",
           "cls": "CL B NEW",
+          "cusip": "084670702",
           "shares": 5006102,
           "value": 1753637531,
-          "sector": "综合金融",
+          "shareType": "SH",
+          "putCall": "",
+          "sector": "其他",
           "prevShares": 5664465,
           "prevValue": 1931582565,
-          "cnName": "伯克希尔·哈撒韦B"
+          "cnName": "伯克希尔哈撒韦 B 类"
         },
         {
           "ticker": "GOOG",
           "name": "ALPHABET INC",
           "cls": "CAP STK CL C",
+          "cusip": "02079K107",
           "shares": 5376100,
           "value": 708838785,
+          "shareType": "SH",
+          "putCall": "",
           "sector": "互联网",
           "prevShares": 5575900,
           "prevValue": 674516623,
@@ -3440,8 +3504,11 @@
           "ticker": "BABA",
           "name": "ALIBABA GROUP HLDG LTD",
           "cls": "SPONSORED ADS",
+          "cusip": "01609W102",
           "shares": 3040500,
           "value": 263732970,
+          "shareType": "SH",
+          "putCall": "",
           "sector": "电商",
           "prevShares": 3507600,
           "prevValue": 292358460,
@@ -3451,8 +3518,11 @@
           "ticker": "DIS",
           "name": "DISNEY WALT CO",
           "cls": "COM",
+          "cusip": "254687106",
           "shares": 799700,
           "value": 64815685,
+          "shareType": "SH",
+          "putCall": "",
           "sector": "娱乐",
           "prevShares": 926800,
           "prevValue": 82744704,
@@ -3462,42 +3532,57 @@
           "ticker": "PDD",
           "name": "PDD HOLDINGS INC",
           "cls": "SPONSORED ADS",
+          "cusip": "722304102",
           "shares": 150000,
           "value": 14710500,
+          "shareType": "SH",
+          "putCall": "",
           "sector": "电商",
           "prevShares": 0,
           "prevValue": 0,
           "cnName": "拼多多"
         },
         {
-          "ticker": "YY",
+          "ticker": "JOYY",
           "name": "JOYY INC",
           "cls": "ADS REPSTG COM A",
+          "cusip": "46591M109",
           "shares": 302500,
           "value": 11528275,
-          "sector": "社交",
+          "shareType": "SH",
+          "putCall": "",
+          "sector": "传媒",
           "prevShares": 302500,
-          "prevValue": 9289775
+          "prevValue": 9289775,
+          "cnName": "欢聚集团"
         },
         {
-          "ticker": "?MODERNA INC",
+          "ticker": "MRNA",
           "name": "MODERNA INC",
           "cls": "COM",
+          "cusip": "60770K107",
           "shares": 104000,
           "value": 10742160,
-          "sector": "其他",
+          "shareType": "SH",
+          "putCall": "",
+          "sector": "医药",
           "prevShares": 140000,
-          "prevValue": 17010000
+          "prevValue": 17010000,
+          "cnName": "Moderna, Inc."
         },
         {
-          "ticker": "?BANK AMERICA CORP",
+          "ticker": "BAC",
           "name": "BANK AMERICA CORP",
           "cls": "COM",
+          "cusip": "060505104",
           "shares": 72100,
           "value": 1974098,
-          "sector": "其他",
+          "shareType": "SH",
+          "putCall": "",
+          "sector": "金融/银行",
           "prevShares": 0,
-          "prevValue": 0
+          "prevValue": 0,
+          "cnName": "美国银行"
         }
       ],
       "2023 Q4": [
@@ -3505,30 +3590,39 @@
           "ticker": "AAPL",
           "name": "APPLE INC",
           "cls": "COM",
+          "cusip": "037833100",
           "shares": 59723071,
           "value": 11498482860,
+          "shareType": "SH",
+          "putCall": "",
           "sector": "科技",
           "prevShares": 61019951,
           "prevValue": 10447225811,
           "cnName": "苹果"
         },
         {
-          "ticker": "BRK.B",
+          "ticker": "BRK/B",
           "name": "BERKSHIRE HATHAWAY INC DEL",
           "cls": "CL B NEW",
+          "cusip": "084670702",
           "shares": 4746302,
           "value": 1692816071,
-          "sector": "综合金融",
+          "shareType": "SH",
+          "putCall": "",
+          "sector": "其他",
           "prevShares": 5006102,
           "prevValue": 1753637531,
-          "cnName": "伯克希尔·哈撒韦B"
+          "cnName": "伯克希尔哈撒韦 B 类"
         },
         {
           "ticker": "GOOG",
           "name": "ALPHABET INC",
           "cls": "CAP STK CL C",
+          "cusip": "02079K107",
           "shares": 5376100,
           "value": 757653773,
+          "shareType": "SH",
+          "putCall": "",
           "sector": "互联网",
           "prevShares": 5376100,
           "prevValue": 708838785,
@@ -3538,8 +3632,11 @@
           "ticker": "BABA",
           "name": "ALIBABA GROUP HLDG LTD",
           "cls": "SPONSORED ADS",
+          "cusip": "01609W102",
           "shares": 4959230,
           "value": 384389917,
+          "shareType": "SH",
+          "putCall": "",
           "sector": "电商",
           "prevShares": 3040500,
           "prevValue": 263732970,
@@ -3549,8 +3646,11 @@
           "ticker": "DIS",
           "name": "DISNEY WALT CO",
           "cls": "COM",
+          "cusip": "254687106",
           "shares": 749700,
           "value": 67690413,
+          "shareType": "SH",
+          "putCall": "",
           "sector": "娱乐",
           "prevShares": 799700,
           "prevValue": 64815685,
@@ -3560,42 +3660,57 @@
           "ticker": "OXY",
           "name": "OCCIDENTAL PETE CORP",
           "cls": "COM",
+          "cusip": "674599105",
           "shares": 440100,
           "value": 26278371,
+          "shareType": "SH",
+          "putCall": "",
           "sector": "能源",
           "prevShares": 0,
           "prevValue": 0,
           "cnName": "西方石油"
         },
         {
-          "ticker": "?MODERNA INC",
+          "ticker": "MRNA",
           "name": "MODERNA INC",
           "cls": "COM",
+          "cusip": "60770K107",
           "shares": 140500,
           "value": 13972725,
-          "sector": "其他",
+          "shareType": "SH",
+          "putCall": "",
+          "sector": "医药",
           "prevShares": 104000,
-          "prevValue": 10742160
+          "prevValue": 10742160,
+          "cnName": "Moderna, Inc."
         },
         {
-          "ticker": "YY",
+          "ticker": "JOYY",
           "name": "JOYY INC",
           "cls": "ADS REPSTG COM A",
+          "cusip": "46591M109",
           "shares": 299900,
           "value": 11906030,
-          "sector": "社交",
+          "shareType": "SH",
+          "putCall": "",
+          "sector": "传媒",
           "prevShares": 302500,
-          "prevValue": 11528275
+          "prevValue": 11528275,
+          "cnName": "欢聚集团"
         },
         {
-          "ticker": "?BANK AMERICA CORP",
+          "ticker": "BAC",
           "name": "BANK AMERICA CORP",
           "cls": "COM",
+          "cusip": "060505104",
           "shares": 109700,
           "value": 3693599,
-          "sector": "其他",
+          "shareType": "SH",
+          "putCall": "",
+          "sector": "金融/银行",
           "prevShares": 72100,
-          "prevValue": 1974098
+          "prevValue": 1974098,
+          "cnName": "美国银行"
         }
       ],
       "2024 Q1": [
@@ -3603,30 +3718,39 @@
           "ticker": "AAPL",
           "name": "APPLE INC",
           "cls": "COM",
+          "cusip": "037833100",
           "shares": 64583093,
           "value": 11074708788,
+          "shareType": "SH",
+          "putCall": "",
           "sector": "科技",
           "prevShares": 59723071,
           "prevValue": 11498482860,
           "cnName": "苹果"
         },
         {
-          "ticker": "BRK.B",
+          "ticker": "BRK/B",
           "name": "BERKSHIRE HATHAWAY INC DEL",
           "cls": "CL B NEW",
+          "cusip": "084670702",
           "shares": 4092200,
           "value": 1720851944,
-          "sector": "综合金融",
+          "shareType": "SH",
+          "putCall": "",
+          "sector": "其他",
           "prevShares": 4746302,
           "prevValue": 1692816071,
-          "cnName": "伯克希尔·哈撒韦B"
+          "cnName": "伯克希尔哈撒韦 B 类"
         },
         {
           "ticker": "GOOG",
           "name": "ALPHABET INC",
           "cls": "CAP STK CL C",
+          "cusip": "02079K107",
           "shares": 5126000,
           "value": 780484760,
+          "shareType": "SH",
+          "putCall": "",
           "sector": "互联网",
           "prevShares": 5376100,
           "prevValue": 757653773,
@@ -3636,8 +3760,11 @@
           "ticker": "BABA",
           "name": "ALIBABA GROUP HLDG LTD",
           "cls": "SPONSORED ADS",
+          "cusip": "01609W102",
           "shares": 5845330,
           "value": 422968079,
+          "shareType": "SH",
+          "putCall": "",
           "sector": "电商",
           "prevShares": 4959230,
           "prevValue": 384389917,
@@ -3647,8 +3774,11 @@
           "ticker": "DIS",
           "name": "DISNEY WALT CO",
           "cls": "COM",
+          "cusip": "254687106",
           "shares": 749700,
           "value": 91733292,
+          "shareType": "SH",
+          "putCall": "",
           "sector": "娱乐",
           "prevShares": 749700,
           "prevValue": 67690413,
@@ -3658,43 +3788,57 @@
           "ticker": "OXY",
           "name": "OCCIDENTAL PETE CORP",
           "cls": "COM",
+          "cusip": "674599105",
           "shares": 1134902,
           "value": 73757281,
+          "shareType": "SH",
+          "putCall": "",
           "sector": "能源",
           "prevShares": 440100,
           "prevValue": 26278371,
           "cnName": "西方石油"
         },
         {
-          "ticker": "?MODERNA INC",
+          "ticker": "MRNA",
           "name": "MODERNA INC",
           "cls": "COM",
+          "cusip": "60770K107",
           "shares": 140700,
           "value": 14992992,
-          "sector": "其他",
+          "shareType": "SH",
+          "putCall": "",
+          "sector": "医药",
           "prevShares": 140500,
-          "prevValue": 13972725
+          "prevValue": 13972725,
+          "cnName": "Moderna, Inc."
         },
         {
           "ticker": "PDD",
           "name": "PDD HOLDINGS INC",
           "cls": "SPONSORED ADS",
+          "cusip": "722304102",
           "shares": 110000,
           "value": 12787500,
+          "shareType": "SH",
+          "putCall": "",
           "sector": "电商",
           "prevShares": 0,
           "prevValue": 0,
           "cnName": "拼多多"
         },
         {
-          "ticker": "?BANK AMERICA CORP",
+          "ticker": "BAC",
           "name": "BANK AMERICA CORP",
           "cls": "COM",
+          "cusip": "060505104",
           "shares": 109700,
           "value": 4159824,
-          "sector": "其他",
+          "shareType": "SH",
+          "putCall": "",
+          "sector": "金融/银行",
           "prevShares": 109700,
-          "prevValue": 3693599
+          "prevValue": 3693599,
+          "cnName": "美国银行"
         }
       ],
       "2024 Q2": [
@@ -3702,30 +3846,39 @@
           "ticker": "AAPL",
           "name": "APPLE INC",
           "cls": "COM",
+          "cusip": "037833100",
           "shares": 63924255,
           "value": 13463726588,
+          "shareType": "SH",
+          "putCall": "",
           "sector": "科技",
           "prevShares": 64583093,
           "prevValue": 11074708788,
           "cnName": "苹果"
         },
         {
-          "ticker": "BRK.B",
+          "ticker": "BRK/B",
           "name": "BERKSHIRE HATHAWAY INC DEL",
           "cls": "CL B NEW",
+          "cusip": "084670702",
           "shares": 3899100,
           "value": 1586153880,
-          "sector": "综合金融",
+          "shareType": "SH",
+          "putCall": "",
+          "sector": "其他",
           "prevShares": 4092200,
           "prevValue": 1720851944,
-          "cnName": "伯克希尔·哈撒韦B"
+          "cnName": "伯克希尔哈撒韦 B 类"
         },
         {
           "ticker": "GOOG",
           "name": "ALPHABET INC",
           "cls": "CAP STK CL C",
+          "cusip": "02079K107",
           "shares": 5026000,
           "value": 921868920,
+          "shareType": "SH",
+          "putCall": "",
           "sector": "互联网",
           "prevShares": 5126000,
           "prevValue": 780484760,
@@ -3735,8 +3888,11 @@
           "ticker": "BABA",
           "name": "ALIBABA GROUP HLDG LTD",
           "cls": "SPONSORED ADS",
+          "cusip": "01609W102",
           "shares": 6306830,
           "value": 454091760,
+          "shareType": "SH",
+          "putCall": "",
           "sector": "电商",
           "prevShares": 5845330,
           "prevValue": 422968079,
@@ -3746,8 +3902,11 @@
           "ticker": "OXY",
           "name": "OCCIDENTAL PETE CORP",
           "cls": "COM",
+          "cusip": "674599105",
           "shares": 1543102,
           "value": 97261719,
+          "shareType": "SH",
+          "putCall": "",
           "sector": "能源",
           "prevShares": 1134902,
           "prevValue": 73757281,
@@ -3757,43 +3916,57 @@
           "ticker": "DIS",
           "name": "DISNEY WALT CO",
           "cls": "COM",
+          "cusip": "254687106",
           "shares": 748500,
           "value": 74318565,
+          "shareType": "SH",
+          "putCall": "",
           "sector": "娱乐",
           "prevShares": 749700,
           "prevValue": 91733292,
           "cnName": "迪士尼"
         },
         {
-          "ticker": "?MODERNA INC",
+          "ticker": "MRNA",
           "name": "MODERNA INC",
           "cls": "COM",
+          "cusip": "60770K107",
           "shares": 140700,
           "value": 16708125,
-          "sector": "其他",
+          "shareType": "SH",
+          "putCall": "",
+          "sector": "医药",
           "prevShares": 140700,
-          "prevValue": 14992992
+          "prevValue": 14992992,
+          "cnName": "Moderna, Inc."
         },
         {
           "ticker": "PDD",
           "name": "PDD HOLDINGS INC",
           "cls": "SPONSORED ADS",
+          "cusip": "722304102",
           "shares": 103000,
           "value": 13693850,
+          "shareType": "SH",
+          "putCall": "",
           "sector": "电商",
           "prevShares": 110000,
           "prevValue": 12787500,
           "cnName": "拼多多"
         },
         {
-          "ticker": "?BANK AMERICA CORP",
+          "ticker": "BAC",
           "name": "BANK AMERICA CORP",
           "cls": "COM",
+          "cusip": "060505104",
           "shares": 107900,
           "value": 4291183,
-          "sector": "其他",
+          "shareType": "SH",
+          "putCall": "",
+          "sector": "金融/银行",
           "prevShares": 109700,
-          "prevValue": 4159824
+          "prevValue": 4159824,
+          "cnName": "美国银行"
         }
       ],
       "2024 Q3": [
@@ -5004,7 +5177,7 @@
       ]
     },
     "coverage": {
-      "checkedAt": "2026-10-11T17:53:36Z",
+      "checkedAt": "2026-10-12T02:50:19Z",
       "missingQuarters": [],
       "repairedThisRun": [],
       "errors": {},
@@ -5164,6 +5337,54 @@
         "reportDate": "2022-12-31",
         "cik": "1759760",
         "url": "https://www.sec.gov/Archives/edgar/data/1759760/000108514623001162/infotable.xml"
+      },
+      "2023 Q1": {
+        "accession": "000108514623002351",
+        "accessionDashed": "0001085146-23-002351",
+        "filingDate": "2023-05-15",
+        "reportDate": "2023-03-31",
+        "cik": "1759760",
+        "url": "https://www.sec.gov/Archives/edgar/data/1759760/000108514623002351/infotable.xml"
+      },
+      "2023 Q2": {
+        "accession": "000108514623003303",
+        "accessionDashed": "0001085146-23-003303",
+        "filingDate": "2023-08-11",
+        "reportDate": "2023-06-30",
+        "cik": "1759760",
+        "url": "https://www.sec.gov/Archives/edgar/data/1759760/000108514623003303/infotable.xml"
+      },
+      "2023 Q3": {
+        "accession": "000108514623004335",
+        "accessionDashed": "0001085146-23-004335",
+        "filingDate": "2023-11-14",
+        "reportDate": "2023-09-30",
+        "cik": "1759760",
+        "url": "https://www.sec.gov/Archives/edgar/data/1759760/000108514623004335/infotable.xml"
+      },
+      "2023 Q4": {
+        "accession": "000108514624001294",
+        "accessionDashed": "0001085146-24-001294",
+        "filingDate": "2024-02-14",
+        "reportDate": "2023-12-31",
+        "cik": "1759760",
+        "url": "https://www.sec.gov/Archives/edgar/data/1759760/000108514624001294/infotable.xml"
+      },
+      "2024 Q1": {
+        "accession": "000108514624002494",
+        "accessionDashed": "0001085146-24-002494",
+        "filingDate": "2024-05-15",
+        "reportDate": "2024-03-31",
+        "cik": "1759760",
+        "url": "https://www.sec.gov/Archives/edgar/data/1759760/000108514624002494/infotable.xml"
+      },
+      "2024 Q2": {
+        "accession": "000108514624003861",
+        "accessionDashed": "0001085146-24-003861",
+        "filingDate": "2024-08-14",
+        "reportDate": "2024-06-30",
+        "cik": "1759760",
+        "url": "https://www.sec.gov/Archives/edgar/data/1759760/000108514624003861/infotable.xml"
       }
     },
     "valueAudit": {
@@ -6480,6 +6701,444 @@
           }
         ],
         "normalizedHash": "58a27fb756ad541494ada80104c9923873866cddbf471f50460896112fbc42e1"
+      },
+      "2023 Q1": {
+        "version": 1,
+        "checkedAt": "2026-10-12",
+        "source": "https://www.sec.gov/Archives/edgar/data/1759760/000108514623002351/infotable.xml",
+        "filingDate": "2023-05-15",
+        "sourceDigest": "6833346018a04458d7426860d5aa3c542131b0cee514c56d71a52de8ee94144c",
+        "sourceHash": "7106779f46a4103b2e1393c82f1362659bc80c622a226dce247d3206f6cfe11d",
+        "status": "verified",
+        "factor": 1,
+        "anchors": [
+          {
+            "ticker": "AAPL",
+            "cusip": "037833100",
+            "filedPrice": 164.9000000063228,
+            "price": 164.89999389648438,
+            "date": "2023-03-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/AAPL?period1=0&period2=1791859846&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "GOOG",
+            "cusip": "02079K107",
+            "filedPrice": 104.0,
+            "price": 104.0,
+            "date": "2023-03-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/GOOG?period1=0&period2=1791859841&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "BRK/B",
+            "cusip": "084670702",
+            "filedPrice": 308.7699999912072,
+            "price": 308.7699890136719,
+            "date": "2023-03-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/BRK-B?period1=0&period2=1791859846&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "BABA",
+            "cusip": "01609W102",
+            "filedPrice": 102.18,
+            "price": 102.18000030517578,
+            "date": "2023-03-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/BABA?period1=0&period2=1791859840&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "DIS",
+            "cusip": "254687106",
+            "filedPrice": 100.13,
+            "price": 100.12999725341797,
+            "date": "2023-03-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/DIS?period1=0&period2=1791859846&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          }
+        ],
+        "normalizedHash": "7106779f46a4103b2e1393c82f1362659bc80c622a226dce247d3206f6cfe11d"
+      },
+      "2023 Q2": {
+        "version": 1,
+        "checkedAt": "2026-10-12",
+        "source": "https://www.sec.gov/Archives/edgar/data/1759760/000108514623003303/infotable.xml",
+        "filingDate": "2023-08-11",
+        "sourceDigest": "76ed4bc32c9b8ea84f5aa1afc8979a909a472d959fd7c1f7a76b6371937bba41",
+        "sourceHash": "a517ac0193e661510d7bc78929a4bef460bff347a627e51e6ea391e95054c27e",
+        "status": "verified",
+        "factor": 1,
+        "anchors": [
+          {
+            "ticker": "AAPL",
+            "cusip": "037833100",
+            "filedPrice": 193.97000000362834,
+            "price": 193.97000122070312,
+            "date": "2023-06-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/AAPL?period1=0&period2=1791859846&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "BRK/B",
+            "cusip": "084670702",
+            "filedPrice": 341.0,
+            "price": 341.0,
+            "date": "2023-06-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/BRK-B?period1=0&period2=1791859846&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "GOOG",
+            "cusip": "02079K107",
+            "filedPrice": 120.97,
+            "price": 120.97000122070312,
+            "date": "2023-06-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/GOOG?period1=0&period2=1791859841&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "BABA",
+            "cusip": "01609W102",
+            "filedPrice": 83.35,
+            "price": 83.3499984741211,
+            "date": "2023-06-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/BABA?period1=0&period2=1791859840&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "DIS",
+            "cusip": "254687106",
+            "filedPrice": 89.28,
+            "price": 89.27999877929688,
+            "date": "2023-06-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/DIS?period1=0&period2=1791859846&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          }
+        ],
+        "normalizedHash": "a517ac0193e661510d7bc78929a4bef460bff347a627e51e6ea391e95054c27e"
+      },
+      "2023 Q3": {
+        "version": 1,
+        "checkedAt": "2026-10-12",
+        "source": "https://www.sec.gov/Archives/edgar/data/1759760/000108514623004335/infotable.xml",
+        "filingDate": "2023-11-14",
+        "sourceDigest": "a9cdd4e09204b9b2b4a06dc7ef925d419a701d95308f649bbbffc6232184019d",
+        "sourceHash": "0a4fbace5971d3199bbd3860e9f22b8afc199d699e18d3049e1af86b4c77b1f7",
+        "status": "verified",
+        "factor": 1,
+        "anchors": [
+          {
+            "ticker": "AAPL",
+            "cusip": "037833100",
+            "filedPrice": 171.21000000475254,
+            "price": 171.2100067138672,
+            "date": "2023-09-29",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/AAPL?period1=0&period2=1791859846&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "GOOG",
+            "cusip": "02079K107",
+            "filedPrice": 131.85,
+            "price": 131.85000610351562,
+            "date": "2023-09-29",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/GOOG?period1=0&period2=1791859841&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "BRK/B",
+            "cusip": "084670702",
+            "filedPrice": 350.3000000799025,
+            "price": 350.29998779296875,
+            "date": "2023-09-29",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/BRK-B?period1=0&period2=1791859846&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "BABA",
+            "cusip": "01609W102",
+            "filedPrice": 86.74,
+            "price": 86.73999786376953,
+            "date": "2023-09-29",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/BABA?period1=0&period2=1791859840&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "DIS",
+            "cusip": "254687106",
+            "filedPrice": 81.05,
+            "price": 81.05000305175781,
+            "date": "2023-09-29",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/DIS?period1=0&period2=1791859846&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          }
+        ],
+        "normalizedHash": "0a4fbace5971d3199bbd3860e9f22b8afc199d699e18d3049e1af86b4c77b1f7"
+      },
+      "2023 Q4": {
+        "version": 1,
+        "checkedAt": "2026-10-12",
+        "source": "https://www.sec.gov/Archives/edgar/data/1759760/000108514624001294/infotable.xml",
+        "filingDate": "2024-02-14",
+        "sourceDigest": "0e8df181e6f6aaaee0b6870bb7586c665d41ab500d4461c9cd46060f0c92cf69",
+        "sourceHash": "32899dba3c2fd41a4a88222dbc92b654195881adea6578b3910c78dbcc6e5da5",
+        "status": "verified",
+        "factor": 1,
+        "anchors": [
+          {
+            "ticker": "AAPL",
+            "cusip": "037833100",
+            "filedPrice": 192.53000000619525,
+            "price": 192.52999877929688,
+            "date": "2023-12-29",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/AAPL?period1=0&period2=1791859846&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "GOOG",
+            "cusip": "02079K107",
+            "filedPrice": 140.93,
+            "price": 140.92999267578125,
+            "date": "2023-12-29",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/GOOG?period1=0&period2=1791859841&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "BABA",
+            "cusip": "01609W102",
+            "filedPrice": 77.50999993950674,
+            "price": 77.51000213623047,
+            "date": "2023-12-29",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/BABA?period1=0&period2=1791859840&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "BRK/B",
+            "cusip": "084670702",
+            "filedPrice": 356.65999993257907,
+            "price": 356.6600036621094,
+            "date": "2023-12-29",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/BRK-B?period1=0&period2=1791859846&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "DIS",
+            "cusip": "254687106",
+            "filedPrice": 90.29,
+            "price": 90.29000091552734,
+            "date": "2023-12-29",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/DIS?period1=0&period2=1791859846&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          }
+        ],
+        "normalizedHash": "32899dba3c2fd41a4a88222dbc92b654195881adea6578b3910c78dbcc6e5da5"
+      },
+      "2024 Q1": {
+        "version": 1,
+        "checkedAt": "2026-10-12",
+        "source": "https://www.sec.gov/Archives/edgar/data/1759760/000108514624002494/infotable.xml",
+        "filingDate": "2024-05-15",
+        "sourceDigest": "01ebdbcc2df5549b1712f317bf1469514d8e282b5232e0705c65087a09c2f7fd",
+        "sourceHash": "1f05337937c022101e8b484f110391f49c5897e7af65ed15f10b86a1dcaa067a",
+        "status": "verified",
+        "factor": 1,
+        "anchors": [
+          {
+            "ticker": "AAPL",
+            "cusip": "037833100",
+            "filedPrice": 171.48000000557423,
+            "price": 171.47999572753906,
+            "date": "2024-03-28",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/AAPL?period1=0&period2=1791859846&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "BABA",
+            "cusip": "01609W102",
+            "filedPrice": 72.36000003421535,
+            "price": 72.36000061035156,
+            "date": "2024-03-28",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/BABA?period1=0&period2=1791859840&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "GOOG",
+            "cusip": "02079K107",
+            "filedPrice": 152.26,
+            "price": 152.25999450683594,
+            "date": "2024-03-28",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/GOOG?period1=0&period2=1791859841&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "BRK/B",
+            "cusip": "084670702",
+            "filedPrice": 420.52,
+            "price": 420.5199890136719,
+            "date": "2024-03-28",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/BRK-B?period1=0&period2=1791859846&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "OXY",
+            "cusip": "674599105",
+            "filedPrice": 64.99000001762266,
+            "price": 64.98999786376953,
+            "date": "2024-03-28",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/OXY?period1=0&period2=1791859849&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          }
+        ],
+        "normalizedHash": "1f05337937c022101e8b484f110391f49c5897e7af65ed15f10b86a1dcaa067a"
+      },
+      "2024 Q2": {
+        "version": 1,
+        "checkedAt": "2026-10-12",
+        "source": "https://www.sec.gov/Archives/edgar/data/1759760/000108514624003861/infotable.xml",
+        "filingDate": "2024-08-14",
+        "sourceDigest": "efb02ffacac4d4b3dc2fb36587510bb4a4fdc5974764b1dddcb05cc6d70d44c7",
+        "sourceHash": "49ccb0a265ca6d4966c49a809e971b6365eb5b4f93443dfe152d21a1eed71b87",
+        "status": "verified",
+        "factor": 1,
+        "anchors": [
+          {
+            "ticker": "AAPL",
+            "cusip": "037833100",
+            "filedPrice": 210.61999999843565,
+            "price": 210.6199951171875,
+            "date": "2024-06-28",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/AAPL?period1=0&period2=1791859846&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "BABA",
+            "cusip": "01609W102",
+            "filedPrice": 72.0,
+            "price": 72.0,
+            "date": "2024-06-28",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/BABA?period1=0&period2=1791859840&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "GOOG",
+            "cusip": "02079K107",
+            "filedPrice": 183.42,
+            "price": 183.4199981689453,
+            "date": "2024-06-28",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/GOOG?period1=0&period2=1791859841&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "BRK/B",
+            "cusip": "084670702",
+            "filedPrice": 406.8,
+            "price": 406.79998779296875,
+            "date": "2024-06-28",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/BRK-B?period1=0&period2=1791859846&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "OXY",
+            "cusip": "674599105",
+            "filedPrice": 63.029999961117284,
+            "price": 63.029998779296875,
+            "date": "2024-06-28",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/OXY?period1=0&period2=1791859849&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          }
+        ],
+        "normalizedHash": "49ccb0a265ca6d4966c49a809e971b6365eb5b4f93443dfe152d21a1eed71b87"
       }
     },
     "excludedValueQuarters": []
