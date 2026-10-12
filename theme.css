@@ -375,3 +375,11 @@ tbody tr:hover { background: #f8f9fa; }
   #summaryCards .stat-item{padding:16px 8px;border-right:0}
   #summaryCards .stat-item:nth-of-type(1),#summaryCards .stat-item:nth-of-type(5){border-right:1px solid var(--border-light)}
 }
+
+/* Keep the existing help bubbles readable inside narrow table columns. */
+.info-popover{width:320px;max-width:calc(100vw - 32px);white-space:normal;overflow-wrap:anywhere;text-align:left}
+@media(max-width:640px){
+  .info-popover{width:280px;max-height:calc(100dvh - 160px);overflow-y:auto}
+}
+.hw-price-reference{display:none}
+@media(max-width:640px){.hw-price-reference{display:grid;gap:3px;margin-top:7px;font-size:.65rem;line-height:1.65;color:var(--text-light);white-space:normal;overflow-wrap:anywhere}}

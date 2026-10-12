@@ -2005,6 +2005,7 @@ async function renderHomework() {
           <span style="font-size:.95rem;font-weight:700;color:${mosColor};">${mosIcon} ${c.mos}%</span>
           <span style="font-size:.55rem;color:var(--text-lighter);">${isEn2?'MOS':'安全边际'}</span>
         </div>
+        <div class="hw-price-reference"><span>${isEn2?'Est. cost':'估算成本'} ${cur$}${c.buy.toFixed(2)}</span><span>${isEn2?'Price':'现价'} ${Number.isFinite(c.price)?cur$+c.price.toFixed(2):'—'}</span>${Number.isFinite(c.atAvg)&&Math.abs(c.atAvg-c.buy)>.005?atRow:''}</div>
       </td>
       <td>${invCellHtml}</td>
     </tr>`;
@@ -2227,8 +2228,24 @@ function closeStatusDrawer() {
   document.getElementById('statusDrawer').classList.remove('open');
 }
 
+function closeInfoPopovers(except=null) {
+  document.querySelectorAll('.info-popover.show').forEach(p=>{if(p!==except)p.classList.remove('show');});
+}
+document.addEventListener('click', e => {
+  const badge=e.target?.closest?.('.info-badge');
+  if (!badge) { if(!e.target?.closest?.('.info-wrap'))closeInfoPopovers(); return; }
+  const popup=badge.closest('.info-wrap')?.querySelector('.info-popover');
+  closeInfoPopovers(popup);
+  if (!popup?.classList.contains('show') || innerWidth<=640) return;
+  // A fixed bubble escapes the table's clipping, while staying near its label.
+  const anchor=badge.getBoundingClientRect(),size=popup.getBoundingClientRect();
+  const left=Math.max(16,Math.min(anchor.left+anchor.width/2-size.width/2,innerWidth-size.width-16));
+  const below=anchor.bottom+8,top=below+size.height<=innerHeight-16?below:Math.max(16,anchor.top-size.height-8);
+  Object.assign(popup.style,{position:'fixed',left:left+'px',right:'auto',top:top+'px',bottom:'auto',transform:'none'});
+});
+document.addEventListener('scroll', e=>{if(!e.target?.closest?.('.info-popover'))closeInfoPopovers();},true);
 // ESC 关闭
-document.addEventListener('keydown', e => { if (e.key === 'Escape') closeStatusDrawer(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeStatusDrawer(); closeInfoPopovers(); } });
 
 async function renderStatusDrawer() {
   const el = document.getElementById('statusDrawerBody');
