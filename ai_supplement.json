@@ -31,13 +31,13 @@
       "status": "ok"
     },
     "investor:greenberg": {
-      "at": "2026-10-11T11:04:20.115500+00:00",
+      "at": "2026-10-12T03:22:01.546547+00:00",
       "sourceHash": "190b72ab5b92ef234e966e933d16ab384d74f18d6a59c54f03dc2c7c43183305",
       "status": "failed",
       "error": "Selection omitted an available change direction"
     },
     "investor:hawkins": {
-      "at": "2026-10-11T11:03:15.778496+00:00",
+      "at": "2026-10-12T03:19:26.558462+00:00",
       "sourceHash": "83f2b519a342e2958774a71c5cfb121cc3317673e218bbe60f14c816d1d29668",
       "status": "failed",
       "error": "Selection omitted an available change direction"
@@ -78,7 +78,7 @@
       "status": "ok"
     },
     "history:lilu": {
-      "at": "2026-10-11T11:05:26.318742+00:00",
+      "at": "2026-10-12T03:24:41.202649+00:00",
       "sourceHash": "12d8175b8baa1bb86924c972a789a827dcc45643a6250a3ea7d90c8fa63ec21d",
       "status": "failed",
       "error": "Selection omitted a required scope or evidence limitation"
@@ -141,8 +141,8 @@
       "status": "ok"
     },
     "history:greenberg": {
-      "at": "2026-10-11T11:01:58.693486+00:00",
-      "sourceHash": "6aeb5beece3720bc633f99a2c0becdf08c40f8768edf793ecae5d605e09aaec9",
+      "at": "2026-10-12T03:16:18.554085+00:00",
+      "sourceHash": "327e3c8425595199e0b478479389cc35c124e4c178579d6bbb449239ccffcd9a",
       "status": "ok"
     },
     "holdings:klarman": {
@@ -171,8 +171,8 @@
       "status": "ok"
     },
     "history:abrams": {
-      "at": "2026-10-11T11:02:37.262012+00:00",
-      "sourceHash": "add1d91abc9bf8e58e1ad892be3057926e931a647da711f3460f560a0f72fd6f",
+      "at": "2026-10-12T03:17:54.726532+00:00",
+      "sourceHash": "428aefd2b185e62a903678dc2088afdcf695aed9ff95571e2c380ed7b3d91992",
       "status": "ok"
     },
     "holdings:berkowitz": {
@@ -2718,7 +2718,7 @@
       "renderVersion": 4,
       "mode": "deterministic",
       "summary": "格伦·格林伯格 2026 Q2（按披露股数比较）：新建仓7项、增持6项、减持15项、清仓3项、不变12项、待比较0项。重点（非完整名单）：ICON PUB LTD CO：增持5.2%；TD 辛纳克斯（SNX）：减持52.8%；OneMain 控股（OMF）：减持1.5%；阿瑟 J. 加拉格尔（AJG）：新建仓；阿雷斯管理（ARES）：清仓。",
-      "generatedAt": "2026-10-11T11:05:26.311336+00:00",
+      "generatedAt": "2026-10-12T03:24:41.193757+00:00",
       "model": null,
       "metrics": {}
     },
@@ -4379,7 +4379,7 @@
       "renderVersion": 4,
       "mode": "deterministic",
       "summary": "梅森·霍金斯 2026 Q2（按披露股数比较）：新建仓2项、增持8项、减持24项、清仓4项、不变13项、待比较0项。重点（非完整名单）：雷奥尼尔（RYN）：减持11.8%；美泰（MAT）：减持3.8%；CNX 资源（CNX）：增持16.2%；雅培（ABT）：新建仓；伯乐雷德实验室（BIO）：清仓。",
-      "generatedAt": "2026-10-11T11:04:20.108355+00:00",
+      "generatedAt": "2026-10-12T03:22:01.539285+00:00",
       "model": null,
       "metrics": {}
     },
@@ -13202,7 +13202,7 @@
       "renderVersion": 4,
       "mode": "deterministic",
       "summary": "李录 · 历史轨迹：可用于市值趋势的记录有 35 个季度，覆盖 2016 Q4 至 2026 Q2。这段历史反映披露范围内证券，不是基金净值曲线。披露市值从 US$111.64M 变为 US$3,702.92M（变化 +3216.8%）。金额同时受价格、买卖、资金流及披露范围影响，不能当作投资回报。缺少或排除的市值季度：2018 Q4、2019 Q1、2019 Q2、2019 Q3。不填零、不推断清仓，也不跨缺口计算季度变化。",
-      "generatedAt": "2026-10-11T11:06:07.506741+00:00",
+      "generatedAt": "2026-10-12T03:26:21.342612+00:00",
       "model": null,
       "metrics": {}
     },
@@ -34202,9 +34202,9 @@
       "sourceHash": "327e3c8425595199e0b478479389cc35c124e4c178579d6bbb449239ccffcd9a",
       "selection": {
         "factIds": [
-          "f0",
           "f1",
-          "f2"
+          "f2",
+          "f3"
         ],
         "topicIds": [
           "t0",
@@ -34213,11 +34213,14 @@
         ]
       },
       "renderVersion": 4,
-      "mode": "deterministic",
-      "summary": "格伦·格林伯格 · 历史轨迹：可用于市值趋势的记录有 53 个季度，覆盖 2013 Q2 至 2026 Q2。这段历史反映披露范围内证券，不是基金净值曲线。披露市值从 US$2,159.71M 变为 US$4,588.43M（变化 +112.5%）。金额同时受价格、买卖、资金流及披露范围影响，不能当作投资回报。当前证券中，美国银行（BAC） 已连续出现在 50 个可核实季度披露中（2014 Q1 至 2026 Q2）。这是连续披露记录，不是逐笔持有或交易证明。",
-      "generatedAt": "2026-10-12T03:14:28.968357+00:00",
-      "model": null,
-      "metrics": {}
+      "mode": "model_selection",
+      "summary": "格伦·格林伯格 · 历史轨迹：披露市值从 US$2,159.71M 变为 US$4,588.43M（变化 +112.5%）。金额同时受价格、买卖、资金流及披露范围影响，不能当作投资回报。当前证券中，美国银行（BAC） 已连续出现在 50 个可核实季度披露中（2014 Q1 至 2026 Q2）。这是连续披露记录，不是逐笔持有或交易证明。历史最高披露值出现在 2024 Q3：US$4,820.02M。峰值说明已披露规模，不能证明收益率最高。",
+      "generatedAt": "2026-10-12T03:17:54.719985+00:00",
+      "model": "qwen3.5:9b-q4_K_M",
+      "metrics": {
+        "seconds": 96.14,
+        "tokens": 26
+      }
     },
     "holdings:klarman": {
       "facts": {
@@ -42664,11 +42667,14 @@
         ]
       },
       "renderVersion": 4,
-      "mode": "deterministic",
+      "mode": "model_selection",
       "summary": "大卫·艾布拉姆斯 · 历史轨迹：可用于市值趋势的记录有 53 个季度，覆盖 2013 Q2 至 2026 Q2。这段历史反映披露范围内证券，不是基金净值曲线。披露市值从 US$1,729.10M 变为 US$5,479.75M（变化 +216.9%）。金额同时受价格、买卖、资金流及披露范围影响，不能当作投资回报。当前证券中，威利斯塔塔 Watson（WTW） 已连续出现在 39 个可核实季度披露中（2016 Q4 至 2026 Q2）。这是连续披露记录，不是逐笔持有或交易证明。",
-      "generatedAt": "2026-10-11T18:21:40.563194+00:00",
-      "model": null,
-      "metrics": {}
+      "generatedAt": "2026-10-12T03:19:26.552686+00:00",
+      "model": "qwen3.5:9b-q4_K_M",
+      "metrics": {
+        "seconds": 91.82,
+        "tokens": 26
+      }
     },
     "holdings:berkowitz": {
       "facts": {
@@ -52869,13 +52875,13 @@
     }
   },
   "lastRun": {
-    "startedAt": "2026-10-11T18:24:14.242486+00:00",
+    "startedAt": "2026-10-12T03:16:18.554062+00:00",
     "model": "qwen3.5:9b-q4_K_M",
-    "pendingBefore": 13,
-    "cached": 27,
-    "finishedAt": "2026-10-11T18:36:22.818683+00:00",
-    "pendingAfter": 12,
-    "accepted": 5,
+    "pendingBefore": 12,
+    "cached": 28,
+    "finishedAt": "2026-10-12T03:26:21.351947+00:00",
+    "pendingAfter": 10,
+    "accepted": 2,
     "fallback": 3,
     "rejected": 0,
     "failed": 3
