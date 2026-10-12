@@ -5,7 +5,7 @@
     "notablePeople": [
       "Glenn Greenberg"
     ],
-    "lastUpdated": "2026-10-12T02:50:26Z",
+    "lastUpdated": "2026-10-12T05:03:01Z",
     "aiSummary": "格林伯格 Q2 大幅增持微软、亚马逊及 HCA 医疗，同时减持部分金融与地产股，显示其持续聚焦科技与医疗领域的成长机会。",
     "aiSummaryQuarter": "2026 Q2",
     "instrumentHistoryTickers": [
@@ -4338,7 +4338,7 @@
           "value": 147862000,
           "shareType": "SH",
           "putCall": "",
-          "sector": "金融",
+          "sector": "金融服务",
           "cnName": "嘉信理财",
           "prevShares": 5987722,
           "prevValue": 248670000
@@ -4602,7 +4602,7 @@
           "value": 136842000,
           "shareType": "SH",
           "putCall": "",
-          "sector": "金融",
+          "sector": "金融服务",
           "cnName": "嘉信理财",
           "prevShares": 3457957,
           "prevValue": 147862000
@@ -4867,7 +4867,7 @@
           "value": 141383000,
           "shareType": "SH",
           "putCall": "",
-          "sector": "金融",
+          "sector": "金融服务",
           "cnName": "嘉信理财",
           "prevShares": 3404870,
           "prevValue": 136842000
@@ -5149,7 +5149,7 @@
           "value": 88400000,
           "shareType": "SH",
           "putCall": "",
-          "sector": "金融",
+          "sector": "金融服务",
           "cnName": "嘉信理财",
           "prevShares": 3379941,
           "prevValue": 141383000
@@ -5388,7 +5388,7 @@
           "value": 126930000,
           "shareType": "SH",
           "putCall": "",
-          "sector": "金融",
+          "sector": "保险",
           "cnName": "进步集团",
           "prevShares": 1724376,
           "prevValue": 124828000
@@ -5712,7 +5712,7 @@
           "value": 141816000,
           "shareType": "SH",
           "putCall": "",
-          "sector": "金融",
+          "sector": "保险",
           "cnName": "进步集团",
           "prevShares": 1718989,
           "prevValue": 126930000
@@ -17205,13 +17205,14 @@
       ]
     },
     "coverage": {
-      "checkedAt": "2026-10-12T02:50:26Z",
+      "checkedAt": "2026-10-12T05:03:01Z",
       "missingQuarters": [],
       "repairedThisRun": [],
       "errors": {},
       "attempts": {},
       "expandedLookup": null,
-      "status": "continuous_within_stored_range"
+      "status": "continuous_within_stored_range",
+      "quietMissingQuarters": []
     },
     "filing_sources": {
       "2026 Q2": {
@@ -17618,7 +17619,7 @@
     "instrumentVerification": {
       "pendingQuarters": [],
       "errors": {},
-      "checkedAt": "2026-10-12T02:50:26.245902+00:00"
+      "checkedAt": "2026-10-12T05:03:01.932444+00:00"
     },
     "valueAudit": {
       "2026 Q2": {
@@ -19354,6 +19355,444 @@
           }
         ],
         "normalizedHash": "cec48cf4e7261931c87a5fcde6abf1db2ca4f10166d84455cdaa3348417f8b55"
+      },
+      "2019 Q1": {
+        "version": 1,
+        "checkedAt": "2026-10-12",
+        "source": "https://www.sec.gov/Archives/edgar/data/1553733/000117266119001266/infotable.xml",
+        "filingDate": "2019-05-15",
+        "sourceDigest": "46a260e9e76b6fe301d095036f3a484bc00de40a43f9e05b332d5cc387ba13a4",
+        "sourceHash": "0e8890aebdcf57752bd6236724e1690597012b385bfefe8fc047c0fc475ae802",
+        "status": "verified",
+        "factor": 1,
+        "anchors": [
+          {
+            "ticker": "LEN",
+            "cusip": "526057104",
+            "filedPrice": 49.09012976308209,
+            "price": 49.090000724792475,
+            "date": "2019-03-29",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/LEN?period1=0&period2=1791867816&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "SCHW",
+            "cusip": "808513105",
+            "filedPrice": 42.75993021312873,
+            "price": 42.7599983215332,
+            "date": "2019-03-29",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/SCHW?period1=0&period2=1791867817&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "RJF",
+            "cusip": "754730109",
+            "filedPrice": 80.40994228782246,
+            "price": 80.40999984741211,
+            "date": "2019-03-29",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/RJF?period1=0&period2=1791867817&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "JPM",
+            "cusip": "46625h100",
+            "filedPrice": 101.23012872698162,
+            "price": 101.2300033569336,
+            "date": "2019-03-29",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/JPM?period1=0&period2=1791867818&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "C",
+            "cusip": "172967424",
+            "filedPrice": 62.219737667751545,
+            "price": 62.220001220703125,
+            "date": "2019-03-29",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/C?period1=0&period2=1791867818&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          }
+        ],
+        "normalizedHash": "0e8890aebdcf57752bd6236724e1690597012b385bfefe8fc047c0fc475ae802"
+      },
+      "2019 Q2": {
+        "version": 1,
+        "checkedAt": "2026-10-12",
+        "source": "https://www.sec.gov/Archives/edgar/data/1553733/000117266119001743/infotable.xml",
+        "filingDate": "2019-08-14",
+        "sourceDigest": "69ef50fe70f7891cbf65ce292e128f5c3cffc3c11b99d0c568430389d7ccf0e0",
+        "sourceHash": "2c8da0622c5f7b4fab5382ce659e927ab7945c9bce3cfeba1afa54e1f588e0eb",
+        "status": "verified",
+        "factor": 1,
+        "anchors": [
+          {
+            "ticker": "SCHW",
+            "cusip": "808513105",
+            "filedPrice": 40.19008067855748,
+            "price": 40.189998626708984,
+            "date": "2019-06-28",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/SCHW?period1=0&period2=1791867817&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "LEN",
+            "cusip": "526057104",
+            "filedPrice": 48.45996307005163,
+            "price": 48.4600001335144,
+            "date": "2019-06-28",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/LEN?period1=0&period2=1791867816&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "RJF",
+            "cusip": "754730109",
+            "filedPrice": 84.55015440472785,
+            "price": 84.55000305175781,
+            "date": "2019-06-28",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/RJF?period1=0&period2=1791867817&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "JPM",
+            "cusip": "46625h100",
+            "filedPrice": 111.80006327111674,
+            "price": 111.80000305175781,
+            "date": "2019-06-28",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/JPM?period1=0&period2=1791867818&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "C",
+            "cusip": "172967424",
+            "filedPrice": 70.03006515798253,
+            "price": 70.02999877929688,
+            "date": "2019-06-28",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/C?period1=0&period2=1791867818&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          }
+        ],
+        "normalizedHash": "2c8da0622c5f7b4fab5382ce659e927ab7945c9bce3cfeba1afa54e1f588e0eb"
+      },
+      "2019 Q3": {
+        "version": 1,
+        "checkedAt": "2026-10-12",
+        "source": "https://www.sec.gov/Archives/edgar/data/1553733/000117266119002229/infotable.xml",
+        "filingDate": "2019-11-14",
+        "sourceDigest": "2004dd88f6cb1b4263c3c8d106bad9e40f33f54cb9f75f6c39c8686a248d5dd1",
+        "sourceHash": "c1a36cbbff748793f28a93c1cd869b41afc1b95daa11880149bc3eea03ef419c",
+        "status": "verified",
+        "factor": 1,
+        "anchors": [
+          {
+            "ticker": "AR",
+            "cusip": "03674X106",
+            "filedPrice": 3.0200248137052084,
+            "price": 3.0199999809265137,
+            "date": "2019-09-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/AR?period1=0&period2=1791867819&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "SCHW",
+            "cusip": "808513105",
+            "filedPrice": 41.830020109818484,
+            "price": 41.83000183105469,
+            "date": "2019-09-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/SCHW?period1=0&period2=1791867817&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "RJF",
+            "cusip": "754730109",
+            "filedPrice": 82.45992224638134,
+            "price": 82.45999717712402,
+            "date": "2019-09-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/RJF?period1=0&period2=1791867817&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "LEN",
+            "cusip": "526057104",
+            "filedPrice": 55.84982010097251,
+            "price": 55.84999868774413,
+            "date": "2019-09-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/LEN?period1=0&period2=1791867816&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "JPM",
+            "cusip": "46625H100",
+            "filedPrice": 117.69010176128334,
+            "price": 117.69000244140625,
+            "date": "2019-09-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/JPM?period1=0&period2=1791867818&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          }
+        ],
+        "normalizedHash": "c1a36cbbff748793f28a93c1cd869b41afc1b95daa11880149bc3eea03ef419c"
+      },
+      "2019 Q4": {
+        "version": 1,
+        "checkedAt": "2026-10-12",
+        "source": "https://www.sec.gov/Archives/edgar/data/1553733/000117266120000526/infotable.xml",
+        "filingDate": "2020-02-14",
+        "sourceDigest": "45dd4339168ec9bd12e07281535cc3e40bc22a7c2e97fd0f88aa5f2f5ed5482f",
+        "sourceHash": "246612ba42700f6ddb855191468d15f39814415c289f79fc4785f79936471605",
+        "status": "verified",
+        "factor": 1,
+        "anchors": [
+          {
+            "ticker": "RJF",
+            "cusip": "754730109",
+            "filedPrice": 89.45984633811457,
+            "price": 89.45999908447266,
+            "date": "2019-12-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/RJF?period1=0&period2=1791867817&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "LEN",
+            "cusip": "526057104",
+            "filedPrice": 55.7897930771383,
+            "price": 55.78999938201904,
+            "date": "2019-12-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/LEN?period1=0&period2=1791867816&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "SCHW",
+            "cusip": "808513105",
+            "filedPrice": 47.56017384211959,
+            "price": 47.560001373291016,
+            "date": "2019-12-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/SCHW?period1=0&period2=1791867817&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "JPM",
+            "cusip": "46625h100",
+            "filedPrice": 139.39993739157657,
+            "price": 139.39999389648438,
+            "date": "2019-12-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/JPM?period1=0&period2=1791867818&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "PGR",
+            "cusip": "743315103",
+            "filedPrice": 72.39024435505945,
+            "price": 72.38999938964844,
+            "date": "2019-12-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/PGR?period1=0&period2=1791867820&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          }
+        ],
+        "normalizedHash": "246612ba42700f6ddb855191468d15f39814415c289f79fc4785f79936471605"
+      },
+      "2020 Q1": {
+        "version": 1,
+        "checkedAt": "2026-10-12",
+        "source": "https://www.sec.gov/Archives/edgar/data/1553733/000117266120001259/infotable.xml",
+        "filingDate": "2020-05-15",
+        "sourceDigest": "1c3460e243223095eb286db389d5d868e1f14bef0d757e71445a64b76d07b6cd",
+        "sourceHash": "462ccdd954c7346d70cf84c0738754e3a8c2c2d3631eaed60013f7da6dcb674f",
+        "status": "verified",
+        "factor": 1,
+        "anchors": [
+          {
+            "ticker": "AR",
+            "cusip": "03674X106",
+            "filedPrice": 0.7129052161230917,
+            "price": 0.7099999785423279,
+            "date": "2020-03-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/AR?period1=0&period2=1791867819&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "AM",
+            "cusip": "03676B102",
+            "filedPrice": 2.0999060968185357,
+            "price": 2.0999999046325684,
+            "date": "2020-03-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/AM?period1=0&period2=1791867821&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "RJF",
+            "cusip": "754730109",
+            "filedPrice": 63.200042317454425,
+            "price": 63.19999694824219,
+            "date": "2020-03-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/RJF?period1=0&period2=1791867817&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "JPM",
+            "cusip": "46625H100",
+            "filedPrice": 90.02982854479127,
+            "price": 90.02999877929688,
+            "date": "2020-03-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/JPM?period1=0&period2=1791867818&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "SCHW",
+            "cusip": "808513105",
+            "filedPrice": 33.62026365708638,
+            "price": 33.619998931884766,
+            "date": "2020-03-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/SCHW?period1=0&period2=1791867817&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          }
+        ],
+        "normalizedHash": "462ccdd954c7346d70cf84c0738754e3a8c2c2d3631eaed60013f7da6dcb674f"
+      },
+      "2020 Q2": {
+        "version": 1,
+        "checkedAt": "2026-10-12",
+        "source": "https://www.sec.gov/Archives/edgar/data/1553733/000117266120001769/infotable.xml",
+        "filingDate": "2020-08-14",
+        "sourceDigest": "d7822d187abbb957caf8a4bd217351983fbf58beac0eb46fcb4d873b1d1cf7f4",
+        "sourceHash": "114aff8178eb69419df4a080ddff9d674c0ad0140e52db17d0ac8f58d83e713b",
+        "status": "verified",
+        "factor": 1,
+        "anchors": [
+          {
+            "ticker": "AM",
+            "cusip": "03676B102",
+            "filedPrice": 5.100019064699943,
+            "price": 5.099999904632568,
+            "date": "2020-06-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/AM?period1=0&period2=1791867821&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "RJF",
+            "cusip": "754730109",
+            "filedPrice": 68.82980643876336,
+            "price": 68.82999801635742,
+            "date": "2020-06-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/RJF?period1=0&period2=1791867817&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "BRK/B",
+            "cusip": "084670702",
+            "filedPrice": 178.50979905802697,
+            "price": 178.50999450683594,
+            "date": "2020-06-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/BRK-B?period1=0&period2=1791867801&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "JPM",
+            "cusip": "46625H100",
+            "filedPrice": 94.0598907652709,
+            "price": 94.05999755859375,
+            "date": "2020-06-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/JPM?period1=0&period2=1791867818&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "PGR",
+            "cusip": "743315103",
+            "filedPrice": 80.11004002225656,
+            "price": 80.11000061035156,
+            "date": "2020-06-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/PGR?period1=0&period2=1791867820&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          }
+        ],
+        "normalizedHash": "114aff8178eb69419df4a080ddff9d674c0ad0140e52db17d0ac8f58d83e713b"
       }
     },
     "excludedValueQuarters": [],

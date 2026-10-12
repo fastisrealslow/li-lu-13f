@@ -5,7 +5,7 @@
     "notablePeople": [
       "David Abrams"
     ],
-    "lastUpdated": "2026-10-12T02:50:30Z",
+    "lastUpdated": "2026-10-12T05:03:06Z",
     "aiSummary": "艾布拉姆斯本季度减持谷歌 A 股 27%，显示其对该科技巨头估值或前景的调整，同时维持对洛尔控股等五家公司的核心持仓。",
     "aiSummaryQuarter": "2026 Q2",
     "instrumentHistoryTickers": [
@@ -5741,8 +5741,8 @@
           "shareType": "SH",
           "putCall": "",
           "sector": "其他",
-          "prevValue": 0,
-          "prevShares": 0
+          "prevShares": 0,
+          "prevValue": 0
         },
         {
           "ticker": "?CLEAR CHANNEL OUTDOOR HLDGS",
@@ -6004,8 +6004,8 @@
           "shareType": "SH",
           "putCall": "",
           "sector": "其他",
-          "prevValue": 36494000,
-          "prevShares": 2223860
+          "prevShares": 2223860,
+          "prevValue": 36494000
         },
         {
           "ticker": "AKBA",
@@ -12298,13 +12298,14 @@
       ]
     },
     "coverage": {
-      "checkedAt": "2026-10-12T02:50:30Z",
+      "checkedAt": "2026-10-12T05:03:06Z",
       "missingQuarters": [],
       "repairedThisRun": [],
       "errors": {},
       "attempts": {},
       "expandedLookup": null,
-      "status": "continuous_within_stored_range"
+      "status": "continuous_within_stored_range",
+      "quietMissingQuarters": []
     },
     "filing_sources": {
       "2026 Q2": {
@@ -12735,7 +12736,7 @@
     "instrumentVerification": {
       "pendingQuarters": [],
       "errors": {},
-      "checkedAt": "2026-10-12T02:50:30.670974+00:00"
+      "checkedAt": "2026-10-12T05:03:06.396736+00:00"
     },
     "valueAudit": {
       "2013 Q4": {
@@ -14345,6 +14346,444 @@
           }
         ],
         "normalizedHash": "350c52b6752d72e5a638ec76f42dba1162ab44c9184ef64e5d7ed2783babfb82"
+      },
+      "2018 Q3": {
+        "version": 1,
+        "checkedAt": "2026-10-12",
+        "source": "https://www.sec.gov/Archives/edgar/data/1358706/000117266118001981/infotable.xml",
+        "filingDate": "2018-11-09",
+        "sourceDigest": "c80ed8862f4bc4014f88bce60e4faf4b91da8bce7b0f003ba5a9c984ca9f0f8d",
+        "sourceHash": "4e69d23c29b3d5d50bc8b599aa2d70d10fe5e7569f464e16ab25f2a062682d52",
+        "status": "verified",
+        "factor": 1,
+        "anchors": [
+          {
+            "ticker": "WU",
+            "cusip": "959802109",
+            "filedPrice": 19.059981484961988,
+            "price": 19.059999465942383,
+            "date": "2018-09-28",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/WU?period1=0&period2=1791867836&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "TEVA",
+            "cusip": "881624209",
+            "filedPrice": 21.540005487038155,
+            "price": 21.540000915527344,
+            "date": "2018-09-28",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/TEVA?period1=0&period2=1791867836&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "BEN",
+            "cusip": "354613101",
+            "filedPrice": 30.409984974393723,
+            "price": 30.40999984741211,
+            "date": "2018-09-28",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/BEN?period1=0&period2=1791867837&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "KMI",
+            "cusip": "49456B101",
+            "filedPrice": 17.730033025525017,
+            "price": 17.729999542236328,
+            "date": "2018-09-28",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/KMI?period1=0&period2=1791867837&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "SPH",
+            "cusip": "864482104",
+            "filedPrice": 23.530073157525937,
+            "price": 23.530000686645508,
+            "date": "2018-09-28",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/SPH?period1=0&period2=1791867838&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          }
+        ],
+        "normalizedHash": "4e69d23c29b3d5d50bc8b599aa2d70d10fe5e7569f464e16ab25f2a062682d52"
+      },
+      "2018 Q4": {
+        "version": 1,
+        "checkedAt": "2026-10-12",
+        "source": "https://www.sec.gov/Archives/edgar/data/1358706/000117266119000623/infotable.xml",
+        "filingDate": "2019-02-14",
+        "sourceDigest": "f4c8299753913dbcd13b70988fb68e28802bdc8f1e813e6b233a12f38246b45b",
+        "sourceHash": "a1e8e6b88975840b93ad495ddcba2c9e9e82612100c59f1ddb01a3eb854cb750",
+        "status": "verified",
+        "factor": 1,
+        "anchors": [
+          {
+            "ticker": "TEVA",
+            "cusip": "881624209",
+            "filedPrice": 15.42000128277307,
+            "price": 15.420000076293945,
+            "date": "2018-12-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/TEVA?period1=0&period2=1791867836&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "WU",
+            "cusip": "959802109",
+            "filedPrice": 17.05999455857311,
+            "price": 17.059999465942383,
+            "date": "2018-12-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/WU?period1=0&period2=1791867836&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "BEN",
+            "cusip": "354613101",
+            "filedPrice": 29.65996413921667,
+            "price": 29.65999984741211,
+            "date": "2018-12-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/BEN?period1=0&period2=1791867837&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "KMI",
+            "cusip": "49456B101",
+            "filedPrice": 15.379953329403218,
+            "price": 15.380000114440918,
+            "date": "2018-12-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/KMI?period1=0&period2=1791867837&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "AKBA",
+            "cusip": "00972D105",
+            "filedPrice": 5.529958479346277,
+            "price": 5.53000020980835,
+            "date": "2018-12-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/AKBA?period1=0&period2=1791867838&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          }
+        ],
+        "normalizedHash": "a1e8e6b88975840b93ad495ddcba2c9e9e82612100c59f1ddb01a3eb854cb750"
+      },
+      "2019 Q1": {
+        "version": 1,
+        "checkedAt": "2026-10-12",
+        "source": "https://www.sec.gov/Archives/edgar/data/1358706/000117266119001152/infotable.xml",
+        "filingDate": "2019-05-10",
+        "sourceDigest": "3e5b64ad8f5e7e7ae64a7c482cbffc1a77ba4572f931c199c4c838c116611fa6",
+        "sourceHash": "d0a17126e4575c89136b82cc2c93f4a0316bfb65a91458d739ce87fd46adedc8",
+        "status": "verified",
+        "factor": 1,
+        "anchors": [
+          {
+            "ticker": "PCG",
+            "cusip": "69331C108",
+            "filedPrice": 17.8,
+            "price": 17.799999237060547,
+            "date": "2019-03-29",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/PCG?period1=0&period2=1791867839&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "TEVA",
+            "cusip": "881624209",
+            "filedPrice": 15.680007642540135,
+            "price": 15.680000305175781,
+            "date": "2019-03-29",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/TEVA?period1=0&period2=1791867836&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "BEN",
+            "cusip": "354613101",
+            "filedPrice": 33.139980962878845,
+            "price": 33.13999938964844,
+            "date": "2019-03-29",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/BEN?period1=0&period2=1791867837&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "KMI",
+            "cusip": "49456B101",
+            "filedPrice": 20.010044765326708,
+            "price": 20.010000228881836,
+            "date": "2019-03-29",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/KMI?period1=0&period2=1791867837&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "AKBA",
+            "cusip": "00972D105",
+            "filedPrice": 8.189925080377098,
+            "price": 8.1899995803833,
+            "date": "2019-03-29",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/AKBA?period1=0&period2=1791867838&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          }
+        ],
+        "normalizedHash": "d0a17126e4575c89136b82cc2c93f4a0316bfb65a91458d739ce87fd46adedc8"
+      },
+      "2019 Q2": {
+        "version": 1,
+        "checkedAt": "2026-10-12",
+        "source": "https://www.sec.gov/Archives/edgar/data/1358706/000117266119001665/infotable.xml",
+        "filingDate": "2019-08-09",
+        "sourceDigest": "2f5fd36634f2a3650464a4fc7a91f5853ed2bc0c3add37950b928265dc742bba",
+        "sourceHash": "eed7f9ffb44f2793bfa1247d1704492a413e482d87146f603fc55456cab635cd",
+        "status": "verified",
+        "factor": 1,
+        "anchors": [
+          {
+            "ticker": "PCG",
+            "cusip": "69331C108",
+            "filedPrice": 22.92,
+            "price": 22.920000076293945,
+            "date": "2019-06-28",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/PCG?period1=0&period2=1791867839&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "TEVA",
+            "cusip": "881624209",
+            "filedPrice": 9.230007431971307,
+            "price": 9.229999542236328,
+            "date": "2019-06-28",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/TEVA?period1=0&period2=1791867836&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "BEN",
+            "cusip": "354613101",
+            "filedPrice": 34.80004985425408,
+            "price": 34.79999923706055,
+            "date": "2019-06-28",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/BEN?period1=0&period2=1791867837&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "KMI",
+            "cusip": "49456B101",
+            "filedPrice": 20.88005180885496,
+            "price": 20.8799991607666,
+            "date": "2019-06-28",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/KMI?period1=0&period2=1791867837&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "AKBA",
+            "cusip": "00972D105",
+            "filedPrice": 4.8399511921055955,
+            "price": 4.840000152587891,
+            "date": "2019-06-28",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/AKBA?period1=0&period2=1791867838&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          }
+        ],
+        "normalizedHash": "eed7f9ffb44f2793bfa1247d1704492a413e482d87146f603fc55456cab635cd"
+      },
+      "2019 Q3": {
+        "version": 1,
+        "checkedAt": "2026-10-12",
+        "source": "https://www.sec.gov/Archives/edgar/data/1358706/000117266119002340/infotable.xml",
+        "filingDate": "2019-11-14",
+        "sourceDigest": "78ac977324cba912e7102e296b9158c66fcedc7be0f41031a3cba9d8f5e50444",
+        "sourceHash": "32b79e1904ea353173095b727b95fb1a2018b1454be79f37ea604f014dbaca23",
+        "status": "verified",
+        "factor": 1,
+        "anchors": [
+          {
+            "ticker": "PCG",
+            "cusip": "69331C108",
+            "filedPrice": 10.0,
+            "price": 10.0,
+            "date": "2019-09-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/PCG?period1=0&period2=1791867839&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "TEVA",
+            "cusip": "881624209",
+            "filedPrice": 6.880002940986152,
+            "price": 6.880000114440918,
+            "date": "2019-09-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/TEVA?period1=0&period2=1791867836&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "BEN",
+            "cusip": "354613101",
+            "filedPrice": 28.86000552981094,
+            "price": 28.860000610351562,
+            "date": "2019-09-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/BEN?period1=0&period2=1791867837&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "KMI",
+            "cusip": "49456B101",
+            "filedPrice": 20.610057708161584,
+            "price": 20.610000610351562,
+            "date": "2019-09-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/KMI?period1=0&period2=1791867837&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "AKBA",
+            "cusip": "00972D105",
+            "filedPrice": 3.9199414757846864,
+            "price": 3.9200000762939453,
+            "date": "2019-09-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/AKBA?period1=0&period2=1791867838&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          }
+        ],
+        "normalizedHash": "32b79e1904ea353173095b727b95fb1a2018b1454be79f37ea604f014dbaca23"
+      },
+      "2019 Q4": {
+        "version": 1,
+        "checkedAt": "2026-10-12",
+        "source": "https://www.sec.gov/Archives/edgar/data/1358706/000117266120000818/infotable.xml",
+        "filingDate": "2020-02-14",
+        "sourceDigest": "9aaa44665a3140a65355ab1e60f662370f931d0f61349100d9e27dfff5601b60",
+        "sourceHash": "24560529ce111ebe276b2f70868b472b4e7d030b5a8b0cc85a5307bcf586a1b4",
+        "status": "verified",
+        "factor": 1,
+        "anchors": [
+          {
+            "ticker": "PCG",
+            "cusip": "69331C108",
+            "filedPrice": 10.87,
+            "price": 10.869999885559082,
+            "date": "2019-12-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/PCG?period1=0&period2=1791867839&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "TEVA",
+            "cusip": "881624209",
+            "filedPrice": 9.799987989864244,
+            "price": 9.800000190734863,
+            "date": "2019-12-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/TEVA?period1=0&period2=1791867836&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "BEN",
+            "cusip": "354613101",
+            "filedPrice": 25.98005050710338,
+            "price": 25.979999542236328,
+            "date": "2019-12-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/BEN?period1=0&period2=1791867837&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "KMI",
+            "cusip": "49456B101",
+            "filedPrice": 21.169975999482286,
+            "price": 21.170000076293945,
+            "date": "2019-12-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/KMI?period1=0&period2=1791867837&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "CWH",
+            "cusip": "13462K109",
+            "filedPrice": 14.74002784176553,
+            "price": 14.739999771118164,
+            "date": "2019-12-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/CWH?period1=0&period2=1791867841&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          }
+        ],
+        "normalizedHash": "24560529ce111ebe276b2f70868b472b4e7d030b5a8b0cc85a5307bcf586a1b4"
       }
     },
     "excludedValueQuarters": []
