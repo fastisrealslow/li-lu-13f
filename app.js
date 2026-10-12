@@ -353,7 +353,7 @@ let INVESTOR_LABELS_EN = {};     // id -> 英文名
 
 async function loadInvestorConfig({fresh = false, signal} = {}) {
   try {
-    const resp = await fetch('investors.json?v=76&t=' + (fresh ? Date.now() : Math.floor(Date.now()/300000)), {signal, cache:fresh ? 'no-store' : 'default'});
+    const resp = await fetch('investors.json?v=77&t=' + (fresh ? Date.now() : Math.floor(Date.now()/300000)), {signal, cache:fresh ? 'no-store' : 'default'});
     if (!resp.ok) throw new Error('investors.json HTTP ' + resp.status);
     const json = await resp.json();
     if (!Array.isArray(json.investors) || !json.investors.length) throw new Error('Invalid investor configuration');
@@ -710,28 +710,31 @@ function renderSummary() {
       cikHtml + (data.current.holdings.some(h=>h.putCall) ? `<span class="data-quality-note">${lang==='en'?'Option quantities and values refer to underlying securities; totals and percentages are filed amounts, not fund NAV or option premiums.':'期权行的数量和市值指其标的证券；本页合计与占比按申报口径，不代表基金净资产或期权权利金。'} <a href="https://www.sec.gov/files/form13f.pdf" target="_blank" rel="noopener noreferrer">SEC 13F</a></span>` : '') + (data.current.valueQuality ? `<span class="data-quality-note">${lang === 'en' ? 'Reported values have an unresolved scale discrepancy; raw SEC amounts retained. Cost estimates are suspended.' : '原表市值存在量级疑点，保留 SEC 原始数值；成本估算暂停。'} <a href="${hkEscape(data.current.valueQuality.source)}" target="_blank" rel="noopener noreferrer">${lang === 'en' ? 'Original filing' : '原始申报'}</a></span>` : '') + (data.meta?.snapshotType ? `<span class="data-quality-note">${lang === 'en' ? 'Historical archived disclosures. Valuation dates could not be verified; totals are HKD, not a complete current portfolio.' : '历史归档披露；估值日期未能核实。合计单位为港元，不代表当前完整组合。'}</span>` : '') + (!comparableQuarter() && !data.meta?.snapshotType ? `<span class="data-quality-note">${comparisonNotice()} <a href="${hkEscape(data.meta?.reportingTransition?.noticeSource || INVESTOR_CFG_BY_ID[investor]?.resources?.[0]?.url || 'https://www.sec.gov/edgar/search/')}" target="_blank" rel="noopener noreferrer">${lang === 'en' ? 'SEC notice' : 'SEC 通知'}</a></span>` : '');
   }
   const tc = d.totalValue - (d.prevTotalValue||0);
+  if (metaRow && INVESTOR_CFG_BY_ID[investor]?.holdingsUpdateMode==='archived') {
+    metaRow.innerHTML+=`<span class="data-quality-note">${lang==='en'?'Archive mode: historical shares are retained; quotes refresh independently.':'历史档案模式：持仓股数保留原样，股价独立定期更新。'}</span>`;
+  }
   const tp = d.prevTotalValue ? (tc/d.prevTotalValue*100) : 0;
   const cls = tc>=0?'up':'down', sign=tc>=0?'+':'';
   const t3 = d.holdings.slice(0,3);
   document.getElementById('summaryCards').innerHTML = `
-      <div class="stat-item">
+      <div class="stat-item"><div class="stat-primary">
         <span class="stat-num" style="font-size:1.5rem;">${d.valueQuality?(lang==='en'?'Value unverified':'金额待核实'):(investor === "webb" ? "HK$" : "US$")+fmtVal(d.totalValue)}</span>
         <span class="stat-change ${cls}">${comparisonState()==='comparable' && !d.valueQuality ? sign+tp.toFixed(1)+"%" : "—"}</span>
-        <span class="stat-desc">${d.valueQuality ? (lang === 'en' ? 'Reported value units unverified' : '申报金额单位待核实') : t('statValue')} · ${comparableQuarter() ? t('statVs')+" "+(d.prevQuarter||" ") : comparisonNotice()}</span>
+        </div><span class="stat-desc">${d.valueQuality ? (lang === 'en' ? 'Reported value units unverified' : '申报金额单位待核实') : data.meta?.snapshotType?(lang==='en'?'Archived valuation total':'历史估值合计'):t('statValue')} · ${comparableQuarter() ? t('statVs')+" "+(d.prevQuarter||" ") : comparisonNotice()}</span>
       </div>
       <div class="stat-sep"></div>
       <div class="stat-item">
-        <span class="stat-num">${d.holdings.length}</span>
+        <div class="stat-primary"><span class="stat-num">${d.holdings.length}</span></div>
         <span class="stat-desc">${recentHKRows.length ? (lang==='en'?'13F holdings':'只 13F 持仓') : t('statCount')}</span>
       </div>
       <div class="stat-sep"></div>
       <div class="stat-item">
-        <span class="stat-num">${d.valueQuality?'—':(t3.reduce((s,h)=>s+h.value,0)/d.totalValue*100).toFixed(1)+'%'}</span>
+        <div class="stat-primary"><span class="stat-num">${d.valueQuality?'—':(t3.reduce((s,h)=>s+h.value,0)/d.totalValue*100).toFixed(1)+'%'}</span></div>
         <span class="stat-desc">${t('statTop3')} ${t3.map(h=>h.ticker).join('·')}</span>
       </div>
       <div class="stat-sep"></div>
       <div class="stat-item">
-        <span class="stat-num">${data.meta?.snapshotType ? (lang === 'en' ? 'Historical' : '历史快照') : d.quarter}</span>
+        <div class="stat-primary"><span class="stat-num">${data.meta?.snapshotType ? (lang === 'en' ? 'Historical' : '历史快照') : d.quarter}</span></div>
         <span class="stat-desc">${t('statQuarter')} · ${t('metaPeriod')} ${d.periodEnd || '—'}</span>
       </div>
   `;
@@ -2352,7 +2355,8 @@ async function renderStatusDrawer() {
       if (!s) return;
       const label = STEP_LABELS[stepKey] || s?.label || stepKey;
       const icon = statusIcon(effectiveStepStatus(stepKey,s));
-      const msg = s.msg ? `<div class="status-step-message">${hkEscape(statusStepMessage(stepKey, s))}</div>` : '';
+      const visibleMessage=statusStepMessage(stepKey,s);
+      const msg = visibleMessage ? `<div class="status-step-message">${hkEscape(visibleMessage)}</div>` : '';
       const ts = s.ts ? `<span class="status-step-time">${hkEscape(fmtTime(s.ts).slice(-5))}</span>` : '';
       const status = effectiveStepStatus(stepKey,s);
       const state = ['ok','info','warn','skip','fail'].includes(status) ? status : 'unknown';
@@ -2371,10 +2375,22 @@ async function renderStatusDrawer() {
 }
 
 function effectiveStepStatus(key, step) {
+  if (mutedHistoryNotice(key,step)) return 'ok';
   // Reclassify only an explicitly completed search, never an interrupted fetch.
   return key === 'lilu_13f' && step?.status === 'warn' && /^lilu 历史缺 \d+ 季：已补查SEC历史索引，仍无可用原始持仓报告；不作零持仓$/.test(step.msg || '') ? 'info' : step?.status;
 }
+function mutedHistoryNotice(key,step) {
+  if (!key.endsWith('_13f') || !['info','warn'].includes(step?.status)) return false;
+  const msg=String(step.msg || ''),match=msg.match(/历史缺\s*(\d+)\s*季/);
+  if (!match || !/已补查SEC历史索引，仍无可用原始持仓报告/.test(msg)) return false;
+  const cfg=INVESTOR_CFG_BY_ID[key.slice(0,-4)];
+  const quiet=cfg?.historyGapNotices?.mutedQuarters || [];
+  const scope=msg.match(/季（([^）]+)）/);
+  const quarters=scope?scope[1].split(',').map(q=>q.trim()):[];
+  return quiet.length>0 && (quarters.length?quarters.length===Number(match[1]) && quarters.every(q=>quiet.includes(q)):Number(match[1])===quiet.length);
+}
 function statusStepMessage(stepKey, step) {
+  if (mutedHistoryNotice(stepKey,step)) return '';
   const msg = String(step?.msg || '');
   const missing = stepKey === 'lilu_13f' && ['warn','info'].includes(step.status) && msg.match(/历史缺\s*(\d+)\s*季/);
   const scope = msg.match(/季（([^）]+)）/);

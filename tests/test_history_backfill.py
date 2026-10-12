@@ -17,6 +17,15 @@ def table():
 
 
 class BackfillTests(unittest.TestCase):
+    def test_acknowledged_gaps_are_quiet_without_hiding_new_missing_quarters(self):
+        missing=['2018 Q4','2019 Q1','2019 Q2','2019 Q3','2024 Q2']
+        coverage={'missingQuarters':missing.copy()}
+        config={'historyGapNotices':{'mutedQuarters':missing[:4]}}
+        self.assertEqual(fetch.history_notice_quarters(coverage,config),['2024 Q2'])
+        self.assertEqual(coverage['quietMissingQuarters'],missing[:4])
+        self.assertEqual(coverage['missingQuarters'],missing)
+        self.assertEqual(fetch.history_notice_quarters(coverage,{}),missing)
+
     def test_archive_index_is_read_sorted_and_deduplicated(self):
         current={'form':['13F-HR'],'accessionNumber':['new'],'filingDate':['2026-08-14'],'reportDate':['2026-06-30']}
         archive={'form':['13F-HR','8-K','13F-HR'],'accessionNumber':['old','ignore','new'],'filingDate':['2019-05-14','2019-01-01','2026-08-14'],'reportDate':['2019-03-31','','2026-06-30']}

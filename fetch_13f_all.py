@@ -67,7 +67,7 @@ def _load_investor_config():
             entry["consolidate"] = True
         if inv.get("legacyFilers"):
             entry["legacyFilers"] = inv["legacyFilers"]
-        for field in ("reportingFrom", "reportingTransition"):
+        for field in ("reportingFrom", "reportingTransition", "historyGapNotices"):
             if inv.get(field): entry[field] = inv[field]
         cfg[inv["id"]] = entry
     return cfg
@@ -645,6 +645,13 @@ def missing_history_quarters(data):
             if i not in indices]
 
 
+def history_notice_quarters(coverage, config):
+    """Silence only acknowledged archive holes, never new missing quarters."""
+    quiet=set(config.get('historyGapNotices',{}).get('mutedQuarters',[]))
+    coverage['quietMissingQuarters']=[q for q in coverage['missingQuarters'] if q in quiet]
+    return [q for q in coverage['missingQuarters'] if q not in quiet]
+
+
 def backfill_history_gaps(cik, data, filings, consolidate=False, limit=4):
     """Repair bounded gaps on normal runs; failures remain gaps, never zeroes."""
     missing = missing_history_quarters(data)
@@ -985,7 +992,7 @@ def process_investor(key: str, config: dict, full_mode: bool):
     })
     backfill_security_classes(data, filings)
     backfill_history_gaps(cik, data, filings, consolidate)
-    remaining = data["history"]["coverage"]["missingQuarters"]
+    remaining = history_notice_quarters(data["history"]["coverage"],config)
     if remaining:
         from update_status import record_source_warning, record_source_notice
         step = "akre_greenberg_13f" if key in ("akre", "greenberg") else f"{key}_13f"

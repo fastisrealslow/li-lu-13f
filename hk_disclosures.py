@@ -354,7 +354,14 @@ def load_configs(path):
 
 def run_investor(inv,root,client=None):
     from monitor_hk_disclosures import update_hk_file, normalize_hk_ticker
-    root=Path(root);path=root/inv['hkFile'];client=client or Client()
+    root=Path(root);path=root/inv['hkFile']
+    if inv.get('holdingsUpdateMode')=='archived':
+        data=json.loads(path.read_text())
+        return {'investor':inv['id'],'status':'archived','attemptedAt':now_iso(),
+                'verifiedSecurities':sum(bool(h.get('verified_disclosures')) for h in data.get('holdings',[])),
+                'pendingSecurities':sum(not h.get('verified_disclosures') for h in data.get('holdings',[])),'errors':[],
+                'message':'保留历史权益披露，不重新推断当前持仓；股价独立更新。'}
+    client=client or Client()
     if not path.exists():
         path.write_text('{"holdings":[]}\n')
     update_hk_file(str(path),[])
@@ -444,7 +451,7 @@ def run(root='.',investors=None,workers=3):
     # Status writes are sequential; concurrent investors cannot lose warnings.
     from update_status import record_source_warning
     for r in results:
-        if r['status']!='checked':
+        if r['status'] not in ('checked','archived'):
             record_source_warning('hk_disclosures',f"{r['investor']} 港股披露部分未核实，保留已有证据")
     status_path=root/'alerts_hk_persons.json'
     previous=json.loads(status_path.read_text()) if status_path.exists() else {}

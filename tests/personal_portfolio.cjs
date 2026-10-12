@@ -61,7 +61,7 @@ test('every holding explains actual EV and capital numbers in both modes with ra
       const html=equations(c,r);
       assert(html.includes('ROC = EBIT ÷ (净运营资本＋有形固定资本)'));
       assert(html.includes('经营性流动资产'));
-      if(r.investedCapital<0){assert(html.includes('负百分比只展示算术结果'));assert(!html.includes('= <b>—</b>'));}
+      if(r.investedCapital<0){assert(html.includes('负百分比只展示算术结果'));assert(html.includes('不等于公司净资产为负'));assert(html.includes('供应商账期、客户预付款'));assert(!html.includes('= <b>—</b>'));}
       if(years==='3')assert(html.includes('平均有形经营资本'));
     }
   }

@@ -8,6 +8,7 @@ fetch_webb_holdings.py
 """
 
 import json, re, sys, time
+from pathlib import Path
 from datetime import datetime, timezone
 from urllib.request import urlopen, Request
 from urllib.error import URLError
@@ -15,6 +16,7 @@ from html.parser import HTMLParser
 
 URL = "https://webbsite.0xmd.com/dbpub/webbchips.asp"
 WEBB_JSON = "webb.json"
+CONFIG_PATH = Path(__file__).resolve().parent / 'investors.json'
 
 HEADERS = {
     "User-Agent": "Mozilla/5.0 (compatible; 13f-dashboard/1.0; +https://github.com/fastisrealslow/li-lu-13f)",
@@ -165,6 +167,18 @@ def update_webb_json(new_holdings):
 
 def main():
     print("=== fetch_webb_holdings.py ===")
+    config=json.loads(CONFIG_PATH.read_text(encoding='utf-8'))['investors']
+    investor=next(c for c in config if c['id']=='webb')
+    if investor.get('holdingsUpdateMode')=='archived':
+        # Still require a readable, non-empty archive. A missing archive is
+        # a genuine error; a deliberately retired network feed is not.
+        with open(WEBB_JSON,encoding='utf-8') as f:archive=json.load(f)
+        if not archive.get('current',{}).get('holdings'):
+            raise ValueError('Archived Webb holdings are missing')
+        print(f"保留 {len(archive['current']['holdings'])} 条历史持仓；报价由独立价格任务更新。")
+        from update_status import record_source_notice
+        record_source_notice('webb_holdings','历史档案模式：保留旧持仓，仅定期更新股价；停用不可用的持仓镜像。')
+        return
     # 调度控制由 CI workflow 负责（仅周一执行），脚本本身无条件运行
     now = datetime.now(timezone.utc)
     print(f"执行时间：UTC {now.strftime('%a %Y-%m-%d %H:%M')}")

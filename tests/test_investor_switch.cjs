@@ -245,6 +245,20 @@ test('status messages distinguish historical coverage from a failed holdings loa
   assert.equal(a.run("statusStepMessage('lilu_13f', {status:'fail',msg:'HTTP 503'})"), 'HTTP 503');
 });
 
+test('acknowledged completed archive searches stop recurring notices; new gaps and outages remain visible',async()=>{
+  const a=app();await a.run('loadInvestorConfig()');
+  const old={status:'info',msg:'lilu 历史缺 4 季（2018 Q4, 2019 Q1, 2019 Q2, 2019 Q3）：已补查SEC历史索引，仍无可用原始持仓报告；不作零持仓'};
+  assert.equal(a.run(`statusStepMessage('lilu_13f',${JSON.stringify(old)})`),'');
+  assert.equal(a.run(`effectiveStepStatus('lilu_13f',${JSON.stringify(old)})`),'ok');
+  const unknown={...old,msg:old.msg.replace('2019 Q3','2024 Q2')};
+  assert.notEqual(a.run(`statusStepMessage('lilu_13f',${JSON.stringify(unknown)})`),'');
+  const failed={status:'fail',msg:'SEC HTTP 503'};
+  assert.equal(a.run(`effectiveStepStatus('lilu_13f',${JSON.stringify(failed)})`),'fail');
+  assert.equal(a.run(`statusStepMessage('lilu_13f',${JSON.stringify(failed)})`),'SEC HTTP 503');
+  const partial={status:'warn',msg:'lilu 历史缺 4 季：补查未完成或原表未核实，后续重试；不作零持仓'};
+  assert.equal(a.run(`effectiveStepStatus('lilu_13f',${JSON.stringify(partial)})`),'warn');
+});
+
 test('status drawer separates messages, escapes source text, and omits steps absent from that run', async () => {
   const a = app();
   const now = new Date().toISOString();

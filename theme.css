@@ -361,3 +361,17 @@ tbody tr:hover { background: #f8f9fa; }
  #tab-changes .stock-cell{min-width:0!important;max-width:none;width:auto!important}
  #tab-changes .name-line{font-size:.65rem;white-space:normal}
 }
+
+/* Keep each portfolio summary centered within its own cell. */
+#summaryCards{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));align-items:stretch}
+#summaryCards .stat-sep{display:none}
+#summaryCards .stat-item{min-width:0;display:flex;flex-direction:column;flex-wrap:nowrap;justify-content:center;align-items:center;text-align:center;gap:8px;padding:16px 12px;border-right:1px solid var(--border-light)}
+#summaryCards .stat-item:last-child{border-right:0}
+#summaryCards .stat-primary{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:center;gap:6px;width:100%;min-width:0}
+#summaryCards .stat-desc{display:block;width:100%;margin:0;text-align:center;overflow-wrap:anywhere}
+#summaryCards .stat-change{margin-left:0}
+@media(max-width:640px){
+  #summaryCards{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+  #summaryCards .stat-item{padding:16px 8px;border-right:0}
+  #summaryCards .stat-item:nth-of-type(1),#summaryCards .stat-item:nth-of-type(5){border-right:1px solid var(--border-light)}
+}

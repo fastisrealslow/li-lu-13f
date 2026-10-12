@@ -74,6 +74,7 @@ def latest_reports(watch):
 def run(root='.'):
     root=Path(root)
     for inv in json.loads((root/'investors.json').read_text())['investors']:
+        if inv.get('holdingsUpdateMode')=='archived':continue
         watches=inv.get('hkDisclosure',{}).get('secValueSources',[])
         if not watches:continue
         path=root/inv['hkFile'];data=json.loads(path.read_text());errors=[]

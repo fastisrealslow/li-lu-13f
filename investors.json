@@ -265,6 +265,15 @@
             "Identify businesses that recur in filings over many years, then examine changes in the structure. Recurring disclosures are evidence; the value chart is not a compounding return series."
           ]
         }
+      },
+      "historyGapNotices": {
+        "mutedQuarters": [
+          "2018 Q4",
+          "2019 Q1",
+          "2019 Q2",
+          "2019 Q3"
+        ],
+        "reason": "SEC submissions and expanded quarterly-index searches completed; acknowledged archive gaps remain visible in history without recurring update notices."
       }
     },
     {
@@ -1319,7 +1328,9 @@
           ]
         }
       },
-      "officialWebsiteLabel": "Webb-site 文章档案"
+      "officialWebsiteLabel": "Webb-site 文章档案",
+      "holdingsUpdateMode": "archived",
+      "holdingsUpdateNote": "保留历史持仓，仅自动更新报价；历史持仓镜像返回 HTTP 403，不再将镜像抓取作为日常更新任务。"
     },
     {
       "id": "buffett",

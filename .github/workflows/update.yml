@@ -13,6 +13,7 @@ on:
       - "hk_financial_evidence.py"
       - "holdings_diff.py"
       - "fetch_prices_all.py"
+      - "fetch_webb_holdings.py"
       - "tests/test_cost_calculation.py"
       - "portfolio_review.py"
       - "ai_supplement.py"
@@ -24,6 +25,7 @@ on:
       - "tests/test_hk_financial_evidence.py"
       - "investors.json"
       - "tests/test_hk_automation.py"
+      - "tests/test_archived_holdings.py"
       - "fetch_13f_all.py"
       - "resolve_unmapped_tickers.py"
       - "publish_update_failure.py"
@@ -457,28 +459,17 @@ jobs:
             python3 update_status.py --step hawkins_prices --status fail --msg "Step exited with error"
           fi
 
-      # ─────────────── Webb 港股持仓（仅周一）───────────────
+      # ─────────────── Webb 历史持仓档案；股价独立刷新 ────────────────
 
-      - name: Fetch David Webb HK holdings (仅周一)
+      - name: Preserve David Webb archived holdings
         id: webb_holdings
         continue-on-error: true
-        run: |
-          DAY=$(date -u +%u)
-          if [ "$DAY" = "1" ] || [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
-            echo "周一，执行 Webb 持仓抓取..."
-            python3 fetch_webb_holdings.py
-          else
-            echo "今天是周 $DAY，跳过 Webb 持仓抓取"
-            exit 0
-          fi
+        run: python3 fetch_webb_holdings.py
 
       - name: Status - Webb holdings
         if: ${{ !cancelled() && steps.init_status.outcome == 'success' }}
         run: |
-          DAY=$(date -u +%u)
-          if [ "$DAY" != "1" ] && [ "${{ github.event_name }}" != "workflow_dispatch" ]; then
-            python3 update_status.py --step webb_holdings --status skip --msg "非周一，跳过"
-          elif [ "${{ steps.webb_holdings.outcome }}" = "success" ]; then
+          if [ "${{ steps.webb_holdings.outcome }}" = "success" ]; then
             python3 update_status.py --step webb_holdings --status ok
           else
             python3 update_status.py --step webb_holdings --status fail --msg "Step exited with error"
