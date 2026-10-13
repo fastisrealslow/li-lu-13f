@@ -89,8 +89,8 @@
       "status": "ok"
     },
     "history:pabrai": {
-      "at": "2026-10-12T21:52:53.701485+00:00",
-      "sourceHash": "f7722a1716e2abdf4f90b984c3b88852076baba1a990b2e48f20ea06c79fb828",
+      "at": "2026-10-13T12:03:37.025021+00:00",
+      "sourceHash": "3244e60be3c19b9b78f04e2caf569d7ecc6ac259dd3dbee9c8b5e14f84ce62fb",
       "status": "ok"
     },
     "holdings:duan": {
@@ -104,7 +104,7 @@
       "status": "ok"
     },
     "holdings:tepper": {
-      "at": "2026-10-12T22:00:16.918589+00:00",
+      "at": "2026-10-13T12:11:09.631585+00:00",
       "sourceHash": "bfbedbef61c9bc3d0da89547f72feb30b16b89d734d3f60379ea15c681b10c68",
       "status": "failed",
       "error": "Selection omitted a required scope or evidence limitation"
@@ -125,14 +125,14 @@
       "status": "ok"
     },
     "holdings:akre": {
-      "at": "2026-10-12T21:58:56.667694+00:00",
+      "at": "2026-10-13T12:09:48.499601+00:00",
       "sourceHash": "e7b4cb3b851ae1bdd8cb9ee67934b8612589b1bb98deaa17b2f9d56660649b7a",
       "status": "failed",
       "error": "Selection omitted a required scope or evidence limitation"
     },
     "history:akre": {
-      "at": "2026-10-12T21:54:23.379095+00:00",
-      "sourceHash": "39885367278a0f0acb3d78b5d90f9b32cf7ae8cf134def721a0f72359c73910d",
+      "at": "2026-10-13T12:05:12.202386+00:00",
+      "sourceHash": "4ad3d34d73f099f706802bbe84359ed33717900c416657e1686723d36f5f82e1",
       "status": "ok"
     },
     "holdings:greenberg": {
@@ -151,8 +151,8 @@
       "status": "ok"
     },
     "history:klarman": {
-      "at": "2026-10-12T21:55:54.662988+00:00",
-      "sourceHash": "1b6c34939d8f56b607d6bcc889ff8a78b98ebfff6c00849c6d684df839bf3115",
+      "at": "2026-10-13T12:06:44.743445+00:00",
+      "sourceHash": "06a2c4a0041970a018d529fb6974479cf7b1238fcef43a7caddfc048b6499cdf",
       "status": "ok"
     },
     "holdings:ackman": {
@@ -191,7 +191,7 @@
       "status": "ok"
     },
     "history:hawkins": {
-      "at": "2026-10-12T21:57:18.954206+00:00",
+      "at": "2026-10-13T12:08:09.719534+00:00",
       "sourceHash": "df07e812d8a12a7d90d0f3fd3bcb296ca5a08ff37075d1a186064ca77e12cb50",
       "status": "failed",
       "error": "Selection omitted a required scope or evidence limitation"
@@ -14462,11 +14462,14 @@
         ]
       },
       "renderVersion": 4,
-      "mode": "deterministic",
+      "mode": "model_selection",
       "summary": "帕伯莱 · 历史轨迹：可用于市值趋势的记录有 53 个季度，覆盖 2013 Q2 至 2026 Q2。这段历史反映披露范围内证券，不是基金净值曲线。披露市值从 US$421.25M 变为 US$326.75M（变化 -22.4%）。金额同时受价格、买卖、资金流及披露范围影响，不能当作投资回报。当前证券中，冶金煤业（HCC） 已连续出现在 2 个可核实季度披露中（2026 Q1 至 2026 Q2）。这是连续披露记录，不是逐笔持有或交易证明。",
-      "generatedAt": "2026-10-13T04:26:43.862252+00:00",
-      "model": null,
-      "metrics": {}
+      "generatedAt": "2026-10-13T12:05:12.200849+00:00",
+      "model": "qwen3.5:9b-q4_K_M",
+      "metrics": {
+        "seconds": 95.13,
+        "tokens": 26
+      }
     },
     "holdings:duan": {
       "facts": {
@@ -17073,7 +17076,7 @@
       "renderVersion": 4,
       "mode": "deterministic",
       "summary": "大卫·泰珀 · 持仓结构：本次披露 27 项证券：普通股 25 项、PUT 2 项。不同股份类别和期权分别计数。最大单项证券是 亚马逊（AMZN），申报值 US$1,191.70M，占本次披露 15.4%。期权共 2 项。13F 中期权申报值对应标的证券价值，不能当作期权权利金，也不能仅凭 PUT/CALL 判断完整对冲策略。",
-      "generatedAt": "2026-10-12T22:01:36.749317+00:00",
+      "generatedAt": "2026-10-13T12:12:30.251829+00:00",
       "model": null,
       "metrics": {}
     },
@@ -26540,7 +26543,7 @@
       "renderVersion": 4,
       "mode": "deterministic",
       "summary": "查克·阿克瑞 · 持仓结构：本次披露 20 项证券：普通股 19 项、CALL 1 项。不同股份类别和期权分别计数。最大单项证券是 万事达卡（MA），申报值 US$1,022.02M，占本次披露 20.0%。期权共 1 项。13F 中期权申报值对应标的证券价值，不能当作期权权利金，也不能仅凭 PUT/CALL 判断完整对冲策略。",
-      "generatedAt": "2026-10-12T22:00:16.906510+00:00",
+      "generatedAt": "2026-10-13T12:11:09.619500+00:00",
       "model": null,
       "metrics": {}
     },
@@ -29679,11 +29682,14 @@
         ]
       },
       "renderVersion": 4,
-      "mode": "deterministic",
+      "mode": "model_selection",
       "summary": "查克·阿克瑞 · 历史轨迹：可用于市值趋势的记录有 53 个季度，覆盖 2013 Q2 至 2026 Q2。这段历史反映披露范围内证券，不是基金净值曲线。披露市值从 US$2,210.58M 变为 US$5,122.54M（变化 +131.7%）。金额同时受价格、买卖、资金流及披露范围影响，不能当作投资回报。当前证券中，万事达卡（MA） 已连续出现在 2 个可核实季度披露中（2026 Q1 至 2026 Q2）。这是连续披露记录，不是逐笔持有或交易证明。",
-      "generatedAt": "2026-10-13T04:26:43.863063+00:00",
-      "model": null,
-      "metrics": {}
+      "generatedAt": "2026-10-13T12:06:44.739015+00:00",
+      "model": "qwen3.5:9b-q4_K_M",
+      "metrics": {
+        "seconds": 92.53,
+        "tokens": 26
+      }
     },
     "holdings:greenberg": {
       "facts": {
@@ -38285,11 +38291,14 @@
         ]
       },
       "renderVersion": 4,
-      "mode": "deterministic",
+      "mode": "model_selection",
       "summary": "塞斯·克拉曼 · 历史轨迹：可用于市值趋势的记录有 51 个季度，覆盖 2013 Q2 至 2025 Q4。这段历史反映披露范围内证券，不是基金净值曲线。披露市值从 US$4,021.92M 变为 US$5,278.59M（变化 +31.2%）。金额同时受价格、买卖、资金流及披露范围影响，不能当作投资回报。缺少或排除的市值季度：2026 Q1、2026 Q2。不填零、不推断清仓，也不跨缺口计算季度变化。",
-      "generatedAt": "2026-10-13T04:26:43.863481+00:00",
-      "model": null,
-      "metrics": {}
+      "generatedAt": "2026-10-13T12:08:09.712118+00:00",
+      "model": "qwen3.5:9b-q4_K_M",
+      "metrics": {
+        "seconds": 84.96,
+        "tokens": 20
+      }
     },
     "holdings:ackman": {
       "facts": {
@@ -51159,7 +51168,7 @@
       "renderVersion": 4,
       "mode": "deterministic",
       "summary": "梅森·霍金斯 · 历史轨迹：可用于市值趋势的记录有 52 个季度，覆盖 2013 Q2 至 2026 Q2。这段历史反映披露范围内证券，不是基金净值曲线。披露市值从 US$20,348.22M 变为 US$1,917.15M（变化 -90.6%）。金额同时受价格、买卖、资金流及披露范围影响，不能当作投资回报。缺少或排除的市值季度：2024 Q3。不填零、不推断清仓，也不跨缺口计算季度变化。",
-      "generatedAt": "2026-10-12T21:58:56.655404+00:00",
+      "generatedAt": "2026-10-13T12:09:48.487761+00:00",
       "model": null,
       "metrics": {}
     },
@@ -52905,13 +52914,13 @@
     }
   },
   "lastRun": {
-    "startedAt": "2026-10-13T04:29:17.741395+00:00",
+    "startedAt": "2026-10-13T12:03:37.024999+00:00",
     "model": "qwen3.5:9b-q4_K_M",
     "pendingBefore": 9,
     "cached": 31,
-    "finishedAt": "2026-10-13T04:32:17.040301+00:00",
-    "pendingAfter": 9,
-    "accepted": 0,
+    "finishedAt": "2026-10-13T12:12:30.264505+00:00",
+    "pendingAfter": 6,
+    "accepted": 3,
     "fallback": 3,
     "rejected": 0,
     "failed": 3
