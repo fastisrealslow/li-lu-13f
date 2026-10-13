@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-13T04:04:51Z",
+  "updatedAt": "2026-10-13T19:41:26Z",
   "knownStocks": {
     "duan": [
       "09992.HK"
@@ -5422,7 +5422,7 @@
   "verificationRuns": [
     {
       "investor": "abrams",
-      "checkedAt": "2026-10-13T04:04:10Z",
+      "checkedAt": "2026-10-13T19:38:26Z",
       "status": "checked",
       "queries": [
         {
@@ -5463,8 +5463,8 @@
     },
     {
       "investor": "ackman",
-      "checkedAt": "2026-10-13T04:04:07Z",
-      "status": "checked",
+      "checkedAt": "2026-10-13T19:37:51Z",
+      "status": "partial",
       "queries": [
         {
           "query": "Pershing Square Capital Management, L.P.",
@@ -5482,16 +5482,12 @@
         },
         {
           "query": "Pershing Square Capital Management, L.P.",
-          "archive": "legacy",
-          "status": "ok",
-          "matchedSecurities": 0,
+          "status": "failed",
           "url": "https://di.hkex.com.hk/filing/di/NSSrchPersonList.aspx?sa1=pl&scsd=01%2F04%2F2003&sced=02%2F10%2F2017&pn=Pershing+Square+Capital+Management%2C+L.P.&src=MAIN&lang=EN&g_lang=en"
         },
         {
           "query": "Bill Ackman",
-          "archive": "legacy",
-          "status": "ok",
-          "matchedSecurities": 0,
+          "status": "failed",
           "url": "https://di.hkex.com.hk/filing/di/NSSrchPersonList.aspx?sa1=pl&scsd=01%2F04%2F2003&sced=02%2F10%2F2017&pn=Bill+Ackman&src=MAIN&lang=EN&g_lang=en"
         }
       ],
@@ -5499,12 +5495,23 @@
       "verifiedSecurities": 0,
       "pendingSecurities": 0,
       "recordsFetched": 0,
-      "errors": [],
+      "errors": [
+        {
+          "query": "Pershing Square Capital Management, L.P.",
+          "url": "https://di.hkex.com.hk/filing/di/NSSrchPersonList.aspx?sa1=pl&scsd=01%2F04%2F2003&sced=02%2F10%2F2017&pn=Pershing+Square+Capital+Management%2C+L.P.&src=MAIN&lang=EN&g_lang=en",
+          "reason": "HKEX fetch failed: The read operation timed out"
+        },
+        {
+          "query": "Bill Ackman",
+          "url": "https://di.hkex.com.hk/filing/di/NSSrchPersonList.aspx?sa1=pl&scsd=01%2F04%2F2003&sced=02%2F10%2F2017&pn=Bill+Ackman&src=MAIN&lang=EN&g_lang=en",
+          "reason": "HKEX fetch failed: The read operation timed out"
+        }
+      ],
       "scope": "匹配已配置主体的公开多头权益披露；不等于完整投资组合或当前持仓"
     },
     {
       "investor": "akre",
-      "checkedAt": "2026-10-13T04:03:40Z",
+      "checkedAt": "2026-10-13T19:36:43Z",
       "status": "checked",
       "queries": [
         {
@@ -5545,7 +5552,7 @@
     },
     {
       "investor": "berkowitz",
-      "checkedAt": "2026-10-13T04:04:14Z",
+      "checkedAt": "2026-10-13T19:38:30Z",
       "status": "checked",
       "queries": [
         {
@@ -5586,8 +5593,8 @@
     },
     {
       "investor": "buffett",
-      "checkedAt": "2026-10-13T04:03:26Z",
-      "status": "checked",
+      "checkedAt": "2026-10-13T19:35:53Z",
+      "status": "partial",
       "queries": [
         {
           "query": "Berkshire Hathaway",
@@ -5612,9 +5619,7 @@
         },
         {
           "query": "Warren Buffett",
-          "archive": "legacy",
-          "status": "ok",
-          "matchedSecurities": 0,
+          "status": "failed",
           "url": "https://di.hkex.com.hk/filing/di/NSSrchPersonList.aspx?sa1=pl&scsd=01%2F04%2F2003&sced=02%2F10%2F2017&pn=Warren+Buffett&src=MAIN&lang=EN&g_lang=en"
         }
       ],
@@ -5622,12 +5627,18 @@
       "verifiedSecurities": 2,
       "pendingSecurities": 0,
       "recordsFetched": 54,
-      "errors": [],
+      "errors": [
+        {
+          "query": "Warren Buffett",
+          "url": "https://di.hkex.com.hk/filing/di/NSSrchPersonList.aspx?sa1=pl&scsd=01%2F04%2F2003&sced=02%2F10%2F2017&pn=Warren+Buffett&src=MAIN&lang=EN&g_lang=en",
+          "reason": "HKEX fetch failed: The read operation timed out"
+        }
+      ],
       "scope": "匹配已配置主体的公开多头权益披露；不等于完整投资组合或当前持仓"
     },
     {
       "investor": "duan",
-      "checkedAt": "2026-10-13T04:03:06Z",
+      "checkedAt": "2026-10-13T19:35:17Z",
       "status": "checked",
       "queries": [
         {
@@ -5668,8 +5679,8 @@
     },
     {
       "investor": "greenberg",
-      "checkedAt": "2026-10-13T04:03:55Z",
-      "status": "checked",
+      "checkedAt": "2026-10-13T19:36:44Z",
+      "status": "partial",
       "queries": [
         {
           "query": "Brave Warrior",
@@ -5687,16 +5698,12 @@
         },
         {
           "query": "Brave Warrior",
-          "archive": "legacy",
-          "status": "ok",
-          "matchedSecurities": 0,
+          "status": "failed",
           "url": "https://di.hkex.com.hk/filing/di/NSSrchPersonList.aspx?sa1=pl&scsd=01%2F04%2F2003&sced=02%2F10%2F2017&pn=Brave+Warrior&src=MAIN&lang=EN&g_lang=en"
         },
         {
           "query": "Glenn Greenberg",
-          "archive": "legacy",
-          "status": "ok",
-          "matchedSecurities": 0,
+          "status": "failed",
           "url": "https://di.hkex.com.hk/filing/di/NSSrchPersonList.aspx?sa1=pl&scsd=01%2F04%2F2003&sced=02%2F10%2F2017&pn=Glenn+Greenberg&src=MAIN&lang=EN&g_lang=en"
         }
       ],
@@ -5704,13 +5711,24 @@
       "verifiedSecurities": 0,
       "pendingSecurities": 0,
       "recordsFetched": 0,
-      "errors": [],
+      "errors": [
+        {
+          "query": "Brave Warrior",
+          "url": "https://di.hkex.com.hk/filing/di/NSSrchPersonList.aspx?sa1=pl&scsd=01%2F04%2F2003&sced=02%2F10%2F2017&pn=Brave+Warrior&src=MAIN&lang=EN&g_lang=en",
+          "reason": "HKEX fetch failed: The read operation timed out"
+        },
+        {
+          "query": "Glenn Greenberg",
+          "url": "https://di.hkex.com.hk/filing/di/NSSrchPersonList.aspx?sa1=pl&scsd=01%2F04%2F2003&sced=02%2F10%2F2017&pn=Glenn+Greenberg&src=MAIN&lang=EN&g_lang=en",
+          "reason": "HKEX fetch failed: The read operation timed out"
+        }
+      ],
       "scope": "匹配已配置主体的公开多头权益披露；不等于完整投资组合或当前持仓"
     },
     {
       "investor": "hawkins",
-      "checkedAt": "2026-10-13T04:04:22Z",
-      "status": "checked",
+      "checkedAt": "2026-10-13T19:39:28Z",
+      "status": "partial",
       "queries": [
         {
           "query": "Southeastern Asset Management, Inc.",
@@ -5735,9 +5753,7 @@
         },
         {
           "query": "Mason Hawkins",
-          "archive": "legacy",
-          "status": "ok",
-          "matchedSecurities": 0,
+          "status": "failed",
           "url": "https://di.hkex.com.hk/filing/di/NSSrchPersonList.aspx?sa1=pl&scsd=01%2F04%2F2003&sced=02%2F10%2F2017&pn=Mason+Hawkins&src=MAIN&lang=EN&g_lang=en"
         }
       ],
@@ -5745,12 +5761,18 @@
       "verifiedSecurities": 4,
       "pendingSecurities": 0,
       "recordsFetched": 104,
-      "errors": [],
+      "errors": [
+        {
+          "query": "Mason Hawkins",
+          "url": "https://di.hkex.com.hk/filing/di/NSSrchPersonList.aspx?sa1=pl&scsd=01%2F04%2F2003&sced=02%2F10%2F2017&pn=Mason+Hawkins&src=MAIN&lang=EN&g_lang=en",
+          "reason": "HKEX fetch failed: The read operation timed out"
+        }
+      ],
       "scope": "匹配已配置主体的公开多头权益披露；不等于完整投资组合或当前持仓"
     },
     {
       "investor": "klarman",
-      "checkedAt": "2026-10-13T04:03:58Z",
+      "checkedAt": "2026-10-13T19:37:35Z",
       "status": "checked",
       "queries": [
         {
@@ -5791,7 +5813,7 @@
     },
     {
       "investor": "lilu",
-      "checkedAt": "2026-10-13T04:03:06Z",
+      "checkedAt": "2026-10-13T19:35:17Z",
       "status": "checked",
       "queries": [
         {
@@ -5832,7 +5854,7 @@
     },
     {
       "investor": "pabrai",
-      "checkedAt": "2026-10-13T04:03:06Z",
+      "checkedAt": "2026-10-13T19:35:17Z",
       "status": "checked",
       "queries": [
         {
@@ -5873,8 +5895,8 @@
     },
     {
       "investor": "tepper",
-      "checkedAt": "2026-10-13T04:03:23Z",
-      "status": "checked",
+      "checkedAt": "2026-10-13T19:35:42Z",
+      "status": "partial",
       "queries": [
         {
           "query": "Appaloosa",
@@ -5899,9 +5921,7 @@
         },
         {
           "query": "David Tepper",
-          "archive": "legacy",
-          "status": "ok",
-          "matchedSecurities": 0,
+          "status": "failed",
           "url": "https://di.hkex.com.hk/filing/di/NSSrchPersonList.aspx?sa1=pl&scsd=01%2F04%2F2003&sced=02%2F10%2F2017&pn=David+Tepper&src=MAIN&lang=EN&g_lang=en"
         }
       ],
@@ -5909,12 +5929,18 @@
       "verifiedSecurities": 0,
       "pendingSecurities": 0,
       "recordsFetched": 0,
-      "errors": [],
+      "errors": [
+        {
+          "query": "David Tepper",
+          "url": "https://di.hkex.com.hk/filing/di/NSSrchPersonList.aspx?sa1=pl&scsd=01%2F04%2F2003&sced=02%2F10%2F2017&pn=David+Tepper&src=MAIN&lang=EN&g_lang=en",
+          "reason": "HKEX fetch failed: The read operation timed out"
+        }
+      ],
       "scope": "匹配已配置主体的公开多头权益披露；不等于完整投资组合或当前持仓"
     },
     {
       "investor": "vinall",
-      "checkedAt": "2026-10-13T04:04:24Z",
+      "checkedAt": "2026-10-13T19:39:32Z",
       "status": "checked",
       "queries": [
         {
@@ -5970,7 +5996,7 @@
     {
       "investor": "webb",
       "status": "archived",
-      "attemptedAt": "2026-10-13T04:03:26Z",
+      "attemptedAt": "2026-10-13T19:35:53Z",
       "verifiedSecurities": 41,
       "pendingSecurities": 0,
       "errors": [],
