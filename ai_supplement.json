@@ -31,13 +31,13 @@
       "status": "ok"
     },
     "investor:greenberg": {
-      "at": "2026-10-13T04:30:27.556789+00:00",
+      "at": "2026-10-13T20:09:30.164278+00:00",
       "sourceHash": "190b72ab5b92ef234e966e933d16ab384d74f18d6a59c54f03dc2c7c43183305",
       "status": "failed",
       "error": "Selection omitted an available change direction"
     },
     "investor:hawkins": {
-      "at": "2026-10-13T04:29:17.741421+00:00",
+      "at": "2026-10-13T20:06:52.475324+00:00",
       "sourceHash": "83f2b519a342e2958774a71c5cfb121cc3317673e218bbe60f14c816d1d29668",
       "status": "failed",
       "error": "Selection omitted an available change direction"
@@ -63,8 +63,8 @@
       "status": "ok"
     },
     "value": {
-      "at": "2026-10-12T21:50:33.976648+00:00",
-      "sourceHash": "e7767fc0ae0f6ca233d8448bc8a4a2ca60f66788279269296e01b6b98dcbd1ed",
+      "at": "2026-10-13T20:04:28.622424+00:00",
+      "sourceHash": "cc8c17c499911b8248eb3bc082db35659a979f8d8dce7b11c13f0ef6983ae5bd",
       "status": "ok"
     },
     "investor:vinall": {
@@ -78,7 +78,7 @@
       "status": "ok"
     },
     "history:lilu": {
-      "at": "2026-10-13T04:31:34.740125+00:00",
+      "at": "2026-10-13T20:12:12.183953+00:00",
       "sourceHash": "12d8175b8baa1bb86924c972a789a827dcc45643a6250a3ea7d90c8fa63ec21d",
       "status": "failed",
       "error": "Selection omitted a required scope or evidence limitation"
@@ -2718,7 +2718,7 @@
       "renderVersion": 4,
       "mode": "deterministic",
       "summary": "格伦·格林伯格 2026 Q2（按披露股数比较）：新建仓7项、增持6项、减持15项、清仓3项、不变12项、待比较0项。重点（非完整名单）：ICON PUB LTD CO：增持5.2%；TD 辛纳克斯（SNX）：减持52.8%；OneMain 控股（OMF）：减持1.5%；阿瑟 J. 加拉格尔（AJG）：新建仓；阿雷斯管理（ARES）：清仓。",
-      "generatedAt": "2026-10-13T04:31:34.737736+00:00",
+      "generatedAt": "2026-10-13T20:12:12.180411+00:00",
       "model": null,
       "metrics": {}
     },
@@ -4379,7 +4379,7 @@
       "renderVersion": 4,
       "mode": "deterministic",
       "summary": "梅森·霍金斯 2026 Q2（按披露股数比较）：新建仓2项、增持8项、减持24项、清仓4项、不变13项、待比较0项。重点（非完整名单）：雷奥尼尔（RYN）：减持11.8%；美泰（MAT）：减持3.8%；CNX 资源（CNX）：增持16.2%；雅培（ABT）：新建仓；伯乐雷德实验室（BIO）：清仓。",
-      "generatedAt": "2026-10-13T04:30:27.555520+00:00",
+      "generatedAt": "2026-10-13T20:09:30.161831+00:00",
       "model": null,
       "metrics": {}
     },
@@ -6509,17 +6509,20 @@
       "sourceHash": "cc8c17c499911b8248eb3bc082db35659a979f8d8dce7b11c13f0ef6983ae5bd",
       "selection": {
         "factIds": [
-          "f3",
-          "f4",
-          "f6"
+          "f0",
+          "f8",
+          "f9"
         ]
       },
       "renderVersion": 4,
-      "mode": "deterministic",
-      "summary": "按各投资人最新披露组合：格伦·格林伯格（2026 Q2）：莱纳建筑（LEN）减持，占其披露组合市值4.7%；大卫·泰珀（2026 Q2）：惠而浦（WHR）减持，占其披露组合市值0.4%；大卫·泰珀（2026 Q2）：固特异（GT）新建仓，占其披露组合市值0.1%。",
-      "generatedAt": "2026-10-13T20:01:49.593068+00:00",
-      "model": null,
-      "metrics": {}
+      "mode": "model_selection",
+      "summary": "按各投资人最新披露组合：巴菲特（2026 Q2）：卡夫亨氏（KHC）股数不变，占其披露组合市值2.6%；查克·阿克瑞（2026 Q2）：布鲁克菲尔德（BN）减持，占其披露组合市值10.1%；大卫·泰珀（2026 Q2）：百度（BIDU）增持，占其披露组合市值1.9%。",
+      "generatedAt": "2026-10-13T20:06:52.474582+00:00",
+      "model": "qwen3.5:9b-q4_K_M",
+      "metrics": {
+        "seconds": 143.81,
+        "tokens": 14
+      }
     },
     "investor:duan": {
       "facts": {
@@ -13186,7 +13189,7 @@
       "renderVersion": 4,
       "mode": "deterministic",
       "summary": "李录 · 历史轨迹：可用于市值趋势的记录有 35 个季度，覆盖 2016 Q4 至 2026 Q2。这段历史反映披露范围内证券，不是基金净值曲线。披露市值从 US$111.64M 变为 US$3,702.92M（变化 +3216.8%）。金额同时受价格、买卖、资金流及披露范围影响，不能当作投资回报。缺少或排除的市值季度：2018 Q4、2019 Q1、2019 Q2、2019 Q3。不填零、不推断清仓，也不跨缺口计算季度变化。",
-      "generatedAt": "2026-10-13T04:32:17.037013+00:00",
+      "generatedAt": "2026-10-13T20:13:53.179424+00:00",
       "model": null,
       "metrics": {}
     },
@@ -52895,13 +52898,13 @@
     }
   },
   "lastRun": {
-    "startedAt": "2026-10-13T12:03:37.024999+00:00",
+    "startedAt": "2026-10-13T20:04:28.622395+00:00",
     "model": "qwen3.5:9b-q4_K_M",
     "pendingBefore": 9,
     "cached": 31,
-    "finishedAt": "2026-10-13T12:12:30.264505+00:00",
-    "pendingAfter": 9,
-    "accepted": 3,
+    "finishedAt": "2026-10-13T20:13:53.184218+00:00",
+    "pendingAfter": 8,
+    "accepted": 1,
     "fallback": 3,
     "rejected": 0,
     "failed": 3
