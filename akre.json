@@ -5,7 +5,7 @@
     "notablePeople": [
       "Chuck Akre"
     ],
-    "lastUpdated": "2026-10-12T21:28:32Z",
+    "lastUpdated": "2026-10-13T04:05:04Z",
     "aiSummary": "阿克瑞大幅增持科技股并减持金融地产，显示其正从传统价值向高成长科技领域显著倾斜。",
     "aiSummaryQuarter": "2026 Q2",
     "instrumentHistoryFrom": "2013 Q2",
@@ -9054,60 +9054,85 @@
       ],
       "2021 Q4": [
         {
-          "ticker": "AMT",
-          "name": "AMERICAN TOWER CORP NEW",
-          "shares": 7015597,
-          "value": 2464861000,
-          "sector": "通讯",
-          "prevShares": 7007787,
-          "prevValue": 1859937000,
-          "cnName": "美国塔"
-        },
-        {
-          "ticker": "MA",
-          "name": "MASTERCARD INC",
-          "shares": 5871191,
-          "value": 2377943000,
-          "sector": "金融服务",
-          "prevShares": 5858416,
-          "prevValue": 2036854000,
-          "cnName": "万事达卡"
-        },
-        {
           "ticker": "MCO",
           "name": "MOODYS CORP",
+          "cls": "COM",
+          "cusip": "615369105",
           "shares": 5621097,
           "value": 2195488000,
+          "shareType": "SH",
+          "putCall": "",
           "sector": "金融服务",
           "prevShares": 5620036,
           "prevValue": 1995731000,
           "cnName": "穆迪"
         },
         {
+          "ticker": "MA",
+          "name": "MASTERCARD INC",
+          "cls": "CL A",
+          "cusip": "57636Q104",
+          "shares": 5861191,
+          "value": 2106043000,
+          "shareType": "SH",
+          "putCall": "",
+          "sector": "金融服务",
+          "prevShares": 5858416,
+          "prevValue": 2036854000,
+          "cnName": "万事达卡"
+        },
+        {
+          "ticker": "AMT",
+          "name": "AMERICAN TOWER CORP NEW",
+          "cls": "COM",
+          "cusip": "03027X100",
+          "shares": 7009097,
+          "value": 2050161000,
+          "shareType": "SH",
+          "putCall": "",
+          "sector": "通讯",
+          "prevShares": 7007787,
+          "prevValue": 1859937000,
+          "cnName": "美国塔"
+        },
+        {
           "ticker": "V",
           "name": "VISA INC",
+          "cls": "COM CL A",
+          "cusip": "92826C839",
           "shares": 5244738,
           "value": 1136587000,
+          "shareType": "SH",
+          "putCall": "",
           "sector": "金融服务",
           "prevShares": 5244738,
           "prevValue": 1168265000,
           "cnName": "维萨"
         },
         {
-          "ticker": "?O REILLY AUTOMOTIVE INC NEW",
+          "ticker": "ORLY",
           "name": "O REILLY AUTOMOTIVE INC NEW",
+          "cls": "COM",
+          "cusip": "67103H107",
           "shares": 1579281,
           "value": 1115336000,
-          "sector": "其他",
-          "prevShares": 0,
-          "prevValue": 0
+          "shareType": "SH",
+          "putCall": "",
+          "sector": "消费",
+          "prevShares": 1578707,
+          "prevValue": 964685000,
+          "cnName": "奥莱利汽车"
         },
         {
           "ticker": "KKR",
           "name": "KKR & CO L P DEL",
+          "cls": "COM UNITS",
+          "cusip": "48251w104",
           "shares": 14730660,
           "value": 1097434000,
-          "sector": "金融",
+          "shareType": "SH",
+          "putCall": "",
+          "sector": "金融服务",
           "prevShares": 14730028,
           "prevValue": 896764000,
           "cnName": "KKR集团"
@@ -9115,8 +9140,12 @@
         {
           "ticker": "KMX",
           "name": "CARMAX INC",
+          "cls": "COM",
+          "cusip": "143130102",
           "shares": 7290172,
           "value": 949399000,
+          "shareType": "SH",
+          "putCall": "",
           "sector": "消费",
           "prevShares": 7109082,
           "prevValue": 909678000,
@@ -9125,27 +9154,40 @@
         {
           "ticker": "ADBE",
           "name": "ADOBE INC",
+          "cls": "COM",
+          "cusip": "00724F101",
           "shares": 1530090,
           "value": 867653000,
+          "shareType": "SH",
+          "putCall": "",
           "sector": "科技",
           "prevShares": 1529985,
           "prevValue": 880843000,
           "cnName": "奥多比"
         },
         {
-          "ticker": "?ROPER INDS INC NEW",
+          "ticker": "ROP",
           "name": "ROPER INDS INC NEW",
+          "cls": "COM",
+          "cusip": "776696106",
           "shares": 1663070,
           "value": 817998000,
-          "sector": "其他",
-          "prevShares": 0,
-          "prevValue": 0
+          "shareType": "SH",
+          "putCall": "",
+          "sector": "多元工业",
+          "prevShares": 1662585,
+          "prevValue": 741729000,
+          "cnName": "罗珀科技"
         },
         {
           "ticker": "?BROOKFIELD ASSET MGMT INC",
           "name": "BROOKFIELD ASSET MGMT INC",
+          "cls": "CL A LTD VT SH",
+          "cusip": "112585104",
           "shares": 13127979,
           "value": 792667000,
+          "shareType": "SH",
+          "putCall": "",
           "sector": "其他",
           "prevShares": 13127268,
           "prevValue": 702440000
@@ -9153,83 +9195,151 @@
         {
           "ticker": "CSGP",
           "name": "COSTAR GROUP INC",
+          "cls": "COM",
+          "cusip": "22160N109",
           "shares": 9764350,
           "value": 771677000,
-          "sector": "科技",
+          "shareType": "SH",
+          "putCall": "",
+          "sector": "房地产",
           "prevShares": 9763000,
           "prevValue": 840204000,
           "cnName": "CoStar集团"
         },
         {
-          "ticker": "?SALESFORCE COM INC",
+          "ticker": "CRM",
           "name": "SALESFORCE COM INC",
+          "cls": "COM",
+          "cusip": "79466L302",
           "shares": 2800000,
           "value": 711564000,
-          "sector": "其他",
-          "prevShares": 0,
-          "prevValue": 0
+          "shareType": "SH",
+          "putCall": "",
+          "sector": "科技",
+          "prevShares": 2800000,
+          "prevValue": 759416000,
+          "cnName": "赛富时"
         },
         {
-          "ticker": "?SBA COMMUNICATIONS CORP",
+          "ticker": "SBAC",
           "name": "SBA COMMUNICATIONS CORP",
+          "cls": "COM",
+          "cusip": "78410G104",
           "shares": 1547180,
           "value": 601884000,
-          "sector": "其他",
-          "prevShares": 0,
-          "prevValue": 0
+          "shareType": "SH",
+          "putCall": "",
+          "sector": "地产",
+          "prevShares": 1930190,
+          "prevValue": 638063000,
+          "cnName": "SBA 通信"
         },
         {
           "ticker": "VRSK",
           "name": "VERISK ANALYTICS INC",
+          "cls": "CL A",
+          "cusip": "92345Y106",
           "shares": 2445001,
           "value": 559245000,
+          "shareType": "SH",
+          "putCall": "",
           "sector": "科技",
           "prevShares": 2444255,
           "prevValue": 489511000,
           "cnName": "Verisk 分析"
         },
         {
-          "ticker": "?DANAHER CORP DEL",
+          "ticker": "DHR",
           "name": "DANAHER CORP DEL",
+          "cls": "COM",
+          "cusip": "235851102",
           "shares": 1655300,
           "value": 544610000,
-          "sector": "其他",
-          "prevShares": 0,
-          "prevValue": 0
+          "shareType": "SH",
+          "putCall": "",
+          "sector": "医药",
+          "prevShares": 1655300,
+          "prevValue": 503940000,
+          "cnName": "丹纳赫"
+        },
+        {
+          "ticker": "AMT",
+          "name": "AMERICAN TOWER CORP NEW",
+          "cls": "CALL",
+          "cusip": "03027X100",
+          "shares": 6500,
+          "value": 414700000,
+          "shareType": "SH",
+          "putCall": "Call",
+          "sector": "通讯",
+          "prevShares": 6500,
+          "prevValue": 1725000,
+          "cnName": "美国塔"
         },
         {
           "ticker": "DLTR",
           "name": "DOLLAR TREE INC",
+          "cls": "COM",
+          "cusip": "256746108",
           "shares": 2652191,
           "value": 372686000,
+          "shareType": "SH",
+          "putCall": "",
           "sector": "消费",
           "prevShares": 3581673,
           "prevValue": 342838000,
           "cnName": "美元树"
         },
         {
+          "ticker": "MA",
+          "name": "MASTERCARD INC",
+          "cls": "CALL",
+          "cusip": "57636Q104",
+          "shares": 10000,
+          "value": 271900000,
+          "shareType": "SH",
+          "putCall": "Call",
+          "sector": "金融服务",
+          "prevShares": 10000,
+          "prevValue": 3477000,
+          "cnName": "万事达卡"
+        },
+        {
           "ticker": "?ANSYS INC",
           "name": "ANSYS INC",
+          "cls": "COM",
+          "cusip": "03662Q105",
           "shares": 609764,
           "value": 244589000,
+          "shareType": "SH",
+          "putCall": "",
           "sector": "其他",
           "prevShares": 609764,
           "prevValue": 207594000
         },
         {
-          "ticker": "?ALARM COM HLDGS INC",
+          "ticker": "ALRM",
           "name": "ALARM COM HLDGS INC",
+          "cls": "COM",
+          "cusip": "011642105",
           "shares": 1978658,
           "value": 167810000,
-          "sector": "其他",
-          "prevShares": 0,
-          "prevValue": 0
+          "shareType": "SH",
+          "putCall": "",
+          "sector": "科技",
+          "prevShares": 1978658,
+          "prevValue": 154711000,
+          "cnName": "Alarm.com Holdings, Inc."
         },
         {
           "ticker": "?DIGITALBRIDGE GROUP INC",
           "name": "DIGITALBRIDGE GROUP INC",
+          "cls": "CL A COM",
+          "cusip": "25401T108",
           "shares": 10504800,
           "value": 87505000,
+          "shareType": "SH",
+          "putCall": "",
           "sector": "其他",
           "prevShares": 10504800,
           "prevValue": 63344000
@@ -9237,49 +9347,70 @@
         {
           "ticker": "GSHD",
           "name": "GOOSEHEAD INS INC",
+          "cls": "COM CL A",
+          "cusip": "38267D109",
           "shares": 293366,
           "value": 38161000,
-          "sector": "金融",
+          "shareType": "SH",
+          "putCall": "",
+          "sector": "保险",
           "prevShares": 293366,
           "prevValue": 44677000,
           "cnName": "Goosehead保险"
         },
         {
-          "ticker": "BRK.B",
+          "ticker": "BRK/B",
           "name": "BERKSHIRE HATHAWAY INC DEL",
+          "cls": "CL B NEW",
+          "cusip": "084670702",
           "shares": 17504,
           "value": 5234000,
-          "sector": "综合金融",
+          "shareType": "SH",
+          "putCall": "",
+          "sector": "其他",
           "prevShares": 17504,
           "prevValue": 4778000,
-          "cnName": "伯克希尔·哈撒韦B"
+          "cnName": "伯克希尔哈撒韦 B 类"
         },
         {
-          "ticker": "?THREDUP INC",
+          "ticker": "TDUP",
           "name": "THREDUP INC",
+          "cls": "CL A",
+          "cusip": "88556E102",
           "shares": 22500,
           "value": 287000,
-          "sector": "其他",
+          "shareType": "SH",
+          "putCall": "",
+          "sector": "消费",
           "prevShares": 22500,
-          "prevValue": 488000
+          "prevValue": 488000,
+          "cnName": "ThredUp Inc."
         }
       ],
       "2022 Q1": [
         {
           "ticker": "MA",
           "name": "MASTERCARD INC",
-          "shares": 5865151,
-          "value": 2311514000,
+          "cls": "CL A",
+          "cusip": "57636Q104",
+          "shares": 5855151,
+          "value": 2092514000,
+          "shareType": "SH",
+          "putCall": "",
           "sector": "金融服务",
-          "prevShares": 5871191,
-          "prevValue": 2377943000,
+          "prevShares": 5861191,
+          "prevValue": 2106043000,
           "cnName": "万事达卡"
         },
         {
           "ticker": "MCO",
           "name": "MOODYS CORP",
+          "cls": "COM",
+          "cusip": "615369105",
           "shares": 5659712,
           "value": 1909643000,
+          "shareType": "SH",
+          "putCall": "",
           "sector": "金融服务",
           "prevShares": 5621097,
           "prevValue": 2195488000,
@@ -9288,56 +9419,82 @@
         {
           "ticker": "AMT",
           "name": "AMERICAN TOWER CORP NEW",
+          "cls": "COM",
+          "cusip": "03027X100",
           "shares": 6998377,
           "value": 1758132000,
+          "shareType": "SH",
+          "putCall": "",
           "sector": "通讯",
-          "prevShares": 7015597,
-          "prevValue": 2464861000,
+          "prevShares": 7009097,
+          "prevValue": 2050161000,
           "cnName": "美国塔"
         },
         {
           "ticker": "V",
           "name": "VISA INC",
+          "cls": "COM CL A",
+          "cusip": "92826C839",
           "shares": 5244738,
           "value": 1163126000,
+          "shareType": "SH",
+          "putCall": "",
           "sector": "金融服务",
           "prevShares": 5244738,
           "prevValue": 1136587000,
           "cnName": "维萨"
         },
         {
-          "ticker": "?O REILLY AUTOMOTIVE INC NEW",
+          "ticker": "ORLY",
           "name": "O REILLY AUTOMOTIVE INC NEW",
+          "cls": "COM",
+          "cusip": "67103H107",
           "shares": 1577141,
           "value": 1080278000,
-          "sector": "其他",
+          "shareType": "SH",
+          "putCall": "",
+          "sector": "消费",
           "prevShares": 1579281,
-          "prevValue": 1115336000
+          "prevValue": 1115336000,
+          "cnName": "奥莱利汽车"
         },
         {
           "ticker": "KKR",
           "name": "KKR & CO L P DEL",
+          "cls": "COM UNITS",
+          "cusip": "48251w104",
           "shares": 14865320,
           "value": 869175000,
-          "sector": "金融",
+          "shareType": "SH",
+          "putCall": "",
+          "sector": "金融服务",
           "prevShares": 14730660,
           "prevValue": 1097434000,
           "cnName": "KKR集团"
         },
         {
-          "ticker": "?ROPER INDS INC NEW",
+          "ticker": "ROP",
           "name": "ROPER INDS INC NEW",
+          "cls": "COM",
+          "cusip": "776696106",
           "shares": 1660730,
           "value": 784247000,
-          "sector": "其他",
+          "shareType": "SH",
+          "putCall": "",
+          "sector": "多元工业",
           "prevShares": 1663070,
-          "prevValue": 817998000
+          "prevValue": 817998000,
+          "cnName": "罗珀科技"
         },
         {
           "ticker": "?BROOKFIELD ASSET MGMT INC",
           "name": "BROOKFIELD ASSET MGMT INC",
+          "cls": "CL A LTD VT SH",
+          "cusip": "112585104",
           "shares": 13127694,
           "value": 742634000,
+          "shareType": "SH",
+          "putCall": "",
           "sector": "其他",
           "prevShares": 13127979,
           "prevValue": 792667000
@@ -9345,8 +9502,12 @@
         {
           "ticker": "ADBE",
           "name": "ADOBE INC",
+          "cls": "COM",
+          "cusip": "00724F101",
           "shares": 1567090,
           "value": 713998000,
+          "shareType": "SH",
+          "putCall": "",
           "sector": "科技",
           "prevShares": 1530090,
           "prevValue": 867653000,
@@ -9355,8 +9516,12 @@
         {
           "ticker": "KMX",
           "name": "CARMAX INC",
+          "cls": "COM",
+          "cusip": "143130102",
           "shares": 7339952,
           "value": 708159000,
+          "shareType": "SH",
+          "putCall": "",
           "sector": "消费",
           "prevShares": 7290172,
           "prevValue": 949399000,
@@ -9365,46 +9530,82 @@
         {
           "ticker": "CSGP",
           "name": "COSTAR GROUP INC",
+          "cls": "COM",
+          "cusip": "22160N109",
           "shares": 9668180,
           "value": 643997000,
-          "sector": "科技",
+          "shareType": "SH",
+          "putCall": "",
+          "sector": "房地产",
           "prevShares": 9764350,
           "prevValue": 771677000,
           "cnName": "CoStar集团"
         },
         {
-          "ticker": "?SALESFORCE COM INC",
+          "ticker": "CRM",
           "name": "SALESFORCE COM INC",
+          "cls": "COM",
+          "cusip": "79466L302",
           "shares": 2837210,
           "value": 602396000,
-          "sector": "其他",
+          "shareType": "SH",
+          "putCall": "",
+          "sector": "科技",
           "prevShares": 2800000,
-          "prevValue": 711564000
+          "prevValue": 711564000,
+          "cnName": "赛富时"
         },
         {
           "ticker": "VRSK",
           "name": "VERISK ANALYTICS INC",
+          "cls": "CL A",
+          "cusip": "92345Y106",
           "shares": 2444286,
           "value": 524617000,
+          "shareType": "SH",
+          "putCall": "",
           "sector": "科技",
           "prevShares": 2445001,
           "prevValue": 559245000,
           "cnName": "Verisk 分析"
         },
         {
-          "ticker": "?DANAHER CORP DEL",
+          "ticker": "DHR",
           "name": "DANAHER CORP DEL",
+          "cls": "COM",
+          "cusip": "235851102",
           "shares": 1655300,
           "value": 485549000,
-          "sector": "其他",
+          "shareType": "SH",
+          "putCall": "",
+          "sector": "医药",
           "prevShares": 1655300,
-          "prevValue": 544610000
+          "prevValue": 544610000,
+          "cnName": "丹纳赫"
+        },
+        {
+          "ticker": "MA",
+          "name": "MASTERCARD INC",
+          "cls": "CALL",
+          "cusip": "57636Q104",
+          "shares": 10000,
+          "value": 219000000,
+          "shareType": "SH",
+          "putCall": "Call",
+          "sector": "金融服务",
+          "prevShares": 10000,
+          "prevValue": 271900000,
+          "cnName": "万事达卡"
         },
         {
           "ticker": "?ANSYS INC",
           "name": "ANSYS INC",
+          "cls": "COM",
+          "cusip": "03662Q105",
           "shares": 609764,
           "value": 193692000,
+          "shareType": "SH",
+          "putCall": "",
           "sector": "其他",
           "prevShares": 609764,
           "prevValue": 244589000
@@ -9412,77 +9613,111 @@
         {
           "ticker": "?DIGITALBRIDGE GROUP INC",
           "name": "DIGITALBRIDGE GROUP INC",
+          "cls": "CL A COM",
+          "cusip": "25401T108",
           "shares": 10504800,
           "value": 75635000,
+          "shareType": "SH",
+          "putCall": "",
           "sector": "其他",
           "prevShares": 10504800,
           "prevValue": 87505000
         },
         {
-          "ticker": "?ALARM COM HLDGS INC",
+          "ticker": "ALRM",
           "name": "ALARM COM HLDGS INC",
+          "cls": "COM",
+          "cusip": "011642105",
           "shares": 968939,
           "value": 64396000,
-          "sector": "其他",
+          "shareType": "SH",
+          "putCall": "",
+          "sector": "科技",
           "prevShares": 1978658,
-          "prevValue": 167810000
+          "prevValue": 167810000,
+          "cnName": "Alarm.com Holdings, Inc."
         },
         {
           "ticker": "GSHD",
           "name": "GOOSEHEAD INS INC",
+          "cls": "COM CL A",
+          "cusip": "38267D109",
           "shares": 293366,
           "value": 23050000,
-          "sector": "金融",
+          "shareType": "SH",
+          "putCall": "",
+          "sector": "保险",
           "prevShares": 293366,
           "prevValue": 38161000,
           "cnName": "Goosehead保险"
         },
         {
-          "ticker": "BRK.B",
+          "ticker": "BRK/B",
           "name": "BERKSHIRE HATHAWAY INC DEL",
+          "cls": "CL B NEW",
+          "cusip": "084670702",
           "shares": 16414,
           "value": 5793000,
-          "sector": "综合金融",
+          "shareType": "SH",
+          "putCall": "",
+          "sector": "其他",
           "prevShares": 17504,
           "prevValue": 5234000,
-          "cnName": "伯克希尔·哈撒韦B"
+          "cnName": "伯克希尔哈撒韦 B 类"
         },
         {
           "ticker": "DLTR",
           "name": "DOLLAR TREE INC",
+          "cls": "COM",
+          "cusip": "256746108",
           "shares": 32427,
           "value": 5193000,
+          "shareType": "SH",
+          "putCall": "",
           "sector": "消费",
           "prevShares": 2652191,
           "prevValue": 372686000,
           "cnName": "美元树"
         },
         {
-          "ticker": "?THREDUP INC",
+          "ticker": "TDUP",
           "name": "THREDUP INC",
+          "cls": "CL A",
+          "cusip": "88556E102",
           "shares": 22500,
           "value": 173000,
-          "sector": "其他",
+          "shareType": "SH",
+          "putCall": "",
+          "sector": "消费",
           "prevShares": 22500,
-          "prevValue": 287000
+          "prevValue": 287000,
+          "cnName": "ThredUp Inc."
         }
       ],
       "2022 Q2": [
         {
           "ticker": "MA",
           "name": "MASTERCARD INCORPORATED",
-          "shares": 5873241,
-          "value": 1852890000,
+          "cls": "CL A",
+          "cusip": "57636Q104",
+          "shares": 5863241,
+          "value": 1849735000,
+          "shareType": "SH",
+          "putCall": "",
           "sector": "金融服务",
-          "prevShares": 5865151,
-          "prevValue": 2311514000,
+          "prevShares": 5855151,
+          "prevValue": 2092514000,
           "cnName": "万事达卡"
         },
         {
           "ticker": "AMT",
           "name": "AMERICAN TOWER CORP NEW",
+          "cls": "COM",
+          "cusip": "03027X100",
           "shares": 6973187,
           "value": 1782277000,
+          "shareType": "SH",
+          "putCall": "",
           "sector": "通讯",
           "prevShares": 6998377,
           "prevValue": 1758132000,
@@ -9491,8 +9726,12 @@
         {
           "ticker": "MCO",
           "name": "MOODYS CORP",
+          "cls": "COM",
+          "cusip": "615369105",
           "shares": 5703505,
           "value": 1551182000,
+          "shareType": "SH",
+          "putCall": "",
           "sector": "金融服务",
           "prevShares": 5659712,
           "prevValue": 1909643000,
@@ -9501,8 +9740,12 @@
         {
           "ticker": "V",
           "name": "VISA INC",
+          "cls": "COM CL A",
+          "cusip": "92826C839",
           "shares": 5244738,
           "value": 1032636000,
+          "shareType": "SH",
+          "putCall": "",
           "sector": "金融服务",
           "prevShares": 5244738,
           "prevValue": 1163126000,
@@ -9511,19 +9754,27 @@
         {
           "ticker": "ORLY",
           "name": "OREILLY AUTOMOTIVE INC",
+          "cls": "COM",
+          "cusip": "67103H107",
           "shares": 1571546,
           "value": 992840000,
+          "shareType": "SH",
+          "putCall": "",
           "sector": "消费",
-          "prevShares": 0,
-          "prevValue": 0,
+          "prevShares": 1577141,
+          "prevValue": 1080278000,
           "cnName": "奥莱利汽车"
         },
         {
           "ticker": "KKR",
           "name": "KKR & CO L P DEL",
+          "cls": "COM UNITS",
+          "cusip": "48251w104",
           "shares": 15375912,
           "value": 711751000,
-          "sector": "金融",
+          "shareType": "SH",
+          "putCall": "",
+          "sector": "金融服务",
           "prevShares": 14865320,
           "prevValue": 869175000,
           "cnName": "KKR集团"
@@ -9531,8 +9782,12 @@
         {
           "ticker": "KMX",
           "name": "CARMAX INC",
+          "cls": "COM",
+          "cusip": "143130102",
           "shares": 7348192,
           "value": 664864000,
+          "shareType": "SH",
+          "putCall": "",
           "sector": "消费",
           "prevShares": 7339952,
           "prevValue": 708159000,
@@ -9541,46 +9796,68 @@
         {
           "ticker": "ROP",
           "name": "ROPER TECHNOLOGIES INC",
+          "cls": "COM",
+          "cusip": "776696106",
           "shares": 1655660,
           "value": 653406000,
-          "sector": "科技",
-          "prevShares": 0,
-          "prevValue": 0,
-          "cnName": "罗珀技术"
+          "shareType": "SH",
+          "putCall": "",
+          "sector": "多元工业",
+          "prevShares": 1660730,
+          "prevValue": 784247000,
+          "cnName": "罗珀科技"
         },
         {
-          "ticker": "?ADOBE SYSTEMS INCORPORATED",
+          "ticker": "ADBE",
           "name": "ADOBE SYSTEMS INCORPORATED",
+          "cls": "COM",
+          "cusip": "00724F101",
           "shares": 1660395,
           "value": 607804000,
-          "sector": "其他",
-          "prevShares": 0,
-          "prevValue": 0
+          "shareType": "SH",
+          "putCall": "",
+          "sector": "科技",
+          "prevShares": 1567090,
+          "prevValue": 713998000,
+          "cnName": "奥多比"
         },
         {
           "ticker": "?BROOKFIELD ASSET MGMT INC",
           "name": "BROOKFIELD ASSET MGMT INC",
+          "cls": "CL A LTD VT SH",
+          "cusip": "112585104",
           "shares": 13309753,
           "value": 591885000,
+          "shareType": "SH",
+          "putCall": "",
           "sector": "其他",
           "prevShares": 13127694,
           "prevValue": 742634000
         },
         {
-          "ticker": "?SALESFORCE COM INC",
+          "ticker": "CRM",
           "name": "SALESFORCE COM INC",
+          "cls": "COM",
+          "cusip": "79466L302",
           "shares": 3070000,
           "value": 506673000,
-          "sector": "其他",
+          "shareType": "SH",
+          "putCall": "",
+          "sector": "科技",
           "prevShares": 2837210,
-          "prevValue": 602396000
+          "prevValue": 602396000,
+          "cnName": "赛富时"
         },
         {
           "ticker": "CSGP",
           "name": "COSTAR GROUP INC",
+          "cls": "COM",
+          "cusip": "22160N109",
           "shares": 7111430,
           "value": 429601000,
-          "sector": "科技",
+          "shareType": "SH",
+          "putCall": "",
+          "sector": "房地产",
           "prevShares": 9668180,
           "prevValue": 643997000,
           "cnName": "CoStar集团"
@@ -9588,8 +9865,12 @@
         {
           "ticker": "VRSK",
           "name": "VERISK ANALYTICS INC",
+          "cls": "CL A",
+          "cusip": "92345Y106",
           "shares": 2444286,
           "value": 423081000,
+          "shareType": "SH",
+          "putCall": "",
           "sector": "科技",
           "prevShares": 2444286,
           "prevValue": 524617000,
@@ -9598,46 +9879,68 @@
         {
           "ticker": "DHR",
           "name": "DANAHER CORPORATION",
+          "cls": "COM",
+          "cusip": "235851102",
           "shares": 1655300,
           "value": 419652000,
-          "sector": "多元工业",
-          "prevShares": 0,
-          "prevValue": 0,
+          "shareType": "SH",
+          "putCall": "",
+          "sector": "医药",
+          "prevShares": 1655300,
+          "prevValue": 485549000,
           "cnName": "丹纳赫"
         },
         {
-          "ticker": "?SNOWFLAKE INC",
+          "ticker": "SNOW",
           "name": "SNOWFLAKE INC",
+          "cls": "CL A",
+          "cusip": "833445109",
           "shares": 1000000,
           "value": 139060000,
-          "sector": "其他",
+          "shareType": "SH",
+          "putCall": "",
+          "sector": "科技",
           "prevShares": 0,
-          "prevValue": 0
+          "prevValue": 0,
+          "cnName": "Snowflake Inc."
         },
         {
           "ticker": "?DIGITALBRIDGE GROUP INC",
           "name": "DIGITALBRIDGE GROUP INC",
+          "cls": "CL A COM",
+          "cusip": "25401T108",
           "shares": 16390191,
           "value": 79984000,
+          "shareType": "SH",
+          "putCall": "",
           "sector": "其他",
           "prevShares": 10504800,
           "prevValue": 75635000
         },
         {
-          "ticker": "?ALARM COM HLDGS INC",
+          "ticker": "ALRM",
           "name": "ALARM COM HLDGS INC",
+          "cls": "COM",
+          "cusip": "011642105",
           "shares": 263939,
           "value": 16327000,
-          "sector": "其他",
+          "shareType": "SH",
+          "putCall": "",
+          "sector": "科技",
           "prevShares": 968939,
-          "prevValue": 64396000
+          "prevValue": 64396000,
+          "cnName": "Alarm.com Holdings, Inc."
         },
         {
           "ticker": "GSHD",
           "name": "GOOSEHEAD INS INC",
+          "cls": "COM CL A",
+          "cusip": "38267D109",
           "shares": 348366,
           "value": 15910000,
-          "sector": "金融",
+          "shareType": "SH",
+          "putCall": "",
+          "sector": "保险",
           "prevShares": 293366,
           "prevValue": 23050000,
           "cnName": "Goosehead保险"
@@ -9645,8 +9948,12 @@
         {
           "ticker": "GOOG",
           "name": "ALPHABET INC",
+          "cls": "COM",
+          "cusip": "02079K107",
           "shares": 5000,
           "value": 10937000,
+          "shareType": "SH",
+          "putCall": "Call",
           "sector": "互联网",
           "prevShares": 0,
           "prevValue": 0,
@@ -9655,49 +9962,84 @@
         {
           "ticker": "DLTR",
           "name": "DOLLAR TREE INC",
+          "cls": "COM",
+          "cusip": "256746108",
           "shares": 32912,
           "value": 5129000,
+          "shareType": "SH",
+          "putCall": "",
           "sector": "消费",
           "prevShares": 32427,
           "prevValue": 5193000,
           "cnName": "美元树"
         },
         {
-          "ticker": "BRK.B",
+          "ticker": "BRK/B",
           "name": "BERKSHIRE HATHAWAY INC DEL",
+          "cls": "CL B NEW",
+          "cusip": "084670702",
           "shares": 17114,
           "value": 4672000,
-          "sector": "综合金融",
+          "shareType": "SH",
+          "putCall": "",
+          "sector": "其他",
           "prevShares": 16414,
           "prevValue": 5793000,
-          "cnName": "伯克希尔·哈撒韦B"
+          "cnName": "伯克希尔哈撒韦 B 类"
         },
         {
-          "ticker": "?THREDUP INC",
+          "ticker": "MA",
+          "name": "MASTERCARD INCORPORATED",
+          "cls": "COM",
+          "cusip": "57636Q104",
+          "shares": 10000,
+          "value": 3155000,
+          "shareType": "SH",
+          "putCall": "Call",
+          "sector": "金融服务",
+          "prevShares": 10000,
+          "prevValue": 219000000,
+          "cnName": "万事达卡"
+        },
+        {
+          "ticker": "TDUP",
           "name": "THREDUP INC",
+          "cls": "CL A",
+          "cusip": "88556E102",
           "shares": 22500,
           "value": 56000,
-          "sector": "其他",
+          "shareType": "SH",
+          "putCall": "",
+          "sector": "消费",
           "prevShares": 22500,
-          "prevValue": 173000
+          "prevValue": 173000,
+          "cnName": "ThredUp Inc."
         }
       ],
       "2022 Q3": [
         {
           "ticker": "MA",
           "name": "MASTERCARD INCORPORATED",
-          "shares": 5901226,
-          "value": 1677954000,
+          "cls": "CL A",
+          "cusip": "57636Q104",
+          "shares": 5891226,
+          "value": 1675111000,
+          "shareType": "SH",
+          "putCall": "",
           "sector": "金融服务",
-          "prevShares": 5873241,
-          "prevValue": 1852890000,
+          "prevShares": 5863241,
+          "prevValue": 1849735000,
           "cnName": "万事达卡"
         },
         {
           "ticker": "AMT",
           "name": "AMERICAN TOWER CORP NEW",
+          "cls": "COM",
+          "cusip": "03027X100",
           "shares": 6973187,
           "value": 1497143000,
+          "shareType": "SH",
+          "putCall": "",
           "sector": "通讯",
           "prevShares": 6973187,
           "prevValue": 1782277000,
@@ -9706,8 +10048,12 @@
         {
           "ticker": "MCO",
           "name": "MOODYS CORP",
+          "cls": "COM",
+          "cusip": "615369105",
           "shares": 5703785,
           "value": 1386647000,
+          "shareType": "SH",
+          "putCall": "",
           "sector": "金融服务",
           "prevShares": 5703505,
           "prevValue": 1551182000,
@@ -9716,8 +10062,12 @@
         {
           "ticker": "ORLY",
           "name": "OREILLY AUTOMOTIVE INC",
+          "cls": "COM",
+          "cusip": "67103H107",
           "shares": 1471546,
           "value": 1035012000,
+          "shareType": "SH",
+          "putCall": "",
           "sector": "消费",
           "prevShares": 1571546,
           "prevValue": 992840000,
@@ -9726,8 +10076,12 @@
         {
           "ticker": "V",
           "name": "VISA INC",
+          "cls": "COM CL A",
+          "cusip": "92826C839",
           "shares": 5244738,
           "value": 931728000,
+          "shareType": "SH",
+          "putCall": "",
           "sector": "金融服务",
           "prevShares": 5244738,
           "prevValue": 1032636000,
@@ -9736,9 +10090,13 @@
         {
           "ticker": "KKR",
           "name": "KKR & CO L P DEL",
+          "cls": "COM UNITS",
+          "cusip": "48251w104",
           "shares": 15452918,
           "value": 664475000,
-          "sector": "金融",
+          "shareType": "SH",
+          "putCall": "",
+          "sector": "金融服务",
           "prevShares": 15375912,
           "prevValue": 711751000,
           "cnName": "KKR集团"
@@ -9746,18 +10104,26 @@
         {
           "ticker": "ROP",
           "name": "ROPER TECHNOLOGIES INC",
+          "cls": "COM",
+          "cusip": "776696106",
           "shares": 1655660,
           "value": 595442000,
-          "sector": "科技",
+          "shareType": "SH",
+          "putCall": "",
+          "sector": "多元工业",
           "prevShares": 1655660,
           "prevValue": 653406000,
-          "cnName": "罗珀技术"
+          "cnName": "罗珀科技"
         },
         {
           "ticker": "?BROOKFIELD ASSET MGMT INC",
           "name": "BROOKFIELD ASSET MGMT INC",
+          "cls": "CL A LTD VT SH",
+          "cusip": "112585104",
           "shares": 13366753,
           "value": 546567000,
+          "shareType": "SH",
+          "putCall": "",
           "sector": "其他",
           "prevShares": 13309753,
           "prevValue": 591885000
@@ -9765,9 +10131,13 @@
         {
           "ticker": "CSGP",
           "name": "COSTAR GROUP INC",
+          "cls": "COM",
+          "cusip": "22160N109",
           "shares": 7111430,
           "value": 495311000,
-          "sector": "科技",
+          "shareType": "SH",
+          "putCall": "",
+          "sector": "房地产",
           "prevShares": 7111430,
           "prevValue": 429601000,
           "cnName": "CoStar集团"
@@ -9775,37 +10145,55 @@
         {
           "ticker": "KMX",
           "name": "CARMAX INC",
+          "cls": "COM",
+          "cusip": "143130102",
           "shares": 7353022,
           "value": 485447000,
+          "shareType": "SH",
+          "putCall": "",
           "sector": "消费",
           "prevShares": 7348192,
           "prevValue": 664864000,
           "cnName": "卡玛克斯"
         },
         {
-          "ticker": "?ADOBE SYSTEMS INCORPORATED",
+          "ticker": "ADBE",
           "name": "ADOBE SYSTEMS INCORPORATED",
+          "cls": "COM",
+          "cusip": "00724F101",
           "shares": 1665895,
           "value": 458454000,
-          "sector": "其他",
+          "shareType": "SH",
+          "putCall": "",
+          "sector": "科技",
           "prevShares": 1660395,
-          "prevValue": 607804000
+          "prevValue": 607804000,
+          "cnName": "奥多比"
         },
         {
-          "ticker": "?SALESFORCE COM INC",
+          "ticker": "CRM",
           "name": "SALESFORCE COM INC",
+          "cls": "COM",
+          "cusip": "79466L302",
           "shares": 3095500,
           "value": 445257000,
-          "sector": "其他",
+          "shareType": "SH",
+          "putCall": "",
+          "sector": "科技",
           "prevShares": 3070000,
-          "prevValue": 506673000
+          "prevValue": 506673000,
+          "cnName": "赛富时"
         },
         {
           "ticker": "DHR",
           "name": "DANAHER CORPORATION",
+          "cls": "COM",
+          "cusip": "235851102",
           "shares": 1655300,
           "value": 427547000,
-          "sector": "多元工业",
+          "shareType": "SH",
+          "putCall": "",
+          "sector": "医药",
           "prevShares": 1655300,
           "prevValue": 419652000,
           "cnName": "丹纳赫"
@@ -9813,103 +10201,160 @@
         {
           "ticker": "VRSK",
           "name": "VERISK ANALYTICS INC",
+          "cls": "CL A",
+          "cusip": "92345Y106",
           "shares": 2444286,
           "value": 416824000,
+          "shareType": "SH",
+          "putCall": "",
           "sector": "科技",
           "prevShares": 2444286,
           "prevValue": 423081000,
           "cnName": "Verisk 分析"
         },
         {
-          "ticker": "?SNOWFLAKE INC",
+          "ticker": "SNOW",
           "name": "SNOWFLAKE INC",
+          "cls": "CL A",
+          "cusip": "833445109",
           "shares": 1000000,
           "value": 169960000,
-          "sector": "其他",
+          "shareType": "SH",
+          "putCall": "",
+          "sector": "科技",
           "prevShares": 1000000,
-          "prevValue": 139060000
+          "prevValue": 139060000,
+          "cnName": "Snowflake Inc."
         },
         {
-          "ticker": "?DIGITALBRIDGE GROUP INC",
+          "ticker": "DBRG",
           "name": "DIGITALBRIDGE GROUP INC",
+          "cls": "CL A COM",
+          "cusip": "25401T603",
           "shares": 4623651,
           "value": 57842000,
-          "sector": "其他",
-          "prevShares": 16390191,
-          "prevValue": 79984000
+          "shareType": "SH",
+          "putCall": "",
+          "sector": "金融",
+          "prevShares": 0,
+          "prevValue": 0,
+          "cnName": "数字桥梁集团"
         },
         {
-          "ticker": "?ALARM COM HLDGS INC",
+          "ticker": "ALRM",
           "name": "ALARM COM HLDGS INC",
+          "cls": "COM",
+          "cusip": "011642105",
           "shares": 263939,
           "value": 17119000,
-          "sector": "其他",
+          "shareType": "SH",
+          "putCall": "",
+          "sector": "科技",
           "prevShares": 263939,
-          "prevValue": 16327000
+          "prevValue": 16327000,
+          "cnName": "Alarm.com Holdings, Inc."
         },
         {
           "ticker": "GOOG",
           "name": "ALPHABET INC",
+          "cls": "COM",
+          "cusip": "02079K107",
           "shares": 100000,
           "value": 9615000,
+          "shareType": "SH",
+          "putCall": "Call",
           "sector": "互联网",
           "prevShares": 100000,
           "prevValue": 10937000,
-          "cnName": "谷歌C",
           "shareAdjustment": {
             "factor": 20,
             "date": "2022-07-15",
             "source": "https://www.sec.gov/Archives/edgar/data/1652044/000165204422000071/goog-20220630.htm",
             "reportedShares": 5000
-          }
+          },
+          "cnName": "谷歌C"
         },
         {
           "ticker": "GSHD",
           "name": "GOOSEHEAD INS INC",
+          "cls": "COM CL A",
+          "cusip": "38267D109",
           "shares": 243672,
           "value": 8684000,
-          "sector": "金融",
+          "shareType": "SH",
+          "putCall": "",
+          "sector": "保险",
           "prevShares": 348366,
           "prevValue": 15910000,
           "cnName": "Goosehead保险"
         },
         {
-          "ticker": "BRK.B",
+          "ticker": "BRK/B",
           "name": "BERKSHIRE HATHAWAY INC DEL",
+          "cls": "CL B NEW",
+          "cusip": "084670702",
           "shares": 17114,
           "value": 4570000,
-          "sector": "综合金融",
+          "shareType": "SH",
+          "putCall": "",
+          "sector": "其他",
           "prevShares": 17114,
           "prevValue": 4672000,
-          "cnName": "伯克希尔·哈撒韦B"
+          "cnName": "伯克希尔哈撒韦 B 类"
         },
         {
           "ticker": "DLTR",
           "name": "DOLLAR TREE INC",
+          "cls": "COM",
+          "cusip": "256746108",
           "shares": 32912,
           "value": 4479000,
+          "shareType": "SH",
+          "putCall": "",
           "sector": "消费",
           "prevShares": 32912,
           "prevValue": 5129000,
           "cnName": "美元树"
+        },
+        {
+          "ticker": "MA",
+          "name": "MASTERCARD INCORPORATED",
+          "cls": "COM",
+          "cusip": "57636Q104",
+          "shares": 10000,
+          "value": 2843000,
+          "shareType": "SH",
+          "putCall": "Call",
+          "sector": "金融服务",
+          "prevShares": 10000,
+          "prevValue": 3155000,
+          "cnName": "万事达卡"
         }
       ],
       "2022 Q4": [
         {
           "ticker": "MA",
           "name": "MASTERCARD INCORPORATED",
-          "shares": 5876026,
-          "value": 2043267521,
+          "cls": "CL A",
+          "cusip": "57636Q104",
+          "shares": 5866026,
+          "value": 2039793221,
+          "shareType": "SH",
+          "putCall": "",
           "sector": "金融服务",
-          "prevShares": 5901226,
-          "prevValue": 1677954000,
+          "prevShares": 5891226,
+          "prevValue": 1675111000,
           "cnName": "万事达卡"
         },
         {
           "ticker": "MCO",
           "name": "MOODYS CORP",
+          "cls": "COM",
+          "cusip": "615369105",
           "shares": 5703785,
           "value": 1589188577,
+          "shareType": "SH",
+          "putCall": "",
           "sector": "金融服务",
           "prevShares": 5703785,
           "prevValue": 1386647000,
@@ -9918,8 +10363,12 @@
         {
           "ticker": "AMT",
           "name": "AMERICAN TOWER CORP NEW",
+          "cls": "COM",
+          "cusip": "03027X100",
           "shares": 6993427,
           "value": 1481627444,
+          "shareType": "SH",
+          "putCall": "",
           "sector": "通讯",
           "prevShares": 6973187,
           "prevValue": 1497143000,
@@ -9928,8 +10377,12 @@
         {
           "ticker": "V",
           "name": "VISA INC",
+          "cls": "COM CL A",
+          "cusip": "92826C839",
           "shares": 4922138,
           "value": 1022623391,
+          "shareType": "SH",
+          "putCall": "",
           "sector": "金融服务",
           "prevShares": 5244738,
           "prevValue": 931728000,
@@ -9938,8 +10391,12 @@
         {
           "ticker": "ORLY",
           "name": "OREILLY AUTOMOTIVE INC",
+          "cls": "COM",
+          "cusip": "67103H107",
           "shares": 1182283,
           "value": 997882320,
+          "shareType": "SH",
+          "putCall": "",
           "sector": "消费",
           "prevShares": 1471546,
           "prevValue": 1035012000,
@@ -9948,19 +10405,27 @@
         {
           "ticker": "ROP",
           "name": "ROPER TECHNOLOGIES INC",
+          "cls": "COM",
+          "cusip": "776696106",
           "shares": 1655625,
           "value": 715379006,
-          "sector": "科技",
+          "shareType": "SH",
+          "putCall": "",
+          "sector": "多元工业",
           "prevShares": 1655660,
           "prevValue": 595442000,
-          "cnName": "罗珀技术"
+          "cnName": "罗珀科技"
         },
         {
           "ticker": "KKR",
           "name": "KKR & CO L P DEL",
+          "cls": "COM UNITS",
+          "cusip": "48251w104",
           "shares": 15102918,
           "value": 701077433,
-          "sector": "金融",
+          "shareType": "SH",
+          "putCall": "",
+          "sector": "金融服务",
           "prevShares": 15452918,
           "prevValue": 664475000,
           "cnName": "KKR集团"
@@ -9968,9 +10433,13 @@
         {
           "ticker": "CSGP",
           "name": "COSTAR GROUP INC",
+          "cls": "COM",
+          "cusip": "22160N109",
           "shares": 7111430,
           "value": 549571310,
-          "sector": "科技",
+          "shareType": "SH",
+          "putCall": "",
+          "sector": "房地产",
           "prevShares": 7111430,
           "prevValue": 495311000,
           "cnName": "CoStar集团"
@@ -9978,8 +10447,12 @@
         {
           "ticker": "BN",
           "name": "BROOKFIELD CORP",
+          "cls": "CL A LTD VT SH",
+          "cusip": "11271J107",
           "shares": 17366753,
           "value": 546358049,
+          "shareType": "SH",
+          "putCall": "",
           "sector": "金融服务",
           "prevShares": 0,
           "prevValue": 0,
@@ -9988,64 +10461,96 @@
         {
           "ticker": "DHR",
           "name": "DANAHER CORPORATION",
+          "cls": "COM",
+          "cusip": "235851102",
           "shares": 1788200,
           "value": 474624044,
-          "sector": "多元工业",
+          "shareType": "SH",
+          "putCall": "",
+          "sector": "医药",
           "prevShares": 1655300,
           "prevValue": 427547000,
           "cnName": "丹纳赫"
         },
         {
-          "ticker": "?ADOBE SYSTEMS INCORPORATED",
+          "ticker": "ADBE",
           "name": "ADOBE SYSTEMS INCORPORATED",
+          "cls": "COM",
+          "cusip": "00724F101",
           "shares": 1239558,
           "value": 417148454,
-          "sector": "其他",
+          "shareType": "SH",
+          "putCall": "",
+          "sector": "科技",
           "prevShares": 1665895,
-          "prevValue": 458454000
+          "prevValue": 458454000,
+          "cnName": "奥多比"
         },
         {
           "ticker": "KMX",
           "name": "CARMAX INC",
+          "cls": "COM",
+          "cusip": "143130102",
           "shares": 5291022,
           "value": 322170330,
+          "shareType": "SH",
+          "putCall": "",
           "sector": "消费",
           "prevShares": 7353022,
           "prevValue": 485447000,
           "cnName": "卡玛克斯"
         },
         {
-          "ticker": "?BROOKFIELD ASSET MANAGMT LTD",
+          "ticker": "BAM",
           "name": "BROOKFIELD ASSET MANAGMT LTD",
+          "cls": "CL A LMT VTG SHS",
+          "cusip": "113004105",
           "shares": 3691684,
           "value": 105840580,
-          "sector": "其他",
+          "shareType": "SH",
+          "putCall": "",
+          "sector": "金融",
           "prevShares": 0,
-          "prevValue": 0
+          "prevValue": 0,
+          "cnName": "Brookfield Asset Management Ltd."
         },
         {
-          "ticker": "?DIGITALBRIDGE GROUP INC",
+          "ticker": "DBRG",
           "name": "DIGITALBRIDGE GROUP INC",
+          "cls": "CL A COM",
+          "cusip": "25401T603",
           "shares": 4991720,
           "value": 54609417,
-          "sector": "其他",
+          "shareType": "SH",
+          "putCall": "",
+          "sector": "金融",
           "prevShares": 4623651,
-          "prevValue": 57842000
+          "prevValue": 57842000,
+          "cnName": "数字桥梁集团"
         },
         {
-          "ticker": "?ALARM COM HLDGS INC",
+          "ticker": "ALRM",
           "name": "ALARM COM HLDGS INC",
+          "cls": "COM",
+          "cusip": "011642105",
           "shares": 263939,
           "value": 13059702,
-          "sector": "其他",
+          "shareType": "SH",
+          "putCall": "",
+          "sector": "科技",
           "prevShares": 263939,
-          "prevValue": 17119000
+          "prevValue": 17119000,
+          "cnName": "Alarm.com Holdings, Inc."
         },
         {
           "ticker": "GOOG",
           "name": "ALPHABET INC",
+          "cls": "COM",
+          "cusip": "02079K107",
           "shares": 100000,
           "value": 8873000,
+          "shareType": "SH",
+          "putCall": "Call",
           "sector": "互联网",
           "prevShares": 100000,
           "prevValue": 9615000,
@@ -10054,38 +10559,68 @@
         {
           "ticker": "GSHD",
           "name": "GOOSEHEAD INS INC",
+          "cls": "COM CL A",
+          "cusip": "38267D109",
           "shares": 243672,
           "value": 8367696,
-          "sector": "金融",
+          "shareType": "SH",
+          "putCall": "",
+          "sector": "保险",
           "prevShares": 243672,
           "prevValue": 8684000,
           "cnName": "Goosehead保险"
         },
         {
-          "ticker": "BRK.B",
+          "ticker": "BRK/B",
           "name": "BERKSHIRE HATHAWAY INC DEL",
+          "cls": "CL B NEW",
+          "cusip": "084670702",
           "shares": 17114,
           "value": 5286515,
-          "sector": "综合金融",
+          "shareType": "SH",
+          "putCall": "",
+          "sector": "其他",
           "prevShares": 17114,
           "prevValue": 4570000,
-          "cnName": "伯克希尔·哈撒韦B"
+          "cnName": "伯克希尔哈撒韦 B 类"
         },
         {
           "ticker": "DLTR",
           "name": "DOLLAR TREE INC",
+          "cls": "COM",
+          "cusip": "256746108",
           "shares": 30439,
           "value": 4305292,
+          "shareType": "SH",
+          "putCall": "",
           "sector": "消费",
           "prevShares": 32912,
           "prevValue": 4479000,
           "cnName": "美元树"
         },
         {
+          "ticker": "MA",
+          "name": "MASTERCARD INCORPORATED",
+          "cls": "COM",
+          "cusip": "57636Q104",
+          "shares": 10000,
+          "value": 3474300,
+          "shareType": "SH",
+          "putCall": "Call",
+          "sector": "金融服务",
+          "prevShares": 10000,
+          "prevValue": 2843000,
+          "cnName": "万事达卡"
+        },
+        {
           "ticker": "VRSK",
           "name": "VERISK ANALYTICS INC",
+          "cls": "CL A",
+          "cusip": "92345Y106",
           "shares": 18976,
           "value": 3347746,
+          "shareType": "SH",
+          "putCall": "",
           "sector": "科技",
           "prevShares": 2444286,
           "prevValue": 416824000,
@@ -10099,8 +10634,8 @@
           "shares": 5879459,
           "value": 2136654195,
           "sector": "金融服务",
-          "prevShares": 5876026,
-          "prevValue": 2043267521,
+          "prevShares": 5866026,
+          "prevValue": 2039793221,
           "cnName": "万事达卡"
         },
         {
@@ -10189,8 +10724,8 @@
           "shares": 1199081,
           "value": 462089845,
           "sector": "其他",
-          "prevShares": 1239558,
-          "prevValue": 417148454
+          "prevShares": 0,
+          "prevValue": 0
         },
         {
           "ticker": "DHR",
@@ -10227,8 +10762,8 @@
           "shares": 5134535,
           "value": 61563073,
           "sector": "其他",
-          "prevShares": 4991720,
-          "prevValue": 54609417
+          "prevShares": 0,
+          "prevValue": 0
         },
         {
           "ticker": "GSHD",
@@ -10246,8 +10781,8 @@
           "shares": 100000,
           "value": 10400000,
           "sector": "互联网",
-          "prevShares": 100000,
-          "prevValue": 8873000,
+          "prevShares": 0,
+          "prevValue": 0,
           "cnName": "谷歌C"
         },
         {
@@ -18418,7 +18953,7 @@
       ]
     },
     "coverage": {
-      "checkedAt": "2026-10-12T21:28:32Z",
+      "checkedAt": "2026-10-13T04:05:04Z",
       "missingQuarters": [],
       "repairedThisRun": [],
       "errors": {},
@@ -18699,12 +19234,52 @@
         "reportDate": "2021-09-30",
         "cik": "1112520",
         "url": "https://www.sec.gov/Archives/edgar/data/1112520/000111252021000023/infotable.xml"
+      },
+      "2021 Q4": {
+        "accession": "000111252022000005",
+        "accessionDashed": "0001112520-22-000005",
+        "filingDate": "2022-02-11",
+        "reportDate": "2021-12-31",
+        "cik": "1112520",
+        "url": "https://www.sec.gov/Archives/edgar/data/1112520/000111252022000005/infotable.xml"
+      },
+      "2022 Q1": {
+        "accession": "000111252022000009",
+        "accessionDashed": "0001112520-22-000009",
+        "filingDate": "2022-05-13",
+        "reportDate": "2022-03-31",
+        "cik": "1112520",
+        "url": "https://www.sec.gov/Archives/edgar/data/1112520/000111252022000009/infotable.xml"
+      },
+      "2022 Q2": {
+        "accession": "000111252022000013",
+        "accessionDashed": "0001112520-22-000013",
+        "filingDate": "2022-08-11",
+        "reportDate": "2022-06-30",
+        "cik": "1112520",
+        "url": "https://www.sec.gov/Archives/edgar/data/1112520/000111252022000013/infotable.xml"
+      },
+      "2022 Q3": {
+        "accession": "000111252022000015",
+        "accessionDashed": "0001112520-22-000015",
+        "filingDate": "2022-11-14",
+        "reportDate": "2022-09-30",
+        "cik": "1112520",
+        "url": "https://www.sec.gov/Archives/edgar/data/1112520/000111252022000015/infotable.xml"
+      },
+      "2022 Q4": {
+        "accession": "000111252023000006",
+        "accessionDashed": "0001112520-23-000006",
+        "filingDate": "2023-02-13",
+        "reportDate": "2022-12-31",
+        "cik": "1112520",
+        "url": "https://www.sec.gov/Archives/edgar/data/1112520/000111252023000006/infotable.xml"
       }
     },
     "instrumentVerification": {
       "pendingQuarters": [],
       "errors": {},
-      "checkedAt": "2026-10-12T21:28:32.821072+00:00"
+      "checkedAt": "2026-10-13T04:05:04.780871+00:00"
     },
     "valueAudit": {
       "2013 Q2": {
@@ -19220,7 +19795,7 @@
       },
       "2015 Q1": {
         "version": 1,
-        "checkedAt": "2026-10-12",
+        "checkedAt": "2026-10-13",
         "source": "https://www.sec.gov/Archives/edgar/data/1112520/000111252015000011/infotable.xml",
         "filingDate": "2015-05-14",
         "sourceDigest": "af0de1a6d6e0817d4d3fcea3af7badea460dcb420aa3956aba70a5275adc9851",
@@ -19234,7 +19809,7 @@
             "price": 25.229999542236328,
             "date": "2015-03-31",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/LYV?period1=0&period2=1791859860&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/LYV?period1=0&period2=1791950737&interval=1d&events=splits",
             "candidates": [
               1
             ]
@@ -19246,7 +19821,7 @@
             "price": 86.38999938964844,
             "date": "2015-03-31",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/MA?period1=0&period2=1791859860&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/MA?period1=0&period2=1791950738&interval=1d&events=splits",
             "candidates": []
           },
           {
@@ -19256,7 +19831,7 @@
             "price": 94.1500015258789,
             "date": "2015-03-31",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/AMT?period1=0&period2=1791859860&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/AMT?period1=0&period2=1791950738&interval=1d&events=splits",
             "candidates": [
               1
             ]
@@ -19268,7 +19843,7 @@
             "price": 103.80000305175781,
             "date": "2015-03-31",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/MCO?period1=0&period2=1791859861&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/MCO?period1=0&period2=1791950739&interval=1d&events=splits",
             "candidates": []
           },
           {
@@ -19278,7 +19853,7 @@
             "price": 81.1500015258789,
             "date": "2015-03-31",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/DLTR?period1=0&period2=1791859861&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/DLTR?period1=0&period2=1791950739&interval=1d&events=splits",
             "candidates": []
           }
         ],
@@ -21249,6 +21824,371 @@
           }
         ],
         "normalizedHash": "f23f12f8137647cdf98453ac3a948bdc1c334dbd1e0493d7ecd8eca1b0142c83"
+      },
+      "2021 Q4": {
+        "version": 1,
+        "checkedAt": "2026-10-13",
+        "source": "https://www.sec.gov/Archives/edgar/data/1112520/000111252022000005/infotable.xml",
+        "filingDate": "2022-02-11",
+        "sourceDigest": "e1b51756bcf03469267737cd8416c66cbb76d5cf2db27d55ee3f32ec84acc799",
+        "sourceHash": "ce29d9dc0321c426a3cfa352c6595bdbdca1c4b436563f65e10f557059216b87",
+        "status": "verified",
+        "factor": 1,
+        "anchors": [
+          {
+            "ticker": "KKR",
+            "cusip": "48251w104",
+            "filedPrice": 74.49998845944445,
+            "price": 74.5,
+            "date": "2021-12-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/KKR?period1=0&period2=1791950740&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "CSGP",
+            "cusip": "22160N109",
+            "filedPrice": 79.03004296240917,
+            "price": 79.02999877929688,
+            "date": "2021-12-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/CSGP?period1=0&period2=1791950741&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "KMX",
+            "cusip": "143130102",
+            "filedPrice": 130.22998634325774,
+            "price": 130.22999572753906,
+            "date": "2021-12-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/KMX?period1=0&period2=1791950742&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "AMT",
+            "cusip": "03027X100",
+            "filedPrice": 292.5000181906457,
+            "price": 292.5,
+            "date": "2021-12-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/AMT?period1=0&period2=1791950738&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "MA",
+            "cusip": "57636Q104",
+            "filedPrice": 359.3199743874581,
+            "price": 359.32000732421875,
+            "date": "2021-12-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/MA?period1=0&period2=1791950738&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          }
+        ],
+        "normalizedHash": "ce29d9dc0321c426a3cfa352c6595bdbdca1c4b436563f65e10f557059216b87"
+      },
+      "2022 Q1": {
+        "version": 1,
+        "checkedAt": "2026-10-13",
+        "source": "https://www.sec.gov/Archives/edgar/data/1112520/000111252022000009/infotable.xml",
+        "filingDate": "2022-05-13",
+        "sourceDigest": "e45e302db161e8b23d291d11298805b9730cae9e4edc8eb86517d3887bd7df6a",
+        "sourceHash": "ba924e1ab81dfa39ad7c47dafa43f97ac208ab0aa9230d8826ddaba6f54e111e",
+        "status": "verified",
+        "factor": 1,
+        "anchors": [
+          {
+            "ticker": "KKR",
+            "cusip": "48251w104",
+            "filedPrice": 58.469982482718166,
+            "price": 58.470001220703125,
+            "date": "2022-03-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/KKR?period1=0&period2=1791950740&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "CSGP",
+            "cusip": "22160N109",
+            "filedPrice": 66.60995140760723,
+            "price": 66.61000061035156,
+            "date": "2022-03-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/CSGP?period1=0&period2=1791950741&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "KMX",
+            "cusip": "143130102",
+            "filedPrice": 96.48005872517967,
+            "price": 96.4800033569336,
+            "date": "2022-03-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/KMX?period1=0&period2=1791950742&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "AMT",
+            "cusip": "03027X100",
+            "filedPrice": 251.2199614281997,
+            "price": 251.22000122070312,
+            "date": "2022-03-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/AMT?period1=0&period2=1791950738&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "MA",
+            "cusip": "57636Q104",
+            "filedPrice": 357.3800231625111,
+            "price": 357.3800048828125,
+            "date": "2022-03-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/MA?period1=0&period2=1791950738&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          }
+        ],
+        "normalizedHash": "ba924e1ab81dfa39ad7c47dafa43f97ac208ab0aa9230d8826ddaba6f54e111e"
+      },
+      "2022 Q2": {
+        "version": 1,
+        "checkedAt": "2026-10-13",
+        "source": "https://www.sec.gov/Archives/edgar/data/1112520/000111252022000013/infotable.xml",
+        "filingDate": "2022-08-11",
+        "sourceDigest": "4c071fd59e1f912ca5bd1cc4a6ac4de3f08325862aa6e7f1af63ea960acb562c",
+        "sourceHash": "a479956d85ca9c647814fb95ace4cc143ff6d85497a2406e68bc3d3481f04789",
+        "status": "verified",
+        "factor": 1,
+        "anchors": [
+          {
+            "ticker": "KKR",
+            "cusip": "48251w104",
+            "filedPrice": 46.29000218003329,
+            "price": 46.290000915527344,
+            "date": "2022-06-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/KKR?period1=0&period2=1791950740&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "KMX",
+            "cusip": "143130102",
+            "filedPrice": 90.47994391001215,
+            "price": 90.4800033569336,
+            "date": "2022-06-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/KMX?period1=0&period2=1791950742&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "CSGP",
+            "cusip": "22160N109",
+            "filedPrice": 60.40993161712905,
+            "price": 60.40999984741211,
+            "date": "2022-06-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/CSGP?period1=0&period2=1791950741&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "AMT",
+            "cusip": "03027X100",
+            "filedPrice": 255.59001931254676,
+            "price": 255.58999633789062,
+            "date": "2022-06-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/AMT?period1=0&period2=1791950738&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "MA",
+            "cusip": "57636Q104",
+            "filedPrice": 315.4799538344066,
+            "price": 315.4800109863281,
+            "date": "2022-06-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/MA?period1=0&period2=1791950738&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          }
+        ],
+        "normalizedHash": "a479956d85ca9c647814fb95ace4cc143ff6d85497a2406e68bc3d3481f04789"
+      },
+      "2022 Q3": {
+        "version": 1,
+        "checkedAt": "2026-10-13",
+        "source": "https://www.sec.gov/Archives/edgar/data/1112520/000111252022000015/infotable.xml",
+        "filingDate": "2022-11-14",
+        "sourceDigest": "05eaa7923a74b499d657ac32f2c0254bcb397c4a0d16eb7882940377132e1925",
+        "sourceHash": "4285e993dd67518ce58c4a78a2b68e88ca185bfd834d1c1e1db7171ec76097e4",
+        "status": "verified",
+        "factor": 1,
+        "anchors": [
+          {
+            "ticker": "KKR",
+            "cusip": "48251w104",
+            "filedPrice": 42.999969326181635,
+            "price": 43.0,
+            "date": "2022-09-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/KKR?period1=0&period2=1791950740&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "KMX",
+            "cusip": "143130102",
+            "filedPrice": 66.02006630743115,
+            "price": 66.0199966430664,
+            "date": "2022-09-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/KMX?period1=0&period2=1791950742&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "CSGP",
+            "cusip": "22160N109",
+            "filedPrice": 69.64998600843994,
+            "price": 69.6500015258789,
+            "date": "2022-09-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/CSGP?period1=0&period2=1791950741&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "AMT",
+            "cusip": "03027X100",
+            "filedPrice": 214.69996430613435,
+            "price": 214.6999969482422,
+            "date": "2022-09-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/AMT?period1=0&period2=1791950738&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "MA",
+            "cusip": "57636Q104",
+            "filedPrice": 284.3399659086241,
+            "price": 284.3399963378906,
+            "date": "2022-09-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/MA?period1=0&period2=1791950738&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          }
+        ],
+        "normalizedHash": "4285e993dd67518ce58c4a78a2b68e88ca185bfd834d1c1e1db7171ec76097e4"
+      },
+      "2022 Q4": {
+        "version": 1,
+        "checkedAt": "2026-10-13",
+        "source": "https://www.sec.gov/Archives/edgar/data/1112520/000111252023000006/infotable.xml",
+        "filingDate": "2023-02-13",
+        "sourceDigest": "6143a596b6b581bf247e7b8d9b278311bd3363798dbcbcfb4b5428c98e3a9bc1",
+        "sourceHash": "d1165f92cbdfd191418e0ef1233db3c4cd5f6480bf58e3bc1c04ed73f7cd6249",
+        "status": "verified",
+        "factor": 1,
+        "anchors": [
+          {
+            "ticker": "BN",
+            "cusip": "11271J107",
+            "filedPrice": 31.45999997811911,
+            "price": 31.460000038146973,
+            "date": "2022-12-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/BN?period1=0&period2=1791950725&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "KKR",
+            "cusip": "48251w104",
+            "filedPrice": 46.41999863867367,
+            "price": 46.41999816894531,
+            "date": "2022-12-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/KKR?period1=0&period2=1791950740&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "CSGP",
+            "cusip": "22160N109",
+            "filedPrice": 77.27999994375253,
+            "price": 77.27999877929688,
+            "date": "2022-12-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/CSGP?period1=0&period2=1791950741&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "AMT",
+            "cusip": "03027X100",
+            "filedPrice": 211.8599999685419,
+            "price": 211.86000061035156,
+            "date": "2022-12-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/AMT?period1=0&period2=1791950738&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "MA",
+            "cusip": "57636Q104",
+            "filedPrice": 347.7300000034095,
+            "price": 347.7300109863281,
+            "date": "2022-12-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/MA?period1=0&period2=1791950738&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          }
+        ],
+        "normalizedHash": "d1165f92cbdfd191418e0ef1233db3c4cd5f6480bf58e3bc1c04ed73f7cd6249"
       }
     },
     "excludedValueQuarters": [],
