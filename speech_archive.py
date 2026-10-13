@@ -17,9 +17,11 @@ import tempfile
 import time
 import urllib.parse
 import urllib.request
+import unicodedata
 import xml.etree.ElementTree as ET
 from email.utils import parsedate_to_datetime
 from pathlib import Path
+from collections import Counter
 
 ROOT = Path(__file__).resolve().parent
 HEADERS = {"User-Agent": "Mozilla/5.0 (compatible; PublicInvestorArchive/1.0)"}
@@ -323,9 +325,39 @@ def search_catalog(source, get=fetch):
 
 
 def source_chunks(text):
-    chunks = [re.sub(r"\s+", " ", p).strip() for p in re.split(r"\n\s*\n|\n", text)]
-    chunks = [p for p in chunks if len(p) >= 60]
-    return [{"id": f"s{i}", "text": p[:1600]} for i, p in enumerate(chunks)]
+    """Rejoin PDF line wraps and remove repeated running headers/footers.
+
+    Sampling isolated printed lines loses reasoning and overweights repeated
+    disclaimers. Coherent passages remain bounded and span the whole source.
+    """
+    lines = [re.sub(r"[ \t]+", " ", unicodedata.normalize("NFKC", line)).strip()
+             for line in text.splitlines()]
+    counts = Counter(line for line in lines if len(line) > 30)
+    boilerplate = r"educational (?:and entertainment )?purposes|financial, legal, accounting|not investment advice|past performance|copyright|before making any investment|do not take into account your particular"
+    lines = [line for line in lines if not (len(line) > 30 and counts[line] > 2 and re.search(boilerplate, line, re.I))
+             and not re.fullmatch(r"(?:Page\s+)?\d+(?:\s+of\s+\d+|\s*\|\s*P\s*a\s*g\s*e)?", line, re.I)]
+    chunks, current = [], []
+    def flush():
+        if current:
+            passage = " ".join(current).strip()
+            if len(passage) >= 80:
+                chunks.append(passage)
+            current.clear()
+    for line in lines:
+        if not line:
+            if len(" ".join(current)) >= 300:
+                flush()
+            continue
+        # Keep interlocutor markers with the following answer.
+        if re.match(r"^(?:\[\d|Mohnish:|G&D:|LL:|GG:|CONSUELO|WILLIAM GREEN|Bruce:)", line, re.I) and len(" ".join(current)) >= 300:
+            flush()
+        current.append(line)
+        if len(" ".join(current)) >= 1100 and re.search(r"[.!?。！？][\"’”']?$", line):
+            flush()
+        elif len(" ".join(current)) >= 1500:
+            flush()
+    flush()
+    return [{"id": f"s{i}", "text": passage} for i, passage in enumerate(chunks)]
 
 
 def parse_captions(raw):

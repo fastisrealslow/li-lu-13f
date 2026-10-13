@@ -73,6 +73,15 @@ class SpeechArchiveTests(unittest.TestCase):
         vtt = b"WEBVTT\n\n00:00:01.000 --> 00:00:02.000\nHello there\n\n00:00:02.000 --> 00:00:03.000\nHello there\n\n00:00:03.000 --> 00:00:04.000\nA new line\n"
         self.assertEqual(archive.parse_captions(vtt), "Hello there\nA new line")
 
+    def test_source_passages_preserve_reasoning_not_pdf_line_fragments(self):
+        footer = "This transcript is provided for educational purposes only."
+        text = ("Page 1 of 3\n" + "An investor first studies the economics of a business,\nthen evaluates its competition and the durability of its earnings.\n" * 8 + footer + "\n\n")*3
+        chunks = archive.source_chunks(text)
+        self.assertGreaterEqual(len(chunks), 3)
+        self.assertTrue(all(len(c["text"]) > 300 for c in chunks))
+        self.assertTrue(all(footer not in c["text"] for c in chunks))
+        self.assertIn("business, then", chunks[0]["text"])
+
     def test_other_speakers_in_an_owned_catalogue_are_not_attributed(self):
         source = {"adapter": "pabrai", "investor": "pabrai", "url": "https://publisher.example/transcripts",
                   "publisher": "Publisher", "excludePattern": "Nisaba Godrej.*Omar Momin"}
