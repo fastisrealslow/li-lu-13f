@@ -562,10 +562,14 @@ def discover(root=ROOT):
     return catalog
 
 
+def needs_processing(work):
+    return bool(not work.get("noteFile") or
+                (work.get("basis") == "publisher_description" and work.get("media")))
+
+
 def process(root=ROOT, limit=6, model="qwen3.5:9b-q4_K_M", allow_asr=False, minutes=25):
     catalog = read(root / "archive/catalog.json")
-    pending = [w for w in catalog["works"] if not w.get("noteFile") or
-               (w.get("basis") == "publisher_description" and w.get("media"))]
+    pending = [w for w in catalog["works"] if needs_processing(w)]
     # Retry the least-recently attempted work before retrying yesterday's outage.
     pending.sort(key=lambda w: w.get("processing", {}).get("at", ""))
     # Round-robin investors: one prolific publisher must not starve sparse archives.
@@ -636,7 +640,7 @@ def main():
         print("Valid:", len(c["works"]), "works;", sum(bool(w.get("noteFile")) for w in c["works"]), "study editions")
     else:
         c = read(ROOT / "archive/catalog.json")
-        print(json.dumps({"pending": sum(not w.get("noteFile") or (w.get("basis") == "publisher_description" and w.get("media")) for w in c["works"])}))
+        print(json.dumps({"pending": sum(needs_processing(w) for w in c["works"])}))
 
 
 if __name__ == "__main__":
