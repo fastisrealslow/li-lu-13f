@@ -1,0 +1,326 @@
+{
+  "schemaVersion": 1,
+  "catalogues": [
+    {
+      "investor": "lilu",
+      "adapter": "lilu",
+      "url": "https://www.himcap.com/publications",
+      "publisher": "Himalaya Capital"
+    },
+    {
+      "investor": "pabrai",
+      "adapter": "pabrai",
+      "url": "https://www.chaiwithpabrai.com/transcripts",
+      "publisher": "Chai with Pabrai",
+      "excludePattern": "Nisaba Godrej.*Omar Momin"
+    },
+    {
+      "investor": "buffett",
+      "adapter": "buffett",
+      "url": "https://buffett.cnbc.com/annual-meetings/",
+      "publisher": "Berkshire Hathaway / CNBC"
+    },
+    {
+      "investor": "vinall",
+      "adapter": "spotify",
+      "url": "https://podcasters.spotify.com/pod/show/robert-vinall",
+      "publisher": "RV Capital · The Rob Vinall Podcast",
+      "excludePattern": "Women-in-Investing|Is China Investable|Panel Discussion for Emerging|Emerging Managers|Capital Allocator Panel"
+    },
+    {
+      "investor": "abrams",
+      "adapter": "rss",
+      "url": "https://valueinvestingwithlegends.libsyn.com/rss",
+      "publisher": "Columbia Business School · Value Investing with Legends",
+      "includePattern": "^David Abrams"
+    },
+    {
+      "investor": "ackman",
+      "adapter": "rss",
+      "url": "https://valueinvestingwithlegends.libsyn.com/rss",
+      "publisher": "Columbia Business School · Value Investing with Legends",
+      "includePattern": "^Bill Ackman"
+    },
+    {
+      "investor": "klarman",
+      "adapter": "rss",
+      "url": "https://valueinvestingwithlegends.libsyn.com/rss",
+      "publisher": "Columbia Business School · Value Investing with Legends",
+      "includePattern": "^Seth Klarman"
+    },
+    {
+      "investor": "pabrai",
+      "adapter": "rss",
+      "url": "https://valueinvestingwithlegends.libsyn.com/rss",
+      "publisher": "Columbia Business School · Value Investing with Legends",
+      "includePattern": "^Mohnish Pabrai"
+    },
+    {
+      "investor": "lilu",
+      "adapter": "search",
+      "query": "\"Li Lu\" (interview OR speech OR lecture OR 访谈 OR 演讲)",
+      "names": [
+        "Li Lu",
+        "李录"
+      ],
+      "identityTerms": [
+        "Himalaya",
+        "喜马拉雅",
+        "李录"
+      ],
+      "publishers": [
+        "himcap.com",
+        "business.columbia.edu",
+        "english.pku.edu.cn",
+        "charlierose.com",
+        "c-span.org"
+      ]
+    },
+    {
+      "investor": "pabrai",
+      "adapter": "search",
+      "query": "\"Mohnish Pabrai\" (interview OR speech OR lecture OR 访谈 OR 演讲)",
+      "names": [
+        "Mohnish Pabrai",
+        "帕伯莱"
+      ],
+      "identityTerms": [
+        "Pabrai",
+        "Dakshana"
+      ],
+      "publishers": [
+        "chaiwithpabrai.com",
+        "business.columbia.edu",
+        "theinvestorspodcast.com",
+        "bigthink.com"
+      ]
+    },
+    {
+      "investor": "duan",
+      "adapter": "search",
+      "query": "\"段永平\" (interview OR speech OR lecture OR 访谈 OR 演讲)",
+      "names": [
+        "段永平",
+        "Duan Yongping"
+      ],
+      "identityTerms": [
+        "段永平",
+        "Duan Yongping"
+      ],
+      "publishers": [
+        "zju.edu.cn",
+        "finance.sina.com.cn",
+        "tech.sina.com.cn",
+        "finance.163.com",
+        "stanford.edu"
+      ]
+    },
+    {
+      "investor": "tepper",
+      "adapter": "search",
+      "query": "\"David Tepper\" (interview OR speech OR lecture OR 访谈 OR 演讲)",
+      "names": [
+        "David Tepper",
+        "泰珀"
+      ],
+      "identityTerms": [
+        "Appaloosa",
+        "Tepper School",
+        "Carnegie Mellon",
+        "Panthers"
+      ],
+      "publishers": [
+        "cnbc.com",
+        "cmu.edu",
+        "panthers.com"
+      ]
+    },
+    {
+      "investor": "webb",
+      "adapter": "search",
+      "query": "\"David Webb\" (interview OR speech OR lecture OR 访谈 OR 演讲)",
+      "names": [
+        "David Webb",
+        "大卫·韦伯"
+      ],
+      "identityTerms": [
+        "Webb-site",
+        "Hong Kong",
+        "香港"
+      ],
+      "publishers": [
+        "bbc.com",
+        "fcchk.org",
+        "webb-site.com",
+        "webbhk.substack.com"
+      ]
+    },
+    {
+      "investor": "buffett",
+      "adapter": "search",
+      "query": "\"Warren Buffett\" (interview OR speech OR lecture OR 访谈 OR 演讲)",
+      "names": [
+        "Warren Buffett",
+        "巴菲特"
+      ],
+      "identityTerms": [
+        "Berkshire",
+        "Warren Buffett"
+      ],
+      "publishers": [
+        "buffett.cnbc.com",
+        "berkshirehathaway.com",
+        "c-span.org",
+        "business.columbia.edu"
+      ]
+    },
+    {
+      "investor": "akre",
+      "adapter": "search",
+      "query": "\"Chuck Akre\" (interview OR speech OR lecture OR 访谈 OR 演讲)",
+      "names": [
+        "Chuck Akre",
+        "Charles Akre"
+      ],
+      "identityTerms": [
+        "Akre Capital",
+        "Akre Focus"
+      ],
+      "publishers": [
+        "akrecapital.com",
+        "moiglobal.com",
+        "wealthtrack.com",
+        "advisorperspectives.com"
+      ]
+    },
+    {
+      "investor": "greenberg",
+      "adapter": "search",
+      "query": "\"Glenn Greenberg\" (interview OR speech OR lecture OR 访谈 OR 演讲)",
+      "names": [
+        "Glenn Greenberg",
+        "Glen Greenberg"
+      ],
+      "identityTerms": [
+        "Brave Warrior",
+        "Chieftain"
+      ],
+      "publishers": [
+        "business.columbia.edu",
+        "barrons.com",
+        "grahamanddoddsville.net"
+      ]
+    },
+    {
+      "investor": "klarman",
+      "adapter": "search",
+      "query": "\"Seth Klarman\" (interview OR speech OR lecture OR 访谈 OR 演讲)",
+      "names": [
+        "Seth Klarman"
+      ],
+      "identityTerms": [
+        "Baupost",
+        "Klarman"
+      ],
+      "publishers": [
+        "hbs.edu",
+        "cfainstitute.org",
+        "business.columbia.edu",
+        "valueinvestingwithlegends.libsyn.com"
+      ]
+    },
+    {
+      "investor": "ackman",
+      "adapter": "search",
+      "query": "\"Bill Ackman\" (interview OR speech OR lecture OR 访谈 OR 演讲)",
+      "names": [
+        "Bill Ackman",
+        "William Ackman"
+      ],
+      "identityTerms": [
+        "Pershing Square",
+        "Ackman"
+      ],
+      "publishers": [
+        "lexfridman.com",
+        "bigthink.com",
+        "business.columbia.edu",
+        "cnbc.com",
+        "pershingsquareholdings.com"
+      ]
+    },
+    {
+      "investor": "abrams",
+      "adapter": "search",
+      "query": "\"David Abrams\" (interview OR speech OR lecture OR 访谈 OR 演讲)",
+      "names": [
+        "David Abrams"
+      ],
+      "identityTerms": [
+        "Abrams Capital",
+        "Baupost"
+      ],
+      "publishers": [
+        "valueinvestingwithlegends.libsyn.com",
+        "business.columbia.edu",
+        "projectpunchcard.org"
+      ]
+    },
+    {
+      "investor": "berkowitz",
+      "adapter": "search",
+      "query": "\"Bruce Berkowitz\" (interview OR speech OR lecture OR 访谈 OR 演讲)",
+      "names": [
+        "Bruce Berkowitz"
+      ],
+      "identityTerms": [
+        "Fairholme",
+        "Berkowitz"
+      ],
+      "publishers": [
+        "fairholmefunds.com",
+        "wealthtrack.com",
+        "morningstar.com",
+        "theinvestorspodcast.com",
+        "advisorperspectives.com"
+      ]
+    },
+    {
+      "investor": "hawkins",
+      "adapter": "search",
+      "query": "\"Mason Hawkins\" (interview OR speech OR lecture OR 访谈 OR 演讲)",
+      "names": [
+        "Mason Hawkins"
+      ],
+      "identityTerms": [
+        "Southeastern",
+        "Longleaf"
+      ],
+      "publishers": [
+        "southeasternasset.com",
+        "advisorperspectives.com",
+        "wealthtrack.com",
+        "morningstar.com"
+      ]
+    },
+    {
+      "investor": "vinall",
+      "adapter": "search",
+      "query": "\"Rob Vinall\" (interview OR speech OR lecture OR 访谈 OR 演讲)",
+      "names": [
+        "Rob Vinall",
+        "Robert Vinall"
+      ],
+      "identityTerms": [
+        "RV Capital",
+        "Business Owner"
+      ],
+      "publishers": [
+        "rvcapital.ch",
+        "moiglobal.com",
+        "theinvestorspodcast.com",
+        "valueinvestingwithlegends.libsyn.com"
+      ]
+    }
+  ]
+}

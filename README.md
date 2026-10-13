@@ -2,6 +2,16 @@
 
 价值投资者 13F 持仓追踪 + 港美股分拆进展监控。
 
+## 演讲与访谈作品集
+
+每位投资人的“原始资料与延伸阅读”下方链接到站内 `archive.html?investor=<id>`。默认中文，支持英文与逐段对照；阅读内容为有来源的本站原创整理稿，**不是未经许可转载的全文或全文翻译**。官方视频、音频、PDF 由发布方托管并在站内展开。转载、发布方提纲、平台字幕与机器转录单独标记；目录中尚未整理的作品不会生成猜测内容。
+
+`archive/catalog.json` 保存作品、活动／发布日期、版本和处理状态；`archive/notes/` 仅保存原创双语整理，不保存第三方完整字幕、转录或音视频。`archive/sources.json` 配置官方目录、播客与 14 人的一手发布方检索规则。检索结果只提供线索，必须回到原发布方核实姓名与机构；共享目录链接不参与作品身份合并。
+
+`speech_archive.py discover` 合并历史及新作品，来源失败保留旧档案。`process --asr` 优先读取官方稿，尝试字幕及可取得音频的 Whisper CPU 转录，再用现有 Qwen CPU 方案制作对齐的双语整理；来源不足、缺少翻译、无有效证据或出现来源没有的数字均拒绝发布，并轮换重试。处理有单篇／整批时限，逐篇保存进度。`Update Speech Archive` 每天北京时间 06:45 自动运行，成功后触发 Pages；首次历史积压需要多个批次处理，目录收录数不等于全文完成数。
+
+验证：`python3 speech_archive.py validate`、`python3 -m unittest discover -s tests -p test_speech_archive.py`、`node --test tests/*.cjs`。新增人物仍以 `investors.json` 为唯一名单，需要提供该人物可核对的作品及来源配置；不存在可得资料时不要填充虚构内容。
+
 ## 投资者配置（单一数据源）
 
 **`investors.json` 是全部 14 位投资者的唯一结构化配置源**。新增投资者后，还需在 `.github/workflows/update.yml` 配置持仓与股价抓取步骤，并为详情页补充文案；通用 Python 脚本自动读取配置。

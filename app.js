@@ -2148,6 +2148,7 @@ function updateInvestorContent() {
 
   setHTML('.phil-grid', p.principles.map((item,i) => `<div class="phil-card"><div class="icon">${String(i+1).padStart(2,'0')}.</div><h4>${hkEscape(profileText(item.title))}</h4><p>${hkEscape(profileText(item.text))}</p></div>`).join(''));
   setHTML('.articles-grid', p.resources.filter(item => /^https:\/\//.test(item.url)).map(item => `<a class="article-card" href="${hkEscape(item.url)}" target="_blank" rel="noopener noreferrer"><div class="year">${hkEscape(profileText(item.kind))}</div><h4>${hkEscape(profileText(item.title))}</h4><p>${hkEscape(profileText(item.description))}</p></a>`).join(''));
+  if (window.SpeechArchive) window.SpeechArchive.updateInvestor(cfg, en);
   const updated = document.getElementById('updateTime');
   if (updated) updated.textContent = data?.meta?.lastUpdated || '—';
   const sec = document.getElementById('footerSEC');

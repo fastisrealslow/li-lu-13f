@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
   # GITHUB_TOKEN pushes do not start push workflows. Publish after the updater.
   workflow_run:
-    workflows: ["Update 13F Data", "AI Supplement (Qwen CPU)", "Update Personal Portfolio"]
+    workflows: ["Update 13F Data", "AI Supplement (Qwen CPU)", "Update Personal Portfolio", "Update Speech Archive"]
     types: [completed]
     branches: [master]
 
@@ -37,8 +37,8 @@ jobs:
       - name: Test investor data and display
         run: node --test tests/*.cjs
 
-      - name: Install original-report PDF reader
-        run: python3 -m pip install pymupdf==1.28.2
+      - name: Install financial-report and archive source readers
+        run: python3 -m pip install pymupdf==1.28.2 beautifulsoup4==4.14.2
 
       - name: Test spin-off evidence and financial history
         run: |
@@ -48,6 +48,11 @@ jobs:
 
       - name: Validate published data
         run: python3 validate_data.py
+
+      - name: Validate speech and interview reading editions
+        run: |
+          python3 -m unittest discover -s tests -p test_speech_archive.py -v
+          python3 speech_archive.py validate
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
