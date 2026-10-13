@@ -12,10 +12,10 @@ test('archive counts cannot overwrite a later investor switch',async()=>{
   vm.runInContext(fs.readFileSync(path.join(__dirname,'../archive_entry.js'),'utf8'),context);
   const first=context.window.SpeechArchive.updateInvestor({id:'lilu',name:'李录',nameEn:'Li Lu'},false);
   const second=context.window.SpeechArchive.updateInvestor({id:'pabrai',name:'帕伯莱',nameEn:'Pabrai'},false);
-  resolve({ok:true,json:async()=>({updatedAt:'2026-10-13',works:[{investor:'lilu',noteFile:'x'},{investor:'lilu'},{investor:'pabrai',noteFile:'y'}]})});
+  resolve({ok:true,json:async()=>({updatedAt:'2026-10-13',works:[{investor:'lilu',noteFile:'x'},{investor:'lilu'},{investor:'pabrai',fullTextFile:'archive/texts/y.json',fullTextStatus:'ready'}]})});
   await Promise.all([first,second]);
   assert.match(host.innerHTML,/investor=pabrai/);
-  assert.match(count.textContent,/已收录 1 篇 · 1 篇站内整理/);
+  assert.match(count.textContent,/已建档 1 篇 · 完整文字稿 1 篇/);
 });
 
 test('archive preview escapes profile content and remains useful on fetch failure',async()=>{

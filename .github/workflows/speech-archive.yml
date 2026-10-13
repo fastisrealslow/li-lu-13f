@@ -1,43 +1,28 @@
 name: Update Speech Archive
-
 on:
   schedule:
-    - cron: '45 22 * * *' # China 06:45: historical discovery and processing backlog.
+    - cron: '45 22 * * *'
   workflow_dispatch:
-    inputs:
-      limit:
-        description: Maximum works attempted; individual and overall deadlines apply
-        default: '12'
-      asr:
-        description: Transcribe accessible audio if source text/captions are unavailable
-        type: boolean
-        default: true
   push:
     branches: [master]
     paths:
       - speech_archive.py
+      - verbatim_texts.py
       - archive/sources.json
       - tests/test_speech_archive.py
+      - tests/test_verbatim_texts.py
       - .github/workflows/speech-archive.yml
-
 permissions:
   contents: read
 concurrency:
   group: speech-archive-master
-  cancel-in-progress: false
-
+  cancel-in-progress: true
 jobs:
   archive:
     runs-on: ubuntu-24.04
-    timeout-minutes: 55
+    timeout-minutes: 15
     permissions:
       contents: write
-    env:
-      AI_MODEL: qwen3.5:9b-q4_K_M
-      OLLAMA_HOST: '127.0.0.1:11434'
-      OLLAMA_NO_CLOUD: '1'
-      OLLAMA_NUM_PARALLEL: '1'
-      OLLAMA_MAX_LOADED_MODELS: '1'
     steps:
       - uses: actions/checkout@v4
         with:
@@ -45,62 +30,24 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - name: Set temporary model paths
+      - name: Install catalogue readers
+        run: python3 -m pip install beautifulsoup4==4.14.2 pymupdf==1.28.2
+      - name: Test original text integrity and catalogue identity
         run: |
-          echo "OLLAMA_MODELS=$RUNNER_TEMP/lilu-ollama-models" >> "$GITHUB_ENV"
-      - name: Install source readers and speech recognition
-        run: python3 -m pip install beautifulsoup4==4.14.2 pymupdf==1.28.2 yt-dlp==2026.8.19 faster-whisper==1.2.1
-      - name: Test dates, identity, merging and bilingual evidence
-        run: python3 -m unittest discover -s tests -p test_speech_archive.py -v
-      - name: Discover original works and merge editions
+          python3 -m unittest discover -s tests -p test_speech_archive.py -v
+          python3 -m unittest discover -s tests -p test_verbatim_texts.py -v
+      - name: Discover document metadata only
         timeout-minutes: 10
         run: python3 -u speech_archive.py discover
-      - name: Plan unfinished works
-        id: plan
+      - name: Validate complete texts
+        run: python3 speech_archive.py validate
+      - name: Publish catalogue metadata
         run: |
-          python3 speech_archive.py plan > "$RUNNER_TEMP/speech-plan.json"
-          python3 -c 'import json,os; d=json.load(open(os.environ["RUNNER_TEMP"]+"/speech-plan.json")); open(os.environ["GITHUB_OUTPUT"],"a").write("pending="+str(d["pending"])+"\n"); print(d)'
-      - uses: actions/cache@v4
-        if: steps.plan.outputs.pending != '0'
-        with:
-          path: ${{ env.OLLAMA_MODELS }}
-          key: qwen-cpu-v1-${{ runner.os }}-${{ env.AI_MODEL }}
-      - name: Load local Chinese and English model
-        if: steps.plan.outputs.pending != '0'
-        timeout-minutes: 8
-        run: |
-          mkdir -p "$RUNNER_TEMP/ollama"
-          curl --fail --location --retry 2 --max-time 360 https://github.com/ollama/ollama/releases/download/v0.34.1/ollama-linux-amd64.tar.zst -o "$RUNNER_TEMP/ollama.tar.zst"
-          tar --zstd -xf "$RUNNER_TEMP/ollama.tar.zst" -C "$RUNNER_TEMP/ollama"
-          export PATH="$RUNNER_TEMP/ollama/bin:$PATH"
-          echo "$RUNNER_TEMP/ollama/bin" >> "$GITHUB_PATH"
-          ollama serve > "$RUNNER_TEMP/speech-ollama.log" 2>&1 &
-          for attempt in $(seq 1 30); do
-            if curl -fsS http://127.0.0.1:11434/api/version; then break; fi
-            sleep 1
-          done
-          ollama pull "$AI_MODEL"
-      - name: Process source text, captions and accessible audio
-        if: steps.plan.outputs.pending != '0'
-        timeout-minutes: 28
-        env:
-          SPEECH_LIMIT: ${{ inputs.limit || '12' }}
-          SPEECH_ASR: ${{ github.event_name != 'workflow_dispatch' || inputs.asr }}
-        run: |
-          if [ "$SPEECH_ASR" = 'true' ]; then
-            python3 -u speech_archive.py process --limit "$SPEECH_LIMIT" --minutes 25 --model "$AI_MODEL" --asr
-          else
-            python3 -u speech_archive.py process --limit "$SPEECH_LIMIT" --minutes 25 --model "$AI_MODEL"
-          fi
-      - name: Validate and publish available progress
-        if: ${{ !cancelled() }}
-        run: |
-          python3 speech_archive.py validate
           git config user.name 'github-actions[bot]'
           git config user.email 'github-actions[bot]@users.noreply.github.com'
-          git add archive/catalog.json archive/notes
+          git add archive/catalog.json
           if git diff --cached --quiet; then exit 0; fi
-          git commit -m 'auto: update public speech and interview archive'
+          git commit -m 'auto: refresh original-document catalogue metadata'
           for attempt in 1 2 3; do
             git pull --rebase origin master
             if git push origin HEAD:master; then exit 0; fi

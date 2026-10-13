@@ -52,6 +52,7 @@ jobs:
       - name: Validate speech and interview reading editions
         run: |
           python3 -m unittest discover -s tests -p test_speech_archive.py -v
+          python3 -m unittest discover -s tests -p test_verbatim_texts.py -v
           python3 speech_archive.py validate
 
       - name: Setup Pages

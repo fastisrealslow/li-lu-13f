@@ -101,21 +101,12 @@ class SpeechArchiveTests(unittest.TestCase):
             self.assertEqual(updated["works"], old["works"])
             self.assertEqual(updated["discovery"][0]["status"], "retained")
 
-    def test_backlog_counts_are_booleans_with_and_without_audio(self):
-        works = [{}, {"noteFile": "note", "basis": "publisher_description", "media": [{"kind": "audio"}]},
-                 {"noteFile": "note", "basis": "publisher_description", "media": []},
-                 {"noteFile": "note", "basis": "source_text", "media": [{"kind": "audio"}]}]
-        results = [archive.needs_processing(w) for w in works]
-        self.assertEqual(results, [True, True, False, False])
-        self.assertTrue(all(type(x) is bool for x in results))
-        self.assertEqual(sum(results), 2)
-
     def test_published_catalogue_covers_every_configured_investor(self):
         catalog = archive.read(archive.ROOT / "archive/catalog.json")
         self.assertTrue(archive.validate_catalog(catalog))
         people = {p["id"] for p in archive.read(archive.ROOT / "investors.json")["investors"]}
-        ready = {w["investor"] for w in catalog["works"] if w.get("noteFile")}
-        self.assertEqual(ready, people)
+        self.assertEqual({w["investor"] for w in catalog["works"]}, people)
+        self.assertTrue(all(not w.get("noteFile") for w in catalog["works"]))
 
 
 if __name__ == "__main__":

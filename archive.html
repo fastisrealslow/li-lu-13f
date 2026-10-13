@@ -3,43 +3,22 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="description" content="14 位投资人的公开演讲与访谈作品集：一手来源、站内中文阅读、英文与逐段中英对照。">
-<title>演讲与访谈作品集</title>
+<meta name="description" content="投资人文章、演讲和访谈的完整文字阅读页。原文与逐句译稿对应显示，不提供摘要替代。">
+<title>原文与逐句译稿</title>
 <link rel="stylesheet" href="theme.css?v=7">
-<link rel="stylesheet" href="archive.css?v=1">
+<link rel="stylesheet" href="archive.css?v=2">
 </head>
-<body class="archive-page">
-<a class="archive-skip" href="#archiveReader">跳到阅读正文</a>
-<header class="archive-header"><a id="archiveBack" href="index.html#readings">← 返回投资人资料</a><span>PUBLIC CONVERSATIONS</span><a href="#archiveCatalog" id="catalogLink">作品目录</a></header>
+<body class="archive-page archive-text-page">
+<a class="archive-skip" href="#archiveReader">跳到正文</a>
+<header class="archive-header"><a id="archiveBack" href="index.html#readings">← 返回投资人资料</a><span>ORIGINAL TEXTS</span></header>
 <main class="archive-shell">
-<section class="archive-intro">
-  <p class="archive-eyebrow" id="archiveEyebrow">演讲 · 访谈 · 公开问答</p>
-  <h1 id="archiveTitle">投资人作品集</h1>
-  <p id="archiveDescription">从一手资料出发，读懂一个人的思考过程。</p>
-  <p id="archiveCoverage" class="archive-muted" role="status">正在载入作品目录…</p>
-</section>
-<div class="archive-layout">
-<aside id="archiveCatalog" class="archive-catalog" aria-label="作品目录">
-  <label for="archiveInvestor">投资人</label><select id="archiveInvestor"></select>
-  <button type="button" class="archive-catalog-toggle" id="archiveCatalogToggle" aria-expanded="false">展开作品目录与搜索</button>
-  <label for="archiveSearch">搜索作品与主题</label><input id="archiveSearch" type="search" placeholder="如：能力圈、资本配置、2015" autocomplete="off">
-  <div class="archive-filter-row"><label>内容<select id="archiveKind"><option value="all">全部类型</option><option value="speech">演讲</option><option value="interview">访谈</option><option value="qa">公开问答</option><option value="essay">文章与序言</option></select></label><label>排序<select id="archiveSort"><option value="desc">由近到远</option><option value="asc">由远到近</option></select></label></div>
-  <label class="archive-ready-filter"><input id="archiveReady" type="checkbox">只看有站内整理的作品</label>
-  <p id="archiveResultCount" class="archive-muted" aria-live="polite"></p>
-  <div id="archiveList"></div><div id="archivePagination" class="archive-pagination"></div>
-</aside>
-<article id="archiveReader" class="archive-reader" tabindex="-1" aria-label="作品正文">
-  <p class="archive-muted">请选择一篇作品。</p>
-</article>
+<div class="archive-text-controls">
+<label class="archive-sr-only" for="archiveInvestor">投资人</label><select id="archiveInvestor" aria-label="投资人"></select>
+<label class="archive-sr-only" for="archiveWork">选择篇目</label><select id="archiveWork" aria-label="选择篇目"></select>
 </div>
-<details class="archive-method" id="archiveMethod"><summary>收录与整理方法</summary>
-<p>收录本人、基金官网、原始采访机构和活动主办方公开发布的作品。转载只用于寻找线索或补足失效来源，并单独标记。按原始活动合并文字稿、视频、音频等不同版本；发布日期与演讲日期分开记录，未核实的日期不推测。</p>
-<p>站内正文为本站撰写的中文整理稿及对应英文版本，使用第三人称概括背景、重点、论证与限制，不冒充人物原话或完整译文。中英对照切换的是同一份整理内容。原始视频由发布平台在本站嵌入播放；未经授权不转载整篇第三方原文、字幕或翻译。</p>
-<p>自动流程定期检查来源、合并新作品，并优先读取官方文字稿；没有文字稿的视频会尝试字幕，取得可处理音频后进行语音识别。机器字幕及转录可能有误，无法核实的数字与人名不写入整理稿。未取得正文的作品只列目录，不生成内容。旧内容不会因来源暂时失效而被清空。</p>
-<p>这是持续扩充的历史档案，收录数量代表目前核对到的作品，不表示已穷尽互联网或已完成全部视频的转录。整理状态在每篇作品中单独显示。</p>
-</details>
+<article id="archiveReader" class="archive-reader" tabindex="-1" aria-label="原文与逐句译稿"><p role="status">正在载入…</p></article>
 </main>
-<noscript><p class="archive-noscript">请启用 JavaScript 阅读作品目录与站内整理。返回 <a href="index.html#readings">投资人资料</a>。</p></noscript>
-<script src="archive.js?v=1"></script>
+<noscript><p class="archive-noscript">请启用 JavaScript 阅读文字。<a href="index.html#readings">返回投资人资料</a>。</p></noscript>
+<script src="archive.js?v=2"></script>
 </body>
 </html>

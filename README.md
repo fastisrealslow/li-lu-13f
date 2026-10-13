@@ -2,15 +2,17 @@
 
 价值投资者 13F 持仓追踪 + 港美股分拆进展监控。
 
-## 演讲与访谈作品集
+## 原文与逐句译稿
 
-每位投资人的“原始资料与延伸阅读”下方链接到站内 `archive.html?investor=<id>`。默认中文，支持英文与逐段对照；阅读内容为有来源的本站原创整理稿，**不是未经许可转载的全文或全文翻译**。官方视频、音频、PDF 由发布方托管并在站内展开。转载、发布方提纲、平台字幕与机器转录单独标记；目录中尚未整理的作品不会生成猜测内容。
+每位投资人的官方资料下方链接到 `archive.html?investor=<id>`。页面仅用于完整原文、逐句中文译稿及英文／中英对照；已移除摘要、主题搜索、编辑解读、思考题、音视频播放器与原视频地址。目录条目数量不代表完整稿件数量，未经核实的正文不显示。
 
-`archive/catalog.json` 保存作品、活动／发布日期、版本和处理状态；`archive/notes/` 仅保存原创双语整理，不保存第三方完整字幕、转录或音视频。`archive/sources.json` 配置官方目录、播客与 14 人的一手发布方检索规则。检索结果只提供线索，必须回到原发布方核实姓名与机构；共享目录链接不参与作品身份合并。
+`archive/catalog.json` 只保存原始资料的目录信息及 `fullTextStatus`；旧 `noteFile` 不参与任何正文展示。`Update Speech Archive` 每天北京时间 06:45 仅发现和合并目录元数据，已停止摘要生成和 Ollama 写作任务。
 
-`speech_archive.py discover` 合并历史及新作品，来源失败保留旧档案。`process --asr` 优先读取官方稿，尝试字幕及可取得音频的 Whisper CPU 转录，再用现有 Qwen CPU 方案制作对齐的双语整理；来源不足、缺少翻译、无有效证据或出现来源没有的数字均拒绝发布，并轮换重试。处理有单篇／整批时限，逐篇保存进度。`Update Speech Archive` 每天北京时间 06:45 自动运行，成功后触发 Pages；首次历史积压需要多个批次处理，目录收录数不等于全文完成数。
+全文文件采用 `archive/texts/<id>.json`。必须包含 `kind: "verbatim_text"`、`workId`、`originalLanguage`、完整 `originalText`、其 UTF-8 SHA-256 `sourceDigest`、`segments: [{id, original, zh, en}]`、`reviewStatus: "verified"` 以及已核实的公开转载与翻译权限 `rights`。每句原语言文本必须等于 `original`，全部句子按顺序拼接必须精确还原完整原文；缺句、重复标识、缺译文、被改写的原文、未核对转录及旧摘要均拒绝发布。
 
-验证：`python3 speech_archive.py validate`、`python3 -m unittest discover -s tests -p test_speech_archive.py`、`node --test tests/*.cjs`。新增人物仍以 `investors.json` 为唯一名单，需要提供该人物可核对的作品及来源配置；不存在可得资料时不要填充虚构内容。
+仅导入用户提供且可依法使用的稿件、获得许可的稿件、允许转载及翻译的开放许可材料或公版材料。公开可观看不等于已获全文转载及翻译许可。原文与译稿须完成核对后执行 `python3 speech_archive.py import-text --work <id> --input <reviewed-document.json>`；没有许可的网络全文不会自动转录并公开发布。
+
+验证：`python3 speech_archive.py validate`、`python3 -m unittest discover -s tests -p test_verbatim_texts.py`、`node --test tests/*.cjs`。三种阅读模式及 `.txt` 下载使用同一份逐句对齐文档，原语言下载保留原始文字和空白。
 
 ## 投资者配置（单一数据源）
 
