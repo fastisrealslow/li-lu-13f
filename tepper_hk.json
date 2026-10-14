@@ -2,27 +2,27 @@
   "source": "HKEX DI 原始申报表及权益披露列表（DION + 2003–2017历史库）",
   "holdings": [],
   "disclaimer": "历史披露不代表当前持仓；搜索日期不等于披露日期。未搜到记录不代表已清仓或低于5%。比例须按原披露的股份类别解读。",
-  "lastUpdated": "2026-10-13T19:35:42Z",
+  "lastUpdated": "2026-10-14T02:17:21Z",
   "schemaVersion": 3,
   "investor": "tepper",
   "source_bindings": {},
   "audit": {
-    "checkedAt": "2026-10-13T19:35:42Z",
-    "status": "partial",
+    "checkedAt": "2026-10-14T02:17:21Z",
+    "status": "checked",
     "queries": [
       {
         "query": "Appaloosa",
         "archive": "dion",
         "status": "ok",
         "matchedSecurities": 0,
-        "url": "https://di.hkex.com.hk/di/NSSrchPersonList.aspx?sa1=pl&scsd=03%2F07%2F2017&sced=13%2F10%2F2026&pn=Appaloosa&src=MAIN&lang=EN&g_lang=en"
+        "url": "https://di.hkex.com.hk/di/NSSrchPersonList.aspx?sa1=pl&scsd=03%2F07%2F2017&sced=14%2F10%2F2026&pn=Appaloosa&src=MAIN&lang=EN&g_lang=en"
       },
       {
         "query": "David Tepper",
         "archive": "dion",
         "status": "ok",
         "matchedSecurities": 0,
-        "url": "https://di.hkex.com.hk/di/NSSrchPersonList.aspx?sa1=pl&scsd=03%2F07%2F2017&sced=13%2F10%2F2026&pn=David+Tepper&src=MAIN&lang=EN&g_lang=en"
+        "url": "https://di.hkex.com.hk/di/NSSrchPersonList.aspx?sa1=pl&scsd=03%2F07%2F2017&sced=14%2F10%2F2026&pn=David+Tepper&src=MAIN&lang=EN&g_lang=en"
       },
       {
         "query": "Appaloosa",
@@ -33,7 +33,9 @@
       },
       {
         "query": "David Tepper",
-        "status": "failed",
+        "archive": "legacy",
+        "status": "ok",
+        "matchedSecurities": 0,
         "url": "https://di.hkex.com.hk/filing/di/NSSrchPersonList.aspx?sa1=pl&scsd=01%2F04%2F2003&sced=02%2F10%2F2017&pn=David+Tepper&src=MAIN&lang=EN&g_lang=en"
       }
     ],
@@ -41,13 +43,7 @@
     "verifiedSecurities": 0,
     "pendingSecurities": 0,
     "recordsFetched": 0,
-    "errors": [
-      {
-        "query": "David Tepper",
-        "url": "https://di.hkex.com.hk/filing/di/NSSrchPersonList.aspx?sa1=pl&scsd=01%2F04%2F2003&sced=02%2F10%2F2017&pn=David+Tepper&src=MAIN&lang=EN&g_lang=en",
-        "reason": "HKEX fetch failed: The read operation timed out"
-      }
-    ],
+    "errors": [],
     "scope": "匹配已配置主体的公开多头权益披露；不等于完整投资组合或当前持仓"
   }
 }

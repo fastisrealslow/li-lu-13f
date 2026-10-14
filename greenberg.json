@@ -5,7 +5,7 @@
     "notablePeople": [
       "Glenn Greenberg"
     ],
-    "lastUpdated": "2026-10-13T19:41:37Z",
+    "lastUpdated": "2026-10-14T02:19:36Z",
     "aiSummary": "格林伯格 Q2 大幅增持微软、亚马逊及 HCA 医疗，同时减持部分金融与地产股，显示其持续聚焦科技与医疗领域的成长机会。",
     "aiSummaryQuarter": "2026 Q2",
     "instrumentHistoryTickers": [
@@ -12918,7 +12918,7 @@
           "value": 1384228,
           "shareType": "SH",
           "putCall": "",
-          "sector": "金融",
+          "sector": "金融/银行",
           "cnName": "摩根大通",
           "prevShares": 5643,
           "prevValue": 1352684
@@ -13382,7 +13382,7 @@
           "value": 1635962,
           "shareType": "SH",
           "putCall": "",
-          "sector": "金融",
+          "sector": "金融/银行",
           "cnName": "摩根大通",
           "prevShares": 5643,
           "prevValue": 1384228
@@ -13888,7 +13888,7 @@
           "value": 1779971,
           "shareType": "SH",
           "putCall": "",
-          "sector": "金融",
+          "sector": "金融/银行",
           "cnName": "摩根大通",
           "prevShares": 5643,
           "prevValue": 1635962
@@ -14352,7 +14352,7 @@
           "value": 1818287,
           "shareType": "SH",
           "putCall": "",
-          "sector": "金融",
+          "sector": "金融/银行",
           "cnName": "摩根大通",
           "prevShares": 5643,
           "prevValue": 1779971
@@ -17205,7 +17205,7 @@
       ]
     },
     "coverage": {
-      "checkedAt": "2026-10-13T19:41:37Z",
+      "checkedAt": "2026-10-14T02:19:36Z",
       "missingQuarters": [],
       "repairedThisRun": [],
       "errors": {},
@@ -17619,7 +17619,7 @@
     "instrumentVerification": {
       "pendingQuarters": [],
       "errors": {},
-      "checkedAt": "2026-10-13T19:41:37.567489+00:00"
+      "checkedAt": "2026-10-14T02:19:36.324042+00:00"
     },
     "valueAudit": {
       "2026 Q2": {
@@ -17697,13 +17697,25 @@
       },
       "2013 Q2": {
         "version": 1,
-        "checkedAt": "2026-10-10",
+        "checkedAt": "2026-10-14",
         "source": "https://www.sec.gov/Archives/edgar/data/1553733/000117266113001136/infotable.xml",
         "filingDate": "2013-08-14",
         "sourceDigest": "9c2655bef3dcc276af051a133b95afd0d1bca2c1a94d882056a4616262ba4131",
-        "sourceHash": "1ac924de074d7b497bbdfbd139bb567dcd6b3b046a4be21d71a671d9f7299f1d",
+        "sourceHash": "f21d7716ed3d98e7637b5b704e64f74048ef40b603c895b53f89fabbde56a218",
         "status": "pending",
         "anchors": [
+          {
+            "ticker": "SCHW",
+            "cusip": "808513105",
+            "filedPrice": 21.22997737699126,
+            "price": 21.229999542236328,
+            "date": "2013-06-28",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/SCHW?period1=0&period2=1792030816&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
           {
             "ticker": "ORCL",
             "cusip": "68389x105",
@@ -17711,7 +17723,19 @@
             "price": 30.709999084472656,
             "date": "2013-06-28",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/ORCL?period1=0&period2=1791727093&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/ORCL?period1=0&period2=1792030817&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "HAL",
+            "cusip": "406216101",
+            "filedPrice": 41.719957905514946,
+            "price": 41.720001220703125,
+            "date": "2013-06-28",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/HAL?period1=0&period2=1792030817&interval=1d&events=splits",
             "candidates": [
               1
             ]
@@ -17723,7 +17747,7 @@
             "price": 37.439998626708984,
             "date": "2013-06-28",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/PRI?period1=0&period2=1791727094&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/PRI?period1=0&period2=1792030818&interval=1d&events=splits",
             "candidates": [
               1
             ]
@@ -17735,32 +17759,8 @@
             "price": 41.750001621246334,
             "date": "2013-06-28",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/CMCSA?period1=0&period2=1791727095&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/CMCSA?period1=0&period2=1792030818&interval=1d&events=splits",
             "candidates": []
-          },
-          {
-            "ticker": "FISV",
-            "cusip": "337738108",
-            "filedPrice": 87.41014150123732,
-            "price": 87.41000366210938,
-            "date": "2013-06-28",
-            "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/FISV?period1=0&period2=1791727095&interval=1d&events=splits",
-            "candidates": [
-              1
-            ]
-          },
-          {
-            "ticker": "GOOGL",
-            "cusip": "38259p508",
-            "filedPrice": 880.3755063882829,
-            "price": 880.3699694824219,
-            "date": "2013-06-28",
-            "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/GOOGL?period1=0&period2=1791727096&interval=1d&events=splits",
-            "candidates": [
-              1
-            ]
           }
         ],
         "errors": [],
@@ -21107,6 +21107,371 @@
           }
         ],
         "normalizedHash": "b08b9673b0f884df4053aca1a428389fa96683bd6b97797b8ccd28489c5fe8a7"
+      },
+      "2025 Q1": {
+        "version": 1,
+        "checkedAt": "2026-10-14",
+        "source": "https://www.sec.gov/Archives/edgar/data/1553733/000117266125002393/infotable.xml",
+        "filingDate": "2025-05-15",
+        "sourceDigest": "7ec62d1e5208cbf70d94391bdb50f125c70e3e14e341052807fc21312e4bdc8e",
+        "sourceHash": "d88d15e031241112840ab7d3d16aa6fbc2a2b09d67955f599e1859c04430a0b9",
+        "status": "verified",
+        "factor": 1,
+        "anchors": [
+          {
+            "ticker": "SLM",
+            "cusip": "78442P106",
+            "filedPrice": 29.369999959811214,
+            "price": 29.3700008392334,
+            "date": "2025-03-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/SLM?period1=0&period2=1792030812&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "MRP",
+            "cusip": "601137102",
+            "filedPrice": 26.510000046489345,
+            "price": 26.510000228881836,
+            "date": "2025-03-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/MRP?period1=0&period2=1792030812&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "OMF",
+            "cusip": "68268W103",
+            "filedPrice": 48.880000043575144,
+            "price": 48.880001068115234,
+            "date": "2025-03-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/OMF?period1=0&period2=1792030813&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "RYAAY",
+            "cusip": "783513203",
+            "filedPrice": 42.37000001278098,
+            "price": 42.369998931884766,
+            "date": "2025-03-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/RYAAY?period1=0&period2=1792030813&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "FG",
+            "cusip": "30190A104",
+            "filedPrice": 36.049999971640126,
+            "price": 36.04999923706055,
+            "date": "2025-03-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/FG?period1=0&period2=1792030813&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          }
+        ],
+        "normalizedHash": "d88d15e031241112840ab7d3d16aa6fbc2a2b09d67955f599e1859c04430a0b9"
+      },
+      "2025 Q2": {
+        "version": 1,
+        "checkedAt": "2026-10-14",
+        "source": "https://www.sec.gov/Archives/edgar/data/1553733/000117266125003464/infotable.xml",
+        "filingDate": "2025-08-14",
+        "sourceDigest": "b08c465b5bde7c20c75d9c21e1eec93f9def4c575ed0e40f54909d915e4bcd70",
+        "sourceHash": "fac64d978982b79b5f413f932e9dc4c4229f29068971c404e0d56630af7c4e77",
+        "status": "verified",
+        "factor": 1,
+        "anchors": [
+          {
+            "ticker": "SLM",
+            "cusip": "78442P106",
+            "filedPrice": 32.790000004743426,
+            "price": 32.790000915527344,
+            "date": "2025-06-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/SLM?period1=0&period2=1792030812&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "OMF",
+            "cusip": "68268W103",
+            "filedPrice": 57.0,
+            "price": 57.0,
+            "date": "2025-06-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/OMF?period1=0&period2=1792030813&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "MRP",
+            "cusip": "601137102",
+            "filedPrice": 28.51000001271991,
+            "price": 28.510000228881836,
+            "date": "2025-06-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/MRP?period1=0&period2=1792030812&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "RYAAY",
+            "cusip": "783513203",
+            "filedPrice": 57.67000006878488,
+            "price": 57.66999816894531,
+            "date": "2025-06-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/RYAAY?period1=0&period2=1792030813&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "FG",
+            "cusip": "30190A104",
+            "filedPrice": 31.98000005744084,
+            "price": 31.979999542236328,
+            "date": "2025-06-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/FG?period1=0&period2=1792030813&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          }
+        ],
+        "normalizedHash": "fac64d978982b79b5f413f932e9dc4c4229f29068971c404e0d56630af7c4e77"
+      },
+      "2025 Q3": {
+        "version": 1,
+        "checkedAt": "2026-10-14",
+        "source": "https://www.sec.gov/Archives/edgar/data/1553733/000117266125005024/infotable.xml",
+        "filingDate": "2025-11-14",
+        "sourceDigest": "153e715c79218bf5790e3d4cc3bd24f4b26b4ba213dc59f597d6eb0ac75cfbe1",
+        "sourceHash": "679dc0b5a0436602d95d401f0a1660f3c220d012f7de7906c3614e392e8c370b",
+        "status": "verified",
+        "factor": 1,
+        "anchors": [
+          {
+            "ticker": "SLM",
+            "cusip": "78442P106",
+            "filedPrice": 27.679999979415783,
+            "price": 27.68000030517578,
+            "date": "2025-09-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/SLM?period1=0&period2=1792030812&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "OMF",
+            "cusip": "68268W103",
+            "filedPrice": 56.45999997434012,
+            "price": 56.459999084472656,
+            "date": "2025-09-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/OMF?period1=0&period2=1792030813&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "MRP",
+            "cusip": "601137102",
+            "filedPrice": 33.60999997767688,
+            "price": 33.61000061035156,
+            "date": "2025-09-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/MRP?period1=0&period2=1792030812&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "FG",
+            "cusip": "30190A104",
+            "filedPrice": 31.270000040237772,
+            "price": 31.270000457763672,
+            "date": "2025-09-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/FG?period1=0&period2=1792030813&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "MPLX",
+            "cusip": "55336V100",
+            "filedPrice": 49.94999993284796,
+            "price": 49.95000076293945,
+            "date": "2025-09-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/MPLX?period1=0&period2=1792030814&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          }
+        ],
+        "normalizedHash": "679dc0b5a0436602d95d401f0a1660f3c220d012f7de7906c3614e392e8c370b"
+      },
+      "2025 Q4": {
+        "version": 1,
+        "checkedAt": "2026-10-14",
+        "source": "https://www.sec.gov/Archives/edgar/data/1553733/000117266126001068/infotable.xml",
+        "filingDate": "2026-02-17",
+        "sourceDigest": "2703f631a6b952cd2fb81bb80eddbc1a70d2430202bac38e1ea9848b1dcc4dad",
+        "sourceHash": "93d5fe20db3d8e63ee9d2b20961b37cdd06ff3ce7c163fce8e0dedc367a7aea9",
+        "status": "verified",
+        "factor": 1,
+        "anchors": [
+          {
+            "ticker": "SLM",
+            "cusip": "78442P106",
+            "filedPrice": 27.06000000779304,
+            "price": 27.059999465942383,
+            "date": "2025-12-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/SLM?period1=0&period2=1792030812&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "MRP",
+            "cusip": "601137102",
+            "filedPrice": 29.870000013953124,
+            "price": 29.8700008392334,
+            "date": "2025-12-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/MRP?period1=0&period2=1792030812&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "OMF",
+            "cusip": "68268W103",
+            "filedPrice": 67.54999998061838,
+            "price": 67.55000305175781,
+            "date": "2025-12-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/OMF?period1=0&period2=1792030813&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "FG",
+            "cusip": "30190A104",
+            "filedPrice": 30.849998763257553,
+            "price": 30.850000381469727,
+            "date": "2025-12-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/FG?period1=0&period2=1792030813&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "MPLX",
+            "cusip": "55336V100",
+            "filedPrice": 53.37000010057855,
+            "price": 53.369998931884766,
+            "date": "2025-12-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/MPLX?period1=0&period2=1792030814&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          }
+        ],
+        "normalizedHash": "93d5fe20db3d8e63ee9d2b20961b37cdd06ff3ce7c163fce8e0dedc367a7aea9"
+      },
+      "2026 Q1": {
+        "version": 1,
+        "checkedAt": "2026-10-14",
+        "source": "https://www.sec.gov/Archives/edgar/data/1553733/000117266126002294/infotable.xml",
+        "filingDate": "2026-05-15",
+        "sourceDigest": "657e118a8af47887e9179ee42f17a2892c4c4c553ba8f360ac44035dfb881694",
+        "sourceHash": "7c7c6f3690f553d5603f846832098b22a5b70af320d4fb08357943c31e292eb8",
+        "status": "verified",
+        "factor": 1,
+        "anchors": [
+          {
+            "ticker": "SLM",
+            "cusip": "78442P106",
+            "filedPrice": 21.410000008833684,
+            "price": 21.40999984741211,
+            "date": "2026-03-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/SLM?period1=0&period2=1792030812&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "MRP",
+            "cusip": "601137102",
+            "filedPrice": 28.0,
+            "price": 28.0,
+            "date": "2026-03-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/MRP?period1=0&period2=1792030812&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "OMF",
+            "cusip": "68268W103",
+            "filedPrice": 53.489999944179814,
+            "price": 53.4900016784668,
+            "date": "2026-03-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/OMF?period1=0&period2=1792030813&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "FG",
+            "cusip": "30190A104",
+            "filedPrice": 25.319999977583254,
+            "price": 25.31999969482422,
+            "date": "2026-03-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/FG?period1=0&period2=1792030813&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "FNF",
+            "cusip": "31620R303",
+            "filedPrice": 46.380000017132026,
+            "price": 46.380001068115234,
+            "date": "2026-03-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/FNF?period1=0&period2=1792030815&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          }
+        ],
+        "normalizedHash": "7c7c6f3690f553d5603f846832098b22a5b70af320d4fb08357943c31e292eb8"
       }
     },
     "excludedValueQuarters": [],
