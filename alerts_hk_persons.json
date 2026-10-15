@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-15T02:00:40Z",
+  "updatedAt": "2026-10-15T04:35:45Z",
   "knownStocks": {
     "duan": [
       "09992.HK"
@@ -5422,7 +5422,7 @@
   "verificationRuns": [
     {
       "investor": "abrams",
-      "checkedAt": "2026-10-15T01:59:23Z",
+      "checkedAt": "2026-10-15T04:34:59Z",
       "status": "checked",
       "queries": [
         {
@@ -5463,7 +5463,7 @@
     },
     {
       "investor": "ackman",
-      "checkedAt": "2026-10-15T01:59:18Z",
+      "checkedAt": "2026-10-15T04:34:50Z",
       "status": "checked",
       "queries": [
         {
@@ -5504,7 +5504,7 @@
     },
     {
       "investor": "akre",
-      "checkedAt": "2026-10-15T01:58:50Z",
+      "checkedAt": "2026-10-15T04:34:09Z",
       "status": "checked",
       "queries": [
         {
@@ -5545,8 +5545,8 @@
     },
     {
       "investor": "berkowitz",
-      "checkedAt": "2026-10-15T01:59:25Z",
-      "status": "checked",
+      "checkedAt": "2026-10-15T04:35:08Z",
+      "status": "partial",
       "queries": [
         {
           "query": "Fairholme Capital Management, LLC",
@@ -5580,14 +5580,20 @@
       "discoveredSources": 1,
       "verifiedSecurities": 1,
       "pendingSecurities": 0,
-      "recordsFetched": 3,
-      "errors": [],
+      "recordsFetched": 0,
+      "errors": [
+        {
+          "entity": "Fairholme Capital Management, LLC",
+          "url": "https://di.hkex.com.hk/filing/di/NSNoticePersonList.aspx?sa2=np&scpid=2063327&sa1=pl&scsd=01%2f04%2f2003&sced=02%2f10%2f2017&pn=Fairholme+Capital+Management%2c+LLC&src=MAIN&lang=EN&g_lang=en&",
+          "reason": "Same name with an unverified HKEX holder identity; no attribution made"
+        }
+      ],
       "scope": "匹配已配置主体的公开多头权益披露；不等于完整投资组合或当前持仓"
     },
     {
       "investor": "buffett",
-      "checkedAt": "2026-10-15T01:58:36Z",
-      "status": "checked",
+      "checkedAt": "2026-10-15T04:33:59Z",
+      "status": "partial",
       "queries": [
         {
           "query": "Berkshire Hathaway",
@@ -5621,13 +5627,24 @@
       "discoveredSources": 4,
       "verifiedSecurities": 2,
       "pendingSecurities": 0,
-      "recordsFetched": 54,
-      "errors": [],
+      "recordsFetched": 36,
+      "errors": [
+        {
+          "entity": "Berkshire Hathaway Inc.",
+          "url": "https://di.hkex.com.hk/filing/di/NSNoticePersonList.aspx?sa2=np&scpid=1941660&sa1=pl&scsd=01%2f04%2f2003&sced=02%2f10%2f2017&pn=Berkshire+Hathaway&src=MAIN&lang=EN&g_lang=en&",
+          "reason": "Same name with an unverified HKEX holder identity; no attribution made"
+        },
+        {
+          "entity": "Berkshire Hathaway Inc.",
+          "url": "https://di.hkex.com.hk/filing/di/NSNoticePersonList.aspx?sa2=np&scpid=1846653&sa1=pl&scsd=01%2f04%2f2003&sced=02%2f10%2f2017&pn=Berkshire+Hathaway&src=MAIN&lang=EN&g_lang=en&",
+          "reason": "Same name with an unverified HKEX holder identity; no attribution made"
+        }
+      ],
       "scope": "匹配已配置主体的公开多头权益披露；不等于完整投资组合或当前持仓"
     },
     {
       "investor": "duan",
-      "checkedAt": "2026-10-15T01:58:19Z",
+      "checkedAt": "2026-10-15T04:33:31Z",
       "status": "checked",
       "queries": [
         {
@@ -5668,7 +5685,7 @@
     },
     {
       "investor": "greenberg",
-      "checkedAt": "2026-10-15T01:59:04Z",
+      "checkedAt": "2026-10-15T04:34:25Z",
       "status": "checked",
       "queries": [
         {
@@ -5709,8 +5726,8 @@
     },
     {
       "investor": "hawkins",
-      "checkedAt": "2026-10-15T01:59:32Z",
-      "status": "checked",
+      "checkedAt": "2026-10-15T04:35:14Z",
+      "status": "partial",
       "queries": [
         {
           "query": "Southeastern Asset Management, Inc.",
@@ -5744,13 +5761,44 @@
       "discoveredSources": 5,
       "verifiedSecurities": 4,
       "pendingSecurities": 0,
-      "recordsFetched": 104,
-      "errors": [],
+      "recordsFetched": 29,
+      "errors": [
+        {
+          "entity": "Southeastern Asset Management, Inc.",
+          "security": "Melco International Development Ltd.",
+          "rejected": [
+            {
+              "filing_ref": "CS20221207E00001",
+              "reason": "Historical original form disagrees with notice table"
+            }
+          ]
+        },
+        {
+          "entity": "Southeastern Asset Management, Inc.",
+          "url": "https://di.hkex.com.hk/filing/di/NSNoticePersonList.aspx?sa2=np&scpid=2354759&sa1=pl&scsd=01%2f04%2f2003&sced=02%2f10%2f2017&pn=Southeastern+Asset+Management%2c+Inc.&src=MAIN&lang=EN&g_lang=en&",
+          "reason": "Same name with an unverified HKEX holder identity; no attribution made"
+        },
+        {
+          "entity": "Southeastern Asset Management, Inc.",
+          "url": "https://di.hkex.com.hk/filing/di/NSNoticePersonList.aspx?sa2=np&scpid=2360056&sa1=pl&scsd=01%2f04%2f2003&sced=02%2f10%2f2017&pn=Southeastern+Asset+Management%2c+Inc.&src=MAIN&lang=EN&g_lang=en&",
+          "reason": "Same name with an unverified HKEX holder identity; no attribution made"
+        },
+        {
+          "entity": "Southeastern Asset Management, Inc.",
+          "url": "https://di.hkex.com.hk/filing/di/NSNoticePersonList.aspx?sa2=np&scpid=2338119&sa1=pl&scsd=01%2f04%2f2003&sced=02%2f10%2f2017&pn=Southeastern+Asset+Management%2c+Inc.&src=MAIN&lang=EN&g_lang=en&",
+          "reason": "Same name with an unverified HKEX holder identity; no attribution made"
+        },
+        {
+          "entity": "Southeastern Asset Management, Inc.",
+          "url": "https://di.hkex.com.hk/filing/di/NSNoticePersonList.aspx?sa2=np&scpid=2382265&sa1=pl&scsd=01%2f04%2f2003&sced=02%2f10%2f2017&pn=Southeastern+Asset+Management%2c+Inc.&src=MAIN&lang=EN&g_lang=en&",
+          "reason": "Same name with an unverified HKEX holder identity; no attribution made"
+        }
+      ],
       "scope": "匹配已配置主体的公开多头权益披露；不等于完整投资组合或当前持仓"
     },
     {
       "investor": "klarman",
-      "checkedAt": "2026-10-15T01:59:09Z",
+      "checkedAt": "2026-10-15T04:34:42Z",
       "status": "checked",
       "queries": [
         {
@@ -5791,8 +5839,8 @@
     },
     {
       "investor": "lilu",
-      "checkedAt": "2026-10-15T01:58:19Z",
-      "status": "checked",
+      "checkedAt": "2026-10-15T04:33:31Z",
+      "status": "partial",
       "queries": [
         {
           "query": "Li Lu",
@@ -5826,13 +5874,39 @@
       "discoveredSources": 14,
       "verifiedSecurities": 3,
       "pendingSecurities": 0,
-      "recordsFetched": 45,
-      "errors": [],
+      "recordsFetched": 27,
+      "errors": [
+        {
+          "entity": "Li Lu",
+          "url": "https://di.hkex.com.hk/filing/di/NSNoticePersonList.aspx?sa2=np&scpid=2224286&sa1=pl&scsd=01%2f04%2f2003&sced=02%2f10%2f2017&pn=Li+Lu&src=MAIN&lang=EN&g_lang=en&",
+          "reason": "Same name with an unverified HKEX holder identity; no attribution made"
+        },
+        {
+          "entity": "Li Lu",
+          "url": "https://di.hkex.com.hk/filing/di/NSNoticePersonList.aspx?sa2=np&scpid=2298910&sa1=pl&scsd=01%2f04%2f2003&sced=02%2f10%2f2017&pn=Li+Lu&src=MAIN&lang=EN&g_lang=en&",
+          "reason": "Same name with an unverified HKEX holder identity; no attribution made"
+        },
+        {
+          "entity": "Li Lu",
+          "url": "https://di.hkex.com.hk/filing/di/NSNoticePersonList.aspx?sa2=np&scpid=2387872&sa1=pl&scsd=01%2f04%2f2003&sced=02%2f10%2f2017&pn=Li+Lu&src=MAIN&lang=EN&g_lang=en&",
+          "reason": "Same name with an unverified HKEX holder identity; no attribution made"
+        },
+        {
+          "entity": "Himalaya Capital Investors, L.P. (formerly known as LL Investment Partners, L.P.)",
+          "url": "https://di.hkex.com.hk/filing/di/NSNoticePersonList.aspx?sa2=np&scpid=2299099&sa1=pl&scsd=01%2f04%2f2003&sced=02%2f10%2f2017&pn=Himalaya+Capital&src=MAIN&lang=EN&g_lang=en&",
+          "reason": "Same name with an unverified HKEX holder identity; no attribution made"
+        },
+        {
+          "entity": "Himalaya Capital Investors, L.P. (formerly known as LL Investment Partners, L.P.)",
+          "url": "https://di.hkex.com.hk/filing/di/NSNoticePersonList.aspx?sa2=np&scpid=2387905&sa1=pl&scsd=01%2f04%2f2003&sced=02%2f10%2f2017&pn=Himalaya+Capital&src=MAIN&lang=EN&g_lang=en&",
+          "reason": "Same name with an unverified HKEX holder identity; no attribution made"
+        }
+      ],
       "scope": "匹配已配置主体的公开多头权益披露；不等于完整投资组合或当前持仓"
     },
     {
       "investor": "pabrai",
-      "checkedAt": "2026-10-15T01:58:19Z",
+      "checkedAt": "2026-10-15T04:33:31Z",
       "status": "checked",
       "queries": [
         {
@@ -5873,7 +5947,7 @@
     },
     {
       "investor": "tepper",
-      "checkedAt": "2026-10-15T01:58:35Z",
+      "checkedAt": "2026-10-15T04:33:45Z",
       "status": "checked",
       "queries": [
         {
@@ -5914,7 +5988,7 @@
     },
     {
       "investor": "vinall",
-      "checkedAt": "2026-10-15T01:59:37Z",
+      "checkedAt": "2026-10-15T04:35:15Z",
       "status": "checked",
       "queries": [
         {
@@ -5970,7 +6044,7 @@
     {
       "investor": "webb",
       "status": "archived",
-      "attemptedAt": "2026-10-15T01:58:36Z",
+      "attemptedAt": "2026-10-15T04:33:59Z",
       "verifiedSecurities": 41,
       "pendingSecurities": 0,
       "errors": [],
