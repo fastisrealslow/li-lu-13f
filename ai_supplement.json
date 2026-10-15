@@ -6331,19 +6331,6 @@
           ]
         ],
         [
-          "ENOV",
-          "恩诺维斯",
-          [
-            [
-              "hawkins",
-              0.0,
-              "hold",
-              "梅森·霍金斯",
-              "2026 Q2"
-            ]
-          ]
-        ],
-        [
           "BIDU",
           "百度",
           [
@@ -6352,6 +6339,19 @@
               1.9,
               "added",
               "大卫·泰珀",
+              "2026 Q2"
+            ]
+          ]
+        ],
+        [
+          "ENOV",
+          "恩诺维斯",
+          [
+            [
+              "hawkins",
+              0.0,
+              "hold",
+              "梅森·霍金斯",
               "2026 Q2"
             ]
           ]
@@ -6391,19 +6391,6 @@
               7.9,
               "hold",
               "大卫·艾布拉姆斯",
-              "2026 Q2"
-            ]
-          ]
-        ],
-        [
-          "LEN/B",
-          "LEN/B",
-          [
-            [
-              "buffett",
-              0.0,
-              "added",
-              "巴菲特",
               "2026 Q2"
             ]
           ]
@@ -6524,38 +6511,22 @@
               "2026 Q2"
             ]
           ]
-        ],
-        [
-          "TRIP",
-          "Tripadvisor, Inc.",
-          [
-            [
-              "hawkins",
-              1.6,
-              "trimmed",
-              "梅森·霍金斯",
-              "2026 Q2"
-            ]
-          ]
         ]
       ],
-      "sourceHash": "7d45a32957d828745499389d81e9c1f83cf47d752f681e2c9db87974e6f95678",
+      "sourceHash": "a1d12c7323d0ace8968eb0550af87321817085d8fc2e09a63d4f8234424cdcdd",
       "selection": {
         "factIds": [
-          "f0",
           "f2",
-          "f8"
+          "f3",
+          "f5"
         ]
       },
       "renderVersion": 4,
-      "mode": "model_selection",
-      "summary": "按各投资人最新披露组合：巴菲特（2026 Q2）：卡夫亨氏（KHC）股数不变，占其披露组合市值2.6%；巴菲特（2026 Q2）：莱纳建筑（LEN）增持，占其披露组合市值0.4%；查克·阿克瑞（2026 Q2）：布鲁克菲尔德（BN）减持，占其披露组合市值10.1%。",
-      "generatedAt": "2026-10-14T18:05:30.767192+00:00",
-      "model": "qwen3.5:9b-q4_K_M",
-      "metrics": {
-        "seconds": 149.75,
-        "tokens": 14
-      }
+      "mode": "deterministic",
+      "summary": "按各投资人最新披露组合：巴菲特（2026 Q2）：莱纳建筑（LEN）增持，占其披露组合市值0.4%；格伦·格林伯格（2026 Q2）：莱纳建筑（LEN）减持，占其披露组合市值4.7%；大卫·泰珀（2026 Q2）：惠而浦（WHR）减持，占其披露组合市值0.4%。",
+      "generatedAt": "2026-10-15T02:16:37.467099+00:00",
+      "model": null,
+      "metrics": {}
     },
     "investor:duan": {
       "facts": {
@@ -34649,8 +34620,8 @@
           {
             "id": "f0",
             "text": [
-              "可用于市值趋势的记录有 49 个季度，覆盖 2013 Q2 至 2025 Q4。这段历史反映披露范围内证券，不是基金净值曲线。",
-              "49 quarters are usable for the reported-value chart, from 2013 Q2 to 2025 Q4. This history covers disclosed securities, not fund NAV."
+              "可用于市值趋势的记录有 47 个季度，覆盖 2013 Q2 至 2025 Q4。这段历史反映披露范围内证券，不是基金净值曲线。",
+              "47 quarters are usable for the reported-value chart, from 2013 Q2 to 2025 Q4. This history covers disclosed securities, not fund NAV."
             ],
             "change": "历史事实"
           },
@@ -34673,8 +34644,8 @@
           {
             "id": "f3",
             "text": [
-              "缺少或排除的市值季度：2023 Q4、2024 Q1、2026 Q1、2026 Q2。不填零、不推断清仓，也不跨缺口计算季度变化。",
-              "Missing or excluded value quarters: 2023 Q4, 2024 Q1, 2026 Q1, 2026 Q2. No zero filling, inferred exits or quarter-on-quarter comparisons across gaps."
+              "缺少或排除的市值季度：2023 Q4、2024 Q1、2024 Q4、2025 Q1、2026 Q1、2026 Q2。不填零、不推断清仓，也不跨缺口计算季度变化。",
+              "Missing or excluded value quarters: 2023 Q4, 2024 Q1, 2024 Q4, 2025 Q1, 2026 Q1, 2026 Q2. No zero filling, inferred exits or quarter-on-quarter comparisons across gaps."
             ],
             "change": "历史事实"
           },
@@ -34707,15 +34678,15 @@
                 "Position in the longer record"
               ],
               "text": [
-                "全部可用记录覆盖 2013 Q2 至 2025 Q4（49 个季度）。最高申报值在 2018 Q3，为 130.14亿美元；最新值较峰值低 59.4%。",
-                "The record spans 2013 Q2–2025 Q4 (49 usable quarters). Peak reported value: US$13.01B in 2018 Q3; the latest is 59.4% below it."
+                "全部可用记录覆盖 2013 Q2 至 2025 Q4（47 个季度）。最高申报值在 2018 Q3，为 130.14亿美元；最新值较峰值低 59.4%。",
+                "The record spans 2013 Q2–2025 Q4 (47 usable quarters). Peak reported value: US$13.01B in 2018 Q3; the latest is 59.4% below it."
               ]
             }
           ],
           "notes": [
             [
-              "缺少或排除的金额季度：2023 Q4、2024 Q1、2026 Q1、2026 Q2。图表在缺口断开。",
-              "Missing/excluded value quarters: 2023 Q4, 2024 Q1, 2026 Q1, 2026 Q2. The chart breaks at these gaps."
+              "缺少或排除的金额季度：2023 Q4、2024 Q1、2024 Q4、2025 Q1、2026 Q1、2026 Q2。图表在缺口断开。",
+              "Missing/excluded value quarters: 2023 Q4, 2024 Q1, 2024 Q4, 2025 Q1, 2026 Q1, 2026 Q2. The chart breaks at these gaps."
             ],
             [
               "这里是披露证券的市值与结构变化，不是基金净值或投资回报。",
@@ -34745,15 +34716,15 @@
               "Position in the longer record"
             ],
             "text": [
-              "全部可用记录覆盖 2013 Q2 至 2025 Q4（49 个季度）。最高申报值在 2018 Q3，为 130.14亿美元；最新值较峰值低 59.4%。",
-              "The record spans 2013 Q2–2025 Q4 (49 usable quarters). Peak reported value: US$13.01B in 2018 Q3; the latest is 59.4% below it."
+              "全部可用记录覆盖 2013 Q2 至 2025 Q4（47 个季度）。最高申报值在 2018 Q3，为 130.14亿美元；最新值较峰值低 59.4%。",
+              "The record spans 2013 Q2–2025 Q4 (47 usable quarters). Peak reported value: US$13.01B in 2018 Q3; the latest is 59.4% below it."
             ]
           }
         ],
         "notes": [
           [
-            "缺少或排除的金额季度：2023 Q4、2024 Q1、2026 Q1、2026 Q2。图表在缺口断开。",
-            "Missing/excluded value quarters: 2023 Q4, 2024 Q1, 2026 Q1, 2026 Q2. The chart breaks at these gaps."
+            "缺少或排除的金额季度：2023 Q4、2024 Q1、2024 Q4、2025 Q1、2026 Q1、2026 Q2。图表在缺口断开。",
+            "Missing/excluded value quarters: 2023 Q4, 2024 Q1, 2024 Q4, 2025 Q1, 2026 Q1, 2026 Q2. The chart breaks at these gaps."
           ],
           [
             "这里是披露证券的市值与结构变化，不是基金净值或投资回报。",
@@ -35171,6 +35142,8 @@
         "excludedValueQuarters": [
           "2023 Q4",
           "2024 Q1",
+          "2024 Q4",
+          "2025 Q1",
           "2026 Q1",
           "2026 Q2"
         ],
@@ -38306,7 +38279,7 @@
           }
         }
       },
-      "sourceHash": "27b0892175e746e21fad67e42b8764c84e5c9ffedc14c7d9505453130af7529f",
+      "sourceHash": "fc816851644b0981e4599f68b058841e7815c80c6a00be84be4a3e54908378df",
       "selection": {
         "factIds": [
           "f0",
@@ -38318,14 +38291,11 @@
         ]
       },
       "renderVersion": 4,
-      "mode": "model_selection",
-      "summary": "塞斯·克拉曼 · 历史轨迹：可用于市值趋势的记录有 49 个季度，覆盖 2013 Q2 至 2025 Q4。这段历史反映披露范围内证券，不是基金净值曲线。披露市值从 US$4,021.92M 变为 US$5,278.59M（变化 +31.2%）。金额同时受价格、买卖、资金流及披露范围影响，不能当作投资回报。缺少或排除的市值季度：2023 Q4、2024 Q1、2026 Q1、2026 Q2。不填零、不推断清仓，也不跨缺口计算季度变化。",
-      "generatedAt": "2026-10-14T18:10:00.739130+00:00",
-      "model": "qwen3.5:9b-q4_K_M",
-      "metrics": {
-        "seconds": 86.88,
-        "tokens": 20
-      }
+      "mode": "deterministic",
+      "summary": "塞斯·克拉曼 · 历史轨迹：可用于市值趋势的记录有 47 个季度，覆盖 2013 Q2 至 2025 Q4。这段历史反映披露范围内证券，不是基金净值曲线。披露市值从 US$4,021.92M 变为 US$5,278.59M（变化 +31.2%）。金额同时受价格、买卖、资金流及披露范围影响，不能当作投资回报。缺少或排除的市值季度：2023 Q4、2024 Q1、2024 Q4、2025 Q1、2026 Q1、2026 Q2。不填零、不推断清仓，也不跨缺口计算季度变化。",
+      "generatedAt": "2026-10-15T02:16:37.465956+00:00",
+      "model": null,
+      "metrics": {}
     },
     "holdings:ackman": {
       "facts": {
@@ -52946,7 +52916,7 @@
     "pendingBefore": 10,
     "cached": 30,
     "finishedAt": "2026-10-14T18:14:19.162938+00:00",
-    "pendingAfter": 6,
+    "pendingAfter": 8,
     "accepted": 4,
     "fallback": 3,
     "rejected": 0,
@@ -52955,10 +52925,10 @@
   "schemaVersion": 2,
   "fallbackRefresh": {
     "kind": "source_refresh",
-    "finishedAt": "2026-10-14T18:00:23.471814+00:00",
+    "finishedAt": "2026-10-15T02:16:37.467124+00:00",
     "accepted": 0,
-    "fallback": 11,
+    "fallback": 9,
     "failed": 0,
-    "pendingAfter": 10
+    "pendingAfter": 8
   }
 }
