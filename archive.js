@@ -2,9 +2,10 @@
   'use strict';
   const $=id=>document.getElementById(id);
   const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-  let catalog,people,selected,active,currentText,mode='zh',request=0;
+  let catalog,people,guides,explanationIndex,selected,active,currentText,currentExplanation,mode='zh',view='explanation',request=0;
   const tr=(zh,en)=>mode==='en'?en:zh;
   const title=w=>mode==='en'?w.title.en:w.title.zh;
+  const explained=w=>{const e=explanationIndex.entries?.[w.id];return e&&e.catalogDate===w.date&&e.catalogTitle===w.title.en;};
   const ready=w=>w.fullTextStatus==='ready'&&/^archive\/texts\/[a-z0-9_-]+\.json$/.test(w.fullTextFile||'');
   function updateURL(){const u=new URL(location.href);u.searchParams.set('investor',selected);if(active)u.searchParams.set('work',active.id);history.replaceState(null,'',u);}
   function updateControls(){
@@ -12,8 +13,8 @@
     $('archiveBack').textContent=tr('← 返回投资人资料','← Investor profile');
     Array.from($('archiveInvestor').options).forEach(o=>{const p=people.find(p=>p.id===o.value);o.textContent=mode==='en'?p.nameEn:p.name;});
     const works=catalog.works.filter(w=>w.investor===selected).sort((a,b)=>(b.date||'').localeCompare(a.date||''));
-    $('archiveWork').innerHTML=works.map(w=>`<option value="${esc(w.id)}">${esc((w.dateLabel?.[mode==='en'?'en':'zh']||w.date||'')+' · '+title(w))}</option>`).join('');
-    if(active)$('archiveWork').value=active.id;
+    $('archiveWork').innerHTML=`<option value="">${tr('投资人作品整体导读','Collection reading guide')}</option>`+works.map(w=>`<option value="${esc(w.id)}">${esc((w.dateLabel?.[mode==='en'?'en':'zh']||w.date||'')+' · '+title(w))}${explained(w)?tr(' · 详细介绍',' · AI introduction'):''}</option>`).join('');
+    $('archiveWork').value=active?.id || '';
     $('archiveInvestor').setAttribute('aria-label',tr('投资人','Investor'));
     $('archiveWork').setAttribute('aria-label',tr('选择篇目','Choose a text'));
     document.documentElement.lang=mode==='en'?'en':'zh-CN';
@@ -29,23 +30,54 @@
   }
   function render(){
     updateControls();
-    if(!active){$('archiveReader').innerHTML=`<p>${tr('尚无可展示的完整文字稿。','No complete text is available yet.')}</p>`;return;}
-    document.title=title(active);
     const controls=`<div class="archive-language" role="group" aria-label="${tr('阅读语言','Reading language')}"><button type="button" data-mode="zh" aria-pressed="${mode==='zh'}">中文</button><button type="button" data-mode="en" aria-pressed="${mode==='en'}">English</button><button type="button" data-mode="bilingual" aria-pressed="${mode==='bilingual'}">中英对照</button></div>`;
-    const body=currentText?currentText.segments.map(s=>mode==='bilingual'?`<div class="archive-text-pair" data-sentence="${esc(s.id)}"><p lang="zh-CN">${esc(s.zh)}</p><p lang="en" class="archive-en">${esc(s.en)}</p></div>`:`<p class="archive-text-line" lang="${mode==='en'?'en':'zh-CN'}" data-sentence="${esc(s.id)}">${esc(s[mode==='en'?'en':'zh'])}</p>`).join(''):`<p class="archive-text-unavailable" role="status">${esc(tr('本篇完整原文与逐句译稿尚未取得可公开展示的授权，当前没有全文。此前的摘要已撤下。','Publication permission for the complete original and sentence-aligned translation has not been verified. No full text is available here; the previous summaries have been removed.'))}</p>`;
-    $('archiveReader').innerHTML=`<h1>${esc(title(active))}</h1><p class="archive-work-meta">${esc(active.dateLabel?.[mode==='en'?'en':'zh']||active.date||'')} · ${esc(mode==='en'?(active.publisherEn||active.publisher):active.publisher)}</p>${controls}${currentText?`<div class="archive-text-downloads"><button type="button" data-download="zh">${tr('下载中文稿','Chinese .txt')}</button><button type="button" data-download="en">${tr('下载英文稿','English .txt')}</button><button type="button" data-download="bilingual">${tr('下载对照稿','Bilingual .txt')}</button></div>`:''}<div class="archive-text-body">${body}</div>`;
+    if(!active){
+      const g=guides.guides?.[selected];
+      if(!g){$('archiveReader').innerHTML=`<p>${tr('导读暂未载入，请刷新重试。','Please refresh to load the guide.')}</p>`;return;}
+      document.title=tr(g.title.zh,g.title.en);
+      $('archiveReader').innerHTML=`<h1>${esc(tr(g.title.zh,g.title.en))}</h1>${controls}<p class="archive-ai-label">${esc(tr(g.label.zh,g.label.en))}</p>${renderPair(g.lead)}${renderSections(g.sections)}<div class="archive-guide-sequence">${g.works.map(w=>`<p><a href="?investor=${encodeURIComponent(selected)}&work=${encodeURIComponent(w.id)}">${esc(w.date || '')} · ${esc(tr(w.title.zh,w.title.en))}</a><small>${esc(w.publisher)}</small></p>`).join('')}</div>`;
+      return;
+    }
+    document.title=title(active);
+    const views=`<div class="archive-reading-view" role="group"><button type="button" data-view="explanation" aria-pressed="${view==='explanation'}">${tr('AI 详细介绍','Detailed AI introduction')}</button><button type="button" data-view="original" aria-pressed="${view==='original'}">${tr('原文与逐句译稿','Original and literal translation')}</button></div>`;
+    if(view==='explanation'){
+      const note=currentExplanation;
+      const content=note?`<p class="archive-ai-label">${esc(tr(note.label.zh,note.label.en))} ${note.sourceBasis==='description'?tr('依据发布方节目说明，未取得完整访谈文字。','Based on programme notes, not a complete transcript.'):''}</p>${renderPair(note.sourceSummary)}${renderSections(note.sections)}<p class="archive-work-meta">${tr('依据材料','Source')}：<a href="${esc(note.sourceURL)}" target="_blank" rel="noopener noreferrer">${esc(active.publisher)} ↗</a> · ${tr('生成日期','Generated')} ${esc(note.generatedAt.slice(0,10))}</p>`:`<p class="archive-text-unavailable">${tr('已收录这篇作品的来源。单篇详细介绍尚未通过材料核对，自动任务会继续处理；不会根据标题生成内容。','The source is catalogued. Its individual introduction is awaiting source verification; the scheduled task will retry without guessing from its title.')}</p>`;
+      $('archiveReader').innerHTML=`<h1>${esc(title(active))}</h1><p class="archive-work-meta">${esc(active.date || '')} · ${esc(active.publisher)}</p>${views}${controls}${content}`;return;
+    }
+    const body=currentText?currentText.segments.map(s=>mode==='bilingual'?`<div class="archive-text-pair" data-sentence="${esc(s.id)}"><p lang="zh-CN">${esc(s.zh)}</p><p lang="en" class="archive-en">${esc(s.en)}</p></div>`:`<p class="archive-text-line" lang="${mode==='en'?'en':'zh-CN'}" data-sentence="${esc(s.id)}">${esc(s[mode==='en'?'en':'zh'])}</p>`).join(''):`<p class="archive-text-unavailable" role="status">${esc(tr('尚未收录可展示的完整原文与逐句译稿。AI 详细介绍单独标注，不作为原文。','No complete original and sentence-aligned translation is available. The AI introduction is labelled separately.'))}</p>`;
+    $('archiveReader').innerHTML=`<h1>${esc(title(active))}</h1><p class="archive-work-meta">${esc(active.dateLabel?.[mode==='en'?'en':'zh']||active.date||'')} · ${esc(mode==='en'?(active.publisherEn||active.publisher):active.publisher)}</p>${views}${controls}${currentText?`<div class="archive-text-downloads"><button type="button" data-download="zh">${tr('下载中文稿','Chinese .txt')}</button><button type="button" data-download="en">${tr('下载英文稿','English .txt')}</button><button type="button" data-download="bilingual">${tr('下载对照稿','Bilingual .txt')}</button></div>`:''}<div class="archive-text-body">${body}</div>`;
+  }
+  function renderPair(p){return mode==='bilingual'?`<div class="archive-text-pair"><p lang="zh-CN">${esc(p.zh)}</p><p lang="en" class="archive-en">${esc(p.en)}</p></div>`:`<p class="archive-text-line">${esc(p[mode==='en'?'en':'zh'])}</p>`;}
+  function renderSections(sections){return sections.map(s=>`<section class="archive-explanation-section"><h2>${esc(tr(s.heading.zh,s.heading.en))}</h2>${s.paragraphs.map(renderPair).join('')}</section>`).join('');}
+  function validExplanation(note,w){
+    if(note.kind!=='ai_explanation'||note.workId!==w.id||note.catalogDate!==w.date||note.catalogTitle!==w.title.en||!note.label?.zh||!note.label?.en||!w.sources.some(s=>s.url===note.sourceURL)||!/^[a-f0-9]{64}$/.test(note.sourceDigest||'')||!note.sourceSummary?.zh||!note.sourceSummary?.en||!Array.isArray(note.sections)||note.sections.length<6)throw Error('Invalid AI introduction');
+    const ids=new Set((note.evidence||[]).map(e=>e.id));
+    if(note.sections.some(s=>!s.heading?.zh||!s.heading?.en||!s.paragraphs?.length||s.paragraphs.some(p=>!p.zh||!p.en)||!s.evidenceIds?.length||s.evidenceIds.some(id=>!ids.has(id))))throw Error('Missing source evidence');
+    const length=(note.sections.flatMap(s=>s.paragraphs).map(p=>p.zh).join('').match(/[\u4e00-\u9fff]/g)||[]).length;if(length<note.minimumChineseCharacters||note.minimumChineseCharacters<1300)throw Error('AI introduction is too short');return note;
   }
   async function openWork(w){
-    const own=++request;active=w;currentText=null;updateURL();
+    const own=++request;active=w;currentText=null;currentExplanation=null;updateURL();
+    if(!w){render();return;}
     $('archiveReader').innerHTML=`<p role="status">${tr('正在载入正文…','Loading text…')}</p>`;
-    try{if(ready(w)){const r=await fetch(w.fullTextFile);if(!r.ok)throw Error('Text unavailable');const t=validText(await r.json(),w);const digest=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(t.originalText));const sha=Array.from(new Uint8Array(digest)).map(b=>b.toString(16).padStart(2,'0')).join('');if(sha!==t.sourceDigest)throw Error('Original digest differs');if(own!==request)return;currentText=t;}if(own===request)render();}
-    catch(e){if(own!==request)return;currentText=null;render();$('archiveReader').querySelector('.archive-text-unavailable').textContent=tr('完整稿件未通过核对，暂不显示。请稍后重试。','The complete text could not be verified and is not displayed. Please try again later.');}
+    let failedExplanation=false,failedText=false;
+    const entry=explanationIndex.entries?.[w.id];
+    if(explained(w) && entry && /^archive\/explanations\/[a-z0-9_-]+\.json$/.test(entry.file)){
+      try{const r=await fetch(entry.file);if(!r.ok)throw Error('Introduction unavailable');const n=validExplanation(await r.json(),w);if(own!==request)return;currentExplanation=n;}
+      catch(e){failedExplanation=true;}
+    }
+    if(ready(w)){
+      try{const r=await fetch(w.fullTextFile);if(!r.ok)throw Error('Text unavailable');const t=validText(await r.json(),w);const digest=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(t.originalText));const sha=Array.from(new Uint8Array(digest)).map(b=>b.toString(16).padStart(2,'0')).join('');if(sha!==t.sourceDigest)throw Error('Original digest differs');if(own!==request)return;currentText=t;}
+      catch(e){failedText=true;}
+    }
+    if(own!==request)return;render();
+    if((view==='explanation' && failedExplanation)||(view==='original' && failedText)){const notice=$('archiveReader').querySelector('.archive-text-unavailable');if(notice)notice.textContent=tr('资料未通过核对，暂不显示。请稍后重试。','The material could not be verified and is not displayed. Please try again later.');}
+
   }
   function setPerson(id,preferred){
     selected=people.some(p=>p.id===id)?id:people[0].id;$('archiveInvestor').value=selected;
     const works=catalog.works.filter(w=>w.investor===selected).sort((a,b)=>(b.date||'').localeCompare(a.date||''));
-    const w=works.find(w=>w.id===preferred)||works.find(ready)||works[0];
-    if(w)openWork(w);else{request++;active=null;currentText=null;render();}
+    const w=works.find(w=>w.id===preferred);view=ready(w||{})?'original':'explanation';openWork(w||null);
   }
   function download(language){
     if(!currentText)return;
@@ -55,13 +87,13 @@
   }
   async function init(){
     try{
-      const rs=await Promise.all([fetch('archive/catalog.json'),fetch('investors.json')]);if(rs.some(r=>!r.ok))throw Error('Archive unavailable');
-      [catalog,people]=await Promise.all(rs.map(r=>r.json()));people=Array.isArray(people)?people:people.investors;
+      const rs=await Promise.all([fetch('archive/catalog.json'),fetch('investors.json'),fetch('archive/guides.json'),fetch('archive/explanations/index.json')]);if(rs.some(r=>!r.ok))throw Error('Archive unavailable');
+      [catalog,people,guides,explanationIndex]=await Promise.all(rs.map(r=>r.json()));people=Array.isArray(people)?people:people.investors;
       $('archiveInvestor').innerHTML=people.map(p=>`<option value="${esc(p.id)}">${esc(p.name)}</option>`).join('');
       const q=new URLSearchParams(location.search);setPerson(q.get('investor')||'lilu',q.get('work'));
       $('archiveInvestor').addEventListener('change',e=>setPerson(e.target.value));
-      $('archiveWork').addEventListener('change',e=>openWork(catalog.works.find(w=>w.id===e.target.value)));
-      $('archiveReader').addEventListener('click',e=>{const b=e.target.closest('[data-mode]');if(b){mode=b.dataset.mode;render();$('archiveReader').querySelector(`[data-mode="${mode}"]`).focus({preventScroll:true});}const d=e.target.closest('[data-download]');if(d)download(d.dataset.download);});
+      $('archiveWork').addEventListener('change',e=>{view='explanation';openWork(catalog.works.find(w=>w.id===e.target.value)||null);});
+      $('archiveReader').addEventListener('click',e=>{const b=e.target.closest('[data-mode]');if(b){mode=b.dataset.mode;render();$('archiveReader').querySelector(`[data-mode="${mode}"]`).focus({preventScroll:true});}const v=e.target.closest('[data-view]');if(v){view=v.dataset.view;render();}const d=e.target.closest('[data-download]');if(d)download(d.dataset.download);});
     }catch(e){$('archiveReader').innerHTML='<p role="alert">文字页暂未载入，请刷新重试。 / Please refresh to retry.</p>';console.error('Text reader:',e.message);}
   }
   init();

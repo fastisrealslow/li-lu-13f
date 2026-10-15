@@ -546,6 +546,9 @@ def discover(root=ROOT):
     catalog["discovery"] = report
     validate_catalog(catalog, root)
     write(root / "archive/catalog.json", catalog)
+    if (root / 'investors.json').exists():
+        from archive_guides import build_guides
+        build_guides(root)
     return catalog
 
 

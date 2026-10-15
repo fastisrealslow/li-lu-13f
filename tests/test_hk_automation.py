@@ -34,6 +34,15 @@ class FixtureClient:
 
 
 class HKAutomationTests(unittest.TestCase):
+    def test_same_name_different_holder_identity_is_not_automatically_attributed(self):
+        known={'entity':'Li Lu','notice_url':LIST,'verification':'hkex_form'}
+        other={**HIT,'noticeUrl':LIST.replace('scpid1=35238','scpid1=99999')}
+        self.assertTrue(hk.identity_allowed(HIT,{'known':known},[HIT,other]))
+        self.assertFalse(hk.identity_allowed(other,{'known':known},[HIT,other]))
+        self.assertFalse(hk.identity_allowed(HIT,{},[HIT,other]))
+        new_security={**HIT,'noticeUrl':LIST.replace('scpid2=142788','scpid2=67890')}
+        self.assertTrue(hk.identity_allowed(new_security,{'known':known},[new_security]))
+
     def test_exact_entity_identity_excludes_similar_people(self):
         hits, total, _ = hk.parse_search(fixture('lilu_search'), hk.BASE+'NSSrchPersonList.aspx', ALIASES)
         self.assertEqual(len(hits), 3)
@@ -104,7 +113,7 @@ class HKAutomationTests(unittest.TestCase):
 
     def test_binding_checks_notice_against_original_form(self):
         client = FixtureClient()
-        records, binding, errors = hk.crawl_notices(client, HIT, ALIASES, [])
+        records, binding, errors = hk.crawl_notices(client, HIT, ALIASES, [], backfill_limit=0)
         self.assertFalse(errors)
         self.assertTrue(binding['history_complete'])
         self.assertEqual(binding['ticker'], '01658.HK')
@@ -116,11 +125,43 @@ class HKAutomationTests(unittest.TestCase):
             hk.crawl_notices(bad, HIT, ALIASES, [])
 
     def test_verified_binding_can_be_reused_without_refetching_form(self):
-        records, binding, _ = hk.crawl_notices(FixtureClient(), HIT, ALIASES, [])
+        records, binding, _ = hk.crawl_notices(FixtureClient(), HIT, ALIASES, [], backfill_limit=0)
         client = FixtureClient(fail_form=True)
-        again, _, _ = hk.crawl_notices(client, HIT, ALIASES, records, binding)
+        again, _, _ = hk.crawl_notices(client, HIT, ALIASES, records, binding, backfill_limit=0)
         self.assertEqual(len(again), len(records))
         self.assertFalse(any('NSForm' in u for u in client.calls))
+
+    def test_event_difference_comes_from_one_form_and_retains_derivative_reason(self):
+        before = '<table id="grdSh_BEvt"><tr><td>Long position</td><td>985,000,000</td><td>4.95</td></tr></table>'
+        event = '<span id="lblDEvtReason">11032 You are under an obligation to take shares</span>'
+        result = hk.parse_form(fixture('psbc_form') + before + event, hk.BASE+'NSForm1.aspx', ALIASES)
+        self.assertEqual(result['before_long_shares'], 985000000)
+        self.assertEqual(result['long_interest_change'], 618000)
+        self.assertEqual(result['event_codes'], ['11032'])
+        self.assertEqual(result['position_details_schema'], 3)
+
+    def test_historical_forms_are_backfilled_without_blocking_latest_evidence(self):
+        client = FixtureClient()
+        records, binding, errors = hk.crawl_notices(client, HIT, ALIASES, [], backfill_limit=1)
+        self.assertEqual(binding['filing_ref'], 'IS20250513E00008')
+        self.assertEqual(sum(r.get('verification')=='hkex_form' for r in records), 2)
+        self.assertEqual(len(errors), 1)
+        self.assertIn('Historical original form disagrees', errors[0]['reason'])
+
+    def test_failed_newest_form_retains_facts_but_marks_the_old_position_blocked(self):
+        old=hk.parse_form(fixture('psbc_previous_form'),hk.BASE+'NSForm1.aspx',ALIASES)
+        key=hk.source_key(LIST)
+        with tempfile.TemporaryDirectory() as tmp:
+            root=Path(tmp)
+            (root/'hk.json').write_text(json.dumps({'holdings':[{'ticker':'01658.HK','evidence_schema':2,'verified_disclosures':[old]}],'source_bindings':{key:old}}))
+            inv={'id':'test','hkFile':'hk.json','entities':ALIASES,'queries':['Li Lu']}
+            with patch.object(hk,'crawl_search',return_value=[HIT]),patch.object(hk,'crawl_notices',side_effect=OSError('newest form unavailable')):
+                hk.run_investor(inv,root,FixtureClient())
+            data=json.loads((root/'hk.json').read_text());holding=data['holdings'][0]
+            self.assertEqual(holding['verified_disclosures'][0]['shares'],old['shares'])
+            self.assertEqual(holding['pending_newer_notices'][0]['event_date'],'2025-05-08')
+            self.assertNotIn('shares',holding['pending_newer_notices'][0])
+            self.assertEqual(data['audit']['status'],'partial')
 
     def test_notice_pagination_failure_is_partial(self):
         real_parse = hk.parse_notices

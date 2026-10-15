@@ -53,7 +53,9 @@ jobs:
         run: |
           python3 -m unittest discover -s tests -p test_speech_archive.py -v
           python3 -m unittest discover -s tests -p test_verbatim_texts.py -v
+          python3 -m unittest discover -s tests -p test_archive_explanations.py -v
           python3 speech_archive.py validate
+          python3 archive_explanations.py validate
 
       - name: Setup Pages
         uses: actions/configure-pages@v5

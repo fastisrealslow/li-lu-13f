@@ -1,17 +1,23 @@
 (function(){
-  let pending, generation=0;
+  let pending,guidesPending,explanationsPending,generation=0;
   function escape(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+  const load=url=>fetch(url).then(r=>{if(!r.ok)throw Error('Archive unavailable');return r.json();});
   window.SpeechArchive={async updateInvestor(cfg,en){
     const host=document.getElementById('speechArchiveEntry');if(!host)return;
-    const own=++generation;
-    const name=en?cfg.nameEn:cfg.name;
-    const url=`archive.html?investor=${encodeURIComponent(cfg.id)}`;
-    host.innerHTML=`<div class="archive-entry"><div><h3>${escape(name)} · ${en?'Original Texts & Translations':'原文与逐句译稿'}</h3><p>${en?'Complete original texts and sentence-aligned translations only. Summaries have been removed.':'只展示完整原文与逐句译稿，支持中文、英文和逐句对照；此前的摘要已撤下。'}</p><p class="archive-entry-count"></p></div><a href="${url}">${en?'Browse the collection →':'进入作品集 →'}</a></div>`;
+    const own=++generation,key=en?'en':'zh',name=en?cfg.nameEn:cfg.name,url=`archive.html?investor=${encodeURIComponent(cfg.id)}`;
+    host.innerHTML=`<div class="archive-entry"><div><h3>${escape(name)} · ${en?'Works & Detailed Reading Guides':'公开作品与详细导读'}</h3><p>${en?'Read the investor’s approach, the works in their historical context, and source-grounded AI explanations.':'结合人物方法、作品年代和原始来源，理解文章、演讲与访谈；AI 导读与原文明确区分。'}</p><p class="archive-entry-count"></p></div><a href="${url}">${en?'Read the collection →':'阅读作品与导读 →'}</a></div>`;
     try{
-      if(!pending)pending=fetch('archive/catalog.json').then(r=>{if(!r.ok)throw Error('Archive unavailable');return r.json();}).catch(e=>{pending=null;throw e;});
-      const catalog=await pending;if(own!==generation)return;
-      const items=catalog.works.filter(w=>w.investor===cfg.id),ready=items.filter(w=>w.fullTextStatus==='ready'&&w.fullTextFile).length;
-      host.querySelector('.archive-entry-count').textContent=en?`${items.length} entries · ${ready} verified complete texts`:`已建档 ${items.length} 篇 · 完整文字稿 ${ready} 篇`;
+      if(!pending)pending=load('archive/catalog.json').catch(e=>{pending=null;throw e;});
+      if(!guidesPending)guidesPending=load('archive/guides.json').catch(()=>{guidesPending=null;return {guides:{}};});
+      if(!explanationsPending)explanationsPending=load('archive/explanations/index.json').catch(()=>{explanationsPending=null;return {entries:{}};});
+      const [catalog,guides,index]=await Promise.all([pending,guidesPending,explanationsPending]);if(own!==generation)return;
+      const items=catalog.works.filter(w=>w.investor===cfg.id),ready=items.filter(w=>{const e=index.entries?.[w.id];return e&&e.catalogDate===w.date&&e.catalogTitle===w.title.en;}).length,g=guides.guides?.[cfg.id];
+      if(g){
+        const intro=g.sections[0].paragraphs[1][key];
+        const more=g.sections.map((s,i)=>`<h4>${escape(s.heading[key])}</h4>${s.paragraphs.filter((p,j)=>i!==0||j!==1).map(p=>`<p>${escape(p[key])}</p>`).join('')}`).join('');
+        host.innerHTML=`<div class="archive-entry"><div><h3>${escape(name)} · ${en?'Works & Detailed Reading Guides':'公开作品与详细导读'}</h3><p>${escape(intro)}</p><details class="archive-entry-guide"><summary>${en?'Expand the full collection guide':'展开完整作品导读'}</summary>${more}<p class="archive-ai-label">${escape(g.label[key])}</p></details><p class="archive-entry-count"></p></div><a href="${url}">${en?'Read the collection →':'阅读作品与导读 →'}</a></div>`;
+      }
+      host.querySelector('.archive-entry-count').textContent=en?`${items.length} catalogued works · ${ready} individual AI introductions`:`已建档 ${items.length} 篇 · 单篇详细介绍 ${ready} 篇`;
     }catch(e){if(own===generation)host.querySelector('.archive-entry-count').textContent=en?'Open the collection to view available works.':'进入作品集查看已有资料。';}
   }};
 })();

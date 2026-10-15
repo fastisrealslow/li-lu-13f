@@ -23,7 +23,7 @@ ORIGIN = 'https://di.hkex.com.hk'
 BASE = ORIGIN + '/di/'
 LEGACY = ORIGIN + '/filing/di/'
 SCHEMA = 3
-POSITION_DETAILS_SCHEMA = 2
+POSITION_DETAILS_SCHEMA = 3
 _RATE_LOCK = threading.Lock()
 _LAST_REQUEST = 0.0
 
@@ -218,6 +218,25 @@ def parse_form(html, url, aliases):
         details['short_pct'] = float(short_rows[0][2].replace(',', ''))
         if details['short_shares'] < 0 or not math.isfinite(details['short_pct']) or not 0 <= details['short_pct'] <= 100:
             raise ValueError('Invalid post-event short position')
+    before_table = soup.find(id='grdSh_BEvt')
+    before_rows = []
+    if before_table:
+        for row in before_table.find_all('tr'):
+            values = [text(c) for c in row.find_all('td', recursive=False)]
+            if len(values) == 3 and values[0].casefold() == 'long position':
+                before_rows.append(values)
+    if len(before_rows) == 1:
+        quantity = before_rows[0][1].replace(',', '')
+        if quantity.isdigit():
+            details['before_long_shares'] = int(quantity)
+            details['long_interest_change'] = shares - int(quantity)
+    event_codes = []
+    for field in ('lblDEvtReason', 'lblDEvtReason2'):
+        match = re.match(r'\s*(\d{3,5})\b', get(field))
+        if match and match[1] not in event_codes:
+            event_codes.append(match[1])
+    if event_codes:
+        details['event_codes'] = event_codes
     return dict(ticker=code.zfill(5)+'.HK', filing_ref=serial, entity=name,
                 event_date=dated(get('lblDEventDate')), filing_date=dated(get('lblDSignDate')),
                 issuer_name=get('lblViewCorpName'), share_class=get('lblDClass'),
@@ -277,7 +296,7 @@ def crawl_search(client, url, aliases, max_pages=20):
     return list({source_key(h['noticeUrl']):h for h in hits}.values())
 
 
-def crawl_notices(client, hit, aliases, cached_records, binding=None, max_pages=30):
+def crawl_notices(client, hit, aliases, cached_records, binding=None, max_pages=30, backfill_limit=4):
     url = hit['noticeUrl']
     records, total, pages, ignored = parse_notices(client.get(url), url)
     if not records:
@@ -339,6 +358,20 @@ def crawl_notices(client, hit, aliases, cached_records, binding=None, max_pages=
             by_ref[prior['filing_ref']].update(verified)
         except Exception as exc:
             errors.append({'filing_ref':prior['filing_ref'],'reason':str(exc)})
+    # Backfill original event details gradually on every scheduled run. A new
+    # event is always fetched first; the backlog cannot delay the latest form.
+    pending = [r for r in sorted(by_ref.values(), key=lambda r:(r['event_date'],r['filing_ref']), reverse=True)
+               if not r.get('superseded_by') and r['filing_ref'] not in {form['filing_ref'], prior['filing_ref'] if prior else ''}
+               and (r.get('verification') != 'hkex_form' or r.get('position_details_schema') != POSITION_DETAILS_SCHEMA)]
+    for record in pending[:max(0, backfill_limit)]:
+        try:
+            verified = parse_form(client.get(record['form_url']), record['form_url'], aliases)
+            if verified['ticker'] != form['ticker'] or not entity_matches(verified['entity'], [hit['entity']]) or any(
+                    verified.get(k) != record.get(k) for k in ('filing_ref','event_date','shares','pct')):
+                raise ValueError('Historical original form disagrees with notice table')
+            record.update(verified)
+        except Exception as exc:
+            errors.append({'filing_ref':record['filing_ref'],'reason':str(exc)})
     binding={**form,'history_complete':complete and not errors,'notice_url':url}
     return list(by_ref.values()),binding,errors
 
@@ -350,6 +383,26 @@ def load_configs(path):
         aliases=options.get('entities') or [inv['manager'],*inv.get('people',[])]
         queries=options.get('queries') or [inv['manager'],*inv.get('people',[])]
         yield {**inv,'hkFile':inv.get('hkFile') or f"{inv['id']}_hk.json",'entities':aliases,'queries':queries}
+
+
+def holder_identity(url, name):
+    parsed=urlsplit(url)
+    pid=parse_qs(parsed.query).get('scpid1',[''])[0]
+    return ('legacy' if parsed.path.startswith('/filing/') else 'dion',canonical_entity(name or '')),pid
+
+
+def identity_allowed(hit, bindings, hits):
+    identity,pid=holder_identity(hit['noticeUrl'],hit['entity'])
+    if not pid.isdigit() or int(pid)==0:return False
+    trusted=set()
+    for key,binding in bindings.items():
+        if binding.get('verification')!='hkex_form':continue
+        link=binding.get('notice_url') or ORIGIN+key
+        previous,known=holder_identity(link,binding.get('entity',''))
+        if previous==identity and known:trusted.add(known)
+    if trusted:return pid in trusted
+    candidates={other_pid for h in hits for other_identity,other_pid in [holder_identity(h['noticeUrl'],h['entity'])] if other_identity==identity and other_pid}
+    return len(candidates)<=1
 
 
 def run_investor(inv,root,client=None):
@@ -397,6 +450,9 @@ def run_investor(inv,root,client=None):
                 hits[key]={**hit,'noticeUrl':link}
     collected=[]
     for key,hit in hits.items():
+        if not identity_allowed(hit,bindings,hits.values()):
+            errors.append({'entity':hit['entity'],'url':hit['noticeUrl'],'reason':'Same name with an unverified HKEX holder identity; no attribution made'})
+            continue
         try:
             print(f"HK {inv['id']}: verify {hit['entity']} / {hit['stockName']}",flush=True)
             cached=[r for h in rows.values() for r in h.get('verified_disclosures',[]) if r.get('source_key')==key]
@@ -412,6 +468,7 @@ def run_investor(inv,root,client=None):
             for r in records:
                 combined[r['filing_ref']]=r
             row['verified_disclosures']=sorted(combined.values(),key=lambda r:(r['event_date'],r.get('filing_date',''),r['filing_ref']))
+            row['pending_newer_notices']=[p for p in row.get('pending_newer_notices',[]) if p.get('source_key')!=key]
             row['first_disclosure']=row['verified_disclosures'][0]['event_date']
             row['last_disclosure']=row['verified_disclosures'][-1]['event_date']
             row['notes']='港交所原始披露自动核验；数量为对应主体当次披露的多头权益，不合并重复申报主体，不代表当前持仓或历史峰值。'
@@ -422,6 +479,22 @@ def run_investor(inv,root,client=None):
             if rejected:
                 errors.append({'entity':hit['entity'],'security':hit['stockName'],'rejected':rejected})
         except Exception as exc:
+            # An inaccessible newest form is not permission to continue showing
+            # a known older form as the latest. Retain its verified facts, but
+            # remember the newer notice as a display blocker without quantities.
+            prior_binding=bindings.get(key,{})
+            ticker=prior_binding.get('ticker')
+            if ticker in rows and prior_binding.get('verification')=='hkex_form':
+                try:
+                    notices,_,_,_=parse_notices(client.get(hit['noticeUrl']),hit['noticeUrl'])
+                    latest=max((r for r in notices if not r.get('superseded_by')),key=lambda r:(r['event_date'],r['filing_ref']))
+                    if latest['filing_ref']!=prior_binding.get('filing_ref'):
+                        blockers=[p for p in rows[ticker].get('pending_newer_notices',[]) if p.get('source_key')!=key]
+                        blockers.append({'source_key':key,'entity':hit['entity'],'event_date':latest['event_date'],
+                                         'filing_ref':latest['filing_ref'],'source_url':hit['noticeUrl']})
+                        rows[ticker]['pending_newer_notices']=blockers
+                except Exception:
+                    pass
             errors.append({'entity':hit['entity'],'security':hit['stockName'],'url':hit['noticeUrl'],'reason':str(exc)})
     # Pending rows are retained as leads and never silently converted to zero.
     for ticker,row in rows.items():

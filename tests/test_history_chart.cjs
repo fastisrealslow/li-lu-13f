@@ -263,16 +263,43 @@ test('HK quote references require HKD, dated prices, matching share class and fr
   assert.equal(a.run("hkQuoteState('01658.HK','H Shares',now).usable"),false);
 });
 
-test('HK cards preserve old disclosure dates, separate owners and expose derivatives',()=>{
+test('old HK disclosures and unconfirmed fields are absent from the homepage',()=>{
   const a=app();
-  const r={event_date:'2025-05-08',shares:985618000,pct:4.96,filing_ref:'BANK',source_url:'https://di.hkex.com.hk/di/NSForm1.aspx',verification:'hkex_form',share_class:'H Shares',entity:'Li Lu',derivative_interests:[{code:'4101',shares:10000000}]};
-  a.context.payload={holdings:[{ticker:'01658.HK',name:'PSBC',verified_disclosures:[r,{...r,entity:'Himalaya',filing_ref:'FUND'}]}]};
+  const r={event_date:'2025-05-08',shares:985618000,pct:4.96,filing_ref:'BANK',source_url:'https://di.hkex.com.hk/di/NSForm1.aspx',form_url:'https://di.hkex.com.hk/di/NSForm1.aspx',verification:'hkex_form',share_class:'H Shares',entity:'Li Lu',position:'long'};
+  a.context.payload={holdings:[{ticker:'01658.HK',name:'PSBC',verified_disclosures:[r]}]};
   a.run("hkDisclosures=payload;investor='lilu';prices={quotes:{}};renderHKDisclosures()");
+  assert.equal(a.el('hkDisclosureSection').hidden,true);
+  assert.equal(a.el('hkDisclosureSection').innerHTML,'');
+});
+
+test('recent original forms render a table and distinguish derivatives from purchases',()=>{
+  const a=app(),date=new Date(Date.now()-86400000).toISOString().slice(0,10);
+  const r={event_date:date,shares:106716000,pct:8.01,filing_ref:'F',source_url:'https://di.hkex.com.hk/di/NSForm2.aspx?fn=F',form_url:'https://di.hkex.com.hk/di/NSForm2.aspx?fn=F',verification:'hkex_form',share_class:'Ordinary Shares',entity:'Fund',position:'long',event_codes:['11032'],position_details_schema:3,before_long_shares:105716000,long_interest_change:1000000,derivative_interests:[{shares:10000000}]};
+  a.context.payload={holdings:[{ticker:'09992.HK',name:'Pop Mart',verified_disclosures:[r,{...r,entity:'Owner',filing_ref:'P'}]}]};
+  a.run("INVESTOR_CFG_BY_ID={duan:{manager:'Fund',people:['Owner']}};hkDisclosures=payload;investor='duan';prices={quotes:{}};renderHKDisclosures()");
   const html=a.el('hkDisclosureSection').innerHTML;
-  assert.match(html,/985,618,000/);assert.match(html,/4.96%/);assert.match(html,/2025-05-08/);
-  assert.match(html,/10,000,000 股衍生品/);assert.match(html,/不可相加/);assert.match(html,/当前持仓未核实/);
-  assert.match(html,/无法核实：缺少完整同日组合/);
-  assert.doesNotMatch(html,/1,971,236,000/);
+  assert.equal(a.el('hkDisclosureSection').hidden,false);
+  assert.match(html,/hk-disclosure-table/);assert.match(html,/106,716,000/);assert.match(html,/衍生品权益增加（交割义务）/);
+  assert.match(html,/多头权益 \+1,000,000 股/);assert.match(html,/其中衍生品对应权益 10,000,000/);
+  assert.doesNotMatch(html,/买入股票|缺少完整同日组合|当前持仓未核实|权益参考值/);
+  assert.doesNotMatch(html,/213,432,000/);
+});
+
+test('a newer unverified notice prevents an older form from appearing as latest',()=>{
+ const a=app(),date=new Date(Date.now()-86400000).toISOString().slice(0,10),oldDate=new Date(Date.now()-2*86400000).toISOString().slice(0,10);
+ const base={event_date:oldDate,shares:100,pct:5,filing_ref:'OLD',source_url:'https://di.hkex.com.hk/di/NSForm1.aspx',form_url:'https://di.hkex.com.hk/di/NSForm1.aspx',verification:'hkex_form',share_class:'Ordinary Shares',entity:'Fund',position:'long'};
+ a.context.sample={holdings:[{ticker:'09992.HK',verified_disclosures:[base,{...base,event_date:date,filing_ref:'NEW',verification:'hkex_notice_table',share_class:''}]}]};
+ assert.equal(a.run("hkVisibleGroups(sample,{manager:'Fund',people:[]}).length"),0);
+ a.context.sample={holdings:[{ticker:'09992.HK',verified_disclosures:[base],pending_newer_notices:[{entity:'Fund',event_date:date,filing_ref:'NEW',source_url:'https://di.hkex.com.hk/di/NSNoticePersonList.aspx'}]}]};
+ assert.equal(a.run("hkVisibleGroups(sample,{manager:'Fund',people:[]}).length"),0);
+ a.context.sample.holdings[0].pending_newer_notices[0].entity='Unrelated';
+ assert.equal(a.run("hkVisibleGroups(sample,{manager:'Fund',people:[]}).length"),1);
+});
+
+test('HK identity matching keeps different Chinese names distinct',()=>{
+ const a=app();
+ assert.notEqual(a.run("hkEntityKey('张三')"),a.run("hkEntityKey('李四')"));
+ assert.equal(a.run("hkEntityKey('H&H International Investment, LLC')"),a.run("hkEntityKey('h h international investment llc')"));
 });
 
 test('published Pop Mart disclosure retains its stock code and derivative component',()=>{
