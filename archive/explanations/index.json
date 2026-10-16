@@ -24,19 +24,19 @@
       "status": "ok"
     },
     "ackman-4f76dc9372c2a9": {
-      "at": "2026-10-15T04:44:54+00:00",
+      "at": "2026-10-16T01:17:41+00:00",
+      "status": "retry",
+      "reason": "AttributeError: 'str' object has no attribute 'get'"
+    },
+    "akre-6c46aa04220a2d": {
+      "at": "2026-10-16T01:25:38+00:00",
       "status": "retry",
       "reason": "ValueError: Detailed explanation is too short"
     },
-    "akre-6c46aa04220a2d": {
-      "at": "2026-10-15T04:48:51+00:00",
-      "status": "retry",
-      "reason": "HTTPError: HTTP Error 500: Internal Server Error"
-    },
     "berkowitz-82e815f64d1abc": {
-      "at": "2026-10-15T04:52:17+00:00",
+      "at": "2026-10-16T01:34:39+00:00",
       "status": "retry",
-      "reason": "AttributeError: 'str' object has no attribute 'get'"
+      "reason": "TimeoutError: timed out"
     },
     "buffett-08cef81cb6e703": {
       "at": "2026-10-15T04:59:11+00:00",
@@ -44,7 +44,7 @@
       "reason": "ValueError: Unsupported numerical claim"
     },
     "duan-8f135498ccdf75": {
-      "at": "2026-10-15T04:59:14+00:00",
+      "at": "2026-10-16T01:34:42+00:00",
       "status": "retry",
       "reason": "ValueError: No audio obtained"
     },
@@ -157,7 +157,27 @@
       "at": "2026-10-15T19:26:47+00:00",
       "status": "retry",
       "reason": "ValueError: No audio obtained"
+    },
+    "buffett-315d0333f57637": {
+      "at": "2026-10-16T00:56:59+00:00",
+      "status": "retry",
+      "reason": "ValueError: Detailed explanation is too short"
+    },
+    "pabrai-84930e49b02b52": {
+      "at": "2026-10-16T01:06:00+00:00",
+      "status": "retry",
+      "reason": "TimeoutError: timed out"
+    },
+    "vinall-2c8021ee8f5f62": {
+      "at": "2026-10-16T01:06:02+00:00",
+      "status": "retry",
+      "reason": "ValueError: No verified matching episode description"
+    },
+    "webb-38c6e1d522bcc3": {
+      "at": "2026-10-16T01:14:20+00:00",
+      "status": "retry",
+      "reason": "ValueError: Detailed explanation is too short"
     }
   },
-  "updatedAt": "2026-10-15T19:26:47+00:00"
+  "updatedAt": "2026-10-16T01:34:42+00:00"
 }
