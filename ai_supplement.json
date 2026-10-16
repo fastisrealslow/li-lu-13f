@@ -6259,14 +6259,14 @@
           ]
         ],
         [
-          "CMCSA",
-          "康卡斯特",
+          "CRWV",
+          "CoreWeave, Inc.",
           [
             [
-              "greenberg",
-              0.0,
-              "hold",
-              "格伦·格林伯格",
+              "tepper",
+              1.4,
+              "new",
+              "大卫·泰珀",
               "2026 Q2"
             ]
           ]
@@ -6285,6 +6285,19 @@
           ]
         ],
         [
+          "CMCSA",
+          "康卡斯特",
+          [
+            [
+              "greenberg",
+              0.0,
+              "hold",
+              "格伦·格林伯格",
+              "2026 Q2"
+            ]
+          ]
+        ],
+        [
           "BN",
           "布鲁克菲尔德",
           [
@@ -6293,19 +6306,6 @@
               10.1,
               "trimmed",
               "查克·阿克瑞",
-              "2026 Q2"
-            ]
-          ]
-        ],
-        [
-          "HDB",
-          "印度住房金融",
-          [
-            [
-              "hawkins",
-              0.0,
-              "hold",
-              "梅森·霍金斯",
               "2026 Q2"
             ]
           ]
@@ -6324,14 +6324,14 @@
           ]
         ],
         [
-          "CRWV",
-          "CoreWeave, Inc.",
+          "HDB",
+          "印度住房金融",
           [
             [
-              "tepper",
-              1.4,
-              "new",
-              "大卫·泰珀",
+              "hawkins",
+              0.0,
+              "hold",
+              "梅森·霍金斯",
               "2026 Q2"
             ]
           ]
@@ -6402,19 +6402,6 @@
           ]
         ],
         [
-          "FG",
-          "F&G 年金与寿险",
-          [
-            [
-              "greenberg",
-              1.4,
-              "trimmed",
-              "格伦·格林伯格",
-              "2026 Q2"
-            ]
-          ]
-        ],
-        [
           "FICO",
           "公平信息公司",
           [
@@ -6423,6 +6410,19 @@
               8.4,
               "trimmed",
               "查克·阿克瑞",
+              "2026 Q2"
+            ]
+          ]
+        ],
+        [
+          "FG",
+          "F&G 年金与寿险",
+          [
+            [
+              "greenberg",
+              1.4,
+              "trimmed",
+              "格伦·格林伯格",
               "2026 Q2"
             ]
           ]
@@ -6506,23 +6506,20 @@
           ]
         ]
       ],
-      "sourceHash": "3b93b25bdaf1acc584120ca63507b323a4c95072edc1cb85fbfd071352fe1a57",
+      "sourceHash": "a1493546540049bb63c01da8e6e4db596fbf68b59d6665e1b549f10b8704b0e5",
       "selection": {
         "factIds": [
           "f3",
-          "f7",
-          "f9"
+          "f4",
+          "f5"
         ]
       },
       "renderVersion": 4,
-      "mode": "model_selection",
-      "summary": "按各投资人最新披露组合：格伦·格林伯格（2026 Q2）：莱纳建筑（LEN）减持，占其披露组合市值4.7%；查克·阿克瑞（2026 Q2）：布鲁克菲尔德（BN）减持，占其披露组合市值10.1%；大卫·泰珀（2026 Q2）：百度（BIDU）增持，占其披露组合市值1.9%。",
-      "generatedAt": "2026-10-16T09:15:47.292441+00:00",
-      "model": "qwen3.5:9b-q4_K_M",
-      "metrics": {
-        "seconds": 140.46,
-        "tokens": 14
-      }
+      "mode": "deterministic",
+      "summary": "按各投资人最新披露组合：格伦·格林伯格（2026 Q2）：莱纳建筑（LEN）减持，占其披露组合市值4.7%；大卫·泰珀（2026 Q2）：惠而浦（WHR）减持，占其披露组合市值0.4%；大卫·泰珀（2026 Q2）：CoreWeave, Inc.（CRWV）新建仓，占其披露组合市值1.4%。",
+      "generatedAt": "2026-10-16T17:19:45.226370+00:00",
+      "model": null,
+      "metrics": {}
     },
     "investor:duan": {
       "facts": {
@@ -52917,7 +52914,7 @@
     "pendingBefore": 7,
     "cached": 33,
     "finishedAt": "2026-10-16T09:20:07.503310+00:00",
-    "pendingAfter": 6,
+    "pendingAfter": 7,
     "accepted": 1,
     "fallback": 3,
     "rejected": 0,
@@ -52926,7 +52923,7 @@
   "schemaVersion": 2,
   "fallbackRefresh": {
     "kind": "source_refresh",
-    "finishedAt": "2026-10-16T02:08:57.936547+00:00",
+    "finishedAt": "2026-10-16T17:19:45.226415+00:00",
     "accepted": 0,
     "fallback": 8,
     "failed": 0,
