@@ -16,6 +16,14 @@
       "generatedAt": "2026-10-15T04:41:35+00:00",
       "catalogDate": "2019-06-14",
       "catalogTitle": "David Abrams - Applying a Fundamental and Value-Oriented Approach to Investing"
+    },
+    "tepper-f9bfbe7ac5ae4f": {
+      "file": "archive/explanations/tepper-f9bfbe7ac5ae4f.json",
+      "inputHash": "e404f9384f3e82cf641b5a675dc81545468cab5dde393c39ea8be40d4eaa34d7",
+      "sourceBasis": "official_text",
+      "generatedAt": "2026-10-16T19:00:07+00:00",
+      "catalogDate": "2018-05-20",
+      "catalogTitle": "Carnegie Mellon Commencement: Adversity, Courage and Giving Back"
     }
   },
   "attempts": {
@@ -79,12 +87,12 @@
       "reason": "ValueError: Missing or invalid source evidence"
     },
     "akre-2215a13c870884": {
-      "at": "2026-10-15T12:20:38+00:00",
+      "at": "2026-10-16T18:33:42+00:00",
       "status": "retry",
       "reason": "ValueError: No audio obtained"
     },
     "berkowitz-c60a89666ffbc0": {
-      "at": "2026-10-15T12:20:38+00:00",
+      "at": "2026-10-16T18:33:42+00:00",
       "status": "retry",
       "reason": "ValueError: No audio obtained"
     },
@@ -94,22 +102,22 @@
       "reason": "ValueError: Detailed explanation is too short"
     },
     "duan-d7212008ca9cb0": {
-      "at": "2026-10-15T12:37:12+00:00",
+      "at": "2026-10-16T18:39:03+00:00",
       "status": "retry",
-      "reason": "TimeoutError: timed out"
+      "reason": "ValueError: Detailed explanation needs six sections"
     },
     "greenberg-6ffab78b7040e3": {
-      "at": "2026-10-15T12:46:14+00:00",
+      "at": "2026-10-16T18:43:56+00:00",
       "status": "retry",
-      "reason": "TimeoutError: timed out"
+      "reason": "ValueError: Detailed explanation is too short"
     },
     "hawkins-4bfffa4e8bf77c": {
-      "at": "2026-10-15T12:46:14+00:00",
+      "at": "2026-10-16T18:43:56+00:00",
       "status": "retry",
       "reason": "ValueError: No audio obtained"
     },
     "klarman-2fd6b198382049": {
-      "at": "2026-10-15T12:46:14+00:00",
+      "at": "2026-10-16T18:43:56+00:00",
       "status": "retry",
       "reason": "ValueError: No audio obtained"
     },
@@ -119,9 +127,9 @@
       "reason": "TimeoutError: timed out"
     },
     "ackman-918af90dea38d8": {
-      "at": "2026-10-15T18:51:57+00:00",
+      "at": "2026-10-16T18:51:43+00:00",
       "status": "retry",
-      "reason": "TimeoutError: timed out"
+      "reason": "ValueError: Unsupported numerical claim"
     },
     "buffett-7177025720de85": {
       "at": "2026-10-15T18:57:19+00:00",
@@ -144,9 +152,8 @@
       "reason": "TimeoutError: timed out"
     },
     "tepper-f9bfbe7ac5ae4f": {
-      "at": "2026-10-15T19:22:05+00:00",
-      "status": "retry",
-      "reason": "AttributeError: 'str' object has no attribute 'get'"
+      "at": "2026-10-16T19:00:07+00:00",
+      "status": "ok"
     },
     "vinall-79dd2e86c60222": {
       "at": "2026-10-15T19:26:47+00:00",
@@ -154,7 +161,7 @@
       "reason": "ValueError: Detailed explanation is too short"
     },
     "webb-1b2d5eb1f6cde7": {
-      "at": "2026-10-15T19:26:47+00:00",
+      "at": "2026-10-16T19:00:07+00:00",
       "status": "retry",
       "reason": "ValueError: No audio obtained"
     },
@@ -192,7 +199,32 @@
       "at": "2026-10-16T12:12:18+00:00",
       "status": "retry",
       "reason": "ValueError: No verified matching episode description"
+    },
+    "buffett-0dffc205cf0707": {
+      "at": "2026-10-16T18:28:04+00:00",
+      "status": "retry",
+      "reason": "ValueError: No audio obtained"
+    },
+    "pabrai-7cdabeb4fe63b6": {
+      "at": "2026-10-16T18:33:40+00:00",
+      "status": "retry",
+      "reason": "ValueError: Detailed explanation is too short"
+    },
+    "vinall-29124350f57833": {
+      "at": "2026-10-16T18:33:41+00:00",
+      "status": "retry",
+      "reason": "ValueError: No verified matching episode description"
+    },
+    "lilu-26e7f20245e789": {
+      "at": "2026-10-16T19:06:48+00:00",
+      "status": "retry",
+      "reason": "ValueError: Unsupported numerical claim"
+    },
+    "buffett-af803f0ccc1d8b": {
+      "at": "2026-10-16T19:12:51+00:00",
+      "status": "retry",
+      "reason": "ValueError: Source summary exceeds its short paraphrase budget"
     }
   },
-  "updatedAt": "2026-10-16T12:43:52+00:00"
+  "updatedAt": "2026-10-16T19:12:51+00:00"
 }
