@@ -15,6 +15,14 @@ import speech_archive
 
 
 class SectionGenerationTests(unittest.TestCase):
+    def test_approved_work_can_dispatch_pages_without_waiting_for_the_whole_batch(self):
+        with patch.dict(os.environ,{'ARCHIVE_DEPLOY_TOKEN':'synthetic-test-key','GITHUB_REPOSITORY':'owner/repository'}),patch.object(generator.urllib.request,'urlopen',return_value=io.BytesIO(b'')) as request:
+            generator.request_deployment()
+            call=request.call_args.args[0]
+            self.assertEqual(call.full_url,'https://api.github.com/repos/owner/repository/actions/workflows/deploy-pages.yml/dispatches')
+            self.assertEqual(json.loads(call.data),{'ref':'master'})
+            self.assertEqual(call.method,'POST')
+
     def test_retry_cannot_overwrite_a_newer_approved_text_or_success_status(self):
         approved={'file':'archive/explanations/test.json','inputHash':'current','reviewStatus':'verified'}
         fresh={'entries':{'test':approved},'attempts':{'test':{'status':'ok'}}}

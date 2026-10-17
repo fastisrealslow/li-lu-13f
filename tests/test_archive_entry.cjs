@@ -33,7 +33,7 @@ test('an unreviewed generated file cannot inflate the displayed completed-work c
   const count={textContent:''},host={innerHTML:'',querySelector:()=>count};
   const works=['a','b'].map(id=>({id,investor:'lilu',date:'2026',title:{en:id,zh:id}}));
   const payloads={'archive/catalog.json':{works},'archive/guides.json':{guides:{}},'archive/explanations/index.json':{entries:{a:{catalogDate:'2026',catalogTitle:'a',reviewStatus:'verified'},b:{catalogDate:'2026',catalogTitle:'b'}}}};
-  const context={window:{},document:{getElementById:()=>host},fetch:async url=>({ok:true,json:async()=>payloads[url]})};
+  const context={window:{},document:{getElementById:()=>host},fetch:async url=>({ok:true,json:async()=>payloads[url.split('?')[0]]})};
   vm.createContext(context);vm.runInContext(fs.readFileSync(path.join(__dirname,'../archive_entry.js'),'utf8'),context);
   await context.window.SpeechArchive.updateInvestor({id:'lilu',name:'李录'},false);
   assert.match(count.textContent,/已建档 2 篇 · 单篇详细介绍 1 篇/);

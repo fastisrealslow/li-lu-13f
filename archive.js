@@ -87,7 +87,7 @@
   }
   async function init(){
     try{
-      const rs=await Promise.all([fetch('archive/catalog.json'),fetch('investors.json'),fetch('archive/guides.json'),fetch('archive/explanations/index.json')]);if(rs.some(r=>!r.ok))throw Error('Archive unavailable');
+      const rs=await Promise.all([fetch('archive/catalog.json'),fetch('investors.json'),fetch('archive/guides.json'),fetch('archive/explanations/index.json?v=3')]);if(rs.some(r=>!r.ok))throw Error('Archive unavailable');
       [catalog,people,guides,explanationIndex]=await Promise.all(rs.map(r=>r.json()));people=Array.isArray(people)?people:people.investors;
       $('archiveInvestor').innerHTML=people.map(p=>`<option value="${esc(p.id)}">${esc(p.name)}</option>`).join('');
       const q=new URLSearchParams(location.search);setPerson(q.get('investor')||'lilu',q.get('work'));

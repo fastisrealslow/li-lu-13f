@@ -9,7 +9,7 @@
     try{
       if(!pending)pending=load('archive/catalog.json').catch(e=>{pending=null;throw e;});
       if(!guidesPending)guidesPending=load('archive/guides.json').catch(()=>{guidesPending=null;return {guides:{}};});
-      if(!explanationsPending)explanationsPending=load('archive/explanations/index.json').catch(()=>{explanationsPending=null;return {entries:{}};});
+      if(!explanationsPending)explanationsPending=load('archive/explanations/index.json?v=3').catch(()=>{explanationsPending=null;return {entries:{}};});
       const [catalog,guides,index]=await Promise.all([pending,guidesPending,explanationsPending]);if(own!==generation)return;
       const items=catalog.works.filter(w=>w.investor===cfg.id),ready=items.filter(w=>{const e=index.entries?.[w.id];return e&&e.reviewStatus==='verified'&&e.catalogDate===w.date&&e.catalogTitle===w.title.en;}).length,g=guides.guides?.[cfg.id];
       if(g){

@@ -75,7 +75,7 @@ jobs:
     timeout-minutes: 350
     permissions:
       contents: write
-      actions: read
+      actions: write
     env:
       SILICONFLOW_KEY: ${{ secrets.SILICONFLOW_KEY }}
       ARCHIVE_CLOUD_KEY: ${{ secrets.SILICONFLOW_KEY }}
@@ -85,6 +85,7 @@ jobs:
       OLLAMA_NO_CLOUD: '1'
       ARCHIVE_PUBLISH_EACH: '1'
       ARCHIVE_ALLOW_ASR: '1'
+      ARCHIVE_DEPLOY_TOKEN: ${{ github.token }}
     steps:
       - uses: actions/checkout@v4
         with:

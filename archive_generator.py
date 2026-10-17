@@ -70,7 +70,7 @@ def ask(system,prompt,model,tokens=2600):
             with urllib.request.urlopen(req,timeout=900) as response:data=json.load(response)
             break
         except urllib.error.HTTPError as exc:
-            if key and exc.code==400 and body['response_format']['type']=='json_schema':
+            if key and exc.code==400 and body['response_format']['type']=='json_schema' and attempt<3:
                 body['response_format']={'type':'json_object'}
                 req=urllib.request.Request(url,json.dumps(body).encode(),headers)
                 continue
@@ -145,6 +145,19 @@ def generate(work,chunks,basis,model,needed,root):
     return note
 
 
+def request_deployment():
+    """Bot pushes do not trigger Pages; publish an approved work immediately."""
+    token=os.environ.get('ARCHIVE_DEPLOY_TOKEN');repo=os.environ.get('GITHUB_REPOSITORY')
+    if not token or not repo:return
+    request=urllib.request.Request('https://api.github.com/repos/'+repo+'/actions/workflows/deploy-pages.yml/dispatches',
+        json.dumps({'ref':'master'}).encode(),{'Authorization':'Bearer '+token,'Accept':'application/vnd.github+json','Content-Type':'application/json'},method='POST')
+    try:
+        with urllib.request.urlopen(request,timeout=30):pass
+        print('Approved introduction queued for Pages publication.',flush=True)
+    except Exception as error:
+        print('Pages dispatch will retry when the batch finishes:',type(error).__name__,getattr(error,'code',''),flush=True)
+
+
 def publish(root,index,ident):
     """Merge only this work's checkpoint into fresh master; never merge financial data."""
     root=Path(root)
@@ -166,6 +179,8 @@ def publish(root,index,ident):
         git('add','--',*paths)
         if git('diff','--cached','--quiet',check=False).returncode==0:return latest
         git('commit','-m',f'auto: checkpoint detailed introduction {ident}')
-        if git('push','origin','HEAD:master',check=False).returncode==0:return latest
+        if git('push','origin','HEAD:master',check=False).returncode==0:
+            if successful:request_deployment()
+            return latest
         time.sleep(2+retry)
     raise RuntimeError('Introduction checkpoint publication needs retry')
