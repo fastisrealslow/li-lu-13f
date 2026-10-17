@@ -1,7 +1,7 @@
 (function(){
   let pending,guidesPending,explanationsPending,generation=0;
   function escape(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
-  const load=url=>fetch(url).then(r=>{if(!r.ok)throw Error('Archive unavailable');return r.json();});
+  const load=url=>fetch(url,{cache:'no-store'}).then(r=>{if(!r.ok)throw Error('Archive unavailable');return r.json();});
   window.SpeechArchive={async updateInvestor(cfg,en){
     const host=document.getElementById('speechArchiveEntry');if(!host)return;
     const own=++generation,key=en?'en':'zh',name=en?cfg.nameEn:cfg.name,url=`archive.html?investor=${encodeURIComponent(cfg.id)}`;

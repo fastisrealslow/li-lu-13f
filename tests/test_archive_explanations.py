@@ -79,5 +79,17 @@ class ArchiveExplanationTests(unittest.TestCase):
         self.assertTrue(text.startswith('Requested episode'))
         self.assertEqual(basis,'description')
 
+    def test_canonical_episode_notes_survive_a_broken_or_truncated_rss_feed(self):
+        url='https://valueinvestingwithlegends.libsyn.com/requested'
+        work={'investor':'abrams','title':{'en':'David Abrams - Requested episode'},'sources':[{'url':url}]}
+        page=('<title>Value Investing with Legends: David Abrams - Requested episode</title><aside>Unrelated guest</aside><div class="libsyn-item" data-id="123"><p class="lead">David Abrams '+('Synthetic programme description for verification. '*30)+'</p></div>').encode()
+        def get(target):return (page,'text/html') if target==url else (b'<rss><![CDATA[truncated','text/xml')
+        with patch.object(explain.source,'fetch',side_effect=get):
+            text,basis,origin=explain.obtain_material(work)
+        self.assertEqual(basis,'description');self.assertEqual(origin,url)
+        self.assertNotIn('Unrelated guest',text)
+        with patch.object(explain.source,'fetch',return_value=(page.replace(b'Requested episode',b'Different episode'),'text/html')):
+            with self.assertRaises(Exception):explain.obtain_material(work)
+
 
 if __name__=='__main__':unittest.main()

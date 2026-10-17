@@ -85,6 +85,18 @@ def validate(note,work,chunks,minimum_chars,required_sections=6):
 def obtain_material(work):
     url=work['sources'][0]['url'];host=urlsplit(url).hostname
     if host=='valueinvestingwithlegends.libsyn.com':
+        # Older episodes can fall out of the feed, and a truncated feed must
+        # not prevent a valid canonical episode page from being read.
+        try:
+            raw,_=source.fetch(url);page=source.soup(raw);items=page.select('.libsyn-item[data-id]')
+            normalize=lambda value:' '.join(re.findall(r'[a-z0-9]+',value.lower()))
+            expected=normalize(work.get('title',{}).get('en',''))
+            title=page.title.get_text(' ',strip=True) if page.title else ''
+            if len(items)==1 and expected and expected in normalize(title):
+                body=items[0].select_one('.lead');text=body.get_text('\n\n',strip=True) if body else ''
+                if len(text)>=600 and any(name.casefold() in text.casefold() for name in author_aliases(work)):
+                    return text,'description',url
+        except Exception:pass
         feed='https://valueinvestingwithlegends.libsyn.com/rss'
         raw,_=source.fetch(feed)
         for item in ET.fromstring(raw).findall('.//item'):
@@ -182,7 +194,7 @@ def run(root=ROOT,model='qwen3.5:4b-q4_K_M',limit=230,minutes=300,shard=0,shards
             if work.get('_materialURL'):note['materialURL']=work['_materialURL']
             if work.get('_materialURLs'):note['materialURLs']=work['_materialURLs']
             path='archive/explanations/'+work['id']+'.json';write(root/path,note)
-            index['entries'][work['id']]={'file':path,'inputHash':input_hash(work),'reviewStatus':'verified','sourceBasis':basis,'generatedAt':note['generatedAt'],'catalogDate':work.get('date'),'catalogTitle':work['title']['en']}
+            index['entries'][work['id']]={'file':path,'inputHash':input_hash(work),'sourceDigest':note['sourceDigest'],'reviewStatus':'verified','sourceBasis':basis,'generatedAt':note['generatedAt'],'catalogDate':work.get('date'),'catalogTitle':work['title']['en']}
             index['attempts'][work['id']]={'at':stamp(),'status':'ok','inputHash':input_hash(work)};done+=1
             print('Explained',work['id'],flush=True)
         except Exception as e:
@@ -205,6 +217,7 @@ def validate_saved(root=ROOT):
         if note.get('version',1)>=2 and entry.get('reviewStatus')!='verified':continue
         if note.get('version',1)>=3 and note.get('reviewVersion')!=1:raise ValueError('Missing bilingual editorial review')
         if entry.get('inputHash')!=note.get('inputHash'):raise ValueError('Introduction index does not match its approved text')
+        if entry.get('sourceDigest') and entry['sourceDigest']!=note.get('sourceDigest'):raise ValueError('Introduction source digest differs from its approved index')
         if note.get('kind')!='ai_explanation' or note.get('workId')!=ident or not re.fullmatch('[a-f0-9]{64}',note.get('sourceDigest','')):
             raise ValueError('Invalid explanation provenance')
         if note.get('sourceURL') not in [s['url'] for s in works[ident]['sources']]:raise ValueError('Unlisted source')

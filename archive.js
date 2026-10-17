@@ -50,7 +50,8 @@
   }
   function renderPair(p){return mode==='bilingual'?`<div class="archive-text-pair"><p lang="zh-CN">${esc(p.zh)}</p><p lang="en" class="archive-en">${esc(p.en)}</p></div>`:`<p class="archive-text-line">${esc(p[mode==='en'?'en':'zh'])}</p>`;}
   function renderSections(sections){return sections.map(s=>`<section class="archive-explanation-section"><h2>${esc(tr(s.heading.zh,s.heading.en))}</h2>${s.paragraphs.map(renderPair).join('')}</section>`).join('');}
-  function validExplanation(note,w){
+  function validExplanation(note,w,entry){
+    if(note.inputHash!==entry.inputHash || (entry.sourceDigest && note.sourceDigest!==entry.sourceDigest))throw Error('Introduction differs from approved index');
     if((note.version>=3&&note.reviewVersion!==1)||note.kind!=='ai_explanation'||note.workId!==w.id||note.catalogDate!==w.date||note.catalogTitle!==w.title.en||!note.label?.zh||!note.label?.en||!w.sources.some(s=>s.url===note.sourceURL)||!/^[a-f0-9]{64}$/.test(note.sourceDigest||'')||!note.sourceSummary?.zh||!note.sourceSummary?.en||!Array.isArray(note.sections)||note.sections.length<6)throw Error('Invalid AI introduction');
     const ids=new Set((note.evidence||[]).map(e=>e.id));
     if(note.sections.some(s=>!s.heading?.zh||!s.heading?.en||!s.paragraphs?.length||s.paragraphs.some(p=>!p.zh||!p.en)||!s.evidenceIds?.length||s.evidenceIds.some(id=>!ids.has(id))))throw Error('Missing source evidence');
@@ -63,7 +64,7 @@
     let failedExplanation=false,failedText=false;
     const entry=explanationIndex.entries?.[w.id];
     if(explained(w) && entry && /^archive\/explanations\/[a-z0-9_-]+\.json$/.test(entry.file)){
-      try{const r=await fetch(entry.file);if(!r.ok)throw Error('Introduction unavailable');const n=validExplanation(await r.json(),w);if(own!==request)return;currentExplanation=n;}
+      try{const r=await fetch(entry.file+'?v='+encodeURIComponent(entry.inputHash+'|'+entry.generatedAt),{cache:'no-store'});if(!r.ok)throw Error('Introduction unavailable');const n=validExplanation(await r.json(),w,entry);if(own!==request)return;currentExplanation=n;}
       catch(e){failedExplanation=true;}
     }
     if(ready(w)){
@@ -87,7 +88,7 @@
   }
   async function init(){
     try{
-      const rs=await Promise.all([fetch('archive/catalog.json'),fetch('investors.json'),fetch('archive/guides.json'),fetch('archive/explanations/index.json?v=3')]);if(rs.some(r=>!r.ok))throw Error('Archive unavailable');
+      const rs=await Promise.all([fetch('archive/catalog.json',{cache:'no-store'}),fetch('investors.json',{cache:'no-store'}),fetch('archive/guides.json',{cache:'no-store'}),fetch('archive/explanations/index.json?v=3',{cache:'no-store'})]);if(rs.some(r=>!r.ok))throw Error('Archive unavailable');
       [catalog,people,guides,explanationIndex]=await Promise.all(rs.map(r=>r.json()));people=Array.isArray(people)?people:people.investors;
       $('archiveInvestor').innerHTML=people.map(p=>`<option value="${esc(p.id)}">${esc(p.name)}</option>`).join('');
       const q=new URLSearchParams(location.search);setPerson(q.get('investor')||'lilu',q.get('work'));

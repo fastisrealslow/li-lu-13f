@@ -3,30 +3,33 @@
   "entries": {
     "lilu-0d01e90768057a": {
       "file": "archive/explanations/lilu-0d01e90768057a.json",
-      "inputHash": "588278f868de9a5c9587553427ccfeba52046924e59459ab45e56591c63e7cec",
+      "inputHash": "514617101c7f666ecba3390b2f616c863fba0314b4c8fd54b97e79af698ee847",
+      "sourceDigest": "63acd32a96aa879aba4726602b4391335243ba7377546016dfe7f9d777366dbf",
+      "reviewStatus": "verified",
       "sourceBasis": "official_text",
-      "generatedAt": "2026-10-14T14:21:46+00:00",
+      "generatedAt": "2026-10-17T15:22:45+00:00",
       "catalogDate": "2024-12-07",
-      "catalogTitle": "Global Value Investing in Our Era Li Lu's keynote speech at the 10th anniversary celebration of the value investing course, Peking University, December 2024",
-      "reviewStatus": "verified"
+      "catalogTitle": "Global Value Investing in Our Era Li Lu's keynote speech at the 10th anniversary celebration of the value investing course, Peking University, December 2024"
     },
     "abrams-e7efb3503c1729": {
       "file": "archive/explanations/abrams-e7efb3503c1729.json",
-      "inputHash": "ef108a4c950ce3f9ea9bdc4700b3573809704e4b2791c3218e1b75d39ca874f7",
+      "inputHash": "70a6f1f00665ef8f801e08eb726ca6a436897ab0a4f2df5821f11ffbcfeea479",
+      "sourceDigest": "5f53ee36587158daee7295ac3d9ee8637be18ccf842e1eb020c8f25e02fc4c22",
+      "reviewStatus": "verified",
       "sourceBasis": "description",
-      "generatedAt": "2026-10-15T04:41:35+00:00",
+      "generatedAt": "2026-10-17T15:22:45+00:00",
       "catalogDate": "2019-06-14",
-      "catalogTitle": "David Abrams - Applying a Fundamental and Value-Oriented Approach to Investing",
-      "reviewStatus": "verified"
+      "catalogTitle": "David Abrams - Applying a Fundamental and Value-Oriented Approach to Investing"
     },
     "tepper-f9bfbe7ac5ae4f": {
       "file": "archive/explanations/tepper-f9bfbe7ac5ae4f.json",
-      "inputHash": "e404f9384f3e82cf641b5a675dc81545468cab5dde393c39ea8be40d4eaa34d7",
+      "inputHash": "6f75e1beebf50cde580c41d2354bc1410c168801aedece0e559f7cb95ce455c2",
+      "sourceDigest": "ac32def26e8dcc6d7aa431d873d6dd94b207df2c40d11d3c6ed656bfaa20a401",
+      "reviewStatus": "verified",
       "sourceBasis": "official_text",
-      "generatedAt": "2026-10-16T19:00:07+00:00",
+      "generatedAt": "2026-10-17T15:22:45+00:00",
       "catalogDate": "2018-05-20",
-      "catalogTitle": "Carnegie Mellon Commencement: Adversity, Courage and Giving Back",
-      "reviewStatus": "verified"
+      "catalogTitle": "Carnegie Mellon Commencement: Adversity, Courage and Giving Back"
     },
     "pabrai-c31cbca535cfa5": {
       "file": "archive/explanations/pabrai-c31cbca535cfa5.json",
@@ -102,10 +105,10 @@
   },
   "attempts": {
     "abrams-e7efb3503c1729": {
-      "at": "2026-10-17T15:22:58+00:00",
-      "status": "retry",
+      "at": "2026-10-17T15:22:45+00:00",
+      "status": "ok",
       "inputHash": "70a6f1f00665ef8f801e08eb726ca6a436897ab0a4f2df5821f11ffbcfeea479",
-      "reason": "ValueError: Incomplete AI section"
+      "review": "bilingual_editorial_review"
     },
     "ackman-4f76dc9372c2a9": {
       "at": "2026-10-17T01:33:23+00:00",
@@ -230,10 +233,10 @@
       "reason": "TimeoutError: timed out"
     },
     "tepper-f9bfbe7ac5ae4f": {
-      "at": "2026-10-17T15:26:04+00:00",
-      "status": "retry",
+      "at": "2026-10-17T15:22:45+00:00",
+      "status": "ok",
       "inputHash": "6f75e1beebf50cde580c41d2354bc1410c168801aedece0e559f7cb95ce455c2",
-      "reason": "ValueError: Incomplete AI section"
+      "review": "bilingual_editorial_review"
     },
     "vinall-79dd2e86c60222": {
       "at": "2026-10-15T19:26:47+00:00",
@@ -386,9 +389,10 @@
       "reason": "ValueError: Missing or invalid source evidence"
     },
     "lilu-0d01e90768057a": {
-      "at": "2026-10-17T14:33:48+00:00",
-      "status": "retry",
-      "reason": "ValueError: Missing or invalid source evidence"
+      "at": "2026-10-17T15:22:45+00:00",
+      "status": "ok",
+      "inputHash": "514617101c7f666ecba3390b2f616c863fba0314b4c8fd54b97e79af698ee847",
+      "review": "bilingual_editorial_review"
     },
     "buffett-078954b485cb29": {
       "at": "2026-10-17T14:35:06+00:00",
@@ -573,5 +577,5 @@
       "reason": "ValueError: Incomplete AI section"
     }
   },
-  "updatedAt": "2026-10-17T15:28:43+00:00"
+  "updatedAt": "2026-10-17T15:32:43.701Z"
 }

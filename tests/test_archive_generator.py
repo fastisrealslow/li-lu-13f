@@ -15,6 +15,20 @@ import speech_archive
 
 
 class SectionGenerationTests(unittest.TestCase):
+    def test_same_source_cannot_overwrite_an_already_approved_current_introduction(self):
+        approved={'file':'archive/explanations/reviewed.json','inputHash':'current','sourceDigest':'same-source','reviewStatus':'verified'}
+        fresh={'entries':{'test':approved},'attempts':{}}
+        commands=[]
+        def git(args,**kwargs):
+            commands.append(args)
+            return subprocess.CompletedProcess(args,1 if args[1:4]==['diff','--cached','--quiet'] else 0,stdout=json.dumps(fresh) if args[1:3]==['show','origin/master:archive/explanations/index.json'] else '',stderr='')
+        with tempfile.TemporaryDirectory() as tmp,patch.object(generator.subprocess,'run',side_effect=git),patch.object(generator,'request_deployment') as deploy:
+            (Path(tmp)/'archive/explanations').mkdir(parents=True)
+            result=generator.publish(tmp,{'entries':{'test':{**approved,'file':'archive/explanations/redundant.json'}},'attempts':{'test':{'status':'ok','inputHash':'current'}},'updatedAt':'now'},'test')
+            self.assertEqual(result['entries']['test'],approved)
+            self.assertFalse(any('archive/explanations/redundant.json' in c for c in commands))
+            deploy.assert_not_called()
+
     def test_approved_work_can_dispatch_pages_without_waiting_for_the_whole_batch(self):
         with patch.dict(os.environ,{'ARCHIVE_DEPLOY_TOKEN':'synthetic-test-key','GITHUB_REPOSITORY':'owner/repository'}),patch.object(generator.urllib.request,'urlopen',return_value=io.BytesIO(b'')) as request:
             generator.request_deployment()
@@ -59,10 +73,12 @@ class SectionGenerationTests(unittest.TestCase):
         self.assertEqual(speech_archive.embedded_source_media(page.replace(b'</main>',b'<iframe src="https://www.youtube.com/embed/zyxwvutsrqp"></iframe></main>'),'https://publisher.example/interview'),[])
 
     def test_cpu_output_schema_binds_evidence_and_requires_substantial_sections(self):
-        schema=generator.output_schema({'task':'Write one section','minimumChineseCharacters':600,'evidence':[{'id':'s17'}]})
-        self.assertEqual(schema['properties']['evidenceIds']['items']['enum'],['s17'])
-        self.assertEqual(schema['properties']['paragraphs']['minItems'],3)
-        self.assertGreaterEqual(schema['properties']['paragraphs']['items']['properties']['zh']['minLength'],280)
+        outline=generator.output_schema({'task':'Plan six sections','evidence':[{'id':'s17'}]})
+        self.assertEqual(outline['properties']['sections']['items']['properties']['evidenceIds']['items']['enum'],['s17'])
+        schema=generator.output_schema({'task':'Write one paragraph','minimumChineseCharacters':200})
+        self.assertEqual(schema['required'],['zh','en'])
+        self.assertGreaterEqual(schema['properties']['zh']['minLength'],240)
+        self.assertLessEqual(schema['properties']['zh']['maxLength'],400)
 
     def test_validated_sections_resume_without_restarting_the_work(self):
         headings=['竞争','现金','资本','风险','组织','估值']
@@ -73,17 +89,19 @@ class SectionGenerationTests(unittest.TestCase):
         def ask(system,prompt,model,tokens):
             if prompt['task'].startswith('Plan'):return copy.deepcopy(outline)
             if prompt['task'].startswith('Review'):return {'valid':True,'problems':[]}
-            h=prompt['topic']['heading']['zh'];requested.append(h)
-            if failed and h=='资本':raise TimeoutError('synthetic failure')
-            return {**copy.deepcopy(prompt['topic']),'paragraphs':[{'zh':h+'。'+h.join(['这个段落是用于验证断点续写的独立合成分析。']*35),'en':'An original synthetic analytical paragraph for verification.'}]}
+            h=prompt['topic']['heading']['zh'];role=prompt['paragraphRole'];requested.append((h,role))
+            if failed and h=='资本' and role=='conditions':raise TimeoutError('synthetic failure')
+            return {'zh':h+'。'+role+h.join(['这个段落是用于验证断点续写的独立合成分析。']*35),'en':'An original synthetic analytical paragraph for verification of '+role+'.'}
         with tempfile.TemporaryDirectory() as tmp,patch.object(generator,'ask',side_effect=ask),patch.object(generator.time,'sleep'):
             with self.assertRaises(TimeoutError):generator.generate(work,chunks,'official_text','synthetic',2600,Path(tmp))
             checkpoint=e.read(Path(tmp)/'.archive-work/partials/synthetic-test.json')
-            self.assertEqual(len(checkpoint['sections']),2)
+            self.assertEqual(len(checkpoint['sections']),3)
+            self.assertEqual(len(checkpoint['sections'][2]['paragraphs']),1)
             requested.clear();failed=False
             note=generator.generate(work,chunks,'official_text','synthetic',2600,Path(tmp))
             self.assertEqual(len(note['sections']),6)
-            self.assertNotIn('竞争',requested);self.assertNotIn('现金',requested)
+            self.assertFalse(any(h in ['竞争','现金'] for h,role in requested))
+            self.assertNotIn(('资本','mechanism'),requested)
             self.assertTrue(e.validate(note,work,chunks,2600))
 
     def test_editorial_rejection_never_saves_an_approved_outline(self):
