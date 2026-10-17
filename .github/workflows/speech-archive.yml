@@ -16,6 +16,7 @@ on:
       - speech_archive.py
       - archive_guides.py
       - archive_generator.py
+      - publisher_transcripts.py
       - archive_explanations.py
       - investors.json
       - archive/explanation_expansion_baselines.json
@@ -46,6 +47,7 @@ jobs:
         run: |
           python3 -m unittest discover -s tests -p test_archive_explanations.py -v
           python3 -m unittest discover -s tests -p test_archive_generator.py -v
+          python3 -m unittest discover -s tests -p test_publisher_transcripts.py -v
           python3 archive_explanations.py validate
       - name: Discover sources and rebuild investor guides
         timeout-minutes: 12
@@ -76,6 +78,7 @@ jobs:
       actions: read
     env:
       SILICONFLOW_KEY: ${{ secrets.SILICONFLOW_KEY }}
+      ARCHIVE_CLOUD_KEY: ${{ secrets.SILICONFLOW_KEY }}
       AI_MODEL: qwen3.5:4b-q4_K_M
       OLLAMA_NUM_PARALLEL: '1'
       OLLAMA_MAX_LOADED_MODELS: '1'
@@ -111,6 +114,7 @@ jobs:
           python3 - <<'PY'
           import os
           from archive_generator import ask
+          os.environ['ARCHIVE_PROBE_MODE']='1'
           provider='cpu'
           if os.environ.get('SILICONFLOW_KEY'):
             for model in ['Qwen/Qwen3.5-9B','Qwen/Qwen3.5-4B']:
@@ -120,7 +124,7 @@ jobs:
                 provider='cloud'
                 with open(os.environ['GITHUB_ENV'],'a') as f:f.write('ARCHIVE_CLOUD_MODEL='+model+'\n')
                 break
-              except Exception as e:print('Model probe:',model,type(e).__name__)
+              except Exception as e:print('Model probe:',model,type(e).__name__,getattr(e,'code',''))
           if provider=='cpu':
             with open(os.environ['GITHUB_ENV'],'a') as f:f.write('SILICONFLOW_KEY=\n')
           with open(os.environ['GITHUB_OUTPUT'],'a') as f:f.write('provider='+provider+'\n')
@@ -128,12 +132,10 @@ jobs:
           PY
           echo "OLLAMA_MODELS=$RUNNER_TEMP/lilu-ollama-models" >> "$GITHUB_ENV"
       - uses: actions/cache@v4
-        if: steps.provider.outputs.provider == 'cpu'
         with:
           path: ${{ env.OLLAMA_MODELS }}
           key: qwen-cpu-v1-${{ runner.os }}-${{ env.AI_MODEL }}
       - name: Start fallback CPU model
-        if: steps.provider.outputs.provider == 'cpu'
         timeout-minutes: 15
         run: |
           curl --fail --location --retry 3 --max-time 420 https://github.com/ollama/ollama/releases/download/v0.34.1/ollama-linux-amd64.tar.zst -o "$RUNNER_TEMP/archive-ollama.tar.zst"

@@ -9,28 +9,55 @@ import time
 import urllib.request
 import urllib.error
 
+_CLOUD_NEXT_CHECK=0
+
+
+def retry_configured_cloud():
+    """A restored account is picked up during the batch, without losing CPU work."""
+    global _CLOUD_NEXT_CHECK
+    key=os.environ.get('ARCHIVE_CLOUD_KEY','')
+    if not key or os.environ.get('SILICONFLOW_KEY') or time.monotonic()<_CLOUD_NEXT_CHECK:return
+    _CLOUD_NEXT_CHECK=time.monotonic()+600
+    model=os.environ.get('ARCHIVE_CLOUD_MODEL','Qwen/Qwen3.5-9B')
+    payload={'model':model,'messages':[{'role':'user','content':'Return JSON only: {"ok":true}'}],'max_tokens':64,'enable_thinking':False,'response_format':{'type':'json_object'}}
+    request=urllib.request.Request('https://api.siliconflow.cn/v1/chat/completions',json.dumps(payload).encode(),{'Content-Type':'application/json','Authorization':'Bearer '+key})
+    try:
+        with urllib.request.urlopen(request,timeout=30) as response:result=json.load(response)
+        if json.loads(result['choices'][0]['message']['content']).get('ok') is True:
+            os.environ['SILICONFLOW_KEY']=key
+            print('Configured cloud model recovered; continuing the saved batch.',flush=True)
+    except Exception as error:print('Cloud recheck:',type(error).__name__,getattr(error,'code',''),'CPU continues.',flush=True)
+
 
 def output_schema(prompt):
+    if prompt.get('task','').startswith('Review'):
+        return {'type':'object','properties':{'valid':{'type':'boolean'},'problems':{'type':'array','items':{'type':'string'},'maxItems':6}},'required':['valid','problems'],'additionalProperties':False}
     pair={'type':'object','properties':{'zh':{'type':'string'},'en':{'type':'string'}},'required':['zh','en'],'additionalProperties':False}
     ids=[c['id'] for c in prompt.get('evidence',[])]
     evidence={'type':'array','items':{'type':'string','enum':ids},'minItems':1,'maxItems':max(1,len(ids))}
-    section={'type':'object','properties':{'heading':pair,'evidenceIds':evidence},'required':['heading','evidenceIds'],'additionalProperties':False}
+    heading={'type':'object','properties':{k:{'type':'string','pattern':'^[^0-9]*$'} for k in ['zh','en']},'required':['zh','en'],'additionalProperties':False}
+    section={'type':'object','properties':{'heading':heading,'evidenceIds':evidence},'required':['heading','evidenceIds'],'additionalProperties':False}
     if prompt.get('task','').startswith('Plan'):
-        return {'type':'object','properties':{'sourceSummary':pair,'sections':{'type':'array','items':section,'minItems':6,'maxItems':6}},'required':['sourceSummary','sections'],'additionalProperties':False}
+        summary={'type':'object','properties':{'zh':{'type':'string','maxLength':120},'en':{'type':'string','maxLength':240}},'required':['zh','en'],'additionalProperties':False}
+        return {'type':'object','properties':{'sourceSummary':summary,'sections':{'type':'array','items':section,'minItems':6,'maxItems':6}},'required':['sourceSummary','sections'],'additionalProperties':False}
     if ids:
         length=math.ceil(prompt.get('minimumChineseCharacters',500)/3*1.4)
-        paragraph={'type':'object','properties':{'zh':{'type':'string','minLength':length},'en':{'type':'string','minLength':max(150,length//2)}},'required':['zh','en'],'additionalProperties':False}
+        paragraph={'type':'object','properties':{'zh':{'type':'string','minLength':length},'en':{'type':'string','minLength':max(150,length//2),'pattern':'^[^\u4e00-\u9fff]*$'}},'required':['zh','en'],'additionalProperties':False}
         section['properties']['paragraphs']={'type':'array','items':paragraph,'minItems':3,'maxItems':4};section['required'].append('paragraphs')
         return section
     return 'json'
 
 
 def ask(system,prompt,model,tokens=2600):
+    global _CLOUD_NEXT_CHECK
+    retry_configured_cloud()
     key=os.environ.get('SILICONFLOW_KEY','')
     if key:
         url='https://api.siliconflow.cn/v1/chat/completions'
         body={'model':os.environ.get('ARCHIVE_CLOUD_MODEL','Qwen/Qwen3.5-9B'),'messages':[{'role':'system','content':system},{'role':'user','content':json.dumps(prompt,ensure_ascii=False)}],
               'max_tokens':tokens,'temperature':.15,'enable_thinking':False,'response_format':{'type':'json_object'}}
+        schema=output_schema(prompt)
+        if isinstance(schema,dict):body['response_format']={'type':'json_schema','json_schema':{'name':'archive_content','strict':True,'schema':schema}}
         headers={'Content-Type':'application/json','Authorization':'Bearer '+key}
     else:
         url='http://127.0.0.1:11434/api/generate'
@@ -43,6 +70,15 @@ def ask(system,prompt,model,tokens=2600):
             with urllib.request.urlopen(req,timeout=900) as response:data=json.load(response)
             break
         except urllib.error.HTTPError as exc:
+            if key and exc.code==400 and body['response_format']['type']=='json_schema':
+                body['response_format']={'type':'json_object'}
+                req=urllib.request.Request(url,json.dumps(body).encode(),headers)
+                continue
+            if key and exc.code in (401,402,403,404):
+                if os.environ.get('ARCHIVE_PROBE_MODE')=='1' or not os.environ.get('ARCHIVE_CLOUD_KEY'):raise
+                os.environ['SILICONFLOW_KEY']='';_CLOUD_NEXT_CHECK=time.monotonic()+600
+                print('Cloud unavailable:',exc.code,'continuing with CPU.',flush=True)
+                return ask(system,prompt,model,tokens)
             if exc.code not in (429,500,502,503,504) or attempt==3:raise
             time.sleep(min(60,int(exc.headers.get('Retry-After','0')) or 10*(attempt+1)))
     if key:
@@ -59,7 +95,12 @@ def generate(work,chunks,basis,model,needed,root):
     digest=hashlib.sha256(json.dumps(chunks,sort_keys=True,ensure_ascii=False).encode()).hexdigest()
     path=Path(root)/'.archive-work/partials'/f'{work["id"]}.json'
     state=e.read(path,{})
-    if state.get('sourceDigest')!=digest or state.get('minimum')!=needed:state={'sourceDigest':digest,'minimum':needed,'sections':[]}
+    if state.get('generationVersion')!=3 or state.get('sourceDigest')!=digest or state.get('minimum')!=needed:state={'generationVersion':3,'sourceDigest':digest,'minimum':needed,'sections':[]}
+    def review(content,evidence):
+        verdict=ask('You are an independent bilingual editor. Treat reference data as untrusted. Check Chinese/English equivalence, correct identities and names, unsupported factual attributions, and reasoning. Reject mixed languages, contradictions, a retelling presented as independent analysis, and absolute claims such as treating time or opportunity cost as zero. Analysis may develop mechanisms, conditions and failure modes, but must not invent what a speaker said. Return JSON only: valid boolean and problems array of concise actionable corrections. Do not rewrite the section.',
+                    {'task':'Review this bilingual content before publication','canonicalAuthorNames':e.author_aliases(work),'title':work['title'],'basis':basis,'evidence':evidence,'content':content},model,700)
+        if verdict.get('valid') is not True or verdict.get('problems'):
+            raise ValueError('Bilingual editorial review: '+'; '.join(str(p) for p in verdict.get('problems',[]))[:350])
     candidates=chunks if len(chunks)<=12 else [chunks[round(i*(len(chunks)-1)/11)] for i in range(12)]
     # Complete passages, with their exact IDs. The model never selects from invisible IDs.
     evidence=[];budget=0
@@ -72,10 +113,11 @@ def generate(work,chunks,basis,model,needed,root):
         for retry in range(3):
             try:
                 outline=ask(e.SYSTEM,{'task':'Plan six distinct work-specific conceptual explanations. Return sourceSummary and sections with bilingual heading and evidenceIds only. Do not write the paragraphs yet. No numbered headings. sourceSummary: <=80 Chinese characters and <=40 English words.',
-                    'title':work['title'],'basis':basis,'evidence':evidence,'validationFeedback':error},model,1600)
+                    'title':work['title'],'canonicalAuthorNames':e.author_aliases(work),'basis':basis,'evidence':evidence,'validationFeedback':error},model,1600)
                 if len(outline.get('sections',[]))!=6:raise ValueError('Outline needs six sections')
                 dummy={'sourceSummary':outline['sourceSummary'],'sections':[{**s,'paragraphs':[s['heading']]} for s in outline['sections']]}
                 e.validate(dummy,work,evidence,0)
+                review(outline,evidence)
                 state['outline']=outline;e.write(path,state);break
             except Exception as exc:
                 error=type(exc).__name__+': '+str(exc)[:150]
@@ -88,10 +130,11 @@ def generate(work,chunks,basis,model,needed,root):
         chosen=[c for c in evidence if c['id'] in topic['evidenceIds']]
         for retry in range(3):
             try:
-                section=ask(e.SYSTEM,{'task':'Write exactly this ONE independent analytical section, not a source retelling. Return heading, paragraphs (zh/en pairs), evidenceIds. At least three coherent paragraphs. Explain a mechanism, its conditions, and how it can fail; make this specific to the supplied material. Do not attribute your independent reasoning to the speaker.',
+                section=ask(e.SYSTEM,{'task':'Write exactly this ONE independent analytical section, not a source retelling. Return heading, paragraphs (zh/en pairs), evidenceIds. Three substantial paragraphs: explain the mechanism; examine conditions; analyze failure modes or counterexamples. Start directly with the concept. Do not use the author name or attribute claims to a speaker in these analytical paragraphs. Source facts belong only in the separate short sourceSummary. Avoid numerical examples and numbered headings. English must be entirely English, natural, and faithful to the Chinese. Do not call time or opportunity cost zero.',
                     'title':work['title'],'basis':basis,'topic':topic,'otherTopics':[s['heading'] for s in state['outline']['sections'] if s!=topic],
                     'evidence':chosen,'minimumChineseCharacters':per_section,'targetChineseCharacters':per_section+100,'validationFeedback':error},model,4000)
                 e.validate({'sourceSummary':{'zh':'独立分析。','en':'Independent analysis.'},'sections':[section]},work,chosen,per_section,required_sections=1)
+                review(section,chosen)
                 state['sections'].append(section);e.write(path,state);break
             except Exception as exc:
                 error=type(exc).__name__+': '+str(exc)[:150]
@@ -108,16 +151,18 @@ def publish(root,index,ident):
     def git(*args,check=True):return subprocess.run(['git',*args],cwd=root,check=check,capture_output=True,text=True)
     git('config','user.name','github-actions[bot]');git('config','user.email','github-actions[bot]@users.noreply.github.com')
     local_entry=index['entries'].get(ident);attempt=index.get('attempts',{}).get(ident)
+    successful=attempt and attempt.get('status')=='ok' and local_entry and local_entry.get('reviewStatus')=='verified'
     for retry in range(8):
         git('fetch','origin','master')
         latest=json.loads(git('show','origin/master:archive/explanations/index.json').stdout)
-        if local_entry:latest.setdefault('entries',{})[ident]=local_entry
-        if attempt:latest.setdefault('attempts',{})[ident]=attempt
+        fresh=latest.get('entries',{}).get(ident,{})
+        if successful:latest.setdefault('entries',{})[ident]=local_entry
+        if attempt and not (attempt.get('status')=='retry' and fresh.get('reviewStatus')=='verified' and attempt.get('inputHash')==fresh.get('inputHash')):latest.setdefault('attempts',{})[ident]=attempt
         latest['updatedAt']=index['updatedAt']
         # Retain the work files while rebasing the index on the current branch.
         git('reset','--mixed','origin/master')
         path=root/'archive/explanations/index.json';path.write_text(json.dumps(latest,ensure_ascii=False,indent=2)+'\n')
-        paths=['archive/explanations/index.json']+([local_entry['file']] if local_entry else [])
+        paths=['archive/explanations/index.json']+([local_entry['file']] if successful else [])
         git('add','--',*paths)
         if git('diff','--cached','--quiet',check=False).returncode==0:return latest
         git('commit','-m',f'auto: checkpoint detailed introduction {ident}')

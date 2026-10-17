@@ -462,6 +462,11 @@ def obtain_text(work, allow_asr=False, get=fetch):
             continue
         try:
             raw, typ = get(url)
+            if (urllib.parse.urlsplit(url).hostname or '').removeprefix('www.') in {'buffett.cnbc.com','charlierose.com'}:
+                from publisher_transcripts import obtain
+                text,origins=obtain(raw,url,get)
+                work['_materialURLs']=origins
+                return text,'official_transcript',url
             text = extract_text(raw, typ)
             # Reject challenge pages and bare metadata; never summarise a denied page.
             if len(text) < 1000 or any(s in text[:500].lower() for s in ["access denied", "just a moment", "enable javascript and cookies"]):

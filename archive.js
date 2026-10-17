@@ -5,7 +5,7 @@
   let catalog,people,guides,explanationIndex,selected,active,currentText,currentExplanation,mode='zh',view='explanation',request=0;
   const tr=(zh,en)=>mode==='en'?en:zh;
   const title=w=>mode==='en'?w.title.en:w.title.zh;
-  const explained=w=>{const e=explanationIndex.entries?.[w.id];return e&&e.catalogDate===w.date&&e.catalogTitle===w.title.en;};
+  const explained=w=>{const e=explanationIndex.entries?.[w.id];return e&&e.reviewStatus==='verified'&&e.catalogDate===w.date&&e.catalogTitle===w.title.en;};
   const ready=w=>w.fullTextStatus==='ready'&&/^archive\/texts\/[a-z0-9_-]+\.json$/.test(w.fullTextFile||'');
   function updateURL(){const u=new URL(location.href);u.searchParams.set('investor',selected);if(active)u.searchParams.set('work',active.id);history.replaceState(null,'',u);}
   function updateControls(){
@@ -51,7 +51,7 @@
   function renderPair(p){return mode==='bilingual'?`<div class="archive-text-pair"><p lang="zh-CN">${esc(p.zh)}</p><p lang="en" class="archive-en">${esc(p.en)}</p></div>`:`<p class="archive-text-line">${esc(p[mode==='en'?'en':'zh'])}</p>`;}
   function renderSections(sections){return sections.map(s=>`<section class="archive-explanation-section"><h2>${esc(tr(s.heading.zh,s.heading.en))}</h2>${s.paragraphs.map(renderPair).join('')}</section>`).join('');}
   function validExplanation(note,w){
-    if(note.kind!=='ai_explanation'||note.workId!==w.id||note.catalogDate!==w.date||note.catalogTitle!==w.title.en||!note.label?.zh||!note.label?.en||!w.sources.some(s=>s.url===note.sourceURL)||!/^[a-f0-9]{64}$/.test(note.sourceDigest||'')||!note.sourceSummary?.zh||!note.sourceSummary?.en||!Array.isArray(note.sections)||note.sections.length<6)throw Error('Invalid AI introduction');
+    if((note.version>=3&&note.reviewVersion!==1)||note.kind!=='ai_explanation'||note.workId!==w.id||note.catalogDate!==w.date||note.catalogTitle!==w.title.en||!note.label?.zh||!note.label?.en||!w.sources.some(s=>s.url===note.sourceURL)||!/^[a-f0-9]{64}$/.test(note.sourceDigest||'')||!note.sourceSummary?.zh||!note.sourceSummary?.en||!Array.isArray(note.sections)||note.sections.length<6)throw Error('Invalid AI introduction');
     const ids=new Set((note.evidence||[]).map(e=>e.id));
     if(note.sections.some(s=>!s.heading?.zh||!s.heading?.en||!s.paragraphs?.length||s.paragraphs.some(p=>!p.zh||!p.en)||!s.evidenceIds?.length||s.evidenceIds.some(id=>!ids.has(id))))throw Error('Missing source evidence');
     const length=(note.sections.flatMap(s=>s.paragraphs).map(p=>p.zh).join('').match(/[\u4e00-\u9fff]/g)||[]).length;if(length<note.minimumChineseCharacters||note.minimumChineseCharacters<1300)throw Error('AI introduction is too short');return note;

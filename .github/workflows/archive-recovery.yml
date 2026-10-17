@@ -13,7 +13,7 @@ jobs:
     timeout-minutes: 10
     env:
       GH_TOKEN: ${{ github.token }}
-      RESUME_RUN: '39040576578'
+      RESUME_RUN: '39041879098'
     steps:
       - name: Preserve checkpoints and restart the affected batch with compatible readers
         run: |

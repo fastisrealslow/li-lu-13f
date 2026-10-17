@@ -11,7 +11,7 @@
       if(!guidesPending)guidesPending=load('archive/guides.json').catch(()=>{guidesPending=null;return {guides:{}};});
       if(!explanationsPending)explanationsPending=load('archive/explanations/index.json').catch(()=>{explanationsPending=null;return {entries:{}};});
       const [catalog,guides,index]=await Promise.all([pending,guidesPending,explanationsPending]);if(own!==generation)return;
-      const items=catalog.works.filter(w=>w.investor===cfg.id),ready=items.filter(w=>{const e=index.entries?.[w.id];return e&&e.catalogDate===w.date&&e.catalogTitle===w.title.en;}).length,g=guides.guides?.[cfg.id];
+      const items=catalog.works.filter(w=>w.investor===cfg.id),ready=items.filter(w=>{const e=index.entries?.[w.id];return e&&e.reviewStatus==='verified'&&e.catalogDate===w.date&&e.catalogTitle===w.title.en;}).length,g=guides.guides?.[cfg.id];
       if(g){
         const intro=g.sections[0].paragraphs[1][key];
         const more=g.sections.map((s,i)=>`<h4>${escape(s.heading[key])}</h4>${s.paragraphs.filter((p,j)=>i!==0||j!==1).map(p=>`<p>${escape(p[key])}</p>`).join('')}`).join('');

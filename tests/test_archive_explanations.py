@@ -63,6 +63,13 @@ class ArchiveExplanationTests(unittest.TestCase):
             self.assertEqual(explain.read(root/'archive/explanations/lilu-test.json'),{'previous':'keep'})
             self.assertEqual(explain.read(root/'archive/explanations/index.json')['attempts']['lilu-test']['status'],'retry')
 
+    def test_mixed_english_and_attributed_retelling_are_not_independent_analysis(self):
+        chunks=[{'id':'s0','text':'Synthetic evidence includes sections 0 1 2 3 4 5.'}]
+        mixed=self.note();mixed['sections'][0]['paragraphs'][0]['en']+=' 凝聚ing consensus.'
+        with self.assertRaisesRegex(ValueError,'untranslated Chinese'):explain.validate(mixed,{},chunks,500)
+        retelling=self.note();retelling['sections'][0]['paragraphs'][0]['zh']='帕伯莱指出，'+retelling['sections'][0]['paragraphs'][0]['zh']
+        with self.assertRaisesRegex(ValueError,'attribution'):explain.validate(retelling,{'investor':'pabrai'},chunks,500)
+
     def test_podcast_uses_only_the_requested_episode_not_catalogue_navigation(self):
         work={'sources':[{'url':'https://valueinvestingwithlegends.libsyn.com/requested'}]}
         feed='<rss><channel><item><title>Unrelated guest</title><link>https://valueinvestingwithlegends.libsyn.com/other</link><description>Unrelated material</description></item><item><title>Requested episode</title><link>https://valueinvestingwithlegends.libsyn.com/requested</link><description>'+('Synthetic programme notes about business research. '*20)+'</description></item></channel></rss>'

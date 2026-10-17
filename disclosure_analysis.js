@@ -51,6 +51,7 @@
     const changed=ranked.filter(h=>h.shares!==h.prevShares),unchanged=ranked.filter(h=>h.shares===h.prevShares&&h.value!==h.prevValue).slice(0,5);
     const up=rows.filter(h=>h.value>h.prevValue),down=rows.filter(h=>h.value<h.prevValue);
     const increase=up.reduce((s,h)=>s+h.value-h.prevValue,0),decrease=down.reduce((s,h)=>s+h.prevValue-h.value,0);
+    const entrants=rows.filter(h=>h.shares>0&&!h.prevShares),exits=rows.filter(h=>!h.shares&&h.prevShares>0),continuing=rows.filter(h=>h.shares>0&&h.prevShares>0);
     const detail=h=>{
       const now=total?h.value/total*100:0,old=h.prevValue/before*100,split=h.shareAdjustment?(en?' (split adjusted)':'（按拆股后可比口径）'):'';
       let extra='';
@@ -61,7 +62,8 @@
       return en?`${stock(h,en)}: ${changeText(h,true)}; ${unit(h,en)} ${quantity(h.prevShares)} → ${quantity(h.shares)}${split}; reported value ${money(h.prevValue,en)} → ${money(h.value,en)}; weight ${percent(old)}% → ${percent(now)}%.${extra}`:`${stock(h,en)}：${changeText(h,false)}；${unit(h,en)} ${quantity(h.prevShares)} → ${quantity(h.shares)}${split}；申报金额 ${money(h.prevValue,en)} → ${money(h.value,en)}；申报占比 ${percent(old)}% → ${percent(now)}%。${extra}`;
     };
     return [section(en?'Reported value bridge':'申报金额变化怎样构成',[
-      en?`Positions with higher reported values add ${money(increase,en)}; positions with lower values subtract ${money(decrease,en)}. The net change is ${money(total-before,en)}. These are filing-value differences, not cash spent or received.`:`申报金额上升的证券合计增加 ${money(increase,en)}，下降的证券合计减少 ${money(decrease,en)}，两者相抵后，本期申报总值净变化 ${money(total-before,en)}。这些金额包含股价和股数的共同影响，并不是本季度实际花费或收回的资金。`
+      en?`Positions with higher reported values add ${money(increase,en)}; positions with lower values subtract ${money(decrease,en)}. The net change is ${money(total-before,en)}. These are filing-value differences, not cash spent or received.`:`申报金额上升的证券合计增加 ${money(increase,en)}，下降的证券合计减少 ${money(decrease,en)}，两者相抵后，本期申报总值净变化 ${money(total-before,en)}。这些金额包含股价和股数的共同影响，并不是本季度实际花费或收回的资金。`,
+      en?`${entrants.length} new entries represent ${percent(sum(entrants)/total*100)}% of this filing. The ${exits.length} exits represented ${percent(sum(exits.map(h=>({...h,value:h.prevValue})))/before*100)}% of the previous filing. The ${continuing.length} continuing securities now account for ${percent(sum(continuing)/total*100)}%.`:`本期新进入披露的 ${entrants.length} 项证券，占本期申报金额 ${percent(sum(entrants)/total*100)}%；已退出的 ${exits.length} 项，占上期申报金额 ${percent(exits.reduce((s,h)=>s+h.prevValue,0)/before*100)}%。两期持续披露的 ${continuing.length} 项，占本期 ${percent(sum(continuing)/total*100)}%，可据此区分组合是主要调整原有证券，还是出现较大范围的新旧替换。`
     ]),section(en?`All ${changed.length} share changes`:`全部 ${changed.length} 项股数变化：新建、增持、减持与退出`,changed.map(detail)),section(en?'Largest value changes with unchanged shares':'股数未变、金额变化较大的证券',unchanged.map(detail))].filter(s=>s.items.length);
   }
   function history(d,en){
