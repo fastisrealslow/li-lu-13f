@@ -98,7 +98,7 @@ test('holdings stay concise before AI loads and old instructional briefings cann
   assert.equal(a.context.entry.briefing.readerGuide[0],'怎么用这页');
 });
 test('option rows explain the long right, exact notional denominator and unavailable strike',()=>{
-  const a=app();a.context.snapshot=read('tepper.json');a.run("investor='tepper';data=snapshot;lang='zh'");
+  const a=app();a.context.snapshot=read('tests/fixtures/appaloosa-2026-q2.json');a.run("investor='tepper';data=snapshot;lang='zh'");
   a.context.option=a.context.snapshot.current.holdings.find(h=>h.ticker==='BRK/B');
   const html=a.run('optionPositionHTML(option,data.current)');
   assert.match(html,/买入／持有看跌期权/);assert.match(html,/25,000 股，不是合约张数/);
@@ -126,7 +126,7 @@ test('the legend uses the actual badge renderers and only current table categori
   assert.doesNotMatch(a.run('holdingsLegendHTML(rows,[])'),/股数不变|减仓/);
 });
 test('fallback holdings conclusions stay current and expose actual option coverage',()=>{
-  const a=app();a.context.snapshot=read('tepper.json');a.run("investor='tepper';data=snapshot;lang='zh';_aiSupplement={entries:{}}");
+  const a=app();a.context.snapshot=read('tests/fixtures/appaloosa-2026-q2.json');a.run("investor='tepper';data=snapshot;lang='zh';_aiSupplement={entries:{}}");
   a.run("renderScopedInsight('holdings')");
   const html=a.el('holdingsInsight').innerHTML;
   assert.match(html,/BRK\/B PUT 覆盖标的 25,000 股、名义占比 0.16%/);

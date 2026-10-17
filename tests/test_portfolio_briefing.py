@@ -47,7 +47,7 @@ class PortfolioBriefingTests(unittest.TestCase):
         self.assertIn('不是权利金占比',text(b))
 
     def test_option_scale_is_not_a_positive_stock_position_or_option_premium(self):
-        d=json.loads((ROOT/'tepper.json').read_text())
+        d=json.loads((ROOT/'tests/fixtures/appaloosa-2026-q2.json').read_text())
         b=holdings_briefing(d)
         self.assertIn('BRK/B PUT 覆盖标的 25,000 股、名义占比 0.16%',text(b))
         self.assertIn('AAPL PUT 覆盖标的 835,000 股、名义占比 3.13%',text(b))
