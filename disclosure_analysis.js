@@ -6,6 +6,7 @@
   const percent=n=>n>0&&n<.01?'<0.01':n.toFixed(2);
   const quantity=n=>Number.isFinite(n)?n.toLocaleString('en-US'):'—';
   const money=(n,en)=>en?'US$'+quantity(Math.round(n)):Math.abs(n)>=1e8?(n/1e8).toFixed(2)+' 亿美元':Math.abs(n)<1e4?quantity(Math.round(n))+' 美元':(n/1e4).toFixed(2)+' 万美元';
+  const perUnit=n=>'$'+n.toFixed(n>0&&n<.01?4:2);
   const stock=(h,en)=>((en?h.name:h.cnName)||h.name||h.ticker)+` (${h.ticker}${h.putCall?' '+h.putCall.toUpperCase():''})`;
   const unit=(h,en)=>h.putCall?(en?'underlying shares':'标的股数'):h.shareType&&h.shareType!=='SH'?(en?'principal':'本金'):(en?'shares':'股数');
   const key=h=>/^[A-Z0-9]{9}$/.test(h.cusip||'')?h.cusip.slice(0,6):h.ticker;
@@ -26,7 +27,7 @@
       en?`The largest ${k} securities account for ${percent(running/total*100)}% of reported value. The other ${rows.length-k} account for ${percent((total-running)/total*100)}%.`:`按申报金额从大到小排列，前 ${k} 项已覆盖 ${percent(running/total*100)}%；其余 ${rows.length-k} 项合计 ${percent((total-running)/total*100)}%。因此，理解组合变化时，这些头部证券的影响更大。`,
       en?`${small.length} positions each below 1% together report ${money(tail,en)}, or ${percent(tail/total*100)}%.`:`各自不足 1% 的 ${small.length} 项合计 ${money(tail,en)}，占 ${percent(tail/total*100)}%。小仓位数量与它们实际占用的申报金额，需要分开看。`
     ]));
-    if(comparisonState(d)==='comparable'){
+    if(comparisonState(d)==='comparable'&&!(d.history?.excludedValueQuarters||[]).includes(d.current.prevQuarter)){
       const old=d.current.previousHoldings??d.history?.holdings?.[d.current.prevQuarter],oldTotal=valid(old)?sum(old):0;
       if(oldTotal>0)result.push(section(en?'How the largest weights changed':'头部仓位与上季的差异',ranked.slice(0,8).map(h=>{
         const previous=consolidateHoldings(old).find(p=>sameSecurity(h,p)),value=previous?.value||0,now=h.value/total*100,before=value/oldTotal*100,delta=now-before;
@@ -42,20 +43,26 @@
     return result.filter(s=>s.items.length);
   }
   function changes(d,en){
-    if(comparisonState(d)!=='comparable')return [];
+    const previous=d.current.previousHoldings??d.history?.holdings?.[d.current.prevQuarter];
+    if(comparisonState(d)!=='comparable'||!valid(previous)||(d.history?.excludedValueQuarters||[]).includes(d.current.prevQuarter))return [];
     const rows=quarterlyHoldings(d),total=sum(rows),before=rows.reduce((s,h)=>s+(h.prevValue||0),0);
     if(!before||!rows.every(h=>Number.isFinite(h.prevValue)))return [];
-    const largest=rows.slice().sort((a,b)=>Math.abs(b.value-b.prevValue)-Math.abs(a.value-a.prevValue)).slice(0,16);
+    const ranked=rows.slice().sort((a,b)=>Math.abs(b.value-b.prevValue)-Math.abs(a.value-a.prevValue));
+    const changed=ranked.filter(h=>h.shares!==h.prevShares),unchanged=ranked.filter(h=>h.shares===h.prevShares&&h.value!==h.prevValue).slice(0,5);
     const up=rows.filter(h=>h.value>h.prevValue),down=rows.filter(h=>h.value<h.prevValue);
     const increase=up.reduce((s,h)=>s+h.value-h.prevValue,0),decrease=down.reduce((s,h)=>s+h.prevValue-h.value,0);
+    const detail=h=>{
+      const now=total?h.value/total*100:0,old=h.prevValue/before*100,split=h.shareAdjustment?(en?' (split adjusted)':'（按拆股后可比口径）'):'';
+      let extra='';
+      if(h.prevShares>0&&h.shares>0){
+        const oldUnit=h.prevValue/h.prevShares,newUnit=h.value/h.shares;
+        if(h.shares===h.prevShares||((h.shares-h.prevShares)*(h.value-h.prevValue)<0))extra=en?` Filed value per ${h.shareType==='PRN'?'unit of principal':h.putCall?'underlying share':'share'} ${perUnit(oldUnit)} → ${perUnit(newUnit)}.`:` 每${h.shareType==='PRN'?'单位本金':h.putCall?'股标的':'股'}申报价值 ${perUnit(oldUnit)} → ${perUnit(newUnit)}。`;
+      }
+      return en?`${stock(h,en)}: ${changeText(h,true)}; ${unit(h,en)} ${quantity(h.prevShares)} → ${quantity(h.shares)}${split}; reported value ${money(h.prevValue,en)} → ${money(h.value,en)}; weight ${percent(old)}% → ${percent(now)}%.${extra}`:`${stock(h,en)}：${changeText(h,false)}；${unit(h,en)} ${quantity(h.prevShares)} → ${quantity(h.shares)}${split}；申报金额 ${money(h.prevValue,en)} → ${money(h.value,en)}；申报占比 ${percent(old)}% → ${percent(now)}%。${extra}`;
+    };
     return [section(en?'Reported value bridge':'申报金额变化怎样构成',[
       en?`Positions with higher reported values add ${money(increase,en)}; positions with lower values subtract ${money(decrease,en)}. The net change is ${money(total-before,en)}. These are filing-value differences, not cash spent or received.`:`申报金额上升的证券合计增加 ${money(increase,en)}，下降的证券合计减少 ${money(decrease,en)}，两者相抵后，本期申报总值净变化 ${money(total-before,en)}。这些金额包含股价和股数的共同影响，并不是本季度实际花费或收回的资金。`
-    ]),section(en?'Main changes, with shares and weights separated':'重点变化：股数、金额与占比分开看',largest.map(h=>{
-      const value=h.value-h.prevValue,now=total?h.value/total*100:0,old=h.prevValue/before*100,quantityChange=h.shares-h.prevShares;
-      const interpretation=h.shares===h.prevShares?(en?'Shares are unchanged; this value change is not an addition or reduction.':'股数未变，不能把这部分金额变化记作加仓或减仓。'):quantityChange*value<0?(en?'Shares and reported value moved in opposite directions.':'股数与申报金额方向相反，不能只看金额判断加减仓。'):(en?'Share direction and value direction are reported separately; the value difference is not transaction cash flow.':'股数方向与申报金额分别列示；金额差额不能当作成交资金。');
-      const split=h.shareAdjustment?(en?' (split adjusted)':'（按拆股后可比口径）'):'';
-      return en?`${stock(h,en)}: ${unit(h,en)} ${quantity(h.prevShares)} → ${quantity(h.shares)}${split}; reported value ${money(h.prevValue,en)} → ${money(h.value,en)}; weight ${percent(old)}% → ${percent(now)}%. ${interpretation}`:`${stock(h,en)}：${unit(h,en)} ${quantity(h.prevShares)} → ${quantity(h.shares)}${split}；申报金额 ${money(h.prevValue,en)} → ${money(h.value,en)}；申报占比 ${percent(old)}% → ${percent(now)}%。${interpretation}`;
-    }))];
+    ]),section(en?`All ${changed.length} share changes`:`全部 ${changed.length} 项股数变化：新建、增持、减持与退出`,changed.map(detail)),section(en?'Largest value changes with unchanged shares':'股数未变、金额变化较大的证券',unchanged.map(detail))].filter(s=>s.items.length);
   }
   function history(d,en){
     if(d.history?.verification?.status==='unverified')return [];
@@ -63,7 +70,7 @@
     const quarters=[...new Set(d.history?.quarters||[])].filter(q=>quarter(q)!==null&&!excluded.has(q)&&(!from||quarter(q)>=quarter(from))&&valid(d.history?.holdings?.[q])&&sum(d.history.holdings[q])>0).sort((a,b)=>quarter(a)-quarter(b)).slice(-8);
     if(quarters.length<2)return [];
     const current=consolidateHoldings(d.current.holdings).sort((a,b)=>b.value-a.value).slice(0,8);
-    return [section(en?'Core securities across available filings':'核心证券在连续可用披露中的轨迹',current.map(h=>{
+    return [section(en?'Core securities across available filings':'核心证券在历次可用披露中的轨迹',current.map(h=>{
       let count=0;const points=quarters.map(q=>{
         const rows=consolidateHoldings(d.history.holdings[q]),match=rows.find(p=>sameSecurity(h,p));if(match?.shares>0)count++;
         return `${q}: ${percent((match?.value||0)/sum(rows)*100)}%${match?` (${quantity(match.shares)} ${unit(h,en)})`:''}`;

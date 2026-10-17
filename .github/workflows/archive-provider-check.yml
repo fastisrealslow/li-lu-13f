@@ -1,0 +1,45 @@
+name: Check Archive Model Availability
+on:
+  push:
+    branches: [master]
+    paths: [.github/workflows/archive-provider-check.yml]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  check:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 8
+    env:
+      SILICONFLOW_KEY: ${{ secrets.SILICONFLOW_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify available small models without printing credentials
+        run: |
+          python3 - <<'PY'
+          import json,os,urllib.request,urllib.error
+          from archive_generator import ask
+          key=os.environ.get('SILICONFLOW_KEY')
+          if not key:
+            print('Configured model credential is absent; CPU processing remains active.')
+            raise SystemExit(0)
+          req=urllib.request.Request('https://api.siliconflow.cn/v1/models',headers={'Authorization':'Bearer '+key})
+          try:
+            with urllib.request.urlopen(req,timeout=30) as response:models={r['id'] for r in json.load(response)['data']}
+          except urllib.error.HTTPError as error:
+            print('Model directory HTTP status:',error.code)
+            raise SystemExit(0)
+          candidates=['Qwen/Qwen3.5-9B','Qwen/Qwen3.5-4B','Qwen/Qwen3-8B','Qwen/Qwen2.5-7B-Instruct']
+          print('Listed candidates:',[m for m in candidates if m in models])
+          for model in candidates:
+            if model not in models:continue
+            os.environ['ARCHIVE_CLOUD_MODEL']=model
+            try:
+              result=ask('Return JSON only: {"ok":true}.',{},model,128)
+              print('Available JSON model:',model,'valid:',result.get('ok') is True)
+            except urllib.error.HTTPError as error:print('Probe HTTP status:',model,error.code)
+            except Exception as error:print('Probe failure:',model,type(error).__name__)
+          PY

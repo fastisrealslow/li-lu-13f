@@ -50,3 +50,12 @@ test('value detail preserves holder dates, directions and distinct allocation de
   const html=a.run('window.DisclosureAnalysis.value(rows)');
   for(const text of ['2026 Q2','2026 Q1','股数增加','股数减少','10.00%','20.00%','不能相加','不是相对企业内在价值'])assert.ok(html.includes(text),text);
 });
+test('quarterly detail includes every share change and refuses excluded prior-quarter money',()=>{
+  const a=app();const old=Array.from({length:20},(_,i)=>({ticker:'TEST'+i,shares:10,value:100+i}));
+  a.c.snapshot={current:{quarter:'2026 Q2',prevQuarter:'2026 Q1',previousHoldings:old,holdings:old.map(h=>({...h,shares:9,value:h.value+10}))},history:{}};
+  const html=a.run("window.DisclosureAnalysis.render('changes',snapshot)");
+  assert.match(html,/全部 20 项股数变化/);assert.match(html,/TEST19/);assert.match(html,/TEST0/);
+  assert.match(html,/减持10.0%/);assert.match(html,/\$10.00 → \$12.22/);
+  a.c.snapshot.history.excludedValueQuarters=['2026 Q1'];
+  assert.equal(a.run("window.DisclosureAnalysis.render('changes',snapshot)"),'');
+});
