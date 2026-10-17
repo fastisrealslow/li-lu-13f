@@ -34,4 +34,38 @@ class QuoteCoverageTests(unittest.TestCase):
         self.assertEqual(quotes.symbol('00992.HK'),'0992.HK')
         self.assertFalse(quotes.valid_quote({'c':0,'t':time.time()}))
 
+    def test_old_positive_quote_triggers_symbol_recheck_and_cannot_pass_coverage(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root=Path(tmp)
+            (root/'investors.json').write_text(json.dumps({'investors':[{'id':'test','dataFile':'fund.json','pricesFile':'prices.json'}]}))
+            (root/'fund.json').write_text(json.dumps({'current':{'holdings':[{'ticker':'IAC','name':'PEOPLE INC','cusip':'44891N208','shares':10,'value':100}]}}))
+            (root/'prices.json').write_text(json.dumps({'quotes':{'IAC':{'c':36.98,'t':time.time()-20*86400}}}))
+            self.assertEqual(len(quotes.coverage(root)['missing']),1)
+            directory={'0':{'title':'People Inc','ticker':'PPLI'}}
+            fresh={'c':38.76,'t':time.time(),'verifiedName':'People Incorporated','sourceURL':'https://finance.yahoo.com/quote/PPLI/'}
+            with patch('fetch_13f_all.sec_fetch',return_value=json.dumps(directory).encode()),patch.object(quotes,'yahoo_quote',return_value=fresh):
+                quotes.resolve_active(root,[{'dataFile':'fund.json','pricesFile':'prices.json'}])
+            self.assertEqual(json.loads((root/'fund.json').read_text())['current']['holdings'][0]['ticker'],'PPLI')
+            self.assertEqual(json.loads((root/'security_symbol_changes.json').read_text())['entries']['44891N208']['oldSymbols'],['IAC'])
+
+    def test_hk_secondary_quote_requires_recent_hkd_and_preserves_its_actual_trade_date(self):
+        fresh={'c':.285,'t':time.time()-86400,'currency':'HKD'}
+        with patch.object(quotes,'yahoo_quote',return_value={'error':True}),patch('fetch_prices_all.get_hk_prices',return_value={'0125.HK':fresh}):
+            self.assertEqual(quotes.market_quote('0125.HK')['t'],fresh['t'])
+        for bad in [{**fresh,'currency':'USD'},{**fresh,'t':time.time()-20*86400}]:
+            with patch.object(quotes,'yahoo_quote',return_value={'error':True}),patch('fetch_prices_all.get_hk_prices',return_value={'0125.HK':bad}):
+                self.assertTrue(quotes.market_quote('0125.HK')['error'])
+
+    def test_same_cusip_symbol_change_preserves_historical_cost_inputs(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root=Path(tmp);cfg={'id':'test','dataFile':'fund.json','pricesFile':'prices.json'}
+            (root/'investors.json').write_text(json.dumps({'investors':[cfg]}))
+            (root/'fund.json').write_text(json.dumps({'current':{'holdings':[{'ticker':'CCC','cusip':'12510Q100','shares':10,'value':100}]}}))
+            cost={'recent':{'buy':8,'quarter':'2026 Q1'},'allTime':{'avg':9}}
+            (root/'prices.json').write_text(json.dumps({'quotes':{'CCC':{'c':7,'t':time.time()}},'costBasis':{'CCCS':cost}}))
+            (root/'security_symbol_changes.json').write_text(json.dumps({'entries':{'12510Q100':{'ticker':'CCC','oldSymbols':['CCCS']}}}))
+            self.assertEqual(quotes.refresh(root)['missing'],[])
+            self.assertEqual(json.loads((root/'prices.json').read_text())['costBasis']['CCC'],cost)
+            self.assertEqual(json.loads((root/'fund.json').read_text())['current']['holdings'][0]['shares'],10)
+
 if __name__=='__main__':unittest.main()

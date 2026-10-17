@@ -44,6 +44,16 @@ def yahoo_quote(ticker):
 
 def valid_quote(q):return type(q.get('c')) in (int,float) and math.isfinite(q['c']) and q['c']>0 and not q.get('error') and type(q.get('t')) in (int,float) and math.isfinite(q['t']) and 0<q['t']<=time.time()+600
 
+def market_quote(ticker):
+    q=yahoo_quote(ticker)
+    if valid_quote(q):return q
+    if ticker.endswith('.HK'):
+        from fetch_prices_all import get_hk_prices
+        q=get_hk_prices([ticker]).get(ticker,{})
+        if valid_quote(q) and q.get('currency')=='HKD' and time.time()-q['t']<=7*86400:
+            return {**q,'symbol':symbol(ticker),'fetchedAt':datetime.now(timezone.utc).isoformat()}
+    return {'error':True}
+
 def issuer_key(name):
     words=re.findall(r'[A-Z0-9]+',name.upper())
     aliases={'HLDGS':'HOLDINGS','HLDG':'HOLDINGS','HL':'HOLDINGS','INTL':'INTERNATIONAL','SYS':'SYSTEMS','PUB':'PUBLIC','CO':'COMPANY'}
@@ -57,7 +67,7 @@ def resolve_active(root,configs):
         quotes=load(root/inv['pricesFile']).get('quotes',{})
         for h in load(root/inv['dataFile'])['current']['holdings']:
             q=quotes.get(h['ticker'],{})
-            if h.get('cusip') and h.get('shareType','SH')=='SH' and (h['ticker'].startswith('?') or not valid_quote(q) or q.get('stale')):
+            if h.get('cusip') and h.get('shareType','SH')=='SH' and (h['ticker'].startswith('?') or not valid_quote(q) or q.get('stale') or time.time()-q.get('t',0)>3*86400):
                 candidates.append(h)
     if not candidates:return
     try:
@@ -90,7 +100,7 @@ def coverage(root=ROOT):
         for h in data['current']['holdings']:
             if h.get('shareType','SH')!='SH':continue
             count+=1;tk=h['ticker'];q=prices.get('quotes',{}).get(tk,{})
-            if tk.startswith('?') or not valid_quote(q):issues.append({'investor':inv['id'],'ticker':tk,'cusip':h.get('cusip'),'name':h['name']})
+            if tk.startswith('?') or not valid_quote(q) or time.time()-q.get('t',0)>7*86400:issues.append({'investor':inv['id'],'ticker':tk,'cusip':h.get('cusip'),'name':h['name'],'reason':'unmapped' if tk.startswith('?') else 'missing_or_outdated_quote'})
     return {'checkedAt':datetime.now(timezone.utc).isoformat(),'positions':count,'missing':issues}
 
 def refresh(root=ROOT,all_quotes=False,workers=4):
@@ -101,14 +111,20 @@ def refresh(root=ROOT,all_quotes=False,workers=4):
     resolver.backfill_data_files([str(root/i['dataFile']) for i in configs],{**resolver.load_resolved_map(),**CUSIP_TICKER_MAP})
     resolve_active(root,configs)
     files={i['pricesFile']:load(root/i['pricesFile']) for i in configs};wanted=set()
+    aliases=load(root/'security_symbol_changes.json').get('entries',{}) if (root/'security_symbol_changes.json').exists() else {}
     for inv in configs:
         for h in load(root/inv['dataFile'])['current']['holdings']:
+            alias=aliases.get(h.get('cusip'),{})
+            costs=files[inv['pricesFile']].get('costBasis',{})
+            if alias.get('ticker')==h['ticker'] and h['ticker'] not in costs:
+                prior=next((costs[old] for old in alias.get('oldSymbols',[]) if old in costs),None)
+                if prior is not None:costs[h['ticker']]=prior
             if h.get('shareType','SH')!='SH' or h['ticker'].startswith('?'):continue
             q=files[inv['pricesFile']].get('quotes',{}).get(h['ticker'],{})
-            if all_quotes or not valid_quote(q) or time.time()-q.get('t',0)>3*86400:wanted.add(h['ticker'])
+            if all_quotes or not valid_quote(q) or q.get('stale') or time.time()-q.get('t',0)>3*86400:wanted.add(h['ticker'])
     results={}
     with ThreadPoolExecutor(max_workers=workers) as pool:
-        futures={pool.submit(yahoo_quote,tk):tk for tk in wanted}
+        futures={pool.submit(market_quote,tk):tk for tk in wanted}
         for future in as_completed(futures):
             tk=futures[future];results[tk]=future.result()
             print('Quote',tk,'ok' if valid_quote(results[tk]) else 'retry',flush=True)
@@ -118,7 +134,9 @@ def refresh(root=ROOT,all_quotes=False,workers=4):
             tk=h['ticker'];fresh=results.get(tk);old=quotes.get(tk,{})
             if fresh and valid_quote(fresh) and (not valid_quote(old) or fresh['t']>=old['t']):quotes[tk]=fresh
             elif fresh and not valid_quote(fresh) and valid_quote(old):quotes[tk]={**old,'stale':True}
-        data['quoteCoverageCheckedAt']=datetime.now(timezone.utc).isoformat();save(path,data)
+        data['quoteCoverageCheckedAt']=datetime.now(timezone.utc).isoformat()
+        if any(valid_quote(results.get(h['ticker'],{})) for h in load(root/inv['dataFile'])['current']['holdings']):data['updatedAt']=data['quoteCoverageCheckedAt']
+        save(path,data)
     return coverage(root)
 
 def main():

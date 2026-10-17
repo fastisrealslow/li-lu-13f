@@ -32,7 +32,7 @@
         const previous=consolidateHoldings(old).find(p=>sameSecurity(h,p)),value=previous?.value||0,now=h.value/total*100,before=value/oldTotal*100,delta=now-before;
         const comparison=quarterlyHoldings(d).find(p=>sameSecurity(h,p)),oldShares=comparison?.prevShares??previous?.shares??0;
         const split=comparison?.shareAdjustment?(en?' (split adjusted)':'（按拆股后可比口径）'):'';
-        return en?`${stock(h,en)}: ${percent(before)}% → ${percent(now)}% (${delta>=0?'+':''}${delta.toFixed(2)} percentage points); ${unit(h,en)} ${quantity(oldShares)} → ${quantity(h.shares)}${split}. Weight and quantity measure different changes.`:`${stock(h,en)}：申报占比 ${percent(before)}% → ${percent(now)}%，变化 ${delta>=0?'+':''}${delta.toFixed(2)} 个百分点；${unit(h,en)} ${quantity(oldShares)} → ${quantity(h.shares)}${split}。占比变化同时受到该证券及其他持仓申报金额变化影响，不能直接当作增减仓幅度。`;
+        return en?`${stock(h,en)}: ${percent(before)}% → ${percent(now)}% (${delta>=0?'+':''}${delta.toFixed(2)} percentage points); ${unit(h,en)} ${quantity(oldShares)} → ${quantity(h.shares)}${split}. ${comparison?changeText(comparison,true):''}`:`${stock(h,en)}：申报占比 ${percent(before)}% → ${percent(now)}%，变化 ${delta>=0?'+':''}${delta.toFixed(2)} 个百分点；${unit(h,en)} ${quantity(oldShares)} → ${quantity(h.shares)}${split}。${comparison?changeText(comparison,false):''}。`;
       })));
     }
     const options=rows.filter(h=>h.putCall);
