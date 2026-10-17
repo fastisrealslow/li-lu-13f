@@ -32,9 +32,9 @@
       "status": "ok"
     },
     "ackman-4f76dc9372c2a9": {
-      "at": "2026-10-16T01:17:41+00:00",
+      "at": "2026-10-17T01:33:23+00:00",
       "status": "retry",
-      "reason": "AttributeError: 'str' object has no attribute 'get'"
+      "reason": "ValueError: Detailed explanation is too short"
     },
     "akre-6c46aa04220a2d": {
       "at": "2026-10-16T01:25:38+00:00",
@@ -137,12 +137,12 @@
       "reason": "ValueError: Detailed explanation is too short"
     },
     "duan-f6089c3187bde2": {
-      "at": "2026-10-15T19:06:06+00:00",
+      "at": "2026-10-17T01:21:05+00:00",
       "status": "retry",
-      "reason": "ValueError: Detailed explanation is too short"
+      "reason": "TimeoutError: timed out"
     },
     "hawkins-ef62c168dad240": {
-      "at": "2026-10-15T19:06:06+00:00",
+      "at": "2026-10-17T01:21:05+00:00",
       "status": "retry",
       "reason": "ValueError: No audio obtained"
     },
@@ -181,7 +181,7 @@
       "reason": "ValueError: No verified matching episode description"
     },
     "webb-38c6e1d522bcc3": {
-      "at": "2026-10-16T01:14:20+00:00",
+      "at": "2026-10-17T01:28:49+00:00",
       "status": "retry",
       "reason": "ValueError: Detailed explanation is too short"
     },
@@ -224,7 +224,22 @@
       "at": "2026-10-16T19:12:51+00:00",
       "status": "retry",
       "reason": "ValueError: Source summary exceeds its short paraphrase budget"
+    },
+    "buffett-a01d917b8f91d1": {
+      "at": "2026-10-17T00:58:31+00:00",
+      "status": "retry",
+      "reason": "ValueError: Unsupported numerical claim"
+    },
+    "pabrai-80ac2772f94ba4": {
+      "at": "2026-10-17T01:04:29+00:00",
+      "status": "retry",
+      "reason": "ValueError: Detailed explanation is too short"
+    },
+    "vinall-c919ac8b6b58c4": {
+      "at": "2026-10-17T01:12:03+00:00",
+      "status": "retry",
+      "reason": "ValueError: Detailed explanation is too short"
     }
   },
-  "updatedAt": "2026-10-16T19:12:51+00:00"
+  "updatedAt": "2026-10-17T01:33:23+00:00"
 }
