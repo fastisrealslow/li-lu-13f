@@ -147,11 +147,16 @@ def resolve_via_openfigi(cusips):
     return resolved
 
 
-def backfill_data_files(data_files, resolved_map):
+def backfill_data_files(data_files, resolved_map, renames=None):
     """用 resolved_map（cusip -> ticker）就地回填所有数据文件里的 ? 前缀记录。
     返回: (修改的文件数, 回填的记录数)。"""
     files_changed = 0
     records_fixed = 0
+    if renames is None:
+        changes_path=os.path.join(BASE,'security_symbol_changes.json')
+        renames={}
+        if os.path.exists(changes_path):
+            with open(changes_path,encoding='utf-8') as changes_file:renames=json.load(changes_file).get('entries',{})
     from audit_13f_history import VERSION, digest
     for path in data_files:
         if not os.path.exists(path):
@@ -166,7 +171,8 @@ def backfill_data_files(data_files, resolved_map):
             for h in holdings:
                 tk = h.get("ticker", "")
                 cusip = (h.get("cusip") or "").strip()
-                if tk.startswith("?") and cusip in resolved_map:
+                renamed = (cusip == '12510Q100' and tk == 'CCCS' and resolved_map.get(cusip) == 'CCC') or (tk in renames.get(cusip,{}).get('oldSymbols',[]) and resolved_map.get(cusip)==renames[cusip]['ticker'])
+                if (tk.startswith("?") or renamed) and cusip in resolved_map:
                     h["ticker"] = resolved_map[cusip]
                     changed = True
                     records_fixed += 1
@@ -216,11 +222,15 @@ def main():
 
     data_files = load_investor_data_files()
     resolved_map = load_resolved_map()
+    from fetch_13f_all import CUSIP_TICKER_MAP
+    resolved_map.update(CUSIP_TICKER_MAP)
     print(f"已缓存的 CUSIP 映射: {len(resolved_map)} 条")
 
     if not dry_run:
         files_changed, records_fixed = backfill_data_files(data_files, resolved_map)
         print(f"已缓存映射回填：{files_changed} 个文件，{records_fixed} 条记录")
+    if '--cached-only' in sys.argv:
+        return
 
     unresolved_counts = scan_unresolved_cusips(data_files, resolved_map)
     print(f"待解析 CUSIP 数（去重，排除已缓存）: {len(unresolved_counts)}")

@@ -13,6 +13,7 @@ on:
       - "hk_financial_evidence.py"
       - "holdings_diff.py"
       - "fetch_prices_all.py"
+      - "quote_coverage.py"
       - "fetch_webb_holdings.py"
       - "tests/test_cost_calculation.py"
       - "portfolio_review.py"
@@ -232,6 +233,9 @@ jobs:
 
       - name: Audit historical filing units before prices and AI
         run: python3 -u audit_13f_history.py --limit 6
+
+      - name: Resolve known security identities before fetching quotes
+        run: python3 resolve_unmapped_tickers.py --cached-only
 
       # ─────────────── 股价抓取（使用通用脚本）───────────────
 
@@ -583,7 +587,9 @@ jobs:
 
       - name: Validate JSON files before commit
         id: validate_data
-        run: python3 validate_data.py
+        run: |
+          python3 quote_coverage.py
+          python3 validate_data.py
 
       - name: Finish run status including validation outcome
         if: ${{ !cancelled() && steps.init_status.outcome == 'success' }}

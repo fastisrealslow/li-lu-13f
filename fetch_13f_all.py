@@ -508,6 +508,14 @@ def _load_auto_resolved_cusip_map():
 
 # 手工映射优先于自动解析映射（如有冲突，人工核对过的条目更可信）
 CUSIP_TICKER_MAP = {**_load_auto_resolved_cusip_map(), **CUSIP_TICKER_MAP}
+# Issuer/SEC-verified identities; name abbreviations in 13F are not stable keys.
+CUSIP_TICKER_MAP.update({'H1467J104':'CB','G4705A100':'ICLR','G6683N103':'NU','G0750C108':'AXTA','12510Q100':'CCC'})
+_symbol_changes_path=os.path.join(BASE,'security_symbol_changes.json')
+if os.path.exists(_symbol_changes_path):
+    with open(_symbol_changes_path,encoding='utf-8') as _f:
+        for _cusip,_change in json.load(_f).get('entries',{}).items():
+            if re.fullmatch(r'[A-Z0-9]{9}',_cusip) and re.fullmatch(r'[A-Z][A-Z0-9./-]*',_change.get('ticker','')):
+                CUSIP_TICKER_MAP[_cusip]=_change['ticker']
 
 # 行业映射（兜底用 enrich_metadata.py 的 LLM 标注）
 SECTORS = {

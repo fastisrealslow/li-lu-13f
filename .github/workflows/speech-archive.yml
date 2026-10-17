@@ -8,32 +8,25 @@ on:
     branches: [master]
     paths:
       - speech_archive.py
-      - verbatim_texts.py
       - archive_guides.py
+      - archive_generator.py
       - archive_explanations.py
       - investors.json
-      - archive/explanation_baselines.json
+      - archive/explanation_expansion_baselines.json
       - archive/sources.json
-      - tests/test_speech_archive.py
-      - tests/test_verbatim_texts.py
       - tests/test_archive_explanations.py
       - .github/workflows/speech-archive.yml
 permissions:
   contents: read
 concurrency:
   group: speech-archive-master
-  cancel-in-progress: true
+  cancel-in-progress: false
 jobs:
-  archive:
+  catalogue:
     runs-on: ubuntu-24.04
-    timeout-minutes: 80
+    timeout-minutes: 20
     permissions:
       contents: write
-    env:
-      AI_MODEL: qwen3.5:9b-q4_K_M
-      OLLAMA_NUM_PARALLEL: '1'
-      OLLAMA_MAX_LOADED_MODELS: '1'
-      OLLAMA_NO_CLOUD: '1'
     steps:
       - uses: actions/checkout@v4
         with:
@@ -41,34 +34,91 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - name: Install catalogue readers
-        run: python3 -m pip install beautifulsoup4==4.14.2 pymupdf==1.28.2 yt-dlp==2026.8.19
-      - name: Test original text integrity and catalogue identity
+      - name: Install source readers
+        run: python3 -m pip install beautifulsoup4==4.14.2 pymupdf==1.28.2
+      - name: Validate sources and existing editions
         run: |
-          python3 -m unittest discover -s tests -p test_speech_archive.py -v
-          python3 -m unittest discover -s tests -p test_verbatim_texts.py -v
           python3 -m unittest discover -s tests -p test_archive_explanations.py -v
-      - name: Discover document metadata only
-        timeout-minutes: 10
+          python3 -m unittest discover -s tests -p test_archive_generator.py -v
+          python3 archive_explanations.py validate
+      - name: Discover sources and rebuild investor guides
+        timeout-minutes: 12
         run: python3 -u speech_archive.py discover
-      - name: Validate complete texts
-        run: python3 speech_archive.py validate
-      - name: Plan detailed introductions
-        id: plan
+      - name: Publish catalogue
         run: |
-          python3 archive_explanations.py plan > "$RUNNER_TEMP/archive-plan.json"
-          python3 -c 'import json,os; n=json.load(open(os.environ["RUNNER_TEMP"]+"/archive-plan.json"))["pending"]; open(os.environ["GITHUB_OUTPUT"],"a").write("pending="+str(n)+"\n")'
+          git config user.name 'github-actions[bot]'
+          git config user.email 'github-actions[bot]@users.noreply.github.com'
+          git add archive/catalog.json archive/guides.json
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m 'auto: refresh investor source catalogue'
+          for attempt in 1 2 3; do
+            git pull --rebase origin master
+            if git push origin HEAD:master; then exit 0; fi
+          done
+          exit 1
+  introductions:
+    needs: catalogue
+    strategy:
+      fail-fast: false
+      max-parallel: 14
+      matrix:
+        shard: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]
+    runs-on: ubuntu-24.04
+    timeout-minutes: 350
+    permissions:
+      contents: write
+    env:
+      SILICONFLOW_KEY: ${{ secrets.SILICONFLOW_KEY }}
+      AI_MODEL: qwen3.5:4b-q4_K_M
+      OLLAMA_NUM_PARALLEL: '1'
+      OLLAMA_MAX_LOADED_MODELS: '1'
+      OLLAMA_NO_CLOUD: '1'
+      ARCHIVE_PUBLISH_EACH: '1'
+      ARCHIVE_ALLOW_ASR: '1'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: master
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install source readers and speech recognition
+        run: python3 -m pip install beautifulsoup4==4.14.2 pymupdf==1.28.2 yt-dlp faster-whisper==1.2.1
+      - uses: actions/cache@v4
+        with:
+          path: .archive-work/partials
+          key: archive-drafts-v2-${{ matrix.shard }}-${{ github.run_id }}
+          restore-keys: archive-drafts-v2-${{ matrix.shard }}-
+      - name: Verify configured model service
+        id: provider
+        run: |
+          python3 - <<'PY'
+          import os
+          from archive_generator import ask
+          provider='cpu'
+          if os.environ.get('SILICONFLOW_KEY'):
+            for model in ['Qwen/Qwen3.5-9B','Qwen/Qwen3.5-4B']:
+              os.environ['ARCHIVE_CLOUD_MODEL']=model
+              try:
+                ask('Return JSON only: {"ok":true}.',{},model,64)
+                provider='cloud'
+                with open(os.environ['GITHUB_ENV'],'a') as f:f.write('ARCHIVE_CLOUD_MODEL='+model+'\n')
+                break
+              except Exception as e:print('Model probe:',model,type(e).__name__)
+          if provider=='cpu':
+            with open(os.environ['GITHUB_ENV'],'a') as f:f.write('SILICONFLOW_KEY=\n')
+          with open(os.environ['GITHUB_OUTPUT'],'a') as f:f.write('provider='+provider+'\n')
+          print('Selected provider:',provider)
+          PY
           echo "OLLAMA_MODELS=$RUNNER_TEMP/lilu-ollama-models" >> "$GITHUB_ENV"
       - uses: actions/cache@v4
-        if: steps.plan.outputs.pending != '0'
+        if: steps.provider.outputs.provider == 'cpu'
         with:
           path: ${{ env.OLLAMA_MODELS }}
           key: qwen-cpu-v1-${{ runner.os }}-${{ env.AI_MODEL }}
-      - name: Install local CPU model
-        id: model
-        if: steps.plan.outputs.pending != '0'
-        continue-on-error: true
-        timeout-minutes: 10
+      - name: Start fallback CPU model
+        if: steps.provider.outputs.provider == 'cpu'
+        timeout-minutes: 15
         run: |
           curl --fail --location --retry 3 --max-time 420 https://github.com/ollama/ollama/releases/download/v0.34.1/ollama-linux-amd64.tar.zst -o "$RUNNER_TEMP/archive-ollama.tar.zst"
           mkdir -p "$RUNNER_TEMP/archive-ollama"
@@ -81,24 +131,14 @@ jobs:
             sleep 1
           done
           ollama pull "$AI_MODEL"
-      - name: Generate source-grounded introductions with checkpoints
-        if: steps.model.outcome == 'success'
-        continue-on-error: true
-        timeout-minutes: 47
-        run: python3 -u archive_explanations.py generate --model "$AI_MODEL" --limit 14 --minutes 45
-      - name: Validate detailed guides and introductions
-        run: |
-          python3 archive_guides.py
-          python3 archive_explanations.py validate
-      - name: Publish catalogue metadata
-        run: |
-          git config user.name 'github-actions[bot]'
-          git config user.email 'github-actions[bot]@users.noreply.github.com'
-          git add archive/catalog.json archive/guides.json archive/explanations
-          if git diff --cached --quiet; then exit 0; fi
-          git commit -m 'auto: refresh sources and detailed AI reading guides'
-          for attempt in 1 2 3; do
-            git pull --rebase origin master
-            if git push origin HEAD:master; then exit 0; fi
-          done
-          exit 1
+      - name: Generate, verify and publish each complete work
+        timeout-minutes: 310
+        run: python3 -u archive_explanations.py generate --model "$AI_MODEL" --limit 230 --minutes 300 --shard ${{ matrix.shard }} --shards 14
+      - name: Preserve partial sections for retry
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: archive-drafts-${{ matrix.shard }}
+          path: .archive-work/partials
+          if-no-files-found: ignore
+          retention-days: 7

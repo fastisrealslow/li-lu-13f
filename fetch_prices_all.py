@@ -344,8 +344,13 @@ def fetch_us(investor, cfg):
         else:
             # 本次拉取失败（如 Finnhub 偶发502等）——回退到上一次成功缓存的报价，
             # 而不是直接覆盖为 error，避免前端“参考股价”因一次接口抖动就彻底消失。
+            from quote_coverage import yahoo_quote, valid_quote
+            fallback = yahoo_quote(tk)
             eq = existing_quotes.get(tk)
-            if eq and not eq.get("error") and eq.get("c", 0) > 0:
+            if valid_quote(fallback):
+                quotes[tk] = fallback
+                print(f"Yahoo ${fallback['c']:.2f}")
+            elif eq and not eq.get("error") and eq.get("c", 0) > 0:
                 quotes[tk] = {**eq, "stale": True}
                 print(f"✗ → 回退旧报价 ${eq['c']:.2f} (stale)")
             else:

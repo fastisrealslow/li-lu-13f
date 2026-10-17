@@ -57,10 +57,13 @@ def build_guides(root=ROOT):
                   {'heading':pair('怎样安排阅读顺序','A reading sequence'), 'paragraphs':[pair(
                     '可以先读早期作品，再对照近期访谈或演讲，记录判断的前提、企业背景和后来发生的变化。先理解提问与回答的关系，再比较相同问题在不同年份的表达；不要把不同年份的材料拼接成一段从未说过的话。下面列出的篇目来自当前目录，目录仍可能遗漏公开作品。',
                     'Start with earlier works and compare later interviews or speeches, retaining assumptions, business context and subsequent changes. Read each answer with its question before comparing years. Do not splice separate works into a statement never made. The selections below come from the current catalogue, which may omit public material.')]}]
+        extension_path=root/'archive/guide_extensions.json'
+        extensions=json.loads(extension_path.read_text()) if extension_path.exists() else {}
+        sections.extend(extensions.get(p['id'],[]))
         anchor_works=works[:1]+works[-2:] if len(works)>3 else works
         guides[p['id']]={'kind':'ai_collection_guide','investor':p['id'],'title':pair(p['name']+' · 作品阅读导读',p['nameEn']+' · Collection guide'),
                          'lead':pair(*profile['about'][0]),'sections':sections,'works':[{'id':w['id'],'title':w['title'],'date':w.get('date'),'publisher':w['publisher']} for w in anchor_works],
-                         'sourceURLs':profile.get('sources',[]),'sourceHash':hashlib.sha256(json.dumps([profile,works],sort_keys=True,ensure_ascii=False).encode()).hexdigest(),
+                         'sourceURLs':profile.get('sources',[]),'sourceHash':hashlib.sha256(json.dumps([profile,works,extensions.get(p['id'],[])],sort_keys=True,ensure_ascii=False).encode()).hexdigest(),
                          'label':pair('AI 导读：依据已核对人物资料和目录编写，不是原文、逐句翻译或单篇全文的替代。','AI guide based on reviewed profiles and catalogue metadata; not an original text, literal translation or replacement for any individual work.')}
     path=root/'archive/guides.json';path.write_text(json.dumps({'version':1,'guides':guides},ensure_ascii=False,indent=2)+'\n')
     return guides

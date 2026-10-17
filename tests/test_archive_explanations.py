@@ -32,8 +32,8 @@ class ArchiveExplanationTests(unittest.TestCase):
             with self.subTest(change=change),self.assertRaises(ValueError):explain.validate(bad,{},chunks,500)
 
     def test_length_requirement_is_at_least_five_times_the_previous_edition(self):
-        self.assertEqual(explain.minimum({'id':'test'},{'test':650}),3250)
-        self.assertEqual(explain.minimum({'id':'new'},{}),1300)
+        self.assertEqual(explain.minimum({'id':'test'},{'test':650}),6500)
+        self.assertEqual(explain.minimum({'id':'new'},{}),2600)
 
     def test_every_investor_has_a_distinct_detailed_collection_guide(self):
         data=explain.read(explain.ROOT/'archive/guides.json')['guides']

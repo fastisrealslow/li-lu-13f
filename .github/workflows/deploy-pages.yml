@@ -44,16 +44,20 @@ jobs:
         run: |
           python3 -m unittest discover -s tests -p test_spinoff_events.py -v
           python3 -m unittest discover -s tests -p test_13f_units.py -v
+          python3 -m unittest discover -s tests -p test_quote_coverage.py -v
           python3 -m unittest discover -s tests -p test_magic_formula.py -v
 
       - name: Validate published data
-        run: python3 validate_data.py
+        run: |
+          python3 validate_data.py
+          python3 quote_coverage.py --check
 
       - name: Validate speech and interview reading editions
         run: |
           python3 -m unittest discover -s tests -p test_speech_archive.py -v
           python3 -m unittest discover -s tests -p test_verbatim_texts.py -v
           python3 -m unittest discover -s tests -p test_archive_explanations.py -v
+          python3 -m unittest discover -s tests -p test_archive_generator.py -v
           python3 speech_archive.py validate
           python3 archive_explanations.py validate
 

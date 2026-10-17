@@ -850,14 +850,14 @@ function renderHoldings() {
     const pct=d.valueQuality?0:(h.value/d.totalValue*100).toFixed(2);
     const weightText=d.valueQuality?'—':pct+'%';
     const amountText=d.valueQuality?(lang==='en'?'Value unverified':'金额待核实'):currSymbol(h.ticker)+h.value.toLocaleString();
-    const q = h.putCall || (h.shareType && h.shareType!=='SH') ? null : quotes[h.ticker];
+    const q = h.shareType && h.shareType!=='SH' ? null : quotes[h.ticker];
     const costState = holdingCostState(h);
     const cb = costState.basis;
     const quoteOK = q && !q.error && Number.isFinite(q.c) && q.c > 0;
     const currentPrice = quoteOK && !q.stale ? q.c : null;
     const staleTitle = lang === 'en' ? 'Daily quote unavailable — showing last known price' : '今日报价拉取失败，显示上次成功获取的报价';
-    const priceHtml = h.putCall ? `<span class="estimate-unavailable">—</span><small class="option-field-note">${lang==='en'?'Strike not disclosed':'行权价未披露'}</small>` : quoteOK
-      ? `<span class="current-price">${currSymbol(h.ticker)}${q.c.toFixed(2)}</span>${q.stale ? ` <span title="${staleTitle}" class="quote-stale">⏱</span>` : ''}`
+    const priceHtml = quoteOK
+      ? `<span class="current-price">${currSymbol(h.ticker)}${q.c.toFixed(2)}</span>${h.putCall?`<small class="option-field-note">${lang==='en'?'Underlying stock price':'标的股价'}</small>`:''}${q.stale ? ` <span title="${staleTitle}" class="quote-stale">⏱</span>` : ''}`
       : `<span class="estimate-unavailable">${lang === 'en' ? 'Quote unavailable' : '暂无报价'}</span>`;
     const reason = cb ? null : costUnavailableText(costState.reason);
     const mos = cb ? costGap(currentPrice, cb.recent.buy) : null;
