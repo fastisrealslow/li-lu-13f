@@ -313,9 +313,9 @@ test('published Pop Mart disclosure retains its stock code and derivative compon
   assert.equal(record.derivative_interests.reduce((sum,d)=>sum+d.shares,0),10000000);
 });
 
-test('mobile action badges are attached to the stock cell and unknown data has no direction',()=>{
+test('action badges are attached to the stock cell and unknown data has no direction',()=>{
   const source=fs.readFileSync(path.join(__dirname,'../app.js'),'utf8');
-  assert.match(source,/mobile-holding-change">\$\{chgTag\}/);
+  assert.match(source,/holding-change">\$\{chgTag\}/);
   const a=app();
   assert.match(a.run('positionChangeBadge(120,100)'),/▲.*加仓/);
   assert.match(a.run('positionChangeBadge(80,100)'),/▼.*减仓/);

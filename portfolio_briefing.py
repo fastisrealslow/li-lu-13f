@@ -57,6 +57,12 @@ def names(rows, en=False):
 
 
 def holdings_briefing(data):
+    result=_holdings_briefing(data)
+    result['format']='concise_holdings_v2'
+    return result
+
+
+def _holdings_briefing(data):
     rows=consolidate_holdings(data['current']['holdings'])
     if data.get('meta',{}).get('snapshotType'):
         return brief(pair('这是历史档案，当前持仓尚不能确认','An archive, with present holdings unconfirmed'),
@@ -70,10 +76,11 @@ def holdings_briefing(data):
     total=sum(h['value'] for h in rows)
     if not total:return brief(pair('本期没有可计算权重的申报金额','No reported amount available for weight analysis'),pair('保留证券记录，暂不计算组合占比。','Security records are retained without portfolio weights.'))
     top=rows[:3];top_pct=sum(h['value'] for h in top)/total*100
-    headline=pair(f'前三项占 {pct(top_pct)}%，组合重心'+('集中在少数证券' if top_pct>=60 else '分布在更多证券'),
-                  f'Top three: {pct(top_pct)}% — '+('a concentrated core' if top_pct>=60 else 'a broader spread of positions'))
-    lead=pair(f'本期 13F 披露 {amount(total)}、{len(rows)} 项证券。{names(top)} 合计占 {pct(top_pct)}%；其余 {len(rows)-len(top)} 项合计占 {pct(100-top_pct)}%。'+('这三项是理解本期组合结构的重点。' if top_pct>=50 else '其余持仓合计仍占一半以上，不能只看前三项。'),
-              f'The filing reports {amount(total,True)} across {len(rows)} securities. {names(top,True)} together represent {pct(top_pct)}%, leaving {pct(100-top_pct)}% across the other {len(rows)-len(top)} positions. '+('The leading positions therefore dominate the disclosed composition.' if top_pct>=50 else 'The rest of the portfolio still accounts for more than half.'))
+    count='前三项' if len(top)==3 else f'前 {len(top)} 项'
+    headline=pair(f'{count}占 {pct(top_pct)}%，'+('持仓较集中' if top_pct>=60 else '持仓较分散'),
+                  f'Top {len(top)}: {pct(top_pct)}% — '+('concentrated' if top_pct>=60 else 'broadly spread'))
+    lead=pair('；'.join(f'{stock(h)} {pct(h["value"]/total*100)}%' for h in top)+'。'+(f'其余 {len(rows)-len(top)} 项合计 {pct(100-top_pct)}%。' if len(rows)>len(top) else ''),
+              '; '.join(f'{stock(h,True)} {pct(h["value"]/total*100)}%' for h in top)+'.'+(f' The other {len(rows)-len(top)} positions total {pct(100-top_pct)}%.' if len(rows)>len(top) else ''))
     details=[];equity=[h for h in rows if not h.get('putCall') and h.get('shareType','SH')=='SH']
     groups=defaultdict(list)
     # CGS: the first six CUSIP/CINS characters identify the issuer. Keep options separate.
@@ -83,30 +90,23 @@ def holdings_briefing(data):
         groups[key].append(h)
     if groups:
         group=max(groups.values(),key=lambda g:sum(h['value'] for h in g));weight=sum(h['value'] for h in group)/total*100
-        details.append(detail(pair('最大普通股公司敞口','Largest ordinary-share issuer'),
-            pair(f'{names(group)} 合计占申报总值 {weight:.1f}%。'+('同一发行人的不同股份类别在表中分列，这里合并看公司层面的集中度。' if len(group)>1 else '这是该普通股在已披露组合中的比重。'),
-                 f'{names(group,True)} represent {weight:.1f}% of reported value. '+('Separate share classes of this issuer are combined here to show issuer concentration.' if len(group)>1 else 'This is its weight within the disclosed portfolio.'))))
-    sectors=defaultdict(float)
-    for h in equity:
-        if h.get('sector') and h['sector'] not in ('其他','Unknown','Other'):sectors[h['sector']]+=h['value']
-    if sectors:
-        ranked=sorted(sectors.items(),key=lambda x:x[1],reverse=True)[:2]
-        known=sum(sectors.values())/total*100
-        zh='、'.join(f'{s} {v/total*100:.1f}%' for s,v in ranked)
-        details.append(detail(pair('行业重心','Sector composition'),
-            pair(f'普通股中申报值最多的行业是 {zh}。已识别行业覆盖申报总值 {known:.1f}%，未分类证券和期权未并入这些行业比例。',
-                 'Leading ordinary-share sectors: '+', '.join(f'{SECTOR_EN.get(s,s)}: {v/total*100:.1f}%' for s,v in ranked)+f'. Classified ordinary shares cover {known:.1f}% of reported value; unclassified securities and options are outside these sector figures.')))
+        if len(group)>1:
+            details.append(detail(pair('合并看同一家公司','Combined share classes'),
+                pair(f'{names(group)} 合计 {weight:.1f}%。表中分列的不同股份类别，实际对应同一发行人。',
+                     f'{names(group,True)} total {weight:.1f}%. These separately listed share classes belong to the same issuer.')))
     small=[h for h in rows if h['value']/total<.01]
     if small:
-        details.append(detail(pair('小仓位有多大','Scale of small positions'),
-            pair(f'{len(small)} 项证券各自低于 1%，合计仅占 {sum(h["value"] for h in small)/total*100:.2f}%。这些记录值得保留，但不能与核心仓位等量看待。',
-                 f'{len(small)} securities individually weigh less than 1%, together just {sum(h["value"] for h in small)/total*100:.2f}%. These records have a different portfolio scale from the core positions.')))
-    notes=[pair('统计仅覆盖本期 13F；港股补充行按各自披露日期单列。','Figures cover this 13F filing; supplementary HK rows retain their individual disclosure dates.')]
+        details.append(detail(pair('小仓位','Small positions'),
+            pair(f'{len(small)} 项各自不足 1%，合计 {sum(h["value"] for h in small)/total*100:.2f}%。',
+                 f'{len(small)} positions each below 1% total {sum(h["value"] for h in small)/total*100:.2f}%.')))
     options=[h for h in rows if h.get('putCall')]
-    if options:notes.append(pair(f'含 {len(options)} 项期权：申报值是标的证券价值，不是权利金；未与普通股公司敞口相抵。',f'{len(options)} option positions report underlying security values, not premiums; they are not netted against ordinary-share issuer exposure.'))
-    guide=pair(f'先研究 {names(top[:2])}：它们是本期最大的申报证券。把企业经营与最新估值放在一起核对；持仓权重说明研究重点，不等于今天仍值得买入。',
-               f'Start your research with {names(top[:2],True)}, the largest reported securities. Compare business performance with current valuation; disclosed weight identifies a research focus, not a buy signal today.')
-    return brief(headline,lead,details[:3],notes,guide)
+    if options:
+        details.insert(0,detail(pair('期权规模','Option scale'),pair(
+            '；'.join(f'{h["ticker"]} {h["putCall"].upper()} 覆盖标的 {h["shares"]:,.0f} 股、名义占比 {h["value"]/total*100:.2f}%' for h in options[:2])+ (f'；其余 {len(options)-2} 项期权名义占比合计 {sum(h["value"] for h in options[2:])/total*100:.2f}%' if len(options)>2 else '')+'。比例按标的名义金额计算，不是权利金占比。',
+            '; '.join(f'{h["ticker"]} {h["putCall"].upper()} covers {h["shares"]:,.0f} underlying shares, {h["value"]/total*100:.2f}% notional weight' for h in options[:2])+(f'; the other {len(options)-2} options total {sum(h["value"] for h in options[2:])/total*100:.2f}% notional weight' if len(options)>2 else '')+'. Weights use underlying notional values, not option premiums.')))
+    result=brief(headline,lead,details[:3])
+    result['format']='concise_holdings_v2'
+    return result
 
 
 def share_clause(h, en=False):

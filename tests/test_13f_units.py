@@ -11,6 +11,19 @@ def table(values):
 
 
 class ValueUnits(unittest.TestCase):
+    def test_appaloosa_original_put_row_preserves_underlying_share_count_and_value(self):
+        # SEC 0001656456-26-000003 / Form13FInfoTable.xml, verified 2026-10-17.
+        xml=f'''<informationTable xmlns="{fetch.NS['ns']}"><infoTable>
+          <nameOfIssuer>BERKSHIRE HATHAWAY INC DEL</nameOfIssuer><titleOfClass>CL B NEW</titleOfClass>
+          <cusip>084670702</cusip><value>12509750</value><shrsOrPrnAmt>
+          <sshPrnamt>25000</sshPrnamt><sshPrnamtType>SH</sshPrnamtType></shrsOrPrnAmt>
+          <putCall>Put</putCall><investmentDiscretion>SOLE</investmentDiscretion>
+          </infoTable></informationTable>'''.encode()
+        h=fetch.parse_holdings(xml,filing_date='2026-08-14')[0]
+        self.assertEqual((h['cusip'],h['cls'],h['putCall'],h['shareType']),('084670702','CL B NEW','Put','SH'))
+        self.assertEqual(h['shares'],25000)
+        self.assertEqual(h['value'],12509750)
+
     def test_old_filing_with_expensive_share_uses_thousands(self):
         xml = table([('BRK.A', 1, 450), ('JOE', 26491533, 514466)])
         rows = fetch.parse_holdings(xml, filing_date='2022-11-14')
@@ -51,6 +64,7 @@ class ValueUnits(unittest.TestCase):
             fetch.process_full('test', config, filings, data)
         self.assertEqual(data['history']['values'], [2, 2])
         self.assertEqual(data['history']['holdings']['2022 Q1'][0]['value'], 2000000)
+        self.assertEqual(data['current']['sourceFiling'],'https://www.sec.gov/Archives/edgar/data/1/2/2-index.html')
         save.assert_called_once()
 
 if __name__ == '__main__':

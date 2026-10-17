@@ -974,6 +974,7 @@ def process_investor(key: str, config: dict, full_mode: bool):
     data["current"] = {
         "quarter":        quarter_label(cur_f["reportDate"]),
         "filingDate":     cur_f["filingDate"],
+        "sourceFiling":   f"https://www.sec.gov/Archives/edgar/data/{int(cur_f.get('cik', cik))}/{cur_f['accession']}/{cur_f['accessionDashed']}-index.html",
         "periodEnd":      cur_f["reportDate"],
         "totalValue":     total,
         "holdings":       cur_holdings,
@@ -1084,6 +1085,7 @@ def process_full(key: str, config: dict, filings: list[dict], data: dict):
     data["current"] = {
         "quarter":        quarter_label(latest["reportDate"]),
         "filingDate":     latest["filingDate"],
+        "sourceFiling":   f"https://www.sec.gov/Archives/edgar/data/{int(latest.get('cik', cik))}/{latest['accession']}/{latest['accessionDashed']}-index.html",
         "periodEnd":      latest["reportDate"],
         "totalValue":     latest_total,
         "holdings":       latest_holdings,

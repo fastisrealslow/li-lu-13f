@@ -15,18 +15,17 @@ def text(b):
 
 
 class PortfolioBriefingTests(unittest.TestCase):
-    def test_reading_guides_are_source_bound_and_do_not_turn_disclosures_into_buy_signals(self):
+    def test_holdings_are_concise_conclusions_and_remain_source_bound(self):
         d=json.loads((ROOT/'data.json').read_text())
-        for fn in (holdings_briefing, changes_briefing, history_briefing):
-            b=fn(d)
-            self.assertEqual(len(b['readerGuide']),2)
-            self.assertTrue(all(b['readerGuide']))
-        self.assertIn('不等于今天仍值得买入',holdings_briefing(d)['readerGuide'][0])
-        self.assertIn('不能证明经理买卖的理由',changes_briefing(d)['readerGuide'][0])
-        self.assertIn('不是收益率',history_briefing(d)['readerGuide'][0])
+        b=holdings_briefing(d)
+        self.assertEqual(b['format'],'concise_holdings_v2')
+        self.assertNotIn('readerGuide',b)
+        for noise in ('先研究','未分类证券','行业重心','值得买入','怎么用'):
+            self.assertNotIn(noise,text(b))
+        self.assertLess(len(text(b)),500)
         task=next(t for t in ai.tasks(ROOT) if t['id']=='holdings:lilu')
         entry=ai.make_entry(task,ai.fallback_selection(task['facts']))
-        entry['briefing']['readerGuide'][0]='捏造的确定买入建议'
+        entry['briefing']['lead'][0]='捏造的确定买入建议'
         self.assertFalse(ai.valid_entry(entry,task))
 
     def test_principal_quantities_are_not_shares_and_tiny_percentages_are_nonzero(self):
@@ -41,10 +40,19 @@ class PortfolioBriefingTests(unittest.TestCase):
             dict(ticker='A',cusip='123456101',shares=10,value=100,putCall='PUT'),
             dict(ticker='C',cusip='654321101',shares=10,value=200)]}}
         b=holdings_briefing(d)
-        self.assertIn('70.0%',b['details'][0]['text'][0])
-        self.assertNotIn('80.0%',b['details'][0]['text'][0])
-        self.assertIn('不同股份类别',b['details'][0]['text'][0])
-        self.assertIn('不是权利金',text(b))
+        issuer=next(x for x in b['details'] if x['label'][0]=='合并看同一家公司')
+        self.assertIn('70.0%',issuer['text'][0])
+        self.assertNotIn('80.0%',issuer['text'][0])
+        self.assertIn('不同股份类别',issuer['text'][0])
+        self.assertIn('不是权利金占比',text(b))
+
+    def test_option_scale_is_not_a_positive_stock_position_or_option_premium(self):
+        d=json.loads((ROOT/'tepper.json').read_text())
+        b=holdings_briefing(d)
+        self.assertIn('BRK/B PUT 覆盖标的 25,000 股、名义占比 0.16%',text(b))
+        self.assertIn('AAPL PUT 覆盖标的 835,000 股、名义占比 3.13%',text(b))
+        self.assertNotIn('卖出看跌期权',text(b))
+        self.assertNotIn('行业',text(b))
 
     def test_tiny_new_position_is_visible_in_holdings_and_quarter_narrative(self):
         d={'current':{'quarter':'2026 Q2','prevQuarter':'2026 Q1','holdings':[

@@ -85,16 +85,52 @@ test('narrative headings and evidence are escaped and generic advice does not re
   assert.match(html,/90% 与 10%/);
   assert.ok(!html.includes('scope-lens'));
 });
-test('reading guidance is available before AI loads without changing source-bound entries',()=>{
+test('holdings stay concise before AI loads and old instructional briefings cannot return',()=>{
   const a=app();a.context.snapshot=read('data.json');a.run("investor='lilu';data=snapshot;_aiSupplement={entries:{}}");
   a.run("renderScopedInsight('holdings')");
-  assert.match(a.el('holdingsInsight').innerHTML,/怎么用这页/);
-  assert.match(a.el('holdingsInsight').innerHTML,/本次披露/);
+  assert.doesNotMatch(a.el('holdingsInsight').innerHTML,/怎么用这页|先研究|未分类证券|行业重心|briefing-takeaway/);
+  assert.match(a.el('holdingsInsight').innerHTML,/前三项占/);
   a.run("data.current.valueQuality='unverified'");
-  assert.match(a.run("scopePanelHTML('holdings',['数字待核实'])"),/金额未核实/);
-  a.context.entry={briefing:{version:1,headline:['标题','Title'],lead:['8 项','8 securities'],details:[],notes:[]}};
-  assert.match(a.run("scopePanelHTML('holdings',['数字待核实'],entry)"),/briefing-takeaway/);
-  assert.equal(a.context.entry.briefing.readerGuide,undefined);
+  assert.match(a.run("scopePanelHTML('holdings',['数字待核实'])"),/申报金额待核实/);
+  a.context.entry={briefing:{version:1,headline:['旧标题','Old title'],lead:['旧的冗长说明','Old instructions'],readerGuide:['怎么用这页','How to use'],details:[],notes:[]}};
+  assert.doesNotMatch(a.run("scopePanelHTML('holdings',['数字待核实'],entry)"),/旧的冗长说明|briefing-takeaway|怎么用这页/);
+  assert.doesNotMatch(a.run('briefingHTML(entry.briefing)'),/怎么用这页|How to use/);
+  assert.equal(a.context.entry.briefing.readerGuide[0],'怎么用这页');
+});
+test('option rows explain the long right, exact notional denominator and unavailable strike',()=>{
+  const a=app();a.context.snapshot=read('tepper.json');a.run("investor='tepper';data=snapshot;lang='zh'");
+  a.context.option=a.context.snapshot.current.holdings.find(h=>h.ticker==='BRK/B');
+  const html=a.run('optionPositionHTML(option,data.current)');
+  assert.match(html,/买入／持有看跌期权/);assert.match(html,/25,000 股，不是合约张数/);
+  assert.match(html,/12,509,750 ÷ \$7,725,383,349 = 0.16%/);
+  assert.match(html,/PUT 对应的是卖出股票的权利/);
+  assert.match(html,/未披露行权价、到期日和权利金/);
+  assert.match(html,/0001656456-26-000003-index.html/);
+  assert.doesNotMatch(html,/250 张|行权价.*500\.39/);
+  a.run('data.current.valueQuality=true');
+  assert.doesNotMatch(a.run('optionPositionHTML(option,data.current)'),/= 0.16%/);
+  a.run("option.putCall='Call';lang='en'");
+  assert.match(a.run('optionPositionHTML(option,data.current)'),/right to buy/);
+  a.run("lang='zh';option.name='<img src=x>';option.cnName='<img src=x>'");
+  assert.doesNotMatch(a.run('optionPositionHTML(option,data.current)'),/<img/);
+});
+test('the legend uses the actual badge renderers and only current table categories',()=>{
+  const a=app();a.run("data={current:{quarter:'2026 Q2',prevQuarter:'2026 Q1',previousHoldings:[]}};lang='zh'");
+  a.context.rows=[{shares:100,prevShares:100},{shares:90,prevShares:100}];
+  const html=a.run('holdingsLegendHTML(rows,[20,10,-1])');
+  assert.match(html,/股数不变/);assert.match(html,/position-change trimmed/);
+  assert.match(html,/cost-gap deep/);assert.match(html,/cost-gap watch/);assert.match(html,/cost-gap negative/);
+  assert.doesNotMatch(html,/position-change new|position-change exited|🟢|⚡/);
+  assert.equal(a.run("costGapTone(20)"),'deep');assert.equal(a.run("costGapTone(10)"),'watch');assert.equal(a.run("costGapTone(9.99)"),'positive');
+  a.run("data.current.prevQuarter='2025 Q4'");
+  assert.doesNotMatch(a.run('holdingsLegendHTML(rows,[])'),/股数不变|减仓/);
+});
+test('fallback holdings conclusions stay current and expose actual option coverage',()=>{
+  const a=app();a.context.snapshot=read('tepper.json');a.run("investor='tepper';data=snapshot;lang='zh';_aiSupplement={entries:{}}");
+  a.run("renderScopedInsight('holdings')");
+  const html=a.el('holdingsInsight').innerHTML;
+  assert.match(html,/BRK\/B PUT 覆盖标的 25,000 股、名义占比 0.16%/);
+  assert.doesNotMatch(html,/怎么用|行业|先看|先研究/);
 });
 test('model topic ordering preserves the whole narrative and rejects foreign topics',()=>{
   const a=app();a.context.b={version:1,headline:['主线','Main point'],lead:['50%','50%'],details:[{label:['第一','First'],text:['10%','10%']},{label:['第二','Second'],text:['20%','20%']},{label:['第三','Third'],text:['30%','30%']}],notes:[]};
