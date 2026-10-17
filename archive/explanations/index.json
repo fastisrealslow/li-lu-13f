@@ -37,14 +37,14 @@
       "reason": "ValueError: Detailed explanation is too short"
     },
     "akre-6c46aa04220a2d": {
-      "at": "2026-10-16T01:25:38+00:00",
+      "at": "2026-10-17T11:33:25+00:00",
       "status": "retry",
-      "reason": "ValueError: Detailed explanation is too short"
+      "reason": "HTTPError: HTTP Error 500: Internal Server Error"
     },
     "berkowitz-82e815f64d1abc": {
-      "at": "2026-10-16T01:34:39+00:00",
+      "at": "2026-10-17T11:37:54+00:00",
       "status": "retry",
-      "reason": "TimeoutError: timed out"
+      "reason": "AttributeError: 'str' object has no attribute 'get'"
     },
     "buffett-08cef81cb6e703": {
       "at": "2026-10-15T04:59:11+00:00",
@@ -52,22 +52,22 @@
       "reason": "ValueError: Unsupported numerical claim"
     },
     "duan-8f135498ccdf75": {
-      "at": "2026-10-16T01:34:42+00:00",
+      "at": "2026-10-17T11:37:57+00:00",
       "status": "retry",
       "reason": "ValueError: No audio obtained"
     },
     "greenberg-6817efa52cf49f": {
-      "at": "2026-10-16T12:17:15+00:00",
+      "at": "2026-10-17T11:42:45+00:00",
       "status": "retry",
       "reason": "ValueError: Missing or invalid source evidence"
     },
     "hawkins-380aedfaee9faf": {
-      "at": "2026-10-16T12:26:16+00:00",
+      "at": "2026-10-17T11:51:38+00:00",
       "status": "retry",
-      "reason": "TimeoutError: timed out"
+      "reason": "ValueError: Detailed explanation is too short"
     },
     "klarman-aec591deef918e": {
-      "at": "2026-10-16T12:29:05+00:00",
+      "at": "2026-10-17T11:54:16+00:00",
       "status": "retry",
       "reason": "AttributeError: 'str' object has no attribute 'get'"
     },
@@ -82,7 +82,7 @@
       "reason": "ValueError: Source summary exceeds its short paraphrase budget"
     },
     "ackman-694e5bc94d88e1": {
-      "at": "2026-10-16T12:43:52+00:00",
+      "at": "2026-10-17T12:00:10+00:00",
       "status": "retry",
       "reason": "ValueError: Missing or invalid source evidence"
     },
@@ -239,7 +239,22 @@
       "at": "2026-10-17T01:12:03+00:00",
       "status": "retry",
       "reason": "ValueError: Detailed explanation is too short"
+    },
+    "buffett-d5e534b6a5c51f": {
+      "at": "2026-10-17T11:19:10+00:00",
+      "status": "retry",
+      "reason": "ValueError: Detailed explanation is too short"
+    },
+    "pabrai-f557b2c57744d9": {
+      "at": "2026-10-17T11:28:11+00:00",
+      "status": "retry",
+      "reason": "TimeoutError: timed out"
+    },
+    "vinall-aa78d92144efef": {
+      "at": "2026-10-17T11:28:11+00:00",
+      "status": "retry",
+      "reason": "ValueError: No verified matching episode description"
     }
   },
-  "updatedAt": "2026-10-17T01:33:23+00:00"
+  "updatedAt": "2026-10-17T12:00:10+00:00"
 }
