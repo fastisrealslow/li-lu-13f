@@ -4,6 +4,12 @@ on:
     - cron: '45 22 * * *'
     - cron: '45 6,14 * * *'
   workflow_dispatch:
+    inputs:
+      resume_run:
+        description: Previous run with saved draft sections
+        type: string
+        required: false
+        default: ""
   push:
     branches: [master]
     paths:
@@ -67,6 +73,7 @@ jobs:
     timeout-minutes: 350
     permissions:
       contents: write
+      actions: read
     env:
       SILICONFLOW_KEY: ${{ secrets.SILICONFLOW_KEY }}
       AI_MODEL: qwen3.5:4b-q4_K_M
@@ -83,12 +90,21 @@ jobs:
         with:
           python-version: '3.12'
       - name: Install source readers and speech recognition
-        run: python3 -m pip install beautifulsoup4==4.14.2 pymupdf==1.28.2 yt-dlp faster-whisper==1.2.1
+        run: python3 -m pip install beautifulsoup4==4.14.2 pymupdf==1.28.2 yt-dlp faster-whisper==1.2.1 "av<18"
       - uses: actions/cache@v4
         with:
           path: .archive-work/partials
           key: archive-drafts-v2-${{ matrix.shard }}-${{ github.run_id }}
           restore-keys: archive-drafts-v2-${{ matrix.shard }}-
+      - name: Recover validated draft sections from the previous run
+        if: github.event_name == 'workflow_dispatch' && inputs.resume_run != ''
+        continue-on-error: true
+        uses: actions/download-artifact@v4
+        with:
+          name: archive-drafts-${{ matrix.shard }}
+          path: .archive-work/partials
+          github-token: ${{ github.token }}
+          run-id: ${{ inputs.resume_run }}
       - name: Verify configured model service
         id: provider
         run: |

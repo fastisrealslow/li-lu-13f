@@ -10,6 +10,21 @@ import urllib.request
 import urllib.error
 
 
+def output_schema(prompt):
+    pair={'type':'object','properties':{'zh':{'type':'string'},'en':{'type':'string'}},'required':['zh','en'],'additionalProperties':False}
+    ids=[c['id'] for c in prompt.get('evidence',[])]
+    evidence={'type':'array','items':{'type':'string','enum':ids},'minItems':1,'maxItems':max(1,len(ids))}
+    section={'type':'object','properties':{'heading':pair,'evidenceIds':evidence},'required':['heading','evidenceIds'],'additionalProperties':False}
+    if prompt.get('task','').startswith('Plan'):
+        return {'type':'object','properties':{'sourceSummary':pair,'sections':{'type':'array','items':section,'minItems':6,'maxItems':6}},'required':['sourceSummary','sections'],'additionalProperties':False}
+    if ids:
+        length=math.ceil(prompt.get('minimumChineseCharacters',500)/3*1.4)
+        paragraph={'type':'object','properties':{'zh':{'type':'string','minLength':length},'en':{'type':'string','minLength':max(150,length//2)}},'required':['zh','en'],'additionalProperties':False}
+        section['properties']['paragraphs']={'type':'array','items':paragraph,'minItems':3,'maxItems':4};section['required'].append('paragraphs')
+        return section
+    return 'json'
+
+
 def ask(system,prompt,model,tokens=2600):
     key=os.environ.get('SILICONFLOW_KEY','')
     if key:
@@ -19,13 +34,13 @@ def ask(system,prompt,model,tokens=2600):
         headers={'Content-Type':'application/json','Authorization':'Bearer '+key}
     else:
         url='http://127.0.0.1:11434/api/generate'
-        body={'model':model,'system':system,'prompt':json.dumps(prompt,ensure_ascii=False),'stream':False,'think':False,'format':'json','keep_alive':'10m',
+        body={'model':model,'system':system,'prompt':json.dumps(prompt,ensure_ascii=False),'stream':False,'think':False,'format':output_schema(prompt),'keep_alive':'10m',
               'options':{'num_ctx':8192,'num_predict':tokens,'temperature':.15,'num_thread':4,'num_gpu':0}}
         headers={'Content-Type':'application/json'}
     req=urllib.request.Request(url,json.dumps(body).encode(),headers)
     for attempt in range(4):
         try:
-            with urllib.request.urlopen(req,timeout=480) as response:data=json.load(response)
+            with urllib.request.urlopen(req,timeout=900) as response:data=json.load(response)
             break
         except urllib.error.HTTPError as exc:
             if exc.code not in (429,500,502,503,504) or attempt==3:raise
@@ -75,7 +90,7 @@ def generate(work,chunks,basis,model,needed,root):
             try:
                 section=ask(e.SYSTEM,{'task':'Write exactly this ONE independent analytical section, not a source retelling. Return heading, paragraphs (zh/en pairs), evidenceIds. At least three coherent paragraphs. Explain a mechanism, its conditions, and how it can fail; make this specific to the supplied material. Do not attribute your independent reasoning to the speaker.',
                     'title':work['title'],'basis':basis,'topic':topic,'otherTopics':[s['heading'] for s in state['outline']['sections'] if s!=topic],
-                    'evidence':chosen,'minimumChineseCharacters':per_section,'targetChineseCharacters':per_section+100,'validationFeedback':error},model,3000)
+                    'evidence':chosen,'minimumChineseCharacters':per_section,'targetChineseCharacters':per_section+100,'validationFeedback':error},model,4000)
                 e.validate({'sourceSummary':{'zh':'独立分析。','en':'Independent analysis.'},'sections':[section]},work,chosen,per_section,required_sections=1)
                 state['sections'].append(section);e.write(path,state);break
             except Exception as exc:

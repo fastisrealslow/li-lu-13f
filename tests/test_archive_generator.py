@@ -6,9 +6,21 @@ from unittest.mock import patch
 
 import archive_explanations as e
 import archive_generator as generator
+import speech_archive
 
 
 class SectionGenerationTests(unittest.TestCase):
+    def test_only_unambiguous_primary_publisher_video_is_selected(self):
+        page=b'<main><iframe src="https://www.youtube.com/embed/abcdefghijk"></iframe></main>'
+        self.assertEqual(speech_archive.embedded_source_media(page,'https://publisher.example/interview'),[{'kind':'youtube','id':'abcdefghijk'}])
+        self.assertEqual(speech_archive.embedded_source_media(page.replace(b'</main>',b'<iframe src="https://www.youtube.com/embed/zyxwvutsrqp"></iframe></main>'),'https://publisher.example/interview'),[])
+
+    def test_cpu_output_schema_binds_evidence_and_requires_substantial_sections(self):
+        schema=generator.output_schema({'task':'Write one section','minimumChineseCharacters':600,'evidence':[{'id':'s17'}]})
+        self.assertEqual(schema['properties']['evidenceIds']['items']['enum'],['s17'])
+        self.assertEqual(schema['properties']['paragraphs']['minItems'],3)
+        self.assertGreaterEqual(schema['properties']['paragraphs']['items']['properties']['zh']['minLength'],280)
+
     def test_validated_sections_resume_without_restarting_the_work(self):
         headings=['竞争','现金','资本','风险','组织','估值']
         outline={'sourceSummary':{'zh':'测试资料讨论企业研究。','en':'Synthetic material about business research.'},'sections':[{'heading':{'zh':h,'en':h+' analysis'},'evidenceIds':['s0']} for h in headings]}

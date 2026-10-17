@@ -179,6 +179,12 @@ tbody tr:hover { background: #f8f9fa; }
 .legend-item .cost-gap small { font-size: .62rem; }
 .legend-item .cost-gap strong { font-size: .73rem; }
 .briefing-compact .briefing-headline { font-size: 1.13rem; }
+.briefing-depth { margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--border-light); font-size: .82rem; line-height: 1.9; overflow-wrap: anywhere; }
+.briefing-depth summary { cursor: pointer; color: var(--brand-blue); }
+.briefing-depth section { margin-top: 20px; }
+.briefing-depth section h4 { margin-bottom: 10px; font-weight: 500; }
+.briefing-depth ul { padding-left: 1.2em; }
+.briefing-depth li { margin-bottom: 14px; color: var(--text-light); }
 .briefing-compact .briefing-lead { font-size: .87rem; line-height: 1.8; margin-bottom: 12px; }
 .briefing-compact .briefing-drivers { grid-template-columns: repeat(auto-fit,minmax(min(100%,280px),1fr)); gap: 0 24px; }
 .insights-box .briefing-compact .briefing-drivers li { padding: 12px 0; font-size: .8rem; line-height: 1.8; }

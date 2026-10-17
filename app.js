@@ -1214,7 +1214,7 @@ function scopePanelHTML(kind,texts,entry=null) {
   const fallback=kind==='holdings'?holdingsConclusion(data):{version:1,headline:[fallbackTitle,fallbackTitle],lead:[texts.join(' '),texts.join(' ')],details:[],notes:[[explanation,explanation]]};
   const selected=validBriefing(entry?.briefing) && (kind!=='holdings' || entry.briefing.format==='concise_holdings_v2')?entry.briefing:fallback;
   return `<div class="scope-heading"><h3>${profileText(titles[kind])}</h3><span class="scope-badge">${aiEscape(data.current?.quarter || '')}</span></div>
-    ${briefingHTML(selected)}`;
+    ${briefingHTML(selected)}${globalThis.window?.DisclosureAnalysis?.render(kind,data,en)||''}`;
 }
 function holdingsConclusion(snapshot) {
   const rows=consolidateHoldings(snapshot.current.holdings).sort((a,b)=>b.value-a.value),en=lang==='en';
@@ -2153,7 +2153,7 @@ async function renderHomework() {
       const droppedOutHtml = (hwSum.droppedOut && hwSum.droppedOut.length) ? `<div style="margin-top:8px;padding-top:8px;border-top:1px dashed rgba(148,163,184,0.25);font-size:.72rem;line-height:1.6;color:var(--text-lighter);"><strong style="color:var(--text-light);">${isEn2?'Dropped from list':'本轮跌出'}：</strong>${hwSum.droppedOut.map(d => `${fmtTicker(d.ticker)}${isEn2?'':`（${d.name}）`}${d.prevMos!=null?` — ${isEn2?'prev MOS':'上轮安全边际'} ${d.prevMos}%`:''}`).join(isEn2?'; ':'；')}</div>` : '';
       hwAiHtml = `<div id="valueInsight" class="insights-box">
         <div class="scope-heading"><h3>${isEn2?'Value Screen Interpretation':'价值筛选解读'}</h3><span class="scope-badge">${isEn2?'Screen summary':'筛选总结'}</span></div>
-        ${valueScreenOverview(candidates,isEn2)}
+        ${valueScreenOverview(candidates,isEn2)}${globalThis.window?.DisclosureAnalysis?.value(candidates,isEn2)||''}
         ${noteRows?`<details style="margin-top:16px;"><summary style="cursor:pointer;font-size:.82rem;font-weight:600;">${isEn2?'Stock-level context':'逐股线索与持仓背景'} (${hwSum.stockNotes.length})</summary>${noteRows}</details>`:''}
         ${droppedOutHtml}
         <div style="margin-top:8px;font-size:.62rem;color:var(--text-lighter);">${isEn2?'Data as of':'数据更新于'} ${valueGeneratedAt ? new Date(valueGeneratedAt).toLocaleString(isEn2?'en-US':'zh-CN') : ''} · ${isEn2?'For reference only, not investment advice.':'仅供参考，不构成投资建议。'}</div>
@@ -2184,7 +2184,7 @@ async function renderHomework() {
         ? '💡 <strong>Est. Cost</strong>: estimated from historical K-line (low×70%+avg×30%). Multiple holders → lowest cost shown (most conservative). MOS = (Cost−Price)/Cost. Not investment advice.'
         : '💡 <strong>估算成本</strong>：基于历史 K 线（低价×70%+均价×30%）估算买入价。多人持有时取最低成本（最保守）。安全边际 = (成本−现价)÷成本。仅供参考，不构成投资建议。'}
     </p>
-    ${hwAiHtml || `<div id="valueInsight" class="insights-box"><h3>${isEn2?'Value Screen Interpretation':'价值筛选解读'}</h3>${valueScreenOverview(candidates,isEn2)}</div>`}
+    ${hwAiHtml || `<div id="valueInsight" class="insights-box"><h3>${isEn2?'Value Screen Interpretation':'价值筛选解读'}</h3>${valueScreenOverview(candidates,isEn2)}${globalThis.window?.DisclosureAnalysis?.value(candidates,isEn2)||''}</div>`}
   `;
   _homeworkCache = el.innerHTML;
   _homeworkCachedAt = Date.now();

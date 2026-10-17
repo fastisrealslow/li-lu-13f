@@ -43,6 +43,8 @@ class ArchiveExplanationTests(unittest.TestCase):
             guide=data[person['id']]
             body=guide['lead']['zh']+' '.join(p['zh'] for s in guide['sections'] for p in s['paragraphs'])
             self.assertGreater(explain.chinese_size(body),450,person['id'])
+            baseline=explain.read(explain.ROOT/'archive/guide_expansion_baselines.json',{}).get(person['id'],0)
+            self.assertGreaterEqual(explain.chinese_size(body),baseline*2,person['id'])
             self.assertTrue(guide['sourceURLs'])
             self.assertTrue(guide['works'])
         self.assertEqual(len({g['sections'][0]['paragraphs'][1]['zh'] for g in data.values()}),len(people))

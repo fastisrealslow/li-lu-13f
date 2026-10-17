@@ -1,0 +1,47 @@
+name: Recover Archive Batch
+on:
+  push:
+    branches: [master]
+    paths: [.github/workflows/archive-recovery.yml]
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: write
+jobs:
+  recover:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    env:
+      GH_TOKEN: ${{ github.token }}
+      RESUME_RUN: '39040576578'
+    steps:
+      - name: Preserve checkpoints and restart the affected batch with compatible readers
+        run: |
+          python3 - <<'PY'
+          import json,os,time,urllib.request,urllib.error
+          base='https://api.github.com/repos/'+os.environ['GITHUB_REPOSITORY']
+          headers={'Authorization':'Bearer '+os.environ['GH_TOKEN'],'Accept':'application/vnd.github+json','Content-Type':'application/json','User-Agent':'archive-recovery'}
+          def api(path,method='GET',body=None):
+            request=urllib.request.Request(base+path,data=json.dumps(body or {}).encode() if method!='GET' else None,headers=headers,method=method)
+            with urllib.request.urlopen(request,timeout=30) as response:
+              raw=response.read()
+              return json.loads(raw) if raw else {}
+          previous=os.environ['RESUME_RUN']
+          target=api('/actions/runs/'+previous)
+          if target['status']=='completed':
+            print('The affected batch already finished; no running jobs changed.')
+            raise SystemExit(0)
+          runs=api('/actions/runs?per_page=50')['workflow_runs']
+          for run in runs:
+            if run['name']=='Update Speech Archive' and run['status']!='completed':
+              try:
+                api('/actions/runs/'+str(run['id'])+'/cancel','POST')
+                print('Stopping superseded archive run',run['id'])
+              except urllib.error.HTTPError as error:
+                if error.code!=409:raise
+          for attempt in range(36):
+            if api('/actions/runs/'+previous)['status']=='completed':break
+            time.sleep(5)
+          api('/actions/workflows/speech-archive.yml/dispatches','POST',{'ref':'master','inputs':{'resume_run':previous}})
+          print('Restarted the full catalogue; validated draft artifacts will be recovered where available.')
+          PY

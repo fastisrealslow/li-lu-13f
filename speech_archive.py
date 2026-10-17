@@ -376,10 +376,36 @@ def parse_captions(raw):
     return "\n".join(result)
 
 
+def embedded_source_media(raw, url):
+    page=soup(raw);scope=page.find('article') or page.find('main') or page
+    primary=[m.get('content','') for m in page.select('meta[property="og:video"],meta[property="og:video:url"],meta[name="twitter:player"]')]
+    candidates=primary or [m.get('src') or m.get('data-src') or '' for m in scope.select('iframe,video,source,audio')]
+    result=[]
+    for value in candidates:
+        value=urllib.parse.urljoin(url,value);parsed=urllib.parse.urlsplit(value)
+        host=(parsed.hostname or '').removeprefix('www.')
+        if parsed.scheme!='https':continue
+        if host in ('youtube.com','youtube-nocookie.com','youtu.be'):
+            ident=parsed.path.split('/embed/')[-1].split('/')[0] if '/embed/' in parsed.path else urllib.parse.parse_qs(parsed.query).get('v',[''])[0]
+            if host=='youtu.be':ident=parsed.path.strip('/')
+            if re.fullmatch(r'[\w-]{11}',ident):result.append({'kind':'youtube','id':ident})
+        elif host in ('player.vimeo.com','vimeo.com','players.brightcove.net','fast.wistia.net'):
+            result.append({'kind':'publisher_embed','url':value})
+    unique={json.dumps(m,sort_keys=True):m for m in result}
+    return list(unique.values()) if len(unique)==1 else []
+
+
 def video_text(work, allow_asr=False):
     """No cookies, login, paywall bypass, or downloaded media in the public tree."""
     video = next((m for m in work.get("media", []) if m["kind"] in {"youtube", "publisher_embed"}), None)
     audio = next((m for m in work.get("media", []) if m["kind"] == "audio"), None)
+    if not video and not audio and allow_asr:
+        for item in work.get('sources',[]):
+            if '.pdf' in item['url'].lower() or item.get('label',{}).get('zh')=='发布方目录':continue
+            try:
+                raw,_=fetch(item['url']);found=embedded_source_media(raw,item['url'])
+                if found:video=found[0];break
+            except Exception:continue
     with tempfile.TemporaryDirectory(prefix="investor-speech-") as tmp:
         out = Path(tmp)
         if video:
