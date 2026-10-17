@@ -63,8 +63,8 @@
       "status": "ok"
     },
     "value": {
-      "at": "2026-10-16T09:13:26.797183+00:00",
-      "sourceHash": "3b93b25bdaf1acc584120ca63507b323a4c95072edc1cb85fbfd071352fe1a57",
+      "at": "2026-10-17T02:04:52.182065+00:00",
+      "sourceHash": "bcec1ac3bf1e14a742bfd5f0476ce95e35c38ec4cb38f532e49cfebed7c37c97",
       "status": "ok"
     },
     "investor:vinall": {
@@ -104,7 +104,7 @@
       "status": "ok"
     },
     "holdings:tepper": {
-      "at": "2026-10-16T09:18:46.772704+00:00",
+      "at": "2026-10-17T02:07:00.959663+00:00",
       "sourceHash": "bfbedbef61c9bc3d0da89547f72feb30b16b89d734d3f60379ea15c681b10c68",
       "status": "failed",
       "error": "Selection omitted a required scope or evidence limitation"
@@ -125,7 +125,7 @@
       "status": "ok"
     },
     "holdings:akre": {
-      "at": "2026-10-16T09:17:25.858015+00:00",
+      "at": "2026-10-17T02:06:28.080779+00:00",
       "sourceHash": "e7b4cb3b851ae1bdd8cb9ee67934b8612589b1bb98deaa17b2f9d56660649b7a",
       "status": "failed",
       "error": "Selection omitted a required scope or evidence limitation"
@@ -191,7 +191,7 @@
       "status": "ok"
     },
     "history:hawkins": {
-      "at": "2026-10-16T09:15:47.293307+00:00",
+      "at": "2026-10-17T02:05:48.546375+00:00",
       "sourceHash": "df07e812d8a12a7d90d0f3fd3bcb296ca5a08ff37075d1a186064ca77e12cb50",
       "status": "failed",
       "error": "Selection omitted a required scope or evidence limitation"
@@ -6509,17 +6509,20 @@
       "sourceHash": "bcec1ac3bf1e14a742bfd5f0476ce95e35c38ec4cb38f532e49cfebed7c37c97",
       "selection": {
         "factIds": [
-          "f3",
-          "f4",
-          "f5"
+          "f5",
+          "f8",
+          "f9"
         ]
       },
       "renderVersion": 4,
-      "mode": "deterministic",
-      "summary": "按各投资人最新披露组合：格伦·格林伯格（2026 Q2）：莱纳建筑（LEN）减持，占其披露组合市值4.7%；大卫·泰珀（2026 Q2）：惠而浦（WHR）减持，占其披露组合市值0.4%；大卫·泰珀（2026 Q2）：CoreWeave, Inc.（CRWV）新建仓，占其披露组合市值1.4%。",
-      "generatedAt": "2026-10-17T02:02:21.603028+00:00",
-      "model": null,
-      "metrics": {}
+      "mode": "model_selection",
+      "summary": "按各投资人最新披露组合：大卫·泰珀（2026 Q2）：CoreWeave, Inc.（CRWV）新建仓，占其披露组合市值1.4%；查克·阿克瑞（2026 Q2）：布鲁克菲尔德（BN）减持，占其披露组合市值10.1%；大卫·泰珀（2026 Q2）：百度（BIDU）增持，占其披露组合市值1.9%。",
+      "generatedAt": "2026-10-17T02:05:48.545909+00:00",
+      "model": "qwen3.5:9b-q4_K_M",
+      "metrics": {
+        "seconds": 56.34,
+        "tokens": 14
+      }
     },
     "investor:duan": {
       "facts": {
@@ -17061,7 +17064,7 @@
       "renderVersion": 4,
       "mode": "deterministic",
       "summary": "大卫·泰珀 · 持仓结构：本次披露 27 项证券：普通股 25 项、PUT 2 项。不同股份类别和期权分别计数。最大单项证券是 亚马逊（AMZN），申报值 US$1,191.70M，占本次披露 15.4%。期权共 2 项。13F 中期权申报值对应标的证券价值，不能当作期权权利金，也不能仅凭 PUT/CALL 判断完整对冲策略。",
-      "generatedAt": "2026-10-16T09:20:07.497257+00:00",
+      "generatedAt": "2026-10-17T02:07:33.506233+00:00",
       "model": null,
       "metrics": {}
     },
@@ -26528,7 +26531,7 @@
       "renderVersion": 4,
       "mode": "deterministic",
       "summary": "查克·阿克瑞 · 持仓结构：本次披露 20 项证券：普通股 19 项、CALL 1 项。不同股份类别和期权分别计数。最大单项证券是 万事达卡（MA），申报值 US$1,022.02M，占本次披露 20.0%。期权共 1 项。13F 中期权申报值对应标的证券价值，不能当作期权权利金，也不能仅凭 PUT/CALL 判断完整对冲策略。",
-      "generatedAt": "2026-10-16T09:18:46.766455+00:00",
+      "generatedAt": "2026-10-17T02:07:00.956251+00:00",
       "model": null,
       "metrics": {}
     },
@@ -51163,7 +51166,7 @@
       "renderVersion": 4,
       "mode": "deterministic",
       "summary": "梅森·霍金斯 · 历史轨迹：可用于市值趋势的记录有 52 个季度，覆盖 2013 Q2 至 2026 Q2。这段历史反映披露范围内证券，不是基金净值曲线。披露市值从 US$20,348.22M 变为 US$1,917.15M（变化 -90.6%）。金额同时受价格、买卖、资金流及披露范围影响，不能当作投资回报。缺少或排除的市值季度：2024 Q3。不填零、不推断清仓，也不跨缺口计算季度变化。",
-      "generatedAt": "2026-10-16T09:17:25.850811+00:00",
+      "generatedAt": "2026-10-17T02:06:28.078308+00:00",
       "model": null,
       "metrics": {}
     },
@@ -52909,13 +52912,13 @@
     }
   },
   "lastRun": {
-    "startedAt": "2026-10-16T17:21:58.278980+00:00",
+    "startedAt": "2026-10-17T02:04:52.182041+00:00",
     "model": "qwen3.5:9b-q4_K_M",
     "pendingBefore": 7,
     "cached": 33,
-    "finishedAt": "2026-10-16T17:26:32.283045+00:00",
-    "pendingAfter": 7,
-    "accepted": 0,
+    "finishedAt": "2026-10-17T02:07:33.509801+00:00",
+    "pendingAfter": 6,
+    "accepted": 1,
     "fallback": 3,
     "rejected": 0,
     "failed": 3
