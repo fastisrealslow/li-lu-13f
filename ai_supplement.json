@@ -31,14 +31,13 @@
       "status": "ok"
     },
     "investor:greenberg": {
-      "at": "2026-10-17T10:44:01.980455+00:00",
-      "sourceHash": "190b72ab5b92ef234e966e933d16ab384d74f18d6a59c54f03dc2c7c43183305",
-      "status": "failed",
-      "error": "Selection omitted an available change direction"
+      "at": "2026-10-17T15:16:31.391843+00:00",
+      "sourceHash": "84bcc461d9146d4f9d7a877ba4f7f3d383f6cb54920a438b43a9381745c5cfb3",
+      "status": "ok"
     },
     "investor:hawkins": {
-      "at": "2026-10-17T10:42:17.545140+00:00",
-      "sourceHash": "83f2b519a342e2958774a71c5cfb121cc3317673e218bbe60f14c816d1d29668",
+      "at": "2026-10-17T15:14:58.928577+00:00",
+      "sourceHash": "3914b7c46b5ba9df80843618d99a152f68667ca64474439c6536decc392306d3",
       "status": "failed",
       "error": "Selection omitted an available change direction"
     },
@@ -78,7 +77,7 @@
       "status": "ok"
     },
     "history:lilu": {
-      "at": "2026-10-17T10:45:44.616597+00:00",
+      "at": "2026-10-17T15:18:06.582654+00:00",
       "sourceHash": "12d8175b8baa1bb86924c972a789a827dcc45643a6250a3ea7d90c8fa63ec21d",
       "status": "failed",
       "error": "Selection omitted a required scope or evidence limitation"
@@ -104,7 +103,7 @@
       "status": "ok"
     },
     "holdings:tepper": {
-      "at": "2026-10-17T10:25:50.652556+00:00",
+      "at": "2026-10-17T15:14:18.219462+00:00",
       "sourceHash": "5c3a6a25a398427cb548c6b5e49d8061098d64b49f2aa54cf5432b5d43c66ef9",
       "status": "failed",
       "error": "Selection omitted a required scope or evidence limitation"
@@ -125,7 +124,7 @@
       "status": "ok"
     },
     "holdings:akre": {
-      "at": "2026-10-17T15:10:24.557124+00:00",
+      "at": "2026-10-17T15:20:01.165695+00:00",
       "sourceHash": "7d3591e03a5c2581e0b12dc477262a15788adc052ba1aec4ea0e5ebf0f107191",
       "status": "failed",
       "error": "Selection omitted a required scope or evidence limitation"
@@ -186,13 +185,13 @@
       "status": "ok"
     },
     "holdings:hawkins": {
-      "at": "2026-10-17T09:58:48.879390+00:00",
-      "sourceHash": "ce558db023395cfe5810e654e3f6b65bb8bf8944c7ee24600393801a12001259",
+      "at": "2026-10-17T15:13:36.854693+00:00",
+      "sourceHash": "d9bbfd870665dddaa4915b3f25a3ba6c6fef8f82341d0d6498e64376d4af5cc9",
       "status": "ok"
     },
     "history:hawkins": {
-      "at": "2026-10-17T15:08:56.601673+00:00",
-      "sourceHash": "df07e812d8a12a7d90d0f3fd3bcb296ca5a08ff37075d1a186064ca77e12cb50",
+      "at": "2026-10-17T15:19:04.560283+00:00",
+      "sourceHash": "a4d8144b6c4c3cb3011bc2193de3a27b6f38b51e7a8f213a8cabc84ff6a2d659",
       "status": "failed",
       "error": "Selection omitted a required scope or evidence limitation"
     },
@@ -2703,10 +2702,10 @@
       "sourceHash": "84bcc461d9146d4f9d7a877ba4f7f3d383f6cb54920a438b43a9381745c5cfb3",
       "selection": {
         "factIds": [
-          "f0",
           "f1",
-          "f2",
           "f6",
+          "f7",
+          "f18",
           "f19"
         ],
         "topicIds": [
@@ -2716,11 +2715,14 @@
         ]
       },
       "renderVersion": 4,
-      "mode": "deterministic",
-      "summary": "格伦·格林伯格 2026 Q2（按披露股数比较）：新建仓7项、增持6项、减持15项、清仓3项、不变12项、待比较0项。重点（非完整名单）：ICON临床（ICLR）：增持5.2%；TD 辛纳克斯（SNX）：减持52.8%；OneMain 控股（OMF）：减持1.5%；阿瑟 J. 加拉格尔（AJG）：新建仓；阿雷斯管理（ARES）：清仓。",
-      "generatedAt": "2026-10-17T14:18:44.392633+00:00",
-      "model": null,
-      "metrics": {}
+      "mode": "model_selection",
+      "summary": "格伦·格林伯格 2026 Q2（按披露股数比较）：新建仓7项、增持6项、减持15项、清仓3项、不变12项、待比较0项。重点（非完整名单）：TD 辛纳克斯（SNX）：减持52.8%；阿瑟 J. 加拉格尔（AJG）：新建仓；瑞安航空（RYAAY）：增持30.2%；HCA 医疗（HCA）：增持262.6%；阿雷斯管理（ARES）：清仓。",
+      "generatedAt": "2026-10-17T15:18:06.579184+00:00",
+      "model": "qwen3.5:9b-q4_K_M",
+      "metrics": {
+        "seconds": 95.18,
+        "tokens": 34
+      }
     },
     "investor:hawkins": {
       "facts": {
@@ -4379,7 +4381,7 @@
       "renderVersion": 4,
       "mode": "deterministic",
       "summary": "梅森·霍金斯 2026 Q2（按披露股数比较）：新建仓2项、增持8项、减持24项、清仓4项、不变13项、待比较0项。重点（非完整名单）：雷奥尼尔（RYN）：减持11.8%；美泰（MAT）：减持3.8%；CNX 资源（CNX）：增持16.2%；雅培（ABT）：新建仓；伯乐雷德实验室（BIO）：清仓。",
-      "generatedAt": "2026-10-17T14:42:08.542767+00:00",
+      "generatedAt": "2026-10-17T15:16:31.389349+00:00",
       "model": null,
       "metrics": {}
     },
@@ -13153,7 +13155,7 @@
       "renderVersion": 4,
       "mode": "deterministic",
       "summary": "李录 · 历史轨迹：可用于市值趋势的记录有 35 个季度，覆盖 2016 Q4 至 2026 Q2。这段历史反映披露范围内证券，不是基金净值曲线。披露市值从 US$111.64M 变为 US$3,702.92M（变化 +3216.8%）。金额同时受价格、买卖、资金流及披露范围影响，不能当作投资回报。缺少或排除的市值季度：2018 Q4、2019 Q1、2019 Q2、2019 Q3。不填零、不推断清仓，也不跨缺口计算季度变化。",
-      "generatedAt": "2026-10-17T10:46:49.243595+00:00",
+      "generatedAt": "2026-10-17T15:19:04.555892+00:00",
       "model": null,
       "metrics": {}
     },
@@ -16868,7 +16870,7 @@
       "renderVersion": 4,
       "mode": "deterministic",
       "summary": "大卫·泰珀 · 持仓结构：本次披露 27 项证券：普通股 25 项、PUT 2 项。不同股份类别和期权分别计数。最大单项证券是 亚马逊（AMZN），申报值 US$1,191.70M，占本次披露 15.4%。期权共 2 项。13F 中期权申报值对应标的证券价值，不能当作期权权利金，也不能仅凭 PUT/CALL 判断完整对冲策略。",
-      "generatedAt": "2026-10-17T10:26:38.060418+00:00",
+      "generatedAt": "2026-10-17T15:14:58.926732+00:00",
       "model": null,
       "metrics": {}
     },
@@ -26232,7 +26234,7 @@
       "renderVersion": 4,
       "mode": "deterministic",
       "summary": "查克·阿克瑞 · 持仓结构：本次披露 20 项证券：普通股 19 项、CALL 1 项。不同股份类别和期权分别计数。最大单项证券是 万事达卡（MA），申报值 US$1,022.02M，占本次披露 20.0%。期权共 1 项。13F 中期权申报值对应标的证券价值，不能当作期权权利金，也不能仅凭 PUT/CALL 判断完整对冲策略。",
-      "generatedAt": "2026-10-17T15:11:26.272006+00:00",
+      "generatedAt": "2026-10-17T15:20:40.635501+00:00",
       "model": null,
       "metrics": {}
     },
@@ -45212,11 +45214,14 @@
         ]
       },
       "renderVersion": 4,
-      "mode": "deterministic",
+      "mode": "model_selection",
       "summary": "梅森·霍金斯 · 持仓结构：本次披露 47 项证券：普通股 47 项。不同股份类别和期权分别计数。最大单项证券是 雷奥尼尔（RYN），申报值 US$201.98M，占本次披露 10.5%。前三大证券合计占 27.7%：RYN、MAT、CNX。这是证券集中度，同一企业的不同股份可能分别列示。",
-      "generatedAt": "2026-10-17T14:42:08.543433+00:00",
-      "model": null,
-      "metrics": {}
+      "generatedAt": "2026-10-17T15:14:18.218614+00:00",
+      "model": "qwen3.5:9b-q4_K_M",
+      "metrics": {
+        "seconds": 41.34,
+        "tokens": 20
+      }
     },
     "history:hawkins": {
       "facts": {
@@ -50578,7 +50583,7 @@
       "renderVersion": 4,
       "mode": "deterministic",
       "summary": "梅森·霍金斯 · 历史轨迹：可用于市值趋势的记录有 52 个季度，覆盖 2013 Q2 至 2026 Q2。这段历史反映披露范围内证券，不是基金净值曲线。披露市值从 US$20,348.22M 变为 US$1,917.15M（变化 -90.6%）。金额同时受价格、买卖、资金流及披露范围影响，不能当作投资回报。缺少或排除的市值季度：2024 Q3。不填零、不推断清仓，也不跨缺口计算季度变化。",
-      "generatedAt": "2026-10-17T14:42:08.543754+00:00",
+      "generatedAt": "2026-10-17T15:20:01.157816+00:00",
       "model": null,
       "metrics": {}
     },
@@ -52266,16 +52271,16 @@
     }
   },
   "lastRun": {
-    "startedAt": "2026-10-17T14:52:52.562577+00:00",
+    "startedAt": "2026-10-17T15:13:36.854672+00:00",
     "model": "qwen3.5:9b-q4_K_M",
-    "pendingBefore": 16,
-    "cached": 24,
-    "finishedAt": "2026-10-17T15:11:26.293903+00:00",
-    "pendingAfter": 7,
-    "accepted": 10,
-    "fallback": 1,
-    "rejected": 1,
-    "failed": 2
+    "pendingBefore": 7,
+    "cached": 33,
+    "finishedAt": "2026-10-17T15:20:40.643179+00:00",
+    "pendingAfter": 5,
+    "accepted": 2,
+    "fallback": 5,
+    "rejected": 0,
+    "failed": 5
   },
   "schemaVersion": 2,
   "fallbackRefresh": {
