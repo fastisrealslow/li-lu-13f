@@ -255,10 +255,10 @@
       "reason": "ValueError: Bilingual editorial review: The English title claims the interview took place on August 19, 2026, which is a future date relative to the current time and contra"
     },
     "tepper-f9bfbe7ac5ae4f": {
-      "at": "2026-10-17T15:22:45+00:00",
-      "status": "ok",
-      "inputHash": "6f75e1beebf50cde580c41d2354bc1410c168801aedece0e559f7cb95ce455c2",
-      "review": "bilingual_editorial_review"
+      "at": "2026-10-18T00:58:10+00:00",
+      "status": "retry",
+      "inputHash": "d2f558b2a1b622bf582b2dfce2480f4a0f8bd7f734b166044248788dd547680b",
+      "reason": "ValueError: Unsupported numerical claim: 40%"
     },
     "vinall-79dd2e86c60222": {
       "at": "2026-10-17T20:28:22+00:00",
@@ -1515,5 +1515,5 @@
       "reason": "ValueError: English text contains untranslated Chinese"
     }
   },
-  "updatedAt": "2026-10-18T00:52:01+00:00"
+  "updatedAt": "2026-10-18T00:58:10+00:00"
 }
