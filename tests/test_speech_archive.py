@@ -9,6 +9,14 @@ import speech_archive as archive
 
 
 class SpeechArchiveTests(unittest.TestCase):
+    def test_single_line_articles_are_bounded_without_losing_the_end(self):
+        text=('A complete source sentence about business economics and managerial decisions. '*300)+'The final answer discusses selling.'
+        chunks=archive.source_chunks(text)
+        self.assertGreater(len(chunks),10)
+        self.assertTrue(all(len(x['text'])<=3000 for x in chunks))
+        self.assertEqual(' '.join(x['text'] for x in chunks),' '.join(text.split()))
+        self.assertTrue(chunks[-1]['text'].endswith('discusses selling.'))
+
     def work(self, title="Lecture at Columbia on April 23, 2015", url="https://publisher.example/talk"):
         return archive.make_work("lilu", title, url, "Publisher", "https://publisher.example/archive")
 

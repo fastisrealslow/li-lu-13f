@@ -56,13 +56,17 @@ test('quarterly rows and headers refresh for all investors without leaving the t
     await a.run(`switchInvestor(${JSON.stringify(inv.id)})`);
     const current = JSON.parse(fs.readFileSync(path.join(root, inv.dataFile))).current;
     const rows = a.element('changesBody').innerHTML;
-    if (['webb','ackman'].includes(inv.id)) {
+    if (['snapshot','scope_changed'].includes(a.run('comparisonState()'))) {
       assert.match(rows, /历史披露快照|申报主体与范围变更/);
       assert.ok(!rows.includes('新进'));
       continue;
     }
     assert.ok((rows.match(/<tr>/g) || []).length >= current.holdings.length, inv.id);
     assert.equal(a.run('data.current.holdings.length'), current.holdings.length, 'Current holdings count must exclude exits');
+    if (a.run('comparisonState()')==='scope_partial') {
+      const psus=rows.split('<tr>').find(x=>x.includes('>PSUS</span>'));
+      assert.match(psus,/新增覆盖/);assert.doesNotMatch(psus,/新进|待比较/);
+    }
     for (const h of current.holdings) assert.ok(rows.includes(`>${h.ticker.replace(/^\?/, '')}</span>`), `${inv.id}: ${h.ticker}`);
     assert.equal(a.element('chCS').textContent, `${current.quarter} 持股`);
     assert.equal(a.element('tab-changes').classList.contains('d-none'), false);
@@ -351,4 +355,13 @@ test('HK comparisons keep different owners and share classes separate',()=>{
   assert.equal(h.latest.shares,90);assert.equal(h.previous.shares,100);
   assert.equal(groups.find(g=>g.entity==='Other owner').previous,undefined);
   assert.equal(groups.find(g=>g.shareClass==='A Shares').previous,undefined);
+});
+
+test('manager evidence enables only the proven securities across an expanded filing',()=>{
+  const a=app();
+  a.run(`data={meta:{reportingTransition:{fromQuarter:'2026 Q2',fromCIK:'1',comparisonScopeChanged:true}},current:{quarter:'2026 Q2',prevQuarter:'2026 Q1',holdings:[{ticker:'CORE',cusip:'1',shares:120,value:1500,managerAllocations:[{managerIds:['7','8'],shares:120,value:1500}]},{ticker:'NEW',cusip:'2',shares:50,value:500,managerAllocations:[{managerIds:['8'],shares:50,value:500}]}],previousHoldings:[{ticker:'CORE',cusip:'1',shares:100,value:1000}],reportingScope:{quarter:'2026 Q2',managers:{'7':{cik:'1'},'8':{cik:'2'}}}},history:{filing_sources:{'2026 Q1':{cik:'1'}}}}`);
+  const facts=JSON.parse(a.run('JSON.stringify(portfolioFacts(data,"Test"))'));
+  assert.equal(facts.comparisonState,'scope_partial');assert.equal(facts.stats.added,1);assert.equal(facts.stats.new,0);assert.equal(facts.stats.unknown,1);
+  assert.equal(facts.rows[1].prevShares,null);assert.match(a.run('comparisonNotice()'),/NEW.*新增覆盖/);
+  a.run("data.current.prevQuarter='2025 Q4'");assert.equal(a.run('comparisonState()'),'gap');
 });

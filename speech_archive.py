@@ -334,9 +334,10 @@ def search_catalog(source, get=fetch):
 def verified_document(source,get=fetch):
     """Recheck a researched original, preserving its exact author and page scope."""
     raw,typ=get(source['url']);text=extract_text(raw,typ)
-    if len(text)<600 or not any(name.casefold() in text.casefold() for name in source['identityTerms']):raise ValueError('Original author could not be verified')
+    normalized=re.sub(r'\s+',' ',unicodedata.normalize('NFKC',text)).casefold()
+    if len(text)<600 or not any(name.casefold() in normalized for name in source['identityTerms']):raise ValueError('Original author could not be verified')
     work=make_work(source['investor'],source['title']['en'],source['url'],source['publisher'],date=source.get('date'),kind=source.get('kind','essay'),zh=source['title']['zh'],date_kind=source.get('dateKind','published'))
-    for key in ['sourceScope','sourcePageRange']: 
+    for key in ['sourceScope','sourcePageRange','media','basis','participants']:
         if source.get(key):work[key]=source[key]
     return [work]
 
@@ -349,6 +350,18 @@ def source_chunks(text):
     """
     lines = [re.sub(r"[ \t]+", " ", unicodedata.normalize("NFKC", line)).strip()
              for line in text.splitlines()]
+    bounded=[]
+    for line in lines:
+        # Some publishers put an entire article in one HTML text node.
+        # Bound that node before grouping; otherwise a single source passage
+        # can silently consume the model's complete context window.
+        while len(line)>1500:
+            stops=list(re.finditer(r'[.!?。！？]["’”\']?(?:\s|$)',line[:1450]))
+            end=stops[-1].end() if stops and stops[-1].end()>=700 else line.rfind(' ',0,1450)
+            if end<700:end=1400
+            bounded.append(line[:end].strip());line=line[end:].strip()
+        bounded.append(line)
+    lines=bounded
     counts = Counter(line for line in lines if len(line) > 30)
     boilerplate = r"educational (?:and entertainment )?purposes|financial, legal, accounting|not investment advice|past performance|copyright|before making any investment|do not take into account your particular"
     lines = [line for line in lines if not (len(line) > 30 and counts[line] > 2 and re.search(boilerplate, line, re.I))

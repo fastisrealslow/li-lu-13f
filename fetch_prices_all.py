@@ -366,7 +366,8 @@ def fetch_us(investor, cfg):
         tk = h["ticker"]
         boundary = data.get('meta',{}).get('instrumentHistoryFrom','') if tk in data.get('meta',{}).get('instrumentHistoryTickers',[]) else ''
         transition=data.get('meta',{}).get('reportingTransition',{})
-        scope_boundary=transition.get('fromQuarter','') if transition.get('comparisonScopeChanged') else ''
+        from reporting_scope import same_manager_history
+        scope_boundary=transition.get('fromQuarter','') if transition.get('comparisonScopeChanged') and not same_manager_history(data,h) else ''
         boundary=max(boundary,scope_boundary)
         security_history = {q: [{**row,'ticker':tk} for row in rows if same_security(h,row)] for q,rows in hist_holdings.items() if boundary <= q <= quarter}
         if data.get("current", {}).get("valueQuality"):

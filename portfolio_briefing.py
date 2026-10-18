@@ -189,7 +189,10 @@ def changes_briefing(data):
         n=sum(h['value'] for h in new)/total*100;e=sum(h['prevValue'] for h in exits)/previous*100 if previous else None
         lead[0]+=('、'.join(([f'新仓合计占本期 {pct(n)}%'] if new else [])+([f'退出项原占上期 {pct(e)}%'] if exits and e is not None else [])))+'。'+('新仓体量很小，主要变化仍应看旧仓。' if new and n<1 else '')
         lead[1]+=f' New positions total {pct(n)}% of this filing'+(f'; exited positions were {pct(e)}% of the prior filing' if e is not None else '')+'.'+(' The new positions are small; existing holdings remain the main story.' if new and n<1 else '')
-    if s['unknown']:
+    if state=='scope_partial':
+        lead[0]+=f'其中 {sum(s[k] for k in ("new","added","trimmed","hold"))} 项已按 SEC 管理人编号衔接原有范围；'+names([h for h in rows if h.get('scopeEntry')])+' 为新增覆盖，未计作买入。'
+        lead[1]+=' SEC manager references establish continuity for the comparable securities; '+names([h for h in rows if h.get('scopeEntry')],True)+' entered the expanded scope and is not counted as a purchase.'
+    elif s['unknown']:
         lead[0]+=f'另有 {s["unknown"]} 项上季股数未知，未计入买卖方向。';lead[1]+=f' {s["unknown"]} prior share counts are unknown and have no assigned trade direction.'
     if state=='partial':notes.append(pair('上季完整申报缺失，已核实变化可看，退出数量未必完整。','The complete prior filing is missing; known changes remain visible, but exits may be incomplete.'))
     if cur.get('valueQuality'):notes.append(pair('申报值量级待核实，仅总结股数，不比较金额或权重。','Reported value scale is unresolved; only share counts are compared.'))

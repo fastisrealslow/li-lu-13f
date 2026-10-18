@@ -13,7 +13,8 @@ jobs:
     timeout-minutes: 10
     env:
       GH_TOKEN: ${{ github.token }}
-      RESUME_RUN: '39082648500'
+      RESUME_RUN: '39084098050'
+      STALE_DATA_RUN: '39087265537'
     steps:
       - name: Preserve checkpoints and restart the affected batch with compatible readers
         run: |
@@ -26,6 +27,14 @@ jobs:
             with urllib.request.urlopen(request,timeout=30) as response:
               raw=response.read()
               return json.loads(raw) if raw else {}
+          stale=os.environ['STALE_DATA_RUN']
+          data_run=api('/actions/runs/'+stale)
+          if data_run['status']!='completed' and data_run['head_sha']!=os.environ['GITHUB_SHA']:
+            try:
+              api('/actions/runs/'+stale+'/cancel','POST')
+              print('Stopping the identified data run using the superseded cost-scope calculation',stale)
+            except urllib.error.HTTPError as error:
+              if error.code!=409:raise
           previous=os.environ['RESUME_RUN']
           target=api('/actions/runs/'+previous)
           if target['status']=='completed':

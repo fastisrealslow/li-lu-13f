@@ -26,6 +26,17 @@ def read_json(path):
 
 
 
+def validate_manager_allocations(holding):
+    allocations=holding.get('managerAllocations')
+    if allocations is None:return
+    if not allocations:raise ValueError('Empty manager allocation breakdown')
+    for row in allocations:
+        ids=row.get('managerIds')
+        if not isinstance(ids,list) or not ids or len(set(ids))!=len(ids) or any(not isinstance(i,str) or not i.isdigit() for i in ids):raise ValueError('Invalid manager identifiers')
+        if any(type(row.get(k)) is not int or row[k]<0 for k in ['shares','value']):raise ValueError('Invalid manager quantities')
+    if any(sum(row[k] for row in allocations)!=holding.get(k) for k in ['shares','value']):raise ValueError('Manager allocations disagree with consolidated holding')
+
+
 def validate_history(history):
     if history is None:
         return
@@ -39,6 +50,7 @@ def validate_history(history):
             raise ValueError(f"Invalid history value: {q}")
         holdings = history.get("holdings", {}).get(q)
         if holdings:
+            for holding in holdings:validate_manager_allocations(holding)
             amounts = [h.get("value") for h in holdings]
             if any(not isinstance(v, (int, float)) or isinstance(v, bool) or not math.isfinite(v) or v < 0 for v in amounts):
                 raise ValueError(f"Invalid historical holding value: {q}")
@@ -149,6 +161,7 @@ def validate(root):
                 if "totalValue" in current and abs(current["totalValue"] - sum(h["value"] for h in current["holdings"])) > .01:
                     raise ValueError("Current total disagrees with holdings")
                 for h in current["holdings"] + current.get("previousHoldings", []):
+                    validate_manager_allocations(h)
                     if not h.get("ticker"):
                         raise ValueError("Missing holding ticker")
                     for field in ("shares", "value"):

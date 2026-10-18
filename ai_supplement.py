@@ -66,7 +66,9 @@ def investor_source(data):
     fields = ('ticker', 'cusip', 'shares', 'value', 'prevShares', 'prevValue', 'cnName', 'name', 'cls', 'putCall', 'shareType', 'shareAdjustment')
     def rows(items):
         return [[h.get(k) for k in fields] for h in items]
-    return {'quarter': cur.get('quarter', ''), 'prevQuarter': cur.get('prevQuarter'),
+    from reporting_scope import same_manager_history
+    continuity={'managerHistory':sorted(h['cusip'] for h in cur.get('holdings',[]) if h.get('cusip') and same_manager_history(data,h))} if data.get('meta',{}).get('reportingTransition') else {}
+    return {**continuity,'quarter': cur.get('quarter', ''), 'prevQuarter': cur.get('prevQuarter'),
             'scope': data.get('meta', {}).get('reportingTransition'), 'snapshotType': data.get('meta', {}).get('snapshotType'),
             'valueQuality': cur.get('valueQuality'), 'holdings': rows(cur.get('holdings', [])),
             'previousHoldings': rows(cur.get('previousHoldings', data.get('history', {}).get('holdings', {}).get(cur.get('prevQuarter'), [])))}
@@ -185,7 +187,7 @@ def render_summary(selection, facts):
     prefix = f"{facts['investor']} {facts['quarter']}（按披露股数比较）：" if facts['kind'] == 'investor' else '按各投资人最新披露组合：'
     if facts['kind']=='investor':
         stats = facts['stats']
-        overview = '、'.join(f'{label}{stats[key]}项' for key,label in [('new','新建仓'),('added','增持'),('trimmed','减持'),('exited','清仓'),('hold','不变'),('unknown','待比较')])
+        overview = '、'.join(f'{"新增覆盖" if key=="unknown" and facts["comparisonState"]=="scope_partial" else label}{stats[key]}项' for key,label in [('new','新建仓'),('added','增持'),('trimmed','减持'),('exited','清仓'),('hold','不变'),('unknown','待比较')])
         if facts['comparisonState'] in ('snapshot','scope_changed','gap'):
             return f"{facts['investor']} {facts['quarter']}：报告范围变更、历史快照或季度不连续，不能判断买卖；详见报告说明。"
         prefix += overview + '。重点（非完整名单）：'

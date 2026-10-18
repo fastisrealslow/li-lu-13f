@@ -7,6 +7,18 @@ from enrich_metadata import _ticker_quarter_series,_analyze_holding_pattern,_gen
 
 
 class PortfolioReviewTests(unittest.TestCase):
+    def test_manager_evidence_bridges_only_verified_securities_across_scope_change(self):
+        old=dict(ticker='CORE',cusip='1',shares=100,value=1000)
+        current=dict(old,shares=120,value=1500,managerAllocations=[dict(managerIds=['7','8'],shares=120,value=1500)])
+        newly=dict(ticker='NEW',cusip='2',shares=50,value=500,managerAllocations=[dict(managerIds=['8'],shares=50,value=500)])
+        d={'meta':{'reportingTransition':{'fromQuarter':'2026 Q2','fromCIK':'1','comparisonScopeChanged':True}},'current':{'quarter':'2026 Q2','prevQuarter':'2026 Q1','holdings':[current,newly],'previousHoldings':[old],'reportingScope':{'quarter':'2026 Q2','managers':{'7':{'cik':'1'},'8':{'cik':'2'}}}},'history':{'filing_sources':{'2026 Q1':{'cik':'1'}}}}
+        r=review(d);self.assertEqual(r['state'],'scope_partial')
+        self.assertEqual((r['stats']['added'],r['stats']['new'],r['stats']['unknown']),(1,0,1))
+        self.assertIsNone(r['rows'][1]['prevShares'])
+        self.assertEqual(investor_source(d)['managerHistory'],['1'])
+        d['current']['prevQuarter']='2025 Q4'
+        self.assertEqual(review(d)['state'],'gap')
+
     def test_stock_context_keeps_opposite_directions_and_does_not_invent_conviction(self):
         mixed={'holders':[{'investor':'Test','chg':'added','weight':5},{'investor':'Other','chg':'trimmed','weight':2}]}
         zh,en=_gen_verdict(mixed,'深度折价')

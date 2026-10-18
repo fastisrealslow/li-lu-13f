@@ -213,109 +213,109 @@
         "kind": "investor",
         "investor": "比尔·阿克曼",
         "quarter": "2026 Q2",
-        "comparisonState": "scope_changed",
+        "comparisonState": "scope_partial",
         "complete": false,
         "stats": {
-          "new": 0,
-          "added": 0,
-          "trimmed": 0,
+          "new": 4,
+          "added": 5,
+          "trimmed": 3,
           "exited": 0,
-          "hold": 0,
-          "unknown": 14
+          "hold": 1,
+          "unknown": 1
         },
         "items": [
           {
             "ticker": "UBER",
             "name": "优步",
-            "change": "上季股数未知，不判断增减",
-            "category": "unknown",
+            "change": "增持14.6%",
+            "category": "added",
             "metric": "披露股数相对上季变化",
             "id": "f0"
           },
           {
             "ticker": "BN",
             "name": "布鲁克菲尔德",
-            "change": "上季股数未知，不判断增减",
-            "category": "unknown",
+            "change": "减持3.7%",
+            "category": "trimmed",
             "metric": "披露股数相对上季变化",
             "id": "f1"
           },
           {
-            "ticker": "MSFT",
-            "name": "微软",
-            "change": "上季股数未知，不判断增减",
-            "category": "unknown",
+            "ticker": "AMZN",
+            "name": "亚马逊",
+            "change": "减持25.2%",
+            "category": "trimmed",
             "metric": "披露股数相对上季变化",
             "id": "f2"
           },
           {
-            "ticker": "AMZN",
-            "name": "亚马逊",
-            "change": "上季股数未知，不判断增减",
-            "category": "unknown",
+            "ticker": "MSFT",
+            "name": "微软",
+            "change": "增持9.8%",
+            "category": "added",
             "metric": "披露股数相对上季变化",
             "id": "f3"
           },
           {
             "ticker": "HHH",
             "name": "霍华德·休斯控股",
-            "change": "上季股数未知，不判断增减",
-            "category": "unknown",
+            "change": "增持47.7%",
+            "category": "added",
             "metric": "披露股数相对上季变化",
             "id": "f4"
           },
           {
             "ticker": "QSR",
             "name": "餐饮品牌国际",
-            "change": "上季股数未知，不判断增减",
-            "category": "unknown",
+            "change": "增持14.0%",
+            "category": "added",
             "metric": "披露股数相对上季变化",
             "id": "f5"
           },
           {
             "ticker": "META",
             "name": "Meta",
-            "change": "上季股数未知，不判断增减",
-            "category": "unknown",
+            "change": "增持20.1%",
+            "category": "added",
             "metric": "披露股数相对上季变化",
             "id": "f6"
           },
           {
             "ticker": "V",
             "name": "维萨",
-            "change": "上季股数未知，不判断增减",
-            "category": "unknown",
+            "change": "新建仓",
+            "category": "new",
             "metric": "披露股数相对上季变化",
             "id": "f7"
           },
           {
             "ticker": "MA",
             "name": "万事达卡",
-            "change": "上季股数未知，不判断增减",
-            "category": "unknown",
+            "change": "新建仓",
+            "category": "new",
             "metric": "披露股数相对上季变化",
             "id": "f8"
           },
           {
             "ticker": "SPGI",
             "name": "标普全球",
-            "change": "上季股数未知，不判断增减",
-            "category": "unknown",
+            "change": "新建仓",
+            "category": "new",
             "metric": "披露股数相对上季变化",
             "id": "f9"
           },
           {
             "ticker": "NFLX",
             "name": "奈飞",
-            "change": "上季股数未知，不判断增减",
-            "category": "unknown",
+            "change": "新建仓",
+            "category": "new",
             "metric": "披露股数相对上季变化",
             "id": "f10"
           },
           {
             "ticker": "PSUS",
             "name": "Pershing Square USA, Ltd.",
-            "change": "上季股数未知，不判断增减",
+            "change": "本季新增覆盖",
             "category": "unknown",
             "metric": "披露股数相对上季变化",
             "id": "f11"
@@ -323,16 +323,16 @@
           {
             "ticker": "SEG",
             "name": "Seaport 娱乐集团",
-            "change": "上季股数未知，不判断增减",
-            "category": "unknown",
+            "change": "股数不变",
+            "category": "hold",
             "metric": "披露股数相对上季变化",
             "id": "f12"
           },
           {
             "ticker": "HTZ",
             "name": "赫兹全球控股",
-            "change": "上季股数未知，不判断增减",
-            "category": "unknown",
+            "change": "减持1.6%",
+            "category": "trimmed",
             "metric": "披露股数相对上季变化",
             "id": "f13"
           }
@@ -340,39 +340,106 @@
         "briefing": {
           "version": 1,
           "headline": [
-            "本季申报范围改变，不能把差异读成交易",
-            "The reporting scope changed; differences cannot establish trades"
+            "增加 9 项、减少或退出 3 项；重点看 维萨 (V)、万事达卡 (MA)",
+            "9 entries/additions and 3 reductions/exits; focus on VISA INC (V); MASTERCARD INCORPORATED (MA)"
           ],
           "lead": [
-            "2026 Q2 的证券记录可以查看，但本页没有同一范围、相邻季度的完整对照，因此不列加减仓结论。",
-            "The securities in 2026 Q2 remain visible, but a complete comparison of adjacent quarters within the same scope is unavailable."
+            "相比 2026 Q1，新进入 4 项、增持 5 项、减持 3 项；1 项股数不变。其中 13 项已按 SEC 管理人编号衔接原有范围；Pershing Square USA, Ltd. (PSUS) 为新增覆盖，未计作买入。",
+            "Compared with 2026 Q1: 4 new, 5 added, 3 reduced, 0 exited, and 1 unchanged share counts. SEC manager references establish continuity for the comparable securities; PERSHING SQUARE USA LTD (PSUS) entered the expanded scope and is not counted as a purchase."
           ],
-          "details": [],
-          "notes": [],
+          "details": [
+            {
+              "label": [
+                "增加股数的重点",
+                "Main share additions"
+              ],
+              "text": [
+                "维萨 (V)：新进入本期披露；万事达卡 (MA)：新进入本期披露。",
+                "VISA INC (V): new; MASTERCARD INCORPORATED (MA): new."
+              ]
+            },
+            {
+              "label": [
+                "减少与退出的重点",
+                "Main reductions and exits"
+              ],
+              "text": [
+                "亚马逊 (AMZN)：1,145.20万 → 856.39万 股（-25.2%）；布鲁克菲尔德 (BN)：5,969.72万 → 5,748.10万 股（-3.7%）。",
+                "AMAZON COM INC (AMZN): 11,451,981 → 8,563,857 shares (-25.2%); BROOKFIELD CORP (BN): 59,697,208 → 57,481,047 shares (-3.7%)."
+              ]
+            }
+          ],
+          "notes": [
+            [
+              "股数按披露净变化；金额不是成交资金。全部变动名单保留在下方。",
+              "Share counts are net disclosure differences; value changes are not transaction cash flows. Complete changes follow below."
+            ]
+          ],
           "readerGuide": [
-            "先核对申报主体、范围和季度是否一致，不要把范围变化或历史缺口当成加减仓。",
-            "Verify the reporting entity, scope and consecutive quarters before treating differences as additions or reductions."
+            "先看 维萨 (V)、万事达卡 (MA) 的股数方向，再看它们在组合中的体量。回到公司同期财报核对变化；这里不能证明经理买卖的理由。",
+            "Check the share-count direction and portfolio scale of VISA INC (V); MASTERCARD INCORPORATED (MA) first, then read the companies’ contemporaneous filings. These differences do not establish the manager’s trade motives."
           ]
         }
       },
       "briefing": {
         "version": 1,
         "headline": [
-          "本季申报范围改变，不能把差异读成交易",
-          "The reporting scope changed; differences cannot establish trades"
+          "增加 9 项、减少或退出 3 项；重点看 维萨 (V)、万事达卡 (MA)",
+          "9 entries/additions and 3 reductions/exits; focus on VISA INC (V); MASTERCARD INCORPORATED (MA)"
         ],
         "lead": [
-          "2026 Q2 的证券记录可以查看，但本页没有同一范围、相邻季度的完整对照，因此不列加减仓结论。",
-          "The securities in 2026 Q2 remain visible, but a complete comparison of adjacent quarters within the same scope is unavailable."
+          "相比 2026 Q1，新进入 4 项、增持 5 项、减持 3 项；1 项股数不变。其中 13 项已按 SEC 管理人编号衔接原有范围；Pershing Square USA, Ltd. (PSUS) 为新增覆盖，未计作买入。",
+          "Compared with 2026 Q1: 4 new, 5 added, 3 reduced, 0 exited, and 1 unchanged share counts. SEC manager references establish continuity for the comparable securities; PERSHING SQUARE USA LTD (PSUS) entered the expanded scope and is not counted as a purchase."
         ],
-        "details": [],
-        "notes": [],
+        "details": [
+          {
+            "label": [
+              "增加股数的重点",
+              "Main share additions"
+            ],
+            "text": [
+              "维萨 (V)：新进入本期披露；万事达卡 (MA)：新进入本期披露。",
+              "VISA INC (V): new; MASTERCARD INCORPORATED (MA): new."
+            ]
+          },
+          {
+            "label": [
+              "减少与退出的重点",
+              "Main reductions and exits"
+            ],
+            "text": [
+              "亚马逊 (AMZN)：1,145.20万 → 856.39万 股（-25.2%）；布鲁克菲尔德 (BN)：5,969.72万 → 5,748.10万 股（-3.7%）。",
+              "AMAZON COM INC (AMZN): 11,451,981 → 8,563,857 shares (-25.2%); BROOKFIELD CORP (BN): 59,697,208 → 57,481,047 shares (-3.7%)."
+            ]
+          }
+        ],
+        "notes": [
+          [
+            "股数按披露净变化；金额不是成交资金。全部变动名单保留在下方。",
+            "Share counts are net disclosure differences; value changes are not transaction cash flows. Complete changes follow below."
+          ]
+        ],
         "readerGuide": [
-          "先核对申报主体、范围和季度是否一致，不要把范围变化或历史缺口当成加减仓。",
-          "Verify the reporting entity, scope and consecutive quarters before treating differences as additions or reductions."
+          "先看 维萨 (V)、万事达卡 (MA) 的股数方向，再看它们在组合中的体量。回到公司同期财报核对变化；这里不能证明经理买卖的理由。",
+          "Check the share-count direction and portfolio scale of VISA INC (V); MASTERCARD INCORPORATED (MA) first, then read the companies’ contemporaneous filings. These differences do not establish the manager’s trade motives."
         ]
       },
       "source": {
+        "managerHistory": [
+          "023135106",
+          "11271J107",
+          "30303M102",
+          "42806J700",
+          "44267T102",
+          "57636Q104",
+          "594918104",
+          "64110L106",
+          "76131D103",
+          "78409V104",
+          "812215200",
+          "90353T100",
+          "92826C839"
+        ],
         "quarter": "2026 Q2",
         "prevQuarter": "2026 Q1",
         "scope": {
@@ -739,20 +806,24 @@
           ]
         ]
       },
-      "sourceHash": "60434bbb291530cc7a5d8c0fd0dab904ac67c433bed8ddd5580f00d4ee873a31",
+      "sourceHash": "7f87bf61930a78781dd939f6ca3a87cdf5ce06ff8c3ebb39ebbe3f834195c2e5",
       "selection": {
         "factIds": [
           "f0",
           "f1",
           "f2",
           "f3",
-          "f4"
+          "f7"
+        ],
+        "topicIds": [
+          "t0",
+          "t1"
         ]
       },
       "renderVersion": 4,
       "mode": "deterministic",
-      "summary": "比尔·阿克曼 2026 Q2：报告范围变更、历史快照或季度不连续，不能判断买卖；详见报告说明。",
-      "generatedAt": "2026-10-10T16:45:54.669112+00:00",
+      "summary": "比尔·阿克曼 2026 Q2（按披露股数比较）：新建仓4项、增持5项、减持3项、清仓0项、不变1项、新增覆盖1项。重点（非完整名单）：优步（UBER）：增持14.6%；布鲁克菲尔德（BN）：减持3.7%；亚马逊（AMZN）：减持25.2%；微软（MSFT）：增持9.8%；维萨（V）：新建仓。",
+      "generatedAt": "2026-10-18T01:50:50.470351+00:00",
       "model": null,
       "metrics": {}
     },
@@ -38295,6 +38366,14 @@
               "The reporting scope changed in 2026 Q2. The latest usable reported value is US$19,465.69M; differences across scopes are not growth or trading signals."
             ],
             "change": "历史事实"
+          },
+          {
+            "id": "f2",
+            "text": [
+              "当前证券中，餐饮品牌国际（QSR） 已连续出现在 47 个可核实季度披露中（2014 Q4 至 2026 Q2）。这是连续披露记录，不是逐笔持有或交易证明。",
+              "Among current securities, RESTAURANT BRANDS INTL INC（QSR） appears in 47 consecutive verified quarterly filings (2014 Q4–2026 Q2). This establishes consecutive disclosures, not a transaction-by-transaction holding record."
+            ],
+            "change": "历史事实"
           }
         ],
         "requiredIds": [
@@ -38328,6 +38407,21 @@
         "notes": []
       },
       "source": {
+        "managerHistory": [
+          "023135106",
+          "11271J107",
+          "30303M102",
+          "42806J700",
+          "44267T102",
+          "57636Q104",
+          "594918104",
+          "64110L106",
+          "76131D103",
+          "78409V104",
+          "812215200",
+          "90353T100",
+          "92826C839"
+        ],
         "section": "history",
         "current": {
           "section": "holdings",
@@ -39901,21 +39995,20 @@
           }
         }
       },
-      "sourceHash": "982fe09607164fa65b89122fa40bf2b387aa40606004d00e3dbb31c40ee6659e",
+      "sourceHash": "3c0262e147c4b8677104ac1246bb57d5af5a0851989acadd3248e5d3a257ef5b",
       "selection": {
         "factIds": [
-          "f1"
+          "f0",
+          "f1",
+          "f2"
         ]
       },
       "renderVersion": 4,
-      "mode": "model_selection",
-      "summary": "比尔·阿克曼 · 历史轨迹：申报范围在 2026 Q2 改变。最新可绘制申报值为 US$19,465.69M；跨主体的金额差不用于判断增长或买卖。",
-      "generatedAt": "2026-10-11T03:40:07.558841+00:00",
-      "model": "qwen3.5:9b-q4_K_M",
-      "metrics": {
-        "seconds": 18.57,
-        "tokens": 8
-      }
+      "mode": "deterministic",
+      "summary": "比尔·阿克曼 · 历史轨迹：可用于市值趋势的记录有 53 个季度，覆盖 2013 Q2 至 2026 Q2。这段历史反映披露范围内证券，不是基金净值曲线。申报范围在 2026 Q2 改变。最新可绘制申报值为 US$19,465.69M；跨主体的金额差不用于判断增长或买卖。当前证券中，餐饮品牌国际（QSR） 已连续出现在 47 个可核实季度披露中（2014 Q4 至 2026 Q2）。这是连续披露记录，不是逐笔持有或交易证明。",
+      "generatedAt": "2026-10-18T01:50:50.471895+00:00",
+      "model": null,
+      "metrics": {}
     },
     "holdings:abrams": {
       "facts": {

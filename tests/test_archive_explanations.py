@@ -10,6 +10,47 @@ import archive_guides as guides
 
 
 class ArchiveExplanationTests(unittest.TestCase):
+    def test_programme_notes_cannot_be_published_as_an_argument_guide(self):
+        work={'id':'test-notes','investor':'test','title':{'en':'Requested episode'},'sources':[{'url':'https://publisher.example/episode'}]}
+        with tempfile.TemporaryDirectory() as tmp:
+            root=Path(tmp);explain.write(root/'archive/catalog.json',{'works':[work]})
+            with patch.object(explain,'obtain_material',return_value=('Topics only. '*200,'description',work['sources'][0]['url'])):
+                result=explain.run(root,limit=1)
+            self.assertEqual(result['generated'],0)
+            self.assertFalse((root/'archive/explanations/test-notes.json').exists())
+            self.assertIn('Programme topics',explain.read(root/'archive/explanations/index.json')['attempts']['test-notes']['reason'])
+
+    def test_verified_written_version_precedes_a_podcast_description(self):
+        url='https://podcasters.spotify.com/pod/show/author/episodes/requested'
+        pdf='https://publisher.example/original.pdf'
+        work={'sources':[{'url':url},{'url':pdf,'kind':'original_document'}]}
+        with patch.object(explain.source,'fetch',return_value=(b'%PDF synthetic','application/pdf')) as fetch,patch.object(explain.source,'extract_text',return_value='Original author text. '*100):
+            text,basis,origin=explain.obtain_material(work)
+        fetch.assert_called_once_with(pdf)
+        self.assertEqual((basis,origin),('original_document',url))
+        self.assertEqual(work['_materialURL'],pdf)
+
+    def test_complete_essay_with_audio_reading_keeps_its_original_text(self):
+        work={'kind':'essay','sources':[{'url':'https://author.example/essay'}],'media':[{'kind':'audio','url':'https://author.example/audio.mp3'}]}
+        with patch.object(explain.source,'obtain_text',return_value=('Original essay. '*100,'official_text',work['sources'][0]['url'])),patch.object(explain.source,'video_text') as asr:
+            text,basis,origin=explain.obtain_material(work)
+        self.assertEqual(basis,'official_text');asr.assert_not_called()
+
+    def test_spotify_audio_redirect_is_decoded_before_full_recognition(self):
+        import os
+        wrapped='https://anchor.fm/s/123/podcast/play/123/https%3A%2F%2Fcdn.example%2Ffull.mp3'
+        with patch.dict(os.environ,{'ARCHIVE_ALLOW_ASR':'1'}),patch.object(explain.source,'video_text',return_value=('Full recording','asr')) as asr:
+            self.assertEqual(explain.episode_material({},'Programme notes','https://publisher.example/episode',wrapped)[1],'asr')
+        self.assertEqual(asr.call_args.args[0]['media'][0]['url'],'https://cdn.example/full.mp3')
+
+    def test_number_checks_preserve_decimal_suffixes_and_chinese_unit_conversions(self):
+        chunks=[{'id':'s0','text':'The historical annual cost was HK$6.5bn. There are 0 1 2 3 4 5 synthetic sections.'}]
+        note=self.note();note['sections'][0]['paragraphs'][0]={'zh':'文章估计成本为65亿港元。','en':'The article estimates HK$6.5 billion.'}
+        self.assertIn('6.5',explain.NUMBER.findall('HK$6.5bn'))
+        self.assertTrue(explain.validate(note,{},chunks,0))
+        for zh,en in [('成本为650亿港元。','The cost was HK$65 billion.'),('成本为650万港元。','The cost was HK$6.5 million.')]:
+            bad=copy.deepcopy(note);bad['sections'][0]['paragraphs'][0]={'zh':zh,'en':en}
+            with self.assertRaisesRegex(ValueError,'numerical claim'):explain.validate(bad,{},chunks,0)
     def note(self):
         # Synthetic material only; never published as an investor's words.
         words=['先核对企业经营结构','再区分现金流和账面利润','注意资本投入的长期影响','检查竞争条件与客户选择','分清价格波动和经济价值','保留当时判断的适用条件']

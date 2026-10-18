@@ -15,6 +15,22 @@ import speech_archive
 
 
 class SectionGenerationTests(unittest.TestCase):
+    def test_human_source_checked_guide_survives_automatic_retranscription(self):
+        approved={'file':'archive/explanations/reviewed.json','inputHash':'current','sourceDigest':'reviewed-full-recording','reviewStatus':'verified','reviewMethod':'editorial_source_check'}
+        fresh={'entries':{'test':approved},'attempts':{}}
+        commands=[]
+        def git(args,**kwargs):
+            commands.append(args)
+            output=json.dumps(fresh) if args[1:3]==['show','origin/master:archive/explanations/index.json'] else ''
+            return subprocess.CompletedProcess(args,0,stdout=output,stderr='')
+        with tempfile.TemporaryDirectory() as tmp,patch.object(generator.subprocess,'run',side_effect=git),patch.object(generator,'request_deployment') as deploy:
+            (Path(tmp)/'archive/explanations').mkdir(parents=True)
+            local={**approved,'file':'archive/explanations/automatic.json','sourceDigest':'different-asr-segmentation','reviewMethod':'automated'}
+            result=generator.publish(tmp,{'entries':{'test':local},'attempts':{'test':{'status':'ok','inputHash':'current'}},'updatedAt':'now'},'test')
+            self.assertEqual(result['entries']['test'],approved)
+            self.assertFalse(any('archive/explanations/automatic.json' in cmd for cmd in commands))
+            deploy.assert_not_called()
+
     def test_same_source_cannot_overwrite_an_already_approved_current_introduction(self):
         approved={'file':'archive/explanations/reviewed.json','inputHash':'current','sourceDigest':'same-source','reviewStatus':'verified'}
         fresh={'entries':{'test':approved},'attempts':{}}

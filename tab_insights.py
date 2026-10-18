@@ -5,6 +5,7 @@ import math
 import re
 
 from holdings_diff import consolidate_holdings
+from reporting_scope import same_manager_history
 
 CURRENT_FIELDS = ('ticker', 'cusip', 'shares', 'value', 'cnName', 'name', 'cls', 'putCall', 'shareType', 'sector')
 
@@ -22,7 +23,8 @@ def holdings_source(data):
 
 def history_source(data):
     h, meta = data.get('history', {}), data.get('meta', {})
-    return dict(section='history', current=holdings_source(data), transition=meta.get('reportingTransition'),
+    continuity={'managerHistory':sorted(row['cusip'] for row in data.get('current',{}).get('holdings',[]) if row.get('cusip') and same_manager_history(data,row))} if meta.get('reportingTransition') else {}
+    return dict(**continuity,section='history', current=holdings_source(data), transition=meta.get('reportingTransition'),
                 instrumentHistoryFrom=meta.get('instrumentHistoryFrom'), instrumentHistoryTickers=meta.get('instrumentHistoryTickers'),
                 quarters=h.get('quarters', []), values=h.get('values', []), verification=h.get('verification'),
                 excludedValueQuarters=h.get('excludedValueQuarters', []),
@@ -125,7 +127,7 @@ def history_facts(data, name):
     for h in consolidate_holdings(data['current']['holdings']):
         count,start,index=0,current_q,quarter_index(current_q)
         boundary=quarter_index(meta.get('instrumentHistoryFrom')) if h['ticker'] in (meta.get('instrumentHistoryTickers') or []) else None
-        if transition.get('comparisonScopeChanged'):
+        if transition.get('comparisonScopeChanged') and not same_manager_history(data,h):
             scope_boundary=quarter_index(transition.get('fromQuarter'))
             if scope_boundary is not None:boundary=max(boundary,scope_boundary) if boundary is not None else scope_boundary
         while index is not None:

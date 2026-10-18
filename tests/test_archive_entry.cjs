@@ -15,7 +15,7 @@ test('archive counts cannot overwrite a later investor switch',async()=>{
   resolve({ok:true,json:async()=>({updatedAt:'2026-10-13',works:[{investor:'lilu',noteFile:'x'},{investor:'lilu'},{investor:'pabrai',fullTextFile:'archive/texts/y.json',fullTextStatus:'ready'}]})});
   await Promise.all([first,second]);
   assert.match(host.innerHTML,/investor=pabrai/);
-  assert.match(count.textContent,/已建档 1 篇 · 单篇详细介绍 0 篇/);
+  assert.match(count.textContent,/已建档 1 篇 · 已有导读 0 篇/);
 });
 
 test('archive preview escapes profile content and remains useful on fetch failure',async()=>{
@@ -36,5 +36,5 @@ test('an unreviewed generated file cannot inflate the displayed completed-work c
   const context={window:{},document:{getElementById:()=>host},fetch:async url=>({ok:true,json:async()=>payloads[url.split('?')[0]]})};
   vm.createContext(context);vm.runInContext(fs.readFileSync(path.join(__dirname,'../archive_entry.js'),'utf8'),context);
   await context.window.SpeechArchive.updateInvestor({id:'lilu',name:'李录'},false);
-  assert.match(count.textContent,/已建档 2 篇 · 单篇详细介绍 1 篇/);
+  assert.match(count.textContent,/已建档 2 篇 · 已有导读 1 篇/);
 });

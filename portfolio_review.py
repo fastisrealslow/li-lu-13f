@@ -1,6 +1,7 @@
 """Complete, reproducible share changes. AI may select highlights, never numbers."""
 import re
 from holdings_diff import compare_holdings, consolidate_holdings
+from reporting_scope import same_manager_history
 
 CATEGORIES = ('new', 'added', 'trimmed', 'exited', 'hold', 'unknown')
 LABELS = dict(zip(CATEGORIES, ('新建仓', '增持', '减持', '清仓', '股数不变', '上季股数未知，不判断增减')))
@@ -12,14 +13,15 @@ def comparison_state(data):
     if meta.get('snapshotType'):
         return 'snapshot'
     transition = meta.get('reportingTransition', {})
-    if transition.get('comparisonScopeChanged') and transition.get('fromQuarter') == cur.get('quarter'):
-        return 'scope_changed'
     def index(q):
         m = re.fullmatch(r'(\d{4}) ?Q([1-4])', q or '')
         return int(m[1])*4+int(m[2]) if m else None
     old, new = index(cur.get('prevQuarter')), index(cur.get('quarter'))
     if old is not None and new is not None and new-old != 1:
         return 'gap'
+    if transition.get('comparisonScopeChanged') and transition.get('fromQuarter') == cur.get('quarter'):
+        previous=cur.get('previousHoldings',data.get('history',{}).get('holdings',{}).get(cur.get('prevQuarter')))
+        return 'scope_partial' if isinstance(previous,list) and any(same_manager_history(data,h) for h in cur.get('holdings',[])) else 'scope_changed'
     if not isinstance(cur.get('previousHoldings'), list) and not isinstance(data.get('history', {}).get('holdings', {}).get(cur.get('prevQuarter')), list):
         return 'partial'
     return 'comparable'
@@ -34,6 +36,7 @@ def category(h):
 
 
 def change_text(h):
+    if h.get('scopeEntry'):return '本季新增覆盖'
     kind = category(h)
     change = LABELS[kind]
     if kind in ('added', 'trimmed'):
@@ -51,6 +54,9 @@ def review(data):
         previous_quarter=cur.get('prevQuarter'), current_quarter=cur.get('quarter')) if isinstance(previous, list) else consolidate_holdings(cur.get('holdings', []))
     if state in ('snapshot', 'scope_changed', 'gap'):
         rows = [dict(h, prevShares=None, prevValue=None) for h in consolidate_holdings(cur.get('holdings', []))]
+    elif state=='scope_partial':
+        rows=[h if same_manager_history(data,h) else dict(h,prevShares=None,prevValue=None,scopeEntry=True)
+              for h in rows if not h.get('exited')]
     rows.sort(key=lambda h: max(h.get('value') or 0, h.get('prevValue') or 0), reverse=True)
     stats = {k: sum(category(h) == k for h in rows) for k in CATEGORIES}
     return dict(state=state, complete=state=='comparable', stats=stats, rows=rows)

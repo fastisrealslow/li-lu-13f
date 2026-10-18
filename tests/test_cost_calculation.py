@@ -30,6 +30,14 @@ class CostCalculationTests(unittest.TestCase):
         self.assertEqual(cost['allTime']['first'],'2026 Q2')
         self.assertEqual(cost['allTime']['buy_quarters'],1)
 
+    def test_verified_same_manager_history_keeps_its_original_cost_run(self):
+        h=dict(ticker='TEST',cusip='test',shares=20,value=2000,putCall='',shareType='SH')
+        with patch('reporting_scope.same_manager_history',return_value=True):
+            cost=self.calculate(h,{'2026 Q1':[h],'2026 Q2':[h]}, {'reportingTransition':{'fromQuarter':'2026 Q2','comparisonScopeChanged':True}})
+        self.assertEqual(cost['allTime']['first'],'2026 Q1')
+        self.assertEqual(cost['recent']['quarter'],'2026 Q1')
+        self.assertNotIn('kind',cost['recent'])
+
     def test_reentry_resets_last_buying_quarter_and_buy_count(self):
         holding=dict(ticker='TEST',cusip='test',shares=20,value=2000,prevShares=20,putCall='',shareType='SH')
         history={'2020 Q1':[{**holding,'shares':100}], '2020 Q2':[{**holding,'shares':200}], '2025 Q1':[], '2025 Q2':[{**holding,'shares':50}], '2025 Q3':[{**holding,'shares':30}], '2025 Q4':[{**holding,'shares':30}], '2026 Q1':[holding], '2026 Q2':[holding]}
