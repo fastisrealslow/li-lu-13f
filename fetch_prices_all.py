@@ -365,8 +365,11 @@ def fetch_us(investor, cfg):
             continue
         tk = h["ticker"]
         boundary = data.get('meta',{}).get('instrumentHistoryFrom','') if tk in data.get('meta',{}).get('instrumentHistoryTickers',[]) else ''
+        transition=data.get('meta',{}).get('reportingTransition',{})
+        scope_boundary=transition.get('fromQuarter','') if transition.get('comparisonScopeChanged') else ''
+        boundary=max(boundary,scope_boundary)
         security_history = {q: [{**row,'ticker':tk} for row in rows if same_security(h,row)] for q,rows in hist_holdings.items() if boundary <= q <= quarter}
-        if data.get("current", {}).get("valueQuality") or data.get("meta", {}).get("reportingTransition", {}).get("fromQuarter") == quarter:
+        if data.get("current", {}).get("valueQuality"):
             continue
         if tk.startswith("?") or tk.endswith(".HK"):
             continue
@@ -507,6 +510,7 @@ def fetch_us(investor, cfg):
                                 "method": "avco"}
                     print(f"| all-time avco=${all_avg} ({buy_q_count}q buy, run-first={current_run_first})")
 
+        if scope_boundary and buy_q==scope_boundary:recent['kind']='scope_initial'
         cost_basis[tk] = {"recent": recent, "allTime": all_time, "historyFingerprint":history_fingerprint}
         if pending_value_quarters:cost_basis[tk]["averageUnavailable"]="units"
         time.sleep(0.3)

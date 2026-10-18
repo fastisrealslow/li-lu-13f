@@ -58,7 +58,10 @@ def validate_history(history):
         anchors=proof.get('anchors',[])
         if len({a.get('ticker') for a in anchors})<3 or proof.get('factor') not in (1,1000,.001):
             raise ValueError(f'Value audit lacks independent unit proofs: {q}')
-        if any(a.get('currency')!='USD' or proof['factor'] not in a.get('candidates',[]) for a in anchors):
+        agreeing=[a for a in anchors if a.get('candidates')==[proof['factor']]]
+        if (any(a.get('currency')!='USD' or any(f!=proof['factor'] for f in a.get('candidates',[])) for a in anchors)
+                or len({a.get('ticker') for a in anchors})!=len(anchors)
+                or len(agreeing)<3 or len(agreeing)/len(anchors)<.8):
             raise ValueError(f'Value audit contains conflicting unit proofs: {q}')
 
 

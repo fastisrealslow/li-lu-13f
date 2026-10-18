@@ -13,13 +13,22 @@ class CostCalculationTests(unittest.TestCase):
         history['2026 Q1'][0]['shares']=200
         self.assertNotEqual(fetch_prices_all.cost_history_fingerprint(history),before)
 
-    def calculate(self,holding,history):
-        snapshot={'meta':{},'current':{'quarter':'2026 Q2','prevQuarter':'2026 Q1','holdings':[holding]},'history':{'holdings':history}}
+    def calculate(self,holding,history,meta=None):
+        snapshot={'meta':meta or {},'current':{'quarter':'2026 Q2','prevQuarter':'2026 Q1','holdings':[holding]},'history':{'holdings':history}}
         with tempfile.TemporaryDirectory() as tmp:
             data=Path(tmp)/'data.json';prices=Path(tmp)/'prices.json';data.write_text(json.dumps(snapshot))
             with patch.object(fetch_prices_all,'finnhub',return_value={'c':100,'h':100,'l':100,'o':100,'pc':100,'t':1}),patch.object(fetch_prices_all,'yahoo_chart',return_value={'closes':[100],'lows':[100],'highs':[100]}),patch.object(fetch_prices_all.time,'sleep'),contextlib.redirect_stdout(io.StringIO()):
                 fetch_prices_all.fetch_us('test',{'data':str(data),'prices':str(prices)})
             return json.loads(prices.read_text())['costBasis'][holding['ticker']]
+
+    def test_expanded_scope_has_a_price_reference_without_inventing_a_purchase(self):
+        h=dict(ticker='TEST',cusip='test',shares=20,value=2000,putCall='',shareType='SH')
+        cost=self.calculate(h,{'2026 Q1':[{**h,'shares':10}],'2026 Q2':[h]},
+                            {'reportingTransition':{'fromQuarter':'2026 Q2','comparisonScopeChanged':True}})
+        self.assertEqual(cost['recent']['buy'],100)
+        self.assertEqual(cost['recent']['kind'],'scope_initial')
+        self.assertEqual(cost['allTime']['first'],'2026 Q2')
+        self.assertEqual(cost['allTime']['buy_quarters'],1)
 
     def test_reentry_resets_last_buying_quarter_and_buy_count(self):
         holding=dict(ticker='TEST',cusip='test',shares=20,value=2000,prevShares=20,putCall='',shareType='SH')

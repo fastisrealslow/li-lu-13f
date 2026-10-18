@@ -39,6 +39,7 @@ def consolidate_holdings(holdings):
         key = (identity, *instrument(holding))
         if key not in merged:
             merged[key] = dict(holding)
+            if 'managerAllocations' in holding:merged[key]['managerAllocations']=list(holding['managerAllocations'])
         else:
             row = merged[key]
             for field in ('shares', 'value', 'prevShares', 'prevValue'):
@@ -46,6 +47,7 @@ def consolidate_holdings(holdings):
                     row[field] = None if field.startswith('prev') and (row.get(field) is None or holding.get(field) is None) else (row.get(field) or 0) + (holding.get(field) or 0)
             # Cached per-line split adjustments cannot describe a grouped position.
             row.pop('shareAdjustment', None)
+            if holding.get('managerAllocations'):row.setdefault('managerAllocations', []).extend(holding['managerAllocations'])
     return list(merged.values())
 
 

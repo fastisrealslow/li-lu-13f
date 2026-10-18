@@ -321,6 +321,144 @@
         "theinvestorspodcast.com",
         "valueinvestingwithlegends.libsyn.com"
       ]
+    },
+    {
+      "investor": "buffett",
+      "adapter": "buffett_letters",
+      "url": "https://www.berkshirehathaway.com/letters/letters.html",
+      "publisher": "Berkshire Hathaway"
+    },
+    {
+      "investor": "webb",
+      "adapter": "rss",
+      "url": "https://webbhk.substack.com/feed",
+      "publisher": "David Webb · Webb-site",
+      "authorPattern": "^Webb-site.com$",
+      "includePattern": ".",
+      "kind": "essay"
+    },
+    {
+      "investor": "ackman",
+      "adapter": "verified_document",
+      "url": "https://business.columbia.edu/sites/default/files-efs/imce-uploads/Graham%20%20Doddsville_Issue%2023_Final.pdf",
+      "publisher": "Columbia Business School · Graham & Doddsville",
+      "title": {
+        "en": "Bill Ackman — The Creative Side of Investing",
+        "zh": "创造性投资：阿克曼谈方法演变与企业质量"
+      },
+      "date": "2015",
+      "identityTerms": [
+        "Bill Ackman"
+      ],
+      "kind": "interview",
+      "sourceScope": "pdf_excerpt",
+      "sourcePageRange": [
+        4,
+        12
+      ]
+    },
+    {
+      "investor": "akre",
+      "adapter": "verified_document",
+      "url": "https://www.akrecapital.com/what-do-we-mean-by-reinvestment/",
+      "publisher": "Akre Capital Management",
+      "title": {
+        "en": "What Do We Mean By Reinvestment?",
+        "zh": "再投资究竟是什么意思？"
+      },
+      "date": "2014-10-20",
+      "identityTerms": [
+        "Akre"
+      ]
+    },
+    {
+      "investor": "akre",
+      "adapter": "verified_document",
+      "url": "https://www.akrecapital.com/the-bottom-line-of-all-investing-is-rate-of-return/",
+      "publisher": "Akre Capital Management",
+      "title": {
+        "en": "The Bottom Line of All Investing Is Rate of Return",
+        "zh": "投资最终要比较什么回报？"
+      },
+      "date": "2021-04-06",
+      "identityTerms": [
+        "Akre"
+      ]
+    },
+    {
+      "investor": "klarman",
+      "adapter": "verified_document",
+      "url": "https://www.goldmansachs.com/pdfs/insights/goldman-sachs-talks/seth-klarman/transcript.pdf",
+      "publisher": "Goldman Sachs · Talks at GS",
+      "title": {
+        "en": "Seth Klarman on Finding Value and Maintaining Discipline",
+        "zh": "克拉曼谈寻找价值与保持纪律"
+      },
+      "date": null,
+      "identityTerms": [
+        "Seth Klarman"
+      ],
+      "kind": "interview"
+    },
+    {
+      "investor": "berkowitz",
+      "adapter": "verified_document",
+      "url": "https://www.fairholmefundsinc.com/Documents/PublicConferenceCall20161118.pdf",
+      "publisher": "Fairholme Capital Management",
+      "title": {
+        "en": "Fairholme Capital Management Public Conference Call — November 18, 2016",
+        "zh": "Fairholme 公开电话会：资产价值、信贷机会与现金"
+      },
+      "date": "2016-11-18",
+      "identityTerms": [
+        "Bruce Berkowitz"
+      ],
+      "kind": "qa"
+    },
+    {
+      "investor": "berkowitz",
+      "adapter": "verified_document",
+      "url": "https://www.fairholmefundsinc.com/Documents/Call2016.pdf",
+      "publisher": "Fairholme Capital Management",
+      "title": {
+        "en": "Fairholme Capital Management Public Conference Call — 2016",
+        "zh": "Fairholme 2016 年公开电话会"
+      },
+      "date": "2016",
+      "identityTerms": [
+        "Bruce Berkowitz"
+      ],
+      "kind": "qa"
+    },
+    {
+      "investor": "hawkins",
+      "adapter": "verified_document",
+      "url": "https://southeasternasset.com/wp-content/uploads/2018/09/Transcript-Price-to-Value-Podcast-Ep-01-Transcript-The-Evolution-of-Media-and-Telecom.pdf",
+      "publisher": "Southeastern Asset Management",
+      "title": {
+        "en": "Price-to-Value Podcast #1 — The Evolution of Media and Telecom",
+        "zh": "媒体与电信的演变：价格与价值播客第一期"
+      },
+      "date": "2018-09",
+      "identityTerms": [
+        "Mason Hawkins"
+      ],
+      "kind": "qa"
+    },
+    {
+      "investor": "buffett",
+      "adapter": "verified_document",
+      "url": "https://www.berkshirehathaway.com/owners.html",
+      "publisher": "Berkshire Hathaway",
+      "title": {
+        "en": "An Owner’s Manual",
+        "zh": "伯克希尔所有者手册"
+      },
+      "date": null,
+      "identityTerms": [
+        "Warren",
+        "Charlie"
+      ]
     }
   ]
 }

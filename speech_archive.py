@@ -97,7 +97,7 @@ def extract_text(raw, content_type=""):
     tree = soup(raw)
     for el in tree(["script", "style", "nav", "header", "footer", "form"]):
         el.decompose()
-    body = tree.select_one("article, .entry-content, .post-content, main") or tree
+    body = tree.select_one("article, #artibody, #contentText, .entry-content, .post-content, main") or tree
     return body.get_text("\n", strip=True)
 
 
@@ -218,6 +218,12 @@ def link_catalog(source, get=fetch):
                 valid = bool(m and int(m[1]) <= 2025)
                 if valid:
                     title = f"{m[1]} Berkshire Hathaway Annual Meeting"
+            elif source["adapter"] == "buffett_letters":
+                year=title if re.fullmatch(r'\d{4}',title) else ''
+                valid=bool(year and int(year)<=2024 and re.search(r'/letters/\d{4}(?:ltr\.pdf|\.html)$',href))
+                if valid:
+                    works.append(make_work('buffett',f'{year} Letter to Berkshire Shareholders',href,source['publisher'],source['url'],date=year,kind='essay',zh=f'{year} 年致伯克希尔股东信',date_kind='report_year'))
+                    continue
             else:
                 valid = bool(re.search(source["includePattern"], title, re.I))
             if valid and href.startswith("https://"):
@@ -230,6 +236,7 @@ def rss_catalog(source, get=fetch):
     feed = ET.fromstring(raw)
     works = []
     for item in feed.findall(".//item"):
+        if source.get('authorPattern') and not re.search(source['authorPattern'],item.findtext('{http://purl.org/dc/elements/1.1/}creator',''),re.I):continue
         title, url = item.findtext("title", ""), item.findtext("link", "")
         if source.get("includePattern") and not re.search(source["includePattern"], title, re.I):
             continue
@@ -243,7 +250,7 @@ def rss_catalog(source, get=fetch):
         except (TypeError, ValueError):
             pass
         work = make_work(source["investor"], title, url, source["publisher"], source["url"],
-                         date=event_date(title) or date, date_kind="event" if event_date(title) else "published")
+                         date=event_date(title) or date, kind=source.get('kind'), date_kind="event" if event_date(title) else "published")
         enclosure = item.find("enclosure")
         if enclosure is not None and enclosure.get("url", "").startswith("https://"):
             work["media"].append({"kind": "audio", "url": enclosure.get("url")})
@@ -322,6 +329,16 @@ def search_catalog(source, get=fetch):
         except Exception:
             continue
     return works
+
+
+def verified_document(source,get=fetch):
+    """Recheck a researched original, preserving its exact author and page scope."""
+    raw,typ=get(source['url']);text=extract_text(raw,typ)
+    if len(text)<600 or not any(name.casefold() in text.casefold() for name in source['identityTerms']):raise ValueError('Original author could not be verified')
+    work=make_work(source['investor'],source['title']['en'],source['url'],source['publisher'],date=source.get('date'),kind=source.get('kind','essay'),zh=source['title']['zh'],date_kind=source.get('dateKind','published'))
+    for key in ['sourceScope','sourcePageRange']: 
+        if source.get(key):work[key]=source[key]
+    return [work]
 
 
 def source_chunks(text):
@@ -565,7 +582,8 @@ def discover(root=ROOT):
     report, incoming = [], []
     for source in config["catalogues"]:
         try:
-            works = (rss_catalog(source) if source["adapter"] == "rss" else
+            works = (verified_document(source) if source['adapter']=='verified_document' else
+                     rss_catalog(source) if source["adapter"] == "rss" else
                      spotify_catalog(source) if source["adapter"] == "spotify" else
                      search_catalog(source) if source["adapter"] == "search" else link_catalog(source))
             incoming.extend(w for w in works if not w.get("date") or w["date"] <= now()[:len(w["date"])])

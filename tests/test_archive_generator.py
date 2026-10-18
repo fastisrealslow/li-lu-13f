@@ -72,46 +72,54 @@ class SectionGenerationTests(unittest.TestCase):
         self.assertEqual(speech_archive.embedded_source_media(page,'https://publisher.example/interview'),[{'kind':'youtube','id':'abcdefghijk'}])
         self.assertEqual(speech_archive.embedded_source_media(page.replace(b'</main>',b'<iframe src="https://www.youtube.com/embed/zyxwvutsrqp"></iframe></main>'),'https://publisher.example/interview'),[])
 
-    def test_cpu_output_schema_binds_evidence_and_requires_substantial_sections(self):
-        outline=generator.output_schema({'task':'Plan six sections','evidence':[{'id':'s17'}]})
+    def test_output_schema_requires_bilingual_evidence_without_padding_targets(self):
+        outline=generator.output_schema({'task':'Plan source-specific sections','evidence':[{'id':'s17'}]})
         self.assertEqual(outline['properties']['sections']['items']['properties']['evidenceIds']['items']['enum'],['s17'])
-        schema=generator.output_schema({'task':'Write one paragraph','minimumChineseCharacters':200})
+        self.assertEqual(outline['properties']['sections']['minItems'],2)
+        self.assertEqual(outline['properties']['sections']['maxItems'],8)
+        schema=generator.output_schema({'task':'Write one source-specific guide section'})
         self.assertEqual(schema['required'],['zh','en'])
-        self.assertGreaterEqual(schema['properties']['zh']['minLength'],240)
-        self.assertLessEqual(schema['properties']['zh']['maxLength'],400)
+        self.assertEqual(schema['properties']['zh']['minLength'],1)
 
-    def test_validated_sections_resume_without_restarting_the_work(self):
-        headings=['竞争','现金','资本','风险','组织','估值']
-        outline={'sourceSummary':{'zh':'测试资料讨论企业研究。','en':'Synthetic material about business research.'},'sections':[{'heading':{'zh':h,'en':['Competition','Cash','Capital','Risk','Organization','Valuation'][i]},'evidenceIds':['s0']} for i,h in enumerate(headings)]}
+    def test_every_passage_is_mapped_and_approved_sections_resume(self):
         work={'id':'synthetic-test','title':{'zh':'测试','en':'Synthetic'}}
-        chunks=[{'id':'s0','text':'Synthetic evidence about business research.'},{'id':'s1','text':'Distinct material for the test.'}]
-        failed=True;requested=[]
+        chunks=[{'id':'s'+str(i),'text':'Synthetic evidence about business research.'} for i in range(13)]
+        outline={'sourceSummary':{'zh':'企业研究。','en':'Business research.'},'sections':[{'heading':{'zh':h,'en':'Cash' if h=='现金' else 'Competition'},'evidenceIds':[sid]} for h,sid in [('现金','s0'),('竞争','s12')]]}
+        mapped=[];written=[];failed=True
         def ask(system,prompt,model,tokens):
+            if prompt['task'].startswith('Map'):
+                mapped.extend(c['id'] for c in prompt['evidence']);return {'points':[{'claim':'A supported argument','evidenceIds':[prompt['evidence'][0]['id']]}]}
             if prompt['task'].startswith('Plan'):return copy.deepcopy(outline)
             if prompt['task'].startswith('Review'):return {'valid':True,'problems':[]}
-            h=prompt['topic']['heading']['zh'];role=prompt['paragraphRole'];requested.append((h,role))
-            if failed and h=='资本' and role=='conditions':raise TimeoutError('synthetic failure')
-            return {'zh':h+'。'+role+h.join(['这个段落是用于验证断点续写的独立合成分析。']*35),'en':'An original synthetic analytical paragraph for verification of '+role+'.'}
-        with tempfile.TemporaryDirectory() as tmp,patch.object(generator,'ask',side_effect=ask),patch.object(generator.time,'sleep'):
-            with self.assertRaises(TimeoutError):generator.generate(work,chunks,'official_text','synthetic',2600,Path(tmp))
-            checkpoint=e.read(Path(tmp)/'.archive-work/partials/synthetic-test.json')
-            self.assertEqual(len(checkpoint['sections']),3)
-            self.assertEqual(len(checkpoint['sections'][2]['paragraphs']),1)
-            requested.clear();failed=False
-            note=generator.generate(work,chunks,'official_text','synthetic',2600,Path(tmp))
-            self.assertEqual(len(note['sections']),6)
-            self.assertFalse(any(h in ['竞争','现金'] for h,role in requested))
-            self.assertNotIn(('资本','mechanism'),requested)
-            self.assertTrue(e.validate(note,work,chunks,2600))
+            topic=prompt['topic']['heading']['zh'];written.append(topic)
+            if failed and topic=='竞争':raise TimeoutError('synthetic failure')
+            return {'zh':topic+'的论证与材料相连。','en':'A source-specific argument about '+('cash' if topic=='现金' else 'competition')+'.'}
+        with tempfile.TemporaryDirectory() as tmp,patch.object(generator,'ask',side_effect=ask):
+            with self.assertRaises(TimeoutError):generator.generate(work,chunks,'official_text','synthetic',0,Path(tmp))
+            self.assertEqual(mapped,[c['id'] for c in chunks])
+            saved=e.read(Path(tmp)/'.archive-work/partials/synthetic-test.json')
+            self.assertEqual(len(saved['sections']),1)
+            self.assertEqual(saved['inputHash'],e.input_hash(work))
+            mapped.clear();written.clear();failed=False
+            note=generator.generate(work,chunks,'official_text','synthetic',0,Path(tmp))
+            self.assertEqual(mapped,[])
+            self.assertEqual(written,['竞争'])
+            self.assertTrue(e.validate(note,work,chunks,0))
 
-    def test_editorial_rejection_never_saves_an_approved_outline(self):
-        headings=['竞争','现金','资本','风险','组织','估值']
-        outline={'sourceSummary':{'zh':'测试资料。','en':'Synthetic material.'},'sections':[{'heading':{'zh':h,'en':'Concept'},'evidenceIds':['s0']} for h in headings]}
+    def test_editorial_errors_prevent_publication(self):
+        work={'id':'review-test','title':{'zh':'测试','en':'Test'}}
+        chunks=[{'id':'s0','text':'Synthetic source.'},{'id':'s1','text':'Other evidence.'}]
+        outline={'sourceSummary':{'zh':'企业研究。','en':'Business research.'},'sections':[{'heading':{'zh':h,'en':'Concept'},'evidenceIds':['s0']} for h in ['现金','竞争']]}
         def ask(system,prompt,model,tokens):
-            return {'valid':False,'problems':['The two languages identify different people.']} if prompt['task'].startswith('Review') else copy.deepcopy(outline)
-        with tempfile.TemporaryDirectory() as tmp,patch.object(generator,'ask',side_effect=ask),patch.object(generator.time,'sleep'):
-            with self.assertRaisesRegex(ValueError,'editorial review'):
-                generator.generate({'id':'review-test','title':{'zh':'测试','en':'Test'}},[{'id':'s0','text':'Synthetic source.'},{'id':'s1','text':'Other evidence.'}],'official_text','synthetic',2600,Path(tmp))
-            self.assertFalse((Path(tmp)/'.archive-work/partials/review-test.json').exists())
+            task=prompt['task']
+            if task.startswith('Map'):return {'points':[{'claim':'Supported argument','evidenceIds':['s0']}]}
+            if task.startswith('Plan'):return copy.deepcopy(outline)
+            if task.startswith('Review'):return {'valid':False,'problems':['The languages attribute different positions.']}
+            return {'zh':'材料中的具体论证。','en':'A supported argument.'}
+        with tempfile.TemporaryDirectory() as tmp,patch.object(generator,'ask',side_effect=ask):
+            with self.assertRaisesRegex(ValueError,'editorial review'):generator.generate(work,chunks,'official_text','synthetic',0,Path(tmp))
+            saved=e.read(Path(tmp)/'.archive-work/partials/review-test.json')
+            self.assertEqual(saved['sections'],[])
+
 
 if __name__=='__main__':unittest.main()

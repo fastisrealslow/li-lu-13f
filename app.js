@@ -748,7 +748,6 @@ function holdingCostState(h, snapshot = data, priceSnapshot = prices) {
   if (h.shareType && h.shareType !== 'SH') return unavailable('principal');
   if (meta.snapshotType) return unavailable('archive');
   if (current.valueQuality) return unavailable('units');
-  if (!comparableQuarter(snapshot)) return unavailable('scope');
   if (h.ticker?.startsWith('?')) return unavailable('unmapped');
   const cb = priceSnapshot?.costBasis?.[h.ticker];
   if (!cb?.recent || cb.recent.error || !Number.isFinite(cb.recent.buy) || cb.recent.buy <= 0) return unavailable('missing');
@@ -786,10 +785,18 @@ function costGap(price, cost) {
   return Number.isFinite(price) && price > 0 && Number.isFinite(cost) && cost > 0 ? (cost - price) / cost * 100 : null;
 }
 function costGapTone(gap) { return gap >= 20 ? 'deep' : gap >= 10 ? 'watch' : gap > 0 ? 'positive' : gap < 0 ? 'negative' : 'neutral'; }
-function costGapHTML(gap, reason, en = lang === 'en') {
+function reportingScopeHTML(snapshot = data) {
+  const current=snapshot?.current,scope=current?.reportingScope,en=lang==='en';
+  if(!scope || scope.quarter!==current.quarter) return '';
+  const managers=scope.managers || {};
+  const lines=current.holdings.flatMap(h=>(h.managerAllocations || []).map(a=>`<tr><td>${hkEscape(h.ticker)}</td><td>${a.shares.toLocaleString('en-US')}</td><td>$${a.value.toLocaleString('en-US')}</td><td>${a.managerIds.map(id=>'#'+hkEscape(id)).join(', ')}</td></tr>`)).join('');
+  return `<details class="position-note"><summary>${en?'Consolidated filing: security and manager breakdown':'合并申报：每只证券的主体与数量'}</summary><p>${en?'Each row below is one original filing entry. Multiple manager numbers on the same row describe joint discretion over that row; its shares are counted once.':'下表逐行对应 SEC 原表；同一行出现多个主体编号，表示共同申报同一笔证券，股数只计一次。'}</p>${Object.entries(managers).map(([id,m])=>`<p>#${hkEscape(id)} · ${hkEscape(m.name)}</p>`).join('')}<div style="overflow-x:auto"><table><thead><tr><th>${en?'Security':'证券'}</th><th>${en?'Shares':'股数'}</th><th>${en?'Filed value':'申报市值'}</th><th>${en?'Manager IDs':'主体编号'}</th></tr></thead><tbody>${lines}</tbody></table></div><a href="${hkEscape(scope.source)}" target="_blank" rel="noopener noreferrer">${en?'SEC manager list':'SEC 主体编号原表'}</a></details>`;
+}
+function costGapHTML(gap, reason, en = lang === 'en', scopeInitial = false) {
   if (gap === null) return `<span class="estimate-unavailable">${hkEscape(reason || (en ? 'Quote unavailable' : '报价待更新'))}</span>`;
   const tone = costGapTone(gap);
-  const label = gap > 0 ? (en ? 'Price below buying reference' : '现价低于加仓参考价') : gap < 0 ? (en ? 'Price above buying reference' : '现价高于加仓参考价') : (en ? 'Price equals buying reference' : '现价等于加仓参考价');
+  const ref = scopeInitial ? (en?'scope-entry reference':'新范围首季参考价') : (en?'buying reference':'加仓参考价');
+  const label = gap > 0 ? (en ? 'Price below '+ref : '现价低于'+ref) : gap < 0 ? (en ? 'Price above '+ref : '现价高于'+ref) : (en ? 'Price equals '+ref : '现价等于'+ref);
   return `<span class="cost-gap ${tone}"><small>${label}</small><strong>${Math.abs(gap).toFixed(1)}%</strong></span>`;
 }
 function holdingsLegendHTML(rows,gaps) {
@@ -862,20 +869,21 @@ function renderHoldings() {
     const reason = cb ? null : costUnavailableText(costState.reason);
     const mos = cb ? costGap(currentPrice, cb.recent.buy) : null;
     if(mos!==null) shownGaps.push(mos);
-    const mosHtml = h.putCall ? '<span class="estimate-unavailable">—</span>' : costGapHTML(mos, reason);
+    const mosHtml = h.putCall ? '<span class="estimate-unavailable">—</span>' : costGapHTML(mos, reason, lang==='en', cb?.recent?.kind==='scope_initial');
     let costHtml = h.putCall ? '<span class="estimate-unavailable">—</span>' : `<span class="estimate-unavailable">${hkEscape(reason)}</span>`;
     let compactCost = costHtml;
     if (cb) {
       const rc = cb.recent, at = cb.allTime, symbol = currSymbol(h.ticker);
+      const costPeriodLabel = rc.kind === 'scope_initial' ? (lang==='en'?'First quarter in expanded scope: ':'新申报范围首季：') : (lang==='en'?'Last reported addition: ':'最近加仓季度：');
       const isYahoo = rc.source === 'yahoo' || rc.source === 'yfinance';
       const method = isYahoo ? (lang === 'en' ? 'Quarter low × 70% + average × 30%' : '该季低价×70%＋均价×30%')
         : (lang === 'en' ? 'Filed quarter-end value per share; a price proxy, not purchase cost' : '季末申报市值÷股数，仅作价格代理，不是买入成本');
       costHtml = `<div class="cost-estimate" title="${hkEscape(method)}"><strong>${symbol}${rc.buy.toFixed(2)}</strong>
-        <small>${t('costRecent')}</small><small>${lang==='en'?'Last reported addition: ':'最近加仓季度：'}${hkEscape(rc.quarter)}</small><small class="estimate-method">${isYahoo ? (lang === 'en' ? 'Historical prices' : '历史行情估算') : (lang === 'en' ? '13F price proxy' : '13F 季末价代理')}</small>`;
+        <small>${rc.kind==='scope_initial'?(lang==='en'?'Scope-entry price reference':'新范围首季价格参考'):t('costRecent')}</small><small>${costPeriodLabel}${hkEscape(rc.quarter)}</small><small class="estimate-method">${isYahoo ? (lang === 'en' ? 'Historical prices' : '历史行情估算') : (lang === 'en' ? '13F price proxy' : '13F 季末价代理')}</small>`;
       if (at) costHtml += `<div class="average-cost">${symbol}${at.avg.toFixed(2)}<small>${t('costAllTime')}</small><small>${costSpanText(at)}</small></div>`;
       else if (costState.averagePending) costHtml += `<small>${costState.averageReason==='units'?(lang==='en'?'Average awaits historical value verification':'历史金额待核实，暂不显示长期均价'):(lang==='en'?'Average awaiting split correction':'长期均价待拆股校正')}</small>`;
       costHtml += '</div>';
-      compactCost = `<span class="mobile-estimate-label">${lang === 'en' ? 'Buy ref.' : '加仓参考'} <strong>${symbol}${rc.buy.toFixed(2)}</strong></span><small>${lang==='en'?'Last addition: ':'最近加仓：'}${hkEscape(rc.quarter)}</small>`;
+      compactCost = `<span class="mobile-estimate-label">${rc.kind==='scope_initial'?(lang==='en'?'Scope ref.':'首季参考'):(lang === 'en' ? 'Buy ref.' : '加仓参考')} <strong>${symbol}${rc.buy.toFixed(2)}</strong></span><small>${costPeriodLabel}${hkEscape(rc.quarter)}</small>`;
       if (costState.averagePending) compactCost += `<small>${costState.averageReason==='units'?(lang==='en'?'Average awaits historical value verification':'历史金额待核实，长期均价暂缺'):(lang==='en'?'Average awaits split correction':'长期均价待拆股校正')}</small>`;
       if (at) compactCost += `<small class="mobile-average-cost">${lang==='en'?'Avg. (est.)':'历次均价（估）'} ${symbol}${at.avg.toFixed(2)}</small><small>${costSpanText(at)}</small>`;
       if (mos !== null && mos >= 10) mosItems.push({ticker:h.ticker,name:h.name,cnName:h.cnName||'',mos:mos.toFixed(1),cost:rc.buy,price:currentPrice});
@@ -895,7 +903,7 @@ function renderHoldings() {
   }).join('');
   
   // Legend for tags
-  const legendHtml = holdingsLegendHTML(d.holdings,shownGaps);
+  const legendHtml = holdingsLegendHTML(d.holdings,shownGaps)+reportingScopeHTML();
 
   // MOS summary section
   const greenItems = mosItems.filter(m => parseFloat(m.mos) >= 20);
@@ -2223,10 +2231,7 @@ function updateInvestorContent() {
   setText('#readTitle', text('原始资料与延伸阅读', 'Primary Sources & Further Reading'));
   setText('[data-i18n="navAbout"]', text(`关于${cfg.name}`, `About ${cfg.nameEn}`));
   const sourceURL = cfg.cik ? `https://www.sec.gov/edgar/browse/?CIK=${cfg.cik}&owner=exclude` : 'https://di.hkex.com.hk/di/NSAllFormList.aspx';
-  const scope = cfg.source13F
-    ? text('本页来自机构的 SEC 13F 申报，只覆盖申报范围内证券，不代表个人财富、基金全部资产或所有投资决策。', 'This page uses the institution’s SEC 13F filings. It covers reportable securities, not personal wealth, every fund asset or every investment decision.')
-    : text('本页保留历史港股披露快照；披露有日期和门槛，不能据此判断当前完整持仓。', 'This page retains historical HK disclosure snapshots. Disclosure dates and thresholds limit what can be inferred about a complete current portfolio.');
-  setHTML('.ref-text', p.about.map(paragraph => `<p>${hkEscape(profileText(paragraph))}</p>`).join('') + `<p>${scope} <a href="${sourceURL}" target="_blank" rel="noopener noreferrer">${text('核对原始申报', 'Check original filings')}</a>。</p><p style="font-size:.75rem;color:var(--text-lighter);">${text('资料核对日期', 'Profile reviewed')}: ${hkEscape(p.reviewedAt)}</p>`);
+  setHTML('.ref-text', p.about.map(paragraph => `<p>${hkEscape(profileText(paragraph))}</p>`).join('') + `<p style="font-size:.75rem;color:var(--text-lighter);">${text('资料核对日期', 'Profile reviewed')}: ${hkEscape(p.reviewedAt)} · <a href="${sourceURL}" target="_blank" rel="noopener noreferrer">${text('原始申报','Original filing')}</a></p>`);
   const timeline = [...p.timeline];
   setHTML('.ref-grid .timeline', `<h3 class="timeline-heading">${text('经历与重要节点','Career & important milestones')}</h3>` + timeline.map(item => `<div class="tl-item"><div class="tl-year">${hkEscape(item.date)}</div><div class="tl-text">${hkEscape(profileText(item.text))}</div>${/^https:\/\//.test(item.source || '')?`<a class="timeline-source" href="${hkEscape(item.source)}" target="_blank" rel="noopener noreferrer">${text(item.source.includes('alpha-file.com')?'信件转载 ↗':'查看来源 ↗',item.source.includes('alpha-file.com')?'Letter transcript ↗':'Source ↗')}</a>`:''}</div>`).join(''));
 

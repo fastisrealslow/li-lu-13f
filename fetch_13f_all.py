@@ -798,6 +798,7 @@ def parse_holdings(xml_bytes: bytes, consolidate: bool = False, *, filing_date: 
             "ticker": tk, "name": name_val, "cls": cls_val, "cusip": cusip_val,
             "shares": shares, "value": value,
             "shareType": share_type, "putCall": put_call,
+            **({'managerAllocations': [{'managerIds': re.findall(r'\d+', info.findtext('ns:otherManager', default='', namespaces=NS)), 'shares': shares, 'value': value}]} if info.findtext('ns:otherManager', default='', namespaces=NS).strip() else {}),
         })
 
     # SEC amended Form 13F is mandatory for filings from 2023-01-03.
@@ -807,6 +808,7 @@ def parse_holdings(xml_bytes: bytes, consolidate: bool = False, *, filing_date: 
     if filed < datetime(2023, 1, 3):
         for e in raw_entries:
             e["value"] *= 1000
+            for allocation in e.get('managerAllocations', []): allocation['value'] *= 1000
 
     # Every filing may contain multiple manager/discretion rows for one security.
     # Ticker alone cannot distinguish common shares, PUT/CALL and principal.
@@ -843,6 +845,11 @@ def _sort_history_in_place(data: dict):
 
 
 def save_data(path: str, data: dict):
+    from reporting_scope import refresh
+    config=next((c for c in INVESTOR_CONFIG.values() if c['path']==str(path)),{})
+    if config.get('reportingTransition'):
+        filing=data.get('history',{}).get('filing_sources',{}).get(data.get('current',{}).get('quarter'))
+        if filing:refresh(data,config,filing,sec_fetch)
     _sort_history_in_place(data)
     holdings = [h for rows in data.get("history", {}).get("holdings", {}).values() for h in rows]
     actions = [action for action in VERIFIED_SPLITS if any(

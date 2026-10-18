@@ -32,6 +32,13 @@ class ValueAudit(unittest.TestCase):
   self.assertEqual(result['factor'],1)
   holdings=rows(.001);holdings[0]['putCall']='CALL';holdings.append({**rows(.001)[0],'cls':'W EXP 2019'})
   self.assertEqual(audit.verify_units(holdings,'2023 Q1',price)['status'],'pending')
+ def test_one_nonmatching_corporate_action_quote_does_not_block_four_price_proofs(self):
+  holdings=rows(.001)+[{**rows(.001)[0],'ticker':'DDD'},{**rows(.001)[0],'ticker':'EEE'}]
+  result=audit.verify_units(holdings,'2023 Q1',lambda tk,q:{**price(tk,q),'price':103 if tk=='EEE' else 100})
+  self.assertEqual(result['factor'],1000)
+  self.assertEqual(result['outlierTickers'],['EEE'])
+  holdings[-1]['value']=100000
+  self.assertEqual(audit.verify_units(holdings,'2023 Q1',price)['status'],'pending')
  def test_split_adjusted_price_is_restored_without_undoing_past_splits(self):
   stamp=int(datetime(2023,3,31,15,tzinfo=timezone.utc).timestamp());future=stamp+86400
   chart={'meta':{'currency':'USD'},'timestamp':[stamp], 'indicators':{'quote':[{'close':[5]}]},'events':{'splits':{'old':{'date':stamp-86400,'numerator':2,'denominator':1},'future':{'date':future,'numerator':20,'denominator':1}}}}

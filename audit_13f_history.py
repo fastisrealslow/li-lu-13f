@@ -104,9 +104,17 @@ def verify_units(rows, quarter, price=quarter_price):
             anchors.append({'ticker':tk,'cusip':h.get('cusip'),'filedPrice':per_share,**proof,'candidates':agrees})
         except Exception as error:errors.append(tk+': '+type(error).__name__)
         if len(anchors)>=5 or len(seen)>=8:break
-    agreed=set.intersection(*(set(a['candidates']) for a in anchors)) if anchors else set()
-    if len(anchors)>=3 and len(agreed)==1:
-        return {'status':'verified','factor':agreed.pop(),'anchors':anchors}
+    # A corporate action can invalidate one ticker's historical quotation.
+    # Require at least three independent prices and 80% agreement; a price
+    # that supports a DIFFERENT unit is a real contradiction, never an outlier.
+    factors={factor for a in anchors for factor in a['candidates']}
+    if len(factors)==1:
+        factor=next(iter(factors))
+        votes=sum(a['candidates']==[factor] for a in anchors)
+        if votes>=3 and votes/len(anchors)>=.8:
+            return {'status':'verified','factor':factor,'anchors':anchors,
+                    'agreementCount':votes,'anchorCount':len(anchors),
+                    'outlierTickers':[a['ticker'] for a in anchors if not a['candidates']]}
     return {'status':'pending','anchors':anchors,'errors':errors}
 
 
@@ -185,7 +193,9 @@ def audit_investor(key,config,limit=6,fetcher=None,price=quarter_price):
     for q,record in records.items():
         if record.get('version')==VERSION and record.get('status')=='verified' and q in rows and matches_source(rows[q],record) and record.get('factor')!=1:
             normalized=copy.deepcopy(rows[q])
-            for h in normalized:h['value']=round(h['value']*record['factor'])
+            for h in normalized:
+                h['value']=round(h['value']*record['factor'])
+                for a in h.get('managerAllocations',[]):a['value']=round(a['value']*record['factor'])
             update_history(data,q,normalized);changed.append(q)
     def due(q):
         r=records.get(q,{})
@@ -219,7 +229,9 @@ def audit_investor(key,config,limit=6,fetcher=None,price=quarter_price):
                     'sourceDigest':hashlib.sha256(raw).hexdigest(),'sourceHash':digest(parsed),**proof}
             if proof['status']=='verified':
                 factor=proof['factor']
-                for h in parsed:h['value']=round(h['value']*factor)
+                for h in parsed:
+                    h['value']=round(h['value']*factor)
+                    for a in h.get('managerAllocations',[]):a['value']=round(a['value']*factor)
                 previous={ (h.get('cusip'),h.get('putCall',''),h.get('shareType','SH')):h for h in rows[q] }
                 for h in parsed:
                     old=previous.get((h.get('cusip'),h.get('putCall',''),h.get('shareType','SH')), {})
