@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-18T01:54:30+00:00",
+  "updatedAt": "2026-10-18T11:45:12+00:00",
   "works": [
     {
       "id": "pabrai-c7c47a77315015",
@@ -9569,6 +9569,32 @@
       "media": []
     },
     {
+      "id": "buffett-8ac7156186bd0c",
+      "investor": "buffett",
+      "title": {
+        "zh": "伯克希尔所有者手册",
+        "en": "An Owner’s Manual"
+      },
+      "date": null,
+      "dateKind": "published",
+      "kind": "essay",
+      "publisher": "Berkshire Hathaway",
+      "sourceLevel": "primary",
+      "sources": [
+        {
+          "url": "https://www.berkshirehathaway.com/owners.html",
+          "label": {
+            "zh": "原始作品",
+            "en": "Original work"
+          }
+        }
+      ],
+      "textStatus": "not_obtained",
+      "checkedAt": "2026-10-18",
+      "topics": [],
+      "media": []
+    },
+    {
       "id": "ackman-918af90dea38d8",
       "investor": "ackman",
       "title": {
@@ -9731,8 +9757,8 @@
     {
       "investor": "buffett",
       "url": "https://www.berkshirehathaway.com/letters/letters.html",
-      "status": "ok",
-      "found": 0
+      "status": "retained",
+      "error": "URLError"
     },
     {
       "investor": "webb",
@@ -9785,8 +9811,8 @@
     {
       "investor": "buffett",
       "url": "https://www.berkshirehathaway.com/owners.html",
-      "status": "retained",
-      "error": "ValueError"
+      "status": "ok",
+      "found": 1
     },
     {
       "investor": "abrams",
