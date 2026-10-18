@@ -105,10 +105,10 @@
   },
   "attempts": {
     "abrams-e7efb3503c1729": {
-      "at": "2026-10-17T15:22:45+00:00",
-      "status": "ok",
-      "inputHash": "70a6f1f00665ef8f801e08eb726ca6a436897ab0a4f2df5821f11ffbcfeea479",
-      "review": "bilingual_editorial_review"
+      "at": "2026-10-18T01:41:01+00:00",
+      "status": "retry",
+      "inputHash": "faf4dd7c7f04f2b54936f271eed2b2485157b887970b03dabb38d86adcca9977",
+      "reason": "ValueError: English text contains untranslated Chinese"
     },
     "ackman-4f76dc9372c2a9": {
       "at": "2026-10-18T00:38:55+00:00",
@@ -1593,5 +1593,5 @@
       "reason": "ValueError: Bilingual editorial review: The Chinese text incorrectly states that Buffett pointed out the issue of transparency regarding merger accounting and financial dat"
     }
   },
-  "updatedAt": "2026-10-18T01:38:34+00:00"
+  "updatedAt": "2026-10-18T01:41:01+00:00"
 }
