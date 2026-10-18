@@ -570,10 +570,10 @@
       "reason": "ValueError: Incomplete AI Review at 900 tokens"
     },
     "pabrai-f5dcfaa376a4b8": {
-      "at": "2026-10-18T15:13:38+00:00",
+      "at": "2026-10-18T20:08:22+00:00",
       "status": "retry",
       "inputHash": "4eac2c11cdab99170ba14f162a0114b05e47a5f3533e2627a95a6a0c59460279",
-      "reason": "ValueError: Unsupported numerical claim: 500"
+      "reason": "JSONDecodeError: Extra data: line 4 column 1 (char 1656)"
     },
     "buffett-3467b69e654f04": {
       "at": "2026-10-18T15:48:44+00:00",
@@ -1977,5 +1977,5 @@
       "reason": "ValueError: Copied source passage"
     }
   },
-  "updatedAt": "2026-10-18T20:08:20+00:00"
+  "updatedAt": "2026-10-18T20:08:22+00:00"
 }
