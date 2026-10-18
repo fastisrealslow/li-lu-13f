@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-10-17T04:56:32+00:00",
+  "updatedAt": "2026-10-18T05:06:20+00:00",
   "companies": [
     {
       "id": "pdd",
@@ -678,9 +678,9 @@
         }
       ],
       "financialStatus": {
-        "checkedAt": "2026-10-17T04:56:32+00:00",
-        "status": "checked",
-        "message": "已检查原始年报来源，未发现可替代的新完整年度报表。"
+        "checkedAt": "2026-10-18T05:06:20+00:00",
+        "status": "retained",
+        "message": "本次财报读取／校验未完成，沿用已核实年报：Original source content changed: pdd-2025"
       },
       "results": {
         "PDD": {
@@ -1442,7 +1442,7 @@
         }
       ],
       "financialStatus": {
-        "checkedAt": "2026-10-17T04:56:32+00:00",
+        "checkedAt": "2026-10-18T05:06:20+00:00",
         "status": "checked",
         "message": "已检查原始年报来源，未发现可替代的新完整年度报表。"
       },
@@ -2123,7 +2123,7 @@
         }
       ],
       "financialStatus": {
-        "checkedAt": "2026-10-17T04:56:32+00:00",
+        "checkedAt": "2026-10-18T05:06:20+00:00",
         "status": "checked",
         "message": "已检查原始年报来源，未发现可替代的新完整年度报表。"
       },
@@ -2881,7 +2881,7 @@
         }
       ],
       "financialStatus": {
-        "checkedAt": "2026-10-17T04:56:32+00:00",
+        "checkedAt": "2026-10-18T05:06:20+00:00",
         "status": "checked",
         "message": "已检查原始年报来源，未发现可替代的新完整年度报表。"
       },
@@ -3661,7 +3661,7 @@
         }
       ],
       "financialStatus": {
-        "checkedAt": "2026-10-17T04:56:32+00:00",
+        "checkedAt": "2026-10-18T05:06:20+00:00",
         "status": "checked",
         "message": "已检查原始年报来源，未发现可替代的新完整年度报表。"
       },
@@ -4570,9 +4570,9 @@
         }
       ],
       "financialStatus": {
-        "checkedAt": "2026-10-17T04:56:32+00:00",
-        "status": "checked",
-        "message": "已检查原始年报来源，未发现可替代的新完整年度报表。"
+        "checkedAt": "2026-10-18T05:06:20+00:00",
+        "status": "retained",
+        "message": "本次财报读取／校验未完成，沿用已核实年报：Original source content changed: tme-2025"
       },
       "results": {
         "1698.HK": {
@@ -5556,7 +5556,7 @@
         }
       ],
       "financialStatus": {
-        "checkedAt": "2026-10-17T04:56:32+00:00",
+        "checkedAt": "2026-10-18T05:06:20+00:00",
         "status": "checked",
         "message": "已检查原始年报来源，未发现可替代的新完整年度报表。"
       },
@@ -6392,10 +6392,9 @@
         }
       ],
       "financialStatus": {
-        "checkedAt": "2026-10-17T04:56:32+00:00",
-        "status": "amendment_without_tables",
-        "message": "已检查年度报告修订文件；修订文件未重列经营利润报表，计算仍采用原完整年报。",
-        "url": "https://www.sec.gov/Archives/edgar/data/1815846/000110465926078419/tm2618531d1_20fa.htm"
+        "checkedAt": "2026-10-18T05:06:20+00:00",
+        "status": "retained",
+        "message": "本次财报读取／校验未完成，沿用已核实年报：Original source content changed: miniso-2025"
       },
       "results": {
         "9896.HK": {
@@ -6671,9 +6670,13 @@
       }
     }
   ],
-  "checkedAt": "2026-10-17T04:56:32+00:00",
+  "checkedAt": "2026-10-18T05:06:20+00:00",
   "updateStatus": {
-    "failures": [],
-    "status": "checked"
+    "failures": [
+      "pdd report: Original source content changed: pdd-2025",
+      "tme report: Original source content changed: tme-2025",
+      "miniso report: Original source content changed: miniso-2025"
+    ],
+    "status": "partial"
   }
 }
