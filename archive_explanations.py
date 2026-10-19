@@ -56,7 +56,7 @@ def author_aliases(work):
     person=next((p for p in people if p['id']==work.get('investor')),None)
     return [person[k] for k in ['name','nameEn'] if person.get(k)] if person else []
 
-def validate(note,work,chunks,minimum_chars,required_sections=2):
+def validate(note,work,chunks,minimum_chars,required_sections=2,summary_chunks=None):
     pairs=[note.get('sourceSummary',{})]
     sections=note.get('sections',[])
     if len(sections)<required_sections:raise ValueError('Detailed explanation needs more sections')
@@ -73,13 +73,17 @@ def validate(note,work,chunks,minimum_chars,required_sections=2):
     paragraphs=[p['zh'].strip() for s in sections for p in s['paragraphs']]
     if len(set(paragraphs)) != len(paragraphs):raise ValueError('Repeated paragraphs cannot pad an explanation')
     if chinese_size(body)<minimum_chars:raise ValueError('Detailed explanation is too short')
-    original=' '.join(c['text'] for c in chunks)
     metadata=json.dumps({k:work.get(k) for k in ['title','date']},ensure_ascii=False)
-    source_numbers={number_key(n) for n in NUMBER.findall(original+' '+metadata)}
-    source_quantities={amount for _,amount in scaled_quantities(original+' '+metadata)}
-    source_quantities.update(value for value,percent in source_numbers if not percent)
-    normalized=re.sub(r'\s+',' ',original).lower()
-    for p in pairs:
+    def context(evidence):
+        original=' '.join(c['text'] for c in evidence)
+        numbers={number_key(n) for n in NUMBER.findall(original+' '+metadata)}
+        quantities={amount for _,amount in scaled_quantities(original+' '+metadata)}
+        quantities.update(value for value,percent in numbers if not percent)
+        return original,numbers,quantities,re.sub(r'\s+',' ',original).lower()
+    section_context=context(chunks)
+    summary_context=context(summary_chunks) if summary_chunks is not None else section_context
+    for i,p in enumerate(pairs):
+        original,source_numbers,source_quantities,normalized=summary_context if i==0 else section_context
         pair=p['zh']+' '+p['en'];scaled=scaled_quantities(pair)
         for match in NUMBER.finditer(pair):
             n=match.group();quantity=next((amount for (start,end),amount in scaled if start<=match.start()<end),None)
@@ -97,6 +101,24 @@ def validate(note,work,chunks,minimum_chars,required_sections=2):
 def obtain_material(work):
     budget.check()
     url=work['sources'][0]['url'];host=urlsplit(url).hostname
+    # Publisher RSS can contain the complete original essay even when its
+    # normal article page is temporarily unavailable. Never substitute a feed
+    # description, another article, or a paid-preview excerpt.
+    if work.get('kind')=='essay':
+        for item in work.get('sources',[]):
+            feed=item['url']
+            if urlsplit(feed).hostname!=host or urlsplit(feed).path.rstrip('/') not in ('/feed','/rss'):continue
+            try:
+                raw,_=source.fetch(feed)
+                for entry in ET.fromstring(raw).findall('.//item'):
+                    link=entry.findtext('link','')
+                    if not link or source.canonical(link)!=source.canonical(url):continue
+                    body=entry.findtext('{http://purl.org/rss/1.0/modules/content/}encoded','')
+                    text=source.extract_text(body.encode(),'text/html')
+                    if len(text)>=1000 and not re.search(r'this post is for paid subscribers|subscribe to read the rest',text,re.I):
+                        work['_materialURL']=feed
+                        return text,'official_text',url
+            except Exception:continue
     # A verified written version of the same work is preferable to programme
     # notes or recognizing its audio reading. Only explicitly catalogued
     # original documents qualify; unrelated PDF links are not evidence.
