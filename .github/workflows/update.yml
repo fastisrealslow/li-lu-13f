@@ -28,6 +28,8 @@ on:
       - "tests/test_hk_automation.py"
       - "tests/test_archived_holdings.py"
       - "fetch_13f_all.py"
+      - "reporting_scope.py"
+      - "update_source_guard.py"
       - "resolve_unmapped_tickers.py"
       - "publish_update_failure.py"
       - "update_status.py"
@@ -53,7 +55,7 @@ on:
 
 concurrency:
   group: update-13f-${{ github.ref }}
-  cancel-in-progress: false
+  cancel-in-progress: ${{ github.event_name == 'push' }}
 
 permissions:
   contents: write
@@ -608,7 +610,10 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git fetch origin master
-          if ! git diff --quiet "$TRACKER_SOURCE_SHA" origin/master -- '*.py' '.github/workflows/*.yml' investors.json; then
+          source_guard=0
+          python3 update_source_guard.py "$TRACKER_SOURCE_SHA" origin/master || source_guard=$?
+          if [ "$source_guard" -gt 1 ]; then exit "$source_guard"; fi
+          if [ "$source_guard" -eq 1 ]; then
             echo "::notice::Source rules changed during this run; the queued fresh run will publish updated data."
             exit 0
           fi

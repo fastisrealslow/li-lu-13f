@@ -29,7 +29,7 @@ permissions:
   contents: read
 concurrency:
   group: speech-archive-master
-  cancel-in-progress: false
+  cancel-in-progress: ${{ github.event_name == 'push' }}
 jobs:
   catalogue:
     runs-on: ubuntu-24.04
