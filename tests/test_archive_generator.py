@@ -12,9 +12,41 @@ from unittest.mock import patch
 import archive_explanations as e
 import archive_generator as generator
 import speech_archive
+import archive_budget as budget
 
 
 class SectionGenerationTests(unittest.TestCase):
+    def test_model_request_timeout_respects_the_remaining_batch_budget(self):
+        response=io.BytesIO(json.dumps({'done':True,'response':'{"ok":true}'}).encode())
+        with patch.dict(os.environ,{'SILICONFLOW_KEY':'','ARCHIVE_CLOUD_KEY':''}),budget.limit(90),patch.object(generator.urllib.request,'urlopen',return_value=response) as request:
+            self.assertEqual(generator.ask('JSON only',{},'synthetic'),{'ok':True})
+            self.assertLessEqual(request.call_args.kwargs['timeout'],60)
+
+    def test_source_card_consolidation_resumes_after_a_budget_boundary(self):
+        work={'id':'consolidation-test','title':{'zh':'测试','en':'Synthetic'}}
+        chunks=[{'id':'s'+str(i),'text':'Source material about business research.'} for i in range(60)]
+        calls=[];stop=True
+        outline={'sourceSummary':{'zh':'企业研究。','en':'Business research.'},'sections':[{'heading':{'zh':zh,'en':en},'evidenceIds':[sid]} for zh,en,sid in [('现金','Cash','s0'),('竞争','Competition','s59')]]}
+        def ask(system,prompt,model,tokens):
+            nonlocal stop
+            task=prompt['task']
+            if task=='Map source arguments':return {'points':[{'claim':'Supported claim '+str(i),'evidenceIds':[prompt['evidence'][0]['id']]} for i in range(4)]}
+            if task.startswith('Map central'):
+                marker=prompt['argumentCards'][0]['evidenceIds'][0];calls.append(marker)
+                if stop and len(calls)==2:raise budget.BatchDeadline()
+                return {'points':[prompt['argumentCards'][0]]}
+            if task.startswith('Plan'):return copy.deepcopy(outline)
+            if task.startswith('Review'):return {'valid':True,'problems':[]}
+            return {'zh':prompt['topic']['heading']['zh']+'的研究要点。','en':'Research focused on '+prompt['topic']['heading']['en']+'.'}
+        with tempfile.TemporaryDirectory() as tmp,patch.object(generator,'ask',side_effect=ask):
+            with self.assertRaises(budget.BatchDeadline):generator.generate(work,chunks,'official_text','synthetic',0,Path(tmp))
+            state=e.read(Path(tmp)/'.archive-work/partials/consolidation-test.json')
+            self.assertEqual(len(state['consolidation']['groups']),1)
+            first=calls[0];stop=False;calls.clear()
+            note=generator.generate(work,chunks,'official_text','synthetic',0,Path(tmp))
+            self.assertNotIn(first,calls)
+            self.assertTrue(e.validate(note,work,chunks,0))
+
     def test_human_source_checked_guide_survives_automatic_retranscription(self):
         approved={'file':'archive/explanations/reviewed.json','inputHash':'current','sourceDigest':'reviewed-full-recording','reviewStatus':'verified','reviewMethod':'editorial_source_check'}
         fresh={'entries':{'test':approved},'attempts':{}}

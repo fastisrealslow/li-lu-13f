@@ -16,6 +16,8 @@ on:
       - speech_archive.py
       - archive_guides.py
       - archive_generator.py
+      - archive_budget.py
+      - archive_continuation.py
       - publisher_transcripts.py
       - archive_explanations.py
       - investors.json
@@ -47,6 +49,7 @@ jobs:
         run: |
           python3 -m unittest discover -s tests -p test_archive_explanations.py -v
           python3 -m unittest discover -s tests -p test_archive_generator.py -v
+          python3 -m unittest discover -s tests -p test_archive_continuation.py -v
           python3 -m unittest discover -s tests -p test_publisher_transcripts.py -v
           python3 archive_explanations.py validate
       - name: Discover sources and rebuild investor guides
@@ -100,15 +103,22 @@ jobs:
           path: .archive-work/partials
           key: archive-drafts-v2-${{ matrix.shard }}-${{ github.run_id }}
           restore-keys: archive-drafts-v2-${{ matrix.shard }}-
+      - name: Find the newest saved drafts automatically
+        id: continuation
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ARCHIVE_RESUME_RUN: ${{ inputs.resume_run }}
+          ARCHIVE_SHARD: ${{ matrix.shard }}
+        run: python3 archive_continuation.py --shard "$ARCHIVE_SHARD" --resume "$ARCHIVE_RESUME_RUN" >> "$GITHUB_OUTPUT"
       - name: Recover validated draft sections from the previous run
-        if: github.event_name == 'workflow_dispatch' && inputs.resume_run != ''
+        if: steps.continuation.outputs.run_id != ''
         continue-on-error: true
         uses: actions/download-artifact@v4
         with:
           name: archive-drafts-${{ matrix.shard }}
           path: .archive-work/partials
           github-token: ${{ github.token }}
-          run-id: ${{ inputs.resume_run }}
+          run-id: ${{ steps.continuation.outputs.run_id }}
       - name: Verify configured model service
         id: provider
         run: |

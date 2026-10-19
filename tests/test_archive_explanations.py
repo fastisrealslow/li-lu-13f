@@ -7,9 +7,21 @@ from unittest.mock import patch
 
 import archive_explanations as explain
 import archive_guides as guides
+import archive_budget as budget
 
 
 class ArchiveExplanationTests(unittest.TestCase):
+    def test_batch_deadline_is_continuation_not_a_failed_or_published_work(self):
+        work={'id':'budget-test','investor':'test','title':{'en':'A source'},'sources':[{'url':'https://publisher.example/work'}]}
+        with tempfile.TemporaryDirectory() as tmp:
+            root=Path(tmp);explain.write(root/'archive/catalog.json',{'works':[work]})
+            source='A complete source passage. '*50+'\n\n'+'Another original passage. '*50
+            with patch.object(explain,'obtain_material',return_value=(source,'official_text',work['sources'][0]['url'])),patch('archive_generator.generate',side_effect=budget.BatchDeadline):
+                result=explain.run(root,minutes=5)
+            self.assertTrue(result['continuation']);self.assertEqual(result['pending'],1)
+            self.assertEqual(result['generated'],0)
+            self.assertFalse((root/'archive/explanations/budget-test.json').exists())
+
     def test_programme_notes_cannot_be_published_as_an_argument_guide(self):
         work={'id':'test-notes','investor':'test','title':{'en':'Requested episode'},'sources':[{'url':'https://publisher.example/episode'}]}
         with tempfile.TemporaryDirectory() as tmp:

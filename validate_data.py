@@ -29,10 +29,13 @@ def read_json(path):
 def validate_manager_allocations(holding):
     allocations=holding.get('managerAllocations')
     if allocations is None:return
-    if not allocations:raise ValueError('Empty manager allocation breakdown')
+    if not isinstance(allocations,list) or not allocations:raise ValueError('Empty manager allocation breakdown')
     for row in allocations:
+        if not isinstance(row,dict):raise ValueError('Invalid manager allocation row')
         ids=row.get('managerIds')
-        if not isinstance(ids,list) or not ids or len(set(ids))!=len(ids) or any(not isinstance(i,str) or not i.isdigit() for i in ids):raise ValueError('Invalid manager identifiers')
+        # Column 7 is legitimately blank where no other included manager is
+        # identified. Such a row cannot prove predecessor-manager continuity.
+        if not isinstance(ids,list) or any(not isinstance(i,str) or not i.isdigit() for i in ids) or len(set(ids))!=len(ids):raise ValueError('Invalid manager identifiers')
         if any(type(row.get(k)) is not int or row[k]<0 for k in ['shares','value']):raise ValueError('Invalid manager quantities')
     if any(sum(row[k] for row in allocations)!=holding.get(k) for k in ['shares','value']):raise ValueError('Manager allocations disagree with consolidated holding')
 

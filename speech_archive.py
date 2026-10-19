@@ -22,6 +22,7 @@ import xml.etree.ElementTree as ET
 from email.utils import parsedate_to_datetime
 from pathlib import Path
 from collections import Counter
+import archive_budget as budget
 
 ROOT = Path(__file__).resolve().parent
 HEADERS = {"User-Agent": "Mozilla/5.0 (compatible; PublicInvestorArchive/1.0)"}
@@ -61,6 +62,7 @@ def canonical(url):
 
 
 def fetch(url):
+    budget.check()
     if not url.startswith("https://"):
         raise ValueError("HTTPS required")
     candidates = [url]
@@ -70,7 +72,7 @@ def fetch(url):
     for candidate in candidates:
         try:
             req = urllib.request.Request(candidate, headers=HEADERS)
-            with urllib.request.urlopen(req, timeout=25) as r:
+            with urllib.request.urlopen(req, timeout=budget.timeout(25)) as r:
                 raw = r.read(MAX_BYTES + 1)
                 if len(raw) > MAX_BYTES:
                     raise ValueError("Source exceeds size limit")
@@ -427,6 +429,7 @@ def embedded_source_media(raw, url):
 
 def video_text(work, allow_asr=False):
     """No cookies, login, paywall bypass, or downloaded media in the public tree."""
+    budget.check()
     video = next((m for m in work.get("media", []) if m["kind"] in {"youtube", "publisher_embed"}), None)
     audio = next((m for m in work.get("media", []) if m["kind"] == "audio"), None)
     if not video and not audio and allow_asr:
@@ -443,7 +446,7 @@ def video_text(work, allow_asr=False):
             cmd = ["yt-dlp", "--skip-download", "--write-subs", "--write-auto-subs",
                    "--sub-langs", "en.*,zh.*", "--sub-format", "json3/vtt", "--no-playlist",
                    "--socket-timeout", "20", "--retries", "1", "-o", str(out / "source.%(ext)s"), url]
-            run = subprocess.run(cmd, capture_output=True, timeout=120)
+            run = subprocess.run(cmd, capture_output=True, timeout=budget.timeout(120))
             captions = sorted(list(out.glob("*.json3")) + list(out.glob("*.vtt")))
             if captions:
                 text = parse_captions(captions[0].read_bytes())
@@ -453,17 +456,18 @@ def video_text(work, allow_asr=False):
                 raise ValueError("Video captions unavailable; speech recognition not enabled for this run")
             download = subprocess.run(["yt-dlp", "-f", "bestaudio", "--no-playlist", "--max-filesize", "250M",
                             "--socket-timeout", "20", "--retries", "1", "-o", str(out / "audio.%(ext)s"), url],
-                           capture_output=True, timeout=180)
+                           capture_output=True, timeout=budget.timeout(180))
             if download.returncode:
                 for f in out.glob("audio.*"):
                     f.unlink()
         files = [f for f in out.glob("audio.*") if f.suffix != ".part"]
         if not files and audio and allow_asr:
             req = urllib.request.Request(audio["url"], headers=HEADERS)
-            with urllib.request.urlopen(req, timeout=45) as r, (out / "audio.media").open("wb") as target:
+            with urllib.request.urlopen(req, timeout=budget.timeout(45)) as r, (out / "audio.media").open("wb") as target:
                 total = 0
                 expected_length = int(r.headers.get("Content-Length", "0"))
                 while chunk := r.read(1024 * 1024):
+                    budget.check()
                     total += len(chunk)
                     if total > 250 * 1024 * 1024:
                         raise ValueError("Audio exceeds download limit")
@@ -477,7 +481,11 @@ def video_text(work, allow_asr=False):
         model = WhisperModel("small", device="cpu", compute_type="int8", cpu_threads=4)
         # Recognition uses the entire available recording, not an opening excerpt.
         segments, info = model.transcribe(str(files[0]), vad_filter=True)
-        text = "\n".join(f"[{int(s.start)//60:02d}:{int(s.start)%60:02d}] {s.text}" for s in segments)
+        parts=[]
+        for s in segments:
+            budget.check()
+            parts.append(f"[{int(s.start)//60:02d}:{int(s.start)%60:02d}] {s.text}")
+        text="\n".join(parts)
         if len(text) < 600:
             raise ValueError("Insufficient speech recognition output")
         return text, "asr"

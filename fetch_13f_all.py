@@ -794,11 +794,16 @@ def parse_holdings(xml_bytes: bytes, consolidate: bool = False, *, filing_date: 
         shares = int(shares_el.text) if shares_el is not None and shares_el.text else 0
         value = int(val_el.text) if val_el is not None and val_el.text else 0
         tk = resolve_ticker(name_val, cls_val, cusip_val)
+        manager_reference=info.findtext('ns:otherManager',default='',namespaces=NS).strip()
+        manager_ids=list(dict.fromkeys(re.findall(r'\d+',manager_reference)))
         raw_entries.append({
             "ticker": tk, "name": name_val, "cls": cls_val, "cusip": cusip_val,
             "shares": shares, "value": value,
             "shareType": share_type, "putCall": put_call,
-            **({'managerAllocations': [{'managerIds': re.findall(r'\d+', info.findtext('ns:otherManager', default='', namespaces=NS)), 'shares': shares, 'value': value}]} if info.findtext('ns:otherManager', default='', namespaces=NS).strip() else {}),
+            # Keep every source line, including a blank/NONE other-manager
+            # field. Omitting those lines makes mixed allocations incomplete.
+            'managerAllocations':[{'managerIds':manager_ids,'shares':shares,'value':value,
+                                   **({'managerReference':manager_reference} if manager_reference else {})}],
         })
 
     # SEC amended Form 13F is mandatory for filings from 2023-01-03.

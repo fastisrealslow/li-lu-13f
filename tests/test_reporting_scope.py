@@ -6,6 +6,26 @@ from validate_data import validate_manager_allocations
 
 
 class ReportingScopeTests(unittest.TestCase):
+    def test_blank_na_and_joint_manager_rows_round_trip_with_complete_totals(self):
+        from fetch_13f_all import parse_holdings
+        for field in ['', '<otherManager/>','<otherManager>N/A</otherManager>','<otherManager>NONE</otherManager>']:
+            row=lambda manager,shares,value:f'<infoTable><nameOfIssuer>TEST</nameOfIssuer><titleOfClass>COM</titleOfClass><cusip>123456789</cusip><value>{value}</value><shrsOrPrnAmt><sshPrnamt>{shares}</sshPrnamt><sshPrnamtType>SH</sshPrnamtType></shrsOrPrnAmt>{manager}</infoTable>'
+            xml=('<informationTable xmlns="http://www.sec.gov/edgar/document/thirteenf/informationtable">'+row(field,10,100)+row('<otherManager>1, 1, 3</otherManager>',20,200)+'</informationTable>').encode()
+            for filed,factor in [('2026-08-14',1),('2022-08-14',1000)]:
+                with self.subTest(field=field,filed=filed):
+                    holdings=parse_holdings(xml,filing_date=filed)
+                    self.assertEqual(len(holdings),1)
+                    h=holdings[0];validate_manager_allocations(h)
+                    self.assertEqual((h['shares'],h['value']),(30,300*factor))
+                    self.assertEqual([a['managerIds'] for a in h['managerAllocations']],[[],['1','3']])
+
+    def test_absent_manager_references_are_valid_but_malformed_ids_and_totals_are_not(self):
+        h={'shares':10,'value':100,'managerAllocations':[{'managerIds':[],'shares':10,'value':100}]}
+        validate_manager_allocations(h)
+        for ids in [None,['1','1'],['invalid'],[{'id':'1'}]]:
+            h['managerAllocations'][0]['managerIds']=ids
+            with self.assertRaisesRegex(ValueError,'Invalid manager'):validate_manager_allocations(h)
+
     def test_history_bridge_requires_cover_cik_previous_filing_and_every_allocation(self):
         h={'ticker':'TEST','cusip':'test','shares':10,'value':100,'shareType':'SH','putCall':'','managerAllocations':[{'managerIds':['7','8'],'shares':10,'value':100}]}
         scope={'quarter':'2026 Q2','managers':{'7':{'cik':'0001'},'8':{'cik':'0002'}}}

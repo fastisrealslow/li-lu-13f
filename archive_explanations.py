@@ -13,6 +13,7 @@ import xml.etree.ElementTree as ET
 from urllib.parse import urlsplit, unquote
 
 import speech_archive as source
+import archive_budget as budget
 
 ROOT=Path(__file__).resolve().parent
 VERSION=4
@@ -94,6 +95,7 @@ def validate(note,work,chunks,minimum_chars,required_sections=2):
     return True
 
 def obtain_material(work):
+    budget.check()
     url=work['sources'][0]['url'];host=urlsplit(url).hostname
     # A verified written version of the same work is preferable to programme
     # notes or recognizing its audio reading. Only explicitly catalogued
@@ -221,14 +223,23 @@ def pending(root=ROOT):
 
 
 def run(root=ROOT,model='qwen3.5:4b-q4_K_M',limit=230,minutes=300,shard=0,shards=1):
+    with budget.limit(minutes*60):
+        return run_batch(root,model,limit,minutes,shard,shards)
+
+
+def run_batch(root,model,limit,minutes,shard,shards):
     root=Path(root);index=read(root/'archive/explanations/index.json',{'version':VERSION,'entries':{},'attempts':{}})
     baselines=read(root/'archive/explanation_baselines.json',{})
-    start=time.monotonic();done=0
+    start=time.monotonic();done=0;continuation=False
     todo=[w for w in pending(root) if int(hashlib.sha256(w['id'].encode()).hexdigest(),16)%shards==shard]
     for work in todo[:limit]:
-        if time.monotonic()-start>minutes*60-60:break
+        if time.monotonic()-start>minutes*60-60:
+            continuation=True
+            break
         try:
+            budget.check()
             text,basis,url=obtain_material(work)
+            budget.check()
             if basis=='description':raise ValueError('Programme topics do not contain the author\'s argument; obtain original text or the full recording')
             chunks=source.source_chunks(text)
             if len(chunks)<2:raise ValueError('Source contains too little coherent evidence')
@@ -245,6 +256,10 @@ def run(root=ROOT,model='qwen3.5:4b-q4_K_M',limit=230,minutes=300,shard=0,shards
             index['entries'][work['id']]={'file':path,'inputHash':input_hash(work),'sourceDigest':note['sourceDigest'],'reviewStatus':'verified','sourceBasis':basis,'generatedAt':note['generatedAt'],'catalogDate':work.get('date'),'catalogTitle':work['title']['en']}
             index['attempts'][work['id']]={'at':stamp(),'status':'ok','inputHash':input_hash(work)};done+=1
             print('Explained',work['id'],flush=True)
+        except budget.BatchDeadline:
+            continuation=True
+            print('Batch budget reached; source-bound draft retained:',work['id'],flush=True)
+            break
         except Exception as e:
             # Never publish a title-only placeholder or replace a valid prior
             # explanation with an error, a denied page or unfinished generation.
@@ -254,7 +269,7 @@ def run(root=ROOT,model='qwen3.5:4b-q4_K_M',limit=230,minutes=300,shard=0,shards
         if os.environ.get('ARCHIVE_PUBLISH_EACH')=='1':
             from archive_generator import publish
             index=publish(root,index,work['id'])
-    return {'generated':done,'pending':len(pending(root))}
+    return {'generated':done,'pending':len(pending(root)),'continuation':continuation}
 
 def validate_saved(root=ROOT):
     root=Path(root);works={w['id']:w for w in read(root/'archive/catalog.json')['works']};index=read(root/'archive/explanations/index.json',{'entries':{}});baselines=read(root/'archive/explanation_baselines.json',{})

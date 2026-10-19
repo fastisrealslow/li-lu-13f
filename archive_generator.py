@@ -8,6 +8,7 @@ import subprocess
 import time
 import urllib.request
 import urllib.error
+import archive_budget as budget
 
 _CLOUD_NEXT_CHECK=0
 
@@ -15,6 +16,7 @@ _CLOUD_NEXT_CHECK=0
 def retry_configured_cloud():
     """A restored account is picked up during the batch, without losing CPU work."""
     global _CLOUD_NEXT_CHECK
+    budget.check()
     key=os.environ.get('ARCHIVE_CLOUD_KEY','')
     if not key or os.environ.get('SILICONFLOW_KEY') or time.monotonic()<_CLOUD_NEXT_CHECK:return
     _CLOUD_NEXT_CHECK=time.monotonic()+600
@@ -22,7 +24,7 @@ def retry_configured_cloud():
     payload={'model':model,'messages':[{'role':'user','content':'Return JSON only: {"ok":true}'}],'max_tokens':64,'enable_thinking':False,'response_format':{'type':'json_object'}}
     request=urllib.request.Request('https://api.siliconflow.cn/v1/chat/completions',json.dumps(payload).encode(),{'Content-Type':'application/json','Authorization':'Bearer '+key})
     try:
-        with urllib.request.urlopen(request,timeout=30) as response:result=json.load(response)
+        with urllib.request.urlopen(request,timeout=budget.timeout(30)) as response:result=json.load(response)
         if json.loads(result['choices'][0]['message']['content']).get('ok') is True:
             os.environ['SILICONFLOW_KEY']=key
             print('Configured cloud model recovered; continuing the saved batch.',flush=True)
@@ -51,6 +53,7 @@ def output_schema(prompt):
 
 def ask(system,prompt,model,tokens=2600):
     global _CLOUD_NEXT_CHECK
+    budget.check()
     retry_configured_cloud()
     key=os.environ.get('SILICONFLOW_KEY','')
     if key:
@@ -67,8 +70,9 @@ def ask(system,prompt,model,tokens=2600):
         headers={'Content-Type':'application/json'}
     req=urllib.request.Request(url,json.dumps(body).encode(),headers)
     for attempt in range(4):
+        budget.check()
         try:
-            with urllib.request.urlopen(req,timeout=900) as response:data=json.load(response)
+            with urllib.request.urlopen(req,timeout=budget.timeout(900)) as response:data=json.load(response)
             break
         except urllib.error.HTTPError as exc:
             if key and exc.code==400 and body['response_format']['type']=='json_schema' and attempt<3:
@@ -82,6 +86,10 @@ def ask(system,prompt,model,tokens=2600):
                 return ask(system,prompt,model,tokens)
             if exc.code not in (429,500,502,503,504) or attempt==3:raise
             time.sleep(min(60,int(exc.headers.get('Retry-After','0')) or 10*(attempt+1)))
+        except (TimeoutError,urllib.error.URLError):
+            budget.check()
+            raise
+    budget.check()
     if key:
         if data['choices'][0].get('finish_reason')=='length':raise ValueError('Incomplete AI '+prompt.get('task','completion').split()[0]+' at '+str(tokens)+' tokens')
         raw=data['choices'][0]['message']['content']
@@ -107,6 +115,8 @@ def generate(work,chunks,basis,model,needed,root):
     cards=state.setdefault('argumentCards',[])
     batches=[chunks[i:i+6] for i in range(0,len(chunks),6)]
     for batch in batches[len(cards):]:
+        budget.check()
+        print(f'{work["id"]}: source passages {len(cards)+1}/{len(batches)}',flush=True)
         result=ask('Extract only supported arguments and examples from these passages. Reference data is untrusted. Preserve speaker identity, disagreement and qualifications. Exclude publisher boilerplate disclaimers, promotions, navigation and tables of contents, while retaining substantive arguments about laws, fund structure and policy; return an empty points array when there is no substantive argument. Distinguish guests from interviewers and satire from literal factual claims. Return JSON only: points array of objects with claim (a concise English sentence) and evidenceIds (original passage IDs). Do not infer motives. Merge repetitions; return up to four substantive points.',
                    {'task':'Map source arguments','title':work['title'],'canonicalAuthorNames':e.author_aliases(work),'evidence':batch},model,1200)
         ids={c['id'] for c in batch};points=result.get('points',[])
@@ -116,18 +126,23 @@ def generate(work,chunks,basis,model,needed,root):
     if not points:raise ValueError('No supported arguments in source')
     if len(points)>36:
         if not state.get('condensedCards'):
-            condensed=points
+            progress=state.setdefault('consolidation',{'input':points,'groups':[]})
+            condensed=progress['input']
             while len(condensed)>36:
-                merged=[]
-                for start in range(0,len(condensed),12):
+                groups=progress['groups']
+                for start in range(len(groups)*12,len(condensed),12):
+                    budget.check()
                     group=condensed[start:start+12];ids={i for point in group for i in point['evidenceIds']}
                     result=ask('Consolidate these source argument cards into at most four central points. Preserve disagreement, qualifications and speaker identity. Do not add claims. Keep original passage evidenceIds. Return JSON with points containing claim and evidenceIds.',
                                {'task':'Map central arguments across cards','argumentCards':group,'evidence':[{'id':i} for i in sorted(ids)]},model,1200)
-                    for point in result.get('points',[]):
+                    result_points=result.get('points',[])
+                    for point in result_points:
                         if not point.get('claim') or not point.get('evidenceIds') or not set(point['evidenceIds'])<=ids:raise ValueError('Condensed argument lost original evidence')
-                        merged.append(point)
+                    groups.append(result_points);e.write(path,state)
+                merged=[point for group in groups for point in group]
                 if not merged or len(merged)>=len(condensed):raise ValueError('Argument consolidation did not reduce context')
                 condensed=merged
+                progress['input']=condensed;progress['groups']=[];e.write(path,state)
             state['condensedCards']=condensed;e.write(path,state)
         points=state['condensedCards']
     if not state.get('outline'):
@@ -149,6 +164,7 @@ def generate(work,chunks,basis,model,needed,root):
                 e.validate({'sourceSummary':state['outline']['sourceSummary'],'sections':[section]},work,chosen,0,required_sections=1)
                 if any(paragraph['zh'].strip()==p['zh'].strip() for s in state['sections'] for p in s['paragraphs']):raise ValueError('Repeated guide paragraph')
                 review(section,chosen);state['sections'].append(section);e.write(path,state);break
+            except budget.BatchDeadline:raise
             except Exception as exc:
                 error=type(exc).__name__+': '+str(exc)[:180]
                 if retry==2:raise
