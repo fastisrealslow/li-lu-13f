@@ -189,6 +189,8 @@ def merge_works(existing, incoming):
             old["checkedAt"] = new["checkedAt"]
         else:
             merged[new["id"]] = new
+    for work in merged.values():
+        work['media']=[m for m in work.get('media',[]) if not (m.get('kind')=='audio' and re.search(r'\.(?:png|jpe?g|gif|webp|svg|pdf)(?:$|\?)',urllib.parse.unquote(m.get('url','')),re.I))]
     return sorted(merged.values(), key=lambda w: (w.get("date") or "", w["id"]), reverse=True)
 
 
@@ -254,7 +256,9 @@ def rss_catalog(source, get=fetch):
         work = make_work(source["investor"], title, url, source["publisher"], source["url"],
                          date=event_date(title) or date, kind=source.get('kind'), date_kind="event" if event_date(title) else "published")
         enclosure = item.find("enclosure")
-        if enclosure is not None and enclosure.get("url", "").startswith("https://"):
+        if enclosure is not None and enclosure.get("url", "").startswith("https://") and (
+            enclosure.get('type','').lower().startswith('audio/') or
+            not enclosure.get('type','').lower().startswith(('image/','text/')) and re.search(r'\.(?:mp3|m4a|aac|ogg|opus|wav)(?:$|\?)',enclosure.get('url',''),re.I)):
             work["media"].append({"kind": "audio", "url": enclosure.get("url")})
         works.append(work)
     return works
@@ -464,6 +468,8 @@ def video_text(work, allow_asr=False):
         if not files and audio and allow_asr:
             req = urllib.request.Request(audio["url"], headers=HEADERS)
             with urllib.request.urlopen(req, timeout=budget.timeout(45)) as r, (out / "audio.media").open("wb") as target:
+                if r.headers.get('Content-Type','').lower().startswith(('image/','text/','application/pdf')):
+                    raise ValueError('Publisher enclosure is not an audio recording')
                 total = 0
                 expected_length = int(r.headers.get("Content-Length", "0"))
                 while chunk := r.read(1024 * 1024):

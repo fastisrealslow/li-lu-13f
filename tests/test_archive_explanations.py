@@ -11,6 +11,23 @@ import archive_budget as budget
 
 
 class ArchiveExplanationTests(unittest.TestCase):
+    def test_whole_work_summary_numbers_do_not_leak_into_section_evidence(self):
+        chunks=[{'id':'s0','text':'The first argument states a return of 10%.'},{'id':'s1','text':'A different argument discusses revenue growth of 20%.'}]
+        note={'sourceSummary':{'zh':'作品讨论增长20%。','en':'The work discusses growth of 20%.'},'sections':[{'heading':{'zh':'第一项论点','en':'First argument'},'evidenceIds':['s0'],'paragraphs':[{'zh':'本段讨论10%的回报。','en':'This section examines a return of 10%.'}]}]}
+        self.assertTrue(explain.validate(note,{},chunks[:1],0,required_sections=1,summary_chunks=chunks))
+        bad=copy.deepcopy(note);bad['sections'][0]['paragraphs'][0]={'zh':'本段回报为20%。','en':'This section states a return of 20%.'}
+        with self.assertRaisesRegex(ValueError,'Unsupported numerical'):explain.validate(bad,{},chunks[:1],0,required_sections=1,summary_chunks=chunks)
+
+    def test_exact_publisher_full_article_can_be_recovered_from_rss_not_a_description(self):
+        url='https://author.example/p/requested';feed='https://author.example/feed'
+        work={'kind':'essay','sources':[{'url':url},{'url':feed}]}
+        body='An original full essay about managerial decisions. '*40
+        rss=('<rss xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><item><title>Missing link</title></item><item><link>https://author.example/p/other</link><content:encoded>Unrelated text</content:encoded></item><item><link>'+url+'</link><description>Short description</description><content:encoded><![CDATA[<article>'+body+'</article>]]></content:encoded></item></channel></rss>').encode()
+        with patch.object(explain.source,'fetch',return_value=(rss,'text/xml')),patch.object(explain.source,'obtain_text') as html:
+            text,basis,origin=explain.obtain_material(work)
+        self.assertNotIn('Unrelated',text);self.assertNotIn('Short description',text)
+        self.assertEqual((basis,origin),('official_text',url));html.assert_not_called()
+
     def test_batch_deadline_is_continuation_not_a_failed_or_published_work(self):
         work={'id':'budget-test','investor':'test','title':{'en':'A source'},'sources':[{'url':'https://publisher.example/work'}]}
         with tempfile.TemporaryDirectory() as tmp:

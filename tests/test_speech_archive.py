@@ -9,6 +9,21 @@ import speech_archive as archive
 
 
 class SpeechArchiveTests(unittest.TestCase):
+    def test_image_enclosures_are_not_audio_and_legacy_misclassification_is_removed(self):
+        source={'investor':'webb','url':'https://publisher.example/feed','publisher':'Author','kind':'essay'}
+        rss=b'<rss><channel><item><title>Original essay</title><link>https://publisher.example/p/article</link><enclosure url="https://cdn.example/cover.png" type="image/png"/></item></channel></rss>'
+        work=archive.rss_catalog(source,get=lambda u:(rss,'text/xml'))[0]
+        self.assertEqual(work['media'],[])
+        work['media']=[{'kind':'audio','url':'https://cdn.example/cover.png'},{'kind':'audio','url':'https://cdn.example/recording.mp3'}]
+        merged=archive.merge_works([work],[])
+        self.assertEqual(merged[0]['media'],[{'kind':'audio','url':'https://cdn.example/recording.mp3'}])
+
+    def test_audio_reader_rejects_image_content_before_speech_recognition(self):
+        import io
+        response=io.BytesIO(b'not an audio file');response.headers={'Content-Type':'image/png'}
+        with patch.object(archive.urllib.request,'urlopen',return_value=response):
+            with self.assertRaisesRegex(ValueError,'not an audio'):archive.video_text({'media':[{'kind':'audio','url':'https://cdn.example/cover.png'}]},allow_asr=True)
+
     def test_single_line_articles_are_bounded_without_losing_the_end(self):
         text=('A complete source sentence about business economics and managerial decisions. '*300)+'The final answer discusses selling.'
         chunks=archive.source_chunks(text)

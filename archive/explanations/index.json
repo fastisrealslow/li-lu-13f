@@ -265,7 +265,7 @@
       "inputHash": "600f9e783cf9ca80ad12e68cfd9efedcf4f09e6a8fcc69138beba2ce549b6b5e"
     },
     "akre-6c46aa04220a2d": {
-      "at": "2026-10-19T14:10:50+00:00",
+      "at": "2026-10-19T14:32:40+00:00",
       "status": "retry",
       "inputHash": "b142ad68dde885486863c4b03c557d141d066cbe78b877993d445316207bb132",
       "reason": "ValueError: Unsupported numerical claim: 19%"
@@ -309,7 +309,7 @@
       "inputHash": "8bd241db84f8a037f88ee9859460a229c9e465927d54357c7e6033560f3babca"
     },
     "tepper-87c1cb51577aef": {
-      "at": "2026-10-19T00:42:19+00:00",
+      "at": "2026-10-19T14:27:32+00:00",
       "status": "retry",
       "inputHash": "bab665314f08b9bdd45f11d60f745125f1cd06dff5552161582121a62f1a0de2",
       "reason": "ValueError: No audio obtained"
@@ -320,13 +320,13 @@
       "inputHash": "cf449ddd33916dfcbe6fa4d2bbf3088a2c92a4b03bc93c5166d1813f9593be28"
     },
     "akre-2215a13c870884": {
-      "at": "2026-10-19T05:23:33+00:00",
+      "at": "2026-10-19T14:16:42+00:00",
       "status": "retry",
       "inputHash": "74bc55a285ce586e24ecf746784578f598618ef42506ec5d27fbbe41238fa949",
       "reason": "ValueError: No audio obtained"
     },
     "berkowitz-c60a89666ffbc0": {
-      "at": "2026-10-19T14:00:34+00:00",
+      "at": "2026-10-19T14:22:53+00:00",
       "status": "retry",
       "inputHash": "24e09667687e95ecc5786d654b8718e27ef95e2a5e2460bac00a3c7d2bffcc09",
       "reason": "ValueError: No audio obtained"
@@ -338,16 +338,16 @@
       "reason": "ValueError: English text contains untranslated Chinese"
     },
     "duan-d7212008ca9cb0": {
-      "at": "2026-10-19T00:40:23+00:00",
+      "at": "2026-10-19T14:23:59+00:00",
       "status": "retry",
       "inputHash": "810a3b2f8d5187262731841344f42e605af7008d3c96b30a47d7a05a465596bd",
       "reason": "ValueError: English text contains untranslated Chinese"
     },
     "greenberg-6ffab78b7040e3": {
-      "at": "2026-10-19T00:42:17+00:00",
+      "at": "2026-10-19T14:27:30+00:00",
       "status": "retry",
       "inputHash": "b456036ff1b37cf34edfad5075c65e756686ff7a37ac1ebfd351701f188dfdc7",
-      "reason": "ValueError: Bilingual editorial review: The Chinese translation incorrectly translates 'franchise' in the context of stock valuation as 'franchise value'. In finance, this "
+      "reason": "ValueError: Bilingual editorial review: The English translation in the content section incorrectly translates 'stones' as 'geodes'. The source text says 'stones', not 'geod"
     },
     "hawkins-4bfffa4e8bf77c": {
       "at": "2026-10-19T04:43:04+00:00",
@@ -408,7 +408,7 @@
       "reason": "ValueError: Bilingual editorial review: The source text (s0) states the NAV was €1,274.93 on 30 June 2026 and increased by 1,184.93% since inception on 30 September 2008. T"
     },
     "webb-1b2d5eb1f6cde7": {
-      "at": "2026-10-18T19:07:08+00:00",
+      "at": "2026-10-19T14:19:43+00:00",
       "status": "retry",
       "inputHash": "11cdba2dc414f35a8986986e909bb4bb892f97578e5c145a1b5b91b80c5eecc5",
       "reason": "ValueError: No audio obtained"
@@ -898,10 +898,10 @@
       "reason": "ValueError: Bilingual editorial review: The source text does not explicitly state that Buffett's hiring of Ajit Jain was his 'single best decision'; it only mentions the se"
     },
     "pabrai-89c54f52c79a5d": {
-      "at": "2026-10-19T00:56:13+00:00",
+      "at": "2026-10-19T14:31:35+00:00",
       "status": "retry",
       "inputHash": "48c33f4bf55327b631f8d5edb8838d3382ff15898c5dc51d11a2f0b735a635da",
-      "reason": "ValueError: Bilingual editorial review: The English text incorrectly states 'starting early (at age 42)' as if it were a general thesis; the source only attributes age 42 t"
+      "reason": "ValueError: Bilingual editorial review: The source text does not support the claim that Pabrai 'admitted he did not fully grasp operational details at the start' or that su"
     },
     "pabrai-31dca9727a5159": {
       "at": "2026-10-19T04:39:14+00:00",
@@ -1797,10 +1797,10 @@
       "reason": "ValueError: No supported arguments in source"
     },
     "buffett-1ea6f63056d762": {
-      "at": "2026-10-19T00:53:45+00:00",
+      "at": "2026-10-19T14:31:14+00:00",
       "status": "retry",
       "inputHash": "e545d4228f11793ac74e9e2e8d2b07ea3128c5611d38a30cb7a3edd71fc453dc",
-      "reason": "ValueError: Incomplete AI Review at 900 tokens"
+      "reason": "ValueError: Bilingual editorial review: The English translation in the content section contains a factual error: it states 'rising from $19 to $78,008 per share', whereas s"
     },
     "buffett-748aa6d4424b34": {
       "at": "2026-10-19T01:36:16+00:00",
@@ -1839,7 +1839,7 @@
       "reason": "ValueError: Unsupported numerical claim: 10"
     },
     "buffett-b5218ddf52191e": {
-      "at": "2026-10-19T00:53:47+00:00",
+      "at": "2026-10-19T14:31:16+00:00",
       "status": "retry",
       "inputHash": "fcc7050dbe387812d047f1bc550260bcb5c860d34b80fde93f8e620e86e4aaa5",
       "reason": "ValueError: No supported arguments in source"
@@ -1977,5 +1977,5 @@
       "reason": "ValueError: No supported arguments in source"
     }
   },
-  "updatedAt": "2026-10-19T14:12:19+00:00"
+  "updatedAt": "2026-10-19T14:32:40+00:00"
 }

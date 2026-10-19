@@ -161,7 +161,7 @@ def generate(work,chunks,basis,model,needed,root):
                 paragraph=ask(e.SYSTEM+' Write one coherent Chinese paragraph and its faithful English counterpart for this section. Explain the actual position and reasoning supported here; include a relevant example if present. Add a useful interpretive connection only when clearly identified as the editorial interpretation. No fixed length. Return exactly {"zh":"...","en":"..."}.',
                     {'task':'Write one source-specific guide section','paragraphRole':'source argument and interpretation','topic':topic,'title':work['title'],'canonicalAuthorNames':e.author_aliases(work),'basis':basis,'evidence':chosen,'previousSections':[s['heading'] for s in state['sections']],'validationFeedback':error},model,3200)
                 section={**topic,'paragraphs':[paragraph]}
-                e.validate({'sourceSummary':state['outline']['sourceSummary'],'sections':[section]},work,chosen,0,required_sections=1)
+                e.validate({'sourceSummary':state['outline']['sourceSummary'],'sections':[section]},work,chosen,0,required_sections=1,summary_chunks=chunks)
                 if any(paragraph['zh'].strip()==p['zh'].strip() for s in state['sections'] for p in s['paragraphs']):raise ValueError('Repeated guide paragraph')
                 review(section,chosen);state['sections'].append(section);e.write(path,state);break
             except budget.BatchDeadline:raise
