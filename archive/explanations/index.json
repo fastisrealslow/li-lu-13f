@@ -1318,10 +1318,10 @@
       "reason": "ValueError: Bilingual editorial review: The source text (s2) states Jhunjhunwala borrowed '$20,000 at about 18% interest', but the content paraphrase claims 'approximately "
     },
     "pabrai-d5fc50447fd953": {
-      "at": "2026-10-19T18:45:09+00:00",
+      "at": "2026-10-19T21:15:45+00:00",
       "status": "retry",
       "inputHash": "d0544da8e14ed7578c5daf19301f2720de371f994b5468583fe2bfc9be5913e0",
-      "reason": "ValueError: Bilingual editorial review: The source text ends abruptly with 'it's a', lacking the completion of the sentence describing the percentage (likely '1%' or simila"
+      "reason": "ValueError: Bilingual editorial review: The source text cuts off mid-sentence ('it's a'), making the exact percentage claim incomplete and unverifiable.; The Chinese transl"
     },
     "pabrai-87529cf106b12a": {
       "at": "2026-10-19T15:37:54+00:00",
@@ -1977,5 +1977,5 @@
       "reason": "ValueError: Bilingual editorial review: The English translation in the content section omits the specific phrase 'faceless members of an ever-shifting crowd' from source s1"
     }
   },
-  "updatedAt": "2026-10-19T21:14:46+00:00"
+  "updatedAt": "2026-10-19T21:15:45+00:00"
 }
