@@ -677,10 +677,10 @@
       "reason": "ValueError: Bilingual editorial review: The source text (s1) states '1 plus 1 becomes 11', but the summary claims 'multiple models combined yield over 1,000 times the resul"
     },
     "pabrai-c4e5dd4e66fada": {
-      "at": "2026-10-18T19:39:33+00:00",
+      "at": "2026-10-19T18:59:20+00:00",
       "status": "retry",
       "inputHash": "c8703afa637ba881a27abe4ae0063ed42857211001d4a08da7227f2933a87659",
-      "reason": "ValueError: Bilingual editorial review: The English translation of the heading ('Adversity as a Catalyst: From Fear to Faith') is slightly inaccurate compared to the source"
+      "reason": "ValueError: Unsupported scaled numerical claim: 450"
     },
     "lilu-c4110941c11d3f": {
       "at": "2026-10-19T16:59:11+00:00",
@@ -1342,10 +1342,10 @@
       "reason": "ValueError: Incomplete AI Write at 3200 tokens"
     },
     "vinall-2f7ded18efd67f": {
-      "at": "2026-10-19T02:55:04+00:00",
+      "at": "2026-10-19T19:04:22+00:00",
       "status": "retry",
       "inputHash": "d81aca6d68ee81808c6d7be343561a04d30a30cc30b287e08d0110f0e9ed83fb",
-      "reason": "ValueError: Unsupported numerical claim: 12"
+      "reason": "ValueError: Unsupported numerical claim: 17.3"
     },
     "pabrai-73536d0821810e": {
       "at": "2026-10-19T15:22:03+00:00",
@@ -1977,5 +1977,5 @@
       "reason": "ValueError: Bilingual editorial review: The English translation in the content section omits the specific phrase 'faceless members of an ever-shifting crowd' from source s1"
     }
   },
-  "updatedAt": "2026-10-19T18:46:20+00:00"
+  "updatedAt": "2026-10-19T19:04:22+00:00"
 }
