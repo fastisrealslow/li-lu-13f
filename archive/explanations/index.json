@@ -1324,10 +1324,10 @@
       "reason": "ValueError: Bilingual editorial review: The source text cuts off mid-sentence ('it's a'), making the exact percentage claim incomplete and unverifiable.; The Chinese transl"
     },
     "pabrai-87529cf106b12a": {
-      "at": "2026-10-19T21:44:54+00:00",
+      "at": "2026-10-20T02:31:20+00:00",
       "status": "retry",
       "inputHash": "ac633bc3786100b500ba0893eb8ed436234930d450cee71e509dc3ba9f588c83",
-      "reason": "ValueError: Bilingual editorial review: The source text (s2) is truncated mid-sentence ('and so he looks'), making the final action of Pabrai describing Munger incomplete. "
+      "reason": "ValueError: Incomplete AI Write at 3200 tokens"
     },
     "pabrai-669ee549324b11": {
       "at": "2026-10-19T04:05:06+00:00",
@@ -1977,5 +1977,5 @@
       "reason": "ValueError: No supported arguments in source"
     }
   },
-  "updatedAt": "2026-10-20T02:30:23+00:00"
+  "updatedAt": "2026-10-20T02:31:20+00:00"
 }
