@@ -803,10 +803,10 @@
       "reason": "ValueError: Bilingual editorial review: The source text (s3) does not explicitly name Charlie Munger; it only quotes his sentiment ('if you consistently spend 5% more than "
     },
     "pabrai-1410746e64c5fd": {
-      "at": "2026-10-19T21:21:29+00:00",
+      "at": "2026-10-20T03:01:21+00:00",
       "status": "retry",
       "inputHash": "1f11cf62d1efe16e7efd29c8dc84a86a9d428dd71d3cace8e4f7a2e00a056dfa",
-      "reason": "ValueError: English text contains untranslated Chinese"
+      "reason": "ValueError: Bilingual editorial review: The English translation of 'villain' is incorrect; it should be 'village idiot' as per source s2.; The English translation omits the"
     },
     "buffett-30a507095b61cd": {
       "at": "2026-10-20T02:37:21+00:00",
@@ -1977,5 +1977,5 @@
       "reason": "ValueError: No supported arguments in source"
     }
   },
-  "updatedAt": "2026-10-20T03:00:55+00:00"
+  "updatedAt": "2026-10-20T03:01:21+00:00"
 }
