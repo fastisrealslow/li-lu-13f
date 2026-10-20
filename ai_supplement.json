@@ -36,7 +36,7 @@
       "status": "ok"
     },
     "investor:hawkins": {
-      "at": "2026-10-19T14:40:57.554456+00:00",
+      "at": "2026-10-20T02:38:52.512874+00:00",
       "sourceHash": "5eb8ed4debc05f2de400f5287cab290e08c6d93ddfe2f528f79cf3f063f62bfe",
       "status": "failed",
       "error": "Selection omitted an available change direction"
@@ -63,8 +63,8 @@
       "status": "ok"
     },
     "value": {
-      "at": "2026-10-19T14:37:58.151627+00:00",
-      "sourceHash": "a49bfa7d26bff18883963d50ca21369c7ce33699af8b80c0254412c842dd8dd0",
+      "at": "2026-10-20T02:37:32.784927+00:00",
+      "sourceHash": "970496ffd53de9e6d1930b04bf994fa0a228a0ac797996fcc7562737664dab9b",
       "status": "ok"
     },
     "investor:vinall": {
@@ -78,7 +78,7 @@
       "status": "ok"
     },
     "history:lilu": {
-      "at": "2026-10-19T14:41:56.015052+00:00",
+      "at": "2026-10-20T02:39:48.819169+00:00",
       "sourceHash": "12d8175b8baa1bb86924c972a789a827dcc45643a6250a3ea7d90c8fa63ec21d",
       "status": "failed",
       "error": "Selection omitted a required scope or evidence limitation"
@@ -104,7 +104,7 @@
       "status": "ok"
     },
     "holdings:tepper": {
-      "at": "2026-10-19T14:40:31.338293+00:00",
+      "at": "2026-10-20T02:38:24.537484+00:00",
       "sourceHash": "5c3a6a25a398427cb548c6b5e49d8061098d64b49f2aa54cf5432b5d43c66ef9",
       "status": "failed",
       "error": "Selection omitted a required scope or evidence limitation"
@@ -4456,7 +4456,7 @@
       "renderVersion": 4,
       "mode": "deterministic",
       "summary": "梅森·霍金斯 2026 Q2（按披露股数比较）：新建仓2项、增持8项、减持24项、清仓4项、不变13项、待比较0项。重点（非完整名单）：雷奥尼尔（RYN）：减持11.8%；美泰（MAT）：减持3.8%；CNX 资源（CNX）：增持16.2%；雅培（ABT）：新建仓；伯乐雷德实验室（BIO）：清仓。",
-      "generatedAt": "2026-10-19T14:41:56.009445+00:00",
+      "generatedAt": "2026-10-20T02:39:48.814068+00:00",
       "model": null,
       "metrics": {}
     },
@@ -6619,17 +6619,20 @@
       "sourceHash": "970496ffd53de9e6d1930b04bf994fa0a228a0ac797996fcc7562737664dab9b",
       "selection": {
         "factIds": [
-          "f3",
-          "f4",
-          "f5"
+          "f6",
+          "f8",
+          "f9"
         ]
       },
       "renderVersion": 4,
-      "mode": "deterministic",
-      "summary": "按各投资人最新披露组合：格伦·格林伯格（2026 Q2）：莱纳建筑（LEN）减持，占其披露组合市值4.7%；大卫·泰珀（2026 Q2）：惠而浦（WHR）减持，占其披露组合市值0.4%；大卫·泰珀（2026 Q2）：固特异（GT）新建仓，占其披露组合市值0.1%。",
-      "generatedAt": "2026-10-20T02:34:55.150193+00:00",
-      "model": null,
-      "metrics": {}
+      "mode": "model_selection",
+      "summary": "按各投资人最新披露组合：大卫·泰珀（2026 Q2）：CoreWeave, Inc.（CRWV）新建仓，占其披露组合市值1.4%；塞斯·克拉曼（2026 Q2）：万国数据（GDS）增持，占其披露组合市值2.1%；查克·阿克瑞（2026 Q2）：布鲁克菲尔德（BN）减持，占其披露组合市值10.1%。",
+      "generatedAt": "2026-10-20T02:38:24.536837+00:00",
+      "model": "qwen3.5:9b-q4_K_M",
+      "metrics": {
+        "seconds": 51.72,
+        "tokens": 14
+      }
     },
     "investor:duan": {
       "facts": {
@@ -13260,7 +13263,7 @@
       "renderVersion": 4,
       "mode": "deterministic",
       "summary": "李录 · 历史轨迹：可用于市值趋势的记录有 35 个季度，覆盖 2016 Q4 至 2026 Q2。这段历史反映披露范围内证券，不是基金净值曲线。披露市值从 US$111.64M 变为 US$3,702.92M（变化 +3216.8%）。金额同时受价格、买卖、资金流及披露范围影响，不能当作投资回报。缺少或排除的市值季度：2018 Q4、2019 Q1、2019 Q2、2019 Q3。不填零、不推断清仓，也不跨缺口计算季度变化。",
-      "generatedAt": "2026-10-19T14:42:32.717972+00:00",
+      "generatedAt": "2026-10-20T02:40:25.335906+00:00",
       "model": null,
       "metrics": {}
     },
@@ -16975,7 +16978,7 @@
       "renderVersion": 4,
       "mode": "deterministic",
       "summary": "大卫·泰珀 · 持仓结构：本次披露 27 项证券：普通股 25 项、PUT 2 项。不同股份类别和期权分别计数。最大单项证券是 亚马逊（AMZN），申报值 US$1,191.70M，占本次披露 15.4%。期权共 2 项。13F 中期权申报值对应标的证券价值，不能当作期权权利金，也不能仅凭 PUT/CALL 判断完整对冲策略。",
-      "generatedAt": "2026-10-19T14:40:57.549417+00:00",
+      "generatedAt": "2026-10-20T02:38:52.511852+00:00",
       "model": null,
       "metrics": {}
     },
@@ -52442,13 +52445,13 @@
     }
   },
   "lastRun": {
-    "startedAt": "2026-10-19T19:08:45.610556+00:00",
+    "startedAt": "2026-10-20T02:37:32.784903+00:00",
     "model": "qwen3.5:9b-q4_K_M",
-    "pendingBefore": 6,
-    "cached": 34,
-    "finishedAt": "2026-10-19T19:12:53.535411+00:00",
-    "pendingAfter": 7,
-    "accepted": 0,
+    "pendingBefore": 7,
+    "cached": 33,
+    "finishedAt": "2026-10-20T02:40:25.343177+00:00",
+    "pendingAfter": 6,
+    "accepted": 1,
     "fallback": 3,
     "rejected": 0,
     "failed": 3
