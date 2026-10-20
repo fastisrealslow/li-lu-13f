@@ -119,7 +119,7 @@ test('the legend uses the actual badge renderers and only current table categori
   a.context.rows=[{shares:100,prevShares:100},{shares:90,prevShares:100}];
   const html=a.run('holdingsLegendHTML(rows,[20,10,-1])');
   assert.match(html,/股数不变/);assert.match(html,/position-change trimmed/);
-  assert.match(html,/cost-gap deep/);assert.match(html,/cost-gap watch/);assert.match(html,/cost-gap negative/);
+  assert.match(html,/legend-swatch deep/);assert.match(html,/legend-swatch watch/);assert.match(html,/legend-swatch negative/);
   assert.doesNotMatch(html,/position-change new|position-change exited|🟢|⚡/);
   assert.equal(a.run("costGapTone(20)"),'deep');assert.equal(a.run("costGapTone(10)"),'watch');assert.equal(a.run("costGapTone(9.99)"),'positive');
   a.run("data.current.prevQuarter='2025 Q4'");

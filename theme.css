@@ -36,6 +36,7 @@ body { background: var(--white); color: var(--text); font-family: var(--sans); }
 .mobile-cost-detail { display: none; }
 .current-price { font-size: .96rem; font-weight: 650; color: var(--navy); }
 .quote-stale { color: var(--text-light); }
+.quote-date { display: block; margin-top: 3px; color: var(--text-lighter); font-size: .64rem; font-variant-numeric: tabular-nums; white-space: nowrap; }
 .cost-estimate { display: grid; gap: 4px; }
 .cost-estimate strong { color: var(--navy); font-size: .92rem; }
 .average-cost { margin-top: 6px; padding-top: 7px; border-top: 1px solid var(--border-light); color: var(--navy); font-weight: 500; }
@@ -178,6 +179,14 @@ tbody tr:hover { background: #f8f9fa; }
 .legend-item { display: inline-flex; align-items: center; gap: 8px; color: var(--text-light); }
 .legend-item .cost-gap small { font-size: .62rem; }
 .legend-item .cost-gap strong { font-size: .73rem; }
+.legend-swatch { width: 9px; height: 9px; flex-shrink: 0; border-radius: 50%; background: var(--text-light); }
+.legend-swatch.deep, .legend-swatch.positive { background: #216447; }
+.legend-swatch.watch { background: #806020; }
+.legend-swatch.negative { background: #9b3e3e; }
+.hw-holder-count { flex-basis: 100%; color: var(--text-light); font-size: .64rem; line-height: 1.65; }
+.hw-nearby { color: var(--text-light); font-size: .64rem; line-height: 1.7; }
+.hw-nearby summary { cursor: pointer; }
+.hw-nearby > span { display: block; white-space: normal; overflow-wrap: anywhere; }
 .briefing-compact .briefing-headline { font-size: 1.13rem; }
 .briefing-depth { margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--border-light); font-size: .82rem; line-height: 1.9; overflow-wrap: anywhere; }
 .briefing-depth summary { cursor: pointer; color: var(--brand-blue); }

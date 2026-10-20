@@ -18,3 +18,24 @@ test('unverified value quarters cannot supply recent or spanning average estimat
 test("expanded scope uses the current security price proxy without inventing its acquisition or old-manager average",()=>{const a=fixture();a.run('snapshot.meta.reportingTransition={fromQuarter:"2026 Q2",comparisonScopeChanged:true};holding.value=2000;snapshot.current.holdings=[holding]');const state=a.run("holdingCostState(holding,snapshot,quote)");assert.equal(state.basis.recent.buy,200);assert.equal(state.basis.recent.kind,'quarter_reference');assert.equal(state.basis.allTime,null);});
 test("a newly filed ordinary holding has a dated price reference while its historical estimate is being calculated",()=>{const a=fixture();a.run('holding.value=2000;snapshot.current.holdings=[holding];quote.costBasis={}');const state=a.run("holdingCostState(holding,snapshot,quote)");assert.equal(state.basis.recent.buy,200);assert.equal(state.basis.recent.quarter,'2026 Q2');assert.equal(state.basis.allTime,null);assert.match(a.run('costGapHTML(10,null,false,"quarter_reference")'),/本季季末价/);a.run('snapshot.current.valueQuality={status:"units_unverified"}');assert.equal(a.run('holdingCostState(holding,snapshot,quote).reason'),'units');});
 test('a security can keep predecessor cost history only when the SEC manager bridge covers every source row',()=>{const a=fixture();a.run('holding.value=100;snapshot.meta.reportingTransition={fromQuarter:"2026 Q2",comparisonScopeChanged:true,fromCIK:"1"};snapshot.current.holdings=[holding];snapshot.current.reportingScope={quarter:"2026 Q2",managers:{"7":{cik:"0001"},"8":{cik:"2"}}};snapshot.history.filing_sources={"2026 Q1":{cik:"1"}};holding.managerAllocations=[{managerIds:["7","8"],shares:10,value:100}];snapshot.history.holdings["2026 Q2"]=[holding]');assert.equal(a.run('holdingCostState(holding,snapshot,quote).basis.recent.buy'),100);a.run('holding.managerAllocations=[{managerIds:["7"],shares:6,value:60},{managerIds:["8"],shares:4,value:40}]');assert.equal(a.run('holdingCostState(holding,snapshot,quote).basis.recent.kind'),'quarter_reference');});
+
+test('quote dates follow the listing market and never fabricate missing or future dates',()=>{
+  const a=app();
+  a.context.quote={t:Date.parse('2026-01-03T01:00:00Z')/1000};
+  assert.equal(a.run("quoteDateText(quote,'GOOGL')"),'2026-01-02');
+  assert.equal(a.run("quoteDateText(quote,'0700.HK')"),'2026-01-03');
+  for(const q of [{},{t:null},{t:0},{t:NaN},{t:(Date.now()+86400000)/1000}]){
+    a.context.quote=q;assert.equal(a.run("quoteDateText(quote,'GOOGL')"),'');
+  }
+});
+
+test('legend follows rendered gap categories without invented position percentages or mismatched reference types',()=>{
+  const a=app();a.run('data={current:{},meta:{snapshotType:"archive"}}');
+  const html=a.run('holdingsLegendHTML([],[-12,0,8,12,20])');
+  for(const text of ['高于参考价','等于参考价','不足 10%','10% 至不足 20%','至少 20%'])assert.ok(html.includes(text),text);
+  assert.doesNotMatch(html,/25.0%|15.0%|5.0%|加仓参考价/);
+  assert.doesNotMatch(a.run('holdingsLegendHTML([],[-12])'),/至少 20%|不足 10%/);
+  assert.equal(a.run('costGap(80,100)'),20);
+  assert.match(a.run("t('priceNote')"),/（参考价－现价）÷参考价/);
+  assert.match(a.run("lang='en';t('priceNote')"),/\(reference − price\) \/ reference/);
+});
