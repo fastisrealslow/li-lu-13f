@@ -298,10 +298,10 @@
       "inputHash": "63f3693c7630856da5bbffe62df644e74756b2463c0aa14641d5f2d555159952"
     },
     "klarman-aec591deef918e": {
-      "at": "2026-10-20T19:37:01+00:00",
+      "at": "2026-10-21T02:13:02+00:00",
       "status": "retry",
       "inputHash": "9e77b936d15cfc19dcd7d66b520d877346df68b08733b68812ba19a316a9ee7f",
-      "reason": "ValueError: Bilingual editorial review: The English text incorrectly interprets 'lecture end' as a new entity created from the spinoff; the source (s18-s20) defines it as a"
+      "reason": "ValueError: Incomplete AI Review at 900 tokens"
     },
     "pabrai-c7c47a77315015": {
       "at": "2026-10-18T01:38:43+00:00",
@@ -350,7 +350,7 @@
       "reason": "ValueError: Bilingual editorial review: The source text does not contain the phrase 'franchise value'; Greenberg uses 'value of the franchise' in a context implying liquida"
     },
     "hawkins-4bfffa4e8bf77c": {
-      "at": "2026-10-20T19:37:04+00:00",
+      "at": "2026-10-21T02:13:04+00:00",
       "status": "retry",
       "inputHash": "b97f113411b3d69050f32ce7f4e27a433a8fc3f37c0ee94e5886041bbdc1cd31",
       "reason": "ValueError: No audio obtained"
@@ -362,7 +362,7 @@
       "reason": "ValueError: No audio obtained"
     },
     "pabrai-cb0517b63aecd1": {
-      "at": "2026-10-20T19:35:58+00:00",
+      "at": "2026-10-21T02:13:42+00:00",
       "status": "retry",
       "inputHash": "363f292915da99cfc63fa308f7d2b3ae4fb225fd6efa618ae6445444b971699a",
       "reason": "ValueError: Unsupported numerical claim: 1992"
@@ -374,7 +374,7 @@
       "reason": "ValueError: Bilingual editorial review: The source text does not explicitly state that shareholder equity is down to $1,490; it only states 'Shareholder equity hasn't chang"
     },
     "buffett-7177025720de85": {
-      "at": "2026-10-20T19:38:21+00:00",
+      "at": "2026-10-21T02:15:14+00:00",
       "status": "retry",
       "inputHash": "69abb8c8071120fbb3e18b06656133c2bff3deaadf67b3f041f399ae4f5fadcd",
       "reason": "ValueError: Unsupported numerical claim: 1"
@@ -414,7 +414,7 @@
       "reason": "ValueError: No audio obtained"
     },
     "buffett-315d0333f57637": {
-      "at": "2026-10-20T19:38:23+00:00",
+      "at": "2026-10-21T02:15:20+00:00",
       "status": "retry",
       "inputHash": "51f1386681ffa328dc1faebb03f603c346fbb525bed766a6232390c60fa21a9f",
       "reason": "ValueError: No audio obtained"
@@ -504,10 +504,10 @@
       "reason": "ValueError: Bilingual editorial review: The English translation in the 'content' section incorrectly translates 'autarkic' as 'isolating the two economies', missing the spe"
     },
     "buffett-d5e534b6a5c51f": {
-      "at": "2026-10-20T19:41:28+00:00",
+      "at": "2026-10-21T02:17:19+00:00",
       "status": "retry",
       "inputHash": "c64c3a78710f50283513e55879e9627874f7c7e79e5ab6b3643e0a7ef771be30",
-      "reason": "ValueError: Unsupported numerical claim: 3"
+      "reason": "ValueError: Unsupported numerical claim: 35%"
     },
     "pabrai-f557b2c57744d9": {
       "at": "2026-10-20T20:33:20+00:00",
@@ -599,10 +599,10 @@
       "reason": "ValueError: Incomplete AI Review at 900 tokens"
     },
     "pabrai-802921b1b7af6e": {
-      "at": "2026-10-20T19:48:00+00:00",
+      "at": "2026-10-21T02:21:29+00:00",
       "status": "retry",
       "inputHash": "294647c39d11b15aa1d910b98938ba2ac8de2180e55c5c55932e26f63a4a9b17",
-      "reason": "ValueError: Unsupported numerical claim: 100"
+      "reason": "ValueError: Unsupported numerical claim: 1"
     },
     "pabrai-bc7ec8286850d8": {
       "at": "2026-10-20T20:44:53+00:00",
@@ -707,10 +707,10 @@
       "reason": "ValueError: Bilingual editorial review: The source text does not explicitly state Buffett's name when giving instructions about microphone zones; it only quotes his speech."
     },
     "pabrai-8e99da8abadc1f": {
-      "at": "2026-10-20T19:39:36+00:00",
+      "at": "2026-10-21T02:14:08+00:00",
       "status": "retry",
       "inputHash": "18d37c20e9dfac159f4965dded424c0abb6992a728544aa710486aa7ded7c404",
-      "reason": "ValueError: Bilingual editorial review: The English translation in the 'content' section incorrectly states that Pabrai's father matched his partner's knowledge level withi"
+      "reason": "ValueError: Bilingual editorial review: The source text (s2) states Pabrai's grandfather was a 'world-famous magician; probably top four or five in the world' and learned h"
     },
     "pabrai-b518e0f932d19c": {
       "at": "2026-10-20T20:37:32+00:00",
@@ -719,10 +719,10 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     },
     "vinall-467e0c3e85b252": {
-      "at": "2026-10-20T19:56:12+00:00",
+      "at": "2026-10-21T02:27:42+00:00",
       "status": "retry",
       "inputHash": "3c5008a532056a12133be0fedb68b589cd812015b73371bc08cb6d373af1e3c8",
-      "reason": "ValueError: Bilingual editorial review: Author name mismatch: Source 's2' uses 'Will Lundin', but content cites 'Rob Vinall (Will Lundin)' and paraphrases as 'Rob Vinall'. "
+      "reason": "ValueError: Bilingual editorial review: The English translation incorrectly states 'while he did not work in Alberta' (contradicting the source which places Onion Lake nort"
     },
     "buffett-87787b7bbb5dca": {
       "at": "2026-10-20T19:49:20+00:00",
@@ -755,10 +755,10 @@
       "reason": "ValueError: Bilingual editorial review: The Chinese text introduces 'merchant mindset' (where you sit determines how you think) as a specific term for the axiom, whereas th"
     },
     "pabrai-001b06856653c9": {
-      "at": "2026-10-20T19:55:09+00:00",
+      "at": "2026-10-21T02:24:42+00:00",
       "status": "retry",
       "inputHash": "c08d37d6cfef2b746eaec2c90dce97e1ef5d7c7dd287daf7b5f80b500c2e1a6e",
-      "reason": "ValueError: Bilingual editorial review: The English translation of the paragraph contains a factual error: it claims Pabrai 'acknowledged that Microsoft's labs have never p"
+      "reason": "ValueError: Bilingual editorial review: The source text does not mention 'cloning' mature technologies; Pabrai describes Microsoft's R&D as 'nearly effective' and tied to d"
     },
     "lilu-11d369bb564cef": {
       "at": "2026-10-20T19:40:30+00:00",
@@ -803,10 +803,10 @@
       "reason": "ValueError: Bilingual editorial review: The source text does not contain the phrase 'hollow impact' or explicitly state that external opportunities have a 'negative' impact"
     },
     "pabrai-1410746e64c5fd": {
-      "at": "2026-10-20T19:46:30+00:00",
+      "at": "2026-10-21T02:22:29+00:00",
       "status": "retry",
       "inputHash": "1f11cf62d1efe16e7efd29c8dc84a86a9d428dd71d3cace8e4f7a2e00a056dfa",
-      "reason": "ValueError: Bilingual editorial review: The source text does not state that Pabrai's early theory was based on the belief that 'village idiots' could outperform professiona"
+      "reason": "ValueError: Copied source passage"
     },
     "buffett-30a507095b61cd": {
       "at": "2026-10-21T01:47:14+00:00",
@@ -1108,7 +1108,7 @@
       "reason": "ValueError: Bilingual editorial review: The source text does not explicitly state that universities 'accepted diverse backgrounds' or were 'not really care whether you had "
     },
     "pabrai-ac73782c4fb468": {
-      "at": "2026-10-20T20:27:46+00:00",
+      "at": "2026-10-21T02:08:17+00:00",
       "status": "retry",
       "inputHash": "646ba2637a95b22616e050913e38c54c44d16c05e5d3bd9160e1d091d30cc227",
       "reason": "ValueError: Unsupported numerical claim: 1"
@@ -1150,10 +1150,10 @@
       "reason": "ValueError: Unsupported numerical claim: 500"
     },
     "pabrai-386c7195e5a2bb": {
-      "at": "2026-10-20T20:34:20+00:00",
+      "at": "2026-10-21T02:12:27+00:00",
       "status": "retry",
       "inputHash": "8ef457eaa42657dc7083381a4c9d48e880865a148610c4d49972eeaae48fddc5",
-      "reason": "ValueError: Unsupported numerical claim: 2021"
+      "reason": "ValueError: Unsupported numerical claim: 2024"
     },
     "pabrai-04dcf10dc78aff": {
       "at": "2026-10-21T01:37:45+00:00",
@@ -1162,13 +1162,13 @@
       "reason": "ValueError: Bilingual editorial review: The source text does not mention 'Mohnish Arjaay' as the host; it only refers to him as 'Mohnish'. The full name is an external addi"
     },
     "vinall-469b9af861796c": {
-      "at": "2026-10-20T19:31:53+00:00",
+      "at": "2026-10-21T02:11:17+00:00",
       "status": "retry",
       "inputHash": "04b912cfa579ed70f2a884ba3db6a3f8874717a2e60b6e0c23557713476f294b",
-      "reason": "ValueError: Bilingual editorial review: The English translation incorrectly states 'Tennessee alone possesses four unique climate divisions ranging from the lowlands of the"
+      "reason": "ValueError: Bilingual editorial review: The Chinese text claims Rob Vinall argues that American cultural soft power and urban homogeneity are 'not self-evident facts', but "
     },
     "pabrai-bde4422fef8ed1": {
-      "at": "2026-10-20T19:46:44+00:00",
+      "at": "2026-10-21T02:08:32+00:00",
       "status": "retry",
       "inputHash": "f8949cf36d8767f309c39c64468eb0d4a611f77f9c6de7de013b012b5ad8dab2",
       "reason": "ValueError: Unsupported numerical claim: 20"
@@ -1222,22 +1222,22 @@
       "reason": "ValueError: Bilingual editorial review: The Chinese text incorrectly attributes the yellow notepad habit to 'Sylvain Seinfeld' (a non-existent name); the source only mentio"
     },
     "pabrai-4c377fa29a8e7e": {
-      "at": "2026-10-20T19:53:19+00:00",
+      "at": "2026-10-21T02:18:39+00:00",
       "status": "retry",
       "inputHash": "32ff5880bf04a7de408f56f8c7c616a2ebe03f93bc6489095d654cd67c7edf9a",
-      "reason": "ValueError: Bilingual editorial review: The provided 'content' section contains significant factual errors regarding the source text.; It incorrectly states that Pabrai 'ac"
+      "reason": "ValueError: Bilingual editorial review: The content section contains unsupported factual claims: It asserts Pabrai changed from value to growth investing after reading Nick"
     },
     "pabrai-35e6c02262592b": {
-      "at": "2026-10-20T20:43:29+00:00",
+      "at": "2026-10-21T02:21:50+00:00",
       "status": "retry",
       "inputHash": "5a7c3b47eee745fd1103fc0f1fc7e9cb7a246980452aea4c5e780ce0d9a19ecb",
-      "reason": "ValueError: Bilingual editorial review: The source text (s4) is truncated mid-sentence ('...that dollar is growing'), preventing verification of specific examples mentioned"
+      "reason": "ValueError: Bilingual editorial review: The source text does not explicitly mention 'merger arbitrage' as an example of value investing approaches; it lists 'special situat"
     },
     "pabrai-a9fc9ab5dab038": {
-      "at": "2026-10-20T19:33:25+00:00",
+      "at": "2026-10-21T02:11:04+00:00",
       "status": "retry",
       "inputHash": "e1587c14e2544eb11829b09217e1f4d1a1815d07450cad971652b75c5b81e3b0",
-      "reason": "ValueError: Bilingual editorial review: The source text does not explicitly state that the 'Dakshana system' is similar to Jamaica's method; it only says they are doing som"
+      "reason": "ValueError: Bilingual editorial review: The source text does not explicitly state that Jamaica lacks 'sports facilities or infrastructure' compared to the US; it only notes"
     },
     "pabrai-5e5f9600af5b36": {
       "at": "2026-10-20T21:55:04+00:00",
@@ -1252,10 +1252,10 @@
       "reason": "ValueError: Bilingual editorial review: The source text does not contain the phrase 'high-risk high-reward game' or explicitly frame philanthropy as such; this is an editor"
     },
     "pabrai-e1be2343625f85": {
-      "at": "2026-10-20T19:58:31+00:00",
+      "at": "2026-10-21T02:24:38+00:00",
       "status": "retry",
       "inputHash": "72da30ea733dbabf2c35378a14ff791a6bf8fd042b7d59ba74938527a3f4bb21",
-      "reason": "ValueError: Bilingual editorial review: The paraphrase accurately reflects Pabrai's argument regarding overreaction to lockdowns and cites the unemployment claim statistic "
+      "reason": "ValueError: Unsupported numerical claim: 19"
     },
     "pabrai-2ce3d6b3b0941e": {
       "at": "2026-10-20T20:56:19+00:00",
@@ -1264,10 +1264,10 @@
       "reason": "ValueError: Bilingual editorial review: The source text (s2) cuts off mid-sentence at 'Then we go to slide 10. Thou shall never use Excel.' It does not contain the content "
     },
     "pabrai-a0c9e522d9ad82": {
-      "at": "2026-10-20T20:49:24+00:00",
+      "at": "2026-10-21T02:27:01+00:00",
       "status": "retry",
       "inputHash": "0241f2def714cf75ccb61373d60a9781b4503f26507344dce3f64990d6be03aa",
-      "reason": "ValueError: Unsupported numerical claim: 1970"
+      "reason": "ValueError: Unsupported numerical claim: 20"
     },
     "pabrai-755cc25db2cee7": {
       "at": "2026-10-20T19:56:26+00:00",
@@ -1300,10 +1300,10 @@
       "reason": "ValueError: Incomplete AI Review at 900 tokens"
     },
     "pabrai-7b7fa2ae604775": {
-      "at": "2026-10-20T19:41:59+00:00",
+      "at": "2026-10-21T02:19:59+00:00",
       "status": "retry",
       "inputHash": "f58250303d97eb5facb233f7c8a0f1454ad019b17d5ae1335c529d052ecb891f",
-      "reason": "ValueError: Bilingual editorial review: The source text (s3) states 'George Burn' was an American comedian who lived to be 103 years old. The content section incorrectly id"
+      "reason": "ValueError: Bilingual editorial review: The source text does not mention a 'fictional doctor' who passed away; it refers to George Burns's real-life anecdote where his doct"
     },
     "pabrai-6295b96a9b0552": {
       "at": "2026-10-21T01:41:12+00:00",
@@ -1354,10 +1354,10 @@
       "reason": "ValueError: Bilingual editorial review: The source text (s2) attributes the teaching of blackjack tips and 'cloning' concepts to Mohnish Pabrai regarding Mr. Dhanuka, but t"
     },
     "pabrai-f5fcff5c4d79a8": {
-      "at": "2026-10-20T20:02:34+00:00",
+      "at": "2026-10-21T02:08:38+00:00",
       "status": "retry",
       "inputHash": "02144b6d0dca10bc382de80731e62f6d86fa8d0158352089869913e456b0cffd",
-      "reason": "ValueError: Bilingual editorial review: The source text (s2) states Pabrai 'had three wonderful years at Clemson' and was a 'foreign student', but does not explicitly confi"
+      "reason": "ValueError: Bilingual editorial review: The source text (s2) states Pabrai 'heard about Warren Buffett and Charlie Munger for the first time' in 1994, but does not explicit"
     },
     "pabrai-632419fca50123": {
       "at": "2026-10-20T21:45:00+00:00",
@@ -1396,10 +1396,10 @@
       "reason": "ValueError: Unsupported scaled numerical claim: 14"
     },
     "vinall-733efaf9628935": {
-      "at": "2026-10-20T19:46:16+00:00",
+      "at": "2026-10-21T02:24:49+00:00",
       "status": "retry",
       "inputHash": "02b2b183ae00d71cc3eeca29893d297669f235e2eb84e6c981252b381f58f5d6",
-      "reason": "ValueError: Repeated paragraphs cannot pad an explanation"
+      "reason": "ValueError: English text contains untranslated Chinese"
     },
     "pabrai-ebc459cca804c1": {
       "at": "2026-10-20T22:11:40+00:00",
@@ -1408,7 +1408,7 @@
       "reason": "ValueError: Bilingual editorial review: The source text does not explicitly attribute the quote 'take a simple idea and take it seriously' to Einstein; Mohnish states he is"
     },
     "pabrai-c6c00d61fd5d75": {
-      "at": "2026-10-20T20:06:32+00:00",
+      "at": "2026-10-21T02:11:57+00:00",
       "status": "retry",
       "inputHash": "aa63454949e27bada43391194c2083fb90210d4cb72ff5c8428a62775235c6f3",
       "reason": "ValueError: Unsupported scaled numerical claim: 5"
@@ -1456,10 +1456,10 @@
       "reason": "ValueError: Bilingual editorial review: The English translation in the 'content' section incorrectly translates 'Up on Wall Street' as 'Along Wall Street'. The correct titl"
     },
     "vinall-c12bae3cc1e659": {
-      "at": "2026-10-20T20:31:00+00:00",
+      "at": "2026-10-21T02:26:16+00:00",
       "status": "retry",
       "inputHash": "4ca6e3a0857d06c74dde6a50b3aefc28e8ad8b399354f392f613d090278df977",
-      "reason": "ValueError: English text contains untranslated Chinese"
+      "reason": "ValueError: Bilingual editorial review: The source text does not explicitly state that Vinall's insights 'have not aged poorly' or that his H1 2019 view remains valid; it o"
     },
     "pabrai-1e956456cad67c": {
       "at": "2026-10-20T22:21:34+00:00",
@@ -1570,7 +1570,7 @@
       "reason": "ValueError: English text contains untranslated Chinese"
     },
     "vinall-e6b74c1e685c92": {
-      "at": "2026-10-20T20:19:54+00:00",
+      "at": "2026-10-21T02:18:19+00:00",
       "status": "retry",
       "inputHash": "4fc993cc64a187473a0dc1da7459d2f49095eedd9116bd076f97604650606826",
       "reason": "ValueError: Copied source passage"
@@ -1977,5 +1977,5 @@
       "reason": "ValueError: No supported arguments in source"
     }
   },
-  "updatedAt": "2026-10-21T02:06:09+00:00"
+  "updatedAt": "2026-10-21T02:27:42+00:00"
 }
