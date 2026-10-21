@@ -880,10 +880,10 @@
       "reason": "ValueError: Bilingual editorial review: The source text (s3) explicitly states the company was an oil company ('He could not find any other oil company...'), but the Englis"
     },
     "pabrai-e3679afc103fee": {
-      "at": "2026-10-20T22:58:47+00:00",
+      "at": "2026-10-21T04:48:58+00:00",
       "status": "retry",
       "inputHash": "7a6363d6f4a8ec61db067273da49ad4ac2cb28e804c536d44a0d888b2088bf66",
-      "reason": "ValueError: Bilingual editorial review: The source text (s2) states Mohnish moved from California to Austin, Texas; the summary incorrectly attributes this move to 'Pabrai'"
+      "reason": "ValueError: Bilingual editorial review: The English text incorrectly states 'Texas remains a top choice for most people' as if it were Pabrai's conclusion; the source only "
     },
     "buffett-2d755ae6f4137c": {
       "at": "2026-10-21T02:35:54+00:00",
@@ -1977,5 +1977,5 @@
       "reason": "ValueError: No supported arguments in source"
     }
   },
-  "updatedAt": "2026-10-21T04:47:25+00:00"
+  "updatedAt": "2026-10-21T04:48:58+00:00"
 }
