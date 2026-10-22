@@ -1318,10 +1318,10 @@
       "reason": "ValueError: Bilingual editorial review: The source text (s2-s4) contains no mention of 'share buyback strategies' or 'repurchase strategies'. The content focuses on long-te"
     },
     "pabrai-d5fc50447fd953": {
-      "at": "2026-10-22T13:41:47+00:00",
+      "at": "2026-10-22T21:28:25+00:00",
       "status": "retry",
       "inputHash": "d0544da8e14ed7578c5daf19301f2720de371f994b5468583fe2bfc9be5913e0",
-      "reason": "ValueError: Bilingual editorial review: Source text cuts off mid-sentence ('it's a') and lacks explicit data confirming the 'less than 1%' claim; the Chinese translation pr"
+      "reason": "ValueError: Bilingual editorial review: The source text ends abruptly with 'it's a', lacking the completion of the sentence describing the percentage (e.g., '1%'). The prov"
     },
     "pabrai-87529cf106b12a": {
       "at": "2026-10-22T19:47:41+00:00",
@@ -1977,5 +1977,5 @@
       "reason": "ValueError: No supported arguments in source"
     }
   },
-  "updatedAt": "2026-10-22T21:28:05+00:00"
+  "updatedAt": "2026-10-22T21:28:25+00:00"
 }
