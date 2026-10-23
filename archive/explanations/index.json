@@ -845,10 +845,10 @@
       "reason": "ValueError: Bilingual editorial review: The source text (s4) states that by 2026 the $24 would be $24 trillion. The summary incorrectly claims this exceeds one-third of 'th"
     },
     "pabrai-c601c5640111d6": {
-      "at": "2026-10-23T15:25:19+00:00",
+      "at": "2026-10-23T20:56:29+00:00",
       "status": "retry",
       "inputHash": "e32bcdfbc843caa48fc9a723c3c99199d434cc9ba64e75c22a923297ef257ea6",
-      "reason": "ValueError: Incomplete AI Write at 3200 tokens"
+      "reason": "ValueError: Unsupported numerical claim: 3"
     },
     "lilu-f9c5b8c9904f52": {
       "at": "2026-10-23T18:51:17+00:00",
@@ -1977,5 +1977,5 @@
       "reason": "ValueError: No supported arguments in source"
     }
   },
-  "updatedAt": "2026-10-23T20:55:36+00:00"
+  "updatedAt": "2026-10-23T20:56:29+00:00"
 }
