@@ -4,7 +4,7 @@
   const load=url=>fetch(url,{cache:'no-store'}).then(r=>{if(!r.ok)throw Error('Archive unavailable');return r.json();});
   window.SpeechArchive={async updateInvestor(cfg,en){
     const host=document.getElementById('speechArchiveEntry');if(!host)return;
-    const own=++generation,key=en?'en':'zh',name=en?cfg.nameEn:cfg.name,url=`archive.html?investor=${encodeURIComponent(cfg.id)}`;
+    const own=++generation,key=en?'en':'zh',name=en?cfg.nameEn:cfg.name,url=`archive.html?v=2&investor=${encodeURIComponent(cfg.id)}`;
     host.innerHTML=`<div class="archive-entry"><div><h3>${escape(name)} · ${en?'Works & Detailed Reading Guides':'公开作品与详细导读'}</h3><p>${en?'Read the investor’s approach, the works in their historical context, and source-grounded AI explanations.':'结合人物方法、作品年代和原始来源，理解文章、演讲与访谈；AI 导读与原文明确区分。'}</p><p class="archive-entry-count"></p></div><a href="${url}">${en?'Read the collection →':'阅读作品与导读 →'}</a></div>`;
     try{
       if(!pending)pending=load('archive/catalog.json').catch(e=>{pending=null;throw e;});

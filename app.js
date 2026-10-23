@@ -1954,7 +1954,7 @@ function switchTab(name) {
   renderInsights();
 }
 
-const GAME_URL = 'game/v2/index.html?v=5';
+const GAME_URL = 'game/v2/index.html?v=6';
 let _gameLoaded = false;
 function renderGame() {
   const el = document.getElementById('gameContent');
@@ -1974,7 +1974,7 @@ function renderGame() {
          style="display:inline-block;margin-top:8px;font-size:.75rem;color:var(--gold);text-decoration:none;">
         ${isEn?'↗ Play in a new tab':'↗ 独立打开游戏'}
       </a>
-      <a href="game/v2/article.html?v=4" target="_blank" rel="noopener noreferrer" style="display:inline-block;margin:8px 0 0 18px;font-size:.75rem;color:var(--gold);text-decoration:none;">
+      <a href="game/v2/article.html?v=6" target="_blank" rel="noopener noreferrer" style="display:inline-block;margin:8px 0 0 18px;font-size:.75rem;color:var(--gold);text-decoration:none;">
         ${isEn?'↗ Read the companion essay (Chinese)':'↗ 阅读完整演讲解读'}
       </a>
     </div>

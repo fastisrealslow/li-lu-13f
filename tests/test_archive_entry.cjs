@@ -25,7 +25,9 @@ test('archive preview escapes profile content and remains useful on fetch failur
   vm.runInContext(fs.readFileSync(path.join(__dirname,'../archive_entry.js'),'utf8'),context);
   await context.window.SpeechArchive.updateInvestor({id:'lilu',name:'<script>unsafe</script>'},false);
   assert.doesNotMatch(host.innerHTML,/<script>/);
-  assert.match(host.innerHTML,/archive.html\?investor=lilu/);
+  const destination=new URL(host.innerHTML.match(/<a href="([^"]+)"/)[1],'https://example.test/');
+  assert.equal(destination.pathname,'/archive.html');
+  assert.equal(destination.searchParams.get('investor'),'lilu');
   assert.match(count.textContent,/查看已有资料/);
 });
 
