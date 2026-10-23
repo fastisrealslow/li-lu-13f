@@ -1096,10 +1096,10 @@
       "reason": "ValueError: Bilingual editorial review: The source text (s3) does not mention 'Tom Peters' by name; it only refers to him as 'a big management guru in the eighties'. The tr"
     },
     "vinall-f47e656603551a": {
-      "at": "2026-10-22T20:50:47+00:00",
+      "at": "2026-10-23T02:40:31+00:00",
       "status": "retry",
       "inputHash": "5097a53ae89ab9a32c8b3921ad080d43c9a7a4172505bcff79b45cd675befeef",
-      "reason": "ValueError: Bilingual editorial review: The source text (ASR) does not contain the phrase 'I preferred people to understand why the letter was delayed' as a direct quote or"
+      "reason": "ValueError: Repeated paragraphs cannot pad an explanation"
     },
     "pabrai-0578ad73179b18": {
       "at": "2026-10-23T01:51:48+00:00",
@@ -1977,5 +1977,5 @@
       "reason": "ValueError: No supported arguments in source"
     }
   },
-  "updatedAt": "2026-10-23T02:37:56+00:00"
+  "updatedAt": "2026-10-23T02:40:31+00:00"
 }
