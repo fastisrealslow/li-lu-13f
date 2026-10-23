@@ -498,10 +498,10 @@
       "reason": "ValueError: Bilingual editorial review: The English text in the `content` section contains a factual error regarding the source material: it claims '1+1+1+1 can exceed 1000"
     },
     "vinall-c919ac8b6b58c4": {
-      "at": "2026-10-23T01:36:04+00:00",
+      "at": "2026-10-23T12:55:47+00:00",
       "status": "retry",
       "inputHash": "5af4c68010fe5d16e180b31a59d9e58951db06672d9fbd70506aed811829e319",
-      "reason": "ValueError: Bilingual editorial review: The content claims Rob Vinall 'argues' that his trip consolidated three separate trips; however, the source text (s1) only states he"
+      "reason": "ValueError: Unsupported numerical claim: 1"
     },
     "buffett-d5e534b6a5c51f": {
       "at": "2026-10-23T03:26:13+00:00",
@@ -1977,5 +1977,5 @@
       "reason": "ValueError: No supported arguments in source"
     }
   },
-  "updatedAt": "2026-10-23T12:54:47+00:00"
+  "updatedAt": "2026-10-23T12:55:47+00:00"
 }
