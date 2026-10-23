@@ -6395,19 +6395,6 @@
           ]
         ],
         [
-          "BIDU",
-          "百度",
-          [
-            [
-              "tepper",
-              1.9,
-              "added",
-              "大卫·泰珀",
-              "2026 Q2"
-            ]
-          ]
-        ],
-        [
           "HDB",
           "印度住房金融",
           [
@@ -6416,6 +6403,19 @@
               0.0,
               "hold",
               "梅森·霍金斯",
+              "2026 Q2"
+            ]
+          ]
+        ],
+        [
+          "BIDU",
+          "百度",
+          [
+            [
+              "tepper",
+              1.9,
+              "added",
+              "大卫·泰珀",
               "2026 Q2"
             ]
           ]
@@ -6499,19 +6499,6 @@
           ]
         ],
         [
-          "FG",
-          "F&G 年金与寿险",
-          [
-            [
-              "greenberg",
-              1.4,
-              "trimmed",
-              "格伦·格林伯格",
-              "2026 Q2"
-            ]
-          ]
-        ],
-        [
           "FICO",
           "公平信息公司",
           [
@@ -6525,12 +6512,25 @@
           ]
         ],
         [
-          "FIS",
-          "Fidelity 国家信息服务",
+          "FG",
+          "F&G 年金与寿险",
+          [
+            [
+              "greenberg",
+              1.4,
+              "trimmed",
+              "格伦·格林伯格",
+              "2026 Q2"
+            ]
+          ]
+        ],
+        [
+          "MLCO",
+          "美高梅",
           [
             [
               "hawkins",
-              1.6,
+              0.4,
               "trimmed",
               "梅森·霍金斯",
               "2026 Q2"
@@ -6551,12 +6551,12 @@
           ]
         ],
         [
-          "MLCO",
-          "美高梅",
+          "FIS",
+          "Fidelity 国家信息服务",
           [
             [
               "hawkins",
-              0.4,
+              1.6,
               "trimmed",
               "梅森·霍金斯",
               "2026 Q2"
@@ -6603,23 +6603,20 @@
           ]
         ]
       ],
-      "sourceHash": "baf4ba7dd55bc36987e1a407144fb0f2c362532bbcbace767e22023a478ab9a4",
+      "sourceHash": "eba5bf560569b80ed1ebfb9ef6e60d3f0f9c7192021a1194c4313ce98f8c1a9f",
       "selection": {
         "factIds": [
-          "f0",
           "f3",
-          "f7"
+          "f4",
+          "f5"
         ]
       },
       "renderVersion": 4,
-      "mode": "model_selection",
-      "summary": "按各投资人最新披露组合：巴菲特（2026 Q2）：卡夫亨氏（KHC）股数不变，占其披露组合市值2.6%；大卫·泰珀（2026 Q2）：CoreWeave, Inc.（CRWV）新建仓，占其披露组合市值1.4%；塞斯·克拉曼（2026 Q2）：万国数据（GDS）增持，占其披露组合市值2.1%。",
-      "generatedAt": "2026-10-22T18:05:30.148825+00:00",
-      "model": "qwen3.5:9b-q4_K_M",
-      "metrics": {
-        "seconds": 142.67,
-        "tokens": 14
-      }
+      "mode": "deterministic",
+      "summary": "按各投资人最新披露组合：大卫·泰珀（2026 Q2）：CoreWeave, Inc.（CRWV）新建仓，占其披露组合市值1.4%；大卫·泰珀（2026 Q2）：惠而浦（WHR）减持，占其披露组合市值0.4%；格伦·格林伯格（2026 Q2）：莱纳建筑（LEN）减持，占其披露组合市值4.7%。",
+      "generatedAt": "2026-10-23T02:27:23.555092+00:00",
+      "model": null,
+      "metrics": {}
     },
     "investor:duan": {
       "facts": {
@@ -52437,7 +52434,7 @@
     "pendingBefore": 7,
     "cached": 33,
     "finishedAt": "2026-10-22T18:10:57.384262+00:00",
-    "pendingAfter": 6,
+    "pendingAfter": 7,
     "accepted": 1,
     "fallback": 3,
     "rejected": 0,
@@ -52446,7 +52443,7 @@
   "schemaVersion": 2,
   "fallbackRefresh": {
     "kind": "source_refresh",
-    "finishedAt": "2026-10-22T18:00:29.515345+00:00",
+    "finishedAt": "2026-10-23T02:27:23.555124+00:00",
     "accepted": 0,
     "fallback": 7,
     "failed": 0,
