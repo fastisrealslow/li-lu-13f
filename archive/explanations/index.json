@@ -1318,10 +1318,10 @@
       "reason": "ValueError: Bilingual editorial review: The source text (s2-s4) does not contain the phrase 'fanatical buyback strategies' or any discussion of stock buybacks; the content "
     },
     "pabrai-d5fc50447fd953": {
-      "at": "2026-10-22T21:28:25+00:00",
+      "at": "2026-10-23T02:23:55+00:00",
       "status": "retry",
       "inputHash": "d0544da8e14ed7578c5daf19301f2720de371f994b5468583fe2bfc9be5913e0",
-      "reason": "ValueError: Bilingual editorial review: The source text ends abruptly with 'it's a', lacking the completion of the sentence describing the percentage (e.g., '1%'). The prov"
+      "reason": "ValueError: Bilingual editorial review: The source text cuts off mid-sentence ('it's a'), making the claim about 'less than one 10th or one 100th or 1%' incomplete and fact"
     },
     "pabrai-87529cf106b12a": {
       "at": "2026-10-23T01:37:54+00:00",
@@ -1977,5 +1977,5 @@
       "reason": "ValueError: No supported arguments in source"
     }
   },
-  "updatedAt": "2026-10-23T02:23:53+00:00"
+  "updatedAt": "2026-10-23T02:23:55+00:00"
 }
