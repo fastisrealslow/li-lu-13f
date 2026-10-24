@@ -359,6 +359,11 @@ async function loadInvestorConfig({fresh = false, signal} = {}) {
     if (!resp.ok) throw new Error('investors.json HTTP ' + resp.status);
     const json = await resp.json();
     if (!Array.isArray(json.investors) || !json.investors.length) throw new Error('Invalid investor configuration');
+    const ids=new Set();
+    for(const inv of json.investors){
+      if(!/^[a-z][a-z0-9_]{0,30}$/.test(inv.id || '') || ids.has(inv.id) || !/^[a-z0-9_]+\.json$/.test(inv.dataFile || '') || !/^[a-z0-9_]+\.json$/.test(inv.pricesFile || '') || (inv.hkFile && !/^[a-z0-9_]+\.json$/.test(inv.hkFile)))throw new Error('Invalid investor identity or data path');
+      ids.add(inv.id);
+    }
     INVESTOR_CFG = json.investors;
   } catch (e) {
     console.error('investors.json 加载失败，将无法正常显示投资者列表:', e);
@@ -402,6 +407,9 @@ async function switchInvestor(v, {fresh = false, signal} = {}) {
     const newData = await r.json();
     if (requestId !== investorRequestId) return false;
     if (!newData?.current || !Array.isArray(newData.current.holdings)) throw new Error('Invalid holdings data');
+    if (!Number.isFinite(newData.current.totalValue) || newData.current.totalValue<0 || newData.current.holdings.some(h=>
+      !h || typeof h.ticker!=='string' || !Number.isFinite(h.shares) || h.shares<0 || !Number.isFinite(h.value) || h.value<0 ||
+      ['prevShares','prevValue'].some(k=>h[k]!=null && (!Number.isFinite(h[k]) || h[k]<0)))) throw new Error('Invalid numeric holdings fields');
     const [pricesOK, newHKDisclosures] = await Promise.all([
       loadPrices(cfg.pricesFile, requestId, {signal, stamp, fresh}),
       loadHKDisclosures(cfg, {signal, stamp, fresh})
@@ -439,7 +447,7 @@ async function switchInvestor(v, {fresh = false, signal} = {}) {
 function cn(name, h) {
   if (lang==='zh') {
     if (h && h.cnName) return h.cnName;
-    return T.cnName[name] || name;
+    return Object.prototype.hasOwnProperty.call(T.cnName,name) ? T.cnName[name] : name;
   }
   return name;
 }
@@ -556,8 +564,8 @@ function fmtTicker(tk) {
   const unmapped = tk && tk.startsWith('?');
   const display = unmapped ? tk.substring(1) : tk;
   const style = unmapped ? 'color:#f59e0b;cursor:help' : '';
-  const title = unmapped ? ' title="未映射的股票，需在 TICKER_MAP 中添加"' : '';
-  return `<span class="ticker" style="${style}"${title}>${display}</span>`;
+  const title = unmapped ? ` title="${lang==='en'?'Listing code not yet matched; original filing name retained':'证券代码尚未匹配，保留原始申报名称'}"` : '';
+  return `<span class="ticker" style="${style}"${title}>${hkEscape(display)}</span>`;
 }
 
 // Reload the selected investor's complete, server-processed published snapshot.
@@ -593,7 +601,7 @@ async function refreshLive() {
 function renderTimeline() {
   const container = document.getElementById('timelineCanvas');
   if (!container || !data || !data.history || !data.history.holdings) {
-    if (container) container.innerHTML = '<p style="color:var(--text-lighter);padding:24px;text-align:center;">历史持仓数据尚未加载。请先运行 fetch_13f.py --full。</p>';
+    if (container) container.innerHTML = `<p style="color:var(--text-lighter);padding:24px;text-align:center;">${lang==='en'?'Historical holdings are not available in this snapshot.':'当前数据中没有可展示的历史持仓。'}</p>`;
     return;
   }
   const holdings = data.history.holdings;
@@ -651,7 +659,7 @@ function renderTimeline() {
     const x = (i / Math.max(quarters.length - 1, 1)) * plotW;
     const show = i % 2 === 0 || quarters.length <= 10;
     if (show) {
-      html += `<span style="position:absolute;left:${x}px;top:0;font-size:10px;color:var(--text-lighter);transform:translateX(-50%);">${q}</span>`;
+      html += `<span style="position:absolute;left:${x}px;top:0;font-size:10px;color:var(--text-lighter);transform:translateX(-50%);">${hkEscape(q)}</span>`;
     }
   });
   html += '</div>';
@@ -665,8 +673,8 @@ function renderTimeline() {
     const color = sectorColors[s.sector] || '#6b7280';
     const dur = s.lastIdx - s.firstIdx + 1;
     html += `<div style="position:relative;height:${barH + gap}px;">`;
-    html += `<span style="position:absolute;left:0;top:0;width:${padL - 8}px;font-size:12px;font-weight:600;color:var(--navy);text-align:right;line-height:${barH}px;">${s.ticker}</span>`;
-    html += `<div style="position:absolute;left:${padL + x1}px;top:4px;width:${bw}px;height:${barH}px;background:${color};border-radius:4px;opacity:0.85;" title="${s.ticker} (${s.sector})\n${s.firstQ} → ${s.lastQ}\n持有 ${dur} 个季度"></div>`;
+    html += `<span style="position:absolute;left:0;top:0;width:${padL - 8}px;font-size:12px;font-weight:600;color:var(--navy);text-align:right;line-height:${barH}px;">${hkEscape(s.ticker)}</span>`;
+    html += `<div style="position:absolute;left:${padL + x1}px;top:4px;width:${bw}px;height:${barH}px;background:${color};border-radius:4px;opacity:0.85;" title="${hkEscape(s.ticker)} (${hkEscape(s.sector)})\n${hkEscape(s.firstQ)} → ${hkEscape(s.lastQ)}\n持有 ${dur} 个季度"></div>`;
     html += `</div>`;
   });
 
@@ -704,11 +712,11 @@ function renderSummary() {
     const isEn = lang === 'en';
     const cik = getInvestorCIK(investor);
     const cikHtml = cik
-      ? `<span><strong>CIK</strong> ${cik}</span>`
+      ? `<span><strong>CIK</strong> ${hkEscape(cik)}</span>`
       : '';
     metaRow.innerHTML =
-      `<span><strong>${isEn ? 'Period' : '\u62a5\u544a\u671f'}</strong> ${d.periodEnd || '--'}</span>` +
-      `<span><strong>${isEn ? 'Filed' : '\u63d0\u4ea4\u65e5'}</strong> ${d.filingDate || '--'}</span>` +
+      `<span><strong>${isEn ? 'Period' : '\u62a5\u544a\u671f'}</strong> ${hkEscape(d.periodEnd || '--')}</span>` +
+      `<span><strong>${isEn ? 'Filed' : '\u63d0\u4ea4\u65e5'}</strong> ${hkEscape(d.filingDate || '--')}</span>` +
       cikHtml + (data.current.holdings.some(h=>h.putCall) ? `<span class="data-quality-note">${lang==='en'?'Option quantities and values refer to underlying securities; totals and percentages are filed amounts, not fund NAV or option premiums.':'期权行的数量和市值指其标的证券；本页合计与占比按申报口径，不代表基金净资产或期权权利金。'} <a href="https://www.sec.gov/files/form13f.pdf" target="_blank" rel="noopener noreferrer">SEC 13F</a></span>` : '') + (data.current.valueQuality ? `<span class="data-quality-note">${lang === 'en' ? 'Reported values have an unresolved scale discrepancy; raw SEC amounts retained. Cost estimates are suspended.' : '原表市值存在量级疑点，保留 SEC 原始数值；成本估算暂停。'} <a href="${hkEscape(data.current.valueQuality.source)}" target="_blank" rel="noopener noreferrer">${lang === 'en' ? 'Original filing' : '原始申报'}</a></span>` : '') + (data.meta?.snapshotType ? `<span class="data-quality-note">${lang === 'en' ? 'Historical archived disclosures. Valuation dates could not be verified; totals are HKD, not a complete current portfolio.' : '历史归档披露；估值日期未能核实。合计单位为港元，不代表当前完整组合。'}</span>` : '') + (!comparableQuarter() && !data.meta?.snapshotType ? `<span class="data-quality-note">${comparisonNotice()} <a href="${hkEscape(data.meta?.reportingTransition?.noticeSource || INVESTOR_CFG_BY_ID[investor]?.resources?.[0]?.url || 'https://www.sec.gov/edgar/search/')}" target="_blank" rel="noopener noreferrer">${lang === 'en' ? 'SEC notice' : 'SEC 通知'}</a></span>` : '');
   }
   const tc = d.totalValue - (d.prevTotalValue||0);
@@ -732,12 +740,12 @@ function renderSummary() {
       <div class="stat-sep"></div>
       <div class="stat-item">
         <div class="stat-primary"><span class="stat-num">${d.valueQuality?'—':(t3.reduce((s,h)=>s+h.value,0)/d.totalValue*100).toFixed(1)+'%'}</span></div>
-        <span class="stat-desc">${t('statTop3')} ${t3.map(h=>h.ticker).join('·')}</span>
+        <span class="stat-desc">${t('statTop3')} ${t3.map(h=>hkEscape(h.ticker)).join('·')}</span>
       </div>
       <div class="stat-sep"></div>
       <div class="stat-item">
-        <div class="stat-primary"><span class="stat-num">${data.meta?.snapshotType ? (lang === 'en' ? 'Historical' : '历史快照') : d.quarter}</span></div>
-        <span class="stat-desc">${t('statQuarter')} · ${t('metaPeriod')} ${d.periodEnd || '—'}</span>
+        <div class="stat-primary"><span class="stat-num">${data.meta?.snapshotType ? (lang === 'en' ? 'Historical' : '历史快照') : hkEscape(d.quarter)}</span></div>
+        <span class="stat-desc">${t('statQuarter')} · ${t('metaPeriod')} ${hkEscape(d.periodEnd || '—')}</span>
       </div>
   `;
 }
@@ -930,7 +938,7 @@ function renderHoldings() {
     const mosCellHtml = mosHtml;
     
     const quantityLabel=h.putCall?(isEn?'Underlying shares':'标的股数'):h.shareType==='PRN'?(isEn?'Principal':'本金'):'';
-    return `<tr><td class="idx-cell"><span class="idx-num">${i+1}</span></td><td class="stock-cell"><span class="ticker-line">${fmtTicker(h.ticker)}</span>${instrumentTag(h)}<span class="name-line">${cn(h.name, h)}</span>${h.putCall?'':`<span class="sector-badge">${ts(h.sector)}</span>`}<span class="holding-change">${chgTag}</span>${h.putCall?`<button class="option-toggle" type="button" aria-expanded="false" aria-controls="option-position-${i}" onclick="toggleOptionPosition(this)">${isEn?'Option details':'期权明细'}</button>`:''}</td><td class="shares-value-cell"><div style="font-weight:600">${h.shares.toLocaleString('en-US')}</div>${quantityLabel?`<small class="option-field-note">${quantityLabel}</small>`:''}<div style="font-size:.68rem;color:var(--text-lighter);margin-top:2px;">${amountText}</div>${h.putCall?`<small class="option-field-note">${isEn?'Underlying notional value':'标的名义金额'}</small>`:''}<div class="mobile-weight-inline" style="display:none;font-size:.65rem;color:var(--navy);font-weight:600;margin-top:3px;"><span style="font-weight:400;color:var(--text-lighter);">${h.putCall?(isEn?'Notional':'名义占比'):(isEn?'Reported':'申报占比')}</span> ${weightText}</div></td><td class="price-cell">${priceHtml}${mobileCostHtml}</td><td class="cost-cell">${costHtml}</td><td style="width:100px;"><div class="weight-cell"><span class="weight-percent">${weightText}</span>${h.putCall?`<small class="option-field-note">${isEn?'Notional weight':'标的名义占比'}</small>`:''}<div class="bar-wrap"><div class="bar-fill" style="width:${Math.max(0,Math.min(100,Number(pct)||0))}%"></div></div></div></td><td style="width:80px;text-align:center;">${mosCellHtml}</td></tr>${h.putCall?`<tr class="option-details-row" id="option-position-${i}" hidden><td colspan="7">${optionPositionHTML(h,d)}</td></tr>`:''}`;
+    return `<tr><td class="idx-cell"><span class="idx-num">${i+1}</span></td><td class="stock-cell"><span class="ticker-line">${fmtTicker(h.ticker)}</span>${instrumentTag(h)}<span class="name-line">${hkEscape(cn(h.name, h))}</span>${h.putCall?'':`<span class="sector-badge">${ts(h.sector)}</span>`}<span class="holding-change">${chgTag}</span>${h.putCall?`<button class="option-toggle" type="button" aria-expanded="false" aria-controls="option-position-${i}" onclick="toggleOptionPosition(this)">${isEn?'Option details':'期权明细'}</button>`:''}</td><td class="shares-value-cell"><div style="font-weight:600">${h.shares.toLocaleString('en-US')}</div>${quantityLabel?`<small class="option-field-note">${quantityLabel}</small>`:''}<div style="font-size:.68rem;color:var(--text-lighter);margin-top:2px;">${amountText}</div>${h.putCall?`<small class="option-field-note">${isEn?'Underlying notional value':'标的名义金额'}</small>`:''}<div class="mobile-weight-inline" style="display:none;font-size:.65rem;color:var(--navy);font-weight:600;margin-top:3px;"><span style="font-weight:400;color:var(--text-lighter);">${h.putCall?(isEn?'Notional':'名义占比'):(isEn?'Reported':'申报占比')}</span> ${weightText}</div></td><td class="price-cell">${priceHtml}${mobileCostHtml}</td><td class="cost-cell">${costHtml}</td><td style="width:100px;"><div class="weight-cell"><span class="weight-percent">${weightText}</span>${h.putCall?`<small class="option-field-note">${isEn?'Notional weight':'标的名义占比'}</small>`:''}<div class="bar-wrap"><div class="bar-fill" style="width:${Math.max(0,Math.min(100,Number(pct)||0))}%"></div></div></div></td><td style="width:80px;text-align:center;">${mosCellHtml}</td></tr>${h.putCall?`<tr class="option-details-row" id="option-position-${i}" hidden><td colspan="7">${optionPositionHTML(h,d)}</td></tr>`:''}`;
   }).join('');
   
   // Legend for tags
@@ -943,7 +951,7 @@ function renderHoldings() {
   let mosSummaryHtml = '';
   if (greenItems.length > 0) {
     const listHtml = greenItems.map(m => 
-      `<span style="display:inline-flex;align-items:center;gap:4px;padding:4px 10px;background:rgba(16,185,129,0.08);border:1px solid rgba(16,185,129,0.2);border-radius:6px;font-size:.8rem;"><span style="font-weight:600;color:#059669;">${m.ticker}</span><span style="color:#4b5563;font-size:.68rem;">${cn(m.name,m)}</span><span style="color:#6b7280;font-size:.7rem;">${lang==='en'?'Price lower by':'现价低'} ${m.mos}%</span><span style="color:#9ca3af;font-size:.65rem;">${currSymbol(m.ticker)}${m.cost} → ${currSymbol(m.ticker)}${m.price}</span></span>`
+      `<span style="display:inline-flex;align-items:center;gap:4px;padding:4px 10px;background:rgba(16,185,129,0.08);border:1px solid rgba(16,185,129,0.2);border-radius:6px;font-size:.8rem;"><span style="font-weight:600;color:#059669;">${hkEscape(m.ticker)}</span><span style="color:#4b5563;font-size:.68rem;">${hkEscape(cn(m.name,m))}</span><span style="color:#6b7280;font-size:.7rem;">${lang==='en'?'Price lower by':'现价低'} ${m.mos}%</span><span style="color:#9ca3af;font-size:.65rem;">${currSymbol(m.ticker)}${m.cost} → ${currSymbol(m.ticker)}${m.price}</span></span>`
     ).join('');
     mosSummaryHtml = `<div class="position-note">
       <div class="position-note-heading">
@@ -954,7 +962,7 @@ function renderHoldings() {
     </div>`;
   } else if (watchItems.length > 0) {
     const listHtml = watchItems.map(m => 
-      `<span style="display:inline-flex;align-items:center;gap:4px;padding:4px 10px;background:rgba(245,158,11,0.06);border:1px solid rgba(245,158,11,0.15);border-radius:6px;font-size:.8rem;"><span style="font-weight:600;color:#d97706;">${m.ticker}</span><span style="color:#4b5563;font-size:.68rem;">${cn(m.name,m)}</span><span style="color:#6b7280;font-size:.7rem;">${lang==='en'?'Price lower by':'现价低'} ${m.mos}%</span></span>`
+      `<span style="display:inline-flex;align-items:center;gap:4px;padding:4px 10px;background:rgba(245,158,11,0.06);border:1px solid rgba(245,158,11,0.15);border-radius:6px;font-size:.8rem;"><span style="font-weight:600;color:#d97706;">${hkEscape(m.ticker)}</span><span style="color:#4b5563;font-size:.68rem;">${hkEscape(cn(m.name,m))}</span><span style="color:#6b7280;font-size:.7rem;">${lang==='en'?'Price lower by':'现价低'} ${m.mos}%</span></span>`
     ).join('');
     mosSummaryHtml = `<div class="position-note watch">
       <div class="position-note-heading"><span>${t('mosWatch')}</span><b>${watchItems.length}</b>
@@ -1149,7 +1157,7 @@ function renderChanges() {
     const valueChange=!valueVerified?'—':h.prevValue==null?(comparisonState()==='scope_partial'?(en?'New coverage':'新增覆盖'):(en?'Unverified':'待比较')):h.prevValue===0?(en?'New':'新进'):`${vs}${symbol}${fmtVal(Math.abs(vd))} (${fmtPct(h.value,h.prevValue)})`;
     const mobileShares=`<div class="mobile-change-detail"><small>${hkEscape(pq)} → ${hkEscape(cq)}</small><span>${sharePrevious} → ${h.shares.toLocaleString('en-US')}</span><div>${shareChange}</div>${splitNote}</div>`;
     const mobileValues=`<div class="mobile-change-detail"><small>${hkEscape(pq)} → ${hkEscape(cq)}</small><span>${valuePrevious} → ${valueCurrent}</span><div class="${vc}">${valueChange}</div></div>`;
-    return `<tr><td class="stock-cell"><span class="ticker-line">${fmtTicker(h.ticker)}${exited}</span>${instrumentTag(h)}<span class="name-line">${cn(h.name, h)}</span><span class="sector-badge">${ts(h.sector)}</span></td><td class="change-shares"><span class="desktop-change-detail">${h.prevShares===0?'-':(h.prevShares==null?'—':h.prevShares.toLocaleString('en-US'))}${splitNote}</span>${mobileShares}</td><td>${h.shares.toLocaleString('en-US')}</td><td>${shareChange}</td><td class="change-values"><span class="desktop-change-detail">${!valueVerified || h.prevValue==null?'—':h.prevValue===0?'-':symbol+fmtVal(h.prevValue)}</span>${mobileValues}</td><td>${valueCurrent}</td><td class="${vc}">${valueChange}</td></tr>`;
+    return `<tr><td class="stock-cell"><span class="ticker-line">${fmtTicker(h.ticker)}${exited}</span>${instrumentTag(h)}<span class="name-line">${hkEscape(cn(h.name, h))}</span><span class="sector-badge">${ts(h.sector)}</span></td><td class="change-shares"><span class="desktop-change-detail">${h.prevShares===0?'-':(h.prevShares==null?'—':h.prevShares.toLocaleString('en-US'))}${splitNote}</span>${mobileShares}</td><td>${h.shares.toLocaleString('en-US')}</td><td>${shareChange}</td><td class="change-values"><span class="desktop-change-detail">${!valueVerified || h.prevValue==null?'—':h.prevValue===0?'-':symbol+fmtVal(h.prevValue)}</span>${mobileValues}</td><td>${valueCurrent}</td><td class="${vc}">${valueChange}</td></tr>`;
   }).join('');
 }
 
@@ -1652,7 +1660,7 @@ function renderHistoryChart() {
     const v = values[idx], q = quarters[idx];
     const delta = historyChange(quarters, values, idx);
     const chgStr = delta === null ? '' : `<span style="color:${delta > 0 ? '#4ade80' : delta < 0 ? '#f87171' : '#d1d5db'}">${lang==='zh'?'环比':'QoQ'} ${delta>0?'+':''}${(delta*100).toFixed(1)}%</span>`;
-    tooltip.innerHTML = `<div style="font-weight:600;margin-bottom:2px;">${q}</div><div>${historyMoney(v, 3)} ${chgStr}</div>`;
+    tooltip.innerHTML = `<div style="font-weight:600;margin-bottom:2px;">${hkEscape(q)}</div><div>${historyMoney(v, 3)} ${chgStr}</div>`;
     const cx = gX(idx), cy = gY(v);
     const scaleX = rect.width / canvas.width, scaleY = rect.height / canvas.height;
     tooltip.style.left = Math.max(0, Math.min(cx * scaleX + 12, rect.width - 210)) + 'px';
@@ -1750,9 +1758,9 @@ async function renderTimelineTable() {
       status = '<span style="color:var(--text-lighter);">○ ' + (isEn ? 'Exited' : '已清仓') + '</span>' + exitTag;
     }
     html += `<tr>
-      <td class="stock-cell"><span class="ticker-line">${fmtTicker(e.ticker)}</span><span class="name-line">${cn(e.name, e)}</span><span class="sector-badge">${ts(e.sector)}</span><span style="display:block;font-size:.65rem;color:var(--text-lighter);margin-top:2px;">${e.qCount} 季</span></td>
-      <td style="white-space:nowrap">${e.first}</td>
-      <td style="white-space:nowrap">${e.last}</td>
+      <td class="stock-cell"><span class="ticker-line">${fmtTicker(e.ticker)}</span><span class="name-line">${hkEscape(cn(e.name, e))}</span><span class="sector-badge">${ts(e.sector)}</span><span style="display:block;font-size:.65rem;color:var(--text-lighter);margin-top:2px;">${e.qCount} 季</span></td>
+      <td style="white-space:nowrap">${hkEscape(e.first)}</td>
+      <td style="white-space:nowrap">${hkEscape(e.last)}</td>
       <td>${status}<div style="margin-top:4px">${e.shareInfo}</div></td>
     </tr>`;
   });
@@ -2107,7 +2115,8 @@ async function renderHomework() {
       const style = compact
         ? `cursor:pointer;display:inline-flex;align-items:center;gap:2px;padding:2px 6px;background:#2a3f5f;border:1px solid #d4a853;border-radius:8px;font-size:.55rem;color:#fff;font-weight:600;white-space:nowrap;`
         : `cursor:pointer;display:inline-flex;align-items:center;gap:3px;padding:3px 9px;background:#2a3f5f;border:1px solid #d4a853;border-radius:10px;font-size:.62rem;color:#fff;font-weight:600;white-space:nowrap;`;
-      return `<button type="button" onclick="switchInvestor('${inv.id}');switchTab('current');" style="${style}" title="${isEn2?'Position':'仓位'}: ${w}">${inv.name}${inv.reportQuarter?` <small>${aiEscape(inv.reportQuarter)}</small>`:''}${cb} <span style="color:#d4a853;font-size:.55rem;font-weight:700;">${w}</span></button>`;
+      const action=/^[a-z][a-z0-9_]{0,30}$/.test(inv.id || '')?`onclick="switchInvestor('${inv.id}');switchTab('current');"`:'';
+      return `<button type="button" ${action} style="${style}" title="${isEn2?'Position':'仓位'}: ${w}">${hkEscape(inv.name)}${inv.reportQuarter?` <small>${aiEscape(inv.reportQuarter)}</small>`:''}${cb} <span style="color:#d4a853;font-size:.55rem;font-weight:700;">${w}</span></button>`;
     };
     const invBadges = c.investors.map(inv => mkBadge(inv, false)).join(' ');
     const invBadgesCompact = c.investors.map(inv => mkBadge(inv, true)).join(' ');
@@ -2126,7 +2135,7 @@ async function renderHomework() {
       <td class="idx-cell"><span class="idx-num">${i+1}</span></td>
       <td class="stock-cell">
         <span class="ticker-line">${fmtTicker(c.ticker)}</span>
-        <span class="name-line">${cn(c.name, c)}</span>
+        <span class="name-line">${hkEscape(cn(c.name, c))}</span>
         <span class="sector-badge">${ts(c.sector)}</span>
         ${rowChgTag}
         <div class="hw-inv-mobile" style="display:none;">${invMobileHtml}</div>
@@ -2249,6 +2258,7 @@ function updateInvestorContent() {
   const cfg = INVESTOR_CFG_BY_ID[investor];
   if (!cfg?.profile) return;
   const p = cfg.profile, en = lang === 'en', name = en ? cfg.nameEn : cfg.name;
+  window.InvestorBookplates?.select(investor,en);
   const text = (zh, english) => en ? english : zh;
   const setText = (selector, value) => { const el = document.querySelector(selector); if (el) el.textContent = value; };
   const setHTML = (selector, value) => { const el = document.querySelector(selector); if (el) el.innerHTML = value; };
@@ -2269,7 +2279,7 @@ function updateInvestorContent() {
   setText('#readLabel', 'Sources');
   setText('#readTitle', text('原始资料与延伸阅读', 'Primary Sources & Further Reading'));
   setText('[data-i18n="navAbout"]', text(`关于${cfg.name}`, `About ${cfg.nameEn}`));
-  const sourceURL = cfg.cik ? `https://www.sec.gov/edgar/browse/?CIK=${cfg.cik}&owner=exclude` : 'https://di.hkex.com.hk/di/NSAllFormList.aspx';
+  const sourceURL = cfg.cik ? `https://www.sec.gov/edgar/browse/?CIK=${encodeURIComponent(cfg.cik)}&owner=exclude` : 'https://di.hkex.com.hk/di/NSAllFormList.aspx';
   setHTML('.ref-text', p.about.map(paragraph => `<p>${hkEscape(profileText(paragraph))}</p>`).join('') + `<p style="font-size:.75rem;color:var(--text-lighter);">${text('资料核对日期', 'Profile reviewed')}: ${hkEscape(p.reviewedAt)} · <a href="${sourceURL}" target="_blank" rel="noopener noreferrer">${text('原始申报','Original filing')}</a></p>`);
   const timeline = [...p.timeline];
   setHTML('.ref-grid .timeline', `<h3 class="timeline-heading">${text('经历与重要节点','Career & important milestones')}</h3>` + timeline.map(item => `<div class="tl-item"><div class="tl-year">${hkEscape(item.date)}</div><div class="tl-text">${hkEscape(profileText(item.text))}</div>${/^https:\/\//.test(item.source || '')?`<a class="timeline-source" href="${hkEscape(item.source)}" target="_blank" rel="noopener noreferrer">${text(item.source.includes('alpha-file.com')?'信件转载 ↗':'查看来源 ↗',item.source.includes('alpha-file.com')?'Letter transcript ↗':'Source ↗')}</a>`:''}</div>`).join(''));

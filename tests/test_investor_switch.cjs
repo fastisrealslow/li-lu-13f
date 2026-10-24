@@ -163,6 +163,19 @@ test('failed selection preserves the prior investor, holdings, and prices', asyn
   assert.match(a.element('dataSource').textContent, /加载失败/);
 });
 
+test('a malformed numeric filing field cannot replace the visible investor or prices', async () => {
+  const a=app();await a.run('loadInvestorConfig()');await a.run("switchInvestor('lilu')");
+  const expected=a.run('JSON.stringify({data,prices})'),fetchFile=a.context.fetch;
+  a.context.fetch=async(url,opts)=>{
+    const response=await fetchFile(url,opts);
+    if(!url.startsWith('buffett.json'))return response;
+    const snapshot=await response.json();snapshot.current.holdings[0].shares='<img src=x onerror=alert(1)>';
+    return {ok:true,json:async()=>snapshot};
+  };
+  assert.equal(await a.run("switchInvestor('buffett')"),false);
+  assert.equal(a.run('investor'),'lilu');assert.equal(a.run('JSON.stringify({data,prices})'),expected);
+});
+
 test('aborted refresh releases button and retains the displayed holdings', async () => {
   const a = app();
   await a.run('loadInvestorConfig()');

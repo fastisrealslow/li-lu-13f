@@ -22,9 +22,9 @@ body.personal-research .appearance-toggle{color:#f4f5f6;border-color:#ffffff70}
 
 html[data-appearance=almanac]{
   --navy:#382b23;--navy-dark:#30241e;--navy-light:#5d4735;
-  --brand-blue:#78333b;--gold:#795329;--gold-light:#aa8551;
+  --brand-blue:var(--identity-ink,#78333b);--gold:#795329;--gold-light:#aa8551;
   --bg:#efe2c8;--white:#fbf4e5;--cream:#ecddbf;
-  --surface-soft:#ead8b5;--surface-sage:#e8e7d3;--accent-soft:#ecdbc1;
+  --surface-soft:#ead8b5;--surface-sage:var(--identity-wash,#e8e7d3);--accent-soft:var(--identity-wash,#ecdbc1);
   --text:#3c3027;--ink:#3c3027;--text-light:#655344;--text-secondary:#655344;
   --text-lighter:#715e4e;--muted:#655344;--border:#bca17b;--border-light:#d9c5a4;
   --serif:Baskerville,'Palatino Linotype','Songti SC','STSong',Georgia,serif;
@@ -39,7 +39,9 @@ html[data-appearance=almanac] .hero-top>div:first-child{grid-area:title}
 html[data-appearance=almanac] .hero-title{color:var(--brand-blue);font-weight:600;letter-spacing:.02em}
 html[data-appearance=almanac] .hero-eyebrow{color:var(--gold);letter-spacing:3px}
 html[data-appearance=almanac] .hero-actions{grid-area:actions;justify-content:flex-start;max-width:none}
-html[data-appearance=almanac] .almanac-vignette{display:block;grid-area:vignette;align-self:center;width:220px;height:220px;margin:0;background:url('assets/almanac/owl-reading.png') center/contain no-repeat}
+html[data-appearance=almanac] .almanac-vignette{display:flex;flex-direction:column;justify-content:center;grid-area:vignette;align-self:center;width:220px;min-height:220px;height:auto;margin:0;background:none}
+html[data-appearance=almanac] .almanac-vignette img{display:block;width:100%;height:auto;aspect-ratio:240/200;object-fit:contain}
+html[data-appearance=almanac] .almanac-vignette figcaption{text-align:center;color:var(--brand-blue);font:italic .84rem/1.6 var(--serif);margin-top:4px;overflow-wrap:anywhere}
 html[data-appearance=almanac] :is(.hero-meta,.data-source-tag){font-family:var(--sans)}
 html[data-appearance=almanac] .data-wrap{background:transparent}
 html[data-appearance=almanac] :is(#summaryCards,.table-wrap,.chart-wrap){border-radius:0;border-color:var(--border);background-color:var(--white)}
@@ -79,11 +81,12 @@ html[data-appearance=almanac] body.personal-research .nav-hamburger span{backgro
 @media(max-width:768px){
   html[data-appearance=almanac] .hero{padding-top:102px}
   html[data-appearance=almanac] .hero-top{grid-template-columns:minmax(0,1fr) 132px;gap:18px}
-  html[data-appearance=almanac] .almanac-vignette{width:132px;height:156px}
+  html[data-appearance=almanac] .almanac-vignette{width:132px;min-height:156px}
 }
 @media(max-width:640px){
   html[data-appearance=almanac] .hero-top{grid-template-columns:minmax(0,1fr) 82px;grid-template-areas:'title vignette' 'actions actions';gap:20px 10px}
-  html[data-appearance=almanac] .almanac-vignette{width:82px;height:110px}
+  html[data-appearance=almanac] .almanac-vignette{width:82px;min-height:110px}
+  html[data-appearance=almanac] .almanac-vignette figcaption{font-size:.62rem;line-height:1.6}
   html[data-appearance=almanac] .hero-eyebrow{font-size:.6rem;letter-spacing:1.6px}
   html[data-appearance=almanac] .hero-title{font-size:1.65rem;line-height:1.45}
   html[data-appearance=almanac] .hero-title .sub{font-size:.72rem}

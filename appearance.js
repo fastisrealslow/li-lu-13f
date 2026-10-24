@@ -24,6 +24,7 @@
     doc.documentElement.setAttribute('data-appearance', theme);
     if (persist) { try { win.localStorage.setItem(KEY, theme); } catch (_) { /* Still usable when storage is blocked. */ } }
     refresh();
+    win.InvestorBookplates?.refresh();
     doc.querySelectorAll('iframe').forEach(send);
     return theme;
   }

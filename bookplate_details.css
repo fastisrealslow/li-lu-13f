@@ -1,0 +1,29 @@
+/* Chapter details differ by investor; the common almanac typography remains. */
+html[data-appearance=almanac][data-investor] .hero{position:relative}
+html[data-appearance=almanac][data-investor] .hero::after{content:'';position:absolute;inset:0;pointer-events:none;opacity:.09;z-index:0}
+html[data-appearance=almanac][data-bookplate-finish=map] .hero::after{background:repeating-radial-gradient(ellipse at 88% 120%,transparent 0 18px,#31594d 19px,transparent 20px 33px)}
+html[data-appearance=almanac][data-bookplate-finish=tides] .hero::after{background:repeating-radial-gradient(ellipse at 100% -40%,transparent 0 23px,#344f68 24px,transparent 25px 40px)}
+html[data-appearance=almanac][data-bookplate-finish=ledger] .hero::after{background:repeating-linear-gradient(0deg,transparent 0 29px,#285e68 30px,transparent 31px 32px)}
+html[data-appearance=almanac][data-bookplate-finish=blueprint] .hero::after{background-image:linear-gradient(#3a4c79 1px,transparent 1px),linear-gradient(90deg,#3a4c79 1px,transparent 1px);background-size:30px 30px}
+html[data-appearance=almanac][data-bookplate-finish=coins] .almanac-vignette{border-bottom:3px double var(--border);padding-bottom:10px;transform:rotate(-2deg)}
+html[data-appearance=almanac][data-bookplate-finish=seal] .almanac-vignette{border:1px solid var(--border);padding:7px;outline:1px solid var(--border);outline-offset:4px}
+html[data-appearance=almanac][data-bookplate-finish=botanical] .almanac-vignette{border-radius:50% 50% 4px 4px;background:var(--identity-wash)}
+html[data-appearance=almanac][data-bookplate-finish=joinery] .almanac-vignette figcaption{border-top:3px double var(--border);padding-top:8px}
+html[data-appearance=almanac][data-bookplate-finish=pruning] .almanac-vignette{border-left:2px solid var(--brand-blue);padding-left:10px}
+html[data-appearance=almanac][data-bookplate-finish=margin] .almanac-vignette{border:3px double var(--border);padding:12px;box-shadow:0 0 0 7px var(--white)}
+html[data-appearance=almanac][data-bookplate-finish=study] .almanac-vignette{background:radial-gradient(ellipse at 50% 60%,#f9edcf,transparent 70%)}
+html[data-appearance=almanac][data-bookplate-finish=copper] .almanac-vignette{border-top:3px double var(--border);border-bottom:3px double var(--border);padding:7px 0}
+html[data-appearance=almanac][data-bookplate-finish=survey] .almanac-vignette{border-left:1px solid var(--border);border-right:1px solid var(--border);padding:0 7px}
+html[data-appearance=almanac][data-bookplate-finish=partner] .almanac-vignette{border-radius:50%;background:radial-gradient(ellipse at center,var(--identity-wash),transparent 72%)}
+html[data-appearance=almanac][data-investor] #philosophySignature{border-left:3px solid var(--brand-blue);padding-left:20px}
+html[data-appearance=almanac][data-bookplate-finish=margin] #philosophySignature{border:3px double var(--border);padding:18px}
+html[data-appearance=almanac][data-bookplate-finish=ledger] .archive-reader{border-top-style:solid;border-top-width:1px}
+html[data-appearance=almanac][data-bookplate-finish=blueprint] .archive-reader{border-top-style:dashed;border-top-width:1px}
+html[data-appearance=almanac][data-bookplate-finish=study] .archive-reader{border-top-style:solid;border-top-width:1px;border-top-color:var(--brand-blue)}
+@media(prefers-reduced-motion:no-preference){
+ html[data-appearance=almanac] .almanac-vignette img{animation:bookplate-enter .25s ease-out both}
+ @keyframes bookplate-enter{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
+}
+@media(max-width:640px){
+ html[data-appearance=almanac][data-bookplate-finish=margin] .almanac-vignette{padding:4px;box-shadow:0 0 0 3px var(--white)}
+}

@@ -7,8 +7,12 @@
   const title=w=>mode==='en'?w.title.en:w.title.zh;
   const explained=w=>{const e=explanationIndex.entries?.[w.id];return e&&e.reviewStatus==='verified'&&e.sourceBasis!=='description'&&e.catalogDate===w.date&&e.catalogTitle===w.title.en;};
   const ready=w=>w.fullTextStatus==='ready'&&/^archive\/texts\/[a-z0-9_-]+\.json$/.test(w.fullTextFile||'');
-  function updateURL(){const u=new URL(location.href);u.searchParams.set('investor',selected);if(active)u.searchParams.set('work',active.id);history.replaceState(null,'',u);}
+  function externalURL(value){
+    try{const u=new URL(value);return ['https:','http:'].includes(u.protocol) && !u.username && !u.password && !/[\u0000-\u0020]/.test(value)?u.href:null;}catch(_){return null;}
+  }
+  function updateURL(){const u=new URL(location.href);u.searchParams.set('investor',selected);if(active)u.searchParams.set('work',active.id);else u.searchParams.delete('work');history.replaceState(null,'',u);}
   function updateControls(){
+    window.InvestorBookplates?.select(selected,mode==='en');
     $('archiveBack').href=`index.html?investor=${encodeURIComponent(selected)}#readings`;
     $('archiveBack').textContent=tr('← 返回投资人资料','← Investor profile');
     Array.from($('archiveInvestor').options).forEach(o=>{const p=people.find(p=>p.id===o.value);o.textContent=mode==='en'?p.nameEn:p.name;});
@@ -42,9 +46,9 @@
     const views=`<div class="archive-reading-view" role="group"><button type="button" data-view="explanation" aria-pressed="${view==='explanation'}">${tr('作品导读','Reading guide')}</button><button type="button" data-view="original" aria-pressed="${view==='original'}">${tr('原文与逐句译稿','Original and literal translation')}</button></div>`;
     if(view==='explanation'){
       const note=currentExplanation;
-      const written=note?.materialURL&&active.sources.find(s=>s.url===note.materialURL);
-      const writtenLink=written?` · <a href="${esc(written.url)}" target="_blank" rel="noopener noreferrer">${esc(tr(written.label.zh,written.label.en))} ↗</a>`:'';
-      const content=note?`<p class="archive-ai-label">${esc(tr(note.label.zh,note.label.en))} ${note.sourceBasis==='description'?tr(' · 节目说明',' · Programme notes'):''}</p>${renderPair(note.sourceSummary)}${renderSections(note.sections)}<p class="archive-work-meta">${tr('依据材料','Source')}：<a href="${esc(note.sourceURL)}" target="_blank" rel="noopener noreferrer">${esc(active.publisher)} ↗</a>${writtenLink} · ${tr('生成日期','Generated')} ${esc(note.generatedAt.slice(0,10))}</p>`:`<p class="archive-text-unavailable">${tr('来源已收录，作品导读待完成。','The source is catalogued; its reading guide is pending.')}</p>`;
+      const written=note?.materialURL&&active.sources.find(s=>s.url===note.materialURL && externalURL(s.url));
+      const writtenLink=written?` · <a href="${esc(externalURL(written.url))}" target="_blank" rel="noopener noreferrer">${esc(tr(written.label.zh,written.label.en))} ↗</a>`:'';
+      const content=note?`<p class="archive-ai-label">${esc(tr(note.label.zh,note.label.en))} ${note.sourceBasis==='description'?tr(' · 节目说明',' · Programme notes'):''}</p>${renderPair(note.sourceSummary)}${renderSections(note.sections)}<p class="archive-work-meta">${tr('依据材料','Source')}：<a href="${esc(externalURL(note.sourceURL))}" target="_blank" rel="noopener noreferrer">${esc(active.publisher)} ↗</a>${writtenLink} · ${tr('生成日期','Generated')} ${esc(note.generatedAt.slice(0,10))}</p>`:`<p class="archive-text-unavailable">${tr('来源已收录，作品导读待完成。','The source is catalogued; its reading guide is pending.')}</p>`;
       $('archiveReader').innerHTML=`<h1>${esc(title(active))}</h1><p class="archive-work-meta">${esc(active.date || '')} · ${esc(active.publisher)}</p>${views}${controls}${content}`;return;
     }
     const body=currentText?currentText.segments.map(s=>mode==='bilingual'?`<div class="archive-text-pair" data-sentence="${esc(s.id)}"><p lang="zh-CN">${esc(s.zh)}</p><p lang="en" class="archive-en">${esc(s.en)}</p></div>`:`<p class="archive-text-line" lang="${mode==='en'?'en':'zh-CN'}" data-sentence="${esc(s.id)}">${esc(s[mode==='en'?'en':'zh'])}</p>`).join(''):`<p class="archive-text-unavailable" role="status">${esc(tr('尚未收录可展示的完整原文与逐句译稿。AI 详细介绍单独标注，不作为原文。','No complete original and sentence-aligned translation is available. The AI introduction is labelled separately.'))}</p>`;
@@ -54,7 +58,7 @@
   function renderSections(sections){return sections.map(s=>`<section class="archive-explanation-section"><h2>${esc(tr(s.heading.zh,s.heading.en))}</h2>${s.paragraphs.map(renderPair).join('')}</section>`).join('');}
   function validExplanation(note,w,entry){
     if(note.inputHash!==entry.inputHash || (entry.sourceDigest && note.sourceDigest!==entry.sourceDigest))throw Error('Introduction differs from approved index');
-    if((note.version>=4&&note.sourceBasis==='description')||(note.version>=3&&note.reviewVersion!==1)||note.kind!=='ai_explanation'||note.workId!==w.id||note.catalogDate!==w.date||note.catalogTitle!==w.title.en||!note.label?.zh||!note.label?.en||!w.sources.some(s=>s.url===note.sourceURL)||!/^[a-f0-9]{64}$/.test(note.sourceDigest||'')||!note.sourceSummary?.zh||!note.sourceSummary?.en||!Array.isArray(note.sections)||note.sections.length<(note.version>=4?2:6))throw Error('Invalid AI introduction');
+    if((note.version>=4&&note.sourceBasis==='description')||(note.version>=3&&note.reviewVersion!==1)||note.kind!=='ai_explanation'||note.workId!==w.id||note.catalogDate!==w.date||note.catalogTitle!==w.title.en||!note.label?.zh||!note.label?.en||(!externalURL(note.sourceURL)||!w.sources.some(s=>s.url===note.sourceURL))||!/^[a-f0-9]{64}$/.test(note.sourceDigest||'')||!note.sourceSummary?.zh||!note.sourceSummary?.en||!Array.isArray(note.sections)||note.sections.length<(note.version>=4?2:6))throw Error('Invalid AI introduction');
     const ids=new Set((note.evidence||[]).map(e=>e.id));
     if(note.sections.some(s=>!s.heading?.zh||!s.heading?.en||!s.paragraphs?.length||s.paragraphs.some(p=>!p.zh||!p.en)||!s.evidenceIds?.length||s.evidenceIds.some(id=>!ids.has(id))))throw Error('Missing source evidence');
     const length=(note.sections.flatMap(s=>s.paragraphs).map(p=>p.zh).join('').match(/[\u4e00-\u9fff]/g)||[]).length;if(note.version<4&&(length<note.minimumChineseCharacters||note.minimumChineseCharacters<1300))throw Error('AI introduction is too short');return note;
