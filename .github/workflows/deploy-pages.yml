@@ -23,7 +23,8 @@ jobs:
     # A skipped workflow_run must not cancel a real deployment in progress.
     concurrency:
       group: pages
-      cancel-in-progress: true
+      # Finish the active publication; coalesce later updates into one pending job.
+      cancel-in-progress: false
     runs-on: ubuntu-latest
     environment:
       name: github-pages
