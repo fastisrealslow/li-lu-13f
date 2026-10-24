@@ -1618,10 +1618,10 @@
       "reason": "ValueError: Bilingual editorial review: The English translation contains a factual error: it misattributes the critique of 'low-priced book approach' and 'margin of safety'"
     },
     "vinall-0316198ffd7198": {
-      "at": "2026-10-23T23:00:50+00:00",
+      "at": "2026-10-24T11:03:20+00:00",
       "status": "retry",
       "inputHash": "b79ed1640cbbc9c0f7dc5a1684a0c5c1e42081f7db0bc64378b2dc60f74efda3",
-      "reason": "ValueError: Bilingual editorial review: The source text (s3) states Rob Vinall felt his trip was '10 years too late' or similar ('something of going there'), but the conten"
+      "reason": "ValueError: Repeated paragraphs cannot pad an explanation"
     },
     "vinall-794ed52da6ee85": {
       "at": "2026-10-24T02:03:32+00:00",
@@ -2403,5 +2403,5 @@
       "reason": "ValueError: English text contains untranslated Chinese"
     }
   },
-  "updatedAt": "2026-10-24T11:03:08+00:00"
+  "updatedAt": "2026-10-24T11:03:20+00:00"
 }
