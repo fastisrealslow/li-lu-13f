@@ -89,8 +89,8 @@
       "status": "ok"
     },
     "history:pabrai": {
-      "at": "2026-10-14T02:43:06.820967+00:00",
-      "sourceHash": "add29d1eb5da8b16064dc8f8234ac203424e1de6ad98dac33fe0293de51628c4",
+      "at": "2026-10-24T09:42:17.142369+00:00",
+      "sourceHash": "9506b422e49a6654e8576184feabcf778927ec646cbad7bb2588ff528a4d8a1d",
       "status": "ok"
     },
     "holdings:duan": {
@@ -120,12 +120,12 @@
       "status": "ok"
     },
     "history:buffett": {
-      "at": "2026-10-17T16:25:13.554000+00:00",
-      "sourceHash": "75875938a2eb1e21659eeab4664b855a9f04035630e4dfe8f925ea1cce342677",
+      "at": "2026-10-24T09:43:46.493455+00:00",
+      "sourceHash": "d639cbc9074cd63affe80f26c6a602e8a00daef5c43d9407a8db89758d897729",
       "status": "ok"
     },
     "holdings:akre": {
-      "at": "2026-10-23T17:55:09.682471+00:00",
+      "at": "2026-10-24T09:48:28.755834+00:00",
       "sourceHash": "0397f97a0e2fed0c2031fe5a20227c748095666d109a778997b87b604e80b14d",
       "status": "failed",
       "error": "Selection omitted a required scope or evidence limitation"
@@ -151,8 +151,8 @@
       "status": "ok"
     },
     "history:klarman": {
-      "at": "2026-10-19T14:39:31.233321+00:00",
-      "sourceHash": "a7f9856a13e72ecdb6a9dd55204f486bb3f586a51b7b53276d4a117a70633ebb",
+      "at": "2026-10-24T09:45:19.098456+00:00",
+      "sourceHash": "ad5d327ff7003e2582659d1f9d02225153a8ad4a6fdb8a9b71b61b65e97fbe54",
       "status": "ok"
     },
     "holdings:ackman": {
@@ -191,7 +191,7 @@
       "status": "ok"
     },
     "history:hawkins": {
-      "at": "2026-10-23T17:53:26.379901+00:00",
+      "at": "2026-10-24T09:46:50.456262+00:00",
       "sourceHash": "b278a5d3716b4ea3c298ef2307c3d9159e99eb3e321f7b16f4903e9f5e5f9010",
       "status": "failed",
       "error": "Selection omitted a required scope or evidence limitation"
@@ -204,6 +204,39 @@
     "history:vinall": {
       "at": "2026-10-12T05:30:06.869153+00:00",
       "sourceHash": "1e7e95e9745b43dc5c9728d508a19dfa6d8ab5aa5d53a014421382cd46e26065",
+      "status": "ok"
+    },
+    "investor:marks": {
+      "at": "2026-10-24T09:31:02.659566+00:00",
+      "sourceHash": "d4da073f1735f3ce68378394d79b1eac3367ad52d8a6303d9fb1a9bfb916927f",
+      "status": "ok"
+    },
+    "holdings:marks": {
+      "at": "2026-10-24T09:33:57.891084+00:00",
+      "sourceHash": "5dad322604d161dfbeebac9f333bf75d7a7fc826ac5622903d1d535c5ba71f55",
+      "status": "failed",
+      "error": "Selection omitted a required scope or evidence limitation"
+    },
+    "history:marks": {
+      "at": "2026-10-24T09:35:19.099342+00:00",
+      "sourceHash": "6cbb7f2e21fa00d1f72756004b89dcd81a98a04ea9074b72d320f9b77fdb32ec",
+      "status": "ok"
+    },
+    "investor:mclemore": {
+      "at": "2026-10-24T09:36:52.022359+00:00",
+      "sourceHash": "23928a0b3e597bb27c0882a40d3961df8f12331a2ad63208a82c9ef3118b5555",
+      "status": "failed",
+      "error": "Selection omitted an available change direction"
+    },
+    "holdings:mclemore": {
+      "at": "2026-10-24T09:39:31.889367+00:00",
+      "sourceHash": "6bd412418c16a40cb1a71802a88e8a3074bfedce1adde5e8a7107427005b34fc",
+      "status": "failed",
+      "error": "Selection omitted a required scope or evidence limitation"
+    },
+    "history:mclemore": {
+      "at": "2026-10-24T09:40:45.400615+00:00",
+      "sourceHash": "a44da7d4a921f5d6583a6138186600f18d3cd5174ffe3ba00d401f4ee5bf3e96",
       "status": "ok"
     }
   },
@@ -14619,11 +14652,14 @@
         ]
       },
       "renderVersion": 4,
-      "mode": "deterministic",
+      "mode": "model_selection",
       "summary": "帕伯莱 · 历史轨迹：可用于市值趋势的记录有 53 个季度，覆盖 2013 Q2 至 2026 Q2。这段历史反映披露范围内证券，不是基金净值曲线。披露市值从 US$421.25M 变为 US$326.75M（变化 -22.4%）。金额同时受价格、买卖、资金流及披露范围影响，不能当作投资回报。当前证券中，冶金煤业（HCC） 已连续出现在 5 个可核实季度披露中（2025 Q2 至 2026 Q2）。这是连续披露记录，不是逐笔持有或交易证明。",
-      "generatedAt": "2026-10-24T09:18:38.334911+00:00",
-      "model": null,
-      "metrics": {}
+      "generatedAt": "2026-10-24T09:43:46.467715+00:00",
+      "model": "qwen3.5:9b-q4_K_M",
+      "metrics": {
+        "seconds": 89.32,
+        "tokens": 26
+      }
     },
     "holdings:duan": {
       "facts": {
@@ -26107,11 +26143,14 @@
         ]
       },
       "renderVersion": 4,
-      "mode": "deterministic",
+      "mode": "model_selection",
       "summary": "巴菲特 · 历史轨迹：可用于市值趋势的记录有 41 个季度，覆盖 2016 Q2 至 2026 Q2。这段历史反映披露范围内证券，不是基金净值曲线。披露市值从 US$129,704.73M 变为 US$299,253.56M（变化 +130.7%）。金额同时受价格、买卖、资金流及披露范围影响，不能当作投资回报。当前证券中，苹果（AAPL） 已连续出现在 41 个可核实季度披露中（2016 Q2 至 2026 Q2）。这是连续披露记录，不是逐笔持有或交易证明。",
-      "generatedAt": "2026-10-24T09:18:38.338179+00:00",
-      "model": null,
-      "metrics": {}
+      "generatedAt": "2026-10-24T09:45:19.069748+00:00",
+      "model": "qwen3.5:9b-q4_K_M",
+      "metrics": {
+        "seconds": 92.57,
+        "tokens": 26
+      }
     },
     "holdings:akre": {
       "facts": {
@@ -26489,7 +26528,7 @@
       "renderVersion": 4,
       "mode": "deterministic",
       "summary": "查克·阿克瑞 · 持仓结构：本次披露 20 项证券：普通股 19 项、CALL 1 项。不同股份类别和期权分别计数。最大单项证券是 万事达卡（MA），申报值 US$1,022.02M，占本次披露 20.0%。期权共 1 项。13F 中期权申报值对应标的证券价值，不能当作期权权利金，也不能仅凭 PUT/CALL 判断完整对冲策略。",
-      "generatedAt": "2026-10-24T09:03:38.258384+00:00",
+      "generatedAt": "2026-10-24T09:49:40.481750+00:00",
       "model": null,
       "metrics": {}
     },
@@ -38228,16 +38267,18 @@
         ],
         "topicIds": [
           "t0",
-          "t1",
-          "t2"
+          "t1"
         ]
       },
       "renderVersion": 4,
-      "mode": "deterministic",
+      "mode": "model_selection",
       "summary": "塞斯·克拉曼 · 历史轨迹：可用于市值趋势的记录有 53 个季度，覆盖 2013 Q2 至 2026 Q2。这段历史反映披露范围内证券，不是基金净值曲线。披露市值从 US$4,021.92M 变为 US$5,415.85M（变化 +34.7%）。金额同时受价格、买卖、资金流及披露范围影响，不能当作投资回报。当前证券中，谷歌C（GOOG） 已连续出现在 26 个可核实季度披露中（2020 Q1 至 2026 Q2）。这是连续披露记录，不是逐笔持有或交易证明。",
-      "generatedAt": "2026-10-24T09:18:38.340589+00:00",
-      "model": null,
-      "metrics": {}
+      "generatedAt": "2026-10-24T09:46:50.424452+00:00",
+      "model": "qwen3.5:9b-q4_K_M",
+      "metrics": {
+        "seconds": 91.32,
+        "tokens": 23
+      }
     },
     "holdings:ackman": {
       "facts": {
@@ -50901,7 +50942,7 @@
       "renderVersion": 4,
       "mode": "deterministic",
       "summary": "梅森·霍金斯 · 历史轨迹：可用于市值趋势的记录有 52 个季度，覆盖 2013 Q2 至 2026 Q2。这段历史反映披露范围内证券，不是基金净值曲线。披露市值从 US$20,348.22M 变为 US$1,917.15M（变化 -90.6%）。金额同时受价格、买卖、资金流及披露范围影响，不能当作投资回报。缺少或排除的市值季度：2024 Q3。不填零、不推断清仓，也不跨缺口计算季度变化。",
-      "generatedAt": "2026-10-24T09:03:07.787203+00:00",
+      "generatedAt": "2026-10-24T09:48:28.720789+00:00",
       "model": null,
       "metrics": {}
     },
@@ -56984,8 +57025,8 @@
           "f0",
           "f1",
           "f2",
-          "f3",
-          "f7"
+          "f7",
+          "f11"
         ],
         "topicIds": [
           "t0",
@@ -56994,11 +57035,14 @@
         ]
       },
       "renderVersion": 4,
-      "mode": "deterministic",
-      "summary": "霍华德·马克思 2026 Q2（按披露股数比较）：新建仓40项、增持51项、减持33项、清仓42项、不变21项、待比较0项。重点（非完整名单）：STATE STREET CORP（SPY PUT）：新建仓；TORM PLC（TRMD）：减持14.7%；INVESCO QQQ TRUST SERIES 1（QQQ PUT）：增持55.3%；ANGLOGOLD ASHANTI PLC（AU）：减持1.4%；STATE STREET SPDR S&P OIL & GAS EXPLORATION & PRODUCTION ETF（XOP PUT）：清仓。",
-      "generatedAt": "2026-10-24T09:18:38.343992+00:00",
-      "model": null,
-      "metrics": {}
+      "mode": "model_selection",
+      "summary": "霍华德·马克思 2026 Q2（按披露股数比较）：新建仓40项、增持51项、减持33项、清仓42项、不变21项、待比较0项。重点（非完整名单）：STATE STREET CORP（SPY PUT）：新建仓；TORM PLC（TRMD）：减持14.7%；INVESCO QQQ TRUST SERIES 1（QQQ PUT）：增持55.3%；STATE STREET SPDR S&P OIL & GAS EXPLORATION & PRODUCTION ETF（XOP PUT）：清仓；PETROLEO BRASILEIRO SA - PETROBRAS：清仓。",
+      "generatedAt": "2026-10-24T09:33:57.887099+00:00",
+      "model": "qwen3.5:9b-q4_K_M",
+      "metrics": {
+        "seconds": 175.17,
+        "tokens": 33
+      }
     },
     "holdings:marks": {
       "facts": {
@@ -58876,7 +58920,7 @@
       "renderVersion": 4,
       "mode": "deterministic",
       "summary": "霍华德·马克思 · 持仓结构：本次披露 145 项证券：普通股 49 项、CALL 3 项、PUT 4 项、本金类证券 87 项、认股权证 2 项。不同股份类别和期权分别计数。最大单项证券是 STATE STREET CORP（SPY PUT），申报值 US$1,011.87M，占本次披露 14.0%。期权共 7 项。13F 中期权申报值对应标的证券价值，不能当作期权权利金，也不能仅凭 PUT/CALL 判断完整对冲策略。",
-      "generatedAt": "2026-10-24T09:18:38.344343+00:00",
+      "generatedAt": "2026-10-24T09:35:19.091629+00:00",
       "model": null,
       "metrics": {}
     },
@@ -79528,11 +79572,14 @@
         ]
       },
       "renderVersion": 4,
-      "mode": "deterministic",
+      "mode": "model_selection",
       "summary": "霍华德·马克思 · 历史轨迹：可用于市值趋势的记录有 53 个季度，覆盖 2013 Q2 至 2026 Q2。这段历史反映披露范围内证券，不是基金净值曲线。披露市值从 US$4,922.26M 变为 US$7,206.07M（变化 +46.4%）。金额同时受价格、买卖、资金流及披露范围影响，不能当作投资回报。当前证券中，MAGNACHIP SEMICONDUCTOR CORP（MX） 已连续出现在 38 个可核实季度披露中（2017 Q1 至 2026 Q2）。这是连续披露记录，不是逐笔持有或交易证明。",
-      "generatedAt": "2026-10-24T09:18:38.344592+00:00",
-      "model": null,
-      "metrics": {}
+      "generatedAt": "2026-10-24T09:36:52.002520+00:00",
+      "model": "qwen3.5:9b-q4_K_M",
+      "metrics": {
+        "seconds": 92.9,
+        "tokens": 26
+      }
     },
     "investor:mclemore": {
       "facts": {
@@ -80975,7 +81022,7 @@
       "renderVersion": 4,
       "mode": "deterministic",
       "summary": "萨曼莎·麦克勒莫尔 2026 Q2（按披露股数比较）：新建仓2项、增持12项、减持24项、清仓2项、不变2项、待比较0项。重点（非完整名单）：ROYALTY PHARMA PLC（RPRX）：减持1.2%；CITIGROUP INC（C）：减持0.7%；UNITEDHEALTH GROUP INC（UNH）：增持0.1%；GLOBAL PMTS INC（GPN）：新建仓；ISHARES BITCOIN TRUST ETF：清仓。",
-      "generatedAt": "2026-10-24T09:18:38.344982+00:00",
+      "generatedAt": "2026-10-24T09:39:31.868184+00:00",
       "model": null,
       "metrics": {}
     },
@@ -81595,7 +81642,7 @@
       "renderVersion": 4,
       "mode": "deterministic",
       "summary": "萨曼莎·麦克勒莫尔 · 持仓结构：本次披露 40 项证券：普通股 39 项、CALL 1 项。不同股份类别和期权分别计数。最大单项证券是 ROYALTY PHARMA PLC（RPRX），申报值 US$201.79M，占本次披露 6.6%。期权共 1 项。13F 中期权申报值对应标的证券价值，不能当作期权权利金，也不能仅凭 PUT/CALL 判断完整对冲策略。",
-      "generatedAt": "2026-10-24T09:18:38.345169+00:00",
+      "generatedAt": "2026-10-24T09:40:45.379514+00:00",
       "model": null,
       "metrics": {}
     },
@@ -85129,24 +85176,27 @@
         ]
       },
       "renderVersion": 4,
-      "mode": "deterministic",
+      "mode": "model_selection",
       "summary": "萨曼莎·麦克勒莫尔 · 历史轨迹：可用于市值趋势的记录有 19 个季度，覆盖 2021 Q4 至 2026 Q2。这段历史反映披露范围内证券，不是基金净值曲线。披露市值从 US$346.95M 变为 US$3,050.48M（变化 +779.2%）。金额同时受价格、买卖、资金流及披露范围影响，不能当作投资回报。当前证券中，ALPHABET INC（GOOGL） 已连续出现在 19 个可核实季度披露中（2021 Q4 至 2026 Q2）。这是连续披露记录，不是逐笔持有或交易证明。",
-      "generatedAt": "2026-10-24T09:18:38.345479+00:00",
-      "model": null,
-      "metrics": {}
+      "generatedAt": "2026-10-24T09:42:17.117782+00:00",
+      "model": "qwen3.5:9b-q4_K_M",
+      "metrics": {
+        "seconds": 91.71,
+        "tokens": 26
+      }
     }
   },
   "lastRun": {
-    "startedAt": "2026-10-24T02:27:26.711163+00:00",
+    "startedAt": "2026-10-24T09:31:02.659539+00:00",
     "model": "qwen3.5:9b-q4_K_M",
-    "pendingBefore": 7,
-    "cached": 33,
-    "finishedAt": "2026-10-24T02:30:39.701914+00:00",
-    "pendingAfter": 16,
-    "accepted": 1,
-    "fallback": 3,
+    "pendingBefore": 16,
+    "cached": 30,
+    "finishedAt": "2026-10-24T09:49:40.517885+00:00",
+    "pendingAfter": 10,
+    "accepted": 6,
+    "fallback": 5,
     "rejected": 0,
-    "failed": 3
+    "failed": 5
   },
   "schemaVersion": 2,
   "fallbackRefresh": {
