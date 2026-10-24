@@ -17,7 +17,7 @@
     const panel=(heading,lead,detail='')=>`<div class="scope-heading"><h3>${escape(heading)}</h3></div><p>${escape(lead)}</p>${detail?`<p>${escape(detail)}</p>`:''}`;
     if(section==='summary'){
       set('metaRow',`${escape(text('资料核对','Sources checked'))} <strong>${escape(data.meta.lastUpdated?.slice(0,10))}</strong> · ${link(data.meta.projectSource,text('Lux 官方人物页','Official Lux profile'))} · ${link('https://www.sec.gov/edgar/browse/?CIK='+config.cik+'&owner=exclude','SEC EDGAR')}`);
-      const stats=[[projects.length,text('官方投资关联','Official project associations'),text('人物页明确提及','Named in the official profile')],[filings.length,text('权益披露文件','Ownership filings'),text('13D / 13G，含修订','13D / 13G, including amendments')],[latest?.filingDate||'—',text('最近权益申报','Latest ownership filing'),latest?.issuer||''],[snapshots.at(-1)?.observedAt.slice(0,10)||'—',text('项目目录核对','Project snapshot observed'),text('不是买卖发生日期','Not a transaction date')]];
+      const stats=[[projects.length,text('官方投资关联','Official project associations'),text('人物页明确提及','Named in the official profile')],[filings.length,text('权益披露文件','Ownership filings'),text('13D / 13G，含修订','13D / 13G, including amendments')],[latest?.filingDate||'—',text('最近权益申报','Latest ownership filing'),latest?.issuer||''],[data.meta.lastUpdated?.slice(0,10)||'—',text('目录核对日期','Project directory checked'),text('不是买卖发生日期','Not a transaction date')]];
       set('summaryCards',stats.map(([n,label,detail])=>`<div class="stat-item"><div class="stat-primary"><span class="stat-num public-stat">${escape(n)}</span></div><span class="stat-desc">${escape(label)}<small>${escape(detail)}</small></span></div>`).join(''));
     }else if(section==='holdings'){
       doc.getElementById('mosSummary')?.remove();
