@@ -24,6 +24,51 @@ class NewInvestors(unittest.TestCase):
             self.assertGreaterEqual(len(p['timeline']),8)
             self.assertTrue(all(x.get('source','').startswith('https://') for x in p['timeline']))
 
+    def test_a_repeated_raw_unit_filing_is_normalized_before_price_and_cost_calculation(self):
+        import copy, contextlib, io, os, subprocess
+        from datetime import datetime, timezone
+        import audit_13f_history as audit
+        import fetch_prices_all as pricing
+        from validate_data import validate_history
+        normalized=[dict(ticker=t,cusip=t,name=t,cls='COM',shares=1000,value=100000,putCall='',shareType='SH') for t in ['AAA','BBB','CCC']]
+        raw=[{**h,'value':100} for h in normalized]
+        proof=dict(version=audit.VERSION,status='verified',factor=1000,sourceHash=audit.digest(raw),normalizedHash=audit.digest(normalized),checkedAt=datetime.now(timezone.utc).date().isoformat(),source='https://www.sec.gov/Archives/unit-proof.xml',anchors=[dict(ticker=h['ticker'],currency='USD',candidates=[1000]) for h in raw])
+        with tempfile.TemporaryDirectory() as tmp:
+            path=Path(tmp)/'data.json';prices=Path(tmp)/'prices.json'
+            data=dict(meta={},current=dict(quarter='2026 Q1',holdings=normalized,totalValue=300000),history=dict(quarters=['2026 Q1'],values=[.3],holdings={'2026 Q1':normalized},valueAudit={'2026 Q1':proof}))
+            path.write_text(json.dumps(data))
+            def runner(args,**kwargs):
+                script=args[2]
+                if script=='fetch_13f_all.py':
+                    d=json.loads(path.read_text());d['current']['holdings']=copy.deepcopy(raw);d['current']['totalValue']=300;d['history']['holdings']['2026 Q1']=copy.deepcopy(raw);d['history']['values']=[.0003];path.write_text(json.dumps(d))
+                elif script=='audit_13f_history.py':
+                    audit.audit_investor('test',dict(path=str(path),cik='1'),0)
+                elif script=='fetch_prices_all.py':
+                    d=json.loads(path.read_text());validate_history(d['history'])
+                    with patch.object(pricing,'finnhub',return_value=dict(c=100,h=100,l=100,o=100,pc=100,t=1)),patch.object(pricing,'yahoo_chart',return_value=None),patch.object(pricing.time,'sleep'):
+                        pricing.fetch_us('test',dict(data=str(path),prices=str(prices)))
+                return subprocess.CompletedProcess(args,0)
+            with patch.dict(os.environ,{'TRACK_RUN_STATUS':'0'}),contextlib.redirect_stdout(io.StringIO()):
+                failed=update_investors.run([dict(id='test',name='Test',source13F=True)],runner)
+            self.assertEqual(failed,[])
+            self.assertEqual(json.loads(prices.read_text())['costBasis']['AAA']['recent']['buy'],100)
+            self.assertEqual(json.loads(path.read_text())['current']['totalValue'],300000)
+
+    def test_failed_unit_audit_cannot_overwrite_the_previous_price_snapshot(self):
+        import os,subprocess
+        attempted=[]
+        with tempfile.TemporaryDirectory() as tmp:
+            prices=Path(tmp)/'prices.json';prices.write_text('previous verified prices')
+            def runner(args,**kwargs):
+                attempted.append(args[2])
+                if args[2]=='fetch_prices_all.py':prices.write_text('invalid replacement')
+                return subprocess.CompletedProcess(args,1 if args[2]=='audit_13f_history.py' else 0)
+            with patch.dict(os.environ,{'TRACK_RUN_STATUS':'0'}):
+                failed=update_investors.run([dict(id='test',name='Test',source13F=True)],runner)
+            self.assertEqual(failed,['test_audit'])
+            self.assertNotIn('fetch_prices_all.py',attempted)
+            self.assertEqual(prices.read_text(),'previous verified prices')
+
     def test_project_discovery_excludes_navigation_and_rejects_changed_attribution(self):
         html='<a href="https://unrelated.test">Another company</a><p>Lux was the first investor in companies including '+', '.join(f'<a href="https://company{i}.test">Company {i}</a>' for i in range(9))+'</p>'
         result=projects.project_links(html.encode(),'https://www.luxcapital.com/people/josh-wolfe')

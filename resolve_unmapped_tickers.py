@@ -46,11 +46,11 @@ BATCH_SIZE = 10          # OpenFIGI 无 key 时单请求最多 10 个 job
 RATE_LIMIT_SLEEP = 2.6   # 无 key 限流 25 请求/分钟，留余量
 
 
-def load_investor_data_files():
+def load_investor_data_files(investor=None):
     """从 investors.json 读取所有投资者的数据文件路径（单一权威来源）。"""
     with open(os.path.join(BASE, "investors.json"), encoding="utf-8") as f:
         investors = json.load(f)["investors"]
-    return [os.path.join(BASE, inv["dataFile"]) for inv in investors if inv.get("dataFile")]
+    return [os.path.join(BASE, inv["dataFile"]) for inv in investors if inv.get("dataFile") and (investor is None or inv['id']==investor)]
 
 
 def load_resolved_map():
@@ -220,7 +220,10 @@ def backfill_data_files(data_files, resolved_map, renames=None):
 def main():
     dry_run = "--dry-run" in sys.argv
 
-    data_files = load_investor_data_files()
+    investor=sys.argv[sys.argv.index('--investor')+1] if '--investor' in sys.argv else None
+    data_files = load_investor_data_files(investor)
+    if not data_files:
+        raise ValueError('Unknown investor: '+str(investor))
     resolved_map = load_resolved_map()
     from fetch_13f_all import CUSIP_TICKER_MAP
     resolved_map.update(CUSIP_TICKER_MAP)

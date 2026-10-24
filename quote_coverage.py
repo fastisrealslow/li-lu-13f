@@ -136,7 +136,7 @@ def refresh(root=ROOT,all_quotes=False,workers=4):
         for h in load(root/inv['dataFile'])['current']['holdings']:
             alias=aliases.get(h.get('cusip'),{})
             costs=files[inv['pricesFile']].get('costBasis',{})
-            if alias.get('ticker')==h['ticker'] and h['ticker'] not in costs:
+            if alias.get('preserveCost',True) and alias.get('ticker')==h['ticker'] and h['ticker'] not in costs:
                 prior=next((costs[old] for old in alias.get('oldSymbols',[]) if old in costs),None)
                 if prior is not None:costs[h['ticker']]=prior
             from security_lifecycle import event_for

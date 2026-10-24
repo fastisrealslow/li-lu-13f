@@ -68,4 +68,15 @@ class QuoteCoverageTests(unittest.TestCase):
             self.assertEqual(json.loads((root/'prices.json').read_text())['costBasis']['CCC'],cost)
             self.assertEqual(json.loads((root/'fund.json').read_text())['current']['holdings'][0]['shares'],10)
 
+    def test_share_class_correction_does_not_copy_the_other_class_cost(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root=Path(tmp);cfg={'id':'test','dataFile':'fund.json','pricesFile':'prices.json'}
+            (root/'investors.json').write_text(json.dumps({'investors':[cfg]}))
+            (root/'fund.json').write_text(json.dumps({'current':{'holdings':[{'ticker':'LBTYK','cusip':'G61188127','shares':10,'value':100}]}}))
+            (root/'prices.json').write_text(json.dumps({'quotes':{'LBTYK':{'c':7,'t':time.time()}},'costBasis':{'LBTYA':{'recent':{'buy':8}}}}))
+            (root/'security_symbol_changes.json').write_text(json.dumps({'entries':{'G61188127':{'ticker':'LBTYK','oldSymbols':['LBTYA'],'preserveCost':False}}}))
+            self.assertEqual(quotes.refresh(root)['missing'],[])
+            self.assertNotIn('LBTYK',json.loads((root/'prices.json').read_text())['costBasis'])
+            self.assertEqual(filings.resolve_ticker('LIBERTY GLOBAL LTD','SHS CL C','G61188127'),'LBTYK')
+
 if __name__=='__main__':unittest.main()
