@@ -328,10 +328,10 @@
       "inputHash": "63f3693c7630856da5bbffe62df644e74756b2463c0aa14641d5f2d555159952"
     },
     "klarman-aec591deef918e": {
-      "at": "2026-10-24T01:29:20+00:00",
+      "at": "2026-10-24T10:25:30+00:00",
       "status": "retry",
       "inputHash": "9e77b936d15cfc19dcd7d66b520d877346df68b08733b68812ba19a316a9ee7f",
-      "reason": "ValueError: Unsupported numerical claim: 2"
+      "reason": "ValueError: English text contains untranslated Chinese"
     },
     "pabrai-c7c47a77315015": {
       "at": "2026-10-18T01:38:43+00:00",
@@ -2185,7 +2185,169 @@
       "status": "retry",
       "inputHash": "f4833c5a3a8a0060239865425e5ffd0a34767708341c443efb6e11554aab46b2",
       "reason": "ValueError: Unsupported numerical claim: 10"
+    },
+    "marks-e1667423e3df2b": {
+      "at": "2026-10-24T10:22:31+00:00",
+      "status": "retry",
+      "inputHash": "09d7b5357b85f87ed103d12dc32bc0d78c7bd00a009eaac0b44d0ad9d3c18f1e",
+      "reason": "JSONDecodeError: Expecting ',' delimiter: line 10 column 396 (char 2856)"
+    },
+    "marks-49e0212382a26b": {
+      "at": "2026-10-24T10:23:34+00:00",
+      "status": "retry",
+      "inputHash": "4fc2cef43c39352d833c1cd958bbd646208f9db9d653a53ea608dfaaeb8f49c5",
+      "reason": "ValueError: Bilingual editorial review: The Chinese text incorrectly attributes Marc Lipsitch's classification to Howard Marks ('He cites...'), whereas the English source ("
+    },
+    "marks-e85898c6125044": {
+      "at": "2026-10-24T10:25:53+00:00",
+      "status": "retry",
+      "inputHash": "8ddf39479f3b32eb95c5a717bb27fcbbe8da22a2185ecb2880c5f9337193b85e",
+      "reason": "ValueError: Bilingual editorial review: The English translation of 'FBI Director James Comey' in the source text (s0) is accurate; however, the Chinese text uses 'FBI  bure"
+    },
+    "marks-31c5c4c7673de3": {
+      "at": "2026-10-24T10:27:30+00:00",
+      "status": "retry",
+      "inputHash": "2dcb37d8dda0ce2c88e9ba3371a7240a64e76cda3d73d48c628ad5c90fa05b6e",
+      "reason": "ValueError: Bilingual editorial review: The source text does not mention 'Nick Train' explicitly in the context of London; it only says 'Nick Train of Lindsell Train in Lon"
+    },
+    "marks-560f70ec2eec1a": {
+      "at": "2026-10-24T10:27:56+00:00",
+      "status": "retry",
+      "inputHash": "460d2bc5e59ac36f88806b90df809036440d9ebbfe62f43a4e956b696641a61c",
+      "reason": "ValueError: Bilingual editorial review: The English translation of the Amazon price progression contains a factual error: it states '$5 on January 1, 1998' whereas the sour"
+    },
+    "marks-f0ad7ce26c845b": {
+      "at": "2026-10-24T10:30:53+00:00",
+      "status": "retry",
+      "inputHash": "7e4c2725d4b84796395ee0aaae68e263ea43e3fab59f5ac691cf8bde91968c71",
+      "reason": "ValueError: Bilingual editorial review: The Chinese translation of 'On the Other Hand' is accurate; no correction needed.; The author name 'Howard Marks' is correctly trans"
+    },
+    "marks-95f37ab6394745": {
+      "at": "2026-10-24T10:31:59+00:00",
+      "status": "retry",
+      "inputHash": "6e6b18cf3560db53816f6af9a4c94fcd0ba3b2d8299635fd9bee7cab66aee270",
+      "reason": "ValueError: Bilingual editorial review: The source text (s2) states investors bought stocks at multiples of 'current revenues', but the paraphrase claims they bought based "
+    },
+    "marks-fca35f29cc0342": {
+      "at": "2026-10-24T10:34:31+00:00",
+      "status": "retry",
+      "inputHash": "584949d5d553dfe3e88c4dd4820627220f9d434bc04ff0058868169002672ed1",
+      "reason": "ValueError: Bilingual editorial review: The Chinese text incorrectly states 'First National City Bank' as the name of the bank where Howard Marks worked; the source only me"
+    },
+    "marks-c3270b71aecf96": {
+      "at": "2026-10-24T10:35:00+00:00",
+      "status": "retry",
+      "inputHash": "31b6d21a0a68d6e9a08dbc354d89f2af499cff71fe1047ef4db34dc4a0d77937",
+      "reason": "ValueError: Incomplete AI Review at 900 tokens"
+    },
+    "marks-61dd43b500f7b0": {
+      "at": "2026-10-24T10:35:09+00:00",
+      "status": "retry",
+      "inputHash": "8a86e3aa4ff9e9df7d79377be959428118a05a17e694d89f290231b354a5eabb",
+      "reason": "ValueError: Bilingual editorial review: The Chinese text incorrectly states Howard Marks wrote 'Mr. Market Miscalculates'. The source (s0) attributes this metaphor and cont"
+    },
+    "marks-f21264667ec473": {
+      "at": "2026-10-24T10:38:14+00:00",
+      "status": "retry",
+      "inputHash": "650bf93811a4720dee18f63277e5befd1b607725e4c71740b3524cee525bf40f",
+      "reason": "ValueError: English text contains untranslated Chinese"
+    },
+    "marks-bf098bb32f7d88": {
+      "at": "2026-10-24T10:38:32+00:00",
+      "status": "retry",
+      "inputHash": "17553bbeafe0afae199684272856990a220b91ce9d5d2897efb940cec7b1495a",
+      "reason": "ValueError: Bilingual editorial review: The Chinese translation uses 'population structure dislocated' (‘demographically dislocated’) which is a literal but slightly awkwar"
+    },
+    "marks-bc770b5393746c": {
+      "at": "2026-10-24T10:39:54+00:00",
+      "status": "retry",
+      "inputHash": "0f53f4deaccff087034d6120cbfe6100b1707cb8e3892a8652a965e674449b26",
+      "reason": "ValueError: Unsupported numerical claim: 11"
+    },
+    "marks-275209c2803493": {
+      "at": "2026-10-24T10:39:54+00:00",
+      "status": "retry",
+      "inputHash": "ff0fdc04069e3ce3d3c32e34c54d6653ba3cef07bc0143623b7a4eec7cc5e5ef",
+      "reason": "ValueError: Bilingual editorial review: The source text does not mention '2024' in relation to the article title or content; the date '2024-10-22' appears only in the metad"
+    },
+    "marks-024bc47d523dd8": {
+      "at": "2026-10-24T10:40:06+00:00",
+      "status": "retry",
+      "inputHash": "94b76cbc6f21b0f2379440caa243328ebb197196ec580809d0ef5303eff421ea",
+      "reason": "ValueError: Bilingual editorial review: The English paraphrase in the content section contains factual errors regarding the source text. Specifically, it claims 'actual eco"
+    },
+    "marks-43a83bc1418080": {
+      "at": "2026-10-24T10:41:14+00:00",
+      "status": "retry",
+      "inputHash": "c5911e39dcc24cef0faa8de8cd007bca9d18c05206afed52469ea55af8982f21",
+      "reason": "ValueError: Bilingual editorial review: The content incorrectly states that Howard Marks does not discuss the difference between economics and politics; the title explicitl"
+    },
+    "marks-37b489c9444212": {
+      "at": "2026-10-24T10:43:09+00:00",
+      "status": "retry",
+      "inputHash": "d21ebb799ed9a1475ec17c9b113e95eb4bb24f908ecf3b8faf741ee2228a2577",
+      "reason": "ValueError: Bilingual editorial review: The source text (e0) does not mention 'technical charts' or 'historical data' as support for their argument; it only states they do "
+    },
+    "marks-afaf50fd1a0d44": {
+      "at": "2026-10-24T10:44:07+00:00",
+      "status": "retry",
+      "inputHash": "1f08a37f5bd3b272c112115b089389911ea3b81e3e1b229b668dee26a214d92f",
+      "reason": "ValueError: Bilingual editorial review: The English paraphrase incorrectly states that risk aversion 'disappears' when the source text says it 'disappears' only in the cont"
+    },
+    "marks-8271b6ed8c1a05": {
+      "at": "2026-10-24T10:46:14+00:00",
+      "status": "retry",
+      "inputHash": "acbc23e8b0dfd58b321deb7bbac1b736dc41264d04aaf3746fdc8b62a793e22e",
+      "reason": "ValueError: English text contains untranslated Chinese"
+    },
+    "marks-827f8ac1bdac2c": {
+      "at": "2026-10-24T10:47:32+00:00",
+      "status": "retry",
+      "inputHash": "48312ec04f8acc9fe651e0261cbfca7476c6d003445b1c9d085a2134c18fe610",
+      "reason": "ValueError: Bilingual editorial review: The Chinese translation of s2 misquotes Hobbes: 'best guesser' was translated as 'worst guesser' (‘...’), contradicting the source t"
+    },
+    "marks-a118789c16f302": {
+      "at": "2026-10-24T10:47:54+00:00",
+      "status": "retry",
+      "inputHash": "2ffa33e018bf298474095ded678d3279eee2bf785cb9818b12f25b6815b7317e",
+      "reason": "ValueError: Bilingual editorial review: The Chinese translation of 'cigar butt stocks' as '“smoke butt stocks”' is inaccurate; the source uses 'cigar butt arena', and 'ciga"
+    },
+    "marks-b88c0cce52f3a9": {
+      "at": "2026-10-24T10:48:30+00:00",
+      "status": "retry",
+      "inputHash": "9d9adf7a1154deec63b8585db9e06412e05b8ef336970a67101237e49b73f1ea",
+      "reason": "ValueError: Bilingual editorial review: The English translation contains a literal mistranslation of 'overshadowed' as 'shadowed', which changes the meaning from 'outshone'"
+    },
+    "mclemore-0be81e13a45531": {
+      "at": "2026-10-24T10:48:48+00:00",
+      "status": "retry",
+      "inputHash": "1c44d5bcef4cfc66ef4e3a6b29fddd7e95e1d87e48ab81b04bd3bea1f8b9e268",
+      "reason": "ValueError: No supported arguments in source"
+    },
+    "marks-03b5c3b2f8cbe5": {
+      "at": "2026-10-24T10:48:53+00:00",
+      "status": "retry",
+      "inputHash": "9d2d022252965978660a42fbcc1f84eff42b24574838abb09ba299325f58381c",
+      "reason": "ValueError: Bilingual editorial review: The English paraphrase in the `content.paragraphs` section contains a factual error regarding the author's name. The source text and"
+    },
+    "marks-feeacb8823121d": {
+      "at": "2026-10-24T10:49:12+00:00",
+      "status": "retry",
+      "inputHash": "e5e52bfa60452a421610cde2368773fbe847383ffa6fa5eaec9f62594787c44f",
+      "reason": "ValueError: Bilingual editorial review: The English paragraph contains a factual error: it states that unencumbered assets like homes or cars are immune to repossession 'un"
+    },
+    "marks-6a1195ae7f8bbb": {
+      "at": "2026-10-24T10:49:59+00:00",
+      "status": "retry",
+      "inputHash": "f9da1a2ddb765e6673faf0216f98af4672edb18ae91bed5415a958414b98ed2e",
+      "reason": "ValueError: Copied source passage"
+    },
+    "marks-76d48589ef63f2": {
+      "at": "2026-10-24T10:50:48+00:00",
+      "status": "retry",
+      "inputHash": "132fad5c7eaf162d2b120185cf2facc739dd3bc9f72036d6aae89fb5ff0ca58e",
+      "reason": "ValueError: Copied source passage"
     }
   },
-  "updatedAt": "2026-10-24T10:19:29+00:00"
+  "updatedAt": "2026-10-24T10:50:48+00:00"
 }
