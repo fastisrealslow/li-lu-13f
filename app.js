@@ -22,12 +22,12 @@ const T = {
   tabTimeline: ['⏳ 时间轴','⏳ Timeline'],
   // Table headers
   thTicker: ['代码','Ticker'],
-  thStock: ['股票','Stock'],
+  thStock: ['证券','Security'],
   thCompany: ['公司','Company'],
   thSector: ['行业','Sector'],
   thShares: ['持股数','Shares'],
   thHoldingAmount: ['股数 / 申报金额','Shares / reported value'],
-  thPrice: ['参考股价','Price'],
+  thPrice: ['参考单价','Reference price'],
   thCost: ['历史参考成本','Historical cost estimates'],
   thGap: ['现价与参考价对比','Price vs. reference'],
   gapSub: ['（参考类型见每行说明）','(reference type shown in each row)'],
@@ -1095,7 +1095,12 @@ function changeText(h,en=lang==='en') {
 function instrumentTag(h) {
   if(/\bWARRANT\b/i.test(h.cls || '')) return `<span class="instrument-tag">${lang==='en'?'Warrant':'认股权证'}</span>`;
   if(h.putCall) return `<span class="instrument-tag">${hkEscape(h.putCall.toUpperCase())} · ${lang==='en'?'long option':h.putCall.toUpperCase()==='PUT'?'看跌期权多头':'看涨期权多头'}</span>`;
-  return h.shareType && h.shareType!=='SH'?`<span class="instrument-tag">${lang==='en'?'Principal amount':'本金金额'} · ${hkEscape(h.shareType)}</span>`:'';
+  if(h.shareType && h.shareType!=='SH') {
+    const convertible=/CONVERT/i.test(h.cls || ''),debt=/BOND|NOTE|DEBENT/i.test(h.cls || '');
+    const label=lang==='en'?(convertible?'Convertible bond':debt?'Debt security':'Principal security'):(convertible?'可转债':debt?'债券':'本金类证券');
+    return `<span class="instrument-tag">${label} · ${lang==='en'?'principal amount':'本金口径'}</span>`;
+  }
+  return '';
 }
 function portfolioFacts(snapshot,name) {
   const state=comparisonState(snapshot);

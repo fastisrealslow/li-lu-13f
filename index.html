@@ -461,7 +461,7 @@ th .info-wrap{position:relative;display:inline-flex}
       </div>
       <div class="scroll-hint-mobile" style="display:none;text-align:right;font-size:.65rem;color:var(--text-lighter);margin-bottom:4px;padding-right:4px;">← 左右滑动查看更多 →</div>
       <div class="table-wrap"><table><thead><tr>
-        <th>#</th><th data-i18n="thStock">股票</th><th data-i18n="thHoldingAmount">股数 / 申报金额</th><th><span data-i18n="thPrice">参考股价</span> <span class="info-wrap"><span class="info-badge" onclick="this.parentElement.querySelector('.info-popover').classList.toggle('show')">ⓘ</span><span class="info-popover" data-i18n="priceHelp">每日更新参考行情，日期见每行；期权行显示标的股票价格，不是期权价格或行权价。</span></span></th><th><span data-i18n="thCost">历史参考成本</span> <span class="info-wrap"><span class="info-badge" onclick="this.parentElement.querySelector('.info-popover').classList.toggle('show')">ⓘ</span><span class="info-popover" data-i18n="costHelp">加仓参考价对应最近披露股数增加季度；历次均价按估计新增股数加权。季末参考价单独标明，不视为买入成本。计算方法见表格下方。</span></span></th><th data-i18n="thWeight">申报占比</th><th><span data-i18n="thGap">现价与参考价对比</span><small class="table-subhead" data-i18n="gapSub">（参考类型见每行说明）</small></th>
+        <th>#</th><th data-i18n="thStock">证券</th><th data-i18n="thHoldingAmount">股数 / 申报金额</th><th><span data-i18n="thPrice">参考单价</span> <span class="info-wrap"><span class="info-badge" onclick="this.parentElement.querySelector('.info-popover').classList.toggle('show')">ⓘ</span><span class="info-popover" data-i18n="priceHelp">每日更新参考行情，日期见每行；期权行显示标的股票价格，不是期权价格或行权价。</span></span></th><th><span data-i18n="thCost">历史参考成本</span> <span class="info-wrap"><span class="info-badge" onclick="this.parentElement.querySelector('.info-popover').classList.toggle('show')">ⓘ</span><span class="info-popover" data-i18n="costHelp">加仓参考价对应最近披露股数增加季度；历次均价按估计新增股数加权。季末参考价单独标明，不视为买入成本。计算方法见表格下方。</span></span></th><th data-i18n="thWeight">申报占比</th><th><span data-i18n="thGap">现价与参考价对比</span><small class="table-subhead" data-i18n="gapSub">（参考类型见每行说明）</small></th>
       </tr></thead><tbody id="holdingsBody"></tbody></table>
       <div id="priceFoot" class="price-note">
         
@@ -471,7 +471,7 @@ th .info-wrap{position:relative;display:inline-flex}
     </div>
     <div id="tab-changes" class="d-none">
       <div class="table-wrap"><table><thead><tr>
-        <th data-i18n="thStock">股票</th><th id="chPS">上季 持股</th><th id="chCS">本季 持股</th><th data-i18n="changesChg">股数变化</th><th id="chPV">上季 市值</th><th id="chCV">本季 市值</th><th data-i18n="changesVChg">市值变化</th>
+        <th data-i18n="thStock">证券</th><th id="chPS">上季 持股</th><th id="chCS">本季 持股</th><th data-i18n="changesChg">股数变化</th><th id="chPV">上季 市值</th><th id="chCV">本季 市值</th><th data-i18n="changesVChg">市值变化</th>
       </tr></thead><tbody id="changesBody"></tbody></table></div>
       <div id="changesInsight" class="insights-box"><div id="changesAISummary"></div><ul id="insightsList"></ul></div>
     </div>
@@ -602,9 +602,9 @@ th .info-wrap{position:relative;display:inline-flex}
 
 <script src="archive_entry.js?v=8"></script>
 <script src="disclosure_analysis.js?v=4"></script>
-<link rel="stylesheet" href="public_portfolio.css?v=1">
+<link rel="stylesheet" href="public_portfolio.css?v=2">
 <script src="public_portfolio.js?v=1"></script>
-<script src="app.js?v=93"></script>
+<script src="app.js?v=94"></script>
 <script src="personal_portfolio.js?v=3"></script>
 <script src="spinoff_ui.js?v=14"></script>
 <script>
