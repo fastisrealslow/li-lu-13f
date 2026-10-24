@@ -2,7 +2,7 @@
   "meta": {
     "name": "Mohnish Pabrai",
     "cik": "1549575",
-    "lastUpdated": "2026-10-24T10:22:03Z",
+    "lastUpdated": "2026-10-24T16:20:57Z",
     "aiSummary": "帕伯莱 Q2 新建 Kaspi.kz 仓位并减持阿尔法金属，显示其持续优化组合结构，侧重新兴市场机会并调整行业敞口。",
     "aiSummaryQuarter": "2026 Q2",
     "manager": "Dalal Street, LLC",
@@ -2978,8 +2978,18 @@
           "ticker": "HCC",
           "name": "WARRIOR MET COAL INC",
           "cls": "COM",
+          "cusip": "93627C101",
           "shares": 1799580,
           "value": 85875958,
+          "shareType": "SH",
+          "putCall": "",
+          "managerAllocations": [
+            {
+              "managerIds": [],
+              "shares": 1799580,
+              "value": 85875958
+            }
+          ],
           "sector": "煤炭",
           "prevShares": 1704670,
           "prevValue": 92461301,
@@ -2989,8 +2999,18 @@
           "ticker": "?VALARIS LTD",
           "name": "VALARIS LTD",
           "cls": "CL A",
+          "cusip": "G9460G101",
           "shares": 1427564,
           "value": 56046163,
+          "shareType": "SH",
+          "putCall": "",
+          "managerAllocations": [
+            {
+              "managerIds": [],
+              "shares": 1427564,
+              "value": 56046163
+            }
+          ],
           "sector": "其他",
           "prevShares": 0,
           "prevValue": 0
@@ -2999,22 +3019,43 @@
           "ticker": "AMR",
           "name": "ALPHA METALLURGICAL RESOUR I",
           "cls": "COM",
+          "cusip": "020764106",
           "shares": 414616,
           "value": 51930654,
-          "sector": "能源",
+          "shareType": "SH",
+          "putCall": "",
+          "managerAllocations": [
+            {
+              "managerIds": [],
+              "shares": 414616,
+              "value": 51930654
+            }
+          ],
+          "sector": "冶金/煤炭",
           "prevShares": 487251,
           "prevValue": 97508670,
           "cnName": "阿尔法金属"
         },
         {
-          "ticker": "?NOBLE CORP PLC",
+          "ticker": "NE",
           "name": "NOBLE CORP PLC",
           "cls": "ORD SHS A",
+          "cusip": "G65431127",
           "shares": 1728744,
           "value": 40971233,
-          "sector": "其他",
+          "shareType": "SH",
+          "putCall": "",
+          "managerAllocations": [
+            {
+              "managerIds": [],
+              "shares": 1728744,
+              "value": 40971233
+            }
+          ],
+          "sector": "能源",
           "prevShares": 0,
-          "prevValue": 0
+          "prevValue": 0,
+          "cnName": "Noble Corporation plc"
         }
       ],
       "2025 Q2": [
@@ -3369,7 +3410,7 @@
       ]
     },
     "coverage": {
-      "checkedAt": "2026-10-24T10:22:03Z",
+      "checkedAt": "2026-10-24T16:20:57Z",
       "missingQuarters": [],
       "repairedThisRun": [],
       "errors": {},
@@ -3562,6 +3603,14 @@
         "reportDate": "2015-03-31",
         "cik": "1549575",
         "url": "https://www.sec.gov/Archives/edgar/data/1549575/000154957515000004/infotable.xml"
+      },
+      "2025 Q1": {
+        "accession": "000154957525000004",
+        "accessionDashed": "0001549575-25-000004",
+        "filingDate": "2025-05-14",
+        "reportDate": "2025-03-31",
+        "cik": "1549575",
+        "url": "https://www.sec.gov/Archives/edgar/data/1549575/000154957525000004/infotable.xml"
       }
     },
     "valueAudit": {
@@ -5323,7 +5372,7 @@
       },
       "2023 Q4": {
         "version": 1,
-        "checkedAt": "2026-10-22",
+        "checkedAt": "2026-10-24",
         "source": "https://www.sec.gov/Archives/edgar/data/1549575/000154957524000005/infotable.xml",
         "filingDate": "2024-02-14",
         "sourceDigest": "7286c6730631c06db054d0fe69db0acf425e26e15af1ac79b495be021e8a834b",
@@ -5337,7 +5386,7 @@
             "price": 60.970001220703125,
             "date": "2023-12-29",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/HCC?period1=0&period2=1792721098&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/HCC?period1=0&period2=1792945258&interval=1d&events=splits",
             "candidates": [
               1
             ]
@@ -5349,7 +5398,7 @@
             "price": 338.9200134277344,
             "date": "2023-12-29",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/AMR?period1=0&period2=1792721098&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/AMR?period1=0&period2=1792945258&interval=1d&events=splits",
             "candidates": [
               1
             ]
@@ -5360,7 +5409,7 @@
       },
       "2024 Q1": {
         "version": 1,
-        "checkedAt": "2026-10-22",
+        "checkedAt": "2026-10-24",
         "source": "https://www.sec.gov/Archives/edgar/data/1549575/000154957524000007/infotable.xml",
         "filingDate": "2024-05-14",
         "sourceDigest": "23cba177c59ba3265a6381a7880053f66e4623be4f2e5c4d0774fd0f098d33ed",
@@ -5374,7 +5423,7 @@
             "price": 60.70000076293945,
             "date": "2024-03-28",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/HCC?period1=0&period2=1792721098&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/HCC?period1=0&period2=1792945258&interval=1d&events=splits",
             "candidates": [
               1
             ]
@@ -5386,7 +5435,7 @@
             "price": 331.1700134277344,
             "date": "2024-03-28",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/AMR?period1=0&period2=1792721098&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/AMR?period1=0&period2=1792945258&interval=1d&events=splits",
             "candidates": [
               1
             ]
@@ -5397,7 +5446,7 @@
       },
       "2024 Q2": {
         "version": 1,
-        "checkedAt": "2026-10-22",
+        "checkedAt": "2026-10-24",
         "source": "https://www.sec.gov/Archives/edgar/data/1549575/000154957524000009/infotable.xml",
         "filingDate": "2024-08-13",
         "sourceDigest": "788695877c6abb177556953b80fb559c79a874c61ba7f09e5569d2b44cd6d2e1",
@@ -5411,7 +5460,7 @@
             "price": 62.77000045776367,
             "date": "2024-06-28",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/HCC?period1=0&period2=1792721098&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/HCC?period1=0&period2=1792945258&interval=1d&events=splits",
             "candidates": [
               1
             ]
@@ -5423,7 +5472,7 @@
             "price": 280.5299987792969,
             "date": "2024-06-28",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/AMR?period1=0&period2=1792721098&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/AMR?period1=0&period2=1792945258&interval=1d&events=splits",
             "candidates": [
               1
             ]
@@ -5434,7 +5483,7 @@
       },
       "2024 Q3": {
         "version": 1,
-        "checkedAt": "2026-10-22",
+        "checkedAt": "2026-10-24",
         "source": "https://www.sec.gov/Archives/edgar/data/1549575/000154957524000013/infotable.xml",
         "filingDate": "2024-11-13",
         "sourceDigest": "a77e91bc5b757175d179109d2d2b9223abfed354b7de67b90172c9799579d5d7",
@@ -5448,7 +5497,7 @@
             "price": 63.900001525878906,
             "date": "2024-09-30",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/HCC?period1=0&period2=1792721098&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/HCC?period1=0&period2=1792945258&interval=1d&events=splits",
             "candidates": [
               1
             ]
@@ -5460,7 +5509,7 @@
             "price": 236.17999267578125,
             "date": "2024-09-30",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/AMR?period1=0&period2=1792721098&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/AMR?period1=0&period2=1792945258&interval=1d&events=splits",
             "candidates": [
               1
             ]
@@ -5471,7 +5520,7 @@
       },
       "2024 Q4": {
         "version": 1,
-        "checkedAt": "2026-10-22",
+        "checkedAt": "2026-10-24",
         "source": "https://www.sec.gov/Archives/edgar/data/1549575/000154957525000002/infotable.xml",
         "filingDate": "2025-02-13",
         "sourceDigest": "f0b5285f3ed3a3488286b9e89db3690f11a6efd46e6659fb2005236315fa7d63",
@@ -5485,7 +5534,7 @@
             "price": 54.2400016784668,
             "date": "2024-12-31",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/HCC?period1=0&period2=1792721098&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/HCC?period1=0&period2=1792945258&interval=1d&events=splits",
             "candidates": [
               1
             ]
@@ -5497,7 +5546,7 @@
             "price": 200.1199951171875,
             "date": "2024-12-31",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/AMR?period1=0&period2=1792721098&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/AMR?period1=0&period2=1792945258&interval=1d&events=splits",
             "candidates": [
               1
             ]
@@ -5508,12 +5557,13 @@
       },
       "2025 Q1": {
         "version": 1,
-        "checkedAt": "2026-10-22",
+        "checkedAt": "2026-10-24",
         "source": "https://www.sec.gov/Archives/edgar/data/1549575/000154957525000004/infotable.xml",
         "filingDate": "2025-05-14",
         "sourceDigest": "8c4b412cb81e8c7b540751129afa61375d6645a2993cc5d5e05b55ec52a78e2e",
-        "sourceHash": "453d7bfedf6b2b3f1c6bc989665a9c3fcfc1f10687e3d82ad7c012852d3f180d",
-        "status": "pending",
+        "sourceHash": "0068323d46b6894a3fbfdfc5293223f6a1daa75b94e02c04c6e4d203b3f12689",
+        "status": "verified",
+        "factor": 1,
         "anchors": [
           {
             "ticker": "HCC",
@@ -5522,7 +5572,19 @@
             "price": 47.720001220703125,
             "date": "2025-03-31",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/HCC?period1=0&period2=1792721098&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/HCC?period1=0&period2=1792945258&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "NE",
+            "cusip": "G65431127",
+            "filedPrice": 23.70000011569093,
+            "price": 23.700000762939453,
+            "date": "2025-03-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/NE?period1=0&period2=1792945261&interval=1d&events=splits",
             "candidates": [
               1
             ]
@@ -5534,14 +5596,16 @@
             "price": 125.25,
             "date": "2025-03-31",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/AMR?period1=0&period2=1792721098&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/AMR?period1=0&period2=1792945258&interval=1d&events=splits",
             "candidates": [
               1
             ]
           }
         ],
-        "errors": [],
-        "normalizedHash": "c7c43352ed6a36730094b628e2b986713068b07ce3367ca1eb0a13241a923ed7"
+        "agreementCount": 3,
+        "anchorCount": 3,
+        "outlierTickers": [],
+        "normalizedHash": "0068323d46b6894a3fbfdfc5293223f6a1daa75b94e02c04c6e4d203b3f12689"
       },
       "2025 Q2": {
         "version": 1,
