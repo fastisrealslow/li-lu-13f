@@ -36,16 +36,15 @@
       "status": "ok"
     },
     "investor:hawkins": {
-      "at": "2026-10-24T02:28:55.731705+00:00",
+      "at": "2026-10-24T11:08:51.918937+00:00",
       "sourceHash": "5eb8ed4debc05f2de400f5287cab290e08c6d93ddfe2f528f79cf3f063f62bfe",
       "status": "failed",
       "error": "Selection omitted an available change direction"
     },
     "investor:klarman": {
-      "at": "2026-10-23T17:56:21.765613+00:00",
-      "sourceHash": "639a0e7296bc21f63573b0d57021fb7899a88f1202092a024bf7360705047bdf",
-      "status": "failed",
-      "error": "Selection omitted an available change direction"
+      "at": "2026-10-24T11:06:29.275766+00:00",
+      "sourceHash": "40ab08a41a0edfd1550307934f5db2bb3533a898b482681eea1b7535a1347e8b",
+      "status": "ok"
     },
     "investor:lilu": {
       "at": "2026-10-10T17:04:26.246714+00:00",
@@ -63,8 +62,8 @@
       "status": "ok"
     },
     "value": {
-      "at": "2026-10-24T02:27:26.711188+00:00",
-      "sourceHash": "1b926b4cc071c49d776b315c8135367b44e8af4f369904d6fe86c1d40754085b",
+      "at": "2026-10-24T11:07:30.169931+00:00",
+      "sourceHash": "dc6af0e5636d7c2feee421ba7c05a94f54476c3e65e2d7a417820ab0dcce4a74",
       "status": "ok"
     },
     "investor:vinall": {
@@ -78,7 +77,7 @@
       "status": "ok"
     },
     "history:lilu": {
-      "at": "2026-10-24T02:29:58.777220+00:00",
+      "at": "2026-10-24T11:09:53.405964+00:00",
       "sourceHash": "12d8175b8baa1bb86924c972a789a827dcc45643a6250a3ea7d90c8fa63ec21d",
       "status": "failed",
       "error": "Selection omitted a required scope or evidence limitation"
@@ -104,7 +103,7 @@
       "status": "ok"
     },
     "holdings:tepper": {
-      "at": "2026-10-24T02:28:25.210229+00:00",
+      "at": "2026-10-24T11:08:24.077892+00:00",
       "sourceHash": "5c3a6a25a398427cb548c6b5e49d8061098d64b49f2aa54cf5432b5d43c66ef9",
       "status": "failed",
       "error": "Selection omitted a required scope or evidence limitation"
@@ -146,8 +145,8 @@
       "status": "ok"
     },
     "holdings:klarman": {
-      "at": "2026-10-19T14:40:07.868458+00:00",
-      "sourceHash": "ec8a87bcad309623d089444cad075fa48a5ecdc8526074514f0de0d51bf543b2",
+      "at": "2026-10-24T11:06:00.426806+00:00",
+      "sourceHash": "44b7d20ebd1d8ab690001b3cb5c16462e893fe4806ae9d227af33f8c303622bc",
       "status": "ok"
     },
     "history:klarman": {
@@ -4489,7 +4488,7 @@
       "renderVersion": 4,
       "mode": "deterministic",
       "summary": "梅森·霍金斯 2026 Q2（按披露股数比较）：新建仓2项、增持8项、减持24项、清仓4项、不变13项、待比较0项。重点（非完整名单）：雷奥尼尔（RYN）：减持11.8%；美泰（MAT）：减持3.8%；CNX 资源（CNX）：增持16.2%；雅培（ABT）：新建仓；伯乐雷德实验室（BIO）：清仓。",
-      "generatedAt": "2026-10-24T02:29:58.775056+00:00",
+      "generatedAt": "2026-10-24T11:09:53.402894+00:00",
       "model": null,
       "metrics": {}
     },
@@ -5423,9 +5422,9 @@
         "factIds": [
           "f0",
           "f1",
-          "f2",
           "f7",
-          "f13"
+          "f13",
+          "f16"
         ],
         "topicIds": [
           "t0",
@@ -5434,11 +5433,14 @@
         ]
       },
       "renderVersion": 4,
-      "mode": "deterministic",
-      "summary": "塞斯·克拉曼 2026 Q2（按披露股数比较）：新建仓3项、增持6项、减持9项、清仓2项、不变5项、待比较0项。重点（非完整名单）：亚马逊（AMZN）：增持20.0%；餐饮品牌国际（QSR）：减持16.4%；谷歌C（GOOG）：增持16.2%；威利斯塔塔 Watson（WTW）：清仓；芝商所（CME）：新建仓。",
-      "generatedAt": "2026-10-24T10:51:34.406069+00:00",
-      "model": null,
-      "metrics": {}
+      "mode": "model_selection",
+      "summary": "塞斯·克拉曼 2026 Q2（按披露股数比较）：新建仓3项、增持6项、减持9项、清仓2项、不变5项、待比较0项。重点（非完整名单）：亚马逊（AMZN）：增持20.0%；餐饮品牌国际（QSR）：减持16.4%；威利斯塔塔 Watson（WTW）：清仓；芝商所（CME）：新建仓；Vaxcyte, Inc.（PCVX）：清仓。",
+      "generatedAt": "2026-10-24T11:07:30.168129+00:00",
+      "model": "qwen3.5:9b-q4_K_M",
+      "metrics": {
+        "seconds": 60.89,
+        "tokens": 34
+      }
     },
     "investor:lilu": {
       "facts": {
@@ -6821,17 +6823,20 @@
       "sourceHash": "dc6af0e5636d7c2feee421ba7c05a94f54476c3e65e2d7a417820ab0dcce4a74",
       "selection": {
         "factIds": [
+          "f0",
           "f1",
-          "f3",
           "f6"
         ]
       },
       "renderVersion": 4,
-      "mode": "deterministic",
-      "summary": "按各投资人最新披露组合：霍华德·马克思（2026 Q2）：BioXcel Therapeutics, Inc.（BTAIQ）增持，占其披露组合市值0%；霍华德·马克思（2026 Q2）：DPC Holdings PLC（DPC）新建仓，占其披露组合市值0.1%；大卫·泰珀（2026 Q2）：CoreWeave, Inc.（CRWV）新建仓，占其披露组合市值1.4%。",
-      "generatedAt": "2026-10-24T10:51:34.408092+00:00",
-      "model": null,
-      "metrics": {}
+      "mode": "model_selection",
+      "summary": "按各投资人最新披露组合：巴菲特（2026 Q2）：卡夫亨氏（KHC）股数不变，占其披露组合市值2.6%；霍华德·马克思（2026 Q2）：BioXcel Therapeutics, Inc.（BTAIQ）增持，占其披露组合市值0%；大卫·泰珀（2026 Q2）：CoreWeave, Inc.（CRWV）新建仓，占其披露组合市值1.4%。",
+      "generatedAt": "2026-10-24T11:08:24.076166+00:00",
+      "model": "qwen3.5:9b-q4_K_M",
+      "metrics": {
+        "seconds": 53.9,
+        "tokens": 14
+      }
     },
     "investor:duan": {
       "facts": {
@@ -13462,7 +13467,7 @@
       "renderVersion": 4,
       "mode": "deterministic",
       "summary": "李录 · 历史轨迹：可用于市值趋势的记录有 35 个季度，覆盖 2016 Q4 至 2026 Q2。这段历史反映披露范围内证券，不是基金净值曲线。披露市值从 US$111.64M 变为 US$3,702.92M（变化 +3216.8%）。金额同时受价格、买卖、资金流及披露范围影响，不能当作投资回报。缺少或排除的市值季度：2018 Q4、2019 Q1、2019 Q2、2019 Q3。不填零、不推断清仓，也不跨缺口计算季度变化。",
-      "generatedAt": "2026-10-24T02:30:39.697892+00:00",
+      "generatedAt": "2026-10-24T11:10:31.985602+00:00",
       "model": null,
       "metrics": {}
     },
@@ -17174,7 +17179,7 @@
       "renderVersion": 4,
       "mode": "deterministic",
       "summary": "大卫·泰珀 · 持仓结构：本次披露 27 项证券：普通股 25 项、PUT 2 项。不同股份类别和期权分别计数。最大单项证券是 亚马逊（AMZN），申报值 US$1,191.70M，占本次披露 15.4%。期权共 2 项。13F 中期权申报值对应标的证券价值，不能当作期权权利金，也不能仅凭 PUT/CALL 判断完整对冲策略。",
-      "generatedAt": "2026-10-24T02:28:55.730698+00:00",
+      "generatedAt": "2026-10-24T11:08:51.916661+00:00",
       "model": null,
       "metrics": {}
     },
@@ -34576,11 +34581,14 @@
         ]
       },
       "renderVersion": 4,
-      "mode": "deterministic",
+      "mode": "model_selection",
       "summary": "塞斯·克拉曼 · 持仓结构：本次披露 23 项证券：普通股 23 项。不同股份类别和期权分别计数。最大单项证券是 亚马逊（AMZN），申报值 US$892.31M，占本次披露 16.5%。前三大证券合计占 34.6%：AMZN、ELV、QSR。这是证券集中度，同一企业的不同股份可能分别列示。",
-      "generatedAt": "2026-10-24T10:51:34.406152+00:00",
-      "model": null,
-      "metrics": {}
+      "generatedAt": "2026-10-24T11:06:29.272302+00:00",
+      "model": "qwen3.5:9b-q4_K_M",
+      "metrics": {
+        "seconds": 28.8,
+        "tokens": 20
+      }
     },
     "history:klarman": {
       "facts": {
@@ -85302,16 +85310,16 @@
     }
   },
   "lastRun": {
-    "startedAt": "2026-10-24T09:31:02.659539+00:00",
+    "startedAt": "2026-10-24T11:06:00.426779+00:00",
     "model": "qwen3.5:9b-q4_K_M",
-    "pendingBefore": 16,
-    "cached": 30,
-    "finishedAt": "2026-10-24T09:49:40.517885+00:00",
-    "pendingAfter": 17,
-    "accepted": 6,
-    "fallback": 5,
+    "pendingBefore": 17,
+    "cached": 29,
+    "finishedAt": "2026-10-24T11:10:31.989325+00:00",
+    "pendingAfter": 14,
+    "accepted": 3,
+    "fallback": 3,
     "rejected": 0,
-    "failed": 5
+    "failed": 3
   },
   "schemaVersion": 2,
   "fallbackRefresh": {
