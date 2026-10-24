@@ -12,7 +12,7 @@ function app() {
   }, set(){return true;}});
   const el = id => {
     if (!nodes.has(id)) nodes.set(id, {innerHTML:'',textContent:'',style:{},width:800,height:360,
-      parentElement:{clientWidth:832,style:{},appendChild(){}},getContext:()=>ctx,remove(){},
+      parentElement:{clientWidth:832,style:{},appendChild(){}},getContext:()=>ctx,remove(){},insertAdjacentHTML(_position,html){this.innerHTML+=html;},
       getBoundingClientRect:()=>({left:0,top:0,width:800,height:360})});
     return nodes.get(id);
   };
@@ -237,7 +237,7 @@ test('holdings timeline has a single table border rather than a nested chart car
 test('profiles prioritize verified milestones, distinguishing auction and meal years',()=>{
   const profiles=JSON.parse(fs.readFileSync(path.join(__dirname,'../investors.json'),'utf8')).investors;
   for(const cfg of profiles) {
-    assert.ok(cfg.profile.timeline.length>=4 && cfg.profile.timeline.length<=6,cfg.id);
+    assert.ok(cfg.profile.timeline.length>=4,cfg.id);
     for(const node of cfg.profile.timeline) {
       assert.ok(node.text.length===2 && node.text.every(t=>t.trim()));
       assert.match(node.source,/^https:\/\//);

@@ -81,7 +81,7 @@ def _holdings_briefing(data):
                   f'Top {len(top)}: {pct(top_pct)}% — '+('concentrated' if top_pct>=60 else 'broadly spread'))
     lead=pair('；'.join(f'{stock(h)} {pct(h["value"]/total*100)}%' for h in top)+'。'+(f'其余 {len(rows)-len(top)} 项合计 {pct(100-top_pct)}%。' if len(rows)>len(top) else ''),
               '; '.join(f'{stock(h,True)} {pct(h["value"]/total*100)}%' for h in top)+'.'+(f' The other {len(rows)-len(top)} positions total {pct(100-top_pct)}%.' if len(rows)>len(top) else ''))
-    details=[];equity=[h for h in rows if not h.get('putCall') and h.get('shareType','SH')=='SH']
+    details=[];equity=[h for h in rows if not h.get('putCall') and h.get('shareType','SH')=='SH' and not re.search(r'\bWARRANT\b',h.get('cls',''),re.I)]
     groups=defaultdict(list)
     # CGS: the first six CUSIP/CINS characters identify the issuer. Keep options separate.
     for h in equity:

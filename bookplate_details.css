@@ -27,3 +27,7 @@ html[data-appearance=almanac][data-bookplate-finish=study] .archive-reader{borde
 @media(max-width:640px){
  html[data-appearance=almanac][data-bookplate-finish=margin] .almanac-vignette{padding:4px;box-shadow:0 0 0 3px var(--white)}
 }
+
+html[data-appearance=almanac][data-bookplate-finish=pendulum] .almanac-vignette{border-top:3px double var(--border);border-bottom:1px solid var(--border)}
+html[data-appearance=almanac][data-bookplate-finish=prism] .almanac-vignette{background:linear-gradient(145deg,transparent 36%,var(--identity-wash) 36%,var(--identity-wash) 68%,transparent 68%)}
+html[data-appearance=almanac][data-bookplate-finish=hourglass] .almanac-vignette{border-radius:48% 48% 4px 4px;background:radial-gradient(ellipse,var(--identity-wash),transparent 73%)}

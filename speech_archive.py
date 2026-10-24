@@ -235,6 +235,48 @@ def link_catalog(source, get=fetch):
     return works
 
 
+def primary_author_catalog(source, get=fetch):
+    """Publisher catalogues with explicit attribution; never harvest other staff."""
+    raw, _ = get(source['url'])
+    tree = soup(raw)
+    works = []
+    if source['adapter'] == 'patient_author':
+        for card in tree.select('.article_item'):
+            if card.get('data-author', '').strip() not in source['authors']:
+                continue
+            anchor, heading = card.select_one('a[href]'), card.select_one('.title')
+            date = card.select_one('.date')
+            if not anchor or not heading:
+                continue
+            title = heading.get_text(' ', strip=True)
+            match = re.search(r'\b(\d{2}/\d{2}/\d{2})\b', date.get_text(' ', strip=True) if date else '')
+            published = dt.datetime.strptime(match[1], '%m/%d/%y').strftime('%Y-%m-%d') if match else None
+            works.append(make_work(source['investor'], title, urllib.parse.urljoin(source['url'], anchor['href']), source['publisher'], source['url'], date=published,
+                                   kind='interview' if re.search(r'CNBC|interview|Bloomberg|podcast', title, re.I) else 'essay', date_kind='published'))
+    else:
+        for anchor in tree.select('a[href]'):
+            title = anchor.get_text(' ', strip=True)
+            href = anchor['href']
+            if href.startswith('javascript:'):
+                # Extract a literal official PDF URL; never execute publisher JS.
+                match = re.fullmatch(r"javascript:openPDF\('[^']*','(https://www\.oaktreecapital\.com/docs/default-source/memos/[^'\s]+\.pdf(?:\?[^'\s]*)?)'\)", href)
+                if not match:
+                    continue
+                href = match[1]
+            url = urllib.parse.urljoin(source['url'], href)
+            host = (urllib.parse.urlsplit(url).hostname or '').removeprefix('www.')
+            if host != 'oaktreecapital.com' or not title or title == 'The Complete Collection':
+                continue
+            if '/insights/memo/' not in url and '/docs/default-source/memos/' not in url:
+                continue
+            time = anchor.parent.find('time')
+            match = re.search(r'\d{4}-\d{2}-\d{2}', time.get('datetime', '')) if time else None
+            works.append(make_work(source['investor'], title, url, source['publisher'], source['url'], kind='essay', date=match[0] if match else None, date_kind='published'))
+    if not works:
+        raise ValueError('Publisher author catalogue changed; retain verified works')
+    return merge_works([], works)
+
+
 def rss_catalog(source, get=fetch):
     raw, _ = get(source["url"])
     feed = ET.fromstring(raw)
@@ -609,7 +651,8 @@ def discover(root=ROOT):
     report, incoming = [], []
     for source in config["catalogues"]:
         try:
-            works = (verified_document(source) if source['adapter']=='verified_document' else
+            works = (primary_author_catalog(source) if source['adapter'] in ('patient_author','oaktree_author') else
+                     verified_document(source) if source['adapter']=='verified_document' else
                      rss_catalog(source) if source["adapter"] == "rss" else
                      spotify_catalog(source) if source["adapter"] == "spotify" else
                      search_catalog(source) if source["adapter"] == "search" else link_catalog(source))

@@ -13,7 +13,7 @@ EXTRA_FILES = (
     "metadata_cache.json", "alerts_hk_persons.json", "spinoff.json", "spinoff_us.json",
     "run_status.json", "homework_summary.json", "value_screen.json",
 )
-OPTIONAL_FILES = ("resolved_cusip_map.json", "ai_supplement.json", "personal_portfolio.json", "security_symbol_changes.json")
+OPTIONAL_FILES = ("resolved_cusip_map.json", "ai_supplement.json", "personal_portfolio.json", "security_symbol_changes.json", "security_lifecycle.json")
 
 
 def read_json(path):
@@ -142,6 +142,8 @@ def validate(root):
     for name in OPTIONAL_FILES:
         if (root / name).exists():
             roles[name] = "extra"
+    from security_lifecycle import events
+    events(root)
     errors = []
     for name, role in roles.items():
         try:

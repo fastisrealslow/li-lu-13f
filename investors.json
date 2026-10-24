@@ -1,5 +1,5 @@
 {
-  "_comment": "投资人、申报主体和人物资料统一配置。quote 为注明出处的引言或治理格言，summary/principles 为编辑概述；reviewedAt 为资料核对日期。新增投资人仍需在 update.yml 配置自动抓取。legacyFilers 仅允许由 SEC 明确通知核实的历史申报主体。",
+  "_comment": "投资人、申报主体、人物资料和自动更新的统一配置；portfolioMode 区分季度申报与官方项目资料，禁止互相推断。",
   "investors": [
     {
       "id": "lilu",
@@ -3889,6 +3889,812 @@
             "Find recurring businesses and use investor letters to study how operating facts test the thesis. Changes in reported value are not fund NAV or investment returns."
           ]
         }
+      }
+    },
+    {
+      "id": "marks",
+      "name": "霍华德·马克思",
+      "nameEn": "Howard Marks",
+      "cik": "949509",
+      "manager": "Oaktree Capital Management, L.P.",
+      "people": [
+        "Howard Marks"
+      ],
+      "dataFile": "marks.json",
+      "pricesFile": "prices_marks.json",
+      "hkFile": "marks_hk.json",
+      "market": "US",
+      "source13F": true,
+      "consolidate": true,
+      "inValueScreen": true,
+      "hkDisclosure": {
+        "queries": [
+          "Oaktree Capital",
+          "Howard Marks"
+        ],
+        "entities": [
+          "Oaktree Capital Management, L.P.",
+          "Oaktree Capital Management LP",
+          "Howard Marks"
+        ]
+      },
+      "officialWebsite": "https://www.oaktreecapital.com/",
+      "profile": {
+        "reviewedAt": "2026-10-24",
+        "about": [
+          [
+            "霍华德·马克思与布鲁斯·卡什等合伙人于 1995 年共同创立橡树资本。作为联合董事长，他负责投资哲学、客户沟通和重大投资与公司方向的判断；橡树以信用投资起家，研究高收益债、困境债务和资本结构中的错价。",
+            "Howard Marks co-founded Oaktree in 1995 with Bruce Karsh and other partners. As co-chair, he helps shape investment philosophy, client communication and major investment and corporate decisions. The firm’s roots lie in high-yield credit, distressed debt and capital-structure mispricing."
+          ],
+          [
+            "他在花旗从股票研究转向可转债与高收益债，随后在 TCW 带领相关团队。这个经历使他的价值观带有鲜明的债权人视角：先问本金能否收回，再问收益是否补偿风险；企业不错，并不意味着任何价格、任何资本结构都值得买。",
+            "His move from equity research at Citicorp into convertibles and high-yield bonds, followed by leading related teams at TCW, shaped a creditor’s perspective: examine principal recovery before asking whether return compensates for risk. Business quality alone does not justify every price or capital structure."
+          ],
+          [
+            "马克思把市场比作钟摆。企业的经营会变化，投资者的情绪、信贷的松紧和愿意支付的价格，往往摆动得更远。识别身处周期的大致位置，是为了调整进攻与防守，而不是报出下个月的指数点位。",
+            "Marks’s pendulum describes how sentiment, credit availability and prices can swing farther than business conditions. Locating the broad stage of a cycle helps calibrate offense and defense; it does not supply a precise near-term market forecast."
+          ],
+          [
+            "第二层次思维，是把自己的判断放回市场价格里检验：不仅要理解一家公司，还要理解多数人相信什么、价格隐含什么，以及自己的分歧是否正确。投资机会来自判断与共识之间有依据的差异，不来自为了不同而不同。",
+            "Second-level thinking tests an assessment against the expectations already embedded in price. It asks what others believe and whether a contrary assessment is both different and right, rather than treating disagreement itself as an advantage."
+          ],
+          [
+            "自 1990 年代以来的备忘录构成一条可追溯的思考线索：从预测的局限、互联网泡沫和金融危机，到利率环境的结构性变化。文字中反复出现的是概率、风险溢价、市场心理，以及知道自己不知道什么的纪律。",
+            "His memos form a dated record spanning prediction, the internet bubble, financial crises and structural changes in interest rates. Probability, risk premiums, psychology and intellectual humility recur across this work."
+          ]
+        ],
+        "summary": [
+          "不能预测，但可以准备。",
+          "You cannot predict; you can prepare."
+        ],
+        "timeline": [
+          {
+            "date": "1969",
+            "text": [
+              "加入花旗，从事股票研究，后来担任研究主管。",
+              "Joined Citicorp in equity research and later became director of research."
+            ],
+            "source": "https://www.oaktreecapital.com/about/leadership/bio/howard-marks"
+          },
+          {
+            "date": "1978–1985",
+            "text": [
+              "管理可转债与高收益证券，形成以风险补偿为核心的信用投资视角。",
+              "Managed convertible and high-yield securities, developing a focus on compensation for risk."
+            ],
+            "source": "https://www.oaktreecapital.com/about/leadership/bio/howard-marks"
+          },
+          {
+            "date": "1985–1995",
+            "text": [
+              "在 TCW 领导困境债、高收益债和可转债投资团队。",
+              "Led distressed-debt, high-yield and convertible investment teams at TCW."
+            ],
+            "source": "https://www.oaktreecapital.com/about/leadership/bio/howard-marks"
+          },
+          {
+            "date": "1992",
+            "text": [
+              "备忘录讨论供求与可转债，公开写作已有连续的历史记录。",
+              "The memo archive records analysis of supply, demand and convertibles."
+            ],
+            "source": "https://www.oaktreecapital.com/insights/memos"
+          },
+          {
+            "date": "1995",
+            "text": [
+              "与布鲁斯·卡什等共同创立橡树资本。",
+              "Co-founded Oaktree with Bruce Karsh and other partners."
+            ],
+            "source": "https://www.oaktreecapital.com/about/leadership/bio/howard-marks"
+          },
+          {
+            "date": "2000",
+            "text": [
+              "发表 bubble.com，分析网络热潮与价格中的乐观预期。",
+              "Published bubble.com, examining the internet boom and expectations in prices."
+            ],
+            "source": "https://www.oaktreecapital.com/insights/memos"
+          },
+          {
+            "date": "2001",
+            "text": [
+              "发表《不能预测，但可以准备》，强调应对不确定性。",
+              "Published You Can’t Predict. You Can Prepare., addressing uncertainty."
+            ],
+            "source": "https://www.oaktreecapital.com/insights/memos"
+          },
+          {
+            "date": "2008",
+            "text": [
+              "在金融危机期间连续写作，讨论悲观的边界以及波动与杠杆。",
+              "Wrote through the financial crisis about pessimism, volatility and leverage."
+            ],
+            "source": "https://www.oaktreecapital.com/insights/memos"
+          },
+          {
+            "date": "2011",
+            "text": [
+              "出版《投资最重要的事》，系统讨论风险、价格与第二层次思维。",
+              "Published The Most Important Thing on risk, price and second-level thinking."
+            ],
+            "source": "https://rpc.cfainstitute.org/author/howardmarks"
+          },
+          {
+            "date": "2022–2023",
+            "text": [
+              "《Sea Change》及后续文章重新审视长期低利率时代之后的投资环境。",
+              "Sea Change and its follow-up reconsidered investing after the era of low rates."
+            ],
+            "source": "https://www.oaktreecapital.com/insights/memo/sea-change"
+          }
+        ],
+        "principles": [
+          {
+            "title": [
+              "先判断风险补偿",
+              "Price the risk first"
+            ],
+            "text": [
+              "损失的可能性、承受能力和价格必须放在一起看；低评级不必然是坏投资，高质量也不保证买得便宜。",
+              "Consider loss potential, resilience and purchase price together; a weak credit can be well priced and a quality asset can be too expensive."
+            ]
+          },
+          {
+            "title": [
+              "第二层次思维",
+              "Think at the second level"
+            ],
+            "text": [
+              "从企业事实走到价格中的预期，再判断自己的分歧是否有根据。",
+              "Move from business facts to market expectations and test whether a disagreement is justified."
+            ]
+          },
+          {
+            "title": [
+              "观察钟摆的位置",
+              "Locate the pendulum"
+            ],
+            "text": [
+              "用信贷条件、估值和情绪判断进攻与防守的力度，避免把周期观察变成精确预测。",
+              "Use credit conditions, valuation and sentiment to calibrate offense and defense without pretending to forecast precisely."
+            ]
+          },
+          {
+            "title": [
+              "在不确定性中准备",
+              "Prepare for uncertainty"
+            ],
+            "text": [
+              "把未来看作多种情景，保留应对意外的余地；不能只按最顺利的路线安排仓位。",
+              "Consider multiple outcomes and retain room for surprises rather than position only for the most favorable path."
+            ]
+          },
+          {
+            "title": [
+              "风险不止是波动",
+              "Risk extends beyond volatility"
+            ],
+            "text": [
+              "区分账面价格摆动与本金永久受损，结合偿债能力、资本结构和买入价格评估真正的危险。",
+              "Distinguish price fluctuations from permanent capital loss, examining repayment capacity, capital structure and purchase price."
+            ]
+          },
+          {
+            "title": [
+              "保留逆周期的行动能力",
+              "Retain the ability to act countercyclically"
+            ],
+            "text": [
+              "在资金最热的时候约束标准，在别人急于退出的时候，才有能力评估并把握更好的风险补偿。",
+              "Maintain discipline when capital is abundant so that forced selling can be evaluated when compensation for risk improves."
+            ]
+          }
+        ],
+        "signature": {
+          "title": [
+            "给钟摆留一把尺",
+            "A ruler for the pendulum"
+          ],
+          "text": [
+            "价格与风险补偿，是穿过情绪摆动的尺度。耐心等待赔率改变，准备好后再行动。",
+            "Price and compensation for risk provide a measure through emotional swings. Wait for the odds to change and be prepared to act."
+          ]
+        },
+        "quote": {
+          "text": [
+            "不能预测，但可以准备。",
+            "You Can’t Predict. You Can Prepare."
+          ],
+          "attribution": [
+            "霍华德·马克思 · 2001 年备忘录标题",
+            "Howard Marks · 2001 memo title"
+          ],
+          "url": "https://www.oaktreecapital.com/insights/memos"
+        },
+        "resources": [
+          {
+            "kind": [
+              "官方人物",
+              "Official biography"
+            ],
+            "title": [
+              "霍华德·马克思",
+              "Howard Marks"
+            ],
+            "description": [
+              "职业经历、橡树职责与教育背景。",
+              "Career, responsibilities at Oaktree and education."
+            ],
+            "url": "https://www.oaktreecapital.com/about/leadership/bio/howard-marks"
+          },
+          {
+            "kind": [
+              "备忘录全集",
+              "Memo archive"
+            ],
+            "title": [
+              "马克思备忘录",
+              "Memos from Howard Marks"
+            ],
+            "description": [
+              "按年份回看周期、风险、市场心理与资本配置。",
+              "A dated record of cycles, risk, market psychology and capital allocation."
+            ],
+            "url": "https://www.oaktreecapital.com/insights/memos"
+          },
+          {
+            "kind": [
+              "原始文章",
+              "Original essay"
+            ],
+            "title": [
+              "Sea Change：投资环境的转变",
+              "Sea Change"
+            ],
+            "description": [
+              "从利率的长期下降转向更高的资金成本，讨论风险与信用回报。",
+              "The transition from falling rates to higher capital costs and its implications for credit."
+            ],
+            "url": "https://www.oaktreecapital.com/insights/memo/sea-change"
+          }
+        ],
+        "sources": [
+          "https://www.oaktreecapital.com/about/leadership/bio/howard-marks",
+          "https://www.oaktreecapital.com/insights/memos",
+          "https://www.oaktreecapital.com/insights/memo/sea-change"
+        ]
+      },
+      "reportingFrom": "2013-06-30",
+      "useRestatements": true,
+      "portfolioAttribution": [
+        "橡树资本机构申报，包含多个策略；不是马克思个人账户。",
+        "Oaktree institutional filing across strategies; not Marks’s personal account."
+      ],
+      "fullArchiveWorkers": 3
+    },
+    {
+      "id": "wolfe",
+      "name": "乔什·沃尔夫",
+      "nameEn": "Josh Wolfe",
+      "cik": "1592843",
+      "manager": "Lux Capital Management, LLC",
+      "people": [
+        "Josh Wolfe"
+      ],
+      "dataFile": "wolfe.json",
+      "pricesFile": "prices_wolfe.json",
+      "hkFile": "wolfe_hk.json",
+      "market": "US",
+      "source13F": false,
+      "consolidate": true,
+      "inValueScreen": false,
+      "hkDisclosure": {
+        "queries": [
+          "Lux Capital",
+          "Josh Wolfe"
+        ],
+        "entities": [
+          "Lux Capital Management, LLC",
+          "Lux Capital Management LLC",
+          "Josh Wolfe"
+        ]
+      },
+      "officialWebsite": "https://www.luxcapital.com/",
+      "profile": {
+        "reviewedAt": "2026-10-24",
+        "about": [
+          [
+            "乔什·沃尔夫是 Lux Capital 的联合创始人及合伙人，专注把科学前沿转化为能够形成企业的机会。他同时关注生命科学、人工智能、计算、国防、能源与机器人，研究往往从实验室、工程瓶颈和具有独特能力的创始人开始。",
+            "Josh Wolfe is a co-founder and partner of Lux Capital. His work spans life sciences, AI, computing, defense, energy and robotics, looking for opportunities where scientific progress, engineering constraints and distinctive founders can form new businesses."
+          ],
+          [
+            "与从现成上市公司里挑选便宜股票不同，他经常参与企业从零到一的形成：官网记载他参与共同创立了二十余家 Lux 项目。科学是否可行、关键人才是否愿意聚在一起、从技术走向客户还缺哪一步，是这种研究的重要问题。",
+            "Rather than only select established listed companies, he often helps create ventures from the beginning. Lux records his involvement in co-founding more than twenty companies. Scientific feasibility, assembling talent and the path from technology to customers are central questions."
+          ],
+          [
+            "他是发表过科研成果的科学研究者、康奈尔大学校友，也是圣塔菲研究所的理事。复杂系统与跨学科的视角，使研究不局限于一个传统行业：同一项新工具，可能先改变科研过程，再改变产业的成本、能力和组织方式。",
+            "He is a published scientist, Cornell alumnus and trustee of the Santa Fe Institute. A cross-disciplinary perspective considers how a new tool can first change research and later reshape industrial costs, capabilities and organization."
+          ],
+          [
+            "Lux 所说的“在别人理解之前相信”，强调形成独立判断的时间差。新技术故事需要拆成可检验的问题：突破发生在哪里，尚未解决的限制是什么，以及为什么这个团队有机会把突破变成产品。",
+            "Lux’s description of believing before others understand places emphasis on independent early judgment. A technology narrative can be tested by identifying the breakthrough, remaining constraints and the team’s ability to convert progress into a product."
+          ],
+          [
+            "沃尔夫还共同创办并担任过布鲁克林 Coney Island Prep 特许学校的主席。理解他的公开讨论，除了看新技术，也可以留意人才从哪里来、制度如何创造机会，以及社会如何承受技术带来的变化。",
+            "He also co-founded and chaired Coney Island Prep in Brooklyn. His public discussions invite attention to talent, institutions and opportunity as well as technology and the social consequences of change."
+          ]
+        ],
+        "summary": [
+          "在科学与产业交界处，寻找尚未被充分理解的可能。",
+          "Look for underappreciated possibilities where science meets industry."
+        ],
+        "timeline": [
+          {
+            "date": "2000",
+            "text": [
+              "与合伙人共同创立 Lux Capital，围绕前沿科技构建投资机构。",
+              "Co-founded Lux Capital to invest at the frontiers of technology."
+            ],
+            "source": "https://www.luxcapital.com/"
+          },
+          {
+            "date": "2013",
+            "text": [
+              "康奈尔创业峰会介绍其物理科学、生命科学及纳米技术领域的投资与公开教学。",
+              "Cornell’s entrepreneurship summit documented his work across physical and life sciences and public teaching."
+            ],
+            "source": "https://eship.cornell.edu/downloads/Summit_program2013.pdf"
+          },
+          {
+            "date": "2021-10",
+            "text": [
+              "Lux Capital Management 就 Science 37 提交机构权益披露；权益申报与季度 13F 是不同资料。",
+              "Lux Capital Management filed a beneficial-ownership disclosure concerning Science 37; these filings differ from quarterly 13Fs."
+            ],
+            "source": "https://www.sec.gov/edgar/browse/?CIK=1592843&owner=exclude"
+          },
+          {
+            "date": "2022-02",
+            "text": [
+              "SEC 记录包含 Recursion 与 Latch 等公司的权益申报，保留各文件的实际日期。",
+              "SEC records include ownership filings concerning Recursion and Latch, retained with their actual dates."
+            ],
+            "source": "https://www.sec.gov/edgar/browse/?CIK=1592843&owner=exclude"
+          },
+          {
+            "date": "2023-02",
+            "text": [
+              "该主体最近一批已检索的权益披露包括修订文件；不会据此推断至今仍持有。",
+              "The latest retrieved ownership filings for this entity include amendments; they do not establish continued ownership today."
+            ],
+            "source": "https://data.sec.gov/submissions/CIK0001592843.json"
+          },
+          {
+            "date": "2026-03",
+            "text": [
+              "Lux 在 SEC 的 Form ADV 继续以其投资顾问实体登记，研究资料按公开来源区分。",
+              "Lux’s SEC Form ADV identifies its adviser entity, distinct from project and security disclosures."
+            ],
+            "source": "https://reports.adviserinfo.sec.gov/reports/ADV/163026/PDF/163026.pdf"
+          },
+          {
+            "date": "截至 2026-10",
+            "text": [
+              "官方人物页列出 AI、机器人、国防、生命科学等投资关联，并记载其参与创立二十余家公司。",
+              "The official profile lists associations across AI, robotics, defense and life sciences and records more than twenty co-founded companies."
+            ],
+            "source": "https://www.luxcapital.com/people/josh-wolfe"
+          },
+          {
+            "date": "截至 2026-10",
+            "text": [
+              "兼任圣塔菲研究所理事，并共同创办、担任过 Coney Island Prep 主席。",
+              "The official biography records his Santa Fe Institute trusteeship and co-founding and chairing Coney Island Prep."
+            ],
+            "source": "https://www.luxcapital.com/people/josh-wolfe"
+          }
+        ],
+        "principles": [
+          {
+            "title": [
+              "先找到科学的拐点",
+              "Find the scientific inflection"
+            ],
+            "text": [
+              "从实验结果和工程能力理解什么刚刚成为可能，再研究它怎样形成产品与市场。",
+              "Study experimental results and engineering capabilities to identify what has become possible and how it might form a product and market."
+            ]
+          },
+          {
+            "title": [
+              "跨越学科的边界",
+              "Cross disciplinary boundaries"
+            ],
+            "text": [
+              "把生命科学、计算、材料与产业问题联系起来，寻找单一行业分类容易忽略的机会。",
+              "Connect life sciences, computation, materials and industrial problems to see opportunities conventional sector categories can miss."
+            ]
+          },
+          {
+            "title": [
+              "从零到一组建企业",
+              "Help build from zero"
+            ],
+            "text": [
+              "人才、技术与商业路径需要一起成形，早期投资也包含帮助创始人搭建组织。",
+              "Talent, technology and commercialization must develop together; early investing can include helping founders build an organization."
+            ]
+          },
+          {
+            "title": [
+              "用问题检验想象",
+              "Test imagination with questions"
+            ],
+            "text": [
+              "技术叙事要落到可验证的突破、约束与客户需求上，保留对未知的好奇，也保留检验。",
+              "Ground technology narratives in testable breakthroughs, constraints and customer needs while remaining curious about the unknown."
+            ]
+          },
+          {
+            "title": [
+              "给人才看见另一条路",
+              "Help talent see another path"
+            ],
+            "text": [
+              "教育、同伴和环境会改变一个人能够想象的选择，发现技术也要发现创造技术的人。",
+              "Education, peers and environment affect the choices people can imagine; finding technologies also means finding the people who can create them."
+            ]
+          },
+          {
+            "title": [
+              "沿着基础设施寻找新生态",
+              "Follow infrastructure into new ecosystems"
+            ],
+            "text": [
+              "一项基础能力变便宜或更可靠，往往会让下游出现新的产品、客户和组织方式。",
+              "A foundational capability becoming cheaper or more reliable can enable downstream products, customers and new ways to organize."
+            ]
+          }
+        ],
+        "signature": {
+          "title": [
+            "让棱镜照向未知",
+            "Turn a prism toward the unknown"
+          ],
+          "text": [
+            "一束科学的微光，可以分出多个产业方向。特色来自跨学科的追问，也来自参与把技术真正做出来。",
+            "A scientific insight can open several industrial directions. The approach combines cross-disciplinary questions with helping turn technology into something real."
+          ]
+        },
+        "quote": {
+          "text": [
+            "在别人理解之前相信。",
+            "We believe before others understand"
+          ],
+          "attribution": [
+            "Lux Capital · 官方机构理念",
+            "Lux Capital · Official firm statement"
+          ],
+          "url": "https://www.luxcapital.com/"
+        },
+        "resources": [
+          {
+            "kind": [
+              "官方人物",
+              "Official biography"
+            ],
+            "title": [
+              "乔什·沃尔夫",
+              "Josh Wolfe"
+            ],
+            "description": [
+              "研究领域、项目关联与科学和教育经历。",
+              "Research interests, investment associations, science and education."
+            ],
+            "url": "https://www.luxcapital.com/people/josh-wolfe"
+          },
+          {
+            "kind": [
+              "官方投资目录",
+              "Official portfolio"
+            ],
+            "title": [
+              "Lux Capital 项目目录",
+              "Lux Capital companies"
+            ],
+            "description": [
+              "核对公开项目与企业介绍；项目关联不等于当前持股数量。",
+              "Public project associations and company descriptions."
+            ],
+            "url": "https://www.luxcapital.com/companies"
+          },
+          {
+            "kind": [
+              "原始访谈稿",
+              "Original interview"
+            ],
+            "title": [
+              "Infinite Loops：乔什·沃尔夫",
+              "Infinite Loops: Josh Wolfe"
+            ],
+            "description": [
+              "节目原始文字稿，讨论创投研究与科学技术。",
+              "The original interview transcript on venture research and technology."
+            ],
+            "url": "https://www.osam.com/pdfs/Josh_Wolfe_Transcript.pdf"
+          }
+        ],
+        "sources": [
+          "https://www.luxcapital.com/people/josh-wolfe",
+          "https://www.luxcapital.com/companies",
+          "https://reports.adviserinfo.sec.gov/reports/ADV/163026/PDF/163026.pdf"
+        ]
+      },
+      "portfolioMode": "public_projects",
+      "portfolioSources": {
+        "profile": "https://www.luxcapital.com/people/josh-wolfe",
+        "companies": "https://www.luxcapital.com/companies",
+        "submissions": "https://data.sec.gov/submissions/CIK0001592843.json"
+      }
+    },
+    {
+      "id": "mclemore",
+      "name": "萨曼莎·麦克勒莫尔",
+      "nameEn": "Samantha McLemore",
+      "cik": "1854794",
+      "manager": "Patient Capital Management, LLC",
+      "people": [
+        "Samantha McLemore"
+      ],
+      "dataFile": "mclemore.json",
+      "pricesFile": "prices_mclemore.json",
+      "hkFile": "mclemore_hk.json",
+      "market": "US",
+      "source13F": true,
+      "consolidate": true,
+      "inValueScreen": true,
+      "hkDisclosure": {
+        "queries": [
+          "Patient Capital",
+          "Samantha McLemore"
+        ],
+        "entities": [
+          "Patient Capital Management, LLC",
+          "Patient Capital Management LLC",
+          "Samantha McLemore"
+        ]
+      },
+      "officialWebsite": "https://patientcapitalmanagement.com/",
+      "profile": {
+        "reviewedAt": "2026-10-24",
+        "about": [
+          [
+            "萨曼莎·麦克勒莫尔是 Patient Capital 的创始人兼首席投资官。在与比尔·米勒共事二十余年后，她于 2020 年创立公司，将自己自 2014 年开始管理的策略向更广泛的投资者开放。",
+            "Samantha McLemore is founder and CIO of Patient Capital. After more than two decades working with Bill Miller, she established the firm in 2020 to make a strategy begun in 2014 more broadly available."
+          ],
+          [
+            "2023 年 5 月，Patient Capital 收购 Miller Value 的 Opportunity Equity 业务与支持团队，成为独立的投资管理机构。米勒继续担任高级顾问和少数股东，并持有公司产品；这是一条有传承、也有独立判断的投资路线。",
+            "In May 2023, Patient acquired Miller Value’s Opportunity Equity business and supporting team. Miller remained a senior adviser, minority owner and investor in the products, connecting an established investment tradition with independent management."
+          ],
+          [
+            "她所说的耐心有明确对象：市场参与者被短期考核、情绪或事件驱动时，一家公司更长远的盈利能力可能没有被充分定价。时间套利就是研究这个落差，并让资本期限与投资判断相匹配。",
+            "Her patience targets a specific mismatch: short evaluation periods, emotion and events can obscure a company’s longer-term earnings power. Time arbitrage studies that gap and aligns the capital horizon with the investment thesis."
+          ],
+          [
+            "Patient 的估值研究同时考察基本面、竞争战略、同行、管理层和资本配置。价值并不只存在于低市盈率公司；关键是市场的隐含预期是否低于企业能够实现的未来，而不是仅凭一个静态倍数分类。",
+            "The firm’s valuation work considers fundamentals, strategy, peers, management and capital allocation. Value is not confined to low-multiple businesses; the question is whether embedded expectations fall short of what the business can deliver."
+          ],
+          [
+            "阅读她的季报，适合沿着预期、经营结果和价格反应三条线看：市场原来担心什么，实际发生了什么，分歧是否缩小。逆向只是起点，长期持有必须继续接受经营事实和估值的检验。",
+            "Her commentaries can be read through expectations, operating results and price response: what the market feared, what occurred and whether the gap narrowed. Contrarian positioning is a starting point; ownership still depends on continuing fundamental and valuation work."
+          ]
+        ],
+        "summary": [
+          "赚取时间的价值，而不是猜测进场时刻。",
+          "Invest through time rather than market timing."
+        ],
+        "timeline": [
+          {
+            "date": "2002",
+            "text": [
+              "进入投资行业，开始与比尔·米勒长期共事。",
+              "Entered the investment industry and began a long association with Bill Miller."
+            ],
+            "source": "https://patientcapitalmanagement.com/documents/FG/patient_capital/opportunity_trust/646418_Firm_Profile.pdf"
+          },
+          {
+            "date": "2005",
+            "text": [
+              "获得 CFA 特许资格。",
+              "Received the CFA charter."
+            ],
+            "source": "https://patientcapitalmanagement.com/bio/samantha-mclemore"
+          },
+          {
+            "date": "2014",
+            "text": [
+              "启动后来通过 Patient Capital 向公众提供的策略。",
+              "Started the strategy later made publicly available through Patient."
+            ],
+            "source": "https://patientcapitalmanagement.com/about-us"
+          },
+          {
+            "date": "2017",
+            "text": [
+              "获选巴尔的摩 40 Under 40，职业经历开始受到当地商业媒体关注。",
+              "Named to Baltimore’s 40 Under 40."
+            ],
+            "source": "https://patientcapitalmanagement.com/bio/samantha-mclemore"
+          },
+          {
+            "date": "2020",
+            "text": [
+              "创立 Patient Capital，担任首席投资官和 Patient Partners 组合经理。",
+              "Founded Patient Capital as CIO and portfolio manager of Patient Partners."
+            ],
+            "source": "https://patientcapitalmanagement.com/bio/samantha-mclemore"
+          },
+          {
+            "date": "2021 Q4",
+            "text": [
+              "Patient Capital 自身的 SEC 13F 报告期开始，历史按该主体披露保存。",
+              "The stored SEC 13F series begins with Patient Capital’s own reporting entity."
+            ],
+            "source": "https://www.sec.gov/edgar/browse/?CIK=1854794&owner=exclude"
+          },
+          {
+            "date": "2023 至今",
+            "text": [
+              "以独立机构形式延续长期、逆向、价值投资方法；米勒保留顾问与少数股东身份。",
+              "Continued independently with a long-term contrarian value approach; Miller retained advisory and minority ownership roles."
+            ],
+            "source": "https://patientcapitalmanagement.com/about-us"
+          },
+          {
+            "date": "2023-05",
+            "text": [
+              "收购 Opportunity Equity 业务及团队，结束与 Miller Value 的共享运营。",
+              "Acquired Opportunity Equity and its supporting team, ending shared operations with Miller Value."
+            ],
+            "source": "https://patientcapitalmanagement.com/about-us"
+          }
+        ],
+        "principles": [
+          {
+            "title": [
+              "时间，而非择时",
+              "Time, not timing"
+            ],
+            "text": [
+              "研究长期价值与短期价格的错位，把持有期限作为研究的一部分。",
+              "Study the mismatch between long-term value and short-term prices and make the investment horizon part of the research."
+            ]
+          },
+          {
+            "title": [
+              "从预期差开始",
+              "Start with expectations"
+            ],
+            "text": [
+              "找到市场过度悲观或关注不足的环节，比较价格隐含的结果与自己研究得到的结果。",
+              "Identify excessive pessimism or neglect and compare embedded expectations with researched outcomes."
+            ]
+          },
+          {
+            "title": [
+              "给企业完整估值",
+              "Value the whole business"
+            ],
+            "text": [
+              "联合考察基本面、战略、同业、管理层与资本配置，不把价值投资压缩成低倍数筛选。",
+              "Combine fundamentals, strategy, peers, management and capital allocation rather than reduce value to a low-multiple screen."
+            ]
+          },
+          {
+            "title": [
+              "让资本愿意等待",
+              "Align capital with patience"
+            ],
+            "text": [
+              "耐心需要客户、激励和流程的配合，同时持续检查投资逻辑是否仍然成立。",
+              "Patience requires aligned clients, incentives and process alongside continuing checks on the thesis."
+            ]
+          },
+          {
+            "title": [
+              "持续检查经营与预期",
+              "Revisit operations and expectations"
+            ],
+            "text": [
+              "持有之后仍要比较企业实际进展与市场隐含预期，耐心需要能够被事实支持。",
+              "After investing, keep comparing operating progress with embedded expectations; facts must continue to support patience."
+            ]
+          },
+          {
+            "title": [
+              "随赔率调整进攻与防守",
+              "Adjust offense and defense as odds change"
+            ],
+            "text": [
+              "价格接近价值时降低部分风险，把注意力转向剩余回报空间更好、能适应不同环境的机会。",
+              "As price approaches value, moderate some risks and examine opportunities with better remaining upside and resilience across scenarios."
+            ]
+          }
+        ],
+        "signature": {
+          "title": [
+            "让时间成为同伴",
+            "Make time an ally"
+          ],
+          "text": [
+            "短期噪声会放大价格与价值的距离。把研究做深，把期限放长，再用事实检验耐心。",
+            "Short-term noise can widen the gap between price and value. Research deeply, extend the horizon and test patience against the facts."
+          ]
+        },
+        "quote": {
+          "text": [
+            "时间，而非择时。",
+            "Time, not Timing"
+          ],
+          "attribution": [
+            "Patient Capital · 官方投资理念",
+            "Patient Capital · Official philosophy"
+          ],
+          "url": "https://patientcapitalmanagement.com/approach"
+        },
+        "resources": [
+          {
+            "kind": [
+              "官方人物",
+              "Official biography"
+            ],
+            "title": [
+              "萨曼莎·麦克勒莫尔",
+              "Samantha McLemore"
+            ],
+            "description": [
+              "从米勒团队到独立创立 Patient Capital 的职业经历。",
+              "Her career from Miller’s team to founding Patient Capital."
+            ],
+            "url": "https://patientcapitalmanagement.com/bio/samantha-mclemore"
+          },
+          {
+            "kind": [
+              "投资方法",
+              "Investment approach"
+            ],
+            "title": [
+              "时间套利与价值判断",
+              "Time arbitrage and valuation"
+            ],
+            "description": [
+              "长期视角、行为偏差、估值流程与客户利益的一致性。",
+              "Long horizons, behavioral inefficiencies, valuation and client alignment."
+            ],
+            "url": "https://patientcapitalmanagement.com/approach"
+          },
+          {
+            "kind": [
+              "季度信与访谈",
+              "Letters and interviews"
+            ],
+            "title": [
+              "Patient Capital 研究与观点",
+              "Patient Capital insights"
+            ],
+            "description": [
+              "持续发布的季度信、访谈与策略交流。",
+              "Quarterly letters, interviews and strategy discussions."
+            ],
+            "url": "https://patientcapitalmanagement.com/insights"
+          }
+        ],
+        "sources": [
+          "https://patientcapitalmanagement.com/bio/samantha-mclemore",
+          "https://patientcapitalmanagement.com/about-us",
+          "https://patientcapitalmanagement.com/approach"
+        ]
       }
     }
   ]

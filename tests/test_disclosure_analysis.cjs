@@ -33,7 +33,7 @@ test('all current investors have substantial bilingual holdings detail where fig
     a.c.snapshot=read(p.dataFile);
     for(const en of [false,true]){
       a.c.en=en;const html=a.run("window.DisclosureAnalysis.render('holdings',snapshot,en)");
-      if(a.c.snapshot.meta?.snapshotType||a.c.snapshot.current.valueQuality)assert.equal(html,'');
+      if(a.c.snapshot.meta?.portfolioMode==='public_projects'||a.c.snapshot.meta?.snapshotType||a.c.snapshot.current.valueQuality)assert.equal(html,'');
       else {assert.ok(html.length>600,p.id);assert.doesNotMatch(html,/NaN|Infinity|undefined/);}
     }
   }

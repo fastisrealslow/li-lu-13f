@@ -56,6 +56,7 @@ test('quarterly rows and headers refresh for all investors without leaving the t
     await a.run(`switchInvestor(${JSON.stringify(inv.id)})`);
     const current = JSON.parse(fs.readFileSync(path.join(root, inv.dataFile))).current;
     const rows = a.element('changesBody').innerHTML;
+    if(inv.portfolioMode==='public_projects'){assert.equal(current.holdings.length,0);assert.equal(a.run('comparisonState()'),'public_projects');assert.match(rows,/官方项目关联/);continue;}
     if (['snapshot','scope_changed'].includes(a.run('comparisonState()'))) {
       assert.match(rows, /历史披露快照|申报主体与范围变更/);
       assert.ok(!rows.includes('新进'));
@@ -67,7 +68,7 @@ test('quarterly rows and headers refresh for all investors without leaving the t
       const psus=rows.split('<tr>').find(x=>x.includes('>PSUS</span>'));
       assert.match(psus,/新增覆盖/);assert.doesNotMatch(psus,/新进|待比较/);
     }
-    for (const h of current.holdings) assert.ok(rows.includes(`>${h.ticker.replace(/^\?/, '')}</span>`), `${inv.id}: ${h.ticker}`);
+    for (const h of current.holdings) assert.ok(rows.includes(`>${(h.shareType && h.shareType!=='SH'?h.cusip:h.ticker.replace(/^\?/, ''))}</span>`), `${inv.id}: ${h.ticker}`);
     assert.equal(a.element('chCS').textContent, `${current.quarter} 持股`);
     assert.equal(a.element('tab-changes').classList.contains('d-none'), false);
     assert.equal(a.element('tab-current').classList.contains('d-none'), true);
@@ -328,7 +329,7 @@ test('value fallback binds weights and directions to investors without implying 
 test('complete facts and rendered summaries agree with Python for every published investor',async()=>{
   const a=app();await a.run('loadInvestorConfig()');
   const {execFileSync}=require('node:child_process');
-  const expected=JSON.parse(execFileSync('python3',['-c',"import json;from ai_supplement import tasks; print(json.dumps(tasks('.'),ensure_ascii=False))"],{cwd:root,encoding:'utf8'}));
+  const expected=JSON.parse(execFileSync('python3',['-c',"import json;from ai_supplement import tasks; print(json.dumps(tasks('.'),ensure_ascii=False))"],{cwd:root,encoding:'utf8',maxBuffer:32*1024*1024}));
   const cache=JSON.parse(fs.readFileSync(path.join(root,'ai_supplement.json')));
   for(const task of expected.filter(t=>t.id.startsWith('investor:'))) {
     const id=task.id.split(':')[1];await a.run(`switchInvestor('${id}')`);

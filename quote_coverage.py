@@ -12,6 +12,12 @@ from urllib.parse import quote
 
 ROOT=Path(__file__).resolve().parent
 
+def warrant_reference(holding, current):
+    if re.search(r'\bWARRANT\b',holding.get('cls',''),re.I) and holding.get('shares',0)>0 and current.get('sourceFiling'):
+        return dict(status='filing_reference',ticker=holding['ticker'],cusip=holding['cusip'],
+                    filedUnitValue=holding['value']/holding['shares'],asOf=current['periodEnd'],sourceURL=current['sourceFiling'])
+    return None
+
 def load(path):return json.loads(path.read_text())
 def save(path,data):path.write_text(json.dumps(data,ensure_ascii=False,indent=2)+'\n')
 def symbol(ticker):
@@ -24,7 +30,16 @@ def yahoo_quote(ticker):
         try:
             url=f'https://{host}/v8/finance/chart/{quote(expected,safe="")}?interval=1d&range=5d'
             req=urllib.request.Request(url,headers={'User-Agent':'Mozilla/5.0'})
-            with urllib.request.urlopen(req,timeout=15) as response:payload=json.load(response)
+            try:
+                with urllib.request.urlopen(req,timeout=15) as response:payload=json.load(response)
+            except (urllib.error.URLError, TimeoutError, ConnectionError) as exc:
+                if isinstance(exc, urllib.error.HTTPError) and exc.code in (401,403,429):
+                    raise
+                # A second HTTP transport handles transient TLS/proxy failures;
+                # identity, currency and trading-date checks below still apply.
+                import requests
+                response=requests.get(url,headers={'User-Agent':'Mozilla/5.0'},timeout=15)
+                response.raise_for_status();payload=response.json()
             result=payload['chart']['result'][0];meta=result['meta']
             if symbol(meta['symbol']).upper()!=expected.upper():raise ValueError('Quote identity mismatch')
             currency='HKD' if ticker.endswith('.HK') else 'USD'
@@ -99,8 +114,13 @@ def coverage(root=ROOT):
         data=load(root/inv['dataFile']);prices=load(root/inv['pricesFile'])
         for h in data['current']['holdings']:
             if h.get('shareType','SH')!='SH':continue
+            from security_lifecycle import event_for
+            if event_for(h,root):continue
+            if qref := warrant_reference(h,data['current']):
+                if prices.get('quotes',{}).get(h['ticker']) == qref:
+                    continue  # dated filed unit value, explicitly not a live quote
             count+=1;tk=h['ticker'];q=prices.get('quotes',{}).get(tk,{})
-            if tk.startswith('?') or not valid_quote(q) or time.time()-q.get('t',0)>7*86400:issues.append({'investor':inv['id'],'ticker':tk,'cusip':h.get('cusip'),'name':h['name'],'reason':'unmapped' if tk.startswith('?') else 'missing_or_outdated_quote'})
+            if tk.startswith('?') or not valid_quote(q) or q.get('stale') or time.time()-q.get('t',0)>7*86400:issues.append({'investor':inv['id'],'ticker':tk,'cusip':h.get('cusip'),'name':h['name'],'reason':'unmapped' if tk.startswith('?') else 'missing_or_outdated_quote'})
     return {'checkedAt':datetime.now(timezone.utc).isoformat(),'positions':count,'missing':issues}
 
 def refresh(root=ROOT,all_quotes=False,workers=4):
@@ -119,6 +139,16 @@ def refresh(root=ROOT,all_quotes=False,workers=4):
             if alias.get('ticker')==h['ticker'] and h['ticker'] not in costs:
                 prior=next((costs[old] for old in alias.get('oldSymbols',[]) if old in costs),None)
                 if prior is not None:costs[h['ticker']]=prior
+            from security_lifecycle import event_for
+            event=event_for(h,root)
+            if event:
+                files[inv['pricesFile']].setdefault('quotes',{})[h['ticker']]={'status':'ceased_trading','event':event}
+                continue
+            if re.search(r'\bWARRANT\b',h.get('cls',''),re.I):
+                q=files[inv['pricesFile']].get('quotes',{}).get(h['ticker'],{})
+                if not valid_quote(q):
+                    files[inv['pricesFile']].setdefault('quotes',{})[h['ticker']]=warrant_reference(h,load(root/inv['dataFile'])['current'])
+                    continue
             if h.get('shareType','SH')!='SH' or h['ticker'].startswith('?'):continue
             q=files[inv['pricesFile']].get('quotes',{}).get(h['ticker'],{})
             if all_quotes or not valid_quote(q) or q.get('stale') or time.time()-q.get('t',0)>3*86400:wanted.add(h['ticker'])

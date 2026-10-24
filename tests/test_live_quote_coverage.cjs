@@ -11,7 +11,9 @@ test('every displayed stock and eligible HK supplemental row has a recent matchi
   for(const cfg of read('investors.json').investors){
     const d=read(cfg.dataFile),p=read(cfg.pricesFile);
     for(const h of d.current.holdings.filter(h=>!h.shareType||h.shareType==='SH')){
-      const q=p.quotes[h.ticker];
+      const q=p.quotes[h.ticker],event=read('security_lifecycle.json').events[h.cusip];
+      if(/\bWARRANT\b/i.test(h.cls||'')&&q?.status==='filing_reference'){assert.equal(q.cusip,h.cusip);assert.equal(q.filedUnitValue,h.value/h.shares);assert.equal(q.asOf,d.current.periodEnd);assert.equal(q.sourceURL,d.current.sourceFiling);continue;}
+      if(event&&event.ticker===h.ticker&&event.effectiveDate<=new Date().toISOString().slice(0,10)){assert.equal(q?.status,'ceased_trading');assert.deepEqual(q.event,event);assert.match(event.sourceURL,/^https:\/\//);continue;}
       assert.ok(!h.ticker.startsWith('?')&&q?.c>0&&Number.isFinite(q.t)&&q.t*1000<=Date.now()+600000&&Date.now()-q.t*1000<=7*86400000&&!q.error&&!q.stale,`${cfg.id}/${h.ticker}`);
     }
     if(!cfg.hkFile)continue;

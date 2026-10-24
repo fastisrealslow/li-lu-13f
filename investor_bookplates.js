@@ -15,7 +15,10 @@
     ['abrams','#655344','#e9e2d5','study','安静处，做研究','A quiet place to study'],
     ['berkowitz','#7c4b28','#ead7c2','copper','跟着现金走','Follow the cash'],
     ['hawkins','#575b30','#e7e4cc','survey','把企业放上天平','Weigh the whole business'],
-    ['vinall','#286359','#dce8dc','partner','与经营者同坐一桌','At the same table']
+    ['vinall','#286359','#dce8dc','partner','与经营者同坐一桌','At the same table'],
+    ['marks','#65471f','#e9dfbd','pendulum','给钟摆留一把尺','A ruler for the pendulum'],
+    ['wolfe','#553b70','#e6deeb','prism','让棱镜照向未知','A prism toward the unknown'],
+    ['mclemore','#743e55','#eddee1','hourglass','让时间成为同伴','Make time an ally']
   ];
   const designs = Object.freeze(Object.fromEntries(entries.map(([id,ink,wash,finish,zh,en]) =>
     [id,Object.freeze({ink,wash,finish,label:Object.freeze([zh,en])})])));

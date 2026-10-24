@@ -559,7 +559,8 @@ async function loadPrices(pf, requestId = investorRequestId, {signal, stamp = Ma
   }
 }
 
-function fmtTicker(tk) {
+function fmtTicker(tk, holding = null) {
+  if(holding?.shareType && holding.shareType!=='SH') return `<span class="ticker" title="CUSIP">${hkEscape(holding.cusip || tk)}</span>`;
   // Handle unmapped tickers (prefixed with ? in fetch_13f.py)
   const unmapped = tk && tk.startsWith('?');
   const display = unmapped ? tk.substring(1) : tk;
@@ -705,6 +706,7 @@ function getInvestorCIK(id) {
 }
 
 function renderSummary() {
+  if (globalThis.window?.PublicPortfolio?.render('summary',{data,lang,config:INVESTOR_CFG_BY_ID[investor]})) return;
   const d = data.current;
   // 更新 hero 区报告期 / 提交日 / CIK
   const metaRow = document.getElementById('metaRow');
@@ -880,10 +882,11 @@ function toggleOptionPosition(button) {
 }
 function syncOptionDetailColumns() {
   if(typeof getComputedStyle!=='function')return;
-  const columns=[...document.querySelectorAll('#tab-current .table-wrap thead th')].filter(th=>getComputedStyle(th).display!=='none').length;
+  const columns=[...document.querySelectorAll('#tab-current > .table-wrap thead th')].filter(th=>getComputedStyle(th).display!=='none').length;
   if(columns)document.querySelectorAll('#holdingsBody .option-details-row > td').forEach(td=>{td.colSpan=columns;});
 }
 function renderHoldings() {
+  if (globalThis.window?.PublicPortfolio?.render('holdings',{data,lang,config:INVESTOR_CFG_BY_ID[investor]})) return;
   const d = data.current;
   const quotes = prices?.quotes || {};
   
@@ -901,9 +904,11 @@ function renderHoldings() {
     const quoteOK = q && !q.error && Number.isFinite(q.c) && q.c > 0;
     const currentPrice = quoteOK && !q.stale ? q.c : null;
     const quoteDate = quoteDateText(q,h.ticker);
-    const priceHtml = quoteOK
+    const lifecycle=q?.status==='ceased_trading' ? q.event : null;
+    const filedReference=q?.status==='filing_reference' && q.cusip===h.cusip && Number.isFinite(q.filedUnitValue) && q.filedUnitValue>=0 ? q : null;
+    const priceHtml = filedReference ? `<span class="current-price">${currSymbol(h.ticker)}${filedReference.filedUnitValue.toFixed(2)}</span><small class="quote-date">${hkEscape(filedReference.asOf)}</small><small class="option-field-note">${lang==='en'?'Filed warrant unit value · not a current quote':'权证申报单价 · 非现价'}</small>` : lifecycle ? `<span class="estimate-unavailable">${lang==='en'?'Acquired & delisted':'已收购退市'}</span><small class="quote-date">${hkEscape(lifecycle.effectiveDate)}</small><small class="option-field-note"><a href="${hkEscape(lifecycle.sourceURL)}" target="_blank" rel="noopener noreferrer">${lang==='en'?'Issuer confirmation':'公司公告'}</a></small>` : quoteOK
       ? `<span class="current-price">${currSymbol(h.ticker)}${q.c.toFixed(2)}</span>${quoteDate?`<small class="quote-date">${quoteDate}</small>`:''}${h.putCall?`<small class="option-field-note">${lang==='en'?'Underlying stock price':'标的股价'}</small>`:''}${q.stale ? `<small class="quote-stale">${lang==='en'?'Last saved quote':'上次成功报价'}</small>` : ''}`
-      : `<span class="estimate-unavailable">${lang === 'en' ? 'Quote unavailable' : '暂无报价'}</span>`;
+      : `<span class="estimate-unavailable">${h.shareType && h.shareType!=='SH' ? (lang==='en'?'Principal security · no stock quote':'本金类证券 · 不适用股价') : (lang === 'en' ? 'Quote unavailable' : '暂无报价')}</span>`;
     const reason = cb ? null : costUnavailableText(costState.reason);
     const mos = cb ? costGap(currentPrice, cb.recent.buy) : null;
     if(mos!==null) shownGaps.push(mos);
@@ -937,8 +942,8 @@ function renderHoldings() {
     if (h.shareAdjustment && comparable) chgTag += `<small class="split-change-note">${lang === 'en' ? 'Split adjusted' : '拆股后可比'}</small>`;
     const mosCellHtml = mosHtml;
     
-    const quantityLabel=h.putCall?(isEn?'Underlying shares':'标的股数'):h.shareType==='PRN'?(isEn?'Principal':'本金'):'';
-    return `<tr><td class="idx-cell"><span class="idx-num">${i+1}</span></td><td class="stock-cell"><span class="ticker-line">${fmtTicker(h.ticker)}</span>${instrumentTag(h)}<span class="name-line">${hkEscape(cn(h.name, h))}</span>${h.putCall?'':`<span class="sector-badge">${ts(h.sector)}</span>`}<span class="holding-change">${chgTag}</span>${h.putCall?`<button class="option-toggle" type="button" aria-expanded="false" aria-controls="option-position-${i}" onclick="toggleOptionPosition(this)">${isEn?'Option details':'期权明细'}</button>`:''}</td><td class="shares-value-cell"><div style="font-weight:600">${h.shares.toLocaleString('en-US')}</div>${quantityLabel?`<small class="option-field-note">${quantityLabel}</small>`:''}<div style="font-size:.68rem;color:var(--text-lighter);margin-top:2px;">${amountText}</div>${h.putCall?`<small class="option-field-note">${isEn?'Underlying notional value':'标的名义金额'}</small>`:''}<div class="mobile-weight-inline" style="display:none;font-size:.65rem;color:var(--navy);font-weight:600;margin-top:3px;"><span style="font-weight:400;color:var(--text-lighter);">${h.putCall?(isEn?'Notional':'名义占比'):(isEn?'Reported':'申报占比')}</span> ${weightText}</div></td><td class="price-cell">${priceHtml}${mobileCostHtml}</td><td class="cost-cell">${costHtml}</td><td style="width:100px;"><div class="weight-cell"><span class="weight-percent">${weightText}</span>${h.putCall?`<small class="option-field-note">${isEn?'Notional weight':'标的名义占比'}</small>`:''}<div class="bar-wrap"><div class="bar-fill" style="width:${Math.max(0,Math.min(100,Number(pct)||0))}%"></div></div></div></td><td style="width:80px;text-align:center;">${mosCellHtml}</td></tr>${h.putCall?`<tr class="option-details-row" id="option-position-${i}" hidden><td colspan="7">${optionPositionHTML(h,d)}</td></tr>`:''}`;
+    const quantityLabel=h.putCall?(isEn?'Underlying shares':'标的股数'):h.shareType==='PRN'?(isEn?'Principal':'本金'):/\bWARRANT\b/i.test(h.cls||'')?(isEn?'Warrants':'权证份数'):'';
+    return `<tr><td class="idx-cell"><span class="idx-num">${i+1}</span></td><td class="stock-cell"><span class="ticker-line">${fmtTicker(h.ticker,h)}</span>${instrumentTag(h)}<span class="name-line">${hkEscape(cn(h.name, h))}</span>${h.putCall?'':`<span class="sector-badge">${ts(h.sector)}</span>`}<span class="holding-change">${chgTag}</span>${h.putCall?`<button class="option-toggle" type="button" aria-expanded="false" aria-controls="option-position-${i}" onclick="toggleOptionPosition(this)">${isEn?'Option details':'期权明细'}</button>`:''}</td><td class="shares-value-cell"><div style="font-weight:600">${h.shares.toLocaleString('en-US')}</div>${quantityLabel?`<small class="option-field-note">${quantityLabel}</small>`:''}<div style="font-size:.68rem;color:var(--text-lighter);margin-top:2px;">${amountText}</div>${h.putCall?`<small class="option-field-note">${isEn?'Underlying notional value':'标的名义金额'}</small>`:''}<div class="mobile-weight-inline" style="display:none;font-size:.65rem;color:var(--navy);font-weight:600;margin-top:3px;"><span style="font-weight:400;color:var(--text-lighter);">${h.putCall?(isEn?'Notional':'名义占比'):(isEn?'Reported':'申报占比')}</span> ${weightText}</div></td><td class="price-cell">${priceHtml}${mobileCostHtml}</td><td class="cost-cell">${costHtml}</td><td style="width:100px;"><div class="weight-cell"><span class="weight-percent">${weightText}</span>${h.putCall?`<small class="option-field-note">${isEn?'Notional weight':'标的名义占比'}</small>`:''}<div class="bar-wrap"><div class="bar-fill" style="width:${Math.max(0,Math.min(100,Number(pct)||0))}%"></div></div></div></td><td style="width:80px;text-align:center;">${mosCellHtml}</td></tr>${h.putCall?`<tr class="option-details-row" id="option-position-${i}" hidden><td colspan="7">${optionPositionHTML(h,d)}</td></tr>`:''}`;
   }).join('');
   
   // Legend for tags
@@ -980,7 +985,7 @@ function renderHoldings() {
         const mosDiv = document.createElement('div');
         mosDiv.id = 'mosSummary';
         mosDiv.innerHTML = mosSummaryHtml;
-        tabCurrent.insertBefore(mosDiv, tabCurrent.querySelector('.table-wrap'));
+        tabCurrent.insertBefore(mosDiv, tabCurrent.querySelector(':scope > .table-wrap'));
       }
     } else {
       existingMos.innerHTML = mosSummaryHtml;
@@ -1035,6 +1040,7 @@ function sameSecurity(a, b) {
 }
 function comparisonState(snapshot=data) {
   const cur=snapshot?.current || {},meta=snapshot?.meta || {},transition=meta.reportingTransition;
+  if(meta.portfolioMode==='public_projects') return 'public_projects';
   if(meta.snapshotType) return 'snapshot';
   const idx=q=>{const m=/^(\d{4}) ?Q([1-4])$/.exec(q || '');return m?Number(m[1])*4+Number(m[2]):null;};
   const old=idx(cur.prevQuarter),now=idx(cur.quarter);
@@ -1058,6 +1064,7 @@ function quarterlyHoldings(snapshot = data) {
 function comparableQuarter(snapshot = data) { return ['comparable','partial','scope_partial'].includes(comparisonState(snapshot)); }
 function comparisonNotice(snapshot = data) {
   const state=comparisonState(snapshot),en=lang==='en';
+  if(state==='public_projects')return en?'Official project associations and dated ownership filings; no quarterly position report.':'官方项目关联与带日期的权益披露；没有季度持仓申报。';
   if(state==='snapshot') return en?'Historical disclosure snapshot; no verified quarterly comparison.':'历史披露快照；没有可核实的季度比较。';
   if(state==='gap') return en?'Missing intervening quarterly report; these differences are not quarterly trades.':'中间季度缺失，不能把跨期差异当成本季度买卖。';
   if(state==='partial') return en?'Previous report unavailable; coverage is incomplete and exits cannot be verified.':'上季完整申报未取得；比较范围不全，无法完整核实清仓。';
@@ -1086,6 +1093,7 @@ function changeText(h,en=lang==='en') {
   return text;
 }
 function instrumentTag(h) {
+  if(/\bWARRANT\b/i.test(h.cls || '')) return `<span class="instrument-tag">${lang==='en'?'Warrant':'认股权证'}</span>`;
   if(h.putCall) return `<span class="instrument-tag">${hkEscape(h.putCall.toUpperCase())} · ${lang==='en'?'long option':h.putCall.toUpperCase()==='PUT'?'看跌期权多头':'看涨期权多头'}</span>`;
   return h.shareType && h.shareType!=='SH'?`<span class="instrument-tag">${lang==='en'?'Principal amount':'本金金额'} · ${hkEscape(h.shareType)}</span>`:'';
 }
@@ -1134,6 +1142,7 @@ function costSpanText(at) {
 }
 
 function renderChanges() {
+  if (globalThis.window?.PublicPortfolio?.render('changes',{data,lang,config:INVESTOR_CFG_BY_ID[investor]})) return;
   const d = data.current, en = lang === 'en';
   if (!comparableQuarter()) { document.getElementById('changesBody').innerHTML = `<tr><td colspan="7">${comparisonNotice()}</td></tr>`; return; }
   const pq = d.prevQuarter || (en ? 'Previous' : '上季');
@@ -1157,7 +1166,7 @@ function renderChanges() {
     const valueChange=!valueVerified?'—':h.prevValue==null?(comparisonState()==='scope_partial'?(en?'New coverage':'新增覆盖'):(en?'Unverified':'待比较')):h.prevValue===0?(en?'New':'新进'):`${vs}${symbol}${fmtVal(Math.abs(vd))} (${fmtPct(h.value,h.prevValue)})`;
     const mobileShares=`<div class="mobile-change-detail"><small>${hkEscape(pq)} → ${hkEscape(cq)}</small><span>${sharePrevious} → ${h.shares.toLocaleString('en-US')}</span><div>${shareChange}</div>${splitNote}</div>`;
     const mobileValues=`<div class="mobile-change-detail"><small>${hkEscape(pq)} → ${hkEscape(cq)}</small><span>${valuePrevious} → ${valueCurrent}</span><div class="${vc}">${valueChange}</div></div>`;
-    return `<tr><td class="stock-cell"><span class="ticker-line">${fmtTicker(h.ticker)}${exited}</span>${instrumentTag(h)}<span class="name-line">${hkEscape(cn(h.name, h))}</span><span class="sector-badge">${ts(h.sector)}</span></td><td class="change-shares"><span class="desktop-change-detail">${h.prevShares===0?'-':(h.prevShares==null?'—':h.prevShares.toLocaleString('en-US'))}${splitNote}</span>${mobileShares}</td><td>${h.shares.toLocaleString('en-US')}</td><td>${shareChange}</td><td class="change-values"><span class="desktop-change-detail">${!valueVerified || h.prevValue==null?'—':h.prevValue===0?'-':symbol+fmtVal(h.prevValue)}</span>${mobileValues}</td><td>${valueCurrent}</td><td class="${vc}">${valueChange}</td></tr>`;
+    return `<tr><td class="stock-cell"><span class="ticker-line">${fmtTicker(h.ticker,h)}${exited}</span>${instrumentTag(h)}<span class="name-line">${hkEscape(cn(h.name, h))}</span><span class="sector-badge">${ts(h.sector)}</span></td><td class="change-shares"><span class="desktop-change-detail">${h.prevShares===0?'-':(h.prevShares==null?'—':h.prevShares.toLocaleString('en-US'))}${splitNote}</span>${mobileShares}</td><td>${h.shares.toLocaleString('en-US')}</td><td>${shareChange}</td><td class="change-values"><span class="desktop-change-detail">${!valueVerified || h.prevValue==null?'—':h.prevValue===0?'-':symbol+fmtVal(h.prevValue)}</span>${mobileValues}</td><td>${valueCurrent}</td><td class="${vc}">${valueChange}</td></tr>`;
   }).join('');
 }
 
@@ -1285,7 +1294,7 @@ function holdingsConclusion(snapshot) {
   const headline=en?`Top ${top.length}: ${pct(weight)}% — ${weight>=60?'concentrated':'broadly spread'}`:`${top.length===3?'前三项':`前 ${top.length} 项`}占 ${pct(weight)}%，${weight>=60?'持仓较集中':'持仓较分散'}`;
   const lead=top.map(h=>`${name(h)} ${pct(h.value/total*100)}%`).join(en?'; ':'；')+(en?'.':'。')+(rows.length>top.length?(en?` The other ${rows.length-top.length} positions total ${pct(100-weight)}%.`:`其余 ${rows.length-top.length} 项合计 ${pct(100-weight)}%。`):'');
   const details=[],add=(label,text)=>details.push({label:pair(label),text:pair(text)}),groups=new Map();
-  for(const h of rows.filter(h=>!h.putCall && (!h.shareType || h.shareType==='SH'))) {
+  for(const h of rows.filter(h=>!h.putCall && (!h.shareType || h.shareType==='SH') && !/\bWARRANT\b/i.test(h.cls || ''))) {
     const key=/^[A-Z0-9*@#]{8}[0-9]$/.test(h.cusip || '')?h.cusip.slice(0,6):JSON.stringify([h.ticker,h.cusip]);
     if(!groups.has(key))groups.set(key,[]);groups.get(key).push(h);
   }
@@ -1344,6 +1353,7 @@ function renderScopedInsight(kind) {
 }
 
 function renderInsights() {
+  if (globalThis.window?.PublicPortfolio?.render('insights',{data,lang,config:INVESTOR_CFG_BY_ID[investor]})) return;
   if(!data?.current) return;
   const d=data.current,ins = [];
 
@@ -1534,6 +1544,7 @@ function renderHistoryMobile(container, quarters, values) {
 }
 
 function renderHistoryChart() {
+  if (globalThis.window?.PublicPortfolio?.render('history',{data,lang,config:INVESTOR_CFG_BY_ID[investor]})) return;
   const wrap = document.getElementById('historyChartWrap');
   const canvas = document.getElementById('historyChart');
   if (!canvas) return;
@@ -1671,8 +1682,12 @@ function renderHistoryChart() {
 }
 
 // ── TIMELINE ──
+let timelinePageKey='', timelineLimit=200;
+function showMoreTimeline(){timelineLimit+=200;renderTimelineTable();}
 async function renderTimelineTable() {
+  if (globalThis.window?.PublicPortfolio?.render('timeline',{data,lang,config:INVESTOR_CFG_BY_ID[investor]})) return;
   const container = document.getElementById('timelineCanvas');
+  if(document.getElementById('tab-history')?.classList?.contains('d-none')) return;
   if (!data) return;
   if (data.history?.verification?.status === 'unverified') {
     container.innerHTML = `<p style="color:var(--text-lighter);">${lang === 'en' ? 'A holdings timeline requires dated historical snapshots.' : '持仓时间轴需要可核对日期的历史快照，暂不展示。'}</p>`;
@@ -1692,12 +1707,12 @@ async function renderTimelineTable() {
     for (const h of consolidateHoldings(hdata[q])) {
       if(data.meta?.instrumentHistoryTickers?.includes(h.ticker) && q<data.meta.instrumentHistoryFrom) continue;
       if (!(h.shares > 0)) continue;
-      const tk = h.ticker+(h.putCall?' '+h.putCall.toUpperCase():h.shareType && h.shareType!=='SH'?' PRN':'');
-      if (!tickerInfo[tk]) tickerInfo[tk] = {first: q, last: q, quarters: [], sector: h.sector, name: h.name, cnName: h.cnName||'', maxShares: 0, curShares: 0};
+      const tk = (h.cusip || h.ticker)+'|'+instrument(h);
+      if (!tickerInfo[tk]) tickerInfo[tk] = {ticker:h.ticker,cusip:h.cusip,shareType:h.shareType,putCall:h.putCall,cls:h.cls,first: q, last: q, quarters: [], sector: h.sector, name: h.name, cnName: h.cnName||'', maxShares: 0, curShares: 0};
       else tickerInfo[tk].last = q;
       tickerInfo[tk].quarters.push(q);
       const factor = (data.meta?.shareActions || []).filter(a =>
-        (a.cusip === h.cusip || a.ticker === tk) && q < a.quarter && a.quarter <= latest
+        (a.cusip === h.cusip || a.ticker === h.ticker) && q < a.quarter && a.quarter <= latest
       ).reduce((product, a) => product * a.factor, 1);
       const comparableShares = h.shares * factor;
       if (comparableShares > tickerInfo[tk].maxShares) tickerInfo[tk].maxShares = comparableShares;
@@ -1718,7 +1733,10 @@ async function renderTimelineTable() {
     .sort((a, b) => a.first.localeCompare(b.first));
 
   let html = '<div class="table-wrap tl-table-wrap"><table style="width:100%;font-size:.82rem;table-layout:fixed;"><colgroup><col style="width:38%"><col style="width:18%"><col style="width:18%"><col style="width:26%"></colgroup><thead><tr><th>'+t('thCompany')+'</th><th>'+t('thFirst')+'</th><th>'+t('thLast')+'</th><th>'+t('thStatus')+'</th></tr></thead><tbody>';
-  entries.forEach(e => {
+  const pageKey=investor+'|'+lang+'|'+latest;
+  if(timelinePageKey!==pageKey){timelinePageKey=pageKey;timelineLimit=200;}
+  const visible=entries.length>200 ? [...entries].sort((a,b)=>Number(b.active)-Number(a.active)||a.first.localeCompare(b.first)).slice(0,timelineLimit) : entries;
+  visible.forEach(e => {
     if (e.active && e.curShares > 0 && e.maxShares > 0) {
       const ratio = (e.curShares / e.maxShares * 100).toFixed(0);
       const s = e.curShares === e.maxShares
@@ -1758,13 +1776,14 @@ async function renderTimelineTable() {
       status = '<span style="color:var(--text-lighter);">○ ' + (isEn ? 'Exited' : '已清仓') + '</span>' + exitTag;
     }
     html += `<tr>
-      <td class="stock-cell"><span class="ticker-line">${fmtTicker(e.ticker)}</span><span class="name-line">${hkEscape(cn(e.name, e))}</span><span class="sector-badge">${ts(e.sector)}</span><span style="display:block;font-size:.65rem;color:var(--text-lighter);margin-top:2px;">${e.qCount} 季</span></td>
+      <td class="stock-cell"><span class="ticker-line">${fmtTicker(e.ticker,e)}</span>${instrumentTag(e)}<span class="name-line">${hkEscape(cn(e.name, e))}</span><span class="sector-badge">${ts(e.sector)}</span><span style="display:block;font-size:.65rem;color:var(--text-lighter);margin-top:2px;">${e.qCount} 季</span></td>
       <td style="white-space:nowrap">${hkEscape(e.first)}</td>
       <td style="white-space:nowrap">${hkEscape(e.last)}</td>
       <td>${status}<div style="margin-top:4px">${e.shareInfo}</div></td>
     </tr>`;
   });
   html += '</tbody></table></div>';
+  if(visible.length<entries.length)html+=`<button class="btn-refresh timeline-more" type="button" onclick="showMoreTimeline()">${isEn?`Show more history (${visible.length} / ${entries.length})`:`展开更多历史（已显示 ${visible.length} / ${entries.length} 项）`}</button>`;
   html += '<div style="font-size:.68rem;color:var(--text-lighter);margin-top:8px;">● 持有中 = 当前仍在组合内 | ○ 已清仓 = 历史持仓 | ◐ 卖出后重新买入 = 有中断</div>';
   if (isHK) html += '<div style="font-size:.68rem;color:var(--text-lighter);margin-top:4px;">⚠️ Webb 港股持仓数据来源于公开权益披露，非 13F 报告</div>';
   if(data.meta?.instrumentHistoryFrom) html+=`<p class="data-quality-note">${isEn?'Instrument types verified from':'期权相关证券仅展示已核实类别的历史，起点：'} ${data.meta.instrumentHistoryFrom}</p>`;
@@ -2262,11 +2281,16 @@ function updateInvestorContent() {
   const text = (zh, english) => en ? english : zh;
   const setText = (selector, value) => { const el = document.querySelector(selector); if (el) el.textContent = value; };
   const setHTML = (selector, value) => { const el = document.querySelector(selector); if (el) el.innerHTML = value; };
-  const title = `${name} ${cfg.source13F ? text('13F 持仓追踪', '13F Tracker') : text('港股历史披露', 'Historical HK Disclosures')}`;
+  const projects = cfg.portfolioMode==='public_projects';
+  for (const [key,zh,english] of projects ? [['tabCurrent','投资项目','Investment projects'],['tabChanges','公开披露','Public disclosures'],['tabHistory','披露历史','Disclosure history'],['tlTitle','项目目录观测','Project observations']] : [['tabCurrent','持仓明细','Holdings'],['tabChanges','季度变化','Quarterly changes'],['tabHistory','历史趋势','Historical trends'],['tlTitle','持仓时间轴','Holdings timeline']]) setText('[data-i18n="'+key+'"]',text(zh,english));
+  const title = `${name} ${projects ? text('投资研究','Investment Research') : cfg.source13F ? text('13F 持仓追踪', '13F Tracker') : text('港股历史披露', 'Historical HK Disclosures')}`;
   setText('[data-i18n="heroTitle"]', title);
   document.title = title;
   setText('[data-i18n="footerTitle"]', title);
-  setText('.hero-title .sub', `${cfg.manager} · ${cfg.source13F ? 'SEC 13F' : text('历史权益披露快照', 'Historical disclosure snapshot')}`);
+  setText('.hero-title .sub', `${cfg.manager} · ${projects ? text('官方项目与权益披露','Official projects & ownership filings') : cfg.source13F ? 'SEC 13F' : text('历史权益披露快照', 'Historical disclosure snapshot')}`);
+  document.getElementById('portfolioAttribution')?.remove();
+  const attribution=cfg.portfolioAttribution ? `<span id="portfolioAttribution" class="data-quality-note">${hkEscape(profileText(cfg.portfolioAttribution))}</span>` : '';
+  if(attribution){const row=document.getElementById('metaRow');if(row)row.insertAdjacentHTML('beforeend',attribution);}
   setText('.quote-block blockquote', profileText(p.quote?.text || p.summary));
   const quoteAttribution = p.quote ? profileText(p.quote.attribution) : `${name} · ${text('投资理念', 'Investment philosophy')}`;
   const quoteSource = p.quote?.url;

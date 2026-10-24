@@ -62,8 +62,8 @@ def context(data, name, kind, texts):
 
 def holdings_facts(data, name):
     rows = consolidate_holdings(data['current']['holdings'])
-    counts = Counter((h.get('putCall') or ('PRN' if h.get('shareType', 'SH')!='SH' else 'SH')).upper() for h in rows)
-    labels = [('SH','普通股','ordinary shares'), ('CALL','CALL','CALL'), ('PUT','PUT','PUT'), ('PRN','本金类证券','principal securities')]
+    counts = Counter((h.get('putCall') or ('PRN' if h.get('shareType', 'SH')!='SH' else 'WARRANT' if re.search(r'\bWARRANT\b',h.get('cls',''),re.I) else 'SH')).upper() for h in rows)
+    labels = [('SH','普通股','ordinary shares'), ('CALL','CALL','CALL'), ('PUT','PUT','PUT'), ('PRN','本金类证券','principal securities'), ('WARRANT','认股权证','warrants')]
     zh = '、'.join(f'{cn} {counts[k]} 项' for k,cn,en in labels if counts[k])
     en = ', '.join(f'{counts[k]} {label} positions' for k,cn,label in labels if counts[k])
     texts = [[f'本次披露 {len(rows)} 项证券：{zh}。不同股份类别和期权分别计数。',

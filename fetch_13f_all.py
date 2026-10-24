@@ -28,9 +28,12 @@ import os
 import re
 import sys
 import time
+import threading
 import urllib.request
 import urllib.error
 import xml.etree.ElementTree as ET
+from pathlib import Path
+from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime, timezone
 
 # ─────────────────────────────────────────────────────────────
@@ -67,7 +70,7 @@ def _load_investor_config():
             entry["consolidate"] = True
         if inv.get("legacyFilers"):
             entry["legacyFilers"] = inv["legacyFilers"]
-        for field in ("reportingFrom", "reportingTransition", "historyGapNotices"):
+        for field in ("reportingFrom", "reportingTransition", "historyGapNotices", "useRestatements", "fullArchiveWorkers"):
             if inv.get(field): entry[field] = inv[field]
         cfg[inv["id"]] = entry
     return cfg
@@ -602,26 +605,44 @@ SECTORS = {
 # SEC EDGAR 工具函数（所有投资者共用）
 # ─────────────────────────────────────────────────────────────
 
+_SEC_RATE_LOCK = threading.Lock()
+
 def sec_fetch(path: str, retries: int = 3) -> bytes:
     """带 retry + rate-limit 的 SEC 请求。"""
     url = f"https://www.sec.gov{path}" if path.startswith("/") else f"https://data.sec.gov/{path}"
     req = urllib.request.Request(url, headers={"User-Agent": USER_AGENT})
+    immutable = path.startswith('/Archives/edgar/data/')
+    import hashlib
+    cache = Path(BASE)/'.cache'/'sec-originals'/(hashlib.sha256(url.encode()).hexdigest()+'.bin')
+    if immutable and cache.exists():
+        return cache.read_bytes()
     for attempt in range(retries):
         try:
-            time.sleep(0.15)  # SEC EDGAR: max 10 req/s
+            with _SEC_RATE_LOCK:
+                time.sleep(0.15)  # shared budget across historical fetch workers
             with urllib.request.urlopen(req, timeout=30) as resp:
-                return resp.read()
+                raw = resp.read()
+                if immutable:
+                    cache.parent.mkdir(parents=True, exist_ok=True)
+                    cache.write_bytes(raw)
+                return raw
         except urllib.error.HTTPError as e:
             if e.code == 429:
                 wait = 60 * (attempt + 1)
                 print(f"  429 rate limited, waiting {wait}s...", file=sys.stderr)
                 time.sleep(wait)
+            elif e.code in (500, 502, 503, 504) and attempt + 1 < retries:
+                time.sleep(attempt + 1)
             else:
                 raise
+        except (urllib.error.URLError, TimeoutError, ConnectionError):
+            if attempt + 1 == retries:
+                raise
+            time.sleep(attempt + 1)
     raise RuntimeError(f"sec_fetch failed after {retries} retries: {url}")
 
 
-def get_recent_filings(cik: str, include_archives: bool = False) -> list[dict]:
+def get_recent_filings(cik: str, include_archives: bool = False, include_restatements: bool = False) -> list[dict]:
     data = json.loads(sec_fetch(f"submissions/CIK{cik.zfill(10)}.json"))
     batches = [data["filings"]["recent"]]
     if include_archives:
@@ -633,14 +654,49 @@ def get_recent_filings(cik: str, include_archives: bool = False) -> list[dict]:
     filings = {}
     for rec in batches:
         for i, form in enumerate(rec.get("form", [])):
-            if form != "13F-HR":
+            if form != "13F-HR" and not (include_restatements and form == "13F-HR/A"):
                 continue
             accession = rec["accessionNumber"][i]
             filings[accession] = {
                 "accession": accession.replace("-", ""), "accessionDashed": accession,
                 "filingDate": rec["filingDate"][i], "reportDate": rec["reportDate"][i],
+                **({"form": form, "primaryDocument": rec["primaryDocument"][i]} if include_restatements else {}),
             }
-    return sorted(filings.values(), key=lambda f: (f["reportDate"], f["filingDate"]), reverse=True)
+    ordered = sorted(filings.values(), key=lambda f: (f["reportDate"], f["filingDate"], f["accession"]), reverse=True)
+    if not include_restatements:
+        return ordered
+    # Only a complete RESTATEMENT can replace a quarter. Additive amendments
+    # contain a subset of securities and must never become a full portfolio.
+    complete = {}
+    for filing in ordered:
+        period = filing['reportDate']
+        if period in complete:
+            continue
+        if filing['form'] == '13F-HR/A':
+            if period < '2013-06-30':
+                continue  # pre-XML amendments require a separate legacy parser
+            document = filing['primaryDocument'].split('/')[-1]
+            if not re.fullmatch(r'[A-Za-z0-9_.-]+\.xml', document):
+                raise ValueError('Unexpected amendment cover document')
+            path = f"/Archives/edgar/data/{int(cik)}/{filing['accession']}/{document}"
+            try:
+                cover = ET.fromstring(sec_fetch(path))
+                fields = {node.tag.split('}')[-1]: (node.text or '').strip() for node in cover.iter()}
+                report = datetime.strptime(fields.get('periodOfReport', ''), '%m-%d-%Y').strftime('%Y-%m-%d')
+            except (urllib.error.URLError, TimeoutError, ConnectionError):
+                from sec_history_index import bind_submission
+                submission = f"/Archives/edgar/data/{int(cik)}/{filing['accessionDashed']}.txt"
+                bound = bind_submission(sec_fetch(submission), {**filing, 'submissionPath':submission}, cik)
+                report = bound['reportDate']
+                fields = {'amendmentType':bound['amendmentType']}
+                path = submission
+            if report != period:
+                raise ValueError('Amendment cover period differs from SEC submissions')
+            if fields.get('amendmentType', '').upper() != 'RESTATEMENT':
+                continue
+            filing.update(amendmentType='RESTATEMENT', coverSource='https://www.sec.gov'+path)
+        complete[period] = filing
+    return list(complete.values())
 
 
 def missing_history_quarters(data):
@@ -891,7 +947,10 @@ def investor_filings(config, full_mode=False):
     sources = [(config['cik'], None)] + [(old['cik'], old['beforePeriod']) for old in config.get('legacyFilers', [])]
     by_period = {}
     for cik, before in sources:
-        rows = get_recent_filings(cik, include_archives=True) if full_mode else get_recent_filings(cik)
+        if config.get('useRestatements'):
+            rows = get_recent_filings(cik, include_archives=full_mode, include_restatements=True)
+        else:
+            rows = get_recent_filings(cik, include_archives=True) if full_mode else get_recent_filings(cik)
         for filing in rows:
             period = filing['reportDate']
             if (before and period >= before) or (not before and config.get('reportingFrom') and period < config['reportingFrom']):
@@ -933,6 +992,28 @@ def backfill_security_classes(data, filings, max_quarters=4):
     known=[q for q in sorted(history) if not pending or q>max(pending)]
     data['meta']['instrumentHistoryFrom']=known[0] if known else data['current']['prevQuarter']
     data['history']['instrumentVerification']={'pendingQuarters':sorted(pending),'errors':errors,'checkedAt':datetime.now(timezone.utc).isoformat()}
+
+
+def backfill_restatements(data, filings, cik, consolidate=False):
+    """Replace stored original quarters when a verified complete restatement exists."""
+    sources = data['history'].setdefault('filing_sources', {})
+    repaired = []
+    for filing in filings:
+        quarter = quarter_label(filing['reportDate'])
+        if filing.get('amendmentType') != 'RESTATEMENT' or sources.get(quarter, {}).get('accession') == filing['accession']:
+            continue
+        path = find_info_table_xml(filing.get('cik', cik), filing['accession'], filing['accessionDashed'])
+        rows = parse_holdings(sec_fetch(path), consolidate=consolidate, filing_date=filing['filingDate'])
+        update_history(data, quarter, rows)
+        sources[quarter] = {**filing, 'url':'https://www.sec.gov'+path}
+        repaired.append(quarter)
+    if repaired:
+        history = data['history']['holdings']
+        ordered = sorted(history)
+        for previous, current in zip(ordered, ordered[1:]):
+            attach_previous(history[current], history[previous], previous_quarter=previous, current_quarter=current)
+        print('  Applied complete restatements:', ', '.join(repaired))
+    return repaired
 
 
 def process_investor(key: str, config: dict, full_mode: bool):
@@ -1011,6 +1092,8 @@ def process_investor(key: str, config: dict, full_mode: bool):
         quarter_label(cur_f['reportDate']): {**cur_f, 'url': 'https://www.sec.gov' + cur_path},
         quarter_label(prev_f['reportDate']): {**prev_f, 'url': 'https://www.sec.gov' + prev_path},
     })
+    if config.get('useRestatements'):
+        backfill_restatements(data, filings, cik, consolidate)
     backfill_security_classes(data, filings)
     backfill_history_gaps(cik, data, filings, consolidate)
     remaining = history_notice_quarters(data["history"]["coverage"],config)
@@ -1045,14 +1128,22 @@ def process_full(key: str, config: dict, filings: list[dict], data: dict):
     new_quarters = 0
     refreshed = 0
 
+    def fetch_quarter(filing):
+        path = find_info_table_xml(filing.get('cik', cik), filing['accession'], filing['accessionDashed'])
+        rows = parse_holdings(sec_fetch(path), consolidate=consolidate, filing_date=filing['filingDate'])
+        return path, rows
+
+    # A bounded pool speeds initial onboarding; immutable SEC originals are cached
+    # locally, so an interrupted backfill resumes without re-downloading history.
+    pool = ThreadPoolExecutor(max_workers=max(1, min(3, config.get('fullArchiveWorkers', 1))))
+    futures = {f['accession']:pool.submit(fetch_quarter, f) for f in filings_sorted}
+
     for i, f in enumerate(filings_sorted):
         q_label = quarter_label(f["reportDate"])
 
         print(f"  [{i+1}/{len(filings_sorted)}] Fetching {q_label} (filed {f['filingDate']})...")
         try:
-            xml_path = find_info_table_xml(f.get('cik', cik), f["accession"], f["accessionDashed"])
-            xml_bytes = sec_fetch(xml_path)
-            holdings = parse_holdings(xml_bytes, consolidate=consolidate, filing_date=f["filingDate"])
+            xml_path, holdings = futures[f['accession']].result()
             all_fetched[q_label] = holdings
 
             # 找最近的前一期用于 prevShares
@@ -1079,6 +1170,8 @@ def process_full(key: str, config: dict, filings: list[dict], data: dict):
         except Exception as e:
             print(f"    -> ERROR: {e}")
             continue
+
+    pool.shutdown(wait=True)
 
     # 更新 current 为最新一期
     latest = filings[0]

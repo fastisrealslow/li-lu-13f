@@ -20,6 +20,7 @@
 """
 
 import json, os, sys, time, re, hashlib, urllib.request, urllib.error
+from functools import lru_cache
 from zoneinfo import ZoneInfo
 from datetime import datetime, timezone, date
 from holdings_diff import share_adjustment, consolidate_holdings, same_security
@@ -114,6 +115,9 @@ def get_finnhub_key(override=None):
 _RETRYABLE_HTTP_CODES = {500, 502, 503, 504}
 
 def finnhub(path, _retries=3):
+    # Public Yahoo quotes and historical-price fallbacks also work without a key.
+    if not _API_KEY and not os.environ.get('FINNHUB_KEY'):
+        return None
     key = get_finnhub_key()
     sep = "&" if "?" in path else "?"
     url = f"https://finnhub.io/api/v1{path}{sep}token={key}"
@@ -225,6 +229,7 @@ def supplement_hk_quotes(cfg, quotes, cached=None):
 # ─────────────────────────────────────────────
 # Yahoo Finance 历史 K 线
 # ─────────────────────────────────────────────
+@lru_cache(maxsize=8192)
 def yahoo_chart(symbol, from_ts, to_ts):
     try:
         import yfinance as yf
@@ -307,6 +312,13 @@ def fetch_us(investor, cfg):
     quotes = {}
     for h in holdings:
         tk = h["ticker"]
+        if h.get('shareType', 'SH') != 'SH':
+            continue  # principal amounts are not shares of the quoted stock
+        from security_lifecycle import event_for
+        event = event_for(h)
+        if event:
+            quotes[tk] = {'status':'ceased_trading', 'event':event}
+            continue
         if tk.startswith("?") or tk.endswith(".HK"):
             quotes[tk] = {"error": True}
             print(f"  Skip {tk} (unmapped/HK)")
@@ -355,7 +367,8 @@ def fetch_us(investor, cfg):
                 print(f"✗ → 回退旧报价 ${eq['c']:.2f} (stale)")
             else:
                 print("✗ → 无历史缓存可回退")
-                quotes[tk] = {"error": True}
+                from quote_coverage import warrant_reference
+                quotes[tk] = warrant_reference(h,current) or {"error": True}
         time.sleep(1.1)
 
     # ── Part 2: 成本估算 ──
@@ -516,6 +529,17 @@ def fetch_us(investor, cfg):
         if pending_value_quarters:cost_basis[tk]["averageUnavailable"]="units"
         time.sleep(0.3)
 
+    # Publish the complete current quote/cost snapshot before optional old exits.
+    # An interrupted historical extension must not discard fresh market data.
+    supplement_hk_quotes(cfg, quotes, existing_quotes)
+    for ticker in split_tickers:
+        if ticker in cost_basis:
+            cost_basis[ticker]["splitAdjustedThrough"] = quarter
+    with open(prices_file, 'w') as output:
+        mixed_tickers={h['ticker'] for rows in hist_holdings.values() for h in rows if h.get('putCall') or h.get('shareType','SH')!='SH'}
+        json.dump(dict(updated=datetime.utcnow().isoformat()+'Z', quotes=quotes,
+                       costBasis=cost_basis, exitPerf={k:v for k,v in (ex or {}).get('exitPerf',{}).items() if k not in mixed_tickers}), output, indent=2)
+
     # ── exitPerf：已清仓持仓估算盈亏 ──────────────────────────────────
     exit_perf = {}
     current_tks = {h["ticker"] for h in data.get("current", {}).get("holdings", [])}
@@ -529,7 +553,12 @@ def fetch_us(investor, cfg):
 
     existing_ep = (ex.get("exitPerf", {}) if ex else {})
 
-    for tk2 in exited_tks:
+    # An issuer's historical options or principal cannot establish stock profits.
+    mixed = {h['ticker'] for rows in hist_holdings.values() for h in rows
+             if h.get('putCall') or h.get('shareType', 'SH') != 'SH'}
+    exited_tks -= mixed
+    exit_attempts = 0
+    for tk2 in sorted(exited_tks):
         # 找最后出现的季度（即清仓季度）
         qtrs_with_tk = sorted(
             [q for q, hlist in hist_holdings.items()
@@ -545,6 +574,10 @@ def fetch_us(investor, cfg):
             exit_perf[tk2] = ex_ep
             continue
 
+        # Extend old estimates in bounded batches while keeping verified caches.
+        if exit_attempts >= 20:
+            continue
+        exit_attempts += 1
         # 清仓季度均价作为卖出价估算
         qf, qt_ = quarter_ts(exit_q)
         c2 = yahoo_chart(tk2, qf, qt_)
