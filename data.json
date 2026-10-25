@@ -6,7 +6,7 @@
       "Li Lu"
     ],
     "location": "Seattle, WA",
-    "lastUpdated": "2026-10-24T16:20:42Z",
+    "lastUpdated": "2026-10-25T01:54:40Z",
     "aiSummary": "李录 Q2 新建腾讯音乐仓位并大幅增持拼多多与伯克希尔，显示其持续看好中国互联网及价值投资方向。",
     "aiSummaryQuarter": "2026 Q2",
     "instrumentHistoryTickers": [
@@ -726,44 +726,87 @@
       ],
       "2018 Q1": [
         {
-          "ticker": "?ALIBABA GROUP HLDG LTD",
+          "ticker": "BABA",
           "name": "ALIBABA GROUP HLDG LTD",
           "cls": "SPONSORED ADS",
+          "cusip": "01609W102",
           "shares": 53000,
           "value": 9728000,
-          "sector": "其他",
+          "shareType": "SH",
+          "putCall": "",
+          "managerAllocations": [
+            {
+              "managerIds": [],
+              "shares": 53000,
+              "value": 9728000
+            }
+          ],
+          "sector": "电商",
           "prevShares": 0,
-          "prevValue": 0
+          "prevValue": 0,
+          "cnName": "阿里巴巴"
         },
         {
           "ticker": "?Sina Corp",
           "name": "Sina Corp",
           "cls": "Ord",
+          "cusip": "G81477104",
           "shares": 52300,
           "value": 5453000,
+          "shareType": "SH",
+          "putCall": "",
+          "managerAllocations": [
+            {
+              "managerIds": [],
+              "shares": 52300,
+              "value": 5453000
+            }
+          ],
           "sector": "其他",
           "prevShares": 52300,
           "prevValue": 5246000
         },
         {
-          "ticker": "?Baidu Inc",
+          "ticker": "BIDU",
           "name": "Baidu Inc",
           "cls": "Spon ADR REP A",
+          "cusip": "056752108",
           "shares": 5800,
           "value": 1295000,
-          "sector": "其他",
+          "shareType": "SH",
+          "putCall": "",
+          "managerAllocations": [
+            {
+              "managerIds": [],
+              "shares": 5800,
+              "value": 1295000
+            }
+          ],
+          "sector": "互联网",
           "prevShares": 5800,
-          "prevValue": 1358000
+          "prevValue": 1358000,
+          "cnName": "百度"
         },
         {
-          "ticker": "?Weibo Corp",
+          "ticker": "WB",
           "name": "Weibo Corp",
           "cls": "Spon ADR",
+          "cusip": "948596101",
           "shares": 5230,
           "value": 625000,
-          "sector": "其他",
+          "shareType": "SH",
+          "putCall": "",
+          "managerAllocations": [
+            {
+              "managerIds": [],
+              "shares": 5230,
+              "value": 625000
+            }
+          ],
+          "sector": "传媒",
           "prevShares": 5230,
-          "prevValue": 541000
+          "prevValue": 541000,
+          "cnName": "Weibo Corporation"
         }
       ],
       "2018 Q2": [
@@ -3515,7 +3558,7 @@
       ]
     },
     "coverage": {
-      "checkedAt": "2026-10-24T16:20:42Z",
+      "checkedAt": "2026-10-25T01:54:40Z",
       "missingQuarters": [
         "2018 Q4",
         "2019 Q1",
@@ -3534,7 +3577,7 @@
         "schemaVersion": 1,
         "cik": "1709323",
         "checkedAt": "2026-10-20T17:37:21Z",
-        "attemptedAt": "2026-10-24T16:20:42Z",
+        "attemptedAt": "2026-10-25T01:54:40Z",
         "status": "checked",
         "indexes": {
           "2019/QTR1": {
@@ -3819,12 +3862,20 @@
         "reportDate": "2020-03-31",
         "cik": "1709323",
         "url": "https://www.sec.gov/Archives/edgar/data/1709323/000170932320000003/13fuploadq12020.xml"
+      },
+      "2018 Q1": {
+        "accession": "000170932318000005",
+        "accessionDashed": "0001709323-18-000005",
+        "filingDate": "2018-05-16",
+        "reportDate": "2018-03-31",
+        "cik": "1709323",
+        "url": "https://www.sec.gov/Archives/edgar/data/1709323/000170932318000005/q12018table.xml"
       }
     },
     "instrumentVerification": {
       "pendingQuarters": [],
       "errors": {},
-      "checkedAt": "2026-10-24T16:20:42.533160+00:00"
+      "checkedAt": "2026-10-25T01:54:40.200151+00:00"
     },
     "valueAudit": {
       "2022 Q4": {
@@ -4340,7 +4391,7 @@
       },
       "2016 Q4": {
         "version": 1,
-        "checkedAt": "2026-10-24",
+        "checkedAt": "2026-10-25",
         "source": "https://www.sec.gov/Archives/edgar/data/1709323/000170932317000002/q41613finfotable.xml",
         "filingDate": "2017-06-14",
         "sourceDigest": "f5138cf0ad46d93d61986aedd83672ac2176d447db2ad3a9dc7b31869cfa6e15",
@@ -4352,7 +4403,7 @@
       },
       "2017 Q1": {
         "version": 1,
-        "checkedAt": "2026-10-24",
+        "checkedAt": "2026-10-25",
         "source": "https://www.sec.gov/Archives/edgar/data/1709323/000170932317000003/q11713finfotable.xml",
         "filingDate": "2017-06-14",
         "sourceDigest": "934f23a4401c26e72d519ff68cad9266bb3c82d32e08668e2609496d9a2e50d6",
@@ -4364,11 +4415,11 @@
       },
       "2017 Q2": {
         "version": 1,
-        "checkedAt": "2026-10-24",
+        "checkedAt": "2026-10-25",
         "source": "https://www.sec.gov/Archives/edgar/data/1709323/000170932317000004/q21713finfotable.xml",
         "filingDate": "2017-08-14",
         "sourceDigest": "f394e5139f12c47e1189d4d2a5960268b157f0005662396b5cd76cb251c11ec5",
-        "sourceHash": "c0901af78473a7e1f60ad6899cc6d9aa47cffcf17e11f02471c6ab087d61724a",
+        "sourceHash": "527ce8f9467708ae77168687e1c0530ebf24e30a6d86802b012ec13274684261",
         "status": "pending",
         "anchors": [
           {
@@ -4378,7 +4429,19 @@
             "price": 178.86000061035156,
             "date": "2017-06-30",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/BIDU?period1=0&period2=1792894091&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/BIDU?period1=0&period2=1792979682&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "WB",
+            "cusip": "948596101",
+            "filedPrice": 66.53919694072658,
+            "price": 66.47000122070312,
+            "date": "2017-06-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/WB?period1=0&period2=1792979682&interval=1d&events=splits",
             "candidates": [
               1
             ]
@@ -4389,11 +4452,11 @@
       },
       "2017 Q3": {
         "version": 1,
-        "checkedAt": "2026-10-24",
+        "checkedAt": "2026-10-25",
         "source": "https://www.sec.gov/Archives/edgar/data/1709323/000170932317000005/himcaptableq317.xml",
         "filingDate": "2017-11-15",
         "sourceDigest": "37d1de72de79d058c65854025dd901f84473881bdfff57e08e4db30d4f3860e3",
-        "sourceHash": "23bf12b3d13fde7dd0c08aa7ae70caa49e4529f4c640fdf80e0a1a2d21ffcb9f",
+        "sourceHash": "f25c44d66a33d9c669e766424ec6fe5f0576570212ffef0af00a57eaf332d542",
         "status": "pending",
         "anchors": [
           {
@@ -4403,7 +4466,19 @@
             "price": 247.69000244140625,
             "date": "2017-09-29",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/BIDU?period1=0&period2=1792894091&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/BIDU?period1=0&period2=1792979682&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "WB",
+            "cusip": "948596101",
+            "filedPrice": 98.8527724665392,
+            "price": 98.94000244140625,
+            "date": "2017-09-29",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/WB?period1=0&period2=1792979682&interval=1d&events=splits",
             "candidates": [
               1
             ]
@@ -4414,11 +4489,11 @@
       },
       "2017 Q4": {
         "version": 1,
-        "checkedAt": "2026-10-24",
+        "checkedAt": "2026-10-25",
         "source": "https://www.sec.gov/Archives/edgar/data/1709323/000170932318000003/tablefor13fq42017.xml",
         "filingDate": "2018-02-14",
         "sourceDigest": "2bb9e985ceaead6eda323db3ab3fc086cb3b91b660bb9d64569175dc53d0290b",
-        "sourceHash": "063a0337f6a717f60839f37fbb0c67c5853a0a47ebc3f482846cb5ed33648b64",
+        "sourceHash": "7599422f510b0481b07860b44d9553a2afef939474e09180ce9c1a67f22434ed",
         "status": "pending",
         "anchors": [
           {
@@ -4428,7 +4503,19 @@
             "price": 234.2100067138672,
             "date": "2017-12-29",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/BIDU?period1=0&period2=1792894091&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/BIDU?period1=0&period2=1792979682&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "WB",
+            "cusip": "948596101",
+            "filedPrice": 103.4416826003824,
+            "price": 103.45999908447266,
+            "date": "2017-12-29",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/WB?period1=0&period2=1792979682&interval=1d&events=splits",
             "candidates": [
               1
             ]
@@ -4439,12 +4526,13 @@
       },
       "2018 Q1": {
         "version": 1,
-        "checkedAt": "2026-10-24",
+        "checkedAt": "2026-10-25",
         "source": "https://www.sec.gov/Archives/edgar/data/1709323/000170932318000005/q12018table.xml",
         "filingDate": "2018-05-16",
         "sourceDigest": "210b94e8c57651adb3b21fc1f7db799e47ae876bfdd776b015e94658c375fa8e",
-        "sourceHash": "f5e3cfbe1ad9ece988dc538ddb48ade9ff80a260333beb518cb5d2e8846c9ed2",
-        "status": "pending",
+        "sourceHash": "e11071c7cc1901308465a59804cf7436d4e31afe97e70c3ae99ac2ea8094fd8c",
+        "status": "verified",
+        "factor": 1,
         "anchors": [
           {
             "ticker": "BABA",
@@ -4453,7 +4541,7 @@
             "price": 183.5399932861328,
             "date": "2018-03-29",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/BABA?period1=0&period2=1792894093&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/BABA?period1=0&period2=1792979684&interval=1d&events=splits",
             "candidates": [
               1
             ]
@@ -4465,14 +4553,28 @@
             "price": 223.19000244140625,
             "date": "2018-03-29",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/BIDU?period1=0&period2=1792894091&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/BIDU?period1=0&period2=1792979682&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "WB",
+            "cusip": "948596101",
+            "filedPrice": 119.50286806883365,
+            "price": 119.54000091552734,
+            "date": "2018-03-29",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/WB?period1=0&period2=1792979682&interval=1d&events=splits",
             "candidates": [
               1
             ]
           }
         ],
-        "errors": [],
-        "normalizedHash": "5929eeb9be18830898f60ed34115ea75ec2831ba9051cf90893b2f50cec950fe"
+        "agreementCount": 3,
+        "anchorCount": 3,
+        "outlierTickers": [],
+        "normalizedHash": "e11071c7cc1901308465a59804cf7436d4e31afe97e70c3ae99ac2ea8094fd8c"
       },
       "2018 Q2": {
         "version": 1,
