@@ -3115,10 +3115,10 @@
       "reason": "ValueError: Bilingual editorial review: The Chinese text incorrectly states Lennar's earnings growth as '13% year over year' based on the source. Source s2 says: 'the compa"
     },
     "marks-05b38067d482db": {
-      "at": "2026-10-25T05:17:49+00:00",
+      "at": "2026-10-25T13:40:41+00:00",
       "status": "retry",
       "inputHash": "c059d951b763be37ac7080839d7e7324bce04c6610655c0e672c589837bb46f7",
-      "reason": "ValueError: Bilingual editorial review: The English paraphrase in `content.paragraphs[0].en` contains significant factual and semantic drift compared to the source text.; T"
+      "reason": "ValueError: Bilingual editorial review: The English paraphrase in the content section is too long (216 characters) and exceeds the 160-character limit per correction.; The "
     },
     "marks-2b0acf3944f6ef": {
       "at": "2026-10-25T06:40:22+00:00",
@@ -3535,5 +3535,5 @@
       "reason": "ValueError: Bilingual editorial review: The source text (s25) states 'I really wasn't the first quant' and describes himself as 'kind of lazy', but does not explicitly ment"
     }
   },
-  "updatedAt": "2026-10-25T13:40:21+00:00"
+  "updatedAt": "2026-10-25T13:40:41+00:00"
 }
