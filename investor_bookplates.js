@@ -17,7 +17,7 @@
     ['hawkins','#575b30','#e7e4cc','survey','把企业放上天平','Weigh the whole business'],
     ['vinall','#286359','#dce8dc','partner','与经营者同坐一桌','At the same table'],
     ['marks','#65471f','#e9dfbd','pendulum','给钟摆留一把尺','A ruler for the pendulum'],
-    ['wolfe','#553b70','#e6deeb','prism','让棱镜照向未知','A prism toward the unknown'],
+    ['greenblatt','#566028','#e9e6cc','two-rulers','两把尺，一起量','Two measures, one judgment'],
     ['mclemore','#743e55','#eddee1','hourglass','让时间成为同伴','Make time an ally']
   ];
   const designs = Object.freeze(Object.fromEntries(entries.map(([id,ink,wash,finish,zh,en]) =>

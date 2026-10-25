@@ -4174,209 +4174,232 @@
       "fullArchiveWorkers": 3
     },
     {
-      "id": "wolfe",
-      "name": "乔什·沃尔夫",
-      "nameEn": "Josh Wolfe",
-      "cik": "1592843",
-      "manager": "Lux Capital Management, LLC",
+      "id": "greenblatt",
+      "name": "乔尔·格林布拉特",
+      "nameEn": "Joel Greenblatt",
+      "cik": "1510387",
+      "manager": "Gotham Asset Management, LLC",
       "people": [
-        "Josh Wolfe"
+        "Joel Greenblatt",
+        "Robert Goldstein"
       ],
-      "dataFile": "wolfe.json",
-      "pricesFile": "prices_wolfe.json",
-      "hkFile": "wolfe_hk.json",
+      "dataFile": "greenblatt.json",
+      "pricesFile": "prices_greenblatt.json",
+      "hkFile": "greenblatt_hk.json",
       "market": "US",
-      "source13F": false,
+      "source13F": true,
       "consolidate": true,
-      "inValueScreen": false,
+      "inValueScreen": true,
+      "useRestatements": true,
+      "fullArchiveWorkers": 3,
+      "portfolioAttribution": [
+        "Gotham 机构合并申报 · 含指数与多空策略的多头证券",
+        "Gotham institutional filing · long securities across index and long/short strategies"
+      ],
+      "officialWebsite": "https://www.gotham.com/",
       "hkDisclosure": {
         "queries": [
-          "Lux Capital",
-          "Josh Wolfe"
+          "Gotham Asset Management",
+          "Joel Greenblatt"
         ],
         "entities": [
-          "Lux Capital Management, LLC",
-          "Lux Capital Management LLC",
-          "Josh Wolfe"
+          "Gotham Asset Management, LLC",
+          "Gotham Asset Management LLC",
+          "Joel Greenblatt"
         ]
       },
-      "officialWebsite": "https://www.luxcapital.com/",
       "profile": {
-        "reviewedAt": "2026-10-24",
+        "reviewedAt": "2026-10-25",
         "about": [
           [
-            "乔什·沃尔夫是 Lux Capital 的联合创始人及合伙人，专注把科学前沿转化为能够形成企业的机会。他同时关注生命科学、人工智能、计算、国防、能源与机器人，研究往往从实验室、工程瓶颈和具有独特能力的创始人开始。",
-            "Josh Wolfe is a co-founder and partner of Lux Capital. His work spans life sciences, AI, computing, defense, energy and robotics, looking for opportunities where scientific progress, engineering constraints and distinctive founders can form new businesses."
+            "乔尔·格林布拉特是 Gotham Asset Management 的管理合伙人兼联席首席投资官，1985 年创立了其前身 Gotham Capital。他与罗伯特·戈德斯坦长期合作，也曾在哥伦比亚商学院讲授价值与特殊情形投资逾二十年。",
+            "Joel Greenblatt is managing principal and co-CIO of Gotham Asset Management, successor to Gotham Capital, which he founded in 1985. His longtime partner is Robert Goldstein, and he taught value and special-situation investing at Columbia for more than two decades."
           ],
           [
-            "与从现成上市公司里挑选便宜股票不同，他经常参与企业从零到一的形成：官网记载他参与共同创立了二十余家 Lux 项目。科学是否可行、关键人才是否愿意聚在一起、从技术走向客户还缺哪一步，是这种研究的重要问题。",
-            "Rather than only select established listed companies, he often helps create ventures from the beginning. Lux records his involvement in co-founding more than twenty companies. Scientific feasibility, assembling talent and the path from technology to customers are central questions."
+            "他最鲜明的特点，是把复杂问题拆回简单的算术：这门生意值多少，现在要付多少钱？早期关注分拆、重组和清算等特殊情形，寻找因交易结构、投资限制或持有人被动卖出而出现的机会。《股市天才》把这种从文件与激励中寻找机会的方法讲给普通投资者。",
+            "His work reduces complexity to two questions: what is the business worth, and what must the investor pay? His special-situation writing examines spin-offs, restructurings and liquidations, including opportunities created by forced selling and structural constraints."
           ],
           [
-            "他是发表过科研成果的科学研究者、康奈尔大学校友，也是圣塔菲研究所的理事。复杂系统与跨学科的视角，使研究不局限于一个传统行业：同一项新工具，可能先改变科研过程，再改变产业的成本、能力和组织方式。",
-            "He is a published scientist, Cornell alumnus and trustee of the Santa Fe Institute. A cross-disciplinary perspective considers how a new tool can first change research and later reshape industrial costs, capabilities and organization."
+            "“神奇公式”把两条判断分开排序，再结合起来：企业使用经营资本的效率，以及投资者按企业价值买入时得到的盈利收益率。好公司和好价格缺一不可；排名是筛选入口，仍要检查盈利是否可持续、资本项目是否算对。",
+            "The magic formula combines separate rankings for return on operating capital and earnings yield on enterprise value. Business quality and purchase price both matter; the screen still calls for checking sustainable earnings and the capital denominator."
           ],
           [
-            "Lux 所说的“在别人理解之前相信”，强调形成独立判断的时间差。新技术故事需要拆成可检验的问题：突破发生在哪里，尚未解决的限制是什么，以及为什么这个团队有机会把突破变成产品。",
-            "Lux’s description of believing before others understand places emphasis on independent early judgment. A technology narrative can be tested by identifying the breakthrough, remaining constraints and the team’s ability to convert progress into a product."
+            "这套方法也依赖执行。官方说明强调分散持有，必要时分批建仓，约一年后按规则更新组合。它的优势不在预测下个月的热门股，而在于用能够解释的规则，反复寻找价格与经营价值的差距。",
+            "The official implementation emphasizes diversification, potentially staggered purchases, and rules-based renewal after about a year. Discipline connects the valuation idea with a repeatable portfolio process."
           ],
           [
-            "沃尔夫还共同创办并担任过布鲁克林 Coney Island Prep 特许学校的主席。理解他的公开讨论，除了看新技术，也可以留意人才从哪里来、制度如何创造机会，以及社会如何承受技术带来的变化。",
-            "He also co-founded and chaired Coney Island Prep in Brooklyn. His public discussions invite attention to talent, institutions and opportunity as well as technology and the social consequences of change."
+            "今天的 Gotham 同时经营多头与多空策略，旗下 ETF 还包括重新赋权的标普 500 组合、广泛分散的价值组合与净空头产品。阅读这里的机构持仓，重点是证券权重、增减股数和策略结构；不能把这份合并申报理解成他个人精选的“神奇公式股票清单”。",
+            "Today Gotham manages long-only and long/short strategies, including reweighted index, diversified value and net-short ETFs. Its institutional filing should be read by security weights and share changes, rather than treated as Greenblatt’s personal magic-formula shortlist."
           ]
         ],
         "summary": [
-          "在科学与产业交界处，寻找尚未被充分理解的可能。",
-          "Look for underappreciated possibilities where science meets industry."
+          "好生意，也要好价格。",
+          "A good business at a good price."
         ],
         "timeline": [
           {
-            "date": "2000",
+            "date": "1979",
             "text": [
-              "与合伙人共同创立 Lux Capital，围绕前沿科技构建投资机构。",
-              "Co-founded Lux Capital to invest at the frontiers of technology."
+              "获宾夕法尼亚大学沃顿商学院理学学士学位。",
+              "Earned a BS from Wharton."
             ],
-            "source": "https://www.luxcapital.com/"
+            "source": "https://www.gotham.com/"
           },
           {
-            "date": "2013",
+            "date": "1980",
             "text": [
-              "康奈尔创业峰会介绍其物理科学、生命科学及纳米技术领域的投资与公开教学。",
-              "Cornell’s entrepreneurship summit documented his work across physical and life sciences and public teaching."
+              "获沃顿商学院 MBA 学位。",
+              "Earned an MBA from Wharton."
             ],
-            "source": "https://eship.cornell.edu/downloads/Summit_program2013.pdf"
+            "source": "https://www.gotham.com/"
           },
           {
-            "date": "2021-10",
+            "date": "1985",
             "text": [
-              "Lux Capital Management 就 Science 37 提交机构权益披露；权益申报与季度 13F 是不同资料。",
-              "Lux Capital Management filed a beneficial-ownership disclosure concerning Science 37; these filings differ from quarterly 13Fs."
+              "创立 Gotham Capital，以价值和特殊情形投资展开长期实践。",
+              "Founded Gotham Capital."
             ],
-            "source": "https://www.sec.gov/edgar/browse/?CIK=1592843&owner=exclude"
+            "source": "https://www.gotham.com/"
           },
           {
-            "date": "2022-02",
+            "date": "1997",
             "text": [
-              "SEC 记录包含 Recursion 与 Latch 等公司的权益申报，保留各文件的实际日期。",
-              "SEC records include ownership filings concerning Recursion and Latch, retained with their actual dates."
+              "出版《股市天才》，讨论分拆、重组等特殊情形。",
+              "Published You Can Be a Stock Market Genius."
             ],
-            "source": "https://www.sec.gov/edgar/browse/?CIK=1592843&owner=exclude"
+            "source": "https://www.gotham.com/"
           },
           {
-            "date": "2023-02",
+            "date": "2005",
             "text": [
-              "该主体最近一批已检索的权益披露包括修订文件；不会据此推断至今仍持有。",
-              "The latest retrieved ownership filings for this entity include amendments; they do not establish continued ownership today."
+              "出版《股市稳赚》，以易懂的方式提出“神奇公式”。",
+              "Published The Little Book That Beats the Market."
             ],
-            "source": "https://data.sec.gov/submissions/CIK0001592843.json"
+            "source": "https://www.magicformulainvesting.com/Home/AboutTheBook"
           },
           {
-            "date": "2026-03",
+            "date": "2010",
             "text": [
-              "Lux 在 SEC 的 Form ADV 继续以其投资顾问实体登记，研究资料按公开来源区分。",
-              "Lux’s SEC Form ADV identifies its adviser entity, distinct from project and security disclosures."
+              "出版更新版《股市稳赚》，延续好公司与好价格的双重筛选。",
+              "Published The Little Book That Still Beats the Market."
             ],
-            "source": "https://reports.adviserinfo.sec.gov/reports/ADV/163026/PDF/163026.pdf"
+            "source": "https://www.gotham.com/"
           },
           {
-            "date": "截至 2026-10",
+            "date": "2010 Q4",
             "text": [
-              "官方人物页列出 AI、机器人、国防、生命科学等投资关联，并记载其参与创立二十余家公司。",
-              "The official profile lists associations across AI, robotics, defense and life sciences and records more than twenty co-founded companies."
+              "Gotham Asset Management 当前申报主体的 SEC 季度记录开始。",
+              "The SEC quarterly series for the current Gotham reporting entity begins."
             ],
-            "source": "https://www.luxcapital.com/people/josh-wolfe"
+            "source": "https://www.sec.gov/edgar/browse/?CIK=1510387&owner=exclude"
           },
           {
-            "date": "截至 2026-10",
+            "date": "2011",
             "text": [
-              "兼任圣塔菲研究所理事，并共同创办、担任过 Coney Island Prep 主席。",
-              "The official biography records his Santa Fe Institute trusteeship and co-founding and chairing Coney Island Prep."
+              "出版 The Big Secret for the Small Investor，讨论普通投资者的组合方法。",
+              "Published The Big Secret for the Small Investor."
             ],
-            "source": "https://www.luxcapital.com/people/josh-wolfe"
+            "source": "https://www.gotham.com/"
+          },
+          {
+            "date": "2020",
+            "text": [
+              "出版 Common Sense，讨论机会、平等与增长。",
+              "Published Common Sense: The Investor’s Guide to Equality, Opportunity, and Growth."
+            ],
+            "source": "https://www.gotham.com/"
+          },
+          {
+            "date": "2022-07",
+            "text": [
+              "在纽约证券交易所的访谈中介绍 Gotham 的 GSPY 与 GVLU ETF。",
+              "Discussed Gotham’s GSPY and GVLU ETFs in NYSE interviews."
+            ],
+            "source": "https://gothametfs.com/"
           }
         ],
         "principles": [
           {
             "title": [
-              "先找到科学的拐点",
-              "Find the scientific inflection"
+              "好生意，也要好价格",
+              "A good business at a good price"
             ],
             "text": [
-              "从实验结果和工程能力理解什么刚刚成为可能，再研究它怎样形成产品与市场。",
-              "Study experimental results and engineering capabilities to identify what has become possible and how it might form a product and market."
+              "分别判断企业赚钱的效率与买入的代价，再把两者放在一起比较。",
+              "Evaluate operating returns and purchase price separately, then combine them."
             ]
           },
           {
             "title": [
-              "跨越学科的边界",
-              "Cross disciplinary boundaries"
+              "把复杂情形拆开",
+              "Unpack special situations"
             ],
             "text": [
-              "把生命科学、计算、材料与产业问题联系起来，寻找单一行业分类容易忽略的机会。",
-              "Connect life sciences, computation, materials and industrial problems to see opportunities conventional sector categories can miss."
+              "先还原分拆或重组前后的资产、债务、激励与持有人约束，找到真正影响价值的部分。",
+              "Trace assets, liabilities, incentives and holder constraints through a spin-off or restructuring."
             ]
           },
           {
             "title": [
-              "从零到一组建企业",
-              "Help build from zero"
+              "排名不是结论",
+              "Ranking starts the research"
             ],
             "text": [
-              "人才、技术与商业路径需要一起成形，早期投资也包含帮助创始人搭建组织。",
-              "Talent, technology and commercialization must develop together; early investing can include helping founders build an organization."
+              "资本回报率的分母和盈利收益率的分子都要核对；一次性利润与异常投入资本会让排名失真。",
+              "Check operating-capital denominators and earnings numerators; unusual capital and one-off earnings can distort rankings."
             ]
           },
           {
             "title": [
-              "用问题检验想象",
-              "Test imagination with questions"
+              "用组合承受不确定性",
+              "Diversify uncertainty"
             ],
             "text": [
-              "技术叙事要落到可验证的突破、约束与客户需求上，保留对未知的好奇，也保留检验。",
-              "Ground technology narratives in testable breakthroughs, constraints and customer needs while remaining curious about the unknown."
+              "用一组符合规则的机会落实方法，不把一个估值模型当成单只股票的确定答案。",
+              "Implement the approach across a portfolio rather than treat a model as certainty about one stock."
             ]
           },
           {
             "title": [
-              "给人才看见另一条路",
-              "Help talent see another path"
+              "规则要经得起等待",
+              "Give the process time"
             ],
             "text": [
-              "教育、同伴和环境会改变一个人能够想象的选择，发现技术也要发现创造技术的人。",
-              "Education, peers and environment affect the choices people can imagine; finding technologies also means finding the people who can create them."
+              "事先确定持有与更新规则，让执行不依赖短期价格涨跌。",
+              "Specify holding and renewal rules before short-term price changes test discipline."
             ]
           },
           {
             "title": [
-              "沿着基础设施寻找新生态",
-              "Follow infrastructure into new ecosystems"
+              "从数字回到生意",
+              "Connect arithmetic to the business"
             ],
             "text": [
-              "一项基础能力变便宜或更可靠，往往会让下游出现新的产品、客户和组织方式。",
-              "A foundational capability becoming cheaper or more reliable can enable downstream products, customers and new ways to organize."
+              "现金流、再投资需求与竞争环境，决定便宜的价格是否真的提供了价值。",
+              "Cash generation, reinvestment and competition determine whether a low price represents value."
             ]
           }
         ],
         "signature": {
           "title": [
-            "让棱镜照向未知",
-            "Turn a prism toward the unknown"
+            "两把尺，一起量",
+            "Two measures, one judgment"
           ],
           "text": [
-            "一束科学的微光，可以分出多个产业方向。特色来自跨学科的追问，也来自参与把技术真正做出来。",
-            "A scientific insight can open several industrial directions. The approach combines cross-disciplinary questions with helping turn technology into something real."
+            "一把尺量生意的资本效率，一把尺量价格的盈利收益。便宜与优质相交，才值得继续研究。",
+            "Measure operating returns with one ruler and earnings yield with another. Research where quality meets price."
           ]
         },
         "quote": {
           "text": [
-            "在别人理解之前相信。",
-            "We believe before others understand"
+            "以便宜的价格，寻找好生意。",
+            "Good businesses at bargain prices."
           ],
           "attribution": [
-            "Lux Capital · 官方机构理念",
-            "Lux Capital · Official firm statement"
+            "神奇公式官网 · 方法概括",
+            "Magic Formula Investing · Approach paraphrase"
           ],
-          "url": "https://www.luxcapital.com/"
+          "url": "https://www.magicformulainvesting.com/Home/AboutTheBook"
         },
         "resources": [
           {
@@ -4385,57 +4408,52 @@
               "Official biography"
             ],
             "title": [
-              "乔什·沃尔夫",
-              "Josh Wolfe"
+              "Gotham 与格林布拉特",
+              "Gotham and Joel Greenblatt"
             ],
             "description": [
-              "研究领域、项目关联与科学和教育经历。",
-              "Research interests, investment associations, science and education."
+              "职业经历、合作伙伴、著作与教学背景。",
+              "Career, partnership, books and teaching."
             ],
-            "url": "https://www.luxcapital.com/people/josh-wolfe"
+            "url": "https://www.gotham.com/"
           },
           {
             "kind": [
-              "官方投资目录",
-              "Official portfolio"
+              "投资方法",
+              "Investment approach"
             ],
             "title": [
-              "Lux Capital 项目目录",
-              "Lux Capital companies"
+              "神奇公式的执行规则",
+              "Implementing the magic formula"
             ],
             "description": [
-              "核对公开项目与企业介绍；项目关联不等于当前持股数量。",
-              "Public project associations and company descriptions."
+              "官方筛选、分散、分批建仓与年度更新说明。",
+              "Official screening, diversification, phased purchases and renewal."
             ],
-            "url": "https://www.luxcapital.com/companies"
+            "url": "https://www.magicformulainvesting.com/Home/HowItWorks"
           },
           {
             "kind": [
-              "原始访谈稿",
-              "Original interview"
+              "当前策略",
+              "Current strategies"
             ],
             "title": [
-              "Infinite Loops：乔什·沃尔夫",
-              "Infinite Loops: Josh Wolfe"
+              "Gotham ETF 策略与资料",
+              "Gotham ETF strategies and documents"
             ],
             "description": [
-              "节目原始文字稿，讨论创投研究与科学技术。",
-              "The original interview transcript on venture research and technology."
+              "GSPY、GVLU、SHRT 的策略与正式文件。",
+              "GSPY, GVLU and SHRT strategies and formal documents."
             ],
-            "url": "https://www.osam.com/pdfs/Josh_Wolfe_Transcript.pdf"
+            "url": "https://gothametfs.com/"
           }
         ],
         "sources": [
-          "https://www.luxcapital.com/people/josh-wolfe",
-          "https://www.luxcapital.com/companies",
-          "https://reports.adviserinfo.sec.gov/reports/ADV/163026/PDF/163026.pdf"
+          "https://www.gotham.com/",
+          "https://www.magicformulainvesting.com/Home/AboutTheBook",
+          "https://www.magicformulainvesting.com/Home/HowItWorks",
+          "https://gothametfs.com/"
         ]
-      },
-      "portfolioMode": "public_projects",
-      "portfolioSources": {
-        "profile": "https://www.luxcapital.com/people/josh-wolfe",
-        "companies": "https://www.luxcapital.com/companies",
-        "submissions": "https://data.sec.gov/submissions/CIK0001592843.json"
       }
     },
     {

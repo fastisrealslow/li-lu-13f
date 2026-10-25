@@ -19,28 +19,46 @@
 每个投资者的 data_file / prices_file / market 配置来自仓库根目录的 investors.json（单一权威来源）。
 """
 
-import json, os, sys, time, re, hashlib, urllib.request, urllib.error
+import json, os, sys, time, re, hashlib, math, urllib.request, urllib.error
 from functools import lru_cache
 from zoneinfo import ZoneInfo
 from datetime import datetime, timezone, date
 from holdings_diff import share_adjustment, consolidate_holdings, same_security
 
 
-def comparable_price_history(history, current_quarter):
+def comparable_price_history(history, current_quarter, market_quotes=None):
     """Use today's split basis for cost estimates; keep filed snapshots unchanged."""
     result = {}
     for quarter, holdings in history.items():
         result[quarter] = []
         for h in consolidate_holdings(holdings):
             adjustment = share_adjustment(h, quarter, current_quarter)
-            result[quarter].append({**h, "shares": h["shares"] * adjustment["factor"]} if adjustment else h)
+            factor=adjustment['factor'] if adjustment else 1
+            if market_quotes is not None and not h.get('putCall') and h.get('shareType','SH')=='SH':
+                from holdings_diff import VERIFIED_SPLITS
+                actions={a['date']:a['factor'] for a in VERIFIED_SPLITS if (h.get('cusip')==a['cusip'] or h['ticker']==a['ticker'])}
+                for action in market_quotes.get(h['ticker'],{}).get('shareActions',[]):
+                    from batch_market_data import is_share_split
+                    if not is_share_split(action,h):continue
+                    if action['date'] in actions and abs(actions[action['date']]-action['factor'])>1e-9:raise ValueError('Reported split disagrees with verified issuer action')
+                    # Issuer distribution dates and exchange ex-dates can differ
+                    # by a weekend. They describe one event, not two splits.
+                    duplicate=next((when for when,ratio in actions.items() if abs(ratio-action['factor'])<1e-9 and abs((date.fromisoformat(when)-date.fromisoformat(action['date'])).days)<=10),None)
+                    if duplicate:actions.pop(duplicate)
+                    actions[action['date']]=action['factor']
+                end=datetime.fromtimestamp(quarter_ts(quarter)[1]-1,timezone.utc).date().isoformat()
+                factor=1
+                for when,ratio in actions.items():
+                    if end<when<=date.today().isoformat():factor*=ratio
+            result[quarter].append({**h, "shares": h["shares"] * factor} if factor!=1 else h)
     return result
 
 
 def cost_history_fingerprint(history, excluded_quarters=None):
     # Ignore descriptive metadata: only a change to the calculation inputs
     # should invalidate estimates, including corrections to older quarters.
-    inputs=[(q,sorted((str(r.get('cusip','')),r.get('shares',0),r.get('value',0)) for r in rows)) for q,rows in sorted(history.items())]
+    first=next((q for q,rows in sorted(history.items()) if any(r.get('shares',0)>0 for r in rows)),None)
+    inputs=[(q,sorted((str(r.get('cusip') or r.get('ticker','')),r.get('shares',0),r.get('value',0),r.get('putCall',''),r.get('shareType','SH')) for r in rows)) for q,rows in sorted(history.items()) if first is None or q>=first]
     if excluded_quarters:inputs={'holdings':inputs,'excludedValueQuarters':sorted(excluded_quarters)}
     return hashlib.sha256(json.dumps(inputs).encode()).hexdigest()
 
@@ -64,6 +82,7 @@ def _load_investor_config():
             "prices": inv["pricesFile"],
             "market": inv["market"],
             "hk": inv.get("hkFile"),
+            "collectMarketActions": True,
         }
         for inv in investors
     }
@@ -231,6 +250,9 @@ def supplement_hk_quotes(cfg, quotes, cached=None):
 # ─────────────────────────────────────────────
 @lru_cache(maxsize=8192)
 def yahoo_chart(symbol, from_ts, to_ts):
+    from batch_market_data import window
+    covered,cached=window(symbol,from_ts,to_ts)
+    if covered:return cached
     try:
         import yfinance as yf
         start_dt = datetime.fromtimestamp(from_ts, tz=timezone.utc).strftime('%Y-%m-%d')
@@ -260,8 +282,8 @@ def quarter_ts(q_str):
     end_m   = qn * 3
     month_days = {1:31, 2:29 if y%4==0 and (y%100!=0 or y%400==0) else 28, 3:31,
                   4:30, 5:31, 6:30, 7:31, 8:31, 9:30, 10:31, 11:30, 12:31}
-    return (int(datetime(y, start_m, 1).timestamp()),
-            int(datetime(y, end_m, month_days[end_m], 23, 59, 59).timestamp()))
+    return (int(datetime(y, start_m, 1, tzinfo=timezone.utc).timestamp()),
+            int(datetime(y, end_m, month_days[end_m], 23, 59, 59, tzinfo=timezone.utc).timestamp()))
 
 # ─────────────────────────────────────────────
 # 核心：US 市场股票处理
@@ -302,12 +324,31 @@ def fetch_us(investor, cfg):
     except FileNotFoundError:
         pass
 
+    hist_holdings=comparable_price_history(raw_history,quarter,existing_quotes if cfg.get('collectMarketActions') else None)
+
     for ticker in split_tickers:
         if existing_cb.get(ticker, {}).get("splitAdjustedThrough") != quarter:
             existing_cb.pop(ticker, None)
 
     today_str = date.today().isoformat()
 
+    # A broad manager must not make one quote request per quarter or exceed
+    # the updater timeout. Fetch one dated series per security with four workers.
+    bulk_quotes={}
+    if len(holdings)>100 or cfg.get('collectMarketActions'):
+        from batch_market_data import prefetch
+        from security_lifecycle import event_for
+        tickers=[h['ticker'] for h in holdings if not event_for(h) and h.get('shareType','SH')=='SH' and not h['ticker'].startswith('?') and not h['ticker'].endswith('.HK')]
+        start=quarter_ts(min(hist_holdings) if hist_holdings else quarter)[0]
+        source_fingerprint=cost_history_fingerprint(hist_holdings,excluded_values)
+        since=datetime.fromtimestamp(start,timezone.utc).date().isoformat()
+        needs_history=tickers if not ex or ex.get('sourceHistoryFingerprint')!=source_fingerprint else [tk for tk in tickers if (existing_cb.get(tk,{}).get('averageUnavailable')!='corporate_action' and (existing_cb.get(tk,{}).get('recent',{}).get('source')!='yahoo' or not (existing_cb.get(tk,{}).get('allTime') or {}).get('avg'))) or existing_quotes.get(tk,{}).get('shareActionsSince','9999')>since]
+        bulk_quotes=prefetch(needs_history,start)
+        from batch_market_data import prefetch_quotes
+        bulk_quotes.update(prefetch_quotes([tk for tk in tickers if tk not in bulk_quotes]))
+        from batch_market_data import merge_actions
+        changed=[tk for tk in tickers if tk not in needs_history and not bulk_quotes[tk].get('error') and merge_actions(existing_quotes.get(tk,{}),bulk_quotes[tk]).get('shareActions',[])!=existing_quotes.get(tk,{}).get('shareActions',[])]
+        if changed:bulk_quotes.update(prefetch(changed,start))
     # ── Part 1: 实时报价 (Finnhub) ──
     quotes = {}
     for h in holdings:
@@ -323,12 +364,22 @@ def fetch_us(investor, cfg):
             quotes[tk] = {"error": True}
             print(f"  Skip {tk} (unmapped/HK)")
             continue
+        if tk in bulk_quotes:
+            from quote_coverage import valid_quote, warrant_reference
+            fresh=bulk_quotes[tk];old=existing_quotes.get(tk,{})
+            from batch_market_data import merge_actions
+            quotes[tk]=merge_actions(old,fresh) if valid_quote(fresh) else {**old,'stale':True} if valid_quote(old) else warrant_reference(h,current) or {'error':True}
+            continue
         # 当天缓存
         if tk in existing_quotes:
             eq = existing_quotes[tk]
             if not eq.get("error") and eq.get("t"):
                 qt_date = datetime.utcfromtimestamp(eq["t"]).date().isoformat()
-                if qt_date == today_str:
+                fetched_at=eq.get('fetchedAt')
+                try:recent_fetch=fetched_at and 0<datetime.now(timezone.utc).timestamp()-datetime.fromisoformat(fetched_at.replace('Z','+00:00')).timestamp()<6*3600
+                except (ValueError,TypeError):recent_fetch=False
+                recent_trade=0<datetime.now(timezone.utc).timestamp()-eq['t']<3*86400
+                if not eq.get('stale') and (qt_date == today_str or recent_fetch and recent_trade):
                     quotes[tk] = eq
                     print(f"  Quote {tk}... ${eq['c']:.2f} (cached)")
                     continue
@@ -371,25 +422,71 @@ def fetch_us(investor, cfg):
                 quotes[tk] = warrant_reference(h,current) or {"error": True}
         time.sleep(1.1)
 
+    if cfg.get('collectMarketActions'):
+        hist_holdings=comparable_price_history(raw_history,quarter,quotes)
+        if bulk_quotes:source_fingerprint=cost_history_fingerprint(hist_holdings,excluded_values)
+        from holdings_diff import attach_previous
+        from batch_market_data import is_share_split
+        import copy
+        before=copy.deepcopy(current);before_meta=copy.deepcopy(data.get('meta',{}))
+        action_meta=[a for a in data.get('meta',{}).get('shareActions',[]) if a.get('sourceKind')!='market_share_split']
+        for h in holdings:
+            if h.get('putCall') or h.get('shareType','SH')!='SH':continue
+            q=quotes.get(h['ticker'],{})
+            for e in q.get('shareActions',[]):
+                if not is_share_split(e,h):continue
+                if any(a.get('cusip')==h.get('cusip') and abs(a['factor']-e['factor'])<1e-9 and abs((date.fromisoformat(a['date'])-date.fromisoformat(e['date'])).days)<=10 for a in action_meta):continue
+                action_meta.append(dict(ticker=h['ticker'],cusip=h.get('cusip'),date=e['date'],factor=e['factor'],quarter=e['date'][:4]+' Q'+str((int(e['date'][5:7])-1)//3+1),source=q['sourceURL'],sourceKind='market_share_split'))
+        if action_meta:data.setdefault('meta',{})['shareActions']=action_meta
+        previous=current.get('previousHoldings',raw_history.get(prev_quarter))
+        if isinstance(previous,list):
+            old_rows={(h.get('cusip'),(h.get('putCall') or '').upper(),h.get('shareType','SH')):h for h in previous}
+            for h in holdings:
+                old=old_rows.get((h.get('cusip'),(h.get('putCall') or '').upper(),h.get('shareType','SH')))
+                if not old or h.get('putCall') or h.get('shareType','SH')!='SH':continue
+                q=quotes.get(h['ticker'],{})
+                events=[e for e in q.get('shareActions',[]) if prev_quarter<e['date'][:4]+' Q'+str((int(e['date'][5:7])-1)//3+1)<=quarter and is_share_split(e,h)]
+                if events:
+                    factor=math.prod(e['factor'] for e in events)
+                    h['shareAdjustment']={'factor':factor,'date':events[-1]['date'],'source':q['sourceURL'],'reportedShares':old['shares'],'sourceKind':'market_share_split','fromQuarter':prev_quarter,'toQuarter':quarter}
+            attach_previous(holdings,previous,previous_quarter=prev_quarter,current_quarter=quarter)
+            if current!=before or data.get('meta',{})!=before_meta:
+                from fetch_13f_all import save_data
+                save_data(data_file,data)
+    security_key=lambda row:(row.get('cusip'),(row.get('putCall') or '').upper(),(row.get('shareType') or 'SH').upper())
+    cost_index={};unidentified={}
+    for q,rows in hist_holdings.items():
+        for row in rows:
+            if row.get('cusip'):cost_index.setdefault(security_key(row),{}).setdefault(q,[]).append(row)
+            else:unidentified.setdefault(q,[]).append(row)
     # ── Part 2: 成本估算 ──
     cost_basis = {}
     for h in holdings:
         if h.get('putCall') or h.get('shareType', 'SH') != 'SH':
             continue
         tk = h["ticker"]
+        from security_lifecycle import event_for
+        if event_for(h):
+            if tk in existing_cb:cost_basis[tk]=existing_cb[tk]
+            continue
         boundary = data.get('meta',{}).get('instrumentHistoryFrom','') if tk in data.get('meta',{}).get('instrumentHistoryTickers',[]) else ''
         transition=data.get('meta',{}).get('reportingTransition',{})
         from reporting_scope import same_manager_history
         scope_boundary=transition.get('fromQuarter','') if transition.get('comparisonScopeChanged') and not same_manager_history(data,h) else ''
         boundary=max(boundary,scope_boundary)
-        security_history = {q: [{**row,'ticker':tk} for row in rows if same_security(h,row)] for q,rows in hist_holdings.items() if boundary <= q <= quarter}
+        matched=cost_index.get(security_key(h),{})
+        security_history = {q: [{**row,'ticker':tk} for row in (matched.get(q,[])+unidentified.get(q,[]) if h.get('cusip') else rows) if same_security(h,row)] for q,rows in hist_holdings.items() if boundary <= q <= quarter}
         if data.get("current", {}).get("valueQuality"):
             continue
         if tk.startswith("?") or tk.endswith(".HK"):
             continue
         history_fingerprint=cost_history_fingerprint(security_history, [q for q in excluded_values if any(r.get('shares',0)>0 for r in security_history.get(q,[]))])
+        if cfg.get('collectMarketActions'):history_fingerprint=hashlib.sha256((history_fingerprint+json.dumps(quotes.get(tk,{}).get('shareActions',[]),sort_keys=True)).encode()).hexdigest()
         if existing_cb.get(tk,{}).get('historyFingerprint') != history_fingerprint:
             existing_cb.pop(tk,None)
+
+        if existing_cb.get(tk,{}).get('averageUnavailable')=='corporate_action':
+            cost_basis[tk]=existing_cb[tk];continue
 
         # 找买入季度
         buy_q = quarter
@@ -511,7 +608,7 @@ def fetch_us(investor, cfg):
                         avco_price  = (avco_price * avco_shares + buy_price * delta) / (avco_shares + delta)
                         avco_shares += delta
                         buy_q_count += 1
-                        time.sleep(0.5)
+                        time.sleep(0 if bulk_quotes else 0.5)
                     elif cur_sh < prev_sh:  # 卖出：均价不变，仓位减少
                         avco_shares = cur_sh
                     prev_sh = cur_sh
@@ -526,8 +623,21 @@ def fetch_us(investor, cfg):
 
         if scope_boundary and buy_q==scope_boundary:recent['kind']='scope_initial'
         cost_basis[tk] = {"recent": recent, "allTime": all_time, "historyFingerprint":history_fingerprint}
+        if cfg.get('collectMarketActions'):
+            from batch_market_data import is_share_split
+            events=quotes.get(tk,{}).get('shareActions',[])
+            uncertain=[e for e in events if not is_share_split(e,h)]
+            if events:cost_basis[tk]['splitAdjustedThrough']=quarter
+            if uncertain:
+                last=max(e['date'] for e in uncertain);last_q=last[:4]+' Q'+str((int(last[5:7])-1)//3+1)
+                if all_time and all_time['first']<=last_q:
+                    cost_basis[tk]['allTime']=None;cost_basis[tk]['averageUnavailable']='corporate_action'
+                if buy_q<=last_q and h.get('shares',0)>0:
+                    after=math.prod(e['factor'] for e in events if e['date']>current.get('periodEnd','9999'))
+                    reference=round(h['value']/h['shares']/after,2)
+                    cost_basis[tk]['recent']={'buy':reference,'low':reference,'high':reference,'quarter':quarter,'source':'13f-estimate','kind':'adjusted_quarter_reference','basisAdjustment':after}
         if pending_value_quarters:cost_basis[tk]["averageUnavailable"]="units"
-        time.sleep(0.3)
+        time.sleep(0 if bulk_quotes else 0.3)
 
     # Publish the complete current quote/cost snapshot before optional old exits.
     # An interrupted historical extension must not discard fresh market data.
@@ -545,11 +655,13 @@ def fetch_us(investor, cfg):
     current_tks = {h["ticker"] for h in data.get("current", {}).get("holdings", [])}
     # 找在 history 里出现过、但不在当前持仓的 ticker
     exited_tks = set()
-    for holdings in hist_holdings.values():
+    exit_quarters = {}
+    for history_quarter, holdings in hist_holdings.items():
         for h in holdings:
             tk2 = h["ticker"]
             if not tk2.startswith("?") and tk2 not in current_tks:
                 exited_tks.add(tk2)
+                exit_quarters.setdefault(tk2,set()).add(history_quarter)
 
     existing_ep = (ex.get("exitPerf", {}) if ex else {})
 
@@ -560,10 +672,7 @@ def fetch_us(investor, cfg):
     exit_attempts = 0
     for tk2 in sorted(exited_tks):
         # 找最后出现的季度（即清仓季度）
-        qtrs_with_tk = sorted(
-            [q for q, hlist in hist_holdings.items()
-             if any(h["ticker"] == tk2 for h in hlist)]
-        )
+        qtrs_with_tk = sorted(exit_quarters[tk2])
         if not qtrs_with_tk:
             continue
         exit_q = qtrs_with_tk[-1]
@@ -575,7 +684,7 @@ def fetch_us(investor, cfg):
             continue
 
         # Extend old estimates in bounded batches while keeping verified caches.
-        if exit_attempts >= 20:
+        if exit_attempts >= cfg.get('exitRequestLimit',20):
             continue
         exit_attempts += 1
         # 清仓季度均价作为卖出价估算
@@ -625,7 +734,7 @@ def fetch_us(investor, cfg):
                                 p_buy = h["value"] / sh2 if sh2 else 0
                             avco_p2 = (avco_p2 * avco_s2 + p_buy * delta2) / (avco_s2 + delta2)
                             avco_s2 += delta2
-                            time.sleep(0.3)
+                            time.sleep(0 if bulk_quotes else 0.3)
                         elif sh2 < prev_sh2:
                             avco_s2 = sh2  # 卖出：均价不变
                         prev_sh2 = sh2
@@ -648,7 +757,7 @@ def fetch_us(investor, cfg):
             "changePct":    chg,
         }
         print(f"  exitPerf {tk2}: entry~${entry_price} ({entry_q}) → exit~${exit_price} ({exit_q}) {chg:+.1f}%")
-        time.sleep(0.3)
+        time.sleep(0 if bulk_quotes else 0.3)
 
     # ── 写出 ──
     supplement_hk_quotes(cfg, quotes, existing_quotes)
@@ -657,6 +766,7 @@ def fetch_us(investor, cfg):
             cost_basis[ticker]["splitAdjustedThrough"] = quarter
     out = {"updated": datetime.utcnow().isoformat() + "Z",
            "quotes": quotes, "costBasis": cost_basis, "exitPerf": exit_perf}
+    if bulk_quotes:out['sourceHistoryFingerprint']=source_fingerprint
     with open(prices_file, "w") as f:
         json.dump(out, f, indent=2)
     print(f"\n✅ {prices_file} written ({len(quotes)} quotes, {len(cost_basis)} cost basis)")
@@ -829,6 +939,11 @@ def main():
         get_finnhub_key(finnhub_key)
 
     cfg = INVESTOR_CONFIG[investor]
+    # A long source audit may finish after a symbol-map checkpoint. Reapply
+    # verified cached identities before reading any price/cost inputs.
+    from resolve_unmapped_tickers import backfill_data_files,load_resolved_map
+    from fetch_13f_all import CUSIP_TICKER_MAP
+    backfill_data_files([cfg['data']],{**load_resolved_map(),**CUSIP_TICKER_MAP})
 
     if '--hk-only' in sys.argv:
         with open(cfg['prices'], encoding='utf-8') as f:

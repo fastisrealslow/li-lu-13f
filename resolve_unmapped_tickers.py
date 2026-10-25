@@ -32,6 +32,7 @@ OpenFIGI 和 SEC 官方 ticker 表都只维护当前活跃证券）保持原样�
 """
 
 import json
+import re
 import copy
 import os
 import sys
@@ -66,7 +67,7 @@ def save_resolved_map(m):
         f.write("\n")
 
 
-def scan_unresolved_cusips(data_files, already_resolved):
+def scan_unresolved_cusips(data_files, already_resolved, active_only=False):
     """扫描所有数据文件的 current + history 持仓，收集尚未解析的 CUSIP。
     返回: {cusip: 出现次数}（用于日志展示优先级，不影响解析逻辑）。"""
     cusip_counts = {}
@@ -84,9 +85,10 @@ def scan_unresolved_cusips(data_files, already_resolved):
                     cusip_counts[cusip] = cusip_counts.get(cusip, 0) + 1
 
         scan_holdings(data.get("current", {}).get("holdings", []))
-        scan_holdings(data.get("current", {}).get("previousHoldings", []))
-        for holdings in data.get("history", {}).get("holdings", {}).values():
-            scan_holdings(holdings)
+        if not active_only:
+            scan_holdings(data.get("current", {}).get("previousHoldings", []))
+            for holdings in data.get("history", {}).get("holdings", {}).values():
+                scan_holdings(holdings)
     return cusip_counts
 
 
@@ -96,7 +98,7 @@ def resolve_via_openfigi(cusips):
     cusips = list(cusips)
     for i in range(0, len(cusips), BATCH_SIZE):
         batch = cusips[i:i + BATCH_SIZE]
-        jobs = [{"idType": "ID_CUSIP", "idValue": c} for c in batch]
+        jobs = [{"idType": "ID_CINS" if c[:1].isalpha() else "ID_CUSIP", "idValue": c, "exchCode":"US", "includeUnlistedEquities":True} for c in batch]
         req = urllib.request.Request(
             OPENFIGI_URL,
             data=json.dumps(jobs).encode(),
@@ -131,7 +133,8 @@ def resolve_via_openfigi(cusips):
             candidates = [x for x in data if x.get("exchCode") == "US" and x.get("securityType") == "Common Stock"]
             tickers = {x["ticker"] for x in candidates}
             if len(tickers) == 1:
-                resolved[cusip] = tickers.pop()
+                ticker=tickers.pop()
+                if re.fullmatch(r'[A-Z][A-Z0-9./-]{0,12}',ticker):resolved[cusip] = ticker
                 continue
             if len(tickers) > 1:
                 continue  # 歧义，不采纳
@@ -139,7 +142,8 @@ def resolve_via_openfigi(cusips):
             us_candidates = [x for x in data if x.get("exchCode") == "US"]
             us_tickers = {x["ticker"] for x in us_candidates}
             if len(us_tickers) == 1:
-                resolved[cusip] = us_tickers.pop()
+                ticker=us_tickers.pop()
+                if re.fullmatch(r'[A-Z][A-Z0-9./-]{0,12}',ticker):resolved[cusip] = ticker
             # 否则（无 US 记录，或多个不同 ticker）：不采纳，保持未解析
 
         print(f"  已处理 {min(i + BATCH_SIZE, len(cusips))}/{len(cusips)}")
@@ -211,7 +215,7 @@ def backfill_data_files(data_files, resolved_map, renames=None):
 
         if changed:
             with open(path, "w", encoding="utf-8") as f:
-                json.dump(data, f, ensure_ascii=False, indent=2)
+                json.dump(data, f, ensure_ascii=False, indent=None if sum(len(v) for v in data.get('history',{}).get('holdings',{}).values())>20000 else 2, separators=(',',':') if sum(len(v) for v in data.get('history',{}).get('holdings',{}).values())>20000 else None)
                 f.write("\n")
             files_changed += 1
     return files_changed, records_fixed
@@ -235,7 +239,7 @@ def main():
     if '--cached-only' in sys.argv:
         return
 
-    unresolved_counts = scan_unresolved_cusips(data_files, resolved_map)
+    unresolved_counts = scan_unresolved_cusips(data_files, resolved_map, active_only="--active-only" in sys.argv)
     print(f"待解析 CUSIP 数（去重，排除已缓存）: {len(unresolved_counts)}")
 
     if not unresolved_counts:

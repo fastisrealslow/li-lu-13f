@@ -22,6 +22,60 @@
         "factor": 5,
         "date": "2026-05-08",
         "source": "https://www.sec.gov/Archives/edgar/data/1690820/000169082026000055/cvna-20260630.htm"
+      },
+      {
+        "ticker": "IBKR",
+        "cusip": "45841N107",
+        "date": "2025-06-18",
+        "factor": 4.0,
+        "quarter": "2025 Q2",
+        "source": "https://finance.yahoo.com/quote/IBKR/",
+        "sourceKind": "market_share_split"
+      },
+      {
+        "ticker": "HTHT",
+        "cusip": "44332N106",
+        "date": "2018-05-25",
+        "factor": 4.0,
+        "quarter": "2018 Q2",
+        "source": "https://finance.yahoo.com/quote/HTHT/",
+        "sourceKind": "market_share_split"
+      },
+      {
+        "ticker": "MSFT",
+        "cusip": "594918104",
+        "date": "1999-03-29",
+        "factor": 2.0,
+        "quarter": "1999 Q1",
+        "source": "https://finance.yahoo.com/quote/MSFT/",
+        "sourceKind": "market_share_split"
+      },
+      {
+        "ticker": "MSFT",
+        "cusip": "594918104",
+        "date": "2003-02-18",
+        "factor": 2.0,
+        "quarter": "2003 Q1",
+        "source": "https://finance.yahoo.com/quote/MSFT/",
+        "sourceKind": "market_share_split"
+      },
+      {
+        "ticker": "DE",
+        "cusip": "244199105",
+        "date": "2007-12-04",
+        "factor": 2.0,
+        "quarter": "2007 Q4",
+        "source": "https://finance.yahoo.com/quote/DE/",
+        "sourceKind": "market_share_split"
+      },
+      {
+        "ticker": "CRM",
+        "cusip": "79466L302",
+        "date": "2013-04-18",
+        "factor": 4.0,
+        "quarter": "2013 Q2",
+        "source": "https://finance.yahoo.com/quote/CRM/",
+        "sourceKind": "market_share_split"
       }
     ]
   },
@@ -49,15 +103,18 @@
           }
         ],
         "sector": "消费",
-        "prevShares": 1886490,
+        "prevShares": 1886490.0,
         "prevValue": 118818309,
+        "cnName": "卡瓦纳",
         "shareAdjustment": {
-          "factor": 5,
+          "factor": 5.0,
           "date": "2026-05-08",
-          "source": "https://www.sec.gov/Archives/edgar/data/1690820/000169082026000055/cvna-20260630.htm",
+          "source": "https://finance.yahoo.com/quote/CVNA/",
+          "sourceKind": "market_share_split",
+          "fromQuarter": "2026 Q1",
+          "toQuarter": "2026 Q2",
           "reportedShares": 377298
-        },
-        "cnName": "卡瓦纳"
+        }
       },
       {
         "ticker": "META",
@@ -3815,13 +3872,13 @@
           "sector": "消费",
           "prevShares": 1886490,
           "prevValue": 118818309,
+          "cnName": "卡瓦纳",
           "shareAdjustment": {
             "factor": 5,
             "date": "2026-05-08",
             "source": "https://www.sec.gov/Archives/edgar/data/1690820/000169082026000055/cvna-20260630.htm",
             "reportedShares": 377298
-          },
-          "cnName": "卡瓦纳"
+          }
         },
         {
           "ticker": "META",
@@ -4078,7 +4135,7 @@
       ]
     },
     "coverage": {
-      "checkedAt": "2026-10-25T02:01:09Z",
+      "checkedAt": "2026-10-25T02:54:27Z",
       "missingQuarters": [],
       "repairedThisRun": [],
       "errors": {},

@@ -14,11 +14,10 @@ ROOT=Path(__file__).resolve().parents[1]
 class NewInvestors(unittest.TestCase):
     def test_registry_routes_non_13f_investors_without_manufacturing_quarterly_positions(self):
         people={i['id']:i for i in json.loads((ROOT/'investors.json').read_text())['investors']}
-        for ident in ['marks','mclemore']:
+        for ident in ['marks','greenblatt','mclemore']:
             self.assertEqual(update_investors.commands(people[ident])[0][1][0],'fetch_13f_all.py')
-        self.assertEqual(update_investors.commands(people['wolfe']),[('disclosures',['fetch_public_projects.py','--investor','wolfe'])])
-        self.assertFalse(people['wolfe']['inValueScreen'])
-        for ident in ['marks','wolfe','mclemore']:
+        self.assertNotIn('wolfe',people)
+        for ident in ['marks','greenblatt','mclemore']:
             p=people[ident]['profile']
             self.assertGreaterEqual(len(p['about']),5)
             self.assertGreaterEqual(len(p['timeline']),8)

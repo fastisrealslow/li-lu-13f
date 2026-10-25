@@ -15,7 +15,7 @@ def commands(investor):
     if investor.get('source13F'):
         return [('13f',['fetch_13f_all.py','--investor',ident]),
                 ('audit',['audit_13f_history.py','--investor',ident,'--limit','6']),
-                ('identities',['resolve_unmapped_tickers.py','--cached-only','--investor',ident]),
+                ('identities',['resolve_unmapped_tickers.py','--active-only','--investor',ident]),
                 ('prices',['fetch_prices_all.py','--investor',ident])]
     return [('holdings',['fetch_webb_holdings.py']),('prices',['fetch_prices_all.py','--investor',ident])]
 

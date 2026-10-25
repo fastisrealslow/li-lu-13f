@@ -103,7 +103,7 @@ test('option rows explain the long right, exact notional denominator and unavail
   const html=a.run('optionPositionHTML(option,data.current)');
   assert.match(html,/买入／持有看跌期权/);assert.match(html,/25,000 股，不是合约张数/);
   assert.match(html,/12,509,750 ÷ \$7,725,383,349 = 0.16%/);
-  assert.match(html,/PUT 对应的是卖出股票的权利/);
+  assert.match(html,/卖出标的的权利/);assert.ok(html.length<1100);
   assert.match(html,/未披露行权价、到期日和权利金/);
   assert.match(html,/0001656456-26-000003-index.html/);
   assert.doesNotMatch(html,/250 张|行权价.*500\.39/);

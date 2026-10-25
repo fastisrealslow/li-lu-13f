@@ -262,16 +262,6 @@
       "catalogDate": "2022-12-13",
       "catalogTitle": "Sea Change"
     },
-    "wolfe-bac04c4a6e658a": {
-      "file": "archive/explanations/wolfe-bac04c4a6e658a.json",
-      "inputHash": "57a078217aabaa95cf76567fd21655f9a47f0ee0eadcfae54551160352b6b51a",
-      "sourceDigest": "5d2dc8067d84ae4af0b0314724bac34ff92daba19ca2c4845ee57b11a02b233c",
-      "reviewStatus": "verified",
-      "sourceBasis": "original_text",
-      "generatedAt": "2026-10-24T08:56:55+00:00",
-      "catalogDate": null,
-      "catalogTitle": "Infinite Loops: Josh Wolfe"
-    },
     "mclemore-c2088b5add5770": {
       "file": "archive/explanations/mclemore-c2088b5add5770.json",
       "inputHash": "52417d793d81367937c75b8f3a0c99c736cd19cdb9fb7483f676ab7490994510",
@@ -281,6 +271,26 @@
       "generatedAt": "2026-10-24T08:56:55+00:00",
       "catalogDate": "2026-01-17",
       "catalogTitle": "The More Things Change, The More They Stay the Same — 4Q 2025"
+    },
+    "greenblatt-3465ddca95b656": {
+      "file": "archive/explanations/greenblatt-3465ddca95b656.json",
+      "inputHash": "d2c95e6e2943aad492d4e7be80eeb4e90dcdbbda247335ec08a3697351051a44",
+      "sourceDigest": "86523c609ff22d0dedf041cee6f7a8fcfe5a892ca2d0e9b2c5af10021bb14d62",
+      "reviewStatus": "verified",
+      "sourceBasis": "original_excerpt",
+      "generatedAt": "2026-10-25T02:57:46+00:00",
+      "catalogDate": "2020-10-28",
+      "catalogTitle": "Joel Greenblatt — Common Sense, Retirement and Opportunity"
+    },
+    "greenblatt-f7c2167789e3f1": {
+      "file": "archive/explanations/greenblatt-f7c2167789e3f1.json",
+      "inputHash": "bec9e61a494a905b2414e7b7802d984cff8fde9d94c492e08bba47757f72c152",
+      "sourceDigest": "bb4fae00f78293f07b1f8581ec01093fdc452028567659d63fa47b835b23adee",
+      "reviewStatus": "verified",
+      "sourceBasis": "original_text",
+      "generatedAt": "2026-10-25T02:57:46+00:00",
+      "catalogDate": null,
+      "catalogTitle": "Implementing the Magic Formula"
     }
   },
   "attempts": {
@@ -2018,12 +2028,6 @@
       "inputHash": "63c9c4a682048eaaa1ed83f3e726b33be2423de10a8126b8e9483825f873aa17",
       "reason": "ValueError: Bilingual editorial review: The English translation contains a factual error: it states 'Trump's victory followed by a 30%+ rise' but the source (s1) says the s"
     },
-    "wolfe-807f11b8541681": {
-      "at": "2026-10-25T00:39:38+00:00",
-      "status": "retry",
-      "inputHash": "30dcd838966f0d09cb7184c4571c5d64ce4ad1f556fec6f4f18978e34bba298d",
-      "reason": "ValueError: Bilingual editorial review: The English paraphrase incorrectly states that Lux invests in 'matter that matters' as a direct consequence of not funding startups "
-    },
     "mclemore-a9cd8c7a92e47d": {
       "at": "2026-10-25T02:39:35+00:00",
       "status": "retry",
@@ -2906,12 +2910,6 @@
       "inputHash": "640a9a31e262fc38a3379c32275876bbda3c3ff4e78543918def573398aaf831",
       "reason": "ValueError: Copied source passage"
     },
-    "wolfe-b45b3b512acb9f": {
-      "at": "2026-10-25T03:08:47+00:00",
-      "status": "retry",
-      "inputHash": "9495b414b1ff7dc108fc185208086e36beb43c25e69e5a18ea87e6ba901f6d55",
-      "reason": "ValueError: No supported arguments in source"
-    },
     "mclemore-2d8e2bfcb0d305": {
       "at": "2026-10-25T00:56:42+00:00",
       "status": "retry",
@@ -2995,12 +2993,6 @@
       "status": "retry",
       "inputHash": "af6b7197ee0a1c8314962e723c603890855ffbc94f87b9c9c29beedb65bf7cc4",
       "reason": "ValueError: Unsupported scaled numerical claim: 1.2"
-    },
-    "wolfe-681fe6ed6d3a2e": {
-      "at": "2026-10-25T02:45:06+00:00",
-      "status": "retry",
-      "inputHash": "cdd03e2cd34c07b6ef62ffd5b00eca2c8853b9eb69c58ad7cbc2d5f697ca3168",
-      "reason": "ValueError: No supported arguments in source"
     },
     "mclemore-77ce37795dbfd2": {
       "at": "2026-10-25T03:05:50+00:00",
@@ -3290,12 +3282,6 @@
       "inputHash": "c21d1ccc2c72a752f253ade9abd7324ea8ed9e65ee16f367dbceb86ca0c84ec6",
       "reason": "ValueError: Bilingual editorial review: The Chinese text incorrectly states that Samantha McLemore's team bought Sberbank in Q2 2015; the source (s2) only mentions buying i"
     },
-    "wolfe-fc81b8b3379bd7": {
-      "at": "2026-10-25T01:13:37+00:00",
-      "status": "retry",
-      "inputHash": "a888055791f778c43a2ef4c06c1bdcf1213caa552232a67b39b01ca49b7248d1",
-      "reason": "ValueError: Bilingual editorial review: The source text does not explicitly state that the 'best storytellers' utilize humanity's 'virtues'; it lists virtues alongside othe"
-    },
     "marks-4ec6eeb131b75c": {
       "at": "2026-10-25T00:36:21+00:00",
       "status": "retry",
@@ -3331,12 +3317,6 @@
       "status": "retry",
       "inputHash": "47c3edce1d5136a2ea11d9e11e73987584e6cca3f7fe9bc3e9ba2b0dc8fd31ee",
       "reason": "ValueError: Bilingual editorial review: The Chinese text claims Annie Duke explained a great decision produces good outcomes '80% of the time' can still lose; the source (s"
-    },
-    "wolfe-f6bd25d07a4202": {
-      "at": "2026-10-25T01:55:52+00:00",
-      "status": "retry",
-      "inputHash": "18074c62fc26a1b228c7e2521ca98a17003a0329393b75362491099cfeaf9d62",
-      "reason": "ValueError: No supported arguments in source"
     },
     "mclemore-3cc6f879b4bbd7": {
       "at": "2026-10-25T01:33:22+00:00",

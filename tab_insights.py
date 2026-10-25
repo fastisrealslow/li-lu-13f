@@ -123,6 +123,7 @@ def history_facts(data, name):
     holding_history=history.get('holdings', {})
     current_q=data['current']['quarter']
     streaks=[]
+    positive_ids={q:{identity(r) for r in rows if r.get('shares',0)>0} for q,rows in holding_history.items()}
     meta=data.get('meta', {})
     for h in consolidate_holdings(data['current']['holdings']):
         count,start,index=0,current_q,quarter_index(current_q)
@@ -134,7 +135,7 @@ def history_facts(data, name):
             q=f'{index//4} Q{index%4+1}'
             if boundary is not None and index<boundary:break
             records=holding_history.get(q)
-            if not isinstance(records,list) or not any(identity(r)==identity(h) and r.get('shares',0)>0 for r in records):break
+            if not isinstance(records,list) or identity(h) not in positive_ids[q]:break
             count+=1;start=q;index-=1
         if count>=2:streaks.append((count,h,start))
     if streaks:

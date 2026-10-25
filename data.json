@@ -30,6 +30,69 @@
         "factor": 20,
         "date": "2022-07-15",
         "source": "https://www.sec.gov/Archives/edgar/data/1652044/000165204422000071/goog-20220630.htm"
+      },
+      {
+        "ticker": "BRK/B",
+        "cusip": "084670702",
+        "date": "2010-01-21",
+        "factor": 50.0,
+        "quarter": "2010 Q1",
+        "source": "https://finance.yahoo.com/quote/BRK-B/",
+        "sourceKind": "market_share_split"
+      },
+      {
+        "ticker": "EWBC",
+        "cusip": "27579R104",
+        "date": "2004-06-22",
+        "factor": 2.0,
+        "quarter": "2004 Q2",
+        "source": "https://finance.yahoo.com/quote/EWBC/",
+        "sourceKind": "market_share_split"
+      },
+      {
+        "ticker": "CROX",
+        "cusip": "227046109",
+        "date": "2007-06-15",
+        "factor": 2.0,
+        "quarter": "2007 Q2",
+        "source": "https://finance.yahoo.com/quote/CROX/",
+        "sourceKind": "market_share_split"
+      },
+      {
+        "ticker": "AAPL",
+        "cusip": "037833100",
+        "date": "2000-06-21",
+        "factor": 2.0,
+        "quarter": "2000 Q2",
+        "source": "https://finance.yahoo.com/quote/AAPL/",
+        "sourceKind": "market_share_split"
+      },
+      {
+        "ticker": "AAPL",
+        "cusip": "037833100",
+        "date": "2005-02-28",
+        "factor": 2.0,
+        "quarter": "2005 Q1",
+        "source": "https://finance.yahoo.com/quote/AAPL/",
+        "sourceKind": "market_share_split"
+      },
+      {
+        "ticker": "AAPL",
+        "cusip": "037833100",
+        "date": "2014-06-09",
+        "factor": 7.0,
+        "quarter": "2014 Q2",
+        "source": "https://finance.yahoo.com/quote/AAPL/",
+        "sourceKind": "market_share_split"
+      },
+      {
+        "ticker": "AAPL",
+        "cusip": "037833100",
+        "date": "2020-08-31",
+        "factor": 4.0,
+        "quarter": "2020 Q3",
+        "source": "https://finance.yahoo.com/quote/AAPL/",
+        "sourceKind": "market_share_split"
       }
     ]
   },
@@ -3558,7 +3621,7 @@
       ]
     },
     "coverage": {
-      "checkedAt": "2026-10-25T01:54:40Z",
+      "checkedAt": "2026-10-25T02:54:25Z",
       "missingQuarters": [
         "2018 Q4",
         "2019 Q1",
@@ -3577,7 +3640,7 @@
         "schemaVersion": 1,
         "cik": "1709323",
         "checkedAt": "2026-10-20T17:37:21Z",
-        "attemptedAt": "2026-10-25T01:54:40Z",
+        "attemptedAt": "2026-10-25T02:54:25Z",
         "status": "checked",
         "indexes": {
           "2019/QTR1": {
@@ -4578,7 +4641,7 @@
       },
       "2018 Q2": {
         "version": 1,
-        "checkedAt": "2026-10-24",
+        "checkedAt": "2026-10-25",
         "source": "https://www.sec.gov/Archives/edgar/data/1709323/000170932318000006/q22018table.xml",
         "filingDate": "2018-08-14",
         "sourceDigest": "2c2916a6821a3bbcf9c3b44143c3f30d21e4725f17605be5552771640ae8b2fe",
@@ -4592,7 +4655,7 @@
             "price": 185.52999877929688,
             "date": "2018-06-29",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/BABA?period1=0&period2=1792923706&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/BABA?period1=0&period2=1792983595&interval=1d&events=splits",
             "candidates": [
               1
             ]
@@ -4604,7 +4667,7 @@
             "price": 243.0,
             "date": "2018-06-29",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/BIDU?period1=0&period2=1792923706&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/BIDU?period1=0&period2=1792983596&interval=1d&events=splits",
             "candidates": [
               1
             ]
@@ -4615,7 +4678,7 @@
       },
       "2018 Q3": {
         "version": 1,
-        "checkedAt": "2026-10-24",
+        "checkedAt": "2026-10-25",
         "source": "https://www.sec.gov/Archives/edgar/data/1709323/000170932318000007/q2092018finfotable.xml",
         "filingDate": "2018-11-14",
         "sourceDigest": "99eac064edab241c430afab903d57eed1234cce9f50a6be9825c5a67ad7c8fac",
@@ -4629,7 +4692,7 @@
             "price": 164.75999450683594,
             "date": "2018-09-28",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/BABA?period1=0&period2=1792923706&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/BABA?period1=0&period2=1792983595&interval=1d&events=splits",
             "candidates": [
               1
             ]
@@ -4641,7 +4704,7 @@
             "price": 228.67999267578125,
             "date": "2018-09-28",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/BIDU?period1=0&period2=1792923706&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/BIDU?period1=0&period2=1792983596&interval=1d&events=splits",
             "candidates": [
               1
             ]
@@ -4652,7 +4715,7 @@
       },
       "2019 Q4": {
         "version": 1,
-        "checkedAt": "2026-10-24",
+        "checkedAt": "2026-10-25",
         "source": "https://www.sec.gov/Archives/edgar/data/1709323/000170932320000001/tablefor13fq42019.xml",
         "filingDate": "2020-02-14",
         "sourceDigest": "6a3bef4239b26372ed14006bf9dabc2b611eb66fc8e7654b3d4fc70a0e09e61c",
@@ -4666,7 +4729,7 @@
             "price": 53.779998779296875,
             "date": "2019-12-31",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/MU?period1=0&period2=1792923707&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/MU?period1=0&period2=1792983600&interval=1d&events=splits",
             "candidates": [
               1
             ]

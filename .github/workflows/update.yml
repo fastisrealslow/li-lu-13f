@@ -30,6 +30,9 @@ on:
       - "tests/test_hk_automation.py"
       - "tests/test_archived_holdings.py"
       - "fetch_13f_all.py"
+      - "legacy_13f.py"
+      - "batch_market_data.py"
+      - "listing_metadata.py"
       - "fetch_public_projects.py"
       - "update_investors.py"
       - "tests/test_new_investors.py"
@@ -131,7 +134,7 @@ jobs:
       - name: Resolve unmapped tickers via CUSIP (OpenFIGI)
         id: resolve_cusip
         continue-on-error: true
-        run: python3 resolve_unmapped_tickers.py
+        run: python3 resolve_unmapped_tickers.py --active-only
 
       - name: Status - Resolve unmapped tickers
         if: ${{ !cancelled() && steps.init_status.outcome == 'success' }}

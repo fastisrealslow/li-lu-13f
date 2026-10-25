@@ -374,12 +374,12 @@ th .info-wrap{position:relative;display:inline-flex}
 </style>
 <link rel="stylesheet" href="spinoff_ui.css?v=12">
 <script src="appearance.js?v=2"></script>
-<script src="investor_bookplates.js?v=2"></script>
-<link rel="stylesheet" href="theme.css?v=12">
+<script src="investor_bookplates.js?v=3"></script>
+<link rel="stylesheet" href="theme.css?v=13">
 <link rel="stylesheet" href="archive.css?v=4">
 <link rel="stylesheet" href="personal_portfolio.css?v=4">
 <link rel="stylesheet" href="almanac.css?v=2">
-<link rel="stylesheet" href="bookplate_details.css?v=2">
+<link rel="stylesheet" href="bookplate_details.css?v=3">
 </head>
 <body>
 
@@ -457,6 +457,7 @@ th .info-wrap{position:relative;display:inline-flex}
     </div>
     </div>
     <div id="tab-current">
+      <div id="holdingsControls"></div>
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
       </div>
       <div class="scroll-hint-mobile" style="display:none;text-align:right;font-size:.65rem;color:var(--text-lighter);margin-bottom:4px;padding-right:4px;">← 左右滑动查看更多 →</div>
@@ -470,6 +471,7 @@ th .info-wrap{position:relative;display:inline-flex}
       <section id="hkDisclosureSection" class="hk-disclosure-section" hidden></section>
     </div>
     <div id="tab-changes" class="d-none">
+      <div id="changesControls"></div>
       <div class="table-wrap"><table><thead><tr>
         <th data-i18n="thStock">证券</th><th id="chPS">上季 持股</th><th id="chCS">本季 持股</th><th data-i18n="changesChg">股数变化</th><th id="chPV">上季 市值</th><th id="chCV">本季 市值</th><th data-i18n="changesVChg">市值变化</th>
       </tr></thead><tbody id="changesBody"></tbody></table></div>
@@ -601,10 +603,10 @@ th .info-wrap{position:relative;display:inline-flex}
 </footer>
 
 <script src="archive_entry.js?v=8"></script>
-<script src="disclosure_analysis.js?v=4"></script>
+<script src="disclosure_analysis.js?v=5"></script>
 <link rel="stylesheet" href="public_portfolio.css?v=2">
 <script src="public_portfolio.js?v=2"></script>
-<script src="app.js?v=94"></script>
+<script src="app.js?v=95"></script>
 <script src="personal_portfolio.js?v=3"></script>
 <script src="spinoff_ui.js?v=14"></script>
 <script>

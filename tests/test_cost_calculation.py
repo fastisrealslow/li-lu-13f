@@ -5,6 +5,42 @@ import fetch_prices_all
 from holdings_diff import compare_holdings
 
 class CostCalculationTests(unittest.TestCase):
+    def test_a_reported_split_is_not_an_increase_in_the_position(self):
+        current=dict(ticker='TEST',cusip='1',shares=90,value=900,shareAdjustment={'factor':10,'date':'2026-06-12','source':'https://finance.yahoo.com/quote/TEST/','sourceKind':'market_share_split','fromQuarter':'2026 Q1','toQuarter':'2026 Q2','reportedShares':10})
+        old=dict(ticker='TEST',cusip='1',shares=10,value=100)
+        row=compare_holdings([current],[old],previous_quarter='2026 Q1',current_quarter='2026 Q2')[0]
+        self.assertEqual(row['prevShares'],100);self.assertEqual(row['shares'],90)
+        self.assertEqual(current['shares'],90)
+        current['shareAdjustment']['source']='https://unrelated.example/quote/TEST/'
+        self.assertEqual(compare_holdings([current],[old],previous_quarter='2026 Q1',current_quarter='2026 Q2')[0]['prevShares'],10)
+
+    def test_quarter_price_windows_have_explicit_utc_boundaries(self):
+        from datetime import datetime,timezone
+        start,end=fetch_prices_all.quarter_ts('2026 Q2')
+        self.assertEqual(datetime.fromtimestamp(start,timezone.utc).isoformat(),'2026-04-01T00:00:00+00:00')
+        self.assertEqual(datetime.fromtimestamp(end,timezone.utc).isoformat(),'2026-06-30T23:59:59+00:00')
+
+    def test_provider_split_uses_quote_basis_without_mutating_filed_shares(self):
+        h=dict(ticker='TEST',cusip='123456789',shares=100,value=1000)
+        raw={'2020 Q2':[h],'2020 Q3':[{**h,'shares':400}],'2026 Q2':[{**h,'shares':400}]}
+        quotes={'TEST':{'shareActions':[{'date':'2020-08-31','factor':4},{'date':'2026-07-01','factor':2}]}}
+        rows=fetch_prices_all.comparable_price_history(raw,'2026 Q2',quotes)
+        self.assertEqual([rows[q][0]['shares'] for q in raw],[800,800,800])
+        self.assertEqual(raw['2020 Q2'][0]['shares'],100)
+        self.assertEqual(rows['2020 Q2'][0]['value'],1000)
+
+    def test_exchange_ex_date_and_issuer_distribution_date_are_one_split(self):
+        h=dict(ticker='GOOG',cusip='02079K107',shares=100,value=1000)
+        rows=fetch_prices_all.comparable_price_history({'2022 Q2':[h]},'2026 Q2',{'GOOG':{'shareActions':[{'date':'2022-07-18','factor':20}]}})
+        self.assertEqual(rows['2022 Q2'][0]['shares'],2000)
+
+    def test_prefix_backfill_does_not_change_cost_but_an_internal_gap_does(self):
+        holding=dict(cusip='1',shares=100,value=10000)
+        history={'2026 Q1':[holding],'2026 Q2':[holding]}
+        original=fetch_prices_all.cost_history_fingerprint(history)
+        self.assertEqual(fetch_prices_all.cost_history_fingerprint({'2025 Q4':[],**history}),original)
+        self.assertNotEqual(fetch_prices_all.cost_history_fingerprint({**history,'2026 Q1':[]}),original)
+
     def test_historical_corrections_invalidate_cost_cache_but_descriptions_do_not(self):
         history={'2026 Q1':[{'cusip':'1','shares':100,'value':10000,'cnName':'旧名称'}]}
         before=fetch_prices_all.cost_history_fingerprint(history)

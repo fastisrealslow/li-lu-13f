@@ -29,9 +29,10 @@
     ]));
     if(comparisonState(d)==='comparable'&&!(d.history?.excludedValueQuarters||[]).includes(d.current.prevQuarter)){
       const old=d.current.previousHoldings??d.history?.holdings?.[d.current.prevQuarter],oldTotal=valid(old)?sum(old):0;
+      const previousRows=consolidateHoldings(old||[]),comparisonRows=quarterlyHoldings(d);
       if(oldTotal>0)result.push(section(en?'How the largest weights changed':'头部仓位与上季的差异',ranked.slice(0,8).map(h=>{
-        const previous=consolidateHoldings(old).find(p=>sameSecurity(h,p)),value=previous?.value||0,now=h.value/total*100,before=value/oldTotal*100,delta=now-before;
-        const comparison=quarterlyHoldings(d).find(p=>sameSecurity(h,p)),oldShares=comparison?.prevShares??previous?.shares??0;
+        const previous=previousRows.find(p=>sameSecurity(h,p)),value=previous?.value||0,now=h.value/total*100,before=value/oldTotal*100,delta=now-before;
+        const comparison=comparisonRows.find(p=>sameSecurity(h,p)),oldShares=comparison?.prevShares??previous?.shares??0;
         const split=comparison?.shareAdjustment?(en?' (split adjusted)':'（按拆股后可比口径）'):'';
         return en?`${stock(h,en)}: ${percent(before)}% → ${percent(now)}% (${delta>=0?'+':''}${delta.toFixed(2)} percentage points); ${unit(h,en)} ${quantity(oldShares)} → ${quantity(h.shares)}${split}. ${comparison?changeText(comparison,true):''}`:`${stock(h,en)}：申报占比 ${percent(before)}% → ${percent(now)}%，变化 ${delta>=0?'+':''}${delta.toFixed(2)} 个百分点；${unit(h,en)} ${quantity(oldShares)} → ${quantity(h.shares)}${split}。${comparison?changeText(comparison,false):''}。`;
       })));

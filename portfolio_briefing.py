@@ -256,6 +256,7 @@ def history_briefing(data):
         persistent=[]
         for r in ranked:
             if all(any(same_security(p,r) and p['shares']>0 for p in h['holdings'].get(q,[])) for q in recent):persistent.append(r)
+            if len(persistent)==2:break
         if persistent:details.append(detail(pair('哪些核心证券持续出现','Core securities that persist'),pair(f'{names(persistent[:2])} 在这 {len(recent)} 个季度均有披露。持续出现说明组合核心的延续，不能证明期间从未交易。',f'{names(persistent[:2],True)} appear in all {len(recent)} quarters. This shows continuity in the disclosed core, not an absence of trading between filings.')))
         old=consolidate_holdings(first_rows or []);old_total=sum(r['value'] for r in old)
         if old_total and not cur.get('valueQuality'):

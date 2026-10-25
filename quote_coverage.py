@@ -162,11 +162,35 @@ def refresh(root=ROOT,all_quotes=False,workers=4):
         path=root/inv['pricesFile'];data=files[inv['pricesFile']];quotes=data.setdefault('quotes',{})
         for h in load(root/inv['dataFile'])['current']['holdings']:
             tk=h['ticker'];fresh=results.get(tk);old=quotes.get(tk,{})
-            if fresh and valid_quote(fresh) and (not valid_quote(old) or fresh['t']>=old['t']):quotes[tk]=fresh
+            if fresh and valid_quote(fresh) and (not valid_quote(old) or fresh['t']>=old['t']):
+                from batch_market_data import merge_actions
+                quotes[tk]=merge_actions(old,fresh)
             elif fresh and not valid_quote(fresh) and valid_quote(old):quotes[tk]={**old,'stale':True}
+        for h in load(root/inv['dataFile'])['current']['holdings']:
+            a=aliases.get(h.get('cusip'),{})
+            if a.get('kind')=='one_for_one_reorganization' and a.get('conversionRatio')==1 and valid_quote(quotes.get(h['ticker'],{})):
+                quotes[h['ticker']]['successorRatio']=1;quotes[h['ticker']]['successorSource']=a['sourceURL']
         data['quoteCoverageCheckedAt']=datetime.now(timezone.utc).isoformat()
         if any(valid_quote(results.get(h['ticker'],{})) for h in load(root/inv['dataFile'])['current']['holdings']):data['updatedAt']=data['quoteCoverageCheckedAt']
         save(path,data)
+    report=coverage(root)
+    if report['missing']:
+        from fetch_13f_all import sec_fetch
+        from security_lifecycle import discover_retirements
+        missing={(i['investor'],i['cusip']) for i in report['missing']}
+        unresolved=[];dates=[]
+        for inv in configs:
+            current=load(root/inv['dataFile'])['current']
+            for h in current.get('holdings',[]):
+                if (inv['id'],h.get('cusip')) in missing and aliases.get(h.get('cusip'),{}).get('kind')!='one_for_one_reorganization':
+                    unresolved.append(h)
+                    if current.get('periodEnd'):dates.append(current['periodEnd'])
+        try:
+            found=discover_retirements(unresolved,min(dates),sec_fetch) if dates else {}
+            if found:
+                path=root/'security_lifecycle.json';state=load(path) if path.exists() else {'version':1,'events':{}}
+                state['events'].update(found);save(path,state)
+        except Exception as exc:print('Corporate-action evidence retained:',type(exc).__name__,flush=True)
     return coverage(root)
 
 def main():

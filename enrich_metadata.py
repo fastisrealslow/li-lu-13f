@@ -111,7 +111,7 @@ MANUAL_CN_NAME = {
     "SLM": "萨利美",
     "PRI": "Primerica",
     "ICLR": "ICON临床",
-    "ELV": "信诺健康",
+    "ELV": "Elevance Health（原 Anthem）",
     "MPLX": "MPLX管道",
     "WHR": "惠而浦",
     "MU": "美光科技",
@@ -201,6 +201,9 @@ def enrich_holdings(holdings, cache, changed_tickers):
         if not tk or tk.startswith('?'):
             continue
 
+        reviewed=cache.get(tk,{})
+        if reviewed.get('labelSourceURL') and reviewed.get('cnName') and h.get('cnName')!=reviewed['cnName']:
+            h['cnName']=reviewed['cnName'];changed_tickers.add(tk)
         need_cn = not h.get('cnName','')
         need_sec = not h.get('sector','') or h.get('sector') == '其他'
 
@@ -233,6 +236,10 @@ def process_file(filepath, cache):
 
     enrich_holdings(d.get('current', {}).get('previousHoldings', []), cache, changed)
 
+    # Historical security labels must not inherit the name of a different
+    # issuer that later reused the same ticker. Never request delisted-company
+    # metadata once per old row: reuse only a matching current CUSIP.
+    live_ids={(h.get('ticker'),h.get('cusip')) for h in cur+d.get('current',{}).get('previousHoldings',[]) if h.get('cusip')}
     # history holdings
     hist = d.get('history', {})
     # 支持两种结构：{quarter: [holdings]} 或 {holdings: {quarter: [holdings]}}
@@ -240,11 +247,15 @@ def process_file(filepath, cache):
     if isinstance(hist_qs, dict):
         for q, hs in hist_qs.items():
             if isinstance(hs, list):
-                enrich_holdings(hs, cache, changed)
+                for h in hs:
+                    if (h.get('ticker'),h.get('cusip')) in live_ids:
+                        enrich_holdings([h],cache,changed)
+                    elif not h.get('sector'):
+                        h['sector']='其他';changed.add(h.get('ticker',''))
 
     if changed:
         with open(filepath, 'w') as f:
-            json.dump(d, f, ensure_ascii=False, indent=2)
+            json.dump(d, f, ensure_ascii=False, indent=None if sum(len(v) for v in d.get('history',{}).get('holdings',{}).values())>20000 else 2, separators=(',',':') if sum(len(v) for v in d.get('history',{}).get('holdings',{}).values())>20000 else None)
         print(f"  ✅ {filepath} 更新了 {len(changed)} 个 ticker")
     else:
         print(f"  ⏭  {filepath} 无需更新")
@@ -474,7 +485,7 @@ def _gen_13f_summaries(api_key):
         d['meta']['aiSummaryQuarter'] = quarter
         d['meta']['aiSummaryUpdatedAt'] = datetime.now(timezone.utc).isoformat()
         with open(filepath, 'w') as f:
-            json.dump(d, f, ensure_ascii=False, indent=2)
+            json.dump(d, f, ensure_ascii=False, indent=None if sum(len(v) for v in d.get('history',{}).get('holdings',{}).values())>20000 else 2, separators=(',',':') if sum(len(v) for v in d.get('history',{}).get('holdings',{}).values())>20000 else None)
         print(f"  {investor_cn} {quarter}: {text}")
         time.sleep(1)
 
@@ -594,431 +605,66 @@ def _gen_verdict(v, mos_tier):
     return zh,en
 
 
-def _build_homework_prompt():
-    """
-    跨投资人聚合价值筛选（MOS>=10%）候选股，逐股计算结构化点评
-    （仓位占比、持仓时间、安全边际分级、加减仓信号均由代码计算，保证准确）。
-    返回 (prompt, stock_notes, candidates) 供 _gen_homework_summary 和
-    test_llm_models.py 共用，避免两处逻辑漂移。
-    """
-    # 单一权威来源：从 investors.json 动态读取，只纳入 inValueScreen=true 的投资者
-    # （与前端 app.js renderHomework() 的 INVESTOR_CFG.filter(inv => inv.inValueScreen) 保持一致）。
-    # 此前这里是硬编码 7 人列表，新增的 klarman/ackman/abrams/berkowitz/hawkins 5 位投资者
-    # 未被纳入，导致 AI 逐股解读遗漏了他们持有的候选股，与前端表格（已用全量列表）不一致。
-    investors = load_investors()
-    if investors:
-        FILES = [
-            (inv['dataFile'], inv['pricesFile'], inv['name'])
-            for inv in investors if inv.get('inValueScreen')
-        ]
-    else:
-        # investors.json 缺失时的安全兜底（与原硬编码列表一致，仅作最后防线）
-        FILES = [
-            ('data.json',        'prices.json',           '李录'),
-            ('pabrai_data.json', 'pabrai_prices.json',     '帕伯莱'),
-            ('duan.json',        'prices_duan.json',       '段永平'),
-            ('tepper.json',      'prices_tepper.json',     'Tepper'),
-            ('akre.json',        'prices_akre.json',       'Akre'),
-            ('greenberg.json',   'prices_greenberg.json',  'Greenberg'),
-            ('buffett.json',     'prices_buffett.json',    '巴菲特'),
-        ]
-
-    candidates = {}  # ticker -> {name, sector, mos, buy, price, holders:[{investor,chg,weight,hold_quarters,hold_years}]}
-    near_miss = {}  # ticker -> [(investor, mos)] — 持有但安全边际未达10%门槛而被过滤的持有人
-    all_holders_map = {}  # ticker -> set(investor) — 不论 MOS 高低的全部持有人（与前端 allHoldersMap 对应，用于共识加成打分）
-
-    # Pass 0: 先构建全部持有人映射（不应用 MOS 过滤），与前端 app.js 的
-    # 第一轮遍历（Pass 1: 构建 allHoldersMap）对齐，保证共识人数口径一致。
-    for df, pf, name_cn in FILES:
-        if not os.path.exists(df):
-            continue
-        try:
-            dr0 = json.load(open(df))
-        except Exception:
-            continue
-        for h in dr0.get('current', {}).get('holdings', []):
-            if h.get('putCall') or h.get('shareType', 'SH') != 'SH':
-                continue
-            tk0 = h.get('ticker', '')
-            if not tk0 or tk0.startswith('?') or tk0.endswith('.HK'):
-                continue
-            all_holders_map.setdefault(tk0, set()).add(name_cn)
-
-    for df, pf, name_cn in FILES:
-        if not (os.path.exists(df) and os.path.exists(pf)):
-            continue
-        try:
-            dr = json.load(open(df))
-            pr = json.load(open(pf))
-        except Exception:
-            continue
-        cur = dr.get('current', {})
-        if cur.get('valueQuality') or dr.get('meta', {}).get('reportingTransition', {}).get('fromQuarter') == cur.get('quarter'):
-            continue
-        instrument_tickers = {h['ticker'] for h in cur.get('holdings', []) + cur.get('previousHoldings', []) if h.get('putCall') or h.get('shareType', 'SH') != 'SH'}
-        holdings = [h for h in cur.get('holdings', []) if h.get('ticker') not in instrument_tickers]
-        total_val = cur.get('totalValue', 0)
-        cur_q = cur.get('quarter', '')
-        quotes = pr.get('quotes', {})
-        cb = pr.get('costBasis', {})
-
-        # 同一持有人对同一 ticker 可能有多条 13F 记录（不同批次/份额类别），先合并
-        merged = {}
-        for h in holdings:
-            tk = h.get('ticker', '')
-            if not tk:
-                continue
-            if tk in merged:
-                merged[tk]['shares'] += h.get('shares', 0) or 0
-                merged[tk]['prevShares'] += h.get('prevShares', 0) or 0
-                merged[tk]['value'] += h.get('value', 0) or 0
-            else:
-                merged[tk] = {
-                    'shares': h.get('shares', 0) or 0,
-                    'prevShares': h.get('prevShares', 0) or 0,
-                    'value': h.get('value', 0) or 0,
-                    'cnName': h.get('cnName') or h.get('name', tk),
-                    'sector': h.get('sector', ''),
-                }
-
-        for tk, h in merged.items():
-            if not tk or tk.startswith('?') or tk.endswith('.HK'):
-                continue
-            q = quotes.get(tk)
-            c = cb.get(tk)
-            if not q or q.get('error') or q.get('stale') or not c:
-                continue
-            rc = c.get('recent')
-            if not rc or not rc.get('buy'):
-                continue
-            price = q.get('c', 0)
-            buy = rc.get('buy', 0)
-            if price <= 0 or buy <= 0:
-                continue
-            mos = (buy - price) / buy * 100
-            if mos < 10:
-                if mos > 0:  # 仅记录仍有正安全边际但未达标的情况，避免噪声
-                    near_miss.setdefault(tk, []).append((name_cn, round(mos, 1)))
-                continue
-            prev = h['prevShares']
-            cur_sh = h['shares']
-            if prev == 0 and cur_sh > 0:
-                chg = 'new'
-            elif prev > 0 and cur_sh > prev:
-                chg = 'added'
-            elif prev > 0 and cur_sh < prev:
-                chg = 'trimmed'
-            else:
-                chg = 'hold'
-            weight = (h['value'] / total_val * 100) if total_val else 0
-            at = c.get('allTime') or {}
-            hq_n = _hold_quarters(at['first'], cur_q) if at.get('first') else None
-            hq_yrs = round(hq_n / 4, 1) if hq_n else None
-
-            series = _ticker_quarter_series(dr, tk)
-            pattern = _analyze_holding_pattern(series)
-
-            investor_detail = {
-                'investor': name_cn, 'chg': chg, 'weight': round(weight, 1),
-                'hold_quarters': hq_n, 'hold_years': hq_yrs,
-                'trend': pattern['trend'], 'reentry': pattern['reentry'],
-                'exit_quarter': pattern['exit_quarter'], 'reentry_quarter': pattern['reentry_quarter'],
-            }
-
-            entry = candidates.get(tk)
-            if entry:
-                entry['holders'].append(investor_detail)
-                if buy < entry['buy']:
-                    entry['buy'] = round(buy, 2)
-                    entry['mos'] = round(mos, 1)
-            else:
-                candidates[tk] = {
-                    'name': h['cnName'], 'sector': h['sector'], 'mos': round(mos, 1),
-                    'buy': round(buy, 2), 'price': round(price, 2),
-                    'holders': [investor_detail],
-                }
-
-    if not candidates:
-        return None, [], {}, None
-
-    # 排序：与前端 app.js renderHomework() 的打分公式保持一致
-    # score = MOS + (全部持有人数-1)*40 + 新开仓/加仓奖励(15/8) - 全员减仓惩罚(20)
-    # 注意："全部持有人数"用 all_holders_map（不论 MOS 高低），与前端 totalHolders 口径一致，
-    # 而不是 len(v['holders'])（仅统计 MOS>=10% 达标的人数）——此前两者混淆导致排序与前端不一致
-    # （例如 KHC 有 3 人持有但只有 1 人 MOS 达标，前端仍按 3 人共识加分，后端之前只按 1 人加分）。
-    # 新开仓/加仓/全员减仓仍只看达标持有人的动作（与前端 c.investors 对应，因为前端也只对 investors 数组判断 hasNew/hasAdded/allTrimming）。
-    def _score(tk, v):
-        s = v['mos']
-        total_holders = len(all_holders_map.get(tk, set())) or 1
-        s += (total_holders - 1) * 40
-        chgs = [h['chg'] for h in v['holders']]
-        if 'new' in chgs:
-            s += 15
-        elif 'added' in chgs:
-            s += 8
-        if chgs and all(c == 'trimmed' for c in chgs):
-            s -= 20
-        return s
-    ranked = sorted(candidates.items(), key=lambda kv: _score(kv[0], kv[1]), reverse=True)
-
-    # 逐股生成结构化点评（代码拼接，不经过LLM，保证数字准确）
-    stock_notes = []
-    consensus_lines = []
-    new_or_added = []
-    strong_signals = []  # 高仓位+主动加仓/新开仓 的强信号股，供 LLM 归纳引用
-    # 不再截断为前15条：与前端 app.js renderHomework() 的表格保持全量一致（前端不设上限）。
-    # 此前硬编码 [:15] 会在候选股超过15只时让 AI 逐股解读条数少于表格行数，造成两边对不上。
-    for tk, v in ranked:
-        holder_names = {h['investor'] for h in v['holders']}
-        v['near_miss'] = [(nm, m) for nm, m in near_miss.get(tk, []) if nm not in holder_names]
-        holder_descs = []
-        for h in v['holders']:
-            w_desc = f"{h['weight']}%仓位" if h['weight'] >= 0.5 else "极小仓位(<0.5%)"
-            if h.get('reentry') and h['hold_quarters']:
-                # 清仓重入：明确标注本轮重建仓时间，避免用户误以为“持仓年限”是一直未断的
-                hold_desc = f"{h['reentry_quarter']}重新出现于披露（此前最后出现{h['exit_quarter']}）；成本参考跨度{h['hold_quarters']}季/{h['hold_years']}年"
-            elif h['hold_quarters']:
-                hold_desc = f"成本参考跨度{h['hold_quarters']}季/{h['hold_years']}年，非连续持仓证明"
-            else:
-                hold_desc = "持仓起点未核实"
-            trend_desc = ''
-            if h.get('trend') == 'accumulating':
-                trend_desc = "，近3季连续加仓"
-            elif h.get('trend') == 'reducing':
-                trend_desc = "，近3季连续减仓"
-            holder_descs.append(f"{h['investor']}（{w_desc}，{hold_desc}{trend_desc}，{_CHG_LABEL[h['chg']]}）")
-            if h['chg'] in ('new', 'added') and h['weight'] >= 3:
-                strong_signals.append(f"{v['name']}({tk})：{h['investor']}{w_desc}且{_CHG_LABEL[h['chg']]}")
-
-        mos_tier = _mos_tier(v['mos'])
-        verdict_cn, verdict_en = _gen_verdict(v, mos_tier)
-        if v.get('near_miss'):
-            nm_cn = '、'.join(f"{nm}（{m}%）" for nm, m in v['near_miss'])
-            nm_en = '、'.join(f"{_investor_en(nm)} ({m}%)" for nm, m in v['near_miss'])
-            nm_verb = 'holds' if len(v['near_miss']) == 1 else 'hold'
-            verdict_cn += f"另外{nm_cn}也持有本股，但安全边际尚未达到10%门槛，未计入共识持有人。"
-            verdict_en += f" {nm_en} also {nm_verb} this stock, but the margin of safety hasn't reached the 10% threshold yet, so {'they are' if nm_verb=='hold' else 'it is'} not counted among the consensus holders."
-        note = {
-            'ticker': tk, 'name': v['name'], 'sector': v['sector'],
-            'mos': v['mos'], 'mosTier': mos_tier,
-            'buy': v['buy'], 'price': v['price'],
-            'holderCount': len(v['holders']),
-            'holders': v['holders'],
-            'holderText': '；'.join(holder_descs),
-            'nearMiss': [
-                {'investor': nm, 'mos': m, 'investorEn': _investor_en(nm)}
-                for nm, m in v.get('near_miss', [])
-            ],
-            'verdict': verdict_cn,
-            'verdictEn': verdict_en,
-        }
-        stock_notes.append(note)
-
-        if len(v['holders']) >= 2:
-            consensus_lines.append(f"{v['name']}({tk}) 安全边际{v['mos']}% 被{len(v['holders'])}人持有[{'/'.join(h['investor'] for h in v['holders'])}]")
-        signals_here = [h['chg'] for h in v['holders'] if h['chg'] in ('new', 'added')]
-        if signals_here:
-            new_or_added.append(f"{v['name']}({tk}) {'/'.join(sorted(set(signals_here)))}")
-
-    prompt = (
-        "以下是根据多位价值投资人13F持仓筛选出的安全边际>=10%的股票列表分析素材。\n\n"
-        "任务：写一段整体归纳，总结本期筛选结果中最值得关注的模式和信号（共识股信号是否一致、高仓位+主动加仓的强信号、新开仓仓位大小反映的信心强弱）。\n\n"
-        "严格要求（必须遵守，否则作废）：\n"
-        "1. 字数严格控制在 180 个中文字以内（不包含标点），超过部分会被直接截断且不会展示。宁可简短也不要超长。\n"
-        "2. 最多只能提到 2-3 个具体股票代码作为例子，不要逐股列举。\n"
-        "3. 不要使用 Markdown 语法（不要加粗、不要编号列表、不要用**号），只要普通段落文字。\n"
-        "4. 只能基于下面提供的信息归纳，不要编造未提及的数据，不要给出买卖建议，语气客观分析。\n"
-        "5. 直接输出归纳段落本身，不要加任何开头说明或标题。\n"
-        "6. 若提供了“本轮跌出候选清单的股票”，可适当提及1只作为补充（说明它因安全边际不再达标而跌出），不必全部列举。\n\n"
-        f"多人共识股（被2人以上持有）: {'; '.join(consensus_lines) if consensus_lines else '无'}\n"
-        f"新开仓/加仓信号: {'; '.join(new_or_added) if new_or_added else '无'}\n"
-        f"高仓位主动加仓/新开仓强信号: {'; '.join(strong_signals) if strong_signals else '无'}\n"
-    )
-
-    # 仅用三行信号数据本身计算哈希（不包括固定的提示词指令），
-    # 这样 prompt 文字措辞小调不会触发不必要的重新生成，只有信号真正变化时才重调 LLM。
-    signal_text = (
-        f"consensus:{consensus_lines}|new_added:{new_or_added}|strong:{strong_signals}"
-    )
-    signal_hash = hashlib.sha256(signal_text.encode('utf-8')).hexdigest()
-
-    return prompt, stock_notes, candidates, signal_hash
-
-
 def _build_value_screen():
-    """
-    预计算“价值筛选”表格所需的全部结构化数据（MOS/共识人数/打分排序/加减仓标签/
-    历史均价/未达标观察名单），写入 value_screen.json 供前端直接 fetch 渲染，
-    替代此前前端 renderHomework() 里对 24 个原始持仓+价格文件的并行拉取与
-    浏览器端重复计算。
-
-    与 _build_homework_prompt() 共用同一份候选股计算口径（MOS>=10%门槛、
-    all_holders_map 共识人数、打分公式），避免前端表格与 AI 逐股解读的
-    数字/排序再次出现漂移。两者独立实现（而非互相调用）是因为
-    _build_homework_prompt() 返回的是给 LLM 用的 prompt 文本 + 精简 stock_notes，
-    缺少表格需要的 totalHolders / atAvg / nearMissMap 等字段；为不破坏
-    test_llm_models.py 等既有调用方对 _build_homework_prompt() 签名的依赖，
-    这里单独实现一份，字段对齐前端 app.js 的 candidates 结构。
-
-    返回 dict：{generatedAt, candidates: [...], nearMissMap: {ticker: [...]}}
-    """
-    investors = load_investors()
-    if investors:
-        FILES = [
-            (inv['dataFile'], inv['pricesFile'], inv['name'], inv['nameEn'], inv['id'])
-            for inv in investors if inv.get('inValueScreen')
-        ]
-    else:
-        FILES = []
-
-    if not FILES:
-        return {'generatedAt': datetime.now(timezone.utc).isoformat(), 'candidates': [], 'nearMissMap': {}}
-
-    all_holders_map = {}  # ticker -> set(investor_id)
-    for df, pf, name_cn, name_en, inv_id in FILES:
-        if not os.path.exists(df):
-            continue
+    """One price per security, source-bound references, and transparent ranking."""
+    from quote_coverage import valid_quote
+    from reporting_scope import same_manager_history
+    people=[i for i in load_investors() if i.get('inValueScreen')]
+    sources=[];best_quotes={};all_holders={};nearby={}
+    for inv in people:
         try:
-            dr0 = json.load(open(df))
-        except Exception:
-            continue
-        for h in dr0.get('current', {}).get('holdings', []):
-            if h.get('putCall') or h.get('shareType', 'SH') != 'SH':
-                continue
-            tk0 = h.get('ticker', '')
-            if not tk0 or tk0.startswith('?') or tk0.endswith('.HK'):
-                continue
-            all_holders_map.setdefault(tk0, set()).add(inv_id)
-
-    candidates = {}  # ticker -> {...}
-    near_miss_map = {}  # ticker -> [{investor, investorEn, id, mos}]
-
-    for df, pf, name_cn, name_en, inv_id in FILES:
-        if not (os.path.exists(df) and os.path.exists(pf)):
-            continue
-        try:
-            dr = json.load(open(df))
-            pr = json.load(open(pf))
-        except Exception:
-            continue
-        cur = dr.get('current', {})
-        if cur.get('valueQuality') or dr.get('meta', {}).get('reportingTransition', {}).get('fromQuarter') == cur.get('quarter'):
-            continue
-        instrument_tickers = {h['ticker'] for h in cur.get('holdings', []) + cur.get('previousHoldings', []) if h.get('putCall') or h.get('shareType', 'SH') != 'SH'}
-        holdings = [h for h in cur.get('holdings', []) if h.get('ticker') not in instrument_tickers]
-        total_val = cur.get('totalValue', 0)
-        quotes = pr.get('quotes', {})
-        cb = pr.get('costBasis', {})
-
-        merged = {}
-        for h in holdings:
-            tk = h.get('ticker', '')
-            if not tk:
-                continue
-            if tk in merged:
-                merged[tk]['shares'] += h.get('shares', 0) or 0
-                merged[tk]['prevShares'] += h.get('prevShares', 0) or 0
-                merged[tk]['value'] += h.get('value', 0) or 0
+            dr=json.load(open(inv['dataFile']));pr=json.load(open(inv['pricesFile']))
+        except (OSError,ValueError):continue
+        sources.append((inv,dr,pr))
+        for tk,q in pr.get('quotes',{}).items():
+            if valid_quote(q) and not q.get('stale') and time.time()-q['t']<=7*86400 and q.get('currency','USD')=='USD':
+                if q['t']>best_quotes.get(tk,{}).get('t',0):best_quotes[tk]=q
+    for inv,dr,pr in sources:
+        cur=dr.get('current',{});total=cur.get('totalValue',0);merged={}
+        for h in cur.get('holdings',[]):
+            tk=h.get('ticker','')
+            if h.get('putCall') or h.get('shareType','SH')!='SH' or re.search(r'\bWARRANT\b',h.get('cls',''),re.I) or not tk or tk.startswith('?') or tk.endswith('.HK'):continue
+            if tk not in merged:merged[tk]={**h}
             else:
-                merged[tk] = {
-                    'shares': h.get('shares', 0) or 0,
-                    'prevShares': h.get('prevShares', 0) or 0,
-                    'value': h.get('value', 0) or 0,
-                    'name': h.get('name', tk),
-                    'cnName': h.get('cnName') or h.get('name', tk),
-                    'sector': h.get('sector', ''),
-                }
+                row=merged[tk];row['shares']+=h.get('shares',0);row['value']+=h.get('value',0)
+                row['prevShares']=row['prevShares']+h['prevShares'] if row.get('prevShares') is not None and h.get('prevShares') is not None else None
+        for tk,h in merged.items():
+            prev=h.get('prevShares');shares=h['shares'];transition=dr.get('meta',{}).get('reportingTransition',{})
+            scope=transition.get('fromQuarter')==cur.get('quarter') and transition.get('comparisonScopeChanged') and not same_manager_history(dr,h)
+            comparable=prev is not None and not scope
+            chg=('new' if prev==0 else 'added' if shares>prev else 'trimmed' if shares<prev else 'hold') if comparable else 'unknown'
+            cost=pr.get('costBasis',{}).get(tk,{}) if not cur.get('valueQuality') else {};rc=cost.get('recent') or {};buy=rc.get('buy');q=best_quotes.get(tk,{})
+            buy=buy if isinstance(buy,(int,float)) and buy>0 else None
+            mos=(buy-q['c'])/buy*100 if buy and q else None
+            entry={'id':inv['id'],'name':inv['name'],'nameEn':inv['nameEn'],'weight':round(h['value']/total*100,2) if total and not cur.get('valueQuality') else None,'chg':chg,'reportQuarter':cur.get('quarter'),'shares':shares,'previousShares':prev if comparable else None,'shareChangePct':round((shares-prev)/prev*100,3) if comparable and prev else None,'buy':round(buy,2) if buy else None,'buyQuarter':rc.get('quarter'),'referenceKind':rc.get('kind','buying_reference'),'referenceSource':rc.get('source'),'atAvg':(cost.get('allTime') or {}).get('avg'),'costFirst':(cost.get('allTime') or {}).get('first'),'costLast':(cost.get('allTime') or {}).get('last'),'buyQuarters':(cost.get('allTime') or {}).get('buy_quarters'),'sourceFiling':cur.get('sourceFiling'),'mos':round(mos,1) if mos is not None else None,'qualifies':mos is not None and mos>=10}
+            all_holders.setdefault(tk,[]).append((entry,h))
+            if not entry['qualifies']:
+                nearby.setdefault(tk,[]).append({'investor':inv['name'],'investorEn':inv['nameEn'],**entry})
+    candidates=[]
+    for tk,holders in all_holders.items():
+        qualified=[e for e,h in holders if e['qualifies']]
+        if not qualified:continue
+        reference=min(qualified,key=lambda e:e['buy']);h=next(h for e,h in holders if e['id']==reference['id']);q=best_quotes[tk]
+        candidates.append({'ticker':tk,'name':h['name'],'cnName':h.get('cnName') or h['name'],'sector':h.get('sector',''),'currency':'USD','mos':round((reference['buy']-q['c'])/reference['buy']*100,1),'price':round(q['c'],2),'priceAsOf':datetime.fromtimestamp(q['t'],timezone.utc).isoformat(),'priceSource':q.get('sourceURL'),'buy':reference['buy'],'atAvg':reference['atAvg'],'referenceInvestorId':reference['id'],'referenceInvestor':reference['name'],'referenceInvestorEn':reference['nameEn'],'referenceQuarter':reference['buyQuarter'],'referenceSource':reference['referenceSource'],'referenceKind':reference['referenceKind'],'investors':qualified,'otherHolders':[e for e,h in holders if not e['qualifies']],'totalHolders':len(holders)})
+    # Qualifying holders first, then the gap to their lowest reference.
+    candidates.sort(key=lambda c:(-len(c['investors']),-c['mos'],c['ticker']))
+    return {'generatedAt':datetime.now(timezone.utc).isoformat(),'schemaVersion':2,'ranking':'qualifying_holders_then_cost_gap','candidates':candidates,'nearMissMap':nearby}
 
-        for tk, h in merged.items():
-            if not tk or tk.startswith('?') or tk.endswith('.HK'):
-                continue
-            q = quotes.get(tk)
-            c = cb.get(tk)
-            if not q or q.get('error') or q.get('stale') or not c:
-                continue
-            rc = c.get('recent')
-            if not rc or not rc.get('buy'):
-                continue
-            price = q.get('c', 0)
-            buy = rc.get('buy', 0)
-            if price <= 0 or buy <= 0:
-                continue
-            mos = (buy - price) / buy * 100
-            if mos < 10:
-                if mos > 0:
-                    near_miss_map.setdefault(tk, []).append({
-                        'investor': name_cn, 'investorEn': name_en, 'id': inv_id,
-                        'mos': round(mos, 1),
-                    })
-                continue
-            prev = h['prevShares']
-            cur_sh = h['shares']
-            if prev == 0 and cur_sh > 0:
-                chg = 'new'
-            elif prev > 0 and cur_sh > prev:
-                chg = 'added'
-            elif prev > 0 and cur_sh < prev:
-                chg = 'trimmed'
-            else:
-                chg = 'hold'
-            weight = (h['value'] / total_val * 100) if total_val else 0
-            at_avg = (c.get('allTime') or {}).get('avg')
 
-            investor_entry = {
-                'id': inv_id, 'name': name_cn, 'nameEn': name_en,
-                'weight': round(weight, 1), 'chg': chg, 'reportQuarter':cur.get('quarter'),
-            }
-
-            entry = candidates.get(tk)
-            if entry:
-                if not any(x['id'] == inv_id for x in entry['investors']):
-                    entry['investors'].append(investor_entry)
-                    if buy < entry['buy']:
-                        entry['buy'] = round(buy, 2)
-                        entry['mos'] = round(mos, 1)
-                        entry['atAvg'] = round(at_avg, 2) if at_avg else entry.get('atAvg')
-            else:
-                candidates[tk] = {
-                    'ticker': tk,
-                    'name': h['name'],
-                    'cnName': h['cnName'],
-                    'sector': h['sector'],
-                    'mos': round(mos, 1),
-                    'price': round(price, 2),
-                    'buy': round(buy, 2),
-                    'atAvg': round(at_avg, 2) if at_avg else None,
-                    'investors': [investor_entry],
-                    'totalHolders': len(all_holders_map.get(tk, set())) or 1,
-                }
-
-    # 打分排序：与 _build_homework_prompt()/前端 app.js 保持一致的公式
-    # score = MOS + (全部持有人数-1)*40 + 新开仓/加仓奖励(15/8) - 全员减仓惩罚(20)
-    def _score(c):
-        s = c['mos']
-        s += (c['totalHolders'] - 1) * 40
-        chgs = [inv['chg'] for inv in c['investors']]
-        if 'new' in chgs:
-            s += 15
-        elif 'added' in chgs:
-            s += 8
-        if chgs and all(x == 'trimmed' for x in chgs):
-            s -= 20
-        return s
-
-    ranked = sorted(candidates.values(), key=_score, reverse=True)
-
-    # 注意：nearMissMap 不做任何过滤，与前端 app.js 的 nearMissMap 语义完全一致：
-    # 它是独立于 candidates 构建的全量映射（ticker -> 持有但 MOS<10% 的人列表），
-    # 包括那些自己也不在 candidates 里的 ticker（如 BIDU：只有 Tepper 一人持有且
-    # MOS=8.3%未达标，本身不会进入 candidates，但仍需保留在 nearMissMap 里供前端
-    # 用途参考）。之前错误地只遍历 ranked 来构建过滤后的版本，导致这类非 candidates
-    # ticker 被遗漏（Playwright交叉验证发现：JS版 nearMiss 有22个 ticker，Python过滤后只剩 2个）。
-
-    return {
-        'generatedAt': datetime.now(timezone.utc).isoformat(),
-        'candidates': ranked,
-        'nearMissMap': near_miss_map,
-    }
+def _build_homework_prompt():
+    """Generate notes from exactly the candidates and source prices on screen."""
+    screen=_build_value_screen();candidates={};notes=[]
+    for c in screen['candidates']:
+        holders=[{'investor':h['name'],'investorEn':h['nameEn'],'chg':h['chg'],'weight':h['weight'] or 0,'reportQuarter':h['reportQuarter'],'buy':h['buy'],'buyQuarter':h['buyQuarter'],'shareChangePct':h['shareChangePct'],'hold_quarters':0,'hold_years':0} for h in c['investors']]
+        v={**c,'holders':holders};candidates[c['ticker']]=v
+        adding=sum(h['chg'] in ('new','added') for h in holders);reducing=sum(h['chg']=='trimmed' for h in holders)
+        verdict=f"达标持有人中，{adding} 位新增或增持，{reducing} 位减持。最低参考来自{c['referenceInvestor']}，对应 {c.get('referenceQuarter') or '未注明季度'}。"
+        verdict_en=f"Among qualifying holders, {adding} show entries or additions and {reducing} reductions. The lowest reference is from {c['referenceInvestorEn']}, for {c.get('referenceQuarter') or 'an undated quarter'}."
+        notes.append({'ticker':c['ticker'],'name':c['cnName'],'sector':c['sector'],'mos':c['mos'],'mosTier':_mos_tier(c['mos']),'buy':c['buy'],'price':c['price'],'holders':holders,'holderCount':len(holders),'holderText':'；'.join(h['investor']+' '+h['reportQuarter'] for h in holders),'nearMiss':screen['nearMissMap'].get(c['ticker'],[]),'verdict':verdict,'verdictEn':verdict_en})
+    material=[{'ticker':c['ticker'],'gap':c['mos'],'referenceInvestor':c['referenceInvestor'],'referenceQuarter':c['referenceQuarter'],'holders':c['investors']} for c in screen['candidates']]
+    signal_hash=hashlib.sha256(json.dumps(material,sort_keys=True,ensure_ascii=False).encode()).hexdigest()
+    prompt='概括下面候选的实际数字和增减方向，指出分歧，不推断交易动机或未来收益。参考价是历史价格估算，不是企业估值。只使用提供的事实。\n'+json.dumps(material,ensure_ascii=False)
+    return prompt,notes,candidates,signal_hash
 
 
 def _write_value_screen():
@@ -1171,6 +817,9 @@ def _gen_spinoff_verdicts():
 def main():
     print("=== enrich_metadata.py 开始 ===")
     cache = load_cache()
+    from listing_metadata import seed
+    active={h['ticker'] for inv in load_investors() if os.path.exists(inv['dataFile']) for h in json.load(open(inv['dataFile'])).get('current',{}).get('holdings',[])}
+    seed(cache,tickers=active)
     print(f"缓存已有 {len(cache)} 个 ticker")
 
     investors = load_investors()
@@ -1259,7 +908,7 @@ def main():
 
                     if changed:
                         with open(f, 'w') as fp:
-                            json.dump(d, fp, ensure_ascii=False, indent=2)
+                            json.dump(d, fp, ensure_ascii=False, indent=None if sum(len(v) for v in d.get('history',{}).get('holdings',{}).values())>20000 else 2)
                         files_updated += 1
                 print(f"已回写 {files_updated} 个文件，{records_updated} 条记录的 cnName 被翻译回写")
 

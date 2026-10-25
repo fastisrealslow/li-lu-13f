@@ -34,7 +34,8 @@ import urllib.error
 import xml.etree.ElementTree as ET
 from pathlib import Path
 from concurrent.futures import ThreadPoolExecutor
-from datetime import datetime, timezone
+from datetime import datetime, timezone, date
+from decimal import Decimal
 
 # ─────────────────────────────────────────────────────────────
 # 投资者配置 — 新增投资者只需在这里加一行
@@ -372,7 +373,6 @@ TICKER_MAP = {
     "SPDR S&P 500 ETF TRUST": "SPY",
     "VANGUARD S&P 500 ETF": "VOO",
     "VANGUARD INDEX FDS S&P 500 ETF": "VOO",
-    "ISHARES INC": "IEMG",
     "ISHARES RUSSELL 2000 ETF": "IWM",
     "INVESCO QQQ TRUST SERIES 1": "QQQ",
     "INVESCO QQQ TR": "QQQ",
@@ -716,9 +716,29 @@ def history_notice_quarters(coverage, config):
     return [q for q in coverage['missingQuarters'] if q not in quiet]
 
 
+def backfill_filing_provenance(data,filings):
+    """Recover omitted source links from a matching, already verified unit proof."""
+    from audit_13f_history import VERSION,digest
+    history=data.get('history',{});sources=history.setdefault('filing_sources',{})
+    for q,rows in history.get('holdings',{}).items():
+        if q in sources:continue
+        proof=history.get('valueAudit',{}).get(q,{})
+        if proof.get('version')!=VERSION or proof.get('status')!='verified' or proof.get('normalizedHash')!=digest(rows):continue
+        url=proof.get('source','')
+        candidates=[f for f in filings if quarter_label(f['reportDate'])==q and (f['accession'] in url or f['accessionDashed'] in url)]
+        if len(candidates)==1:sources[q]={**candidates[0],'url':url}
+
+
 def backfill_history_gaps(cik, data, filings, consolidate=False, limit=4):
     """Repair bounded gaps on normal runs; failures remain gaps, never zeroes."""
-    missing = missing_history_quarters(data)
+    # Discover leading/trailing omissions too: interior-gap detection alone
+    # silently loses years when an initial import starts late.
+    backfill_filing_provenance(data,filings)
+    stored=set(data.get('history',{}).get('holdings',{}))
+    available={quarter_label(f['reportDate']) for f in filings}
+    from legacy_13f import VERSION as legacy_version
+    refresh_legacy={q for q,source in data.get('history',{}).get('filing_sources',{}).items() if source.get('url','').endswith('.txt') and source.get('parserVersion')!=legacy_version}
+    missing=sorted(set(missing_history_quarters(data)) | (available-stored) | refresh_legacy)
     errors, repaired, audit = {}, [], None
     attempts = data.get("history", {}).get("coverage", {}).get("attempts", {})
     if missing:
@@ -760,12 +780,13 @@ def backfill_history_gaps(cik, data, filings, consolidate=False, limit=4):
                 update_history(data, quarter, rows)
                 data["history"].setdefault("filing_sources", {})[quarter] = {
                     **filing, "url": "https://www.sec.gov" + path,
+                    **({"format":"legacy_13f","parserVersion":legacy_version} if path.endswith('.txt') else {}),
                 }
                 repaired.append(quarter)
                 print(f"  Backfilled {quarter}: {len(rows)} rows")
             except Exception as exc:
                 errors[quarter] = str(exc)
-    remaining = missing_history_quarters(data)
+    remaining = sorted(set(missing_history_quarters(data)) | (available-set(data.get("history",{}).get("holdings",{}))))
     data["history"]["coverage"] = {
         "checkedAt": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
         "missingQuarters": remaining, "repairedThisRun": repaired, "errors": errors,
@@ -811,6 +832,10 @@ def find_info_table_xml(cik: str, accession: str, accession_dashed: str) -> str:
         href = m.group(1)
         if "xslForm13F" not in href:
             return href
+    # Pre-XML filings have a complete SGML submission, not an information XML.
+    # The legacy reader requires entry-count and value-total reconciliation.
+    if not re.search(r'INFORMATION TABLE', index_html, re.I) or not re.search(r'\.xml</a>', index_html, re.I):
+        return f"/Archives/edgar/data/{cik}/{accession_dashed}.txt"
     # Fallback
     m2 = re.search(r"(\d{2})(\d)(\d)$", accession)
     if m2:
@@ -834,7 +859,21 @@ def resolve_ticker(name: str, cls: str, cusip: str = "") -> str:
 
 def parse_holdings(xml_bytes: bytes, consolidate: bool = False, *, filing_date: str) -> list[dict]:
     """解析 INFOTABLE XML，返回 holdings 列表（已排序）。"""
+    if b'<SEC-HEADER>' in xml_bytes[:20000] or b'<SEC-DOCUMENT>' in xml_bytes[:2000]:
+        from legacy_13f import parse_legacy
+        raw_entries = parse_legacy(xml_bytes)
+        for row in raw_entries:
+            row['ticker']=resolve_ticker(row['name'],row['cls'],row['cusip'])
+        holdings=consolidate_holdings(raw_entries)
+        for row in holdings:row['sector']=SECTORS.get(row['ticker'],'其他')
+        return sorted(holdings,key=lambda h:-h['value'])
     root = ET.fromstring(xml_bytes)
+    filed=datetime.strptime(filing_date,'%Y-%m-%d')
+    multiplier=1000 if filed<datetime(2023,1,3) else 1
+    def whole(text,multiplier=1):
+        value=Decimal(text)*multiplier
+        if not value.is_finite() or value<0 or value!=value.to_integral():raise ValueError('Non-integral filed quantity after unit conversion')
+        return int(value)
     raw_entries = []
     for info in root.findall("ns:infoTable", NS):
         name_el = info.find("ns:nameOfIssuer", NS)
@@ -847,8 +886,8 @@ def parse_holdings(xml_bytes: bytes, consolidate: bool = False, *, filing_date: 
         name_val = name_el.text.strip() if name_el is not None and name_el.text else ""
         cls_val = cls_el.text.strip() if cls_el is not None and cls_el.text else ""
         cusip_val = cusip_el.text.strip() if cusip_el is not None and cusip_el.text else ""
-        shares = int(shares_el.text) if shares_el is not None and shares_el.text else 0
-        value = int(val_el.text) if val_el is not None and val_el.text else 0
+        shares = whole(shares_el.text) if shares_el is not None and shares_el.text else 0
+        value = whole(val_el.text,multiplier) if val_el is not None and val_el.text else 0
         tk = resolve_ticker(name_val, cls_val, cusip_val)
         manager_reference=info.findtext('ns:otherManager',default='',namespaces=NS).strip()
         manager_ids=list(dict.fromkeys(re.findall(r'\d+',manager_reference)))
@@ -862,14 +901,9 @@ def parse_holdings(xml_bytes: bytes, consolidate: bool = False, *, filing_date: 
                                    **({'managerReference':manager_reference} if manager_reference else {})}],
         })
 
-    # SEC amended Form 13F is mandatory for filings from 2023-01-03.
-    # Use filing date, not report quarter or inferred share price (BRK.A breaks it).
+    # The filing date determines dollar/thousand units, including decimal
+    # legacy values that become exact whole dollars after conversion.
     # https://www.sec.gov/divisions/investment/13ffaq (FAQs 61–62)
-    filed = datetime.strptime(filing_date, "%Y-%m-%d")
-    if filed < datetime(2023, 1, 3):
-        for e in raw_entries:
-            e["value"] *= 1000
-            for allocation in e.get('managerAllocations', []): allocation['value'] *= 1000
 
     # Every filing may contain multiple manager/discretion rows for one security.
     # Ticker alone cannot distinguish common shares, PUT/CALL and principal.
@@ -915,10 +949,14 @@ def save_data(path: str, data: dict):
     holdings = [h for rows in data.get("history", {}).get("holdings", {}).values() for h in rows]
     actions = [action for action in VERIFIED_SPLITS if any(
         h.get("cusip") == action["cusip"] or h.get("ticker") == action["ticker"] for h in holdings)]
+    for action in data.get('meta',{}).get('shareActions',[]):
+        if action.get('sourceKind')!='market_share_split':continue
+        if any(a.get('cusip')==action.get('cusip') and abs(a['factor']-action['factor'])<1e-9 and abs((date.fromisoformat(a['date'])-date.fromisoformat(action['date'])).days)<=10 for a in actions):continue
+        actions.append(action)
     if actions:
         data.setdefault("meta", {})["shareActions"] = actions
     with open(path, "w") as f:
-        json.dump(data, f, ensure_ascii=False, indent=2)
+        json.dump(data, f, ensure_ascii=False, indent=None if len(holdings)>20000 else 2, separators=(',',':') if len(holdings)>20000 else None)
         f.write("\n")
 
 

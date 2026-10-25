@@ -26,7 +26,7 @@ def read_json(path):
 
 
 
-def validate_manager_allocations(holding):
+def validate_manager_allocations(holding,allow_fractional=False):
     allocations=holding.get('managerAllocations')
     if allocations is None:return
     if not isinstance(allocations,list) or not allocations:raise ValueError('Empty manager allocation breakdown')
@@ -36,7 +36,8 @@ def validate_manager_allocations(holding):
         # Column 7 is legitimately blank where no other included manager is
         # identified. Such a row cannot prove predecessor-manager continuity.
         if not isinstance(ids,list) or any(not isinstance(i,str) or not i.isdigit() for i in ids) or len(set(ids))!=len(ids):raise ValueError('Invalid manager identifiers')
-        if any(type(row.get(k)) is not int or row[k]<0 for k in ['shares','value']):raise ValueError('Invalid manager quantities')
+        valid_shares=(type(row.get('shares')) in (int,float) and math.isfinite(row['shares']) and row['shares']>=0) if allow_fractional else type(row.get('shares')) is int and row['shares']>=0
+        if not valid_shares or type(row.get('value')) is not int or row['value']<0:raise ValueError('Invalid manager quantities')
     if any(sum(row[k] for row in allocations)!=holding.get(k) for k in ['shares','value']):raise ValueError('Manager allocations disagree with consolidated holding')
 
 
@@ -53,7 +54,9 @@ def validate_history(history):
             raise ValueError(f"Invalid history value: {q}")
         holdings = history.get("holdings", {}).get(q)
         if holdings:
-            for holding in holdings:validate_manager_allocations(holding)
+            source=history.get('filing_sources',{}).get(q,{})
+            fractional_legacy=source.get('format')=='legacy_13f' and source.get('url','').startswith('https://www.sec.gov/Archives/') and source['url'].endswith('.txt')
+            for holding in holdings:validate_manager_allocations(holding,allow_fractional=fractional_legacy)
             amounts = [h.get("value") for h in holdings]
             if any(not isinstance(v, (int, float)) or isinstance(v, bool) or not math.isfinite(v) or v < 0 for v in amounts):
                 raise ValueError(f"Invalid historical holding value: {q}")
