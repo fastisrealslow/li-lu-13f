@@ -444,6 +444,7 @@ tbody tr:hover { background: #f2f5ed; }
 @media(max-width:640px){
   .info-popover{width:280px;max-height:calc(100dvh - 160px);overflow-y:auto}
 }
+.investor-load-state{padding:10px 12px;margin:0 0 16px;border:1px solid var(--border);color:var(--brand-blue);font-size:.82rem;line-height:1.7}.investor-load-state[hidden]{display:none}.investor-load-state.load-error{color:var(--down)}.investor-loading #summaryCards,.investor-loading #tab-current,.investor-loading #tab-changes,.investor-loading #tab-history{opacity:.45}.portfolio-history-loading{padding:20px;color:var(--text-light);font-size:.85rem}
 .hw-price-reference{display:none}
 @media(max-width:640px){.hw-price-reference{display:grid;gap:3px;margin-top:7px;font-size:.65rem;line-height:1.65;color:var(--text-light);white-space:normal;overflow-wrap:anywhere}}
 

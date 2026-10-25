@@ -392,58 +392,112 @@ function renderInvestorBtns() {
     select.value = investor;
   }
 }
-async function switchInvestor(v, {fresh = false, signal} = {}) {
-  const requestId = ++investorRequestId;
-  const target = v && INVESTORS.includes(v) ? v
-    : INVESTORS[(INVESTORS.indexOf(investor) + 1) % INVESTORS.length];
-  const src = document.getElementById('dataSource');
-  const cfg = INVESTOR_CFG_BY_ID[target];
-  if (src) src.textContent = lang === 'en' ? 'Loading published data…' : '正在读取已发布数据…';
-  try {
-    if (!cfg) throw new Error('Unknown investor: ' + target);
-    const stamp = fresh ? Date.now() : Math.floor(Date.now()/300000);
-    const r = await fetch(cfg.dataFile + '?v=73&t=' + stamp, {signal, cache: fresh ? 'no-store' : 'default'});
-    if (!r.ok) throw new Error(cfg.dataFile + ' HTTP ' + r.status);
-    const newData = await r.json();
-    if (requestId !== investorRequestId) return false;
-    if (!newData?.current || !Array.isArray(newData.current.holdings)) throw new Error('Invalid holdings data');
-    if (!Number.isFinite(newData.current.totalValue) || newData.current.totalValue<0 || newData.current.holdings.some(h=>
-      !h || typeof h.ticker!=='string' || !Number.isFinite(h.shares) || h.shares<0 || !Number.isFinite(h.value) || h.value<0 ||
-      ['prevShares','prevValue'].some(k=>h[k]!=null && (!Number.isFinite(h[k]) || h[k]<0)))) throw new Error('Invalid numeric holdings fields');
-    const [pricesOK, newHKDisclosures] = await Promise.all([
-      loadPrices(cfg.pricesFile, requestId, {signal, stamp, fresh}),
-      loadHKDisclosures(cfg, {signal, stamp, fresh})
-    ]);
-    if (requestId !== investorRequestId) return false;
-    // Commit the selection and its dataset together; failed switches keep the old selection.
-    investor = target;
-    data = newData;
-    hkDisclosures = newHKDisclosures;
-    recentHKRows = latestReportedHKHoldings(newHKDisclosures, cfg, newData.current.quarter);
-    renderInvestorBtns();
-    renderSummary(); renderHoldings(); renderChanges(); renderHistoryChart(); renderTimelineTable();
-    renderInsights(); renderHKDisclosures(); updateInvestorContent();
-    const updated = data.meta?.lastUpdated;
-    const age = Date.now() - Date.parse(updated);
-    const maxAge = (cfg.source13F === false ? 9 * 24 : 48) * 3600000;
-    const archived = !!data.meta?.snapshotType;
-    const stale = !archived && (!Number.isFinite(age) || age > maxAge);
-    if (src) src.textContent = (stale || !pricesOK ? '⚠ ' : '✓ ') +
-      (archived ? (lang === 'en' ? 'Historical archive' : '历史归档披露') : (lang === 'en' ? 'Published data' : '已发布数据')) +
-      (updated ? ' · ' + new Date(updated).toLocaleString(lang === 'en' ? 'en-US' : 'zh-CN', {timeZone: 'Asia/Shanghai'}) : '') +
-      (stale ? (lang === 'en' ? ' · Check update status' : ' · 数据较旧，请查看更新状态') : '') +
-      (!pricesOK ? (lang === 'en' ? ' · Prices unavailable' : ' · 股价暂不可用') : '');
-    return true;
-  } catch(e) {
-    if (requestId !== investorRequestId) return false;
-    renderInvestorBtns();
-    console.error('switchInvestor error:', e.message);
-    if (src) src.textContent = lang === 'en'
-      ? '⚠ Loading failed; previous selection retained. Try again.'
-      : '⚠ 加载失败，保留原投资人和数据，请重试';
-    return false;
-  }
+let _investorController=null,_pendingInvestor=null,_switchPromise=null;
+let _activeInvestorTab='current',_renderedInvestorViews={},_historyRequest=null;
+const _historyRecoveryAssets=new Set();
+function investorLoadState(target,error=false) {
+  _pendingInvestor=target;
+  const node=document.getElementById('investorLoadState');
+  if(node){node.textContent=target?(error?(lang==='en'?'Unable to load ':'暂未载入 '):(lang==='en'?'Loading ':'正在载入 '))+(lang==='en'?INVESTOR_LABELS_EN[target]:INVESTOR_LABELS[target])+(error?(lang==='en'?'; please select again.':'，请重新选择重试。'):''):'';node.hidden=!target;node.classList?.toggle('load-error',error);}
+  if(typeof document.body?.classList?.toggle==='function')document.body.classList.toggle('investor-loading',!!target&&!error);
+  for(const id of ['summaryCards','tab-current','tab-changes','tab-history'])document.getElementById(id)?.setAttribute?.('aria-busy',String(!!target&&!error));
+  const select=document.getElementById('investorSelect');if(select)select.value=target&&!error?target:investor;
 }
+async function investorJSON(file,{signal,stamp,fresh}) {
+  const response=await fetch(file+'?v=98&t='+stamp,{signal,cache:fresh?'no-store':'default'});
+  if(!response.ok)throw Error(file+' HTTP '+response.status);
+  return response.json();
+}
+function switchInvestor(v,options={}) {
+  const target=v&&INVESTORS.includes(v)?v:INVESTORS[(INVESTORS.indexOf(investor)+1)%INVESTORS.length];
+  if(_pendingInvestor===target&&_switchPromise&&!options.fresh)return _switchPromise;
+  _switchPromise=performInvestorSwitch(target,options);return _switchPromise;
+}
+async function performInvestorSwitch(target,{fresh=false,signal}={}) {
+  const requestId=++investorRequestId,cfg=INVESTOR_CFG_BY_ID[target];
+  _investorController?.abort();_historyRequest?.controller.abort();
+  const ctrl=new AbortController();_investorController=ctrl;
+  const abort=()=>ctrl.abort();signal?.addEventListener?.('abort',abort,{once:true});if(signal?.aborted)ctrl.abort();
+  const timer=setTimeout(abort,25000),src=document.getElementById('dataSource');
+  let committed=false;
+  investorLoadState(target);
+  if(src)src.textContent=(lang==='en'?'Loading ':'正在载入 ')+(lang==='en'?cfg?.nameEn:cfg?.name)+'…';
+  try {
+    if(!cfg)throw Error('Unknown investor');
+    const stamp=fresh?Date.now():Math.floor(Date.now()/300000),settings={signal:ctrl.signal,stamp,fresh};
+    const bundle=globalThis.InvestorSnapshots?await globalThis.InvestorSnapshots.load(target,settings):null;
+    let newData,newPrices,newHKDisclosures,pricesOK;
+    if(bundle){
+      newData={...bundle.data};newPrices={...bundle.prices};newHKDisclosures=bundle.hk;pricesOK=true;
+    }else{
+      newData=await investorJSON(cfg.dataFile,settings);
+      const results=await Promise.allSettled([investorJSON(cfg.pricesFile,settings),loadHKDisclosures(cfg,settings)]);
+      newPrices=results[0].status==='fulfilled'?results[0].value:{quotes:{},costBasis:{}};
+      newHKDisclosures=results[1].status==='fulfilled'?results[1].value:null;
+      pricesOK=results[0].status==='fulfilled'&&!!newPrices?.quotes;
+    }
+    if(requestId!==investorRequestId||ctrl.signal.aborted)return false;
+    if(!newData?.current||!Array.isArray(newData.current.holdings)||!Number.isFinite(newData.current.totalValue)||newData.current.totalValue<0||newData.current.holdings.some(h=>!h||typeof h.ticker!=='string'||!Number.isFinite(h.shares)||h.shares<0||!Number.isFinite(h.value)||h.value<0||['prevShares','prevValue'].some(k=>h[k]!=null&&(!Number.isFinite(h[k])||h[k]<0))))throw Error('Invalid numeric holdings fields');
+    if(!newPrices||typeof newPrices.quotes!=='object'||!newPrices.quotes)throw Error('Invalid prices');
+    // Commit every part together: no old investor can acquire a later request's quotes.
+    investor=target;data=newData;prices=newPrices;hkDisclosures=newHKDisclosures;
+    committed=true;
+    if(bundle){data.browserProjection={...data.browserProjection,historyAsset:bundle.history,historyLoaded:false};_aiSupplement=bundle.insights;}
+    recentHKRows=latestReportedHKHoldings(newHKDisclosures,cfg,newData.current.quarter);
+    _renderedInvestorViews={};
+    renderInvestorBtns();updateInvestorContent();renderSummary();
+    const updated=data.meta?.lastUpdated,age=Date.now()-Date.parse(updated),archived=!!data.meta?.snapshotType;
+    const stale=!archived&&(!Number.isFinite(age)||age>(cfg.source13F===false?9*24:48)*3600000);
+    if(src)src.textContent=(stale||!pricesOK?'⚠ ':'✓ ')+(archived?(lang==='en'?'Historical archive':'历史归档披露'):(lang==='en'?'Published data':'已发布数据'))+(updated?' · '+new Date(updated).toLocaleString(lang==='en'?'en-US':'zh-CN',{timeZone:'Asia/Shanghai'}):'')+(stale?(lang==='en'?' · Check update status':' · 数据较旧，请查看更新状态'):'')+(!pricesOK?(lang==='en'?' · Prices unavailable':' · 股价暂不可用'):'');
+    const priceDate=document.getElementById('priceUpdate');if(priceDate)priceDate.textContent=prices.updatedAt||prices.updated||'';
+    investorLoadState(null);
+    renderActiveInvestorView();
+    return true;
+  }catch(error){
+    if(requestId!==investorRequestId)return false;
+    renderInvestorBtns();investorLoadState(target,true);
+    if(committed){
+      const message=lang==='en'?'Data loaded; this view could not display. Please refresh.':'数据已载入，当前视图未能显示，请刷新重试。';
+      if(src)src.textContent=message;const notice=document.getElementById('investorLoadState');if(notice)notice.textContent=message;
+    }else if(src)src.textContent=lang==='en'?'Loading failed; previous selection retained. Try again.':'加载失败，保留原投资人和数据，请重试';
+    console.error('switchInvestor error:',error.message);return false;
+  }finally{clearTimeout(timer);signal?.removeEventListener?.('abort',abort);if(requestId===investorRequestId){_pendingInvestor=null;_switchPromise=null;}}
+}
+function renderActiveInvestorView(force=false) {
+  if(!data)return;
+  const tab=_activeInvestorTab,key=investorRequestId+'|'+lang+'|'+(data.browserProjection?.historyLoaded?'full':'overview');
+  if(!force&&_renderedInvestorViews[tab]===key)return;
+  if(tab==='current'){renderHoldings();renderScopedInsight('holdings');renderHKDisclosures();}
+  else if(tab==='changes'){renderChanges();renderInsights('changes');}
+  else if(tab==='history'){renderHistoryChart();renderScopedInsight('history');if(data.browserProjection&&!data.browserProjection.historyLoaded)ensureInvestorHistory();else renderTimelineTable();}
+  _renderedInvestorViews[tab]=key;
+}
+let _mobileInvestorLayout=globalThis.window?.innerWidth<640;
+function syncInvestorLayout(){
+  syncOptionDetailColumns();
+  const mobile=globalThis.window?.innerWidth<640;
+  if(mobile!==_mobileInvestorLayout){_mobileInvestorLayout=mobile;if(data)renderActiveInvestorView(true);}
+}
+async function ensureInvestorHistory() {
+  if(!data?.browserProjection||data.browserProjection.historyLoaded||!globalThis.InvestorSnapshots)return;
+  const target=investor,snapshot=data,requestId=investorRequestId;
+  if(_historyRequest?.snapshot===snapshot)return _historyRequest.promise;
+  const controller=new AbortController(),container=document.getElementById('timelineCanvas');
+  if(container)container.innerHTML=`<p class="portfolio-history-loading" role="status">${lang==='en'?'Loading full history for ':'正在载入完整历史：'}${hkEscape(lang==='en'?INVESTOR_LABELS_EN[target]:INVESTOR_LABELS[target])}…</p>`;
+  const timer=setTimeout(()=>controller.abort(),30000);
+  const promise=(async()=>{try{
+    const value=await globalThis.InvestorSnapshots.history(snapshot.browserProjection.historyAsset,{signal:controller.signal});
+    if(requestId!==investorRequestId||data!==snapshot)return;
+    data.history={...value.history,costReferenceProofs:snapshot.history.costReferenceProofs};prices.exitPerf=value.exitPerf;data.browserProjection.historyLoaded=true;
+    delete _renderedInvestorViews.history;if(_activeInvestorTab==='history')renderActiveInvestorView();
+  }catch(error){if(requestId!==investorRequestId||data!==snapshot||controller.signal.aborted&&_activeInvestorTab!=='history')return;
+    const file=snapshot.browserProjection.historyAsset.file;
+    if(error.status===404&&!_historyRecoveryAssets.has(file)){_historyRecoveryAssets.add(file);if(_historyRecoveryAssets.size>10)_historyRecoveryAssets.delete(_historyRecoveryAssets.values().next().value);await switchInvestor(target,{fresh:true});return;}
+    if(container)container.innerHTML=`<p class="portfolio-history-loading">${lang==='en'?'History could not load.':'历史暂未载入。'} <button type="button" onclick="switchInvestor('${target}',{fresh:true})">${lang==='en'?'Reload':'重新载入'}</button></p>`;
+  }finally{clearTimeout(timer);if(_historyRequest?.snapshot===snapshot)_historyRequest=null;}})();
+  _historyRequest={snapshot,controller,promise};return promise;
+}
+
 function cn(name, h) {
   if (lang==='zh') {
     if (h && h.cnName) return h.cnName;
@@ -475,9 +529,7 @@ function switchLang() {
   renderInvestorBtns();
   applyLanguageLabels();
   if (data) {
-    renderSummary(); renderHoldings(); renderChanges(); renderHistoryChart(); renderInsights();
-    updateInvestorContent();
-    renderTimelineTable();
+    renderSummary(); updateInvestorContent(); renderActiveInvestorView(true);
   }
   if (_runStatusData) updateStatusDot(_runStatusData);
   if (!document.getElementById('tab-personal')?.classList.contains('d-none') && typeof renderPersonalPortfolio === 'function') renderPersonalPortfolio();
@@ -766,6 +818,24 @@ function sameManagerCostHistory(h, snapshot) {
   const row=rows.find(r=>r.cusip===h.cusip&&(r.putCall || '')===(h.putCall || '')&&(r.shareType || 'SH')===(h.shareType || 'SH'));
   return !!(h.cusip && ids.size && row?.managerAllocations?.length && row.managerAllocations.every(a=>a.managerIds.some(id=>ids.has(id))) && ['shares','value'].every(k=>row.managerAllocations.reduce((sum,a)=>sum+a[k],0)===row[k]));
 }
+const _costProofSets=new WeakMap(),_instrumentTickerSets=new WeakMap(),_shareActionIndexes=new WeakMap();
+function verifiedCostReference(h,quarter,snapshot) {
+  const proofs=snapshot.history?.costReferenceProofs;
+  if(!proofs)return (snapshot.history?.holdings?.[quarter]||[]).some(row=>row.ticker===h.ticker&&row.cusip===h.cusip&&row.shareType==='SH'&&row.putCall===''&&row.shares>0);
+  let index=_costProofSets.get(proofs);if(!index){index=new Map(Object.entries(proofs).map(([q,ids])=>[q,new Set(ids.map(id=>JSON.stringify(id)))]));_costProofSets.set(proofs,index);}
+  return !!index.get(quarter)?.has(JSON.stringify([h.ticker,h.cusip??null]));
+}
+function instrumentHistoryIncludes(meta,ticker) {
+  const rows=meta.instrumentHistoryTickers;if(!rows)return false;
+  let entry=_instrumentTickerSets.get(rows);if(!entry||entry.length!==rows.length){entry={length:rows.length,set:new Set(rows)};_instrumentTickerSets.set(rows,entry);}
+  return entry.set.has(ticker);
+}
+function shareActionsFor(h,snapshot) {
+  const rows=snapshot.meta?.shareActions;if(!rows?.length)return [];
+  let entry=_shareActionIndexes.get(rows);
+  if(!entry||entry.length!==rows.length){entry={length:rows.length,cusips:new Map(),tickers:new Map(),unbound:new Map()};for(const a of rows){const add=(m,key)=>{if(!m.has(key))m.set(key,[]);m.get(key).push(a);};add(entry.tickers,a.ticker);if(a.cusip)add(entry.cusips,a.cusip);else add(entry.unbound,a.ticker);}_shareActionIndexes.set(rows,entry);}
+  return h.cusip?[...(entry.cusips.get(h.cusip)||[]),...(entry.unbound.get(h.ticker)||[])]:entry.tickers.get(h.ticker)||[];
+}
 function holdingCostState(h, snapshot = data, priceSnapshot = prices) {
   const meta = snapshot?.meta || {}, current = snapshot?.current || {};
   const unavailable = reason => ({basis: null, reason});
@@ -785,20 +855,19 @@ function holdingCostState(h, snapshot = data, priceSnapshot = prices) {
   const transition=meta.reportingTransition;
   if(transition?.comparisonScopeChanged && recentQuarter<historyQuarterIndex(transition.fromQuarter) && !sameManagerCostHistory(h,snapshot)) return filedReference() || unavailable('scope');
   if (!Number.isFinite(recentQuarter) || recentQuarter > currentQuarter) return filedReference() || unavailable('stale_cost');
-  const verified = quarter => !(snapshot?.history?.excludedValueQuarters || []).includes(quarter) && (snapshot?.history?.holdings?.[quarter] || []).some(row =>
-    row.ticker === h.ticker && row.cusip === h.cusip && row.shareType === 'SH' && row.putCall === '' && row.shares > 0);
+  const verified = quarter => !(snapshot?.history?.excludedValueQuarters || []).includes(quarter) && verifiedCostReference(h,quarter,snapshot);
   if ((snapshot?.history?.excludedValueQuarters || []).includes(cb.recent.quarter) && !['yahoo','yfinance'].includes(cb.recent.source)) return unavailable('units');
   let allTime = cb.allTime;
   const pendingUnits=cb.averageUnavailable==='units' || allTime && (snapshot?.history?.excludedValueQuarters || []).some(q=>historyQuarterIndex(q)>=historyQuarterIndex(allTime.first) && historyQuarterIndex(q)<=historyQuarterIndex(allTime.last));
   if (pendingUnits) allTime=null;
   if (allTime?.first && recentQuarter < historyQuarterIndex(allTime.first)) return filedReference() || unavailable('stale_cost');
-  if (meta.instrumentHistoryTickers?.includes(h.ticker)) {
+  if (instrumentHistoryIncludes(meta,h.ticker)) {
     const boundary = historyQuarterIndex(meta.instrumentHistoryFrom);
     if (!Number.isFinite(boundary) || recentQuarter < boundary || !verified(cb.recent.quarter)) return filedReference() || unavailable('classes');
     if (allTime && (historyQuarterIndex(allTime.first) < boundary || !verified(allTime.first))) allTime = null;
   }
   // An old average must not survive a newly verified split correction.
-  const actions = (meta.shareActions || []).filter(a => (a.cusip && h.cusip ? a.cusip === h.cusip : a.ticker === h.ticker) &&
+  const actions = shareActionsFor(h,snapshot).filter(a =>
     historyQuarterIndex(allTime?.first) < historyQuarterIndex(a.quarter) && historyQuarterIndex(a.quarter) <= currentQuarter);
   const pendingSplit = allTime && actions.length && cb.splitAdjustedThrough !== current.quarter;
   if (pendingSplit || !Number.isFinite(allTime?.avg) || allTime.avg <= 0) allTime = null;
@@ -817,9 +886,12 @@ function costGap(price, cost) {
   return Number.isFinite(price) && price > 0 && Number.isFinite(cost) && cost > 0 ? (cost - price) / cost * 100 : null;
 }
 function costGapTone(gap) { return gap >= 20 ? 'deep' : gap >= 10 ? 'watch' : gap > 0 ? 'positive' : gap < 0 ? 'negative' : 'neutral'; }
+const _quoteDateFormatters=new Map();
 function quoteDateText(q, ticker) {
   if (!Number.isFinite(q?.t) || q.t <= 0 || q.t*1000 > Date.now()+300000) return '';
-  return new Date(q.t*1000).toLocaleDateString('en-CA', {timeZone:ticker?.endsWith('.HK')?'Asia/Hong_Kong':'America/New_York'});
+  const timeZone=ticker?.endsWith('.HK')?'Asia/Hong_Kong':'America/New_York';
+  if(!_quoteDateFormatters.has(timeZone))_quoteDateFormatters.set(timeZone,new Intl.DateTimeFormat('en-CA',{timeZone}));
+  return _quoteDateFormatters.get(timeZone).format(new Date(q.t*1000));
 }
 function reportingScopeHTML(snapshot = data) {
   const current=snapshot?.current,scope=current?.reportingScope,en=lang==='en';
@@ -888,13 +960,16 @@ function syncOptionDetailColumns() {
 const _portfolioViews={};
 function portfolioVisibleIndexes(kind,rows) {
   let state=_portfolioViews[kind];if(!state||state.investor!==investor)state=_portfolioViews[kind]={investor,query:'',page:0};
+  const pageSize=rows.length>200&&globalThis.window?.innerWidth<640?50:200;
+  if(state.pageSize&&state.pageSize!==pageSize)state.page=Math.floor(state.page*state.pageSize/pageSize);
+  state.pageSize=pageSize;
   const term=state.query.trim().toLowerCase();let matches=rows.map((h,i)=>({h,i})).filter(({h})=>!term||[h.ticker,h.name,h.cnName,h.cusip].join(' ').toLowerCase().includes(term));
-  const pages=Math.max(1,Math.ceil(matches.length/200));state.page=Math.max(0,Math.min(pages-1,state.page));
+  const pages=Math.max(1,Math.ceil(matches.length/pageSize));state.page=Math.max(0,Math.min(pages-1,state.page));
   const target=document.getElementById(kind==='current'?'holdingsControls':'changesControls');
   if(target){
-    target.innerHTML=rows.length<=200&&!state.query?'':`<div class="portfolio-controls"><label>${lang==='en'?'Find a security':'查找证券'}<input id="portfolio-search-${kind}" type="search" value="${hkEscape(state.query)}" placeholder="${lang==='en'?'Company, ticker or CUSIP':'公司、代码或 CUSIP'}" oninput="setPortfolioView('${kind}','query',this.value)"></label><span>${lang==='en'?'Showing':'显示'} ${matches.length?state.page*200+1:0}–${Math.min((state.page+1)*200,matches.length)} / ${matches.length}</span><button type="button" onclick="setPortfolioView('${kind}','page',${state.page-1})"${state.page===0?' disabled':''}>${lang==='en'?'Previous':'上一页'}</button><button type="button" onclick="setPortfolioView('${kind}','page',${state.page+1})"${state.page>=pages-1?' disabled':''}>${lang==='en'?'Next':'下一页'}</button></div>`;
+    target.innerHTML=rows.length<=200&&!state.query?'':`<div class="portfolio-controls"><label>${lang==='en'?'Find a security':'查找证券'}<input id="portfolio-search-${kind}" type="search" value="${hkEscape(state.query)}" placeholder="${lang==='en'?'Company, ticker or CUSIP':'公司、代码或 CUSIP'}" oninput="setPortfolioView('${kind}','query',this.value)"></label><span>${lang==='en'?'Showing':'显示'} ${matches.length?state.page*pageSize+1:0}–${Math.min((state.page+1)*pageSize,matches.length)} / ${matches.length}</span><button type="button" onclick="setPortfolioView('${kind}','page',${state.page-1})"${state.page===0?' disabled':''}>${lang==='en'?'Previous':'上一页'}</button><button type="button" onclick="setPortfolioView('${kind}','page',${state.page+1})"${state.page>=pages-1?' disabled':''}>${lang==='en'?'Next':'下一页'}</button></div>`;
   }
-  return new Set(matches.slice(state.page*200,(state.page+1)*200).map(x=>x.i));
+  return new Set(matches.slice(state.page*pageSize,(state.page+1)*pageSize).map(x=>x.i));
 }
 function setPortfolioView(kind,key,value) {
   if(!['current','changes'].includes(kind))return;
@@ -916,23 +991,24 @@ function renderHoldings() {
   
   const visibleRows=portfolioVisibleIndexes('current',d.holdings);
   const rows = d.holdings.map((h,i)=>{
-    const pct=d.valueQuality?0:(h.value/d.totalValue*100).toFixed(2);
-    const weightText=d.valueQuality?'—':pct+'%';
-    const amountText=d.valueQuality?(lang==='en'?'Value unverified':'金额待核实'):currSymbol(h.ticker)+h.value.toLocaleString();
     const q = h.shareType && h.shareType!=='SH' ? null : quotes[h.ticker];
     const costState = holdingCostState(h);
     const cb = costState.basis;
     const quoteOK = q && !q.error && Number.isFinite(q.c) && q.c > 0;
     const currentPrice = quoteOK && !q.stale ? q.c : null;
+    const reason = cb ? null : costUnavailableText(costState.reason);
+    const mos = cb ? costGap(currentPrice, cb.recent.buy) : null;
+    if(mos!==null) shownGaps.push(mos);
+    if(!visibleRows.has(i))return '';
+    const pct=d.valueQuality?0:(h.value/d.totalValue*100).toFixed(2);
+    const weightText=d.valueQuality?'—':pct+'%';
+    const amountText=d.valueQuality?(lang==='en'?'Value unverified':'金额待核实'):currSymbol(h.ticker)+h.value.toLocaleString();
     const quoteDate = quoteDateText(q,h.ticker);
     const lifecycle=q?.status==='ceased_trading' ? q.event : null;
     const filedReference=q?.status==='filing_reference' && q.cusip===h.cusip && Number.isFinite(q.filedUnitValue) && q.filedUnitValue>=0 ? q : null;
     const priceHtml = filedReference ? `<span class="current-price">${currSymbol(h.ticker)}${filedReference.filedUnitValue.toFixed(2)}</span><small class="quote-date">${hkEscape(filedReference.asOf)}</small><small class="option-field-note">${lang==='en'?'Filed warrant unit value · not a current quote':'权证申报单价 · 非现价'}</small>` : lifecycle ? `<span class="estimate-unavailable">${lang==='en'?'No longer trading':'已停止交易'}</span><small class="quote-date">${hkEscape(lifecycle.effectiveDate)}</small><small class="option-field-note"><a href="${hkEscape(lifecycle.sourceURL)}" target="_blank" rel="noopener noreferrer">${lang==='en'?'Issuer confirmation':'公司公告'}</a></small>` : quoteOK
       ? `<span class="current-price">${currSymbol(h.ticker)}${q.c.toFixed(2)}</span>${quoteDate?`<small class="quote-date">${quoteDate}</small>`:''}${h.putCall?`<small class="option-field-note">${lang==='en'?'Underlying stock price':'标的股价'}</small>`:''}${q.successorRatio===1&&/^https:\/\/www\.sec\.gov\/Archives\//.test(q.successorSource||'')?`<small class="quote-date"><a href="${hkEscape(q.successorSource)}" target="_blank" rel="noopener noreferrer">${lang==='en'?'1:1 successor quote':'1:1 换股后报价'}</a></small>`:''}${q.stale ? `<small class="quote-stale">${lang==='en'?'Last saved quote':'上次成功报价'}</small>` : ''}`
       : `<span class="estimate-unavailable">${h.shareType && h.shareType!=='SH' ? (lang==='en'?'Principal security · no stock quote':'本金类证券 · 不适用股价') : (lang === 'en' ? 'Quote unavailable' : '暂无报价')}</span>`;
-    const reason = cb ? null : costUnavailableText(costState.reason);
-    const mos = cb ? costGap(currentPrice, cb.recent.buy) : null;
-    if(mos!==null) shownGaps.push(mos);
     const mosHtml = h.putCall ? '<span class="estimate-unavailable">—</span>' : costGapHTML(mos, reason, lang==='en', cb?.recent?.kind);
     let costHtml = h.putCall ? '<span class="estimate-unavailable">—</span>' : `<span class="estimate-unavailable">${hkEscape(reason)}</span>`;
     let compactCost = costHtml;
@@ -1210,6 +1286,7 @@ let _aiSupplement = {entries:{}};
 const aiEscape = value => String(value ?? '').replace(/[&<>"']/g, x => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[x]));
 function snapshotManagerHistory(snapshot) {return snapshot?.meta?.reportingTransition?{managerHistory:(snapshot.current?.holdings || []).filter(h=>h.cusip && sameManagerCostHistory(h,snapshot)).map(h=>h.cusip).sort()}:{};}
 function aiInvestorSource(d) {
+  if(d?.browserProjection?.sources?.investor)return {browserSource:d.browserProjection.sources.investor};
   const cur=d?.current || {},fields=['ticker','cusip','shares','value','prevShares','prevValue','cnName','name','cls','putCall','shareType','shareAdjustment'];
   const rows=items=>(items || []).map(h=>fields.map(k=>h[k] ?? null));
   return {...(snapshotManagerHistory(d)),quarter:cur.quarter || '',prevQuarter:cur.prevQuarter ?? null,scope:d.meta?.reportingTransition ?? null,snapshotType:d.meta?.snapshotType ?? null,
@@ -1219,12 +1296,14 @@ function aiValueSource(candidates) {
   return candidates.map(c=>[c.ticker ?? null,c.cnName || c.name || null,(c.investors || []).map(h=>[h.id ?? null,h.weight ?? null,h.chg ?? null,h.name ?? null,h.reportQuarter ?? null])]);
 }
 function aiHoldingsSource(snapshot) {
+  if(snapshot?.browserProjection?.sources?.holdings)return {browserSource:snapshot.browserProjection.sources.holdings};
   const cur=snapshot.current || {},meta=snapshot.meta || {};
   const fields=['ticker','cusip','shares','value','cnName','name','cls','putCall','shareType','sector'];
   return {section:'holdings',quarter:cur.quarter ?? null,snapshotType:meta.snapshotType ?? null,
     valueQuality:cur.valueQuality ?? null,holdings:(cur.holdings || []).map(h=>fields.map(k=>h[k] ?? null))};
 }
 function aiHistorySource(snapshot) {
+  if(snapshot?.browserProjection?.sources?.history)return {browserSource:snapshot.browserProjection.sources.history};
   const history=snapshot.history || {},meta=snapshot.meta || {};
   const valid=n=>typeof n==='number' && Number.isFinite(n) && n>=0;
   return {...snapshotManagerHistory(snapshot),section:'history',current:aiHoldingsSource(snapshot),transition:meta.reportingTransition ?? null,
@@ -1262,6 +1341,7 @@ function aiValueFromSource(source,ids,en=lang==='en') {
   return (en?'Selected holders’ latest disclosures: ':'按各投资人最新披露组合：')+facts.filter(f=>ids.includes(f.id)).map(f=>f.text).join(en?'; ':'；')+(en?'.':'。');
 }
 async function refreshAISupplements() {
+  if(data?.browserProjection)return;
   const ctrl=new AbortController(), timer=setTimeout(()=>ctrl.abort(),15000);
   try {
     const response=await fetch('ai_supplement.json?v=77&t='+Math.floor(Date.now()/300000),{signal:ctrl.signal});
@@ -1269,7 +1349,7 @@ async function refreshAISupplements() {
     const payload=await response.json();
     if (payload.schemaVersion!==2 || !payload.entries || typeof payload.entries!=='object') return;
     _aiSupplement=payload;
-    if (data) renderInsights();
+    if (data) renderActiveInvestorView(true);
     _homeworkCache=null;
     if(document.getElementById('tab-homework') && !document.getElementById('tab-homework').classList.contains('d-none')) renderHomework();
   } catch {} finally { clearTimeout(timer); }
@@ -1387,7 +1467,7 @@ function renderScopedInsight(kind) {
   el.style.display='';
 }
 
-function renderInsights() {
+function renderInsights(only=null) {
   if (globalThis.window?.PublicPortfolio?.render('insights',{data,lang,config:INVESTOR_CFG_BY_ID[investor]})) return;
   if(!data?.current) return;
   const d=data.current,ins = [];
@@ -1402,7 +1482,7 @@ function renderInsights() {
   const quarterText=aiSummary?.split(lang==='en'?'Highlights (partial list): ':'重点（非完整名单）：').at(-1) || comparisonNotice();
   const summary=document.getElementById('changesAISummary');
   if(summary) summary.innerHTML=scopePanelHTML('changes',[quarterText],localAI);
-  renderScopedInsight('holdings');renderScopedInsight('history');
+  if(!only){renderScopedInsight('holdings');renderScopedInsight('history');}
   const en=lang==='en', facts=portfolioFacts(data,summaryName);
   if(!comparableQuarter()) ins.push(aiEscape(comparisonNotice()));
   else {
@@ -1740,14 +1820,14 @@ async function renderTimelineTable() {
   const tickerInfo = {};
   for (const q of quarters) {
     for (const h of consolidateHoldings(hdata[q])) {
-      if(data.meta?.instrumentHistoryTickers?.includes(h.ticker) && q<data.meta.instrumentHistoryFrom) continue;
+      if(instrumentHistoryIncludes(data.meta||{},h.ticker) && q<data.meta.instrumentHistoryFrom) continue;
       if (!(h.shares > 0)) continue;
       const tk = (h.cusip || h.ticker)+'|'+instrument(h);
       if (!tickerInfo[tk]) tickerInfo[tk] = {ticker:h.ticker,cusip:h.cusip,shareType:h.shareType,putCall:h.putCall,cls:h.cls,first: q, last: q, quarters: [], sector: h.sector, name: h.name, cnName: h.cnName||'', maxShares: 0, curShares: 0};
       else tickerInfo[tk].last = q;
       tickerInfo[tk].quarters.push(q);
-      const factor = (data.meta?.shareActions || []).filter(a =>
-        (a.cusip && h.cusip ? a.cusip === h.cusip : a.ticker === h.ticker) && q < a.quarter && a.quarter <= latest
+      const factor = shareActionsFor(h,data).filter(a =>
+        q < a.quarter && a.quarter <= latest
       ).reduce((product, a) => product * a.factor, 1);
       const comparableShares = h.shares * factor;
       if (comparableShares > tickerInfo[tk].maxShares) tickerInfo[tk].maxShares = comparableShares;
@@ -1994,6 +2074,7 @@ function toggleHKDisclosure(button) {
 }
 
 function switchTab(name) {
+  _activeInvestorTab=name;
   document.body?.classList?.toggle('personal-research', name === 'personal');
   document.body?.classList?.toggle('spin-research', ['spinoff','spinoff_us'].includes(name));
   ['current','changes','history','homework','spinoff','spinoff_us','game','personal'].forEach(t=>{
@@ -2002,8 +2083,7 @@ function switchTab(name) {
   document.querySelectorAll('.tab-btn').forEach((b,i)=>{
     b.classList.toggle('active',['current','changes','history','homework','spinoff','spinoff_us','game','personal'][i]===name);
   });
-  if (name==='changes') { renderChanges(); renderInsights(); }
-  if (name==='history') { renderHistoryChart(); renderTimelineTable(); }
+  if(['current','changes','history'].includes(name))renderActiveInvestorView();
   if (name==='homework') { renderHomework(); }
   if (name==='spinoff') { renderSpinoff(); }
   if (name==='spinoff_us') { renderSpinoffUS(); }
@@ -2013,7 +2093,6 @@ function switchTab(name) {
     if (strip) strip.scrollLeft=strip.scrollWidth;
     if (typeof renderPersonalPortfolio === 'function') renderPersonalPortfolio();
   }
-  renderInsights();
 }
 
 const GAME_URL = 'game/v2/index.html?v=6';
@@ -2215,7 +2294,7 @@ async function initStatusDot(signal) {
     const statusData = await r.json();
     _runStatusData = statusData;
     updateStatusDot(statusData);
-    if (data) renderInsights();
+    if (data) renderActiveInvestorView(true);
   } catch(e) { updateStatusDot(null); }
 }
 
@@ -2243,7 +2322,7 @@ function updateStatusDot(statusData) {
 
 async function initApp() {
   applyLanguageLabels();
-  window.addEventListener('resize',syncOptionDetailColumns,{passive:true});
+  window.addEventListener('resize',syncInvestorLayout,{passive:true});
   // 先加载 investors.json（单一权威来源），再切换投资者，避免导航按钮/数据加载
   // 发生在 INVESTOR_CFG 为空时的竞态。
   if (!await loadInvestorConfig()) {

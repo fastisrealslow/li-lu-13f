@@ -375,7 +375,7 @@ th .info-wrap{position:relative;display:inline-flex}
 <link rel="stylesheet" href="spinoff_ui.css?v=12">
 <script src="appearance.js?v=2"></script>
 <script src="investor_bookplates.js?v=3"></script>
-<link rel="stylesheet" href="theme.css?v=13">
+<link rel="stylesheet" href="theme.css?v=14">
 <link rel="stylesheet" href="archive.css?v=4">
 <link rel="stylesheet" href="personal_portfolio.css?v=4">
 <link rel="stylesheet" href="almanac.css?v=2">
@@ -443,6 +443,7 @@ th .info-wrap{position:relative;display:inline-flex}
       <select id="investorSelect" onchange="switchInvestor(this.value)" aria-label="投资者 / Investor"></select>
       <div id="investorBtn" style="display:flex;flex-wrap:wrap;gap:6px;"></div>
     </div>
+    <div id="investorLoadState" class="investor-load-state" role="status" aria-live="polite" hidden></div>
     <div id="summaryCards" class="stat-line" style="margin-bottom:20px;width:100%;"></div>
     <div class="tabs-wrap" id="tabsWrap">
     <div class="tabs" id="tabsScroll">
@@ -606,7 +607,8 @@ th .info-wrap{position:relative;display:inline-flex}
 <script src="disclosure_analysis.js?v=5"></script>
 <link rel="stylesheet" href="public_portfolio.css?v=2">
 <script src="public_portfolio.js?v=2"></script>
-<script src="app.js?v=96"></script>
+<script src="investor_loader.js?v=1"></script>
+<script src="app.js?v=97"></script>
 <script src="personal_portfolio.js?v=3"></script>
 <script src="spinoff_ui.js?v=14"></script>
 <script>

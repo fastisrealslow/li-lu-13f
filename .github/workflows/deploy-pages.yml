@@ -66,6 +66,11 @@ jobs:
       - name: Setup Pages
         uses: actions/configure-pages@v5
 
+      - name: Build immutable browser snapshots and lazy history
+        run: |
+          python3 -m unittest discover -s tests -p test_browser_assets.py -v
+          python3 build_browser_assets.py
+
       - name: Keep unreviewed AI drafts out of the published site
         run: |
           python3 - <<'PY'
