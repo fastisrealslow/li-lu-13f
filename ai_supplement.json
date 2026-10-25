@@ -36,7 +36,7 @@
       "status": "ok"
     },
     "investor:hawkins": {
-      "at": "2026-10-24T11:08:51.918937+00:00",
+      "at": "2026-10-25T02:22:56.723576+00:00",
       "sourceHash": "5eb8ed4debc05f2de400f5287cab290e08c6d93ddfe2f528f79cf3f063f62bfe",
       "status": "failed",
       "error": "Selection omitted an available change direction"
@@ -77,8 +77,8 @@
       "status": "ok"
     },
     "history:lilu": {
-      "at": "2026-10-24T11:09:53.405964+00:00",
-      "sourceHash": "12d8175b8baa1bb86924c972a789a827dcc45643a6250a3ea7d90c8fa63ec21d",
+      "at": "2026-10-25T02:25:39.969470+00:00",
+      "sourceHash": "6a3554ffe82914a43f04d274d3c059b36ffde1b14c919dbe0ce3391ac1cc2446",
       "status": "failed",
       "error": "Selection omitted a required scope or evidence limitation"
     },
@@ -206,13 +206,12 @@
       "status": "ok"
     },
     "investor:marks": {
-      "at": "2026-10-24T16:50:09.755227+00:00",
+      "at": "2026-10-25T02:27:22.457597+00:00",
       "sourceHash": "40e4aaaa6946292ae0a91626914a845b23cfb204fc9cf95e863641ac5323ac70",
-      "status": "failed",
-      "error": "Selection omitted an available change direction"
+      "status": "ok"
     },
     "holdings:marks": {
-      "at": "2026-10-24T16:51:22.783260+00:00",
+      "at": "2026-10-25T02:30:11.839705+00:00",
       "sourceHash": "7ab7fa6f67a3278ad20585892d6e3071a6dc4f49c9f36c9011ad16044c600136",
       "status": "failed",
       "error": "Selection omitted a required scope or evidence limitation"
@@ -223,13 +222,13 @@
       "status": "ok"
     },
     "investor:mclemore": {
-      "at": "2026-10-24T16:52:35.799539+00:00",
+      "at": "2026-10-25T02:31:35.126733+00:00",
       "sourceHash": "a68cc60509ee2d23da60a2ba8c87eafbb9c750ed6e8e37529f1a73b79a0e9f8f",
       "status": "failed",
       "error": "Selection omitted an available change direction"
     },
     "holdings:mclemore": {
-      "at": "2026-10-24T16:53:40.708101+00:00",
+      "at": "2026-10-25T02:34:11.309553+00:00",
       "sourceHash": "2e3c4669ebf4301b388769745d940d4af5c83487e249665611489fc6fb085717",
       "status": "failed",
       "error": "Selection omitted a required scope or evidence limitation"
@@ -4489,7 +4488,7 @@
       "renderVersion": 4,
       "mode": "deterministic",
       "summary": "梅森·霍金斯 2026 Q2（按披露股数比较）：新建仓2项、增持8项、减持24项、清仓4项、不变13项、待比较0项。重点（非完整名单）：雷奥尼尔（RYN）：减持11.8%；美泰（MAT）：减持3.8%；CNX 资源（CNX）：增持16.2%；雅培（ABT）：新建仓；伯乐雷德实验室（BIO）：清仓。",
-      "generatedAt": "2026-10-24T11:09:53.402894+00:00",
+      "generatedAt": "2026-10-25T02:25:39.967678+00:00",
       "model": null,
       "metrics": {}
     },
@@ -13468,7 +13467,7 @@
       "renderVersion": 4,
       "mode": "deterministic",
       "summary": "李录 · 历史轨迹：可用于市值趋势的记录有 35 个季度，覆盖 2016 Q4 至 2026 Q2。这段历史反映披露范围内证券，不是基金净值曲线。披露市值从 US$111.64M 变为 US$3,702.92M（变化 +3216.8%）。金额同时受价格、买卖、资金流及披露范围影响，不能当作投资回报。缺少或排除的市值季度：2018 Q4、2019 Q1、2019 Q2、2019 Q3。不填零、不推断清仓，也不跨缺口计算季度变化。",
-      "generatedAt": "2026-10-25T02:20:55.143412+00:00",
+      "generatedAt": "2026-10-25T02:27:22.448783+00:00",
       "model": null,
       "metrics": {}
     },
@@ -57045,8 +57044,8 @@
           "f0",
           "f1",
           "f2",
-          "f3",
-          "f7"
+          "f7",
+          "f11"
         ],
         "topicIds": [
           "t0",
@@ -57055,11 +57054,14 @@
         ]
       },
       "renderVersion": 4,
-      "mode": "deterministic",
-      "summary": "霍华德·马克思 2026 Q2（按披露股数比较）：新建仓40项、增持51项、减持33项、清仓42项、不变21项、待比较0项。重点（非完整名单）：State Street SPDR S&P 500 ETF Trust（SPY PUT）：新建仓；TORM plc（TRMD）：减持14.7%；Invesco QQQ 信托（QQQ PUT）：增持55.3%；AngloGold Ashanti plc（AU）：减持1.4%；State Street SPDR S&P Oil & Gas Exploration & Production ETF（XOP PUT）：清仓。",
-      "generatedAt": "2026-10-24T16:51:22.778854+00:00",
-      "model": null,
-      "metrics": {}
+      "mode": "model_selection",
+      "summary": "霍华德·马克思 2026 Q2（按披露股数比较）：新建仓40项、增持51项、减持33项、清仓42项、不变21项、待比较0项。重点（非完整名单）：State Street SPDR S&P 500 ETF Trust（SPY PUT）：新建仓；TORM plc（TRMD）：减持14.7%；Invesco QQQ 信托（QQQ PUT）：增持55.3%；State Street SPDR S&P Oil & Gas Exploration & Production ETF（XOP PUT）：清仓；Petróleo Brasileiro S.A. - Petrobras（PBR）：清仓。",
+      "generatedAt": "2026-10-25T02:30:11.833278+00:00",
+      "model": "qwen3.5:9b-q4_K_M",
+      "metrics": {
+        "seconds": 169.37,
+        "tokens": 33
+      }
     },
     "holdings:marks": {
       "facts": {
@@ -58937,7 +58939,7 @@
       "renderVersion": 4,
       "mode": "deterministic",
       "summary": "霍华德·马克思 · 持仓结构：本次披露 145 项证券：普通股 49 项、CALL 3 项、PUT 4 项、本金类证券 87 项、认股权证 2 项。不同股份类别和期权分别计数。最大单项证券是 State Street SPDR S&P 500 ETF Trust（SPY PUT），申报值 US$1,011.87M，占本次披露 14.0%。期权共 7 项。13F 中期权申报值对应标的证券价值，不能当作期权权利金，也不能仅凭 PUT/CALL 判断完整对冲策略。",
-      "generatedAt": "2026-10-24T16:51:57.046684+00:00",
+      "generatedAt": "2026-10-25T02:31:35.118876+00:00",
       "model": null,
       "metrics": {}
     },
@@ -81158,7 +81160,7 @@
       "renderVersion": 4,
       "mode": "deterministic",
       "summary": "萨曼莎·麦克勒莫尔 2026 Q2（按披露股数比较）：新建仓2项、增持12项、减持24项、清仓2项、不变2项、待比较0项。重点（非完整名单）：Royalty Pharma plc（RPRX）：减持1.2%；花旗集团（C）：减持0.7%；联合健康（UNH）：增持0.1%；Global Payments Inc.（GPN）：新建仓；iShares Bitcoin Trust ETF（IBIT）：清仓。",
-      "generatedAt": "2026-10-24T16:53:40.696011+00:00",
+      "generatedAt": "2026-10-25T02:34:11.300174+00:00",
       "model": null,
       "metrics": {}
     },
@@ -81778,7 +81780,7 @@
       "renderVersion": 4,
       "mode": "deterministic",
       "summary": "萨曼莎·麦克勒莫尔 · 持仓结构：本次披露 40 项证券：普通股 39 项、CALL 1 项。不同股份类别和期权分别计数。最大单项证券是 Royalty Pharma plc（RPRX），申报值 US$201.79M，占本次披露 6.6%。期权共 1 项。13F 中期权申报值对应标的证券价值，不能当作期权权利金，也不能仅凭 PUT/CALL 判断完整对冲策略。",
-      "generatedAt": "2026-10-24T16:54:11.526190+00:00",
+      "generatedAt": "2026-10-25T02:35:25.087983+00:00",
       "model": null,
       "metrics": {}
     },
@@ -85326,16 +85328,16 @@
     }
   },
   "lastRun": {
-    "startedAt": "2026-10-24T16:50:09.755199+00:00",
+    "startedAt": "2026-10-25T02:22:56.723549+00:00",
     "model": "qwen3.5:9b-q4_K_M",
-    "pendingBefore": 14,
-    "cached": 32,
-    "finishedAt": "2026-10-24T16:58:33.004735+00:00",
-    "pendingAfter": 9,
-    "accepted": 5,
-    "fallback": 7,
+    "pendingBefore": 9,
+    "cached": 37,
+    "finishedAt": "2026-10-25T02:35:25.098216+00:00",
+    "pendingAfter": 8,
+    "accepted": 1,
+    "fallback": 5,
     "rejected": 0,
-    "failed": 7
+    "failed": 5
   },
   "schemaVersion": 2,
   "fallbackRefresh": {
