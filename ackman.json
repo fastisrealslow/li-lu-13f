@@ -5,7 +5,7 @@
     "notablePeople": [
       "Bill Ackman"
     ],
-    "lastUpdated": "2026-10-25T01:58:47Z",
+    "lastUpdated": "2026-10-25T04:04:43Z",
     "aiSummary": "阿克曼 Q1 大幅减持谷歌并新建微软仓位，同时增持亚马逊，显示其持续优化科技股组合的结构性调整。",
     "aiSummaryQuarter": "2026 Q1",
     "legacyFilers": [
@@ -27,7 +27,7 @@
       "GOOG",
       "GOOGL"
     ],
-    "instrumentHistoryFrom": "2013 Q2",
+    "instrumentHistoryFrom": "2005 Q4",
     "shareActions": [
       {
         "ticker": "GOOG",
@@ -13965,40 +13965,9 @@
       ]
     },
     "coverage": {
-      "checkedAt": "2026-10-25T02:54:26Z",
+      "checkedAt": "2026-10-25T04:04:43Z",
       "missingQuarters": [],
-      "repairedThisRun": [
-        "2005 Q4",
-        "2006 Q1",
-        "2006 Q2",
-        "2006 Q3",
-        "2006 Q4",
-        "2007 Q1",
-        "2007 Q2",
-        "2007 Q3",
-        "2007 Q4",
-        "2008 Q1",
-        "2008 Q2",
-        "2008 Q3",
-        "2008 Q4",
-        "2009 Q1",
-        "2009 Q2",
-        "2009 Q3",
-        "2009 Q4",
-        "2010 Q1",
-        "2010 Q2",
-        "2010 Q3",
-        "2010 Q4",
-        "2011 Q1",
-        "2011 Q2",
-        "2011 Q3",
-        "2011 Q4",
-        "2012 Q1",
-        "2012 Q2",
-        "2012 Q3",
-        "2012 Q4",
-        "2013 Q1"
-      ],
+      "repairedThisRun": [],
       "errors": {},
       "attempts": {},
       "expandedLookup": null,
@@ -14694,7 +14663,7 @@
     "instrumentVerification": {
       "pendingQuarters": [],
       "errors": {},
-      "checkedAt": "2026-10-25T01:58:47.749110+00:00"
+      "checkedAt": "2026-10-25T04:04:43.184188+00:00"
     },
     "valueAudit": {
       "2026 Q2": {
@@ -18454,6 +18423,288 @@
         ],
         "errors": [],
         "normalizedHash": "3bb929b24c94b9a2a25a97043312822e910c38d172c1232cee2368831f866244"
+      },
+      "2008 Q3": {
+        "version": 1,
+        "checkedAt": "2026-10-25",
+        "source": "https://www.sec.gov/Archives/edgar/data/1336528/0001172661-08-000803.txt",
+        "filingDate": "2008-11-13",
+        "sourceDigest": "894637704e858bff3e8214d6d18fbcd7d9feeaa6efe33a8382006fb900c3fd47",
+        "sourceHash": "30feb26eedca7cd814e087918f10629011fa6cb778adfebfca9136eb0133c50e",
+        "status": "pending",
+        "anchors": [
+          {
+            "ticker": "TGT",
+            "cusip": "87612E106",
+            "filedPrice": 49.050043937020156,
+            "price": 49.04999923706055,
+            "date": "2008-09-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/TGT?period1=0&period2=1792987486&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "MA",
+            "cusip": "57636Q104",
+            "filedPrice": 177.32890701216303,
+            "price": 177.32999801635742,
+            "date": "2008-09-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/MA?period1=0&period2=1792987486&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          }
+        ],
+        "errors": [],
+        "normalizedHash": "30feb26eedca7cd814e087918f10629011fa6cb778adfebfca9136eb0133c50e"
+      },
+      "2009 Q1": {
+        "version": 1,
+        "checkedAt": "2026-10-25",
+        "source": "https://www.sec.gov/Archives/edgar/data/1336528/0001172661-09-000911.txt",
+        "filingDate": "2009-05-15",
+        "sourceDigest": "0bca0688e1125e0b3029d91f15e784254346eac3fb8868bcf4656cb9d6842397",
+        "sourceHash": "0342ad586b80b52e6e3ca0ca1644f4a885f2648af9d71a875d0688d363006f64",
+        "status": "verified",
+        "factor": 1,
+        "anchors": [
+          {
+            "ticker": "TGT",
+            "cusip": "87612E106",
+            "filedPrice": 34.390008671537295,
+            "price": 34.38999938964844,
+            "date": "2009-03-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/TGT?period1=0&period2=1792987486&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "YUM",
+            "cusip": "988498101",
+            "filedPrice": 27.47962929007312,
+            "price": 27.479999769210817,
+            "date": "2009-03-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/YUM?period1=0&period2=1792987487&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "ALX",
+            "cusip": "014752109",
+            "filedPrice": 170.3839122486289,
+            "price": 170.3800048828125,
+            "date": "2009-03-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/ALX?period1=0&period2=1792987488&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          }
+        ],
+        "agreementCount": 3,
+        "anchorCount": 3,
+        "outlierTickers": [],
+        "normalizedHash": "0342ad586b80b52e6e3ca0ca1644f4a885f2648af9d71a875d0688d363006f64"
+      },
+      "2009 Q2": {
+        "version": 1,
+        "checkedAt": "2026-10-25",
+        "source": "https://www.sec.gov/Archives/edgar/data/1336528/0001172661-09-001387.txt",
+        "filingDate": "2009-08-14",
+        "sourceDigest": "836ec8b099fe6461c9222119a308c2b740ee4fc04116e8505a8e5456053d1182",
+        "sourceHash": "31509058541ece8e72ea58050d43dadc99c7e470fec1a8eb553b02a4a5c65259",
+        "status": "verified",
+        "factor": 1,
+        "anchors": [
+          {
+            "ticker": "TGT",
+            "cusip": "87612E106",
+            "filedPrice": 39.46998811457847,
+            "price": 39.470001220703125,
+            "date": "2009-06-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/TGT?period1=0&period2=1792987486&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "ADP",
+            "cusip": "053015103",
+            "filedPrice": 35.43996929309362,
+            "price": 35.43999994659424,
+            "date": "2009-06-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/ADP?period1=0&period2=1792987489&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "MCD",
+            "cusip": "580135101",
+            "filedPrice": 57.49,
+            "price": 57.4900016784668,
+            "date": "2009-06-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/MCD?period1=0&period2=1792987489&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          }
+        ],
+        "agreementCount": 3,
+        "anchorCount": 3,
+        "outlierTickers": [],
+        "normalizedHash": "31509058541ece8e72ea58050d43dadc99c7e470fec1a8eb553b02a4a5c65259"
+      },
+      "2009 Q3": {
+        "version": 1,
+        "checkedAt": "2026-10-25",
+        "source": "https://www.sec.gov/Archives/edgar/data/1336528/0001172661-09-001567.txt",
+        "filingDate": "2009-11-16",
+        "sourceDigest": "90e98b58e5e6d9580e5ade8e4aa7ddd99e94670766e5c43ac50b150bf65e49d4",
+        "sourceHash": "fd142851f7b6ca0e79f35d0a45ae3eb0b8e2b833914fb313d69f74d8d59628fe",
+        "status": "verified",
+        "factor": 1,
+        "anchors": [
+          {
+            "ticker": "TGT",
+            "cusip": "87612E106",
+            "filedPrice": 46.67998241942361,
+            "price": 46.68000030517578,
+            "date": "2009-09-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/TGT?period1=0&period2=1792987486&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "MCD",
+            "cusip": "580135101",
+            "filedPrice": 57.07004089061893,
+            "price": 57.06999969482422,
+            "date": "2009-09-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/MCD?period1=0&period2=1792987489&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "ADP",
+            "cusip": "053015103",
+            "filedPrice": 39.29995539649314,
+            "price": 39.300001358032226,
+            "date": "2009-09-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/ADP?period1=0&period2=1792987489&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          }
+        ],
+        "agreementCount": 3,
+        "anchorCount": 3,
+        "outlierTickers": [],
+        "normalizedHash": "fd142851f7b6ca0e79f35d0a45ae3eb0b8e2b833914fb313d69f74d8d59628fe"
+      },
+      "2009 Q4": {
+        "version": 1,
+        "checkedAt": "2026-10-25",
+        "source": "https://www.sec.gov/Archives/edgar/data/1336528/0001172661-10-000226.txt",
+        "filingDate": "2010-02-16",
+        "sourceDigest": "234d0615e3023c55e5cde7e7b503c4e04d8e6f54f273dd2a5348ff43471609eb",
+        "sourceHash": "c309fe8275fc207dd789b45defa20daeb7b93dfdc42a341a9d9f90f9e831c6e1",
+        "status": "verified",
+        "factor": 1,
+        "anchors": [
+          {
+            "ticker": "TGT",
+            "cusip": "87612E106",
+            "filedPrice": 48.37001339293337,
+            "price": 48.369998931884766,
+            "date": "2009-12-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/TGT?period1=0&period2=1792987486&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "H",
+            "cusip": "448579102",
+            "filedPrice": 29.80999350188908,
+            "price": 29.809999465942383,
+            "date": "2009-12-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/H?period1=0&period2=1792987490&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "ADP",
+            "cusip": "053015103",
+            "filedPrice": 42.818958438881225,
+            "price": 42.81999816513061,
+            "date": "2009-12-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/ADP?period1=0&period2=1792987489&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          }
+        ],
+        "agreementCount": 3,
+        "anchorCount": 3,
+        "outlierTickers": [],
+        "normalizedHash": "c309fe8275fc207dd789b45defa20daeb7b93dfdc42a341a9d9f90f9e831c6e1"
+      },
+      "2010 Q1": {
+        "version": 1,
+        "checkedAt": "2026-10-25",
+        "source": "https://www.sec.gov/Archives/edgar/data/1336528/0001172661-10-000383.txt",
+        "filingDate": "2010-05-17",
+        "sourceDigest": "ad68de75d2f4d26e44c4232ce021f37dbbe3bff3af4b25b0f7e3cf66a81c5e5a",
+        "sourceHash": "8aaf941ffb058e13d6422b59bd0706658d8f69a8e12beddb32f22d75e332ed1b",
+        "status": "pending",
+        "anchors": [
+          {
+            "ticker": "TGT",
+            "cusip": "87612E106",
+            "filedPrice": 52.60002621159369,
+            "price": 52.599998474121094,
+            "date": "2010-03-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/TGT?period1=0&period2=1792987486&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "YUM",
+            "cusip": "988498101",
+            "filedPrice": 38.33000112499038,
+            "price": 38.330000345230104,
+            "date": "2010-03-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/YUM?period1=0&period2=1792987487&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          }
+        ],
+        "errors": [],
+        "normalizedHash": "8aaf941ffb058e13d6422b59bd0706658d8f69a8e12beddb32f22d75e332ed1b"
       }
     },
     "excludedValueQuarters": [],
@@ -18489,6 +18740,7 @@
           }
         }
       }
-    }
+    },
+    "restatementLookupError": "ParseError: mismatched tag: line 95, column 2"
   }
 }

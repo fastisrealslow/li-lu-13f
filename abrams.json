@@ -5,14 +5,14 @@
     "notablePeople": [
       "David Abrams"
     ],
-    "lastUpdated": "2026-10-25T01:59:10Z",
+    "lastUpdated": "2026-10-25T04:04:58Z",
     "aiSummary": "艾布拉姆斯本季度减持谷歌 A 股 27%，显示其对该科技巨头估值或前景的调整，同时维持对洛尔控股等五家公司的核心持仓。",
     "aiSummaryQuarter": "2026 Q2",
     "instrumentHistoryTickers": [
       "UHAL",
       "UHAL.B"
     ],
-    "instrumentHistoryFrom": "2013 Q2",
+    "instrumentHistoryFrom": "2006 Q1",
     "shareActions": [
       {
         "ticker": "GOOGL",
@@ -17704,9 +17704,9 @@
           ],
           "ticker": "ABG",
           "sector": "消费",
+          "cnName": "阿萨比汽车集团",
           "prevShares": 1500000,
-          "prevValue": 6855000,
-          "cnName": "阿萨比汽车集团"
+          "prevValue": 6855000
         },
         {
           "name": "ISTAR FINL INC",
@@ -17967,9 +17967,9 @@
           ],
           "ticker": "ABG",
           "sector": "消费",
+          "cnName": "阿萨比汽车集团",
           "prevShares": 1500000,
-          "prevValue": 6465000,
-          "cnName": "阿萨比汽车集团"
+          "prevValue": 6465000
         },
         {
           "name": "MUELLER WTR PRODS INC",
@@ -22344,39 +22344,9 @@
       ]
     },
     "coverage": {
-      "checkedAt": "2026-10-25T02:54:26Z",
+      "checkedAt": "2026-10-25T04:04:58Z",
       "missingQuarters": [],
-      "repairedThisRun": [
-        "2006 Q1",
-        "2006 Q2",
-        "2006 Q3",
-        "2006 Q4",
-        "2007 Q1",
-        "2007 Q2",
-        "2007 Q3",
-        "2007 Q4",
-        "2008 Q1",
-        "2008 Q2",
-        "2008 Q3",
-        "2008 Q4",
-        "2009 Q1",
-        "2009 Q2",
-        "2009 Q3",
-        "2009 Q4",
-        "2010 Q1",
-        "2010 Q2",
-        "2010 Q3",
-        "2010 Q4",
-        "2011 Q1",
-        "2011 Q2",
-        "2011 Q3",
-        "2011 Q4",
-        "2012 Q1",
-        "2012 Q2",
-        "2012 Q3",
-        "2012 Q4",
-        "2013 Q1"
-      ],
+      "repairedThisRun": [],
       "errors": {},
       "attempts": {},
       "expandedLookup": null,
@@ -23102,7 +23072,7 @@
     "instrumentVerification": {
       "pendingQuarters": [],
       "errors": {},
-      "checkedAt": "2026-10-25T01:59:10.825219+00:00"
+      "checkedAt": "2026-10-25T04:04:58.567345+00:00"
     },
     "valueAudit": {
       "2013 Q4": {
@@ -27596,8 +27566,298 @@
         "anchorCount": 5,
         "outlierTickers": [],
         "normalizedHash": "54b00a6d96b6c4ec3c8315174c2736cc632e10763272ca29cd85d0e46f8abe54"
+      },
+      "2009 Q1": {
+        "version": 1,
+        "checkedAt": "2026-10-25",
+        "source": "https://www.sec.gov/Archives/edgar/data/1358706/0000929638-09-000848.txt",
+        "filingDate": "2009-05-14",
+        "sourceDigest": "2f1d85389bd80bfe4fc19ff065c3871f51975d48f4be5ceae2779c0ce6e13860",
+        "sourceHash": "687df6783fd5036dbd86605827f9b5821075f979a22bf80a56c60a822524a6e6",
+        "status": "verified",
+        "factor": 1,
+        "anchors": [
+          {
+            "ticker": "SLM",
+            "cusip": "78442P106",
+            "filedPrice": 4.950048850167087,
+            "price": 4.950000700235367,
+            "date": "2009-03-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/SLM?period1=0&period2=1792987499&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "MWA",
+            "cusip": "624758108",
+            "filedPrice": 3.3000599571568903,
+            "price": 3.299999952316284,
+            "date": "2009-03-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/MWA?period1=0&period2=1792987500&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "MHK",
+            "cusip": "608190104",
+            "filedPrice": 29.869792573116168,
+            "price": 29.8700008392334,
+            "date": "2009-03-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/MHK?period1=0&period2=1792987500&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "ABG",
+            "cusip": "043436104",
+            "filedPrice": 4.31,
+            "price": 4.309999942779541,
+            "date": "2009-03-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/ABG?period1=0&period2=1792987500&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "GPI",
+            "cusip": "398905109",
+            "filedPrice": 13.969597669761514,
+            "price": 13.970000267028809,
+            "date": "2009-03-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/GPI?period1=0&period2=1792987501&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          }
+        ],
+        "agreementCount": 5,
+        "anchorCount": 5,
+        "outlierTickers": [],
+        "normalizedHash": "687df6783fd5036dbd86605827f9b5821075f979a22bf80a56c60a822524a6e6"
+      },
+      "2009 Q2": {
+        "version": 1,
+        "checkedAt": "2026-10-25",
+        "source": "https://www.sec.gov/Archives/edgar/data/1358706/0000929638-09-001330.txt",
+        "filingDate": "2009-08-13",
+        "sourceDigest": "124528b1c12436008ae01c49c26c6418bdd57e1af2932265ea3eeb655f1a8408",
+        "sourceHash": "9a8f69dbc2555de310731aee545c12c42ebaa643560c4833ba90992ee764cb27",
+        "status": "verified",
+        "factor": 1,
+        "anchors": [
+          {
+            "ticker": "SLM",
+            "cusip": "78442P106",
+            "filedPrice": 10.270007620042932,
+            "price": 10.27000040769577,
+            "date": "2009-06-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/SLM?period1=0&period2=1792987499&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "MWA",
+            "cusip": "624758108",
+            "filedPrice": 3.7400006925927207,
+            "price": 3.740000009536743,
+            "date": "2009-06-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/MWA?period1=0&period2=1792987500&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "MHK",
+            "cusip": "608190104",
+            "filedPrice": 35.67999336482913,
+            "price": 35.68000030517578,
+            "date": "2009-06-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/MHK?period1=0&period2=1792987500&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "ABG",
+            "cusip": "043436104",
+            "filedPrice": 10.240351481736733,
+            "price": 10.239999771118164,
+            "date": "2009-06-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/ABG?period1=0&period2=1792987500&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          }
+        ],
+        "agreementCount": 4,
+        "anchorCount": 4,
+        "outlierTickers": [],
+        "normalizedHash": "9a8f69dbc2555de310731aee545c12c42ebaa643560c4833ba90992ee764cb27"
+      },
+      "2009 Q3": {
+        "version": 1,
+        "checkedAt": "2026-10-25",
+        "source": "https://www.sec.gov/Archives/edgar/data/1358706/0000929638-09-001535.txt",
+        "filingDate": "2009-11-13",
+        "sourceDigest": "0f1b3c35737dabc1debec15f6309244db9e938c6d51b744855abb3defc4ffb01",
+        "sourceHash": "035b71d81fa4a050b5b2aa1707effdb46da639324153d14049c174aad3537a93",
+        "status": "pending",
+        "anchors": [
+          {
+            "ticker": "SLM",
+            "cusip": "78442P106",
+            "filedPrice": 8.7200115308452,
+            "price": 8.720000744342805,
+            "date": "2009-09-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/SLM?period1=0&period2=1792987499&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "MHK",
+            "cusip": "608190104",
+            "filedPrice": 47.690290639624095,
+            "price": 47.689998626708984,
+            "date": "2009-09-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/MHK?period1=0&period2=1792987500&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          }
+        ],
+        "errors": [],
+        "normalizedHash": "035b71d81fa4a050b5b2aa1707effdb46da639324153d14049c174aad3537a93"
+      },
+      "2009 Q4": {
+        "version": 1,
+        "checkedAt": "2026-10-25",
+        "source": "https://www.sec.gov/Archives/edgar/data/1358706/0001140361-10-006165.txt",
+        "filingDate": "2010-02-12",
+        "sourceDigest": "c5d544c10f653578427d16c67edc34b701c39e007dd85d73d9563a2b0283ca9a",
+        "sourceHash": "9ff60b96c036eb41d333ca14bce0ff8bba446cefc3ac35babe33b606ab3b879b",
+        "status": "pending",
+        "anchors": [
+          {
+            "ticker": "SLM",
+            "cusip": "78442P106",
+            "filedPrice": 11.269956025342,
+            "price": 11.269999437332153,
+            "date": "2009-12-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/SLM?period1=0&period2=1792987499&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "MHK",
+            "cusip": "608190104",
+            "filedPrice": 47.59969503733878,
+            "price": 47.599998474121094,
+            "date": "2009-12-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/MHK?period1=0&period2=1792987500&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          }
+        ],
+        "errors": [],
+        "normalizedHash": "9ff60b96c036eb41d333ca14bce0ff8bba446cefc3ac35babe33b606ab3b879b"
+      },
+      "2010 Q1": {
+        "version": 1,
+        "checkedAt": "2026-10-25",
+        "source": "https://www.sec.gov/Archives/edgar/data/1358706/0001140361-10-021383.txt",
+        "filingDate": "2010-05-14",
+        "sourceDigest": "b1860c2a5b2908ee289af456949a338955d824159b60bb74b20941d2d9967053",
+        "sourceHash": "c81341aa5d0f36bb9ee5d1c8a8048ca1fbd661ea57ab39051da035dc24c649e9",
+        "status": "pending",
+        "anchors": [
+          {
+            "ticker": "SLM",
+            "cusip": "78442P106",
+            "filedPrice": 12.520018300272792,
+            "price": 12.520001059532166,
+            "date": "2010-03-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/SLM?period1=0&period2=1792987499&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "MHK",
+            "cusip": "608190104",
+            "filedPrice": 54.379695437953586,
+            "price": 54.380001068115234,
+            "date": "2010-03-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/MHK?period1=0&period2=1792987500&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          }
+        ],
+        "errors": [],
+        "normalizedHash": "c81341aa5d0f36bb9ee5d1c8a8048ca1fbd661ea57ab39051da035dc24c649e9"
+      },
+      "2010 Q2": {
+        "version": 1,
+        "checkedAt": "2026-10-25",
+        "source": "https://www.sec.gov/Archives/edgar/data/1358706/0001140361-10-033337.txt",
+        "filingDate": "2010-08-13",
+        "sourceDigest": "a8b67e5be3a87987a1d46d5bdcd39eaabf79e045a30629453a95b9abc818e339",
+        "sourceHash": "34b77a970ac85ebc0887e2e5a6cc02ce530ea345f06386da57abf12227864eb2",
+        "status": "pending",
+        "anchors": [
+          {
+            "ticker": "SLM",
+            "cusip": "78442P106",
+            "filedPrice": 10.390057206733882,
+            "price": 10.390000824928284,
+            "date": "2010-06-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/SLM?period1=0&period2=1792987499&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "MHK",
+            "cusip": "608190104",
+            "filedPrice": 45.758920439227346,
+            "price": 45.7599983215332,
+            "date": "2010-06-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/MHK?period1=0&period2=1792987500&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          }
+        ],
+        "errors": [],
+        "normalizedHash": "34b77a970ac85ebc0887e2e5a6cc02ce530ea345f06386da57abf12227864eb2"
       }
     },
-    "excludedValueQuarters": []
+    "excludedValueQuarters": [],
+    "restatementChecks": {},
+    "restatementLookupError": "ParseError: mismatched tag: line 125, column 2"
   }
 }
