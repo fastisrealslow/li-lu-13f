@@ -1358,10 +1358,10 @@
       "reason": "ValueError: Bilingual editorial review: The English translation of 'Southwest Airlines' is incorrect; it should be 'Southwest Airlines', not 'southwest airlines'.; The Chin"
     },
     "pabrai-d5fc50447fd953": {
-      "at": "2026-10-25T12:31:43+00:00",
+      "at": "2026-10-25T18:43:37+00:00",
       "status": "retry",
       "inputHash": "d0544da8e14ed7578c5daf19301f2720de371f994b5468583fe2bfc9be5913e0",
-      "reason": "ValueError: Bilingual editorial review: The English text in the source evidence (s1) ends abruptly mid-sentence ('it's a'), making the factual claim about market share inco"
+      "reason": "ValueError: Bilingual editorial review: The source text ends abruptly with 'it's a' and lacks the complete sentence defining the percentage (e.g., 'less than one percent'),"
     },
     "pabrai-87529cf106b12a": {
       "at": "2026-10-25T13:32:44+00:00",
@@ -3535,5 +3535,5 @@
       "reason": "ValueError: Bilingual editorial review: The source text (s25) states Greenblatt was 'kind of lazy' regarding the stock market, but the content section claims this mindset l"
     }
   },
-  "updatedAt": "2026-10-25T18:42:16+00:00"
+  "updatedAt": "2026-10-25T18:43:37+00:00"
 }
