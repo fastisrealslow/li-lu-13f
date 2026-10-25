@@ -5,7 +5,7 @@
     "notablePeople": [
       "Bill Ackman"
     ],
-    "lastUpdated": "2026-10-25T04:04:43Z",
+    "lastUpdated": "2026-10-25T16:56:40Z",
     "aiSummary": "阿克曼 Q1 大幅减持谷歌并新建微软仓位，同时增持亚马逊，显示其持续优化科技股组合的结构性调整。",
     "aiSummaryQuarter": "2026 Q1",
     "legacyFilers": [
@@ -13965,7 +13965,7 @@
       ]
     },
     "coverage": {
-      "checkedAt": "2026-10-25T04:04:43Z",
+      "checkedAt": "2026-10-25T16:56:40Z",
       "missingQuarters": [],
       "repairedThisRun": [],
       "errors": {},
@@ -14663,7 +14663,7 @@
     "instrumentVerification": {
       "pendingQuarters": [],
       "errors": {},
-      "checkedAt": "2026-10-25T04:04:43.184188+00:00"
+      "checkedAt": "2026-10-25T16:56:40.575595+00:00"
     },
     "valueAudit": {
       "2026 Q2": {
@@ -18705,6 +18705,273 @@
         ],
         "errors": [],
         "normalizedHash": "8aaf941ffb058e13d6422b59bd0706658d8f69a8e12beddb32f22d75e332ed1b"
+      },
+      "2010 Q2": {
+        "version": 1,
+        "checkedAt": "2026-10-25",
+        "source": "https://www.sec.gov/Archives/edgar/data/1336528/0001172661-10-000510.txt",
+        "filingDate": "2010-08-16",
+        "sourceDigest": "d41ecdaf265b2de42db54c6a862495ed312af2529a741886b53f9208bdce5031",
+        "sourceHash": "44b4d62d45814a635494fbcb0160e3e79618fcec976e32e7a5781d835355168b",
+        "status": "verified",
+        "factor": 1,
+        "anchors": [
+          {
+            "ticker": "C",
+            "cusip": "172967101",
+            "filedPrice": 3.76,
+            "price": 3.7599998474121095,
+            "date": "2010-06-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/C?period1=0&period2=1793033802&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "TGT",
+            "cusip": "87612E106",
+            "filedPrice": 49.169971880836954,
+            "price": 49.16999816894531,
+            "date": "2010-06-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/TGT?period1=0&period2=1793033802&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "ADP",
+            "cusip": "053015103",
+            "filedPrice": 40.25996529394644,
+            "price": 40.25999851226807,
+            "date": "2010-06-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/ADP?period1=0&period2=1793033802&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "YUM",
+            "cusip": "988498101",
+            "filedPrice": 39.04016644609483,
+            "price": 39.039999656677246,
+            "date": "2010-06-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/YUM?period1=0&period2=1793033802&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          }
+        ],
+        "agreementCount": 4,
+        "anchorCount": 4,
+        "outlierTickers": [],
+        "normalizedHash": "44b4d62d45814a635494fbcb0160e3e79618fcec976e32e7a5781d835355168b"
+      },
+      "2010 Q3": {
+        "version": 1,
+        "checkedAt": "2026-10-25",
+        "source": "https://www.sec.gov/Archives/edgar/data/1336528/0001172661-10-000669.txt",
+        "filingDate": "2010-11-15",
+        "sourceDigest": "6b51b9a7b1e357268f53053138415fab470beb09c8939892f2df99df070b5cfb",
+        "sourceHash": "8800b0348df1cb3dff98c5fda7b0216a82d7e1aed623db1bd67e53f227b59e60",
+        "status": "verified",
+        "factor": 1,
+        "anchors": [
+          {
+            "ticker": "C",
+            "cusip": "172967101",
+            "filedPrice": 3.8999988981086835,
+            "price": 3.9099998474121094,
+            "date": "2010-09-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/C?period1=0&period2=1793033802&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "TGT",
+            "cusip": "87612E106",
+            "filedPrice": 53.44001398200326,
+            "price": 53.439998626708984,
+            "date": "2010-09-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/TGT?period1=0&period2=1793033802&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "ADP",
+            "cusip": "053015103",
+            "filedPrice": 42.03003191039895,
+            "price": 42.030001140594486,
+            "date": "2010-09-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/ADP?period1=0&period2=1793033802&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          }
+        ],
+        "agreementCount": 3,
+        "anchorCount": 3,
+        "outlierTickers": [],
+        "normalizedHash": "8800b0348df1cb3dff98c5fda7b0216a82d7e1aed623db1bd67e53f227b59e60"
+      },
+      "2010 Q4": {
+        "version": 1,
+        "checkedAt": "2026-10-25",
+        "source": "https://www.sec.gov/Archives/edgar/data/1336528/0001172661-11-000236.txt",
+        "filingDate": "2011-02-14",
+        "sourceDigest": "a4849c8157f5c5df7a08e971214e060c843cea154dc52111e5484b1f41e962ae",
+        "sourceHash": "4ca5dd54ac155ebb04f5a83a98b4f70e0bf131f58b90eb33340fe2444e47d2b0",
+        "status": "verified",
+        "factor": 1,
+        "anchors": [
+          {
+            "ticker": "C",
+            "cusip": "172967101",
+            "filedPrice": 4.730002883609569,
+            "price": 4.729999923706055,
+            "date": "2010-12-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/C?period1=0&period2=1793033802&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "TGT",
+            "cusip": "87612E106",
+            "filedPrice": 60.129963395427495,
+            "price": 60.130001068115234,
+            "date": "2010-12-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/TGT?period1=0&period2=1793033802&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "GM",
+            "cusip": "37045V100",
+            "filedPrice": 36.860125714063116,
+            "price": 36.86000061035156,
+            "date": "2010-12-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/GM?period1=0&period2=1793033803&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "ADP",
+            "cusip": "053015103",
+            "filedPrice": 46.27996921834968,
+            "price": 46.28000003814697,
+            "date": "2010-12-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/ADP?period1=0&period2=1793033802&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          }
+        ],
+        "agreementCount": 4,
+        "anchorCount": 4,
+        "outlierTickers": [],
+        "normalizedHash": "4ca5dd54ac155ebb04f5a83a98b4f70e0bf131f58b90eb33340fe2444e47d2b0"
+      },
+      "2011 Q1": {
+        "version": 1,
+        "checkedAt": "2026-10-25",
+        "source": "https://www.sec.gov/Archives/edgar/data/1336528/0001172661-11-000410.txt",
+        "filingDate": "2011-05-16",
+        "sourceDigest": "4da0f92306f4c8bdb153024e8bac91c8ab4e0103d36e43420e79d225b5a96277",
+        "sourceHash": "0db265484d9d9b33aafaf90e9a5411d3d299ca2b3f028413acce3cb196a2b76c",
+        "status": "pending",
+        "anchors": [
+          {
+            "ticker": "C",
+            "cusip": "172967101",
+            "filedPrice": 4.419997448397027,
+            "price": 4.420000076293945,
+            "date": "2011-03-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/C?period1=0&period2=1793033802&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          }
+        ],
+        "errors": [],
+        "normalizedHash": "0db265484d9d9b33aafaf90e9a5411d3d299ca2b3f028413acce3cb196a2b76c"
+      },
+      "2011 Q2": {
+        "version": 1,
+        "checkedAt": "2026-10-25",
+        "source": "https://www.sec.gov/Archives/edgar/data/1336528/0001172661-11-000580.txt",
+        "filingDate": "2011-08-15",
+        "sourceDigest": "cfffea71a5cb21d5288f2a0f9a72ebd4d7243789fa92d7cda5b7619726377dfa",
+        "sourceHash": "ffd40cf0967ba3270ae0d09c560e2129f893da1d2565198bd96e6117b741a5e0",
+        "status": "pending",
+        "anchors": [
+          {
+            "ticker": "C",
+            "cusip": "172967424",
+            "filedPrice": 41.64001465770147,
+            "price": 41.63999938964844,
+            "date": "2011-06-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/C?period1=0&period2=1793033802&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          }
+        ],
+        "errors": [],
+        "normalizedHash": "ffd40cf0967ba3270ae0d09c560e2129f893da1d2565198bd96e6117b741a5e0"
+      },
+      "2011 Q3": {
+        "version": 1,
+        "checkedAt": "2026-10-25",
+        "source": "https://www.sec.gov/Archives/edgar/data/1336528/0001172661-11-000752.txt",
+        "filingDate": "2011-11-14",
+        "sourceDigest": "9545e6fffcef2a3ff86b401941f672e3167d7e594c45a289e3d65fbc51eed7f5",
+        "sourceHash": "3d49ef00c8522951073d05644bea1e48fe1f251fd192751059b486ecc669b816",
+        "status": "pending",
+        "anchors": [
+          {
+            "ticker": "C",
+            "cusip": "172967424",
+            "filedPrice": 25.619997916877278,
+            "price": 25.6200008392334,
+            "date": "2011-09-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/C?period1=0&period2=1793033802&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "LOW",
+            "cusip": "548661107",
+            "filedPrice": 19.339980163181302,
+            "price": 19.34000015258789,
+            "date": "2011-09-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/LOW?period1=0&period2=1793033805&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          }
+        ],
+        "errors": [],
+        "normalizedHash": "3d49ef00c8522951073d05644bea1e48fe1f251fd192751059b486ecc669b816"
       }
     },
     "excludedValueQuarters": [],
@@ -18741,6 +19008,6 @@
         }
       }
     },
-    "restatementLookupError": "ParseError: mismatched tag: line 95, column 2"
+    "restatementLookupError": "ParseError: mismatched tag: line 115, column 2"
   }
 }

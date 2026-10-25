@@ -5,7 +5,7 @@
     "notablePeople": [
       "Seth Klarman"
     ],
-    "lastUpdated": "2026-10-25T04:04:26Z",
+    "lastUpdated": "2026-10-25T16:56:22Z",
     "aiSummary": "克拉曼大幅增持亚马逊与谷歌，新进芝商所等，显示其持续看好科技巨头及特定周期机会，同时减持部分传统行业仓位。",
     "aiSummaryQuarter": "2026 Q2",
     "shareActions": [
@@ -52933,7 +52933,7 @@
       ]
     },
     "coverage": {
-      "checkedAt": "2026-10-25T04:04:30Z",
+      "checkedAt": "2026-10-25T16:56:25Z",
       "missingQuarters": [
         "1999 Q1",
         "1999 Q3",
@@ -52960,20 +52960,20 @@
         "2001 Q3": "No matching complete 13F portfolio in submissions and checked quarterly indexes; not a zero position",
         "2001 Q4": "No matching complete 13F portfolio in submissions and checked quarterly indexes; not a zero position",
         "2002 Q1": "No matching complete 13F portfolio in submissions and checked quarterly indexes; not a zero position",
-        "1999 Q1": "Legacy table reconciliation failed: 21/21 rows, $261949000/$293588000",
-        "1999 Q3": "Legacy table reconciliation failed: 40/41 rows, $610102000/$647531000",
-        "2007 Q3": "Legacy table reconciliation failed: 45/53 rows, $951576000/$955606000",
-        "2009 Q2": "Legacy table reconciliation failed: 31/32 rows, $1124402000/$1259248000"
+        "2009 Q4": "Legacy issuer/class columns are ambiguous",
+        "2010 Q1": "Legacy issuer/class columns are ambiguous",
+        "2010 Q2": "Legacy issuer/class columns are ambiguous",
+        "2010 Q3": "Legacy issuer/class columns are ambiguous"
       },
       "attempts": {
         "1999 Q1": 4,
         "1999 Q3": 4,
         "2007 Q3": 4,
         "2009 Q2": 4,
-        "2009 Q4": 3,
-        "2010 Q1": 3,
-        "2010 Q2": 3,
-        "2010 Q3": 3,
+        "2009 Q4": 4,
+        "2010 Q1": 4,
+        "2010 Q2": 4,
+        "2010 Q3": 4,
         "2010 Q4": 3,
         "2011 Q1": 3,
         "2011 Q2": 3,
@@ -52983,7 +52983,7 @@
         "schemaVersion": 1,
         "cik": "1061768",
         "checkedAt": "2026-10-25T02:54:42Z",
-        "attemptedAt": "2026-10-25T04:04:26Z",
+        "attemptedAt": "2026-10-25T16:56:23Z",
         "status": "checked",
         "indexes": {
           "2001/QTR2": {
@@ -58350,6 +58350,243 @@
         ],
         "errors": [],
         "normalizedHash": "25d5cc14012c1f6d0bbf62252dc451be82bbd7a2402fdb047ee30ee92f491a06"
+      },
+      "2006 Q4": {
+        "version": 1,
+        "checkedAt": "2026-10-25",
+        "source": "https://www.sec.gov/Archives/edgar/data/1061768/0001061768-07-000109.txt",
+        "filingDate": "2007-02-13",
+        "sourceDigest": "3db8138926b250a00b1b22442ba33498e771fbfb4537d1ef294ad24edfd56568",
+        "sourceHash": "0613659a8c31a35f2875e0d4d0d91e18926845ab4b8c22309f184cb40543735e",
+        "status": "pending",
+        "anchors": [
+          {
+            "ticker": "HD",
+            "cusip": "437076102",
+            "filedPrice": 40.16,
+            "price": 40.15999984741211,
+            "date": "2006-12-29",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/HD?period1=0&period2=1793033787&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "NFG",
+            "cusip": "636180101",
+            "filedPrice": 38.54,
+            "price": 38.540000915527344,
+            "date": "2006-12-29",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/NFG?period1=0&period2=1793033787&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          }
+        ],
+        "errors": [],
+        "normalizedHash": "0613659a8c31a35f2875e0d4d0d91e18926845ab4b8c22309f184cb40543735e"
+      },
+      "2007 Q2": {
+        "version": 1,
+        "checkedAt": "2026-10-25",
+        "source": "https://www.sec.gov/Archives/edgar/data/1061768/0001061768-07-000161.txt",
+        "filingDate": "2007-08-13",
+        "sourceDigest": "4811076a89ae51c50a919ce6255858592ad229dca269fa8e3d520083943cfba2",
+        "sourceHash": "46ea4ac48882d6cc1df185da52cab83711e43d4e31a69cd8fdde60ce5577602f",
+        "status": "verified",
+        "factor": 1,
+        "anchors": [
+          {
+            "ticker": "SLM",
+            "cusip": "78442P106",
+            "filedPrice": 57.58,
+            "price": 57.58000062942505,
+            "date": "2007-06-29",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/SLM?period1=0&period2=1793033788&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "HD",
+            "cusip": "437076102",
+            "filedPrice": 39.35,
+            "price": 39.349998474121094,
+            "date": "2007-06-29",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/HD?period1=0&period2=1793033787&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "NFG",
+            "cusip": "636180101",
+            "filedPrice": 43.31,
+            "price": 43.310001373291016,
+            "date": "2007-06-29",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/NFG?period1=0&period2=1793033787&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          }
+        ],
+        "agreementCount": 3,
+        "anchorCount": 3,
+        "outlierTickers": [],
+        "normalizedHash": "46ea4ac48882d6cc1df185da52cab83711e43d4e31a69cd8fdde60ce5577602f"
+      },
+      "2007 Q4": {
+        "version": 1,
+        "checkedAt": "2026-10-25",
+        "source": "https://www.sec.gov/Archives/edgar/data/1061768/0001061768-08-000105.txt",
+        "filingDate": "2008-02-13",
+        "sourceDigest": "f6e12a2ed0ae5914c598bb9ea17bdc4b45c95a298d86df756042c3a3c2c543da",
+        "sourceHash": "e93a41ac1ab7fa3c55b754c1be46be25962876c86131403e0182f39e59ced3d7",
+        "status": "pending",
+        "anchors": [
+          {
+            "ticker": "SLM",
+            "cusip": "78442P106",
+            "filedPrice": 20.140000217232902,
+            "price": 20.140001203536986,
+            "date": "2007-12-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/SLM?period1=0&period2=1793033788&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "NFG",
+            "cusip": "636180101",
+            "filedPrice": 46.68,
+            "price": 46.68000030517578,
+            "date": "2007-12-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/NFG?period1=0&period2=1793033787&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          }
+        ],
+        "errors": [],
+        "normalizedHash": "e93a41ac1ab7fa3c55b754c1be46be25962876c86131403e0182f39e59ced3d7"
+      },
+      "2008 Q1": {
+        "version": 1,
+        "checkedAt": "2026-10-25",
+        "source": "https://www.sec.gov/Archives/edgar/data/1061768/0001061768-08-000174.txt",
+        "filingDate": "2008-05-14",
+        "sourceDigest": "b4e46d249f0782da65a632218e2801ba4c6877474b1f5123e87d9ce81cb5367c",
+        "sourceHash": "1db9cfc0a61ccff2be1931973d2a7dfb4e858615f720f31429697d359bcc75e1",
+        "status": "pending",
+        "anchors": [
+          {
+            "ticker": "IP",
+            "cusip": "460146103",
+            "filedPrice": 27.200196822718965,
+            "price": 27.200000481811525,
+            "date": "2008-03-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/IP?period1=0&period2=1793033788&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "NFG",
+            "cusip": "636180101",
+            "filedPrice": 47.21,
+            "price": 47.209999084472656,
+            "date": "2008-03-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/NFG?period1=0&period2=1793033787&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          }
+        ],
+        "errors": [],
+        "normalizedHash": "1db9cfc0a61ccff2be1931973d2a7dfb4e858615f720f31429697d359bcc75e1"
+      },
+      "2008 Q2": {
+        "version": 1,
+        "checkedAt": "2026-10-25",
+        "source": "https://www.sec.gov/Archives/edgar/data/1061768/0001061768-08-000191.txt",
+        "filingDate": "2008-08-13",
+        "sourceDigest": "3839fbadb604499caacf8d4a266a37ca8a1c2d8319cf1d6b5a290cfcf1e0740c",
+        "sourceHash": "2c14d8b9973a1aebd002b8e95f2cc79feafd8cbfb21cdb48867ef1475f48d2d9",
+        "status": "pending",
+        "anchors": [
+          {
+            "ticker": "UNH",
+            "cusip": "91324P102",
+            "filedPrice": 26.250046360939585,
+            "price": 26.25,
+            "date": "2008-06-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/UNH?period1=0&period2=1793033789&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "VSAT",
+            "cusip": "92552V100",
+            "filedPrice": 20.209690372088872,
+            "price": 20.209999084472656,
+            "date": "2008-06-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/VSAT?period1=0&period2=1793033789&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          }
+        ],
+        "errors": [],
+        "normalizedHash": "2c14d8b9973a1aebd002b8e95f2cc79feafd8cbfb21cdb48867ef1475f48d2d9"
+      },
+      "2008 Q3": {
+        "version": 1,
+        "checkedAt": "2026-10-25",
+        "source": "https://www.sec.gov/Archives/edgar/data/1061768/0001061768-08-000206.txt",
+        "filingDate": "2008-11-14",
+        "sourceDigest": "493a6f9d962ef99f15373d0bffd9ad7a811db59108635be98ce7b1783e62b617",
+        "sourceHash": "6e84f5c1c937bca6ff17c3a30610d142b88bbef9e13e1071112319ced1f16127",
+        "status": "pending",
+        "anchors": [
+          {
+            "ticker": "VSAT",
+            "cusip": "92552V100",
+            "filedPrice": 23.579866515548098,
+            "price": 23.579999923706055,
+            "date": "2008-09-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/VSAT?period1=0&period2=1793033789&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "UNH",
+            "cusip": "91324P102",
+            "filedPrice": 25.389388375332405,
+            "price": 25.389999389648438,
+            "date": "2008-09-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/UNH?period1=0&period2=1793033789&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          }
+        ],
+        "errors": [],
+        "normalizedHash": "6e84f5c1c937bca6ff17c3a30610d142b88bbef9e13e1071112319ced1f16127"
       }
     },
     "restatementLookupError": "ParseError: mismatched tag: line 108, column 2"

@@ -5,7 +5,7 @@
     "notablePeople": [
       "Chuck Akre"
     ],
-    "lastUpdated": "2026-10-25T04:04:01Z",
+    "lastUpdated": "2026-10-25T16:56:06Z",
     "aiSummary": "阿克瑞大幅增持科技股并减持金融地产，显示其正从传统价值向高成长科技领域显著倾斜。",
     "aiSummaryQuarter": "2026 Q2",
     "instrumentHistoryFrom": "2001 Q4",
@@ -30879,10 +30879,10 @@
             }
           ],
           "ticker": "AMT",
-          "sector": "地产",
+          "sector": "通讯",
+          "cnName": "美国塔",
           "prevShares": 1747659,
-          "prevValue": 122179000,
-          "cnName": "美国塔"
+          "prevValue": 122179000
         },
         {
           "name": "Markel/mkl",
@@ -30961,9 +30961,9 @@
           ],
           "ticker": "ORLY",
           "sector": "消费",
+          "cnName": "奥莱利汽车",
           "prevShares": 826749,
-          "prevValue": 69257000,
-          "cnName": "奥莱利汽车"
+          "prevValue": 69257000
         },
         {
           "name": "DirecTv/dtv",
@@ -31122,9 +31122,9 @@
           ],
           "ticker": "BRK/B",
           "sector": "其他",
+          "cnName": "伯克希尔哈撒韦 B 类",
           "prevShares": 317325,
-          "prevValue": 26443000,
-          "cnName": "伯克希尔哈撒韦 B 类"
+          "prevValue": 26443000
         },
         {
           "name": "Hartford/hig",
@@ -31462,7 +31462,7 @@
             }
           ],
           "ticker": "TJX",
-          "sector": "其他",
+          "sector": "消费",
           "prevShares": 971520,
           "prevValue": 41707000
         },
@@ -31604,10 +31604,10 @@
             }
           ],
           "ticker": "AMT",
-          "sector": "地产",
+          "sector": "通讯",
+          "cnName": "美国塔",
           "prevShares": 1745074,
-          "prevValue": 124581000,
-          "cnName": "美国塔"
+          "prevValue": 124581000
         },
         {
           "name": "Moodys Corp/mco",
@@ -31706,9 +31706,9 @@
           ],
           "ticker": "ORLY",
           "sector": "消费",
+          "cnName": "奥莱利汽车",
           "prevShares": 828559,
-          "prevValue": 69284000,
-          "cnName": "奥莱利汽车"
+          "prevValue": 69284000
         },
         {
           "name": "Enstar/esgr",
@@ -31927,9 +31927,9 @@
           ],
           "ticker": "BRK/B",
           "sector": "其他",
+          "cnName": "伯克希尔哈撒韦 B 类",
           "prevShares": 313520,
-          "prevValue": 27652000,
-          "cnName": "伯克希尔哈撒韦 B 类"
+          "prevValue": 27652000
         },
         {
           "name": "Lamar Advertising/lamr",
@@ -34364,7 +34364,7 @@
       ]
     },
     "coverage": {
-      "checkedAt": "2026-10-25T04:04:04Z",
+      "checkedAt": "2026-10-25T16:56:09Z",
       "missingQuarters": [
         "2000 Q4",
         "2001 Q1",
@@ -34399,20 +34399,20 @@
       ],
       "repairedThisRun": [],
       "errors": {
-        "2000 Q4": "Legacy table reconciliation failed: 37/38 rows, $99322000/$100018000",
-        "2001 Q1": "Legacy table reconciliation failed: 32/32 rows, $94442000/$80692000",
-        "2001 Q2": "Legacy table reconciliation failed: 35/35 rows, $861500000/$860747000",
-        "2001 Q3": "Legacy table reconciliation failed: 30/37 rows, $79095000/$100136000"
+        "2002 Q2": "Legacy issuer/class columns are ambiguous",
+        "2002 Q3": "Legacy table reconciliation failed: 42/45 rows, $107488000/$109384000",
+        "2003 Q1": "Legacy table reconciliation failed: 38/49 rows, $139575000/$147593000",
+        "2003 Q2": "Legacy cover does not declare both entry count and value total"
       },
       "attempts": {
         "2000 Q4": 4,
         "2001 Q1": 4,
         "2001 Q2": 4,
         "2001 Q3": 4,
-        "2002 Q2": 3,
-        "2002 Q3": 3,
-        "2003 Q1": 3,
-        "2003 Q2": 3,
+        "2002 Q2": 4,
+        "2002 Q3": 4,
+        "2003 Q1": 4,
+        "2003 Q2": 4,
         "2003 Q3": 3,
         "2003 Q4": 3,
         "2004 Q1": 3,
@@ -35053,7 +35053,7 @@
     "instrumentVerification": {
       "pendingQuarters": [],
       "errors": {},
-      "checkedAt": "2026-10-25T04:04:01.590973+00:00"
+      "checkedAt": "2026-10-25T16:56:06.338609+00:00"
     },
     "valueAudit": {
       "2013 Q2": {
@@ -39071,9 +39071,22 @@
         "source": "https://www.sec.gov/Archives/edgar/data/1112520/0001112520-03-000007.txt",
         "filingDate": "2003-03-20",
         "sourceDigest": "c672c120231cf473034246b40653f7cf20daaa542e65e11a0b4da06ea26ec727",
-        "sourceHash": "d6d37e073b41ef74f942a3e4f2f144671305057c01aa612ec9e15ea3c0e04c59",
-        "status": "pending",
+        "sourceHash": "d6fca582aa4f8b089563b8e94413578638b065a5fd664c776a66bd5d227e42e0",
+        "status": "verified",
+        "factor": 1,
         "anchors": [
+          {
+            "ticker": "PENN",
+            "cusip": "707569109",
+            "filedPrice": 15.859337045480025,
+            "price": 15.860002592086792,
+            "date": "2002-12-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/PENN?period1=0&period2=1793033772&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
           {
             "ticker": "MKL",
             "cusip": "570535104",
@@ -39081,7 +39094,19 @@
             "price": 205.5,
             "date": "2002-12-31",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/MKL?period1=0&period2=1792983643&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/MKL?period1=0&period2=1793033772&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "MCRI",
+            "cusip": "609027107",
+            "filedPrice": 13.729166666666666,
+            "price": 13.729999542236328,
+            "date": "2002-12-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/MCRI?period1=0&period2=1793033772&interval=1d&events=splits",
             "candidates": [
               1
             ]
@@ -39093,14 +39118,28 @@
             "price": 17.8799991607666,
             "date": "2002-12-31",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/KMX?period1=0&period2=1792983654&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/KMX?period1=0&period2=1793033771&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "CHDN",
+            "cusip": "171484108",
+            "filedPrice": 38.17310403157598,
+            "price": 38.179999351501465,
+            "date": "2002-12-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/CHDN?period1=0&period2=1793033773&interval=1d&events=splits",
             "candidates": [
               1
             ]
           }
         ],
-        "errors": [],
-        "normalizedHash": "d6d37e073b41ef74f942a3e4f2f144671305057c01aa612ec9e15ea3c0e04c59"
+        "agreementCount": 5,
+        "anchorCount": 5,
+        "outlierTickers": [],
+        "normalizedHash": "d6fca582aa4f8b089563b8e94413578638b065a5fd664c776a66bd5d227e42e0"
       },
       "2008 Q1": {
         "version": 1,
@@ -40228,9 +40267,162 @@
         "anchorCount": 5,
         "outlierTickers": [],
         "normalizedHash": "c9338066a5437f90fa283b9b8e5d2e1d46124b971f973c50f2e2ab7f7a06c286"
+      },
+      "2012 Q3": {
+        "version": 1,
+        "checkedAt": "2026-10-25",
+        "source": "https://www.sec.gov/Archives/edgar/data/1112520/0000919574-12-006509.txt",
+        "filingDate": "2012-11-15",
+        "sourceDigest": "52b6cd75ec2a6d0da947885b84e9a83c5fab8eb4ba379b0cb64d00dfd64d21c3",
+        "sourceHash": "aef2b6c240e0720d4788899501cae0269aafc8e24df677c2e37d0478a94709ce",
+        "status": "verified",
+        "factor": 1,
+        "anchors": [
+          {
+            "ticker": "AMT",
+            "cusip": "03027X100",
+            "filedPrice": 71.3900957781733,
+            "price": 71.38999938964844,
+            "date": "2012-09-28",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/AMT?period1=0&period2=1793033770&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "HIG",
+            "cusip": "416515104",
+            "filedPrice": 19.440052700922266,
+            "price": 19.440000534057617,
+            "date": "2012-09-28",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/HIG?period1=0&period2=1793033770&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "ORLY",
+            "cusip": "67103H107",
+            "filedPrice": 83.61987498778,
+            "price": 83.62000465393066,
+            "date": "2012-09-28",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/ORLY?period1=0&period2=1793033770&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "BAC",
+            "cusip": "060505104",
+            "filedPrice": 8.83,
+            "price": 8.829999923706055,
+            "date": "2012-09-28",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/BAC?period1=0&period2=1793033770&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "KMX",
+            "cusip": "143130102",
+            "filedPrice": 28.299375935996697,
+            "price": 28.299999237060547,
+            "date": "2012-09-28",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/KMX?period1=0&period2=1793033771&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          }
+        ],
+        "agreementCount": 5,
+        "anchorCount": 5,
+        "outlierTickers": [],
+        "normalizedHash": "aef2b6c240e0720d4788899501cae0269aafc8e24df677c2e37d0478a94709ce"
+      },
+      "2012 Q4": {
+        "version": 1,
+        "checkedAt": "2026-10-25",
+        "source": "https://www.sec.gov/Archives/edgar/data/1112520/0001112520-13-000005.txt",
+        "filingDate": "2013-02-12",
+        "sourceDigest": "4175d66829033e4d05f7a7772480c5b17dc8a8b76a0902edef8cc5223ba19159",
+        "sourceHash": "58cbe813801e875382114d5c58afa452b097a185230370338e1aa1f475a3668b",
+        "status": "verified",
+        "factor": 1,
+        "anchors": [
+          {
+            "ticker": "AMT",
+            "cusip": "03027X100",
+            "filedPrice": 77.27007026852974,
+            "price": 77.2699966430664,
+            "date": "2012-12-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/AMT?period1=0&period2=1793033770&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "HIG",
+            "cusip": "416515104",
+            "filedPrice": 22.440345483823744,
+            "price": 22.440000534057617,
+            "date": "2012-12-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/HIG?period1=0&period2=1793033770&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "ORLY",
+            "cusip": "67103H107",
+            "filedPrice": 89.41969757402138,
+            "price": 89.41999197006226,
+            "date": "2012-12-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/ORLY?period1=0&period2=1793033770&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "BAC",
+            "cusip": "060505104",
+            "filedPrice": 11.61,
+            "price": 11.609999656677246,
+            "date": "2012-12-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/BAC?period1=0&period2=1793033770&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "MNRO",
+            "cusip": "610236101",
+            "filedPrice": 34.9,
+            "price": 34.900001525878906,
+            "date": "2012-12-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/MNRO?period1=0&period2=1793033771&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          }
+        ],
+        "agreementCount": 5,
+        "anchorCount": 5,
+        "outlierTickers": [],
+        "normalizedHash": "58cbe813801e875382114d5c58afa452b097a185230370338e1aa1f475a3668b"
       }
     },
     "excludedValueQuarters": [],
-    "restatementChecks": {}
+    "restatementChecks": {},
+    "restatementLookupError": "ParseError: not well-formed (invalid token): line 126, column 18"
   }
 }
