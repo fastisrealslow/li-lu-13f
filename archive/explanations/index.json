@@ -3115,10 +3115,10 @@
       "reason": "ValueError: Bilingual editorial review: The English translation of the author's name 'Samantha McLemore' in the content section matches the canonical list.; The English tra"
     },
     "marks-05b38067d482db": {
-      "at": "2026-10-25T01:41:58+00:00",
+      "at": "2026-10-25T05:17:49+00:00",
       "status": "retry",
       "inputHash": "c059d951b763be37ac7080839d7e7324bce04c6610655c0e672c589837bb46f7",
-      "reason": "ValueError: Bilingual editorial review: The English translation in the content section incorrectly paraphrases 'riskier investments absolutely cannot be counted on to deliv"
+      "reason": "ValueError: Bilingual editorial review: The English paraphrase in `content.paragraphs[0].en` contains significant factual and semantic drift compared to the source text.; T"
     },
     "marks-2b0acf3944f6ef": {
       "at": "2026-10-25T00:09:52+00:00",
@@ -3535,5 +3535,5 @@
       "reason": "ValueError: Bilingual editorial review: The source text (s25) states 'I really wasn't the first quant' and describes himself as 'kind of lazy', but does not explicitly ment"
     }
   },
-  "updatedAt": "2026-10-25T05:17:23+00:00"
+  "updatedAt": "2026-10-25T05:17:49+00:00"
 }
