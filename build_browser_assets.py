@@ -5,6 +5,7 @@ separate download; the first screen never needs the complete filing archive.
 """
 import argparse
 import copy
+import gzip
 import hashlib
 import json
 import math
@@ -114,7 +115,10 @@ def build(root=ROOT, output=None):
         digest = hashlib.sha256(body).hexdigest()
         name = f'{ident}-{kind}-{digest[:24]}.json'
         (output / name).write_bytes(body)
-        return {'file': 'browser/' + name, 'bytes': len(body), 'sha256': digest}
+        compressed = gzip.compress(body, mtime=0)
+        (output / (name + '.gz')).write_bytes(compressed)
+        return {'file': 'browser/' + name, 'bytes': len(body), 'sha256': digest,
+                'gzipFile': 'browser/' + name + '.gz', 'gzipBytes': len(compressed)}
     for person in people:
         ident = person['id']
         data, prices = read(root / person['dataFile']), read(root / person['pricesFile'])

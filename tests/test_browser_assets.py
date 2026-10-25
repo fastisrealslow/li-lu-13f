@@ -1,4 +1,5 @@
 import copy
+import gzip
 import hashlib
 import json
 from pathlib import Path
@@ -59,6 +60,9 @@ class BrowserAssetsTests(unittest.TestCase):
             for kind in ('snapshot','history'):
                 raw=(root/entry[kind]['file']).read_bytes()
                 self.assertEqual(hashlib.sha256(raw).hexdigest(),entry[kind]['sha256'])
+                compressed=(root/entry[kind]['gzipFile']).read_bytes()
+                self.assertEqual(gzip.decompress(compressed),raw)
+                self.assertEqual(len(compressed),entry[kind]['gzipBytes'])
             self.assertEqual(browser.build(root),first)
             source['current']['holdings'][0]['value']+=10;source['current']['totalValue']+=10
             (root/'data.json').write_text(json.dumps(source))
