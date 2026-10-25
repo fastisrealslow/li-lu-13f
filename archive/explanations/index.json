@@ -1234,10 +1234,10 @@
       "reason": "ValueError: Incomplete AI Review at 900 tokens"
     },
     "pabrai-99a0eff7272af5": {
-      "at": "2026-10-24T17:09:05+00:00",
+      "at": "2026-10-25T00:46:32+00:00",
       "status": "retry",
       "inputHash": "f967ae2af5db8e86a46609e0593938baf78d47b56796c3327f5acbb550db9f51",
-      "reason": "ValueError: Bilingual editorial review: The English text incorrectly states 'he never invests more than 10% of his assets into any single position' when the source (s3) say"
+      "reason": "ValueError: Unsupported numerical claim: 20%"
     },
     "pabrai-6626f4a7337cb1": {
       "at": "2026-10-25T00:14:28+00:00",
@@ -3537,5 +3537,5 @@
       "reason": "ValueError: Unsupported numerical claim: 75"
     }
   },
-  "updatedAt": "2026-10-25T00:45:47+00:00"
+  "updatedAt": "2026-10-25T00:46:32+00:00"
 }
