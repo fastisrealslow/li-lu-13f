@@ -898,10 +898,11 @@ function portfolioVisibleIndexes(kind,rows) {
 }
 function setPortfolioView(kind,key,value) {
   if(!['current','changes'].includes(kind))return;
+  const prior=document.getElementById('portfolio-search-'+kind),start=prior?.selectionStart,end=prior?.selectionEnd,direction=prior?.selectionDirection;
   const state=_portfolioViews[kind]||{investor,query:'',page:0};
   if(key==='query'){state.query=String(value);state.page=0;}else if(key==='page'&&Number.isInteger(value))state.page=value;
   _portfolioViews[kind]=state;kind==='current'?renderHoldings():renderChanges();
-  if(key==='query'){const input=document.getElementById('portfolio-search-'+kind);input?.focus();}
+  if(key==='query'){const input=document.getElementById('portfolio-search-'+kind);input?.focus?.();if(Number.isInteger(start)&&Number.isInteger(end))input?.setSelectionRange?.(start,end,direction||'none');}
 }
 
 function renderHoldings() {
