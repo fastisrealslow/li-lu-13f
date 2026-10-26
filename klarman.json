@@ -5,7 +5,7 @@
     "notablePeople": [
       "Seth Klarman"
     ],
-    "lastUpdated": "2026-10-25T16:56:22Z",
+    "lastUpdated": "2026-10-26T01:57:35Z",
     "aiSummary": "克拉曼大幅增持亚马逊与谷歌，新进芝商所等，显示其持续看好科技巨头及特定周期机会，同时减持部分传统行业仓位。",
     "aiSummaryQuarter": "2026 Q2",
     "shareActions": [
@@ -52933,7 +52933,7 @@
       ]
     },
     "coverage": {
-      "checkedAt": "2026-10-25T16:56:25Z",
+      "checkedAt": "2026-10-26T01:57:37Z",
       "missingQuarters": [
         "1999 Q1",
         "1999 Q3",
@@ -52960,10 +52960,10 @@
         "2001 Q3": "No matching complete 13F portfolio in submissions and checked quarterly indexes; not a zero position",
         "2001 Q4": "No matching complete 13F portfolio in submissions and checked quarterly indexes; not a zero position",
         "2002 Q1": "No matching complete 13F portfolio in submissions and checked quarterly indexes; not a zero position",
-        "2009 Q4": "Legacy issuer/class columns are ambiguous",
-        "2010 Q1": "Legacy issuer/class columns are ambiguous",
-        "2010 Q2": "Legacy issuer/class columns are ambiguous",
-        "2010 Q3": "Legacy issuer/class columns are ambiguous"
+        "2010 Q4": "Legacy issuer/class columns are ambiguous",
+        "2011 Q1": "Legacy issuer/class columns are ambiguous",
+        "2011 Q2": "Legacy issuer/class columns are ambiguous",
+        "2011 Q3": "Legacy issuer/class columns are ambiguous"
       },
       "attempts": {
         "1999 Q1": 4,
@@ -52974,16 +52974,16 @@
         "2010 Q1": 4,
         "2010 Q2": 4,
         "2010 Q3": 4,
-        "2010 Q4": 3,
-        "2011 Q1": 3,
-        "2011 Q2": 3,
-        "2011 Q3": 3
+        "2010 Q4": 4,
+        "2011 Q1": 4,
+        "2011 Q2": 4,
+        "2011 Q3": 4
       },
       "expandedLookup": {
         "schemaVersion": 1,
         "cik": "1061768",
         "checkedAt": "2026-10-25T02:54:42Z",
-        "attemptedAt": "2026-10-25T16:56:23Z",
+        "attemptedAt": "2026-10-26T01:57:35Z",
         "status": "checked",
         "indexes": {
           "2001/QTR2": {
@@ -58124,39 +58124,78 @@
       },
       "2002 Q2": {
         "version": 1,
-        "checkedAt": "2026-10-25",
+        "checkedAt": "2026-10-26",
         "source": "https://www.sec.gov/Archives/edgar/data/1061768/0001061768-02-000010.txt",
         "filingDate": "2002-08-13",
         "sourceDigest": "6fb4ad7850171de58a6d988cac9507858334096d26177762b021665a6b22f4d4",
-        "sourceHash": "422a415bf503ad4bba9ec40f239d1e107ef42df7a99045f86b449e9284c4da3e",
+        "sourceHash": "2e668121010463ff50d12e55d891a8ebbf822f2d1f00366ebba9dbb79a78d42f",
         "status": "pending",
-        "anchors": [],
+        "anchors": [
+          {
+            "ticker": "HST",
+            "cusip": "44107P104",
+            "filedPrice": 11.300980422288472,
+            "price": 11.299999865055085,
+            "date": "2002-06-28",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/HST?period1=0&period2=1793066259&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          }
+        ],
         "errors": [],
-        "normalizedHash": "422a415bf503ad4bba9ec40f239d1e107ef42df7a99045f86b449e9284c4da3e"
+        "normalizedHash": "2e668121010463ff50d12e55d891a8ebbf822f2d1f00366ebba9dbb79a78d42f"
       },
       "2002 Q3": {
         "version": 1,
-        "checkedAt": "2026-10-25",
+        "checkedAt": "2026-10-26",
         "source": "https://www.sec.gov/Archives/edgar/data/1061768/0001061768-02-000012.txt",
         "filingDate": "2002-11-14",
         "sourceDigest": "e7d3594d1ba34514df012bfaf0baf0a6626d2a0f131693a1c46f287f2d8d5ddb",
-        "sourceHash": "81844c1b8bc7bee35515b284192bf4882e9ec62c21a88a35b5dbfe8b35e79ed4",
+        "sourceHash": "324cbdbd10b46b1d037548607b475eb68ffa7a91ae80d04406fcc14097926708",
         "status": "pending",
-        "anchors": [],
+        "anchors": [
+          {
+            "ticker": "XEL",
+            "cusip": "98389B100",
+            "filedPrice": 9.309927360774818,
+            "price": 9.3100004196167,
+            "date": "2002-09-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/XEL?period1=0&period2=1793066260&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          }
+        ],
         "errors": [],
-        "normalizedHash": "81844c1b8bc7bee35515b284192bf4882e9ec62c21a88a35b5dbfe8b35e79ed4"
+        "normalizedHash": "324cbdbd10b46b1d037548607b475eb68ffa7a91ae80d04406fcc14097926708"
       },
       "2002 Q4": {
         "version": 1,
-        "checkedAt": "2026-10-25",
+        "checkedAt": "2026-10-26",
         "source": "https://www.sec.gov/Archives/edgar/data/1061768/0001061768-03-000018.txt",
         "filingDate": "2003-02-13",
         "sourceDigest": "4af7664c6684143cfe8f91091c6ea9682dd08b485cff38c32cd071daf09e4757",
-        "sourceHash": "2cbb9e1016cb20c88feef71af7e56eb8fbbcd622465c4d576fccc1b981b6e798",
+        "sourceHash": "c745638606e096638eed783fd989ba3403caa28e76b7fed08f317227f7804aa6",
         "status": "pending",
-        "anchors": [],
+        "anchors": [
+          {
+            "ticker": "XEL",
+            "cusip": "98389B100",
+            "filedPrice": 10.999906023869936,
+            "price": 11.0,
+            "date": "2002-12-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/XEL?period1=0&period2=1793066260&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          }
+        ],
         "errors": [],
-        "normalizedHash": "2cbb9e1016cb20c88feef71af7e56eb8fbbcd622465c4d576fccc1b981b6e798"
+        "normalizedHash": "c745638606e096638eed783fd989ba3403caa28e76b7fed08f317227f7804aa6"
       },
       "2003 Q1": {
         "version": 1,
@@ -58587,6 +58626,81 @@
         ],
         "errors": [],
         "normalizedHash": "6e84f5c1c937bca6ff17c3a30610d142b88bbef9e13e1071112319ced1f16127"
+      },
+      "2008 Q4": {
+        "version": 1,
+        "checkedAt": "2026-10-26",
+        "source": "https://www.sec.gov/Archives/edgar/data/1061768/0001061768-09-000102.txt",
+        "filingDate": "2009-02-13",
+        "sourceDigest": "8d1b983213242ccf0943694ba557198720e0d06a0c0bb84e8783dec709bb9236",
+        "sourceHash": "499ce662320f49ee418a008b6167911ecb48749e48ba34f3ed76e26878a7cdfd",
+        "status": "pending",
+        "anchors": [
+          {
+            "ticker": "VSAT",
+            "cusip": "92552V100",
+            "filedPrice": 24.08025014299581,
+            "price": 24.079999923706055,
+            "date": "2008-12-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/VSAT?period1=0&period2=1793066258&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          }
+        ],
+        "errors": [],
+        "normalizedHash": "499ce662320f49ee418a008b6167911ecb48749e48ba34f3ed76e26878a7cdfd"
+      },
+      "2009 Q1": {
+        "version": 1,
+        "checkedAt": "2026-10-26",
+        "source": "https://www.sec.gov/Archives/edgar/data/1061768/0001061768-09-000129.txt",
+        "filingDate": "2009-05-14",
+        "sourceDigest": "177a09dd6ad92f77540ba4246208999258f502c2b4aee5c472669f5067b63cec",
+        "sourceHash": "cde2f7269f5b05eb78de52fc8785183aa2e344621f9d81e993e513fd9d2fa4f6",
+        "status": "pending",
+        "anchors": [
+          {
+            "ticker": "VSAT",
+            "cusip": "92552V100",
+            "filedPrice": 20.82002706139748,
+            "price": 20.81999969482422,
+            "date": "2009-03-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/VSAT?period1=0&period2=1793066258&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          }
+        ],
+        "errors": [],
+        "normalizedHash": "cde2f7269f5b05eb78de52fc8785183aa2e344621f9d81e993e513fd9d2fa4f6"
+      },
+      "2009 Q3": {
+        "version": 1,
+        "checkedAt": "2026-10-26",
+        "source": "https://www.sec.gov/Archives/edgar/data/1061768/0001061768-09-000159.txt",
+        "filingDate": "2009-11-12",
+        "sourceDigest": "25044f8bcff9d28873817f6c5ca62fee3babb5b291e1605681aceee1876cadff",
+        "sourceHash": "2e806a81388be9cd09ba646d4f6d430cc2b55bc5a7723ebf52334048afa03ef4",
+        "status": "pending",
+        "anchors": [
+          {
+            "ticker": "VSAT",
+            "cusip": "92552V100",
+            "filedPrice": 26.579870251789256,
+            "price": 26.579999923706055,
+            "date": "2009-09-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/VSAT?period1=0&period2=1793066258&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          }
+        ],
+        "errors": [],
+        "normalizedHash": "2e806a81388be9cd09ba646d4f6d430cc2b55bc5a7723ebf52334048afa03ef4"
       }
     },
     "restatementLookupError": "ParseError: mismatched tag: line 108, column 2"

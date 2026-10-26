@@ -5,7 +5,7 @@
     "notablePeople": [
       "David Abrams"
     ],
-    "lastUpdated": "2026-10-25T16:56:48Z",
+    "lastUpdated": "2026-10-26T01:57:55Z",
     "aiSummary": "艾布拉姆斯本季度减持谷歌 A 股 27%，显示其对该科技巨头估值或前景的调整，同时维持对洛尔控股等五家公司的核心持仓。",
     "aiSummaryQuarter": "2026 Q2",
     "instrumentHistoryTickers": [
@@ -22344,7 +22344,7 @@
       ]
     },
     "coverage": {
-      "checkedAt": "2026-10-25T16:56:48Z",
+      "checkedAt": "2026-10-26T01:57:55Z",
       "missingQuarters": [],
       "repairedThisRun": [],
       "errors": {},
@@ -23072,7 +23072,7 @@
     "instrumentVerification": {
       "pendingQuarters": [],
       "errors": {},
-      "checkedAt": "2026-10-25T16:56:48.857223+00:00"
+      "checkedAt": "2026-10-26T01:57:55.137540+00:00"
     },
     "valueAudit": {
       "2013 Q4": {
@@ -26942,12 +26942,13 @@
       },
       "2006 Q1": {
         "version": 1,
-        "checkedAt": "2026-10-25",
+        "checkedAt": "2026-10-26",
         "source": "https://www.sec.gov/Archives/edgar/data/1358706/0000929638-06-000188.txt",
         "filingDate": "2006-05-12",
         "sourceDigest": "7522baf56b2088a9eb83cb3c46fa71a02deea1c15440647fe634fed13d951127",
-        "sourceHash": "990f19fc9469f6fcab364cef1568d3bbd883cd2f281c1233fee6c16681021549",
-        "status": "pending",
+        "sourceHash": "c3d58a17c4b85a92936a1a11b2f88ed9e78cf79f9322aff32691f3506e850c7f",
+        "status": "verified",
+        "factor": 1,
         "anchors": [
           {
             "ticker": "MO",
@@ -26956,7 +26957,31 @@
             "price": 70.86000061035156,
             "date": "2006-03-31",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/MO?period1=0&period2=1792983683&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/MO?period1=0&period2=1793066279&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "ERIE",
+            "cusip": "29530P102",
+            "filedPrice": 52.639614687560865,
+            "price": 52.63999938964844,
+            "date": "2006-03-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/ERIE?period1=0&period2=1793066280&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "BCO",
+            "cusip": "109696104",
+            "filedPrice": 50.761027629665534,
+            "price": 50.7599983215332,
+            "date": "2006-03-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/BCO?period1=0&period2=1793066280&interval=1d&events=splits",
             "candidates": [
               1
             ]
@@ -26968,14 +26993,28 @@
             "price": 47.540000915527344,
             "date": "2006-03-31",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/GPI?period1=0&period2=1792983682&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/GPI?period1=0&period2=1793066280&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "BKD",
+            "cusip": "112463104",
+            "filedPrice": 37.75,
+            "price": 37.75,
+            "date": "2006-03-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/BKD?period1=0&period2=1793066280&interval=1d&events=splits",
             "candidates": [
               1
             ]
           }
         ],
-        "errors": [],
-        "normalizedHash": "990f19fc9469f6fcab364cef1568d3bbd883cd2f281c1233fee6c16681021549"
+        "agreementCount": 5,
+        "anchorCount": 5,
+        "outlierTickers": [],
+        "normalizedHash": "c3d58a17c4b85a92936a1a11b2f88ed9e78cf79f9322aff32691f3506e850c7f"
       },
       "2006 Q2": {
         "version": 1,
@@ -28142,6 +28181,326 @@
         "anchorCount": 5,
         "outlierTickers": [],
         "normalizedHash": "1da41bf82357536395d50d90ab98dec2cb9b172265360034bd866454f9879bbd"
+      },
+      "2012 Q1": {
+        "version": 1,
+        "checkedAt": "2026-10-26",
+        "source": "https://www.sec.gov/Archives/edgar/data/1358706/0001172661-12-000550.txt",
+        "filingDate": "2012-05-14",
+        "sourceDigest": "584dc0114f6b371123d06801d9c0251d02294fecef9c0cc02e12eb5ce6362e73",
+        "sourceHash": "3f00c334bec4af3021cfacffaa6d4ff3ef81580ef2e75969acf4dd9488c67d2d",
+        "status": "verified",
+        "factor": 1,
+        "anchors": [
+          {
+            "ticker": "HRB",
+            "cusip": "093671105",
+            "filedPrice": 16.470009794078358,
+            "price": 16.469999313354492,
+            "date": "2012-03-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/HRB?period1=0&period2=1793066276&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "SLM",
+            "cusip": "78442P106",
+            "filedPrice": 15.7599664641613,
+            "price": 15.760000984191894,
+            "date": "2012-03-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/SLM?period1=0&period2=1793066276&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "TEVA",
+            "cusip": "881624209",
+            "filedPrice": 45.05987261146497,
+            "price": 45.060001373291016,
+            "date": "2012-03-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/TEVA?period1=0&period2=1793066276&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "OHI",
+            "cusip": "681936100",
+            "filedPrice": 21.25998852909341,
+            "price": 21.260000228881836,
+            "date": "2012-03-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/OHI?period1=0&period2=1793066277&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "GOOGL",
+            "cusip": "38259P508",
+            "filedPrice": 641.2441375235422,
+            "price": 641.239984588623,
+            "date": "2012-03-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/GOOGL?period1=0&period2=1793066277&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          }
+        ],
+        "agreementCount": 5,
+        "anchorCount": 5,
+        "outlierTickers": [],
+        "normalizedHash": "3f00c334bec4af3021cfacffaa6d4ff3ef81580ef2e75969acf4dd9488c67d2d"
+      },
+      "2012 Q2": {
+        "version": 1,
+        "checkedAt": "2026-10-26",
+        "source": "https://www.sec.gov/Archives/edgar/data/1358706/0001172661-12-000833.txt",
+        "filingDate": "2012-08-13",
+        "sourceDigest": "31454fa49e3d588601f83fee5b887354bad6a0bf15c2c0a2e21af6d92017456d",
+        "sourceHash": "078f69d68d37cbf96f00ad5723847b5978f47ed9a057a55e2f817f00ca00e959",
+        "status": "verified",
+        "factor": 1,
+        "anchors": [
+          {
+            "ticker": "SLM",
+            "cusip": "78442P106",
+            "filedPrice": 15.709974055303961,
+            "price": 15.71000086593628,
+            "date": "2012-06-29",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/SLM?period1=0&period2=1793066276&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "HRB",
+            "cusip": "093671105",
+            "filedPrice": 15.979973804394248,
+            "price": 15.979999542236328,
+            "date": "2012-06-29",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/HRB?period1=0&period2=1793066276&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "TEVA",
+            "cusip": "881624209",
+            "filedPrice": 39.43991507430998,
+            "price": 39.439998626708984,
+            "date": "2012-06-29",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/TEVA?period1=0&period2=1793066276&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "GOOGL",
+            "cusip": "38259P508",
+            "filedPrice": 580.0726364398284,
+            "price": 580.0699841308594,
+            "date": "2012-06-29",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/GOOGL?period1=0&period2=1793066277&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          }
+        ],
+        "agreementCount": 4,
+        "anchorCount": 4,
+        "outlierTickers": [],
+        "normalizedHash": "078f69d68d37cbf96f00ad5723847b5978f47ed9a057a55e2f817f00ca00e959"
+      },
+      "2012 Q3": {
+        "version": 1,
+        "checkedAt": "2026-10-26",
+        "source": "https://www.sec.gov/Archives/edgar/data/1358706/0001172661-12-001105.txt",
+        "filingDate": "2012-11-13",
+        "sourceDigest": "0665c058d9b7fd7ff9dc856b6aae9c26ef75b7093a0078268deb4a6e7cdfb04e",
+        "sourceHash": "164ab0665b8f2fb1d885fba070d339e82f833c52f147cc86f10c1a106472ed87",
+        "status": "verified",
+        "factor": 1,
+        "anchors": [
+          {
+            "ticker": "SLM",
+            "cusip": "78442P106",
+            "filedPrice": 15.720004634930234,
+            "price": 15.720000622749328,
+            "date": "2012-09-28",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/SLM?period1=0&period2=1793066276&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "TEVA",
+            "cusip": "881624209",
+            "filedPrice": 41.41019108280255,
+            "price": 41.40999984741211,
+            "date": "2012-09-28",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/TEVA?period1=0&period2=1793066276&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "GOOGL",
+            "cusip": "38259P508",
+            "filedPrice": 754.5016819471011,
+            "price": 754.4999480438232,
+            "date": "2012-09-28",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/GOOGL?period1=0&period2=1793066277&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          }
+        ],
+        "agreementCount": 3,
+        "anchorCount": 3,
+        "outlierTickers": [],
+        "normalizedHash": "164ab0665b8f2fb1d885fba070d339e82f833c52f147cc86f10c1a106472ed87"
+      },
+      "2012 Q4": {
+        "version": 1,
+        "checkedAt": "2026-10-26",
+        "source": "https://www.sec.gov/Archives/edgar/data/1358706/0001172661-13-000381.txt",
+        "filingDate": "2013-02-13",
+        "sourceDigest": "72203637267473b9b20056ef6dbb96f15b37570305e67630432d2a0ee5b357a8",
+        "sourceHash": "2dedb5110967c6a09091d7e9bccc1e5934a8c1d26c42cd253769cebb7dd4f043",
+        "status": "verified",
+        "factor": 1,
+        "anchors": [
+          {
+            "ticker": "SLM",
+            "cusip": "78442P106",
+            "filedPrice": 17.12999833718407,
+            "price": 17.129999688148498,
+            "date": "2012-12-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/SLM?period1=0&period2=1793066276&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "TEVA",
+            "cusip": "881624209",
+            "filedPrice": 37.340084153597296,
+            "price": 37.34000015258789,
+            "date": "2012-12-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/TEVA?period1=0&period2=1793066276&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "SLGN",
+            "cusip": "827048109",
+            "filedPrice": 41.53986770641814,
+            "price": 41.540000915527344,
+            "date": "2012-12-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/SLGN?period1=0&period2=1793066278&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "GOOGL",
+            "cusip": "38259P508",
+            "filedPrice": 707.3807796319504,
+            "price": 707.3799856567383,
+            "date": "2012-12-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/GOOGL?period1=0&period2=1793066277&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          }
+        ],
+        "agreementCount": 4,
+        "anchorCount": 4,
+        "outlierTickers": [],
+        "normalizedHash": "2dedb5110967c6a09091d7e9bccc1e5934a8c1d26c42cd253769cebb7dd4f043"
+      },
+      "2013 Q1": {
+        "version": 1,
+        "checkedAt": "2026-10-26",
+        "source": "https://www.sec.gov/Archives/edgar/data/1358706/0001172661-13-000824.txt",
+        "filingDate": "2013-05-14",
+        "sourceDigest": "b705f44c84b48e0cd030cb6304cbf777029b16ee04ed4e1bf75e5ce8fed042e3",
+        "sourceHash": "523bcb9a0e1952c9caa75f1b36715dc643eae401f0519453898abb407391a7c7",
+        "status": "verified",
+        "factor": 1,
+        "anchors": [
+          {
+            "ticker": "SLM",
+            "cusip": "78442P106",
+            "filedPrice": 20.500011877256636,
+            "price": 20.500000453948974,
+            "date": "2013-03-28",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/SLM?period1=0&period2=1793066276&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "WU",
+            "cusip": "959802109",
+            "filedPrice": 15.03996797224261,
+            "price": 15.039999961853027,
+            "date": "2013-03-28",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/WU?period1=0&period2=1793066279&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "TEVA",
+            "cusip": "881624209",
+            "filedPrice": 39.679939904789386,
+            "price": 39.68000030517578,
+            "date": "2013-03-28",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/TEVA?period1=0&period2=1793066276&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "AIZ",
+            "cusip": "04621X108",
+            "filedPrice": 45.01,
+            "price": 45.0099983215332,
+            "date": "2013-03-28",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/AIZ?period1=0&period2=1793066279&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          }
+        ],
+        "agreementCount": 4,
+        "anchorCount": 4,
+        "outlierTickers": [],
+        "normalizedHash": "523bcb9a0e1952c9caa75f1b36715dc643eae401f0519453898abb407391a7c7"
       }
     },
     "excludedValueQuarters": [],
