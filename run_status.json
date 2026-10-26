@@ -2,6 +2,465 @@
   "runs": [
     {
       "schemaVersion": 2,
+      "run_id": "2026-10-26T18:54:23Z",
+      "trigger": "schedule",
+      "steps": {
+        "hk_disclosures": {
+          "status": "warn",
+          "ts": "2026-10-26T18:56:42Z",
+          "msg": "lilu 港股披露部分未核实，保留已有证据；buffett 港股披露部分未核实，保留已有证据；berkowitz 港股披露部分未核实，保留已有证据；hawkins 港股披露部分未核实，保留已有证据",
+          "label": "港股披露监控"
+        },
+        "lilu_13f": {
+          "status": "ok",
+          "ts": "2026-10-26T18:56:46Z",
+          "msg": "",
+          "label": "李录 13F"
+        },
+        "lilu_audit": {
+          "status": "ok",
+          "ts": "2026-10-26T18:56:52Z",
+          "msg": "",
+          "label": "李录 申报金额复核"
+        },
+        "lilu_identities": {
+          "status": "ok",
+          "ts": "2026-10-26T18:56:52Z",
+          "msg": "",
+          "label": "李录 证券代码核对"
+        },
+        "lilu_prices": {
+          "status": "ok",
+          "ts": "2026-10-26T18:56:56Z",
+          "msg": "",
+          "label": "李录 股价与成本"
+        },
+        "pabrai_13f": {
+          "status": "warn",
+          "ts": "2026-10-26T18:56:59Z",
+          "msg": "pabrai 历史缺 4 季（2012 Q2, 2012 Q3, 2012 Q4, 2013 Q1）：补查未完成或原表未核实，后续重试；不作零持仓",
+          "label": "帕伯莱 13F"
+        },
+        "pabrai_audit": {
+          "status": "ok",
+          "ts": "2026-10-26T18:57:12Z",
+          "msg": "",
+          "label": "帕伯莱 申报金额复核"
+        },
+        "pabrai_identities": {
+          "status": "ok",
+          "ts": "2026-10-26T18:57:12Z",
+          "msg": "",
+          "label": "帕伯莱 证券代码核对"
+        },
+        "pabrai_prices": {
+          "status": "ok",
+          "ts": "2026-10-26T18:57:13Z",
+          "msg": "",
+          "label": "帕伯莱 股价与成本"
+        },
+        "duan_13f": {
+          "status": "ok",
+          "ts": "2026-10-26T18:57:15Z",
+          "msg": "",
+          "label": "段永平 13F"
+        },
+        "duan_audit": {
+          "status": "ok",
+          "ts": "2026-10-26T18:57:15Z",
+          "msg": "",
+          "label": "段永平 申报金额复核"
+        },
+        "duan_identities": {
+          "status": "ok",
+          "ts": "2026-10-26T18:57:15Z",
+          "msg": "",
+          "label": "段永平 证券代码核对"
+        },
+        "duan_prices": {
+          "status": "ok",
+          "ts": "2026-10-26T18:57:19Z",
+          "msg": "",
+          "label": "段永平 股价与成本"
+        },
+        "tepper_13f": {
+          "status": "ok",
+          "ts": "2026-10-26T18:57:21Z",
+          "msg": "",
+          "label": "大卫·泰珀 13F"
+        },
+        "tepper_audit": {
+          "status": "ok",
+          "ts": "2026-10-26T18:57:21Z",
+          "msg": "",
+          "label": "大卫·泰珀 申报金额复核"
+        },
+        "tepper_identities": {
+          "status": "ok",
+          "ts": "2026-10-26T18:57:21Z",
+          "msg": "",
+          "label": "大卫·泰珀 证券代码核对"
+        },
+        "tepper_prices": {
+          "status": "ok",
+          "ts": "2026-10-26T18:57:28Z",
+          "msg": "",
+          "label": "大卫·泰珀 股价与成本"
+        },
+        "webb_holdings": {
+          "status": "info",
+          "ts": "2026-10-26T18:57:28Z",
+          "msg": "历史档案模式：保留旧持仓，仅定期更新股价；停用不可用的持仓镜像。",
+          "label": "韦伯 港股披露"
+        },
+        "webb_prices": {
+          "status": "ok",
+          "ts": "2026-10-26T18:57:30Z",
+          "msg": "",
+          "label": "韦伯 股价与成本"
+        },
+        "buffett_13f": {
+          "status": "warn",
+          "ts": "2026-10-26T18:57:35Z",
+          "msg": "buffett 历史缺 29 季（1999 Q1, 1999 Q2, 2000 Q3, 2000 Q4, 2001 Q1, 2001 Q2, 2001 Q3, 2002 Q1, 2002 Q2, 2002 Q3, 2003 Q2, 2003 Q4, 2005 Q4, 2006 Q2, 2007 Q1, 2007 Q2, 2007 Q3, 2007 Q4, 2008 Q1, 2008 Q2, 2008 Q3, 2008 Q4, 2009 Q1, 2009 Q2, 2010 Q3, 2011 Q1, 2011 Q2, 2011 Q3, 2012 Q4）：补查未完成或原表未核实，后续重试；不作零持仓",
+          "label": "巴菲特 13F"
+        },
+        "buffett_audit": {
+          "status": "ok",
+          "ts": "2026-10-26T18:57:40Z",
+          "msg": "",
+          "label": "巴菲特 申报金额复核"
+        },
+        "buffett_identities": {
+          "status": "ok",
+          "ts": "2026-10-26T18:57:40Z",
+          "msg": "",
+          "label": "巴菲特 证券代码核对"
+        },
+        "buffett_prices": {
+          "status": "ok",
+          "ts": "2026-10-26T18:57:46Z",
+          "msg": "",
+          "label": "巴菲特 股价与成本"
+        },
+        "akre_greenberg_13f": {
+          "status": "warn",
+          "ts": "2026-10-26T18:58:21Z",
+          "msg": "akre 历史缺 30 季（2000 Q4, 2001 Q1, 2001 Q2, 2001 Q3, 2002 Q2, 2002 Q3, 2003 Q1, 2003 Q2, 2003 Q3, 2003 Q4, 2004 Q1, 2004 Q2, 2004 Q3, 2004 Q4, 2005 Q1, 2005 Q2, 2005 Q3, 2005 Q4, 2006 Q1, 2006 Q2, 2006 Q3, 2006 Q4, 2007 Q1, 2007 Q2, 2007 Q3, 2007 Q4, 2009 Q1, 2009 Q2, 2009 Q4, 2013 Q1）：补查未完成或原表未核实，后续重试；不作零持仓",
+          "label": "Akre/Greenberg 13F"
+        },
+        "akre_13f": {
+          "status": "ok",
+          "ts": "2026-10-26T18:58:21Z",
+          "msg": "",
+          "label": "查克·阿克瑞 13F"
+        },
+        "akre_audit": {
+          "status": "ok",
+          "ts": "2026-10-26T18:58:22Z",
+          "msg": "",
+          "label": "查克·阿克瑞 申报金额复核"
+        },
+        "akre_identities": {
+          "status": "ok",
+          "ts": "2026-10-26T18:58:22Z",
+          "msg": "",
+          "label": "查克·阿克瑞 证券代码核对"
+        },
+        "akre_prices": {
+          "status": "ok",
+          "ts": "2026-10-26T18:58:24Z",
+          "msg": "",
+          "label": "查克·阿克瑞 股价与成本"
+        },
+        "greenberg_13f": {
+          "status": "ok",
+          "ts": "2026-10-26T18:58:26Z",
+          "msg": "",
+          "label": "格伦·格林伯格 13F"
+        },
+        "greenberg_audit": {
+          "status": "ok",
+          "ts": "2026-10-26T18:58:26Z",
+          "msg": "",
+          "label": "格伦·格林伯格 申报金额复核"
+        },
+        "greenberg_identities": {
+          "status": "ok",
+          "ts": "2026-10-26T18:58:26Z",
+          "msg": "",
+          "label": "格伦·格林伯格 证券代码核对"
+        },
+        "greenberg_prices": {
+          "status": "ok",
+          "ts": "2026-10-26T18:58:30Z",
+          "msg": "",
+          "label": "格伦·格林伯格 股价与成本"
+        },
+        "klarman_13f": {
+          "status": "warn",
+          "ts": "2026-10-26T18:58:34Z",
+          "msg": "klarman 历史缺 17 季（1999 Q1, 1999 Q3, 2001 Q1, 2001 Q2, 2001 Q3, 2001 Q4, 2002 Q1, 2007 Q3, 2009 Q2, 2009 Q4, 2010 Q1, 2010 Q2, 2010 Q3, 2010 Q4, 2011 Q1, 2011 Q2, 2011 Q3）：补查未完成或原表未核实，后续重试；不作零持仓",
+          "label": "塞斯·克拉曼 13F"
+        },
+        "klarman_audit": {
+          "status": "ok",
+          "ts": "2026-10-26T18:58:37Z",
+          "msg": "",
+          "label": "塞斯·克拉曼 申报金额复核"
+        },
+        "klarman_identities": {
+          "status": "ok",
+          "ts": "2026-10-26T18:58:37Z",
+          "msg": "",
+          "label": "塞斯·克拉曼 证券代码核对"
+        },
+        "klarman_prices": {
+          "status": "ok",
+          "ts": "2026-10-26T18:58:43Z",
+          "msg": "",
+          "label": "塞斯·克拉曼 股价与成本"
+        },
+        "ackman_13f": {
+          "status": "ok",
+          "ts": "2026-10-26T18:58:44Z",
+          "msg": "",
+          "label": "比尔·阿克曼 13F"
+        },
+        "ackman_audit": {
+          "status": "ok",
+          "ts": "2026-10-26T18:58:49Z",
+          "msg": "",
+          "label": "比尔·阿克曼 申报金额复核"
+        },
+        "ackman_identities": {
+          "status": "ok",
+          "ts": "2026-10-26T18:58:49Z",
+          "msg": "",
+          "label": "比尔·阿克曼 证券代码核对"
+        },
+        "ackman_prices": {
+          "status": "ok",
+          "ts": "2026-10-26T18:58:51Z",
+          "msg": "",
+          "label": "比尔·阿克曼 股价与成本"
+        },
+        "abrams_13f": {
+          "status": "ok",
+          "ts": "2026-10-26T18:58:53Z",
+          "msg": "",
+          "label": "大卫·艾布拉姆斯 13F"
+        },
+        "abrams_audit": {
+          "status": "ok",
+          "ts": "2026-10-26T18:58:59Z",
+          "msg": "",
+          "label": "大卫·艾布拉姆斯 申报金额复核"
+        },
+        "abrams_identities": {
+          "status": "ok",
+          "ts": "2026-10-26T18:58:59Z",
+          "msg": "",
+          "label": "大卫·艾布拉姆斯 证券代码核对"
+        },
+        "abrams_prices": {
+          "status": "ok",
+          "ts": "2026-10-26T18:59:01Z",
+          "msg": "",
+          "label": "大卫·艾布拉姆斯 股价与成本"
+        },
+        "berkowitz_13f": {
+          "status": "warn",
+          "ts": "2026-10-26T18:59:05Z",
+          "msg": "berkowitz 历史缺 31 季（1999 Q2, 1999 Q3, 1999 Q4, 2000 Q1, 2001 Q1, 2001 Q2, 2001 Q3, 2001 Q4, 2002 Q1, 2002 Q2, 2002 Q3, 2002 Q4, 2003 Q1, 2003 Q2, 2003 Q3, 2003 Q4, 2004 Q1, 2004 Q2, 2004 Q3, 2004 Q4, 2005 Q1, 2008 Q2, 2010 Q2, 2010 Q3, 2010 Q4, 2011 Q4, 2012 Q1, 2012 Q2, 2012 Q3, 2012 Q4, 2013 Q1）：补查未完成或原表未核实，后续重试；不作零持仓",
+          "label": "布鲁斯·伯科威茨 13F"
+        },
+        "berkowitz_audit": {
+          "status": "ok",
+          "ts": "2026-10-26T18:59:09Z",
+          "msg": "",
+          "label": "布鲁斯·伯科威茨 申报金额复核"
+        },
+        "berkowitz_identities": {
+          "status": "ok",
+          "ts": "2026-10-26T18:59:10Z",
+          "msg": "",
+          "label": "布鲁斯·伯科威茨 证券代码核对"
+        },
+        "berkowitz_prices": {
+          "status": "ok",
+          "ts": "2026-10-26T18:59:17Z",
+          "msg": "",
+          "label": "布鲁斯·伯科威茨 股价与成本"
+        },
+        "hawkins_13f": {
+          "status": "warn",
+          "ts": "2026-10-26T18:59:22Z",
+          "msg": "hawkins 历史缺 36 季（1999 Q1, 1999 Q2, 1999 Q3, 1999 Q4, 2000 Q1, 2000 Q3, 2000 Q4, 2002 Q2, 2002 Q3, 2002 Q4, 2005 Q1, 2005 Q2, 2005 Q3, 2005 Q4, 2006 Q1, 2006 Q2, 2006 Q3, 2006 Q4, 2008 Q4, 2009 Q1, 2009 Q2, 2009 Q3, 2009 Q4, 2010 Q1, 2010 Q2, 2010 Q3, 2010 Q4, 2011 Q1, 2011 Q2, 2011 Q3, 2011 Q4, 2012 Q1, 2012 Q2, 2012 Q3, 2012 Q4, 2013 Q1）：补查未完成或原表未核实，后续重试；不作零持仓",
+          "label": "梅森·霍金斯 13F"
+        },
+        "hawkins_audit": {
+          "status": "ok",
+          "ts": "2026-10-26T18:59:23Z",
+          "msg": "",
+          "label": "梅森·霍金斯 申报金额复核"
+        },
+        "hawkins_identities": {
+          "status": "ok",
+          "ts": "2026-10-26T18:59:23Z",
+          "msg": "",
+          "label": "梅森·霍金斯 证券代码核对"
+        },
+        "hawkins_prices": {
+          "status": "ok",
+          "ts": "2026-10-26T18:59:30Z",
+          "msg": "",
+          "label": "梅森·霍金斯 股价与成本"
+        },
+        "vinall_13f": {
+          "status": "ok",
+          "ts": "2026-10-26T18:59:31Z",
+          "msg": "",
+          "label": "罗布·维纳尔 13F"
+        },
+        "vinall_audit": {
+          "status": "ok",
+          "ts": "2026-10-26T18:59:31Z",
+          "msg": "",
+          "label": "罗布·维纳尔 申报金额复核"
+        },
+        "vinall_identities": {
+          "status": "ok",
+          "ts": "2026-10-26T18:59:32Z",
+          "msg": "",
+          "label": "罗布·维纳尔 证券代码核对"
+        },
+        "vinall_prices": {
+          "status": "ok",
+          "ts": "2026-10-26T18:59:33Z",
+          "msg": "",
+          "label": "罗布·维纳尔 股价与成本"
+        },
+        "marks_13f": {
+          "status": "ok",
+          "ts": "2026-10-26T18:59:40Z",
+          "msg": "",
+          "label": "霍华德·马克思 13F"
+        },
+        "marks_audit": {
+          "status": "ok",
+          "ts": "2026-10-26T18:59:45Z",
+          "msg": "",
+          "label": "霍华德·马克思 申报金额复核"
+        },
+        "marks_identities": {
+          "status": "ok",
+          "ts": "2026-10-26T19:00:10Z",
+          "msg": "",
+          "label": "霍华德·马克思 证券代码核对"
+        },
+        "marks_prices": {
+          "status": "ok",
+          "ts": "2026-10-26T19:00:21Z",
+          "msg": "",
+          "label": "霍华德·马克思 股价与成本"
+        },
+        "greenblatt_13f": {
+          "status": "ok",
+          "ts": "2026-10-26T19:00:25Z",
+          "msg": "",
+          "label": "乔尔·格林布拉特 13F"
+        },
+        "greenblatt_audit": {
+          "status": "ok",
+          "ts": "2026-10-26T19:00:28Z",
+          "msg": "",
+          "label": "乔尔·格林布拉特 申报金额复核"
+        },
+        "greenblatt_identities": {
+          "status": "ok",
+          "ts": "2026-10-26T19:00:30Z",
+          "msg": "",
+          "label": "乔尔·格林布拉特 证券代码核对"
+        },
+        "greenblatt_prices": {
+          "status": "ok",
+          "ts": "2026-10-26T19:02:43Z",
+          "msg": "",
+          "label": "乔尔·格林布拉特 股价与成本"
+        },
+        "mclemore_13f": {
+          "status": "ok",
+          "ts": "2026-10-26T19:02:48Z",
+          "msg": "",
+          "label": "萨曼莎·麦克勒莫尔 13F"
+        },
+        "mclemore_audit": {
+          "status": "ok",
+          "ts": "2026-10-26T19:02:49Z",
+          "msg": "",
+          "label": "萨曼莎·麦克勒莫尔 申报金额复核"
+        },
+        "mclemore_identities": {
+          "status": "ok",
+          "ts": "2026-10-26T19:02:49Z",
+          "msg": "",
+          "label": "萨曼莎·麦克勒莫尔 证券代码核对"
+        },
+        "mclemore_prices": {
+          "status": "ok",
+          "ts": "2026-10-26T19:02:51Z",
+          "msg": "",
+          "label": "萨曼莎·麦克勒莫尔 股价与成本"
+        },
+        "resolve_cusip": {
+          "status": "ok",
+          "ts": "2026-10-26T19:03:19Z",
+          "msg": "",
+          "label": "股票代码补齐"
+        },
+        "metadata": {
+          "status": "ok",
+          "ts": "2026-10-26T19:03:26Z",
+          "msg": "",
+          "label": "元数据富化"
+        },
+        "spinoff_hk": {
+          "status": "ok",
+          "ts": "2026-10-26T19:05:47Z",
+          "msg": "",
+          "label": "港股分拆"
+        },
+        "spinoff_us": {
+          "status": "warn",
+          "ts": "2026-10-26T19:12:55Z",
+          "msg": "1 份名称补全来源暂不可读，将自动重试；已保留历史证据",
+          "label": "美股分拆"
+        },
+        "spinoff_prices": {
+          "status": "ok",
+          "ts": "2026-10-26T19:10:19Z",
+          "msg": "",
+          "label": "分拆股价刷新"
+        },
+        "greenblatt_notes": {
+          "status": "ok",
+          "ts": "2026-10-26T19:10:20Z",
+          "msg": "",
+          "label": "格林布拉特点评"
+        },
+        "validation": {
+          "status": "ok",
+          "ts": "2026-10-26T19:13:10Z",
+          "msg": "",
+          "label": "发布前数据校验"
+        }
+      },
+      "workflowUrl": "https://github.com/fastisrealslow/li-lu-13f/actions/runs/40381820275",
+      "completedAt": "2026-10-26T19:13:10Z"
+    },
+    {
+      "schemaVersion": 2,
       "run_id": "2026-10-26T01:54:36Z",
       "trigger": "schedule",
       "steps": {
@@ -7184,201 +7643,6 @@
       },
       "workflowUrl": "https://github.com/fastisrealslow/li-lu-13f/actions/runs/38608375802",
       "completedAt": "2026-10-14T18:00:22Z"
-    },
-    {
-      "schemaVersion": 2,
-      "run_id": "2026-10-14T02:17:05Z",
-      "trigger": "schedule",
-      "steps": {
-        "hk_disclosures": {
-          "status": "ok",
-          "ts": "2026-10-14T02:19:25Z",
-          "msg": "",
-          "label": "港股披露监控"
-        },
-        "lilu_13f": {
-          "status": "ok",
-          "ts": "2026-10-14T02:19:27Z",
-          "msg": "",
-          "label": "李录 13F"
-        },
-        "pabrai_13f": {
-          "status": "ok",
-          "ts": "2026-10-14T02:19:28Z",
-          "msg": "",
-          "label": "Pabrai 13F"
-        },
-        "duan_13f": {
-          "status": "ok",
-          "ts": "2026-10-14T02:19:30Z",
-          "msg": "",
-          "label": "段永平 13F"
-        },
-        "tepper_13f": {
-          "status": "ok",
-          "ts": "2026-10-14T02:19:31Z",
-          "msg": "",
-          "label": "Tepper 13F"
-        },
-        "buffett_13f": {
-          "status": "ok",
-          "ts": "2026-10-14T02:19:33Z",
-          "msg": "",
-          "label": "巴菲特 13F"
-        },
-        "akre_greenberg_13f": {
-          "status": "ok",
-          "ts": "2026-10-14T02:19:36Z",
-          "msg": "",
-          "label": "Akre/Greenberg 13F"
-        },
-        "batch2_13f": {
-          "status": "ok",
-          "ts": "2026-10-14T02:19:44Z",
-          "msg": "",
-          "label": "batch2_13f"
-        },
-        "vinall_13f": {
-          "status": "ok",
-          "ts": "2026-10-14T02:19:46Z",
-          "msg": "",
-          "label": "罗布·维纳尔 13F"
-        },
-        "vinall_prices": {
-          "status": "ok",
-          "ts": "2026-10-14T02:21:11Z",
-          "msg": "",
-          "label": "罗布·维纳尔 股价"
-        },
-        "lilu_prices": {
-          "status": "ok",
-          "ts": "2026-10-14T02:21:23Z",
-          "msg": "",
-          "label": "李录 股价"
-        },
-        "pabrai_prices": {
-          "status": "ok",
-          "ts": "2026-10-14T02:21:46Z",
-          "msg": "",
-          "label": "Pabrai 股价"
-        },
-        "duan_prices": {
-          "status": "ok",
-          "ts": "2026-10-14T02:22:09Z",
-          "msg": "",
-          "label": "段永平 股价"
-        },
-        "tepper_prices": {
-          "status": "ok",
-          "ts": "2026-10-14T02:22:48Z",
-          "msg": "",
-          "label": "Tepper 股价"
-        },
-        "webb_prices": {
-          "status": "ok",
-          "ts": "2026-10-14T02:22:51Z",
-          "msg": "",
-          "label": "Webb 股价"
-        },
-        "buffett_prices": {
-          "status": "ok",
-          "ts": "2026-10-14T02:23:26Z",
-          "msg": "",
-          "label": "巴菲特 股价"
-        },
-        "akre_prices": {
-          "status": "ok",
-          "ts": "2026-10-14T02:25:48Z",
-          "msg": "",
-          "label": "Akre 股价"
-        },
-        "greenberg_prices": {
-          "status": "ok",
-          "ts": "2026-10-14T02:26:33Z",
-          "msg": "",
-          "label": "Greenberg 股价"
-        },
-        "klarman_prices": {
-          "status": "ok",
-          "ts": "2026-10-14T02:27:02Z",
-          "msg": "",
-          "label": "klarman_prices"
-        },
-        "ackman_prices": {
-          "status": "ok",
-          "ts": "2026-10-14T02:27:19Z",
-          "msg": "",
-          "label": "ackman_prices"
-        },
-        "abrams_prices": {
-          "status": "ok",
-          "ts": "2026-10-14T02:27:34Z",
-          "msg": "",
-          "label": "abrams_prices"
-        },
-        "berkowitz_prices": {
-          "status": "ok",
-          "ts": "2026-10-14T02:27:54Z",
-          "msg": "",
-          "label": "berkowitz_prices"
-        },
-        "hawkins_prices": {
-          "status": "ok",
-          "ts": "2026-10-14T02:29:05Z",
-          "msg": "",
-          "label": "hawkins_prices"
-        },
-        "webb_holdings": {
-          "status": "info",
-          "ts": "2026-10-14T02:29:05Z",
-          "msg": "历史档案模式：保留旧持仓，仅定期更新股价；停用不可用的持仓镜像。",
-          "label": "Webb 港股持仓"
-        },
-        "resolve_cusip": {
-          "status": "ok",
-          "ts": "2026-10-14T02:31:25Z",
-          "msg": "",
-          "label": "股票代码补齐"
-        },
-        "metadata": {
-          "status": "ok",
-          "ts": "2026-10-14T02:31:26Z",
-          "msg": "",
-          "label": "元数据富化"
-        },
-        "spinoff_hk": {
-          "status": "ok",
-          "ts": "2026-10-14T02:33:54Z",
-          "msg": "",
-          "label": "港股分拆"
-        },
-        "spinoff_us": {
-          "status": "ok",
-          "ts": "2026-10-14T02:36:35Z",
-          "msg": "",
-          "label": "美股分拆"
-        },
-        "spinoff_prices": {
-          "status": "ok",
-          "ts": "2026-10-14T02:37:35Z",
-          "msg": "",
-          "label": "分拆股价刷新"
-        },
-        "greenblatt_notes": {
-          "status": "ok",
-          "ts": "2026-10-14T02:37:35Z",
-          "msg": "",
-          "label": "格林布拉特点评"
-        },
-        "validation": {
-          "status": "ok",
-          "ts": "2026-10-14T02:39:36Z",
-          "msg": "",
-          "label": "发布前数据校验"
-        }
-      },
-      "workflowUrl": "https://github.com/fastisrealslow/li-lu-13f/actions/runs/38500189714",
-      "completedAt": "2026-10-14T02:39:36Z"
     }
   ]
 }
