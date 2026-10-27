@@ -378,10 +378,10 @@
       "reason": "ValueError: Bilingual editorial review: The Chinese text claims Buffett states 'X plus half a percent' vs 'X minus half a percent', but the source (s83) says 'X plus a half"
     },
     "duan-d7212008ca9cb0": {
-      "at": "2026-10-27T01:50:48+00:00",
+      "at": "2026-10-27T12:56:00+00:00",
       "status": "retry",
       "inputHash": "810a3b2f8d5187262731841344f42e605af7008d3c96b30a47d7a05a465596bd",
-      "reason": "ValueError: Bilingual editorial review: The English text incorrectly translates 'Vango' as the company name; the source (s0) clearly states 'Xiaobangwang' (Little King of W"
+      "reason": "JSONDecodeError: Extra data: line 11 column 1 (char 1319)"
     },
     "greenberg-6ffab78b7040e3": {
       "at": "2026-10-27T12:48:24+00:00",
@@ -3535,5 +3535,5 @@
       "reason": "ValueError: English text contains untranslated Chinese"
     }
   },
-  "updatedAt": "2026-10-27T12:55:40+00:00"
+  "updatedAt": "2026-10-27T12:56:00+00:00"
 }
