@@ -1891,10 +1891,10 @@
       "reason": "ValueError: Bilingual editorial review: The English paragraph contains a factual error regarding the source text: it states '18.6% in 1979', but Source s3 explicitly says '"
     },
     "buffett-9c95e843e00d00": {
-      "at": "2026-10-27T17:19:04+00:00",
+      "at": "2026-10-27T23:12:39+00:00",
       "status": "retry",
       "inputHash": "90cdf85e3e14e271a5874cadb196f9b57d9aa2b73e48c8e6dfab3a1fec1d89f1",
-      "reason": "ValueError: Unsupported numerical claim: 5.5%"
+      "reason": "ValueError: Bilingual editorial review: The English text incorrectly states 'In the 2017 Letter... Buffett argues...' while the Chinese text describes the letter as present"
     },
     "buffett-c7a8c84705ccbc": {
       "at": "2026-10-27T21:13:50+00:00",
@@ -3535,5 +3535,5 @@
       "reason": "ValueError: Bilingual editorial review: The source text (s10) states Joel Greenblatt's father was a shoe manufacturer, but the content incorrectly claims he 'acquired an in"
     }
   },
-  "updatedAt": "2026-10-27T23:12:32+00:00"
+  "updatedAt": "2026-10-27T23:12:39+00:00"
 }
