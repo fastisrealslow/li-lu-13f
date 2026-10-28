@@ -5,7 +5,7 @@
     "notablePeople": [
       "Warren Buffett"
     ],
-    "lastUpdated": "2026-10-27T18:27:35Z",
+    "lastUpdated": "2026-10-28T02:44:25Z",
     "aiSummary": "巴菲特本季度大幅增持谷歌并新增美国银行等仓位，同时减持部分消费股，显示其继续聚焦优质科技龙头与稳健金融板块。",
     "aiSummaryQuarter": "2026 Q2",
     "instrumentHistoryTickers": [
@@ -78053,7 +78053,7 @@
       ]
     },
     "coverage": {
-      "checkedAt": "2026-10-27T18:27:38Z",
+      "checkedAt": "2026-10-28T02:44:28Z",
       "missingQuarters": [
         "1999 Q1",
         "1999 Q2",
@@ -78087,10 +78087,10 @@
       ],
       "repairedThisRun": [],
       "errors": {
-        "2007 Q3": "Legacy table reconciliation failed: 96/97 rows, $65450693000/$65805833000",
-        "2007 Q4": "Legacy table reconciliation failed: 105/106 rows, $68373352000/$68768137000",
-        "2008 Q1": "Legacy table reconciliation failed: 104/105 rows, $66249400000/$66461224000",
-        "2008 Q2": "Legacy table reconciliation failed: 103/104 rows, $57648748000/$57877516000"
+        "2008 Q3": "Legacy table reconciliation failed: 108/109 rows, $69666455000/$69889879000",
+        "2008 Q4": "Legacy table reconciliation failed: 107/108 rows, $51668693000/$51869961000",
+        "2009 Q1": "Legacy table reconciliation failed: 109/110 rows, $40689831000/$40871225000",
+        "2009 Q2": "Legacy table reconciliation failed: 109/110 rows, $48776878000/$48954993000"
       },
       "attempts": {
         "1999 Q1": 4,
@@ -78113,10 +78113,10 @@
         "2007 Q4": 4,
         "2008 Q1": 4,
         "2008 Q2": 4,
-        "2008 Q3": 3,
-        "2008 Q4": 3,
-        "2009 Q1": 3,
-        "2009 Q2": 3,
+        "2008 Q3": 4,
+        "2008 Q4": 4,
+        "2009 Q1": 4,
+        "2009 Q2": 4,
         "2010 Q3": 3,
         "2011 Q1": 3,
         "2011 Q2": 3,
@@ -78846,7 +78846,7 @@
     "instrumentVerification": {
       "pendingQuarters": [],
       "errors": {},
-      "checkedAt": "2026-10-27T18:27:35.629941+00:00"
+      "checkedAt": "2026-10-28T02:44:25.170659+00:00"
     },
     "valueAudit": {
       "2026 Q2": {
@@ -81844,7 +81844,7 @@
       },
       "1998 Q4": {
         "version": 1,
-        "checkedAt": "2026-10-27",
+        "checkedAt": "2026-10-28",
         "source": "https://www.sec.gov/Archives/edgar/data/1067983/0000950150-00-000118.txt",
         "filingDate": "2000-02-15",
         "sourceDigest": "e9c0e865dabff88032d5da0fcd64756e8fc250dbc3c573016333997fef5b74cd",
@@ -81858,7 +81858,7 @@
             "price": 518.9374923706055,
             "date": "1998-12-31",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/MTB?period1=0&period2=1793212062&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/MTB?period1=0&period2=1793241868&interval=1d&events=splits",
             "candidates": [
               1
             ]
@@ -81869,7 +81869,7 @@
       },
       "1999 Q3": {
         "version": 1,
-        "checkedAt": "2026-10-25",
+        "checkedAt": "2026-10-28",
         "source": "https://www.sec.gov/Archives/edgar/data/1067983/0000950150-99-001240.txt",
         "filingDate": "1999-11-15",
         "sourceDigest": "1a9d30eadbeee33293b1dbc55da350c478edd463a2fe848ff4e98915b56949d9",
@@ -81883,7 +81883,7 @@
             "price": 459.00001525878906,
             "date": "1999-09-30",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/MTB?period1=0&period2=1792983634&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/MTB?period1=0&period2=1793241868&interval=1d&events=splits",
             "candidates": [
               1
             ]
@@ -81894,13 +81894,25 @@
       },
       "1999 Q4": {
         "version": 1,
-        "checkedAt": "2026-10-25",
+        "checkedAt": "2026-10-28",
         "source": "https://www.sec.gov/Archives/edgar/data/1067983/0000950150-00-000102.txt",
         "filingDate": "2000-02-14",
         "sourceDigest": "80f346fa17139cc771fd1650482ec8c15052dceab78b0d815fe01a690149c3ab",
-        "sourceHash": "c877a2e519a9f7ed37e6bca061b93afcac1bb757b2325a05338605c072538356",
+        "sourceHash": "e1aa3d65b4119a882ed4eb1fd1cb60e55dc61fc522aca09ac72202b860035013",
         "status": "pending",
         "anchors": [
+          {
+            "ticker": "GATX",
+            "cusip": "361448103",
+            "filedPrice": 33.74985765799962,
+            "price": 33.75,
+            "date": "1999-12-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/GATX?period1=0&period2=1793241869&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
           {
             "ticker": "MTB",
             "cusip": "55261F104",
@@ -81908,36 +81920,62 @@
             "price": 414.24999237060547,
             "date": "1999-12-31",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/MTB?period1=0&period2=1792983634&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/MTB?period1=0&period2=1793241868&interval=1d&events=splits",
             "candidates": [
               1
             ]
           }
         ],
         "errors": [],
-        "normalizedHash": "c877a2e519a9f7ed37e6bca061b93afcac1bb757b2325a05338605c072538356"
+        "normalizedHash": "e1aa3d65b4119a882ed4eb1fd1cb60e55dc61fc522aca09ac72202b860035013"
       },
       "2000 Q1": {
         "version": 1,
-        "checkedAt": "2026-10-25",
+        "checkedAt": "2026-10-28",
         "source": "https://www.sec.gov/Archives/edgar/data/1067983/0000950150-00-000439.txt",
         "filingDate": "2000-05-15",
         "sourceDigest": "67d443f8930e0c9d957a81650f57aa8292641518488e990b451c9cbeeb841588",
-        "sourceHash": "26c6e0ca7e29260172d6538cdf5e0e1d95cb625b5d8642501d92b8a37e548e89",
+        "sourceHash": "cbbccbc43f9d6f027c29e08e1d64295baa16fadb56e736efe7b2454c80680b6f",
         "status": "pending",
-        "anchors": [],
+        "anchors": [
+          {
+            "ticker": "GATX",
+            "cusip": "361448103",
+            "filedPrice": 38.000054490716145,
+            "price": 38.0,
+            "date": "2000-03-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/GATX?period1=0&period2=1793241869&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          }
+        ],
         "errors": [],
-        "normalizedHash": "26c6e0ca7e29260172d6538cdf5e0e1d95cb625b5d8642501d92b8a37e548e89"
+        "normalizedHash": "cbbccbc43f9d6f027c29e08e1d64295baa16fadb56e736efe7b2454c80680b6f"
       },
       "2000 Q2": {
         "version": 1,
-        "checkedAt": "2026-10-25",
+        "checkedAt": "2026-10-28",
         "source": "https://www.sec.gov/Archives/edgar/data/1067983/0001095811-00-002809.txt",
         "filingDate": "2000-08-14",
         "sourceDigest": "6796f14338993b85e066ef92c9b6d9efc6e6532f3f6b429055170e16fe288991",
-        "sourceHash": "512c9aebea71385dc457593de4bf94a6850120a87a82f7aac894f9d25b8f6634",
-        "status": "pending",
+        "sourceHash": "0f51a161fb26ff37e4099b9a57d551079608b0620c9599f3b8ccd05d37c00946",
+        "status": "verified",
+        "factor": 1,
         "anchors": [
+          {
+            "ticker": "GATX",
+            "cusip": "361448103",
+            "filedPrice": 34.00002724535807,
+            "price": 34.015625,
+            "date": "2000-06-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/GATX?period1=0&period2=1793241869&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
           {
             "ticker": "NKE",
             "cusip": "654106103",
@@ -81945,14 +81983,28 @@
             "price": 39.812503814697266,
             "date": "2000-06-30",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/NKE?period1=0&period2=1792983635&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/NKE?period1=0&period2=1793241870&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "EIX",
+            "cusip": "281020107",
+            "filedPrice": 20.49945711183496,
+            "price": 20.5,
+            "date": "2000-06-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/EIX?period1=0&period2=1793241870&interval=1d&events=splits",
             "candidates": [
               1
             ]
           }
         ],
-        "errors": [],
-        "normalizedHash": "512c9aebea71385dc457593de4bf94a6850120a87a82f7aac894f9d25b8f6634"
+        "agreementCount": 3,
+        "anchorCount": 3,
+        "outlierTickers": [],
+        "normalizedHash": "0f51a161fb26ff37e4099b9a57d551079608b0620c9599f3b8ccd05d37c00946"
       },
       "2001 Q4": {
         "version": 1,
