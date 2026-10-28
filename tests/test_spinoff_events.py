@@ -609,3 +609,56 @@ class FundDefinitionLayoutTests(unittest.TestCase):
         ann={'date':'2026-09-27','title':'建議分拆新公司有限公司於深交所上市','url':'https://www1.hkexnews.hk/listedco/ipo.pdf'}
         proof=parse_evidence('分拆新公司有限公司於深交所上市。基金管理人另管理基礎設施證券投資基金。',ann)
         self.assertFalse(proof.get('listingType',{}).get('is_reit'))
+
+class FollowupDossierIdentityTests(unittest.TestCase):
+    def test_listing_method_is_not_a_target_and_glossary_aliases_stay_in_their_row(self):
+        from spinoff_events import clean_name
+        title='(1)港澳文旅股份之建議分拆及以介紹方式於聯交所主板獨立上市；(2)有條件宣派實物分派'
+        body='「港元」 指香港法定貨幣港元\n「港澳文旅」或「分拆公司」 指中旅港澳文旅控股有限公司，一間於開曼群島註冊成立之獲豁免有限公司。'
+        proof=parse_evidence(body,{'date':'2026-10-26','title':title,'url':'https://www1.hkexnews.hk/listedco/latest.pdf'})
+        self.assertEqual(proof['targetName'],'中旅港澳文旅控股有限公司')
+        self.assertNotIn('港元',proof['targetAliases'])
+        for phrase in ('以介紹方式於聯交所主板','以介绍方式于联交所主板','證券投資基金於上交所'):
+            self.assertEqual(clean_name(phrase),'')
+
+    def fixture(self, references=True):
+        old=parse_evidence('建議分拆中旅港澳文旅控股有限公司並於香港主板上市',{'date':'2026-05-20','url':'https://www1.hkexnews.hk/listedco/old.pdf'})
+        current=parse_evidence('確定享有分派權利的記錄日期將為二零二六年十一月二十日',{'date':'2026-10-26','url':'https://www1.hkexnews.hk/listedco/new.pdf'})
+        current.update(targetName='以介紹方式於聯交所主板',identityKind='entity',identityQuote='建議分拆及以介紹方式於聯交所主板獨立上市',identityVersion=3)
+        if references:current['identityReferences']=['2026-05-20']
+        company={'stockCode':'00308','ticker':'00308.HK','stockName':'香港中旅','filingEvidence':[old,current]}
+        data={'companies':[company],'eventsSchemaVersion':1,'events':[
+            {'id':'old-dossier','market':'hk','parentTicker':'00308.HK','targetName':old['targetName'],'evidence':old,'firstSeenAt':'2026-05-20T00:00:00Z'},
+            {'id':'duplicate-dossier','market':'hk','parentTicker':'00308.HK','targetName':current['targetName'],'evidence':current}]}
+        return data
+
+    def test_cached_false_identity_merges_followup_into_original_and_remains_idempotent(self):
+        data=self.fixture();normalize(data,'hk',now='2026-10-28T00:00:00Z')
+        self.assertEqual(len(data['events']),1)
+        e=data['events'][0]
+        self.assertEqual(e['id'],'old-dossier')
+        self.assertIn('duplicate-dossier',e['mergedIds'])
+        self.assertEqual(e['targetName'],'中旅港澳文旅控股有限公司')
+        self.assertEqual(e['status'],'record_set')
+        self.assertEqual(e['latestDate'],'2026-10-26')
+        self.assertEqual(e['dates']['recordDate']['date'],'2026-11-20')
+        self.assertEqual(len([a for a in e['announcements'] if a['relevance']=='candidate']),2)
+        self.assertEqual(e['firstSeenAt'],'2026-05-20T00:00:00Z')
+        self.assertEqual(data['companies'][0]['filingEvidence'][1]['identityReason'],'dated_reference')
+        validate_events(data)
+        changes=copy.deepcopy(data['changes']);normalize(data,'hk',now='2026-10-29T00:00:00Z')
+        self.assertEqual(data['changes'],changes)
+        self.assertEqual(len(data['events']),1)
+        self.assertIn('duplicate-dossier',data['events'][0]['mergedIds'])
+
+    def test_same_parent_without_identity_evidence_is_not_enough_to_merge(self):
+        data=self.fixture(references=False);normalize(data,'hk')
+        self.assertEqual(len(data['events']),2)
+        self.assertEqual(len([e for e in data['events'] if e['targetName']]),1)
+
+    def test_conflicting_references_do_not_choose_one_sibling_project(self):
+        from resolve_spinoff_names import link_references
+        rows=[{'url':'https://example.org/a','date':'2026-01-01','targetName':'Alpha Inc'},
+              {'url':'https://example.org/b','date':'2026-01-01','targetName':'Beta Inc'},
+              {'url':'https://example.org/c','targetName':'以介紹方式於聯交所主板','identityReferences':['2026-01-01']}]
+        self.assertFalse(link_references(rows)[2]['targetName'])

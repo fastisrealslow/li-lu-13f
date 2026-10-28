@@ -188,3 +188,33 @@ test('joint filings link the same verified fund across issuers without joining u
  const html=a.run('spinCard(events[0],{},spinJointRecords({events},events[0]))');assert.match(html,/同一项目/);assert.match(html,/data-open-event="us:Q:one"/);
  a.context.events[0].targetName='';assert.equal(a.run('spinJointRecords({events},events[0]).length'),0);
 });
+test('a repaired HK followup is one row in all, recent and watched views and preserves both notes',()=>{
+ const a=app();const repaired={...event,id:'hk:00308:unresolved',mergedIds:['hk:00308:duplicate'],market:'hk',parentTicker:'00308.HK',parentName:'香港中旅',targetName:'中旅港澳文旅控股有限公司',type:{code:'intro_hk'},latestDate:'2026-10-26',recordUpdatedAt:'2026-10-28T00:00:00Z',status:'record_set',dates:{recordDate:{date:'2026-11-20',url:'https://example.org/new.pdf'}},announcements:[{date:'2026-10-26',url:'https://example.org/new.pdf',title:'新公告',direct:true},{date:'2026-05-20',url:'https://example.org/old.pdf',title:'原公告',direct:true}]};
+ a.context.repaired=repaired;
+ a.run("spinSave(repaired.id,{watch:true,note:'原档案笔记'});spinSave(repaired.mergedIds[0],{watch:true,note:'新公告笔记'});spinDash.hk.data={events:[repaired]};spinAutoWatchIntroductions(spinDash.hk.data)");
+ for(const view of ['all','changes','watch']){
+  a.context.view=view;
+  assert.equal(a.run("spinDash.hk.view=view;spinVisible(spinDash.hk,spinPrefs(),Date.parse(repaired.recordUpdatedAt)+1000).length"),1);
+ }
+ assert.equal(a.run('spinPrefs()[repaired.id].note'),'原档案笔记\n\n新公告笔记');
+ assert.equal(a.run('spinPrefs()[repaired.id].note'),'原档案笔记\n\n新公告笔记');
+ const html=a.run('spinCard(repaired)');assert.ok(html.includes('2026-10-26'));assert.ok(html.includes('2026-11-20'));
+});
+test('source archive retains every old document, orders publication dates and marks only confirmed latest files',()=>{
+ const a=app();a.context.dossier={...event,announcements:[
+  {url:'https://example.org/old.pdf',date:'2026-05-20',title:'旧公告',direct:true},
+  {url:'https://example.org/sibling.pdf',date:'2026-10-28',title:'其他项目公告',direct:true,relevance:'unverified'},
+  {url:'https://example.org/current.pdf',date:'2026-10-26',title:'最新公告',direct:true},
+  {url:'https://example.org/material.pdf',date:'2026-09-01',title:'历史材料',direct:true},
+  {url:'https://example.org/companion.pdf',date:'2026-10-26',title:'同日材料',direct:true}
+ ]};
+ let html=a.run('spinCard(dossier)');const section=html.slice(html.indexOf('sd-announcements'),html.indexOf('sd-announcements')+5000);
+ assert.match(section,/公告与历史材料/);
+ assert.ok(section.indexOf('current.pdf')<section.indexOf('material.pdf'));
+ assert.ok(section.indexOf('material.pdf')<section.indexOf('old.pdf'));
+ const latestLinks=[...section.matchAll(/class="sd-file-latest">最新<\/span><a href="([^"]+)"/g)].map(m=>m[1]);
+ assert.deepEqual(latestLinks,['https://example.org/current.pdf','https://example.org/companion.pdf']);
+ assert.ok(section.includes('sibling.pdf'));
+ assert.equal(a.run('dossier.announcements[0].date'),'2026-05-20');
+ a.run("lang='en'");html=a.run('spinCard(dossier)');assert.match(html,/Filings & source archive/);assert.match(html,/class="sd-file-latest">Latest/);
+});

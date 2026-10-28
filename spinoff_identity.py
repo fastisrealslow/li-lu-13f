@@ -1,7 +1,7 @@
 """Deterministic, source-bound target identity extraction (no paid AI dependency)."""
 import re
 
-IDENTITY_VERSION = 3
+IDENTITY_VERSION = 4
 # Capitalization bounds prevent consuming prose before an English legal name.
 LEGAL = r"[A-Z][A-Za-z0-9&’'\-]*(?: [A-Z][A-Za-z0-9&’'\-]*){0,7},? (?:Inc\.?|Corporation|Corp\.?|Limited|LIMITED|Ltd\.?|LTD\.?|PLC|LLC|Group)"
 ZHLEGAL = r'[\u4e00-\u9fffA-Za-z（）()]{2,45}?(?:股份有限公司|有限公司)'

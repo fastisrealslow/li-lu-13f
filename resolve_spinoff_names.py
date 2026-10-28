@@ -186,6 +186,11 @@ def document(ann, cik, opener, cache=None):
 
 def link_references(proofs):
     """Unnamed updates inherit identities only through explicit dated references."""
+    from spinoff_events import clean_name
+    for proof in proofs:
+        if proof.get('targetName') and not clean_name(proof['targetName']):
+            proof.update(targetName='', targetAliases=[], targetTicker='',
+                         identityQuote='', identityKind='', identityReason='invalid_name')
     by_date={}
     for proof in proofs:
         for date in {proof.get('date'), proof.get('documentDate')} - {None, ''}:

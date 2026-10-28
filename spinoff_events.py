@@ -95,6 +95,10 @@ def clean_name(value):
     if any(name.count(a) != name.count(b) for a, b in [('(', ')'), ('（', '）')]):
         return ''
     name = re.sub(r'(有限公司)及$', r'\1', name)
+    # Listing methods/venues can follow "分拆及" in a headline; they are
+    # transaction grammar, never a target's legal or business name.
+    if re.search(r'以(?:介紹|介绍)(?:方式|式)|聯交所|联交所|(?:於|于)(?:上交所|深交所)', name):
+        return ''
     if (not 2 <= len(name) <= 90 or name.lower() in {'tbd', 'spinco', 'newco', '(解析中)', '子公司', '附屬公司'}
             or re.search(r'\b(?:will|would|shall|entitlement|shares|common stock|receive|expects|from|including|owned)\b|建議分拆及|建议分拆及|公司的建議|交易所|董事會|董事会|股票價格|股票价格|分拆|獨立上市|独立上市|上市董事|本集團|本集团|並於|并于|批准|公告|茲提|兹提|拆上|上市市|本次發行|本次发行|財務顧問|财务顾问|法律顧問|法律顾问|最新情況|最新情况', name, re.I)):
         return ''
@@ -261,7 +265,7 @@ def parse_evidence(text, ann, cik=''):
     # Glossaries may define a listed trust before naming it ("信託" 指 ...).
     # Such an explicit alias can bind its stock code without using the parent.
     if target_name:
-        target_aliases += [a for a in re.findall(r'「([^」]{1,30})」\s*指[^。；]{0,80}?' + re.escape(target_name), text)
+        target_aliases += [a for a in re.findall(r'「([^」]{1,30})」\s*指[^。；「」“”"]{0,80}?' + re.escape(target_name), text)
                            if a not in {'本公司', '本集團', '公司', '集團'}]
     dates = extract_dates(text)
     if match['status'] == 'record_set':
@@ -327,6 +331,12 @@ def normalize(data, market, previous=None, now=None):
                     proof['issuerQuote'] = proof.get('identityQuote', '')
                 proof['identityQuote'] = ''
         proofs = [{**p, 'quote': html.unescape(p.get('quote', ''))} for p in c.get('filingEvidence') or []]
+        # Repair cached identities too: a new headline must update the existing
+        # dossier when its dated references identify that same project.
+        from resolve_spinoff_names import link_references
+        proofs = link_references(proofs)
+        if c.get('filingEvidence'):
+            c['filingEvidence'] = proofs
         for proof in proofs:
             if proof.get('method') == 'rule' and proof.get('ruleVersion', 0) < RULE_VERSION:
                 # Revalidate legacy status quotes when rules change. Missing full
