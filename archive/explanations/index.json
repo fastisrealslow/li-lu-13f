@@ -532,10 +532,10 @@
       "reason": "ValueError: Bilingual editorial review: The content section contains a severe factual error: it claims that evidence fragments s193, s194, and s196 discuss 'Shareholder Ret"
     },
     "pabrai-80ac2772f94ba4": {
-      "at": "2026-10-27T22:55:44+00:00",
+      "at": "2026-10-28T05:10:12+00:00",
       "status": "retry",
       "inputHash": "13aa1ee6f43a048e56b259cfed50f497bc0e8337defe223690e99ece6d519885",
-      "reason": "ValueError: Bilingual editorial review: The English translation contains a factual error: 'over an 70-to-80-year' should be 'over a 70-to-80-year'.; The English translation"
+      "reason": "ValueError: Bilingual editorial review: The source text (s5) cuts off mid-sentence ('when it was bought and'), but the summary correctly infers the intended meaning without"
     },
     "vinall-c919ac8b6b58c4": {
       "at": "2026-10-27T21:57:26+00:00",
@@ -3535,5 +3535,5 @@
       "reason": "ValueError: Incomplete AI Review at 900 tokens"
     }
   },
-  "updatedAt": "2026-10-28T05:10:08+00:00"
+  "updatedAt": "2026-10-28T05:10:12+00:00"
 }
