@@ -1322,10 +1322,10 @@
       "reason": "ValueError: Bilingual editorial review: The source text does not mention a book titled 'Five Moat Myths' or the author Rob Vinall; it only contains ASR transcript segments "
     },
     "pabrai-00ca7a03f93774": {
-      "at": "2026-10-28T02:32:23+00:00",
+      "at": "2026-10-28T15:06:27+00:00",
       "status": "retry",
       "inputHash": "7a780324a4c1dcbdcfc045aaa3611e3f567512c64585e7595819d72853e2e4e7",
-      "reason": "ValueError: Unsupported numerical claim: 0.625%"
+      "reason": "JSONDecodeError: Expecting ',' delimiter: line 4 column 433 (char 468)"
     },
     "pabrai-1e84c0b65621b6": {
       "at": "2026-10-28T06:08:02+00:00",
@@ -3535,5 +3535,5 @@
       "reason": "ValueError: Bilingual editorial review: The English text incorrectly claims Greenblatt developed his framework contrasting with 'Guru Book' strategies; the source (s12-s16)"
     }
   },
-  "updatedAt": "2026-10-28T15:06:13+00:00"
+  "updatedAt": "2026-10-28T15:06:27+00:00"
 }
