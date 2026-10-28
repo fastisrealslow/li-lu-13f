@@ -1088,10 +1088,10 @@
       "reason": "ValueError: Bilingual editorial review: The English translation in 'content.paragraphs[0].en' contains a factual error regarding the source text. The source (s2) states: 'i"
     },
     "pabrai-9152afaf247ee4": {
-      "at": "2026-10-28T02:27:46+00:00",
+      "at": "2026-10-28T14:38:56+00:00",
       "status": "retry",
       "inputHash": "754c2124bcd3591a58d8ae6d0a40511d1d515752d36df33cd8329283bbbed39f",
-      "reason": "ValueError: English text contains untranslated Chinese"
+      "reason": "ValueError: Bilingual editorial review: The English text incorrectly states 'graduating summa cum laude... in 1983'. The source (s7) says he graduated in 1983 but does not "
     },
     "pabrai-6aa3d87fb959bc": {
       "at": "2026-10-28T05:06:19+00:00",
@@ -3535,5 +3535,5 @@
       "reason": "ValueError: Bilingual editorial review: The English text incorrectly claims Greenblatt developed his framework contrasting with 'Guru Book' strategies; the source (s12-s16)"
     }
   },
-  "updatedAt": "2026-10-28T14:37:32+00:00"
+  "updatedAt": "2026-10-28T14:38:56+00:00"
 }
