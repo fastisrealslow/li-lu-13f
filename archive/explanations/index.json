@@ -1316,10 +1316,10 @@
       "reason": "ValueError: Bilingual editorial review: The English translation incorrectly states Pabrai switched to deep value investing 'between 1999 and 2000', whereas the source (s2) "
     },
     "vinall-ac99a6ec8608a5": {
-      "at": "2026-10-28T04:49:02+00:00",
+      "at": "2026-10-28T16:44:35+00:00",
       "status": "retry",
       "inputHash": "cdff013dc10407a889c756ede9e92ffc1eae348de89054ae5ca4593410792268",
-      "reason": "ValueError: Bilingual editorial review: The source text does not mention a book titled 'Five Moat Myths' or the author Rob Vinall; it only contains ASR transcript segments "
+      "reason": "ValueError: Bilingual editorial review: Author name mismatch: Source data (s8-s10) does not mention 'Rob Vinall' or 'RV Capital'. The text refers to the speaker as 'I', but"
     },
     "pabrai-00ca7a03f93774": {
       "at": "2026-10-28T15:06:27+00:00",
@@ -3535,5 +3535,5 @@
       "reason": "ValueError: Bilingual editorial review: The English text incorrectly claims Greenblatt developed his framework contrasting with 'Guru Book' strategies; the source (s12-s16)"
     }
   },
-  "updatedAt": "2026-10-28T16:43:38+00:00"
+  "updatedAt": "2026-10-28T16:44:35+00:00"
 }
