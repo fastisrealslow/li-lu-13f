@@ -687,10 +687,10 @@
       "reason": "ValueError: Bilingual editorial review: The English translation contains factual inaccuracies regarding the source text. The source (s25) states Buffett had 'no real connec"
     },
     "buffett-56163a42ef5133": {
-      "at": "2026-10-28T02:48:22+00:00",
+      "at": "2026-10-28T15:31:49+00:00",
       "status": "retry",
       "inputHash": "cfdfbcac3146ce4b42fd2ff983d1240dc006565f7f699d3ef683ac1dec555290",
-      "reason": "ValueError: Bilingual editorial review: The source text (s133) identifies the questioner as 'MARK ERSTEIN', but the content section incorrectly names him 'Marc Gerstein'. T"
+      "reason": "ValueError: Bilingual editorial review: The source text (s133) explicitly identifies the questioner as 'MARK ERSTEIN', not 'Mark Erstein' or a corrected version. The conten"
     },
     "buffett-822d3e9b019252": {
       "at": "2026-10-28T14:02:30+00:00",
@@ -3535,5 +3535,5 @@
       "reason": "ValueError: Bilingual editorial review: The English text incorrectly claims Greenblatt developed his framework contrasting with 'Guru Book' strategies; the source (s12-s16)"
     }
   },
-  "updatedAt": "2026-10-28T15:31:48+00:00"
+  "updatedAt": "2026-10-28T15:31:49+00:00"
 }
