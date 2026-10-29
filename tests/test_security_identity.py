@@ -19,7 +19,10 @@ class IdentityTests(unittest.TestCase):
                 self.assertEqual(len(rows),len(new[q]))
                 for a,b in zip(rows,new[q]):
                     self.assertEqual(a['shares'],b['shares']);self.assertEqual(a['value'],b['value'])
-                    if a.get('cusip'):self.assertEqual(a['cusip'],b['cusip'])
+                    if a.get('cusip') and a['cusip']!=b['cusip']:
+                        self.assertEqual((person['id'],q,a['cusip'],a['shares'],b['cusip']),('pabrai','2016 Q3','84670702',47400,'084670702'))
+                        self.assertEqual(b['reportedIdentity']['cusip'],a['cusip'])
+                        self.assertEqual(b['identityEvidence']['method'],'source_scoped_missing_leading_zero')
                     changed |= 'reportedIdentity' in b
                 for key in ('shares','value'):
                     self.assertEqual(sum(h[key] for h in rows),sum(h[key] for h in consolidate_holdings(new[q])))

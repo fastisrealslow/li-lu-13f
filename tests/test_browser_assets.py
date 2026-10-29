@@ -84,6 +84,8 @@ class LimitedPortfolioTests(unittest.TestCase):
         self.assertEqual([h['ticker'] for h in shown['current']['previousHoldings']],['TOP'])
         self.assertEqual(shown['meta']['browserScope']['reportedHoldings'],2)
         self.assertEqual(shown['history']['portfolioValues'],[.0001,.0003])
+        self.assertEqual(shown['history']['holdings'],data['history']['holdings'])
+        self.assertEqual(shown['meta']['browserScope']['historyScope'],'full_filing')
         self.assertEqual(data['current']['holdings'][1]['ticker'],'TAIL')
         prices=browser.current_prices({'quotes':{'TOP':{'c':2},'TAIL':{'c':1}},'costBasis':{'TOP':{},'TAIL':{}}},{'TOP'})
         self.assertEqual(set(prices['quotes']),{'TOP'})
