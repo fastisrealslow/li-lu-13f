@@ -335,6 +335,9 @@ def crawl_notices(client, hit, aliases, cached_records, binding=None, max_pages=
             queue.extend(p for p in further if p not in visited and p not in queue)
         except Exception as exc:
             complete=False;errors.append({'reason':str(exc)})
+    # A historical form conflict does not invalidate completed notice pagination.
+    # Otherwise every daily run downloads the entire notice archive again.
+    notice_history_complete=complete and not errors
     by_ref={}
     cached_by_ref={r['filing_ref']:r for r in cached_records if r.get('verification')=='hkex_form'}
     for record in records:
@@ -372,7 +375,7 @@ def crawl_notices(client, hit, aliases, cached_records, binding=None, max_pages=
             record.update(verified)
         except Exception as exc:
             errors.append({'filing_ref':record['filing_ref'],'scope':'historical','reason':str(exc)})
-    binding={**form,'history_complete':complete and not errors,'notice_url':url}
+    binding={**form,'history_complete':notice_history_complete,'notice_url':url}
     return list(by_ref.values()),binding,errors
 
 
