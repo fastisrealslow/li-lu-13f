@@ -7,11 +7,20 @@ import re
 from decimal import Decimal
 from bs4 import BeautifulSoup
 
-VERSION = 3
+VERSION = 4
 NUMBER = r'[\d,]+(?:\.\d+)?'
 CUSIP=r'(?:[A-Z0-9*@#]{6} {0,3}[A-Z0-9*@#]{2} {0,3}[A-Z0-9*@#]|[0-9]{7,8})'
 ROW=re.compile(r'\b('+CUSIP+r')\s+\$?\s*('+NUMBER+r')\s+('+NUMBER+r')\s*(SH|PRN|PR|PUT|CALL|CO)?(?:\s+(PUT|CALL)\b)?(?=\s|$)',re.I)
 CLASS=re.compile(r'^(.*?)\s+((?:COM(?:MON)?(?:\s+STOCK)?|CL(?:ASS)?\s+[A-Z](?:\s+NEW)?|ORD(?:INARY)?|SHS?(?:\s+.*)?|ADR|SPONSORED.*|PREF.*|PFD.*|LEA|NOTE.*|DEB.*|PUT|CALL))$',re.I)
+
+def amendment_type(raw):
+    text=BeautifulSoup(raw.decode('utf-8',errors='replace'),'html.parser').get_text(' ',strip=True)
+    checked=r'(?:\[\s*[xX]\s*\]|\|\s*[xX]\s*\||\(\s*[xX]\s*\))'
+    rest=bool(re.search(checked+r'\s*(?:is\s+)?a\s+restatement',text,re.I))
+    adds=bool(re.search(checked+r'\s*adds?\s+new\s+holdings?\s+entries',text,re.I))
+    if rest and not adds:return 'RESTATEMENT'
+    if adds and not rest:return 'NEW HOLDINGS'
+    return None
 
 def verify_report_file_number(raw, expected):
     # SEC indexing headers can use an old registrant number. The actual 13F
@@ -156,12 +165,13 @@ def fixed_width_tables(source):
     return rows if found else None
 
 
-def parse_legacy(raw, *, retain_source_discrepancies=False):
+def parse_legacy(raw, *, retain_source_discrepancies=False, _use_fixed=True):
     source=raw.decode('utf-8',errors='replace')
     if not re.search(r'CONFORMED SUBMISSION TYPE:\s*13F-HR\b|<TYPE>13F-HR\b',source,re.I):
         raise ValueError('Legacy source is not a complete 13F holdings report')
     if re.search(r'CONFORMED SUBMISSION TYPE:\s*13F-HR/A\b|<TYPE>13F-HR/A\b',source,re.I):
-        raise ValueError('Legacy amendments need explicit restatement evidence')
+        if amendment_type(raw)!='RESTATEMENT':
+            raise ValueError('Legacy amendments need explicit restatement evidence')
     soup=BeautifulSoup(source,'html.parser')
     text=re.sub(r'\s+',' ',soup.get_text(' ',strip=True))
     count=re.search(r'Table\s+Entry\s+Total\s*:[.\s]*('+NUMBER+')',text,re.I)
@@ -179,7 +189,7 @@ def parse_legacy(raw, *, retain_source_discrepancies=False):
             if not m:continue
             rows.append(dict(name=cells[i-2],cls=cells[i-1],cusip=cusip,value=int(amount(m[1])*1000),shares=int(amount(m[2])),shareType=m[3].upper(),putCall=(m[4] or '').title()))
             break
-    fixed = fixed_width_tables(source) if not rows else None
+    fixed = fixed_width_tables(source) if not rows and _use_fixed else None
     if fixed is not None:
         rows = fixed
     if not rows:
@@ -227,6 +237,14 @@ def parse_legacy(raw, *, retain_source_discrepancies=False):
     actual_total=sum(h['value'] for h in rows)
     count_matches=expected_count is None or expected_count in (len(rows),len(identities))
     total_matches=expected_total is not None and abs(actual_total-expected_total)<=500*((expected_count or len(rows))+1)
+    if fixed is not None and (not count_matches or not total_matches):
+        # Some ASCII tables mix tabs and spaces. Admit a token-based fallback
+        # only if BOTH cover count and value reconcile independently.
+        try:return parse_legacy(raw,_use_fixed=False)
+        except ValueError:pass
+        if retain_source_discrepancies and not count_matches:
+            try:return parse_legacy(raw,retain_source_discrepancies=True,_use_fixed=False)
+            except ValueError:pass
     count_discrepancy_proven = retain_source_discrepancies and fixed is not None and total_matches
     if (not count_matches and not count_discrepancy_proven) or (not total_matches and not retain_source_discrepancies):
         raise ValueError(f'Legacy table reconciliation failed: {len(rows)}/{expected_count} rows, ${sum(h["value"] for h in rows)}/${expected_total}')

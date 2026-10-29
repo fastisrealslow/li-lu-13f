@@ -141,3 +141,21 @@ class LegacyLayoutRecoveryTests(unittest.TestCase):
     def test_numeric_cusips_with_lost_leading_zeros_are_normalized(self):
         rows=parse_legacy(legacy('ABBOTT LAB   COM   2824100 100 2000 SH',100,1))
         self.assertEqual(rows[0]['cusip'],'002824100')
+
+class ExplicitLegacyRestatementTests(unittest.TestCase):
+    def test_only_the_checked_full_restatement_box_allows_an_amended_table(self):
+        raw=legacy('APPLE INC  COM  037833100  100  2000 SH',100,1).replace(b'13F-HR',b'13F-HR/A')
+        for flags in [b'[X] is a restatement [ ] adds new holding entries',b'|X| is a restatement |_| adds new holding entries']:
+            accepted=raw.replace(b'<TEXT>',b'<TEXT>'+flags)
+            self.assertEqual(parse_legacy(accepted)[0]['value'],100000)
+        for flags in [b'[ ] is a restatement [X] adds new holding entries',b'[X] is a restatement [X] adds new holding entries',b'is a restatement']:
+            with self.assertRaises(ValueError):parse_legacy(raw.replace(b'<TEXT>',b'<TEXT>'+flags))
+
+    def test_mixed_tab_fallback_keeps_all_rows_and_audits_an_inconsistent_cover(self):
+        body=f"{'APPLE INC':30}{'COM':15}{'037833100':10}100  2000 SH"
+        body+='\nOTHER CORP\tCOM\t012345678  200  3000 SH'
+        raw=LegacyLayoutRecoveryTests().fixed(body,2,900)
+        result=parse_legacy(raw,retain_source_discrepancies=True)
+        self.assertEqual(len(result),2)
+        self.assertEqual(sum(h['value'] for h in result),300000)
+        self.assertEqual(result.reconciliation['status'],'cover_total_mismatch')

@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-10-29T06:35:37+00:00",
+  "updatedAt": "2026-10-29T06:30:15+00:00",
   "companies": [
     {
       "id": "pdd",
@@ -661,13 +661,19 @@
           "url": "https://www.sec.gov/Archives/edgar/data/1737806/000110465926050727/pdd-20251231x20f.htm",
           "kind": "annual_report",
           "title": "2025 年度报告",
-          "sha256": "fdd73a23aca29745b75f9789eaacd6f09285c76aa43a8ff93d3dd7fc0e392eba"
+          "sha256": "e0a56215476ab7b01ba9c24e2b029d0faeb5b3300c36f25a02d4840515a5ca95",
+          "previousSha256": "fdd73a23aca29745b75f9789eaacd6f09285c76aa43a8ff93d3dd7fc0e392eba",
+          "verificationMethod": "exact_financial_replay",
+          "verifiedAt": "2026-10-29T06:30:15+00:00"
         },
         "pdd-2024": {
           "url": "https://www.sec.gov/Archives/edgar/data/1737806/000141057825000951/pdd-20241231x20f.htm",
           "kind": "annual_report",
           "title": "2024 年度报告",
-          "sha256": "7e7a94ee808238e26ffe9c9ed7855b4bf5420a07df5b617a75265a98a7d9f4c5"
+          "sha256": "f1da35d9ed441c830b4a3c193bd06ec632457e9df361b6867b277b4d4063a234",
+          "previousSha256": "7e7a94ee808238e26ffe9c9ed7855b4bf5420a07df5b617a75265a98a7d9f4c5",
+          "verificationMethod": "exact_financial_replay",
+          "verifiedAt": "2026-10-29T06:30:15+00:00"
         }
       },
       "listings": [
@@ -678,9 +684,9 @@
         }
       ],
       "financialStatus": {
-        "checkedAt": "2026-10-29T06:35:37+00:00",
-        "status": "retained",
-        "message": "本次财报读取／校验未完成，沿用已核实年报：Original source content changed: pdd-2025"
+        "checkedAt": "2026-10-29T06:30:15+00:00",
+        "status": "checked",
+        "message": "原始财报已复核，利润、现金、债务、股本及 ADS 比例等计算数据均与留存记录一致。"
       },
       "results": {
         "PDD": {
@@ -1442,7 +1448,7 @@
         }
       ],
       "financialStatus": {
-        "checkedAt": "2026-10-29T06:35:37+00:00",
+        "checkedAt": "2026-10-29T06:30:15+00:00",
         "status": "checked",
         "message": "已检查原始年报来源，未发现可替代的新完整年度报表。"
       },
@@ -2123,7 +2129,7 @@
         }
       ],
       "financialStatus": {
-        "checkedAt": "2026-10-29T06:35:37+00:00",
+        "checkedAt": "2026-10-29T06:30:15+00:00",
         "status": "checked",
         "message": "已检查原始年报来源，未发现可替代的新完整年度报表。"
       },
@@ -2881,7 +2887,7 @@
         }
       ],
       "financialStatus": {
-        "checkedAt": "2026-10-29T06:35:37+00:00",
+        "checkedAt": "2026-10-29T06:30:15+00:00",
         "status": "checked",
         "message": "已检查原始年报来源，未发现可替代的新完整年度报表。"
       },
@@ -3661,7 +3667,7 @@
         }
       ],
       "financialStatus": {
-        "checkedAt": "2026-10-29T06:35:37+00:00",
+        "checkedAt": "2026-10-29T06:30:15+00:00",
         "status": "checked",
         "message": "已检查原始年报来源，未发现可替代的新完整年度报表。"
       },
@@ -4375,10 +4381,18 @@
               "label": "流动负债合计"
             },
             "currentDebt": {
-              "value": 0,
-              "evidence": "合并财务报表未列示此类金额；本口径按 0 计。",
-              "page": null,
-              "policy": true,
+              "value": 0.0,
+              "evidence": "ifrs-full:CurrentNotesAndDebenturesIssuedAndCurrentPortionOfNoncurrentNotesAndDebenturesIssued; {'instant': '2023-12-31', 'dimensions': False}; - × 10^6",
+              "terms": [
+                {
+                  "value": 0.0,
+                  "evidence": "ifrs-full:CurrentNotesAndDebenturesIssuedAndCurrentPortionOfNoncurrentNotesAndDebenturesIssued; {'instant': '2023-12-31', 'dimensions': False}; - × 10^6",
+                  "concept": "ifrs-full:CurrentNotesAndDebenturesIssuedAndCurrentPortionOfNoncurrentNotesAndDebenturesIssued",
+                  "contextId": "C_a0549c42-2c4b-4e50-9d10-e5567e2dac62",
+                  "raw": "-",
+                  "scale": "6"
+                }
+              ],
               "sourceId": "tme-2024",
               "label": "短期借款／一年内到期债务"
             },
@@ -4548,13 +4562,19 @@
           "url": "https://www.sec.gov/Archives/edgar/data/1744676/000119312526160257/tme-20251231.htm",
           "kind": "annual_report",
           "title": "2025 年度报告",
-          "sha256": "1f4088b59f395ac933f166542deb6b0650de11b610fafa87f3ffa154b439faa4"
+          "sha256": "6f8ef5b14c677c8fc863d8af362488d324b1d1f746384f524abead52dfe3378f",
+          "previousSha256": "1f4088b59f395ac933f166542deb6b0650de11b610fafa87f3ffa154b439faa4",
+          "verificationMethod": "exact_financial_replay",
+          "verifiedAt": "2026-10-29T06:30:15+00:00"
         },
         "tme-2024": {
           "url": "https://www.sec.gov/Archives/edgar/data/1744676/000095017025056949/tme-20241231.htm",
           "kind": "annual_report",
           "title": "2024 年度报告",
-          "sha256": "b5a1c285b1c2c5899ea7d2543eafa016d468e024415447e0ff895c89751c7aa0"
+          "sha256": "d4926dd4b340243876e42fad469f10b9ce3a33ffb0a9a9da5f7be3a3644169f9",
+          "previousSha256": "b5a1c285b1c2c5899ea7d2543eafa016d468e024415447e0ff895c89751c7aa0",
+          "verificationMethod": "exact_financial_replay",
+          "verifiedAt": "2026-10-29T06:30:15+00:00"
         }
       },
       "listings": [
@@ -4570,9 +4590,9 @@
         }
       ],
       "financialStatus": {
-        "checkedAt": "2026-10-29T06:35:37+00:00",
-        "status": "retained",
-        "message": "本次财报读取／校验未完成，沿用已核实年报：Original source content changed: tme-2025"
+        "checkedAt": "2026-10-29T06:30:15+00:00",
+        "status": "checked",
+        "message": "原始财报已复核，利润、现金、债务、股本及 ADS 比例等计算数据均与留存记录一致。"
       },
       "results": {
         "1698.HK": {
@@ -5556,7 +5576,7 @@
         }
       ],
       "financialStatus": {
-        "checkedAt": "2026-10-29T06:35:37+00:00",
+        "checkedAt": "2026-10-29T06:30:15+00:00",
         "status": "checked",
         "message": "已检查原始年报来源，未发现可替代的新完整年度报表。"
       },
@@ -5741,10 +5761,16 @@
             "currentFinancialAssets": {
               "value": 216567000.0,
               "evidence": "mnso:TimeDepositsCurrent; {'instant': '2025-12-31', 'dimensions': False}; 216,567 × 10^3",
-              "concept": "mnso:TimeDepositsCurrent",
-              "contextId": "As_Of_12_31_2025_pCvMjlULiECwkJ71cKjlCg",
-              "raw": "216,567",
-              "scale": "3",
+              "terms": [
+                {
+                  "value": 216567000.0,
+                  "evidence": "mnso:TimeDepositsCurrent; {'instant': '2025-12-31', 'dimensions': False}; 216,567 × 10^3",
+                  "concept": "mnso:TimeDepositsCurrent",
+                  "contextId": "As_Of_12_31_2025_pCvMjlULiECwkJ71cKjlCg",
+                  "raw": "216,567",
+                  "scale": "3"
+                }
+              ],
               "sourceId": "miniso-2025",
               "label": "流动金融资产及定期存款"
             },
@@ -5976,7 +6002,7 @@
             },
             "currentFinancialAssets": {
               "value": 368952000.0,
-              "evidence": "+1 × (mnso:TimeDepositsCurrent; {'instant': '2024-12-31', 'dimensions': False}; 268,952 × 10^3); +1 × (ifrs-full:CurrentInvestments; {'instant': '2024-12-31', 'dimensions': False}; 100,000 × 10^3)",
+              "evidence": "mnso:TimeDepositsCurrent; {'instant': '2024-12-31', 'dimensions': False}; 268,952 × 10^3; ifrs-full:CurrentInvestments; {'instant': '2024-12-31', 'dimensions': False}; 100,000 × 10^3",
               "terms": [
                 {
                   "value": 268952000.0,
@@ -5984,8 +6010,7 @@
                   "concept": "mnso:TimeDepositsCurrent",
                   "contextId": "As_Of_12_31_2024_lvo6ol6vAECIWohNMildow",
                   "raw": "268,952",
-                  "scale": "3",
-                  "coefficient": 1
+                  "scale": "3"
                 },
                 {
                   "value": 100000000.0,
@@ -5993,11 +6018,9 @@
                   "concept": "ifrs-full:CurrentInvestments",
                   "contextId": "As_Of_12_31_2024_lvo6ol6vAECIWohNMildow",
                   "raw": "100,000",
-                  "scale": "3",
-                  "coefficient": 1
+                  "scale": "3"
                 }
               ],
-              "page": null,
               "sourceId": "miniso-2025",
               "label": "流动金融资产及定期存款"
             },
@@ -6189,7 +6212,7 @@
             },
             "currentFinancialAssets": {
               "value": 463625000.0,
-              "evidence": "+1 × (mnso:TimeDepositsCurrent; {'instant': '2023-12-31', 'dimensions': False}; 210,759 × 10^3); +1 × (ifrs-full:CurrentInvestments; {'instant': '2023-12-31', 'dimensions': False}; 252,866 × 10^3)",
+              "evidence": "mnso:TimeDepositsCurrent; {'instant': '2023-12-31', 'dimensions': False}; 210,759 × 10^3; ifrs-full:CurrentInvestments; {'instant': '2023-12-31', 'dimensions': False}; 252,866 × 10^3",
               "terms": [
                 {
                   "value": 210759000.0,
@@ -6197,8 +6220,7 @@
                   "concept": "mnso:TimeDepositsCurrent",
                   "contextId": "As_Of_12_31_2023_ApP6HKQBqkCrnOPa5NtZfg",
                   "raw": "210,759",
-                  "scale": "3",
-                  "coefficient": 1
+                  "scale": "3"
                 },
                 {
                   "value": 252866000.0,
@@ -6206,11 +6228,9 @@
                   "concept": "ifrs-full:CurrentInvestments",
                   "contextId": "As_Of_12_31_2023_ApP6HKQBqkCrnOPa5NtZfg",
                   "raw": "252,866",
-                  "scale": "3",
-                  "coefficient": 1
+                  "scale": "3"
                 }
               ],
-              "page": null,
               "sourceId": "miniso-2024",
               "label": "流动金融资产及定期存款"
             },
@@ -6348,8 +6368,8 @@
               "value": 2819648000.0,
               "evidence": "Operating profit |  | 401,035 | ​ | 882,027 | ​ | 2,223,011 | ​ | 957,070 | ​ | 1,553,707 | ​ | 2,819,648 | ​ | 3,315,789 | ​ | 3,303,123 | ​ | 472,341",
               "raw": "2,819,648",
-              "label": "经营利润／营业利润",
-              "sourceId": "miniso-2025"
+              "sourceId": "miniso-2025",
+              "label": "经营利润／营业利润"
             }
           },
           "ebitAdjustments": [],
@@ -6370,13 +6390,19 @@
           "url": "https://www.sec.gov/Archives/edgar/data/1815846/000110465926048172/mnso-20251231x20f.htm",
           "kind": "annual_report",
           "title": "2025 年度报告",
-          "sha256": "9e82397e6062610f6468d5fe7bcbc8c9ab946b1e5e73fc56f34b74ad54ee4a35"
+          "sha256": "41ecf8d93a2c412a46e291ed7156202730c89cd655ccbe26485d3e9228a5a3c5",
+          "previousSha256": "9e82397e6062610f6468d5fe7bcbc8c9ab946b1e5e73fc56f34b74ad54ee4a35",
+          "verificationMethod": "exact_financial_replay",
+          "verifiedAt": "2026-10-29T06:30:15+00:00"
         },
         "miniso-2024": {
           "url": "https://www.sec.gov/Archives/edgar/data/1815846/000141057825000858/mnso-20241231x20f.htm",
           "kind": "annual_report",
           "title": "2024 年度报告",
-          "sha256": "839dc91fcd2a0be8d91822861b1425a5f1448c61d777905c31ab199d096410f4"
+          "sha256": "fcb5efd08c0dce659bf1fee23699b4b993362227c8b35b6a6abea40481b0ac97",
+          "previousSha256": "839dc91fcd2a0be8d91822861b1425a5f1448c61d777905c31ab199d096410f4",
+          "verificationMethod": "exact_financial_replay",
+          "verifiedAt": "2026-10-29T06:30:15+00:00"
         }
       },
       "listings": [
@@ -6392,9 +6418,9 @@
         }
       ],
       "financialStatus": {
-        "checkedAt": "2026-10-29T06:35:37+00:00",
-        "status": "retained",
-        "message": "本次财报读取／校验未完成，沿用已核实年报：Original source content changed: miniso-2025"
+        "checkedAt": "2026-10-29T06:30:15+00:00",
+        "status": "checked",
+        "message": "原始财报已复核，利润、现金、债务、股本及 ADS 比例等计算数据均与留存记录一致。"
       },
       "results": {
         "9896.HK": {
@@ -6670,13 +6696,9 @@
       }
     }
   ],
-  "checkedAt": "2026-10-29T06:35:37+00:00",
+  "checkedAt": "2026-10-29T06:30:15+00:00",
   "updateStatus": {
-    "failures": [
-      "pdd report: Original source content changed: pdd-2025",
-      "tme report: Original source content changed: tme-2025",
-      "miniso report: Original source content changed: miniso-2025"
-    ],
-    "status": "partial"
+    "failures": [],
+    "status": "checked"
   }
 }

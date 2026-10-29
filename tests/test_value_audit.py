@@ -161,3 +161,23 @@ class ParserProofReplayTests(unittest.TestCase):
         a.refresh_parser_proof(data,'2000 Q1',rows,raw)
         self.assertEqual(data['history']['valueAudit']['2000 Q1']['normalizedHash'],a.digest(rows))
         with self.assertRaises(ValueError):a.refresh_parser_proof(data,'2000 Q1',rows,b'revised original')
+
+class HistoricalRestatementDiscoveryTests(unittest.TestCase):
+ def test_archived_ascii_full_restatement_replaces_a_same_day_original(self):
+  acc='0000000001-02-000002';name='CIK0000000001-submissions-001.json'
+  submissions={'filings':{'recent':{},'files':[{'name':name}]}}
+  table={'form':['13F-HR/A'],'reportDate':['2002-06-30'],'accessionNumber':[acc],'filingDate':['2002-08-14'],'primaryDocument':['report.txt']}
+  raw=f'''<SEC-DOCUMENT><SEC-HEADER>
+ACCESSION NUMBER: {acc}
+CONFORMED SUBMISSION TYPE: 13F-HR/A
+CONFORMED PERIOD OF REPORT: 20020630
+FILED AS OF DATE: 20020814
+CENTRAL INDEX KEY: 0000000001
+</SEC-HEADER><TEXT>[x] is a restatement [ ] adds new holdings entries</TEXT>'''.encode()
+  def fetch(path):return json.dumps(submissions if path.endswith('CIK0000000001.json') else table).encode() if path.startswith('submissions/') else raw
+  history={'filing_sources':{'2002 Q2':{'filingDate':'2002-08-14','accessionDashed':'0000000001-02-000001'}}}
+  found=audit.discover_restatements({'cik':'1'},history,{'2002 Q2'},fetch)
+  self.assertEqual(found['2002 Q2']['accessionDashed'],acc)
+  self.assertTrue(found['2002 Q2']['url'].endswith('.txt'))
+  # Reuse the immutable checked cover without spending the next run's budget.
+  self.assertEqual(audit.discover_restatements({'cik':'1'},history,{'2002 Q2'},fetch,limit=0),found)

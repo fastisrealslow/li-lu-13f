@@ -69,3 +69,14 @@ class ValueUnits(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+
+
+class CompleteSubmissionFallbackTests(unittest.TestCase):
+    def test_the_raw_sec_fallback_extracts_the_embedded_information_table(self):
+        table=f'<informationTable xmlns="{fetch.NS["ns"]}"><infoTable><nameOfIssuer>APPLE INC</nameOfIssuer><cusip>037833100</cusip><value>1234</value><shrsOrPrnAmt><sshPrnamt>10</sshPrnamt></shrsOrPrnAmt></infoTable></informationTable>'.encode()
+        raw=b'<SEC-DOCUMENT><SEC-HEADER>CONFORMED SUBMISSION TYPE: 13F-HR</SEC-HEADER><DOCUMENT><XML>'+table+b'</XML></DOCUMENT>'
+        self.assertEqual(fetch.parse_holdings(raw,filing_date='2026-08-14'),fetch.parse_holdings(table,filing_date='2026-08-14'))
+        with self.assertRaises(ValueError):fetch.parse_holdings(raw+b'<XML>'+table+b'</XML>',filing_date='2026-08-14')
+
+    def test_an_error_page_is_not_an_empty_portfolio(self):
+        with self.assertRaises(ValueError):fetch.parse_holdings(b'<html><body>Service unavailable</body></html>',filing_date='2026-08-14')

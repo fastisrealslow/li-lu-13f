@@ -32,7 +32,7 @@ jobs:
           ref: master
       - uses: actions/setup-python@v5
         with:
-          python-version: '3.11'
+          python-version: '3.12'
       - name: Install report readers
         run: pip install pymupdf==1.28.2 beautifulsoup4==4.15.0 pdfminer.six==20260107
       - uses: actions/cache@v4

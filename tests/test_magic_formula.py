@@ -213,3 +213,50 @@ class ExtractionTests(unittest.TestCase):
 
 
 if __name__=='__main__':unittest.main()
+
+
+class FinancialReplayStabilityTests(unittest.TestCase):
+    def test_cosmetic_changes_need_all_numbers_to_replay_before_accepting_new_digest(self):
+        from types import SimpleNamespace
+        from update_personal_portfolio import verify_existing_reports
+        c,_=fixture();specs={'annuals':[{'year':int(p['end'][:4])} for p in c['annuals']]}
+        by_year={int(p['end'][:4]):copy.deepcopy(p) for p in c['annuals']}
+        with patch('update_personal_portfolio.read_period',side_effect=lambda p,*_:copy.deepcopy(by_year[p['year']])):
+            self.assertEqual(verify_existing_reports(c,specs,{'annual':SimpleNamespace(digest='b'*64)},'2026-10-29T00:00:00Z'),1)
+        self.assertEqual(c['sources']['annual']['sha256'],'b'*64)
+        self.assertEqual(c['sources']['annual']['previousSha256'],'a'*64)
+        self.assertEqual(c['sources']['annual']['verificationMethod'],'exact_financial_replay')
+
+    def test_a_changed_financial_input_cannot_be_treated_as_a_cosmetic_change(self):
+        from types import SimpleNamespace
+        from update_personal_portfolio import verify_existing_reports
+        c,_=fixture();before=copy.deepcopy(c)
+        def changed(*_):
+            p=copy.deepcopy(c['annuals'][0]);p['facts']['cash']['value']+=1;return p
+        with patch('update_personal_portfolio.read_period',side_effect=changed):
+            with self.assertRaisesRegex(ValueError,'cash'):
+                verify_existing_reports(c,{'annuals':[{'year':2025}]},{'annual':SimpleNamespace(digest='b'*64)},'2026-10-29T00:00:00Z')
+        self.assertEqual(c,before)
+
+
+class SourceRequestStabilityTests(unittest.TestCase):
+    def test_total_download_deadline_is_bounded_and_a_failed_host_does_not_block_other_hosts(self):
+        from io import BytesIO
+        import itertools
+        import update_personal_portfolio as u
+        clock=itertools.chain([0,0,1],itertools.repeat(61))
+        with patch.object(u,'FAILED_HOSTS',set()),patch.object(u.time,'monotonic',side_effect=lambda:next(clock)),patch.object(u.time,'sleep'),patch.object(u,'urlopen',return_value=BytesIO(b'x')) as fetch:
+            with self.assertRaises(TimeoutError):u.request('https://slow.example/report')
+            self.assertEqual(fetch.call_count,1)
+            with self.assertRaises(OSError):u.request('https://slow.example/another')
+            self.assertEqual(fetch.call_count,1)
+            with patch.object(u.time,'monotonic',return_value=0),patch.object(u,'urlopen',return_value=BytesIO(b'ok')):
+                self.assertEqual(u.request('https://working.example/report'),b'ok')
+
+    def test_an_alternate_quote_endpoint_still_verifies_the_symbol_and_currency(self):
+        import update_personal_portfolio as u
+        payload={'chart':{'result':[{'meta':{'symbol':'SAMPLE','currency':'USD','exchangeTimezoneName':'UTC','priceHint':2},'timestamp':[1000],'indicators':{'quote':[{'close':[10] }]}}],'error':None}}
+        with patch.object(u,'request',side_effect=[TimeoutError('primary unavailable'),json.dumps(payload).encode()]) as fetch:
+            result=u.quote_data('SAMPLE','USD')
+        self.assertEqual(result['price'],10)
+        self.assertIn('query2.finance.yahoo.com',fetch.call_args.args[0])

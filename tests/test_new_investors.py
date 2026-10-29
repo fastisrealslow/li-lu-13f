@@ -130,3 +130,8 @@ class NewInvestors(unittest.TestCase):
         self.assertIsNone(event_for(dict(cusip='67623C307',ticker='OPI')))
 
 if __name__=='__main__':unittest.main()
+
+
+class DefaultRestatementCoverage(unittest.TestCase):
+    def test_all_registered_13f_managers_check_complete_restatements_by_default(self):
+        self.assertTrue(all(c.get('useRestatements') for c in sec.INVESTOR_CONFIG.values()))

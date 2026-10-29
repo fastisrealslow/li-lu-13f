@@ -42,6 +42,13 @@ def canonical_entity(name):
     return re.sub(r'[^\w]', '', name).casefold()
 
 
+def same_declared_entity(first,second):
+    def names(value):
+        former=re.findall(r'\(\s*(?:formerly|previously)\s+known\s+as\s+([^)]*)\)',value,re.I)
+        return {canonical_entity(value),*(canonical_entity(name) for name in former if name.strip())}-{''}
+    return bool(names(first)&names(second))
+
+
 def entity_matches(name, aliases):
     return canonical_entity(name) in {canonical_entity(a) for a in aliases}
 
@@ -167,6 +174,7 @@ def parse_form(html, url, aliases):
     soup = BeautifulSoup(html, 'html.parser')
     get = lambda name: text(soup.find(id=name))
     code, serial = get('lblDStockCode'), get('lblDSerialNo') or get('lblDLogNo')
+    serial,relation=filing_identity(serial)
     name = get('lblDName') or ' '.join(filter(None, [get('lblDSurname'),get('lblDFirstname')]))
     if not re.fullmatch(r'\d{4,5}', code) or not serial or not entity_matches(name, aliases):
         raise ValueError(f'Form stock/entity identity mismatch: {code}, {name}')
@@ -241,7 +249,7 @@ def parse_form(html, url, aliases):
                 event_date=dated(get('lblDEventDate')), filing_date=dated(get('lblDSignDate')),
                 issuer_name=get('lblViewCorpName'), share_class=get('lblDClass'),
                 shares=shares, pct=pct, position='long', source_url=url, form_url=url,
-                verification='hkex_form', supplementary=get('lblDSuppInfo'), **details)
+                verification='hkex_form', supplementary=get('lblDSuppInfo'), **relation, **details)
 
 
 class Client:
@@ -310,7 +318,7 @@ def crawl_notices(client, hit, aliases, cached_records, binding=None, max_pages=
         form = binding
     else:
         form = parse_form(client.get(newest['form_url']),newest['form_url'],aliases)
-    if not entity_matches(form['entity'], [hit['entity']]):
+    if not same_declared_entity(form['entity'], hit['entity']):
         raise ValueError('Form entity disagrees with notice list')
     if (form['filing_ref'],form['event_date'],form['shares'],form['pct']) != (newest['filing_ref'],newest['event_date'],newest['shares'],newest['pct']):
         raise ValueError('Notice table disagrees with the original form')
@@ -355,7 +363,7 @@ def crawl_notices(client, hit, aliases, cached_records, binding=None, max_pages=
     if prior and (by_ref[prior['filing_ref']].get('verification')!='hkex_form' or by_ref[prior['filing_ref']].get('position_details_schema') != POSITION_DETAILS_SCHEMA):
         try:
             verified=parse_form(client.get(prior['form_url']),prior['form_url'],aliases)
-            if verified['ticker']!=form['ticker'] or not entity_matches(verified['entity'],[hit['entity']]) or any(
+            if verified['ticker']!=form['ticker'] or not same_declared_entity(verified['entity'],hit['entity']) or any(
                     verified.get(k)!=prior.get(k) for k in ('filing_ref','event_date','shares','pct')):
                 raise ValueError('Previous original form disagrees with notice table')
             by_ref[prior['filing_ref']].update(verified)
@@ -369,7 +377,7 @@ def crawl_notices(client, hit, aliases, cached_records, binding=None, max_pages=
     for record in pending[:max(0, backfill_limit)]:
         try:
             verified = parse_form(client.get(record['form_url']), record['form_url'], aliases)
-            if verified['ticker'] != form['ticker'] or not entity_matches(verified['entity'], [hit['entity']]) or any(
+            if verified['ticker'] != form['ticker'] or not same_declared_entity(verified['entity'],hit['entity']) or any(
                     verified.get(k) != record.get(k) for k in ('filing_ref','event_date','shares','pct')):
                 raise ValueError('Historical original form disagrees with notice table')
             record.update(verified)

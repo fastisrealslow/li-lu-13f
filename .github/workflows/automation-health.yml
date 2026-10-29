@@ -1,0 +1,44 @@
+name: Automation Health and Recovery
+
+on:
+  schedule:
+    - cron: '17 */3 * * *'
+  workflow_dispatch:
+  push:
+    branches: [master]
+    paths:
+      - automation_health.py
+      - .github/workflows/automation-health.yml
+      - tests/test_automation_health.py
+
+permissions:
+  contents: read
+  actions: write
+
+concurrency:
+  group: automation-health-master
+  cancel-in-progress: false
+
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: master
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Test bounded recovery policy
+        run: python3 -m unittest discover -s tests -p test_automation_health.py -v
+      - name: Inspect freshness and recover collection or publication
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: python3 automation_health.py --repair --output "$RUNNER_TEMP/automation-health-report.json"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: automation-health-report
+          path: ${{ runner.temp }}/automation-health-report.json
+          retention-days: 30

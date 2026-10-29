@@ -159,3 +159,17 @@ class AISupplementTests(unittest.TestCase):
 
 
 if __name__ == '__main__': unittest.main()
+
+
+class CompletedCoverageTests(unittest.TestCase):
+    def test_missing_directions_and_required_limits_are_completed_from_known_facts(self):
+        facts={'kind':'investor','requiredIds':['scope','options'],'items':[{'id':key,'category':category,'change':'已披露'} for key,category in [('scope','scope'),('options','instrument'),('new','new'),('add','added'),('trim','trimmed'),('exit','exited')]]}
+        selected=ai.complete_selection({'factIds':['trim']},facts)
+        self.assertEqual(set(selected['factIds']),{f['id'] for f in facts['items']})
+        self.assertEqual(ai.limit_for(facts),6)
+        self.assertEqual(ai.validate_selection(selected,facts),selected['factIds'])
+
+    def test_completion_cannot_accept_foreign_ids_or_generated_prose(self):
+        facts={'kind':'investor','requiredIds':[],'items':[{'id':'f0','change':'增持','category':'added'}]}
+        for selection in [{'factIds':['f999']},{'factIds':['f0'],'summary':'made up'},{'factIds':['f0','f0']}]:
+            with self.assertRaises(ValueError):ai.complete_selection(selection,facts)

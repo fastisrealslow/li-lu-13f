@@ -66,6 +66,7 @@ def _load_investor_config():
             "manager": inv["manager"],
             "people": inv["people"],
             "path": os.path.join(BASE, inv["dataFile"]),
+            "useRestatements": inv.get("useRestatements", True),
         }
         if inv.get("consolidate"):
             entry["consolidate"] = True
@@ -738,8 +739,10 @@ def backfill_history_gaps(cik, data, filings, consolidate=False, limit=4):
     available={quarter_label(f['reportDate']) for f in filings}
     from legacy_13f import VERSION as legacy_version
     refresh_legacy={q for q,source in data.get('history',{}).get('filing_sources',{}).items() if source.get('url','').endswith('.txt') and source.get('parserVersion')!=legacy_version}
-    missing=sorted(set(missing_history_quarters(data)) | (available-stored) | refresh_legacy)
-    errors, repaired, audit = {}, [], None
+    actual_gaps=set(missing_history_quarters(data)) | (available-stored)
+    missing=sorted(actual_gaps | refresh_legacy)
+    prior_coverage=data.get("history",{}).get("coverage",{})
+    errors, repaired, audit = {q:e for q,e in prior_coverage.get("errors",{}).items() if q in missing}, [], None
     attempts = data.get("history", {}).get("coverage", {}).get("attempts", {})
     if missing:
         known = {quarter_label(f["reportDate"]) for f in filings}
@@ -751,6 +754,17 @@ def backfill_history_gaps(cik, data, filings, consolidate=False, limit=4):
         by_quarter = {}
         for filing in filings:
             by_quarter.setdefault(quarter_label(filing["reportDate"]), filing)
+        from audit_13f_history import discover_restatements
+        replacements={}
+        try:
+            replacements=discover_restatements({'cik':cik},data['history'],set(missing),sec_fetch)
+            by_quarter.update(replacements)
+        except Exception as exc:
+            data['history']['restatementLookupError']=str(exc)
+        for q in missing:
+            prior=data['history'].get('filing_sources',{}).get(q,{})
+            if prior.get('amendmentType')=='RESTATEMENT' and all(prior.get(k) for k in ('accession','accessionDashed','filingDate')) and prior['filingDate']>=by_quarter.get(q,{}).get('filingDate','') and q not in replacements:
+                by_quarter[q]=prior
         absent = [q for q in missing if q not in by_quarter]
         if absent:
             from sec_history_index import discover
@@ -767,8 +781,12 @@ def backfill_history_gaps(cik, data, filings, consolidate=False, limit=4):
                 errors[quarter] = ("Related notice/additive amendment found; no complete portfolio verified" if related else
                     "Expanded SEC index lookup incomplete; will retry" if audit and audit["status"] == "partial" else
                     "No matching complete 13F portfolio in submissions and checked quarterly indexes; not a zero position")
-        candidates = sorted((q for q in missing if q in by_quarter), key=lambda q: (attempts.get(q, 0), q))
-        for quarter in candidates[:limit]:
+        candidates = sorted((q for q in missing if q in by_quarter), key=lambda q: (q not in replacements, q not in actual_gaps, attempts.get(q, 0), q))
+        selected=candidates[:limit]
+        refresh_only=[q for q in candidates if q not in actual_gaps]
+        if limit>1 and refresh_only and len(selected)==limit and all(q in actual_gaps for q in selected) and not all(q in replacements for q in selected):
+            selected=selected[:-1]+refresh_only[:1]
+        for quarter in selected:
             filing = by_quarter[quarter]
             attempts[quarter] = attempts.get(quarter, 0) + 1
             try:
@@ -782,7 +800,12 @@ def backfill_history_gaps(cik, data, filings, consolidate=False, limit=4):
                 if not rows:
                     raise ValueError("Empty information table requires manual verification")
                 from audit_13f_history import refresh_parser_proof
-                refresh_parser_proof(data, quarter, rows, original)
+                if filing.get('amendmentType')!='RESTATEMENT':
+                    refresh_parser_proof(data, quarter, rows, original)
+                else:
+                    # A replacement is a different primary document; the old
+                    # price-unit proof cannot be silently attached to its rows.
+                    data['history'].get('valueAudit',{}).pop(quarter,None)
                 update_history(data, quarter, rows)
                 data["history"].setdefault("filing_sources", {})[quarter] = {
                     **filing, "url": "https://www.sec.gov" + path,
@@ -790,6 +813,7 @@ def backfill_history_gaps(cik, data, filings, consolidate=False, limit=4):
                     **({'sourceReconciliation': rows.reconciliation} if getattr(rows,'reconciliation',None) else {}),
                 }
                 repaired.append(quarter)
+                errors.pop(quarter,None)
                 print(f"  Backfilled {quarter}: {len(rows)} rows")
             except Exception as exc:
                 errors[quarter] = str(exc)
@@ -797,7 +821,8 @@ def backfill_history_gaps(cik, data, filings, consolidate=False, limit=4):
     data["history"]["coverage"] = {
         "checkedAt": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
         "missingQuarters": remaining, "repairedThisRun": repaired, "errors": errors,
-        "attempts": {q: attempts[q] for q in remaining if q in attempts},
+        "attempts": {q: attempts[q] for q in set(remaining) | (refresh_legacy-set(repaired)) if q in attempts},
+        "pendingRefreshQuarters":sorted(refresh_legacy-set(repaired)),
         "expandedLookup": audit,
         "status": "gaps_remaining" if remaining else "continuous_within_stored_range",
     }
@@ -869,6 +894,14 @@ def resolve_ticker(name: str, cls: str, cusip: str = "") -> str:
 def parse_holdings(xml_bytes: bytes, consolidate: bool = False, *, filing_date: str, retain_legacy_discrepancies=False) -> list[dict]:
     """解析 INFOTABLE XML，返回 holdings 列表（已排序）。"""
     if b'<SEC-HEADER>' in xml_bytes[:20000] or b'<SEC-DOCUMENT>' in xml_bytes[:2000]:
+        embedded=[]
+        for block in re.findall(rb'<XML>(.*?)</XML>',xml_bytes,re.I|re.S):
+            try:
+                if ET.fromstring(block.strip()).tag=='{'+NS['ns']+'}informationTable':embedded.append(block.strip())
+            except ET.ParseError:continue
+        if len(embedded)>1:raise ValueError('Multiple information tables in the SEC submission require reconciliation')
+        if embedded:
+            return parse_holdings(embedded[0],consolidate=consolidate,filing_date=filing_date)
         from legacy_13f import parse_legacy, LegacyHoldings
         raw_entries = parse_legacy(xml_bytes, retain_source_discrepancies=retain_legacy_discrepancies)
         for row in raw_entries:
@@ -877,6 +910,7 @@ def parse_holdings(xml_bytes: bytes, consolidate: bool = False, *, filing_date: 
         for row in holdings:row['sector']=SECTORS.get(row['ticker'],'其他')
         return LegacyHoldings(sorted(holdings,key=lambda h:-h['value']), raw_entries.reconciliation)
     root = ET.fromstring(xml_bytes)
+    if root.tag!='{'+NS['ns']+'}informationTable':raise ValueError('Unexpected SEC information-table XML root')
     filed=datetime.strptime(filing_date,'%Y-%m-%d')
     multiplier=1000 if filed<datetime(2023,1,3) else 1
     def whole(text,multiplier=1):
@@ -1041,7 +1075,7 @@ def backfill_security_classes(data, filings, max_quarters=4):
     data['history']['instrumentVerification']={'pendingQuarters':sorted(pending),'errors':errors,'checkedAt':datetime.now(timezone.utc).isoformat()}
 
 
-def backfill_restatements(data, filings, cik, consolidate=False):
+def backfill_restatements(data, filings, cik, consolidate=False, limit=4):
     """Replace stored original quarters when a verified complete restatement exists."""
     sources = data['history'].setdefault('filing_sources', {})
     repaired = []
@@ -1049,8 +1083,10 @@ def backfill_restatements(data, filings, cik, consolidate=False):
         quarter = quarter_label(filing['reportDate'])
         if filing.get('amendmentType') != 'RESTATEMENT' or sources.get(quarter, {}).get('accession') == filing['accession']:
             continue
+        if len(repaired)>=limit:break
         path = find_info_table_xml(filing.get('cik', cik), filing['accession'], filing['accessionDashed'])
         rows = parse_holdings(sec_fetch(path), consolidate=consolidate, filing_date=filing['filingDate'])
+        data['history'].get('valueAudit',{}).pop(quarter,None)
         update_history(data, quarter, rows)
         sources[quarter] = {**filing, 'url':'https://www.sec.gov'+path}
         repaired.append(quarter)

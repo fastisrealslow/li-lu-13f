@@ -168,34 +168,53 @@ def sync_current(data):
 
 
 def discover_restatements(config,history,quarters,fetch,limit=3):
-    """Check new 13F-HR/A filings; additive amendments are never full portfolios."""
+    """Use only explicit full restatements, including archived ASCII covers."""
     from fetch_13f_all import quarter_label,find_info_table_xml
+    from sec_history_index import bind_submission
     checks=history.setdefault('restatementChecks',{})
     replacements={};attempts=0
     ciks={str(history.get('filing_sources',{}).get(q,{}).get('cik') or config['cik']) for q in quarters}
     for cik in sorted(ciks):
         submissions=json.loads(fetch(f'submissions/CIK{int(cik):010d}.json'))
-        table=submissions.get('filings',{}).get('recent',{})
-        for i,form in enumerate(table.get('form',[])):
-            if form!='13F-HR/A':continue
-            q=quarter_label(table['reportDate'][i])
-            if q not in quarters:continue
-            accession=table['accessionNumber'][i];old=checks.get(accession,{})
+        batches=[submissions.get('filings',{}).get('recent',{})]
+        for archive in submissions.get('filings',{}).get('files',[]):
+            name=archive['name']
+            if not re.fullmatch(r'CIK[0-9]+-submissions-[0-9]+\.json',name):raise ValueError('Unexpected SEC archive filename')
+            batches.append(json.loads(fetch('submissions/'+name)))
+        candidates=[]
+        for table in batches:
+            for i,form in enumerate(table.get('form',[])):
+                if form=='13F-HR/A' and quarter_label(table['reportDate'][i]) in quarters:
+                    candidates.append({k:table[k][i] for k in ('reportDate','accessionNumber','filingDate','primaryDocument')})
+        candidates=sorted(candidates,key=lambda r:r['filingDate'],reverse=True)
+        order={r['accessionNumber']:i for i,r in enumerate(candidates)}
+        for candidate in candidates:
+            q=quarter_label(candidate['reportDate']);accession=candidate['accessionNumber'];old=checks.get(accession,{})
             if old.get('result')=='additive':continue
-            if attempts>=limit:break
-            attempts+=1
-            primary=table.get('primaryDocument',[])[i]
-            if not re.fullmatch(r'[\w.-]+',primary):continue
-            path=f"/Archives/edgar/data/{int(cik)}/{accession.replace('-','')}/{primary}"
-            root=sec_xml(fetch(path))
-            kind=next((e.text.strip().upper() for e in root.iter() if e.tag.split('}')[-1]=='amendmentType' and e.text),'')
-            checks[accession]={'result':'restatement' if kind=='RESTATEMENT' else 'additive' if kind=='NEW HOLDINGS' else 'pending','checkedAt':datetime.now(timezone.utc).date().isoformat()}
-            if kind!='RESTATEMENT':continue
-            if old.get('url'):url=old['url']
+            if old.get('result')=='restatement' and old.get('url'):
+                kind='RESTATEMENT';url=old['url']
             else:
-                info=find_info_table_xml(cik,accession.replace('-',''),accession);url='https://www.sec.gov'+info;checks[accession]['url']=url
-            f={'cik':cik,'accession':accession.replace('-',''),'accessionDashed':accession,'filingDate':table['filingDate'][i],'reportDate':table['reportDate'][i],'amendmentType':kind,'url':url}
-            if f['filingDate']>history.get('filing_sources',{}).get(q,{}).get('filingDate','') and f['filingDate']>replacements.get(q,{}).get('filingDate',''):replacements[q]=f
+                if attempts>=limit:continue
+                attempts+=1
+                if candidate['reportDate']<'2013-06-30':
+                    path=f"/Archives/edgar/data/{int(cik)}/{accession}.txt"
+                    bound=bind_submission(fetch(path),{'accessionDashed':accession,'filingDate':candidate['filingDate'],'form':'13F-HR/A','submissionPath':path},cik)
+                    if bound['reportDate']!=candidate['reportDate']:raise ValueError('Amendment period differs from SEC submissions')
+                    kind=bound['amendmentType'];url='https://www.sec.gov'+path
+                else:
+                    primary=candidate['primaryDocument']
+                    if not re.fullmatch(r'[\w.-]+',primary):continue
+                    path=f"/Archives/edgar/data/{int(cik)}/{accession.replace('-','')}/{primary}"
+                    root=sec_xml(fetch(path))
+                    kind=next((e.text.strip().upper() for e in root.iter() if e.tag.split('}')[-1]=='amendmentType' and e.text),'')
+                    url='https://www.sec.gov'+find_info_table_xml(cik,accession.replace('-',''),accession) if kind=='RESTATEMENT' else ''
+                checks[accession]={'result':'restatement' if kind=='RESTATEMENT' else 'additive' if kind=='NEW HOLDINGS' else 'pending','checkedAt':datetime.now(timezone.utc).date().isoformat(),'url':url}
+            if kind!='RESTATEMENT':continue
+            f={'cik':cik,'accession':accession.replace('-',''),'accessionDashed':accession,'filingDate':candidate['filingDate'],'reportDate':candidate['reportDate'],'amendmentType':kind,'url':url}
+            prior=history.get('filing_sources',{}).get(q,{})
+            prior_accession=prior.get('accessionDashed','')
+            same_day_newer=f['filingDate']==prior.get('filingDate') and (prior.get('amendmentType')!='RESTATEMENT' or prior_accession in order and order[accession]<order[prior_accession])
+            if (f['filingDate']>prior.get('filingDate','') or same_day_newer) and (q not in replacements or f['filingDate']>replacements[q]['filingDate']):replacements[q]=f
     return replacements
 
 

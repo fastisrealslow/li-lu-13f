@@ -1237,7 +1237,7 @@ function investorSummary(snapshot,ids,name,en=lang==='en') {
   if(!comparableQuarter(snapshot)) return comparisonNotice(snapshot);
   const facts=portfolioFacts(snapshot,name),chosen=ids || highlightSelection(facts);
   const known=new Map(facts.items.map(f=>[f.id,f]));
-  if(!Array.isArray(chosen)||!chosen.length||chosen.length>5||new Set(chosen).size!==chosen.length||chosen.some(id=>!known.has(id))) return null;
+  if(!Array.isArray(chosen)||!chosen.length||chosen.length>Math.max(5,facts.items.length)||new Set(chosen).size!==chosen.length||chosen.some(id=>!known.has(id))) return null;
   const directions=new Set(facts.items.filter(f=>CHANGE_KEYS.slice(0,4).includes(f.category)).map(f=>f.category));
   if([...directions].some(k=>!chosen.some(id=>known.get(id).category===k))) return null;
   const overview=CHANGE_KEYS.map(k=>`${k==='unknown'&&facts.comparisonState==='scope_partial'?(en?'New coverage':'新增覆盖'):changeLabel(k,en)}${en?' ':''}${facts.stats[k]}${en?'':'项'}`).join(en?', ':'、');
@@ -1382,7 +1382,7 @@ function scopedSummaryEntry(kind,snapshot) {
   if(kind==='holdings' && entry.briefing?.format!=='concise_holdings_v2')return null;
   if(JSON.stringify(entry.briefing)!==JSON.stringify(orderedBriefing(facts.briefing,entry.selection?.topicIds)))return null;
   const ids=entry.selection?.factIds,items=facts.items;
-  if(!Array.isArray(ids) || !ids.length || ids.length>3 || new Set(ids).size!==ids.length || !Array.isArray(items)) return null;
+  if(!Array.isArray(ids) || !ids.length || ids.length>Math.max(3,(facts.requiredIds || []).length+1) || new Set(ids).size!==ids.length || !Array.isArray(items)) return null;
   if(items.some(f=>!Array.isArray(f.text) || f.text.length!==2 || f.text.some(t=>typeof t!=='string'))) return null;
   if(ids.some(id=>!items.some(f=>f.id===id)) || (facts.requiredIds || []).some(id=>!ids.includes(id))) return null;
   const selected=items.filter(f=>ids.includes(f.id)),title=kind==='holdings'?'持仓结构':'历史轨迹';

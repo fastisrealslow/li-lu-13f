@@ -267,3 +267,32 @@ class LegacyHolderParameterTests(unittest.TestCase):
         self.assertTrue(hk.identity_allowed(hit,{'original':known},[hit]))
         other={**hit,'noticeUrl':old.replace('2224286','9999999')}
         self.assertFalse(hk.identity_allowed(other,{'original':known},[hit,other]))
+
+
+class RevisedAndRenamedForms(unittest.TestCase):
+    def test_original_form_keeps_amendment_relation_without_changing_its_identifier(self):
+        body=fixture('psbc_form').replace('IS20250513E00008','IS20250513E00008 (Amendment to IS20250512E00007)')
+        form=hk.parse_form(body,hk.BASE+'NSForm1.aspx',ALIASES)
+        self.assertEqual(form['filing_ref'],'IS20250513E00008')
+        self.assertEqual(form['amends'],'IS20250512E00007')
+        self.assertEqual(form['shares'],985618000)
+
+    def test_only_an_explicit_official_former_name_establishes_rename_continuity(self):
+        newer='Himalaya Capital Investors, L.P. (formerly known as LL Investment Partners, L.P.)'
+        self.assertTrue(hk.same_declared_entity('LL Investment Partners L.P.',newer))
+        self.assertFalse(hk.same_declared_entity('LL Investment Partners L.P.','Himalaya Capital Investors L.P.'))
+        self.assertFalse(hk.same_declared_entity('Another Investment Partners L.P.',newer))
+
+
+    def test_renamed_historical_forms_complete_the_same_notice_chain(self):
+        newer='Himalaya Capital Investors, L.P. (formerly known as LL Investment Partners, L.P.)'
+        records,_,_,_=hk.parse_notices(fixture('lilu_psbc_notices'),LIST)
+        by_url={r['form_url']:r for r in records}
+        latest=max(records,key=lambda r:r['event_date'])['filing_ref']
+        def form(body,url,aliases):
+            record=by_url[url]
+            return {**record,'ticker':'01658.HK','entity':newer if record['filing_ref']==latest else 'LL Investment Partners L.P.','verification':'hkex_form','position_details_schema':hk.POSITION_DETAILS_SCHEMA}
+        with patch.object(hk,'parse_form',side_effect=form):
+            rows,binding,errors=hk.crawl_notices(FixtureClient(),{**HIT,'entity':newer},[newer,'LL Investment Partners L.P.'],[],backfill_limit=4)
+        self.assertEqual(errors,[])
+        self.assertTrue(all(r['verification']=='hkex_form' for r in rows))

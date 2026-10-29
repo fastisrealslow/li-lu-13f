@@ -128,6 +128,25 @@ def validate_hk_evidence(value):
                 raise ValueError('Investment value cannot be converted into HK shares')
 
 
+def validate_holdings_snapshot(value):
+    validate_history(value.get("history"))
+    current = value.get("current", {})
+    if not isinstance(current.get("holdings"), list) or not current.get("quarter"):
+        raise ValueError("Missing current holdings or quarter")
+    if "totalValue" in current and (type(current["totalValue"]) not in (int,float) or not math.isfinite(current["totalValue"]) or current["totalValue"]<0):
+        raise ValueError("Invalid current total value")
+    if "totalValue" in current and abs(current["totalValue"] - sum(h["value"] for h in current["holdings"])) > .01:
+        raise ValueError("Current total disagrees with holdings")
+    for h in current["holdings"] + current.get("previousHoldings", []):
+        validate_manager_allocations(h)
+        if not h.get("ticker"):
+            raise ValueError("Missing holding ticker")
+        for field in ("shares", "value"):
+            number = h.get(field)
+            if not isinstance(number, (int, float)) or isinstance(number, bool) or not math.isfinite(number) or number < 0:
+                raise ValueError(f"Invalid {field} for {h['ticker']}")
+
+
 def validate(root):
     root = Path(root)
     config = read_json(root / "investors.json")
@@ -162,20 +181,7 @@ def validate(root):
             if name in ("spinoff.json", "spinoff_us.json"):
                 validate_events(value)
             if role == "dataFile":
-                validate_history(value.get("history"))
-                current = value.get("current", {})
-                if not isinstance(current.get("holdings"), list) or not current.get("quarter"):
-                    raise ValueError("Missing current holdings or quarter")
-                if "totalValue" in current and abs(current["totalValue"] - sum(h["value"] for h in current["holdings"])) > .01:
-                    raise ValueError("Current total disagrees with holdings")
-                for h in current["holdings"] + current.get("previousHoldings", []):
-                    validate_manager_allocations(h)
-                    if not h.get("ticker"):
-                        raise ValueError("Missing holding ticker")
-                    for field in ("shares", "value"):
-                        number = h.get(field)
-                        if not isinstance(number, (int, float)) or isinstance(number, bool) or not math.isfinite(number) or number < 0:
-                            raise ValueError(f"Invalid {field} for {h['ticker']}")
+                validate_holdings_snapshot(value)
             if role == "hkFile":
                 validate_hk_evidence(value)
             if role == "pricesFile" and not isinstance(value.get("quotes"), dict):

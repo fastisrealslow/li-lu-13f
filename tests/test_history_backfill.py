@@ -59,7 +59,7 @@ class BackfillTests(unittest.TestCase):
 
     def test_empty_table_is_not_a_zero_portfolio(self):
         d=data()
-        with patch.object(fetch,'get_recent_filings',return_value=[filing(1)]), patch.object(fetch,'find_info_table_xml',return_value='/Archives/table.xml'), patch.object(fetch,'sec_fetch',return_value=b'<empty/>'):
+        with patch.object(fetch,'get_recent_filings',return_value=[filing(1)]), patch.object(fetch,'find_info_table_xml',return_value='/Archives/table.xml'), patch.object(fetch,'sec_fetch',return_value=f'<informationTable xmlns="{fetch.NS["ns"]}"/>'.encode()):
             fetch.backfill_history_gaps('1709323',d,[])
         self.assertNotIn('2019 Q1',d['history']['quarters'])
         self.assertIn('Empty information table',d['history']['coverage']['errors']['2019 Q1'])
@@ -98,3 +98,12 @@ class DatedHistoricalReporterTests(unittest.TestCase):
         verify_report_file_number(b'13F File Number: 028-07120','28-7120')
         with self.assertRaises(ValueError):verify_report_file_number(b'13F File Number: 28-4435','28-7120')
         with self.assertRaises(ValueError):verify_report_file_number(b'SEC FILE NUMBER: 028-07120','28-7120')
+
+
+class BoundedRefreshFairness(unittest.TestCase):
+    def test_permanent_gaps_cannot_starve_parser_refreshes(self):
+        d={'history':{'quarters':['2019 Q1','2019 Q4'],'values':[1,1],'holdings':{'2019 Q1':[],'2019 Q4':[]},'filing_sources':{'2019 Q1':{'url':'https://www.sec.gov/Archives/old.txt','parserVersion':0}}}}
+        with patch.object(fetch,'find_info_table_xml',return_value='/Archives/table.xml'),patch.object(fetch,'sec_fetch',return_value=table()):
+            fetch.backfill_history_gaps('1',d,[filing(n) for n in [1,2,3]],limit=2)
+        self.assertIn('2019 Q1',d['history']['coverage']['repairedThisRun'])
+        self.assertEqual(len(d['history']['coverage']['repairedThisRun']),2)

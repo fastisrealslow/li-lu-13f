@@ -13,20 +13,25 @@ import time
 from datetime import datetime, timezone
 from pathlib import Path
 from zoneinfo import ZoneInfo
-from urllib.parse import quote as urlquote, urlencode, urljoin
+from urllib.parse import quote as urlquote, urlencode, urljoin, urlsplit
 from urllib.request import Request, urlopen
+from urllib.error import HTTPError
 
 from magic_formula import calculate, validate_company, validate_dataset
 from personal_reports import InlineReport, PDFReport, extract_recipe, ads_conversion
 
 ROOT=Path(__file__).resolve().parent
 UA='PersonalPortfolioResearch/1.0 (+https://github.com/fastisrealslow/li-lu-13f)'
+FAILED_HOSTS=set()
 
 
 def now(): return datetime.now(timezone.utc).isoformat(timespec='seconds')
 
 
 def request(url, data=None):
+    host=urlsplit(url).hostname
+    if host in FAILED_HOSTS:raise OSError('Source temporarily unavailable in this run: '+str(host))
+    deadline=time.monotonic()+60
     headers={'User-Agent':UA,'Accept':'application/json,text/html,application/pdf,*/*'}
     if 'sec.gov' in url:
         from fetch_13f_all import USER_AGENT
@@ -38,10 +43,20 @@ def request(url, data=None):
     last=None
     for attempt in range(2):
         try:
-            with urlopen(Request(url,data=body,headers=headers),timeout=35) as res:return res.read()
+            if time.monotonic()>=deadline:raise TimeoutError('Total source download deadline exceeded')
+            with urlopen(Request(url,data=body,headers=headers),timeout=15) as res:
+                chunks=[];size=0;read=getattr(res,'read1',res.read)
+                while True:
+                    if time.monotonic()>=deadline:raise TimeoutError('Total source download deadline exceeded')
+                    chunk=read(65536)
+                    if not chunk:return b''.join(chunks)
+                    size+=len(chunk)
+                    if size>60_000_000:raise ValueError('Source document exceeds download limit')
+                    chunks.append(chunk)
         except Exception as exc:
             last=exc
             if not attempt:time.sleep(1)
+    if not isinstance(last,HTTPError) or last.code in (403,429,500,502,503,504):FAILED_HOSTS.add(host)
     raise last
 
 
@@ -133,11 +148,17 @@ def retarget(profile, year, sid):
 
 
 def quote_data(ticker, currency):
-    url='https://query1.finance.yahoo.com/v8/finance/chart/'+urlquote(ticker,safe='')+'?range=1mo&interval=1d'
-    payload=json.loads(request(url))['chart']
-    if payload.get('error') or not payload.get('result'):raise ValueError('Quote provider did not return '+ticker)
-    chart=payload['result'][0];meta=chart['meta']
-    if meta.get('symbol','').upper()!=ticker.upper() or meta.get('currency')!=currency:raise ValueError('Quote symbol or currency mismatch')
+    error=None
+    for host in ('query1.finance.yahoo.com','query2.finance.yahoo.com'):
+        try:
+            url='https://'+host+'/v8/finance/chart/'+urlquote(ticker,safe='')+'?range=1mo&interval=1d'
+            payload=json.loads(request(url))['chart']
+            if payload.get('error') or not payload.get('result'):raise ValueError('Quote provider did not return '+ticker)
+            chart=payload['result'][0];meta=chart['meta']
+            if meta.get('symbol','').upper()!=ticker.upper() or meta.get('currency')!=currency:raise ValueError('Quote symbol or currency mismatch')
+            break
+        except Exception as exc:error=exc
+    else:raise error
     # Use the most recent actual DAILY close and that session's timestamp.
     regular=meta.get('currentTradingPeriod',{}).get('regular',{})
     session_duration=regular.get('end',0)-regular.get('start',0)
@@ -170,9 +191,43 @@ def rebuild_results(c, quotes, failures):
             if old:c['results'][ticker]={str(years):calculate(c,old,years) for years in (1,3)}
 
 
+def verify_existing_reports(company,profile,reports,checked):
+    """A byte change is acceptable only after replaying every consumed number."""
+    changed={sid for sid,report in reports.items() if report.digest!=company['sources'][sid]['sha256']}
+    replayed={};covered=set()
+    for spec in profile['annuals']:
+        extracted=read_period(spec,company['sources'],reports)
+        stored=next(p for p in company['annuals'] if int(p['end'][:4])==spec['year'])
+        if set(extracted['facts'])!=set(stored['facts']):raise ValueError('Report fact scope changed')
+        for field,fact in extracted['facts'].items():
+            if abs(fact['value']-stored['facts'][field]['value'])>.001:raise ValueError('Report replay mismatch: '+field)
+            covered.add(fact['sourceId'])
+        if abs(extracted['evCashLikeFinancialAssets']['value']-stored['evCashLikeFinancialAssets']['value'])>.001:raise ValueError('Cash-like replay mismatch')
+        covered.add(extracted['evCashLikeFinancialAssets']['sourceId'])
+        if [a['value'] for a in extracted['ebitAdjustments']]!=[a['value'] for a in stored['ebitAdjustments']]:raise ValueError('EBIT adjustments replay mismatch')
+        covered.update(a['sourceId'] for a in extracted['ebitAdjustments'])
+        replayed[extracted['end']]=extracted
+    ads=None
+    if company.get('adsConversion'):
+        sid=company['adsConversion']['sourceId'];ads=ads_conversion(reports[sid])
+        if ads['value']!=company['adsConversion']['value']:raise ValueError('Original-report ADS conversion no longer matches')
+        covered.add(sid)
+    if changed-covered:raise ValueError('Changed source has no complete financial replay: '+', '.join(sorted(changed-covered)))
+    if changed:
+        for sid in changed:
+            source=company['sources'][sid];source['previousSha256']=source['sha256'];source['sha256']=reports[sid].digest
+            source.update(verificationMethod='exact_financial_replay',verifiedAt=checked)
+        company['annuals']=[replayed.get(p['end'],p) for p in company['annuals']]
+        if ads:company['adsConversion']={**ads,'sourceId':company['adsConversion']['sourceId']}
+        if company.get('financialStatus',{}).get('status')!='updated':
+            company['financialStatus']={'checkedAt':checked,'status':'checked','message':'原始财报已复核，利润、现金、债务、股本及 ADS 比例等计算数据均与留存记录一致。'}
+    return len(changed)
+
+
 def update(data,config,cache,verify=False,discovery=True,quotes_enabled=True):
     checked=now();failures=[];quotes={}
     for c in data['companies']:
+        print(f"Personal {c['id']}: checking original reports",flush=True)
         profile=next(p for p in config['companies'] if p['id']==c['id'])
         original_company=copy.deepcopy(c);original_profile=copy.deepcopy(profile);original_sources=copy.deepcopy(config['sources'])
         try:
@@ -215,17 +270,7 @@ def update(data,config,cache,verify=False,discovery=True,quotes_enabled=True):
                     c['financialStatus']={'checkedAt':checked,'status':'updated','message':'新年度原始财报已通过读取、分类与计算校验；上年度采用新年报的比较数。' if comparative_profile else '新年度原始财报已通过读取、分类与计算校验。'}
             if verify:
                 reports={sid:original_report(source['url'],cache) for sid,source in c['sources'].items()}
-                for sid,r in reports.items():
-                    if r.digest!=c['sources'][sid]['sha256']:raise ValueError('Original source content changed: '+sid)
-                if c.get('adsConversion') and ads_conversion(reports[c['adsConversion']['sourceId']])['value']!=c['adsConversion']['value']:
-                    raise ValueError('Original-report ADS conversion no longer matches')
-                for rp in profile['annuals']:
-                    extracted=read_period(rp,c['sources'],reports)
-                    stored=next(p for p in c['annuals'] if int(p['end'][:4])==rp['year'])
-                    for field,f in extracted['facts'].items():
-                        if abs(f['value']-stored['facts'][field]['value'])>.001:raise ValueError('Report replay mismatch: '+field)
-                    if abs(extracted['evCashLikeFinancialAssets']['value']-stored['evCashLikeFinancialAssets']['value'])>.001:raise ValueError('Cash-like replay mismatch')
-                    if [a['value'] for a in extracted['ebitAdjustments']]!=[a['value'] for a in stored['ebitAdjustments']]:raise ValueError('EBIT adjustments replay mismatch')
+                verify_existing_reports(c,profile,reports,checked)
             if c.get('financialStatus',{}).get('checkedAt')!=checked:c['financialStatus']={'checkedAt':checked,'status':'checked','message':'已检查原始年报来源，未发现可替代的新完整年度报表。'}
         except Exception as exc:
             c.clear();c.update(original_company);profile.clear();profile.update(original_profile);config['sources']=original_sources
@@ -235,6 +280,7 @@ def update(data,config,cache,verify=False,discovery=True,quotes_enabled=True):
             for ticker,group in list(c.get('results',{}).items()):
                 q=group['1']['quote'];c['results'][ticker]={str(y):calculate(c,q,y) for y in (1,3)}
         validate_company(c)
+        print(f"Personal {c['id']}: {c.get('financialStatus',{}).get('status','unknown')}",flush=True)
     data['checkedAt']=checked;data['updatedAt']=checked;data['updateStatus']={'failures':failures,'status':'partial' if failures else 'checked'}
     validate_dataset(data)
     return data,config

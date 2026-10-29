@@ -75,6 +75,9 @@ def bind_submission(raw, candidate, cik):
     period = datetime.strptime(field('CONFORMED PERIOD OF REPORT'), '%Y%m%d').strftime('%Y-%m-%d')
     amendment = re.search(r'<(?:\w+:)?amendmentType>\s*([^<]+)', body, re.I)
     amendment = amendment[1].strip().upper() if amendment else ''
+    if candidate['form']=='13F-HR/A' and not amendment:
+        from legacy_13f import amendment_type
+        amendment=amendment_type(raw) or ''
     complete = candidate['form'] == '13F-HR' or (candidate['form'] == '13F-HR/A' and amendment == 'RESTATEMENT')
     return {**candidate, 'reportDate':period, 'completePortfolio':complete,
             'amendmentType':amendment, 'source':'sec_quarterly_master_index',
