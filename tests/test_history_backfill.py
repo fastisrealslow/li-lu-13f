@@ -83,3 +83,18 @@ class ReporterTransitionTests(unittest.TestCase):
             result = fetch.investor_filings(config)
         self.assertEqual([f['cik'] for f in result],['2026053','1336528','1336528'])
         self.assertEqual(result[1]['filingDate'],'2026-05-15')
+
+class DatedHistoricalReporterTests(unittest.TestCase):
+    def test_verified_legacy_cik_is_bounded_and_carries_cover_identity(self):
+        config={'cik':'1061768','legacyFilers':[{'cik':'1054420','fromPeriod':'2001-03-31','beforePeriod':'2002-06-30','reportFileNumber':'28-7120'}]}
+        periods=['2000-12-31','2001-03-31','2002-03-31','2002-06-30']
+        with patch.object(fetch,'get_recent_filings',side_effect=[[],[{'reportDate':q,'filingDate':q} for q in periods]]):
+            rows=fetch.investor_filings(config)
+        self.assertEqual([r['reportDate'] for r in rows],['2002-03-31','2001-03-31'])
+        self.assertTrue(all(r['cik']=='1054420' and r['expected13FFileNumber']=='28-7120' for r in rows))
+
+    def test_a_similar_cik_name_cannot_override_the_actual_13f_cover_file_number(self):
+        from legacy_13f import verify_report_file_number
+        verify_report_file_number(b'13F File Number: 028-07120','28-7120')
+        with self.assertRaises(ValueError):verify_report_file_number(b'13F File Number: 28-4435','28-7120')
+        with self.assertRaises(ValueError):verify_report_file_number(b'SEC FILE NUMBER: 028-07120','28-7120')

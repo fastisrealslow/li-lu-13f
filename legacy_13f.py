@@ -13,6 +13,16 @@ CUSIP=r'(?:[A-Z0-9*@#]{6} {0,3}[A-Z0-9*@#]{2} {0,3}[A-Z0-9*@#]|[0-9]{7,8})'
 ROW=re.compile(r'\b('+CUSIP+r')\s+\$?\s*('+NUMBER+r')\s+('+NUMBER+r')\s*(SH|PRN|PR|PUT|CALL|CO)?(?:\s+(PUT|CALL)\b)?(?=\s|$)',re.I)
 CLASS=re.compile(r'^(.*?)\s+((?:COM(?:MON)?(?:\s+STOCK)?|CL(?:ASS)?\s+[A-Z](?:\s+NEW)?|ORD(?:INARY)?|SHS?(?:\s+.*)?|ADR|SPONSORED.*|PREF.*|PFD.*|LEA|NOTE.*|DEB.*|PUT|CALL))$',re.I)
 
+def verify_report_file_number(raw, expected):
+    # SEC indexing headers can use an old registrant number. The actual 13F
+    # cover must match the explicitly configured manager report file number.
+    text=BeautifulSoup(raw.decode('utf-8',errors='replace'),'html.parser').get_text(' ',strip=True)
+    match=re.search(r'13F\s+File\s+Number\s*:\s*([0-9]+)[ -]+([0-9]+)',text,re.I)
+    parts=re.findall(r'\d+',expected)
+    if not match or len(parts)!=2 or tuple(map(int,match.groups()))!=tuple(map(int,parts)):
+        raise ValueError('Historical reporter 13F cover file number does not match the verified manager')
+
+
 class LegacyHoldings(list):
     def __init__(self, rows, reconciliation=None):
         super().__init__(rows)

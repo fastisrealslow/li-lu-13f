@@ -774,6 +774,9 @@ def backfill_history_gaps(cik, data, filings, consolidate=False, limit=4):
             try:
                 path = find_info_table_xml(filing.get("cik", cik), filing["accession"], filing["accessionDashed"])
                 original = sec_fetch(path)
+                if filing.get("expected13FFileNumber"):
+                    from legacy_13f import verify_report_file_number
+                    verify_report_file_number(original, filing["expected13FFileNumber"])
                 rows = parse_holdings(original, consolidate=consolidate,
                                       filing_date=filing["filingDate"], retain_legacy_discrepancies=True)
                 if not rows:
@@ -988,19 +991,19 @@ def warn_unmapped(data: dict):
 
 def investor_filings(config, full_mode=False):
     """Prefer the current reporter; retain dated, explicitly verified predecessors."""
-    sources = [(config['cik'], None)] + [(old['cik'], old['beforePeriod']) for old in config.get('legacyFilers', [])]
+    sources = [(config['cik'], None, None)] + [(old['cik'], old['beforePeriod'], old) for old in config.get('legacyFilers', [])]
     by_period = {}
-    for cik, before in sources:
+    for cik, before, legacy in sources:
         if config.get('useRestatements'):
             rows = get_recent_filings(cik, include_archives=full_mode, include_restatements=True)
         else:
             rows = get_recent_filings(cik, include_archives=True) if full_mode else get_recent_filings(cik)
         for filing in rows:
             period = filing['reportDate']
-            if (before and period >= before) or (not before and config.get('reportingFrom') and period < config['reportingFrom']):
+            if (legacy and legacy.get('fromPeriod') and period < legacy['fromPeriod']) or (before and period >= before) or (not before and config.get('reportingFrom') and period < config['reportingFrom']):
                 continue
             # Current reporting entity wins over a predecessor for the same period.
-            by_period.setdefault(period, {**filing, 'cik': cik})
+            by_period.setdefault(period, {**filing, 'cik': cik, **({'expected13FFileNumber':legacy['reportFileNumber']} if legacy and legacy.get('reportFileNumber') else {})})
     return sorted(by_period.values(), key=lambda f: (f['reportDate'], f['filingDate']), reverse=True)
 
 
