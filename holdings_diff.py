@@ -58,13 +58,6 @@ def consolidate_holdings(holdings):
                     row[field] = None if field.startswith('prev') and (row.get(field) is None or holding.get(field) is None) else (row.get(field) or 0) + (holding.get(field) or 0)
             # Cached per-line split adjustments cannot describe a grouped position.
             row.pop('shareAdjustment', None)
-            # Retain each discretion/voting line in managerAllocations. A grouped
-            # position may contain different discretion codes, never pick one.
-            if row.get('investmentDiscretion') != holding.get('investmentDiscretion'):
-                row.pop('investmentDiscretion', None)
-            if 'votingAuthority' in row and 'votingAuthority' in holding:
-                row['votingAuthority']={k:row['votingAuthority'].get(k,0)+holding['votingAuthority'].get(k,0) for k in set(row['votingAuthority'])|set(holding['votingAuthority'])}
-            else:row.pop('votingAuthority',None)
             if holding.get('managerAllocations'):row.setdefault('managerAllocations', []).extend(holding['managerAllocations'])
     return list(merged.values())
 

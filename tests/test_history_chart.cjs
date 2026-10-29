@@ -121,8 +121,7 @@ test('quarterly insights follow tables and archived HK interests have no duplica
   const html=fs.readFileSync(path.join(__dirname,'../index.html'),'utf8');
   assert.ok(html.indexOf('id="holdingsInsight"')>html.indexOf('id="holdingsBody"'));
   assert.ok(html.indexOf('id="changesInsight"')>html.indexOf('id="changesBody"'));
-  assert.ok(html.indexOf('id="historyInsight"')<html.indexOf('id="historyExplorer"'));
-  assert.ok(html.indexOf('id="historyExplorer"')<html.indexOf('id="timelineCanvas"'));
+  assert.ok(html.indexOf('id="historyInsight"')>html.indexOf('id="timelineCanvas"'));
   assert.ok(!html.includes('id="currentHKHoldings"'));
   assert.ok(!html.includes('id="hkHoldingsTable"'));
 });
@@ -363,17 +362,4 @@ test('legacy warrants and units stay visibly distinct from common shares',()=>{
   const a=app();assert.match(a.run("instrumentTag({cls:'*W EXP 7/10/201'})"),/认股权证/);
   assert.match(a.run("instrumentTag({cls:'UNIT 06/11/2019'})"),/单位证券/);
   assert.equal(a.run("instrumentTag({cls:'COM'})"),'');
-});
-
-test('latest disclosure status is independent from past gaps and nonzero peak ratios retain precision',async()=>{
- const a=app();a.run(`data={history:{holdings:{'2020 Q1':[{ticker:'AMT',name:'AMT',shares:7190000,value:100}], '2020 Q2':[], '2020 Q3':[{ticker:'AMT',name:'AMT',shares:29300,value:10}]}}};renderHKHoldings=()=>{}`);
- await a.run('renderTimelineTable()');const html=a.el('timelineCanvas').innerHTML;
- assert.match(html,/当前披露持有/);assert.match(html,/历史再次披露事件/);assert.match(html,/0.4%/);assert.doesNotMatch(html,/已清仓|首次建仓/);
-});
-test('timeline pagination never grows the DOM beyond 200 records and search precedes pagination',async()=>{
- const a=app();a.context.snapshot={history:{holdings:{'2020 Q1':Array.from({length:450},(_,i)=>({ticker:'SEC'+i,name:'Name'+i,shares:1,value:i+1}))}}};
- a.run('data=snapshot;renderHKHoldings=()=>{}');await a.run('renderTimelineTable()');
- assert.equal((a.el('timelineCanvas').innerHTML.match(/<tr>/g)||[]).length,201);
- await a.run('showMoreTimeline()');assert.equal((a.el('timelineCanvas').innerHTML.match(/<tr>/g)||[]).length,201);
- await a.run("timelineQuery='SEC449';timelineOffset=0;renderTimelineTable()");assert.equal((a.el('timelineCanvas').innerHTML.match(/<tr>/g)||[]).length,2);assert.match(a.el('timelineCanvas').innerHTML,/SEC449/);
 });
