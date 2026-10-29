@@ -5,7 +5,7 @@
     "notablePeople": [
       "Warren Buffett"
     ],
-    "lastUpdated": "2026-10-29T14:51:34Z",
+    "lastUpdated": "2026-10-29T16:46:43Z",
     "aiSummary": "巴菲特本季度大幅增持谷歌并新增美国银行等仓位，同时减持部分消费股，显示其继续聚焦优质科技龙头与稳健金融板块。",
     "aiSummaryQuarter": "2026 Q2",
     "instrumentHistoryTickers": [
@@ -70290,9 +70290,9 @@
           ],
           "ticker": "BAC",
           "sector": "金融/银行",
+          "cnName": "美国银行",
           "prevShares": 5000000,
-          "prevValue": 66000000,
-          "cnName": "美国银行"
+          "prevValue": 66000000
         },
         {
           "name": "Beckton Dickinson & Co.",
@@ -71493,9 +71493,9 @@
           ],
           "ticker": "BAC",
           "sector": "金融/银行",
+          "cnName": "美国银行",
           "prevShares": 5000000,
-          "prevValue": 84600000,
-          "cnName": "美国银行"
+          "prevValue": 84600000
         },
         {
           "name": "GlaxoSmithKline",
@@ -100695,9 +100695,9 @@
           ],
           "ticker": "BAC",
           "sector": "金融/银行",
+          "cnName": "美国银行",
           "prevShares": 5000000,
-          "prevValue": 71850000,
-          "cnName": "美国银行"
+          "prevValue": 71850000
         },
         {
           "name": "GlaxoSmithKline",
@@ -106076,13 +106076,13 @@
       ]
     },
     "coverage": {
-      "checkedAt": "2026-10-29T14:51:36Z",
+      "checkedAt": "2026-10-29T16:46:44Z",
       "missingQuarters": [],
       "repairedThisRun": [
-        "2009 Q3",
-        "2000 Q1",
-        "2000 Q2",
-        "2000 Q3"
+        "1998 Q4",
+        "1999 Q1",
+        "1999 Q2",
+        "1999 Q3"
       ],
       "errors": {
         "2012 Q3": "Legacy table reconciliation failed: 30/119 rows, $29271978000/$75326633000",
@@ -106090,6 +106090,10 @@
       },
       "attempts": {},
       "pendingRefreshQuarters": [
+        "1999 Q4",
+        "2000 Q1",
+        "2000 Q2",
+        "2000 Q3",
         "2000 Q4",
         "2001 Q1",
         "2001 Q2",
@@ -106125,11 +106129,15 @@
         "2008 Q4",
         "2009 Q1",
         "2009 Q2",
+        "2009 Q3",
+        "2009 Q4",
         "2010 Q1",
         "2010 Q2",
+        "2010 Q3",
         "2010 Q4",
         "2011 Q1",
         "2011 Q2",
+        "2011 Q3",
         "2011 Q4",
         "2012 Q1",
         "2012 Q2",
@@ -106584,7 +106592,7 @@
         "cik": "1067983",
         "url": "https://www.sec.gov/Archives/edgar/data/1067983/0000950150-00-000118.txt",
         "format": "legacy_13f",
-        "parserVersion": 4,
+        "parserVersion": 5,
         "sourceReconciliation": {
           "status": "reconciled",
           "reportedEntries": 32,
@@ -106604,7 +106612,7 @@
         "cik": "1067983",
         "url": "https://www.sec.gov/Archives/edgar/data/1067983/0000950150-99-001240.txt",
         "format": "legacy_13f",
-        "parserVersion": 4,
+        "parserVersion": 5,
         "sourceReconciliation": {
           "status": "reconciled",
           "reportedEntries": 32,
@@ -107572,7 +107580,7 @@
         "cik": "1067983",
         "url": "https://www.sec.gov/Archives/edgar/data/1067983/0000950148-99-001187.txt",
         "format": "legacy_13f",
-        "parserVersion": 4,
+        "parserVersion": 5,
         "sourceReconciliation": {
           "status": "reconciled",
           "reportedEntries": 32,
@@ -107592,7 +107600,7 @@
         "cik": "1067983",
         "url": "https://www.sec.gov/Archives/edgar/data/1067983/0000950148-99-001809.txt",
         "format": "legacy_13f",
-        "parserVersion": 4,
+        "parserVersion": 5,
         "sourceReconciliation": {
           "status": "reconciled",
           "reportedEntries": 32,
@@ -107626,7 +107634,7 @@
     "instrumentVerification": {
       "pendingQuarters": [],
       "errors": {},
-      "checkedAt": "2026-10-29T14:51:34.442321+00:00"
+      "checkedAt": "2026-10-29T16:46:43.377890+00:00"
     },
     "valueAudit": {
       "2026 Q2": {
@@ -114898,6 +114906,462 @@
         "anchorCount": 5,
         "outlierTickers": [],
         "normalizedHash": "7c540ed4f8ecd011311b00c782b70f2fbcdd8bb8286d12f93297be8c905bd369"
+      },
+      "2009 Q3": {
+        "version": 1,
+        "checkedAt": "2026-10-29",
+        "source": "https://www.sec.gov/Archives/edgar/data/1067983/0000950123-09-065631.txt",
+        "filingDate": "2009-11-24",
+        "sourceDigest": "77b1d6aa8052ab43b65979e8723ad8f653149c8839f3148fad371f68ac3b8a7b",
+        "sourceHash": "22e30764dcdcb2938f4be006f93c241eb4ba5706a31c1cf0cdb25d59788f5ba6",
+        "status": "verified",
+        "factor": 1,
+        "anchors": [
+          {
+            "ticker": "WFC",
+            "cusip": "949746101",
+            "filedPrice": 28.179998677987804,
+            "price": 28.18000030517578,
+            "date": "2009-09-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/WFC?period1=0&period2=1793378806&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "USB",
+            "cusip": "902973304",
+            "filedPrice": 21.86000213848823,
+            "price": 21.860000610351562,
+            "date": "2009-09-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/USB?period1=0&period2=1793378807&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "COP",
+            "cusip": "20825C104",
+            "filedPrice": 45.15999326347087,
+            "price": 45.1600004774704,
+            "date": "2009-09-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/COP?period1=0&period2=1793378807&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "WMT",
+            "cusip": "931142103",
+            "filedPrice": 49.090006454589705,
+            "price": 49.08999824523926,
+            "date": "2009-09-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/WMT?period1=0&period2=1793378808&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "UNP",
+            "cusip": "907818108",
+            "filedPrice": 58.34996861268048,
+            "price": 58.349998474121094,
+            "date": "2009-09-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/UNP?period1=0&period2=1793378808&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          }
+        ],
+        "agreementCount": 5,
+        "anchorCount": 5,
+        "outlierTickers": [],
+        "normalizedHash": "22e30764dcdcb2938f4be006f93c241eb4ba5706a31c1cf0cdb25d59788f5ba6"
+      },
+      "2009 Q4": {
+        "version": 1,
+        "checkedAt": "2026-10-29",
+        "source": "https://www.sec.gov/Archives/edgar/data/1067983/0000950123-10-013409.txt",
+        "filingDate": "2010-02-16",
+        "sourceDigest": "25638b3b0c1923a7ab4851d90b8b37d1f722f8d88a55a40cf64d60aaf4714be2",
+        "sourceHash": "72de00dc8b081035777a45b891c8d2ca00a9491f9709bf2f4eb60c9196b7bfea",
+        "status": "verified",
+        "factor": 1,
+        "anchors": [
+          {
+            "ticker": "WFC",
+            "cusip": "949746101",
+            "filedPrice": 26.98999840309732,
+            "price": 26.989999771118164,
+            "date": "2009-12-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/WFC?period1=0&period2=1793378806&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "USB",
+            "cusip": "902973304",
+            "filedPrice": 22.5099930581694,
+            "price": 22.510000228881836,
+            "date": "2009-12-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/USB?period1=0&period2=1793378807&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "WMT",
+            "cusip": "931142103",
+            "filedPrice": 53.450019471200015,
+            "price": 53.450002670288086,
+            "date": "2009-12-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/WMT?period1=0&period2=1793378808&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "COP",
+            "cusip": "20825C104",
+            "filedPrice": 51.07000999434388,
+            "price": 51.070000644115446,
+            "date": "2009-12-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/COP?period1=0&period2=1793378807&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "RSG",
+            "cusip": "760759100",
+            "filedPrice": 28.30999336590073,
+            "price": 28.309999465942383,
+            "date": "2009-12-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/RSG?period1=0&period2=1793378809&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          }
+        ],
+        "agreementCount": 5,
+        "anchorCount": 5,
+        "outlierTickers": [],
+        "normalizedHash": "72de00dc8b081035777a45b891c8d2ca00a9491f9709bf2f4eb60c9196b7bfea"
+      },
+      "2010 Q3": {
+        "version": 1,
+        "checkedAt": "2026-10-29",
+        "source": "https://www.sec.gov/Archives/edgar/data/1067983/0000950123-11-001432.txt",
+        "filingDate": "2011-01-07",
+        "sourceDigest": "ecac9698ea17a8123372b813b854447ddd2f7b173851219921c08538df2f70a0",
+        "sourceHash": "52c829a455deff0da9b4ad39637cedd1c676b654e44965ac95b831d31d498de0",
+        "status": "verified",
+        "factor": 1,
+        "anchors": [
+          {
+            "ticker": "WFC",
+            "cusip": "949746101",
+            "filedPrice": 25.114996604800922,
+            "price": 25.1200008392334,
+            "date": "2010-09-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/WFC?period1=0&period2=1793378806&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "USB",
+            "cusip": "902973304",
+            "filedPrice": 21.619994349315707,
+            "price": 21.6200008392334,
+            "date": "2010-09-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/USB?period1=0&period2=1793378807&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "WMT",
+            "cusip": "931142103",
+            "filedPrice": 53.520004102759366,
+            "price": 53.52000045776367,
+            "date": "2010-09-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/WMT?period1=0&period2=1793378808&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "COP",
+            "cusip": "20825C104",
+            "filedPrice": 57.42998444123504,
+            "price": 57.42999820709991,
+            "date": "2010-09-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/COP?period1=0&period2=1793378807&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "LOW",
+            "cusip": "548661107",
+            "filedPrice": 22.29,
+            "price": 22.290000915527344,
+            "date": "2010-09-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/LOW?period1=0&period2=1793378809&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          }
+        ],
+        "agreementCount": 5,
+        "anchorCount": 5,
+        "outlierTickers": [],
+        "normalizedHash": "52c829a455deff0da9b4ad39637cedd1c676b654e44965ac95b831d31d498de0"
+      },
+      "2011 Q1": {
+        "version": 1,
+        "checkedAt": "2026-10-29",
+        "source": "https://www.sec.gov/Archives/edgar/data/1067983/0000950123-11-050728.txt",
+        "filingDate": "2011-05-16",
+        "sourceDigest": "f557a0208a40abb1e8713f353b89df23570dee962a0b5fb0cde8b3c6562a2906",
+        "sourceHash": "125b9b2b5fbdd37521acb153a74c5c76ceb2149c67450ca1113d331a490c2c7d",
+        "status": "verified",
+        "factor": 1,
+        "anchors": [
+          {
+            "ticker": "WFC",
+            "cusip": "949746101",
+            "filedPrice": 31.709998068582046,
+            "price": 31.709999084472656,
+            "date": "2011-03-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/WFC?period1=0&period2=1793378806&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "USB",
+            "cusip": "902973304",
+            "filedPrice": 26.42999957734295,
+            "price": 26.43000030517578,
+            "date": "2011-03-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/USB?period1=0&period2=1793378807&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "WMT",
+            "cusip": "931142103",
+            "filedPrice": 52.04999382383065,
+            "price": 52.05000114440918,
+            "date": "2011-03-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/WMT?period1=0&period2=1793378808&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "COP",
+            "cusip": "20825C104",
+            "filedPrice": 79.86000924965148,
+            "price": 79.86000098175049,
+            "date": "2011-03-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/COP?period1=0&period2=1793378807&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "MTB",
+            "cusip": "55261F104",
+            "filedPrice": 88.46995453427697,
+            "price": 88.47000122070312,
+            "date": "2011-03-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/MTB?period1=0&period2=1793378809&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          }
+        ],
+        "agreementCount": 5,
+        "anchorCount": 5,
+        "outlierTickers": [],
+        "normalizedHash": "125b9b2b5fbdd37521acb153a74c5c76ceb2149c67450ca1113d331a490c2c7d"
+      },
+      "2011 Q2": {
+        "version": 1,
+        "checkedAt": "2026-10-29",
+        "source": "https://www.sec.gov/Archives/edgar/data/1067983/0001193125-11-223118.txt",
+        "filingDate": "2011-08-15",
+        "sourceDigest": "98a1dd271bc3197a5e0b2e7969141d7391a1605b110806be1a233ee6d3a55754",
+        "sourceHash": "a41e20342732ccfd3184d9edf910fd57d40ffb9dcb6464fc33e0dfd9fd3e014c",
+        "status": "verified",
+        "factor": 1,
+        "anchors": [
+          {
+            "ticker": "WFC",
+            "cusip": "949746101",
+            "filedPrice": 28.05999806861573,
+            "price": 28.059999465942383,
+            "date": "2011-06-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/WFC?period1=0&period2=1793378806&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "USB",
+            "cusip": "902973304",
+            "filedPrice": 25.510003515962023,
+            "price": 25.510000228881836,
+            "date": "2011-06-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/USB?period1=0&period2=1793378807&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "WMT",
+            "cusip": "931142103",
+            "filedPrice": 53.13998140540104,
+            "price": 53.13999938964844,
+            "date": "2011-06-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/WMT?period1=0&period2=1793378808&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "COP",
+            "cusip": "20825C104",
+            "filedPrice": 75.18999704380892,
+            "price": 75.18999819985198,
+            "date": "2011-06-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/COP?period1=0&period2=1793378807&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "MTB",
+            "cusip": "55261F104",
+            "filedPrice": 87.95017581682909,
+            "price": 87.94999694824219,
+            "date": "2011-06-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/MTB?period1=0&period2=1793378809&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          }
+        ],
+        "agreementCount": 5,
+        "anchorCount": 5,
+        "outlierTickers": [],
+        "normalizedHash": "a41e20342732ccfd3184d9edf910fd57d40ffb9dcb6464fc33e0dfd9fd3e014c"
+      },
+      "2011 Q3": {
+        "version": 1,
+        "checkedAt": "2026-10-29",
+        "source": "https://www.sec.gov/Archives/edgar/data/1067983/0001193125-11-312418.txt",
+        "filingDate": "2011-11-15",
+        "sourceDigest": "5d9cd592d4fc8f45093f341b65efe17e9e7a8f61e4107fa6b5ca58e7ddaad08d",
+        "sourceHash": "224d5e216200fcb60e9cabfa5543b7342434cffa2219867789ea05e457fc168c",
+        "status": "verified",
+        "factor": 1,
+        "anchors": [
+          {
+            "ticker": "WFC",
+            "cusip": "949746101",
+            "filedPrice": 24.120000639345054,
+            "price": 24.1200008392334,
+            "date": "2011-09-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/WFC?period1=0&period2=1793378806&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "USB",
+            "cusip": "902973304",
+            "filedPrice": 23.539998724786617,
+            "price": 23.540000915527344,
+            "date": "2011-09-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/USB?period1=0&period2=1793378807&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "IBM",
+            "cusip": "459200101",
+            "filedPrice": 174.87000292803793,
+            "price": 174.87000100708008,
+            "date": "2011-09-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/IBM?period1=0&period2=1793378810&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "WMT",
+            "cusip": "931142103",
+            "filedPrice": 51.89998284198162,
+            "price": 51.89999771118164,
+            "date": "2011-09-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/WMT?period1=0&period2=1793378808&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "COP",
+            "cusip": "20825C104",
+            "filedPrice": 63.3199886312939,
+            "price": 63.3199970438385,
+            "date": "2011-09-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/COP?period1=0&period2=1793378807&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          }
+        ],
+        "agreementCount": 5,
+        "anchorCount": 5,
+        "outlierTickers": [],
+        "normalizedHash": "224d5e216200fcb60e9cabfa5543b7342434cffa2219867789ea05e457fc168c"
       }
     },
     "excludedValueQuarters": [],
@@ -114991,6 +115455,36 @@
         "result": "additive",
         "checkedAt": "2026-10-29",
         "url": "https://www.sec.gov/Archives/edgar/data/1067983/0000950150-00-000438.txt"
+      },
+      "0000950134-08-002783": {
+        "result": "additive",
+        "checkedAt": "2026-10-29",
+        "url": "https://www.sec.gov/Archives/edgar/data/1067983/0000950134-08-002783.txt"
+      },
+      "0000950134-08-002781": {
+        "result": "additive",
+        "checkedAt": "2026-10-29",
+        "url": "https://www.sec.gov/Archives/edgar/data/1067983/0000950134-08-002781.txt"
+      },
+      "0000950134-07-021307": {
+        "result": "additive",
+        "checkedAt": "2026-10-29",
+        "url": "https://www.sec.gov/Archives/edgar/data/1067983/0000950134-07-021307.txt"
+      },
+      "0000950150-00-000130": {
+        "result": "additive",
+        "checkedAt": "2026-10-29",
+        "url": "https://www.sec.gov/Archives/edgar/data/1067983/0000950150-00-000130.txt"
+      },
+      "0000950150-00-000129": {
+        "result": "additive",
+        "checkedAt": "2026-10-29",
+        "url": "https://www.sec.gov/Archives/edgar/data/1067983/0000950150-00-000129.txt"
+      },
+      "0000950150-00-000128": {
+        "result": "additive",
+        "checkedAt": "2026-10-29",
+        "url": "https://www.sec.gov/Archives/edgar/data/1067983/0000950150-00-000128.txt"
       }
     }
   }
