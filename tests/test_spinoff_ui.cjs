@@ -15,9 +15,9 @@ test('recent records are an ordered subset of all and show the same current stat
   {...event,id:'corrected',changedAt:'2026-10-10T01:00:00Z',latestDate:'2026-02-25',status:'completed',updateKind:'correction'},
   {...event,id:'new-filing',changedAt:'2026-10-09T01:00:00Z',latestDate:'2026-10-08',updateKind:'new_filing'}];
  a.run('spinDash.hk.data={events,changes:[{eventId:"gone",at:"2026-10-10T03:00:00Z",kind:"new"}]};spinDash.hk.view="all"');
- assert.equal(a.run('spinVisible(spinDash.hk,{}).map(e=>e.id).join(",")'),'corrected,new-filing,older');
- a.run('spinDash.hk.view="changes"');assert.equal(a.run('spinVisible(spinDash.hk,{},Date.parse("2026-10-10T12:00:00Z")).map(e=>e.id).join(",")'),'corrected,new-filing');
- const html=a.run('spinCard(events[1])');assert.match(html,/档案信息修正/);assert.match(html,/公告：2026-02-25/);assert.match(html,/公告称已完成/);
+ assert.equal(a.run('spinVisible(spinDash.hk,{}).map(e=>e.id).join(",")'),'older,new-filing,corrected');
+ a.run('spinDash.hk.view="changes"');assert.equal(a.run('spinVisible(spinDash.hk,{},Date.parse("2026-10-10T12:00:00Z")).map(e=>e.id).join(",")'),'older,new-filing');
+ const html=a.run('spinCard(events[1])');assert.ok(!html.includes('档案信息修正')); assert.match(html,/公告：2026-02-25/);assert.match(html,/公告称已完成/);
  assert.equal(a.run('spinDash.us.view'),'all');
 });
 test('issuer updates group multiple targets without losing links or before/after values',()=>{
@@ -28,7 +28,7 @@ test('issuer updates group multiple targets without losing links or before/after
  assert.match(html,/2 次更新 · 2 个对应档案/);
  assert.match(html,/data-open-event="us:P:second"/);assert.ok(!html.includes('data-open-event="us:P:old"'));
  assert.match(html,/Prior name → Different project/);assert.match(html,/最近原公告 2026-09-16/);
- a.run('spinDash.us.data={events,changes};spinDash.us.view="changes"');assert.equal(a.run('spinVisible(spinDash.us,{}).length'),3);
+ a.run('spinDash.us.data={events,changes};spinDash.us.view="changes"');assert.equal(a.run('spinVisible(spinDash.us,{},Date.parse("2026-09-17")).length'),3);
 });
 test('auto watch includes every introduction, persists across refresh and preserves manual notes',()=>{
  const a=app();a.context.events=[{...event,id:'hk:1',type:{code:'intro_hk'}},{...event,id:'hk:2',type:'intro_th'},{...event,id:'hk:3',type:{code:'reit_sh',is_reit:true}}];
@@ -217,4 +217,18 @@ test('source archive retains every old document, orders publication dates and ma
  assert.ok(section.includes('sibling.pdf'));
  assert.equal(a.run('dossier.announcements[0].date'),'2026-05-20');
  a.run("lang='en'");html=a.run('spinCard(dossier)');assert.match(html,/Filings & source archive/);assert.match(html,/class="sd-file-latest">Latest/);
+});
+
+test('publication dates outrank corrections and a genuinely newer filing can overtake China Travel',()=>{
+ const a=app();a.context.payload={events:[
+  {...event,id:'hk:00308',parentTicker:'00308.HK',latestDate:'2026-10-26',recordUpdatedAt:'2026-10-28T00:00:00Z',announcements:[{date:'2026-10-26',direct:true,url:'https://www1.hkexnews.hk/new.pdf',relevance:'candidate'}]},
+  {...event,id:'hk:00842',parentTicker:'00842.HK',latestDate:'2026-04-01',recordUpdatedAt:'2026-10-29T00:00:00Z'}]};
+ a.run('spinDash.hk.data=payload;spinDash.hk.view="all"');
+ assert.equal(a.run('spinVisible(spinDash.hk,{})[0].parentTicker'),'00308.HK');
+ a.run('payload.events[1].recordUpdatedAt="2099-01-01T00:00:00Z"');
+ assert.equal(a.run('spinVisible(spinDash.hk,{})[0].parentTicker'),'00308.HK');
+ a.run('payload.events.push({...payload.events[1],id:"future",parentTicker:"NEW",latestDate:"2026-10-30",announcements:[]})');
+ assert.equal(a.run('spinVisible(spinDash.hk,{})[0].parentTicker'),'NEW');
+ a.context.e={latestDate:'2099-01-01',announcements:[{date:'2026-10-26',direct:true,url:'https://www1.hkexnews.hk/a.pdf',relevance:'candidate'},{date:'2099-01-01',direct:true,url:'https://www1.hkexnews.hk/b.pdf',relevance:'unverified'}]};
+ assert.equal(a.run('spinAnnouncementDate(e)'),'2026-10-26');
 });

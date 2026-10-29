@@ -159,3 +159,27 @@ class ExplicitLegacyRestatementTests(unittest.TestCase):
         self.assertEqual(len(result),2)
         self.assertEqual(sum(h['value'] for h in result),300000)
         self.assertEqual(result.reconciliation['status'],'cover_total_mismatch')
+
+class VerticalLegacyTables(unittest.TestCase):
+    def test_separate_line_columns_preserve_values_classes_and_principal(self):
+        raw=legacy('ISSUER A\nCOM\n037833100\n100\n2000\nSH\nSOLE\n2000\nISSUER B\nNOTE\n00130HAN5\n50\n10000\nPRN\nSOLE\n10000',150,2)
+        rows=sec.parse_holdings(raw,filing_date='1999-05-14')
+        self.assertEqual([(r['shares'],r['shareType']) for r in rows],[(2000,'SH'),(10000,'PRN')])
+        self.assertEqual(sum(r['value'] for r in rows),150000)
+        with self.assertRaises(ValueError):sec.parse_holdings(raw.replace(b'Entry Total: 2',b'Entry Total: 3'),filing_date='1999-05-14')
+    def test_initial_unassigned_cover_requires_matching_sec_header(self):
+        from legacy_13f import verify_report_file_number
+        raw=b'<SEC-HEADER>\nCENTRAL INDEX KEY: 0001173334\nCONFORMED SUBMISSION TYPE: 13F-HR\nSEC FILE NUMBER: 028-11257\n</SEC-HEADER>\nForm 13F File Number: Unassigned'
+        verify_report_file_number(raw,'28-11257')
+        for bad in (raw.replace(b'028-11257',b'028-99999'),raw.replace(b'Unassigned',b'28-99999'),raw.replace(b'Form 13F File Number: Unassigned',b'')):
+            with self.assertRaises(ValueError):verify_report_file_number(bad,'28-11257')
+
+class AdditionalLegacyLayouts(unittest.TestCase):
+    def test_pipe_columns_and_wrapped_name_have_independent_financial_fields(self):
+        raw=legacy('LONG ISSUER | | | | | | | | |\nNAME | COM | 037833 10 0 | 100 | 2000 | SH | | SOLE | | 2000 |',100,1)
+        rows=sec.parse_holdings(raw,filing_date='2003-05-14');self.assertEqual(rows[0]['name'],'LONG ISSUER NAME');self.assertEqual(rows[0]['shares'],2000)
+    def test_blank_cover_number_is_allowed_only_with_complete_bound_sec_header(self):
+        from legacy_13f import verify_report_file_number
+        raw=b'<SEC-HEADER>\nCENTRAL INDEX KEY: 0001006438\nCONFORMED SUBMISSION TYPE: 13F-HR\nSEC FILE NUMBER: 028-05908\n</SEC-HEADER>\nForm 13F File Number: \nThe institutional investment manager'
+        verify_report_file_number(raw,'28-5908')
+        with self.assertRaises(ValueError):verify_report_file_number(raw.replace(b'028-05908',b'028-99999'),'28-5908')

@@ -475,7 +475,7 @@ def fetch_us(investor, cfg):
         transition=data.get('meta',{}).get('reportingTransition',{})
         from reporting_scope import same_manager_history
         scope_boundary=transition.get('fromQuarter','') if transition.get('comparisonScopeChanged') and not same_manager_history(data,h) else ''
-        boundary=max(boundary,scope_boundary)
+        boundary=max(boundary,scope_boundary,data.get('meta',{}).get('costHistoryFrom',''))
         matched=cost_index.get(security_key(h),{})
         security_history = {q: [{**row,'ticker':tk} for row in (matched.get(q,[])+unidentified.get(q,[]) if h.get('cusip') else rows) if same_security(h,row)] for q,rows in hist_holdings.items() if boundary <= q <= quarter}
         if data.get("current", {}).get("valueQuality"):

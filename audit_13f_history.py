@@ -210,7 +210,7 @@ def discover_restatements(config,history,quarters,fetch,limit=3):
                     url='https://www.sec.gov'+find_info_table_xml(cik,accession.replace('-',''),accession) if kind=='RESTATEMENT' else ''
                 checks[accession]={'result':'restatement' if kind=='RESTATEMENT' else 'additive' if kind=='NEW HOLDINGS' else 'pending','checkedAt':datetime.now(timezone.utc).date().isoformat(),'url':url}
             if kind!='RESTATEMENT':continue
-            f={'cik':cik,'accession':accession.replace('-',''),'accessionDashed':accession,'filingDate':candidate['filingDate'],'reportDate':candidate['reportDate'],'amendmentType':kind,'url':url}
+            f={'cik':cik,'accession':accession.replace('-',''),'accessionDashed':accession,'filingDate':candidate['filingDate'],'reportDate':candidate['reportDate'],'form':'13F-HR/A','amendmentType':kind,'url':url}
             prior=history.get('filing_sources',{}).get(q,{})
             prior_accession=prior.get('accessionDashed','')
             same_day_newer=f['filingDate']==prior.get('filingDate') and (prior.get('amendmentType')!='RESTATEMENT' or prior_accession in order and order[accession]<order[prior_accession])

@@ -7,11 +7,11 @@ import re
 from decimal import Decimal
 from bs4 import BeautifulSoup
 
-VERSION = 4
+VERSION = 5
 NUMBER = r'[\d,]+(?:\.\d+)?'
 CUSIP=r'(?:[A-Z0-9*@#]{6} {0,3}[A-Z0-9*@#]{2} {0,3}[A-Z0-9*@#]|[0-9]{7,8})'
 ROW=re.compile(r'\b('+CUSIP+r')\s+\$?\s*('+NUMBER+r')\s+('+NUMBER+r')\s*(SH|PRN|PR|PUT|CALL|CO)?(?:\s+(PUT|CALL)\b)?(?=\s|$)',re.I)
-CLASS=re.compile(r'^(.*?)\s+((?:COM(?:MON)?(?:\s+STOCK)?|CL(?:ASS)?\s+[A-Z](?:\s+NEW)?|ORD(?:INARY)?|SHS?(?:\s+.*)?|ADR|SPONSORED.*|PREF.*|PFD.*|LEA|NOTE.*|DEB.*|PUT|CALL))$',re.I)
+CLASS=re.compile(r'^(.*?)\s+((?:COM(?:MON)?(?:\s+STOCK)?(?:\s+NEW)?|CL(?:ASS)?\s+[A-Z](?:\s+NEW)?|ORD(?:INARY)?|SHS?(?:\s+.*)?|ADR(?:\s+NEW)?|SP(?:ON(?:SORED|S))?\s+ADR.*|SPONSORED.*|PREF.*|PFD.*|LEA|NOTE.*|DEB.*|(?:SUB|SB|SR|JR|SD|SDCV|DBCV|CV)\b.*|PUT|CALL))$',re.I)
 
 def amendment_type(raw):
     text=BeautifulSoup(raw.decode('utf-8',errors='replace'),'html.parser').get_text(' ',strip=True)
@@ -25,9 +25,18 @@ def amendment_type(raw):
 def verify_report_file_number(raw, expected):
     # SEC indexing headers can use an old registrant number. The actual 13F
     # cover must match the explicitly configured manager report file number.
-    text=BeautifulSoup(raw.decode('utf-8',errors='replace'),'html.parser').get_text(' ',strip=True)
+    source=raw.decode('utf-8',errors='replace')
+    xml_number=re.search(r'<(?:\w+:)?form13FFileNumber>\s*([0-9]+)[ -]+([0-9]+)',source,re.I)
+    text=BeautifulSoup(source,'html.parser').get_text(' ',strip=True)
     match=re.search(r'13F\s+File\s+Number\s*:\s*([0-9]+)[ -]+([0-9]+)',text,re.I)
     parts=re.findall(r'\d+',expected)
+    match=xml_number or match
+    # The initial 13F may explicitly say Unassigned. Its SEC-assigned header
+    # number can bind that initial report; a missing or different cover cannot.
+    if not match and re.search(r'13F\s+File\s+Number\s*:\s*(?:Unassigned\b|(?=The institutional))',text,re.I):
+        header=source.split('</SEC-HEADER>',1)[0]
+        if 'CENTRAL INDEX KEY:' in header and re.search(r'CONFORMED SUBMISSION TYPE:\s*13F-HR\s*(?:\n|$)',header):
+            match=re.search(r'SEC FILE NUMBER:\s*([0-9]+)[ -]+([0-9]+)',header)
     if not match or len(parts)!=2 or tuple(map(int,match.groups()))!=tuple(map(int,parts)):
         raise ValueError('Historical reporter 13F cover file number does not match the verified manager')
 
@@ -63,7 +72,7 @@ def fixed_width_tables(source):
     previous = waiting = None
     name_parts = []
     for table in re.findall(r'<TABLE\b[^>]*>(.*?)</TABLE>', source, re.I | re.S):
-        lines = table.splitlines()
+        lines = table.expandtabs(8).splitlines()
         marker = next((i for i, line in enumerate(lines)
                        if len(re.findall(r'<[SC]>', line, re.I)) >= 5), None)
         if marker is None:
@@ -165,8 +174,80 @@ def fixed_width_tables(source):
     return rows if found else None
 
 
+def vertical_tables(soup):
+    """Old one-cell-per-line tables; accept only explicit financial column runs."""
+    rows=[]
+    for table in soup.find_all('table'):
+        lines=[line.strip() for line in table.get_text('\n').splitlines() if line.strip()]
+        for i,code in enumerate(lines):
+            if i<2 or i+4>=len(lines) or not re.fullmatch(r'[A-Z0-9*@#]{8}[0-9]',code):continue
+            if not all(re.fullmatch(NUMBER,lines[n]) for n in (i+1,i+2)):continue
+            kind=lines[i+3].upper();side='';discretion=i+4
+            if kind not in ('SH','PRN','PR'):continue
+            if lines[discretion].upper() in ('PUT','CALL'):
+                side=lines[discretion].title();discretion+=1
+            if discretion>=len(lines) or lines[discretion].upper() not in ('SOLE','DEFINED','DFND','OTHER','SHARED'):continue
+            name,cls=lines[i-2:i]
+            if not re.search(r'[A-Za-z]',name) or not re.search(r'[A-Za-z]',cls):continue
+            rows.append(dict(name=name,cls=cls,cusip=code,value=int(amount(lines[i+1])*1000),
+                             shares=quantity(lines[i+2]),shareType='PRN' if kind=='PR' else kind,putCall=side))
+    return rows
+
+
+def pipe_tables(source):
+    rows=[]
+    for table in re.findall(r'<TABLE\b[^>]*>(.*?)</TABLE>',source,re.I|re.S):
+        pending=[]
+        for line in table.splitlines():
+            cells=[c.strip() for c in line.split('|')]
+            if len(cells)<8:continue
+            code=re.sub(r'\s','',cells[2]).upper()
+            if (re.fullmatch(r'[A-Z0-9*@#]{8}[0-9]',code) and all(re.fullmatch(NUMBER,cells[i]) for i in (3,4))
+                and cells[5].upper() in ('SH','PRN') and cells[6].upper() in ('','PUT','CALL')
+                and cells[7].upper() in ('SOLE','DEFINED','OTHER','SHARED')):
+                rows.append(dict(name=' '.join([*pending,cells[0]]).strip(),cls=cells[1],cusip=code,
+                    value=int(amount(cells[3])*1000),shares=quantity(cells[4]),shareType=cells[5].upper(),putCall=cells[6].title()));pending=[]
+            elif cells[0] and not any(cells[1:]) and re.search(r'[A-Za-z]',cells[0]):pending.append(cells[0])
+    return rows
+
+
+def split_column_tables(source):
+    """Join separately printed value/share tables by unique exact issuer names."""
+    values=[];quantities=[]
+    for table in re.findall(r'<TABLE\b[^>]*>(.*?)</TABLE>',source,re.I|re.S):
+        lines=table.expandtabs(8).splitlines()
+        marker=next((i for i,line in enumerate(lines) if len(re.findall(r'<[SC]>',line,re.I))>=4),None)
+        if marker is None:continue
+        positions=[m.start() for m in re.finditer(r'<[SC]>',lines[marker],re.I)]
+        header=' '.join(lines[:marker]);pending=[];class_parts=[]
+        value_table=len(positions)==4 and re.search('CUSIP',header,re.I) and re.search('VALUE',header,re.I)
+        quantity_table='CUSIP' not in header.upper() and re.search('PRINCIPAL',header,re.I) and re.search('DISCRETION',header,re.I)
+        if not value_table and not quantity_table:continue
+        for line in lines[marker+1:]:
+            if not line.strip() or '<' in line or re.search(r'COLUMN TOTAL|GRAND TOTAL',line,re.I):continue
+            if value_table:
+                name=line[:positions[1]].strip();cls=line[positions[1]:positions[2]].strip()
+                code=re.sub(r'\s','',line[positions[2]:positions[3]]).upper();value=line[positions[3]:].strip()
+                if re.fullmatch(r'[A-Z0-9*@#]{8}[0-9]',code) and re.fullmatch(NUMBER,value):
+                    values.append(dict(name=' '.join([*pending,name]).strip(),cls=' '.join([*class_parts,cls]).strip(),cusip=code,value=int(amount(value)*1000)))
+                    pending=[];class_parts=[]
+                elif not line[positions[2]:].strip():
+                    if name:pending.append(name)
+                    if cls:class_parts.append(cls)
+            else:
+                row=re.match(r'^\s*(.+?)\s+('+NUMBER+r')\s+(SH|PRN)(?:\s+(PUT|CALL))?\s+(?:SOLE|DEFINED|OTHER|SHARED)\b',line,re.I)
+                if row:
+                    quantities.append(dict(name=' '.join([*pending,row[1]]).strip(),shares=quantity(row[2]),shareType=row[3].upper(),putCall=(row[4] or '').title()));pending=[]
+                elif re.fullmatch(r'\s*[A-Za-z][A-Za-z &.,-]*\s*',line):pending.append(line.strip())
+    key=lambda row:re.sub(r'[^A-Z0-9]','',row['name'].upper())
+    v={key(r):r for r in values};q={key(r):r for r in quantities}
+    if not v or len(v)!=len(values) or len(q)!=len(quantities) or v.keys()!=q.keys():return []
+    return [{**row,**{k:q[key(row)][k] for k in ('shares','shareType','putCall')}} for row in values]
+
+
 def parse_legacy(raw, *, retain_source_discrepancies=False, _use_fixed=True):
     source=raw.decode('utf-8',errors='replace')
+    source=re.sub(r'(?<=\d)SHR\b','SH ',source,flags=re.I)
     if not re.search(r'CONFORMED SUBMISSION TYPE:\s*13F-HR\b|<TYPE>13F-HR\b',source,re.I):
         raise ValueError('Legacy source is not a complete 13F holdings report')
     if re.search(r'CONFORMED SUBMISSION TYPE:\s*13F-HR/A\b|<TYPE>13F-HR/A\b',source,re.I):
@@ -178,8 +259,8 @@ def parse_legacy(raw, *, retain_source_discrepancies=False, _use_fixed=True):
     total=re.search(r'Table\s+Value\s+Total(?:\s*\([^)]*\))?\s*:[.\s]*\$?\s*('+NUMBER+')',text,re.I)
     if (not count or not total) and not retain_source_discrepancies:
         raise ValueError('Legacy cover does not declare both entry count and value total')
-    rows=[]
-    for tr in soup.find_all('tr'):
+    rows=pipe_tables(source) or split_column_tables(source)
+    for tr in ([] if rows else soup.find_all('tr')):
         if tr.find('tr'):continue
         cells=[c.get_text(' ',strip=True) for c in tr.find_all(['td','th'],recursive=False)]
         for i,c in enumerate(cells):
@@ -189,6 +270,7 @@ def parse_legacy(raw, *, retain_source_discrepancies=False, _use_fixed=True):
             if not m:continue
             rows.append(dict(name=cells[i-2],cls=cells[i-1],cusip=cusip,value=int(amount(m[1])*1000),shares=int(amount(m[2])),shareType=m[3].upper(),putCall=(m[4] or '').title()))
             break
+    if not rows:rows=vertical_tables(soup)
     fixed = fixed_width_tables(source) if not rows and _use_fixed else None
     if fixed is not None:
         rows = fixed
@@ -197,6 +279,10 @@ def parse_legacy(raw, *, retain_source_discrepancies=False, _use_fixed=True):
         # Early plaintext filings can have a tabular <TEXT> without TABLE tags.
         if not tables:tables=re.findall(r'<TEXT>(.*?)</TEXT>',source,re.I|re.S)
         for table in tables:
+            table=re.sub(r'(\d)[ \t]*\n[ \t]*(SH|PRN|PR)\b',r'\1 \2',table,flags=re.I)
+            table=re.sub(r'(?<=\d)\s*SHR\b',' SH',table,flags=re.I)
+            header=next((line.expandtabs(8) for line in table.splitlines() if re.search(r'NAME OF ISSUER',line,re.I) and re.search(r'TITLE OF CLASS',line,re.I) and re.search(r'CUSIP',line,re.I)),None)
+            class_start=re.search(r'TITLE OF CLASS',header,re.I).start() if header else None
             previous=None;pending=''
             for line in table.splitlines():
                 m=ROW.search(line)
@@ -211,7 +297,10 @@ def parse_legacy(raw, *, retain_source_discrepancies=False, _use_fixed=True):
                 if m:
                     prefix=line[:m.start()].strip()
                     if not prefix:raise ValueError('Missing legacy issuer/class')
-                    name,cls=identity(prefix)
+                    try:name,cls=identity(prefix)
+                    except ValueError:
+                        if class_start is None or not line[:class_start].strip() or not line[class_start:m.start()].strip():raise
+                        name,cls=line[:class_start].strip(),line[class_start:m.start()].strip()
                     if pending:name=pending+' '+name;pending=''
                     kind=(m[4] or 'SH').upper();kind='PRN' if kind=='PR' else kind;pc=(m[5] or '').title() or (kind.title() if kind in ('PUT','CALL') else '')
                     if kind in ('PUT','CALL'):kind='SH'

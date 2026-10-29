@@ -72,7 +72,7 @@ def _load_investor_config():
             entry["consolidate"] = True
         if inv.get("legacyFilers"):
             entry["legacyFilers"] = inv["legacyFilers"]
-        for field in ("reportingFrom", "reportingTransition", "historyGapNotices", "useRestatements", "fullArchiveWorkers"):
+        for field in ("reportingFrom", "reportingTransition", "historyGapNotices", "useRestatements", "fullArchiveWorkers", "costHistoryFrom"):
             if inv.get(field): entry[field] = inv[field]
         cfg[inv["id"]] = entry
     return cfg
@@ -790,10 +790,15 @@ def backfill_history_gaps(cik, data, filings, consolidate=False, limit=4):
             filing = by_quarter[quarter]
             attempts[quarter] = attempts.get(quarter, 0) + 1
             try:
-                path = find_info_table_xml(filing.get("cik", cik), filing["accession"], filing["accessionDashed"])
+                path = (f"/Archives/edgar/data/{int(filing.get('cik',cik))}/{filing['accessionDashed']}.txt"
+                        if filing.get('expected13FFileNumber') else
+                        find_info_table_xml(filing.get("cik", cik), filing["accession"], filing["accessionDashed"]))
                 original = sec_fetch(path)
                 if filing.get("expected13FFileNumber"):
                     from legacy_13f import verify_report_file_number
+                    from sec_history_index import bind_submission
+                    bound=bind_submission(original,{**filing,'form':filing.get('form') or ('13F-HR/A' if filing.get('amendmentType')=='RESTATEMENT' else '13F-HR'),'submissionPath':path},filing.get('cik',cik))
+                    if bound['reportDate']!=filing['reportDate']:raise ValueError('Historical cover period differs from SEC index')
                     verify_report_file_number(original, filing["expected13FFileNumber"])
                 rows = parse_holdings(original, consolidate=consolidate,
                                       filing_date=filing["filingDate"], retain_legacy_discrepancies=True)
@@ -985,6 +990,8 @@ def _sort_history_in_place(data: dict):
 def save_data(path: str, data: dict):
     from reporting_scope import refresh
     config=next((c for c in INVESTOR_CONFIG.values() if c['path']==str(path)),{})
+    if config.get('costHistoryFrom'):
+        data.setdefault('meta',{})['costHistoryFrom']=config['costHistoryFrom']
     if config.get('reportingTransition'):
         filing=data.get('history',{}).get('filing_sources',{}).get(data.get('current',{}).get('quarter'))
         if filing:refresh(data,config,filing,sec_fetch)

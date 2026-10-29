@@ -363,3 +363,22 @@ test('legacy warrants and units stay visibly distinct from common shares',()=>{
   assert.match(a.run("instrumentTag({cls:'UNIT 06/11/2019'})"),/单位证券/);
   assert.equal(a.run("instrumentTag({cls:'COM'})"),'');
 });
+
+test('earlier HK disclosures expose original dates and holders without inventing quarters or combining shares',()=>{
+ const a=app();a.context.snapshot={history:{quarters:['2016 Q4']}};a.context.payload=JSON.parse(fs.readFileSync(path.join(__dirname,'../hk_holdings.json'),'utf8'));a.context.payload.holdings=a.context.payload.holdings.map(h=>({...h,verified_disclosures:(h.verified_disclosures||[]).filter(r=>r.event_date>='2005-09-28')}));
+ const before=JSON.stringify(a.context.snapshot);
+ const rows=JSON.parse(a.run('JSON.stringify(earlierHKDisclosures(snapshot,payload))'));
+ assert.equal(rows[0].event_date,'2005-09-28');assert.equal(rows[0].shares,7962000);assert.match(rows[0].holders.join(' '),/LL Investment Partners/);
+ assert.ok(rows.some(r=>r.ticker==='01766.HK'&&r.event_date==='2015-08-24'));
+ assert.ok(rows.every(r=>r.event_date<'2016-12-31'));
+ assert.equal(JSON.stringify(a.context.snapshot),before);
+ a.run('data=snapshot;hkDisclosures=payload;renderEarlierDisclosures()');
+ assert.match(a.el('earlierDisclosures').innerHTML,/2005-09-28/);assert.match(a.el('historyScopeNote').textContent,/2016 Q4/);
+ a.run('hkDisclosures=null;renderEarlierDisclosures()');assert.equal(a.el('earlierDisclosures').innerHTML,'');
+ assert.equal(a.run('t("thFirst")'),'最早披露');
+});
+test('reporter changes break historical value lines and suppress cross-entity quarterly growth',()=>{
+ const a=app();a.run("data={history:{filing_sources:{'2011 Q4':{cik:'1173334'},'2012 Q1':{cik:'1549575'},'2012 Q2':{cik:'1549575'}}}}");
+ assert.equal(a.run("historyChange(['2011 Q4','2012 Q1','2012 Q2'],[100,200,220],1)"),null);
+ assert.equal(a.run("historySegments(['2011 Q4','2012 Q1','2012 Q2']).length"),2);
+});
