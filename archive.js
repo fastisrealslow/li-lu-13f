@@ -63,16 +63,18 @@
     const blocks=s[language+'Blocks'];
     if(!blocks)return esc(s[language]);
     return blocks.map(b=>{
-      if(b.type==='table')return `<div class="archive-table-scroll"><table><thead><tr>${b.headers.map(h=>`<th scope="col">${esc(h)}</th>`).join('')}</tr></thead><tbody>${b.rows.map(row=>`<tr>${row.map(cell=>`<td>${esc(cell)}</td>`).join('')}</tr>`).join('')}</tbody></table></div>`;
+      if(b.type==='table')return `<div class="archive-table-scroll" tabindex="0" role="region" aria-label="${esc(b.caption||tr('数据表','Data table'))}"><table data-columns="${b.headers.length}">${b.caption?`<caption>${esc(b.caption)}</caption>`:''}<thead><tr>${b.headers.map(h=>`<th scope="col">${esc(h)}</th>`).join('')}</tr></thead><tbody>${b.rows.map(row=>`<tr>${row.map(cell=>`<td>${esc(cell)}</td>`).join('')}</tr>`).join('')}</tbody></table></div>`;
+      if(b.type==='figure'){const src=/^archive\/text_assets\/[a-f0-9]{64}\.png$/.test(b.src||'')?b.src:null;return src?`<figure class="archive-source-figure"><img src="${esc(src)}" alt="${esc(b.alt||b.caption||tr('原图','Source figure'))}" loading="lazy" decoding="async">${b.caption?`<figcaption>${esc(b.caption)}</figcaption>`:''}</figure>`:`<p>${tr('原图暂未载入。','Source image unavailable.')}</p>`;}
       if(b.type==='list'){const tag=b.ordered?'ol':'ul';return `<${tag}>${b.items.map(item=>`<li>${esc(item)}</li>`).join('')}</${tag}>`;}
       return b.type==='heading'?`<h2>${esc(b.text)}</h2>`:`<p>${esc(b.text)}</p>`;
     }).join('');
   }
-  function segmentAnchor(s){return s.page||s.anchor||s.timestamp?`<small class="archive-segment-anchor">${esc(s.page?tr('原件第 ','Source page ')+s.page+tr(' 页',''):s.timestamp||s.anchor)}</small>`:'';}
+  function segmentAnchor(s){return (s.author?`<p class="archive-segment-author">${esc(s.partTitle||'')} · ${esc(s.author)}</p>`:'')+(s.page||s.anchor||s.timestamp?`<small class="archive-segment-anchor">${esc(s.page?tr('原件第 ','Source page ')+s.page+tr(' 页',''):s.timestamp||s.anchor)}</small>`:'');}
   function renderProvenance(t){
     const source=externalURL(t.sourceURL)||active.sources.map(s=>externalURL(s.url)).find(Boolean);
     const label=t.originalLanguage==='en'?tr('英文原文 · 中文为非官方译文','English original · Unofficial Chinese translation'):tr('中文原文','Chinese original');
-    return `<aside class="archive-text-provenance"><p>${esc(label)}${source?` · <a href="${esc(source)}" target="_blank" rel="noopener noreferrer">${tr('原始出处 ↗','Original source ↗')}</a>`:''}</p><p>${esc(t.rights.evidence)}</p>${t.disclaimer?`<p>${esc(t.disclaimer)}</p>`:''}</aside>`;
+    const metadata=[];if(t.authors?.length)metadata.push(tr('作者／报告机构：','Authors / report entity: ')+t.authors.join(' · '));if(t.sourceDate)metadata.push((t.sourceDateKind?.startsWith('report_period_end')?tr('报告期末：','Report period end: '):tr('原件所列日期：','Date shown in source: '))+t.sourceDate);if(t.reportPeriods){const labels={manager_report_period_end:tr('经理报告期末','Manager report period end'),formal_financial_report_period_end:tr('财务报告期末','Financial report period end'),signed_letter_date:tr('股东信签署日期','Letter signature date')};for(const [k,v] of Object.entries(t.reportPeriods))metadata.push((labels[k]||k)+'：'+v);}
+    return `<aside class="archive-text-provenance"><p>${esc(label)}${source?` · <a href="${esc(source)}" target="_blank" rel="noopener noreferrer">${tr('原始出处 ↗','Original source ↗')}</a>`:''}</p><p>${esc(t.rights.evidence)}</p>${metadata.map(p=>`<p>${esc(p)}</p>`).join('')}${t.disclaimer?`<p>${esc(t.disclaimer)}</p>`:''}</aside>`;
   }
   function renderPair(p){return mode==='bilingual'?`<div class="archive-text-pair"><p lang="zh-CN">${esc(p.zh)}</p><p lang="en" class="archive-en">${esc(p.en)}</p></div>`:`<p class="archive-text-line">${esc(p[mode==='en'?'en':'zh'])}</p>`;}
   function renderSections(sections){return sections.map(s=>`<section class="archive-explanation-section"><h2>${esc(tr(s.heading.zh,s.heading.en))}</h2>${s.paragraphs.map(renderPair).join('')}</section>`).join('');}

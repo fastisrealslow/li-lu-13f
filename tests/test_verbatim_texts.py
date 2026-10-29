@@ -1,5 +1,7 @@
 import copy
 import hashlib
+import json
+from pathlib import Path
 import unittest
 
 from verbatim_texts import validate_document
@@ -61,6 +63,47 @@ class VerbatimTextTests(unittest.TestCase):
         d["reviewStatus"] = "unreviewed_asr"
         with self.assertRaises(ValueError):
             validate_document(d, "test-original")
+
+
+class CompletedReportPublicationTests(unittest.TestCase):
+    root = Path(__file__).resolve().parents[1]
+
+    def test_second_batch_preserves_all_pages_tables_rows_and_images(self):
+        manifest = json.loads((self.root / "archive/imports/2026-10-29-batch2.json").read_text())
+        self.assertEqual(len(manifest["works"]), 8)
+        self.assertEqual(sum(w["pages"] or 0 for w in manifest["works"]), 158)
+        tables = rows = images = 0
+        for work in manifest["works"]:
+            d = json.loads((self.root / work["file"]).read_text())
+            validate_document(d, work["workId"])
+            self.assertEqual(d["sourceDigest"], work["originalSHA256"])
+            if work["pages"]:
+                self.assertEqual([s["page"] for s in d["segments"]], list(range(1,work["pages"]+1)))
+            if d.get("sourceRawText"):
+                self.assertEqual(hashlib.sha256(d["sourceRawText"].encode()).hexdigest(), d["sourceRawTextDigest"])
+            for seg in d["segments"]:
+                for block in seg["zhBlocks"]:
+                    if block["type"] == "table":
+                        tables += 1
+                        rows += len(block["rows"])
+                        self.assertTrue(all(len(r)==len(block["headers"]) for r in block["rows"]))
+                    elif block["type"] == "figure":
+                        images += 1
+                        self.assertEqual(hashlib.sha256((self.root/block["src"]).read_bytes()).hexdigest(),block["sha256"])
+        self.assertEqual((tables, rows, images), (67, 821, 6))
+
+    def test_independent_authors_and_report_periods_remain_distinct(self):
+        manifest = json.loads((self.root / "archive/imports/2026-10-29-batch2.json").read_text())
+        docs={w["key"]:json.loads((self.root/w["file"]).read_text()) for w in manifest["works"]}
+        d=docs["buffett2014"]
+        self.assertEqual(d["authors"], ["Warren E. Buffett", "Charles T. Munger"])
+        self.assertTrue(all(s["author"]=="Charles T. Munger" for s in d["segments"] if s["page"]>=38))
+        self.assertTrue(all(s["author"]=="Warren E. Buffett" for s in d["segments"] if s["page"]<38))
+        self.assertTrue({"Bruce R. Berkowitz","Peter A. Russ","Lawrence S. Pitkowsky","Keith D. Trauner"} <= set(docs["fairholme2001"]["authors"]))
+        for year, manager, financial in [("2022","2022-12-31","2022-11-30"),("2023","2023-06-30","2023-05-31")]:
+            periods=docs["fairholme"+year]["reportPeriods"]
+            self.assertEqual(periods["manager_report_period_end"],manager)
+            self.assertEqual(periods["formal_financial_report_period_end"],financial)
 
 
 if __name__ == "__main__":
