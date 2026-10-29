@@ -12,10 +12,11 @@ import math
 from pathlib import Path
 
 import ai_supplement as ai
+from security_identity import project as project_identities, project_prices
 
 ROOT = Path(__file__).resolve().parent
 ROW_FIELDS = ('ticker', 'cusip', 'name', 'cnName', 'cls', 'shares', 'value',
-              'shareType', 'putCall', 'sector', 'shareAdjustment')
+              'shareType', 'putCall', 'sector', 'shareAdjustment', 'reportedIdentity', 'identityEvidence')
 
 
 def encoded(value):
@@ -143,7 +144,8 @@ def build(root=ROOT, output=None):
     for person in people:
         ident = person['id']
         data, prices = read(root / person['dataFile']), read(root / person['pricesFile'])
-        data = display_data(data, person.get('browserHoldingLimit'))
+        prices = project_prices(data, prices)
+        data = display_data(project_identities(data), person.get('browserHoldingLimit'))
         tickers = {h['ticker'] for h in data['current']['holdings']} if data.get('meta', {}).get('browserScope') else None
         overview = current_data(data, prices)
         entries, source_keys = {}, {}

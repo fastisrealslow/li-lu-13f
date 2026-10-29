@@ -5,6 +5,7 @@ import math
 import re
 
 from holdings_diff import consolidate_holdings
+from security_identity import project as project_identities
 from reporting_scope import same_manager_history
 
 CURRENT_FIELDS = ('ticker', 'cusip', 'shares', 'value', 'cnName', 'name', 'cls', 'putCall', 'shareType', 'sector')
@@ -94,6 +95,7 @@ def holdings_facts(data, name):
 
 
 def history_facts(data, name):
+    data = project_identities(data)
     history=data.get('history', {})
     if (history.get('verification') or {}).get('status')=='unverified': return context(data,name,'history',[])
     points={}

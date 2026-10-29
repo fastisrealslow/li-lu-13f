@@ -325,3 +325,41 @@ test('action badges are attached to the stock cell and unknown data has no direc
   assert.equal(a.run('positionChangeBadge(100,null)'),'');
   assert.match(a.run('fmtShareChg(100,null)'),/待比较/);
 });
+
+test('legacy identity bridges merge Li Lu BIDU/MU without changing source or filling missing reports',async()=>{
+  const a=app(),raw=JSON.parse(fs.readFileSync(path.join(__dirname,'../data.json'),'utf8'));
+  a.context.snapshot=raw;const before=JSON.stringify(raw);
+  a.run('data=snapshot;renderHKHoldings=()=>{}');
+  const projected=JSON.parse(a.run('JSON.stringify(projectSecuritySnapshot(data))'));
+  assert.equal(JSON.stringify(raw),before);
+  for(const q of ['2016 Q4','2017 Q1','2018 Q1','2018 Q2','2018 Q3'])assert.equal(projected.history.holdings[q].filter(h=>h.cusip==='056752108').length,1);
+  assert.equal(projected.history.holdings['2019 Q4'].find(h=>h.cusip==='595112103').ticker,'MU');
+  for(const q of ['2018 Q4','2019 Q1','2019 Q2','2019 Q3'])assert.ok(!(q in projected.history.holdings));
+  await a.run('renderTimelineTable()');const html=a.el('timelineCanvas').innerHTML;
+  assert.equal((html.match(/>BIDU</g)||[]).length,1);assert.equal((html.match(/>MU</g)||[]).length,1);
+  assert.match(html,/缺报（未知）.*2018 Q4, 2019 Q1, 2019 Q2, 2019 Q3/);
+});
+test('identity matching preserves classes, option direction, units, real changes and ambiguous issuers',()=>{
+  const a=app();a.run("var stock={ticker:'X',name:'Issuer',cls:'COM',shares:1,value:10,cusip:'123456789'}");
+  for(const difference of [{cls:'CL A'},{cls:'ADR'},{cls:'WARRANT'},{putCall:'Put'},{putCall:'Call'},{shareType:'PRN'},{cusip:'987654321'}]){
+    a.context.diff=difference;
+    assert.equal(a.run("sameSecurity(stock,{...stock,cusip:null,...diff})"),false);
+  }
+  assert.equal(a.run("projectSecuritySnapshot({history:{holdings:{'2020 Q1':[{...stock,cusip:null}],'2020 Q2':[stock,{...stock,cusip:'987654321'}]}}}).history.holdings['2020 Q1'][0].cusip"),null);
+});
+test('all 17 frontend projections match backend exactly and preserve quarterly totals',()=>{
+  const a=app();const config=JSON.parse(fs.readFileSync(path.join(__dirname,'../investors.json'),'utf8')).investors;
+  const {execFileSync}=require('node:child_process');
+  const backend=JSON.parse(execFileSync('python3',['-c',`import json\nfrom security_identity import project\nprint(json.dumps({p['id']:project(json.load(open(p['dataFile'])))['history']['holdings'] for p in json.load(open('investors.json'))['investors']}))`],{cwd:path.join(__dirname,'..'),maxBuffer:100*1024*1024}).toString());
+  for(const person of config){
+    a.context.snapshot=JSON.parse(fs.readFileSync(path.join(__dirname,'..',person.dataFile),'utf8'));
+    const frontend=JSON.parse(a.run('JSON.stringify(projectSecuritySnapshot(snapshot).history.holdings)'));
+    assert.deepEqual(frontend,backend[person.id],person.id);
+  }
+});
+
+test('legacy warrants and units stay visibly distinct from common shares',()=>{
+  const a=app();assert.match(a.run("instrumentTag({cls:'*W EXP 7/10/201'})"),/认股权证/);
+  assert.match(a.run("instrumentTag({cls:'UNIT 06/11/2019'})"),/单位证券/);
+  assert.equal(a.run("instrumentTag({cls:'COM'})"),'');
+});

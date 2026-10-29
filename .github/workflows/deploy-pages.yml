@@ -44,6 +44,8 @@ jobs:
       - name: Test spin-off evidence and financial history
         run: |
           python3 -m unittest discover -s tests -p test_spinoff_events.py -v
+          python3 -m unittest discover -s tests -p test_security_identity.py -v
+          python3 -m unittest discover -s tests -p test_cost_calculation.py -v
           python3 -m unittest discover -s tests -p test_13f_units.py -v
           python3 -m unittest discover -s tests -p test_quote_coverage.py -v
           python3 -m unittest discover -s tests -p test_magic_formula.py -v

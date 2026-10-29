@@ -68,7 +68,7 @@ def same_security(a, b):
     if a.get("cusip") and b.get("cusip"):
         return a["cusip"] == b["cusip"]
     ticker = lambda h: re.sub(r"[./-]", "", h.get("ticker", "").upper())
-    if ticker(a) and ticker(a) == ticker(b):
+    if ticker(a) and ticker(a) == ticker(b) and str(a.get("cls", "")).upper() == str(b.get("cls", "")).upper():
         return True
     return bool(a.get("name")) and a.get("name") == b.get("name") and (
         a.get("cls", "") == b.get("cls", "")

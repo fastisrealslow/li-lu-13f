@@ -850,6 +850,10 @@ function holdingCostState(h, snapshot = data, priceSnapshot = prices) {
     if (!exact || !Number.isFinite(h.value) || !Number.isFinite(h.shares) || h.value<=0 || h.shares<=0) return null;
     return {basis:{recent:{buy:h.value/h.shares,quarter:current.quarter,source:'13f-estimate',kind:'quarter_reference'},allTime:null},reason:null};
   };
+  const legacyAlias = (priceSnapshot?.securityIdentityVersion||0)<1 && Object.values(snapshot.history?.holdings||{}).some(rows=>rows.some(row=>
+    (row.reportedIdentity || (!row.cusip && h.cusip)) && row.name?.trim().toUpperCase()===h.name?.trim().toUpperCase() &&
+    (row.cls||'').trim().toUpperCase()===(h.cls||'').trim().toUpperCase() && instrument(row)===instrument(h)));
+  if(legacyAlias)return filedReference() || unavailable('stale_cost');
   const cb = priceSnapshot?.costBasis?.[h.ticker];
   if (!cb?.recent || cb.recent.error || !Number.isFinite(cb.recent.buy) || cb.recent.buy <= 0) return filedReference() || unavailable('missing');
   const recentQuarter = historyQuarterIndex(cb.recent.quarter), currentQuarter = historyQuarterIndex(current.quarter);
@@ -1125,6 +1129,34 @@ function renderHoldings() {
 }
 
 function instrument(h) { return [(h.putCall || '').toUpperCase(), (h.shareType || 'SH').toUpperCase()].join('|'); }
+// Derived identities only: keep source fields and a filing-backed audit trail.
+function projectSecuritySnapshot(snapshot) {
+  const history=snapshot?.history?.holdings, current=snapshot?.current;
+  if(!snapshot || typeof snapshot!=='object')return snapshot;
+  const text=v=>String(v||'').trim().replace(/\s+/g,' ').toUpperCase();
+  const signature=h=>{
+    const name=text(h.name);let cls=text(h.cls);
+    if(name==='BAIDU INC' && ['SPON ADR A','SPON ADR REP A'].includes(cls))cls='SPON ADR REP A';
+    return JSON.stringify([name,cls,text(h.putCall),text(h.shareType||'SH')]);
+  };
+  const candidates=new Map(), groups=[...Object.entries(history||{}).sort(),[current?.quarter,current?.holdings||[]],[current?.prevQuarter,current?.previousHoldings||[]]];
+  for(const [quarter,rows] of groups)for(const h of rows){
+    if(!text(h.name)||!text(h.cls)||!(/^[A-Z0-9*@#]{8}[0-9]$/.test(h.cusip||'')))continue;
+    const key=signature(h);if(!candidates.has(key))candidates.set(key,new Map());
+    const matches=candidates.get(key),old=matches.get(h.cusip);
+    if(!old || (old.ticker?.startsWith('?')&&!h.ticker?.startsWith('?')))matches.set(h.cusip,{cusip:h.cusip,ticker:h.ticker,quarter,source:snapshot.history?.filing_sources?.[quarter]||{}});
+  }
+  const row=h=>{
+    const matches=candidates.get(signature(h));if(h.cusip||matches?.size!==1)return h;
+    const evidence=[...matches.values()][0];
+    return {...h,cusip:evidence.cusip,ticker:h.ticker?.startsWith('?')?evidence.ticker:h.ticker,
+      reportedIdentity:Object.fromEntries(['ticker','cusip','name','cls'].filter(k=>k in h).map(k=>[k,h[k]])),
+      identityEvidence:{...evidence,method:'unique_exact_name_class_instrument'}};
+  };
+  const value={...snapshot,history:{...snapshot.history,holdings:Object.fromEntries(Object.entries(history||{}).map(([q,rows])=>[q,rows.map(row)]))},
+    current:current?{...current,holdings:(current.holdings||[]).map(row),...(current.previousHoldings?{previousHoldings:current.previousHoldings.map(row)}:{})}:current};
+  return value;
+}
 function consolidateHoldings(holdings) {
   const merged=new Map();
   for (const h of holdings || []) {
@@ -1141,7 +1173,7 @@ function sameSecurity(a, b) {
   if(instrument(a)!==instrument(b)) return false;
   if (a.cusip && b.cusip) return a.cusip === b.cusip;
   const ticker = h => (h.ticker || '').toUpperCase().replace(/[./-]/g, '');
-  if (ticker(a) && ticker(a) === ticker(b)) return true;
+  if (ticker(a) && ticker(a) === ticker(b) && (a.cls||'').toUpperCase()===(b.cls||'').toUpperCase()) return true;
   return !!a.name && a.name === b.name && (a.cls || '') === (b.cls || '') &&
     ((a.ticker || '').startsWith('?') || (b.ticker || '').startsWith('?'));
 }
@@ -1156,6 +1188,7 @@ function comparisonState(snapshot=data) {
   return Array.isArray(cur.previousHoldings) || Array.isArray(snapshot?.history?.holdings?.[cur.prevQuarter]) ? 'comparable':'partial';
 }
 function quarterlyHoldings(snapshot = data) {
+  snapshot=projectSecuritySnapshot(snapshot);
   const cur=snapshot.current, previous=cur.previousHoldings ?? snapshot.history?.holdings?.[cur.prevQuarter];
   let remaining=consolidateHoldings(previous);
   const current=consolidateHoldings(cur.holdings),indexed=current.concat(remaining).every(h=>h.cusip),key=h=>JSON.stringify([h.cusip,instrument(h)]);
@@ -1205,7 +1238,8 @@ function changeText(h,en=lang==='en') {
   return text;
 }
 function instrumentTag(h) {
-  if(/\bWARRANT\b/i.test(h.cls || '')) return `<span class="instrument-tag">${lang==='en'?'Warrant':'认股权证'}</span>`;
+  if(/\bUNIT\b/i.test(h.cls || '')) return `<span class="instrument-tag">${lang==='en'?'Unit':'单位证券'}</span>`;
+  if(/\bWARRANT\b|\bW\s+EXP\b/i.test(h.cls || '')) return `<span class="instrument-tag">${lang==='en'?'Warrant':'认股权证'}</span>`;
   if(h.putCall) return `<span class="instrument-tag">${hkEscape(h.putCall.toUpperCase())} · ${lang==='en'?'long option':h.putCall.toUpperCase()==='PUT'?'看跌期权多头':'看涨期权多头'}</span>`;
   if(h.shareType && h.shareType!=='SH') {
     const convertible=/CONVERT/i.test(h.cls || ''),debt=/BOND|NOTE|DEBENT/i.test(h.cls || '');
@@ -1817,7 +1851,7 @@ async function renderTimelineTable() {
     container.innerHTML = `<p style="color:var(--text-lighter);">${lang === 'en' ? 'A holdings timeline requires dated historical snapshots.' : '持仓时间轴需要可核对日期的历史快照，暂不展示。'}</p>`;
     return;
   }
-  const hdata = data.history?.holdings;
+  const hdata = projectSecuritySnapshot(data).history?.holdings;
   if (!hdata || Object.keys(hdata).length === 0) {
     container.innerHTML = '<p style="text-align:center;color:var(--text-lighter);padding:40px;">历史持仓数据加载中…</p>';
     return;
@@ -1831,9 +1865,10 @@ async function renderTimelineTable() {
     for (const h of consolidateHoldings(hdata[q])) {
       if(instrumentHistoryIncludes(data.meta||{},h.ticker) && q<data.meta.instrumentHistoryFrom) continue;
       if (!(h.shares > 0)) continue;
-      const tk = (h.cusip || h.ticker)+'|'+instrument(h);
+      const tk = JSON.stringify([h.cusip || [h.ticker,h.cls||''],instrument(h)]);
       if (!tickerInfo[tk]) tickerInfo[tk] = {ticker:h.ticker,cusip:h.cusip,shareType:h.shareType,putCall:h.putCall,cls:h.cls,first: q, last: q, quarters: [], sector: h.sector, name: h.name, cnName: h.cnName||'', maxShares: 0, curShares: 0};
-      else tickerInfo[tk].last = q;
+      else {tickerInfo[tk].last=q; if(!h.ticker.startsWith('?'))tickerInfo[tk].ticker=h.ticker;}
+      if(h.reportedIdentity)tickerInfo[tk].identityBridge=true;
       tickerInfo[tk].quarters.push(q);
       const factor = shareActionsFor(h,data).filter(a =>
         q < a.quarter && a.quarter <= latest
@@ -1852,7 +1887,12 @@ async function renderTimelineTable() {
       for (let i = quarters.indexOf(info.first); i <= quarters.indexOf(info.last); i++) {
         if (!allQs.has(quarters[i])) gaps.push(quarters[i]);
       }
-      return {ticker: tk, ...info, gaps, active: info.last === latest, qCount: info.quarters.length};
+      const unknown=[];
+      for(let n=historyQuarterIndex(info.first);n<=historyQuarterIndex(info.last);n++) {
+        const q=Math.floor(n/4)+' Q'+((n%4)+1);
+        if(!Object.hasOwn(hdata,q))unknown.push(q);
+      }
+      return {ticker: tk, ...info, gaps, unknown, active: info.last === latest, qCount: info.quarters.length};
     })
     .sort((a, b) => a.first.localeCompare(b.first));
 
@@ -1883,7 +1923,7 @@ async function renderTimelineTable() {
       // 已清仓 — 尝试显示估算盈亏
       const ep = (prices?.exitPerf || {})[e.ticker];
       let exitTag = '';
-      if (ep && ep.entryPrice && ep.exitPrice) {
+      if (ep && ep.entryPrice && ep.exitPrice && (!e.identityBridge || prices.securityIdentityVersion>=1)) {
         const chg = ep.changePct;
         const col  = chg >= 0 ? '#10b981' : '#ef4444';
         const sign = chg >= 0 ? '+' : '';
@@ -1900,7 +1940,7 @@ async function renderTimelineTable() {
       status = '<span style="color:var(--text-lighter);">○ ' + (isEn ? 'Exited' : '已清仓') + '</span>' + exitTag;
     }
     html += `<tr>
-      <td class="stock-cell"><span class="ticker-line">${fmtTicker(e.ticker,e)}</span>${instrumentTag(e)}<span class="name-line">${hkEscape(cn(e.name, e))}</span><span class="sector-badge">${ts(e.sector)}</span><span style="display:block;font-size:.65rem;color:var(--text-lighter);margin-top:2px;">${e.qCount} ${isEn?'quarters':'季'}</span></td>
+      <td class="stock-cell"><span class="ticker-line">${fmtTicker(e.ticker,e)}</span>${instrumentTag(e)}<span class="name-line">${hkEscape(cn(e.name, e))}</span><span class="sector-badge">${ts(e.sector)}</span><span style="display:block;font-size:.65rem;color:var(--text-lighter);margin-top:2px;">${e.qCount} ${isEn?'quarters':'季'}</span>${e.unknown.length?`<small class="data-quality-note">${isEn?'Missing reports (unknown)':'缺报（未知）'}: ${e.unknown.join(', ')}</small>`:''}</td>
       <td style="white-space:nowrap">${hkEscape(e.first)}</td>
       <td style="white-space:nowrap">${hkEscape(e.last)}</td>
       <td>${status}<div style="margin-top:4px">${e.shareInfo}</div></td>

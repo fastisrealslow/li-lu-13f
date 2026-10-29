@@ -24,6 +24,7 @@ from functools import lru_cache
 from zoneinfo import ZoneInfo
 from datetime import datetime, timezone, date
 from holdings_diff import share_adjustment, consolidate_holdings, same_security
+from security_identity import project as project_identities, project_prices
 
 
 def comparable_price_history(history, current_quarter, market_quotes=None):
@@ -299,6 +300,7 @@ def fetch_us(investor, cfg):
         print(f"ERROR: {data_file} not found.", file=sys.stderr)
         sys.exit(1)
 
+    data = project_identities(data)
     current      = data["current"]
     holdings     = current["holdings"]
     quarter      = current["quarter"]
@@ -317,7 +319,7 @@ def fetch_us(investor, cfg):
     ex = None
     try:
         with open(prices_file) as f:
-            ex = json.load(f)
+            ex = project_prices(data, json.load(f))
             existing_quotes = ex.get("quotes", {})
             existing_cb     = ex.get("costBasis", {})
             print(f"  Loaded cache: {len(existing_quotes)} quotes, {len(existing_cb)} cost basis")
@@ -647,7 +649,7 @@ def fetch_us(investor, cfg):
             cost_basis[ticker]["splitAdjustedThrough"] = quarter
     with open(prices_file, 'w') as output:
         mixed_tickers={h['ticker'] for rows in hist_holdings.values() for h in rows if h.get('putCall') or h.get('shareType','SH')!='SH'}
-        json.dump(dict(updated=datetime.utcnow().isoformat()+'Z', quotes=quotes,
+        json.dump(dict(updated=datetime.utcnow().isoformat()+'Z', securityIdentityVersion=1, quotes=quotes,
                        costBasis=cost_basis, exitPerf={k:v for k,v in (ex or {}).get('exitPerf',{}).items() if k not in mixed_tickers}), output, indent=2)
 
     # ── exitPerf：已清仓持仓估算盈亏 ──────────────────────────────────
@@ -765,7 +767,7 @@ def fetch_us(investor, cfg):
         if ticker in cost_basis:
             cost_basis[ticker]["splitAdjustedThrough"] = quarter
     out = {"updated": datetime.utcnow().isoformat() + "Z",
-           "quotes": quotes, "costBasis": cost_basis, "exitPerf": exit_perf}
+           "quotes": quotes, "costBasis": cost_basis, "exitPerf": exit_perf, "securityIdentityVersion": 1}
     if bulk_quotes:out['sourceHistoryFingerprint']=source_fingerprint
     with open(prices_file, "w") as f:
         json.dump(out, f, indent=2)
