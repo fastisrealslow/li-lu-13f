@@ -1458,10 +1458,10 @@
       "reason": "ValueError: Bilingual editorial review: The source text (s1) attributes the quote 'take a simple idea and take it seriously' to Einstein, but does not explicitly state this"
     },
     "pabrai-c6c00d61fd5d75": {
-      "at": "2026-10-29T14:43:51+00:00",
+      "at": "2026-10-29T18:15:52+00:00",
       "status": "retry",
       "inputHash": "aa63454949e27bada43391194c2083fb90210d4cb72ff5c8428a62775235c6f3",
-      "reason": "ValueError: Unsupported scaled numerical claim: 5"
+      "reason": "ValueError: Bilingual editorial review: The Chinese text incorrectly states Vijay 'won a bid' (winning implies acceptance), whereas the source says he won the bid but Pabra"
     },
     "pabrai-9a0eba26aa2ca1": {
       "at": "2026-10-29T18:06:28+00:00",
@@ -3574,5 +3574,5 @@
       "reason": "JSONDecodeError: Expecting ',' delimiter: line 4 column 201 (char 236)"
     }
   },
-  "updatedAt": "2026-10-29T18:15:50+00:00"
+  "updatedAt": "2026-10-29T18:15:52+00:00"
 }
