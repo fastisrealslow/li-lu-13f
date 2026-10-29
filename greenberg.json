@@ -1,6 +1,17 @@
 {
   "history": {
-    "restatementChecks": {},
+    "restatementChecks": {
+      "0000950123-04-001500": {
+        "result": "additive",
+        "checkedAt": "2026-10-29",
+        "url": "https://www.sec.gov/Archives/edgar/data/789920/0000950123-04-001500.txt"
+      },
+      "0000950123-04-001499": {
+        "result": "additive",
+        "checkedAt": "2026-10-29",
+        "url": "https://www.sec.gov/Archives/edgar/data/789920/0000950123-04-001499.txt"
+      }
+    },
     "holdings": {
       "2026 Q1": [
         {
@@ -34184,6 +34195,201 @@
         ],
         "errors": [],
         "normalizedHash": "e477b49fd08d4c2197d7f07b0c9817e098e412df7dd9b50e0534abc87d7b6cbe"
+      },
+      "2000 Q2": {
+        "version": 1,
+        "checkedAt": "2026-10-29",
+        "source": "https://www.sec.gov/Archives/edgar/data/789920/0000950123-00-007575.txt",
+        "filingDate": "2000-08-14",
+        "sourceDigest": "25e66e7f00d94cef1f9d2f920248ce8429fc98db48bdb8e4b4dd384dcd99ad05",
+        "sourceHash": "54a875caf45500a190340845fa5c867bc2f7594f4ad7ab6e5872b3af1f162edf",
+        "status": "pending",
+        "anchors": [
+          {
+            "ticker": "GD",
+            "cusip": "369550108",
+            "filedPrice": 52.24998536314094,
+            "price": 52.25,
+            "date": "2000-06-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/GD?period1=0&period2=1793386015&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "USB",
+            "cusip": "902973106",
+            "filedPrice": 19.24993408514264,
+            "price": 21.0625,
+            "date": "2000-06-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/USB?period1=0&period2=1793386016&interval=1d&events=splits",
+            "candidates": []
+          },
+          {
+            "ticker": "FMCC",
+            "cusip": "313400301",
+            "filedPrice": 40.49952862474655,
+            "price": 40.5,
+            "date": "2000-06-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/FMCC?period1=0&period2=1793386016&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          }
+        ],
+        "errors": [],
+        "normalizedHash": "54a875caf45500a190340845fa5c867bc2f7594f4ad7ab6e5872b3af1f162edf"
+      },
+      "2000 Q3": {
+        "version": 1,
+        "checkedAt": "2026-10-29",
+        "source": "https://www.sec.gov/Archives/edgar/data/789920/0000950123-00-010070.txt",
+        "filingDate": "2000-11-06",
+        "sourceDigest": "e92e1690a960086b1eab10794b6675aa7c24585fc7439932e5be86d93a9fb75d",
+        "sourceHash": "15cea66ce62363bb50385d07f93616f6c8a8d3386ceeff4404e522bb7e7cc11d",
+        "status": "verified",
+        "factor": 1,
+        "anchors": [
+          {
+            "ticker": "GD",
+            "cusip": "369550108",
+            "filedPrice": 62.81257925063548,
+            "price": 62.8125,
+            "date": "2000-09-29",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/GD?period1=0&period2=1793386015&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "USB",
+            "cusip": "902973106",
+            "filedPrice": 22.74992992438691,
+            "price": 22.375,
+            "date": "2000-09-29",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/USB?period1=0&period2=1793386016&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "FMCC",
+            "cusip": "313400301",
+            "filedPrice": 54.06335514739758,
+            "price": 54.0625,
+            "date": "2000-09-29",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/FMCC?period1=0&period2=1793386016&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          }
+        ],
+        "agreementCount": 3,
+        "anchorCount": 3,
+        "outlierTickers": [],
+        "normalizedHash": "15cea66ce62363bb50385d07f93616f6c8a8d3386ceeff4404e522bb7e7cc11d"
+      },
+      "2000 Q4": {
+        "version": 1,
+        "checkedAt": "2026-10-29",
+        "source": "https://www.sec.gov/Archives/edgar/data/789920/0000950123-01-001453.txt",
+        "filingDate": "2001-02-14",
+        "sourceDigest": "8f7786590168392efc317bc590285df75f3b5bd9d366d9a25e5615aa3948c32d",
+        "sourceHash": "396cc55652530ff07bc50654699d4bc4c12487a22ee2ca72a8ac2efd44593ea7",
+        "status": "pending",
+        "anchors": [
+          {
+            "ticker": "USB",
+            "cusip": "902973106",
+            "filedPrice": 29.187432523825006,
+            "price": 23.25,
+            "date": "2000-12-29",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/USB?period1=0&period2=1793386016&interval=1d&events=splits",
+            "candidates": []
+          },
+          {
+            "ticker": "GD",
+            "cusip": "369550108",
+            "filedPrice": 77.99979096533815,
+            "price": 78.0,
+            "date": "2000-12-29",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/GD?period1=0&period2=1793386015&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          }
+        ],
+        "errors": [],
+        "normalizedHash": "396cc55652530ff07bc50654699d4bc4c12487a22ee2ca72a8ac2efd44593ea7"
+      },
+      "2001 Q1": {
+        "version": 1,
+        "checkedAt": "2026-10-29",
+        "source": "https://www.sec.gov/Archives/edgar/data/789920/0000950123-01-502511.txt",
+        "filingDate": "2001-05-15",
+        "sourceDigest": "ea8c4a3843143c27b128ba41c766d6beeb798f8c7a633236019f763737905b03",
+        "sourceHash": "c907d49a861c5c3faed771d1096b35d29cc274877f9da78f97b7f38df2e96ba4",
+        "status": "pending",
+        "anchors": [
+          {
+            "ticker": "USB",
+            "cusip": "902973106",
+            "filedPrice": 23.199967085644275,
+            "price": 23.200000762939453,
+            "date": "2001-03-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/USB?period1=0&period2=1793386016&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "GD",
+            "cusip": "369550108",
+            "filedPrice": 62.7401217904745,
+            "price": 62.7400016784668,
+            "date": "2001-03-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/GD?period1=0&period2=1793386015&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          }
+        ],
+        "errors": [],
+        "normalizedHash": "c907d49a861c5c3faed771d1096b35d29cc274877f9da78f97b7f38df2e96ba4"
+      },
+      "2001 Q2": {
+        "version": 1,
+        "checkedAt": "2026-10-29",
+        "source": "https://www.sec.gov/Archives/edgar/data/789920/0000950123-01-505600.txt",
+        "filingDate": "2001-08-14",
+        "sourceDigest": "8313358babdc152d7b987bc5f2cd1e1d34eeb7db473ae8925dfdf37534f9e02f",
+        "sourceHash": "33cc3117f19e4704d71812feba7b12721a3757a3256fa7c318ee6e8c3b62a1fc",
+        "status": "pending",
+        "anchors": [],
+        "errors": [],
+        "normalizedHash": "33cc3117f19e4704d71812feba7b12721a3757a3256fa7c318ee6e8c3b62a1fc"
+      },
+      "2001 Q3": {
+        "version": 1,
+        "checkedAt": "2026-10-29",
+        "source": "https://www.sec.gov/Archives/edgar/data/789920/0000950123-01-508430.txt",
+        "filingDate": "2001-11-14",
+        "sourceDigest": "8a722ea762ff6e39720971938162adc1b6a86c7fbb943024b25c04d5f6f1a560",
+        "sourceHash": "cd6cffc52e9b582e4c72e662aa444cb2accbb87141d5ed829d24877381d6ca83",
+        "status": "pending",
+        "anchors": [],
+        "errors": [],
+        "normalizedHash": "cd6cffc52e9b582e4c72e662aa444cb2accbb87141d5ed829d24877381d6ca83"
       }
     },
     "values": [
@@ -34301,11 +34507,11 @@
     "instrumentVerification": {
       "pendingQuarters": [],
       "errors": {},
-      "checkedAt": "2026-10-29T16:47:10.948238+00:00"
+      "checkedAt": "2026-10-29T18:46:54.496898+00:00"
     },
     "excludedValueQuarters": [],
     "coverage": {
-      "checkedAt": "2026-10-29T16:47:11Z",
+      "checkedAt": "2026-10-29T18:46:54Z",
       "missingQuarters": [],
       "repairedThisRun": [],
       "errors": {},
@@ -34799,7 +35005,7 @@
     "instrumentHistoryFrom": "1999 Q1",
     "manager": "Brave Warrior Advisors, LLC",
     "costHistoryFrom": "2012 Q1",
-    "lastUpdated": "2026-10-29T16:47:10Z",
+    "lastUpdated": "2026-10-29T18:46:54Z",
     "notablePeople": [
       "Glenn Greenberg"
     ],

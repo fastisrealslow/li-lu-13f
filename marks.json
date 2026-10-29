@@ -40,6 +40,16 @@
         "result": "additive",
         "checkedAt": "2026-10-29",
         "url": "https://www.sec.gov/Archives/edgar/data/949509/0000949509-12-000012.txt"
+      },
+      "0000949509-03-000018": {
+        "result": "restatement",
+        "checkedAt": "2026-10-29",
+        "url": "https://www.sec.gov/Archives/edgar/data/949509/0000949509-03-000018.txt"
+      },
+      "0000949509-03-000016": {
+        "result": "additive",
+        "checkedAt": "2026-10-29",
+        "url": "https://www.sec.gov/Archives/edgar/data/949509/0000949509-03-000016.txt"
       }
     },
     "holdings": {
@@ -315298,9 +315308,9 @@
           ],
           "ticker": "PBR",
           "sector": "能源",
+          "cnName": "Petróleo Brasileiro S.A. - Petrobras",
           "prevShares": 229600,
-          "prevValue": 8093000,
-          "cnName": "Petróleo Brasileiro S.A. - Petrobras"
+          "prevValue": 8093000
         },
         {
           "name": "CHESAPEAKE ENERGY CORP",
@@ -315323,8 +315333,8 @@
           "prevValue": 12695000
         },
         {
-          "name": "SAPPI LTD",
-          "cls": "SPON ADR NEW",
+          "name": "SAPPI LTD                      SPON",
+          "cls": "ADR NEW",
           "cusip": "803069202",
           "value": 12966000,
           "shares": 894190,
@@ -315337,7 +315347,7 @@
               "value": 12966000
             }
           ],
-          "ticker": "?SAPPI LTD",
+          "ticker": "?SAPPI LTD                      SPON",
           "sector": "其他",
           "prevShares": 567540,
           "prevValue": 8127000
@@ -316083,8 +316093,8 @@
           "prevValue": 6923000
         },
         {
-          "name": "AES CORP SDCV 4.500%",
-          "cls": "8/1",
+          "name": "AES CORP",
+          "cls": "SDCV 4.500%  8/1",
           "cusip": "00130HAN5",
           "value": 6956000,
           "shares": 6868000,
@@ -316097,7 +316107,7 @@
               "value": 6956000
             }
           ],
-          "ticker": "?AES CORP SDCV 4.500%",
+          "ticker": "?AES CORP",
           "sector": "其他",
           "prevShares": 10983000,
           "prevValue": 10851000
@@ -319172,8 +319182,8 @@
           "sector": "其他"
         },
         {
-          "name": "TRAVELERS PPTY CAS CORP NEW",
-          "cls": "NT CV JR 2032",
+          "name": "TRAVELERS PPTY CAS CORP NEW    NT",
+          "cls": "CV JR 2032",
           "cusip": "89420G307",
           "value": 14931000,
           "shares": 622370,
@@ -319186,7 +319196,7 @@
               "value": 14931000
             }
           ],
-          "ticker": "?TRAVELERS PPTY CAS CORP NEW",
+          "ticker": "?TRAVELERS PPTY CAS CORP NEW    NT",
           "sector": "其他"
         },
         {
@@ -327117,8 +327127,8 @@
           "prevValue": 0
         },
         {
-          "name": "GRUPO TELEVISA SA DE CV        SP ADR REP",
-          "cls": "ORD",
+          "name": "GRUPO TELEVISA SA DE",
+          "cls": "CV        SP ADR REP ORD",
           "cusip": "40049J206",
           "value": 22712000,
           "shares": 1068300,
@@ -327213,9 +327223,9 @@
           ],
           "ticker": "PBR",
           "sector": "能源",
+          "cnName": "Petróleo Brasileiro S.A. - Petrobras",
           "prevShares": 439000,
-          "prevValue": 38048000,
-          "cnName": "Petróleo Brasileiro S.A. - Petrobras"
+          "prevValue": 38048000
         },
         {
           "name": "NRG ENERGY INC",
@@ -328318,8 +328328,8 @@
           "prevValue": 0
         },
         {
-          "name": "PATNI COMPUTER SYS             SPONS",
-          "cls": "ADR",
+          "name": "PATNI COMPUTER SYS",
+          "cls": "SPONS ADR",
           "cusip": "703248203",
           "value": 9646000,
           "shares": 506100,
@@ -328332,7 +328342,7 @@
               "value": 9646000
             }
           ],
-          "ticker": "?PATNI COMPUTER SYS             SPONS",
+          "ticker": "?PATNI COMPUTER SYS",
           "sector": "其他",
           "prevShares": 0,
           "prevValue": 0
@@ -328578,8 +328588,8 @@
           "prevValue": 7644000
         },
         {
-          "name": "TRAVELERS PPTY CAS CORP NEW",
-          "cls": "NT CV JR 2032",
+          "name": "TRAVELERS PPTY CAS CORP NEW    NT",
+          "cls": "CV JR 2032",
           "cusip": "89420G307",
           "value": 7900000,
           "shares": 320870,
@@ -328592,7 +328602,7 @@
               "value": 7900000
             }
           ],
-          "ticker": "?TRAVELERS PPTY CAS CORP NEW",
+          "ticker": "?TRAVELERS PPTY CAS CORP NEW    NT",
           "sector": "其他",
           "prevShares": 0,
           "prevValue": 0
@@ -457375,28 +457385,13 @@
       "2002 Q3": {
         "version": 1,
         "checkedAt": "2026-10-29",
-        "source": "https://www.sec.gov/Archives/edgar/data/949509/0000949509-02-000013.txt",
-        "filingDate": "2002-11-14",
-        "sourceDigest": "6eddb62d066701c329e0b21b158da30a7e42c2bdc9e9ce16071b7d93339224c3",
-        "sourceHash": "6ca12086b635a7d3e18cd63b685981638cac02c6591679b0f514990e56bb2b68",
+        "source": "https://www.sec.gov/Archives/edgar/data/949509/0000949509-03-000018.txt",
+        "filingDate": "2003-05-16",
+        "sourceDigest": "872430b9f2038e44975984200e1e39e8ab7618cdbf068bf65319adcfe73ea8fd",
+        "sourceHash": "600eba2e84ee70b47c64ef0477a9ab9e41493467398359848d4aa2f512ba28f1",
         "status": "pending",
-        "anchors": [
-          {
-            "ticker": "BVN",
-            "cusip": "204448104",
-            "filedPrice": 21.40096618357488,
-            "price": 21.399999618530273,
-            "date": "2002-09-30",
-            "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/BVN?period1=0&period2=1793378912&interval=1d&events=splits",
-            "candidates": [
-              1
-            ]
-          }
-        ],
-        "errors": [
-          "PBR/A: ValueError"
-        ],
+        "anchors": [],
+        "errors": [],
         "normalizedHash": "6ca12086b635a7d3e18cd63b685981638cac02c6591679b0f514990e56bb2b68"
       },
       "2003 Q1": {
@@ -457450,6 +457445,327 @@
         "anchorCount": 3,
         "outlierTickers": [],
         "normalizedHash": "df099ffc988a6cc4411c04078a5523eadbcd70351c40c0fa63d5c0f7fc89bb90"
+      },
+      "2004 Q4": {
+        "version": 1,
+        "checkedAt": "2026-10-29",
+        "source": "https://www.sec.gov/Archives/edgar/data/949509/0000949509-05-000002.txt",
+        "filingDate": "2005-02-14",
+        "sourceDigest": "4115f44522692bc86f2f18c82677584c9842865a3107022f38bffe4eb5a5a13c",
+        "sourceHash": "43ec3d29f2bed326c265ef3032446ab4844f44d62aef105f8608ce90f4208533",
+        "status": "verified",
+        "factor": 1,
+        "anchors": [
+          {
+            "ticker": "PBR",
+            "cusip": "71654V408",
+            "filedPrice": 39.78015267175572,
+            "price": 39.779998779296875,
+            "date": "2004-12-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/PBR?period1=0&period2=1793386093&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "BVN",
+            "cusip": "204448104",
+            "filedPrice": 22.89943074003795,
+            "price": 22.899999618530273,
+            "date": "2004-12-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/BVN?period1=0&period2=1793386093&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "BP",
+            "cusip": "055622104",
+            "filedPrice": 58.39666357738647,
+            "price": 58.400001525878906,
+            "date": "2004-12-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/BP?period1=0&period2=1793386093&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          }
+        ],
+        "agreementCount": 3,
+        "anchorCount": 3,
+        "outlierTickers": [],
+        "normalizedHash": "43ec3d29f2bed326c265ef3032446ab4844f44d62aef105f8608ce90f4208533"
+      },
+      "2005 Q1": {
+        "version": 1,
+        "checkedAt": "2026-10-29",
+        "source": "https://www.sec.gov/Archives/edgar/data/949509/0000949509-05-000007.txt",
+        "filingDate": "2005-05-16",
+        "sourceDigest": "a5b1669c41f266ca2e512b83bb5761b110031947b20967e8f5c1afd05195c410",
+        "sourceHash": "6ede8b5416e0455f9eef4eb221323a161d627c1fda5b21d4f716d640c02e4e2b",
+        "status": "verified",
+        "factor": 1,
+        "anchors": [
+          {
+            "ticker": "PBR/A",
+            "cusip": "71654V101",
+            "filedPrice": 38.46964343077417,
+            "price": 38.470001220703125,
+            "date": "2005-03-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/PBR-A?period1=0&period2=1793386094&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "BVN",
+            "cusip": "204448104",
+            "filedPrice": 22.778899545684,
+            "price": 22.780000686645508,
+            "date": "2005-03-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/BVN?period1=0&period2=1793386093&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "VLO",
+            "cusip": "91913Y100",
+            "filedPrice": 73.27,
+            "price": 73.26999729919434,
+            "date": "2005-03-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/VLO?period1=0&period2=1793386094&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          }
+        ],
+        "agreementCount": 3,
+        "anchorCount": 3,
+        "outlierTickers": [],
+        "normalizedHash": "6ede8b5416e0455f9eef4eb221323a161d627c1fda5b21d4f716d640c02e4e2b"
+      },
+      "2006 Q1": {
+        "version": 1,
+        "checkedAt": "2026-10-29",
+        "source": "https://www.sec.gov/Archives/edgar/data/949509/0000949509-06-000004.txt",
+        "filingDate": "2006-05-12",
+        "sourceDigest": "4cebe776113252a435a7b35dc9f9dc340f80fa654a0fce8e86338970443688a4",
+        "sourceHash": "f0976fe2b68c9928ba1c0418d063e35b7399b68d52d94189f62c6826aa86f60d",
+        "status": "verified",
+        "factor": 1,
+        "anchors": [
+          {
+            "ticker": "AXP",
+            "cusip": "025816AS8",
+            "filedPrice": 1.0362548262548263,
+            "price": 52.54999923706055,
+            "date": "2006-03-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/AXP?period1=0&period2=1793386096&interval=1d&events=splits",
+            "candidates": []
+          },
+          {
+            "ticker": "CCK",
+            "cusip": "228368106",
+            "filedPrice": 17.74,
+            "price": 17.739999771118164,
+            "date": "2006-03-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/CCK?period1=0&period2=1793386097&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "CMCSA",
+            "cusip": "20030N101",
+            "filedPrice": 26.16,
+            "price": 26.1600004491806,
+            "date": "2006-03-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/CMCSA?period1=0&period2=1793386097&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "VZ",
+            "cusip": "92343V104",
+            "filedPrice": 34.06,
+            "price": 34.06000074966879,
+            "date": "2006-03-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/VZ?period1=0&period2=1793386098&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "PBR",
+            "cusip": "71654V408",
+            "filedPrice": 86.66970387243735,
+            "price": 86.66999816894531,
+            "date": "2006-03-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/PBR?period1=0&period2=1793386093&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          }
+        ],
+        "agreementCount": 4,
+        "anchorCount": 5,
+        "outlierTickers": [
+          "AXP"
+        ],
+        "normalizedHash": "f0976fe2b68c9928ba1c0418d063e35b7399b68d52d94189f62c6826aa86f60d"
+      },
+      "2006 Q2": {
+        "version": 1,
+        "checkedAt": "2026-10-29",
+        "source": "https://www.sec.gov/Archives/edgar/data/949509/0000949509-06-000006.txt",
+        "filingDate": "2006-08-03",
+        "sourceDigest": "70af842abfcc1e9e51f72402e3a86170c71afad3ffa7593cac647db3a12f5492",
+        "sourceHash": "f0976fe2b68c9928ba1c0418d063e35b7399b68d52d94189f62c6826aa86f60d",
+        "status": "pending",
+        "anchors": [
+          {
+            "ticker": "AXP",
+            "cusip": "025816AS8",
+            "filedPrice": 1.0362548262548263,
+            "price": 53.220001220703125,
+            "date": "2006-06-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/AXP?period1=0&period2=1793386096&interval=1d&events=splits",
+            "candidates": []
+          },
+          {
+            "ticker": "CCK",
+            "cusip": "228368106",
+            "filedPrice": 17.74,
+            "price": 15.569999694824219,
+            "date": "2006-06-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/CCK?period1=0&period2=1793386097&interval=1d&events=splits",
+            "candidates": []
+          },
+          {
+            "ticker": "CMCSA",
+            "cusip": "20030N101",
+            "filedPrice": 26.16,
+            "price": 32.74000100326538,
+            "date": "2006-06-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/CMCSA?period1=0&period2=1793386097&interval=1d&events=splits",
+            "candidates": []
+          },
+          {
+            "ticker": "VZ",
+            "cusip": "92343V104",
+            "filedPrice": 34.06,
+            "price": 33.48999937904243,
+            "date": "2006-06-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/VZ?period1=0&period2=1793386098&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "PBR",
+            "cusip": "71654V408",
+            "filedPrice": 86.66970387243735,
+            "price": 89.30999755859375,
+            "date": "2006-06-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/PBR?period1=0&period2=1793386093&interval=1d&events=splits",
+            "candidates": []
+          }
+        ],
+        "errors": [],
+        "normalizedHash": "a61f86475afea3616c3d7ac899c919c8ec6719ed645d2121cbcfef1b489a2d43"
+      },
+      "2006 Q3": {
+        "version": 1,
+        "checkedAt": "2026-10-29",
+        "source": "https://www.sec.gov/Archives/edgar/data/949509/0000949509-06-000015.txt",
+        "filingDate": "2006-11-14",
+        "sourceDigest": "9aa07c85b34a0575731474912a78eaa3bfc798517934377224342d274c45e538",
+        "sourceHash": "d7308be1c878a5b01cef0dc40024568626964dff855a6916a57089b517c270a9",
+        "status": "verified",
+        "factor": 1,
+        "anchors": [
+          {
+            "ticker": "CCK",
+            "cusip": "228368106",
+            "filedPrice": 18.600034294206186,
+            "price": 18.600000381469727,
+            "date": "2006-09-29",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/CCK?period1=0&period2=1793386097&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "CMCSA",
+            "cusip": "20030N101",
+            "filedPrice": 36.90046511627907,
+            "price": 36.90000115871429,
+            "date": "2006-09-29",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/CMCSA?period1=0&period2=1793386097&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "TV",
+            "cusip": "40049J206",
+            "filedPrice": 21.25994570813442,
+            "price": 21.260000228881836,
+            "date": "2006-09-29",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/TV?period1=0&period2=1793386099&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "VZ",
+            "cusip": "92343V104",
+            "filedPrice": 37.13,
+            "price": 37.129999313450924,
+            "date": "2006-09-29",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/VZ?period1=0&period2=1793386098&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "BVN",
+            "cusip": "204448104",
+            "filedPrice": 27.00040234104418,
+            "price": 27.0,
+            "date": "2006-09-29",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/BVN?period1=0&period2=1793386093&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          }
+        ],
+        "agreementCount": 5,
+        "anchorCount": 5,
+        "outlierTickers": [],
+        "normalizedHash": "d7308be1c878a5b01cef0dc40024568626964dff855a6916a57089b517c270a9"
       }
     },
     "values": [
@@ -457558,11 +457874,11 @@
     "instrumentVerification": {
       "pendingQuarters": [],
       "errors": {},
-      "checkedAt": "2026-10-29T16:48:28.584303+00:00"
+      "checkedAt": "2026-10-29T18:48:09.092331+00:00"
     },
     "excludedValueQuarters": [],
     "coverage": {
-      "checkedAt": "2026-10-29T16:48:31Z",
+      "checkedAt": "2026-10-29T18:48:11Z",
       "missingQuarters": [
         "1999 Q3",
         "1999 Q4",
@@ -457587,21 +457903,21 @@
         "2000 Q1": "No matching complete 13F portfolio in submissions and checked quarterly indexes; not a zero position"
       },
       "attempts": {
-        "2001 Q3": 3,
-        "2001 Q2": 3,
-        "2005 Q4": 2,
         "1999 Q4": 3,
-        "2003 Q3": 2,
+        "2001 Q2": 3,
+        "2001 Q3": 3,
+        "2003 Q3": 3,
+        "2011 Q4": 3,
+        "2004 Q2": 3,
         "1999 Q3": 3,
-        "2011 Q4": 2,
-        "2004 Q2": 2
+        "2005 Q4": 3
       },
       "pendingRefreshQuarters": [],
       "expandedLookup": {
         "schemaVersion": 1,
         "cik": "949509",
         "checkedAt": "2026-10-29T16:10:30Z",
-        "attemptedAt": "2026-10-29T16:48:29Z",
+        "attemptedAt": "2026-10-29T18:48:09Z",
         "status": "checked",
         "indexes": {
           "2000/QTR2": {
@@ -457988,7 +458304,7 @@
       "VC",
       "XOP"
     ],
-    "lastUpdated": "2026-10-29T16:48:28Z",
+    "lastUpdated": "2026-10-29T18:48:09Z",
     "manager": "Oaktree Capital Management, L.P.",
     "notablePeople": [
       "Howard Marks"
