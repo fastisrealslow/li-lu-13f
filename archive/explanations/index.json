@@ -1524,10 +1524,10 @@
       "reason": "ValueError: Bilingual editorial review: The English translation in the content section contains a factual error: it states Pabrai 'wears shorts and Nike sneakers daily' as "
     },
     "vinall-1ed9722f24818c": {
-      "at": "2026-10-29T14:48:11+00:00",
+      "at": "2026-10-29T18:16:47+00:00",
       "status": "retry",
       "inputHash": "a252be135d1ba7a1f0d2a4ea75422717e9507456483dfabd3d88d73a6c8e7a7d",
-      "reason": "ValueError: Bilingual editorial review: The Chinese text incorrectly states the author's name as 'Rob Vinall' instead of the canonical 'Rob Vinall' (which matches the Engli"
+      "reason": "ValueError: Bilingual editorial review: The Chinese text contains an untranslatable English word 'indiscriminately' without translation or context explanation.; The Chinese"
     },
     "pabrai-52346dc951afda": {
       "at": "2026-10-29T17:13:57+00:00",
@@ -3574,5 +3574,5 @@
       "reason": "JSONDecodeError: Expecting ',' delimiter: line 4 column 201 (char 236)"
     }
   },
-  "updatedAt": "2026-10-29T18:16:29+00:00"
+  "updatedAt": "2026-10-29T18:16:47+00:00"
 }
