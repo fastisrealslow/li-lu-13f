@@ -5,7 +5,7 @@
     "notablePeople": [
       "Duan Yongping"
     ],
-    "lastUpdated": "2026-10-29T05:29:15Z",
+    "lastUpdated": "2026-10-29T07:06:52Z",
     "aiSummary": "段永平 2026 年二季度新增阿里、增持拼多与迪士尼，同时大幅减持英伟达、谷歌及微软，显示其持续聚焦中国资产并调整科技股持仓结构。",
     "aiSummaryQuarter": "2026 Q2",
     "shareActions": [
@@ -4546,30 +4546,60 @@
           "ticker": "AAPL",
           "name": "APPLE INC",
           "cls": "COM",
+          "cusip": "037833100",
           "shares": 40864577,
           "value": 10233307372,
+          "shareType": "SH",
+          "putCall": "",
+          "managerAllocations": [
+            {
+              "managerIds": [],
+              "shares": 40864577,
+              "value": 10233307372
+            }
+          ],
           "sector": "科技",
           "prevShares": 52769155,
           "prevValue": 12295213115,
           "cnName": "苹果"
         },
         {
-          "ticker": "BRK.B",
+          "ticker": "BRK/B",
           "name": "BERKSHIRE HATHAWAY INC DEL",
           "cls": "CL B NEW",
+          "cusip": "084670702",
           "shares": 3621100,
           "value": 1641372208,
-          "sector": "综合金融",
+          "shareType": "SH",
+          "putCall": "",
+          "managerAllocations": [
+            {
+              "managerIds": [],
+              "shares": 3621100,
+              "value": 1641372208
+            }
+          ],
+          "sector": "其他",
           "prevShares": 3782100,
           "prevValue": 1740749346,
-          "cnName": "伯克希尔·哈撒韦B"
+          "cnName": "伯克希尔哈撒韦 B 类"
         },
         {
           "ticker": "GOOG",
           "name": "ALPHABET INC",
           "cls": "CAP STK CL C",
+          "cusip": "02079K107",
           "shares": 3766500,
           "value": 717292260,
+          "shareType": "SH",
+          "putCall": "",
+          "managerAllocations": [
+            {
+              "managerIds": [],
+              "shares": 3766500,
+              "value": 717292260
+            }
+          ],
           "sector": "互联网",
           "prevShares": 5066300,
           "prevValue": 847034697,
@@ -4579,8 +4609,18 @@
           "ticker": "PDD",
           "name": "PDD HOLDINGS INC",
           "cls": "SPONSORED ADS",
+          "cusip": "722304102",
           "shares": 7228700,
           "value": 701111613,
+          "shareType": "SH",
+          "putCall": "",
+          "managerAllocations": [
+            {
+              "managerIds": [],
+              "shares": 7228700,
+              "value": 701111613
+            }
+          ],
           "sector": "电商",
           "prevShares": 3907600,
           "prevValue": 526783556,
@@ -4590,8 +4630,18 @@
           "ticker": "OXY",
           "name": "OCCIDENTAL PETE CORP",
           "cls": "COM",
+          "cusip": "674599105",
           "shares": 13577000,
           "value": 670839570,
+          "shareType": "SH",
+          "putCall": "",
+          "managerAllocations": [
+            {
+              "managerIds": [],
+              "shares": 13577000,
+              "value": 670839570
+            }
+          ],
           "sector": "能源",
           "prevShares": 9223700,
           "prevValue": 475389498,
@@ -4601,8 +4651,18 @@
           "ticker": "BABA",
           "name": "ALIBABA GROUP HLDG LTD",
           "cls": "SPONSORED ADS",
+          "cusip": "01609W102",
           "shares": 5450830,
           "value": 462175876,
+          "shareType": "SH",
+          "putCall": "",
+          "managerAllocations": [
+            {
+              "managerIds": [],
+              "shares": 5450830,
+              "value": 462175876
+            }
+          ],
           "sector": "电商",
           "prevShares": 5443730,
           "prevValue": 577688628,
@@ -4612,19 +4672,39 @@
           "ticker": "DIS",
           "name": "DISNEY WALT CO",
           "cls": "COM",
+          "cusip": "254687106",
           "shares": 746000,
           "value": 83067100,
+          "shareType": "SH",
+          "putCall": "",
+          "managerAllocations": [
+            {
+              "managerIds": [],
+              "shares": 746000,
+              "value": 83067100
+            }
+          ],
           "sector": "娱乐",
           "prevShares": 748500,
           "prevValue": 71998215,
           "cnName": "迪士尼"
         },
         {
-          "ticker": "?MODERNA INC",
+          "ticker": "MRNA",
           "name": "MODERNA INC",
           "cls": "COM",
+          "cusip": "60770K107",
           "shares": 163000,
           "value": 6777540,
+          "shareType": "SH",
+          "putCall": "",
+          "managerAllocations": [
+            {
+              "managerIds": [],
+              "shares": 163000,
+              "value": 6777540
+            }
+          ],
           "sector": "其他",
           "prevShares": 97700,
           "prevValue": 6529291
@@ -6063,11 +6143,12 @@
       ]
     },
     "coverage": {
-      "checkedAt": "2026-10-29T05:29:16Z",
+      "checkedAt": "2026-10-29T07:06:52Z",
       "missingQuarters": [],
       "repairedThisRun": [],
       "errors": {},
       "attempts": {},
+      "pendingRefreshQuarters": [],
       "expandedLookup": null,
       "status": "continuous_within_stored_range",
       "quietMissingQuarters": []
@@ -6078,6 +6159,8 @@
         "accessionDashed": "0001759760-26-000007",
         "filingDate": "2026-08-14",
         "reportDate": "2026-06-30",
+        "form": "13F-HR",
+        "primaryDocument": "xslForm13F_X02/primary_doc.xml",
         "cik": "1759760",
         "url": "https://www.sec.gov/Archives/edgar/data/1759760/000175976026000007/infotable.xml"
       },
@@ -6086,6 +6169,8 @@
         "accessionDashed": "0001759760-26-000005",
         "filingDate": "2026-05-19",
         "reportDate": "2026-03-31",
+        "form": "13F-HR",
+        "primaryDocument": "xslForm13F_X02/primary_doc.xml",
         "cik": "1759760",
         "url": "https://www.sec.gov/Archives/edgar/data/1759760/000175976026000005/infotable.xml"
       },
@@ -6312,6 +6397,18 @@
         "reportDate": "2025-12-31",
         "cik": "1759760",
         "url": "https://www.sec.gov/Archives/edgar/data/1759760/000175976026000001/infotable.xml"
+      },
+      "2024 Q4": {
+        "accession": "000108514625001626",
+        "accessionDashed": "0001085146-25-001626",
+        "filingDate": "2025-02-14",
+        "reportDate": "2024-12-31",
+        "form": "13F-HR/A",
+        "primaryDocument": "xslForm13F_X02/primary_doc.xml",
+        "amendmentType": "RESTATEMENT",
+        "coverSource": "https://www.sec.gov/Archives/edgar/data/1759760/000108514625001626/primary_doc.xml",
+        "cik": "1759760",
+        "url": "https://www.sec.gov/Archives/edgar/data/1759760/000108514625001626/infotable.xml"
       }
     },
     "valueAudit": {
@@ -8140,18 +8237,6 @@
         ],
         "normalizedHash": "4e6d11652f345c8a5ece8240b3b235560d87236cd50b705e08aadcd0bd65af8b"
       },
-      "2024 Q4": {
-        "version": 1,
-        "checkedAt": "2026-10-29",
-        "source": "https://www.sec.gov/Archives/edgar/data/1759760/000108514625001521/infotable.xml",
-        "filingDate": "2025-02-14",
-        "sourceDigest": "bcc3054158c68c9bcbbf1a33f489843c7163f72e02681c36b0bd01ccbed76ec0",
-        "sourceHash": "0aaaa87a2fd1903c70d5427c6ead5f768829924ea1358267b39449290d73fd2c",
-        "status": "pending",
-        "anchors": [],
-        "errors": [],
-        "normalizedHash": "0abb39e3faae5e4a4be1be9cf7732620b80d60d17f42a0e193829d08d219a87c"
-      },
       "2025 Q1": {
         "version": 1,
         "checkedAt": "2026-10-12",
@@ -8516,6 +8601,82 @@
           }
         ],
         "normalizedHash": "783d1090f273383da5f7605890e4ce8b081296b23b422b32eec8a094204e4680"
+      },
+      "2024 Q4": {
+        "version": 1,
+        "checkedAt": "2026-10-29",
+        "source": "https://www.sec.gov/Archives/edgar/data/1759760/000108514625001626/infotable.xml",
+        "filingDate": "2025-02-14",
+        "sourceDigest": "1f6b9804ed7639e55ab1fbf512330123c082e53bc77caf47084a8408d408b198",
+        "sourceHash": "1c11d0ecab5a879d5b667a5f5f24e765e3d828bb350a1143aaa018d423f510c2",
+        "status": "verified",
+        "factor": 1,
+        "anchors": [
+          {
+            "ticker": "AAPL",
+            "cusip": "037833100",
+            "filedPrice": 250.41999999167984,
+            "price": 250.4199981689453,
+            "date": "2024-12-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/AAPL?period1=0&period2=1793344013&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "OXY",
+            "cusip": "674599105",
+            "filedPrice": 49.41,
+            "price": 49.40999984741211,
+            "date": "2024-12-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/OXY?period1=0&period2=1793344013&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "PDD",
+            "cusip": "722304102",
+            "filedPrice": 96.99,
+            "price": 96.98999786376953,
+            "date": "2024-12-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/PDD?period1=0&period2=1793344013&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "BABA",
+            "cusip": "01609W102",
+            "filedPrice": 84.7900000550375,
+            "price": 84.79000091552734,
+            "date": "2024-12-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/BABA?period1=0&period2=1793344013&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "GOOG",
+            "cusip": "02079K107",
+            "filedPrice": 190.44,
+            "price": 190.44000244140625,
+            "date": "2024-12-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/GOOG?period1=0&period2=1793344013&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          }
+        ],
+        "agreementCount": 5,
+        "anchorCount": 5,
+        "outlierTickers": [],
+        "normalizedHash": "1c11d0ecab5a879d5b667a5f5f24e765e3d828bb350a1143aaa018d423f510c2"
       }
     },
     "excludedValueQuarters": [],
