@@ -19,9 +19,10 @@ history contains one unique nine-character CUSIP for the exact issuer name,
 share class, put/call direction and share/principal type (case/whitespace only).
 Baidu's `Spon ADR A` and `Spon ADR REP A` are explicitly equivalent class-A ADR
 labels, supported by the same Himalaya history. No fuzzy names or blanket ticker
-matching. Different existing CUSIPs never join. In particular, old/new Google
-CUSIPs and Pabrai's eight-character `84670702` remain separate, pending further
-source verification. Ordinary stock, ADR, classes A/B, warrants, units, call/put
+matching. Different existing CUSIPs never join. The subsequent [history explorer upgrade](history-explorer.md) adds an explicit
+evidenced Google→Alphabet economic link while retaining both legal CUSIPs, and
+corrects only the exact Pabrai 2016 Q3 missing-leading-zero source anomaly.
+No general CUSIP padding or legal-identity replacement is performed. Ordinary stock, ADR, classes A/B, warrants, units, call/put
 and principal remain distinct. Ambiguous exact signatures remain unresolved.
 
 Raw source JSON and its filing provenance are unchanged. Derived browser rows

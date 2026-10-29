@@ -45,6 +45,8 @@ jobs:
         run: |
           python3 -m unittest discover -s tests -p test_spinoff_events.py -v
           python3 -m unittest discover -s tests -p test_security_identity.py -v
+          python3 -m unittest discover -s tests -p test_reporting_scope.py -v
+          python3 -m unittest discover -s tests -p test_tab_insights.py -v
           python3 -m unittest discover -s tests -p test_cost_calculation.py -v
           python3 -m unittest discover -s tests -p test_13f_units.py -v
           python3 -m unittest discover -s tests -p test_quote_coverage.py -v
