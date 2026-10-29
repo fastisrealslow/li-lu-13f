@@ -170,7 +170,7 @@ test('RV Capital biography and investment principles render in both languages',(
     a.run(`lang='${language}';updateInvestorContent()`);
     assert.match(a.el('.ref-text').innerHTML,/RV Capital/);
     assert.match(a.el('.ref-text').innerHTML,/Business Owner Fund/);
-    assert.match(a.el('.ref-text').innerHTML,/CIK=1766596/);
+    assert.doesNotMatch(a.el('.ref-text').innerHTML,/资料核对日期|Profile reviewed/);
     assert.equal((a.el('.phil-grid').innerHTML.match(/class="phil-card"/g)||[]).length,6);
     assert.ok(!a.el('.ref-grid .timeline').innerHTML.includes('Himalaya'));
     assert.match(a.el('.articles-grid').innerHTML,/rvcapital.ch\/articles-en/);
@@ -188,7 +188,7 @@ test('quarterly UI and summary retain the split-adjusted comparison',()=>{
   assert.match(a.run('aiInvestorFallback(data)'),/减持6.5%（拆股调整后）/);
 });
 
-test('verified profiles have matching source links for every investor in both languages',()=>{
+test('profiles keep official reading resources without repetitive timeline links or review dates',()=>{
  const a=app();
  a.context.document.querySelector=selector=>a.el(selector);
  a.context.document.querySelectorAll=()=>[];
@@ -199,9 +199,9 @@ test('verified profiles have matching source links for every investor in both la
    for (const language of ['zh','en']) {
      a.run(`lang='${language}';investor=cfg.id;INVESTOR_CFG_BY_ID[cfg.id]=cfg;data=sample;updateInvestorContent()`);
      assert.equal((a.el('.phil-grid').innerHTML.match(/class="phil-card"/g)||[]).length,6,cfg.id);
-     if(cfg.cik) assert.match(a.el('.ref-text').innerHTML,new RegExp('CIK='+cfg.cik));
+     assert.doesNotMatch(a.el('.ref-grid .timeline').innerHTML,/timeline-source|查看来源/);
      for(const item of cfg.profile.resources) assert.ok(a.el('.articles-grid').innerHTML.includes(item.url.replace(/&/g,'&amp;')),cfg.id+': '+item.url);
-     assert.ok(a.el('.ref-text').innerHTML.includes(cfg.profile.reviewedAt));
+     assert.ok(!a.el('.ref-text').innerHTML.includes(cfg.profile.reviewedAt));
    }
  }
 });

@@ -38,11 +38,29 @@ def compact_row(row, managers=False):
     return {key: value for key, value in row.items() if key in fields}
 
 
+def display_data(data, limit=None):
+    if not limit or len(data.get('current', {}).get('holdings', [])) <= limit:
+        return data
+    result = copy.deepcopy(data)
+    current, history = result['current'], result.setdefault('history', {})
+    original = current['holdings']
+    current['holdings'] = sorted(original, key=lambda h: -h['value'])[:limit]
+    key = lambda h: (h.get('cusip') or h.get('ticker'), h.get('shareType', 'SH'), h.get('putCall', ''))
+    selected = {key(h) for h in current['holdings']}
+    current['previousHoldings'] = [h for h in current.get('previousHoldings', history.get('holdings', {}).get(current.get('prevQuarter'), [])) if key(h) in selected]
+    values = [sum(h['value'] for h in history['holdings'][q])/1e6 if history.get('holdings', {}).get(q) else history['values'][i]
+              for i, q in enumerate(history.get('quarters', []))]
+    history['portfolioValues'] = values
+    history['holdings'] = {q: [h for h in rows if key(h) in selected] for q, rows in history.get('holdings', {}).items()}
+    result.setdefault('meta', {})['browserScope'] = {'limit':limit, 'reportedHoldings':len(original), 'shownValue':sum(h['value'] for h in current['holdings'])}
+    return result
+
+
 def current_data(data, prices):
     result = copy.deepcopy(data)
     history = result.setdefault('history', {})
     all_rows = history.pop('holdings', {})
-    history['values'] = [sum(row['value'] for row in all_rows[q]) / 1e6
+    history['values'] = history.get('portfolioValues') or [sum(row['value'] for row in all_rows[q]) / 1e6
         if all_rows.get(q) and all(type(row.get('value')) in (int, float)
             and math.isfinite(row['value']) and row['value'] >= 0 for row in all_rows[q])
         else history['values'][index] for index, q in enumerate(history.get('quarters', []))]
@@ -81,10 +99,13 @@ def current_data(data, prices):
     return result
 
 
-def current_prices(prices):
+def current_prices(prices, tickers=None):
     result = copy.deepcopy(prices)
     result.pop('exitPerf', None)
     result.pop('sourceHistoryFingerprint', None)
+    if tickers is not None:
+        result['quotes'] = {k:v for k,v in result.get('quotes', {}).items() if k in tickers}
+        result['costBasis'] = {k:v for k,v in result.get('costBasis', {}).items() if k in tickers}
     for quote in result.get('quotes', {}).values():
         for key in ('shareActions', 'shareActionsSince', 'fetchedAt', 'verifiedName', 'symbol'):
             quote.pop(key, None)
@@ -122,6 +143,8 @@ def build(root=ROOT, output=None):
     for person in people:
         ident = person['id']
         data, prices = read(root / person['dataFile']), read(root / person['pricesFile'])
+        data = display_data(data, person.get('browserHoldingLimit'))
+        tickers = {h['ticker'] for h in data['current']['holdings']} if data.get('meta', {}).get('browserScope') else None
         overview = current_data(data, prices)
         entries, source_keys = {}, {}
         for kind in ('investor', 'holdings', 'history'):
@@ -145,7 +168,7 @@ def build(root=ROOT, output=None):
         history = asset(ident, 'history', {**history_data(data, prices), 'investor': ident})
         hk = read(root / person['hkFile']) if person.get('hkFile') and (root / person['hkFile']).exists() else None
         snapshot = asset(ident, 'current', {'version': 1, 'investor': ident,
-            'data': overview, 'prices': current_prices(prices), 'hk': hk,
+            'data': overview, 'prices': current_prices(prices, tickers), 'hk': hk,
             'insights': {'schemaVersion': 2, 'entries': entries}, 'history': history})
         manifest['investors'][ident] = {'snapshot': snapshot, 'history': history}
     (output / 'manifest.json').write_bytes(encoded(manifest))

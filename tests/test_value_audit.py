@@ -149,3 +149,15 @@ class ValueAudit(unittest.TestCase):
     validate_data.validate_history(replayed['history'])
 
 if __name__=='__main__':unittest.main()
+
+class ParserProofReplayTests(unittest.TestCase):
+    def test_identical_original_replays_independent_quotes_and_changed_original_is_rejected(self):
+        import hashlib
+        import audit_13f_history as a
+        rows=[dict(ticker=t,cusip=str(i),shares=10,value=100,putCall='',shareType='SH') for i,t in enumerate(['AAA','BBB','CCC'])]
+        raw=b'original SEC filing'
+        proof=a.verify_units(rows,'2000 Q1',lambda t,q:dict(price=10,date='2000-03-31',currency='USD',url='https://query1.finance.yahoo.com/'+t))
+        data={'history':{'valueAudit':{'2000 Q1':dict(proof,sourceDigest=hashlib.sha256(raw).hexdigest())}}}
+        a.refresh_parser_proof(data,'2000 Q1',rows,raw)
+        self.assertEqual(data['history']['valueAudit']['2000 Q1']['normalizedHash'],a.digest(rows))
+        with self.assertRaises(ValueError):a.refresh_parser_proof(data,'2000 Q1',rows,b'revised original')

@@ -72,3 +72,19 @@ class BrowserAssetsTests(unittest.TestCase):
 
 
 if __name__=='__main__':unittest.main()
+
+class LimitedPortfolioTests(unittest.TestCase):
+    def test_top_positions_keep_full_report_totals_without_creating_false_exits(self):
+        data=fixture();row=data['current']['holdings'][0]
+        data['current']['holdings']=[{**row,'ticker':'TOP','cusip':'111111111','value':200}, {**row,'ticker':'TAIL','cusip':'222222222','value':100}]
+        data['current']['previousHoldings']=[{**r,'value':50} for r in data['current']['holdings']]
+        data['history']['holdings']={'2026 Q1':data['current']['previousHoldings'],'2026 Q2':data['current']['holdings']}
+        shown=browser.display_data(data,1)
+        self.assertEqual([h['ticker'] for h in shown['current']['holdings']],['TOP'])
+        self.assertEqual([h['ticker'] for h in shown['current']['previousHoldings']],['TOP'])
+        self.assertEqual(shown['meta']['browserScope']['reportedHoldings'],2)
+        self.assertEqual(shown['history']['portfolioValues'],[.0001,.0003])
+        self.assertEqual(data['current']['holdings'][1]['ticker'],'TAIL')
+        prices=browser.current_prices({'quotes':{'TOP':{'c':2},'TAIL':{'c':1}},'costBasis':{'TOP':{},'TAIL':{}}},{'TOP'})
+        self.assertEqual(set(prices['quotes']),{'TOP'})
+        self.assertEqual(set(prices['costBasis']),{'TOP'})

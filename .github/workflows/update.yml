@@ -38,6 +38,8 @@ on:
       - "tests/test_new_investors.py"
       - "reporting_scope.py"
       - "update_source_guard.py"
+      - "publish_validated_update.py"
+      - "tests/test_publication_retry.py"
       - "resolve_unmapped_tickers.py"
       - "publish_update_failure.py"
       - "update_status.py"
@@ -92,6 +94,13 @@ jobs:
 
       - name: Install dependencies
         run: pip install yfinance pdfminer.six rapidfuzz beautifulsoup4
+
+      - name: Restore immutable SEC originals
+        uses: actions/cache@v4
+        with:
+          path: .cache/sec-originals
+          key: sec-originals-${{ runner.os }}-${{ github.run_id }}
+          restore-keys: sec-originals-${{ runner.os }}-
 
       - name: Test data update regressions
         env:
@@ -270,13 +279,9 @@ jobs:
             echo "No changes to commit"
           else
             git commit -m "auto: update 13F data & prices (all investors)"
-            # 拉取远端变更，对 prices*.json 用 ours 策略（CI计算结果优先），其余文件正常merge
-            git fetch origin master
-            git merge origin/master --no-edit -X ours
-            python3 ai_supplement.py --refresh-fallbacks
-            python3 validate_data.py --stage
-            if ! git diff --cached --quiet; then git commit -m "auto: bind summaries to merged source data"; fi
-            git push
+            # Another writer can advance master during validation. Re-fetch,
+            # recheck rules and validate on every retry; never force-push.
+            python3 publish_validated_update.py
             echo "Changes pushed!"
           fi
 

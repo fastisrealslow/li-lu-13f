@@ -1369,7 +1369,7 @@
         }
       },
       "officialWebsiteLabel": "Webb-site 文章档案",
-      "holdingsUpdateMode": "archived",
+      "holdingsUpdateMode": "verified_disclosures",
       "holdingsUpdateNote": "保留历史持仓，仅自动更新报价；历史持仓镜像返回 HTTP 403，不再将镜像抓取作为日常更新任务。"
     },
     {
@@ -4189,7 +4189,7 @@
       "market": "US",
       "source13F": true,
       "consolidate": true,
-      "inValueScreen": true,
+      "inValueScreen": false,
       "useRestatements": true,
       "fullArchiveWorkers": 3,
       "portfolioAttribution": [
@@ -4454,7 +4454,8 @@
           "https://www.magicformulainvesting.com/Home/HowItWorks",
           "https://gothametfs.com/"
         ]
-      }
+      },
+      "browserHoldingLimit": 50
     },
     {
       "id": "mclemore",

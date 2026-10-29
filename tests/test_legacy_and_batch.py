@@ -107,3 +107,37 @@ class DecimalSourceTests(unittest.TestCase):
         validate_history(history)
         history['filing_sources']={}
         with self.assertRaises(ValueError):validate_history(history)
+
+class LegacyLayoutRecoveryTests(unittest.TestCase):
+    def fixed(self, lines, count, total, header=True):
+        markers='<S>                           <C>            <C>       <C>      <C>       <C> <C>  <C>        <C>      <C>       <C>       <C>'
+        body=('NAME CLASS CUSIP VALUE SHARES\n'+markers+'\n'+lines)
+        raw=legacy(body,total,count)
+        return raw if header else raw[0:raw.index(b'<TEXT>')+6]+b'<TABLE>\n'+body.encode()+b'\n</TABLE></TEXT>'
+    def test_wrapped_values_and_fractional_shares_are_separate_fields(self):
+        line=f"{'APPLE INC':30}{'COM':15}{'037833100':10}{'':9}{'2000':>9} SH\n"+' '*55+'100.00\n'
+        rows=parse_legacy(self.fixed(line,1,100))
+        self.assertEqual((rows[0]['shares'],rows[0]['value']),(2000,100000))
+    def test_an_original_cover_error_is_recorded_without_changing_line_values(self):
+        line=f"{'APPLE INC':30}{'COM':15}{'037833100':10}{100:9} {2000:8} SH"
+        raw=self.fixed(line,1,200)
+        with self.assertRaises(ValueError):parse_legacy(raw)
+        rows=parse_legacy(raw,retain_source_discrepancies=True)
+        self.assertEqual(rows[0]['value'],100000)
+        self.assertEqual(rows.reconciliation['status'],'cover_total_mismatch')
+        self.assertEqual(rows.reconciliation['reportedValue'],200000)
+    def test_a_missing_cover_is_only_accepted_with_a_complete_fixed_width_table(self):
+        line=f"{'APPLE INC':30}{'COM':15}{'037833100':10}{100:9} {2000:8} SH"
+        rows=parse_legacy(self.fixed(line,1,100,header=False),retain_source_discrepancies=True)
+        self.assertEqual(rows.reconciliation['status'],'missing_cover_totals')
+        self.assertEqual(rows[0]['shares'],2000)
+    def test_manager_reference_continuation_is_not_a_position(self):
+        line=f"{'APPLE INC':30}{'COM':15}{'037833100':10}{100:9} {2000:8} SH\n"+' '*94+'4, 11, 14\n'
+        rows=parse_legacy(self.fixed(line,1,100))
+        self.assertEqual(len(rows),1)
+    def test_source_missing_amounts_are_not_replaced_with_zero(self):
+        line=f"{'APPLE INC':30}{'COM':15}{'037833100':10}{'?':>9} {2000:8} SH"
+        with self.assertRaises(ValueError):parse_legacy(self.fixed(line,1,100),retain_source_discrepancies=True)
+    def test_numeric_cusips_with_lost_leading_zeros_are_normalized(self):
+        rows=parse_legacy(legacy('ABBOTT LAB   COM   2824100 100 2000 SH',100,1))
+        self.assertEqual(rows[0]['cusip'],'002824100')

@@ -254,3 +254,13 @@ class HKAutomationTests(unittest.TestCase):
         self.assertFalse(errors)
         self.assertEqual(records[0]['amends'], 'IS20250510E00001')
         self.assertEqual(records[0]['filing_ref'], 'IS20250513E00008')
+
+class LegacyHolderParameterTests(unittest.TestCase):
+    def test_legacy_scpid_matches_existing_verified_binding(self):
+        old=hk.LEGACY+'NSNoticePersonList.aspx?scpid=2224286'
+        hit={'noticeUrl':old,'entity':'Li Lu','stockName':'BYD'}
+        known={'entity':'Li Lu','notice_url':old,'verification':'hkex_form'}
+        self.assertEqual(hk.holder_identity(old,'Li Lu')[1],'2224286')
+        self.assertTrue(hk.identity_allowed(hit,{'original':known},[hit]))
+        other={**hit,'noticeUrl':old.replace('2224286','9999999')}
+        self.assertFalse(hk.identity_allowed(other,{'original':known},[hit,other]))

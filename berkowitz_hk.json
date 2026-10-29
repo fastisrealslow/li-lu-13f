@@ -13,14 +13,24 @@
           "position": "long",
           "issuer_name": "China Pacific Insurance (Group) Co., Ltd. - H Shares",
           "reason": "101 (L)",
-          "source_url": "https://di.hkex.com.hk/filing/di/NSNoticePersonList.aspx?sa2=np&scpid=2063327&sa1=pl&scsd=01%2f04%2f2003&sced=02%2f10%2f2017&pn=Fairholme+Capital+Management%2c+LLC&src=MAIN&lang=EN&g_lang=en&",
+          "source_url": "https://di.hkex.com.hk/filing/di/NSForm2.aspx?fn=151920&sa2=np&scpid=2063327&sa1=pl&scsd=01%2f04%2f2003&sced=02%2f10%2f2017&pn=Fairholme+Capital+Management%2c+LLC&src=MAIN&lang=EN&g_lang=en&",
           "form_url": "https://di.hkex.com.hk/filing/di/NSForm2.aspx?fn=151920&sa2=np&scpid=2063327&sa1=pl&scsd=01%2f04%2f2003&sced=02%2f10%2f2017&pn=Fairholme+Capital+Management%2c+LLC&src=MAIN&lang=EN&g_lang=en&",
-          "verification": "hkex_notice_table",
+          "verification": "hkex_form",
           "ticker": "02601.HK",
           "entity": "Fairholme Capital Management, LLC",
-          "share_class": "",
+          "share_class": "Ordinary",
           "source_key": "/filing/di/NSNoticePersonList.aspx?scpid=2063327",
-          "checked_at": "2026-10-15T01:59:44Z"
+          "checked_at": "2026-10-29T04:38:41Z",
+          "filing_date": "2011-01-11",
+          "supplementary": "",
+          "position_details_schema": 3,
+          "issued_shares": 2313300000,
+          "derivative_interests": [],
+          "before_long_shares": 0,
+          "long_interest_change": 144000000,
+          "event_codes": [
+            "101"
+          ]
         },
         {
           "filing_ref": "CS20111108000048",
@@ -40,9 +50,14 @@
           "checked_at": "2026-10-09T06:22:34Z",
           "filing_date": "2011-11-08",
           "supplementary": "",
-          "position_details_schema": 2,
+          "position_details_schema": 3,
           "issued_shares": 2313300000,
-          "derivative_interests": []
+          "derivative_interests": [],
+          "before_long_shares": 138843400,
+          "long_interest_change": -1000000,
+          "event_codes": [
+            "103"
+          ]
         },
         {
           "filing_ref": "CS20111201000028",
@@ -64,9 +79,14 @@
           "supplementary": "",
           "history_complete": true,
           "notice_url": "https://di.hkex.com.hk/filing/di/NSNoticePersonList.aspx?sa2=np&scpid=2063327&sa1=pl&scsd=01%2f04%2f2003&sced=02%2f10%2f2017&pn=Fairholme+Capital+Management%2c+LLC&src=MAIN&lang=EN&g_lang=en&",
-          "position_details_schema": 2,
+          "position_details_schema": 3,
           "issued_shares": 2313300000,
-          "derivative_interests": []
+          "derivative_interests": [],
+          "before_long_shares": 117065400,
+          "long_interest_change": -2400000,
+          "event_codes": [
+            "102"
+          ]
         }
       ],
       "name": "China Pacific Insurance (Group) Co., Ltd. - H Shares",
@@ -84,12 +104,13 @@
           "noticeUrl": "https://di.hkex.com.hk/filing/di/NSNoticePersonList.aspx?sa2=np&scpid=2063327&sa1=pl&scsd=01%2f04%2f2003&sced=02%2f10%2f2017&pn=Fairholme+Capital+Management%2c+LLC&src=MAIN&lang=EN&g_lang=en&"
         }
       ],
-      "last_checked_at": "2026-10-15T01:59:25Z"
+      "last_checked_at": "2026-10-29T04:38:18Z",
+      "pending_newer_notices": []
     }
   ],
   "source": "HKEX DI 原始申报表及权益披露列表（DION + 2003–2017历史库）",
   "disclaimer": "历史披露不代表当前持仓；搜索日期不等于披露日期。未搜到记录不代表已清仓或低于5%。比例须按原披露的股份类别解读。",
-  "lastUpdated": "2026-10-28T18:33:32Z",
+  "lastUpdated": "2026-10-29T04:38:18Z",
   "schemaVersion": 3,
   "investor": "berkowitz",
   "source_bindings": {
@@ -108,30 +129,35 @@
       "form_url": "https://di.hkex.com.hk/filing/di/NSForm2.aspx?fn=174017&sa2=np&scpid=2063327&sa1=pl&scsd=01%2f04%2f2003&sced=02%2f10%2f2017&pn=Fairholme+Capital+Management%2c+LLC&src=MAIN&lang=EN&g_lang=en&",
       "verification": "hkex_form",
       "supplementary": "",
-      "position_details_schema": 2,
+      "position_details_schema": 3,
       "issued_shares": 2313300000,
       "derivative_interests": [],
+      "before_long_shares": 117065400,
+      "long_interest_change": -2400000,
+      "event_codes": [
+        "102"
+      ],
       "history_complete": true,
       "notice_url": "https://di.hkex.com.hk/filing/di/NSNoticePersonList.aspx?sa2=np&scpid=2063327&sa1=pl&scsd=01%2f04%2f2003&sced=02%2f10%2f2017&pn=Fairholme+Capital+Management%2c+LLC&src=MAIN&lang=EN&g_lang=en&"
     }
   },
   "audit": {
-    "checkedAt": "2026-10-28T18:33:32Z",
-    "status": "partial",
+    "checkedAt": "2026-10-29T04:38:18Z",
+    "status": "checked",
     "queries": [
       {
         "query": "Fairholme Capital Management, LLC",
         "archive": "dion",
         "status": "ok",
         "matchedSecurities": 0,
-        "url": "https://di.hkex.com.hk/di/NSSrchPersonList.aspx?sa1=pl&scsd=03%2F07%2F2017&sced=28%2F10%2F2026&pn=Fairholme+Capital+Management%2C+LLC&src=MAIN&lang=EN&g_lang=en"
+        "url": "https://di.hkex.com.hk/di/NSSrchPersonList.aspx?sa1=pl&scsd=03%2F07%2F2017&sced=29%2F10%2F2026&pn=Fairholme+Capital+Management%2C+LLC&src=MAIN&lang=EN&g_lang=en"
       },
       {
         "query": "Bruce Berkowitz",
         "archive": "dion",
         "status": "ok",
         "matchedSecurities": 0,
-        "url": "https://di.hkex.com.hk/di/NSSrchPersonList.aspx?sa1=pl&scsd=03%2F07%2F2017&sced=28%2F10%2F2026&pn=Bruce+Berkowitz&src=MAIN&lang=EN&g_lang=en"
+        "url": "https://di.hkex.com.hk/di/NSSrchPersonList.aspx?sa1=pl&scsd=03%2F07%2F2017&sced=29%2F10%2F2026&pn=Bruce+Berkowitz&src=MAIN&lang=EN&g_lang=en"
       },
       {
         "query": "Fairholme Capital Management, LLC",
@@ -151,14 +177,8 @@
     "discoveredSources": 1,
     "verifiedSecurities": 1,
     "pendingSecurities": 0,
-    "recordsFetched": 0,
-    "errors": [
-      {
-        "entity": "Fairholme Capital Management, LLC",
-        "url": "https://di.hkex.com.hk/filing/di/NSNoticePersonList.aspx?sa2=np&scpid=2063327&sa1=pl&scsd=01%2f04%2f2003&sced=02%2f10%2f2017&pn=Fairholme+Capital+Management%2c+LLC&src=MAIN&lang=EN&g_lang=en&",
-        "reason": "Same name with an unverified HKEX holder identity; no attribution made"
-      }
-    ],
+    "recordsFetched": 3,
+    "errors": [],
     "scope": "匹配已配置主体的公开多头权益披露；不等于完整投资组合或当前持仓"
   }
 }

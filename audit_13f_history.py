@@ -118,6 +118,27 @@ def verify_units(rows, quarter, price=quarter_price):
     return {'status':'pending','anchors':anchors,'errors':errors}
 
 
+
+def refresh_parser_proof(data, quarter, rows, original):
+    """Replay existing independent quotes only for the exact same SEC original."""
+    previous=data.get('history',{}).get('valueAudit',{}).get(quarter,{})
+    if previous.get('status')!='verified':return
+    if hashlib.sha256(original).hexdigest()!=previous.get('sourceDigest'):
+        raise ValueError('Revised primary original requires a fresh unit audit')
+    quotes={a['ticker']:{k:a[k] for k in ('price','date','currency','url')} for a in previous['anchors']}
+    def cached_price(ticker,q):return quotes[ticker]
+    proof=verify_units(rows,quarter,cached_price)
+    if proof['status']!='verified' or proof['factor']!=previous['factor']:
+        raise ValueError('Parser revision could not reproduce the original independent unit proof')
+    source_hash=digest(rows)
+    for row in rows:
+        row['value']=round(row['value']*proof['factor'])
+        for allocation in row.get('managerAllocations',[]):
+            allocation['value']=round(allocation['value']*proof['factor'])
+    data['history']['valueAudit'][quarter]={**previous,**proof,'sourceHash':source_hash,'normalizedHash':digest(rows)}
+    data['history']['valueAudit'][quarter].pop('sourceTickerAliases',None)
+
+
 def priority(rows):
     return any(h.get('shares',0)>0 and h.get('value',0)>0 and not h.get('putCall') and h.get('shareType','SH')=='SH' and
                (h['value']/h['shares']<.5 or h['value']/h['shares']>10000) and
@@ -223,7 +244,7 @@ def audit_investor(key,config,limit=6,fetcher=None,price=quarter_price):
                 f=hits[0];path=sec.find_info_table_xml(f.get('cik',config['cik']),f['accession'],f['accessionDashed'])
                 source={**f,'url':'https://www.sec.gov'+path}
             raw=fetcher(source['url']) if fetcher else sec.sec_fetch(urlparse(source['url']).path)
-            parsed=sec.parse_holdings(raw,filing_date=source['filingDate'])
+            parsed=sec.parse_holdings(raw,filing_date=source['filingDate'],retain_legacy_discrepancies=True)
             proof=verify_units(parsed,q,price)
             record={'version':VERSION,'checkedAt':today,'source':source['url'],'filingDate':source['filingDate'],
                     'sourceDigest':hashlib.sha256(raw).hexdigest(),'sourceHash':digest(parsed),**proof}

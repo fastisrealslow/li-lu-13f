@@ -39,3 +39,12 @@ test('legend follows rendered gap categories without invented position percentag
   assert.match(a.run("t('priceNote')"),/（参考价－现价）÷参考价/);
   assert.match(a.run("lang='en';t('priceNote')"),/\(reference − price\) \/ reference/);
 });
+
+test('option references are underlying nominal prices, with no invented premium or contract divisor',()=>{
+ const a=app();a.run('data={current:{quarter:"2026 Q2"}}');
+ a.context.h={putCall:'Put',shareType:'SH',value:12000,shares:100};
+ assert.equal(a.run('optionNotionalReference(h).price'),120);
+ assert.equal(a.run('optionNotionalReference(h).quarter'),'2026 Q2');
+ a.run('h.shareType="CONTRACTS"');assert.equal(a.run('optionNotionalReference(h)'),null);
+ a.run('h.shareType="SH";data.current.valueQuality={}');assert.equal(a.run('optionNotionalReference(h)'),null);
+});

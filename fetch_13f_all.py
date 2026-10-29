@@ -773,14 +773,18 @@ def backfill_history_gaps(cik, data, filings, consolidate=False, limit=4):
             attempts[quarter] = attempts.get(quarter, 0) + 1
             try:
                 path = find_info_table_xml(filing.get("cik", cik), filing["accession"], filing["accessionDashed"])
-                rows = parse_holdings(sec_fetch(path), consolidate=consolidate,
-                                      filing_date=filing["filingDate"])
+                original = sec_fetch(path)
+                rows = parse_holdings(original, consolidate=consolidate,
+                                      filing_date=filing["filingDate"], retain_legacy_discrepancies=True)
                 if not rows:
                     raise ValueError("Empty information table requires manual verification")
+                from audit_13f_history import refresh_parser_proof
+                refresh_parser_proof(data, quarter, rows, original)
                 update_history(data, quarter, rows)
                 data["history"].setdefault("filing_sources", {})[quarter] = {
                     **filing, "url": "https://www.sec.gov" + path,
                     **({"format":"legacy_13f","parserVersion":legacy_version} if path.endswith('.txt') else {}),
+                    **({'sourceReconciliation': rows.reconciliation} if getattr(rows,'reconciliation',None) else {}),
                 }
                 repaired.append(quarter)
                 print(f"  Backfilled {quarter}: {len(rows)} rows")
@@ -817,6 +821,8 @@ def quarter_label(date_str: str) -> str:
 
 def find_info_table_xml(cik: str, accession: str, accession_dashed: str) -> str:
     """尝试 .html 和 .htm 两种格式，提取 INFOTABLE XML 路径。"""
+    if re.fullmatch(r'\d{10}-\d{2}-\d{6}',accession_dashed) and int(accession_dashed[11:13]) < 13:
+        return f"/Archives/edgar/data/{int(cik)}/{accession_dashed}.txt"
     index_html = None
     for ext in ["-index.htm", "-index.html"]:
         try:
@@ -857,16 +863,16 @@ def resolve_ticker(name: str, cls: str, cusip: str = "") -> str:
     return f"?{n}"
 
 
-def parse_holdings(xml_bytes: bytes, consolidate: bool = False, *, filing_date: str) -> list[dict]:
+def parse_holdings(xml_bytes: bytes, consolidate: bool = False, *, filing_date: str, retain_legacy_discrepancies=False) -> list[dict]:
     """解析 INFOTABLE XML，返回 holdings 列表（已排序）。"""
     if b'<SEC-HEADER>' in xml_bytes[:20000] or b'<SEC-DOCUMENT>' in xml_bytes[:2000]:
-        from legacy_13f import parse_legacy
-        raw_entries = parse_legacy(xml_bytes)
+        from legacy_13f import parse_legacy, LegacyHoldings
+        raw_entries = parse_legacy(xml_bytes, retain_source_discrepancies=retain_legacy_discrepancies)
         for row in raw_entries:
             row['ticker']=resolve_ticker(row['name'],row['cls'],row['cusip'])
         holdings=consolidate_holdings(raw_entries)
         for row in holdings:row['sector']=SECTORS.get(row['ticker'],'其他')
-        return sorted(holdings,key=lambda h:-h['value'])
+        return LegacyHoldings(sorted(holdings,key=lambda h:-h['value']), raw_entries.reconciliation)
     root = ET.fromstring(xml_bytes)
     filed=datetime.strptime(filing_date,'%Y-%m-%d')
     multiplier=1000 if filed<datetime(2023,1,3) else 1
@@ -1139,7 +1145,7 @@ def process_investor(key: str, config: dict, full_mode: bool):
         from update_status import record_source_warning, record_source_notice
         step = "akre_greenberg_13f" if key in ("akre", "greenberg") else f"{key}_13f"
         audit = data["history"]["coverage"].get("expandedLookup") or {}
-        source_gap = audit.get("status") == "checked" and all(str(error).startswith(("No matching complete 13F portfolio", "Related notice/additive amendment found")) for error in data["history"]["coverage"]["errors"].values())
+        source_gap = audit.get("status") == "checked" and all(str(data["history"]["coverage"]["errors"].get(q, "")).startswith(("No matching complete 13F portfolio", "Related notice/additive amendment found")) for q in remaining)
         reason = "已补查SEC历史索引，仍无可用原始持仓报告" if source_gap else "补查未完成或原表未核实，后续重试"
         record = record_source_notice if source_gap else record_source_warning
         record(step, f"{key} 历史缺 {len(remaining)} 季（{', '.join(remaining)}）：{reason}；不作零持仓")

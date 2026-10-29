@@ -357,7 +357,7 @@ def crawl_notices(client, hit, aliases, cached_records, binding=None, max_pages=
                 raise ValueError('Previous original form disagrees with notice table')
             by_ref[prior['filing_ref']].update(verified)
         except Exception as exc:
-            errors.append({'filing_ref':prior['filing_ref'],'reason':str(exc)})
+            errors.append({'filing_ref':prior['filing_ref'],'scope':'historical','reason':str(exc)})
     # Backfill original event details gradually on every scheduled run. A new
     # event is always fetched first; the backlog cannot delay the latest form.
     pending = [r for r in sorted(by_ref.values(), key=lambda r:(r['event_date'],r['filing_ref']), reverse=True)
@@ -371,7 +371,7 @@ def crawl_notices(client, hit, aliases, cached_records, binding=None, max_pages=
                 raise ValueError('Historical original form disagrees with notice table')
             record.update(verified)
         except Exception as exc:
-            errors.append({'filing_ref':record['filing_ref'],'reason':str(exc)})
+            errors.append({'filing_ref':record['filing_ref'],'scope':'historical','reason':str(exc)})
     binding={**form,'history_complete':complete and not errors,'notice_url':url}
     return list(by_ref.values()),binding,errors
 
@@ -387,7 +387,10 @@ def load_configs(path):
 
 def holder_identity(url, name):
     parsed=urlsplit(url)
-    pid=parse_qs(parsed.query).get('scpid1',[''])[0]
+    query=parse_qs(parsed.query)
+    # The pre-2017 archive names this field scpid, while DION uses scpid1.
+    # Treating the old parameter as missing rejected already verified holders.
+    pid=query.get('scpid' if parsed.path.startswith('/filing/') else 'scpid1',[''])[0]
     return ('legacy' if parsed.path.startswith('/filing/') else 'dion',canonical_entity(name or '')),pid
 
 
@@ -500,9 +503,10 @@ def run_investor(inv,root,client=None):
     for ticker,row in rows.items():
         row['ticker']=ticker
     verified=sum(bool(h.get('verified_disclosures')) for h in rows.values())
+    historical_only=bool(errors) and all(e.get('rejected') and all(r.get('scope')=='historical' for r in e['rejected']) for e in errors)
     data.update(schemaVersion=SCHEMA,investor=inv['id'],holdings=list(rows.values()),source_bindings=bindings,lastUpdated=stamp,
                 source='HKEX DI 原始申报表及权益披露列表（DION + 2003–2017历史库）',
-                audit={'checkedAt':stamp,'status':'partial' if errors else 'checked',
+                audit={'checkedAt':stamp,'status':'history_pending' if historical_only else 'partial' if errors else 'checked',
                        'queries':query_results,'discoveredSources':len(hits),'verifiedSecurities':verified,
                        'pendingSecurities':len(rows)-verified,'recordsFetched':len(collected),'errors':errors,
                        'scope':'匹配已配置主体的公开多头权益披露；不等于完整投资组合或当前持仓'})
@@ -522,10 +526,14 @@ def run(root='.',investors=None,workers=3):
             except Exception as exc:
                 results.append({'investor':config['id'],'status':'failed','errors':[{'reason':str(exc)}]})
     # Status writes are sequential; concurrent investors cannot lose warnings.
-    from update_status import record_source_warning
+    from update_status import record_source_warning, record_source_notice
+    names={i['id']:i.get('name',i['id']) for i in json.loads((root/'investors.json').read_text())['investors']}
+    historical=[f"{names.get(r['investor'],r['investor'])} {sum(len(e['rejected']) for e in r['errors'])}份" for r in results if r['status']=='history_pending']
+    if historical:
+        record_source_notice('hk_disclosures',"最新披露已核实；"+'、'.join(historical)+"历史原表与列表不一致，没核实，不用于变化计算")
     for r in results:
-        if r['status'] not in ('checked','archived'):
-            record_source_warning('hk_disclosures',f"{r['investor']} 港股披露部分未核实，保留已有证据")
+        if r['status'] not in ('checked','archived','history_pending'):
+            record_source_warning('hk_disclosures',f"{names.get(r['investor'],r['investor'])} 部分披露没核实；保留上次证据，下次自动重试")
     status_path=root/'alerts_hk_persons.json'
     previous=json.loads(status_path.read_text()) if status_path.exists() else {}
     runs={r['investor']:r for r in previous.get('verificationRuns',[])}

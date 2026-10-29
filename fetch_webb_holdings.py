@@ -2,12 +2,13 @@
 """
 fetch_webb_holdings.py
 ----------------------
-从 webbsite.0xmd.com/dbpub/webbchips.asp 抓取 David Webb 港股持仓数据
+优先从已核实的港交所原始权益披露建立 David Webb 公开披露快照
 （仅5%以上披露持股，低于5%的持仓无法从此来源获取）
 更新 webb.json 的 current.holdings 中的 shares / value 字段
 """
 
-import json, re, sys, time
+import json, re, sys, time, io, zipfile, math
+import xml.etree.ElementTree as ET
 from pathlib import Path
 from datetime import datetime, timezone
 from urllib.request import urlopen, Request
@@ -17,11 +18,106 @@ from html.parser import HTMLParser
 URL = "https://webbsite.0xmd.com/dbpub/webbchips.asp"
 WEBB_JSON = "webb.json"
 CONFIG_PATH = Path(__file__).resolve().parent / 'investors.json'
+LISTED_SECURITIES = 'https://www.hkex.com.hk/eng/services/trading/securities/securitieslists/ListOfSecurities.xlsx'
 
 HEADERS = {
     "User-Agent": "Mozilla/5.0 (compatible; 13f-dashboard/1.0; +https://github.com/fastisrealslow/li-lu-13f)",
     "Accept": "text/html,application/xhtml+xml",
 }
+
+
+def disclosed_positions(payload, aliases):
+    """Use the newest exact HKEX form, including confirmed threshold exits."""
+    from hk_disclosures import entity_matches
+    positions = []
+    for security in payload.get('holdings', []):
+        records = [r for r in security.get('verified_disclosures', [])
+                   if not r.get('superseded_by') and entity_matches(r.get('entity',''), aliases)]
+        if not records:
+            continue
+        latest = max(records, key=lambda r:(r['event_date'],r.get('filing_date',''),r['filing_ref']))
+        if latest.get('verification') != 'hkex_form' or any(p.get('event_date','') >= latest['event_date'] for p in security.get('pending_newer_notices', [])):
+            continue
+        if latest.get('position') != 'long' or latest.get('share_class','').casefold() not in ('ordinary shares','h shares') or latest.get('shares',0) <= 0 or latest.get('pct',0) < 5:
+            continue
+        positions.append({'ticker':latest['ticker'], 'name':security.get('name') or latest.get('issuer_name',''),
+                          'cnName':security.get('cnName',''), 'sector':security.get('sector') or '其他',
+                          'shares':latest['shares'], 'stake':latest['pct'], 'eventDate':latest['event_date'],
+                          'filingDate':latest.get('filing_date'), 'sourceURL':latest['form_url'],
+                          'shareType':'SH', 'putCall':'', 'cls':latest.get('share_class',''),
+                          'prevShares':None, 'prevValue':None})
+    return positions
+
+
+def parse_active_securities(raw):
+    ns={'s':'http://schemas.openxmlformats.org/spreadsheetml/2006/main'}
+    with zipfile.ZipFile(io.BytesIO(raw)) as archive:
+        strings=[''.join(node.itertext()) for node in ET.fromstring(archive.read('xl/sharedStrings.xml')).findall('s:si',ns)]
+        sheet=ET.fromstring(archive.read('xl/worksheets/sheet1.xml'))
+    rows=[]
+    for row in sheet.findall('.//s:row',ns):
+        cells={re.sub(r'\d','',c.attrib['r']):(strings[int(c.findtext('s:v',namespaces=ns))] if c.attrib.get('t')=='s' else c.findtext('s:v',default='',namespaces=ns)) for c in row}
+        rows.append(cells)
+    heading=next((i for i,row in enumerate(rows) if row.get('A')=='Stock Code'),None)
+    if heading is None:
+        raise ValueError('HKEX security list headers are unavailable')
+    columns={v:k for k,v in rows[heading].items()}
+    updated=re.search(r'Updated as at (\d{2}/\d{2}/\d{4})',' '.join(str(v) for row in rows[:heading] for v in row.values()))
+    if not updated or abs((datetime.now(timezone.utc).date()-datetime.strptime(updated[1],'%d/%m/%Y').date()).days)>14:
+        raise ValueError('HKEX security list is stale or undated')
+    securities={}
+    for row in rows[heading+1:]:
+        code=row.get(columns['Stock Code'],'')
+        if not re.fullmatch(r'\d{5}',code) or row.get(columns['Category'])!='Equity' or row.get(columns['Trading Currency'])!='HKD':
+            continue
+        securities[code+'.HK']={'isin':row.get(columns['ISIN']), 'listedName':row.get(columns['Name of Securities']), 'listingListDate':datetime.strptime(updated[1],'%d/%m/%Y').date().isoformat()}
+    if len(securities)<1000:
+        raise ValueError('HKEX security list appears incomplete')
+    return securities
+
+
+def active_securities():
+    with urlopen(Request(LISTED_SECURITIES,headers=HEADERS),timeout=20) as response:
+        return parse_active_securities(response.read(8_000_001))
+
+
+def update_from_disclosures(investor, root=Path('.'), price_reader=None, listed_reader=None):
+    from fetch_prices_all import get_hk_prices
+    from update_status import record_source_notice, record_source_warning
+    root=Path(root)
+    payload=json.loads((root/investor['hkFile']).read_text())
+    listed=(listed_reader or active_securities)()
+    previous=json.loads((root/investor['dataFile']).read_text())
+    known_isins={h['ticker']:h.get('isin') for h in previous.get('current',{}).get('holdings',[])}
+    # Historical stock codes may have been reassigned to a different issuer.
+    # Old-only archive records stay in the history, and an ISIN change never
+    # transfers the previous issuer's reported shares to the replacement stock.
+    positions=[{**h,**listed[h['ticker']]} for h in disclosed_positions(payload,investor['hkDisclosure']['entities'])
+               if h['ticker'] in listed and '/di/NSForm' in h['sourceURL'] and '/filing/' not in h['sourceURL']
+               and (not known_isins.get(h['ticker']) or known_isins[h['ticker']]==listed[h['ticker']]['isin'])]
+    if not positions:
+        record_source_warning('webb_holdings','本次未取得可用的港交所最新原表；保留上次持仓快照，继续更新股价。')
+        return False
+    quotes=(price_reader or get_hk_prices)([h['ticker'] for h in positions])
+    for row in positions:
+        quote=quotes.get(row['ticker'],{})
+        if quote.get('error') or not isinstance(quote.get('c'),(int,float)) or not math.isfinite(quote['c']) or quote['c']<=0 or quote.get('currency','HKD')!='HKD':
+            record_source_warning('webb_holdings','部分披露证券报价未取得；保留上次完整持仓快照，后续自动重试。')
+            return False
+        row.update(price=quote['c'], priceDate=datetime.fromtimestamp(quote['t'], timezone.utc).date().isoformat() if quote.get('t') else None, value=round(row['shares']*quote['c']))
+    path=root/investor['dataFile'];data=previous
+    data['current']={'quarter':'公开披露快照','periodEnd':None,'filingDate':None,
+                     'holdings':sorted(positions,key=lambda h:-h['value']),
+                     'totalValue':sum(h['value'] for h in positions),'prevQuarter':None,'prevTotalValue':None}
+    data.setdefault('meta',{}).update(lastUpdated=datetime.now(timezone.utc).strftime('%Y-%m-%dT%H:%M:%SZ'),
+        source='https://di.hkex.com.hk/',currency='HKD',snapshotType='verified_disclosure_snapshot',
+        snapshotNote='每只证券采用最近一份已核实港交所原表，展示披露权益仍达5%的证券；不同披露日期不等于今日完整组合。',
+        holdingsSource='hkex_original_forms',verificationDate=payload.get('audit',{}).get('checkedAt'))
+    data['meta']['activeSecuritySource']=LISTED_SECURITIES
+    temp=path.with_suffix('.json.tmp');temp.write_text(json.dumps(data,ensure_ascii=False,indent=2)+'\n');temp.replace(path)
+    record_source_notice('webb_holdings',f'已从港交所原表核实 {len(positions)} 项最新公开披露；按各自披露日期保留股数，股价独立更新。')
+    print(f'Webb: {len(positions)} positions sourced from original HKEX forms.',flush=True)
+    return True
 
 # 股票代号规范化：0709 -> 0709.HK
 def to_hk_ticker(code):
@@ -169,6 +265,18 @@ def main():
     print("=== fetch_webb_holdings.py ===")
     config=json.loads(CONFIG_PATH.read_text(encoding='utf-8'))['investors']
     investor=next(c for c in config if c['id']=='webb')
+    if investor.get('holdingsUpdateMode')=='verified_disclosures':
+        try:
+            update_from_disclosures(investor)
+        except Exception as exc:
+            # Only a non-empty prior snapshot is a safe fallback.
+            prior=json.loads(Path(investor['dataFile']).read_text())
+            if not prior.get('current',{}).get('holdings'):
+                raise
+            from update_status import record_source_warning
+            record_source_warning('webb_holdings','港交所本次核实未完成；保留上次持仓，股价继续独立更新，后续自动重试。')
+            print(f'Webb disclosure refresh unavailable: {exc}',file=sys.stderr)
+        return
     if investor.get('holdingsUpdateMode')=='archived':
         # Still require a readable, non-empty archive. A missing archive is
         # a genuine error; a deliberately retired network feed is not.
