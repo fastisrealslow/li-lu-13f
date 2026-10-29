@@ -58,7 +58,8 @@ test('quarterly rows and headers refresh for all investors without leaving the t
     const rows = a.element('changesBody').innerHTML;
     if(inv.portfolioMode==='public_projects'){assert.equal(current.holdings.length,0);assert.equal(a.run('comparisonState()'),'public_projects');assert.match(rows,/官方项目关联/);continue;}
     if (['snapshot','scope_changed'].includes(a.run('comparisonState()'))) {
-      assert.match(rows, /历史披露快照|申报主体与范围变更/);
+      assert.match(rows, /历史披露快照|各股披露日期不同，不作季度比较|申报主体与范围变更/);
+      if(inv.id==='webb') assert.match(rows,/各股披露日期不同，不作季度比较/);
       assert.ok(!rows.includes('新进'));
       continue;
     }
