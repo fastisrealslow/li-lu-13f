@@ -1963,7 +1963,7 @@ function latestReportedHKHoldings(payload,cfg,quarter,now=Date.now()) {
   // interests and discovery/search results cannot establish a current position.
   const q=/^(\d{4}) Q([1-4])$/.exec(quarter || '');
   const checked=Date.parse(payload?.audit?.checkedAt);
-  if(!q || !cfg.source13F || payload?.audit?.status!=='checked' ||
+  if(!q || !cfg.source13F || !['checked','history_pending'].includes(payload?.audit?.status) ||
     !Number.isFinite(checked) || checked>now || now-checked>7*86400000) return [];
   const cutoff=Math.max(Date.UTC(Number(q[1]),Number(q[2])*3,0),now-120*86400000);
   const manager=hkEntityKey(cfg.manager),selected=new Map();

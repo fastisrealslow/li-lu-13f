@@ -375,6 +375,7 @@ def crawl_notices(client, hit, aliases, cached_records, binding=None, max_pages=
             record.update(verified)
         except Exception as exc:
             errors.append({'filing_ref':record['filing_ref'],'scope':'historical','reason':str(exc)})
+    by_ref[form['filing_ref']]['history_complete']=notice_history_complete
     binding={**form,'history_complete':notice_history_complete,'notice_url':url}
     return list(by_ref.values()),binding,errors
 

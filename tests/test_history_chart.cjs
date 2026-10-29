@@ -102,6 +102,8 @@ test('main table accepts only recent original manager holdings and never adds ov
   }
   a.context.config=cfg.find(x=>x.id==='duan');
   const payload=structuredClone(fixture);
+  a.context.payload=structuredClone(payload);a.context.payload.audit.status='history_pending';
+  assert.equal(a.run("latestReportedHKHoldings(payload,config,'2026 Q2',now).length"),1,'Unverified old forms must not hide the independently verified latest holding');
   for(const mutate of [p=>p.audit.status='partial',p=>p.audit.checkedAt='2026-09-01T00:00:00Z',p=>p.holdings.forEach(h=>h.verified_disclosures?.forEach(r=>r.event_date='2024-01-01')),p=>p.holdings.forEach(h=>h.verified_disclosures?.forEach(r=>r.pct=4.99)),p=>p.holdings.forEach(h=>h.verified_disclosures?.forEach(r=>r.verification='search_result'))]){
     a.context.payload=structuredClone(payload);mutate(a.context.payload);
     assert.equal(a.run("latestReportedHKHoldings(payload,config,'2026 Q2',now).length"),0);

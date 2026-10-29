@@ -149,6 +149,7 @@ class HKAutomationTests(unittest.TestCase):
         self.assertIn('Historical original form disagrees', errors[0]['reason'])
         self.assertTrue(binding['history_complete'], 'A pending historical form must not force notice pages to download again')
         self.assertEqual(errors[0]['scope'],'historical')
+        self.assertTrue(next(r for r in records if r['filing_ref']==binding['filing_ref'])['history_complete'])
 
     def test_failed_newest_form_retains_facts_but_marks_the_old_position_blocked(self):
         old=hk.parse_form(fixture('psbc_previous_form'),hk.BASE+'NSForm1.aspx',ALIASES)
