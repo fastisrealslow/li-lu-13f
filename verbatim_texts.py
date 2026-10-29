@@ -31,12 +31,16 @@ def validate_document(document, work_id):
     segments = document.get("segments")
     if not isinstance(segments, list) or not segments:
         raise ValueError("Missing sentence-aligned translation")
+    languages = document.get("languages", ["zh", "en"])
+    if (not isinstance(languages, list) or language not in languages or not languages
+            or any(k not in {"zh", "en"} for k in languages)):
+        raise ValueError("Invalid available languages")
     seen = set()
     for segment in segments:
         if not isinstance(segment, dict) or not segment.get("id") or segment["id"] in seen:
             raise ValueError("Missing or duplicate sentence identifier")
         seen.add(segment["id"])
-        if any(not isinstance(segment.get(k), str) or not segment[k].strip() for k in ("original", "zh", "en")):
+        if any(not isinstance(segment.get(k), str) or not segment[k].strip() for k in ["original", *languages]):
             raise ValueError("Each original sentence must have Chinese and English text")
         if segment[language] != segment["original"]:
             raise ValueError("The original-language version was altered")

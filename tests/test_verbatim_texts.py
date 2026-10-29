@@ -38,6 +38,14 @@ class VerbatimTextTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             validate_document(d, "test-original")
 
+    def test_original_chinese_without_invented_translation(self):
+        d = self.document()
+        d["originalLanguage"], d["languages"] = "zh", ["zh"]
+        for segment in d["segments"]:
+            segment["zh"] = segment["original"]
+            del segment["en"]
+        self.assertTrue(validate_document(d, "test-original"))
+
     def test_public_link_alone_is_not_publication_permission(self):
         d = self.document()
         d["rights"] = {"evidence": "https://publisher.example/free-video"}

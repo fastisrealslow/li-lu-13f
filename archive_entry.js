@@ -17,7 +17,13 @@
         const more=g.sections.map((s,i)=>`<h4>${escape(s.heading[key])}</h4>${s.paragraphs.filter((p,j)=>i!==0||j!==1).map(p=>`<p>${escape(p[key])}</p>`).join('')}`).join('');
         host.innerHTML=`<div class="archive-entry"><div><h3>${escape(name)} · ${en?'Works & Detailed Reading Guides':'公开作品与详细导读'}</h3><p>${escape(intro)}</p><details class="archive-entry-guide"><summary>${en?'Expand the full collection guide':'展开完整作品导读'}</summary>${more}<p class="archive-ai-label">${escape(g.label[key])}</p></details><p class="archive-entry-count"></p></div><a href="${url}">${en?'Read the collection →':'阅读作品与导读 →'}</a></div>`;
       }
-      host.querySelector('.archive-entry-count').textContent=en?`${items.length} catalogued works · ${ready} individual reading guides`:`已建档 ${items.length} 篇 · 已有导读 ${ready} 篇`;
+      const full=items.filter(w=>w.fullTextStatus==='ready'&&/^archive\/texts\/[a-z0-9_-]+\.json$/.test(w.fullTextFile||'')).length;
+      if(full){
+        const latest=items.filter(w=>w.fullTextStatus==='ready').sort((a,b)=>(b.date||'').localeCompare(a.date||''))[0];
+        const link=host.querySelector('a');
+        link.href=url+'&work='+encodeURIComponent(latest.id);link.textContent=en?'Read original works →':'阅读原文与译文 →';
+      }
+      host.querySelector('.archive-entry-count').textContent=en?`${items.length} catalogued works · ${ready} individual reading guides${full?` · ${full} complete texts`: ''}`:`已建档 ${items.length} 篇 · 已有导读 ${ready} 篇${full?` · 可读全文 ${full} 篇`: ''}`;
     }catch(e){if(own===generation)host.querySelector('.archive-entry-count').textContent=en?'Open the collection to view available works.':'进入作品集查看已有资料。';}
   }};
 })();
