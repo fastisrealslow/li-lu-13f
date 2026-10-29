@@ -34,7 +34,7 @@ class WebbDisclosuresTests(unittest.TestCase):
             root=Path(tmp); investor={'dataFile':'webb.json','hkFile':'webb_hk.json','hkDisclosure':{'entities':['Webb David Michael']}}
             prior={'meta':{},'current':{'holdings':[{'ticker':'00709.HK','isin':'OLD','shares':1}]}}
             path=root/'webb.json';path.write_text(json.dumps(prior))
-            (root/'webb_hk.json').write_text(json.dumps({'holdings':[{'name':'Test','verified_disclosures':[evidence()]}]}))
+            (root/'webb_hk.json').write_text(json.dumps({'audit':{'status':'checked','checkedAt':webb.datetime.now(webb.timezone.utc).isoformat()},'holdings':[{'name':'Test','verified_disclosures':[evidence()]}]}))
             listed=lambda:{'00709.HK':{'isin':'NEW'}}
             with patch('update_status.record_source_warning'),patch('update_status.record_source_notice'):
                 self.assertFalse(webb.update_from_disclosures(investor,root,lambda _: {},listed))
@@ -48,3 +48,20 @@ class WebbDisclosuresTests(unittest.TestCase):
                 self.assertEqual(result['current']['holdings'][0]['shares'],100)
                 self.assertEqual(result['meta']['snapshotType'],'verified_disclosure_snapshot')
                 self.assertIsNone(result['current']['prevQuarter'])
+
+    def test_incomplete_or_stale_audit_cannot_be_relabeled_as_a_new_verified_snapshot(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root=Path(tmp); prior={'current':{'holdings':[{'ticker':'00709.HK','shares':1}]}}
+            path=root/'webb.json';path.write_text(json.dumps(prior))
+            investor={'dataFile':'webb.json','hkFile':'webb_hk.json','hkDisclosure':{'entities':['Webb David Michael']}}
+            for audit in ({'status':'partial','checkedAt':webb.datetime.now(webb.timezone.utc).isoformat()},{'status':'checked','checkedAt':'2000-01-01T00:00:00Z'},{}):
+                (root/'webb_hk.json').write_text(json.dumps({'audit':audit,'holdings':[{'verified_disclosures':[evidence()]}]}))
+                with patch('update_status.record_source_warning'):
+                    self.assertFalse(webb.update_from_disclosures(investor,root,listed_reader=lambda:self.fail('Incomplete audits must stop before another source is read')))
+                self.assertEqual(json.loads(path.read_text()),prior)
+
+            stamp=webb.datetime.now(webb.timezone.utc)
+            earlier=webb.datetime.fromtimestamp(stamp.timestamp()-60,webb.timezone.utc)
+            (root/'webb_hk.json').write_text(json.dumps({'audit':{'status':'checked','checkedAt':earlier.isoformat()}}))
+            with patch.dict('os.environ',{'TRACK_RUN_STATUS':'1'}),patch('update_status.load',return_value={'runs':[{'run_id':stamp.isoformat()}]}),patch('update_status.record_source_warning'):
+                self.assertFalse(webb.update_from_disclosures(investor,root,listed_reader=lambda:self.fail('A failed scheduled check cannot reuse the previous run as a fresh verification')))

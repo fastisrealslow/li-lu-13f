@@ -7,7 +7,7 @@ fetch_webb_holdings.py
 更新 webb.json 的 current.holdings 中的 shares / value 字段
 """
 
-import json, re, sys, time, io, zipfile, math
+import json, re, sys, time, io, zipfile, math, os
 import xml.etree.ElementTree as ET
 from pathlib import Path
 from datetime import datetime, timezone
@@ -86,6 +86,23 @@ def update_from_disclosures(investor, root=Path('.'), price_reader=None, listed_
     from update_status import record_source_notice, record_source_warning
     root=Path(root)
     payload=json.loads((root/investor['hkFile']).read_text())
+    audit=payload.get('audit',{})
+    try:
+        checked=datetime.fromisoformat(audit.get('checkedAt','').replace('Z','+00:00'))
+        age=(datetime.now(timezone.utc)-checked).total_seconds()
+    except (ValueError,TypeError):
+        age=-1
+    checked_this_run=True
+    if os.environ.get('TRACK_RUN_STATUS')=='1':
+        from update_status import load
+        try:
+            started=datetime.fromisoformat(load()['runs'][0]['run_id'].replace('Z','+00:00'))
+            checked_this_run=age>=0 and checked>=started
+        except (KeyError,IndexError,ValueError,TypeError):
+            checked_this_run=False
+    if not checked_this_run or audit.get('status') not in ('checked','history_pending') or not 0<=age<=7*86400:
+        record_source_warning('webb_holdings','港交所本次披露没核实；保留上次持仓，股价继续独立更新。')
+        return False
     listed=(listed_reader or active_securities)()
     previous=json.loads((root/investor['dataFile']).read_text())
     known_isins={h['ticker']:h.get('isin') for h in previous.get('current',{}).get('holdings',[])}
