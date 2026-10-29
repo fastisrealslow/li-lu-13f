@@ -57,16 +57,7 @@ def project_row(row, index):
 
 def project(data):
     result = copy.deepcopy(data)
-    # Exact source anomaly only, not a general CUSIP-padding heuristic.
-    if str(data.get('meta',{}).get('managerCIK','')).lstrip('0')=='1549575':
-        for row in result.get('history',{}).get('holdings',{}).get('2016 Q3',[]):
-            if (row.get('cusip')=='84670702' and text(row.get('cls'))=='CL B'
-                    and text(row.get('shareType') or 'SH')=='SH' and not row.get('putCall')
-                    and row.get('shares')==47400 and text(row.get('name'))=='BERKSHIRE HATHAWAY INC DEL'):
-                row['reportedIdentity']={k:row[k] for k in ('ticker','cusip','name','cls') if k in row}
-                row['cusip']='084670702'
-                row['identityEvidence']={'method':'source_scoped_missing_leading_zero','quarter':'2016 Q3','source':{'url':'https://www.sec.gov/Archives/edgar/data/1549575/000154957516000021/infotable.xml'},'cusip':'084670702'}
-    index = identity_index(result)
+    index = identity_index(data)
     for quarter, rows in result.get('history', {}).get('holdings', {}).items():
         result['history']['holdings'][quarter] = [project_row(row, index) for row in rows]
     for key in ('holdings', 'previousHoldings'):

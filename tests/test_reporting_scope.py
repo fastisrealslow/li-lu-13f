@@ -66,22 +66,3 @@ class ReportingScopeTests(unittest.TestCase):
         source={'url':'https://publisher.example/feed','investor':'webb','publisher':'Publisher','authorPattern':'^Webb-site.com$'}
         raw=b'<rss xmlns:dc="http://purl.org/dc/elements/1.1/"><channel><item><title>Another author</title><link>https://publisher.example/other</link><dc:creator>Other guest</dc:creator></item><item><title>Verified essay</title><link>https://publisher.example/own</link><dc:creator>Webb-site.com</dc:creator></item></channel></rss>'
         self.assertEqual([w['title']['en'] for w in archive.rss_catalog(source,lambda u:(raw,'text/xml'))],['Verified essay'])
-
-class AuthorityEvidenceTests(unittest.TestCase):
-    def test_original_discretion_voting_and_separate_source_lines_survive_consolidation(self):
-        from fetch_13f_all import parse_holdings
-        import build_browser_assets as browser
-        row=lambda code,votes:f'''<infoTable><nameOfIssuer>TEST</nameOfIssuer><titleOfClass>COM</titleOfClass><cusip>123456789</cusip><value>100</value><shrsOrPrnAmt><sshPrnamt>10</sshPrnamt><sshPrnamtType>SH</sshPrnamtType></shrsOrPrnAmt><investmentDiscretion>{code}</investmentDiscretion><otherManager>1</otherManager><votingAuthority><Sole>{votes[0]}</Sole><Shared>{votes[1]}</Shared><None>{votes[2]}</None></votingAuthority></infoTable>'''
-        xml=('<informationTable xmlns="http://www.sec.gov/edgar/document/thirteenf/informationtable">'+row('SOLE',(10,0,0))+row('DEFINED',(0,4,6))+'</informationTable>').encode()
-        h=parse_holdings(xml,filing_date='2026-08-14')[0]
-        self.assertEqual((h['shares'],h['value']),(20,200))
-        self.assertNotIn('investmentDiscretion',h)
-        self.assertEqual(h['votingAuthority'],{'Sole':10,'Shared':4,'None':6})
-        self.assertEqual([a['investmentDiscretion']for a in h['managerAllocations']],['SOLE','DEFINED'])
-        self.assertEqual(browser.compact_row(h)['managerAllocations'],h['managerAllocations'])
-
-    def test_uncollected_authority_is_absent_instead_of_invented_zero(self):
-        from fetch_13f_all import parse_holdings
-        xml=b'<informationTable xmlns="http://www.sec.gov/edgar/document/thirteenf/informationtable"><infoTable><nameOfIssuer>TEST</nameOfIssuer><titleOfClass>COM</titleOfClass><cusip>123456789</cusip><value>100</value><shrsOrPrnAmt><sshPrnamt>10</sshPrnamt></shrsOrPrnAmt></infoTable></informationTable>'
-        h=parse_holdings(xml,filing_date='2026-08-14')[0]
-        self.assertNotIn('investmentDiscretion',h);self.assertNotIn('votingAuthority',h)

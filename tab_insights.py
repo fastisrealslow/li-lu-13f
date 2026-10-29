@@ -149,35 +149,5 @@ def history_facts(data, name):
     if missing or excluded:
         texts.append([('缺少或排除的市值季度：'+'、'.join(dict.fromkeys(missing+excluded))+'。不填零、不推断清仓，也不跨缺口计算季度变化。'),
                       'Missing or excluded value quarters: '+', '.join(dict.fromkeys(missing+excluded))+'. No zero filling, inferred exits or quarter-on-quarter comparisons across gaps.'])
-    latest=holding_history.get(current_q,[])
-    previous_q=f'{(quarter_index(current_q)-1)//4} Q{(quarter_index(current_q)-1)%4+1}' if quarter_index(current_q) is not None else None
-    previous=holding_history.get(previous_q)
-    if latest and current_q not in excluded and all(valid_number(h.get('value')) for h in latest):
-        ranked=sorted(consolidate_holdings(latest),key=lambda h:-h['value']);total=sum(h['value'] for h in ranked)
-        if total>0:
-            top3=sum(h['value'] for h in ranked[:3])/total*100;top5=sum(h['value'] for h in ranked[:5])/total*100
-            texts.append([f'{current_q} 完整申报按证券排序：Top3 占 {top3:.1f}%，Top5 占 {top5:.1f}%。不同股份类别分列，集中度不是收益率。',
-                          f'{current_q} complete filing by security: Top 3 {top3:.1f}%, Top 5 {top5:.1f}%. Share classes remain distinct; concentration is not return.'])
-    if latest and isinstance(previous,list) and not (transition.get('comparisonScopeChanged') and transition.get('fromQuarter')==current_q):
-        old={identity(h):h for h in consolidate_holdings(previous)};new={identity(h):h for h in consolidate_holdings(latest)}
-        categories=Counter();drifts=[]
-        total=sum(h['value'] for h in latest) if current_q not in excluded else 0
-        prev_total=sum(h['value'] for h in previous) if previous_q not in excluded else 0
-        for key in set(old)|set(new):
-            h,p=new.get(key),old.get(key)
-            if h and p:
-                from holdings_diff import share_adjustment
-                if share_adjustment(h,previous_q,current_q) or h.get('shareAdjustment'):categories['action']+=1;continue
-                change=h['shares']-p['shares'];categories['up' if change>0 else 'down' if change<0 else 'same']+=1
-                if change==0 and total>0 and prev_total>0:
-                    now=h['value']/total*100;before=p['value']/prev_total*100
-                    if abs(now-before)>.1:drifts.append((abs(now-before),h,before,now))
-            else:categories['new' if h else 'absent']+=1
-        texts.append([f'与相邻 {previous_q} 相比：股数增加 {categories["up"]} 项、减少 {categories["down"]} 项、不变 {categories["same"]} 项，新出现 {categories["new"]} 项、未再披露 {categories["absent"]} 项，公司行动待比较 {categories["action"]} 项。快照差异不是净买卖数量或个人交易指令。',
-                      f'Against adjacent {previous_q}: shares increased in {categories["up"]}, decreased in {categories["down"]}, unchanged in {categories["same"]}; {categories["new"]} new disclosures, {categories["absent"]} no longer disclosed, {categories["action"]} corporate-action comparisons withheld. Snapshot differences are not net transactions or personal trading instructions.'])
-        if drifts:
-            _,h,before,now=max(drifts,key=lambda item:item[0])
-            texts.append([f'{security_name(h)} 股数不变，申报权重从 {before:.2f}% 变为 {now:.2f}%。权重受价格及组合分母影响，不能称为主动增减仓。',
-                          f'{security_name(h,True)}: shares unchanged while reported weight moved from {before:.2f}% to {now:.2f}%. Price and portfolio denominator changes affect weights; this is not an active trading claim.'])
     if peak_text:texts.append(peak_text)
     return context(data,name,'history',texts)

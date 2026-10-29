@@ -16,8 +16,7 @@ from security_identity import project as project_identities, project_prices
 
 ROOT = Path(__file__).resolve().parent
 ROW_FIELDS = ('ticker', 'cusip', 'name', 'cnName', 'cls', 'shares', 'value',
-              'shareType', 'putCall', 'sector', 'shareAdjustment', 'reportedIdentity', 'identityEvidence',
-              'investmentDiscretion', 'votingAuthority', 'managerAllocations')
+              'shareType', 'putCall', 'sector', 'shareAdjustment', 'reportedIdentity', 'identityEvidence')
 
 
 def encoded(value):
@@ -53,7 +52,8 @@ def display_data(data, limit=None):
     values = [sum(h['value'] for h in history['holdings'][q])/1e6 if history.get('holdings', {}).get(q) else history['values'][i]
               for i, q in enumerate(history.get('quarters', []))]
     history['portfolioValues'] = values
-    result.setdefault('meta', {})['browserScope'] = {'limit':limit, 'reportedHoldings':len(original), 'shownValue':sum(h['value'] for h in current['holdings']), 'historyScope':'full_filing'}
+    history['holdings'] = {q: [h for h in rows if key(h) in selected] for q, rows in history.get('holdings', {}).items()}
+    result.setdefault('meta', {})['browserScope'] = {'limit':limit, 'reportedHoldings':len(original), 'shownValue':sum(h['value'] for h in current['holdings'])}
     return result
 
 
@@ -75,6 +75,9 @@ def current_data(data, prices):
     for key in ('holdings', 'previousHoldings'):
         if key in current:
             current[key] = [dict(row) for row in current[key]]
+            if not managers:
+                for row in current[key]:
+                    row.pop('managerAllocations', None)
     bridge = transition.get('fromQuarter')
     if bridge and bridge != current.get('quarter') and bridge in all_rows:
         history['holdings'][bridge] = all_rows[bridge]

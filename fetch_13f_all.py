@@ -934,20 +934,13 @@ def parse_holdings(xml_bytes: bytes, consolidate: bool = False, *, filing_date: 
         tk = resolve_ticker(name_val, cls_val, cusip_val)
         manager_reference=info.findtext('ns:otherManager',default='',namespaces=NS).strip()
         manager_ids=list(dict.fromkeys(re.findall(r'\d+',manager_reference)))
-        discretion=info.findtext('ns:investmentDiscretion',default='',namespaces=NS).strip()
-        voting_node=info.find('ns:votingAuthority',NS)
-        evidence={}
-        if discretion:evidence['investmentDiscretion']=discretion
-        if voting_node is not None:
-            evidence['votingAuthority']={key:whole(voting_node.findtext('ns:'+key,namespaces=NS)) for key in ('Sole','Shared','None') if voting_node.findtext('ns:'+key,namespaces=NS) is not None}
-
         raw_entries.append({
             "ticker": tk, "name": name_val, "cls": cls_val, "cusip": cusip_val,
             "shares": shares, "value": value,
-            "shareType": share_type, "putCall": put_call, **evidence,
+            "shareType": share_type, "putCall": put_call,
             # Keep every source line, including a blank/NONE other-manager
             # field. Omitting those lines makes mixed allocations incomplete.
-            'managerAllocations':[{'managerIds':manager_ids,'shares':shares,'value':value,**evidence,
+            'managerAllocations':[{'managerIds':manager_ids,'shares':shares,'value':value,
                                    **({'managerReference':manager_reference} if manager_reference else {})}],
         })
 
