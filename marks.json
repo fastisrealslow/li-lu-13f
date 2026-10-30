@@ -80,6 +80,31 @@
         "result": "pending",
         "checkedAt": "2026-10-30",
         "url": "https://www.sec.gov/Archives/edgar/data/949509/0000949509-06-000009.txt"
+      },
+      "0000949509-11-000017": {
+        "result": "additive",
+        "checkedAt": "2026-10-30",
+        "url": "https://www.sec.gov/Archives/edgar/data/949509/0000949509-11-000017.txt"
+      },
+      "0000949509-11-000002": {
+        "result": "restatement",
+        "checkedAt": "2026-10-30",
+        "url": "https://www.sec.gov/Archives/edgar/data/949509/0000949509-11-000002.txt"
+      },
+      "0000949509-10-000007": {
+        "result": "restatement",
+        "checkedAt": "2026-10-30",
+        "url": "https://www.sec.gov/Archives/edgar/data/949509/0000949509-10-000007.txt"
+      },
+      "0000949509-07-000006": {
+        "result": "restatement",
+        "checkedAt": "2026-10-30",
+        "url": "https://www.sec.gov/Archives/edgar/data/949509/0000949509-07-000006.txt"
+      },
+      "0000949509-07-000004": {
+        "result": "restatement",
+        "checkedAt": "2026-10-30",
+        "url": "https://www.sec.gov/Archives/edgar/data/949509/0000949509-07-000004.txt"
       }
     },
     "holdings": {
@@ -356150,11 +356175,11 @@
           ],
           "ticker": "MU",
           "sector": "存储芯片",
-          "prevShares": 123360000,
-          "prevValue": 110017000,
           "cnName": "美光科技",
           "displayName": "Micron Technology",
-          "sectorEn": "Memory semiconductors"
+          "sectorEn": "Memory semiconductors",
+          "prevShares": 123360000,
+          "prevValue": 110017000
         },
         {
           "name": "VIRGIN MEDIA INC",
@@ -356453,11 +356478,11 @@
           ],
           "ticker": "CHK",
           "sector": "油气勘探开发",
-          "prevShares": 66748000,
-          "prevValue": 58515000,
           "cnName": "切萨皮克能源",
           "displayName": "Chesapeake Energy",
-          "sectorEn": "Oil and gas exploration"
+          "sectorEn": "Oil and gas exploration",
+          "prevShares": 66748000,
+          "prevValue": 58515000
         },
         {
           "name": "R HORTON INC",
@@ -356856,11 +356881,11 @@
           ],
           "ticker": "C",
           "sector": "银行",
-          "prevShares": 0,
-          "prevValue": 0,
           "cnName": "花旗集团",
           "displayName": "Citigroup",
-          "sectorEn": "Banking"
+          "sectorEn": "Banking",
+          "prevShares": 0,
+          "prevValue": 0
         },
         {
           "name": "WARNER MUSIC GROUP CORP",
@@ -357325,7 +357350,7 @@
         {
           "name": "GENCO SHIPPING & TRADING LTD",
           "cls": "SHS",
-          "cusip": "36869MAA3",
+          "cusip": "Y2685T107",
           "value": 24110000,
           "shares": 1512532,
           "shareType": "SH",
@@ -357338,9 +357363,12 @@
             }
           ],
           "ticker": "?GENCO SHIPPING & TRADING LTD",
-          "sector": "其他",
-          "prevShares": 0,
-          "prevValue": 0
+          "sector": "干散货航运",
+          "cnName": "根科航运",
+          "displayName": "Genco Shipping & Trading",
+          "sectorEn": "Dry-bulk shipping",
+          "prevShares": 1512632,
+          "prevValue": 22673000
         },
         {
           "name": "CONTINENTAL AIRLS INC",
@@ -357519,11 +357547,11 @@
           ],
           "ticker": "?CAPITALSOURCE INC",
           "sector": "商业贷款",
-          "prevShares": 5806000,
-          "prevValue": 5461000,
           "cnName": "资本来源金融",
           "displayName": "CapitalSource",
-          "sectorEn": "Commercial lending"
+          "sectorEn": "Commercial lending",
+          "prevShares": 5806000,
+          "prevValue": 5461000
         },
         {
           "name": "HARTFORD FINL SVCS GROUP INC   DEP CONV",
@@ -357903,11 +357931,11 @@
           ],
           "ticker": "GS",
           "sector": "投资银行与证券",
-          "prevShares": 0,
-          "prevValue": 0,
           "cnName": "高盛集团",
           "displayName": "Goldman Sachs",
-          "sectorEn": "Investment banking and securities"
+          "sectorEn": "Investment banking and securities",
+          "prevShares": 0,
+          "prevValue": 0
         },
         {
           "name": "ASPEN INSURANCE HOLDINGS LTD",
@@ -358787,11 +358815,11 @@
           ],
           "ticker": "PKX",
           "sector": "钢铁",
-          "prevShares": 0,
-          "prevValue": 0,
           "cnName": "浦项制铁",
           "displayName": "POSCO",
-          "sectorEn": "Steel"
+          "sectorEn": "Steel",
+          "prevShares": 0,
+          "prevValue": 0
         },
         {
           "name": "CHINA MOBILE LIMITED",
@@ -358894,8 +358922,8 @@
           "prevValue": 9770000
         },
         {
-          "name": "AMERICA MOVIL SAB DE CV        SPON ADR L",
-          "cls": "SHS",
+          "name": "AMERICA MOVIL SAB DE",
+          "cls": "CV        SPON ADR L SHS",
           "cusip": "02364W105",
           "value": 6341000,
           "shares": 118900,
@@ -358908,7 +358936,7 @@
               "value": 6341000
             }
           ],
-          "ticker": "?AMERICA MOVIL SAB DE CV        SPON ADR L",
+          "ticker": "?AMERICA MOVIL SAB DE",
           "sector": "其他",
           "prevShares": 192500,
           "prevValue": 9144000
@@ -359054,8 +359082,8 @@
           "prevValue": 0
         },
         {
-          "name": "FIBRIA CELULOSE S A            SP ADR REP",
-          "cls": "COM",
+          "name": "FIBRIA CELULOSE S A",
+          "cls": "SP ADR REP COM",
           "cusip": "31573A109",
           "value": 4174000,
           "shares": 241400,
@@ -359068,7 +359096,7 @@
               "value": 4174000
             }
           ],
-          "ticker": "?FIBRIA CELULOSE S A            SP ADR REP",
+          "ticker": "?FIBRIA CELULOSE S A",
           "sector": "其他",
           "prevShares": 0,
           "prevValue": 0
@@ -359510,11 +359538,11 @@
           ],
           "ticker": "?CAPITALSOURCE INC",
           "sector": "商业贷款",
-          "prevShares": 3000000,
-          "prevValue": 2853000,
           "cnName": "资本来源金融",
           "displayName": "CapitalSource",
-          "sectorEn": "Commercial lending"
+          "sectorEn": "Commercial lending",
+          "prevShares": 3000000,
+          "prevValue": 2853000
         },
         {
           "name": "POWERWAVE TECHNOLOGIES INC",
@@ -426908,13 +426936,13 @@
           "cls": "COM",
           "cusip": "3623E0209",
           "value": 387081000,
-          "shares": 7217255,
+          "shares": 69618846,
           "shareType": "SH",
           "putCall": "",
           "managerAllocations": [
             {
               "managerIds": [],
-              "shares": 7217255,
+              "shares": 69618846,
               "value": 387081000
             }
           ],
@@ -426960,9 +426988,9 @@
           ],
           "ticker": "MU",
           "sector": "存储芯片",
+          "cnName": "美光科技",
           "prevShares": 145300000,
           "prevValue": 122610000,
-          "cnName": "美光科技",
           "displayName": "Micron Technology",
           "sectorEn": "Memory semiconductors"
         },
@@ -427123,9 +427151,9 @@
           ],
           "ticker": "CHK",
           "sector": "油气勘探开发",
+          "cnName": "切萨皮克能源",
           "prevShares": 90903000,
           "prevValue": 91849000,
-          "cnName": "切萨皮克能源",
           "displayName": "Chesapeake Energy",
           "sectorEn": "Oil and gas exploration"
         },
@@ -427810,9 +427838,9 @@
           "prevValue": 27003000
         },
         {
-          "name": "GENCOR INDS INC",
-          "cls": "COM",
-          "cusip": "368678108",
+          "name": "* GENCO SHIPPING & TRADING LTD",
+          "cls": "SHS",
+          "cusip": "Y2685T107",
           "value": 33850000,
           "shares": 1512632,
           "shareType": "SH",
@@ -427824,10 +427852,13 @@
               "value": 33850000
             }
           ],
-          "ticker": "?GENCOR INDS INC",
-          "sector": "其他",
+          "ticker": "?* GENCO SHIPPING & TRADING LTD",
+          "sector": "干散货航运",
+          "cnName": "根科航运",
           "prevShares": 0,
-          "prevValue": 0
+          "prevValue": 0,
+          "displayName": "Genco Shipping & Trading",
+          "sectorEn": "Dry-bulk shipping"
         },
         {
           "name": "HORNBECK OFFSHORE SVCS INC",
@@ -428806,9 +428837,9 @@
           ],
           "ticker": "?CAPITALSOURCE INC",
           "sector": "商业贷款",
+          "cnName": "资本来源金融",
           "prevShares": 26889000,
           "prevValue": 22912000,
-          "cnName": "资本来源金融",
           "displayName": "CapitalSource",
           "sectorEn": "Commercial lending"
         },
@@ -430992,7 +431023,7 @@
           ],
           "ticker": "?* GT SOLAR INTL INC",
           "sector": "其他",
-          "prevShares": 7217255,
+          "prevShares": 69618846,
           "prevValue": 387081000
         },
         {
@@ -431052,9 +431083,9 @@
           ],
           "ticker": "MU",
           "sector": "存储芯片",
+          "cnName": "美光科技",
           "prevShares": 139060000,
           "prevValue": 133664000,
-          "cnName": "美光科技",
           "displayName": "Micron Technology",
           "sectorEn": "Memory semiconductors"
         },
@@ -431335,9 +431366,9 @@
           ],
           "ticker": "CHK",
           "sector": "油气勘探开发",
+          "cnName": "切萨皮克能源",
           "prevShares": 83748000,
           "prevValue": 81493000,
-          "cnName": "切萨皮克能源",
           "displayName": "Chesapeake Energy",
           "sectorEn": "Oil and gas exploration"
         },
@@ -431938,9 +431969,9 @@
           ],
           "ticker": "?* GENCO SHIPPING & TRADING LTD",
           "sector": "干散货航运",
-          "prevShares": 0,
-          "prevValue": 0,
           "cnName": "根科航运",
+          "prevShares": 1512632,
+          "prevValue": 33850000,
           "displayName": "Genco Shipping & Trading",
           "sectorEn": "Dry-bulk shipping"
         },
@@ -433001,9 +433032,9 @@
           ],
           "ticker": "PBR",
           "sector": "能源",
+          "cnName": "Petróleo Brasileiro S.A. - Petrobras",
           "prevShares": 261500,
-          "prevValue": 12468000,
-          "cnName": "Petróleo Brasileiro S.A. - Petrobras"
+          "prevValue": 12468000
         },
         {
           "name": "CHARMING SHOPPES INC",
@@ -433442,9 +433473,9 @@
           ],
           "ticker": "?CAPITALSOURCE INC",
           "sector": "商业贷款",
+          "cnName": "资本来源金融",
           "prevShares": 18139000,
           "prevValue": 16234000,
-          "cnName": "资本来源金融",
           "displayName": "CapitalSource",
           "sectorEn": "Commercial lending"
         },
@@ -434205,9 +434236,9 @@
           ],
           "ticker": "?CAPITALSOURCE INC",
           "sector": "商业贷款",
+          "cnName": "资本来源金融",
           "prevShares": 0,
           "prevValue": 0,
-          "cnName": "资本来源金融",
           "displayName": "CapitalSource",
           "sectorEn": "Commercial lending"
         },
@@ -440294,8 +440325,8 @@
           ],
           "ticker": "?GENCO  SHIPPING & TRADING LTD",
           "sector": "干散货航运",
-          "prevShares": 0,
-          "prevValue": 0,
+          "prevShares": 1512532,
+          "prevValue": 24110000,
           "cnName": "根科航运",
           "displayName": "Genco Shipping & Trading",
           "sectorEn": "Dry-bulk shipping"
@@ -442570,10 +442601,10 @@
           "ticker": "?GENERAL MTRS CO",
           "sector": "汽车制造",
           "cnName": "通用汽车",
-          "displayName": "General Motors",
-          "sectorEn": "Automotive manufacturing",
           "prevShares": 2600800,
-          "prevValue": 125359000
+          "prevValue": 125359000,
+          "displayName": "General Motors",
+          "sectorEn": "Automotive manufacturing"
         },
         {
           "name": "AMR CORP",
@@ -442693,10 +442724,10 @@
           "ticker": "MU",
           "sector": "存储芯片",
           "cnName": "美光科技",
-          "displayName": "Micron Technology",
-          "sectorEn": "Memory semiconductors",
           "prevShares": 86195000,
-          "prevValue": 94309000
+          "prevValue": 94309000,
+          "displayName": "Micron Technology",
+          "sectorEn": "Memory semiconductors"
         },
         {
           "name": "SUNPOWER CORP",
@@ -443016,10 +443047,10 @@
           "ticker": "CHK",
           "sector": "油气勘探开发",
           "cnName": "切萨皮克能源",
-          "displayName": "Chesapeake Energy",
-          "sectorEn": "Oil and gas exploration",
           "prevShares": 12500000,
-          "prevValue": 14479000
+          "prevValue": 14479000,
+          "displayName": "Chesapeake Energy",
+          "sectorEn": "Oil and gas exploration"
         },
         {
           "name": "EQUINIX INC",
@@ -443199,10 +443230,10 @@
           "ticker": "C",
           "sector": "银行",
           "cnName": "花旗集团",
-          "displayName": "Citigroup",
-          "sectorEn": "Banking",
           "prevShares": 0,
-          "prevValue": 0
+          "prevValue": 0,
+          "displayName": "Citigroup",
+          "sectorEn": "Banking"
         },
         {
           "name": "RTI INTL METALS INC",
@@ -444422,10 +444453,10 @@
           "ticker": "?CAPITALSOURCE INC",
           "sector": "商业贷款",
           "cnName": "资本来源金融",
-          "displayName": "CapitalSource",
-          "sectorEn": "Commercial lending",
           "prevShares": 13092000,
-          "prevValue": 13561000
+          "prevValue": 13561000,
+          "displayName": "CapitalSource",
+          "sectorEn": "Commercial lending"
         },
         {
           "name": "JA SOLAR HOLDINGS CO LTD",
@@ -444744,9 +444775,9 @@
           ],
           "ticker": "PBR",
           "sector": "能源",
+          "cnName": "Petróleo Brasileiro S.A. - Petrobras",
           "prevShares": 419700,
-          "prevValue": 15881000,
-          "cnName": "Petróleo Brasileiro S.A. - Petrobras"
+          "prevValue": 15881000
         },
         {
           "name": "GENERAL MTRS CO",
@@ -444766,10 +444797,10 @@
           "ticker": "GM",
           "sector": "汽车制造",
           "cnName": "通用汽车",
-          "displayName": "General Motors",
-          "sectorEn": "Automotive manufacturing",
           "prevShares": 250000,
-          "prevValue": 7758000
+          "prevValue": 7758000,
+          "displayName": "General Motors",
+          "sectorEn": "Automotive manufacturing"
         },
         {
           "name": "COMPANHIA SIDERURGICA NACION",
@@ -445730,9 +445761,9 @@
           ],
           "ticker": "?GENERAL MTRS CO",
           "sector": "汽车制造",
+          "cnName": "通用汽车",
           "prevShares": 2265800,
           "prevValue": 110435000,
-          "cnName": "通用汽车",
           "displayName": "General Motors",
           "sectorEn": "Automotive manufacturing"
         },
@@ -445953,9 +445984,9 @@
           ],
           "ticker": "CHK",
           "sector": "油气勘探开发",
+          "cnName": "切萨皮克能源",
           "prevShares": 43930000,
           "prevValue": 48760000,
-          "cnName": "切萨皮克能源",
           "displayName": "Chesapeake Energy",
           "sectorEn": "Oil and gas exploration"
         },
@@ -446816,9 +446847,9 @@
           ],
           "ticker": "C",
           "sector": "银行",
+          "cnName": "花旗集团",
           "prevShares": 0,
           "prevValue": 0,
-          "cnName": "花旗集团",
           "displayName": "Citigroup",
           "sectorEn": "Banking"
         },
@@ -447319,9 +447350,9 @@
           ],
           "ticker": "?GENCO SHIPPING & TRADING LTD",
           "sector": "干散货航运",
+          "cnName": "根科航运",
           "prevShares": 0,
           "prevValue": 0,
-          "cnName": "根科航运",
           "displayName": "Genco Shipping & Trading",
           "sectorEn": "Dry-bulk shipping"
         },
@@ -447902,9 +447933,9 @@
           ],
           "ticker": "PBR",
           "sector": "能源",
+          "cnName": "Petróleo Brasileiro S.A. - Petrobras",
           "prevShares": 232800,
-          "prevValue": 7883000,
-          "cnName": "Petróleo Brasileiro S.A. - Petrobras"
+          "prevValue": 7883000
         },
         {
           "name": "SMITHFIELD FOODS INC",
@@ -447963,9 +447994,9 @@
           ],
           "ticker": "?CAPITALSOURCE INC",
           "sector": "商业贷款",
+          "cnName": "资本来源金融",
           "prevShares": 10592000,
           "prevValue": 11087000,
-          "cnName": "资本来源金融",
           "displayName": "CapitalSource",
           "sectorEn": "Commercial lending"
         },
@@ -448166,9 +448197,9 @@
           ],
           "ticker": "GM",
           "sector": "汽车制造",
+          "cnName": "通用汽车",
           "prevShares": 259250,
           "prevValue": 7871000,
-          "cnName": "通用汽车",
           "displayName": "General Motors",
           "sectorEn": "Automotive manufacturing"
         },
@@ -450058,16 +450089,16 @@
         }
       },
       "2010 Q3": {
-        "accession": "000094950910000014",
-        "accessionDashed": "0000949509-10-000014",
-        "filingDate": "2010-11-12",
-        "reportDate": "2010-09-30",
-        "form": "13F-HR",
-        "primaryDocument": "r13f3q10holdings.txt",
         "cik": "949509",
-        "url": "https://www.sec.gov/Archives/edgar/data/949509/0000949509-10-000014.txt",
+        "accession": "000094950911000002",
+        "accessionDashed": "0000949509-11-000002",
+        "filingDate": "2011-01-04",
+        "reportDate": "2010-09-30",
+        "form": "13F-HR/A",
+        "amendmentType": "RESTATEMENT",
+        "url": "https://www.sec.gov/Archives/edgar/data/949509/0000949509-11-000002.txt",
         "format": "legacy_13f",
-        "parserVersion": 5,
+        "parserVersion": 6,
         "sourceReconciliation": {
           "status": "reconciled",
           "reportedEntries": 201,
@@ -450418,16 +450449,16 @@
         }
       },
       "2009 Q4": {
-        "accession": "000094950910000002",
-        "accessionDashed": "0000949509-10-000002",
-        "filingDate": "2010-02-03",
-        "reportDate": "2009-12-31",
-        "form": "13F-HR",
-        "primaryDocument": "r13fnt4q09holdings.txt",
         "cik": "949509",
-        "url": "https://www.sec.gov/Archives/edgar/data/949509/0000949509-10-000002.txt",
+        "accession": "000094950910000007",
+        "accessionDashed": "0000949509-10-000007",
+        "filingDate": "2010-02-10",
+        "reportDate": "2009-12-31",
+        "form": "13F-HR/A",
+        "amendmentType": "RESTATEMENT",
+        "url": "https://www.sec.gov/Archives/edgar/data/949509/0000949509-10-000007.txt",
         "format": "legacy_13f",
-        "parserVersion": 5,
+        "parserVersion": 6,
         "sourceReconciliation": {
           "status": "reconciled",
           "reportedEntries": 203,
@@ -455112,61 +455143,67 @@
       "2006 Q4": {
         "version": 1,
         "checkedAt": "2026-10-30",
-        "source": "https://www.sec.gov/Archives/edgar/data/949509/0000949509-07-000002.txt",
-        "filingDate": "2007-02-05",
-        "sourceDigest": "b56f0c54bfcdf2da6a9019d04f58891a95482c5cf08c0c1e4ea221c083ef593b",
-        "sourceHash": "7c71406aff91b5147de7c0aa302a9048db5b327e7f88ddf8476fe48d85610e36",
+        "source": "https://www.sec.gov/Archives/edgar/data/949509/0000949509-07-000006.txt",
+        "filingDate": "2007-02-06",
+        "sourceDigest": "6910a6921ab387a3da586b95a3bdb1ed77a91245131cc1f9c6bc4b71dcf0dd35",
+        "sourceHash": "0833d3a590c13a99a93a1218712c9fe9cd05408023a3cee67912b7f64a26e684",
         "status": "pending",
         "anchors": [
           {
             "ticker": "CCK",
             "cusip": "228368106",
-            "filedPrice": 2.989626443040732,
+            "filedPrice": 20.920037342580066,
             "price": 20.920000076293945,
             "date": "2006-12-29",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/CCK?period1=0&period2=1793415038&interval=1d&events=splits",
-            "candidates": []
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/CCK?period1=0&period2=1793416855&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
           },
           {
-            "ticker": "BVN",
-            "cusip": "204448104",
-            "filedPrice": 0.6125696456429686,
-            "price": 28.059999465942383,
+            "ticker": "TKC",
+            "cusip": "900111204",
+            "filedPrice": 5.049387040280211,
+            "price": 13.380000114440918,
             "date": "2006-12-29",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/BVN?period1=0&period2=1793415039&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/TKC?period1=0&period2=1793416856&interval=1d&events=splits",
             "candidates": []
           },
           {
             "ticker": "CMCSA",
             "cusip": "20030N101",
-            "filedPrice": 2.416109164277371,
+            "filedPrice": 42.330232558139535,
             "price": 42.33000255775451,
             "date": "2006-12-29",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/CMCSA?period1=0&period2=1793415038&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/CMCSA?period1=0&period2=1793416856&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "BHP",
+            "cusip": "088606108",
+            "filedPrice": 39.75,
+            "price": 37.677725807189944,
+            "date": "2006-12-29",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/BHP?period1=0&period2=1793416856&interval=1d&events=splits",
             "candidates": []
           },
           {
-            "ticker": "PBR",
-            "cusip": "71654V408",
-            "filedPrice": 2.4625846501128668,
-            "price": 102.98999786376953,
+            "ticker": "TV",
+            "cusip": "40049J206",
+            "filedPrice": 27.010628019323672,
+            "price": 27.010000228881836,
             "date": "2006-12-29",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/PBR?period1=0&period2=1793415039&interval=1d&events=splits",
-            "candidates": []
-          },
-          {
-            "ticker": "NRG",
-            "cusip": "629377870",
-            "filedPrice": 2.0923397169025812,
-            "price": 56.0099983215332,
-            "date": "2006-12-29",
-            "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/NRG?period1=0&period2=1793415039&interval=1d&events=splits",
-            "candidates": []
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/TV?period1=0&period2=1793416857&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
           }
         ],
         "errors": [],
@@ -455468,6 +455505,373 @@
         ],
         "errors": [],
         "normalizedHash": "c9931ab4b09e19ead3ac777e29f20df1558a18278f2f03748393ffd5061a507b"
+      },
+      "2009 Q3": {
+        "version": 1,
+        "checkedAt": "2026-10-30",
+        "source": "https://www.sec.gov/Archives/edgar/data/949509/0000949509-09-000055.txt",
+        "filingDate": "2009-11-13",
+        "sourceDigest": "86da327a4dc6762d78fcadd4b1fbdcc27c55130139689d4b4a4003e9a6a51db5",
+        "sourceHash": "6925708546f6caaab711bcf12f8764e1a544adf18831258bdc42a680c7f6ccc1",
+        "status": "pending",
+        "anchors": [
+          {
+            "ticker": "GGB",
+            "cusip": "373737105",
+            "filedPrice": 10.469696969696969,
+            "price": 13.440000400543214,
+            "date": "2009-09-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/GGB?period1=0&period2=1793416858&interval=1d&events=splits",
+            "candidates": []
+          },
+          {
+            "ticker": "MLCO",
+            "cusip": "585464100",
+            "filedPrice": 4.500671781172306,
+            "price": 6.960000038146973,
+            "date": "2009-09-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/MLCO?period1=0&period2=1793416858&interval=1d&events=splits",
+            "candidates": []
+          },
+          {
+            "ticker": "PBR/A",
+            "cusip": "71654V101",
+            "filedPrice": 33.35817558503503,
+            "price": 39.310001373291016,
+            "date": "2009-09-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/PBR-A?period1=0&period2=1793416858&interval=1d&events=splits",
+            "candidates": []
+          },
+          {
+            "ticker": "INFY",
+            "cusip": "456788108",
+            "filedPrice": 36.78136580201165,
+            "price": 48.4900016784668,
+            "date": "2009-09-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/INFY?period1=0&period2=1793416859&interval=1d&events=splits",
+            "candidates": []
+          },
+          {
+            "ticker": "BVN",
+            "cusip": "204448104",
+            "filedPrice": 24.029574861367838,
+            "price": 35.209999084472656,
+            "date": "2009-09-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/BVN?period1=0&period2=1793416859&interval=1d&events=splits",
+            "candidates": []
+          }
+        ],
+        "errors": [],
+        "normalizedHash": "6925708546f6caaab711bcf12f8764e1a544adf18831258bdc42a680c7f6ccc1"
+      },
+      "2009 Q4": {
+        "version": 1,
+        "checkedAt": "2026-10-30",
+        "source": "https://www.sec.gov/Archives/edgar/data/949509/0000949509-10-000007.txt",
+        "filingDate": "2010-02-10",
+        "sourceDigest": "4bc69a5d5c665b3d6ecdd4bd652d7f95cc55f4ea25357a667b291b37de795ccf",
+        "sourceHash": "ae74e41f98f7468c6198705973fa72fc91440254150553633e398e958b5c397d",
+        "status": "verified",
+        "factor": 1,
+        "anchors": [
+          {
+            "ticker": "CMCSA",
+            "cusip": "20030N101",
+            "filedPrice": 16.860015877216195,
+            "price": 16.860000380516052,
+            "date": "2009-12-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/CMCSA?period1=0&period2=1793416856&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "MLCO",
+            "cusip": "585464100",
+            "filedPrice": 3.3599405977352887,
+            "price": 3.359999895095825,
+            "date": "2009-12-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/MLCO?period1=0&period2=1793416858&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "TV",
+            "cusip": "40049J206",
+            "filedPrice": 20.76086511704043,
+            "price": 20.760000228881836,
+            "date": "2009-12-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/TV?period1=0&period2=1793416857&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "CTSH",
+            "cusip": "192446102",
+            "filedPrice": 45.32911863146151,
+            "price": 45.33000183105469,
+            "date": "2009-12-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/CTSH?period1=0&period2=1793416859&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "PBR",
+            "cusip": "71654V408",
+            "filedPrice": 47.67877629063098,
+            "price": 47.68000030517578,
+            "date": "2009-12-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/PBR?period1=0&period2=1793416859&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          }
+        ],
+        "agreementCount": 5,
+        "anchorCount": 5,
+        "outlierTickers": [],
+        "normalizedHash": "ae74e41f98f7468c6198705973fa72fc91440254150553633e398e958b5c397d"
+      },
+      "2010 Q1": {
+        "version": 1,
+        "checkedAt": "2026-10-30",
+        "source": "https://www.sec.gov/Archives/edgar/data/949509/0000949509-10-000009.txt",
+        "filingDate": "2010-04-30",
+        "sourceDigest": "ba32e02fc3f2da6d99948948c83877d066714bef7246513930eb9edd826b336f",
+        "sourceHash": "53bec8740c6f5ca16f9f9a2b805fd2fe3977cd2f9e6e25c4e869446a1ae3300c",
+        "status": "verified",
+        "factor": 1,
+        "anchors": [
+          {
+            "ticker": "CMCSA",
+            "cusip": "20030N101",
+            "filedPrice": 18.82984916644615,
+            "price": 18.829999561309812,
+            "date": "2010-03-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/CMCSA?period1=0&period2=1793416856&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "MLCO",
+            "cusip": "585464100",
+            "filedPrice": 4.800299084055081,
+            "price": 4.800000190734863,
+            "date": "2010-03-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/MLCO?period1=0&period2=1793416858&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "VALE",
+            "cusip": "91912E105",
+            "filedPrice": 32.19038915839515,
+            "price": 32.189998626708984,
+            "date": "2010-03-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/VALE?period1=0&period2=1793416860&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "PBR",
+            "cusip": "71654V408",
+            "filedPrice": 44.499294781382225,
+            "price": 44.5,
+            "date": "2010-03-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/PBR?period1=0&period2=1793416859&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "CTSH",
+            "cusip": "192446102",
+            "filedPrice": 50.98218364550023,
+            "price": 50.97999954223633,
+            "date": "2010-03-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/CTSH?period1=0&period2=1793416859&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          }
+        ],
+        "agreementCount": 5,
+        "anchorCount": 5,
+        "outlierTickers": [],
+        "normalizedHash": "53bec8740c6f5ca16f9f9a2b805fd2fe3977cd2f9e6e25c4e869446a1ae3300c"
+      },
+      "2011 Q2": {
+        "version": 1,
+        "checkedAt": "2026-10-30",
+        "source": "https://www.sec.gov/Archives/edgar/data/949509/0000949509-11-000031.txt",
+        "filingDate": "2011-08-18",
+        "sourceDigest": "53eb0400e477ab7b5d5d51008990941f202fe31e9bc8f52a55ae14e14a7880d5",
+        "sourceHash": "9da92affb783413c158a4a9201c2ff451f918c59a331eb927b361f03ee774cea",
+        "status": "verified",
+        "factor": 1,
+        "anchors": [
+          {
+            "ticker": "VSH",
+            "cusip": "928298108",
+            "filedPrice": 15.04,
+            "price": 15.039999961853027,
+            "date": "2011-06-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/VSH?period1=0&period2=1793416860&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "CMCSA",
+            "cusip": "20030N101",
+            "filedPrice": 25.339838618877838,
+            "price": 25.340000423431395,
+            "date": "2011-06-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/CMCSA?period1=0&period2=1793416856&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "AIG",
+            "cusip": "026874784",
+            "filedPrice": 29.32,
+            "price": 29.31999969482422,
+            "date": "2011-06-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/AIG?period1=0&period2=1793416861&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "MLCO",
+            "cusip": "585464100",
+            "filedPrice": 12.769644457723334,
+            "price": 12.770000457763672,
+            "date": "2011-06-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/MLCO?period1=0&period2=1793416858&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "VALE",
+            "cusip": "91912E105",
+            "filedPrice": 31.949141079399432,
+            "price": 31.950000762939453,
+            "date": "2011-06-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/VALE?period1=0&period2=1793416860&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          }
+        ],
+        "agreementCount": 5,
+        "anchorCount": 5,
+        "outlierTickers": [],
+        "normalizedHash": "9da92affb783413c158a4a9201c2ff451f918c59a331eb927b361f03ee774cea"
+      },
+      "2011 Q3": {
+        "version": 1,
+        "checkedAt": "2026-10-30",
+        "source": "https://www.sec.gov/Archives/edgar/data/949509/0000949509-11-000034.txt",
+        "filingDate": "2011-10-20",
+        "sourceDigest": "1416075678d7783cc912074c386381b5507608a702111d722f5a7e4a5c98d21e",
+        "sourceHash": "8d25c9a35dd9ec556686e2a0a1731e70ae2e093085e2f7452b78d691d8ab9acc",
+        "status": "verified",
+        "factor": 1,
+        "anchors": [
+          {
+            "ticker": "VSH",
+            "cusip": "928298108",
+            "filedPrice": 8.36,
+            "price": 8.359999656677246,
+            "date": "2011-09-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/VSH?period1=0&period2=1793416860&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "CMCSA",
+            "cusip": "20030N101",
+            "filedPrice": 20.91982005821646,
+            "price": 20.920001848220824,
+            "date": "2011-09-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/CMCSA?period1=0&period2=1793416856&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "MLCO",
+            "cusip": "585464100",
+            "filedPrice": 8.310112713365129,
+            "price": 8.3100004196167,
+            "date": "2011-09-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/MLCO?period1=0&period2=1793416858&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "RIO",
+            "cusip": "767204100",
+            "filedPrice": 44.08021213125622,
+            "price": 44.08000183105469,
+            "date": "2011-09-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/RIO?period1=0&period2=1793416861&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "PBR",
+            "cusip": "71654V408",
+            "filedPrice": 22.448459466719935,
+            "price": 22.450000762939453,
+            "date": "2011-09-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/PBR?period1=0&period2=1793416859&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          }
+        ],
+        "agreementCount": 5,
+        "anchorCount": 5,
+        "outlierTickers": [],
+        "normalizedHash": "8d25c9a35dd9ec556686e2a0a1731e70ae2e093085e2f7452b78d691d8ab9acc"
       }
     },
     "values": [
@@ -455576,11 +455980,11 @@
     "instrumentVerification": {
       "pendingQuarters": [],
       "errors": {},
-      "checkedAt": "2026-10-30T02:50:34.372199+00:00"
+      "checkedAt": "2026-10-30T03:20:52.659818+00:00"
     },
     "excludedValueQuarters": [],
     "coverage": {
-      "checkedAt": "2026-10-30T02:50:35Z",
+      "checkedAt": "2026-10-30T03:20:54Z",
       "missingQuarters": [
         "1999 Q3",
         "1999 Q4",
@@ -455593,8 +455997,8 @@
         "2011 Q4"
       ],
       "repairedThisRun": [
-        "2002 Q3",
-        "2011 Q2"
+        "2009 Q4",
+        "2010 Q3"
       ],
       "errors": {
         "1999 Q3": "Legacy table reconciliation failed: 119/144 rows, $503701000/$945244000",
@@ -455608,14 +456012,14 @@
         "2000 Q1": "No matching complete 13F portfolio in submissions and checked quarterly indexes; not a zero position"
       },
       "attempts": {
-        "2005 Q4": 3,
-        "2001 Q2": 3,
-        "2003 Q3": 3,
-        "2001 Q3": 3,
-        "1999 Q4": 4,
         "2004 Q2": 3,
+        "2005 Q4": 3,
+        "2011 Q4": 3,
         "1999 Q3": 4,
-        "2011 Q4": 3
+        "2001 Q2": 4,
+        "2003 Q3": 3,
+        "1999 Q4": 4,
+        "2001 Q3": 4
       },
       "pendingRefreshQuarters": [
         "1999 Q1",
@@ -455652,10 +456056,8 @@
         "2009 Q1",
         "2009 Q2",
         "2009 Q3",
-        "2009 Q4",
         "2010 Q1",
         "2010 Q2",
-        "2010 Q3",
         "2010 Q4",
         "2011 Q1",
         "2011 Q3"
@@ -455664,7 +456066,7 @@
         "schemaVersion": 1,
         "cik": "949509",
         "checkedAt": "2026-10-29T16:10:30Z",
-        "attemptedAt": "2026-10-30T02:50:35Z",
+        "attemptedAt": "2026-10-30T03:20:54Z",
         "status": "checked",
         "indexes": {
           "2000/QTR2": {
@@ -456051,7 +456453,7 @@
       "VC",
       "XOP"
     ],
-    "lastUpdated": "2026-10-30T02:50:34Z",
+    "lastUpdated": "2026-10-30T03:20:52Z",
     "manager": "Oaktree Capital Management, L.P.",
     "notablePeople": [
       "Howard Marks"

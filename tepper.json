@@ -20,6 +20,16 @@
         "result": "additive",
         "checkedAt": "2026-10-30",
         "url": "https://www.sec.gov/Archives/edgar/data/1006438/0001006438-09-000004.txt"
+      },
+      "0001006438-05-000007": {
+        "result": "restatement",
+        "checkedAt": "2026-10-30",
+        "url": "https://www.sec.gov/Archives/edgar/data/1006438/0001006438-05-000007.txt"
+      },
+      "0001006438-99-000019": {
+        "result": "restatement",
+        "checkedAt": "2026-10-30",
+        "url": "https://www.sec.gov/Archives/edgar/data/1006438/0001006438-99-000019.txt"
       }
     },
     "holdings": {
@@ -41540,26 +41550,6 @@
       ],
       "2005 Q3": [
         {
-          "name": "Chevron Corp New",
-          "cls": "CALL",
-          "cusip": "166764900",
-          "value": 695655000,
-          "shares": 5153,
-          "shareType": "SH",
-          "putCall": "",
-          "managerAllocations": [
-            {
-              "managerIds": [],
-              "shares": 5153,
-              "value": 695655000
-            }
-          ],
-          "ticker": "?Chevron Corp New",
-          "sector": "其他",
-          "prevShares": 0,
-          "prevValue": 0
-        },
-        {
           "name": "American Elec Pwr Inc",
           "cls": "COM",
           "cusip": "025537101",
@@ -42096,11 +42086,11 @@
           ],
           "ticker": "PKX",
           "sector": "钢铁",
-          "prevShares": 101400,
-          "prevValue": 4459000,
           "cnName": "浦项制铁",
           "displayName": "POSCO",
-          "sectorEn": "Steel"
+          "sectorEn": "Steel",
+          "prevShares": 101400,
+          "prevValue": 4459000
         },
         {
           "name": "Alpha Natural Resources Inc",
@@ -42201,6 +42191,26 @@
           "sector": "其他",
           "prevShares": 67600,
           "prevValue": 3228000
+        },
+        {
+          "name": "Chevron Corp New",
+          "cls": "CALL",
+          "cusip": "166764900",
+          "value": 695000,
+          "shares": 5153,
+          "shareType": "SH",
+          "putCall": "",
+          "managerAllocations": [
+            {
+              "managerIds": [],
+              "shares": 5153,
+              "value": 695000
+            }
+          ],
+          "ticker": "?Chevron Corp New",
+          "sector": "其他",
+          "prevShares": 0,
+          "prevValue": 0
         },
         {
           "name": "MGP Ingredients Inc",
@@ -52505,9 +52515,9 @@
           ],
           "ticker": "BAC",
           "sector": "银行",
+          "cnName": "美国银行",
           "prevShares": 0,
           "prevValue": 0,
-          "cnName": "美国银行",
           "displayName": "Bank of America",
           "sectorEn": "Banking"
         },
@@ -52628,9 +52638,9 @@
           ],
           "ticker": "GT",
           "sector": "消费",
+          "cnName": "固特异",
           "prevShares": 3244998,
-          "prevValue": 19373000,
-          "cnName": "固特异"
+          "prevValue": 19373000
         },
         {
           "name": "Capital One Financial Corp",
@@ -53191,9 +53201,9 @@
           ],
           "ticker": "BAC",
           "sector": "银行",
+          "cnName": "美国银行",
           "prevShares": 47550000,
           "prevValue": 324291000,
-          "cnName": "美国银行",
           "displayName": "Bank of America",
           "sectorEn": "Banking"
         },
@@ -53334,9 +53344,9 @@
           ],
           "ticker": "GT",
           "sector": "消费",
+          "cnName": "固特异",
           "prevShares": 2300000,
-          "prevValue": 14398000,
-          "cnName": "固特异"
+          "prevValue": 14398000
         },
         {
           "name": "Rite Aid Corp",
@@ -53817,9 +53827,9 @@
           ],
           "ticker": "BAC",
           "sector": "银行",
+          "cnName": "美国银行",
           "prevShares": 46848201,
           "prevValue": 618396000,
-          "cnName": "美国银行",
           "displayName": "Bank of America",
           "sectorEn": "Banking"
         },
@@ -53840,9 +53850,9 @@
           ],
           "ticker": "?Citigroup Inc",
           "sector": "银行",
+          "cnName": "花旗集团",
           "prevShares": 0,
           "prevValue": 0,
-          "cnName": "花旗集团",
           "displayName": "Citigroup",
           "sectorEn": "Banking"
         },
@@ -54023,9 +54033,9 @@
           ],
           "ticker": "MSFT",
           "sector": "科技",
+          "cnName": "微软",
           "prevShares": 0,
-          "prevValue": 0,
-          "cnName": "微软"
+          "prevValue": 0
         },
         {
           "name": "BB&T Corp",
@@ -54124,9 +54134,9 @@
           ],
           "ticker": "GT",
           "sector": "消费",
+          "cnName": "固特异",
           "prevShares": 2300000,
-          "prevValue": 25898000,
-          "cnName": "固特异"
+          "prevValue": 25898000
         },
         {
           "name": "XL Capital Ltd Cl A",
@@ -54607,9 +54617,9 @@
           ],
           "ticker": "BAC",
           "sector": "银行",
+          "cnName": "美国银行",
           "prevShares": 33876101,
           "prevValue": 573184000,
-          "cnName": "美国银行",
           "displayName": "Bank of America",
           "sectorEn": "Banking"
         },
@@ -54630,9 +54640,9 @@
           ],
           "ticker": "?Citigroup Inc",
           "sector": "银行",
+          "cnName": "花旗集团",
           "prevShares": 79741067,
           "prevValue": 385947000,
-          "cnName": "花旗集团",
           "displayName": "Citigroup",
           "sectorEn": "Banking"
         },
@@ -54653,9 +54663,9 @@
           ],
           "ticker": "WFC",
           "sector": "银行",
+          "cnName": "富国银行",
           "prevShares": 0,
           "prevValue": 0,
-          "cnName": "富国银行",
           "displayName": "Wells Fargo",
           "sectorEn": "Banking"
         },
@@ -54836,9 +54846,9 @@
           ],
           "ticker": "MSFT",
           "sector": "科技",
+          "cnName": "微软",
           "prevShares": 3000000,
-          "prevValue": 77160000,
-          "cnName": "微软"
+          "prevValue": 77160000
         },
         {
           "name": "E-Trade Financial Corp",
@@ -54977,9 +54987,9 @@
           ],
           "ticker": "GT",
           "sector": "消费",
+          "cnName": "固特异",
           "prevShares": 1587500,
-          "prevValue": 27035000,
-          "cnName": "固特异"
+          "prevValue": 27035000
         },
         {
           "name": "Brunswick Corp",
@@ -55580,9 +55590,9 @@
           ],
           "ticker": "BAC",
           "sector": "银行",
+          "cnName": "美国银行",
           "prevShares": 32252101,
           "prevValue": 485717000,
-          "cnName": "美国银行",
           "displayName": "Bank of America",
           "sectorEn": "Banking"
         },
@@ -55623,9 +55633,9 @@
           ],
           "ticker": "WFC",
           "sector": "银行",
+          "cnName": "富国银行",
           "prevShares": 11000000,
           "prevValue": 296890000,
-          "cnName": "富国银行",
           "displayName": "Wells Fargo",
           "sectorEn": "Banking"
         },
@@ -55646,9 +55656,9 @@
           ],
           "ticker": "?Citigroup Inc",
           "sector": "银行",
+          "cnName": "花旗集团",
           "prevShares": 138121800,
           "prevValue": 457183000,
-          "cnName": "花旗集团",
           "displayName": "Citigroup",
           "sectorEn": "Banking"
         },
@@ -55829,9 +55839,9 @@
           ],
           "ticker": "MSFT",
           "sector": "科技",
+          "cnName": "微软",
           "prevShares": 3000000,
-          "prevValue": 91470000,
-          "cnName": "微软"
+          "prevValue": 91470000
         },
         {
           "name": "Merck & Co Inc",
@@ -56010,9 +56020,9 @@
           ],
           "ticker": "GT",
           "sector": "消费",
+          "cnName": "固特异",
           "prevShares": 1991600,
-          "prevValue": 28082000,
-          "cnName": "固特异"
+          "prevValue": 28082000
         },
         {
           "name": "AMR Corp",
@@ -69227,24 +69237,23 @@
         }
       },
       "2005 Q3": {
-        "accession": "000100643805000005",
-        "accessionDashed": "0001006438-05-000005",
-        "filingDate": "2005-11-14",
-        "reportDate": "2005-09-30",
-        "form": "13F-HR",
-        "primaryDocument": "a13f05q3.txt",
         "cik": "1006438",
-        "expected13FFileNumber": "028-05908",
-        "url": "https://www.sec.gov/Archives/edgar/data/1006438/0001006438-05-000005.txt",
+        "accession": "000100643805000007",
+        "accessionDashed": "0001006438-05-000007",
+        "filingDate": "2005-11-15",
+        "reportDate": "2005-09-30",
+        "form": "13F-HR/A",
+        "amendmentType": "RESTATEMENT",
+        "url": "https://www.sec.gov/Archives/edgar/data/1006438/0001006438-05-000007.txt",
         "format": "legacy_13f",
-        "parserVersion": 5,
+        "parserVersion": 6,
         "sourceReconciliation": {
           "status": "cover_total_mismatch",
           "reportedEntries": 35,
           "parsedEntries": 35,
-          "reportedValue": 2045847000000,
-          "tableValue": 2045848000,
-          "difference": -2043801152000
+          "reportedValue": 1350887000000,
+          "tableValue": 1350888000,
+          "difference": -1349536112000
         }
       },
       "2005 Q4": {
@@ -73118,82 +73127,6 @@
         "outlierTickers": [],
         "normalizedHash": "b9d39f08389eac32be90533b53207562e4ece06e0d12ffe9135df0109c6a80c6"
       },
-      "2005 Q3": {
-        "version": 1,
-        "checkedAt": "2026-10-29",
-        "source": "https://www.sec.gov/Archives/edgar/data/1006438/0001006438-05-000005.txt",
-        "filingDate": "2005-11-14",
-        "sourceDigest": "c8975cb67785bf2e928709539be917c0653c9d96fc2f753620cc51288f23e342",
-        "sourceHash": "bb8055dcb8cde7c14084895ed5523d70f1b037b3d1e1a7124856277d095b445d",
-        "status": "verified",
-        "factor": 1,
-        "anchors": [
-          {
-            "ticker": "AEP",
-            "cusip": "025537101",
-            "filedPrice": 39.699970983654126,
-            "price": 39.70000076293945,
-            "date": "2005-09-30",
-            "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/AEP?period1=0&period2=1793385969&interval=1d&events=splits",
-            "candidates": [
-              1
-            ]
-          },
-          {
-            "ticker": "CF",
-            "cusip": "125269100",
-            "filedPrice": 14.809998938541556,
-            "price": 14.809999465942383,
-            "date": "2005-09-30",
-            "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/CF?period1=0&period2=1793385970&interval=1d&events=splits",
-            "candidates": [
-              1
-            ]
-          },
-          {
-            "ticker": "EIX",
-            "cusip": "281020107",
-            "filedPrice": 47.28,
-            "price": 47.279998779296875,
-            "date": "2005-09-30",
-            "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/EIX?period1=0&period2=1793385970&interval=1d&events=splits",
-            "candidates": [
-              1
-            ]
-          },
-          {
-            "ticker": "FNMA",
-            "cusip": "313586109",
-            "filedPrice": 44.824074074074076,
-            "price": 44.81999969482422,
-            "date": "2005-09-30",
-            "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/FNMA?period1=0&period2=1793385970&interval=1d&events=splits",
-            "candidates": [
-              1
-            ]
-          },
-          {
-            "ticker": "PKX",
-            "cusip": "693483109",
-            "filedPrice": 56.55818540433925,
-            "price": 56.560001373291016,
-            "date": "2005-09-30",
-            "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/PKX?period1=0&period2=1793385971&interval=1d&events=splits",
-            "candidates": [
-              1
-            ]
-          }
-        ],
-        "agreementCount": 5,
-        "anchorCount": 5,
-        "outlierTickers": [],
-        "normalizedHash": "bb8055dcb8cde7c14084895ed5523d70f1b037b3d1e1a7124856277d095b445d"
-      },
       "2006 Q3": {
         "version": 1,
         "checkedAt": "2026-10-29",
@@ -73902,6 +73835,462 @@
         "anchorCount": 5,
         "outlierTickers": [],
         "normalizedHash": "ede2e8d51d9fb0a56313052235be3c1dd2311a1d510ac8e58390d22f8a6de435"
+      },
+      "2009 Q1": {
+        "version": 1,
+        "checkedAt": "2026-10-30",
+        "source": "https://www.sec.gov/Archives/edgar/data/1006438/0001006438-09-000002.txt",
+        "filingDate": "2009-05-14",
+        "sourceDigest": "8ac5896d75b08cf8c890da6495a5949f5ccbe8d6c9775bd089cd786b185c3a47",
+        "sourceHash": "ad790b31a8011d011a16db219b9dee89ac32f374f97013317601639eb482a428",
+        "status": "verified",
+        "factor": 1,
+        "anchors": [
+          {
+            "ticker": "DAN",
+            "cusip": "235825205",
+            "filedPrice": 0.4624633883150917,
+            "price": 0.46000000834465027,
+            "date": "2009-03-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/DAN?period1=0&period2=1793416761&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "BAC",
+            "cusip": "060505104",
+            "filedPrice": 6.82,
+            "price": 6.820000171661377,
+            "date": "2009-03-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/BAC?period1=0&period2=1793416761&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "FITB",
+            "cusip": "316773100",
+            "filedPrice": 2.9199905829491333,
+            "price": 2.9200000762939453,
+            "date": "2009-03-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/FITB?period1=0&period2=1793416762&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "GT",
+            "cusip": "382550101",
+            "filedPrice": 6.26,
+            "price": 6.260000228881836,
+            "date": "2009-03-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/GT?period1=0&period2=1793416762&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "BC",
+            "cusip": "117043109",
+            "filedPrice": 3.4501987065124187,
+            "price": 3.450000047683716,
+            "date": "2009-03-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/BC?period1=0&period2=1793416763&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          }
+        ],
+        "agreementCount": 5,
+        "anchorCount": 5,
+        "outlierTickers": [],
+        "normalizedHash": "ad790b31a8011d011a16db219b9dee89ac32f374f97013317601639eb482a428"
+      },
+      "2009 Q2": {
+        "version": 1,
+        "checkedAt": "2026-10-30",
+        "source": "https://www.sec.gov/Archives/edgar/data/1006438/0001006438-09-000003.txt",
+        "filingDate": "2009-08-13",
+        "sourceDigest": "d0968c7d78e5997b9f036012ce5e305cb198ad3e7a95ccb1e9063e877dcd2bbe",
+        "sourceHash": "7a1b3f73d1885a93baa347ee5129204fcce515910793badde35af1c0d031194b",
+        "status": "verified",
+        "factor": 1,
+        "anchors": [
+          {
+            "ticker": "BAC",
+            "cusip": "060505104",
+            "filedPrice": 13.199994595310073,
+            "price": 13.199999809265137,
+            "date": "2009-06-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/BAC?period1=0&period2=1793416761&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "FITB",
+            "cusip": "316773100",
+            "filedPrice": 7.09999328108527,
+            "price": 7.099999904632568,
+            "date": "2009-06-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/FITB?period1=0&period2=1793416762&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "GT",
+            "cusip": "382550101",
+            "filedPrice": 11.26,
+            "price": 11.260000228881836,
+            "date": "2009-06-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/GT?period1=0&period2=1793416762&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "BC",
+            "cusip": "117043109",
+            "filedPrice": 4.3197953527117825,
+            "price": 4.320000171661377,
+            "date": "2009-06-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/BC?period1=0&period2=1793416763&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "RF",
+            "cusip": "7591EP100",
+            "filedPrice": 4.04,
+            "price": 4.039999961853027,
+            "date": "2009-06-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/RF?period1=0&period2=1793416763&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          }
+        ],
+        "agreementCount": 5,
+        "anchorCount": 5,
+        "outlierTickers": [],
+        "normalizedHash": "7a1b3f73d1885a93baa347ee5129204fcce515910793badde35af1c0d031194b"
+      },
+      "2009 Q3": {
+        "version": 1,
+        "checkedAt": "2026-10-30",
+        "source": "https://www.sec.gov/Archives/edgar/data/1006438/0001006438-09-000006.txt",
+        "filingDate": "2009-11-13",
+        "sourceDigest": "ca910a7e10ae3dcef907ce2d7283fcd5a8ae9086d238c65baf767bad5289154a",
+        "sourceHash": "bcbf5ebf0979117cdeee08259d0a35bbddfcbb4c6f35d254e63eecdea233fd59",
+        "status": "verified",
+        "factor": 1,
+        "anchors": [
+          {
+            "ticker": "BAC",
+            "cusip": "060505104",
+            "filedPrice": 16.920010954035117,
+            "price": 16.920000076293945,
+            "date": "2009-09-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/BAC?period1=0&period2=1793416761&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "FITB",
+            "cusip": "316773100",
+            "filedPrice": 10.129995245422494,
+            "price": 10.130000114440918,
+            "date": "2009-09-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/FITB?period1=0&period2=1793416762&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "HIG",
+            "cusip": "416515104",
+            "filedPrice": 26.500044442400483,
+            "price": 26.5,
+            "date": "2009-09-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/HIG?period1=0&period2=1793416764&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "MSFT",
+            "cusip": "594918104",
+            "filedPrice": 25.72,
+            "price": 25.719999313354492,
+            "date": "2009-09-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/MSFT?period1=0&period2=1793416764&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "BC",
+            "cusip": "117043109",
+            "filedPrice": 11.98010342987087,
+            "price": 11.979999542236328,
+            "date": "2009-09-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/BC?period1=0&period2=1793416763&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          }
+        ],
+        "agreementCount": 5,
+        "anchorCount": 5,
+        "outlierTickers": [],
+        "normalizedHash": "bcbf5ebf0979117cdeee08259d0a35bbddfcbb4c6f35d254e63eecdea233fd59"
+      },
+      "2009 Q4": {
+        "version": 1,
+        "checkedAt": "2026-10-30",
+        "source": "https://www.sec.gov/Archives/edgar/data/1006438/0001006438-10-000001.txt",
+        "filingDate": "2010-02-12",
+        "sourceDigest": "fd088fddd54774222ba5abe20ff055c62e10c9b28dead1a82d8d20cc8560e60a",
+        "sourceHash": "dabf6bc8d02cce7d0ccddf65d2d1c1ea943f4cab8c2aa1dcf636e897794f802a",
+        "status": "verified",
+        "factor": 1,
+        "anchors": [
+          {
+            "ticker": "BAC",
+            "cusip": "060505104",
+            "filedPrice": 15.060011129197443,
+            "price": 15.0600004196167,
+            "date": "2009-12-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/BAC?period1=0&period2=1793416761&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "FITB",
+            "cusip": "316773100",
+            "filedPrice": 9.749981934903364,
+            "price": 9.75,
+            "date": "2009-12-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/FITB?period1=0&period2=1793416762&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "WFC",
+            "cusip": "949746101",
+            "filedPrice": 26.99,
+            "price": 26.989999771118164,
+            "date": "2009-12-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/WFC?period1=0&period2=1793416765&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "HIG",
+            "cusip": "416515104",
+            "filedPrice": 23.26004713485496,
+            "price": 23.260000228881836,
+            "date": "2009-12-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/HIG?period1=0&period2=1793416764&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "DAL",
+            "cusip": "247361702",
+            "filedPrice": 11.380095451051915,
+            "price": 11.380000114440918,
+            "date": "2009-12-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/DAL?period1=0&period2=1793416765&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          }
+        ],
+        "agreementCount": 5,
+        "anchorCount": 5,
+        "outlierTickers": [],
+        "normalizedHash": "dabf6bc8d02cce7d0ccddf65d2d1c1ea943f4cab8c2aa1dcf636e897794f802a"
+      },
+      "2010 Q1": {
+        "version": 1,
+        "checkedAt": "2026-10-30",
+        "source": "https://www.sec.gov/Archives/edgar/data/1006438/0001006438-10-000002.txt",
+        "filingDate": "2010-05-14",
+        "sourceDigest": "9915b96463e62fcc1fb4364e0990221f3eb0924f9c9a97b0450eb1fe29175dea",
+        "sourceHash": "73537e7dd47f1a80ad9802a849f29d2314f49a40da8cf3a85c7e8033ea4cd221",
+        "status": "verified",
+        "factor": 1,
+        "anchors": [
+          {
+            "ticker": "BAC",
+            "cusip": "060505104",
+            "filedPrice": 17.849987075925828,
+            "price": 17.850000381469727,
+            "date": "2010-03-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/BAC?period1=0&period2=1793416761&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "FITB",
+            "cusip": "316773100",
+            "filedPrice": 13.590028515437627,
+            "price": 13.5600004196167,
+            "date": "2010-03-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/FITB?period1=0&period2=1793416762&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "WFC",
+            "cusip": "949746101",
+            "filedPrice": 31.119977678571427,
+            "price": 31.1200008392334,
+            "date": "2010-03-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/WFC?period1=0&period2=1793416765&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "HIG",
+            "cusip": "416515104",
+            "filedPrice": 28.420063182350482,
+            "price": 28.420000076293945,
+            "date": "2010-03-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/HIG?period1=0&period2=1793416764&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "PFE",
+            "cusip": "717081103",
+            "filedPrice": 17.14999600874511,
+            "price": 17.149999786376952,
+            "date": "2010-03-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/PFE?period1=0&period2=1793416766&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          }
+        ],
+        "agreementCount": 5,
+        "anchorCount": 5,
+        "outlierTickers": [],
+        "normalizedHash": "73537e7dd47f1a80ad9802a849f29d2314f49a40da8cf3a85c7e8033ea4cd221"
+      },
+      "2010 Q4": {
+        "version": 1,
+        "checkedAt": "2026-10-30",
+        "source": "https://www.sec.gov/Archives/edgar/data/1006438/0001006438-11-000001.txt",
+        "filingDate": "2011-02-14",
+        "sourceDigest": "cf3faf6c6339e48ad9bff93f1045de8ff225ffff6fff08a7b41ac218c9aebb63",
+        "sourceHash": "d3f0352ec49e06efebd2ff401d013182aa00a20296510b4a619fcf25dfbe746b",
+        "status": "verified",
+        "factor": 1,
+        "anchors": [
+          {
+            "ticker": "BAC",
+            "cusip": "060505104",
+            "filedPrice": 13.33999852558352,
+            "price": 13.34000015258789,
+            "date": "2010-12-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/BAC?period1=0&period2=1793416761&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "PFE",
+            "cusip": "717081103",
+            "filedPrice": 17.50999051937659,
+            "price": 17.510000389099122,
+            "date": "2010-12-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/PFE?period1=0&period2=1793416766&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "GT",
+            "cusip": "382550101",
+            "filedPrice": 11.849994205236245,
+            "price": 11.850000381469727,
+            "date": "2010-12-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/GT?period1=0&period2=1793416762&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "FITB",
+            "cusip": "316773100",
+            "filedPrice": 14.679969563674867,
+            "price": 14.680000305175781,
+            "date": "2010-12-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/FITB?period1=0&period2=1793416762&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "WFC",
+            "cusip": "949746101",
+            "filedPrice": 30.98993311081621,
+            "price": 30.989999771118164,
+            "date": "2010-12-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/WFC?period1=0&period2=1793416765&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          }
+        ],
+        "agreementCount": 5,
+        "anchorCount": 5,
+        "outlierTickers": [],
+        "normalizedHash": "d3f0352ec49e06efebd2ff401d013182aa00a20296510b4a619fcf25dfbe746b"
       }
     },
     "values": [
@@ -73921,7 +74310,7 @@
       1529.447,
       1494.053,
       1174.056,
-      2045.848,
+      1350.888,
       842.868,
       1291.72,
       1752.899,
@@ -74007,11 +74396,11 @@
     "instrumentVerification": {
       "pendingQuarters": [],
       "errors": {},
-      "checkedAt": "2026-10-30T02:48:50.077014+00:00"
+      "checkedAt": "2026-10-30T03:19:18.992620+00:00"
     },
     "excludedValueQuarters": [],
     "coverage": {
-      "checkedAt": "2026-10-30T02:48:52Z",
+      "checkedAt": "2026-10-30T03:19:20Z",
       "missingQuarters": [
         "1999 Q3",
         "1999 Q4",
@@ -74027,8 +74416,7 @@
         "2010 Q3"
       ],
       "repairedThisRun": [
-        "1999 Q2",
-        "2011 Q4"
+        "2005 Q3"
       ],
       "errors": {
         "1999 Q3": "Legacy table reconciliation failed: 24/25 rows, $409215000/$409213153000",
@@ -74042,20 +74430,22 @@
         "2003 Q4": "Legacy table reconciliation failed: 26/27 rows, $659340000/$662331000000",
         "2010 Q2": "Legacy table reconciliation failed: 55/56 rows, $2868339000/$2872234000000",
         "2010 Q3": "Legacy table reconciliation failed: 72/73 rows, $3350950000/$3352881000000",
-        "2004 Q2": "No matching complete 13F portfolio in submissions and checked quarterly indexes; not a zero position"
+        "2004 Q2": "No matching complete 13F portfolio in submissions and checked quarterly indexes; not a zero position",
+        "1999 Q1": "Legacy table reconciliation failed: 24/25 rows, $222661000/$228622133000"
       },
       "attempts": {
-        "2002 Q1": 3,
-        "2003 Q3": 3,
-        "1999 Q3": 3,
         "2001 Q4": 3,
-        "2000 Q1": 3,
-        "2003 Q2": 3,
         "2003 Q1": 3,
-        "2003 Q4": 3,
-        "2010 Q3": 2,
+        "2003 Q3": 3,
         "1999 Q4": 3,
-        "2010 Q2": 3
+        "2010 Q2": 3,
+        "1999 Q1": 1,
+        "1999 Q3": 4,
+        "2003 Q2": 3,
+        "2003 Q4": 3,
+        "2000 Q1": 3,
+        "2010 Q3": 3,
+        "2002 Q1": 3
       },
       "pendingRefreshQuarters": [
         "1999 Q1",
@@ -74073,7 +74463,6 @@
         "2004 Q4",
         "2005 Q1",
         "2005 Q2",
-        "2005 Q3",
         "2005 Q4",
         "2006 Q1",
         "2006 Q2",
@@ -74117,7 +74506,7 @@
         "schemaVersion": 1,
         "cik": "1656456",
         "checkedAt": "2026-10-29T16:46:19Z",
-        "attemptedAt": "2026-10-30T02:48:51Z",
+        "attemptedAt": "2026-10-30T03:19:20Z",
         "status": "checked",
         "indexes": {
           "2004/QTR3": {
@@ -74464,7 +74853,7 @@
     ],
     "manager": "Appaloosa LP",
     "costHistoryFrom": "2016 Q1",
-    "lastUpdated": "2026-10-30T02:48:50Z",
+    "lastUpdated": "2026-10-30T03:19:18Z",
     "notablePeople": [
       "David Tepper"
     ],
