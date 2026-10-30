@@ -1662,10 +1662,10 @@
       "reason": "ValueError: Bilingual editorial review: The English translation contains factual inaccuracies regarding the source text. The source (s1) states MIT has 'one of the largest "
     },
     "lilu-a3cf37658bd8ce": {
-      "at": "2026-10-30T05:00:53+00:00",
+      "at": "2026-10-30T18:36:45+00:00",
       "status": "retry",
       "inputHash": "45d6c7a7835cef8eb907feccd6ec0229e1bd287edb6ec1d5f6194a3a3a777652",
-      "reason": "ValueError: Unsupported numerical claim: 60"
+      "reason": "JSONDecodeError: Expecting ',' delimiter: line 2 column 376 (char 377)"
     },
     "vinall-c550c8c4eb0384": {
       "at": "2026-10-30T14:42:20+00:00",
@@ -3574,5 +3574,5 @@
       "reason": "ValueError: Unsupported numerical claim: 20.50%"
     }
   },
-  "updatedAt": "2026-10-30T18:33:08+00:00"
+  "updatedAt": "2026-10-30T18:36:45+00:00"
 }
