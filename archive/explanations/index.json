@@ -400,7 +400,7 @@
       "reason": "ValueError: Bilingual editorial review: The source text (s2) does not contain the phrase 'best revenge on stock being neglected'; this is an editorial interpretation added "
     },
     "hawkins-4bfffa4e8bf77c": {
-      "at": "2026-10-30T06:26:00+00:00",
+      "at": "2026-10-30T18:33:08+00:00",
       "status": "retry",
       "inputHash": "b97f113411b3d69050f32ce7f4e27a433a8fc3f37c0ee94e5886041bbdc1cd31",
       "reason": "ValueError: No audio obtained"
@@ -811,10 +811,10 @@
       "reason": "ValueError: Bilingual editorial review: The source text does not mention 'cloning' technology or engineers being 'masters of cloning'; this phrase is an invented interpreta"
     },
     "lilu-11d369bb564cef": {
-      "at": "2026-10-30T04:50:32+00:00",
+      "at": "2026-10-30T18:23:14+00:00",
       "status": "retry",
       "inputHash": "ed56cf20bb10c9816d6076b072bccdfa59ef28e3b15a59c1d675bf65400f37bd",
-      "reason": "ValueError: Bilingual editorial review: The English text incorrectly states 'negative personal net worth' (s5) as the reason for investment; s5 only mentions saving cash de"
+      "reason": "ValueError: Bilingual editorial review: The English translation incorrectly states 'buy low and sell high' as the strategy for risk-adjusted returns; the source specifies b"
     },
     "vinall-407826a49480a2": {
       "at": "2026-10-30T15:59:26+00:00",
@@ -1344,10 +1344,10 @@
       "reason": "ValueError: Unsupported scaled numerical claim: 25"
     },
     "pabrai-9bcc73108a5168": {
-      "at": "2026-10-30T04:56:48+00:00",
+      "at": "2026-10-30T18:27:13+00:00",
       "status": "retry",
       "inputHash": "62227a7e7a837281f19c2fb9a743c15935c7fd90b91fab0b80455416238fddc2",
-      "reason": "ValueError: Incomplete AI Write at 3200 tokens"
+      "reason": "ValueError: Unsupported numerical claim: 1%"
     },
     "pabrai-7b7fa2ae604775": {
       "at": "2026-10-30T15:29:01+00:00",
@@ -1584,10 +1584,10 @@
       "reason": "ValueError: Bilingual editorial review: The source text (s6-s8) does not mention Microsoft Word specifically; it only refers generically to 'those Microsoft softwares' from"
     },
     "vinall-fc32d3b55fba71": {
-      "at": "2026-10-30T06:25:46+00:00",
+      "at": "2026-10-30T18:32:31+00:00",
       "status": "retry",
       "inputHash": "c62b1b9f893412b8f807ebfbe1581d9fe03160f0fc9f7f75bfa887d13694d77d",
-      "reason": "ValueError: Bilingual editorial review: The English translation of 'My 2024 Postcard from China' is accurate and matches the source title.; The author name 'Rob Vinall' is "
+      "reason": "ValueError: Bilingual editorial review: Author name mismatch: Source uses 'Rob Vinall', but content cites 'Malcolm Clark' as a director; source text does not confirm Clark'"
     },
     "pabrai-d4447e08f97b61": {
       "at": "2026-10-30T14:34:56+00:00",
@@ -1889,10 +1889,10 @@
       "reason": "ValueError: Incomplete AI Review at 900 tokens"
     },
     "buffett-b5218ddf52191e": {
-      "at": "2026-10-30T06:35:29+00:00",
+      "at": "2026-10-30T18:21:40+00:00",
       "status": "retry",
       "inputHash": "fcc7050dbe387812d047f1bc550260bcb5c860d34b80fde93f8e620e86e4aaa5",
-      "reason": "ValueError: No supported arguments in source"
+      "reason": "ValueError: Copied source passage"
     },
     "buffett-7766ba88798e3f": {
       "at": "2026-10-30T14:09:08+00:00",
@@ -1943,10 +1943,10 @@
       "reason": "ValueError: No audio obtained"
     },
     "buffett-7838e59f11e3a4": {
-      "at": "2026-10-30T06:42:19+00:00",
+      "at": "2026-10-30T18:27:34+00:00",
       "status": "retry",
       "inputHash": "5b4f64938033fa4b84aa1258552b075f1d6e2e7213803ba67c7553e2595dc78f",
-      "reason": "ValueError: Bilingual editorial review: The English translation in the content section incorrectly states 'In his 1987 Letter...' instead of 'Chairman's Letter - 1987...'.;"
+      "reason": "ValueError: Unsupported scaled numerical claim: 652"
     },
     "buffett-3f57382d485003": {
       "at": "2026-10-30T14:18:55+00:00",
@@ -2903,10 +2903,10 @@
       "reason": "ValueError: Bilingual editorial review: The English paraphrase incorrectly states the strategy achieved a net return of 37.6% in its 'first full year after Bill Ackman's de"
     },
     "marks-82b8d3d26c60a7": {
-      "at": "2026-10-30T06:10:34+00:00",
+      "at": "2026-10-30T18:18:38+00:00",
       "status": "retry",
       "inputHash": "2fbdc480f6f448a8be37dc14680188468b45f921c0a53c64658322689f6ec612",
-      "reason": "ValueError: Bilingual editorial review: The Chinese translation of 'down-to-the-wire' in the evidence section is accurate as a metaphor for a critical final stage, matching"
+      "reason": "ValueError: Bilingual editorial review: The English translation of the Chinese paragraph contains a factual error regarding the author's name. The source text refers to 'Ho"
     },
     "mclemore-8ec7f217446ec8": {
       "at": "2026-10-30T15:40:37+00:00",
@@ -3161,10 +3161,10 @@
       "reason": "ValueError: Unsupported numerical claim: 0.19%"
     },
     "mclemore-9341e741c2e577": {
-      "at": "2026-10-30T06:16:24+00:00",
+      "at": "2026-10-30T18:24:56+00:00",
       "status": "retry",
       "inputHash": "3748963183503a3be5c15d5be4e04b34c9a55dababb1dff35d32669af6ed00eb",
-      "reason": "ValueError: Bilingual editorial review: The English translation in the 'content' section misrepresents the source text by implying Samantha McLemore explicitly cites Biriny"
+      "reason": "ValueError: Bilingual editorial review: The Chinese text incorrectly attributes the specific earnings growth figures (9.6% in 2024, 11.8% in 2025) and the consensus target "
     },
     "mclemore-7e9619ce77a7e6": {
       "at": "2026-10-30T13:52:15+00:00",
@@ -3568,11 +3568,11 @@
       "reason": "ValueError: Unsupported numerical claim: 0.8"
     },
     "berkowitz-69d602a90f6af4": {
-      "at": "2026-10-30T06:25:58+00:00",
+      "at": "2026-10-30T18:33:06+00:00",
       "status": "retry",
       "inputHash": "22f64742432f61c7b03712f1b4bba7e3b7d17261807f71384f05b1ca96afb64d",
-      "reason": "ValueError: Bilingual editorial review: The English text incorrectly states 'gross expense ratio' as 1.00%. Source s12 specifies this is the 'gross expense ratio', but the "
+      "reason": "ValueError: Unsupported numerical claim: 20.50%"
     }
   },
-  "updatedAt": "2026-10-30T18:15:35+00:00"
+  "updatedAt": "2026-10-30T18:33:08+00:00"
 }
