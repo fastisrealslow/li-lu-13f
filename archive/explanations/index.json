@@ -1278,10 +1278,10 @@
       "reason": "ValueError: Bilingual editorial review: The source text (s3) explicitly states that Mohnish Pabrai changed his strategy from value to growth after reading Nick Sleep's 'Nom"
     },
     "pabrai-35e6c02262592b": {
-      "at": "2026-10-30T01:21:58+00:00",
+      "at": "2026-10-30T06:05:27+00:00",
       "status": "retry",
       "inputHash": "5a7c3b47eee745fd1103fc0f1fc7e9cb7a246980452aea4c5e780ce0d9a19ecb",
-      "reason": "ValueError: Bilingual editorial review: The source text (s4) is truncated and does not contain the full sentence regarding 'the dollar is growing' or any specific example o"
+      "reason": "ValueError: Bilingual editorial review: The source text (s4) is cut off mid-sentence ('...and that dollar is growing'), but the summary correctly infers the intended meanin"
     },
     "pabrai-a9fc9ab5dab038": {
       "at": "2026-10-30T04:32:36+00:00",
@@ -3574,5 +3574,5 @@
       "reason": "ValueError: Bilingual editorial review: The claim that 'the report does not explicitly state a cumulative excess return of 279.09 percentage points' is factually incorrect "
     }
   },
-  "updatedAt": "2026-10-30T06:05:03+00:00"
+  "updatedAt": "2026-10-30T06:05:27+00:00"
 }
