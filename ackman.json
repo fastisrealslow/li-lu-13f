@@ -5,7 +5,7 @@
     "notablePeople": [
       "Bill Ackman"
     ],
-    "lastUpdated": "2026-10-30T03:20:16Z",
+    "lastUpdated": "2026-10-30T18:23:47Z",
     "aiSummary": "阿克曼 Q1 大幅减持谷歌并新建微软仓位，同时增持亚马逊，显示其持续优化科技股组合的结构性调整。",
     "aiSummaryQuarter": "2026 Q1",
     "legacyFilers": [
@@ -8616,11 +8616,11 @@
           ],
           "ticker": "?SEARS HLDGS CORP",
           "sector": "百货零售",
-          "prevShares": 5000000,
-          "prevValue": 636000000,
           "cnName": "西尔斯控股",
           "displayName": "Sears Holdings",
-          "sectorEn": "Department-store retail"
+          "sectorEn": "Department-store retail",
+          "prevShares": 5000000,
+          "prevValue": 636000000
         },
         {
           "name": "TARGET CORP",
@@ -8866,11 +8866,11 @@
           ],
           "ticker": "?SEARS HLDGS CORP",
           "sector": "百货零售",
-          "prevShares": 6150000,
-          "prevValue": 627607000,
           "cnName": "西尔斯控股",
           "displayName": "Sears Holdings",
-          "sectorEn": "Department-store retail"
+          "sectorEn": "Department-store retail",
+          "prevShares": 6150000,
+          "prevValue": 627607000
         },
         {
           "name": "BARNES & NOBLE INC",
@@ -9091,11 +9091,11 @@
           ],
           "ticker": "?SEARS HLDGS CORP",
           "sector": "百货零售",
-          "prevShares": 6746568,
-          "prevValue": 688757000,
           "cnName": "西尔斯控股",
           "displayName": "Sears Holdings",
-          "sectorEn": "Department-store retail"
+          "sectorEn": "Department-store retail",
+          "prevShares": 6746568,
+          "prevValue": 688757000
         },
         {
           "name": "DR PEPPER SNAPPLE GROUP INC",
@@ -9273,8 +9273,8 @@
           "prevValue": 0
         },
         {
-          "name": "CADBURY PLC                    SPONS",
-          "cls": "ADR",
+          "name": "CADBURY PLC",
+          "cls": "SPONS ADR",
           "cusip": "12721E102",
           "value": 1139000,
           "shares": 22644,
@@ -9292,7 +9292,7 @@
               "value": 635000
             }
           ],
-          "ticker": "?CADBURY PLC                    SPONS",
+          "ticker": "?CADBURY PLC",
           "sector": "其他",
           "prevShares": 0,
           "prevValue": 0
@@ -9642,11 +9642,11 @@
           ],
           "ticker": "?SEARS HLDGS CORP",
           "sector": "百货零售",
-          "prevShares": 6746568,
-          "prevValue": 496952000,
           "cnName": "西尔斯控股",
           "displayName": "Sears Holdings",
-          "sectorEn": "Department-store retail"
+          "sectorEn": "Department-store retail",
+          "prevShares": 6746568,
+          "prevValue": 496952000
         },
         {
           "name": "GREENLIGHT CAPITAL RE LTD",
@@ -14105,21 +14105,17 @@
       ]
     },
     "coverage": {
-      "checkedAt": "2026-10-30T03:20:16Z",
+      "checkedAt": "2026-10-30T18:23:48Z",
       "missingQuarters": [],
       "repairedThisRun": [
-        "2006 Q4",
-        "2007 Q1",
-        "2007 Q2",
-        "2007 Q3"
+        "2007 Q4",
+        "2008 Q1",
+        "2008 Q2",
+        "2008 Q3"
       ],
       "errors": {},
       "attempts": {},
       "pendingRefreshQuarters": [
-        "2007 Q4",
-        "2008 Q1",
-        "2008 Q2",
-        "2008 Q3",
         "2008 Q4",
         "2009 Q1",
         "2009 Q2",
@@ -14702,7 +14698,7 @@
         "cik": "1336528",
         "url": "https://www.sec.gov/Archives/edgar/data/1336528/0001172661-08-000167.txt",
         "format": "legacy_13f",
-        "parserVersion": 4,
+        "parserVersion": 6,
         "sourceReconciliation": {
           "status": "reconciled",
           "reportedEntries": 17,
@@ -14722,7 +14718,7 @@
         "cik": "1336528",
         "url": "https://www.sec.gov/Archives/edgar/data/1336528/0001172661-08-000313.txt",
         "format": "legacy_13f",
-        "parserVersion": 4,
+        "parserVersion": 6,
         "sourceReconciliation": {
           "status": "reconciled",
           "reportedEntries": 17,
@@ -14742,7 +14738,7 @@
         "cik": "1336528",
         "url": "https://www.sec.gov/Archives/edgar/data/1336528/0001172661-08-000498.txt",
         "format": "legacy_13f",
-        "parserVersion": 4,
+        "parserVersion": 6,
         "sourceReconciliation": {
           "status": "reconciled",
           "reportedEntries": 21,
@@ -14757,10 +14753,20 @@
         "accessionDashed": "0001172661-08-000803",
         "filingDate": "2008-11-13",
         "reportDate": "2008-09-30",
+        "form": "13F-HR",
+        "primaryDocument": "pers3q08.txt",
         "cik": "1336528",
         "url": "https://www.sec.gov/Archives/edgar/data/1336528/0001172661-08-000803.txt",
         "format": "legacy_13f",
-        "parserVersion": 2
+        "parserVersion": 6,
+        "sourceReconciliation": {
+          "status": "reconciled",
+          "reportedEntries": 30,
+          "parsedEntries": 30,
+          "reportedValue": 3886816000,
+          "tableValue": 3886816000,
+          "difference": 0
+        }
       },
       "2008 Q4": {
         "accession": "000117266109000403",
@@ -14955,7 +14961,7 @@
     "instrumentVerification": {
       "pendingQuarters": [],
       "errors": {},
-      "checkedAt": "2026-10-30T03:20:16.107088+00:00"
+      "checkedAt": "2026-10-30T18:23:47.719498+00:00"
     },
     "valueAudit": {
       "2026 Q2": {
@@ -18718,7 +18724,7 @@
       },
       "2008 Q3": {
         "version": 1,
-        "checkedAt": "2026-10-29",
+        "checkedAt": "2026-10-30",
         "source": "https://www.sec.gov/Archives/edgar/data/1336528/0001172661-08-000803.txt",
         "filingDate": "2008-11-13",
         "sourceDigest": "894637704e858bff3e8214d6d18fbcd7d9feeaa6efe33a8382006fb900c3fd47",
@@ -18732,7 +18738,7 @@
             "price": 49.04999923706055,
             "date": "2008-09-30",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/TGT?period1=0&period2=1793371940&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/TGT?period1=0&period2=1793471028&interval=1d&events=splits",
             "candidates": [
               1
             ]
@@ -18744,7 +18750,7 @@
             "price": 177.32999801635742,
             "date": "2008-09-30",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/MA?period1=0&period2=1793371941&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/MA?period1=0&period2=1793471029&interval=1d&events=splits",
             "candidates": [
               1
             ]
@@ -19143,7 +19149,7 @@
       },
       "2011 Q1": {
         "version": 1,
-        "checkedAt": "2026-10-29",
+        "checkedAt": "2026-10-30",
         "source": "https://www.sec.gov/Archives/edgar/data/1336528/0001172661-11-000410.txt",
         "filingDate": "2011-05-16",
         "sourceDigest": "4da0f92306f4c8bdb153024e8bac91c8ab4e0103d36e43420e79d225b5a96277",
@@ -19157,7 +19163,7 @@
             "price": 4.420000076293945,
             "date": "2011-03-31",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/C?period1=0&period2=1793371941&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/C?period1=0&period2=1793471029&interval=1d&events=splits",
             "candidates": [
               1
             ]
@@ -19168,7 +19174,7 @@
       },
       "2011 Q2": {
         "version": 1,
-        "checkedAt": "2026-10-29",
+        "checkedAt": "2026-10-30",
         "source": "https://www.sec.gov/Archives/edgar/data/1336528/0001172661-11-000580.txt",
         "filingDate": "2011-08-15",
         "sourceDigest": "cfffea71a5cb21d5288f2a0f9a72ebd4d7243789fa92d7cda5b7619726377dfa",
@@ -19182,7 +19188,7 @@
             "price": 41.63999938964844,
             "date": "2011-06-30",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/C?period1=0&period2=1793371941&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/C?period1=0&period2=1793471029&interval=1d&events=splits",
             "candidates": [
               1
             ]
@@ -19193,7 +19199,7 @@
       },
       "2011 Q3": {
         "version": 1,
-        "checkedAt": "2026-10-29",
+        "checkedAt": "2026-10-30",
         "source": "https://www.sec.gov/Archives/edgar/data/1336528/0001172661-11-000752.txt",
         "filingDate": "2011-11-14",
         "sourceDigest": "9545e6fffcef2a3ff86b401941f672e3167d7e594c45a289e3d65fbc51eed7f5",
@@ -19207,7 +19213,7 @@
             "price": 25.6200008392334,
             "date": "2011-09-30",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/C?period1=0&period2=1793371941&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/C?period1=0&period2=1793471029&interval=1d&events=splits",
             "candidates": [
               1
             ]
@@ -19219,7 +19225,7 @@
             "price": 19.34000015258789,
             "date": "2011-09-30",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/LOW?period1=0&period2=1793371942&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/LOW?period1=0&period2=1793471030&interval=1d&events=splits",
             "candidates": [
               1
             ]
@@ -19230,7 +19236,7 @@
       },
       "2011 Q4": {
         "version": 1,
-        "checkedAt": "2026-10-29",
+        "checkedAt": "2026-10-30",
         "source": "https://www.sec.gov/Archives/edgar/data/1336528/0001172661-12-000268.txt",
         "filingDate": "2012-02-14",
         "sourceDigest": "479943fbfee54f96393782dba05b40db1cdc8a6b6ebb13939097fc313d73f79b",
@@ -19244,7 +19250,7 @@
             "price": 26.309999465942383,
             "date": "2011-12-30",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/C?period1=0&period2=1793371941&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/C?period1=0&period2=1793471029&interval=1d&events=splits",
             "candidates": [
               1
             ]
@@ -19256,7 +19262,7 @@
             "price": 17.030000867843626,
             "date": "2011-12-30",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/FBIN?period1=0&period2=1793371943&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/FBIN?period1=0&period2=1793471030&interval=1d&events=splits",
             "candidates": [
               1
             ]
@@ -19467,7 +19473,7 @@
       },
       "2010 Q1": {
         "version": 1,
-        "checkedAt": "2026-10-29",
+        "checkedAt": "2026-10-30",
         "source": "https://www.sec.gov/Archives/edgar/data/1336528/0001172661-10-000509.txt",
         "filingDate": "2010-08-16",
         "sourceDigest": "f65b7c6a10649196fe735fdc4fd78a740d8d5f8d901b12878a6cc6f13fc78079",
@@ -19481,7 +19487,7 @@
             "price": 52.599998474121094,
             "date": "2010-03-31",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/TGT?period1=0&period2=1793366800&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/TGT?period1=0&period2=1793471028&interval=1d&events=splits",
             "candidates": [
               1
             ]
@@ -19493,7 +19499,7 @@
             "price": 38.330000345230104,
             "date": "2010-03-31",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/YUM?period1=0&period2=1793366801&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/YUM?period1=0&period2=1793471029&interval=1d&events=splits",
             "candidates": [
               1
             ]

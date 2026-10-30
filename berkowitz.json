@@ -5,7 +5,7 @@
     "notablePeople": [
       "Bruce Berkowitz"
     ],
-    "lastUpdated": "2026-10-30T03:20:27Z",
+    "lastUpdated": "2026-10-30T18:23:57Z",
     "aiSummary": "伯科威茨大幅增持伯克希尔股票并新增辉瑞等仓位，显示其对核心资产信心增强及看好医药消费板块。",
     "aiSummaryQuarter": "2026 Q2",
     "instrumentHistoryTickers": [
@@ -28681,11 +28681,11 @@
           ],
           "ticker": "BRK/A",
           "sector": "保险与综合投资",
-          "prevShares": 1881,
-          "prevValue": 101198000,
           "cnName": "伯克希尔·哈撒韦 A 类",
           "displayName": "Berkshire Hathaway Class A",
-          "sectorEn": "Insurance and diversified investments"
+          "sectorEn": "Insurance and diversified investments",
+          "prevShares": 1881,
+          "prevValue": 101198000
         },
         {
           "name": "BERKSHIRE HATHAWAY CL B",
@@ -28704,11 +28704,11 @@
           ],
           "ticker": "?BERKSHIRE HATHAWAY CL B",
           "sector": "保险与综合投资",
-          "prevShares": 45122,
-          "prevValue": 79415000,
           "cnName": "伯克希尔·哈撒韦 B 类",
           "displayName": "Berkshire Hathaway Class B",
-          "sectorEn": "Insurance and diversified investments"
+          "sectorEn": "Insurance and diversified investments",
+          "prevShares": 45122,
+          "prevValue": 79415000
         },
         {
           "name": "MERCURY GENL CORP NEW",
@@ -28747,11 +28747,11 @@
           ],
           "ticker": "?LEUCADIA NATL",
           "sector": "多元化投资",
-          "prevShares": 600435,
-          "prevValue": 13698000,
           "cnName": "卢卡迪亚国民公司",
           "displayName": "Leucadia National",
-          "sectorEn": "Diversified investments"
+          "sectorEn": "Diversified investments",
+          "prevShares": 600435,
+          "prevValue": 13698000
         },
         {
           "name": "MARKEL CORP",
@@ -28790,11 +28790,11 @@
           ],
           "ticker": "WFC",
           "sector": "银行",
-          "prevShares": 160640,
-          "prevValue": 6225000,
           "cnName": "富国银行",
           "displayName": "Wells Fargo",
-          "sectorEn": "Banking"
+          "sectorEn": "Banking",
+          "prevShares": 160640,
+          "prevValue": 6225000
         },
         {
           "name": "AMERICAN EXPRESS CO",
@@ -30402,9 +30402,9 @@
           ],
           "ticker": "BRK/A",
           "sector": "保险与综合投资",
+          "cnName": "伯克希尔·哈撒韦 A 类",
           "prevShares": 2199,
           "prevValue": 141616000,
-          "cnName": "伯克希尔·哈撒韦 A 类",
           "displayName": "Berkshire Hathaway Class A",
           "sectorEn": "Insurance and diversified investments"
         },
@@ -30425,9 +30425,9 @@
           ],
           "ticker": "?BERKSHIRE HATHAWAY CL B",
           "sector": "保险与综合投资",
+          "cnName": "伯克希尔·哈撒韦 B 类",
           "prevShares": 36089,
           "prevValue": 74704000,
-          "cnName": "伯克希尔·哈撒韦 B 类",
           "displayName": "Berkshire Hathaway Class B",
           "sectorEn": "Insurance and diversified investments"
         },
@@ -30468,9 +30468,9 @@
           ],
           "ticker": "?LEUCADIA NATL",
           "sector": "多元化投资",
+          "cnName": "卢卡迪亚国民公司",
           "prevShares": 599835,
           "prevValue": 16046000,
-          "cnName": "卢卡迪亚国民公司",
           "displayName": "Leucadia National",
           "sectorEn": "Diversified investments"
         },
@@ -30511,9 +30511,9 @@
           ],
           "ticker": "WFC",
           "sector": "银行",
+          "cnName": "富国银行",
           "prevShares": 160140,
           "prevValue": 7357000,
-          "cnName": "富国银行",
           "displayName": "Wells Fargo",
           "sectorEn": "Banking"
         },
@@ -31115,9 +31115,9 @@
           ],
           "ticker": "MU",
           "sector": "存储芯片",
+          "cnName": "美光科技",
           "prevShares": 0,
           "prevValue": 0,
-          "cnName": "美光科技",
           "displayName": "Micron Technology",
           "sectorEn": "Memory semiconductors"
         },
@@ -61196,26 +61196,23 @@
       ]
     },
     "coverage": {
-      "checkedAt": "2026-10-30T03:20:27Z",
+      "checkedAt": "2026-10-30T18:23:58Z",
       "missingQuarters": [
         "2001 Q1"
       ],
       "repairedThisRun": [
-        "1999 Q4",
-        "2000 Q1",
-        "2000 Q2"
+        "2000 Q3",
+        "2000 Q4",
+        "2001 Q2"
       ],
       "errors": {
         "2011 Q1": "Legacy table reconciliation failed: 27/28 rows, $14176494000/$14440522000",
         "2001 Q1": "Legacy table reconciliation failed: 82/83 rows, $607125000/$607324000"
       },
       "attempts": {
-        "2001 Q1": 15
+        "2001 Q1": 16
       },
       "pendingRefreshQuarters": [
-        "2000 Q3",
-        "2000 Q4",
-        "2001 Q2",
         "2001 Q3",
         "2001 Q4",
         "2002 Q1",
@@ -62043,7 +62040,7 @@
         "cik": "1056831",
         "url": "https://www.sec.gov/Archives/edgar/data/1056831/0001056831-00-500005.txt",
         "format": "legacy_13f",
-        "parserVersion": 4,
+        "parserVersion": 6,
         "sourceReconciliation": {
           "status": "reconciled",
           "reportedEntries": 86,
@@ -62062,7 +62059,7 @@
         "amendmentType": "RESTATEMENT",
         "url": "https://www.sec.gov/Archives/edgar/data/1056831/0001056831-01-500003.txt",
         "format": "legacy_13f",
-        "parserVersion": 4,
+        "parserVersion": 6,
         "sourceReconciliation": {
           "status": "reconciled",
           "reportedEntries": 89,
@@ -62190,7 +62187,7 @@
         "cik": "1056831",
         "url": "https://www.sec.gov/Archives/edgar/data/1056831/0001056831-01-500005.txt",
         "format": "legacy_13f",
-        "parserVersion": 4,
+        "parserVersion": 6,
         "sourceReconciliation": {
           "status": "reconciled",
           "reportedEntries": 83,
@@ -62686,7 +62683,7 @@
     "instrumentVerification": {
       "pendingQuarters": [],
       "errors": {},
-      "checkedAt": "2026-10-30T03:20:27.338372+00:00"
+      "checkedAt": "2026-10-30T18:23:57.752939+00:00"
     },
     "valueAudit": {
       "2013 Q3": {
@@ -68586,82 +68583,6 @@
         "outlierTickers": [],
         "normalizedHash": "3851d524c6865800235f928135b81cad15da2a534a88c7634bb739e30a5c3beb"
       },
-      "2000 Q4": {
-        "version": 1,
-        "checkedAt": "2026-10-29",
-        "source": "https://www.sec.gov/Archives/edgar/data/1056831/0001056831-01-500003.txt",
-        "filingDate": "2001-02-14",
-        "sourceDigest": "858579b109f90a57c563835e8436ce861d9dc2adcbe311d99304d170aeda4a87",
-        "sourceHash": "273b908ab5948bc00c8869039cf213505c7c7c7eb1ddc61ba3d51a01c8ca259e",
-        "status": "verified",
-        "factor": 1,
-        "anchors": [
-          {
-            "ticker": "MCY",
-            "cusip": "589400100",
-            "filedPrice": 43.87503849745765,
-            "price": 43.875,
-            "date": "2000-12-29",
-            "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/MCY?period1=0&period2=1793344100&interval=1d&events=splits",
-            "candidates": [
-              1
-            ]
-          },
-          {
-            "ticker": "WFC",
-            "cusip": "949746101",
-            "filedPrice": 55.68627450980392,
-            "price": 55.6875,
-            "date": "2000-12-29",
-            "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/WFC?period1=0&period2=1793344100&interval=1d&events=splits",
-            "candidates": [
-              1
-            ]
-          },
-          {
-            "ticker": "MKL",
-            "cusip": "570535104",
-            "filedPrice": 181.0028213631639,
-            "price": 181.0,
-            "date": "2000-12-29",
-            "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/MKL?period1=0&period2=1793344100&interval=1d&events=splits",
-            "candidates": [
-              1
-            ]
-          },
-          {
-            "ticker": "AXP",
-            "cusip": "025816109",
-            "filedPrice": 54.933240498034074,
-            "price": 54.93750234991976,
-            "date": "2000-12-29",
-            "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/AXP?period1=0&period2=1793344100&interval=1d&events=splits",
-            "candidates": [
-              1
-            ]
-          },
-          {
-            "ticker": "RLI",
-            "cusip": "749607107",
-            "filedPrice": 44.687844535347395,
-            "price": 44.687503814697266,
-            "date": "2000-12-29",
-            "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/RLI?period1=0&period2=1793344101&interval=1d&events=splits",
-            "candidates": [
-              1
-            ]
-          }
-        ],
-        "agreementCount": 5,
-        "anchorCount": 5,
-        "outlierTickers": [],
-        "normalizedHash": "273b908ab5948bc00c8869039cf213505c7c7c7eb1ddc61ba3d51a01c8ca259e"
-      },
       "2002 Q2": {
         "version": 1,
         "checkedAt": "2026-10-29",
@@ -70561,6 +70482,82 @@
         "anchorCount": 5,
         "outlierTickers": [],
         "normalizedHash": "b77c6abaf6de3a231a46d9e3d59b25664b72a3b325d890c2e8af8854a7d118f1"
+      },
+      "2000 Q4": {
+        "version": 1,
+        "checkedAt": "2026-10-30",
+        "source": "https://www.sec.gov/Archives/edgar/data/1056831/0001056831-01-500003.txt",
+        "filingDate": "2001-02-14",
+        "sourceDigest": "858579b109f90a57c563835e8436ce861d9dc2adcbe311d99304d170aeda4a87",
+        "sourceHash": "273b908ab5948bc00c8869039cf213505c7c7c7eb1ddc61ba3d51a01c8ca259e",
+        "status": "verified",
+        "factor": 1,
+        "anchors": [
+          {
+            "ticker": "MCY",
+            "cusip": "589400100",
+            "filedPrice": 43.87503849745765,
+            "price": 43.875,
+            "date": "2000-12-29",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/MCY?period1=0&period2=1793471038&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "WFC",
+            "cusip": "949746101",
+            "filedPrice": 55.68627450980392,
+            "price": 55.6875,
+            "date": "2000-12-29",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/WFC?period1=0&period2=1793471038&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "MKL",
+            "cusip": "570535104",
+            "filedPrice": 181.0028213631639,
+            "price": 181.0,
+            "date": "2000-12-29",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/MKL?period1=0&period2=1793471039&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "AXP",
+            "cusip": "025816109",
+            "filedPrice": 54.933240498034074,
+            "price": 54.93750234991976,
+            "date": "2000-12-29",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/AXP?period1=0&period2=1793471039&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "RLI",
+            "cusip": "749607107",
+            "filedPrice": 44.687844535347395,
+            "price": 44.687503814697266,
+            "date": "2000-12-29",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/RLI?period1=0&period2=1793471039&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          }
+        ],
+        "agreementCount": 5,
+        "anchorCount": 5,
+        "outlierTickers": [],
+        "normalizedHash": "273b908ab5948bc00c8869039cf213505c7c7c7eb1ddc61ba3d51a01c8ca259e"
       }
     },
     "excludedValueQuarters": [],

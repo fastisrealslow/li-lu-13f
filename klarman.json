@@ -5,7 +5,7 @@
     "notablePeople": [
       "Seth Klarman"
     ],
-    "lastUpdated": "2026-10-30T03:20:06Z",
+    "lastUpdated": "2026-10-30T18:23:39Z",
     "aiSummary": "克拉曼大幅增持亚马逊与谷歌，新进芝商所等，显示其持续看好科技巨头及特定周期机会，同时减持部分传统行业仓位。",
     "aiSummaryQuarter": "2026 Q2",
     "shareActions": [
@@ -59702,8 +59702,8 @@
           "prevValue": 3064000
         },
         {
-          "name": "NATIONAL HEALTH INVS INC        SR SB CV",
-          "cls": "DEB 06",
+          "name": "NATIONAL HEALTH INVS INC",
+          "cls": "SR SB CV DEB 06",
           "cusip": "63633DAD6",
           "value": 2243000,
           "shares": 2243000,
@@ -59716,7 +59716,7 @@
               "value": 2243000
             }
           ],
-          "ticker": "?NATIONAL HEALTH INVS INC        SR SB CV",
+          "ticker": "?NATIONAL HEALTH INVS INC",
           "sector": "其他",
           "prevShares": 0,
           "prevValue": 0
@@ -60564,8 +60564,8 @@
           "prevValue": 1225000
         },
         {
-          "name": "NATIONAL HEALTH INVS INC        SR SB CV",
-          "cls": "DEB 06",
+          "name": "NATIONAL HEALTH INVS INC",
+          "cls": "SR SB CV DEB 06",
           "cusip": "63633DAD6",
           "value": 2243000,
           "shares": 2243000,
@@ -60578,7 +60578,7 @@
               "value": 2243000
             }
           ],
-          "ticker": "?NATIONAL HEALTH INVS INC        SR SB CV",
+          "ticker": "?NATIONAL HEALTH INVS INC",
           "sector": "其他",
           "prevShares": 2243000,
           "prevValue": 2243000
@@ -63312,25 +63312,22 @@
       ]
     },
     "coverage": {
-      "checkedAt": "2026-10-30T03:20:07Z",
+      "checkedAt": "2026-10-30T18:23:39Z",
       "missingQuarters": [
         "1999 Q3"
       ],
       "repairedThisRun": [
-        "2000 Q1",
-        "2000 Q2",
-        "2000 Q3"
+        "2000 Q4",
+        "2001 Q1",
+        "2001 Q2"
       ],
       "errors": {
         "1999 Q3": "Legacy table reconciliation failed: 40/41 rows, $610102000/$647531000"
       },
       "attempts": {
-        "1999 Q3": 16
+        "1999 Q3": 17
       },
       "pendingRefreshQuarters": [
-        "2000 Q4",
-        "2001 Q1",
-        "2001 Q2",
         "2001 Q3",
         "2001 Q4",
         "2002 Q1",
@@ -64382,7 +64379,7 @@
         "cik": "1061768",
         "url": "https://www.sec.gov/Archives/edgar/data/1061768/0001054420-01-000021.txt",
         "format": "legacy_13f",
-        "parserVersion": 4,
+        "parserVersion": 6,
         "sourceReconciliation": {
           "status": "reconciled",
           "reportedEntries": 58,
@@ -64765,7 +64762,7 @@
         "expected13FFileNumber": "28-7120",
         "url": "https://www.sec.gov/Archives/edgar/data/1054420/0001054420-01-500008.txt",
         "format": "legacy_13f",
-        "parserVersion": 4,
+        "parserVersion": 6,
         "sourceReconciliation": {
           "status": "reconciled",
           "reportedEntries": 46,
@@ -64780,11 +64777,13 @@
         "accessionDashed": "0001072613-01-500821",
         "filingDate": "2001-08-14",
         "reportDate": "2001-06-29",
+        "form": "13F-HR",
+        "primaryDocument": "form13f_10802.txt",
         "cik": "1054420",
         "expected13FFileNumber": "28-7120",
         "url": "https://www.sec.gov/Archives/edgar/data/1054420/0001072613-01-500821.txt",
         "format": "legacy_13f",
-        "parserVersion": 3,
+        "parserVersion": 6,
         "sourceReconciliation": {
           "status": "reconciled",
           "reportedEntries": 43,
@@ -69076,7 +69075,7 @@
       },
       "2004 Q1": {
         "version": 1,
-        "checkedAt": "2026-10-29",
+        "checkedAt": "2026-10-30",
         "source": "https://www.sec.gov/Archives/edgar/data/1061768/0001061768-04-000029.txt",
         "filingDate": "2004-05-13",
         "sourceDigest": "ac653878b656d84e2da8d85f672630dcaae201ae4e525d272e2efec7bc65e674",
@@ -69088,7 +69087,7 @@
       },
       "2004 Q2": {
         "version": 1,
-        "checkedAt": "2026-10-29",
+        "checkedAt": "2026-10-30",
         "source": "https://www.sec.gov/Archives/edgar/data/1061768/0001061768-04-000035.txt",
         "filingDate": "2004-08-13",
         "sourceDigest": "4f9545900a59c7b29c96fb8975bf62d528bebec3d4a2e1b3b38d0b9dad2a985d",
@@ -69100,7 +69099,7 @@
       },
       "2004 Q3": {
         "version": 1,
-        "checkedAt": "2026-10-29",
+        "checkedAt": "2026-10-30",
         "source": "https://www.sec.gov/Archives/edgar/data/1061768/0001061768-04-000039.txt",
         "filingDate": "2004-11-12",
         "sourceDigest": "c77266584645bce1a8e338441182656078739dabb1031f88e31e380d3cd8150b",
@@ -69112,7 +69111,7 @@
       },
       "2004 Q4": {
         "version": 1,
-        "checkedAt": "2026-10-29",
+        "checkedAt": "2026-10-30",
         "source": "https://www.sec.gov/Archives/edgar/data/1061768/0001061768-05-000012.txt",
         "filingDate": "2005-02-11",
         "sourceDigest": "e8f262cb73d15b529f67cb3fccb7fb915c69089b75f3796eac3bf6685c96a840",
@@ -69124,7 +69123,7 @@
       },
       "2005 Q1": {
         "version": 1,
-        "checkedAt": "2026-10-29",
+        "checkedAt": "2026-10-30",
         "source": "https://www.sec.gov/Archives/edgar/data/1061768/0001061768-05-000015.txt",
         "filingDate": "2005-05-13",
         "sourceDigest": "1c76671959be288c6e4b9717347b1e73fa29c37b2b4db694af1f26cc1baf6227",
@@ -69136,7 +69135,7 @@
       },
       "2005 Q2": {
         "version": 1,
-        "checkedAt": "2026-10-29",
+        "checkedAt": "2026-10-30",
         "source": "https://www.sec.gov/Archives/edgar/data/1061768/0001061768-05-000019.txt",
         "filingDate": "2005-08-12",
         "sourceDigest": "746dccd9b6a7edfebe2837bf344bffc7b23bc0423a19457d11d0e2cce8d91c57",
