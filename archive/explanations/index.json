@@ -1068,10 +1068,10 @@
       "reason": "ValueError: Bilingual editorial review: The source text states 'even if you're wrong 4 out of 10 times you are going to hit the ball out of the park', but the Chinese trans"
     },
     "pabrai-36450d370316ee": {
-      "at": "2026-10-30T03:49:18+00:00",
+      "at": "2026-10-30T14:53:12+00:00",
       "status": "retry",
       "inputHash": "ce433e0b519779154bc0bcf5dd15d2d5b324810bcc3336cdf79eff981d5030c1",
-      "reason": "ValueError: Bilingual editorial review: The Chinese text incorrectly attributes the quote about 'explaining walking on land to a fish' to Pabrai; the source (s2) explicitly"
+      "reason": "ValueError: Bilingual editorial review: The source text (s2) is truncated mid-sentence ('It's very dangerous to'), but the provided content accurately reflects the complete"
     },
     "pabrai-18c92ff6cf0411": {
       "at": "2026-10-30T07:05:12+00:00",
@@ -3574,5 +3574,5 @@
       "reason": "ValueError: Bilingual editorial review: The English text incorrectly states 'gross expense ratio' as 1.00%. Source s12 specifies this is the 'gross expense ratio', but the "
     }
   },
-  "updatedAt": "2026-10-30T14:52:49+00:00"
+  "updatedAt": "2026-10-30T14:53:12+00:00"
 }
