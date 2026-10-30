@@ -1620,10 +1620,10 @@
       "reason": "ValueError: Bilingual editorial review: Author name mismatch: Source uses 'Rob Vinall', content claims 'Rob Vinall' (correct), but the Chinese text incorrectly attributes t"
     },
     "vinall-e6b74c1e685c92": {
-      "at": "2026-10-29T23:47:55+00:00",
+      "at": "2026-10-30T07:14:08+00:00",
       "status": "retry",
       "inputHash": "4fc993cc64a187473a0dc1da7459d2f49095eedd9116bd076f97604650606826",
-      "reason": "ValueError: Copied source passage"
+      "reason": "ValueError: Repeated paragraphs cannot pad an explanation"
     },
     "vinall-bc7f6fa8dbf30a": {
       "at": "2026-10-30T05:36:32+00:00",
@@ -3574,5 +3574,5 @@
       "reason": "ValueError: Bilingual editorial review: The English text incorrectly states 'gross expense ratio' as 1.00%. Source s12 specifies this is the 'gross expense ratio', but the "
     }
   },
-  "updatedAt": "2026-10-30T07:14:05+00:00"
+  "updatedAt": "2026-10-30T07:14:08+00:00"
 }
