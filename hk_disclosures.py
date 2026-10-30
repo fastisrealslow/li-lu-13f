@@ -23,7 +23,7 @@ ORIGIN = 'https://di.hkex.com.hk'
 BASE = ORIGIN + '/di/'
 LEGACY = ORIGIN + '/filing/di/'
 SCHEMA = 3
-POSITION_DETAILS_SCHEMA = 3
+POSITION_DETAILS_SCHEMA = 4
 _RATE_LOCK = threading.Lock()
 _LAST_REQUEST = 0.0
 
@@ -245,6 +245,14 @@ def parse_form(html, url, aliases):
             event_codes.append(match[1])
     if event_codes:
         details['event_codes'] = event_codes
+    # A disclosed transaction average is not the cost basis of all shares.
+    currency=get('lblDEvtCurrency').upper()
+    average=get('lblDEvtAPrice').replace(',', '')
+    transaction_shares=get('lblDEvtShare').replace(',', '')
+    if re.fullmatch(r'[A-Z]{3}',currency) and re.fullmatch(r'\d+(?:\.\d+)?',average) and float(average)>0 and transaction_shares.isdigit():
+        details['transaction_currency']=currency
+        details['transaction_average_price']=float(average)
+        details['transaction_shares']=int(transaction_shares)
     return dict(ticker=code.zfill(5)+'.HK', filing_ref=serial, entity=name,
                 event_date=dated(get('lblDEventDate')), filing_date=dated(get('lblDSignDate')),
                 issuer_name=get('lblViewCorpName'), share_class=get('lblDClass'),

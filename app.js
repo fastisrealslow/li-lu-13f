@@ -503,7 +503,7 @@ function cn(name, h) {
     if (h && h.cnName) return h.cnName;
     return Object.prototype.hasOwnProperty.call(T.cnName,name) ? T.cnName[name] : name;
   }
-  return name;
+  return h?.displayName || name;
 }
 function ts(s) {
   const sm = {'科技':'secTech','互联网':'secInternet','电商':'secEcom','金融':'secFinance',
@@ -511,7 +511,7 @@ function ts(s) {
     '金融服务':'secFinSvc','半导体':'secSemi','社交':'secSocial','汽车/新能源':'secAuto',
     '工业/轨交':'secIndustrial','金融/银行':'secBanking','煤炭':'secCoal','油气钻探':'secOilDrill','冶金/煤炭':'secMetCoal','油气':'secEnergy','航空':'secConsumer','汽车':'secAuto','航空租赁':'secFinSvc','航运':'secConsumer','资管':'secFinSvc','汽车零售':'secConsumer','钢铁':'secConsumer','工业':'secIndustrial','房地产':'secConsumer','网络安全':'secCyber','保险':'secInsurance','教育':'secEducation','游戏':'secGaming','公用事业':'secUtility','医药':'secPharma'};
   sm['其他'] = 'secOther';
-  return t(sm[s] || 'secOther');
+  return sm[s]?t(sm[s]):(lang==='zh' && s?s:t('secOther'));
 }
 function applyLanguageLabels() {
   document.getElementById('langBtn').textContent = lang === 'zh' ? 'EN' : '中';
@@ -615,9 +615,9 @@ function fmtTicker(tk, holding = null) {
   if(holding?.shareType && holding.shareType!=='SH') return `<span class="ticker" title="CUSIP">${hkEscape(holding.cusip || tk)}</span>`;
   // Handle unmapped tickers (prefixed with ? in fetch_13f.py)
   const unmapped = tk && tk.startsWith('?');
-  const display = unmapped ? tk.substring(1) : tk;
-  const style = unmapped ? 'color:#f59e0b;cursor:help' : '';
-  const title = unmapped ? ` title="${lang==='en'?'Listing code not yet matched; original filing name retained':'证券代码尚未匹配，保留原始申报名称'}"` : '';
+  const display = unmapped ? (holding?.cusip ? 'CUSIP '+holding.cusip : (lang==='en'?'Ticker unavailable':'证券代码未匹配')) : tk;
+  const style = unmapped ? 'color:var(--text-lighter);font-size:.68rem;cursor:help' : '';
+  const title = unmapped ? ` title="${lang==='en'?'Listing code not yet matched; this does not indicate delisting':'证券代码尚未匹配，不代表已经退市'}"` : '';
   return `<span class="ticker" style="${style}"${title}>${hkEscape(display)}</span>`;
 }
 
@@ -1867,20 +1867,53 @@ function earlierHKDisclosures(snapshot, payload) {
 }
 let earlyHistoryLimit=12,earlyHistoryKey='';
 function showMoreEarlyHistory(){earlyHistoryLimit+=50;renderEarlierDisclosures();}
+function hkHistorySummaries(snapshot,payload,cfg) {
+  const selected=new Set(earlierHKDisclosures(snapshot,payload).map(r=>r.ticker));
+  return (payload?.holdings||[]).filter(h=>selected.has(h.ticker)).map(h=>{
+    const all=hkEvidenceView(h).records.filter(r=>r.verification==='hkex_form' && r.position==='long');
+    const records=[];
+    for(const r of all){
+      const found=records.find(x=>x.event_date===r.event_date&&x.shares===r.shares&&x.pct===r.pct);
+      if(!found)records.push({...r});
+      else if(!found.transaction_average_price&&r.transaction_average_price)Object.assign(found,{transaction_average_price:r.transaction_average_price,transaction_currency:r.transaction_currency,transaction_shares:r.transaction_shares,transaction_source_url:r.form_url||r.source_url});
+    }
+    const latest=records.at(-1),first=records[0];
+    const statement=(cfg?.hkPositionStatements||[]).filter(r=>r.ticker===h.ticker&&r.kind==='interview'&&/^https:\/\//.test(r.sourceURL||'')).sort((a,b)=>a.publishedAt.localeCompare(b.publishedAt)).at(-1);
+    const trades=records.filter(r=>Number.isFinite(r.transaction_average_price)&&r.transaction_average_price>0&&r.transaction_currency&&r.transaction_shares>0);
+    const changes=records.filter(r=>Number.isSafeInteger(r.before_long_shares)&&r.long_interest_change===r.shares-r.before_long_shares&&r.long_interest_change!==0);
+    const zeros=records.filter(r=>r.shares===0);
+    return {holding:h,first,latest,records,statement,trades,changes,zeros};
+  }).filter(g=>g.latest);
+}
 function renderEarlierDisclosures() {
   const container=document.getElementById('earlierDisclosures'),note=document.getElementById('historyScopeNote');
   if(!container)return;
-  const rows=earlierHKDisclosures(data,hkDisclosures),en=lang==='en';
-  if(earlyHistoryKey!==investor){earlyHistoryLimit=12;earlyHistoryKey=investor;}
+  const en=lang==='en',cfg=INVESTOR_CFG_BY_ID[investor],word=x=>Array.isArray(x)?x[en?1:0]:x;
   container.innerHTML='';if(note)note.textContent='';
-  const cfg=INVESTOR_CFG_BY_ID[investor];
-  const documents=(cfg?.earlyHistoryDocuments||[]).filter(r=>/^https:\/\/www\.sec\.gov\/Archives\/edgar\/data\/\d+\//.test(r.sourceUrl||'') && /^\d{4}-\d{2}-\d{2}$/.test(r.date||''));
-  const documentsHTML=documents.length?`<h3 style="font-family:var(--serif);font-size:1.05rem;color:var(--navy);margin-top:20px">${en?'Earlier original filings':'更早的原始申报'}</h3><p class="data-quality-note">${en?'Dates below are filing dates. These earlier personal or fund disclosures are separate from the current reporting entity.':'下列日期为申报日期；个人名义、早期基金及专项权益申报分别保留，不视作当前机构的连续组合。'}</p><ul>${documents.slice().sort((a,b)=>a.date.localeCompare(b.date)).map(r=>`<li style="margin:10px 0;overflow-wrap:anywhere"><time>${hkEscape(r.date)}</time> · ${hkEscape(r.form)}<br><a href="${hkEscape(r.sourceUrl)}" target="_blank" rel="noopener noreferrer">${hkEscape(r.title[en?1:0])}</a><small style="display:block;color:var(--text-lighter)">${hkEscape(r.reporter)}</small></li>`).join('')}</ul>`:'';
-  if(note && cfg?.legacyFilers?.length)note.textContent=en?`History includes verified earlier reporting entities. Reporting-entity changes are shown separately; they are not trades or portfolio growth.`:`历史已补入核实后的早期申报主体；主体切换分段展示，不把规模差异算作买卖或增长。`;
-  if(!rows.length){container.innerHTML=documentsHTML;return;}
-  const start=(data.history.quarters||[]).slice().sort()[0];
-  if(note)note.textContent=en?`Quarterly disclosures begin in ${start}; earlier Hong Kong records below begin on ${rows[0].event_date}.`:`季度持仓记录从 ${start} 起；下方已补入 ${rows[0].event_date} 起的更早港股披露。`;
-  container.innerHTML=`<h3 style="font-family:var(--serif);font-size:1.05rem;color:var(--navy);margin-bottom:10px">${en?'Earlier disclosed holdings':'更早的公开持仓记录'}</h3><p class="data-quality-note">${en?'Dated HKEX original forms. Quantities describe each disclosure date; intervening quarters and portfolio totals are unknown.':'来自港交所原始权益披露，股数对应表内披露日期；不据此补齐中间季度或推算整个组合市值。'}</p><div class="table-wrap"><table style="font-size:.8rem"><thead><tr><th>${en?'As of':'持仓日期'}</th><th>${en?'Security / reporting holder':'证券 / 披露名义'}</th><th>${en?'Disclosed shares':'披露股数'}</th><th>${en?'Class interest':'该类股份占比'}</th></tr></thead><tbody>${rows.slice(0,earlyHistoryLimit).map(r=>`<tr><td style="white-space:nowrap">${hkEscape(r.event_date)}</td><td class="stock-cell"><span class="ticker-line">${hkEscape(r.ticker)}</span><span class="name-line">${hkEscape(en?r.name:cn(r.name,r))}</span><small style="display:block;max-width:32em;overflow-wrap:anywhere;color:var(--text-lighter)">${r.holders.map(hkEscape).join(' / ')}</small><details><summary>${en?'Original disclosure':'原始披露'}</summary>${r.sources.map((url,i)=>`<a href="${hkEscape(url)}" target="_blank" rel="noopener noreferrer">${en?'HKEX form':'港交所原表'} ${i+1}</a>`).join(' · ')}</details></td><td>${fmtNum(r.shares)}</td><td>${r.pct.toFixed(2)}%</td></tr>`).join('')}</tbody></table></div>${rows.length>earlyHistoryLimit?`<button class="btn-refresh" type="button" onclick="showMoreEarlyHistory()">${en?`Show more (${Math.min(rows.length,earlyHistoryLimit)} / ${rows.length})`:`展开更多（${Math.min(rows.length,earlyHistoryLimit)} / ${rows.length}）`}</button>`:''}${documentsHTML}`;
+  let html='';
+  const early=(cfg?.earlyInvestments||[]).filter(r=>r.market&&/^https:\/\//.test(r.sourceURL||''));
+  if(early.length)html+=`<h3 class="history-section-title">${en?'Earlier US equity investments':'更早的美股投资'}</h3><div class="table-wrap tl-table-wrap"><table class="history-evidence-table"><thead><tr><th>${en?'Company / industry':'公司 / 行业'}</th><th>${en?'Investment period':'投资时期'}</th><th>${en?'Evidence':'已知记录'}</th></tr></thead><tbody>${early.map(r=>`<tr><td><strong>${hkEscape(word(r.name))}</strong><small>${hkEscape(r.market)} · ${hkEscape(r.ticker)}</small><small>${hkEscape(word(r.sector))}</small></td><td>${hkEscape(word(r.start))}<br>→ ${hkEscape(word(r.end))}</td><td>${hkEscape(word(r.evidence))}<details><summary>${en?'Source':'来源'}</summary><a href="${hkEscape(r.sourceURL)}" target="_blank" rel="noopener noreferrer">${en?'Lecture transcript':'演讲文字记录'}</a></details></td></tr>`).join('')}</tbody></table></div>`;
+  const start=(data?.history?.quarters||[]).slice().sort()[0];
+  if(note&&early.length)note.textContent=en?`Li Lu invested in US stocks before ${start}. The quarterly chart begins with the available complete 13F filings; earlier named investments are listed below.`:`李录在 ${start} 之前已投资美股。季度图从现有完整 13F 记录起算；更早的具体投资见下表。`;
+  else if(note&&cfg?.legacyFilers?.length)note.textContent=en?'Earlier reporting entities are included; changes of entity are shown as separate segments.':'已纳入早期申报主体，主体切换处在图中分段显示。';
+  const groups=hkHistorySummaries(data,hkDisclosures,cfg);
+  if(groups.length) {
+    html+=`<h3 class="history-section-title">${en?'Hong Kong holdings timeline':'港股持仓时间轴'}</h3><div class="table-wrap hk-summary-wrap"><table class="hk-summary-table"><thead><tr>${(en?['Company','Holding status / latest quantity','Changes / gaps','Cost / disclosed trade price']:['公司','持有情况 / 最新数量','变动 / 空窗','成本 / 已披露成交价']).map(h=>`<th>${h}</th>`).join('')}</tr></thead><tbody>`;
+    for(const g of groups){
+      const h=g.holding,r=g.latest,st=g.statement,retained=st?.status==='initial_shares_retained'&&st.publishedAt>r.event_date;
+      const status=retained?word(st.description):r.shares===0?(en?'Zero shares in the latest disclosure':'最近一次披露为零持股'):r.pct<5?(en?'Last disclosed below 5%; current holding unknown':'最后披露已低于 5%；当前是否持有未知'):(en?'Historical holding confirmed; current quantity unknown':'历史持仓已确认；当前数量未知');
+      const positive=g.changes.filter(x=>x.long_interest_change>0),negative=g.changes.filter(x=>x.long_interest_change<0);
+      const changeSummary=[positive.length?`${en?'Interest increased on':'权益增加：'} ${positive.map(x=>x.event_date.slice(0,7)).filter((v,i,a)=>a.indexOf(v)===i).join('、')}`:'',negative.length?`${en?'Interest decreased on':'权益减少：'} ${negative.map(x=>x.event_date.slice(0,7)).filter((v,i,a)=>a.indexOf(v)===i).join('、')}`:''].filter(Boolean);
+      const trade=g.trades[0];
+      const price=trade?`${hkEscape(trade.transaction_currency)} ${trade.transaction_average_price.toLocaleString('en-US',{maximumFractionDigits:4})}<small>${hkEscape(trade.event_date)} · ${en?'transaction average':'当次成交均价'} · ${trade.transaction_shares.toLocaleString('en-US')} ${en?'shares':'股'}</small>`:'';
+      const history=`<details class="hk-history-details"><summary>${en?`Disclosure history (${g.records.length})`:`披露记录（${g.records.length} 次）`}</summary><div class="hk-history-records">${g.records.map(x=>`<div><a href="${hkEscape(x.form_url||x.source_url)}" target="_blank" rel="noopener noreferrer">${hkEscape(x.event_date)}</a><span>${x.shares.toLocaleString('en-US')} ${en?'shares':'股'} · ${x.pct.toFixed(2)}%</span>${Number.isSafeInteger(x.long_interest_change)?`<small>${en?'Interest change':'权益变动'} ${x.long_interest_change>0?'+':''}${x.long_interest_change.toLocaleString('en-US')} ${en?'shares':'股'}</small>`:''}${x.transaction_average_price?`<small><a href="${hkEscape(x.transaction_source_url||x.form_url||x.source_url)}" target="_blank" rel="noopener noreferrer">${en?'Trade average':'当次成交均价'} ${hkEscape(x.transaction_currency)} ${x.transaction_average_price}</a></small>`:''}</div>`).join('')}${st?`<a href="${hkEscape(st.sourceURL)}" target="_blank" rel="noopener noreferrer">${en?'Interview evidence':'访谈依据'} · ${hkEscape(st.publishedAt.slice(0,7))}</a>`:''}</div></details>`;
+      html+=`<tr class="hk-summary-row"><td data-label="${en?'Company':'公司'}"><strong>${hkEscape(en?h.name:cn(h.name,{...h,cnName:h.cnName||h.legacy_name}))}</strong><small>${hkEscape(h.ticker)}</small><small>${en?'First filing':'最早原表'} ${hkEscape(g.first.event_date)}</small>${history}</td><td data-label="${en?'Holding status':'持有情况'}">${hkEscape(status)}<small>${en?'Latest quantified filing':'最近量化披露'} ${r.event_date}：${r.shares.toLocaleString('en-US')} ${en?'shares':'股'} / ${r.pct.toFixed(2)}%</small></td><td data-label="${en?'Changes / gaps':'变动 / 空窗'}">${changeSummary.map(x=>`<small>${hkEscape(x)}</small>`).join('')}<small>${g.zeros.length?(en?'Zero-share disclosure exists; see records.':'存在零持股披露，见记录。'):retained?(en?'Initial shares retained per interview; total position varied.':'本人称首批仍保留；总持股曾有增减。'):(en?'No disclosed full exit; intervals between filings are unknown.':'未披露清仓；两次披露之间的持仓不详。')}</small></td><td data-label="${en?'Cost / price':'成本 / 成交价'}">${en?'Initial / full-position cost undisclosed':'建仓及整仓成本未披露'}${price?`<small>${en?'Earliest verified trade':'最早可核实交易'}</small>${price}`:''}</td></tr>`;
+    }
+    html+='</tbody></table></div>';
+  }
+  const documents=(cfg?.earlyHistoryDocuments||[]).filter(r=>/^https:\/\/www\.sec\.gov\/Archives\/edgar\/data\/\d+\//.test(r.sourceUrl||''));
+  if(documents.length)html+=`<details class="early-originals"><summary>${en?'Earlier original filings':'更早的原始申报'}</summary>${documents.map(r=>`<p>${hkEscape(r.date)} · <a href="${hkEscape(r.sourceUrl)}" target="_blank" rel="noopener noreferrer">${hkEscape(word(r.title))}</a></p>`).join('')}</details>`;
+  container.innerHTML=html;
 }
 let timelinePageKey='', timelineLimit=200;
 function showMoreTimeline(){timelineLimit+=200;renderTimelineTable();}
@@ -1908,7 +1941,7 @@ async function renderTimelineTable() {
       if(instrumentHistoryIncludes(data.meta||{},h.ticker) && q<data.meta.instrumentHistoryFrom) continue;
       if (!(h.shares > 0)) continue;
       const tk = JSON.stringify([h.cusip || [h.ticker,h.cls||''],instrument(h)]);
-      if (!tickerInfo[tk]) tickerInfo[tk] = {ticker:h.ticker,cusip:h.cusip,shareType:h.shareType,putCall:h.putCall,cls:h.cls,first: q, last: q, quarters: [], sector: h.sector, name: h.name, cnName: h.cnName||'', maxShares: 0, curShares: 0};
+      if (!tickerInfo[tk]) tickerInfo[tk] = {ticker:h.ticker,cusip:h.cusip,shareType:h.shareType,putCall:h.putCall,cls:h.cls,first: q, last: q, quarters: [], sector: h.sector, sectorEn:h.sectorEn, displayName:h.displayName, name: h.name, cnName: h.cnName||'', maxShares: 0, curShares: 0};
       else {tickerInfo[tk].last=q; if(!h.ticker.startsWith('?'))tickerInfo[tk].ticker=h.ticker;}
       if(h.reportedIdentity)tickerInfo[tk].identityBridge=true;
       tickerInfo[tk].quarters.push(q);
@@ -1947,42 +1980,25 @@ async function renderTimelineTable() {
       const ratio = (e.curShares / e.maxShares * 100).toFixed(0);
       const s = e.curShares === e.maxShares
         ? `<span style="color:#10b981;">${isEn ? 'At peak shares' : '持股处于历史峰值'}</span>`
-        : `<span style="color:#f59e0b;">${isEn ? `Shares at ${ratio}% of peak` : `持股为峰值的 ${ratio}%`}</span>`;
+        : `<span style="color:var(--text-lighter);">${isEn ? `Shares at ${ratio}% of peak` : `持股为峰值的 ${ratio}%`}</span>`;
       const shareInfo = ratio < 100 ? `<br><span style="font-size:.68rem;color:var(--text-lighter);">${isEn?'Peak':'最高'} ${fmtNum(e.maxShares)} → ${isEn?'Current':'当前'} ${fmtNum(e.curShares)}</span>` : '';
       e.shareInfo = s + shareInfo + (e.splitAdjusted ? `<br><small>${isEn ? 'Split-adjusted shares' : '拆股后可比股数'}</small>` : '');
     } else {
       e.shareInfo = '<span style="color:var(--text-lighter);">—</span>';
     }
-    let status;
-    if (e.gaps.length > 0) {
-      const soldQ = e.gaps[0];
-      const boughtQ = e.gaps[e.gaps.length - 1];
-      const afterGap = quarters[quarters.indexOf(boughtQ) + 1];
-      status = `<span style="color:#f59e0b;font-weight:600;">◐ ${soldQ} ${isEn?'No holding disclosed':'未披露持仓'}</span><br><span style="font-size:.68rem;color:var(--text-lighter);">→ ${afterGap} ${isEn?`Disclosed again (${e.gaps.length} quarters absent)`:`再次披露（空窗${e.gaps.length}季）`}</span>`;
-    } else if (e.active) {
-      status = '<span style="color:#10b981;font-weight:600;">● '+(isEn?'Currently disclosed':'当前披露持有')+'</span>';
-    } else {
-      // 已清仓 — 尝试显示估算盈亏
-      const ep = (prices?.exitPerf || {})[e.ticker];
-      let exitTag = '';
-      if (ep && ep.entryPrice && ep.exitPrice && (!e.identityBridge || prices.securityIdentityVersion>=1)) {
-        const chg = ep.changePct;
-        const col  = chg >= 0 ? '#10b981' : '#ef4444';
-        const sign = chg >= 0 ? '+' : '';
-        const entryLabel = isEn ? 'Entry' : '建仓';
-        const exitLabel  = isEn ? 'Exit'  : '清仓';
-        exitTag = `<div style="margin-top:4px;font-size:.65rem;color:var(--text-lighter);line-height:1.6;">
-          <span style="color:var(--text-lighter);">${entryLabel} ~$${ep.entryPrice}</span>
-          <span style="margin:0 3px;">→</span>
-          <span style="color:var(--text-lighter);">${exitLabel} ~$${ep.exitPrice}</span>
-          <span style="margin-left:4px;font-weight:700;color:${col};">${sign}${chg}%</span>
-          <span style="margin-left:3px;font-size:.6rem;color:var(--text-lighter);">(${isEn?'est.':'估算'})</span>
-        </div>`;
+    let status = e.active
+      ? `<span class="tl-status-current">● ${isEn?'Held in latest filing':'最新申报持有'}</span>`
+      : `<span class="tl-status-absent">○ ${isEn?'Absent from latest filing':'最新申报未披露'}</span>`;
+    if(e.gaps.length) {
+      const intervals=[];let start=null,end=null;
+      for(const q of quarters.filter(q=>q>=e.first&&q<=e.last)) {
+        if(e.gaps.includes(q)){if(!start)start=q;end=q;}
+        else if(start){intervals.push({start,end,again:q});start=end=null;}
       }
-      status = '<span style="color:var(--text-lighter);">○ ' + (isEn ? 'Exited' : '已清仓') + '</span>' + exitTag;
+      status+=`<details class="tl-gap-detail"><summary>◐ ${isEn?`Reappeared after absence · ${e.gaps.length} quarters`:`曾缺席后再披露 · 共 ${e.gaps.length} 季`}</summary>${intervals.map(g=>`<small>${hkEscape(g.start)}${g.end!==g.start?'–'+hkEscape(g.end):''} ${isEn?'absent':'未披露'} → ${hkEscape(g.again)} ${isEn?'reported again':'再次披露'}</small>`).join('')}</details>`;
     }
     html += `<tr>
-      <td class="stock-cell"><span class="ticker-line">${fmtTicker(e.ticker,e)}</span>${instrumentTag(e)}<span class="name-line">${hkEscape(cn(e.name, e))}</span><span class="sector-badge">${ts(e.sector)}</span><span style="display:block;font-size:.65rem;color:var(--text-lighter);margin-top:2px;">${e.qCount} ${isEn?'quarters':'季'}</span>${e.unknown.length?`<small class="data-quality-note">${isEn?'Missing reports (unknown)':'缺报（未知）'}: ${e.unknown.join(', ')}</small>`:''}</td>
+      <td class="stock-cell"><span class="ticker-line">${fmtTicker(e.ticker,e)}</span>${instrumentTag(e)}<span class="name-line">${hkEscape(cn(e.name, e))}</span><span class="sector-badge">${hkEscape(isEn?(e.sectorEn||ts(e.sector)):e.sector||'行业未分类')}</span><span style="display:block;font-size:.65rem;color:var(--text-lighter);margin-top:2px;">${e.qCount} ${isEn?'quarters':'季'}</span>${e.unknown.length?`<small class="data-quality-note">${isEn?'Missing reports (unknown)':'缺报（未知）'}: ${e.unknown.join(', ')}</small>`:''}</td>
       <td style="white-space:nowrap">${hkEscape(e.first)}</td>
       <td style="white-space:nowrap">${hkEscape(e.last)}</td>
       <td>${status}<div style="margin-top:4px">${e.shareInfo}</div></td>
@@ -1990,7 +2006,7 @@ async function renderTimelineTable() {
   });
   html += '</tbody></table></div>';
   if(visible.length<entries.length)html+=`<button class="btn-refresh timeline-more" type="button" onclick="showMoreTimeline()">${isEn?`Show more history (${visible.length} / ${entries.length})`:`展开更多历史（已显示 ${visible.length} / ${entries.length} 项）`}</button>`;
-  html += '<div style="font-size:.68rem;color:var(--text-lighter);margin-top:8px;">'+(isEn?'● Currently disclosed | ○ No longer disclosed | ◐ Reappears after absent quarters':'● 当前披露持有 | ○ 最新申报未再披露 | ◐ 缺席后再次披露')+'</div>';
+  html += '<div style="font-size:.68rem;color:var(--text-lighter);margin-top:8px;">'+(isEn?'● Held in latest filing | ○ Absent from latest filing | ◐ Historical reporting gap. Unmatched ticker codes do not indicate delisting.':'● 最新申报持有 | ○ 最新申报未披露 | ◐ 历史上缺席后再披露。代码未匹配不代表退市。')+'</div>';
   if (isHK) html += '<div style="font-size:.68rem;color:var(--text-lighter);margin-top:4px;">⚠️ Webb 港股持仓数据来源于公开权益披露，非 13F 报告</div>';
   if(data.meta?.instrumentHistoryFrom) html+=`<p class="data-quality-note">${isEn?'Instrument types verified from':'期权相关证券仅展示已核实类别的历史，起点：'} ${data.meta.instrumentHistoryFrom}</p>`;
   container.innerHTML = html;
@@ -2350,6 +2366,9 @@ function updateInvestorContent() {
   const quoteAttribution = p.quote ? profileText(p.quote.attribution) : `${name} · ${text('投资理念', 'Investment philosophy')}`;
   const quoteSource = p.quote?.url;
   setHTML('.quote-block .attr', /^https:\/\//.test(quoteSource || '') ? `<a href="${hkEscape(quoteSource)}" target="_blank" rel="noopener noreferrer">${hkEscape(quoteAttribution)}</a>` : hkEscape(quoteAttribution));
+  const aboutDetails=document.getElementById('aboutDetails');
+  if(aboutDetails?.dataset && aboutDetails.dataset.investor!==investor){aboutDetails.open=false;aboutDetails.dataset.investor=investor;}
+  setText('#aboutExpand',text('人物简介与重要经历','Biography & key milestones'));
   setText('#aboutLabel', 'About');
   setText('#aboutTitle', profileText(p.aboutTitle) || text(`关于${cfg.name}`, `About ${cfg.nameEn}`));
   setText('#philLabel', 'Philosophy');

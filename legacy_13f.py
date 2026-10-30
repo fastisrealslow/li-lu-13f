@@ -7,7 +7,7 @@ import re
 from decimal import Decimal
 from bs4 import BeautifulSoup
 
-VERSION = 5
+VERSION = 6
 NUMBER = r'[\d,]+(?:\.\d+)?'
 CUSIP=r'(?:[A-Z0-9*@#]{6} {0,3}[A-Z0-9*@#]{2} {0,3}[A-Z0-9*@#]|[0-9]{7,8})'
 ROW=re.compile(r'\b('+CUSIP+r')\s+\$?\s*('+NUMBER+r')\s+('+NUMBER+r')\s*(SH|PRN|PR|PUT|CALL|CO)?(?:\s+(PUT|CALL)\b)?(?=\s|$)',re.I)
@@ -71,6 +71,7 @@ def fixed_width_tables(source):
     layouts = set()
     previous = waiting = None
     name_parts = []
+    class_parts = []
     for table in re.findall(r'<TABLE\b[^>]*>(.*?)</TABLE>', source, re.I | re.S):
         lines = table.expandtabs(8).splitlines()
         marker = next((i for i, line in enumerate(lines)
@@ -82,7 +83,8 @@ def fixed_width_tables(source):
             continue
         layouts.add(tuple(positions))
         name_end, cusip_start, value_start, shares_start = positions[1:5]
-        for line in lines[marker + 1:]:
+        body_lines=lines[marker + 1:]
+        for line_index,line in enumerate(body_lines):
             if '<' in line or not line.strip():
                 continue
             offset=max(name_end,cusip_start-3)
@@ -95,8 +97,12 @@ def fixed_width_tables(source):
                 except ValueError:
                     if re.fullmatch(r'COM|ADR|PFD.*|PREF.*|CL [AB]',prefix,re.I):name,cls=(previous or {}).get('name',''),prefix
                     else:name,cls=line[:name_end].strip(),line[name_end:offset+candidate.start()].strip()
-                name = ' '.join([*name_parts,name]).strip() or (previous or {}).get('name','')
-                name_parts = []
+                if name_parts:
+                    name = ' '.join(name_parts + ([line[:name_end].strip()] if line[:name_end].strip() else []))
+                    cls = ' '.join(class_parts + [line[name_end:offset+candidate.start()].strip()]).strip()
+                else:
+                    name = name or (previous or {}).get('name','')
+                name_parts, class_parts = [], []
                 tail = line[offset+candidate.end():]
                 tail=re.sub(r'(\d+\.\d+)\.0+(?=SH\b)',r'\1',tail)
                 match = re.match(r'\s*\$?\s*('+NUMBER+r')\s+('+NUMBER+r')\s*(SH|PRN|PR|PUT|CALL|CO)?(?:\s+(PUT|CALL)\b)?(?=\s|$)', tail, re.I)
@@ -167,8 +173,20 @@ def fixed_width_tables(source):
                     rows.append({**previous, 'value':int(amount(match[1])*1000), 'shares':quantity(match[2]), 'shareType':kind, 'putCall':side})
                     continue
             fragment = line[:name_end].strip()
-            if fragment and not line[name_end:].strip() and re.search(r'[A-Za-z]', fragment) and not re.search(r'column|issuer|table|total|cusip|value|authority|shares|thousands|\d', fragment, re.I):
-                name_parts.append(fragment)
+            class_fragment = line[name_end:cusip_start].strip()
+            if not line[cusip_start:].strip() and (fragment or class_fragment) and not re.search(r'column|issuer|table|total|cusip|value|authority|shares|thousands|\d', fragment, re.I):
+                if class_fragment:
+                    if fragment: name_parts.append(fragment)
+                    class_parts.append(class_fragment)
+                elif fragment:
+                    # A name-only line after a complete row is its suffix, not
+                    # the prefix of the next issuer (e.g. "Corporation").
+                    following=next((x for x in body_lines[line_index+1:] if x.strip()),'')
+                    next_suffix=bool(re.match(r'^\s*(?:Ltd\.?|Inc\.?|Corp\.?|Corporation|PLC|L\.?P\.?)\s{2,}',following,re.I))
+                    if previous and not name_parts and not next_suffix:
+                        previous['name'] += ' ' + fragment
+                    else:
+                        name_parts.append(fragment)
         if waiting:
             raise ValueError('Unfinished wrapped legacy value')
     return rows if found else None
@@ -284,7 +302,8 @@ def parse_legacy(raw, *, retain_source_discrepancies=False, _use_fixed=True):
             header=next((line.expandtabs(8) for line in table.splitlines() if re.search(r'NAME OF ISSUER',line,re.I) and re.search(r'TITLE OF CLASS',line,re.I) and re.search(r'CUSIP',line,re.I)),None)
             class_start=re.search(r'TITLE OF CLASS',header,re.I).start() if header else None
             previous=None;pending=''
-            for line in table.splitlines():
+            body_lines=table.splitlines()
+            for line_index,line in enumerate(body_lines):
                 m=ROW.search(line)
                 while m and not any(c.isdigit() for c in m[1]):
                     m = ROW.search(line, m.start()+1)
@@ -316,7 +335,9 @@ def parse_legacy(raw, *, retain_source_discrepancies=False, _use_fixed=True):
                         if kind in ('PUT','CALL'):pc=kind.title();kind='SH'
                         rows.append({**previous,'value':int(amount(continuation[1])*1000),'shares':quantity(continuation[2]),'shareType':kind,'putCall':pc})
                     elif re.fullmatch(r'\s*[A-Za-z][A-Za-z &.,-]*\s*',line) and len(line.strip())<45:
-                        pending=line.strip()
+                        following=next((x for x in body_lines[line_index+1:] if x.strip()),'')
+                        if re.match(r'^\s*(?:Ltd\.?|Inc\.?|Corp\.?|Corporation|PLC|L\.?P\.?)\s{2,}',following,re.I): pending=line.strip()
+                        else: previous['name'] += ' '+line.strip()
     for row in rows:
         if not row.get('putCall') and re.search(r'\b(?:CLL|CALL|PUT)\s+OPT',row['name']+' '+row['cls'],re.I):
             row['putCall']='Put' if re.search(r'\bPUT\s+OPT',row['name']+' '+row['cls'],re.I) else 'Call'

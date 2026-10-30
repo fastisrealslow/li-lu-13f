@@ -138,7 +138,7 @@ class HKAutomationTests(unittest.TestCase):
         self.assertEqual(result['before_long_shares'], 985000000)
         self.assertEqual(result['long_interest_change'], 618000)
         self.assertEqual(result['event_codes'], ['11032'])
-        self.assertEqual(result['position_details_schema'], 3)
+        self.assertEqual(result['position_details_schema'], hk.POSITION_DETAILS_SCHEMA)
 
     def test_historical_forms_are_backfilled_without_blocking_latest_evidence(self):
         client = FixtureClient()

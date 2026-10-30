@@ -996,6 +996,8 @@ def save_data(path: str, data: dict):
         filing=data.get('history',{}).get('filing_sources',{}).get(data.get('current',{}).get('quarter'))
         if filing:refresh(data,config,filing,sec_fetch)
     _sort_history_in_place(data)
+    from historical_labels import apply as apply_historical_labels
+    apply_historical_labels(data)
     holdings = [h for rows in data.get("history", {}).get("holdings", {}).values() for h in rows]
     actions = [action for action in VERIFIED_SPLITS if any(
         h.get("cusip") == action["cusip"] or h.get("ticker") == action["ticker"] for h in holdings)]

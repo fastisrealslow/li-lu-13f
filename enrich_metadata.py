@@ -253,6 +253,8 @@ def process_file(filepath, cache):
                     elif not h.get('sector'):
                         h['sector']='其他';changed.add(h.get('ticker',''))
 
+    from historical_labels import apply as apply_historical_labels
+    if apply_historical_labels(d): changed.add('historical-labels')
     if changed:
         with open(filepath, 'w') as f:
             json.dump(d, f, ensure_ascii=False, indent=None if sum(len(v) for v in d.get('history',{}).get('holdings',{}).values())>20000 else 2, separators=(',',':') if sum(len(v) for v in d.get('history',{}).get('holdings',{}).values())>20000 else None)

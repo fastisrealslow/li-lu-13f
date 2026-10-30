@@ -16,7 +16,7 @@ from security_identity import project as project_identities, project_prices
 
 ROOT = Path(__file__).resolve().parent
 ROW_FIELDS = ('ticker', 'cusip', 'name', 'cnName', 'cls', 'shares', 'value',
-              'shareType', 'putCall', 'sector', 'shareAdjustment', 'reportedIdentity', 'identityEvidence')
+              'shareType', 'putCall', 'sector', 'shareAdjustment', 'reportedIdentity', 'identityEvidence', 'displayName', 'sectorEn')
 
 
 def encoded(value):
@@ -146,6 +146,8 @@ def build(root=ROOT, output=None):
         data, prices = read(root / person['dataFile']), read(root / person['pricesFile'])
         prices = project_prices(data, prices)
         data = display_data(project_identities(data), person.get('browserHoldingLimit'))
+        from historical_labels import apply as apply_historical_labels
+        apply_historical_labels(data)
         tickers = {h['ticker'] for h in data['current']['holdings']} if data.get('meta', {}).get('browserScope') else None
         overview = current_data(data, prices)
         entries, source_keys = {}, {}

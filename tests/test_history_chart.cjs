@@ -373,7 +373,7 @@ test('earlier HK disclosures expose original dates and holders without inventing
  assert.ok(rows.every(r=>r.event_date<'2016-12-31'));
  assert.equal(JSON.stringify(a.context.snapshot),before);
  a.run('data=snapshot;hkDisclosures=payload;renderEarlierDisclosures()');
- assert.match(a.el('earlierDisclosures').innerHTML,/2005-09-28/);assert.match(a.el('historyScopeNote').textContent,/2016 Q4/);
+ assert.match(a.el('earlierDisclosures').innerHTML,/2005-09-28/);assert.equal((a.el('earlierDisclosures').innerHTML.match(/class="hk-summary-row"/g)||[]).length,2);
  a.run('hkDisclosures=null;renderEarlierDisclosures()');assert.equal(a.el('earlierDisclosures').innerHTML,'');
  assert.equal(a.run('t("thFirst")'),'最早披露');
 });
@@ -381,4 +381,14 @@ test('reporter changes break historical value lines and suppress cross-entity qu
  const a=app();a.run("data={history:{filing_sources:{'2011 Q4':{cik:'1173334'},'2012 Q1':{cik:'1549575'},'2012 Q2':{cik:'1549575'}}}}");
  assert.equal(a.run("historyChange(['2011 Q4','2012 Q1','2012 Q2'],[100,200,220],1)"),null);
  assert.equal(a.run("historySegments(['2011 Q4','2012 Q1','2012 Q2']).length"),2);
+});
+
+test('unmatched historical codes are neutral labels, not delisting signals',()=>{
+ const a=app();const label=a.run("fmtTicker('?Former Issuer',{cusip:'85512C105'})");
+ assert.match(label,/CUSIP 85512C105/);assert.ok(!label.includes('#f59e0b'));assert.ok(!label.includes('Former Issuer'));
+});
+test('a past reporting gap does not hide the latest holding status',async()=>{
+ const a=app();a.run("data={history:{holdings:{'2020 Q1':[{ticker:'A',name:'A',shares:100,value:100}],'2020 Q2':[],'2020 Q3':[{ticker:'A',name:'A',shares:50,value:50}]}}};renderHKHoldings=()=>{}");
+ await a.run('renderTimelineTable()');assert.match(a.el('timelineCanvas').innerHTML,/最新申报持有/);assert.match(a.el('timelineCanvas').innerHTML,/曾缺席后再披露/);
+ a.run("data.history.holdings['2020 Q4']=[]");await a.run('renderTimelineTable()');assert.match(a.el('timelineCanvas').innerHTML,/最新申报未披露/);assert.ok(!a.el('timelineCanvas').innerHTML.includes('已清仓'));
 });

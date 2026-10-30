@@ -275,7 +275,7 @@ tbody tr:last-child td{border-bottom:none}
   .hw-inv-mobile{display:flex!important}
   /* Timeline 4-col: no forced min-width, fits in viewport */
   .tl-table-wrap table{min-width:0!important;width:100%!important;font-size:.7rem}
-  .tl-table-wrap .stock-cell .sector-badge{display:none}
+  .tl-table-wrap .stock-cell .sector-badge{display:inline-block;font-size:.6rem;white-space:normal;line-height:1.4}
   .tl-table-wrap .name-line{font-size:.65rem}
   .tl-table-wrap td{padding:6px 4px!important;vertical-align:top;white-space:normal!important}
   .tl-table-wrap td:nth-child(2),.tl-table-wrap td:nth-child(3){white-space:nowrap!important;font-size:.67rem}
@@ -371,6 +371,16 @@ th .info-wrap{position:relative;display:inline-flex}
 .philosophy-signature strong{display:block;font-family:var(--serif);font-size:1.1rem;color:var(--navy);margin-bottom:5px}.philosophy-signature p{font-size:.88rem;color:var(--text-light)}
 @media(min-width:1000px){.phil-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media(max-width:640px){.insights-box{padding:16px}.scope-facts{grid-template-columns:1fr}.scope-heading{align-items:flex-start}.philosophy-signature{padding:16px}}
+
+.profile-details>summary{cursor:pointer;padding:14px 0;color:var(--navy);font-weight:600;list-style:none}
+.profile-details>summary::after{content:'＋';float:right}.profile-details[open]>summary::after{content:'−'}
+.profile-details .ref-grid{padding-top:16px}.history-section-title{font-family:var(--serif);font-size:1.05rem;color:var(--navy);margin:24px 0 12px}
+.history-evidence-table{width:100%;font-size:.8rem;table-layout:fixed}.history-evidence-table th,.history-evidence-table td{white-space:normal!important;text-align:left!important}.history-evidence-table td{vertical-align:top;overflow-wrap:anywhere}.history-evidence-table small,.hk-summary-table small{display:block;color:var(--text-lighter);margin-top:5px;line-height:1.65}
+.hk-summary-wrap .hk-summary-table{min-width:0}.hk-summary-table{width:100%;table-layout:fixed;font-size:.78rem}.hk-summary-table th,.hk-summary-table td{padding:12px;vertical-align:top;white-space:normal;overflow-wrap:anywhere}.hk-summary-table th:first-child{width:23%}
+.hk-history-details{margin-top:8px}.hk-history-details summary,.tl-gap-detail summary,.early-originals summary{cursor:pointer;color:var(--text-lighter);font-size:.72rem}.hk-history-records>div{padding:8px 0;border-bottom:1px solid var(--border)}.hk-history-records span{display:block}.early-originals{margin-top:20px}
+.tl-status-current{color:#167c63;font-weight:600}.tl-status-absent{color:var(--text-lighter)}.tl-gap-detail{margin-top:6px}.tl-gap-detail small{display:block;padding:4px 0}
+@media(max-width:640px){.hk-summary-table thead{display:none}.hk-summary-table,.hk-summary-table tbody,.hk-summary-table tr,.hk-summary-table td{display:block;width:100%}.hk-summary-table tr{border:1px solid var(--border);margin-bottom:12px;padding:8px 12px}.hk-summary-table td{padding:7px 0;border:0;text-align:left!important}.hk-summary-table td:before{content:attr(data-label);display:block;font-size:.66rem;color:var(--text-lighter);margin-bottom:4px}.hk-summary-table td:first-child:before{display:none}.history-evidence-table td:nth-child(2),.history-evidence-table td:nth-child(3){white-space:normal!important}.history-evidence-table{font-size:.73rem}.hk-summary-wrap{overflow:visible}}
+
 </style>
 <link rel="stylesheet" href="spinoff_ui.css?v=13">
 <script src="appearance.js?v=2"></script>
@@ -520,6 +530,7 @@ th .info-wrap{position:relative;display:inline-flex}
     <div class="ref-label" id="aboutLabel">About Li Lu</div>
     <h2 class="ref-title" id="aboutTitle"><span data-i18n="aboutTitle">关于李录与喜马拉雅资本</span></h2>
     <div class="ref-divider"></div>
+    <details id="aboutDetails" class="profile-details"><summary id="aboutExpand">人物简介与重要经历</summary>
     <div class="ref-grid">
       <div>
         <div class="ref-text" id="aboutText">
@@ -532,6 +543,7 @@ th .info-wrap{position:relative;display:inline-flex}
         </div>
       </div>
     </div>
+    </details>
   </div>
 </section>
 
@@ -610,7 +622,7 @@ th .info-wrap{position:relative;display:inline-flex}
 <link rel="stylesheet" href="public_portfolio.css?v=2">
 <script src="public_portfolio.js?v=2"></script>
 <script src="investor_loader.js?v=2"></script>
-<script src="app.js?v=101"></script>
+<script src="app.js?v=102"></script>
 <script src="personal_portfolio.js?v=3"></script>
 <script src="spinoff_ui.js?v=16"></script>
 <script>
