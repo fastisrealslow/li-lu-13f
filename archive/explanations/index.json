@@ -691,10 +691,10 @@
       "reason": "ValueError: Bilingual editorial review: The content claims Buffett mentioned reading a script by Saddam Hussein's speechwriter. This is factually incorrect; the transcript "
     },
     "buffett-d6f1a801f004df": {
-      "at": "2026-10-30T13:46:00+00:00",
+      "at": "2026-10-30T21:52:54+00:00",
       "status": "retry",
       "inputHash": "5e6f0af3b4f6b4986097903db9bab953daf45a3d009a0aabf2c838c01c2a8e57",
-      "reason": "ValueError: Bilingual editorial review: The English translation of '5 billion' as '$5 billion' adds a unit not explicitly in the source text (which uses Chinese context imp"
+      "reason": "ValueError: Bilingual editorial review: The Chinese translation incorrectly identifies the bank as 'JPMorgan Chase' (implied by context error in source description) but the"
     },
     "buffett-56163a42ef5133": {
       "at": "2026-10-30T14:52:06+00:00",
@@ -3574,5 +3574,5 @@
       "reason": "ValueError: Unsupported numerical claim: 20.50%"
     }
   },
-  "updatedAt": "2026-10-30T21:52:12+00:00"
+  "updatedAt": "2026-10-30T21:52:54+00:00"
 }
