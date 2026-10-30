@@ -3556,10 +3556,10 @@
       "reason": "ValueError: Bilingual editorial review: The English text contains a factual error regarding the USG Corporation investment details. The source (s4) states the purchase pric"
     },
     "berkowitz-5e514b72ec1a07": {
-      "at": "2026-10-30T04:33:32+00:00",
+      "at": "2026-10-30T15:46:43+00:00",
       "status": "retry",
       "inputHash": "036dfda4748be20ba63b00b748f0aecd12760944d0df10686617e515bb7c0da6",
-      "reason": "ValueError: Bilingual editorial review: The English text incorrectly states the fund's performance period as ending May 31, 2023, while the report title and most data table"
+      "reason": "ValueError: Bilingual editorial review: The source text (s10) explicitly states that performance figures are for the period ended **May 31, 2023**, not June 30. The Chinese"
     },
     "duan-e7bae9383a7dea": {
       "at": "2026-10-30T15:28:51+00:00",
@@ -3574,5 +3574,5 @@
       "reason": "ValueError: Bilingual editorial review: The English text incorrectly states 'gross expense ratio' as 1.00%. Source s12 specifies this is the 'gross expense ratio', but the "
     }
   },
-  "updatedAt": "2026-10-30T15:45:42+00:00"
+  "updatedAt": "2026-10-30T15:46:43+00:00"
 }
