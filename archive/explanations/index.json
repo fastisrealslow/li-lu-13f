@@ -1146,10 +1146,10 @@
       "reason": "ValueError: Bilingual editorial review: The English translation in the content section misrepresents Pabrai's argument. The source text (s3) states that humans have an 'ave"
     },
     "vinall-f47e656603551a": {
-      "at": "2026-10-31T12:48:10+00:00",
+      "at": "2026-10-31T20:14:46+00:00",
       "status": "retry",
       "inputHash": "5097a53ae89ab9a32c8b3921ad080d43c9a7a4172505bcff79b45cd675befeef",
-      "reason": "ValueError: Unsupported numerical claim: 9"
+      "reason": "ValueError: Repeated paragraphs cannot pad an explanation"
     },
     "pabrai-0578ad73179b18": {
       "at": "2026-10-31T16:37:58+00:00",
@@ -3574,5 +3574,5 @@
       "reason": "ValueError: Bilingual editorial review: The source text contains garbled characters and formatting errors (e.g., '!\"!!', '(*95&*.4*', 'Ö') that do not support the specific "
     }
   },
-  "updatedAt": "2026-10-31T20:14:21+00:00"
+  "updatedAt": "2026-10-31T20:14:46+00:00"
 }
