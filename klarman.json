@@ -5,7 +5,7 @@
     "notablePeople": [
       "Seth Klarman"
     ],
-    "lastUpdated": "2026-10-30T18:23:39Z",
+    "lastUpdated": "2026-10-31T02:57:53Z",
     "aiSummary": "克拉曼大幅增持亚马逊与谷歌，新进芝商所等，显示其持续看好科技巨头及特定周期机会，同时减持部分传统行业仓位。",
     "aiSummaryQuarter": "2026 Q2",
     "shareActions": [
@@ -61326,8 +61326,8 @@
           "prevValue": 4532000
         },
         {
-          "name": "NATIONAL HEALTH INVS INC         SR SB CV",
-          "cls": "DEB 06",
+          "name": "NATIONAL HEALTH INVS INC",
+          "cls": "SR SB CV DEB 06",
           "cusip": "63633DAD6",
           "value": 3977000,
           "shares": 2179000,
@@ -61340,7 +61340,7 @@
               "value": 3977000
             }
           ],
-          "ticker": "?NATIONAL HEALTH INVS INC         SR SB CV",
+          "ticker": "?NATIONAL HEALTH INVS INC",
           "sector": "其他",
           "prevShares": 2243000,
           "prevValue": 2243000
@@ -62148,8 +62148,8 @@
           "prevValue": 1859000
         },
         {
-          "name": "NATIONAL HEALTH INVS INC         SR SB CV",
-          "cls": "DEB 06",
+          "name": "NATIONAL HEALTH INVS INC",
+          "cls": "SR SB CV DEB 06",
           "cusip": "63633DAD6",
           "value": 4377000,
           "shares": 2179000,
@@ -62162,7 +62162,7 @@
               "value": 4377000
             }
           ],
-          "ticker": "?NATIONAL HEALTH INVS INC         SR SB CV",
+          "ticker": "?NATIONAL HEALTH INVS INC",
           "sector": "其他",
           "prevShares": 2179000,
           "prevValue": 3977000
@@ -63030,8 +63030,8 @@
           "prevValue": 0
         },
         {
-          "name": "TELESYSTEM INTL WIRELESS INC      SUB VT",
-          "cls": "SHS NEW",
+          "name": "TELESYSTEM INTL WIRELESS INC",
+          "cls": "SUB VT SHS NEW",
           "cusip": "879946309",
           "value": 1915000,
           "shares": 2880812,
@@ -63044,7 +63044,7 @@
               "value": 1915000
             }
           ],
-          "ticker": "?TELESYSTEM INTL WIRELESS INC      SUB VT",
+          "ticker": "?TELESYSTEM INTL WIRELESS INC",
           "sector": "其他",
           "prevShares": 0,
           "prevValue": 0
@@ -63312,25 +63312,22 @@
       ]
     },
     "coverage": {
-      "checkedAt": "2026-10-30T18:23:39Z",
+      "checkedAt": "2026-10-31T02:57:53Z",
       "missingQuarters": [
         "1999 Q3"
       ],
       "repairedThisRun": [
-        "2000 Q4",
-        "2001 Q1",
-        "2001 Q2"
+        "2001 Q3",
+        "2001 Q4",
+        "2002 Q1"
       ],
       "errors": {
         "1999 Q3": "Legacy table reconciliation failed: 40/41 rows, $610102000/$647531000"
       },
       "attempts": {
-        "1999 Q3": 17
+        "1999 Q3": 18
       },
       "pendingRefreshQuarters": [
-        "2001 Q3",
-        "2001 Q4",
-        "2002 Q1",
         "2002 Q2",
         "2002 Q3",
         "2002 Q4",
@@ -64798,11 +64795,13 @@
         "accessionDashed": "0001054420-01-500023",
         "filingDate": "2001-11-14",
         "reportDate": "2001-09-30",
+        "form": "13F-HR",
+        "primaryDocument": "filing0901.txt",
         "cik": "1054420",
         "expected13FFileNumber": "28-7120",
         "url": "https://www.sec.gov/Archives/edgar/data/1054420/0001054420-01-500023.txt",
         "format": "legacy_13f",
-        "parserVersion": 3,
+        "parserVersion": 6,
         "sourceReconciliation": {
           "status": "reconciled",
           "reportedEntries": 40,
@@ -64817,11 +64816,13 @@
         "accessionDashed": "0001054420-02-000044",
         "filingDate": "2002-02-13",
         "reportDate": "2001-12-31",
+        "form": "13F-HR",
+        "primaryDocument": "filing1201.txt",
         "cik": "1054420",
         "expected13FFileNumber": "28-7120",
         "url": "https://www.sec.gov/Archives/edgar/data/1054420/0001054420-02-000044.txt",
         "format": "legacy_13f",
-        "parserVersion": 3,
+        "parserVersion": 6,
         "sourceReconciliation": {
           "status": "reconciled",
           "reportedEntries": 37,
@@ -64836,11 +64837,13 @@
         "accessionDashed": "0001054420-02-000061",
         "filingDate": "2002-05-10",
         "reportDate": "2002-03-31",
+        "form": "13F-HR",
+        "primaryDocument": "filing0302.txt",
         "cik": "1054420",
         "expected13FFileNumber": "28-7120",
         "url": "https://www.sec.gov/Archives/edgar/data/1054420/0001054420-02-000061.txt",
         "format": "legacy_13f",
-        "parserVersion": 3,
+        "parserVersion": 6,
         "sourceReconciliation": {
           "status": "reconciled",
           "reportedEntries": 40,
@@ -69147,7 +69150,7 @@
       },
       "2005 Q3": {
         "version": 1,
-        "checkedAt": "2026-10-29",
+        "checkedAt": "2026-10-31",
         "source": "https://www.sec.gov/Archives/edgar/data/1061768/0001061768-05-000022.txt",
         "filingDate": "2005-11-14",
         "sourceDigest": "2ba5e009234b530b3020dc8bbf9d66deadf481dea709b6505031d2b1ae57a16c",
@@ -69159,7 +69162,7 @@
       },
       "2005 Q4": {
         "version": 1,
-        "checkedAt": "2026-10-29",
+        "checkedAt": "2026-10-31",
         "source": "https://www.sec.gov/Archives/edgar/data/1061768/0001061768-06-000019.txt",
         "filingDate": "2006-02-13",
         "sourceDigest": "6a652741a9b82f167fe44a510459732f9d4fe3251470232dd533cae1509b2426",
@@ -69171,7 +69174,7 @@
       },
       "2006 Q1": {
         "version": 1,
-        "checkedAt": "2026-10-29",
+        "checkedAt": "2026-10-31",
         "source": "https://www.sec.gov/Archives/edgar/data/1061768/0001061768-06-000030.txt",
         "filingDate": "2006-05-12",
         "sourceDigest": "c1a9b2e603736d226c5528be56730f01a59139f71cd68b90fda262371e2ab5f9",
@@ -69183,7 +69186,7 @@
       },
       "2006 Q2": {
         "version": 1,
-        "checkedAt": "2026-10-29",
+        "checkedAt": "2026-10-31",
         "source": "https://www.sec.gov/Archives/edgar/data/1061768/0001061768-06-000040.txt",
         "filingDate": "2006-08-11",
         "sourceDigest": "84e3c551524bbf8d39b275d58fcb59f85b9083db60f5baa4a5ac6711784c0962",
@@ -69195,7 +69198,7 @@
       },
       "2006 Q3": {
         "version": 1,
-        "checkedAt": "2026-10-29",
+        "checkedAt": "2026-10-31",
         "source": "https://www.sec.gov/Archives/edgar/data/1061768/0001061768-06-000045.txt",
         "filingDate": "2006-11-13",
         "sourceDigest": "317f9c2699ae51662727d1e0ea6bcff844ff103dcb6ab0705193ef0a58442653",
@@ -69209,7 +69212,7 @@
             "price": 36.27000045776367,
             "date": "2006-09-29",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/HD?period1=0&period2=1793378851&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/HD?period1=0&period2=1793501874&interval=1d&events=splits",
             "candidates": [
               1
             ]
@@ -69220,7 +69223,7 @@
       },
       "2006 Q4": {
         "version": 1,
-        "checkedAt": "2026-10-29",
+        "checkedAt": "2026-10-31",
         "source": "https://www.sec.gov/Archives/edgar/data/1061768/0001061768-07-000109.txt",
         "filingDate": "2007-02-13",
         "sourceDigest": "3db8138926b250a00b1b22442ba33498e771fbfb4537d1ef294ad24edfd56568",
@@ -69234,7 +69237,7 @@
             "price": 40.15999984741211,
             "date": "2006-12-29",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/HD?period1=0&period2=1793378851&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/HD?period1=0&period2=1793501874&interval=1d&events=splits",
             "candidates": [
               1
             ]
@@ -69246,7 +69249,7 @@
             "price": 38.540000915527344,
             "date": "2006-12-29",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/NFG?period1=0&period2=1793378852&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/NFG?period1=0&period2=1793501874&interval=1d&events=splits",
             "candidates": [
               1
             ]
