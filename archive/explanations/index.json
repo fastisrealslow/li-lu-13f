@@ -542,10 +542,10 @@
       "reason": "ValueError: Bilingual editorial review: The provided 'content' section contains a meta-commentary explaining why the evidence does not match the title, which violates the i"
     },
     "pabrai-80ac2772f94ba4": {
-      "at": "2026-10-31T09:48:47+00:00",
+      "at": "2026-10-31T15:07:47+00:00",
       "status": "retry",
       "inputHash": "13aa1ee6f43a048e56b259cfed50f497bc0e8337defe223690e99ece6d519885",
-      "reason": "ValueError: Bilingual editorial review: The English text incorrectly states '1 plus 1 plus 1 plus 1 becomes over 1,000' as if it were a direct quote from Pabrai; the source"
+      "reason": "ValueError: Bilingual editorial review: The English translation of '1 plus 1 plus 1 plus 1 becomes over 1,000' in the source (s3) is mathematically imprecise compared to th"
     },
     "vinall-c919ac8b6b58c4": {
       "at": "2026-10-31T11:28:32+00:00",
@@ -3574,5 +3574,5 @@
       "reason": "ValueError: Unsupported numerical claim: 15"
     }
   },
-  "updatedAt": "2026-10-31T15:07:34+00:00"
+  "updatedAt": "2026-10-31T15:07:47+00:00"
 }
