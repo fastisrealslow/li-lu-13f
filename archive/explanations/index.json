@@ -1068,10 +1068,10 @@
       "reason": "ValueError: Bilingual editorial review: The English translation of 'hidden PE of 1 stock' is rendered as 'hidden P/E ratio of one', which is accurate but slightly verbose; "
     },
     "pabrai-36450d370316ee": {
-      "at": "2026-10-31T11:18:15+00:00",
+      "at": "2026-10-31T15:50:36+00:00",
       "status": "retry",
       "inputHash": "ce433e0b519779154bc0bcf5dd15d2d5b324810bcc3336cdf79eff981d5030c1",
-      "reason": "ValueError: Bilingual editorial review: The English translation in the 'content' section contains a hallucinated phrase: 'blindly projecting business trajectories'. The sou"
+      "reason": "ValueError: Bilingual editorial review: The English paraphrase in the content section misattributes a quote to Buffett. The source text (s2) attributes the 'fish on land' a"
     },
     "pabrai-18c92ff6cf0411": {
       "at": "2026-10-31T15:04:58+00:00",
@@ -3574,5 +3574,5 @@
       "reason": "ValueError: Bilingual editorial review: The source text contains garbled characters and formatting errors (e.g., '!\"!!', '(*95&*.4*', 'Ö') that do not support the specific "
     }
   },
-  "updatedAt": "2026-10-31T15:50:27+00:00"
+  "updatedAt": "2026-10-31T15:50:36+00:00"
 }
