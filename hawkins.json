@@ -5,7 +5,7 @@
     "notablePeople": [
       "Mason Hawkins"
     ],
-    "lastUpdated": "2026-10-31T02:58:22Z",
+    "lastUpdated": "2026-10-31T17:31:13Z",
     "aiSummary": "霍金斯大举增持美泰与雷奥尼尔并建仓雅培及腾讯音乐，显示其持续聚焦高增长消费与医疗领域。",
     "aiSummaryQuarter": "2026 Q2",
     "instrumentHistoryTickers": [
@@ -83234,11 +83234,11 @@
           ],
           "ticker": "?Brookfield Properties Corp",
           "sector": "办公地产",
-          "prevShares": 129400,
-          "prevValue": 2459000,
           "cnName": "布鲁克菲尔德办公地产",
           "displayName": "Brookfield Office Properties",
-          "sectorEn": "Office real estate"
+          "sectorEn": "Office real estate",
+          "prevShares": 129400,
+          "prevValue": 2459000
         },
         {
           "name": "Checkpoint Systems, Inc.",
@@ -84711,11 +84711,11 @@
           ],
           "ticker": "?Brookfield Properties Corp",
           "sector": "办公地产",
-          "prevShares": 129400,
-          "prevValue": 2601000,
           "cnName": "布鲁克菲尔德办公地产",
           "displayName": "Brookfield Office Properties",
-          "sectorEn": "Office real estate"
+          "sectorEn": "Office real estate",
+          "prevShares": 129400,
+          "prevValue": 2601000
         },
         {
           "name": "First Tenn Natl",
@@ -111087,9 +111087,9 @@
           ],
           "ticker": "?Brookfield Properties Corp",
           "sector": "办公地产",
+          "cnName": "布鲁克菲尔德办公地产",
           "prevShares": 89000,
           "prevValue": 1713000,
-          "cnName": "布鲁克菲尔德办公地产",
           "displayName": "Brookfield Office Properties",
           "sectorEn": "Office real estate"
         },
@@ -111176,25 +111176,22 @@
       ]
     },
     "coverage": {
-      "checkedAt": "2026-10-31T02:58:22Z",
+      "checkedAt": "2026-10-31T17:31:14Z",
       "missingQuarters": [
         "1999 Q3"
       ],
       "repairedThisRun": [
-        "2001 Q3",
-        "2001 Q4",
-        "2002 Q1"
+        "2002 Q2",
+        "2002 Q3",
+        "2002 Q4"
       ],
       "errors": {
         "1999 Q3": "Legacy table reconciliation failed: 147/148 rows, $11958192000/$11958268000"
       },
       "attempts": {
-        "1999 Q3": 16
+        "1999 Q3": 17
       },
       "pendingRefreshQuarters": [
-        "2002 Q2",
-        "2002 Q3",
-        "2002 Q4",
         "2003 Q1",
         "2003 Q2",
         "2003 Q3",
@@ -112255,7 +112252,7 @@
         "cik": "807985",
         "url": "https://www.sec.gov/Archives/edgar/data/807985/0000807985-02-000045.txt",
         "format": "legacy_13f",
-        "parserVersion": 4,
+        "parserVersion": 6,
         "sourceReconciliation": {
           "status": "reconciled",
           "reportedEntries": 121,
@@ -112275,7 +112272,7 @@
         "cik": "807985",
         "url": "https://www.sec.gov/Archives/edgar/data/807985/0000807985-02-000050.txt",
         "format": "legacy_13f",
-        "parserVersion": 4,
+        "parserVersion": 6,
         "sourceReconciliation": {
           "status": "reconciled",
           "reportedEntries": 119,
@@ -112690,7 +112687,7 @@
         "amendmentType": "RESTATEMENT",
         "url": "https://www.sec.gov/Archives/edgar/data/807985/0000807985-03-000044.txt",
         "format": "legacy_13f",
-        "parserVersion": 4,
+        "parserVersion": 6,
         "sourceReconciliation": {
           "status": "reconciled",
           "reportedEntries": 114,
@@ -112704,7 +112701,7 @@
     "instrumentVerification": {
       "pendingQuarters": [],
       "errors": {},
-      "checkedAt": "2026-10-31T02:58:22.086516+00:00"
+      "checkedAt": "2026-10-31T17:31:13.523306+00:00"
     },
     "restatementChecks": {
       "0000807985-03-000044": {
@@ -118758,82 +118755,6 @@
         "outlierTickers": [],
         "normalizedHash": "9175ea336bfcce51c6cdb458642bcba971f90cf0f6399318de0d37518bba1415"
       },
-      "2002 Q4": {
-        "version": 1,
-        "checkedAt": "2026-10-29",
-        "source": "https://www.sec.gov/Archives/edgar/data/807985/0000807985-03-000044.txt",
-        "filingDate": "2003-02-13",
-        "sourceDigest": "fa852f8a2698debe7c2eff642cf27f9d8046766e76cd2e05c0f4804a3723b1c2",
-        "sourceHash": "5ef21e7085c6e90a31f77154df4a0f31c573bceea34ba2c88d236080cb86782e",
-        "status": "verified",
-        "factor": 1,
-        "anchors": [
-          {
-            "ticker": "DOX",
-            "cusip": "G02602103",
-            "filedPrice": 9.820010600663158,
-            "price": 9.819999694824219,
-            "date": "2002-12-31",
-            "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/DOX?period1=0&period2=1793344116&interval=1d&events=splits",
-            "candidates": [
-              1
-            ]
-          },
-          {
-            "ticker": "WM",
-            "cusip": "94106L109",
-            "filedPrice": 22.919966734434986,
-            "price": 22.920000076293945,
-            "date": "2002-12-31",
-            "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/WM?period1=0&period2=1793344115&interval=1d&events=splits",
-            "candidates": [
-              1
-            ]
-          },
-          {
-            "ticker": "YUM",
-            "cusip": "988498101",
-            "filedPrice": 24.220009562492464,
-            "price": 24.220000053405762,
-            "date": "2002-12-31",
-            "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/YUM?period1=0&period2=1793344116&interval=1d&events=splits",
-            "candidates": [
-              1
-            ]
-          },
-          {
-            "ticker": "MAR",
-            "cusip": "571903202",
-            "filedPrice": 32.86999094596369,
-            "price": 32.870001068182155,
-            "date": "2002-12-31",
-            "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/MAR?period1=0&period2=1793344115&interval=1d&events=splits",
-            "candidates": [
-              1
-            ]
-          },
-          {
-            "ticker": "CMCSA",
-            "cusip": "20030N101",
-            "filedPrice": 23.5700227822511,
-            "price": 23.570000653266906,
-            "date": "2002-12-31",
-            "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/CMCSA?period1=0&period2=1793344117&interval=1d&events=splits",
-            "candidates": [
-              1
-            ]
-          }
-        ],
-        "agreementCount": 5,
-        "anchorCount": 5,
-        "outlierTickers": [],
-        "normalizedHash": "5ef21e7085c6e90a31f77154df4a0f31c573bceea34ba2c88d236080cb86782e"
-      },
       "2004 Q4": {
         "version": 1,
         "checkedAt": "2026-10-29",
@@ -120885,6 +120806,82 @@
         "anchorCount": 5,
         "outlierTickers": [],
         "normalizedHash": "1bf3753946f5fc2684a68f0d29bdd563a8d6e04078ee378cfe743f04a001703e"
+      },
+      "2002 Q4": {
+        "version": 1,
+        "checkedAt": "2026-10-31",
+        "source": "https://www.sec.gov/Archives/edgar/data/807985/0000807985-03-000044.txt",
+        "filingDate": "2003-02-13",
+        "sourceDigest": "fa852f8a2698debe7c2eff642cf27f9d8046766e76cd2e05c0f4804a3723b1c2",
+        "sourceHash": "5ef21e7085c6e90a31f77154df4a0f31c573bceea34ba2c88d236080cb86782e",
+        "status": "verified",
+        "factor": 1,
+        "anchors": [
+          {
+            "ticker": "DOX",
+            "cusip": "G02602103",
+            "filedPrice": 9.820010600663158,
+            "price": 9.819999694824219,
+            "date": "2002-12-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/DOX?period1=0&period2=1793554274&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "WM",
+            "cusip": "94106L109",
+            "filedPrice": 22.919966734434986,
+            "price": 22.920000076293945,
+            "date": "2002-12-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/WM?period1=0&period2=1793554275&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "YUM",
+            "cusip": "988498101",
+            "filedPrice": 24.220009562492464,
+            "price": 24.220000053405762,
+            "date": "2002-12-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/YUM?period1=0&period2=1793554275&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "MAR",
+            "cusip": "571903202",
+            "filedPrice": 32.86999094596369,
+            "price": 32.870001068182155,
+            "date": "2002-12-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/MAR?period1=0&period2=1793554275&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "CMCSA",
+            "cusip": "20030N101",
+            "filedPrice": 23.5700227822511,
+            "price": 23.570000653266906,
+            "date": "2002-12-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/CMCSA?period1=0&period2=1793554276&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          }
+        ],
+        "agreementCount": 5,
+        "anchorCount": 5,
+        "outlierTickers": [],
+        "normalizedHash": "5ef21e7085c6e90a31f77154df4a0f31c573bceea34ba2c88d236080cb86782e"
       }
     },
     "excludedValueQuarters": [

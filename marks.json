@@ -78,7 +78,7 @@
       },
       "0000949509-06-000009": {
         "result": "pending",
-        "checkedAt": "2026-10-30",
+        "checkedAt": "2026-10-31",
         "url": "https://www.sec.gov/Archives/edgar/data/949509/0000949509-06-000009.txt"
       },
       "0000949509-11-000017": {
@@ -135,6 +135,16 @@
         "result": "additive",
         "checkedAt": "2026-10-31",
         "url": "https://www.sec.gov/Archives/edgar/data/949509/0000949509-07-000012.txt"
+      },
+      "0000949509-05-000020": {
+        "result": "additive",
+        "checkedAt": "2026-10-31",
+        "url": "https://www.sec.gov/Archives/edgar/data/949509/0000949509-05-000020.txt"
+      },
+      "0000949509-05-000018": {
+        "result": "restatement",
+        "checkedAt": "2026-10-31",
+        "url": "https://www.sec.gov/Archives/edgar/data/949509/0000949509-05-000018.txt"
       }
     },
     "holdings": {
@@ -401680,11 +401690,11 @@
           ],
           "ticker": "?LEUCADIA NATL CORP",
           "sector": "多元化投资",
-          "prevShares": 0,
-          "prevValue": 0,
           "cnName": "卢卡迪亚国民公司",
           "displayName": "Leucadia National",
-          "sectorEn": "Diversified investments"
+          "sectorEn": "Diversified investments",
+          "prevShares": 0,
+          "prevValue": 0
         },
         {
           "name": "CADENCE DESIGN SYSTEM INC",
@@ -402187,6 +402197,26 @@
           "prevValue": 18073000
         },
         {
+          "name": "LODGIAN INC",
+          "cls": "COM PAR $.01",
+          "cusip": "54021P403",
+          "value": 25741000,
+          "shares": 2788865,
+          "shareType": "SH",
+          "putCall": "",
+          "managerAllocations": [
+            {
+              "managerIds": [],
+              "shares": 2788865,
+              "value": 25741000
+            }
+          ],
+          "ticker": "?LODGIAN INC",
+          "sector": "其他",
+          "prevShares": 2788865,
+          "prevValue": 25769000
+        },
+        {
           "name": "CYTYC CORP",
           "cls": "NOTE 2.250% 3/1",
           "cusip": "232946AB9",
@@ -402507,6 +402537,29 @@
           "prevValue": 17052000
         },
         {
+          "name": "COVANTA HOLDING CORP",
+          "cls": "COM",
+          "cusip": "22282E102",
+          "value": 18927000,
+          "shares": 1409343,
+          "shareType": "SH",
+          "putCall": "",
+          "managerAllocations": [
+            {
+              "managerIds": [],
+              "shares": 1409343,
+              "value": 18927000
+            }
+          ],
+          "ticker": "?COVANTA HOLDING CORP",
+          "sector": "垃圾焚烧发电",
+          "cnName": "科万塔控股",
+          "displayName": "Covanta Holding",
+          "sectorEn": "Waste-to-energy",
+          "prevShares": 0,
+          "prevValue": 0
+        },
+        {
           "name": "DANIELSON HLDG CORP",
           "cls": "COM",
           "cusip": "236274106",
@@ -402523,11 +402576,11 @@
           ],
           "ticker": "?DANIELSON HLDG CORP",
           "sector": "保险与环保发电投资",
-          "prevShares": 1409343,
-          "prevValue": 17152000,
           "cnName": "丹尼尔森控股",
           "displayName": "Danielson Holding",
-          "sectorEn": "Insurance and waste-to-energy investments"
+          "sectorEn": "Insurance and waste-to-energy investments",
+          "prevShares": 1409343,
+          "prevValue": 17152000
         },
         {
           "name": "GENERAL MTRS CORP",
@@ -402571,7 +402624,7 @@
         },
         {
           "name": "VEECO INSTRS INC DEL",
-          "cls": "NOTE 4.125%12/2",
+          "cls": "NOTE 4.125%12/2  ]=",
           "cusip": "922417AB6",
           "value": 17388000,
           "shares": 18605000,
@@ -402766,11 +402819,11 @@
           ],
           "ticker": "?CAPITALSOURCE INC",
           "sector": "商业贷款",
-          "prevShares": 13805000,
-          "prevValue": 12470000,
           "cnName": "资本来源金融",
           "displayName": "CapitalSource",
-          "sectorEn": "Commercial lending"
+          "sectorEn": "Commercial lending",
+          "prevShares": 13805000,
+          "prevValue": 12470000
         },
         {
           "name": "CEMEX S A",
@@ -403090,11 +403143,11 @@
           ],
           "ticker": "MU",
           "sector": "存储芯片",
-          "prevShares": 11500000,
-          "prevValue": 11517000,
           "cnName": "美光科技",
           "displayName": "Micron Technology",
-          "sectorEn": "Memory semiconductors"
+          "sectorEn": "Memory semiconductors",
+          "prevShares": 11500000,
+          "prevValue": 11517000
         },
         {
           "name": "CYPRESS SEMICONDUCTOR CORP",
@@ -403433,11 +403486,11 @@
           ],
           "ticker": "?GRAFTECH INTL LTD",
           "sector": "石墨电极",
-          "prevShares": 0,
-          "prevValue": 0,
           "cnName": "格拉夫科技",
           "displayName": "GrafTech International",
-          "sectorEn": "Graphite electrodes"
+          "sectorEn": "Graphite electrodes",
+          "prevShares": 0,
+          "prevValue": 0
         },
         {
           "name": "WILSON GREATBATCH TECHNOLOGI",
@@ -405718,6 +405771,26 @@
           "sector": "其他",
           "prevShares": 4886000,
           "prevValue": 4447000
+        },
+        {
+          "name": "FIRST UN REAL EST EQ&MTG INV",
+          "cls": "SH BEN INT",
+          "cusip": "337400105",
+          "value": 315000,
+          "shares": 70000,
+          "shareType": "SH",
+          "putCall": "",
+          "managerAllocations": [
+            {
+              "managerIds": [],
+              "shares": 70000,
+              "value": 315000
+            }
+          ],
+          "ticker": "?FIRST UN REAL EST EQ&MTG INV",
+          "sector": "其他",
+          "prevShares": 70000,
+          "prevValue": 266000
         },
         {
           "name": "INHALE THERAPEUTIC SYS INC",
@@ -450442,22 +450515,22 @@
         }
       },
       "2005 Q3": {
-        "accession": "000094950905000016",
-        "accessionDashed": "0000949509-05-000016",
-        "filingDate": "2005-11-14",
-        "reportDate": "2005-09-30",
-        "form": "13F-HR",
-        "primaryDocument": "r13f3rdq.txt",
         "cik": "949509",
-        "url": "https://www.sec.gov/Archives/edgar/data/949509/0000949509-05-000016.txt",
+        "accession": "000094950905000018",
+        "accessionDashed": "0000949509-05-000018",
+        "filingDate": "2005-11-16",
+        "reportDate": "2005-09-30",
+        "form": "13F-HR/A",
+        "amendmentType": "RESTATEMENT",
+        "url": "https://www.sec.gov/Archives/edgar/data/949509/0000949509-05-000018.txt",
         "format": "legacy_13f",
-        "parserVersion": 5,
+        "parserVersion": 6,
         "sourceReconciliation": {
           "status": "reconciled",
-          "reportedEntries": 217,
-          "parsedEntries": 217,
-          "reportedValue": 4058408000,
-          "tableValue": 4058413000,
+          "reportedEntries": 220,
+          "parsedEntries": 220,
+          "reportedValue": 4103391000,
+          "tableValue": 4103396000,
           "difference": 5000
         }
       },
@@ -456146,6 +456219,179 @@
         "anchorCount": 5,
         "outlierTickers": [],
         "normalizedHash": "473e56a60a05f8fd2dff5b513e7ab027de7942ae5a222aa7c99488099d6a84c3"
+      },
+      "1999 Q1": {
+        "version": 1,
+        "checkedAt": "2026-10-31",
+        "source": "https://www.sec.gov/Archives/edgar/data/949509/0000949509-99-000002.txt",
+        "filingDate": "1999-05-14",
+        "sourceDigest": "1eeaea99ddf2addb0874fac2b6fc18db4d5df8c56e997b5d9ca128c16e7743fe",
+        "sourceHash": "359baf043e8391fa6b9d4a2cab32c6f47a0852c76e3d8ba97d1f2c9061d5045e",
+        "status": "pending",
+        "anchors": [
+          {
+            "ticker": "EME",
+            "cusip": "29084Q100",
+            "filedPrice": 17.18999404876857,
+            "price": 17.1875,
+            "date": "1999-03-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/EME?period1=0&period2=1793554291&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          }
+        ],
+        "errors": [],
+        "normalizedHash": "359baf043e8391fa6b9d4a2cab32c6f47a0852c76e3d8ba97d1f2c9061d5045e"
+      },
+      "1999 Q2": {
+        "version": 1,
+        "checkedAt": "2026-10-31",
+        "source": "https://www.sec.gov/Archives/edgar/data/949509/0000949509-99-000003.txt",
+        "filingDate": "1999-08-13",
+        "sourceDigest": "d2257e8b2dc1a21ecef332a760c3e211811dcec1c7d768d70f5554925b7cbe1c",
+        "sourceHash": "8404c8ec1547c0b69408c24f366e5987a451dc2d296ac01da627b4534096b54a",
+        "status": "pending",
+        "anchors": [
+          {
+            "ticker": "EME",
+            "cusip": "29084Q100",
+            "filedPrice": 25.189867929956765,
+            "price": 25.1875,
+            "date": "1999-06-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/EME?period1=0&period2=1793554291&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "TEO",
+            "cusip": "879273209",
+            "filedPrice": 26.752738654147105,
+            "price": 26.75,
+            "date": "1999-06-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/TEO?period1=0&period2=1793554292&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          }
+        ],
+        "errors": [],
+        "normalizedHash": "8404c8ec1547c0b69408c24f366e5987a451dc2d296ac01da627b4534096b54a"
+      },
+      "2000 Q2": {
+        "version": 1,
+        "checkedAt": "2026-10-31",
+        "source": "https://www.sec.gov/Archives/edgar/data/949509/0000949509-00-500002.txt",
+        "filingDate": "2000-08-09",
+        "sourceDigest": "99714724d690698edacbbfb633e44073126dd4b01c61dd564d4c4d49c08ff9ad",
+        "sourceHash": "894385ec5b895fdc4d3a5d781cecc57cefd73f9fc11a7a8b338d74b50fb5277b",
+        "status": "pending",
+        "anchors": [
+          {
+            "ticker": "EME",
+            "cusip": "29084Q100",
+            "filedPrice": 23.190227304078597,
+            "price": 23.1875,
+            "date": "2000-06-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/EME?period1=0&period2=1793554291&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "TEO",
+            "cusip": "879273209",
+            "filedPrice": 27.494356659142213,
+            "price": 27.5,
+            "date": "2000-06-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/TEO?period1=0&period2=1793554292&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          }
+        ],
+        "errors": [],
+        "normalizedHash": "894385ec5b895fdc4d3a5d781cecc57cefd73f9fc11a7a8b338d74b50fb5277b"
+      },
+      "2000 Q3": {
+        "version": 1,
+        "checkedAt": "2026-10-31",
+        "source": "https://www.sec.gov/Archives/edgar/data/949509/0000949509-00-500003.txt",
+        "filingDate": "2000-11-13",
+        "sourceDigest": "6e7ee187d5e0626979ef2358e74c85cdd8cfe27f835b0f6dbbf0edc0ffcebb3c",
+        "sourceHash": "1633257dc275399bf87e3c1cdd65a0f54f89b9c41cba3cfe8683075d59485417",
+        "status": "pending",
+        "anchors": [
+          {
+            "ticker": "EME",
+            "cusip": "29084Q100",
+            "filedPrice": 26.00025064158798,
+            "price": 26.0,
+            "date": "2000-09-29",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/EME?period1=0&period2=1793554291&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "TEO",
+            "cusip": "879273209",
+            "filedPrice": 21.622222222222224,
+            "price": 21.625,
+            "date": "2000-09-29",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/TEO?period1=0&period2=1793554292&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          }
+        ],
+        "errors": [],
+        "normalizedHash": "1633257dc275399bf87e3c1cdd65a0f54f89b9c41cba3cfe8683075d59485417"
+      },
+      "2002 Q1": {
+        "version": 1,
+        "checkedAt": "2026-10-31",
+        "source": "https://www.sec.gov/Archives/edgar/data/949509/0000949509-02-000009.txt",
+        "filingDate": "2002-05-09",
+        "sourceDigest": "6238e543f9b70d665f0d611e399ea5e8f6d4413d6958b4cf050bc0c55429091d",
+        "sourceHash": "18623e9a86d990b39caa50ecb8661f3646b8d139c126b9ab3bb4ce1a3da7786e",
+        "status": "pending",
+        "anchors": [
+          {
+            "ticker": "BVN",
+            "cusip": "204448104",
+            "filedPrice": 27.009485771342984,
+            "price": 27.010000228881836,
+            "date": "2002-03-28",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/BVN?period1=0&period2=1793554293&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          }
+        ],
+        "errors": [],
+        "normalizedHash": "18623e9a86d990b39caa50ecb8661f3646b8d139c126b9ab3bb4ce1a3da7786e"
+      },
+      "2002 Q3": {
+        "version": 1,
+        "checkedAt": "2026-10-31",
+        "source": "https://www.sec.gov/Archives/edgar/data/949509/0000949509-03-000018.txt",
+        "filingDate": "2003-05-16",
+        "sourceDigest": "872430b9f2038e44975984200e1e39e8ab7618cdbf068bf65319adcfe73ea8fd",
+        "sourceHash": "600eba2e84ee70b47c64ef0477a9ab9e41493467398359848d4aa2f512ba28f1",
+        "status": "pending",
+        "anchors": [],
+        "errors": [],
+        "normalizedHash": "600eba2e84ee70b47c64ef0477a9ab9e41493467398359848d4aa2f512ba28f1"
       }
     },
     "values": [
@@ -456168,7 +456414,7 @@
       3996.208,
       3411.421,
       3558.326,
-      4058.413,
+      4103.396,
       3351.876,
       3099.645,
       3363.274,
@@ -456254,11 +456500,11 @@
     "instrumentVerification": {
       "pendingQuarters": [],
       "errors": {},
-      "checkedAt": "2026-10-31T02:58:35.127842+00:00"
+      "checkedAt": "2026-10-31T17:31:29.217410+00:00"
     },
     "excludedValueQuarters": [],
     "coverage": {
-      "checkedAt": "2026-10-31T02:58:36Z",
+      "checkedAt": "2026-10-31T17:31:30Z",
       "missingQuarters": [
         "1999 Q3",
         "1999 Q4",
@@ -456270,7 +456516,9 @@
         "2005 Q4",
         "2011 Q4"
       ],
-      "repairedThisRun": [],
+      "repairedThisRun": [
+        "2005 Q3"
+      ],
       "errors": {
         "1999 Q3": "Legacy table reconciliation failed: 119/144 rows, $503701000/$945244000",
         "1999 Q4": "Legacy table reconciliation failed: 129/130 rows, $972891000/$994195000",
@@ -456284,15 +456532,15 @@
         "2008 Q2": "Legacy table reconciliation failed: 216/218 rows, $4249430000/$4290914000"
       },
       "attempts": {
-        "2008 Q2": 1,
-        "2011 Q4": 4,
-        "2001 Q3": 4,
-        "1999 Q3": 4,
+        "2008 Q2": 2,
         "2004 Q2": 4,
-        "2005 Q4": 4,
-        "1999 Q4": 4,
+        "1999 Q4": 5,
         "2003 Q3": 4,
-        "2001 Q2": 4
+        "1999 Q3": 5,
+        "2011 Q4": 4,
+        "2005 Q4": 4,
+        "2001 Q2": 4,
+        "2001 Q3": 4
       },
       "pendingRefreshQuarters": [
         "1999 Q1",
@@ -456313,7 +456561,6 @@
         "2004 Q4",
         "2005 Q1",
         "2005 Q2",
-        "2005 Q3",
         "2006 Q1",
         "2006 Q2",
         "2006 Q3",
@@ -456336,7 +456583,7 @@
         "schemaVersion": 1,
         "cik": "949509",
         "checkedAt": "2026-10-29T16:10:30Z",
-        "attemptedAt": "2026-10-31T02:58:36Z",
+        "attemptedAt": "2026-10-31T17:31:30Z",
         "status": "checked",
         "indexes": {
           "2000/QTR2": {
@@ -456723,7 +456970,7 @@
       "VC",
       "XOP"
     ],
-    "lastUpdated": "2026-10-31T02:58:35Z",
+    "lastUpdated": "2026-10-31T17:31:29Z",
     "manager": "Oaktree Capital Management, L.P.",
     "notablePeople": [
       "Howard Marks"

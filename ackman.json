@@ -5,7 +5,7 @@
     "notablePeople": [
       "Bill Ackman"
     ],
-    "lastUpdated": "2026-10-31T02:58:00Z",
+    "lastUpdated": "2026-10-31T17:30:48Z",
     "aiSummary": "阿克曼 Q1 大幅减持谷歌并新建微软仓位，同时增持亚马逊，显示其持续优化科技股组合的结构性调整。",
     "aiSummaryQuarter": "2026 Q1",
     "legacyFilers": [
@@ -11047,11 +11047,11 @@
           ],
           "ticker": "C",
           "sector": "银行",
-          "prevShares": 0,
-          "prevValue": 0,
           "cnName": "花旗集团",
           "displayName": "Citigroup",
-          "sectorEn": "Banking"
+          "sectorEn": "Banking",
+          "prevShares": 0,
+          "prevValue": 0
         },
         {
           "name": "AUTOMATIC DATA PROCESSING IN",
@@ -11302,11 +11302,11 @@
           ],
           "ticker": "C",
           "sector": "银行",
-          "prevShares": 146500000,
-          "prevValue": 550840000,
           "cnName": "花旗集团",
           "displayName": "Citigroup",
-          "sectorEn": "Banking"
+          "sectorEn": "Banking",
+          "prevShares": 146500000,
+          "prevValue": 550840000
         },
         {
           "name": "PENNEY J C INC",
@@ -14105,21 +14105,17 @@
       ]
     },
     "coverage": {
-      "checkedAt": "2026-10-31T02:58:01Z",
+      "checkedAt": "2026-10-31T17:30:49Z",
       "missingQuarters": [],
       "repairedThisRun": [
-        "2008 Q4",
-        "2009 Q1",
-        "2009 Q2",
-        "2009 Q3"
+        "2009 Q4",
+        "2010 Q1",
+        "2010 Q2",
+        "2010 Q3"
       ],
       "errors": {},
       "attempts": {},
       "pendingRefreshQuarters": [
-        "2009 Q4",
-        "2010 Q1",
-        "2010 Q2",
-        "2010 Q3",
         "2010 Q4",
         "2011 Q1",
         "2011 Q2",
@@ -14849,10 +14845,20 @@
         "accessionDashed": "0001172661-10-000226",
         "filingDate": "2010-02-16",
         "reportDate": "2009-12-31",
+        "form": "13F-HR",
+        "primaryDocument": "pers4q09.txt",
         "cik": "1336528",
         "url": "https://www.sec.gov/Archives/edgar/data/1336528/0001172661-10-000226.txt",
         "format": "legacy_13f",
-        "parserVersion": 2
+        "parserVersion": 6,
+        "sourceReconciliation": {
+          "status": "reconciled",
+          "reportedEntries": 13,
+          "parsedEntries": 13,
+          "reportedValue": 1413026000,
+          "tableValue": 1413026000,
+          "difference": 0
+        }
       },
       "2010 Q1": {
         "cik": "1336528",
@@ -14863,7 +14869,7 @@
         "amendmentType": "RESTATEMENT",
         "url": "https://www.sec.gov/Archives/edgar/data/1336528/0001172661-10-000509.txt",
         "format": "legacy_13f",
-        "parserVersion": 4,
+        "parserVersion": 6,
         "sourceReconciliation": {
           "status": "reconciled",
           "reportedEntries": 16,
@@ -14878,20 +14884,40 @@
         "accessionDashed": "0001172661-10-000510",
         "filingDate": "2010-08-16",
         "reportDate": "2010-06-30",
+        "form": "13F-HR",
+        "primaryDocument": "pers2q10.txt",
         "cik": "1336528",
         "url": "https://www.sec.gov/Archives/edgar/data/1336528/0001172661-10-000510.txt",
         "format": "legacy_13f",
-        "parserVersion": 2
+        "parserVersion": 6,
+        "sourceReconciliation": {
+          "status": "reconciled",
+          "reportedEntries": 20,
+          "parsedEntries": 20,
+          "reportedValue": 3502028000,
+          "tableValue": 3502028000,
+          "difference": 0
+        }
       },
       "2010 Q3": {
         "accession": "000117266110000669",
         "accessionDashed": "0001172661-10-000669",
         "filingDate": "2010-11-15",
         "reportDate": "2010-09-30",
+        "form": "13F-HR",
+        "primaryDocument": "pers3q10.txt",
         "cik": "1336528",
         "url": "https://www.sec.gov/Archives/edgar/data/1336528/0001172661-10-000669.txt",
         "format": "legacy_13f",
-        "parserVersion": 2
+        "parserVersion": 6,
+        "sourceReconciliation": {
+          "status": "reconciled",
+          "reportedEntries": 22,
+          "parsedEntries": 22,
+          "reportedValue": 4040622000,
+          "tableValue": 4040622000,
+          "difference": 0
+        }
       },
       "2010 Q4": {
         "accession": "000117266111000236",
@@ -14997,7 +15023,7 @@
     "instrumentVerification": {
       "pendingQuarters": [],
       "errors": {},
-      "checkedAt": "2026-10-31T02:58:00.585894+00:00"
+      "checkedAt": "2026-10-31T17:30:48.357640+00:00"
     },
     "valueAudit": {
       "2026 Q2": {
@@ -15161,7 +15187,7 @@
       },
       "2013 Q4": {
         "version": 1,
-        "checkedAt": "2026-10-29",
+        "checkedAt": "2026-10-31",
         "source": "https://www.sec.gov/Archives/edgar/data/1336528/000117266114000750/infotable.xml",
         "filingDate": "2014-02-14",
         "sourceDigest": "20273c35e19aa83217140c7d09f77c739b08bc31154e6cab22dc85b9784f3512",
@@ -15175,7 +15201,7 @@
             "price": 111.78000368499755,
             "date": "2013-12-31",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/APD?period1=0&period2=1793378861&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/APD?period1=0&period2=1793554251&interval=1d&events=splits",
             "candidates": [
               1
             ]
@@ -15187,7 +15213,7 @@
             "price": 81.41000366210938,
             "date": "2013-12-31",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/PG?period1=0&period2=1793378862&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/PG?period1=0&period2=1793554251&interval=1d&events=splits",
             "candidates": [
               1
             ]
@@ -15198,7 +15224,7 @@
       },
       "2014 Q1": {
         "version": 1,
-        "checkedAt": "2026-10-29",
+        "checkedAt": "2026-10-31",
         "source": "https://www.sec.gov/Archives/edgar/data/1336528/000117266114001128/infotable.xml",
         "filingDate": "2014-05-15",
         "sourceDigest": "f69b5134286ca50c2940b09f52dc92401dafffa24245fd9c03f5e0a33682c4b7",
@@ -15212,7 +15238,7 @@
             "price": 119.04000337982177,
             "date": "2014-03-31",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/APD?period1=0&period2=1793378861&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/APD?period1=0&period2=1793554251&interval=1d&events=splits",
             "candidates": [
               1
             ]
@@ -15223,7 +15249,7 @@
       },
       "2014 Q2": {
         "version": 1,
-        "checkedAt": "2026-10-29",
+        "checkedAt": "2026-10-31",
         "source": "https://www.sec.gov/Archives/edgar/data/1336528/000117266114001490/infotable.xml",
         "filingDate": "2014-08-14",
         "sourceDigest": "2d3280638d3ad9c212ec0f41e3742dfd2ab83a257f3828142977c4f4321833c5",
@@ -15237,7 +15263,7 @@
             "price": 128.619998046875,
             "date": "2014-06-30",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/APD?period1=0&period2=1793378861&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/APD?period1=0&period2=1793554251&interval=1d&events=splits",
             "candidates": [
               1
             ]
@@ -15248,7 +15274,7 @@
       },
       "2014 Q3": {
         "version": 1,
-        "checkedAt": "2026-10-29",
+        "checkedAt": "2026-10-31",
         "source": "https://www.sec.gov/Archives/edgar/data/1336528/000117266114001862/infotable.xml",
         "filingDate": "2014-11-14",
         "sourceDigest": "16d3b823356afae6730f63866749f85af429622eb38e788c10d23da5b252a81d",
@@ -15262,7 +15288,7 @@
             "price": 130.17999736785887,
             "date": "2014-09-30",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/APD?period1=0&period2=1793378861&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/APD?period1=0&period2=1793554251&interval=1d&events=splits",
             "candidates": [
               1
             ]
@@ -15274,7 +15300,7 @@
             "price": 36.95000076293945,
             "date": "2014-09-30",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/ZTS?period1=0&period2=1793378864&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/ZTS?period1=0&period2=1793554252&interval=1d&events=splits",
             "candidates": [
               1
             ]
@@ -18464,7 +18490,7 @@
       },
       "2005 Q4": {
         "version": 1,
-        "checkedAt": "2026-10-30",
+        "checkedAt": "2026-10-31",
         "source": "https://www.sec.gov/Archives/edgar/data/1336528/0001172661-06-000115.txt",
         "filingDate": "2006-02-14",
         "sourceDigest": "471985c6ededc211ed237f2376494fa38d7052b57afb1bfdd787182d7dfa2740",
@@ -18478,7 +18504,7 @@
             "price": 33.720001220703125,
             "date": "2005-12-30",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/MCD?period1=0&period2=1793414999&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/MCD?period1=0&period2=1793554252&interval=1d&events=splits",
             "candidates": [
               1
             ]
@@ -19509,7 +19535,7 @@
       },
       "2010 Q1": {
         "version": 1,
-        "checkedAt": "2026-10-30",
+        "checkedAt": "2026-10-31",
         "source": "https://www.sec.gov/Archives/edgar/data/1336528/0001172661-10-000509.txt",
         "filingDate": "2010-08-16",
         "sourceDigest": "f65b7c6a10649196fe735fdc4fd78a740d8d5f8d901b12878a6cc6f13fc78079",
@@ -19523,7 +19549,7 @@
             "price": 52.599998474121094,
             "date": "2010-03-31",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/TGT?period1=0&period2=1793471028&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/TGT?period1=0&period2=1793554250&interval=1d&events=splits",
             "candidates": [
               1
             ]
@@ -19535,7 +19561,7 @@
             "price": 38.330000345230104,
             "date": "2010-03-31",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/YUM?period1=0&period2=1793471029&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/YUM?period1=0&period2=1793554250&interval=1d&events=splits",
             "candidates": [
               1
             ]

@@ -36527,9 +36527,9 @@
           ],
           "ticker": "?Chesapeake Energy Corp",
           "sector": "油气勘探开发",
+          "cnName": "切萨皮克能源",
           "prevShares": 4436930,
           "prevValue": 24547000,
-          "cnName": "切萨皮克能源",
           "displayName": "Chesapeake Energy",
           "sectorEn": "Oil and gas exploration"
         },
@@ -36852,9 +36852,9 @@
           ],
           "ticker": "?Chesapeake Ener Cor",
           "sector": "油气勘探开发",
+          "cnName": "切萨皮克能源",
           "prevShares": 2654930,
           "prevValue": 19082000,
-          "cnName": "切萨皮克能源",
           "displayName": "Chesapeake Energy",
           "sectorEn": "Oil and gas exploration"
         },
@@ -74374,6 +74374,236 @@
         "checkedAt": "2026-10-31",
         "normalizedHash": "c4866aa930628ef6121a24f87628b02c06ac364bdfa679f3f2fd62059954e591",
         "error": "Legacy table reconciliation failed: 24/25 rows, $222661000/$228622133000"
+      },
+      "2000 Q2": {
+        "version": 1,
+        "checkedAt": "2026-10-31",
+        "source": "https://www.sec.gov/Archives/edgar/data/1006438/0001006438-00-000015.txt",
+        "filingDate": "2000-08-15",
+        "sourceDigest": "b0507be74ad7832cd397b011d52cf2980091c9f2b3fa1752bfef6a70f1aa67d0",
+        "sourceHash": "1d51d853157a5cd11e5647db9a38a8aae57b5bdab1002e2b396d0d53c0884b95",
+        "status": "verified",
+        "factor": 1,
+        "anchors": [
+          {
+            "ticker": "VTR",
+            "cusip": "92276F100",
+            "filedPrice": 3.1874332122248346,
+            "price": 3.203124985098839,
+            "date": "2000-06-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/VTR?period1=0&period2=1793554190&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "WM",
+            "cusip": "94106L109",
+            "filedPrice": 19.000065142336005,
+            "price": 19.0,
+            "date": "2000-06-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/WM?period1=0&period2=1793554190&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "ALL",
+            "cusip": "020002101",
+            "filedPrice": 22.5,
+            "price": 22.25,
+            "date": "2000-06-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/ALL?period1=0&period2=1793554191&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "PKG",
+            "cusip": "695156109",
+            "filedPrice": 10.124444444444444,
+            "price": 10.125,
+            "date": "2000-06-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/PKG?period1=0&period2=1793554191&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          }
+        ],
+        "agreementCount": 4,
+        "anchorCount": 4,
+        "outlierTickers": [],
+        "normalizedHash": "1d51d853157a5cd11e5647db9a38a8aae57b5bdab1002e2b396d0d53c0884b95"
+      },
+      "2000 Q3": {
+        "version": 1,
+        "checkedAt": "2026-10-31",
+        "source": "https://www.sec.gov/Archives/edgar/data/1006438/0001006438-00-000018.txt",
+        "filingDate": "2000-11-13",
+        "sourceDigest": "81ced6cfad8489d7161f0f775b0946fde1279916f1cf650f1b9f257777f6c6f0",
+        "sourceHash": "9b2c49796a6f58f6b49f8dc2b9d856c9aa6a9c3b219d8ccea6733a0c14b591be",
+        "status": "verified",
+        "factor": 1,
+        "anchors": [
+          {
+            "ticker": "VTR",
+            "cusip": "92276F100",
+            "filedPrice": 5.00021372088053,
+            "price": 5.000000251722336,
+            "date": "2000-09-29",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/VTR?period1=0&period2=1793554190&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "ALL",
+            "cusip": "020002101",
+            "filedPrice": 34.75076923076923,
+            "price": 34.75,
+            "date": "2000-09-29",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/ALL?period1=0&period2=1793554191&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "CBT",
+            "cusip": "127055101",
+            "filedPrice": 31.687413554633473,
+            "price": 31.6875,
+            "date": "2000-09-29",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/CBT?period1=0&period2=1793554191&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          }
+        ],
+        "agreementCount": 3,
+        "anchorCount": 3,
+        "outlierTickers": [],
+        "normalizedHash": "9b2c49796a6f58f6b49f8dc2b9d856c9aa6a9c3b219d8ccea6733a0c14b591be"
+      },
+      "2000 Q4": {
+        "version": 1,
+        "checkedAt": "2026-10-31",
+        "source": "https://www.sec.gov/Archives/edgar/data/1006438/0001006438-01-000004.txt",
+        "filingDate": "2001-02-14",
+        "sourceDigest": "bd69f5cff9d11e886a74bde1d5235222ede755268e1d9a3e3109f78540aef78c",
+        "sourceHash": "0251278957a2733ab892b2f1685c406258da106b5746a451c6795b74ec77afa7",
+        "status": "verified",
+        "factor": 1,
+        "anchors": [
+          {
+            "ticker": "VTR",
+            "cusip": "92276F100",
+            "filedPrice": 5.625133575550331,
+            "price": 5.625000126600265,
+            "date": "2000-12-29",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/VTR?period1=0&period2=1793554190&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "EIX",
+            "cusip": "281020107",
+            "filedPrice": 15.623781676413255,
+            "price": 15.625,
+            "date": "2000-12-29",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/EIX?period1=0&period2=1793554192&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "PCG",
+            "cusip": "69331C108",
+            "filedPrice": 20.0,
+            "price": 20.0,
+            "date": "2000-12-29",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/PCG?period1=0&period2=1793554193&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          }
+        ],
+        "agreementCount": 3,
+        "anchorCount": 3,
+        "outlierTickers": [],
+        "normalizedHash": "0251278957a2733ab892b2f1685c406258da106b5746a451c6795b74ec77afa7"
+      },
+      "2001 Q3": {
+        "version": 1,
+        "checkedAt": "2026-10-31",
+        "source": "https://www.sec.gov/Archives/edgar/data/1006438/0001006438-01-500011.txt",
+        "filingDate": "2001-10-25",
+        "sourceDigest": "070f08d337ee09691f92722482041636e52d0c0e1239349a515990351e6230b3",
+        "sourceHash": "2bac86df7f40420a74260be1c212524ae75733f0f2a0d26cb3425bc54dab654d",
+        "status": "pending",
+        "anchors": [
+          {
+            "ticker": "EIX",
+            "cusip": "281020107",
+            "filedPrice": 13.16,
+            "price": 13.15999984741211,
+            "date": "2001-09-28",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/EIX?period1=0&period2=1793554192&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          }
+        ],
+        "errors": [],
+        "normalizedHash": "2bac86df7f40420a74260be1c212524ae75733f0f2a0d26cb3425bc54dab654d"
+      },
+      "2002 Q4": {
+        "version": 1,
+        "checkedAt": "2026-10-31",
+        "source": "https://www.sec.gov/Archives/edgar/data/1006438/0001006438-03-000002.txt",
+        "filingDate": "2003-02-11",
+        "sourceDigest": "6302681ff780813a236510251e14ee1f3c303cb3212a94b9dac3266064ea5604",
+        "sourceHash": "daa641e4ab7381e0170fd11d69e1d4e06d431bade90684abac73d22837a3e4fe",
+        "status": "pending",
+        "anchors": [
+          {
+            "ticker": "EIX",
+            "cusip": "281020107",
+            "filedPrice": 11.850043591979075,
+            "price": 11.850000381469727,
+            "date": "2002-12-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/EIX?period1=0&period2=1793554192&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "PCG",
+            "cusip": "69331C108",
+            "filedPrice": 13.900229885057472,
+            "price": 13.899999618530273,
+            "date": "2002-12-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/PCG?period1=0&period2=1793554193&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          }
+        ],
+        "errors": [],
+        "normalizedHash": "daa641e4ab7381e0170fd11d69e1d4e06d431bade90684abac73d22837a3e4fe"
       }
     },
     "values": [
@@ -74479,11 +74709,11 @@
     "instrumentVerification": {
       "pendingQuarters": [],
       "errors": {},
-      "checkedAt": "2026-10-31T02:57:14.664770+00:00"
+      "checkedAt": "2026-10-31T17:29:48.839839+00:00"
     },
     "excludedValueQuarters": [],
     "coverage": {
-      "checkedAt": "2026-10-31T02:57:15Z",
+      "checkedAt": "2026-10-31T17:29:49Z",
       "missingQuarters": [
         "1999 Q3",
         "1999 Q4",
@@ -74515,17 +74745,17 @@
         "1999 Q1": "Legacy table reconciliation failed: 24/25 rows, $222661000/$228622133000"
       },
       "attempts": {
-        "1999 Q1": 3,
+        "2000 Q1": 4,
+        "2001 Q4": 4,
         "1999 Q4": 4,
         "2002 Q1": 4,
-        "2001 Q4": 4,
-        "2003 Q1": 4,
-        "2003 Q3": 3,
         "1999 Q3": 4,
-        "2003 Q4": 3,
-        "2000 Q1": 4,
+        "2003 Q4": 4,
         "2010 Q3": 3,
-        "2010 Q2": 3,
+        "2003 Q3": 4,
+        "1999 Q1": 4,
+        "2010 Q2": 4,
+        "2003 Q1": 4,
         "2003 Q2": 4
       },
       "pendingRefreshQuarters": [
@@ -74587,7 +74817,7 @@
         "schemaVersion": 1,
         "cik": "1656456",
         "checkedAt": "2026-10-29T16:46:19Z",
-        "attemptedAt": "2026-10-31T02:57:15Z",
+        "attemptedAt": "2026-10-31T17:29:49Z",
         "status": "checked",
         "indexes": {
           "2004/QTR3": {
@@ -74934,7 +75164,7 @@
     ],
     "manager": "Appaloosa LP",
     "costHistoryFrom": "2016 Q1",
-    "lastUpdated": "2026-10-31T02:57:14Z",
+    "lastUpdated": "2026-10-31T17:29:48Z",
     "notablePeople": [
       "David Tepper"
     ],
