@@ -2351,10 +2351,10 @@
       "reason": "ValueError: Bilingual editorial review: The source text (s3) states: 'The more you bet, the more you win when you win.' The content section paraphrases this as 'the more yo"
     },
     "marks-6a1195ae7f8bbb": {
-      "at": "2026-10-31T15:16:01+00:00",
+      "at": "2026-10-31T20:10:40+00:00",
       "status": "retry",
       "inputHash": "f9da1a2ddb765e6673faf0216f98af4672edb18ae91bed5415a958414b98ed2e",
-      "reason": "ValueError: Copied source passage"
+      "reason": "JSONDecodeError: Expecting ',' delimiter: line 4 column 9 (char 560)"
     },
     "marks-76d48589ef63f2": {
       "at": "2026-10-31T18:12:00+00:00",
@@ -3574,5 +3574,5 @@
       "reason": "ValueError: Bilingual editorial review: The source text contains garbled characters and formatting errors (e.g., '!\"!!', '(*95&*.4*', 'Ö') that do not support the specific "
     }
   },
-  "updatedAt": "2026-10-31T20:10:12+00:00"
+  "updatedAt": "2026-10-31T20:10:40+00:00"
 }
