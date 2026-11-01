@@ -1554,10 +1554,10 @@
       "reason": "ValueError: Bilingual editorial review: The source text (s1, s2, s6) does not mention 'Jack' or a specific conspiracy theory named 'Jack'; the content section invents this "
     },
     "pabrai-a93149b98a61c2": {
-      "at": "2026-10-31T22:17:02+00:00",
+      "at": "2026-11-01T05:09:04+00:00",
       "status": "retry",
       "inputHash": "c5ae94b4dec8734e12b974d3f3121c1fb7a2a833e59653a9092d27276c4dda8c",
-      "reason": "ValueError: Unsupported numerical claim: 1974"
+      "reason": "JSONDecodeError: Extra data: line 3 column 1 (char 2649)"
     },
     "pabrai-3c50faebea715c": {
       "at": "2026-10-31T23:44:12+00:00",
@@ -3574,5 +3574,5 @@
       "reason": "ValueError: Bilingual editorial review: The English text incorrectly states the S&P 500 'underperformed' over the same period; source s0 shows the Fund underperformed (-20."
     }
   },
-  "updatedAt": "2026-11-01T05:06:13+00:00"
+  "updatedAt": "2026-11-01T05:09:04+00:00"
 }
