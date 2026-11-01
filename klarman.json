@@ -5,7 +5,7 @@
     "notablePeople": [
       "Seth Klarman"
     ],
-    "lastUpdated": "2026-11-01T02:49:56Z",
+    "lastUpdated": "2026-11-01T18:15:08Z",
     "aiSummary": "克拉曼大幅增持亚马逊与谷歌，新进芝商所等，显示其持续看好科技巨头及特定周期机会，同时减持部分传统行业仓位。",
     "aiSummaryQuarter": "2026 Q2",
     "shareActions": [
@@ -30135,11 +30135,11 @@
           ],
           "ticker": "C",
           "sector": "银行",
-          "prevShares": 4307621,
-          "prevValue": 4652000,
           "cnName": "花旗集团",
           "displayName": "Citigroup",
-          "sectorEn": "Banking"
+          "sectorEn": "Banking",
+          "prevShares": 4307621,
+          "prevValue": 4652000
         },
         {
           "name": "NATUS MEDICAL INC DEL",
@@ -30400,11 +30400,11 @@
           ],
           "ticker": "C",
           "sector": "银行",
-          "prevShares": 4307621,
-          "prevValue": 4566000,
           "cnName": "花旗集团",
           "displayName": "Citigroup",
-          "sectorEn": "Banking"
+          "sectorEn": "Banking",
+          "prevShares": 4307621,
+          "prevValue": 4566000
         },
         {
           "name": "US AIRWAYS GROUP INC",
@@ -30625,11 +30625,11 @@
           ],
           "ticker": "C",
           "sector": "银行",
-          "prevShares": 4307621,
-          "prevValue": 4221000,
           "cnName": "花旗集团",
           "displayName": "Citigroup",
-          "sectorEn": "Banking"
+          "sectorEn": "Banking",
+          "prevShares": 4307621,
+          "prevValue": 4221000
         },
         {
           "name": "DIME BANCORP INC NEW",
@@ -63312,25 +63312,22 @@
       ]
     },
     "coverage": {
-      "checkedAt": "2026-11-01T02:49:56Z",
+      "checkedAt": "2026-11-01T18:15:09Z",
       "missingQuarters": [
         "1999 Q3"
       ],
       "repairedThisRun": [
-        "2003 Q1",
-        "2003 Q2",
-        "2003 Q3"
+        "2003 Q4",
+        "2004 Q1",
+        "2004 Q2"
       ],
       "errors": {
         "1999 Q3": "Legacy table reconciliation failed: 40/41 rows, $610102000/$647531000"
       },
       "attempts": {
-        "1999 Q3": 20
+        "1999 Q3": 21
       },
       "pendingRefreshQuarters": [
-        "2003 Q4",
-        "2004 Q1",
-        "2004 Q2",
         "2004 Q3",
         "2004 Q4",
         "2005 Q1",
@@ -63918,7 +63915,7 @@
         "amendmentType": "RESTATEMENT",
         "url": "https://www.sec.gov/Archives/edgar/data/1061768/0001061768-04-000025.txt",
         "format": "legacy_13f",
-        "parserVersion": 4,
+        "parserVersion": 6,
         "sourceReconciliation": {
           "status": "reconciled",
           "reportedEntries": 13,
@@ -63933,10 +63930,12 @@
         "accessionDashed": "0001061768-04-000029",
         "filingDate": "2004-05-13",
         "reportDate": "2004-03-31",
+        "form": "13F-HR",
+        "primaryDocument": "filing0304.txt",
         "cik": "1061768",
         "url": "https://www.sec.gov/Archives/edgar/data/1061768/0001061768-04-000029.txt",
         "format": "legacy_13f",
-        "parserVersion": 3,
+        "parserVersion": 6,
         "sourceReconciliation": {
           "status": "reconciled",
           "reportedEntries": 11,
@@ -63951,10 +63950,12 @@
         "accessionDashed": "0001061768-04-000035",
         "filingDate": "2004-08-13",
         "reportDate": "2004-06-30",
+        "form": "13F-HR",
+        "primaryDocument": "filing0604.txt",
         "cik": "1061768",
         "url": "https://www.sec.gov/Archives/edgar/data/1061768/0001061768-04-000035.txt",
         "format": "legacy_13f",
-        "parserVersion": 3,
+        "parserVersion": 6,
         "sourceReconciliation": {
           "status": "reconciled",
           "reportedEntries": 9,
@@ -68960,7 +68961,7 @@
       },
       "2002 Q2": {
         "version": 1,
-        "checkedAt": "2026-10-30",
+        "checkedAt": "2026-11-01",
         "source": "https://www.sec.gov/Archives/edgar/data/1061768/0001061768-02-000010.txt",
         "filingDate": "2002-08-13",
         "sourceDigest": "6fb4ad7850171de58a6d988cac9507858334096d26177762b021665a6b22f4d4",
@@ -68974,7 +68975,7 @@
             "price": 11.299999865055085,
             "date": "2002-06-28",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/HST?period1=0&period2=1793414991&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/HST?period1=0&period2=1793643310&interval=1d&events=splits",
             "candidates": [
               1
             ]
@@ -68985,7 +68986,7 @@
       },
       "2002 Q3": {
         "version": 1,
-        "checkedAt": "2026-10-30",
+        "checkedAt": "2026-11-01",
         "source": "https://www.sec.gov/Archives/edgar/data/1061768/0001061768-02-000012.txt",
         "filingDate": "2002-11-14",
         "sourceDigest": "e7d3594d1ba34514df012bfaf0baf0a6626d2a0f131693a1c46f287f2d8d5ddb",
@@ -68999,7 +69000,7 @@
             "price": 9.3100004196167,
             "date": "2002-09-30",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/XEL?period1=0&period2=1793416807&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/XEL?period1=0&period2=1793643311&interval=1d&events=splits",
             "candidates": [
               1
             ]
@@ -69010,7 +69011,7 @@
       },
       "2002 Q4": {
         "version": 1,
-        "checkedAt": "2026-10-30",
+        "checkedAt": "2026-11-01",
         "source": "https://www.sec.gov/Archives/edgar/data/1061768/0001061768-03-000018.txt",
         "filingDate": "2003-02-13",
         "sourceDigest": "4af7664c6684143cfe8f91091c6ea9682dd08b485cff38c32cd071daf09e4757",
@@ -69024,7 +69025,7 @@
             "price": 11.0,
             "date": "2002-12-31",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/XEL?period1=0&period2=1793416807&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/XEL?period1=0&period2=1793643311&interval=1d&events=splits",
             "candidates": [
               1
             ]
@@ -69602,7 +69603,7 @@
       },
       "2001 Q4": {
         "version": 1,
-        "checkedAt": "2026-10-30",
+        "checkedAt": "2026-11-01",
         "source": "https://www.sec.gov/Archives/edgar/data/1054420/0001054420-02-000044.txt",
         "filingDate": "2002-02-13",
         "sourceDigest": "59a768eafec42b25983f189740fb3a00aac0a8874689b4dd23928275c362ae47",
@@ -69616,7 +69617,7 @@
             "price": 13.100000381469727,
             "date": "2001-12-31",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/HAL?period1=0&period2=1793414991&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/HAL?period1=0&period2=1793643310&interval=1d&events=splits",
             "candidates": [
               1
             ]
@@ -69628,18 +69629,18 @@
             "price": 49.5,
             "date": "2001-12-31",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/ELV?period1=0&period2=1793414991&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/ELV?period1=0&period2=1793643310&interval=1d&events=splits",
             "candidates": [
               1
             ]
           }
         ],
         "errors": [],
-        "normalizedHash": "a87488ce800b88dd8c00eeb47df23ab096e4bf1e85099d93f4e6d52c8699e353"
+        "normalizedHash": "38756d2b12beba9d89432c02e5a63219dc9015e8d46ad74d42dcd945d1c2c794"
       },
       "2002 Q1": {
         "version": 1,
-        "checkedAt": "2026-10-30",
+        "checkedAt": "2026-11-01",
         "source": "https://www.sec.gov/Archives/edgar/data/1054420/0001054420-02-000061.txt",
         "filingDate": "2002-05-10",
         "sourceDigest": "60fefaaaa3eb6f442bf11c94f012ea71711aeacbfca9bb533f6c090b8f95c3ea",
@@ -69647,7 +69648,7 @@
         "status": "pending",
         "anchors": [],
         "errors": [],
-        "normalizedHash": "ce0b5f075152457b34b44de0340b15b536eebde33a7eb8151cd49357a36097f2"
+        "normalizedHash": "24ed950594504d6861d95c65cd66ad736994d2db828672944a34c9391db4c7c1"
       },
       "2007 Q3": {
         "version": 1,
@@ -69700,18 +69701,6 @@
         "anchorCount": 3,
         "outlierTickers": [],
         "normalizedHash": "dee1534b54c7489d8155bf5d3c8c44a73830daec2f7c61b8b6391fcb7cc482b0"
-      },
-      "2003 Q4": {
-        "version": 1,
-        "checkedAt": "2026-10-30",
-        "source": "https://www.sec.gov/Archives/edgar/data/1061768/0001061768-04-000025.txt",
-        "filingDate": "2004-02-19",
-        "sourceDigest": "5682224229e7e6fccdcc22fae71eda8907301aeb907bdea8e5b6b9455eac0520",
-        "sourceHash": "859eaa33e0c6253ad4836d2899e3a44de6a699891882835426a43cb9e17a5284",
-        "status": "pending",
-        "anchors": [],
-        "errors": [],
-        "normalizedHash": "859eaa33e0c6253ad4836d2899e3a44de6a699891882835426a43cb9e17a5284"
       },
       "2009 Q2": {
         "version": 1,
@@ -69824,6 +69813,18 @@
         ],
         "errors": [],
         "normalizedHash": "2ff2cd5142c4f65683cc20231875bd321291aa2af490912cbe8314fa918a67ca"
+      },
+      "2003 Q4": {
+        "version": 1,
+        "checkedAt": "2026-11-01",
+        "source": "https://www.sec.gov/Archives/edgar/data/1061768/0001061768-04-000025.txt",
+        "filingDate": "2004-02-19",
+        "sourceDigest": "5682224229e7e6fccdcc22fae71eda8907301aeb907bdea8e5b6b9455eac0520",
+        "sourceHash": "859eaa33e0c6253ad4836d2899e3a44de6a699891882835426a43cb9e17a5284",
+        "status": "pending",
+        "anchors": [],
+        "errors": [],
+        "normalizedHash": "859eaa33e0c6253ad4836d2899e3a44de6a699891882835426a43cb9e17a5284"
       }
     },
     "restatementLookupError": "ParseError: mismatched tag: line 108, column 2"

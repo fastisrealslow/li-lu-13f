@@ -155,6 +155,16 @@
         "result": "additive",
         "checkedAt": "2026-11-01",
         "url": "https://www.sec.gov/Archives/edgar/data/949509/0000949509-05-000009.txt"
+      },
+      "0000949509-05-000005": {
+        "result": "restatement",
+        "checkedAt": "2026-11-01",
+        "url": "https://www.sec.gov/Archives/edgar/data/949509/0000949509-05-000005.txt"
+      },
+      "0000949509-04-000014": {
+        "result": "restatement",
+        "checkedAt": "2026-11-01",
+        "url": "https://www.sec.gov/Archives/edgar/data/949509/0000949509-04-000014.txt"
       }
     },
     "holdings": {
@@ -303507,8 +303517,8 @@
           "sector": "其他"
         },
         {
-          "name": "SAPPI LTD",
-          "cls": "SPON ADR NEW",
+          "name": "SAPPI LTD                      SPON",
+          "cls": "ADR NEW",
           "cusip": "803069202",
           "value": 4858000,
           "shares": 355400,
@@ -303521,7 +303531,7 @@
               "value": 4858000
             }
           ],
-          "ticker": "?SAPPI LTD",
+          "ticker": "?SAPPI LTD                      SPON",
           "sector": "其他"
         },
         {
@@ -303543,8 +303553,8 @@
           "sector": "其他"
         },
         {
-          "name": "GRUPO TELEVISA SA DE CV        SP ADR REP",
-          "cls": "ORD",
+          "name": "GRUPO TELEVISA SA DE",
+          "cls": "CV        SP ADR REP ORD",
           "cusip": "40049J206",
           "value": 4648000,
           "shares": 116600,
@@ -308054,29 +308064,6 @@
           "sector": "其他"
         },
         {
-          "name": "TELEWEST GLOBAL INC",
-          "cls": "COM",
-          "cusip": "87956T107",
-          "value": 324957000,
-          "shares": 27965336,
-          "shareType": "SH",
-          "putCall": "",
-          "managerAllocations": [
-            {
-              "managerIds": [],
-              "shares": 14131785,
-              "value": 164211000
-            },
-            {
-              "managerIds": [],
-              "shares": 13833551,
-              "value": 160746000
-            }
-          ],
-          "ticker": "?TELEWEST GLOBAL INC",
-          "sector": "其他"
-        },
-        {
           "name": "INFRASOURCE SVCS INC",
           "cls": "COM",
           "cusip": "45684P102",
@@ -308092,6 +308079,24 @@
             }
           ],
           "ticker": "?INFRASOURCE SVCS INC",
+          "sector": "其他"
+        },
+        {
+          "name": "TELEWEST GLOBAL INC",
+          "cls": "COM",
+          "cusip": "87956T107",
+          "value": 164211000,
+          "shares": 14131785,
+          "shareType": "SH",
+          "putCall": "",
+          "managerAllocations": [
+            {
+              "managerIds": [],
+              "shares": 14131785,
+              "value": 164211000
+            }
+          ],
+          "ticker": "?TELEWEST GLOBAL INC",
           "sector": "其他"
         },
         {
@@ -308308,24 +308313,6 @@
             }
           ],
           "ticker": "?ROPER INDS INC NEW",
-          "sector": "其他"
-        },
-        {
-          "name": "MCI INC",
-          "cls": "COM",
-          "cusip": "552691107",
-          "value": 44341000,
-          "shares": 2647205,
-          "shareType": "SH",
-          "putCall": "",
-          "managerAllocations": [
-            {
-              "managerIds": [],
-              "shares": 2647205,
-              "value": 44341000
-            }
-          ],
-          "ticker": "?MCI INC",
           "sector": "其他"
         },
         {
@@ -308596,6 +308583,24 @@
             }
           ],
           "ticker": "?LODGIAN INC",
+          "sector": "其他"
+        },
+        {
+          "name": "MCI INC",
+          "cls": "COM",
+          "cusip": "552691107",
+          "value": 23634000,
+          "shares": 1410991,
+          "shareType": "SH",
+          "putCall": "",
+          "managerAllocations": [
+            {
+              "managerIds": [],
+              "shares": 1410991,
+              "value": 23634000
+            }
+          ],
+          "ticker": "?MCI INC",
           "sector": "其他"
         },
         {
@@ -309808,8 +309813,8 @@
           "sector": "其他"
         },
         {
-          "name": "SAPPI LTD",
-          "cls": "SPON ADR NEW",
+          "name": "SAPPI LTD                      SPON",
+          "cls": "ADR NEW",
           "cusip": "803069202",
           "value": 8127000,
           "shares": 567540,
@@ -309822,7 +309827,7 @@
               "value": 8127000
             }
           ],
-          "ticker": "?SAPPI LTD",
+          "ticker": "?SAPPI LTD                      SPON",
           "sector": "其他"
         },
         {
@@ -311274,26 +311279,6 @@
           "prevValue": 457098000
         },
         {
-          "name": "TELEWEST GLOBAL INC",
-          "cls": "COM",
-          "cusip": "87956T107",
-          "value": 491631000,
-          "shares": 27965336,
-          "shareType": "SH",
-          "putCall": "",
-          "managerAllocations": [
-            {
-              "managerIds": [],
-              "shares": 27965336,
-              "value": 491631000
-            }
-          ],
-          "ticker": "?TELEWEST GLOBAL INC",
-          "sector": "其他",
-          "prevShares": 27965336,
-          "prevValue": 324957000
-        },
-        {
           "name": "INFRASOURCE SVCS INC",
           "cls": "COM",
           "cusip": "45684P102",
@@ -311312,6 +311297,26 @@
           "sector": "其他",
           "prevShares": 25538024,
           "prevValue": 241334000
+        },
+        {
+          "name": "TELEWEST GLOBAL INC",
+          "cls": "COM",
+          "cusip": "87956T107",
+          "value": 248437000,
+          "shares": 14131785,
+          "shareType": "SH",
+          "putCall": "",
+          "managerAllocations": [
+            {
+              "managerIds": [],
+              "shares": 14131785,
+              "value": 248437000
+            }
+          ],
+          "ticker": "?TELEWEST GLOBAL INC",
+          "sector": "其他",
+          "prevShares": 14131785,
+          "prevValue": 164211000
         },
         {
           "name": "JOY GLOBAL INC",
@@ -311350,8 +311355,8 @@
           ],
           "ticker": "?MCI INC",
           "sector": "其他",
-          "prevShares": 2647205,
-          "prevValue": 44341000
+          "prevShares": 1410991,
+          "prevValue": 23634000
         },
         {
           "name": "SCHLUMBERGER LTD",
@@ -312530,9 +312535,9 @@
           ],
           "ticker": "PBR",
           "sector": "能源",
-          "cnName": "Petróleo Brasileiro S.A. - Petrobras",
           "prevShares": 229600,
-          "prevValue": 8093000
+          "prevValue": 8093000,
+          "cnName": "Petróleo Brasileiro S.A. - Petrobras"
         },
         {
           "name": "CHESAPEAKE ENERGY CORP",
@@ -312551,9 +312556,9 @@
           ],
           "ticker": "CHK",
           "sector": "油气勘探开发",
+          "cnName": "切萨皮克能源",
           "prevShares": 109200,
           "prevValue": 12695000,
-          "cnName": "切萨皮克能源",
           "displayName": "Chesapeake Energy",
           "sectorEn": "Oil and gas exploration"
         },
@@ -313174,9 +313179,9 @@
           ],
           "ticker": "?CAPITALSOURCE INC",
           "sector": "商业贷款",
+          "cnName": "资本来源金融",
           "prevShares": 0,
           "prevValue": 0,
-          "cnName": "资本来源金融",
           "displayName": "CapitalSource",
           "sectorEn": "Commercial lending"
         },
@@ -393438,8 +393443,8 @@
           ],
           "ticker": "?TELEWEST GLOBAL INC",
           "sector": "其他",
-          "prevShares": 27965336,
-          "prevValue": 491631000
+          "prevShares": 14131785,
+          "prevValue": 248437000
         },
         {
           "name": "JOY GLOBAL INC",
@@ -450055,42 +450060,42 @@
         }
       },
       "2004 Q3": {
-        "accession": "000094950904000010",
-        "accessionDashed": "0000949509-04-000010",
-        "filingDate": "2004-11-12",
-        "reportDate": "2004-09-30",
-        "form": "13F-HR",
-        "primaryDocument": "r13f0930.txt",
         "cik": "949509",
-        "url": "https://www.sec.gov/Archives/edgar/data/949509/0000949509-04-000010.txt",
+        "accession": "000094950904000014",
+        "accessionDashed": "0000949509-04-000014",
+        "filingDate": "2004-11-17",
+        "reportDate": "2004-09-30",
+        "form": "13F-HR/A",
+        "amendmentType": "RESTATEMENT",
+        "url": "https://www.sec.gov/Archives/edgar/data/949509/0000949509-04-000014.txt",
         "format": "legacy_13f",
-        "parserVersion": 5,
+        "parserVersion": 6,
         "sourceReconciliation": {
           "status": "reconciled",
-          "reportedEntries": 179,
-          "parsedEntries": 179,
-          "reportedValue": 3499587000,
-          "tableValue": 3499587000,
+          "reportedEntries": 178,
+          "parsedEntries": 178,
+          "reportedValue": 3318134000,
+          "tableValue": 3318134000,
           "difference": 0
         }
       },
       "2004 Q4": {
-        "accession": "000094950905000002",
-        "accessionDashed": "0000949509-05-000002",
-        "filingDate": "2005-02-14",
-        "reportDate": "2004-12-31",
-        "form": "13F-HR",
-        "primaryDocument": "r13f4thq.txt",
         "cik": "949509",
-        "url": "https://www.sec.gov/Archives/edgar/data/949509/0000949509-05-000002.txt",
+        "accession": "000094950905000005",
+        "accessionDashed": "0000949509-05-000005",
+        "filingDate": "2005-02-22",
+        "reportDate": "2004-12-31",
+        "form": "13F-HR/A",
+        "amendmentType": "RESTATEMENT",
+        "url": "https://www.sec.gov/Archives/edgar/data/949509/0000949509-05-000005.txt",
         "format": "legacy_13f",
-        "parserVersion": 5,
+        "parserVersion": 6,
         "sourceReconciliation": {
           "status": "reconciled",
           "reportedEntries": 197,
           "parsedEntries": 197,
-          "reportedValue": 3996208000,
-          "tableValue": 3996208000,
+          "reportedValue": 3753014000,
+          "tableValue": 3753014000,
           "difference": 0
         }
       },
@@ -451148,7 +451153,7 @@
       },
       "2016 Q1": {
         "version": 1,
-        "checkedAt": "2026-10-31",
+        "checkedAt": "2026-11-01",
         "source": "https://www.sec.gov/Archives/edgar/data/949509/000094950916000011/1Q16_13F_XML.xml",
         "filingDate": "2016-05-16",
         "sourceDigest": "1e54966e500580f0257954f3df00ad6bd7ffea52ee5e6be968025601c04210e5",
@@ -451162,7 +451167,7 @@
             "price": 2.9200000762939453,
             "date": "2016-03-31",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/FBP?period1=0&period2=1793501918&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/FBP?period1=0&period2=1793643363&interval=1d&events=splits",
             "candidates": [
               1
             ]
@@ -451174,7 +451179,7 @@
             "price": 18.719999313354492,
             "date": "2016-03-31",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/ALLY?period1=0&period2=1793501918&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/ALLY?period1=0&period2=1793643363&interval=1d&events=splits",
             "candidates": [
               1
             ]
@@ -451186,7 +451191,7 @@
             "price": 4.53000020980835,
             "date": "2016-03-31",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/PBR-A?period1=0&period2=1793501918&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/PBR-A?period1=0&period2=1793643363&interval=1d&events=splits",
             "candidates": []
           },
           {
@@ -451196,7 +451201,7 @@
             "price": 7.670000076293945,
             "date": "2016-03-31",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/MTG?period1=0&period2=1793501918&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/MTG?period1=0&period2=1793643364&interval=1d&events=splits",
             "candidates": [
               1
             ]
@@ -451208,7 +451213,7 @@
             "price": 1.7799995183944701,
             "date": "2016-03-31",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/GGB?period1=0&period2=1793501919&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/GGB?period1=0&period2=1793643364&interval=1d&events=splits",
             "candidates": []
           }
         ],
@@ -455004,58 +455009,6 @@
         "outlierTickers": [],
         "normalizedHash": "df099ffc988a6cc4411c04078a5523eadbcd70351c40c0fa63d5c0f7fc89bb90"
       },
-      "2004 Q4": {
-        "version": 1,
-        "checkedAt": "2026-10-29",
-        "source": "https://www.sec.gov/Archives/edgar/data/949509/0000949509-05-000002.txt",
-        "filingDate": "2005-02-14",
-        "sourceDigest": "4115f44522692bc86f2f18c82677584c9842865a3107022f38bffe4eb5a5a13c",
-        "sourceHash": "43ec3d29f2bed326c265ef3032446ab4844f44d62aef105f8608ce90f4208533",
-        "status": "verified",
-        "factor": 1,
-        "anchors": [
-          {
-            "ticker": "PBR",
-            "cusip": "71654V408",
-            "filedPrice": 39.78015267175572,
-            "price": 39.779998779296875,
-            "date": "2004-12-31",
-            "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/PBR?period1=0&period2=1793386093&interval=1d&events=splits",
-            "candidates": [
-              1
-            ]
-          },
-          {
-            "ticker": "BVN",
-            "cusip": "204448104",
-            "filedPrice": 22.89943074003795,
-            "price": 22.899999618530273,
-            "date": "2004-12-31",
-            "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/BVN?period1=0&period2=1793386093&interval=1d&events=splits",
-            "candidates": [
-              1
-            ]
-          },
-          {
-            "ticker": "BP",
-            "cusip": "055622104",
-            "filedPrice": 58.39666357738647,
-            "price": 58.400001525878906,
-            "date": "2004-12-31",
-            "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/BP?period1=0&period2=1793386093&interval=1d&events=splits",
-            "candidates": [
-              1
-            ]
-          }
-        ],
-        "agreementCount": 3,
-        "anchorCount": 3,
-        "outlierTickers": [],
-        "normalizedHash": "43ec3d29f2bed326c265ef3032446ab4844f44d62aef105f8608ce90f4208533"
-      },
       "2006 Q1": {
         "version": 1,
         "checkedAt": "2026-10-29",
@@ -456402,6 +456355,243 @@
         "anchorCount": 3,
         "outlierTickers": [],
         "normalizedHash": "cf5810118d1cb790824e4de0224cb4c5ad1fb15907011b7b4fe01fe8654a5c20"
+      },
+      "2004 Q4": {
+        "version": 1,
+        "checkedAt": "2026-11-01",
+        "source": "https://www.sec.gov/Archives/edgar/data/949509/0000949509-05-000005.txt",
+        "filingDate": "2005-02-22",
+        "sourceDigest": "82b2be0cf15ca33c9cba42deb7d0f8ce6929e5dcb8b1ec83b525d361a6bb25f0",
+        "sourceHash": "0787f264bfea4ace702a2d2e0af78715e6b8dac4abd4ba2cdf0fbc047e1d9a53",
+        "status": "verified",
+        "factor": 1,
+        "anchors": [
+          {
+            "ticker": "PBR",
+            "cusip": "71654V408",
+            "filedPrice": 39.78015267175572,
+            "price": 39.779998779296875,
+            "date": "2004-12-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/PBR?period1=0&period2=1793643361&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "BVN",
+            "cusip": "204448104",
+            "filedPrice": 22.89943074003795,
+            "price": 22.899999618530273,
+            "date": "2004-12-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/BVN?period1=0&period2=1793643362&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "BP",
+            "cusip": "055622104",
+            "filedPrice": 58.39666357738647,
+            "price": 58.400001525878906,
+            "date": "2004-12-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/BP?period1=0&period2=1793643362&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          }
+        ],
+        "agreementCount": 3,
+        "anchorCount": 3,
+        "outlierTickers": [],
+        "normalizedHash": "0787f264bfea4ace702a2d2e0af78715e6b8dac4abd4ba2cdf0fbc047e1d9a53"
+      },
+      "2002 Q4": {
+        "version": 1,
+        "checkedAt": "2026-11-01",
+        "source": "https://www.sec.gov/Archives/edgar/data/949509/0000949509-03-000004.txt",
+        "filingDate": "2003-02-12",
+        "sourceDigest": "f4855c35807ee416fa0481eba4251bada42a20b63bf78dd88dcdc7053be10e1c",
+        "sourceHash": "42d68f92c2a99572353898076223a9ff2f1ff75381fa07b28c6d4a29e5a456d4",
+        "status": "pending",
+        "anchors": [
+          {
+            "ticker": "BVN",
+            "cusip": "204448104",
+            "filedPrice": 26.389408932869753,
+            "price": 26.389999389648438,
+            "date": "2002-12-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/BVN?period1=0&period2=1793643362&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "TTWO",
+            "cusip": "874054109",
+            "filedPrice": 23.490350016355904,
+            "price": 23.489999771118164,
+            "date": "2002-12-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/TTWO?period1=0&period2=1793643365&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          }
+        ],
+        "errors": [
+          "PBR/A: ValueError"
+        ],
+        "normalizedHash": "f808c698af071df84f05a7f917de25717d85ec9b1e912777e33235be26e3aea6"
+      },
+      "2003 Q2": {
+        "version": 1,
+        "checkedAt": "2026-11-01",
+        "source": "https://www.sec.gov/Archives/edgar/data/949509/0000949509-03-000020.txt",
+        "filingDate": "2003-08-12",
+        "sourceDigest": "71fb3cf924abe2715e1e1c01314f6687b47ce5fee316d1c6b2583a09a81392fb",
+        "sourceHash": "ed3b01e039a154a3235941ee0662f3f145e14eb15fbb6ba0c20718f67ab1ebf5",
+        "status": "pending",
+        "anchors": [
+          {
+            "ticker": "FMX",
+            "cusip": "344419106",
+            "filedPrice": 41.199471598414796,
+            "price": 41.199997901916504,
+            "date": "2003-06-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/FMX?period1=0&period2=1793643365&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "PBR",
+            "cusip": "71654V408",
+            "filedPrice": 19.76136730087069,
+            "price": 19.760000228881836,
+            "date": "2003-06-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/PBR?period1=0&period2=1793643361&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          }
+        ],
+        "errors": [],
+        "normalizedHash": "ed3b01e039a154a3235941ee0662f3f145e14eb15fbb6ba0c20718f67ab1ebf5"
+      },
+      "2003 Q4": {
+        "version": 1,
+        "checkedAt": "2026-11-01",
+        "source": "https://www.sec.gov/Archives/edgar/data/949509/0000949509-04-000002.txt",
+        "filingDate": "2004-02-17",
+        "sourceDigest": "4ece7f18e903ffc7a6cb5d04dea7d22bd484f88cdcce9e0dc3b52fcccdb36124",
+        "sourceHash": "c4e78d7f93c5dcf30611984f18a79b1de3c0419782258324204ffe8ed21f4015",
+        "status": "verified",
+        "factor": 1,
+        "anchors": [
+          {
+            "ticker": "TSM",
+            "cusip": "874039100",
+            "filedPrice": 10.239828516189139,
+            "price": 10.239999152251482,
+            "date": "2003-12-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/TSM?period1=0&period2=1793643366&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "FMX",
+            "cusip": "344419106",
+            "filedPrice": 36.87990021382751,
+            "price": 36.8799991607666,
+            "date": "2003-12-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/FMX?period1=0&period2=1793643365&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "PBR",
+            "cusip": "71654V408",
+            "filedPrice": 29.240367975225432,
+            "price": 29.239999771118164,
+            "date": "2003-12-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/PBR?period1=0&period2=1793643361&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "AMKR",
+            "cusip": "031652100",
+            "filedPrice": 18.14132104454685,
+            "price": 18.139999389648438,
+            "date": "2003-12-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/AMKR?period1=0&period2=1793643366&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "TV",
+            "cusip": "40049J206",
+            "filedPrice": 39.86277873070326,
+            "price": 39.86000061035156,
+            "date": "2003-12-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/TV?period1=0&period2=1793643367&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          }
+        ],
+        "agreementCount": 5,
+        "anchorCount": 5,
+        "outlierTickers": [],
+        "normalizedHash": "c4e78d7f93c5dcf30611984f18a79b1de3c0419782258324204ffe8ed21f4015"
+      },
+      "2004 Q1": {
+        "version": 1,
+        "checkedAt": "2026-11-01",
+        "source": "https://www.sec.gov/Archives/edgar/data/949509/0000949509-04-000004.txt",
+        "filingDate": "2004-05-12",
+        "sourceDigest": "6c14539365301ed0b8247b2f3dfdece265f3a0810548a602935e7a4232d486d8",
+        "sourceHash": "70a12c7bd9ab1602cc0adfca10eb197b55b5ccb821c20ebbb119800713d99074",
+        "status": "pending",
+        "anchors": [
+          {
+            "ticker": "TSM",
+            "cusip": "874039100",
+            "filedPrice": 14.799500775520773,
+            "price": 10.43999976807389,
+            "date": "2004-03-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/TSM?period1=0&period2=1793643366&interval=1d&events=splits",
+            "candidates": []
+          },
+          {
+            "ticker": "PBR",
+            "cusip": "71654V408",
+            "filedPrice": 25.684639614600705,
+            "price": 33.5,
+            "date": "2004-03-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/PBR?period1=0&period2=1793643361&interval=1d&events=splits",
+            "candidates": []
+          }
+        ],
+        "errors": [],
+        "normalizedHash": "553c22f85491dfee18c582dd7698778916156848866054b7ec9b186c275cc978"
       }
     },
     "values": [
@@ -456420,8 +456610,8 @@
       1963.846,
       2101.172,
       2456.543,
-      3499.587,
-      3996.208,
+      3318.134,
+      3753.014,
       3435.671,
       3558.326,
       4103.396,
@@ -456510,11 +456700,11 @@
     "instrumentVerification": {
       "pendingQuarters": [],
       "errors": {},
-      "checkedAt": "2026-11-01T02:50:39.798452+00:00"
+      "checkedAt": "2026-11-01T18:15:59.275366+00:00"
     },
     "excludedValueQuarters": [],
     "coverage": {
-      "checkedAt": "2026-11-01T02:50:40Z",
+      "checkedAt": "2026-11-01T18:16:00Z",
       "missingQuarters": [
         "1999 Q3",
         "1999 Q4",
@@ -456527,7 +456717,8 @@
         "2011 Q4"
       ],
       "repairedThisRun": [
-        "2005 Q1"
+        "2004 Q3",
+        "2004 Q4"
       ],
       "errors": {
         "1999 Q3": "Legacy table reconciliation failed: 119/144 rows, $503701000/$945244000",
@@ -456542,15 +456733,15 @@
         "2008 Q2": "Legacy table reconciliation failed: 216/218 rows, $4249430000/$4290914000"
       },
       "attempts": {
-        "2005 Q4": 4,
-        "1999 Q4": 5,
         "2001 Q3": 5,
-        "2003 Q3": 4,
-        "1999 Q3": 5,
+        "2008 Q2": 4,
         "2004 Q2": 4,
+        "1999 Q4": 5,
+        "1999 Q3": 5,
         "2001 Q2": 5,
+        "2005 Q4": 4,
         "2011 Q4": 4,
-        "2008 Q2": 3
+        "2003 Q3": 5
       },
       "pendingRefreshQuarters": [
         "1999 Q1",
@@ -456567,8 +456758,6 @@
         "2003 Q2",
         "2003 Q4",
         "2004 Q1",
-        "2004 Q3",
-        "2004 Q4",
         "2005 Q2",
         "2006 Q1",
         "2006 Q2",
@@ -456592,7 +456781,7 @@
         "schemaVersion": 1,
         "cik": "949509",
         "checkedAt": "2026-10-29T16:10:30Z",
-        "attemptedAt": "2026-11-01T02:50:40Z",
+        "attemptedAt": "2026-11-01T18:16:00Z",
         "status": "checked",
         "indexes": {
           "2000/QTR2": {
@@ -456979,7 +457168,7 @@
       "VC",
       "XOP"
     ],
-    "lastUpdated": "2026-11-01T02:50:39Z",
+    "lastUpdated": "2026-11-01T18:15:59Z",
     "manager": "Oaktree Capital Management, L.P.",
     "notablePeople": [
       "Howard Marks"

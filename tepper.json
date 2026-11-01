@@ -39789,9 +39789,9 @@
           ],
           "ticker": "GT",
           "sector": "消费",
+          "cnName": "固特异",
           "prevShares": 0,
-          "prevValue": 0,
-          "cnName": "固特异"
+          "prevValue": 0
         },
         {
           "name": "Consol Energy Inc",
@@ -40050,9 +40050,9 @@
           ],
           "ticker": "PKX",
           "sector": "钢铁",
+          "cnName": "浦项制铁",
           "prevShares": 300000,
           "prevValue": 11355000,
-          "cnName": "浦项制铁",
           "displayName": "POSCO",
           "sectorEn": "Steel"
         },
@@ -41361,9 +41361,9 @@
           ],
           "ticker": "PKX",
           "sector": "钢铁",
+          "cnName": "浦项制铁",
           "prevShares": 101400,
           "prevValue": 5005000,
-          "cnName": "浦项制铁",
           "displayName": "POSCO",
           "sectorEn": "Steel"
         },
@@ -42087,10 +42087,10 @@
           "ticker": "PKX",
           "sector": "钢铁",
           "cnName": "浦项制铁",
-          "displayName": "POSCO",
-          "sectorEn": "Steel",
           "prevShares": 101400,
-          "prevValue": 4459000
+          "prevValue": 4459000,
+          "displayName": "POSCO",
+          "sectorEn": "Steel"
         },
         {
           "name": "Alpha Natural Resources Inc",
@@ -74604,6 +74604,283 @@
         ],
         "errors": [],
         "normalizedHash": "daa641e4ab7381e0170fd11d69e1d4e06d431bade90684abac73d22837a3e4fe"
+      },
+      "2004 Q1": {
+        "version": 1,
+        "checkedAt": "2026-11-01",
+        "source": "https://www.sec.gov/Archives/edgar/data/1006438/0001006438-04-000003.txt",
+        "filingDate": "2004-08-13",
+        "sourceDigest": "b832bb05765a4414a58556ce48224d144b09836b66628fc495d63074abedef7b",
+        "sourceHash": "eac77b3b056c011a662fd5b7ff5f1ec3f3e3c79a0db81321c0552ba93b98c2e2",
+        "status": "pending",
+        "anchors": [
+          {
+            "ticker": "PKX",
+            "cusip": "693483109",
+            "filedPrice": 33.51,
+            "price": 35.38999938964844,
+            "date": "2004-03-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/PKX?period1=0&period2=1793643262&interval=1d&events=splits",
+            "candidates": []
+          },
+          {
+            "ticker": "STLD",
+            "cusip": "858119100",
+            "filedPrice": 28.64,
+            "price": 24.780000686645508,
+            "date": "2004-03-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/STLD?period1=0&period2=1793643263&interval=1d&events=splits",
+            "candidates": []
+          }
+        ],
+        "errors": [],
+        "normalizedHash": "eac77b3b056c011a662fd5b7ff5f1ec3f3e3c79a0db81321c0552ba93b98c2e2"
+      },
+      "2004 Q3": {
+        "version": 1,
+        "checkedAt": "2026-11-01",
+        "source": "https://www.sec.gov/Archives/edgar/data/1006438/0001006438-04-000004.txt",
+        "filingDate": "2004-11-15",
+        "sourceDigest": "26f8cbcb921e3b743b1d3a02a95ec4319afe9be09372863e24b8b286e2967e69",
+        "sourceHash": "048b9e6c8b2363a9cd1063cc976c739c84170dedf3362e404c4868cafbc96a7a",
+        "status": "verified",
+        "factor": 1,
+        "anchors": [
+          {
+            "ticker": "PKX",
+            "cusip": "693483109",
+            "filedPrice": 37.85,
+            "price": 37.849998474121094,
+            "date": "2004-09-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/PKX?period1=0&period2=1793643262&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "DVN",
+            "cusip": "25179M103",
+            "filedPrice": 71.008,
+            "price": 71.01000213623047,
+            "date": "2004-09-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/DVN?period1=0&period2=1793643263&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "COP",
+            "cusip": "20825C104",
+            "filedPrice": 82.848,
+            "price": 82.8499971373024,
+            "date": "2004-09-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/COP?period1=0&period2=1793643264&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          }
+        ],
+        "agreementCount": 3,
+        "anchorCount": 3,
+        "outlierTickers": [],
+        "normalizedHash": "048b9e6c8b2363a9cd1063cc976c739c84170dedf3362e404c4868cafbc96a7a"
+      },
+      "2004 Q4": {
+        "version": 1,
+        "checkedAt": "2026-11-01",
+        "source": "https://www.sec.gov/Archives/edgar/data/1006438/0001006438-05-000001.txt",
+        "filingDate": "2005-02-10",
+        "sourceDigest": "d8e8d2152d54e41abd3c7a413a087ae9a28d806486addb8814f63620ab358098",
+        "sourceHash": "2169dfe5b300099afdffc8e96f13da2ef4974be0f715fa52137fcb161ed26582",
+        "status": "verified",
+        "factor": 1,
+        "anchors": [
+          {
+            "ticker": "GT",
+            "cusip": "382550101",
+            "filedPrice": 14.659986361569935,
+            "price": 14.65999984741211,
+            "date": "2004-12-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/GT?period1=0&period2=1793643264&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "PKX",
+            "cusip": "693483109",
+            "filedPrice": 44.52772073921971,
+            "price": 44.529998779296875,
+            "date": "2004-12-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/PKX?period1=0&period2=1793643262&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "PFE",
+            "cusip": "717081103",
+            "filedPrice": 26.893333333333334,
+            "price": 26.89000090408325,
+            "date": "2004-12-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/PFE?period1=0&period2=1793643265&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "GATX",
+            "cusip": "361448103",
+            "filedPrice": 29.55719557195572,
+            "price": 29.559999465942383,
+            "date": "2004-12-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/GATX?period1=0&period2=1793643265&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          }
+        ],
+        "agreementCount": 4,
+        "anchorCount": 4,
+        "outlierTickers": [],
+        "normalizedHash": "2169dfe5b300099afdffc8e96f13da2ef4974be0f715fa52137fcb161ed26582"
+      },
+      "2005 Q2": {
+        "version": 1,
+        "checkedAt": "2026-11-01",
+        "source": "https://www.sec.gov/Archives/edgar/data/1006438/0001006438-05-000003.txt",
+        "filingDate": "2005-08-15",
+        "sourceDigest": "08d057e7c1e457ecca1e9fef3cce5f21f6f72cd79a4978999a188cfc9116fad6",
+        "sourceHash": "26ff03737b9285d5ea4657360c375d6ffd5f441c0ef36622a9b950c8098603f3",
+        "status": "verified",
+        "factor": 1,
+        "anchors": [
+          {
+            "ticker": "FNMA",
+            "cusip": "313586109",
+            "filedPrice": 58.4,
+            "price": 58.400001525878906,
+            "date": "2005-06-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/FNMA?period1=0&period2=1793643266&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "HUN",
+            "cusip": "447011107",
+            "filedPrice": 20.269767441860466,
+            "price": 20.270000457763672,
+            "date": "2005-06-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/HUN?period1=0&period2=1793643266&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "PKX",
+            "cusip": "693483109",
+            "filedPrice": 43.97435897435897,
+            "price": 43.970001220703125,
+            "date": "2005-06-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/PKX?period1=0&period2=1793643262&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          }
+        ],
+        "agreementCount": 3,
+        "anchorCount": 3,
+        "outlierTickers": [],
+        "normalizedHash": "26ff03737b9285d5ea4657360c375d6ffd5f441c0ef36622a9b950c8098603f3"
+      },
+      "2005 Q3": {
+        "version": 1,
+        "checkedAt": "2026-11-01",
+        "source": "https://www.sec.gov/Archives/edgar/data/1006438/0001006438-05-000007.txt",
+        "filingDate": "2005-11-15",
+        "sourceDigest": "55664f6106a5bccfb5f6eaa9df80056a147945e3f774236844c64e0ae69e6716",
+        "sourceHash": "b3333e5f21e9c19cbeaac85d811c011527133ace13dc7b7f4ab6430ae7a6415b",
+        "status": "verified",
+        "factor": 1,
+        "anchors": [
+          {
+            "ticker": "AEP",
+            "cusip": "025537101",
+            "filedPrice": 39.699970983654126,
+            "price": 39.70000076293945,
+            "date": "2005-09-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/AEP?period1=0&period2=1793643267&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "CF",
+            "cusip": "125269100",
+            "filedPrice": 14.809998938541556,
+            "price": 14.809999465942383,
+            "date": "2005-09-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/CF?period1=0&period2=1793643267&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "EIX",
+            "cusip": "281020107",
+            "filedPrice": 47.28,
+            "price": 47.279998779296875,
+            "date": "2005-09-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/EIX?period1=0&period2=1793643267&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "FNMA",
+            "cusip": "313586109",
+            "filedPrice": 44.824074074074076,
+            "price": 44.81999969482422,
+            "date": "2005-09-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/FNMA?period1=0&period2=1793643266&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "PKX",
+            "cusip": "693483109",
+            "filedPrice": 56.55818540433925,
+            "price": 56.560001373291016,
+            "date": "2005-09-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/PKX?period1=0&period2=1793643262&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          }
+        ],
+        "agreementCount": 5,
+        "anchorCount": 5,
+        "outlierTickers": [],
+        "normalizedHash": "b3333e5f21e9c19cbeaac85d811c011527133ace13dc7b7f4ab6430ae7a6415b"
       }
     },
     "values": [
@@ -74709,11 +74986,11 @@
     "instrumentVerification": {
       "pendingQuarters": [],
       "errors": {},
-      "checkedAt": "2026-11-01T02:49:14.175912+00:00"
+      "checkedAt": "2026-11-01T18:14:20.971783+00:00"
     },
     "excludedValueQuarters": [],
     "coverage": {
-      "checkedAt": "2026-11-01T02:49:14Z",
+      "checkedAt": "2026-11-01T18:14:21Z",
       "missingQuarters": [
         "1999 Q3",
         "1999 Q4",
@@ -74745,18 +75022,18 @@
         "1999 Q1": "Legacy table reconciliation failed: 24/25 rows, $222661000/$228622133000"
       },
       "attempts": {
-        "2003 Q2": 4,
-        "2003 Q1": 4,
-        "2003 Q4": 4,
-        "1999 Q4": 5,
-        "1999 Q1": 5,
-        "2010 Q2": 4,
+        "2001 Q4": 5,
         "2003 Q3": 4,
-        "2001 Q4": 4,
-        "2000 Q1": 4,
+        "2003 Q2": 4,
+        "2002 Q1": 5,
+        "2010 Q3": 4,
+        "2010 Q2": 4,
+        "1999 Q1": 6,
+        "2003 Q4": 4,
         "1999 Q3": 5,
-        "2002 Q1": 4,
-        "2010 Q3": 4
+        "2003 Q1": 4,
+        "1999 Q4": 5,
+        "2000 Q1": 5
       },
       "pendingRefreshQuarters": [
         "1999 Q1",
@@ -74817,7 +75094,7 @@
         "schemaVersion": 1,
         "cik": "1656456",
         "checkedAt": "2026-10-29T16:46:19Z",
-        "attemptedAt": "2026-11-01T02:49:14Z",
+        "attemptedAt": "2026-11-01T18:14:21Z",
         "status": "checked",
         "indexes": {
           "2004/QTR3": {
@@ -75164,7 +75441,7 @@
     ],
     "manager": "Appaloosa LP",
     "costHistoryFrom": "2016 Q1",
-    "lastUpdated": "2026-11-01T02:49:14Z",
+    "lastUpdated": "2026-11-01T18:14:20Z",
     "notablePeople": [
       "David Tepper"
     ],
