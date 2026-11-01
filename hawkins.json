@@ -5,7 +5,7 @@
     "notablePeople": [
       "Mason Hawkins"
     ],
-    "lastUpdated": "2026-10-31T17:31:13Z",
+    "lastUpdated": "2026-11-01T02:50:24Z",
     "aiSummary": "霍金斯大举增持美泰与雷奥尼尔并建仓雅培及腾讯音乐，显示其持续聚焦高增长消费与医疗领域。",
     "aiSummaryQuarter": "2026 Q2",
     "instrumentHistoryTickers": [
@@ -48811,9 +48811,9 @@
           ],
           "ticker": "FDX",
           "sector": "工业",
-          "cnName": "联邦快递",
           "prevShares": 14122227,
-          "prevValue": 765707000
+          "prevValue": 765707000,
+          "cnName": "联邦快递"
         },
         {
           "name": "Hilton Hotels Corp",
@@ -49362,9 +49362,9 @@
           ],
           "ticker": "RYN",
           "sector": "地产",
-          "cnName": "雷奥尼尔",
           "prevShares": 4268300,
-          "prevValue": 193141000
+          "prevValue": 193141000,
+          "cnName": "雷奥尼尔"
         },
         {
           "name": "Koninklijke Philips Electronic",
@@ -50008,11 +50008,11 @@
           ],
           "ticker": "?Brookfield Properties Corp",
           "sector": "办公地产",
-          "prevShares": 89000,
-          "prevValue": 1798000,
           "cnName": "布鲁克菲尔德办公地产",
           "displayName": "Brookfield Office Properties",
-          "sectorEn": "Office real estate"
+          "sectorEn": "Office real estate",
+          "prevShares": 89000,
+          "prevValue": 1798000
         },
         {
           "name": "First Tenn Natl",
@@ -51315,11 +51315,11 @@
           ],
           "ticker": "?Brookfield Properties Corp",
           "sector": "办公地产",
-          "prevShares": 89000,
-          "prevValue": 1749000,
           "cnName": "布鲁克菲尔德办公地产",
           "displayName": "Brookfield Office Properties",
-          "sectorEn": "Office real estate"
+          "sectorEn": "Office real estate",
+          "prevShares": 89000,
+          "prevValue": 1749000
         },
         {
           "name": "First Tenn Natl",
@@ -52531,11 +52531,11 @@
           ],
           "ticker": "?Brookfield Properties Corp",
           "sector": "办公地产",
-          "prevShares": 89000,
-          "prevValue": 1891000,
           "cnName": "布鲁克菲尔德办公地产",
           "displayName": "Brookfield Office Properties",
-          "sectorEn": "Office real estate"
+          "sectorEn": "Office real estate",
+          "prevShares": 89000,
+          "prevValue": 1891000
         },
         {
           "name": "First Tenn Natl",
@@ -111176,25 +111176,22 @@
       ]
     },
     "coverage": {
-      "checkedAt": "2026-10-31T17:31:14Z",
+      "checkedAt": "2026-11-01T02:50:26Z",
       "missingQuarters": [
         "1999 Q3"
       ],
       "repairedThisRun": [
-        "2002 Q2",
-        "2002 Q3",
-        "2002 Q4"
+        "2003 Q1",
+        "2003 Q2",
+        "2003 Q3"
       ],
       "errors": {
         "1999 Q3": "Legacy table reconciliation failed: 147/148 rows, $11958192000/$11958268000"
       },
       "attempts": {
-        "1999 Q3": 17
+        "1999 Q3": 18
       },
       "pendingRefreshQuarters": [
-        "2003 Q1",
-        "2003 Q2",
-        "2003 Q3",
         "2003 Q4",
         "2004 Q1",
         "2004 Q2",
@@ -111784,10 +111781,12 @@
         "accessionDashed": "0000807985-03-000052",
         "filingDate": "2003-05-09",
         "reportDate": "2003-03-31",
+        "form": "13F-HR",
+        "primaryDocument": "f0303.txt",
         "cik": "807985",
         "url": "https://www.sec.gov/Archives/edgar/data/807985/0000807985-03-000052.txt",
         "format": "legacy_13f",
-        "parserVersion": 3,
+        "parserVersion": 6,
         "sourceReconciliation": {
           "status": "reconciled",
           "reportedEntries": 110,
@@ -111802,10 +111801,12 @@
         "accessionDashed": "0000807985-03-000057",
         "filingDate": "2003-08-05",
         "reportDate": "2003-06-30",
+        "form": "13F-HR",
+        "primaryDocument": "f13f603.txt",
         "cik": "807985",
         "url": "https://www.sec.gov/Archives/edgar/data/807985/0000807985-03-000057.txt",
         "format": "legacy_13f",
-        "parserVersion": 3,
+        "parserVersion": 6,
         "sourceReconciliation": {
           "status": "reconciled",
           "reportedEntries": 106,
@@ -111820,10 +111821,12 @@
         "accessionDashed": "0000807985-03-000064",
         "filingDate": "2003-11-12",
         "reportDate": "2003-09-30",
+        "form": "13F-HR",
+        "primaryDocument": "f13f903.txt",
         "cik": "807985",
         "url": "https://www.sec.gov/Archives/edgar/data/807985/0000807985-03-000064.txt",
         "format": "legacy_13f",
-        "parserVersion": 3,
+        "parserVersion": 6,
         "sourceReconciliation": {
           "status": "reconciled",
           "reportedEntries": 100,
@@ -112701,7 +112704,7 @@
     "instrumentVerification": {
       "pendingQuarters": [],
       "errors": {},
-      "checkedAt": "2026-10-31T17:31:13.523306+00:00"
+      "checkedAt": "2026-11-01T02:50:24.995269+00:00"
     },
     "restatementChecks": {
       "0000807985-03-000044": {
@@ -113023,7 +113026,7 @@
       },
       "2024 Q3": {
         "version": 1,
-        "checkedAt": "2026-10-31",
+        "checkedAt": "2026-11-01",
         "source": "https://www.sec.gov/Archives/edgar/data/807985/000139834424020733/fp0090929-1_13fhr-table.xml",
         "filingDate": "2024-11-14",
         "sourceDigest": "a1eb0ab97e2e9436f699879f166b0d4796f272e3dfd4269cfe9e378a48c2eac9",
@@ -113037,7 +113040,7 @@
             "price": 11.100000381469727,
             "date": "2024-09-30",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/CNH?period1=0&period2=1793501903&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/CNH?period1=0&period2=1793587827&interval=1d&events=splits",
             "candidates": [
               1000
             ]
@@ -113049,7 +113052,7 @@
             "price": 19.049999237060547,
             "date": "2024-09-30",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/MAT?period1=0&period2=1793501903&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/MAT?period1=0&period2=1793587827&interval=1d&events=splits",
             "candidates": [
               1
             ]
@@ -113061,7 +113064,7 @@
             "price": 32.56999969482422,
             "date": "2024-09-30",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/CNX?period1=0&period2=1793501904&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/CNX?period1=0&period2=1793587828&interval=1d&events=splits",
             "candidates": [
               1
             ]
@@ -113073,7 +113076,7 @@
             "price": 7.789999961853027,
             "date": "2024-09-30",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/MLCO?period1=0&period2=1793501904&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/MLCO?period1=0&period2=1793587828&interval=1d&events=splits",
             "candidates": [
               1
             ]
@@ -113085,7 +113088,7 @@
             "price": 6.5,
             "date": "2024-09-30",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/WEST?period1=0&period2=1793501904&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/WEST?period1=0&period2=1793587828&interval=1d&events=splits",
             "candidates": [
               1
             ]
@@ -117140,22 +117143,10 @@
             "candidates": [
               1
             ]
-          },
-          {
-            "ticker": "ADP",
-            "cusip": "053015103",
-            "filedPrice": 30.79004618588364,
-            "price": 30.79000038891077,
-            "date": "2003-03-31",
-            "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/ADP?period1=0&period2=1792983641&interval=1d&events=splits",
-            "candidates": [
-              1
-            ]
           }
         ],
-        "agreementCount": 5,
-        "anchorCount": 5,
+        "agreementCount": 4,
+        "anchorCount": 4,
         "outlierTickers": [],
         "normalizedHash": "c0d2739f5a27cc22954c820d6089113a7ae3775afca417c772f04b61788da82b"
       },

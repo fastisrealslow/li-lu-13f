@@ -78,7 +78,7 @@
       },
       "0000949509-06-000009": {
         "result": "pending",
-        "checkedAt": "2026-10-31",
+        "checkedAt": "2026-11-01",
         "url": "https://www.sec.gov/Archives/edgar/data/949509/0000949509-06-000009.txt"
       },
       "0000949509-11-000017": {
@@ -145,6 +145,16 @@
         "result": "restatement",
         "checkedAt": "2026-10-31",
         "url": "https://www.sec.gov/Archives/edgar/data/949509/0000949509-05-000018.txt"
+      },
+      "0000949509-05-000011": {
+        "result": "restatement",
+        "checkedAt": "2026-11-01",
+        "url": "https://www.sec.gov/Archives/edgar/data/949509/0000949509-05-000011.txt"
+      },
+      "0000949509-05-000009": {
+        "result": "additive",
+        "checkedAt": "2026-11-01",
+        "url": "https://www.sec.gov/Archives/edgar/data/949509/0000949509-05-000009.txt"
       }
     },
     "holdings": {
@@ -393892,6 +393902,26 @@
           "prevValue": 28888000
         },
         {
+          "name": "LODGIAN INC",
+          "cls": "COM PAR $.01",
+          "cusip": "54021P403",
+          "value": 25741000,
+          "shares": 2788865,
+          "shareType": "SH",
+          "putCall": "",
+          "managerAllocations": [
+            {
+              "managerIds": [],
+              "shares": 2788865,
+              "value": 25741000
+            }
+          ],
+          "ticker": "?LODGIAN INC",
+          "sector": "其他",
+          "prevShares": 2788865,
+          "prevValue": 30873000
+        },
+        {
           "name": "CONTINENTAL AIRLS INC",
           "cls": "NOTE 4.500% 2/0",
           "cusip": "210795PD6",
@@ -394152,7 +394182,7 @@
           "prevValue": 1110000
         },
         {
-          "name": "COMMUNITY HEALTH SYSTEMS INC NE",
+          "name": "COMMUNITY HEALTH SYS INC NEW",
           "cls": "NOTE 4.250% 10/1",
           "cusip": "203668AA6",
           "value": 16570000,
@@ -394166,7 +394196,7 @@
               "value": 16570000
             }
           ],
-          "ticker": "?COMMUNITY HEALTH SYSTEMS INC NE",
+          "ticker": "?COMMUNITY HEALTH SYS INC NEW",
           "sector": "其他",
           "prevShares": 40552000,
           "prevValue": 42149000
@@ -394768,9 +394798,9 @@
           ],
           "ticker": "?DANIELSON HLDG CORP",
           "sector": "保险与环保发电投资",
+          "cnName": "丹尼尔森控股",
           "prevShares": 0,
           "prevValue": 0,
-          "cnName": "丹尼尔森控股",
           "displayName": "Danielson Holding",
           "sectorEn": "Insurance and waste-to-energy investments"
         },
@@ -394791,9 +394821,9 @@
           ],
           "ticker": "?CAPITALSOURCE INC",
           "sector": "商业贷款",
+          "cnName": "资本来源金融",
           "prevShares": 8500000,
           "prevValue": 8995000,
-          "cnName": "资本来源金融",
           "displayName": "CapitalSource",
           "sectorEn": "Commercial lending"
         },
@@ -395734,9 +395764,9 @@
           ],
           "ticker": "CHK",
           "sector": "油气勘探开发",
+          "cnName": "切萨皮克能源",
           "prevShares": 106200,
           "prevValue": 13010000,
-          "cnName": "切萨皮克能源",
           "displayName": "Chesapeake Energy",
           "sectorEn": "Oil and gas exploration"
         },
@@ -396579,26 +396609,6 @@
           "sector": "其他",
           "prevShares": 1080000,
           "prevValue": 24916000
-        },
-        {
-          "name": "GREAT ATLANTIC & PAC TEA INC",
-          "cls": "COM",
-          "cusip": "390064103",
-          "value": 1491000,
-          "shares": 100100,
-          "shareType": "SH",
-          "putCall": "",
-          "managerAllocations": [
-            {
-              "managerIds": [],
-              "shares": 100100,
-              "value": 1491000
-            }
-          ],
-          "ticker": "?GREAT ATLANTIC & PAC TEA INC",
-          "sector": "其他",
-          "prevShares": 100100,
-          "prevValue": 1026000
         },
         {
           "name": "CV THERAPEUTICS INC",
@@ -397719,8 +397729,8 @@
           ],
           "ticker": "?LODGIAN INC",
           "sector": "其他",
-          "prevShares": 0,
-          "prevValue": 0
+          "prevShares": 2788865,
+          "prevValue": 25741000
         },
         {
           "name": "OPENWAVE SYS INC",
@@ -450475,22 +450485,22 @@
         }
       },
       "2005 Q1": {
-        "accession": "000094950905000007",
-        "accessionDashed": "0000949509-05-000007",
-        "filingDate": "2005-05-16",
-        "reportDate": "2005-03-31",
-        "form": "13F-HR",
-        "primaryDocument": "r13f1stq.txt",
         "cik": "949509",
-        "url": "https://www.sec.gov/Archives/edgar/data/949509/0000949509-05-000007.txt",
+        "accession": "000094950905000011",
+        "accessionDashed": "0000949509-05-000011",
+        "filingDate": "2005-06-22",
+        "reportDate": "2005-03-31",
+        "form": "13F-HR/A",
+        "amendmentType": "RESTATEMENT",
+        "url": "https://www.sec.gov/Archives/edgar/data/949509/0000949509-05-000011.txt",
         "format": "legacy_13f",
-        "parserVersion": 5,
+        "parserVersion": 6,
         "sourceReconciliation": {
           "status": "reconciled",
           "reportedEntries": 188,
           "parsedEntries": 188,
-          "reportedValue": 3411421000,
-          "tableValue": 3411421000,
+          "reportedValue": 3435671000,
+          "tableValue": 3435671000,
           "difference": 0
         }
       },
@@ -454779,7 +454789,7 @@
       },
       "2000 Q4": {
         "version": 1,
-        "checkedAt": "2026-10-31",
+        "checkedAt": "2026-11-01",
         "source": "https://www.sec.gov/Archives/edgar/data/949509/0000949509-01-500005.txt",
         "filingDate": "2001-02-14",
         "sourceDigest": "d42e5b2b4bc7eaf37e9cf2f7b6c78ff1b51c7c54b792378f8f15e573ad434bd2",
@@ -454793,7 +454803,7 @@
             "price": 25.5,
             "date": "2000-12-29",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/EME?period1=0&period2=1793501919&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/EME?period1=0&period2=1793587843&interval=1d&events=splits",
             "candidates": [
               1
             ]
@@ -454805,7 +454815,7 @@
             "price": 14.5,
             "date": "2000-12-29",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/BVN?period1=0&period2=1793501917&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/BVN?period1=0&period2=1793587842&interval=1d&events=splits",
             "candidates": [
               1
             ]
@@ -454816,7 +454826,7 @@
       },
       "2001 Q1": {
         "version": 1,
-        "checkedAt": "2026-10-31",
+        "checkedAt": "2026-11-01",
         "source": "https://www.sec.gov/Archives/edgar/data/949509/0000949509-01-500006.txt",
         "filingDate": "2001-05-15",
         "sourceDigest": "79e9363edf18137b8a09febed901bb2edcf0f8ac668e712e5426b3be73f302ee",
@@ -454830,7 +454840,7 @@
             "price": 14.8100004196167,
             "date": "2001-03-30",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/BVN?period1=0&period2=1793501917&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/BVN?period1=0&period2=1793587842&interval=1d&events=splits",
             "candidates": [
               1
             ]
@@ -454843,7 +454853,7 @@
       },
       "2001 Q4": {
         "version": 1,
-        "checkedAt": "2026-10-31",
+        "checkedAt": "2026-11-01",
         "source": "https://www.sec.gov/Archives/edgar/data/949509/0000949509-02-000004.txt",
         "filingDate": "2002-02-13",
         "sourceDigest": "7e728b8b6a0908d6dddaf2d32d313514337a915caee2e5ff1d0a0488e03d4c33",
@@ -454857,7 +454867,7 @@
             "price": 20.729999542236328,
             "date": "2001-12-31",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/BVN?period1=0&period2=1793501917&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/BVN?period1=0&period2=1793587842&interval=1d&events=splits",
             "candidates": [
               1
             ]
@@ -455045,58 +455055,6 @@
         "anchorCount": 3,
         "outlierTickers": [],
         "normalizedHash": "43ec3d29f2bed326c265ef3032446ab4844f44d62aef105f8608ce90f4208533"
-      },
-      "2005 Q1": {
-        "version": 1,
-        "checkedAt": "2026-10-29",
-        "source": "https://www.sec.gov/Archives/edgar/data/949509/0000949509-05-000007.txt",
-        "filingDate": "2005-05-16",
-        "sourceDigest": "a5b1669c41f266ca2e512b83bb5761b110031947b20967e8f5c1afd05195c410",
-        "sourceHash": "6ede8b5416e0455f9eef4eb221323a161d627c1fda5b21d4f716d640c02e4e2b",
-        "status": "verified",
-        "factor": 1,
-        "anchors": [
-          {
-            "ticker": "PBR/A",
-            "cusip": "71654V101",
-            "filedPrice": 38.46964343077417,
-            "price": 38.470001220703125,
-            "date": "2005-03-31",
-            "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/PBR-A?period1=0&period2=1793386094&interval=1d&events=splits",
-            "candidates": [
-              1
-            ]
-          },
-          {
-            "ticker": "BVN",
-            "cusip": "204448104",
-            "filedPrice": 22.778899545684,
-            "price": 22.780000686645508,
-            "date": "2005-03-31",
-            "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/BVN?period1=0&period2=1793386093&interval=1d&events=splits",
-            "candidates": [
-              1
-            ]
-          },
-          {
-            "ticker": "VLO",
-            "cusip": "91913Y100",
-            "filedPrice": 73.27,
-            "price": 73.26999729919434,
-            "date": "2005-03-31",
-            "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/VLO?period1=0&period2=1793386094&interval=1d&events=splits",
-            "candidates": [
-              1
-            ]
-          }
-        ],
-        "agreementCount": 3,
-        "anchorCount": 3,
-        "outlierTickers": [],
-        "normalizedHash": "6ede8b5416e0455f9eef4eb221323a161d627c1fda5b21d4f716d640c02e4e2b"
       },
       "2006 Q1": {
         "version": 1,
@@ -455556,7 +455514,7 @@
       },
       "2009 Q2": {
         "version": 1,
-        "checkedAt": "2026-10-31",
+        "checkedAt": "2026-11-01",
         "source": "https://www.sec.gov/Archives/edgar/data/949509/0000949509-09-000053.txt",
         "filingDate": "2009-08-12",
         "sourceDigest": "54de05d83fe013dcda867c6e5bacbd77a22ba368eff07c590146dff4325c7693",
@@ -455570,7 +455528,7 @@
             "price": 14.459999312400818,
             "date": "2009-06-30",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/CMCSA?period1=0&period2=1793501919&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/CMCSA?period1=0&period2=1793587843&interval=1d&events=splits",
             "candidates": []
           },
           {
@@ -455580,7 +455538,7 @@
             "price": 10.469999713897705,
             "date": "2009-06-30",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/GGB?period1=0&period2=1793501919&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/GGB?period1=0&period2=1793587843&interval=1d&events=splits",
             "candidates": [
               1
             ]
@@ -455592,7 +455550,7 @@
             "price": 12.779999732971191,
             "date": "2009-06-30",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/OC?period1=0&period2=1793501920&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/OC?period1=0&period2=1793587844&interval=1d&events=splits",
             "candidates": []
           },
           {
@@ -455602,7 +455560,7 @@
             "price": 4.5,
             "date": "2009-06-30",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/MLCO?period1=0&period2=1793501920&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/MLCO?period1=0&period2=1793587844&interval=1d&events=splits",
             "candidates": [
               1
             ]
@@ -455614,7 +455572,7 @@
             "price": 33.36000061035156,
             "date": "2009-06-30",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/PBR-A?period1=0&period2=1793501918&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/PBR-A?period1=0&period2=1793587842&interval=1d&events=splits",
             "candidates": [
               1
             ]
@@ -456005,7 +455963,7 @@
       },
       "2009 Q3": {
         "version": 1,
-        "checkedAt": "2026-10-31",
+        "checkedAt": "2026-11-01",
         "source": "https://www.sec.gov/Archives/edgar/data/949509/0000949509-09-000059.txt",
         "filingDate": "2009-11-18",
         "sourceDigest": "534117dc83d6e0866c79f90b46b35fa70c01e9748a7484d7f6036f3e1b40aca2",
@@ -456019,7 +455977,7 @@
             "price": 16.87999971103668,
             "date": "2009-09-30",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/CMCSA?period1=0&period2=1793501919&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/CMCSA?period1=0&period2=1793587843&interval=1d&events=splits",
             "candidates": [
               1
             ]
@@ -456031,7 +455989,7 @@
             "price": 13.440000400543214,
             "date": "2009-09-30",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/GGB?period1=0&period2=1793501919&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/GGB?period1=0&period2=1793587843&interval=1d&events=splits",
             "candidates": []
           },
           {
@@ -456041,7 +455999,7 @@
             "price": 6.960000038146973,
             "date": "2009-09-30",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/MLCO?period1=0&period2=1793501920&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/MLCO?period1=0&period2=1793587844&interval=1d&events=splits",
             "candidates": []
           },
           {
@@ -456051,7 +456009,7 @@
             "price": 39.310001373291016,
             "date": "2009-09-30",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/PBR-A?period1=0&period2=1793501918&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/PBR-A?period1=0&period2=1793587842&interval=1d&events=splits",
             "candidates": []
           },
           {
@@ -456061,7 +456019,7 @@
             "price": 48.4900016784668,
             "date": "2009-09-30",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/INFY?period1=0&period2=1793501920&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/INFY?period1=0&period2=1793587844&interval=1d&events=splits",
             "candidates": []
           }
         ],
@@ -456392,6 +456350,58 @@
         "anchors": [],
         "errors": [],
         "normalizedHash": "600eba2e84ee70b47c64ef0477a9ab9e41493467398359848d4aa2f512ba28f1"
+      },
+      "2005 Q1": {
+        "version": 1,
+        "checkedAt": "2026-11-01",
+        "source": "https://www.sec.gov/Archives/edgar/data/949509/0000949509-05-000011.txt",
+        "filingDate": "2005-06-22",
+        "sourceDigest": "696c69736f5cd6067502e5c52e66f605a8d139c6acc51908ac44a6498bd8c5d1",
+        "sourceHash": "cf5810118d1cb790824e4de0224cb4c5ad1fb15907011b7b4fe01fe8654a5c20",
+        "status": "verified",
+        "factor": 1,
+        "anchors": [
+          {
+            "ticker": "PBR/A",
+            "cusip": "71654V101",
+            "filedPrice": 38.46964343077417,
+            "price": 38.470001220703125,
+            "date": "2005-03-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/PBR-A?period1=0&period2=1793587842&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "BVN",
+            "cusip": "204448104",
+            "filedPrice": 22.778899545684,
+            "price": 22.780000686645508,
+            "date": "2005-03-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/BVN?period1=0&period2=1793587842&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "VLO",
+            "cusip": "91913Y100",
+            "filedPrice": 73.27,
+            "price": 73.26999729919434,
+            "date": "2005-03-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/VLO?period1=0&period2=1793587842&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          }
+        ],
+        "agreementCount": 3,
+        "anchorCount": 3,
+        "outlierTickers": [],
+        "normalizedHash": "cf5810118d1cb790824e4de0224cb4c5ad1fb15907011b7b4fe01fe8654a5c20"
       }
     },
     "values": [
@@ -456412,7 +456422,7 @@
       2456.543,
       3499.587,
       3996.208,
-      3411.421,
+      3435.671,
       3558.326,
       4103.396,
       3351.876,
@@ -456500,11 +456510,11 @@
     "instrumentVerification": {
       "pendingQuarters": [],
       "errors": {},
-      "checkedAt": "2026-10-31T17:31:29.217410+00:00"
+      "checkedAt": "2026-11-01T02:50:39.798452+00:00"
     },
     "excludedValueQuarters": [],
     "coverage": {
-      "checkedAt": "2026-10-31T17:31:30Z",
+      "checkedAt": "2026-11-01T02:50:40Z",
       "missingQuarters": [
         "1999 Q3",
         "1999 Q4",
@@ -456517,7 +456527,7 @@
         "2011 Q4"
       ],
       "repairedThisRun": [
-        "2005 Q3"
+        "2005 Q1"
       ],
       "errors": {
         "1999 Q3": "Legacy table reconciliation failed: 119/144 rows, $503701000/$945244000",
@@ -456532,15 +456542,15 @@
         "2008 Q2": "Legacy table reconciliation failed: 216/218 rows, $4249430000/$4290914000"
       },
       "attempts": {
-        "2008 Q2": 2,
-        "2004 Q2": 4,
+        "2005 Q4": 4,
         "1999 Q4": 5,
+        "2001 Q3": 5,
         "2003 Q3": 4,
         "1999 Q3": 5,
+        "2004 Q2": 4,
+        "2001 Q2": 5,
         "2011 Q4": 4,
-        "2005 Q4": 4,
-        "2001 Q2": 4,
-        "2001 Q3": 4
+        "2008 Q2": 3
       },
       "pendingRefreshQuarters": [
         "1999 Q1",
@@ -456559,7 +456569,6 @@
         "2004 Q1",
         "2004 Q3",
         "2004 Q4",
-        "2005 Q1",
         "2005 Q2",
         "2006 Q1",
         "2006 Q2",
@@ -456583,7 +456592,7 @@
         "schemaVersion": 1,
         "cik": "949509",
         "checkedAt": "2026-10-29T16:10:30Z",
-        "attemptedAt": "2026-10-31T17:31:30Z",
+        "attemptedAt": "2026-11-01T02:50:40Z",
         "status": "checked",
         "indexes": {
           "2000/QTR2": {
@@ -456970,7 +456979,7 @@
       "VC",
       "XOP"
     ],
-    "lastUpdated": "2026-10-31T17:31:29Z",
+    "lastUpdated": "2026-11-01T02:50:39Z",
     "manager": "Oaktree Capital Management, L.P.",
     "notablePeople": [
       "Howard Marks"
