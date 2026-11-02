@@ -1377,10 +1377,10 @@
       "reason": "ValueError: Bilingual editorial review: The source text (s2-s4) does not mention 'buyback strategies' or 'repurchase programs'. The Chinese title and English content incorr"
     },
     "pabrai-d5fc50447fd953": {
-      "at": "2026-11-02T05:34:55+00:00",
+      "at": "2026-11-02T20:28:28+00:00",
       "status": "retry",
       "inputHash": "d0544da8e14ed7578c5daf19301f2720de371f994b5468583fe2bfc9be5913e0",
-      "reason": "ValueError: Unsupported numerical claim: 90%"
+      "reason": "JSONDecodeError: Expecting ',' delimiter: line 3 column 1 (char 780)"
     },
     "pabrai-87529cf106b12a": {
       "at": "2026-11-02T17:57:49+00:00",
@@ -3583,5 +3583,5 @@
       "reason": "ValueError: Bilingual editorial review: The source text (s0) does not explicitly state that the Fund's annualized return is 8.89% versus S&P 500's 6.28%; these specific per"
     }
   },
-  "updatedAt": "2026-11-02T20:27:30+00:00"
+  "updatedAt": "2026-11-02T20:28:28+00:00"
 }
