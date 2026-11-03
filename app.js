@@ -2367,7 +2367,7 @@ function updateInvestorContent() {
   const quoteSource = p.quote?.url;
   setHTML('.quote-block .attr', /^https:\/\//.test(quoteSource || '') ? `<a href="${hkEscape(quoteSource)}" target="_blank" rel="noopener noreferrer">${hkEscape(quoteAttribution)}</a>` : hkEscape(quoteAttribution));
   const aboutDetails=document.getElementById('aboutDetails');
-  if(aboutDetails?.dataset && aboutDetails.dataset.investor!==investor){aboutDetails.open=false;aboutDetails.dataset.investor=investor;}
+  if(aboutDetails?.dataset && aboutDetails.dataset.investor!==investor){aboutDetails.open=true;aboutDetails.dataset.investor=investor;}
   setText('#aboutExpand',text('人物简介与重要经历','Biography & key milestones'));
   setText('#aboutLabel', 'About');
   setText('#aboutTitle', profileText(p.aboutTitle) || text(`关于${cfg.name}`, `About ${cfg.nameEn}`));
