@@ -669,10 +669,10 @@
       "reason": "ValueError: Bilingual editorial review: The English translation of the paragraph contains a factual error regarding the number of businesses: it states 'over 80 businesses'"
     },
     "pabrai-802921b1b7af6e": {
-      "at": "2026-11-03T15:17:31+00:00",
+      "at": "2026-11-03T21:40:36+00:00",
       "status": "retry",
       "inputHash": "294647c39d11b15aa1d910b98938ba2ac8de2180e55c5c55932e26f63a4a9b17",
-      "reason": "JSONDecodeError: Expecting ',' delimiter: line 5 column 249 (char 898)"
+      "reason": "ValueError: Bilingual editorial review: The English translation of the Chinese content contains a factual error: it misrepresents Mohnish Pabrai's own investment behavior. "
     },
     "pabrai-bc7ec8286850d8": {
       "at": "2026-11-03T19:01:30+00:00",
@@ -3592,5 +3592,5 @@
       "reason": "ValueError: Bilingual editorial review: The source text (s0) contains garbled characters and does not explicitly state '279.09 percentage points' or '2.35 percentage points"
     }
   },
-  "updatedAt": "2026-11-03T21:40:00+00:00"
+  "updatedAt": "2026-11-03T21:40:36+00:00"
 }
