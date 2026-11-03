@@ -1681,10 +1681,10 @@
       "reason": "ValueError: Bilingual editorial review: The English translation of the title contains 'Joel Cohen and Rob Vinall' but the Chinese title specifies 'MITIMCo's Joel Cohen', im"
     },
     "lilu-a3cf37658bd8ce": {
-      "at": "2026-11-03T15:32:51+00:00",
+      "at": "2026-11-03T22:08:21+00:00",
       "status": "retry",
       "inputHash": "45d6c7a7835cef8eb907feccd6ec0229e1bd287edb6ec1d5f6194a3a3a777652",
-      "reason": "ValueError: Bilingual editorial review: The English paragraph contains factual errors not supported by the source text: 'near-complete autonomy in mature semiconductor proc"
+      "reason": "JSONDecodeError: Extra data: line 4 column 1 (char 1451)"
     },
     "vinall-c550c8c4eb0384": {
       "at": "2026-11-03T21:10:44+00:00",
@@ -3592,5 +3592,5 @@
       "reason": "ValueError: Bilingual editorial review: The source text (s0) contains garbled characters and does not explicitly state '279.09 percentage points' or '2.35 percentage points"
     }
   },
-  "updatedAt": "2026-11-03T22:08:09+00:00"
+  "updatedAt": "2026-11-03T22:08:21+00:00"
 }
