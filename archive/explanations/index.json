@@ -1165,10 +1165,10 @@
       "reason": "ValueError: Bilingual editorial review: The source text (s3) states the quote is 'a famous Munger quote' and Pabrai practices it; the summary incorrectly claims Pabrai clar"
     },
     "vinall-f47e656603551a": {
-      "at": "2026-11-03T16:17:16+00:00",
+      "at": "2026-11-03T22:58:09+00:00",
       "status": "retry",
       "inputHash": "5097a53ae89ab9a32c8b3921ad080d43c9a7a4172505bcff79b45cd675befeef",
-      "reason": "ValueError: Unsupported numerical claim: 9"
+      "reason": "ValueError: Bilingual editorial review: The Chinese text incorrectly states 'cumulative increase of 430.5% since inception' (self-inception) when the source only says 'incr"
     },
     "pabrai-0578ad73179b18": {
       "at": "2026-11-03T21:30:15+00:00",
@@ -3592,5 +3592,5 @@
       "reason": "ValueError: Bilingual editorial review: The source text (s0) contains garbled characters and does not explicitly state '279.09 percentage points' or '2.35 percentage points"
     }
   },
-  "updatedAt": "2026-11-03T22:57:52+00:00"
+  "updatedAt": "2026-11-03T22:58:09+00:00"
 }
