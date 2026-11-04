@@ -1387,10 +1387,10 @@
       "reason": "ValueError: Bilingual editorial review: The English translation incorrectly states Jhunjhunwala's investment grew to over half of his 'net worth' (wealth), whereas the sour"
     },
     "pabrai-d5fc50447fd953": {
-      "at": "2026-11-03T23:03:33+00:00",
+      "at": "2026-11-04T06:52:25+00:00",
       "status": "retry",
       "inputHash": "d0544da8e14ed7578c5daf19301f2720de371f994b5468583fe2bfc9be5913e0",
-      "reason": "ValueError: Unsupported numerical claim: 90%"
+      "reason": "JSONDecodeError: Expecting ',' delimiter: line 3 column 1 (char 843)"
     },
     "pabrai-87529cf106b12a": {
       "at": "2026-11-04T04:15:28+00:00",
@@ -3592,5 +3592,5 @@
       "reason": "ValueError: Incomplete AI Review at 900 tokens"
     }
   },
-  "updatedAt": "2026-11-04T06:50:14+00:00"
+  "updatedAt": "2026-11-04T06:52:25+00:00"
 }
