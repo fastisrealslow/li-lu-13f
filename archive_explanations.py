@@ -296,10 +296,12 @@ def run_batch(root,model,limit,minutes,shard,shards):
             index=publish(root,index,work['id'])
     return {'generated':done,'pending':len(pending(root)),'continuation':continuation}
 
-def validate_saved(root=ROOT):
+def validate_saved(root=ROOT,only=None):
     root=Path(root);works={w['id']:w for w in read(root/'archive/catalog.json')['works']};index=read(root/'archive/explanations/index.json',{'entries':{}});baselines=read(root/'archive/explanation_baselines.json',{})
     accepted=0
+    if only is not None and only not in index['entries']:raise ValueError('Missing queued guide entry')
     for ident,entry in index['entries'].items():
+        if only is not None and ident!=only:continue
         if ident not in works or not re.fullmatch(r'archive/explanations/[a-z0-9_-]+\.json',entry.get('file','')):raise ValueError('Unknown work or invalid explanation path')
         note=read(root/entry['file'])
         if note.get('version',1)>=2 and entry.get('reviewStatus')!='verified':continue

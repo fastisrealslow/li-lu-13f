@@ -250,11 +250,12 @@ def resume_publications(root,index,shard,shards):
         old_note=target_path.read_bytes() if target_path.exists() else None
         index.setdefault('entries',{})[ident]=queued['entry'];index.setdefault('attempts',{})[ident]=queued['attempt']
         index['updatedAt']=queued['updatedAt'];e.write(target_path,queued['note']);e.write(root/'archive/explanations/index.json',index)
-        try:e.validate_saved(root)
+        try:e.validate_saved(root,only=ident)
         except Exception:
             e.write(root/'archive/explanations/index.json',old)
             if old_note is None:target_path.unlink(missing_ok=True)
             else:target_path.write_bytes(old_note)
-            raise
+            print('Queued guide failed source validation; regenerate:',ident,flush=True)
+            path.unlink();index=old;continue
         index=publish(root,index,ident)
     return index

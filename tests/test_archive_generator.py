@@ -190,3 +190,14 @@ class ArchivePublicationRecoveryTests(unittest.TestCase):
                 result=generator.publish(root,index,'test')
             self.assertEqual(len(pushes),3);self.assertIn('other',result['entries']);self.assertIn('test',result['entries'])
             self.assertFalse((root/'.archive-work/partials/publish-test.json').exists())
+
+    def test_resumed_guide_validation_does_not_require_another_workers_new_file(self):
+        import archive_explanations as e
+        with tempfile.TemporaryDirectory() as tmp:
+            root=Path(tmp);(root/'archive/explanations').mkdir(parents=True)
+            entry={'file':'archive/explanations/test.json','inputHash':'current','sourceDigest':'a'*64,'reviewStatus':'verified'}
+            e.write(root/'archive/catalog.json',{'works':[{'id':'test','sources':[{'url':'https://example.com/original'}]}]})
+            e.write(root/'archive/explanations/index.json',{'entries':{'test':entry,'other':{'file':'archive/explanations/another-worker.json'}}})
+            e.write(root/entry['file'],{'kind':'ai_explanation','version':4,'reviewVersion':1,'workId':'test','inputHash':'current','sourceDigest':'a'*64,'sourceURL':'https://example.com/original','label':{'zh':'作品导读，非原文'},'sections':[{'evidenceIds':['p1'],'paragraphs':[{'zh':'研究','en':'Research'}]},{'evidenceIds':['p2'],'paragraphs':[{'zh':'分析','en':'Analysis'}]}]})
+            self.assertEqual(e.validate_saved(root,only='test'),1)
+            with self.assertRaises(ValueError):e.validate_saved(root,only='unknown')
