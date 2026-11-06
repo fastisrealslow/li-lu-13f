@@ -1679,10 +1679,10 @@
       "reason": "ValueError: Bilingual editorial review: The Chinese text incorrectly states '44.4% increase from the start of the year to December 30, 2023' as a single metric; the source "
     },
     "vinall-df59d376d9122d": {
-      "at": "2026-11-06T16:28:54+00:00",
+      "at": "2026-11-06T22:51:58+00:00",
       "status": "retry",
       "inputHash": "221e8fa138aadd9cd0023125183457ae5b1b1d861654c64861d43e501d7ef38c",
-      "reason": "ValueError: English text contains untranslated Chinese"
+      "reason": "ValueError: Repeated paragraphs cannot pad an explanation"
     },
     "vinall-53f42cca11bfa3": {
       "at": "2026-11-06T19:59:21+00:00",
@@ -3607,5 +3607,5 @@
       "reason": "ValueError: Bilingual editorial review: The source text (s4) contains the phrase 'the men will eventually be separated from the boys' as a metaphor within Mohnish's speech,"
     }
   },
-  "updatedAt": "2026-11-06T22:51:49+00:00"
+  "updatedAt": "2026-11-06T22:51:58+00:00"
 }
