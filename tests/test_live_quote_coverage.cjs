@@ -5,7 +5,7 @@ const vm=require('node:vm');
 const path=require('node:path');
 const root=path.join(__dirname,'..');
 const read=p=>JSON.parse(fs.readFileSync(path.join(root,p),'utf8'));
-test('every displayed stock and eligible HK supplemental row has a recent matching quote',()=>{
+test('every displayed stock has a current quote or an explicitly quarantined dated fallback',()=>{
   const c=vm.createContext({console,Date,window:{innerWidth:1440},localStorage:{getItem:()=>null},document:{readyState:'loading',addEventListener(){}}});
   vm.runInContext(fs.readFileSync(path.join(root,'app.js'),'utf8'),c);
   for(const cfg of read('investors.json').investors){
@@ -14,12 +14,25 @@ test('every displayed stock and eligible HK supplemental row has a recent matchi
       const q=p.quotes[h.ticker],event=read('security_lifecycle.json').events[h.cusip];
       if(/\bWARRANT\b/i.test(h.cls||'')&&q?.status==='filing_reference'){assert.equal(q.cusip,h.cusip);assert.equal(q.filedUnitValue,h.value/h.shares);assert.equal(q.asOf,d.current.periodEnd);assert.equal(q.sourceURL,d.current.sourceFiling);continue;}
       if(event&&event.ticker===h.ticker&&event.effectiveDate<=new Date().toISOString().slice(0,10)){assert.equal(q?.status,'ceased_trading');assert.deepEqual(q.event,event);assert.match(event.sourceURL,/^https:\/\//);continue;}
+      if(q?.stale && q.availability?.status==='unavailable'){
+        const a=q.availability,age=Date.now()-Date.parse(a.checkedAt);
+        assert.equal(a.ticker,h.ticker);assert.equal(a.cusip,h.cusip);
+        assert.equal(a.reason,'quote_refresh_required');assert.ok(age>=-600000&&age<=86400000);
+        if(q.c!==undefined)assert.ok(q.c>0&&Number.isFinite(q.c)&&Number.isFinite(q.t)&&q.t*1000<=Date.now()+600000);
+        continue; // Explicitly quarantined: strict recovery still reports it as missing.
+      }
       assert.ok(!h.ticker.startsWith('?')&&q?.c>0&&Number.isFinite(q.t)&&q.t*1000<=Date.now()+600000&&Date.now()-q.t*1000<=7*86400000&&!q.error&&!q.stale,`${cfg.id}/${h.ticker}`);
     }
     if(!cfg.hkFile)continue;
     c.cfg=cfg;c.snapshot=d;c.quotes=p;c.hk=read(cfg.hkFile);
     const rows=vm.runInContext('prices=quotes;latestReportedHKHoldings(hk,cfg,snapshot.current.quarter)',c);
-    for(const h of rows){c.h=h;assert.equal(vm.runInContext('hkQuoteState(h.ticker,h.shareClass).usable',c),true,`${cfg.id}/${h.ticker} HK supplement`);}
+    for(const h of rows){
+      c.h=h;const state=vm.runInContext('hkQuoteState(h.ticker,h.shareClass)',c);
+      if(!state.usable){const q=p.quotes[h.ticker],a=q?.availability,age=Date.now()-Date.parse(a?.checkedAt);
+        assert.ok(q?.stale&&a?.status==='unavailable'&&a.ticker===h.ticker&&age>=-600000&&age<=86400000,`${cfg.id}/${h.ticker} HK supplement`);
+        if(q.c!==undefined)assert.equal(q.currency,'HKD');
+      }
+    }
   }
 });
 test('every quoted listing in the personal portfolio has a dated positive price',()=>{

@@ -32,7 +32,9 @@ def recovery_decision(runs, now, max_age, needed=False, active_timeout=4):
     # during runner shortages, or cancel a healthy collection halfway through.
     if current:return {'dispatch':False,'reason':'already_active',**cancellations}
     manual=[parsed(r.get('created_at')) for r in runs if r.get('event')=='workflow_dispatch']
-    if any(t and now-t<timedelta(hours=6) for t in manual):
+    recent_failures=[r for r in runs if r.get('conclusion') in ('failure','timed_out') and finished(r) and now-finished(r)<timedelta(hours=24)]
+    cooldown=12 if len(recent_failures)>=3 else 6
+    if any(t and now-t<timedelta(hours=cooldown) for t in manual):
         return {'dispatch':False,'reason':'recovery_cooldown',**cancellations}
     successes=[r for r in runs if r.get('conclusion')=='success' and finished(r)]
     last=max(successes,key=finished) if successes else None
@@ -121,6 +123,10 @@ def published_site_health(root, repository, fetch=None):
     if 'id="summaryCards"' not in index or 'id="investorSelect"' not in index:raise ValueError('Published page entry point is incomplete')
     script=re.search(r'<script\s+src="(app\.js(?:\?[^"<>]*)?)"',index)
     if not script or 'function switchInvestor' not in fetch(script[1]).decode():raise ValueError('Published application script is missing')
+    local_index=Path(root)/'index.html'
+    if local_index.exists():
+        wanted=re.search(r'<script\s+src="(app\.js(?:\?[^"<>]*)?)"',local_index.read_text())
+        if wanted and script[1]!=wanted[1]:raise ValueError('Published application version is behind the repository')
     manifest=json.loads(fetch('browser/manifest.json'))
     people=json.loads((Path(root)/'investors.json').read_text())['investors']
     for person in people:
@@ -188,6 +194,9 @@ def main():
             issues.append({'code':'publication_probe_failed','reason':str(exc)})
         report=plan(evidence,issues,now)
         report['site']=site
+        persistent=[key for key,runs in evidence.items() if len([r for r in runs if r.get('conclusion') in ('failure','timed_out') and finished(r) and now-finished(r)<timedelta(hours=24)])>=3 and not any(r.get('conclusion')=='success' and finished(r) and now-finished(r)<timedelta(hours=12) for r in runs)]
+        report['status']='degraded' if persistent else 'recovering' if issues else 'healthy'
+        report['persistentFailures']=persistent
         for key,error in unavailable.items():report['workflows'][key]={'dispatch':False,'reason':'workflow_api_unavailable','error':error}
         for key,decision in report['workflows'].items():
             try:
@@ -201,6 +210,7 @@ def main():
             except Exception as exc:
                 decision.update(action='recovery_failed',error=str(exc))
         print(json.dumps(report,ensure_ascii=False,indent=2))
+        if report.get('persistentFailures'):raise RuntimeError('Persistent automation failure: '+', '.join(report['persistentFailures'])+'; recovery requested with bounded retries')
         if unavailable or any(r.get('action')=='recovery_failed' for r in report['workflows'].values()):raise RuntimeError('Some automatic recovery actions could not complete; see retained report')
     finally:
         Path(options.output).write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n')

@@ -104,3 +104,9 @@ class AutomationHealthTests(unittest.TestCase):
         evidence={key:[run()] for key in health.WORKFLOWS}
         decisions=health.plan(evidence,[{'code':'publication_probe_failed'}],NOW)['workflows']
         self.assertTrue(decisions['pages']['dispatch']);self.assertFalse(decisions['data']['dispatch'])
+
+    def test_repeated_failures_back_off_but_do_not_disable_daily_recovery(self):
+        failures=[run(1,'failure'),run(2,'failure'),run(3,'failure'),run(8,'failure',event='workflow_dispatch')]
+        self.assertEqual(health.recovery_decision(failures,NOW,18)['reason'],'recovery_cooldown')
+        failures[-1]=run(13,'failure',event='workflow_dispatch')
+        self.assertTrue(health.recovery_decision(failures,NOW,18)['dispatch'])

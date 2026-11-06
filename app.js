@@ -841,6 +841,8 @@ function holdingCostState(h, snapshot = data, priceSnapshot = prices) {
   const meta = snapshot?.meta || {}, current = snapshot?.current || {};
   const unavailable = reason => ({basis: null, reason});
   if (h.putCall) return unavailable('option');
+  const corporateAction=priceSnapshot?.corporateActions?.[h.cusip];
+  if(corporateAction?.preserveCost===false && (current.periodEnd||'')<(corporateAction.effectiveDate||'9999')) return unavailable('corporate_action');
   if (h.shareType && h.shareType !== 'SH') return unavailable('principal');
   if (meta.snapshotType) return unavailable('archive');
   if (current.valueQuality) return unavailable('units');
@@ -880,6 +882,7 @@ function holdingCostState(h, snapshot = data, priceSnapshot = prices) {
 }
 function costUnavailableText(reason, en = lang === 'en') {
   const messages = {
+    corporate_action: ['分拆后成本待重新分配', 'Cost allocation after spin-off pending'],
     option: ['期权不适用', 'Not for options'], principal: ['本金不适用', 'Not for principal'],
     archive: ['历史快照不估算', 'Archive only'], units: ['申报单位待核实', 'Filed units unverified'],
     scope: ['申报范围待比较', 'Reporting scope changed'], classes: ['股类历史待核实', 'Share-class history unverified'],
@@ -1004,7 +1007,8 @@ function renderHoldings() {
     const costState = holdingCostState(h);
     const cb = costState.basis;
     const quoteOK = q && !q.error && Number.isFinite(q.c) && q.c > 0;
-    const currentPrice = quoteOK && !q.stale ? q.c : null;
+    const quoteStale = !!q && (q.stale || !Number.isFinite(q.t) || Date.now()-q.t*1000>7*86400000 || q.t*1000>Date.now()+600000);
+    const currentPrice = quoteOK && !quoteStale ? q.c : null;
     const reason = cb ? null : costState.reason==='archive' && data.meta?.snapshotType==='verified_disclosure_snapshot'?(lang==='en'?'Transaction cost undisclosed':'未披露成交成本'):costUnavailableText(costState.reason);
     const mos = cb ? costGap(currentPrice, cb.recent.buy) : null;
     if(mos!==null) shownGaps.push(mos);
@@ -1016,7 +1020,7 @@ function renderHoldings() {
     const lifecycle=q?.status==='ceased_trading' ? q.event : null;
     const filedReference=q?.status==='filing_reference' && q.cusip===h.cusip && Number.isFinite(q.filedUnitValue) && q.filedUnitValue>=0 ? q : null;
     const priceHtml = filedReference ? `<span class="current-price">${currSymbol(h.ticker)}${filedReference.filedUnitValue.toFixed(2)}</span><small class="quote-date">${hkEscape(filedReference.asOf)}</small><small class="option-field-note">${lang==='en'?'Filed warrant unit value · not a current quote':'权证申报单价 · 非现价'}</small>` : lifecycle ? `<span class="estimate-unavailable">${lang==='en'?'No longer trading':'已停止交易'}</span><small class="quote-date">${hkEscape(lifecycle.effectiveDate)}</small><small class="option-field-note"><a href="${hkEscape(lifecycle.sourceURL)}" target="_blank" rel="noopener noreferrer">${lang==='en'?'Issuer confirmation':'公司公告'}</a></small>` : quoteOK
-      ? `<span class="current-price">${currSymbol(h.ticker)}${q.c.toFixed(2)}</span>${quoteDate?`<small class="quote-date">${quoteDate}</small>`:''}${h.putCall?`<small class="option-field-note">${lang==='en'?'Underlying stock price':'标的股价'}</small>`:''}${q.successorRatio===1&&/^https:\/\/www\.sec\.gov\/Archives\//.test(q.successorSource||'')?`<small class="quote-date"><a href="${hkEscape(q.successorSource)}" target="_blank" rel="noopener noreferrer">${lang==='en'?'1:1 successor quote':'1:1 换股后报价'}</a></small>`:''}${q.stale ? `<small class="quote-stale">${lang==='en'?'Last saved quote':'上次成功报价'}</small>` : ''}`
+      ? `<span class="current-price">${currSymbol(h.ticker)}${q.c.toFixed(2)}</span>${quoteDate?`<small class="quote-date">${quoteDate}</small>`:''}${h.putCall?`<small class="option-field-note">${lang==='en'?'Underlying stock price':'标的股价'}</small>`:''}${q.successorRatio===1&&/^https:\/\/www\.sec\.gov\/Archives\//.test(q.successorSource||'')?`<small class="quote-date"><a href="${hkEscape(q.successorSource)}" target="_blank" rel="noopener noreferrer">${lang==='en'?'1:1 successor quote':'1:1 换股后报价'}</a></small>`:''}${quoteStale ? `<small class="quote-stale">${lang==='en'?'Last saved quote':'上次成功报价'}</small>` : ''}`
       : `<span class="estimate-unavailable">${h.shareType && h.shareType!=='SH' ? (lang==='en'?'Principal security · no stock quote':'本金类证券 · 不适用股价') : (lang === 'en' ? 'Quote unavailable' : '暂无报价')}</span>`;
     const mosHtml = h.putCall ? '<span class="estimate-unavailable">—</span>' : costGapHTML(mos, reason, lang==='en', cb?.recent?.kind);
     let costHtml = h.putCall ? '<span class="estimate-unavailable">—</span>' : `<span class="estimate-unavailable">${hkEscape(reason)}</span>`;

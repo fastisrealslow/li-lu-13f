@@ -2,6 +2,7 @@
 import hashlib
 import json
 import math
+import random
 import os
 from pathlib import Path
 import subprocess
@@ -189,28 +190,71 @@ def request_deployment():
 def publish(root,index,ident):
     """Merge only this work's checkpoint into fresh master; never merge financial data."""
     root=Path(root)
-    def git(*args,check=True):return subprocess.run(['git',*args],cwd=root,check=check,capture_output=True,text=True)
+    def git(*args,check=True):return subprocess.run(['git',*args],cwd=root,check=check,capture_output=True,text=True,timeout=60)
     git('config','user.name','github-actions[bot]');git('config','user.email','github-actions[bot]@users.noreply.github.com')
     local_entry=index['entries'].get(ident);attempt=index.get('attempts',{}).get(ident)
     successful=attempt and attempt.get('status')=='ok' and local_entry and local_entry.get('reviewStatus')=='verified'
-    for retry in range(8):
-        git('fetch','origin','master')
-        latest=json.loads(git('show','origin/master:archive/explanations/index.json').stdout)
-        fresh=latest.get('entries',{}).get(ident,{})
-        already_published=bool(successful and fresh.get('reviewStatus')=='verified' and fresh.get('inputHash')==local_entry.get('inputHash') and (fresh.get('reviewMethod')=='editorial_source_check' or fresh.get('sourceDigest') and fresh.get('sourceDigest')==local_entry.get('sourceDigest')))
-        publish_text=successful and not already_published
-        if publish_text:latest.setdefault('entries',{})[ident]=local_entry
-        if attempt and not (attempt.get('status')=='retry' and fresh.get('reviewStatus')=='verified' and attempt.get('inputHash')==fresh.get('inputHash')):latest.setdefault('attempts',{})[ident]=attempt
-        latest['updatedAt']=index['updatedAt']
-        # Retain the work files while rebasing the index on the current branch.
-        git('reset','--mixed','origin/master')
-        path=root/'archive/explanations/index.json';path.write_text(json.dumps(latest,ensure_ascii=False,indent=2)+'\n')
-        paths=['archive/explanations/index.json']+([local_entry['file']] if publish_text else [])
-        git('add','--',*paths)
-        if git('diff','--cached','--quiet',check=False).returncode==0:return latest
-        git('commit','-m',f'auto: checkpoint detailed introduction {ident}')
-        if git('push','origin','HEAD:master',check=False).returncode==0:
-            if publish_text:request_deployment()
-            return latest
-        time.sleep(2+retry)
+    deadline=time.monotonic()+300
+    pending=root/'.archive-work/partials'/('publish-'+ident+'.json')
+    if successful and (root/local_entry['file']).exists():
+        pending.parent.mkdir(parents=True,exist_ok=True)
+        pending.write_text(json.dumps({'ident':ident,'entry':local_entry,'attempt':attempt,'note':json.loads((root/local_entry['file']).read_text()),'updatedAt':index['updatedAt']},ensure_ascii=False)+'\n')
+    for retry in range(32):
+        try:
+            git('fetch','origin','master')
+            latest=json.loads(git('show','origin/master:archive/explanations/index.json').stdout)
+            fresh=latest.get('entries',{}).get(ident,{})
+            already_published=bool(successful and fresh.get('reviewStatus')=='verified' and fresh.get('inputHash')==local_entry.get('inputHash') and (fresh.get('reviewMethod')=='editorial_source_check' or fresh.get('sourceDigest') and fresh.get('sourceDigest')==local_entry.get('sourceDigest')))
+            publish_text=successful and not already_published
+            if already_published and local_entry and (root/local_entry['file']).exists():
+                approved_file=git('show','origin/master:'+local_entry['file'],check=False)
+                if approved_file.returncode==0:(root/local_entry['file']).write_text(approved_file.stdout)
+            if publish_text:latest.setdefault('entries',{})[ident]=local_entry
+            if attempt and not (attempt.get('status')=='retry' and fresh.get('reviewStatus')=='verified' and attempt.get('inputHash')==fresh.get('inputHash')):latest.setdefault('attempts',{})[ident]=attempt
+            latest['updatedAt']=index['updatedAt']
+            # Retain the work files while rebasing the index on the current branch.
+            git('reset','--mixed','origin/master')
+            path=root/'archive/explanations/index.json';path.write_text(json.dumps(latest,ensure_ascii=False,indent=2)+'\n')
+            paths=['archive/explanations/index.json']+([local_entry['file']] if publish_text else [])
+            git('add','--',*paths)
+            if git('diff','--cached','--quiet',check=False).returncode==0:
+                pending.unlink(missing_ok=True)
+                return latest
+            git('commit','-m',f'auto: checkpoint detailed introduction {ident}')
+            if git('push','origin','HEAD:master',check=False).returncode==0:
+                pending.unlink(missing_ok=True)
+                if publish_text:request_deployment()
+                return latest
+        except (subprocess.CalledProcessError,subprocess.TimeoutExpired) as error:
+            print('Archive publication transport will retry:',type(error).__name__,flush=True)
+        if time.monotonic()>=deadline:break
+        # Independent workers must not retry in lockstep against the same index.
+        print(f'Concurrent archive checkpoint; retry {retry+1}/32',flush=True)
+        time.sleep(random.uniform(1,min(20,2+retry*2)))
     raise RuntimeError('Introduction checkpoint publication needs retry')
+
+
+def resume_publications(root,index,shard,shards):
+    """Retry a source-validated complete guide before running inference again."""
+    import archive_explanations as e
+    root=Path(root);works={w['id']:w for w in e.read(root/'archive/catalog.json')['works']}
+    for path in sorted((root/'.archive-work/partials').glob('publish-*.json')):
+        queued=e.read(path);ident=queued['ident']
+        if int(hashlib.sha256(ident.encode()).hexdigest(),16)%shards!=shard:continue
+        work=works.get(ident)
+        if not work or queued['entry'].get('inputHash')!=e.input_hash(work):
+            path.unlink();continue
+        target=queued['entry'].get('file','')
+        if target!='archive/explanations/'+ident+'.json':raise ValueError('Invalid pending guide path')
+        old=json.loads(json.dumps(index));target_path=root/target
+        old_note=target_path.read_bytes() if target_path.exists() else None
+        index.setdefault('entries',{})[ident]=queued['entry'];index.setdefault('attempts',{})[ident]=queued['attempt']
+        index['updatedAt']=queued['updatedAt'];e.write(target_path,queued['note']);e.write(root/'archive/explanations/index.json',index)
+        try:e.validate_saved(root)
+        except Exception:
+            e.write(root/'archive/explanations/index.json',old)
+            if old_note is None:target_path.unlink(missing_ok=True)
+            else:target_path.write_bytes(old_note)
+            raise
+        index=publish(root,index,ident)
+    return index

@@ -82,12 +82,14 @@ def resolve_active(root,configs):
         quotes=load(root/inv['pricesFile']).get('quotes',{})
         for h in load(root/inv['dataFile'])['current']['holdings']:
             q=quotes.get(h['ticker'],{})
-            if h.get('cusip') and h.get('shareType','SH')=='SH' and (h['ticker'].startswith('?') or not valid_quote(q) or q.get('stale') or time.time()-q.get('t',0)>3*86400):
+            if q.get('status') in ('ceased_trading','filing_reference') or h.get('putCall'):continue
+            if h.get('cusip') and h.get('shareType','SH')=='SH' and (h['ticker'].startswith('?') or not valid_quote(q) or q.get('stale') or time.time()-q.get('t',0)>7*86400):
                 candidates.append(h)
+    candidates=list({(h.get('cusip'),h.get('ticker')):h for h in candidates}.values())
     if not candidates:return
     try:
         from fetch_13f_all import sec_fetch
-        directory=json.loads(sec_fetch('/files/company_tickers.json')).values()
+        directory=list(json.loads(sec_fetch('/files/company_tickers.json')).values())
     except Exception:return
     names={}
     for row in directory:names.setdefault(issuer_key(row['title']),[]).append(row)
@@ -97,16 +99,91 @@ def resolve_active(root,configs):
         matches=names.get(issuer_key(h['name']),[])
         tickers={r['ticker'] for r in matches}
         if len(tickers)!=1 or re.search(r'PFD|PREF|WARRANT|NOTE',h.get('cls','').upper()):continue
-        tk=tickers.pop();q=yahoo_quote(tk)
+        tk=tickers.pop()
+        if tk==h['ticker']:continue
+        q=yahoo_quote(tk)
         if not valid_quote(q) or issuer_key(q.get('verifiedName') or '')!=issuer_key(h['name']):continue
         resolved[h['cusip']]=tk
         record={'ticker':tk,'oldSymbols':[h['ticker']] if not h['ticker'].startswith('?') and h['ticker']!=tk else [],'issuer':h['name'],'sourceURL':'https://www.sec.gov/files/company_tickers.json','quoteSource':q['sourceURL'],'checkedAt':datetime.now(timezone.utc).isoformat()}
         previous=changes['entries'].get(h['cusip'],{})
         record['oldSymbols']=sorted(set(record['oldSymbols']+previous.get('oldSymbols',[])))
         changes['entries'][h['cusip']]=record;renames[h['cusip']]=record
+    # Directory names can lag a completed rename. Bind the old and new SEC
+    # cover pages through an explicit unchanged-CUSIP notice, then verify price.
+    from security_symbol_recovery import discover
+    unresolved=[h for h in candidates if h['cusip'] not in renames]
+    try: recovered=discover(unresolved,directory,sec_fetch,yahoo_quote)
+    except Exception as exc:
+        print('SEC symbol recovery will retry:',type(exc).__name__,flush=True);recovered={}
+    for cusip,record in recovered.items():
+        prior=changes['entries'].get(cusip,{})
+        record['oldSymbols']=sorted(set(record['oldSymbols']+prior.get('oldSymbols',[])))
+        changes['entries'][cusip]=record;renames[cusip]=record;resolved[cusip]=record['ticker']
     if renames:
         save(path,changes);save(root/'resolved_cusip_map.json',resolved)
         resolver.backfill_data_files([str(root/i['dataFile']) for i in configs],resolved,renames)
+
+def fresh_quote(q, now=None):
+    now = time.time() if now is None else now
+    return valid_quote(q) and not q.get('stale') and now-q['t'] <= 7*86400
+
+
+def prepare_publication(root=ROOT):
+    """Quarantine unavailable prices without changing their price or trade date.
+
+    Publication is independent of a live provider; strict coverage still reports
+    every unresolved security to recovery. Invalid numeric data is never excused.
+    """
+    root=Path(root);now=datetime.now(timezone.utc).isoformat();report=coverage(root)
+    aliases=load(root/'security_symbol_changes.json').get('entries',{}) if (root/'security_symbol_changes.json').exists() else {}
+    configs=load(root/'investors.json')['investors']
+    for inv in configs:
+        path=root/inv['pricesFile'];payload=load(path);changed=False
+        holdings=list(load(root/inv['dataFile'])['current']['holdings'])
+        seen={h['ticker'] for h in holdings}
+        if inv.get('hkFile') and (root/inv['hkFile']).exists():
+            for h in load(root/inv['hkFile']).get('holdings',[]):
+                tk=h.get('ticker','')
+                if tk in seen or not re.fullmatch(r'\d{5}\.HK',tk):continue
+                if any(r.get('verification')=='hkex_form' and r.get('position')=='long' and r.get('shares',0)>0 and str(r.get('share_class','')).lower().replace('-',' ') in ('ordinary shares','h shares') for r in h.get('verified_disclosures',[])):
+                    holdings.append({'ticker':tk});seen.add(tk)
+        for h in holdings:
+            if h.get('shareType','SH')!='SH':continue
+            action=aliases.get(h.get('cusip'),{})
+            if action.get('preserveCost') is False and action.get('kind')=='spin_off_rename':
+                payload.setdefault('corporateActions',{})[h['cusip']]=action
+                cost=payload.get('costBasis',{}).get(h['ticker'],{})
+                effective=action.get('effectiveDate','9999-12-31');boundary=effective[:4]+' Q'+str((int(effective[5:7])-1)//3+1)
+                if cost.get('recent',{}).get('quarter','')<=boundary:payload.get('costBasis',{}).pop(h['ticker'],None)
+                elif cost.get('allTime',{}):
+                    if cost['allTime'].get('first','')<=boundary:cost['allTime']=None;cost['averageUnavailable']='corporate_action'
+                changed=True
+            q=payload.setdefault('quotes',{}).get(h['ticker'],{})
+            if q.get('status') in ('ceased_trading','filing_reference') or fresh_quote(q):continue
+            if 'c' in q and (not valid_quote({**q,'error':False}) or h['ticker'].endswith('.HK') and q.get('currency')!='HKD'):
+                raise ValueError('Malformed price cannot become a publication fallback: '+h['ticker'])
+            # Keep the original quote and timestamp. Never refresh an old trade date.
+            q={**q,'stale':True,'availability':{'status':'unavailable','ticker':h['ticker'],
+                'cusip':h.get('cusip'),'checkedAt':now,'reason':'quote_refresh_required'}}
+            payload['quotes'][h['ticker']]=q;changed=True
+        if changed:save(path,payload)
+    return report
+
+
+def publication_coverage(root=ROOT):
+    root=Path(root);report=coverage(root);unhandled=[]
+    configs={i['id']:i for i in load(root/'investors.json')['investors']}
+    for issue in report['missing']:
+        q=load(root/configs[issue['investor']]['pricesFile']).get('quotes',{}).get(issue['ticker'],{})
+        a=q.get('availability',{});stamp=a.get('checkedAt','')
+        try:age=time.time()-datetime.fromisoformat(stamp).timestamp()
+        except (ValueError,TypeError):age=float('inf')
+        if not (q.get('stale') is True and a.get('status')=='unavailable'
+                and a.get('ticker')==issue['ticker'] and a.get('cusip')==issue['cusip']
+                and a.get('reason')=='quote_refresh_required' and -600<=age<=86400
+                and ('c' not in q or valid_quote({**q,'error':False}))):unhandled.append(issue)
+    return {**report,'unhandled':unhandled}
+
 
 def coverage(root=ROOT):
     root=Path(root);issues=[];count=0
@@ -194,9 +271,18 @@ def refresh(root=ROOT,all_quotes=False,workers=4):
     return coverage(root)
 
 def main():
-    p=argparse.ArgumentParser();p.add_argument('--check',action='store_true');p.add_argument('--all',action='store_true');p.add_argument('--root',default=str(ROOT));a=p.parse_args()
-    if not a.check:refresh(Path(a.root),a.all)
-    report=coverage(Path(a.root));print(json.dumps(report,ensure_ascii=False))
-    if report['missing']:raise SystemExit('Current stock quote coverage is incomplete')
+    p=argparse.ArgumentParser();p.add_argument('--check',action='store_true');p.add_argument('--all',action='store_true');p.add_argument('--prepare-publication',action='store_true');p.add_argument('--publishable',action='store_true');p.add_argument('--root',default=str(ROOT));a=p.parse_args()
+    root=Path(a.root)
+    if a.prepare_publication:
+        prepare_publication(root)
+    elif not a.check:
+        refresh(root,a.all)
+        if a.publishable:prepare_publication(root)
+    report=publication_coverage(root) if a.publishable or a.prepare_publication else coverage(root)
+    print(json.dumps(report,ensure_ascii=False))
+    if report.get('unhandled',report['missing']):raise SystemExit('Current stock quote coverage is incomplete')
+    if report['missing']:
+        from update_status import record_source_warning
+        record_source_warning('quotes',f"{len(report['missing'])} 项报价暂不可用；已保留原日期并暂停现价比较，后续自动重试。")
 
 if __name__=='__main__':main()

@@ -26,6 +26,7 @@ jobs:
       # Finish the active publication; coalesce later updates into one pending job.
       cancel-in-progress: false
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     environment:
       name: github-pages
       url: ${{ steps.deploy.outputs.page_url }}
@@ -34,6 +35,12 @@ jobs:
         with:
           # The updater commits data after its triggering SHA. Read the updated branch.
           ref: ${{ github.event_name == 'workflow_run' && 'master' || github.ref }}
+
+      - name: Isolate unavailable quotes without changing trade dates
+        run: |
+          python3 quote_coverage.py --prepare-publication
+          python3 -c "import enrich_metadata as e; e._write_value_screen(); e._gen_homework_summary('')"
+          python3 ai_supplement.py --refresh-fallbacks
 
       - name: Test investor data and display
         run: node --test tests/*.cjs
@@ -48,12 +55,14 @@ jobs:
           python3 -m unittest discover -s tests -p test_cost_calculation.py -v
           python3 -m unittest discover -s tests -p test_13f_units.py -v
           python3 -m unittest discover -s tests -p test_quote_coverage.py -v
+          python3 -m unittest discover -s tests -p test_publication_resilience.py -v
+          python3 -m unittest discover -s tests -p test_security_symbol_recovery.py -v
           python3 -m unittest discover -s tests -p test_magic_formula.py -v
 
       - name: Validate published data
         run: |
           python3 validate_data.py
-          python3 quote_coverage.py --check
+          python3 quote_coverage.py --check --publishable
 
       - name: Validate speech and interview reading editions
         run: |

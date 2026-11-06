@@ -19,8 +19,7 @@ from datetime import datetime, timezone
 try:
     import yfinance as yf
 except ImportError:
-    print("yfinance not installed, skipping enrich")
-    raise SystemExit(0)
+    yf = None  # Offline screens and publication must not depend on a quote SDK.
 
 
 def load_investors():

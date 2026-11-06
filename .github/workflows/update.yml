@@ -14,6 +14,10 @@ on:
       - "holdings_diff.py"
       - "fetch_prices_all.py"
       - "quote_coverage.py"
+      - "security_symbol_recovery.py"
+      - "security_symbol_changes.json"
+      - "tests/test_security_symbol_recovery.py"
+      - "tests/test_publication_resilience.py"
       - "security_lifecycle.py"
       - "security_lifecycle.json"
       - "fetch_webb_holdings.py"
@@ -243,12 +247,13 @@ jobs:
         run: |
           python3 resolve_spinoff_names.py
           python3 spinoff_events.py
-          python3 ai_supplement.py --refresh-fallbacks
 
       - name: Validate JSON files before commit
         id: validate_data
         run: |
-          python3 quote_coverage.py
+          python3 quote_coverage.py --publishable
+          python3 -c "import enrich_metadata as e; e._write_value_screen(); e._gen_homework_summary('')"
+          python3 ai_supplement.py --refresh-fallbacks
           python3 validate_data.py
 
       - name: Finish run status including validation outcome

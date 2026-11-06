@@ -167,3 +167,10 @@ test('a value cache hit cancels older requests and caches never cross languages'
   await a.run("lang='en';renderHomework()");
   assert.match(a.el('homeworkContent').innerHTML,/No stocks/);
 });
+
+test('spin-off parent price cannot be compared with the old combined company cost',()=>{
+  const a=app();a.context.snapshot={current:{periodEnd:'2026-06-30',quarter:'2026 Q2',holdings:[]}};
+  a.context.h={ticker:'NEW',cusip:'123456789',shares:10,value:400,shareType:'SH'};
+  a.context.p={corporateActions:{'123456789':{preserveCost:false,effectiveDate:'2026-10-27'}},costBasis:{NEW:{recent:{buy:40,quarter:'2026 Q2'}}}};
+  assert.equal(a.run('holdingCostState(h,snapshot,p).reason'),'corporate_action');
+});

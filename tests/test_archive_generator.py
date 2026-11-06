@@ -171,3 +171,22 @@ class SectionGenerationTests(unittest.TestCase):
 
 
 if __name__=='__main__':unittest.main()
+
+class ArchivePublicationRecoveryTests(unittest.TestCase):
+    def test_completed_guide_is_durable_and_competing_writers_are_retried(self):
+        entry={'file':'archive/explanations/test.json','inputHash':'current','sourceDigest':'source','reviewStatus':'verified'}
+        index={'entries':{'test':entry},'attempts':{'test':{'status':'ok','inputHash':'current'}},'updatedAt':'now'}
+        pushes=[]
+        with tempfile.TemporaryDirectory() as tmp:
+            root=Path(tmp);(root/'archive/explanations').mkdir(parents=True);(root/entry['file']).write_text('{"complete":true}')
+            def git(args,**kwargs):
+                code=0;output=''
+                if args[1:3]==['show','origin/master:archive/explanations/index.json']:output=json.dumps({'entries':{'other':{'reviewStatus':'verified'}},'attempts':{}})
+                if args[1:4]==['diff','--cached','--quiet']:code=1
+                if args[1]=='push':
+                    pushes.append(args);self.assertTrue((root/'.archive-work/partials/publish-test.json').exists());code=1 if len(pushes)<3 else 0
+                return subprocess.CompletedProcess(args,code,stdout=output,stderr='')
+            with patch.object(generator.subprocess,'run',side_effect=git),patch.object(generator.time,'sleep'),patch.object(generator,'request_deployment'):
+                result=generator.publish(root,index,'test')
+            self.assertEqual(len(pushes),3);self.assertIn('other',result['entries']);self.assertIn('test',result['entries'])
+            self.assertFalse((root/'.archive-work/partials/publish-test.json').exists())

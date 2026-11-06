@@ -251,6 +251,9 @@ def run(root=ROOT,model='qwen3.5:4b-q4_K_M',limit=230,minutes=300,shard=0,shards
 
 def run_batch(root,model,limit,minutes,shard,shards):
     root=Path(root);index=read(root/'archive/explanations/index.json',{'version':VERSION,'entries':{},'attempts':{}})
+    if os.environ.get('ARCHIVE_PUBLISH_EACH')=='1':
+        from archive_generator import resume_publications
+        index=resume_publications(root,index,shard,shards)
     baselines=read(root/'archive/explanation_baselines.json',{})
     start=time.monotonic();done=0;continuation=False
     todo=[w for w in pending(root) if int(hashlib.sha256(w['id'].encode()).hexdigest(),16)%shards==shard]
