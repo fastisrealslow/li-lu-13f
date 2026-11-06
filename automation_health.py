@@ -130,13 +130,17 @@ def published_site_health(root, repository, fetch=None):
     manifest=json.loads(fetch('browser/manifest.json'))
     people=json.loads((Path(root)/'investors.json').read_text())['investors']
     for person in people:
-        if person!=people[0] and not person.get('browserHoldingLimit'):continue
         record=manifest['investors'][person['id']]['snapshot'];path=record['file']
         if not re.fullmatch(r'browser/[a-z0-9_-]+-current-[0-9a-f]{24}\.json',path):raise ValueError('Invalid published asset path')
         raw=fetch(path)
         if hashlib.sha256(raw).hexdigest()!=record['sha256']:raise ValueError('Published snapshot digest mismatch')
         bundle=json.loads(raw)
         if bundle.get('investor')!=person['id']:raise ValueError('Published investor snapshot mismatch')
+        data_file=person.get('dataFile')
+        if data_file and (Path(root)/data_file).exists():
+            expected=parsed(json.loads((Path(root)/data_file).read_text()).get('meta',{}).get('lastUpdated'))
+            actual=parsed(bundle.get('data',{}).get('meta',{}).get('lastUpdated'))
+            if expected and (not actual or actual<expected):raise ValueError('Published investor data is older than the validated source: '+person['id'])
         limit=person.get('browserHoldingLimit')
         if limit and len(bundle['data']['current']['holdings'])>limit:raise ValueError('Published portfolio limit was not applied')
     return {'status':'checked','url':base}
