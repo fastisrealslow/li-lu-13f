@@ -22278,14 +22278,14 @@
           ],
           "ticker": "UNH",
           "sector": "保险",
-          "cnName": "联合健康",
           "prevShares": 4178291,
-          "prevValue": 217856000
+          "prevValue": 217856000,
+          "cnName": "联合健康"
         }
       ],
       "2005 Q4": [
         {
-          "name": "COMCAST CORP NEW",
+          "name": "COMCAST CORP NEW LABORATORY CORP AMER",
           "cls": "CL A SPL",
           "cusip": "20030N200",
           "value": 908907000,
@@ -22299,13 +22299,13 @@
               "value": 908907000
             }
           ],
-          "ticker": "CMCSA",
-          "sector": "娱乐",
+          "ticker": "?COMCAST CORP NEW LABORATORY CORP AMER",
+          "sector": "其他",
           "prevShares": 28331061,
           "prevValue": 815368000
         },
         {
-          "name": "LABORATORY CORP AMER HOLDINGS",
+          "name": "HOLDINGS",
           "cls": "COM NEW",
           "cusip": "50540R409",
           "value": 535469000,
@@ -22319,7 +22319,7 @@
               "value": 535469000
             }
           ],
-          "ticker": "?LABORATORY CORP AMER HOLDINGS",
+          "ticker": "?HOLDINGS",
           "sector": "其他",
           "prevShares": 9092896,
           "prevValue": 442915000
@@ -22408,7 +22408,7 @@
       ],
       "2006 Q1": [
         {
-          "name": "COMCAST CORP NEW",
+          "name": "COMCAST CORP NEW LABORATORY CORP AMER",
           "cls": "CL A SPL",
           "cusip": "20030N200",
           "value": 1068684000,
@@ -22422,13 +22422,13 @@
               "value": 1068684000
             }
           ],
-          "ticker": "CMCSA",
-          "sector": "娱乐",
+          "ticker": "?COMCAST CORP NEW LABORATORY CORP AMER",
+          "sector": "其他",
           "prevShares": 35379816,
           "prevValue": 908907000
         },
         {
-          "name": "LABORATORY CORP AMER HOLDINGS",
+          "name": "HOLDINGS",
           "cls": "COM NEW",
           "cusip": "50540R409",
           "value": 580731000,
@@ -22442,7 +22442,7 @@
               "value": 580731000
             }
           ],
-          "ticker": "?LABORATORY CORP AMER HOLDINGS",
+          "ticker": "?HOLDINGS",
           "sector": "其他",
           "prevShares": 9943708,
           "prevValue": 535469000
@@ -29518,7 +29518,7 @@
         "expected13FFileNumber": "028-01658",
         "url": "https://www.sec.gov/Archives/edgar/data/789920/0000950123-05-013583.txt",
         "format": "legacy_13f",
-        "parserVersion": 5,
+        "parserVersion": 6,
         "sourceReconciliation": {
           "status": "reconciled",
           "reportedEntries": 6,
@@ -29539,7 +29539,7 @@
         "expected13FFileNumber": "028-01658",
         "url": "https://www.sec.gov/Archives/edgar/data/789920/0000950123-06-001666.txt",
         "format": "legacy_13f",
-        "parserVersion": 5,
+        "parserVersion": 6,
         "sourceReconciliation": {
           "status": "reconciled",
           "reportedEntries": 6,
@@ -29560,7 +29560,7 @@
         "expected13FFileNumber": "028-01658",
         "url": "https://www.sec.gov/Archives/edgar/data/789920/0000950123-06-006337.txt",
         "format": "legacy_13f",
-        "parserVersion": 5,
+        "parserVersion": 6,
         "sourceReconciliation": {
           "status": "reconciled",
           "reportedEntries": 7,
@@ -34868,7 +34868,7 @@
       },
       "2002 Q4": {
         "version": 1,
-        "checkedAt": "2026-10-30",
+        "checkedAt": "2026-11-06",
         "source": "https://www.sec.gov/Archives/edgar/data/789920/0000950123-03-001500.txt",
         "filingDate": "2003-02-14",
         "sourceDigest": "fbd48762f79b942053558bc3e497112c9d789c4736c5718b54edb1eaa6d8c78a",
@@ -34876,11 +34876,11 @@
         "status": "pending",
         "anchors": [],
         "errors": [],
-        "normalizedHash": "e0350973a98f37e4258b809af994f48860b8477cfa86152e9f162b0dd108a6bf"
+        "normalizedHash": "a8c18c1a5be14b5d9c6ed9263ea5c8921152dc019bef4e155eed7971b3452277"
       },
       "2003 Q1": {
         "version": 1,
-        "checkedAt": "2026-10-30",
+        "checkedAt": "2026-11-06",
         "source": "https://www.sec.gov/Archives/edgar/data/789920/0000950123-03-006321.txt",
         "filingDate": "2003-05-20",
         "sourceDigest": "5f52f8f1687bca3592561069ed910338eb0b48c66c01449b97cc680f5ab22be7",
@@ -34894,7 +34894,7 @@
             "price": 28.590001530647278,
             "date": "2003-03-31",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/CMCSA?period1=0&period2=1793416798&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/CMCSA?period1=0&period2=1794081177&interval=1d&events=splits",
             "candidates": []
           },
           {
@@ -34904,7 +34904,7 @@
             "price": 55.06999969482422,
             "date": "2003-03-31",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/GD?period1=0&period2=1793416799&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/GD?period1=0&period2=1794081177&interval=1d&events=splits",
             "candidates": [
               1
             ]
@@ -34916,7 +34916,7 @@
             "price": 68.70999908447266,
             "date": "2003-03-31",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/AZO?period1=0&period2=1793416799&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/AZO?period1=0&period2=1794081178&interval=1d&events=splits",
             "candidates": [
               1
             ]
@@ -34928,7 +34928,7 @@
             "price": 47.939998626708984,
             "date": "2003-03-31",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/MHK?period1=0&period2=1793416799&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/MHK?period1=0&period2=1794081178&interval=1d&events=splits",
             "candidates": [
               1
             ]
@@ -34939,7 +34939,7 @@
       },
       "2003 Q2": {
         "version": 1,
-        "checkedAt": "2026-10-30",
+        "checkedAt": "2026-11-06",
         "source": "https://www.sec.gov/Archives/edgar/data/789920/0000950123-03-009528.txt",
         "filingDate": "2003-08-18",
         "sourceDigest": "bf710f849c16ca3ffea698a254e84ec386ab818e3ec938b6df1b4448e962db7f",
@@ -34953,7 +34953,7 @@
             "price": 30.18000020313263,
             "date": "2003-06-30",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/CMCSA?period1=0&period2=1793416798&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/CMCSA?period1=0&period2=1794081177&interval=1d&events=splits",
             "candidates": []
           },
           {
@@ -34963,7 +34963,7 @@
             "price": 75.97000122070312,
             "date": "2003-06-30",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/AZO?period1=0&period2=1793416799&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/AZO?period1=0&period2=1794081178&interval=1d&events=splits",
             "candidates": [
               1
             ]
@@ -34974,7 +34974,7 @@
       },
       "2003 Q3": {
         "version": 1,
-        "checkedAt": "2026-10-30",
+        "checkedAt": "2026-11-06",
         "source": "https://www.sec.gov/Archives/edgar/data/789920/0000950123-03-012638.txt",
         "filingDate": "2003-11-13",
         "sourceDigest": "ce4fb931a876130e51e5457e0a4bdb8da1d46b3957b232607d9af6fe388f8f29",
@@ -34988,16 +34988,16 @@
             "price": 30.819998113632202,
             "date": "2003-09-30",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/CMCSA?period1=0&period2=1793416798&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/CMCSA?period1=0&period2=1794081177&interval=1d&events=splits",
             "candidates": []
           }
         ],
         "errors": [],
-        "normalizedHash": "24a7bc8f859bcedde62aaa8a1d2194d06817b422354a014c2733ea0737f619ca"
+        "normalizedHash": "43029b0e90b7a28242e91db5457b471b290fabcf0f6b9d0ade857461f467b14c"
       },
       "2003 Q4": {
         "version": 1,
-        "checkedAt": "2026-10-30",
+        "checkedAt": "2026-11-06",
         "source": "https://www.sec.gov/Archives/edgar/data/789920/0000950123-04-001667.txt",
         "filingDate": "2004-02-13",
         "sourceDigest": "457e05d3df7f68c12e4d4ef5895c6b7d94909f6698e0c55494a051ac5786d964",
@@ -35011,16 +35011,16 @@
             "price": 32.79000136470795,
             "date": "2003-12-31",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/CMCSA?period1=0&period2=1793416798&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/CMCSA?period1=0&period2=1794081177&interval=1d&events=splits",
             "candidates": []
           }
         ],
         "errors": [],
-        "normalizedHash": "d498791cd71e9344cbaf49e4d73524acf20c0e3f7618f7a5963103ca230341d5"
+        "normalizedHash": "fc121e68ea800031ef8eefde404bded219a4827eef3993f17a7f7f31c8e0c695"
       },
       "2004 Q1": {
         "version": 1,
-        "checkedAt": "2026-10-30",
+        "checkedAt": "2026-11-06",
         "source": "https://www.sec.gov/Archives/edgar/data/789920/0000950123-04-006395.txt",
         "filingDate": "2004-05-14",
         "sourceDigest": "bbc21a2e6c25e86003e7750abbccdec9f80b959e63168488a5b1f7a35b09941a",
@@ -35028,7 +35028,7 @@
         "status": "pending",
         "anchors": [],
         "errors": [],
-        "normalizedHash": "0772de8b07cf5f67466903248d832b9818c93e008147bad0db740ad615220ce9"
+        "normalizedHash": "685d4cdd3bad07c2d191442bbc21dd74c25ed000d876291ed16e18fbc026f9e6"
       },
       "2004 Q2": {
         "version": 1,
@@ -36773,30 +36773,27 @@
     "instrumentVerification": {
       "pendingQuarters": [],
       "errors": {},
-      "checkedAt": "2026-11-06T13:56:48.103295+00:00"
+      "checkedAt": "2026-11-06T19:52:56.154293+00:00"
     },
     "excludedValueQuarters": [],
     "coverage": {
-      "checkedAt": "2026-11-06T13:56:48Z",
+      "checkedAt": "2026-11-06T19:52:56Z",
       "missingQuarters": [],
       "repairedThisRun": [
-        "2004 Q4",
-        "2005 Q1",
-        "2005 Q2"
+        "2005 Q3",
+        "2005 Q4",
+        "2006 Q1"
       ],
       "errors": {
         "2012 Q1": "Legacy extraction has no independent completeness evidence",
         "1999 Q1": "Parser revision could not reproduce the original independent unit proof"
       },
       "attempts": {
-        "1999 Q1": 1,
-        "2012 Q1": 9
+        "2012 Q1": 10,
+        "1999 Q1": 1
       },
       "pendingRefreshQuarters": [
         "1999 Q1",
-        "2005 Q3",
-        "2005 Q4",
-        "2006 Q1",
         "2006 Q2",
         "2006 Q3",
         "2006 Q4",
@@ -37313,7 +37310,7 @@
     "instrumentHistoryFrom": "1999 Q1",
     "manager": "Brave Warrior Advisors, LLC",
     "costHistoryFrom": "2012 Q1",
-    "lastUpdated": "2026-11-06T13:56:48Z",
+    "lastUpdated": "2026-11-06T19:52:56Z",
     "notablePeople": [
       "Glenn Greenberg"
     ],

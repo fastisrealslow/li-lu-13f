@@ -785,7 +785,7 @@
           "filing_date": "2026-09-05",
           "supplementary": "",
           "history_complete": true,
-          "notice_url": "https://di.hkex.com.hk/di/NSNoticePersonList.aspx?sa2=np&scpid1=156901&scpid3=0&scpid2=312028&sa1=pl&scsd=03%2f07%2f2017&sced=02%2f11%2f2026&pn=H%26H+International+Investment&src=MAIN&lang=EN&g_lang=en&",
+          "notice_url": "https://di.hkex.com.hk/di/NSNoticePersonList.aspx?sa2=np&scpid1=156901&scpid3=0&scpid2=312028&sa1=pl&scsd=03%2f07%2f2017&sced=06%2f11%2f2026&pn=H%26H+International+Investment&src=MAIN&lang=EN&g_lang=en&",
           "position_details_schema": 4,
           "issued_shares": 1331779203,
           "derivative_interests": [
@@ -820,7 +820,7 @@
           "filing_date": "2026-09-05",
           "supplementary": "",
           "history_complete": true,
-          "notice_url": "https://di.hkex.com.hk/di/NSNoticePersonList.aspx?sa2=np&scpid1=156902&scpid3=0&scpid2=312028&sa1=pl&scsd=03%2f07%2f2017&sced=02%2f11%2f2026&pn=Duan+Yong&src=MAIN&lang=EN&g_lang=en&",
+          "notice_url": "https://di.hkex.com.hk/di/NSNoticePersonList.aspx?sa2=np&scpid1=156902&scpid3=0&scpid2=312028&sa1=pl&scsd=03%2f07%2f2017&sced=06%2f11%2f2026&pn=Duan+Yong&src=MAIN&lang=EN&g_lang=en&",
           "position_details_schema": 4,
           "issued_shares": 1331779203,
           "derivative_interests": [
@@ -848,11 +848,11 @@
           "noticeUrl": "https://di.hkex.com.hk/di/NSNoticePersonList.aspx?sa2=np&scpid1=156902&scpid3=0&scpid2=312028&sa1=pl&scsd=03%2f07%2f2017&sced=06%2f11%2f2026&pn=Duan+Yong&src=MAIN&lang=EN&g_lang=en&"
         }
       ],
-      "last_checked_at": "2026-11-06T13:52:23Z",
+      "last_checked_at": "2026-11-06T19:44:38Z",
       "pending_newer_notices": []
     }
   ],
-  "lastUpdated": "2026-11-06T13:52:23Z",
+  "lastUpdated": "2026-11-06T19:44:38Z",
   "schemaVersion": 3,
   "investor": "duan",
   "source_bindings": {
@@ -920,8 +920,8 @@
     }
   },
   "audit": {
-    "checkedAt": "2026-11-06T13:52:23Z",
-    "status": "checked",
+    "checkedAt": "2026-11-06T19:44:38Z",
+    "status": "partial",
     "queries": [
       {
         "query": "H&H International Investment",
@@ -939,16 +939,12 @@
       },
       {
         "query": "H&H International Investment",
-        "archive": "legacy",
-        "status": "ok",
-        "matchedSecurities": 0,
+        "status": "failed",
         "url": "https://di.hkex.com.hk/filing/di/NSSrchPersonList.aspx?sa1=pl&scsd=01%2F04%2F2003&sced=02%2F10%2F2017&pn=H%26H+International+Investment&src=MAIN&lang=EN&g_lang=en"
       },
       {
         "query": "Duan Yong",
-        "archive": "legacy",
-        "status": "ok",
-        "matchedSecurities": 0,
+        "status": "failed",
         "url": "https://di.hkex.com.hk/filing/di/NSSrchPersonList.aspx?sa1=pl&scsd=01%2F04%2F2003&sced=02%2F10%2F2017&pn=Duan+Yong&src=MAIN&lang=EN&g_lang=en"
       }
     ],
@@ -956,7 +952,18 @@
     "verifiedSecurities": 1,
     "pendingSecurities": 2,
     "recordsFetched": 22,
-    "errors": [],
+    "errors": [
+      {
+        "query": "H&H International Investment",
+        "url": "https://di.hkex.com.hk/filing/di/NSSrchPersonList.aspx?sa1=pl&scsd=01%2F04%2F2003&sced=02%2F10%2F2017&pn=H%26H+International+Investment&src=MAIN&lang=EN&g_lang=en",
+        "reason": "HKEX fetch failed: The read operation timed out"
+      },
+      {
+        "query": "Duan Yong",
+        "url": "https://di.hkex.com.hk/filing/di/NSSrchPersonList.aspx?sa1=pl&scsd=01%2F04%2F2003&sced=02%2F10%2F2017&pn=Duan+Yong&src=MAIN&lang=EN&g_lang=en",
+        "reason": "HKEX fetch failed: The read operation timed out"
+      }
+    ],
     "scope": "匹配已配置主体的公开多头权益披露；不等于完整投资组合或当前持仓"
   }
 }

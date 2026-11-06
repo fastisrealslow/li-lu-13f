@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-06T13:55:51Z",
+  "updatedAt": "2026-11-06T19:51:57Z",
   "knownStocks": {
     "duan": [
       "09992.HK"
@@ -5422,7 +5422,7 @@
   "verificationRuns": [
     {
       "investor": "abrams",
-      "checkedAt": "2026-11-06T13:53:55Z",
+      "checkedAt": "2026-11-06T19:50:20Z",
       "status": "checked",
       "queries": [
         {
@@ -5463,7 +5463,7 @@
     },
     {
       "investor": "ackman",
-      "checkedAt": "2026-11-06T13:53:41Z",
+      "checkedAt": "2026-11-06T19:50:19Z",
       "status": "checked",
       "queries": [
         {
@@ -5504,8 +5504,8 @@
     },
     {
       "investor": "akre",
-      "checkedAt": "2026-11-06T13:53:23Z",
-      "status": "checked",
+      "checkedAt": "2026-11-06T19:48:00Z",
+      "status": "partial",
       "queries": [
         {
           "query": "Akre Capital",
@@ -5523,9 +5523,7 @@
         },
         {
           "query": "Akre Capital",
-          "archive": "legacy",
-          "status": "ok",
-          "matchedSecurities": 0,
+          "status": "failed",
           "url": "https://di.hkex.com.hk/filing/di/NSSrchPersonList.aspx?sa1=pl&scsd=01%2F04%2F2003&sced=02%2F10%2F2017&pn=Akre+Capital&src=MAIN&lang=EN&g_lang=en"
         },
         {
@@ -5540,12 +5538,18 @@
       "verifiedSecurities": 0,
       "pendingSecurities": 0,
       "recordsFetched": 0,
-      "errors": [],
+      "errors": [
+        {
+          "query": "Akre Capital",
+          "url": "https://di.hkex.com.hk/filing/di/NSSrchPersonList.aspx?sa1=pl&scsd=01%2F04%2F2003&sced=02%2F10%2F2017&pn=Akre+Capital&src=MAIN&lang=EN&g_lang=en",
+          "reason": "HKEX fetch failed: The read operation timed out"
+        }
+      ],
       "scope": "匹配已配置主体的公开多头权益披露；不等于完整投资组合或当前持仓"
     },
     {
       "investor": "berkowitz",
-      "checkedAt": "2026-11-06T13:53:59Z",
+      "checkedAt": "2026-11-06T19:50:38Z",
       "status": "checked",
       "queries": [
         {
@@ -5586,8 +5590,8 @@
     },
     {
       "investor": "buffett",
-      "checkedAt": "2026-11-06T13:52:54Z",
-      "status": "checked",
+      "checkedAt": "2026-11-06T19:47:30Z",
+      "status": "partial",
       "queries": [
         {
           "query": "Berkshire Hathaway",
@@ -5612,9 +5616,7 @@
         },
         {
           "query": "Warren Buffett",
-          "archive": "legacy",
-          "status": "ok",
-          "matchedSecurities": 0,
+          "status": "failed",
           "url": "https://di.hkex.com.hk/filing/di/NSSrchPersonList.aspx?sa1=pl&scsd=01%2F04%2F2003&sced=02%2F10%2F2017&pn=Warren+Buffett&src=MAIN&lang=EN&g_lang=en"
         }
       ],
@@ -5622,13 +5624,19 @@
       "verifiedSecurities": 2,
       "pendingSecurities": 0,
       "recordsFetched": 54,
-      "errors": [],
+      "errors": [
+        {
+          "query": "Warren Buffett",
+          "url": "https://di.hkex.com.hk/filing/di/NSSrchPersonList.aspx?sa1=pl&scsd=01%2F04%2F2003&sced=02%2F10%2F2017&pn=Warren+Buffett&src=MAIN&lang=EN&g_lang=en",
+          "reason": "HKEX fetch failed: The read operation timed out"
+        }
+      ],
       "scope": "匹配已配置主体的公开多头权益披露；不等于完整投资组合或当前持仓"
     },
     {
       "investor": "duan",
-      "checkedAt": "2026-11-06T13:52:23Z",
-      "status": "checked",
+      "checkedAt": "2026-11-06T19:44:38Z",
+      "status": "partial",
       "queries": [
         {
           "query": "H&H International Investment",
@@ -5646,16 +5654,12 @@
         },
         {
           "query": "H&H International Investment",
-          "archive": "legacy",
-          "status": "ok",
-          "matchedSecurities": 0,
+          "status": "failed",
           "url": "https://di.hkex.com.hk/filing/di/NSSrchPersonList.aspx?sa1=pl&scsd=01%2F04%2F2003&sced=02%2F10%2F2017&pn=H%26H+International+Investment&src=MAIN&lang=EN&g_lang=en"
         },
         {
           "query": "Duan Yong",
-          "archive": "legacy",
-          "status": "ok",
-          "matchedSecurities": 0,
+          "status": "failed",
           "url": "https://di.hkex.com.hk/filing/di/NSSrchPersonList.aspx?sa1=pl&scsd=01%2F04%2F2003&sced=02%2F10%2F2017&pn=Duan+Yong&src=MAIN&lang=EN&g_lang=en"
         }
       ],
@@ -5663,12 +5667,23 @@
       "verifiedSecurities": 1,
       "pendingSecurities": 2,
       "recordsFetched": 22,
-      "errors": [],
+      "errors": [
+        {
+          "query": "H&H International Investment",
+          "url": "https://di.hkex.com.hk/filing/di/NSSrchPersonList.aspx?sa1=pl&scsd=01%2F04%2F2003&sced=02%2F10%2F2017&pn=H%26H+International+Investment&src=MAIN&lang=EN&g_lang=en",
+          "reason": "HKEX fetch failed: The read operation timed out"
+        },
+        {
+          "query": "Duan Yong",
+          "url": "https://di.hkex.com.hk/filing/di/NSSrchPersonList.aspx?sa1=pl&scsd=01%2F04%2F2003&sced=02%2F10%2F2017&pn=Duan+Yong&src=MAIN&lang=EN&g_lang=en",
+          "reason": "HKEX fetch failed: The read operation timed out"
+        }
+      ],
       "scope": "匹配已配置主体的公开多头权益披露；不等于完整投资组合或当前持仓"
     },
     {
       "investor": "greenberg",
-      "checkedAt": "2026-11-06T13:53:28Z",
+      "checkedAt": "2026-11-06T19:49:34Z",
       "status": "checked",
       "queries": [
         {
@@ -5709,7 +5724,7 @@
     },
     {
       "investor": "greenblatt",
-      "checkedAt": "2026-11-06T13:55:07Z",
+      "checkedAt": "2026-11-06T19:51:23Z",
       "status": "checked",
       "queries": [
         {
@@ -5750,7 +5765,7 @@
     },
     {
       "investor": "hawkins",
-      "checkedAt": "2026-11-06T13:54:14Z",
+      "checkedAt": "2026-11-06T19:50:38Z",
       "status": "checked",
       "queries": [
         {
@@ -5791,7 +5806,7 @@
     },
     {
       "investor": "klarman",
-      "checkedAt": "2026-11-06T13:53:38Z",
+      "checkedAt": "2026-11-06T19:49:45Z",
       "status": "checked",
       "queries": [
         {
@@ -5832,8 +5847,8 @@
     },
     {
       "investor": "lilu",
-      "checkedAt": "2026-11-06T13:52:23Z",
-      "status": "checked",
+      "checkedAt": "2026-11-06T19:44:38Z",
+      "status": "partial",
       "queries": [
         {
           "query": "Li Lu",
@@ -5858,9 +5873,7 @@
         },
         {
           "query": "Himalaya Capital",
-          "archive": "legacy",
-          "status": "ok",
-          "matchedSecurities": 2,
+          "status": "failed",
           "url": "https://di.hkex.com.hk/filing/di/NSSrchPersonList.aspx?sa1=pl&scsd=01%2F04%2F2003&sced=02%2F10%2F2017&pn=Himalaya+Capital&src=MAIN&lang=EN&g_lang=en"
         }
       ],
@@ -5868,12 +5881,18 @@
       "verifiedSecurities": 3,
       "pendingSecurities": 0,
       "recordsFetched": 45,
-      "errors": [],
+      "errors": [
+        {
+          "query": "Himalaya Capital",
+          "url": "https://di.hkex.com.hk/filing/di/NSSrchPersonList.aspx?sa1=pl&scsd=01%2F04%2F2003&sced=02%2F10%2F2017&pn=Himalaya+Capital&src=MAIN&lang=EN&g_lang=en",
+          "reason": "HKEX fetch failed: The read operation timed out"
+        }
+      ],
       "scope": "匹配已配置主体的公开多头权益披露；不等于完整投资组合或当前持仓"
     },
     {
       "investor": "marks",
-      "checkedAt": "2026-11-06T13:54:48Z",
+      "checkedAt": "2026-11-06T19:51:15Z",
       "status": "checked",
       "queries": [
         {
@@ -5914,7 +5933,7 @@
     },
     {
       "investor": "mclemore",
-      "checkedAt": "2026-11-06T13:55:18Z",
+      "checkedAt": "2026-11-06T19:51:33Z",
       "status": "checked",
       "queries": [
         {
@@ -5955,8 +5974,8 @@
     },
     {
       "investor": "pabrai",
-      "checkedAt": "2026-11-06T13:52:23Z",
-      "status": "checked",
+      "checkedAt": "2026-11-06T19:44:38Z",
+      "status": "partial",
       "queries": [
         {
           "query": "Mohnish Pabrai",
@@ -5974,16 +5993,12 @@
         },
         {
           "query": "Mohnish Pabrai",
-          "archive": "legacy",
-          "status": "ok",
-          "matchedSecurities": 0,
+          "status": "failed",
           "url": "https://di.hkex.com.hk/filing/di/NSSrchPersonList.aspx?sa1=pl&scsd=01%2F04%2F2003&sced=02%2F10%2F2017&pn=Mohnish+Pabrai&src=MAIN&lang=EN&g_lang=en"
         },
         {
           "query": "Dalal Street",
-          "archive": "legacy",
-          "status": "ok",
-          "matchedSecurities": 0,
+          "status": "failed",
           "url": "https://di.hkex.com.hk/filing/di/NSSrchPersonList.aspx?sa1=pl&scsd=01%2F04%2F2003&sced=02%2F10%2F2017&pn=Dalal+Street&src=MAIN&lang=EN&g_lang=en"
         }
       ],
@@ -5991,13 +6006,24 @@
       "verifiedSecurities": 0,
       "pendingSecurities": 1,
       "recordsFetched": 0,
-      "errors": [],
+      "errors": [
+        {
+          "query": "Mohnish Pabrai",
+          "url": "https://di.hkex.com.hk/filing/di/NSSrchPersonList.aspx?sa1=pl&scsd=01%2F04%2F2003&sced=02%2F10%2F2017&pn=Mohnish+Pabrai&src=MAIN&lang=EN&g_lang=en",
+          "reason": "HKEX fetch failed: The read operation timed out"
+        },
+        {
+          "query": "Dalal Street",
+          "url": "https://di.hkex.com.hk/filing/di/NSSrchPersonList.aspx?sa1=pl&scsd=01%2F04%2F2003&sced=02%2F10%2F2017&pn=Dalal+Street&src=MAIN&lang=EN&g_lang=en",
+          "reason": "HKEX fetch failed: The read operation timed out"
+        }
+      ],
       "scope": "匹配已配置主体的公开多头权益披露；不等于完整投资组合或当前持仓"
     },
     {
       "investor": "tepper",
-      "checkedAt": "2026-11-06T13:52:39Z",
-      "status": "checked",
+      "checkedAt": "2026-11-06T19:46:22Z",
+      "status": "partial",
       "queries": [
         {
           "query": "Appaloosa",
@@ -6015,16 +6041,12 @@
         },
         {
           "query": "Appaloosa",
-          "archive": "legacy",
-          "status": "ok",
-          "matchedSecurities": 0,
+          "status": "failed",
           "url": "https://di.hkex.com.hk/filing/di/NSSrchPersonList.aspx?sa1=pl&scsd=01%2F04%2F2003&sced=02%2F10%2F2017&pn=Appaloosa&src=MAIN&lang=EN&g_lang=en"
         },
         {
           "query": "David Tepper",
-          "archive": "legacy",
-          "status": "ok",
-          "matchedSecurities": 0,
+          "status": "failed",
           "url": "https://di.hkex.com.hk/filing/di/NSSrchPersonList.aspx?sa1=pl&scsd=01%2F04%2F2003&sced=02%2F10%2F2017&pn=David+Tepper&src=MAIN&lang=EN&g_lang=en"
         }
       ],
@@ -6032,12 +6054,23 @@
       "verifiedSecurities": 0,
       "pendingSecurities": 0,
       "recordsFetched": 0,
-      "errors": [],
+      "errors": [
+        {
+          "query": "Appaloosa",
+          "url": "https://di.hkex.com.hk/filing/di/NSSrchPersonList.aspx?sa1=pl&scsd=01%2F04%2F2003&sced=02%2F10%2F2017&pn=Appaloosa&src=MAIN&lang=EN&g_lang=en",
+          "reason": "HKEX fetch failed: The read operation timed out"
+        },
+        {
+          "query": "David Tepper",
+          "url": "https://di.hkex.com.hk/filing/di/NSSrchPersonList.aspx?sa1=pl&scsd=01%2F04%2F2003&sced=02%2F10%2F2017&pn=David+Tepper&src=MAIN&lang=EN&g_lang=en",
+          "reason": "HKEX fetch failed: The read operation timed out"
+        }
+      ],
       "scope": "匹配已配置主体的公开多头权益披露；不等于完整投资组合或当前持仓"
     },
     {
       "investor": "vinall",
-      "checkedAt": "2026-11-06T13:54:22Z",
+      "checkedAt": "2026-11-06T19:51:00Z",
       "status": "checked",
       "queries": [
         {
@@ -6092,8 +6125,8 @@
     },
     {
       "investor": "webb",
-      "checkedAt": "2026-11-06T13:52:43Z",
-      "status": "checked",
+      "checkedAt": "2026-11-06T19:46:31Z",
+      "status": "partial",
       "queries": [
         {
           "query": "Webb David Michael",
@@ -6104,17 +6137,207 @@
         },
         {
           "query": "Webb David Michael",
-          "archive": "legacy",
-          "status": "ok",
-          "matchedSecurities": 31,
+          "status": "failed",
           "url": "https://di.hkex.com.hk/filing/di/NSSrchPersonList.aspx?sa1=pl&scsd=01%2F04%2F2003&sced=02%2F10%2F2017&pn=Webb+David+Michael&src=MAIN&lang=EN&g_lang=en"
         }
       ],
       "discoveredSources": 59,
       "verifiedSecurities": 41,
       "pendingSecurities": 0,
-      "recordsFetched": 281,
-      "errors": [],
+      "recordsFetched": 155,
+      "errors": [
+        {
+          "query": "Webb David Michael",
+          "url": "https://di.hkex.com.hk/filing/di/NSSrchPersonList.aspx?sa1=pl&scsd=01%2F04%2F2003&sced=02%2F10%2F2017&pn=Webb+David+Michael&src=MAIN&lang=EN&g_lang=en",
+          "reason": "HKEX fetch failed: The read operation timed out"
+        },
+        {
+          "entity": "Webb David Michael",
+          "security": "Ming Fai International Holdings Ltd.",
+          "url": "https://di.hkex.com.hk/filing/di/NSNoticePersonList.aspx?sa2=np&scpid=2375284&sa1=pl&scsd=01%2F04%2F2003&sced=02%2F10%2F2017&pn=Webb+David+Michael&src=MAIN&lang=EN&g_lang=en",
+          "reason": "Unrecognized HKEX result page (not an empty result)"
+        },
+        {
+          "entity": "Webb David Michael",
+          "security": "Chen Hsong Holdings Ltd.",
+          "url": "https://di.hkex.com.hk/filing/di/NSNoticePersonList.aspx?sa2=np&scpid=2128789&sa1=pl&scsd=01%2F04%2F2003&sced=02%2F10%2F2017&pn=Webb+David+Michael&src=MAIN&lang=EN&g_lang=en",
+          "reason": "Unrecognized HKEX result page (not an empty result)"
+        },
+        {
+          "entity": "Webb David Michael",
+          "security": "1010 Printing Group Ltd.",
+          "url": "https://di.hkex.com.hk/filing/di/NSNoticePersonList.aspx?sa2=np&scpid=2296875&sa1=pl&scsd=01%2F04%2F2003&sced=02%2F10%2F2017&pn=Webb+David+Michael&src=MAIN&lang=EN&g_lang=en",
+          "reason": "Unrecognized HKEX result page (not an empty result)"
+        },
+        {
+          "entity": "Webb David Michael",
+          "security": "Lung Kee (Bermuda) Holdings Ltd.",
+          "url": "https://di.hkex.com.hk/filing/di/NSNoticePersonList.aspx?sa2=np&scpid=2371937&sa1=pl&scsd=01%2F04%2F2003&sced=02%2F10%2F2017&pn=Webb+David+Michael&src=MAIN&lang=EN&g_lang=en",
+          "reason": "Unrecognized HKEX result page (not an empty result)"
+        },
+        {
+          "entity": "Webb David Michael",
+          "security": "Raymond Industrial Ltd.",
+          "url": "https://di.hkex.com.hk/filing/di/NSNoticePersonList.aspx?sa2=np&scpid=2255560&sa1=pl&scsd=01%2F04%2F2003&sced=02%2F10%2F2017&pn=Webb+David+Michael&src=MAIN&lang=EN&g_lang=en",
+          "reason": "Unrecognized HKEX result page (not an empty result)"
+        },
+        {
+          "entity": "Webb David Michael",
+          "security": "Fujikon Industrial Holdings Ltd.",
+          "url": "https://di.hkex.com.hk/filing/di/NSNoticePersonList.aspx?sa2=np&scpid=2154611&sa1=pl&scsd=01%2F04%2F2003&sced=02%2F10%2F2017&pn=Webb+David+Michael&src=MAIN&lang=EN&g_lang=en",
+          "reason": "Unrecognized HKEX result page (not an empty result)"
+        },
+        {
+          "entity": "Webb David Michael",
+          "security": "Arts Optical International Holdings Ltd.",
+          "url": "https://di.hkex.com.hk/filing/di/NSNoticePersonList.aspx?sa2=np&scpid=2076530&sa1=pl&scsd=01%2F04%2F2003&sced=02%2F10%2F2017&pn=Webb+David+Michael&src=MAIN&lang=EN&g_lang=en",
+          "reason": "Unrecognized HKEX result page (not an empty result)"
+        },
+        {
+          "entity": "Webb David Michael",
+          "security": "Kingmaker Footwear Holdings Ltd.",
+          "url": "https://di.hkex.com.hk/filing/di/NSNoticePersonList.aspx?sa2=np&scpid=2365932&sa1=pl&scsd=01%2F04%2F2003&sced=02%2F10%2F2017&pn=Webb+David+Michael&src=MAIN&lang=EN&g_lang=en",
+          "reason": "Unrecognized HKEX result page (not an empty result)"
+        },
+        {
+          "entity": "Webb David Michael",
+          "security": "Allan International Holdings Ltd.",
+          "url": "https://di.hkex.com.hk/filing/di/NSNoticePersonList.aspx?sa2=np&scpid=2332755&sa1=pl&scsd=01%2F04%2F2003&sced=02%2F10%2F2017&pn=Webb+David+Michael&src=MAIN&lang=EN&g_lang=en",
+          "reason": "Unrecognized HKEX result page (not an empty result)"
+        },
+        {
+          "entity": "Webb David Michael",
+          "security": "Tungtex (Holdings) Co. Ltd.",
+          "url": "https://di.hkex.com.hk/filing/di/NSNoticePersonList.aspx?sa2=np&scpid=1730276&sa1=pl&scsd=01%2F04%2F2003&sced=02%2F10%2F2017&pn=Webb+David+Michael&src=MAIN&lang=EN&g_lang=en",
+          "reason": "Unrecognized HKEX result page (not an empty result)"
+        },
+        {
+          "entity": "Webb David Michael",
+          "security": "Sun Hing Vision Group Holdings Ltd.",
+          "url": "https://di.hkex.com.hk/filing/di/NSNoticePersonList.aspx?sa2=np&scpid=2297469&sa1=pl&scsd=01%2F04%2F2003&sced=02%2F10%2F2017&pn=Webb+David+Michael&src=MAIN&lang=EN&g_lang=en",
+          "reason": "Unrecognized HKEX result page (not an empty result)"
+        },
+        {
+          "entity": "Webb David Michael",
+          "security": "Top Form International Ltd.",
+          "url": "https://di.hkex.com.hk/filing/di/NSNoticePersonList.aspx?sa2=np&scpid=2237940&sa1=pl&scsd=01%2F04%2F2003&sced=02%2F10%2F2017&pn=Webb+David+Michael&src=MAIN&lang=EN&g_lang=en",
+          "reason": "Unrecognized HKEX result page (not an empty result)"
+        },
+        {
+          "entity": "Webb David Michael",
+          "security": "Bauhaus International (Holdings) Ltd.",
+          "url": "https://di.hkex.com.hk/filing/di/NSNoticePersonList.aspx?sa2=np&scpid=2278780&sa1=pl&scsd=01%2F04%2F2003&sced=02%2F10%2F2017&pn=Webb+David+Michael&src=MAIN&lang=EN&g_lang=en",
+          "reason": "Unrecognized HKEX result page (not an empty result)"
+        },
+        {
+          "entity": "Webb David Michael",
+          "security": "Alco Holdings Ltd.",
+          "url": "https://di.hkex.com.hk/filing/di/NSNoticePersonList.aspx?sa2=np&scpid=2343210&sa1=pl&scsd=01%2F04%2F2003&sced=02%2F10%2F2017&pn=Webb+David+Michael&src=MAIN&lang=EN&g_lang=en",
+          "reason": "Unrecognized HKEX result page (not an empty result)"
+        },
+        {
+          "entity": "Webb David Michael",
+          "security": "Computer And Technologies Holdings Ltd.",
+          "url": "https://di.hkex.com.hk/filing/di/NSNoticePersonList.aspx?sa2=np&scpid=2172801&sa1=pl&scsd=01%2F04%2F2003&sced=02%2F10%2F2017&pn=Webb+David+Michael&src=MAIN&lang=EN&g_lang=en",
+          "reason": "Unrecognized HKEX result page (not an empty result)"
+        },
+        {
+          "entity": "Webb David Michael",
+          "security": "Pico Far East Holdings Ltd.",
+          "url": "https://di.hkex.com.hk/filing/di/NSNoticePersonList.aspx?sa2=np&scpid=2323680&sa1=pl&scsd=01%2F04%2F2003&sced=02%2F10%2F2017&pn=Webb+David+Michael&src=MAIN&lang=EN&g_lang=en",
+          "reason": "Unrecognized HKEX result page (not an empty result)"
+        },
+        {
+          "entity": "Webb David Michael",
+          "security": "Win Hanverky Holdings Ltd.",
+          "url": "https://di.hkex.com.hk/filing/di/NSNoticePersonList.aspx?sa2=np&scpid=2367522&sa1=pl&scsd=01%2F04%2F2003&sced=02%2F10%2F2017&pn=Webb+David+Michael&src=MAIN&lang=EN&g_lang=en",
+          "reason": "Unrecognized HKEX result page (not an empty result)"
+        },
+        {
+          "entity": "Webb David Michael",
+          "security": "Anex International Holdings Ltd.",
+          "url": "https://di.hkex.com.hk/filing/di/NSNoticePersonList.aspx?sa2=np&scpid=1750193&sa1=pl&scsd=01%2F04%2F2003&sced=02%2F10%2F2017&pn=Webb+David+Michael&src=MAIN&lang=EN&g_lang=en",
+          "reason": "Unrecognized HKEX result page (not an empty result)"
+        },
+        {
+          "entity": "Webb David Michael",
+          "security": "Byford International Ltd.",
+          "url": "https://di.hkex.com.hk/filing/di/NSNoticePersonList.aspx?sa2=np&scpid=1712642&sa1=pl&scsd=01%2F04%2F2003&sced=02%2F10%2F2017&pn=Webb+David+Michael&src=MAIN&lang=EN&g_lang=en",
+          "reason": "Unrecognized HKEX result page (not an empty result)"
+        },
+        {
+          "entity": "Webb David Michael",
+          "security": "Carry Wealth Holdings Ltd.",
+          "url": "https://di.hkex.com.hk/filing/di/NSNoticePersonList.aspx?sa2=np&scpid=1928604&sa1=pl&scsd=01%2F04%2F2003&sced=02%2F10%2F2017&pn=Webb+David+Michael&src=MAIN&lang=EN&g_lang=en",
+          "reason": "Unrecognized HKEX result page (not an empty result)"
+        },
+        {
+          "entity": "Webb David Michael",
+          "security": "Crocodile Garments Ltd.",
+          "url": "https://di.hkex.com.hk/filing/di/NSNoticePersonList.aspx?sa2=np&scpid=2207175&sa1=pl&scsd=01%2F04%2F2003&sced=02%2F10%2F2017&pn=Webb+David+Michael&src=MAIN&lang=EN&g_lang=en",
+          "reason": "Unrecognized HKEX result page (not an empty result)"
+        },
+        {
+          "entity": "Webb David Michael",
+          "security": "KTP Holdings Ltd.",
+          "url": "https://di.hkex.com.hk/filing/di/NSNoticePersonList.aspx?sa2=np&scpid=2007963&sa1=pl&scsd=01%2F04%2F2003&sced=02%2F10%2F2017&pn=Webb+David+Michael&src=MAIN&lang=EN&g_lang=en",
+          "reason": "Unrecognized HKEX result page (not an empty result)"
+        },
+        {
+          "entity": "Webb David Michael",
+          "security": "Lerado Financial Group Co. Ltd.",
+          "url": "https://di.hkex.com.hk/filing/di/NSNoticePersonList.aspx?sa2=np&scpid=2334572&sa1=pl&scsd=01%2F04%2F2003&sced=02%2F10%2F2017&pn=Webb+David+Michael&src=MAIN&lang=EN&g_lang=en",
+          "reason": "Unrecognized HKEX result page (not an empty result)"
+        },
+        {
+          "entity": "Webb David Michael",
+          "security": "Lerado Group (Holding) Co. Ltd.",
+          "url": "https://di.hkex.com.hk/filing/di/NSNoticePersonList.aspx?sa2=np&scpid=2273482&sa1=pl&scsd=01%2F04%2F2003&sced=02%2F10%2F2017&pn=Webb+David+Michael&src=MAIN&lang=EN&g_lang=en",
+          "reason": "Unrecognized HKEX result page (not an empty result)"
+        },
+        {
+          "entity": "Webb David Michael",
+          "security": "Next Digital Ltd.",
+          "url": "https://di.hkex.com.hk/filing/di/NSNoticePersonList.aspx?sa2=np&scpid=2284374&sa1=pl&scsd=01%2F04%2F2003&sced=02%2F10%2F2017&pn=Webb+David+Michael&src=MAIN&lang=EN&g_lang=en",
+          "reason": "Unrecognized HKEX result page (not an empty result)"
+        },
+        {
+          "entity": "Webb David Michael",
+          "security": "Shinhint Acoustic Link Holdings Ltd.",
+          "url": "https://di.hkex.com.hk/filing/di/NSNoticePersonList.aspx?sa2=np&scpid=2245133&sa1=pl&scsd=01%2F04%2F2003&sced=02%2F10%2F2017&pn=Webb+David+Michael&src=MAIN&lang=EN&g_lang=en",
+          "reason": "Unrecognized HKEX result page (not an empty result)"
+        },
+        {
+          "entity": "Webb David Michael",
+          "security": "Sino Golf Holdings Ltd.",
+          "url": "https://di.hkex.com.hk/filing/di/NSNoticePersonList.aspx?sa2=np&scpid=2229625&sa1=pl&scsd=01%2F04%2F2003&sced=02%2F10%2F2017&pn=Webb+David+Michael&src=MAIN&lang=EN&g_lang=en",
+          "reason": "Unrecognized HKEX result page (not an empty result)"
+        },
+        {
+          "entity": "Webb David Michael",
+          "security": "Sinotronics Holdings Ltd.",
+          "url": "https://di.hkex.com.hk/filing/di/NSNoticePersonList.aspx?sa2=np&scpid=1958739&sa1=pl&scsd=01%2F04%2F2003&sced=02%2F10%2F2017&pn=Webb+David+Michael&src=MAIN&lang=EN&g_lang=en",
+          "reason": "Unrecognized HKEX result page (not an empty result)"
+        },
+        {
+          "entity": "Webb David Michael",
+          "security": "Suncorp Technologies Ltd.",
+          "url": "https://di.hkex.com.hk/filing/di/NSNoticePersonList.aspx?sa2=np&scpid=1784237&sa1=pl&scsd=01%2F04%2F2003&sced=02%2F10%2F2017&pn=Webb+David+Michael&src=MAIN&lang=EN&g_lang=en",
+          "reason": "Unrecognized HKEX result page (not an empty result)"
+        },
+        {
+          "entity": "Webb David Michael",
+          "security": "Tak Shun Technology Group Ltd.",
+          "url": "https://di.hkex.com.hk/filing/di/NSNoticePersonList.aspx?sa2=np&scpid=1786480&sa1=pl&scsd=01%2F04%2F2003&sced=02%2F10%2F2017&pn=Webb+David+Michael&src=MAIN&lang=EN&g_lang=en",
+          "reason": "Unrecognized HKEX result page (not an empty result)"
+        },
+        {
+          "entity": "Webb David Michael",
+          "security": "Yorkey Optical International (Cayman) Ltd.",
+          "url": "https://di.hkex.com.hk/filing/di/NSNoticePersonList.aspx?sa2=np&scpid=2299879&sa1=pl&scsd=01%2F04%2F2003&sced=02%2F10%2F2017&pn=Webb+David+Michael&src=MAIN&lang=EN&g_lang=en",
+          "reason": "Unrecognized HKEX result page (not an empty result)"
+        }
+      ],
       "scope": "匹配已配置主体的公开多头权益披露；不等于完整投资组合或当前持仓"
     },
     {

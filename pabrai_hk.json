@@ -36,13 +36,13 @@
     }
   ],
   "disclaimer": "历史披露不代表当前持仓；搜索日期不等于披露日期。未搜到记录不代表已清仓或低于5%。比例须按原披露的股份类别解读。",
-  "lastUpdated": "2026-11-06T13:52:23Z",
+  "lastUpdated": "2026-11-06T19:44:38Z",
   "schemaVersion": 3,
   "investor": "pabrai",
   "source_bindings": {},
   "audit": {
-    "checkedAt": "2026-11-06T13:52:23Z",
-    "status": "checked",
+    "checkedAt": "2026-11-06T19:44:38Z",
+    "status": "partial",
     "queries": [
       {
         "query": "Mohnish Pabrai",
@@ -60,16 +60,12 @@
       },
       {
         "query": "Mohnish Pabrai",
-        "archive": "legacy",
-        "status": "ok",
-        "matchedSecurities": 0,
+        "status": "failed",
         "url": "https://di.hkex.com.hk/filing/di/NSSrchPersonList.aspx?sa1=pl&scsd=01%2F04%2F2003&sced=02%2F10%2F2017&pn=Mohnish+Pabrai&src=MAIN&lang=EN&g_lang=en"
       },
       {
         "query": "Dalal Street",
-        "archive": "legacy",
-        "status": "ok",
-        "matchedSecurities": 0,
+        "status": "failed",
         "url": "https://di.hkex.com.hk/filing/di/NSSrchPersonList.aspx?sa1=pl&scsd=01%2F04%2F2003&sced=02%2F10%2F2017&pn=Dalal+Street&src=MAIN&lang=EN&g_lang=en"
       }
     ],
@@ -77,7 +73,18 @@
     "verifiedSecurities": 0,
     "pendingSecurities": 1,
     "recordsFetched": 0,
-    "errors": [],
+    "errors": [
+      {
+        "query": "Mohnish Pabrai",
+        "url": "https://di.hkex.com.hk/filing/di/NSSrchPersonList.aspx?sa1=pl&scsd=01%2F04%2F2003&sced=02%2F10%2F2017&pn=Mohnish+Pabrai&src=MAIN&lang=EN&g_lang=en",
+        "reason": "HKEX fetch failed: The read operation timed out"
+      },
+      {
+        "query": "Dalal Street",
+        "url": "https://di.hkex.com.hk/filing/di/NSSrchPersonList.aspx?sa1=pl&scsd=01%2F04%2F2003&sced=02%2F10%2F2017&pn=Dalal+Street&src=MAIN&lang=EN&g_lang=en",
+        "reason": "HKEX fetch failed: The read operation timed out"
+      }
+    ],
     "scope": "匹配已配置主体的公开多头权益披露；不等于完整投资组合或当前持仓"
   }
 }
