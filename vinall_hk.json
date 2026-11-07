@@ -2,42 +2,54 @@
   "holdings": [],
   "source": "HKEX DI 原始申报表及权益披露列表（DION + 2003–2017历史库）",
   "disclaimer": "历史披露不代表当前持仓；搜索日期不等于披露日期。未搜到记录不代表已清仓或低于5%。比例须按原披露的股份类别解读。",
-  "lastUpdated": "2026-11-07T13:02:13Z",
+  "lastUpdated": "2026-11-07T17:55:48Z",
   "schemaVersion": 3,
   "investor": "vinall",
   "source_bindings": {},
   "audit": {
-    "checkedAt": "2026-11-07T13:02:13Z",
-    "status": "partial",
+    "checkedAt": "2026-11-07T17:55:48Z",
+    "status": "checked",
     "queries": [
       {
         "query": "RV Capital",
-        "status": "failed",
+        "archive": "dion",
+        "status": "ok",
+        "matchedSecurities": 0,
         "url": "https://di.hkex.com.hk/di/NSSrchPersonList.aspx?sa1=pl&scsd=03%2F07%2F2017&sced=07%2F11%2F2026&pn=RV+Capital&src=MAIN&lang=EN&g_lang=en"
       },
       {
         "query": "Robert Vinall",
-        "status": "failed",
+        "archive": "dion",
+        "status": "ok",
+        "matchedSecurities": 0,
         "url": "https://di.hkex.com.hk/di/NSSrchPersonList.aspx?sa1=pl&scsd=03%2F07%2F2017&sced=07%2F11%2F2026&pn=Robert+Vinall&src=MAIN&lang=EN&g_lang=en"
       },
       {
         "query": "Rob Vinall",
-        "status": "failed",
+        "archive": "dion",
+        "status": "ok",
+        "matchedSecurities": 0,
         "url": "https://di.hkex.com.hk/di/NSSrchPersonList.aspx?sa1=pl&scsd=03%2F07%2F2017&sced=07%2F11%2F2026&pn=Rob+Vinall&src=MAIN&lang=EN&g_lang=en"
       },
       {
         "query": "RV Capital",
-        "status": "failed",
+        "archive": "legacy",
+        "status": "ok",
+        "matchedSecurities": 0,
         "url": "https://di.hkex.com.hk/filing/di/NSSrchPersonList.aspx?sa1=pl&scsd=01%2F04%2F2003&sced=02%2F10%2F2017&pn=RV+Capital&src=MAIN&lang=EN&g_lang=en"
       },
       {
         "query": "Robert Vinall",
-        "status": "failed",
+        "archive": "legacy",
+        "status": "ok",
+        "matchedSecurities": 0,
         "url": "https://di.hkex.com.hk/filing/di/NSSrchPersonList.aspx?sa1=pl&scsd=01%2F04%2F2003&sced=02%2F10%2F2017&pn=Robert+Vinall&src=MAIN&lang=EN&g_lang=en"
       },
       {
         "query": "Rob Vinall",
-        "status": "failed",
+        "archive": "legacy",
+        "status": "ok",
+        "matchedSecurities": 0,
         "url": "https://di.hkex.com.hk/filing/di/NSSrchPersonList.aspx?sa1=pl&scsd=01%2F04%2F2003&sced=02%2F10%2F2017&pn=Rob+Vinall&src=MAIN&lang=EN&g_lang=en"
       }
     ],
@@ -45,38 +57,7 @@
     "verifiedSecurities": 0,
     "pendingSecurities": 0,
     "recordsFetched": 0,
-    "errors": [
-      {
-        "query": "RV Capital",
-        "url": "https://di.hkex.com.hk/di/NSSrchPersonList.aspx?sa1=pl&scsd=03%2F07%2F2017&sced=07%2F11%2F2026&pn=RV+Capital&src=MAIN&lang=EN&g_lang=en",
-        "reason": "HKEX repeated server/network failures; source paused for this run; retained evidence will retry next run"
-      },
-      {
-        "query": "Robert Vinall",
-        "url": "https://di.hkex.com.hk/di/NSSrchPersonList.aspx?sa1=pl&scsd=03%2F07%2F2017&sced=07%2F11%2F2026&pn=Robert+Vinall&src=MAIN&lang=EN&g_lang=en",
-        "reason": "HKEX repeated server/network failures; source paused for this run; retained evidence will retry next run"
-      },
-      {
-        "query": "Rob Vinall",
-        "url": "https://di.hkex.com.hk/di/NSSrchPersonList.aspx?sa1=pl&scsd=03%2F07%2F2017&sced=07%2F11%2F2026&pn=Rob+Vinall&src=MAIN&lang=EN&g_lang=en",
-        "reason": "HKEX repeated server/network failures; source paused for this run; retained evidence will retry next run"
-      },
-      {
-        "query": "RV Capital",
-        "url": "https://di.hkex.com.hk/filing/di/NSSrchPersonList.aspx?sa1=pl&scsd=01%2F04%2F2003&sced=02%2F10%2F2017&pn=RV+Capital&src=MAIN&lang=EN&g_lang=en",
-        "reason": "HKEX repeated server/network failures; source paused for this run; retained evidence will retry next run"
-      },
-      {
-        "query": "Robert Vinall",
-        "url": "https://di.hkex.com.hk/filing/di/NSSrchPersonList.aspx?sa1=pl&scsd=01%2F04%2F2003&sced=02%2F10%2F2017&pn=Robert+Vinall&src=MAIN&lang=EN&g_lang=en",
-        "reason": "HKEX repeated server/network failures; source paused for this run; retained evidence will retry next run"
-      },
-      {
-        "query": "Rob Vinall",
-        "url": "https://di.hkex.com.hk/filing/di/NSSrchPersonList.aspx?sa1=pl&scsd=01%2F04%2F2003&sced=02%2F10%2F2017&pn=Rob+Vinall&src=MAIN&lang=EN&g_lang=en",
-        "reason": "HKEX repeated server/network failures; source paused for this run; retained evidence will retry next run"
-      }
-    ],
+    "errors": [],
     "scope": "匹配已配置主体的公开多头权益披露；不等于完整投资组合或当前持仓"
   }
 }

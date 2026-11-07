@@ -26929,9 +26929,9 @@
           ],
           "ticker": "MA",
           "sector": "金融服务",
-          "cnName": "万事达卡",
           "prevShares": 418817,
-          "prevValue": 93861000
+          "prevValue": 93861000,
+          "cnName": "万事达卡"
         },
         {
           "name": "COMCAST CORP NEW",
@@ -27071,10 +27071,10 @@
           "ticker": "GOOGL",
           "sector": "互联网广告与云服务",
           "cnName": "谷歌（Alphabet）",
-          "prevShares": 159229,
-          "prevValue": 94577000,
           "displayName": "Google / Alphabet",
-          "sectorEn": "Internet advertising and cloud"
+          "sectorEn": "Internet advertising and cloud",
+          "prevShares": 159229,
+          "prevValue": 94577000
         },
         {
           "name": "HEWLETT PACKARD CO",
@@ -27196,10 +27196,10 @@
           "ticker": "GOOGL",
           "sector": "互联网广告与云服务",
           "cnName": "谷歌（Alphabet）",
-          "prevShares": 117396,
-          "prevValue": 68883000,
           "displayName": "Google / Alphabet",
-          "sectorEn": "Internet advertising and cloud"
+          "sectorEn": "Internet advertising and cloud",
+          "prevShares": 117396,
+          "prevValue": 68883000
         },
         {
           "name": "MASTERCARD INC",
@@ -27218,9 +27218,9 @@
           ],
           "ticker": "MA",
           "sector": "金融服务",
-          "cnName": "万事达卡",
           "prevShares": 471412,
-          "prevValue": 118664000
+          "prevValue": 118664000,
+          "cnName": "万事达卡"
         },
         {
           "name": "AON CORP",
@@ -27382,10 +27382,10 @@
           "ticker": "GOOGL",
           "sector": "互联网广告与云服务",
           "cnName": "谷歌（Alphabet）",
-          "prevShares": 289789,
-          "prevValue": 146743000,
           "displayName": "Google / Alphabet",
-          "sectorEn": "Internet advertising and cloud"
+          "sectorEn": "Internet advertising and cloud",
+          "prevShares": 289789,
+          "prevValue": 146743000
         },
         {
           "name": "VALEANT PHARMACEUTICALS INTL",
@@ -27504,9 +27504,9 @@
           ],
           "ticker": "MA",
           "sector": "金融服务",
-          "cnName": "万事达卡",
           "prevShares": 410604,
-          "prevValue": 123731000
+          "prevValue": 123731000,
+          "cnName": "万事达卡"
         },
         {
           "name": "US BANCORP DEL",
@@ -27565,9 +27565,9 @@
           ],
           "ticker": "PRI",
           "sector": "保险",
-          "cnName": "Primerica",
           "prevShares": 0,
-          "prevValue": 0
+          "prevValue": 0,
+          "cnName": "Primerica"
         },
         {
           "name": "WELLS FARGO & CO NEW",
@@ -27587,10 +27587,10 @@
           "ticker": "WFC",
           "sector": "银行",
           "cnName": "富国银行",
-          "prevShares": 0,
-          "prevValue": 0,
           "displayName": "Wells Fargo",
-          "sectorEn": "Banking"
+          "sectorEn": "Banking",
+          "prevShares": 0,
+          "prevValue": 0
         },
         {
           "name": "VISA INC                       COM",
@@ -29975,7 +29975,7 @@
         "expected13FFileNumber": "028-01658",
         "url": "https://www.sec.gov/Archives/edgar/data/789920/0001172661-11-000369.txt",
         "format": "legacy_13f",
-        "parserVersion": 5,
+        "parserVersion": 6,
         "sourceReconciliation": {
           "status": "reconciled",
           "reportedEntries": 13,
@@ -29996,7 +29996,7 @@
         "expected13FFileNumber": "028-01658",
         "url": "https://www.sec.gov/Archives/edgar/data/789920/0001172661-11-000526.txt",
         "format": "legacy_13f",
-        "parserVersion": 5,
+        "parserVersion": 6,
         "sourceReconciliation": {
           "status": "reconciled",
           "reportedEntries": 11,
@@ -30017,7 +30017,7 @@
         "expected13FFileNumber": "028-01658",
         "url": "https://www.sec.gov/Archives/edgar/data/789920/0001172661-11-000695.txt",
         "format": "legacy_13f",
-        "parserVersion": 5,
+        "parserVersion": 6,
         "sourceReconciliation": {
           "status": "reconciled",
           "reportedEntries": 12,
@@ -36769,30 +36769,27 @@
     "instrumentVerification": {
       "pendingQuarters": [],
       "errors": {},
-      "checkedAt": "2026-11-07T13:02:57.455884+00:00"
+      "checkedAt": "2026-11-07T17:57:52.512460+00:00"
     },
     "excludedValueQuarters": [],
     "coverage": {
-      "checkedAt": "2026-11-07T13:02:57Z",
+      "checkedAt": "2026-11-07T17:57:52Z",
       "missingQuarters": [],
       "repairedThisRun": [
-        "2010 Q2",
-        "2010 Q3",
-        "2010 Q4"
+        "2011 Q1",
+        "2011 Q2",
+        "2011 Q3"
       ],
       "errors": {
         "2012 Q1": "Legacy extraction has no independent completeness evidence",
         "1999 Q1": "Parser revision could not reproduce the original independent unit proof"
       },
       "attempts": {
-        "2012 Q1": 16,
-        "1999 Q1": 1
+        "1999 Q1": 1,
+        "2012 Q1": 17
       },
       "pendingRefreshQuarters": [
         "1999 Q1",
-        "2011 Q1",
-        "2011 Q2",
-        "2011 Q3",
         "2011 Q4",
         "2012 Q1",
         "2012 Q2",
@@ -37288,7 +37285,7 @@
     "instrumentHistoryFrom": "1999 Q1",
     "manager": "Brave Warrior Advisors, LLC",
     "costHistoryFrom": "2012 Q1",
-    "lastUpdated": "2026-11-07T13:02:57Z",
+    "lastUpdated": "2026-11-07T17:57:52Z",
     "notablePeople": [
       "Glenn Greenberg"
     ],

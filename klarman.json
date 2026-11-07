@@ -5,7 +5,7 @@
     "notablePeople": [
       "Seth Klarman"
     ],
-    "lastUpdated": "2026-11-07T13:03:02Z",
+    "lastUpdated": "2026-11-07T17:57:57Z",
     "aiSummary": "克拉曼大幅增持亚马逊与谷歌，新进芝商所等，显示其持续看好科技巨头及特定周期机会，同时减持部分传统行业仓位。",
     "aiSummaryQuarter": "2026 Q2",
     "shareActions": [
@@ -54860,11 +54860,11 @@
           ],
           "ticker": "?CAPITALSOURCE INC",
           "sector": "商业贷款",
-          "prevShares": 10450000,
-          "prevValue": 73568000,
           "cnName": "资本来源金融",
           "displayName": "CapitalSource",
-          "sectorEn": "Commercial lending"
+          "sectorEn": "Commercial lending",
+          "prevShares": 10450000,
+          "prevValue": 73568000
         },
         {
           "name": "THERAVANCE INC",
@@ -63312,25 +63312,22 @@
       ]
     },
     "coverage": {
-      "checkedAt": "2026-11-07T13:03:04Z",
+      "checkedAt": "2026-11-07T17:57:58Z",
       "missingQuarters": [
         "1999 Q3"
       ],
       "repairedThisRun": [
-        "2010 Q3",
-        "2010 Q4",
-        "2011 Q1"
+        "2011 Q2",
+        "2011 Q3",
+        "2011 Q4"
       ],
       "errors": {
         "1999 Q3": "Legacy table reconciliation failed: 40/41 rows, $610102000/$647531000"
       },
       "attempts": {
-        "1999 Q3": 30
+        "1999 Q3": 31
       },
       "pendingRefreshQuarters": [
-        "2011 Q2",
-        "2011 Q3",
-        "2011 Q4",
         "2012 Q1",
         "2012 Q2",
         "2012 Q3",
@@ -64463,10 +64460,12 @@
         "accessionDashed": "0001140361-12-006920",
         "filingDate": "2012-02-10",
         "reportDate": "2011-12-31",
+        "form": "13F-HR",
+        "primaryDocument": "form13fhr.txt",
         "cik": "1061768",
         "url": "https://www.sec.gov/Archives/edgar/data/1061768/0001140361-12-006920.txt",
         "format": "legacy_13f",
-        "parserVersion": 3,
+        "parserVersion": 6,
         "sourceReconciliation": {
           "status": "reconciled",
           "reportedEntries": 23,
@@ -64611,10 +64610,12 @@
         "accessionDashed": "0001140361-11-041507",
         "filingDate": "2011-08-12",
         "reportDate": "2011-06-30",
+        "form": "13F-HR",
+        "primaryDocument": "form13fhr.txt",
         "cik": "1061768",
         "url": "https://www.sec.gov/Archives/edgar/data/1061768/0001140361-11-041507.txt",
         "format": "legacy_13f",
-        "parserVersion": 3,
+        "parserVersion": 6,
         "sourceReconciliation": {
           "status": "reconciled",
           "reportedEntries": 21,
@@ -64629,10 +64630,12 @@
         "accessionDashed": "0001140361-11-053058",
         "filingDate": "2011-11-14",
         "reportDate": "2011-09-30",
+        "form": "13F-HR",
+        "primaryDocument": "form13fhr.txt",
         "cik": "1061768",
         "url": "https://www.sec.gov/Archives/edgar/data/1061768/0001140361-11-053058.txt",
         "format": "legacy_13f",
-        "parserVersion": 3,
+        "parserVersion": 6,
         "sourceReconciliation": {
           "status": "reconciled",
           "reportedEntries": 23,
@@ -69990,6 +69993,249 @@
         "anchorCount": 4,
         "outlierTickers": [],
         "normalizedHash": "c96a3c16c32f1a0e5330072cf269b7d89d166c8a28a070ac5ac8dbedc2ad6af7"
+      },
+      "2000 Q3": {
+        "version": 1,
+        "checkedAt": "2026-11-07",
+        "source": "https://www.sec.gov/Archives/edgar/data/1061768/0001054420-00-000057.txt",
+        "filingDate": "2000-11-13",
+        "sourceDigest": "1e5f736ec67610e7e68c8844f57a46db272e07e5c2c5f72aaf358587cf320edb",
+        "sourceHash": "a0f911b31b8302f7ad37974659e2ffa799653cb9bff45777881b3e6dd8487d94",
+        "status": "verified",
+        "factor": 1,
+        "anchors": [
+          {
+            "ticker": "VTR",
+            "cusip": "92276F100",
+            "filedPrice": 5.000032826963241,
+            "price": 5.000000251722336,
+            "date": "2000-09-29",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/VTR?period1=0&period2=1794160679&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "WAB",
+            "cusip": "929740108",
+            "filedPrice": 10.124899057873487,
+            "price": 10.0625,
+            "date": "2000-09-29",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/WAB?period1=0&period2=1794160679&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "BC",
+            "cusip": "117043109",
+            "filedPrice": 18.249465431218816,
+            "price": 18.25,
+            "date": "2000-09-29",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/BC?period1=0&period2=1794160680&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          }
+        ],
+        "agreementCount": 3,
+        "anchorCount": 3,
+        "outlierTickers": [],
+        "normalizedHash": "a0f911b31b8302f7ad37974659e2ffa799653cb9bff45777881b3e6dd8487d94"
+      },
+      "2000 Q4": {
+        "version": 1,
+        "checkedAt": "2026-11-07",
+        "source": "https://www.sec.gov/Archives/edgar/data/1061768/0001054420-01-000021.txt",
+        "filingDate": "2001-02-13",
+        "sourceDigest": "862bc5907388f57fef0bdd4931da833c397387bf33465e72e438f9f2f3f29b52",
+        "sourceHash": "2a9aaedd4d553d0799226ba6f371d49b81fc60dbf312fbfc034f1342752ac8be",
+        "status": "verified",
+        "factor": 1,
+        "anchors": [
+          {
+            "ticker": "VTR",
+            "cusip": "92276F100",
+            "filedPrice": 5.624960941992811,
+            "price": 5.625000126600265,
+            "date": "2000-12-29",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/VTR?period1=0&period2=1794160679&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "WAB",
+            "cusip": "929740108",
+            "filedPrice": 11.74992159849469,
+            "price": 11.75,
+            "date": "2000-12-29",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/WAB?period1=0&period2=1794160679&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "XOM",
+            "cusip": "30231G102",
+            "filedPrice": 86.875,
+            "price": 86.9375,
+            "date": "2000-12-29",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/XOM?period1=0&period2=1794160680&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          }
+        ],
+        "agreementCount": 3,
+        "anchorCount": 3,
+        "outlierTickers": [],
+        "normalizedHash": "2a9aaedd4d553d0799226ba6f371d49b81fc60dbf312fbfc034f1342752ac8be"
+      },
+      "2007 Q1": {
+        "version": 1,
+        "checkedAt": "2026-11-07",
+        "source": "https://www.sec.gov/Archives/edgar/data/1061768/0001061768-07-000155.txt",
+        "filingDate": "2007-05-11",
+        "sourceDigest": "9d2be82d1de77fbb1ec845624c5f9c7b9da05ea1b698dc24ee6b3102437dae67",
+        "sourceHash": "ecd253d4ba7694419d8a1237996828abf0beeb39cf77dbf733ccac5a50a90fa3",
+        "status": "verified",
+        "factor": 1,
+        "anchors": [
+          {
+            "ticker": "SLM",
+            "cusip": "78442P106",
+            "filedPrice": 40.9,
+            "price": 40.90000067138672,
+            "date": "2007-03-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/SLM?period1=0&period2=1794160680&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "HD",
+            "cusip": "437076102",
+            "filedPrice": 36.74,
+            "price": 36.7400016784668,
+            "date": "2007-03-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/HD?period1=0&period2=1794160681&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "NFG",
+            "cusip": "636180101",
+            "filedPrice": 43.26,
+            "price": 43.2599983215332,
+            "date": "2007-03-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/NFG?period1=0&period2=1794160681&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          }
+        ],
+        "agreementCount": 3,
+        "anchorCount": 3,
+        "outlierTickers": [],
+        "normalizedHash": "ecd253d4ba7694419d8a1237996828abf0beeb39cf77dbf733ccac5a50a90fa3"
+      },
+      "2010 Q1": {
+        "version": 1,
+        "checkedAt": "2026-11-07",
+        "source": "https://www.sec.gov/Archives/edgar/data/1061768/0001140361-10-021047.txt",
+        "filingDate": "2010-05-13",
+        "sourceDigest": "71b2fa449edbb71b366eea391f7c0fda9d4b9ea1027394e6f6cf07314308f476",
+        "sourceHash": "0a44cad8c94cbf4f6a1074eb03d66cdd1749d9ce9bce1baad7d1b8578c57923d",
+        "status": "pending",
+        "anchors": [
+          {
+            "ticker": "VSAT",
+            "cusip": "92552V100",
+            "filedPrice": 34.6100129785108,
+            "price": 34.61000061035156,
+            "date": "2010-03-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/VSAT?period1=0&period2=1794160681&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          }
+        ],
+        "errors": [],
+        "normalizedHash": "0a44cad8c94cbf4f6a1074eb03d66cdd1749d9ce9bce1baad7d1b8578c57923d"
+      },
+      "2010 Q2": {
+        "version": 1,
+        "checkedAt": "2026-11-07",
+        "source": "https://www.sec.gov/Archives/edgar/data/1061768/0001140361-10-033359.txt",
+        "filingDate": "2010-08-13",
+        "sourceDigest": "2a11b138345257c131673c72c00d91832d5dfd01a9be509360f1b70db6b9259b",
+        "sourceHash": "3cc3ababc6d9665983ecdfc717cdf41602e28c269e5d9d33df96c13ccc15caff",
+        "status": "pending",
+        "anchors": [
+          {
+            "ticker": "VSAT",
+            "cusip": "92552V100",
+            "filedPrice": 32.56004713019717,
+            "price": 32.560001373291016,
+            "date": "2010-06-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/VSAT?period1=0&period2=1794160681&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          }
+        ],
+        "errors": [],
+        "normalizedHash": "3cc3ababc6d9665983ecdfc717cdf41602e28c269e5d9d33df96c13ccc15caff"
+      },
+      "2010 Q3": {
+        "version": 1,
+        "checkedAt": "2026-11-07",
+        "source": "https://www.sec.gov/Archives/edgar/data/1061768/0001140361-10-045769.txt",
+        "filingDate": "2010-11-15",
+        "sourceDigest": "0d3c3aeb7334a73fca96b8dcacde8b2ec4bcd7d1efbc3115a0b0df8d74d0f2db",
+        "sourceHash": "78ca71af62c064c957276377d2014c31f3449d4c24e1fb5a6c05c752a8a52691",
+        "status": "pending",
+        "anchors": [
+          {
+            "ticker": "VSAT",
+            "cusip": "92552V100",
+            "filedPrice": 41.1100163040472,
+            "price": 41.11000061035156,
+            "date": "2010-09-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/VSAT?period1=0&period2=1794160681&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "REGN",
+            "cusip": "75886F107",
+            "filedPrice": 27.4,
+            "price": 27.399999618530273,
+            "date": "2010-09-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/REGN?period1=0&period2=1794160681&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          }
+        ],
+        "errors": [],
+        "normalizedHash": "78ca71af62c064c957276377d2014c31f3449d4c24e1fb5a6c05c752a8a52691"
       }
     },
     "restatementLookupError": "ParseError: mismatched tag: line 108, column 2"
