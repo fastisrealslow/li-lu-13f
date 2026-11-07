@@ -414,7 +414,7 @@
       "Howard Marks"
     ]
   },
-  "lastUpdated": "2026-11-06T19:51:15Z",
+  "lastUpdated": "2026-11-07T02:10:11Z",
   "source": "HKEX DI 原始申报表及权益披露列表（DION + 2003–2017历史库）",
   "disclaimer": "历史披露不代表当前持仓；搜索日期不等于披露日期。未搜到记录不代表已清仓或低于5%。比例须按原披露的股份类别解读。",
   "schemaVersion": 3,
@@ -539,43 +539,80 @@
     }
   },
   "audit": {
-    "checkedAt": "2026-11-06T19:51:15Z",
-    "status": "checked",
+    "checkedAt": "2026-11-07T02:10:11Z",
+    "status": "partial",
     "queries": [
       {
         "query": "Oaktree Capital",
-        "archive": "dion",
-        "status": "ok",
-        "matchedSecurities": 4,
-        "url": "https://di.hkex.com.hk/di/NSSrchPersonList.aspx?sa1=pl&scsd=03%2F07%2F2017&sced=06%2F11%2F2026&pn=Oaktree+Capital&src=MAIN&lang=EN&g_lang=en"
+        "status": "failed",
+        "url": "https://di.hkex.com.hk/di/NSSrchPersonList.aspx?sa1=pl&scsd=03%2F07%2F2017&sced=07%2F11%2F2026&pn=Oaktree+Capital&src=MAIN&lang=EN&g_lang=en"
       },
       {
         "query": "Howard Marks",
-        "archive": "dion",
-        "status": "ok",
-        "matchedSecurities": 0,
-        "url": "https://di.hkex.com.hk/di/NSSrchPersonList.aspx?sa1=pl&scsd=03%2F07%2F2017&sced=06%2F11%2F2026&pn=Howard+Marks&src=MAIN&lang=EN&g_lang=en"
+        "status": "failed",
+        "url": "https://di.hkex.com.hk/di/NSSrchPersonList.aspx?sa1=pl&scsd=03%2F07%2F2017&sced=07%2F11%2F2026&pn=Howard+Marks&src=MAIN&lang=EN&g_lang=en"
       },
       {
         "query": "Oaktree Capital",
-        "archive": "legacy",
-        "status": "ok",
-        "matchedSecurities": 0,
+        "status": "failed",
         "url": "https://di.hkex.com.hk/filing/di/NSSrchPersonList.aspx?sa1=pl&scsd=01%2F04%2F2003&sced=02%2F10%2F2017&pn=Oaktree+Capital&src=MAIN&lang=EN&g_lang=en"
       },
       {
         "query": "Howard Marks",
-        "archive": "legacy",
-        "status": "ok",
-        "matchedSecurities": 0,
+        "status": "failed",
         "url": "https://di.hkex.com.hk/filing/di/NSSrchPersonList.aspx?sa1=pl&scsd=01%2F04%2F2003&sced=02%2F10%2F2017&pn=Howard+Marks&src=MAIN&lang=EN&g_lang=en"
       }
     ],
     "discoveredSources": 4,
     "verifiedSecurities": 4,
     "pendingSecurities": 0,
-    "recordsFetched": 10,
-    "errors": [],
+    "recordsFetched": 0,
+    "errors": [
+      {
+        "query": "Oaktree Capital",
+        "url": "https://di.hkex.com.hk/di/NSSrchPersonList.aspx?sa1=pl&scsd=03%2F07%2F2017&sced=07%2F11%2F2026&pn=Oaktree+Capital&src=MAIN&lang=EN&g_lang=en",
+        "reason": "HKEX fetch failed: HTTP Error 500: Internal Server Error"
+      },
+      {
+        "query": "Howard Marks",
+        "url": "https://di.hkex.com.hk/di/NSSrchPersonList.aspx?sa1=pl&scsd=03%2F07%2F2017&sced=07%2F11%2F2026&pn=Howard+Marks&src=MAIN&lang=EN&g_lang=en",
+        "reason": "HKEX fetch failed: HTTP Error 500: Internal Server Error"
+      },
+      {
+        "query": "Oaktree Capital",
+        "url": "https://di.hkex.com.hk/filing/di/NSSrchPersonList.aspx?sa1=pl&scsd=01%2F04%2F2003&sced=02%2F10%2F2017&pn=Oaktree+Capital&src=MAIN&lang=EN&g_lang=en",
+        "reason": "HKEX fetch failed: HTTP Error 500: Internal Server Error"
+      },
+      {
+        "query": "Howard Marks",
+        "url": "https://di.hkex.com.hk/filing/di/NSSrchPersonList.aspx?sa1=pl&scsd=01%2F04%2F2003&sced=02%2F10%2F2017&pn=Howard+Marks&src=MAIN&lang=EN&g_lang=en",
+        "reason": "HKEX fetch failed: HTTP Error 500: Internal Server Error"
+      },
+      {
+        "entity": "Oaktree Capital Management, L.P.",
+        "security": "Aluminum Corporation of China Ltd.  - H Shares",
+        "url": "https://di.hkex.com.hk/di/NSNoticePersonList.aspx?sa2=np&scpid1=159618&scpid3=2&scpid2=4296&sa1=pl&scsd=03%2F07%2F2017&sced=07%2F11%2F2026&pn=Oaktree+Capital&src=MAIN&lang=EN&g_lang=en",
+        "reason": "HKEX fetch failed: HTTP Error 500: Internal Server Error"
+      },
+      {
+        "entity": "Oaktree Capital Management, L.P.",
+        "security": "CIFI Holdings (Group) Co. Ltd.",
+        "url": "https://di.hkex.com.hk/di/NSNoticePersonList.aspx?sa2=np&scpid1=159618&scpid3=0&scpid2=77551&sa1=pl&scsd=03%2F07%2F2017&sced=07%2F11%2F2026&pn=Oaktree+Capital&src=MAIN&lang=EN&g_lang=en",
+        "reason": "HKEX fetch failed: HTTP Error 500: Internal Server Error"
+      },
+      {
+        "entity": "Oaktree Capital Management, L.P.",
+        "security": "Ganfeng Lithium Group Co., Ltd.  - H Shares",
+        "url": "https://di.hkex.com.hk/di/NSNoticePersonList.aspx?sa2=np&scpid1=159618&scpid3=2&scpid2=218909&sa1=pl&scsd=03%2F07%2F2017&sced=07%2F11%2F2026&pn=Oaktree+Capital&src=MAIN&lang=EN&g_lang=en",
+        "reason": "HKEX fetch failed: HTTP Error 500: Internal Server Error"
+      },
+      {
+        "entity": "Oaktree Capital Management, L.P.",
+        "security": "Wuxi Lead Intelligent Equipment Co., Ltd.  - H Shares",
+        "url": "https://di.hkex.com.hk/di/NSNoticePersonList.aspx?sa2=np&scpid1=159618&scpid3=2&scpid2=533848&sa1=pl&scsd=03%2F07%2F2017&sced=07%2F11%2F2026&pn=Oaktree+Capital&src=MAIN&lang=EN&g_lang=en",
+        "reason": "HKEX fetch failed: HTTP Error 500: Internal Server Error"
+      }
+    ],
     "scope": "匹配已配置主体的公开多头权益披露；不等于完整投资组合或当前持仓"
   }
 }
