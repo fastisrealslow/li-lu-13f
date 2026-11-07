@@ -4,6 +4,7 @@ Every retry fetches the current source rules, merges the remote changes, binds
 summaries again, and validates the complete result. Never force-push.
 """
 import os
+import json
 from pathlib import Path
 import subprocess
 import sys
@@ -24,7 +25,13 @@ def publish(repo, source_sha, attempts=8, prepare=None, pause=time.sleep):
             return False
         if guard.returncode:
             raise RuntimeError('Could not verify the source rules before publication')
+        # A long collection can overlap an AI run. A line-based "ours" merge
+        # must not roll its newer validated results back to an old fallback.
+        published_ai=json.loads(git('show','origin/master:ai_supplement.json')) if (repo/'ai_supplement.json').exists() else None
         git('merge', 'origin/master', '--no-edit', '-X', 'ours')
+        if published_ai is not None:
+            from ai_supplement import reconcile_published
+            reconcile_published(repo,published_ai)
         if prepare:
             prepare(repo)
         else:

@@ -377,6 +377,31 @@ def merge(root, report):
     return accepted
 
 
+def reconcile_published(root, published):
+    """Keep concurrent, source-valid AI work when a data writer merges master."""
+    root=Path(root);path=root/'ai_supplement.json'
+    cache=read(path,{'entries':{},'attempts':{}});all_tasks=tasks(root)
+    ensure_safe_entries(cache,all_tasks)
+    def stamp(value):
+        try:return datetime.fromisoformat(value.replace('Z','+00:00')).timestamp()
+        except (ValueError,TypeError,AttributeError):return 0
+    for task in all_tasks:
+        key=task['id'];incoming=published.get('entries',{}).get(key)
+        if not valid_entry(incoming,task):continue
+        existing=cache['entries'][key]
+        if incoming.get('mode')=='model_selection' and (existing.get('mode')!='model_selection' or stamp(incoming.get('generatedAt'))>stamp(existing.get('generatedAt'))):
+            cache['entries'][key]=incoming
+    for key,attempt in published.get('attempts',{}).items():
+        prior=cache.setdefault('attempts',{}).get(key,{})
+        if stamp(attempt.get('at'))>stamp(prior.get('at')):cache['attempts'][key]=attempt
+    latest=published.get('lastRun',{})
+    if stamp(latest.get('finishedAt'))>stamp(cache.get('lastRun',{}).get('finishedAt')):
+        cache['lastRun']=dict(latest)
+    if cache.get('lastRun'):
+        cache['lastRun']['pendingAfter']=len(pending(all_tasks,cache,cache['lastRun'].get('model',MODEL)))
+    write(path,cache)
+
+
 def main():
     p = argparse.ArgumentParser()
     p.add_argument('--root', default='.')

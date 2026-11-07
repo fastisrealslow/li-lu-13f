@@ -13,6 +13,18 @@ def run(hours=1,conclusion='success',status='completed',event='schedule',ident=1
     return dict(id=ident,created_at=stamp,updated_at=stamp,conclusion=conclusion,status=status,event=event)
 
 class AutomationHealthTests(unittest.TestCase):
+    def test_unverified_hk_run_is_recovered_even_without_a_known_new_notice(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root=Path(tmp)
+            (root/'investors.json').write_text(json.dumps({'investors':[{'id':'test','hkFile':'hk.json'}]}))
+            (root/'run_status.json').write_text('{"runs":[]}')
+            with patch('quote_coverage.coverage',return_value={'missing':[]}):
+                for status in ('partial','failed','checked','history_pending'):
+                    (root/'hk.json').write_text(json.dumps({'holdings':[],'audit':{'status':status}}))
+                    issues=health.data_health(root,NOW)
+                    self.assertEqual(bool(issues),status in ('partial','failed'))
+                    if issues:self.assertTrue(health.plan({key:[run()] for key in health.WORKFLOWS},issues,NOW)['workflows']['data']['dispatch'])
+
     def test_recent_success_does_not_hide_new_repeated_failures(self):
         rows=[run(4),run(3,'failure'),run(2,'failure'),run(1,'failure'),run(.5,'skipped')]
         self.assertEqual(health.persistent_failures({'pages':rows},NOW),['pages'])

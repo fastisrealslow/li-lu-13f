@@ -16,6 +16,7 @@ import threading
 import time
 from urllib.parse import urljoin, urlsplit, parse_qs, urlencode, urlunsplit
 from urllib.request import build_opener, HTTPCookieProcessor
+from urllib.error import HTTPError, URLError
 
 from bs4 import BeautifulSoup
 
@@ -260,8 +261,32 @@ def parse_form(html, url, aliases):
                 verification='hkex_form', supplementary=get('lblDSuppInfo'), **relation, **details)
 
 
+class SourceCircuit:
+    """Stop a source-wide outage from consuming the whole collection run."""
+    def __init__(self, threshold=5):
+        self.threshold=threshold;self.failures=0;self.lock=threading.Lock()
+
+    def check(self):
+        with self.lock:
+            if self.failures>=self.threshold:
+                raise OSError('HKEX repeated server/network failures; source paused for this run; retained evidence will retry next run')
+
+    def success(self):
+        with self.lock:self.failures=0
+
+    def failure(self,error):
+        if isinstance(error,HTTPError) and error.code==429:
+            with self.lock:self.failures=self.threshold
+            return
+        server=isinstance(error,HTTPError) and error.code in (500,502,503,504)
+        network=isinstance(error,(TimeoutError,ConnectionError)) or isinstance(error,URLError) and not isinstance(error,HTTPError)
+        if server or network:
+            with self.lock:self.failures+=1
+
+
 class Client:
-    def __init__(self):
+    def __init__(self,circuit=None):
+        self.circuit=circuit or SourceCircuit()
         self.opener = build_opener(HTTPCookieProcessor(http.cookiejar.CookieJar()))
         self.opener.addheaders = [('User-Agent','Mozilla/5.0 (compatible; PublicDisclosureTracker/1.0)'), ('Accept-Language','en')]
         self.cache = {}
@@ -274,6 +299,7 @@ class Client:
             return self.cache[url]
         error = None
         for attempt in range(2):
+            self.circuit.check()
             try:
                 with _RATE_LOCK:
                     delay = .35 - (time.monotonic() - _LAST_REQUEST)
@@ -288,8 +314,10 @@ class Client:
                     # Explicit empty results remain valid; unknown pages retry.
                     page_info(BeautifulSoup(html,'html.parser'),url)
                 self.cache[url] = html
+                self.circuit.success()
                 return html
             except Exception as exc:
+                self.circuit.failure(exc)
                 error = exc
                 if attempt == 0:
                     time.sleep(1)
@@ -542,9 +570,9 @@ def run_investor(inv,root,client=None):
 
 def run(root='.',investors=None,workers=3):
     root=Path(root);configs=[i for i in load_configs(root/'investors.json') if not investors or i['id'] in investors]
-    results=[]
+    results=[];circuit=SourceCircuit()
     with ThreadPoolExecutor(max_workers=workers) as executor:
-        futures={executor.submit(run_investor,c,root):c for c in configs}
+        futures={executor.submit(run_investor,c,root,Client(circuit)):c for c in configs}
         for future in as_completed(futures):
             config=futures[future]
             try:results.append(future.result())

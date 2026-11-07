@@ -11,6 +11,29 @@ import hk_disclosures as hk
 
 
 class HKEXResponseRecoveryTests(unittest.TestCase):
+    def test_server_outage_is_shared_and_bounded_but_the_next_run_can_retry(self):
+        from urllib.error import HTTPError
+        from io import BytesIO
+        url=hk.BASE+'NSSrchPersonList.aspx?pn=Example'
+        circuit=hk.SourceCircuit(threshold=2);first=hk.Client(circuit);second=hk.Client(circuit)
+        with patch.object(first.opener,'open',side_effect=HTTPError(url,503,'Unavailable',{},None)) as request,patch.object(hk.time,'sleep'):
+            with self.assertRaises(OSError):first.get(url)
+            self.assertEqual(request.call_count,2)
+        with patch.object(second.opener,'open') as request:
+            with self.assertRaisesRegex(OSError,'source paused'):second.get(url)
+            request.assert_not_called()
+        fresh=hk.Client(hk.SourceCircuit())
+        with patch.object(fresh.opener,'open',return_value=BytesIO(b'<html>No records found</html>')),patch.object(hk.time,'sleep'):
+            self.assertIn('No records found',fresh.get(url))
+
+    def test_valid_results_reset_network_failures_and_bad_links_do_not_trip_the_source(self):
+        from urllib.error import HTTPError
+        circuit=hk.SourceCircuit(threshold=2)
+        circuit.failure(TimeoutError());circuit.success();circuit.failure(TimeoutError());circuit.check()
+        circuit.failure(HTTPError('https://di.hkex.com.hk/di/example',404,'Missing',{},None));circuit.check()
+        circuit.failure(TimeoutError())
+        with self.assertRaises(OSError):circuit.check()
+
     def test_http_200_error_is_retried_before_caching_a_verified_list(self):
         from io import BytesIO
         url=hk.LEGACY+'NSNoticePersonList.aspx?scpid=123'

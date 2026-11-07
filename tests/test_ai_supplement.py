@@ -22,6 +22,25 @@ class AISupplementTests(unittest.TestCase):
     def generate(self, task, model):
         return ai.fallback_selection(task['facts']), {'seconds':1}
 
+    def test_data_publication_preserves_newer_valid_ai_but_rejects_changed_source(self):
+        entry=ai.make_entry(self.task,self.selection,ai.MODEL)
+        entry['generatedAt']='2026-11-07T02:00:00+00:00'
+        report={'entries':{self.task['id']:entry},'attempts':{self.task['id']:{'at':entry['generatedAt'],'status':'ok'}},
+                'lastRun':{'finishedAt':entry['generatedAt'],'model':ai.MODEL,'failed':0}}
+        ai.write(self.root/'ai_supplement.json',{'entries':{},'lastRun':{'finishedAt':'2026-11-06T00:00:00Z','failed':1}})
+        ai.reconcile_published(self.root,report)
+        cache=ai.read(self.root/'ai_supplement.json')
+        self.assertEqual(cache['entries'][self.task['id']],entry)
+        self.assertEqual(cache['lastRun']['failed'],0)
+        newer=copy.deepcopy(entry);newer['generatedAt']='2026-11-07T03:00:00+00:00'
+        cache['entries'][self.task['id']]=newer;ai.write(self.root/'ai_supplement.json',cache)
+        ai.reconcile_published(self.root,report)
+        self.assertEqual(ai.read(self.root/'ai_supplement.json')['entries'][self.task['id']],newer)
+        self.data['current']['holdings'][0]['shares']=300;ai.write(self.root/'data.json',self.data)
+        ai.reconcile_published(self.root,report)
+        current=ai.tasks(self.root)[0];saved=ai.read(self.root/'ai_supplement.json')['entries'][self.task['id']]
+        self.assertEqual(saved['mode'],'deterministic');self.assertTrue(ai.valid_entry(saved,current))
+
     def test_comparison_includes_exit_and_correct_share_change(self):
         facts = self.task['facts']['items']
         self.assertEqual(facts[0]['change'],'增持100.0%')

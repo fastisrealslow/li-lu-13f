@@ -69,6 +69,8 @@ def data_health(root, now):
     for person in config:
         if person.get('hkFile'):
             hk=json.loads((root/person['hkFile']).read_text())
+            if hk.get('audit',{}).get('status') in ('partial','failed'):
+                issues.append({'code':'hk_verification_incomplete','investor':person['id']})
             if any(h.get('pending_newer_notices') for h in hk.get('holdings',[])):
                 issues.append({'code':'new_hk_notice_unverified','investor':person['id']})
         if not person.get('source13F'):continue
