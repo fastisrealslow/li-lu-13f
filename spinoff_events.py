@@ -9,7 +9,7 @@ from urllib.parse import urlparse
 from spinoff_identity import resolve_identity, IDENTITY_VERSION
 
 STATUSES = {'needs_review', 'announced', 'approved', 'record_set', 'prospectus', 'completed', 'terminated', 'paused'}
-RULE_VERSION = 3
+RULE_VERSION = 4
 TYPE_RULE_VERSION = 2
 INTRO_PATTERN = r'以介紹方式|以介绍方式|以介紹式|以介绍式|介紹(?:式)?上市|介绍(?:式)?上市|listing by (?:way of )?introduction'
 
@@ -204,7 +204,7 @@ def infer_status(text):
         spin = spin or re.search(r'spin[- ]?off|split[- ]?off|separation|distribution of.{0,90}shares', s, re.I)
         if not spin:
             continue
-        uncertain = re.search(r'\b(?:not|no|never|expect\w*|anticipat\w*|intend\w*|would|could|might|will|subject to|if|upon|until|prior to|before)\b|\bmay\s+(?:be|not|have|result|occur)\b|預計|预计|將|将|尚未|未完成|未開始|未开始|未上市|待|倘|如獲|如获|若|假如|一旦|計劃|计划|擬(?:於|完成|上市)|拟(?:于|完成|上市)', s, re.I)
+        uncertain = re.search(r'\b(?:not|no|never|expect\w*|anticipat\w*|intend\w*|would|could|might|will|subject to|if|upon|until|prior to|before)\b|\bmay\s+(?:be|not|have|result|occur)\b|預計|预计|將|将|尚未|未完成|未開始|未开始|未上市|待|倘|如獲|如获|若|假如|方可作實|方可作实|一旦|計劃|计划|擬(?:於|完成|上市)|拟(?:于|完成|上市)', s, re.I)
         status = None
         if re.search(r'決定(?:於現階段)?不進行(?:建議)?分拆|决定(?:于现阶段)?不进行(?:建议)?分拆|(?:已|決定|决定)(?:暫緩|暂缓|暫停|暂停).{0,12}分拆', s):
             status = 'paused'
@@ -293,7 +293,7 @@ def parse_evidence(text, ann, cik=''):
     return {**match, **type_fields, 'url': url, 'date': iso_date(ann.get('date')), 'title': ann.get('title', ''), 'targetName': target_name,
             'targetTicker': ticker, 'targetAliases': target_aliases,
             'identityVersion': IDENTITY_VERSION, 'identityQuote': identity.get('quote', ''),
-            'identityKind': identity.get('kind', ''), 'distributedEntity': identity.get('distributedEntity', False), 'separatedEntity': identity.get('separatedEntity', False), 'identityReason': identity.get('reason', ''), 'dates': dates, 'method': 'rule', 'ruleVersion': RULE_VERSION, 'accession': ann.get('adsh', '')}
+            'issuerIsTarget': identity.get('issuerIsTarget', False), 'identityKind': identity.get('kind', ''), 'distributedEntity': identity.get('distributedEntity', False), 'separatedEntity': identity.get('separatedEntity', False), 'identityReason': identity.get('reason', ''), 'dates': dates, 'method': 'rule', 'ruleVersion': RULE_VERSION, 'accession': ann.get('adsh', '')}
 
 
 def listed_target_code(text, target):
@@ -308,13 +308,58 @@ def listed_target_code(text, target):
     return codes.pop() if len(codes)==1 else ''
 
 
+def link_child_filings(companies, old_events):
+    """Project self-listing filings into a unique, source-verified parent dossier.
+
+    Raw issuer records stay intact for future retrieval. Ambiguous parents or
+    conflicting codes are never merged merely because names look similar.
+    """
+    import copy
+    from resolve_spinoff_names import link_references
+    for company in companies:
+        if company.get('filingEvidence'):
+            company['filingEvidence'] = link_references(company['filingEvidence'])
+    projected = copy.deepcopy(companies)
+    for child in list(projected):
+        for proof in list(child.get('filingEvidence', [])):
+            ticker, name = proof.get('targetTicker'), target_key(proof.get('targetName'))
+            if not (proof.get('issuerIsTarget') and ticker == child.get('ticker')
+                    and name and proof.get('identityQuote') and direct_source(proof.get('url', ''))):
+                continue
+            parents = [c for c in projected if c is not child and any(
+                target_key(p.get('targetName')) == name and p.get('identityQuote')
+                and direct_source(p.get('url', '')) and not p.get('issuerIsTarget')
+                and (not p.get('targetTicker') or p['targetTicker'] == ticker)
+                for p in c.get('filingEvidence', []))]
+            if len(parents) != 1:
+                continue
+            parent = parents[0]
+            parent['filingEvidence'] = merge_evidence(parent.get('filingEvidence', []), [proof])
+            url = proof['url']
+            matched = [a for a in child.get('announcements', []) if source_url(a) == url]
+            existing = {source_url(a) for a in parent.get('announcements', [])}
+            parent.setdefault('announcements', []).extend(a for a in matched if source_url(a) not in existing)
+            aliases = parent.setdefault('_linkedEventIds', {}).setdefault(name, [])
+            for event in old_events.values():
+                if event.get('parentTicker') == child.get('ticker') and (
+                    target_key(event.get('targetName')) == name or
+                    (event.get('evidence') or {}).get('url') == url or
+                    any(a.get('url') == url for a in event.get('announcements', []))):
+                    aliases.extend([event['id'], *event.get('mergedIds', [])])
+            child['filingEvidence'].remove(proof)
+            child['announcements'] = [a for a in child.get('announcements', []) if source_url(a) != url]
+    return [c for c in projected if c.get('filingEvidence') or c.get('announcements') or not any(
+        p.get('issuerIsTarget') for original in companies if original.get('ticker') == c.get('ticker')
+        for p in original.get('filingEvidence', []))]
+
+
 def normalize(data, market, previous=None, now=None):
     now = now or datetime.now(timezone.utc).strftime('%Y-%m-%dT%H:%M:%SZ')
     old_events = {e['id']: e for e in (previous or data).get('events', [])}
     initialized = bool((previous or data).get('eventsSchemaVersion'))
     changes = list((previous or data).get('changes', []))
     events = []
-    for c in data.get('companies', []):
+    for c in link_child_filings(data.get('companies', []), old_events) if market == 'hk' else data.get('companies', []):
         parent = str(c.get('stockCode') if market == 'hk' else c.get('ticker'))
         announcements = []
         for ann in c.get('announcements', []):
@@ -398,7 +443,7 @@ def normalize(data, market, previous=None, now=None):
             parent_key = entity_key(c.get('stockName') or c.get('name'))
             if candidate_name and entity_key(candidate_name) == parent_key:
                 candidate_name = ''
-            if named and entity_key(named) == parent_key and not any(p.get('distributedEntity') or p.get('separatedEntity') for p in group):
+            if named and entity_key(named) == parent_key and not any(p.get('distributedEntity') or p.get('separatedEntity') or p.get('issuerIsTarget') for p in group):
                 named = ''
             target_name = named or (candidate_name if len(groups) == 1 and not any(p.get('identityReason') == 'conflicting_names' for p in group) else '')
             identity_proofs = [p for p in group if named and p.get('identityQuote') and direct_source(p.get('url', ''))]
@@ -483,7 +528,8 @@ def normalize(data, market, previous=None, now=None):
                     proof = max(typed, key=lambda p: p.get('date', ''))
                     event_type = proof['listingType']
                     type_evidence = {'url': proof['url'], 'date': proof.get('date', ''), 'quote': proof['typeQuote']}
-            merged_ids = {alias for e in [*matching, *source_matching, *([old_events[eid]] if eid in old_events else [])] for alias in [e['id'], *e.get('mergedIds', [])]} - {eid}
+            linked_ids = c.get('_linkedEventIds', {}).get(target_key(named), [])
+            merged_ids = set(linked_ids) | {alias for e in [*matching, *source_matching, *([old_events[eid]] if eid in old_events else [])] for alias in [e['id'], *e.get('mergedIds', [])]} - {eid}
             event = {'id': eid, 'mergedIds': sorted(merged_ids), 'market': market, 'parentTicker': c.get('ticker') or parent, 'parentName': c.get('stockName') or c.get('name', ''),
                      'targetName': target_name, 'targetTicker': child_ticker, 'identityVerified': bool(named),
                      'identityKind': identity_proof.get('identityKind', 'entity') if identity_proof else '',

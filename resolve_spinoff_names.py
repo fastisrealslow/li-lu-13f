@@ -259,7 +259,7 @@ def refresh_company(company, market, opener, cache=None, limit=3):
                 proof=parse_evidence(content['text'],ann,company.get('cik',''))
             supplement=content.get('identitySupplement')
             if supplement and not proof['targetName']:
-                for field in ('targetName','targetAliases','identityQuote','identityKind','distributedEntity','separatedEntity','identitySourceUrl'):
+                for field in ('targetName','targetAliases','identityQuote','identityKind','distributedEntity','separatedEntity','issuerIsTarget','identitySourceUrl'):
                     proof[field]=supplement.get(field)
             # Track dates only in the explicit introductory cross-reference passage.
             refs=[]

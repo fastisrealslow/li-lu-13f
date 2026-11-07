@@ -1,7 +1,7 @@
 """Deterministic, source-bound target identity extraction (no paid AI dependency)."""
 import re
 
-IDENTITY_VERSION = 4
+IDENTITY_VERSION = 5
 # Capitalization bounds prevent consuming prose before an English legal name.
 LEGAL = r"[A-Z][A-Za-z0-9&’'\-]*(?: [A-Z][A-Za-z0-9&’'\-]*){0,7},? (?:Inc\.?|Corporation|Corp\.?|Limited|LIMITED|Ltd\.?|LTD\.?|PLC|LLC|Group)"
 ZHLEGAL = r'[\u4e00-\u9fffA-Za-z（）()]{2,45}?(?:股份有限公司|有限公司)'
@@ -24,6 +24,14 @@ def resolve_identity(text, title=''):
             aliases = [a.strip(' ,') for a in re.findall(r'[“"「]\s*([^”"」]{1,65}?)\s*[”"」]', m[2])]
             if name and aliases:
                 definitions.append((name, aliases, m.group()))
+    # The listing issuer itself is the target only when its own equity is
+    # explicitly introduced AND the document establishes a spin/distribution.
+    self_listing = re.search(r'本公司(?:全部)?已發行股本以介紹方式(?:於|在)聯交所主板上市|本公司(?:全部)?已发行股本以介绍方式(?:于|在)联交所主板上市', title)
+    issuer_defs = [(n, q) for n, aliases, q in definitions if '本公司' in aliases]
+    if self_listing and re.search(SPIN, text, re.I) and len({target_key(n) for n, _ in issuer_defs}) == 1:
+        name, quote = issuer_defs[0]
+        return {'name': name, 'aliases': [], 'quote': quote + ' … ' + title,
+                'kind': 'entity', 'issuerIsTarget': True}
     candidates = []
     def add(name, quote, kind='entity'):
         name = clean_name(name)

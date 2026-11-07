@@ -662,3 +662,70 @@ class FollowupDossierIdentityTests(unittest.TestCase):
               {'url':'https://example.org/b','date':'2026-01-01','targetName':'Beta Inc'},
               {'url':'https://example.org/c','targetName':'以介紹方式於聯交所主板','identityReferences':['2026-01-01']}]
         self.assertFalse(link_references(rows)[2]['targetName'])
+
+
+class SelfListingIssuerTests(unittest.TestCase):
+    title = '本公司全部已發行股本以介紹方式於聯交所主板上市'
+    text = ('測試文旅有限公司（於開曼群島註冊成立之有限公司）（股份代號：1821）'
+            '茲提述測試文旅有限公司（「本公司」）所刊發的上市文件。'
+            '本公司全部已發行股本以介紹方式於聯交所主板上市。'
+            '分派須待分拆及上市獲股東批准後，方可作實。')
+
+    def fixture(self):
+        ann = {'title': self.title, 'date': '2026-10-30',
+               'url': 'https://www1.hkexnews.hk/listedco/child.pdf'}
+        proof = parse_evidence(self.text, ann)
+        parent_proof = {'targetName': '測試文旅有限公司', 'identityQuote': '分拆測試文旅有限公司',
+                        'url': 'https://www1.hkexnews.hk/listedco/parent.pdf',
+                        'date': '2026-10-26', 'status': 'announced', 'quote': '建議分拆測試文旅有限公司',
+                        'dates': {'recordDate': {'date': '2026-11-20', 'quote': '記錄日期', 'kind': 'scheduled'}}}
+        return {'companies': [
+            {'ticker': '00308.HK', 'stockCode': '00308', 'stockName': '測試母公司', 'filingEvidence': [parent_proof]},
+            {'ticker': '01821.HK', 'stockCode': '01821', 'stockName': '測試文旅',
+             'filingEvidence': [proof], 'announcements': [ann]}]}
+
+    def test_self_listing_resolves_issuer_and_code_without_claiming_approval(self):
+        proof = self.fixture()['companies'][1]['filingEvidence'][0]
+        self.assertEqual(proof['targetName'], '測試文旅有限公司')
+        self.assertEqual(proof['targetTicker'], '01821.HK')
+        self.assertTrue(proof['issuerIsTarget'])
+        self.assertNotIn(proof['status'], ['approved', 'completed'])
+        for text, title in [(self.text, '建議分拆附屬公司'),
+                            (self.text.replace('分派須待分拆及上市獲股東批准後，方可作實。', ''), self.title)]:
+            self.assertFalse(parse_evidence(text, {'title': title}).get('issuerIsTarget'))
+
+    def test_child_and_parent_archive_merge_preserves_watch_ids_and_is_idempotent(self):
+        base = self.fixture()
+        old = normalize(copy.deepcopy(base), 'hk', now='2026-10-30T00:00:00Z')
+        child_url = base['companies'][1]['announcements'][0]['url']
+        old['events'].append({'id': 'hk:01821:unresolved', 'parentTicker': '01821.HK',
+                              'targetName': '', 'evidence': {'url': child_url}})
+        out = normalize(base, 'hk', previous=old, now='2026-11-07T00:00:00Z')
+        validate_events(out)
+        self.assertEqual(len(out['events']), 1)
+        event = out['events'][0]
+        self.assertEqual(event['parentTicker'], '00308.HK')
+        self.assertEqual(event['targetTicker'], '01821.HK')
+        self.assertEqual(event['latestDate'], '2026-10-30')
+        self.assertEqual(len(event['announcements']), 2)
+        self.assertIn('hk:01821:unresolved', event['mergedIds'])
+        self.assertEqual(len(out['companies']), 2)  # Keep raw issuers for next fetch.
+        again = normalize(copy.deepcopy(out), 'hk', now='2026-11-08T00:00:00Z')
+        self.assertEqual(again['events'], out['events'])
+        self.assertEqual(again['changes'], out['changes'])
+
+    def test_ambiguous_parent_or_conflicting_code_cannot_merge(self):
+        base = self.fixture()
+        other = copy.deepcopy(base['companies'][0]); other.update(ticker='00002.HK', stockCode='00002')
+        base['companies'].append(other)
+        self.assertEqual(len(normalize(base, 'hk')['events']), 3)
+        base = self.fixture()
+        base['companies'][0]['filingEvidence'][0]['targetTicker'] = '09999.HK'
+        self.assertEqual(len(normalize(base, 'hk')['events']), 2)
+
+    def test_self_issuer_name_is_not_discarded_when_no_parent_is_known(self):
+        base = self.fixture(); base['companies'] = base['companies'][1:]
+        base['companies'][0]['stockName'] = '測試文旅有限公司'
+        event = normalize(base, 'hk')['events'][0]
+        self.assertEqual(event['targetName'], '測試文旅有限公司')
+        self.assertTrue(event['identityVerified'])
