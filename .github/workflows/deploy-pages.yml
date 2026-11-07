@@ -29,7 +29,7 @@ jobs:
     timeout-minutes: 30
     environment:
       name: github-pages
-      url: ${{ steps.deploy.outputs.page_url }}
+      url: ${{ steps.deploy.outputs.page_url || steps.deploy_retry.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
         with:
@@ -100,9 +100,20 @@ jobs:
 
       - name: Deploy to GitHub Pages
         id: deploy
+        continue-on-error: true
         uses: actions/deploy-pages@v4
         with:
-          timeout: '1200000'
+          timeout: '600000'
+          reporting_interval: '10000'
+
+      # deploy-pages clamps each attempt to ten minutes. Retry the same tested
+      # artifact once after a failed/cancelled deployment, within the job limit.
+      - name: Retry Pages publication once after a failed attempt
+        id: deploy_retry
+        if: ${{ !cancelled() && steps.deploy.outcome == 'failure' }}
+        uses: actions/deploy-pages@v4
+        with:
+          timeout: '600000'
           reporting_interval: '10000'
 
       - name: Verify the live page and every investor snapshot
