@@ -400,7 +400,7 @@
       "inputHash": "cf449ddd33916dfcbe6fa4d2bbf3088a2c92a4b03bc93c5166d1813f9593be28"
     },
     "akre-2215a13c870884": {
-      "at": "2026-11-06T23:16:06+00:00",
+      "at": "2026-11-07T04:58:46+00:00",
       "status": "retry",
       "inputHash": "74bc55a285ce586e24ecf746784578f598618ef42506ec5d27fbbe41238fa949",
       "reason": "ValueError: No supported arguments in source"
@@ -442,7 +442,7 @@
       "reason": "ValueError: No audio obtained"
     },
     "pabrai-cb0517b63aecd1": {
-      "at": "2026-11-06T23:30:30+00:00",
+      "at": "2026-11-07T05:03:04+00:00",
       "status": "retry",
       "inputHash": "363f292915da99cfc63fa308f7d2b3ae4fb225fd6efa618ae6445444b971699a",
       "reason": "ValueError: Unsupported numerical claim: 1992"
@@ -720,10 +720,10 @@
       "reason": "ValueError: Bilingual editorial review: The source text (s1) explicitly states the script was written by the speechwriter for Saddam Hussein. The content section claims thi"
     },
     "buffett-d6f1a801f004df": {
-      "at": "2026-11-06T22:11:46+00:00",
+      "at": "2026-11-07T04:57:03+00:00",
       "status": "retry",
       "inputHash": "5e6f0af3b4f6b4986097903db9bab953daf45a3d009a0aabf2c838c01c2a8e57",
-      "reason": "ValueError: Bilingual editorial review: The English translation of '5 billion' in s26 is accurate; no correction needed.; The Chinese text correctly identifies Brian Moynih"
+      "reason": "ValueError: Bilingual editorial review: The Chinese text incorrectly identifies Brian Moynihan as the 'former CEO of Bank of America' (former president/CEO), whereas the so"
     },
     "buffett-56163a42ef5133": {
       "at": "2026-11-06T21:56:04+00:00",
@@ -750,13 +750,13 @@
       "reason": "ValueError: Bilingual editorial review: The English translation of 'closed-end funds' is inconsistent: it uses 'closed-end funds' in the first paragraph but switches to 'cl"
     },
     "pabrai-c31cbca535cfa5": {
-      "at": "2026-11-06T23:37:02+00:00",
+      "at": "2026-11-07T04:48:59+00:00",
       "status": "retry",
       "inputHash": "2129d81726f7d78872c6e068da131aa69bbcd6eff8a88d15439bbc5135b6288c",
-      "reason": "ValueError: Bilingual editorial review: The English translation of 'lollapalooza effects' correctly reflects Munger's usage as cited in the source (s1), despite being a non"
+      "reason": "ValueError: Bilingual editorial review: The source text does not mention 'exponential growth' (indexical growth); it only states '1 plus 1 plus 1 plus 1 becomes over 1,000'"
     },
     "pabrai-c4e5dd4e66fada": {
-      "at": "2026-11-06T23:23:36+00:00",
+      "at": "2026-11-07T04:48:19+00:00",
       "status": "retry",
       "inputHash": "c8703afa637ba881a27abe4ae0063ed42857211001d4a08da7227f2933a87659",
       "reason": "ValueError: Unsupported scaled numerical claim: 450"
@@ -876,10 +876,10 @@
       "reason": "ValueError: Bilingual editorial review: The English translation in s76 incorrectly states 'from roughly 500 to around 1770 AD' as a duration of 1200 years; the source text "
     },
     "pabrai-d346f1bebb0f55": {
-      "at": "2026-11-06T23:56:56+00:00",
+      "at": "2026-11-07T04:50:46+00:00",
       "status": "retry",
       "inputHash": "8b8aefaa73adafd677770f8f952d45e05181310719155ee07418940c17a204e9",
-      "reason": "ValueError: Unsupported numerical claim: 30%"
+      "reason": "ValueError: Bilingual editorial review: The Chinese text claims Pabrai attributes the high error rate to 'psychological bias of projecting current circumstances into infini"
     },
     "pabrai-1410746e64c5fd": {
       "at": "2026-11-07T01:11:33+00:00",
@@ -930,10 +930,10 @@
       "reason": "ValueError: Unsupported numerical claim: 3"
     },
     "lilu-f9c5b8c9904f52": {
-      "at": "2026-11-06T23:45:06+00:00",
+      "at": "2026-11-07T04:56:43+00:00",
       "status": "retry",
       "inputHash": "9addc758852c86ede5329bd7c0146e09e1bab7e0e9d1ba6f26deda417cd8015c",
-      "reason": "ValueError: Bilingual editorial review: The English translation of the quote 'Value investing is like an inoculation – either it takes or it doesn't' in the content section"
+      "reason": "ValueError: Bilingual editorial review: The English translation contains a factual error: the source text quotes Warren Buffett as saying 'Value investing is like an inocul"
     },
     "vinall-2cbcc40389a099": {
       "at": "2026-10-18T01:39:01+00:00",
@@ -1241,10 +1241,10 @@
       "reason": "ValueError: Incomplete AI Review at 900 tokens"
     },
     "vinall-469b9af861796c": {
-      "at": "2026-11-06T23:26:35+00:00",
+      "at": "2026-11-07T04:57:56+00:00",
       "status": "retry",
       "inputHash": "04b912cfa579ed70f2a884ba3db6a3f8874717a2e60b6e0c23557713476f294b",
-      "reason": "ValueError: Bilingual editorial review: The English text in the content section contains a factual error regarding the author's name: 'Rob Vinall' should be 'Robynne Viner'"
+      "reason": "ValueError: Bilingual editorial review: The source text does not explicitly state that Rob Vinall's argument 'directly addresses the question of how American cultural influ"
     },
     "pabrai-bde4422fef8ed1": {
       "at": "2026-11-07T02:46:34+00:00",
@@ -1421,7 +1421,7 @@
       "reason": "ValueError: Unsupported numerical claim: 1982"
     },
     "vinall-2f7ded18efd67f": {
-      "at": "2026-11-06T23:51:03+00:00",
+      "at": "2026-11-07T04:52:37+00:00",
       "status": "retry",
       "inputHash": "d81aca6d68ee81808c6d7be343561a04d30a30cc30b287e08d0110f0e9ed83fb",
       "reason": "ValueError: Unsupported numerical claim: 12"
@@ -1583,10 +1583,10 @@
       "reason": "ValueError: Bilingual editorial review: The source text (s2, s3, s60) does not mention 'Jack' as a specific case study; it refers to 'financially independent, internet savv"
     },
     "pabrai-a93149b98a61c2": {
-      "at": "2026-11-06T22:17:28+00:00",
+      "at": "2026-11-07T05:02:17+00:00",
       "status": "retry",
       "inputHash": "c5ae94b4dec8734e12b974d3f3121c1fb7a2a833e59653a9092d27276c4dda8c",
-      "reason": "ValueError: Unsupported numerical claim: 1970"
+      "reason": "ValueError: Unsupported numerical claim: 1973"
     },
     "pabrai-3c50faebea715c": {
       "at": "2026-11-07T01:17:11+00:00",
@@ -1655,10 +1655,10 @@
       "reason": "ValueError: Bilingual editorial review: The source text does not explicitly state that 'underestimating or overestimating' are equally damaging; it only says underestimatin"
     },
     "vinall-bc7f6fa8dbf30a": {
-      "at": "2026-11-06T22:05:04+00:00",
+      "at": "2026-11-07T04:51:39+00:00",
       "status": "retry",
       "inputHash": "e141d90bdefd77ece54e855a5dad79d8794fbe1ff9c06dbc62dbfa37c2d01a6e",
-      "reason": "ValueError: Bilingual editorial review: The content section incorrectly states that Dennis Hong 'clarifies that he did not attend Yale University' based on the provided ASR"
+      "reason": "ValueError: Bilingual editorial review: The source text (s9-s11) does not mention Yale University or financial struggles; the English translation incorrectly asserts 'Yale "
     },
     "vinall-5d9ce22dd4537e": {
       "at": "2026-11-07T01:10:27+00:00",
@@ -1846,7 +1846,7 @@
       "inputHash": "0c3790ac153b1fbe0965a5d158f23f7e54669b57fcf1c3ab02137015cc61ca2c"
     },
     "webb-58c5c2c38444e9": {
-      "at": "2026-11-06T22:55:17+00:00",
+      "at": "2026-11-07T04:58:44+00:00",
       "status": "retry",
       "inputHash": "6f6d061c9882d45fe7187dac9bd0d3412d543131ad64da2bd8a7367fe1cc11e0",
       "reason": "ValueError: No audio obtained"
@@ -2104,10 +2104,10 @@
       "reason": "ValueError: Bilingual editorial review: The English paragraph incorrectly attributes the skeptics' argument to Claude itself ('a limitation that skeptics argue using Claude"
     },
     "marks-8e0ec13e9cb837": {
-      "at": "2026-11-06T23:57:21+00:00",
+      "at": "2026-11-07T04:58:39+00:00",
       "status": "retry",
       "inputHash": "aae29530db158796b78155e8b1ed83ba5a6857a0ebbd1ec074e3449497113e8e",
-      "reason": "ValueError: Bilingual editorial review: The source text (s1) does not mention 'Oaktree Capital' or a specific article title like 'A Look Under the Hood'; these are added in"
+      "reason": "ValueError: Bilingual editorial review: The source text (s1) does not mention 'Howard Marks' or 'Oaktree Capital'; the author is unnamed in the original English text.; The "
     },
     "marks-ac11cf5787b86b": {
       "at": "2026-11-07T00:47:46+00:00",
@@ -2170,10 +2170,10 @@
       "reason": "ValueError: Bilingual editorial review: The English paragraph incorrectly attributes a specific motto ('if we avoid the losers...') to the 2003 memo 'What's Your Game Plan?"
     },
     "marks-6d3a8f0f672f7e": {
-      "at": "2026-11-06T23:53:58+00:00",
+      "at": "2026-11-07T05:02:57+00:00",
       "status": "retry",
       "inputHash": "1a975bfbe1968dee8180f8d9005e8455486ebf64370591de7ec77dd00da48917",
-      "reason": "ValueError: Bilingual editorial review: The Chinese paragraph claims 'total dollars earned collectively by all investors... is fixed' (all investors collective created tota"
+      "reason": "ValueError: Bilingual editorial review: The Chinese text contains a factual error: it attributes the quote 'This just in: You can't take the same actions as everyone else a"
     },
     "marks-d5c428885322b6": {
       "at": "2026-11-07T03:05:45+00:00",
@@ -2260,10 +2260,10 @@
       "reason": "ValueError: Bilingual editorial review: The English translation of the heading 'Selling Out' is incorrect; it should be 'Selling Traps Based on Psychology Rather Than Funda"
     },
     "marks-f0ad7ce26c845b": {
-      "at": "2026-11-06T22:49:59+00:00",
+      "at": "2026-11-07T04:53:08+00:00",
       "status": "retry",
       "inputHash": "7e4c2725d4b84796395ee0aaae68e263ea43e3fab59f5ac691cf8bde91968c71",
-      "reason": "ValueError: Bilingual editorial review: The English translation of 'on-the-one-hand-but-on-the-other-hand' in the source text is grammatically incorrect; it should be 'one "
+      "reason": "ValueError: Bilingual editorial review: The English translation of the phrase 'on-the-one-hand-but-on-the-other-hand' is grammatically incorrect and non-standard. The corre"
     },
     "marks-95f37ab6394745": {
       "at": "2026-11-07T03:15:46+00:00",
@@ -2290,7 +2290,7 @@
       "reason": "ValueError: Bilingual editorial review: The English text incorrectly states 'In Mr. Market Miscalculates' as if it were the title of an article by Howard Marks; however, th"
     },
     "marks-f21264667ec473": {
-      "at": "2026-11-06T22:55:15+00:00",
+      "at": "2026-11-07T04:58:42+00:00",
       "status": "retry",
       "inputHash": "650bf93811a4720dee18f63277e5befd1b607725e4c71740b3524cee525bf40f",
       "reason": "ValueError: Unsupported numerical claim: 5%"
@@ -3003,10 +3003,10 @@
       "reason": "ValueError: Bilingual editorial review: The English translation in the 'content' section contains a factual error: it states the memo was titled 'We're Not In 1999 Anymore,"
     },
     "mclemore-435757d6a2be73": {
-      "at": "2026-11-06T23:33:49+00:00",
+      "at": "2026-11-07T04:49:51+00:00",
       "status": "retry",
       "inputHash": "a1f9cdf65d716a445232b97a6455cfdd756683b0d3f51bb3a07622bec6922a4f",
-      "reason": "ValueError: Bilingual editorial review: The English translation in the content section contains a factual error regarding Peloton's required growth rate. The source text (s"
+      "reason": "ValueError: Incomplete AI Review at 900 tokens"
     },
     "marks-1dc8ee1ff847bc": {
       "at": "2026-11-07T01:24:19+00:00",
@@ -3033,13 +3033,13 @@
       "reason": "ValueError: Unsupported scaled numerical claim: 1.2"
     },
     "mclemore-77ce37795dbfd2": {
-      "at": "2026-11-06T23:38:08+00:00",
+      "at": "2026-11-07T04:54:24+00:00",
       "status": "retry",
       "inputHash": "72d6135c083afebfd6b53a492360ee36d3224a146ef000fed7f360b7b2802063",
-      "reason": "ValueError: Unsupported numerical claim: 500"
+      "reason": "ValueError: Bilingual editorial review: The Chinese text incorrectly states the dividend yield as '1.2%' while the source says '1.2% yield' but does not explicitly confirm "
     },
     "mclemore-99bc441190a51e": {
-      "at": "2026-11-06T23:38:11+00:00",
+      "at": "2026-11-07T04:54:27+00:00",
       "status": "retry",
       "inputHash": "a72224a0fc8482ad9360f88ce30be14331d72b0d4bd12cf16a3b370972acf5fe",
       "reason": "ValueError: No supported arguments in source"
@@ -3105,7 +3105,7 @@
       "reason": "ValueError: Bilingual editorial review: The Chinese text incorrectly attributes the 'classic value' segment recovery to help achieve returns from a 'flexible, opportunistic"
     },
     "mclemore-7cec44513d4e52": {
-      "at": "2026-11-06T23:46:37+00:00",
+      "at": "2026-11-07T05:01:10+00:00",
       "status": "retry",
       "inputHash": "86a6a270808bcbd7c5e47c6ec4d8835ef7906d38575aed4aaa326698c938e7d3",
       "reason": "ValueError: Unsupported numerical claim: 50%"
@@ -3495,16 +3495,16 @@
       "reason": "ValueError: Bilingual editorial review: The source text does not state that Bill Miller's quote is his 'favorite line'; the Chinese translation adds this unverified descrip"
     },
     "marks-60b6da1ebf415b": {
-      "at": "2026-11-06T23:59:59+00:00",
+      "at": "2026-11-07T04:54:31+00:00",
       "status": "retry",
       "inputHash": "7f89aacf4dcc81a417d61c68bd9342ab2c758bd1142751c42bbfb8fbf80b002f",
-      "reason": "ValueError: Unsupported numerical claim: 1995"
+      "reason": "ValueError: Bilingual editorial review: The English translation of the summary paragraph contains significant factual errors regarding Howard Marks' career timeline and fir"
     },
     "marks-fe3c74ab153e7a": {
-      "at": "2026-11-07T00:05:13+00:00",
+      "at": "2026-11-07T04:59:43+00:00",
       "status": "retry",
       "inputHash": "f511955e1e66b5f94e9d0f23bc83491f9ab78024ccf1420b1a6bd3d1b5a33294",
-      "reason": "ValueError: Bilingual editorial review: The Chinese summary incorrectly attributes the argument that 'not all participants truly meet the hypothesis's prerequisites' to How"
+      "reason": "ValueError: Bilingual editorial review: The English translation in the content section contains factual errors regarding the source text (s1). It claims Marks 'argues' that"
     },
     "mclemore-665e38247ebf50": {
       "at": "2026-11-07T02:29:38+00:00",
@@ -3513,10 +3513,10 @@
       "reason": "ValueError: Bilingual editorial review: The source text does not explicitly state that 'short-term price trends often persist longer than expected and lack valuation suppor"
     },
     "marks-e693460d7940de": {
-      "at": "2026-11-07T00:07:34+00:00",
+      "at": "2026-11-07T05:02:30+00:00",
       "status": "retry",
       "inputHash": "69a25dbfb7b7328d372cde83fe9d0a9b67ecd8748f9470b0e03fbdd3e57114f7",
-      "reason": "ValueError: Bilingual editorial review: The Chinese text incorrectly attributes the 'stop and look both ways' quote to Uncle Jack as a general cautionary principle; the sou"
+      "reason": "ValueError: Unsupported numerical claim: 1974"
     },
     "mclemore-4f3f15e26a8f46": {
       "at": "2026-11-07T01:26:23+00:00",
@@ -3531,7 +3531,7 @@
       "reason": "ValueError: Unsupported numerical claim: 100"
     },
     "mclemore-d10ee1cde69171": {
-      "at": "2026-11-07T00:02:14+00:00",
+      "at": "2026-11-07T04:56:51+00:00",
       "status": "retry",
       "inputHash": "962b83e5e26ba8796cbe192e84c9ac2165d10fdc968693993138c77e8b5e42e5",
       "reason": "ValueError: Unsupported numerical claim: 20"
@@ -3613,5 +3613,5 @@
       "reason": "ValueError: Copied source passage"
     }
   },
-  "updatedAt": "2026-11-07T04:46:14+00:00"
+  "updatedAt": "2026-11-07T05:03:04+00:00"
 }
