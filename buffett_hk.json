@@ -1723,7 +1723,7 @@
       "pending_newer_notices": []
     }
   ],
-  "lastUpdated": "2026-11-07T02:03:05Z",
+  "lastUpdated": "2026-11-07T02:45:09Z",
   "schemaVersion": 3,
   "investor": "buffett",
   "source_bindings": {
@@ -1842,7 +1842,7 @@
     }
   },
   "audit": {
-    "checkedAt": "2026-11-07T02:03:05Z",
+    "checkedAt": "2026-11-07T02:45:09Z",
     "status": "partial",
     "queries": [
       {
@@ -1874,52 +1874,52 @@
       {
         "query": "Berkshire Hathaway",
         "url": "https://di.hkex.com.hk/di/NSSrchPersonList.aspx?sa1=pl&scsd=03%2F07%2F2017&sced=07%2F11%2F2026&pn=Berkshire+Hathaway&src=MAIN&lang=EN&g_lang=en",
-        "reason": "HKEX fetch failed: HTTP Error 500: Internal Server Error"
+        "reason": "HKEX repeated server/network failures; source paused for this run; retained evidence will retry next run"
       },
       {
         "query": "Warren Buffett",
         "url": "https://di.hkex.com.hk/di/NSSrchPersonList.aspx?sa1=pl&scsd=03%2F07%2F2017&sced=07%2F11%2F2026&pn=Warren+Buffett&src=MAIN&lang=EN&g_lang=en",
-        "reason": "HKEX fetch failed: HTTP Error 500: Internal Server Error"
+        "reason": "HKEX repeated server/network failures; source paused for this run; retained evidence will retry next run"
       },
       {
         "query": "Berkshire Hathaway",
         "url": "https://di.hkex.com.hk/filing/di/NSSrchPersonList.aspx?sa1=pl&scsd=01%2F04%2F2003&sced=02%2F10%2F2017&pn=Berkshire+Hathaway&src=MAIN&lang=EN&g_lang=en",
-        "reason": "HKEX fetch failed: HTTP Error 504: Gateway Time-out"
+        "reason": "HKEX repeated server/network failures; source paused for this run; retained evidence will retry next run"
       },
       {
         "query": "Warren Buffett",
         "url": "https://di.hkex.com.hk/filing/di/NSSrchPersonList.aspx?sa1=pl&scsd=01%2F04%2F2003&sced=02%2F10%2F2017&pn=Warren+Buffett&src=MAIN&lang=EN&g_lang=en",
-        "reason": "HKEX fetch failed: HTTP Error 500: Internal Server Error"
+        "reason": "HKEX repeated server/network failures; source paused for this run; retained evidence will retry next run"
       },
       {
         "entity": "Berkshire Hathaway Energy Company (formerly known as MidAmerican Energy Holdings Company)",
         "security": "BYD Co. Ltd.  - H Shares",
         "url": "https://di.hkex.com.hk/di/NSNoticePersonList.aspx?sa2=np&scpid1=105122&scpid3=2&scpid2=2508&sa1=pl&scsd=03%2F07%2F2017&sced=07%2F11%2F2026&pn=Berkshire+Hathaway&src=MAIN&lang=EN&g_lang=en",
-        "reason": "HKEX fetch failed: HTTP Error 500: Internal Server Error"
+        "reason": "HKEX repeated server/network failures; source paused for this run; retained evidence will retry next run"
       },
       {
         "entity": "Berkshire Hathaway Inc.",
         "security": "BYD Co. Ltd.  - H Shares",
         "url": "https://di.hkex.com.hk/di/NSNoticePersonList.aspx?sa2=np&scpid1=105124&scpid3=2&scpid2=2508&sa1=pl&scsd=03%2F07%2F2017&sced=07%2F11%2F2026&pn=Berkshire+Hathaway&src=MAIN&lang=EN&g_lang=en",
-        "reason": "HKEX fetch failed: HTTP Error 500: Internal Server Error"
+        "reason": "HKEX repeated server/network failures; source paused for this run; retained evidence will retry next run"
       },
       {
         "entity": "Berkshire Hathaway Inc.",
         "security": "BYD Co. Ltd. - H Shares",
         "url": "https://di.hkex.com.hk/filing/di/NSNoticePersonList.aspx?sa2=np&scpid=1941660&sa1=pl&scsd=01%2F04%2F2003&sced=02%2F10%2F2017&pn=Berkshire+Hathaway&src=MAIN&lang=EN&g_lang=en",
-        "reason": "HKEX fetch failed: HTTP Error 500: Internal Server Error"
+        "reason": "HKEX repeated server/network failures; source paused for this run; retained evidence will retry next run"
       },
       {
         "entity": "Berkshire Hathaway Inc.",
         "security": "PetroChina Co. Ltd. - H Shares",
         "url": "https://di.hkex.com.hk/filing/di/NSNoticePersonList.aspx?sa2=np&scpid=1846653&sa1=pl&scsd=01%2F04%2F2003&sced=02%2F10%2F2017&pn=Berkshire+Hathaway&src=MAIN&lang=EN&g_lang=en",
-        "reason": "HKEX fetch failed: HTTP Error 500: Internal Server Error"
+        "reason": "HKEX repeated server/network failures; source paused for this run; retained evidence will retry next run"
       }
     ],
     "scope": "匹配已配置主体的公开多头权益披露；不等于完整投资组合或当前持仓"
   },
   "financial_audit": {
-    "checkedAt": "2026-11-07T02:23:39.455556+00:00",
+    "checkedAt": "2026-11-07T02:45:10.549629+00:00",
     "status": "checked",
     "errors": []
   }

@@ -1544,7 +1544,7 @@
     }
   ],
   "disclaimer": "历史披露不代表当前持仓；搜索日期不等于披露日期。未搜到记录不代表已清仓或低于5%。比例须按原披露的股份类别解读。",
-  "lastUpdated": "2026-11-07T02:02:09Z",
+  "lastUpdated": "2026-11-07T02:45:00Z",
   "schemaVersion": 3,
   "investor": "lilu",
   "source_bindings": {
@@ -1935,120 +1935,138 @@
     }
   },
   "audit": {
-    "checkedAt": "2026-11-07T02:02:09Z",
+    "checkedAt": "2026-11-07T02:45:00Z",
     "status": "partial",
     "queries": [
       {
         "query": "Li Lu",
-        "archive": "dion",
-        "status": "ok",
-        "matchedSecurities": 3,
+        "status": "failed",
         "url": "https://di.hkex.com.hk/di/NSSrchPersonList.aspx?sa1=pl&scsd=03%2F07%2F2017&sced=07%2F11%2F2026&pn=Li+Lu&src=MAIN&lang=EN&g_lang=en"
       },
       {
         "query": "Himalaya Capital",
-        "archive": "dion",
-        "status": "ok",
-        "matchedSecurities": 6,
+        "status": "failed",
         "url": "https://di.hkex.com.hk/di/NSSrchPersonList.aspx?sa1=pl&scsd=03%2F07%2F2017&sced=07%2F11%2F2026&pn=Himalaya+Capital&src=MAIN&lang=EN&g_lang=en"
       },
       {
         "query": "Li Lu",
-        "archive": "legacy",
-        "status": "ok",
-        "matchedSecurities": 3,
+        "status": "failed",
         "url": "https://di.hkex.com.hk/filing/di/NSSrchPersonList.aspx?sa1=pl&scsd=01%2F04%2F2003&sced=02%2F10%2F2017&pn=Li+Lu&src=MAIN&lang=EN&g_lang=en"
       },
       {
         "query": "Himalaya Capital",
-        "archive": "legacy",
-        "status": "ok",
-        "matchedSecurities": 2,
+        "status": "failed",
         "url": "https://di.hkex.com.hk/filing/di/NSSrchPersonList.aspx?sa1=pl&scsd=01%2F04%2F2003&sced=02%2F10%2F2017&pn=Himalaya+Capital&src=MAIN&lang=EN&g_lang=en"
       }
     ],
     "discoveredSources": 14,
     "verifiedSecurities": 3,
     "pendingSecurities": 0,
-    "recordsFetched": 4,
+    "recordsFetched": 0,
     "errors": [
       {
-        "entity": "Li Lu",
-        "security": "CRRC Corporation Ltd.  - H Shares",
-        "url": "https://di.hkex.com.hk/di/NSNoticePersonList.aspx?sa2=np&scpid1=35238&scpid3=2&scpid2=24061&sa1=pl&scsd=03%2f07%2f2017&sced=07%2f11%2f2026&pn=Li+Lu&src=MAIN&lang=EN&g_lang=en&",
+        "query": "Li Lu",
+        "url": "https://di.hkex.com.hk/di/NSSrchPersonList.aspx?sa1=pl&scsd=03%2F07%2F2017&sced=07%2F11%2F2026&pn=Li+Lu&src=MAIN&lang=EN&g_lang=en",
         "reason": "HKEX fetch failed: HTTP Error 500: Internal Server Error"
       },
       {
+        "query": "Himalaya Capital",
+        "url": "https://di.hkex.com.hk/di/NSSrchPersonList.aspx?sa1=pl&scsd=03%2F07%2F2017&sced=07%2F11%2F2026&pn=Himalaya+Capital&src=MAIN&lang=EN&g_lang=en",
+        "reason": "HKEX repeated server/network failures; source paused for this run; retained evidence will retry next run"
+      },
+      {
+        "query": "Li Lu",
+        "url": "https://di.hkex.com.hk/filing/di/NSSrchPersonList.aspx?sa1=pl&scsd=01%2F04%2F2003&sced=02%2F10%2F2017&pn=Li+Lu&src=MAIN&lang=EN&g_lang=en",
+        "reason": "HKEX repeated server/network failures; source paused for this run; retained evidence will retry next run"
+      },
+      {
+        "query": "Himalaya Capital",
+        "url": "https://di.hkex.com.hk/filing/di/NSSrchPersonList.aspx?sa1=pl&scsd=01%2F04%2F2003&sced=02%2F10%2F2017&pn=Himalaya+Capital&src=MAIN&lang=EN&g_lang=en",
+        "reason": "HKEX repeated server/network failures; source paused for this run; retained evidence will retry next run"
+      },
+      {
         "entity": "Li Lu",
-        "security": "Postal Savings Bank of China Co., Ltd.  - H Shares",
-        "url": "https://di.hkex.com.hk/di/NSNoticePersonList.aspx?sa2=np&scpid1=35238&scpid3=2&scpid2=142788&sa1=pl&scsd=03%2f07%2f2017&sced=07%2f11%2f2026&pn=Li+Lu&src=MAIN&lang=EN&g_lang=en&",
-        "reason": "HKEX fetch failed: HTTP Error 500: Internal Server Error"
+        "security": "BYD Co. Ltd.  - H Shares",
+        "url": "https://di.hkex.com.hk/di/NSNoticePersonList.aspx?sa2=np&scpid1=35238&scpid3=2&scpid2=2508&sa1=pl&scsd=03%2F07%2F2017&sced=07%2F11%2F2026&pn=Li+Lu&src=MAIN&lang=EN&g_lang=en",
+        "reason": "HKEX repeated server/network failures; source paused for this run; retained evidence will retry next run"
       },
       {
         "entity": "Himalaya Capital Investors, L.P. (formerly known as LL Investment Partners, L.P.)",
         "security": "BYD Co. Ltd.  - H Shares",
-        "url": "https://di.hkex.com.hk/di/NSNoticePersonList.aspx?sa2=np&scpid1=35291&scpid3=2&scpid2=2508&sa1=pl&scsd=03%2f07%2f2017&sced=07%2f11%2f2026&pn=Himalaya+Capital&src=MAIN&lang=EN&g_lang=en&",
-        "reason": "HKEX fetch failed: HTTP Error 500: Internal Server Error"
-      },
-      {
-        "entity": "Himalaya Capital Investors, L.P. (formerly known as LL Investment Partners, L.P.)",
-        "security": "CRRC Corporation Ltd.  - H Shares",
-        "url": "https://di.hkex.com.hk/di/NSNoticePersonList.aspx?sa2=np&scpid1=35291&scpid3=2&scpid2=24061&sa1=pl&scsd=03%2f07%2f2017&sced=07%2f11%2f2026&pn=Himalaya+Capital&src=MAIN&lang=EN&g_lang=en&",
-        "reason": "HKEX fetch failed: HTTP Error 500: Internal Server Error"
-      },
-      {
-        "entity": "Himalaya Capital Investors, L.P. (formerly known as LL Investment Partners, L.P.)",
-        "security": "Postal Savings Bank of China Co., Ltd.  - H Shares",
-        "url": "https://di.hkex.com.hk/di/NSNoticePersonList.aspx?sa2=np&scpid1=35291&scpid3=2&scpid2=142788&sa1=pl&scsd=03%2f07%2f2017&sced=07%2f11%2f2026&pn=Himalaya+Capital&src=MAIN&lang=EN&g_lang=en&",
-        "reason": "HKEX fetch failed: HTTP Error 504: Gateway Time-out"
+        "url": "https://di.hkex.com.hk/di/NSNoticePersonList.aspx?sa2=np&scpid1=35291&scpid3=2&scpid2=2508&sa1=pl&scsd=03%2F07%2F2017&sced=07%2F11%2F2026&pn=Himalaya+Capital&src=MAIN&lang=EN&g_lang=en",
+        "reason": "HKEX repeated server/network failures; source paused for this run; retained evidence will retry next run"
       },
       {
         "entity": "Himalaya Capital Management LLC (formerly known as Himalaya Management LLC)",
         "security": "BYD Co. Ltd.  - H Shares",
-        "url": "https://di.hkex.com.hk/di/NSNoticePersonList.aspx?sa2=np&scpid1=35410&scpid3=2&scpid2=2508&sa1=pl&scsd=03%2f07%2f2017&sced=07%2f11%2f2026&pn=Himalaya+Capital&src=MAIN&lang=EN&g_lang=en&",
-        "reason": "HKEX fetch failed: HTTP Error 500: Internal Server Error"
+        "url": "https://di.hkex.com.hk/di/NSNoticePersonList.aspx?sa2=np&scpid1=35410&scpid3=2&scpid2=2508&sa1=pl&scsd=03%2F07%2F2017&sced=07%2F11%2F2026&pn=Himalaya+Capital&src=MAIN&lang=EN&g_lang=en",
+        "reason": "HKEX repeated server/network failures; source paused for this run; retained evidence will retry next run"
+      },
+      {
+        "entity": "Li Lu",
+        "security": "BYD Co. Ltd. - H Shares",
+        "url": "https://di.hkex.com.hk/filing/di/NSNoticePersonList.aspx?sa2=np&scpid=2224286&sa1=pl&scsd=01%2F04%2F2003&sced=02%2F10%2F2017&pn=Li+Lu&src=MAIN&lang=EN&g_lang=en",
+        "reason": "HKEX repeated server/network failures; source paused for this run; retained evidence will retry next run"
+      },
+      {
+        "entity": "Li Lu",
+        "security": "BYD Co. Ltd. - H Shares",
+        "url": "https://di.hkex.com.hk/filing/di/NSNoticePersonList.aspx?sa2=np&scpid=2298910&sa1=pl&scsd=01%2F04%2F2003&sced=02%2F10%2F2017&pn=Li+Lu&src=MAIN&lang=EN&g_lang=en",
+        "reason": "HKEX repeated server/network failures; source paused for this run; retained evidence will retry next run"
+      },
+      {
+        "entity": "Himalaya Capital Investors, L.P. (formerly known as LL Investment Partners, L.P.)",
+        "security": "BYD Co. Ltd. - H Shares",
+        "url": "https://di.hkex.com.hk/filing/di/NSNoticePersonList.aspx?sa2=np&scpid=2299099&sa1=pl&scsd=01%2F04%2F2003&sced=02%2F10%2F2017&pn=Himalaya+Capital&src=MAIN&lang=EN&g_lang=en",
+        "reason": "HKEX repeated server/network failures; source paused for this run; retained evidence will retry next run"
+      },
+      {
+        "entity": "Li Lu",
+        "security": "CRRC Corporation Ltd.  - H Shares",
+        "url": "https://di.hkex.com.hk/di/NSNoticePersonList.aspx?sa2=np&scpid1=35238&scpid3=2&scpid2=24061&sa1=pl&scsd=03%2F07%2F2017&sced=07%2F11%2F2026&pn=Li+Lu&src=MAIN&lang=EN&g_lang=en",
+        "reason": "HKEX repeated server/network failures; source paused for this run; retained evidence will retry next run"
+      },
+      {
+        "entity": "Himalaya Capital Investors, L.P. (formerly known as LL Investment Partners, L.P.)",
+        "security": "CRRC Corporation Ltd.  - H Shares",
+        "url": "https://di.hkex.com.hk/di/NSNoticePersonList.aspx?sa2=np&scpid1=35291&scpid3=2&scpid2=24061&sa1=pl&scsd=03%2F07%2F2017&sced=07%2F11%2F2026&pn=Himalaya+Capital&src=MAIN&lang=EN&g_lang=en",
+        "reason": "HKEX repeated server/network failures; source paused for this run; retained evidence will retry next run"
       },
       {
         "entity": "Himalaya Capital Management LLC (formerly known as Himalaya Management LLC)",
         "security": "CRRC Corporation Ltd.  - H Shares",
-        "url": "https://di.hkex.com.hk/di/NSNoticePersonList.aspx?sa2=np&scpid1=35410&scpid3=2&scpid2=24061&sa1=pl&scsd=03%2f07%2f2017&sced=07%2f11%2f2026&pn=Himalaya+Capital&src=MAIN&lang=EN&g_lang=en&",
-        "reason": "HKEX fetch failed: HTTP Error 500: Internal Server Error"
+        "url": "https://di.hkex.com.hk/di/NSNoticePersonList.aspx?sa2=np&scpid1=35410&scpid3=2&scpid2=24061&sa1=pl&scsd=03%2F07%2F2017&sced=07%2F11%2F2026&pn=Himalaya+Capital&src=MAIN&lang=EN&g_lang=en",
+        "reason": "HKEX repeated server/network failures; source paused for this run; retained evidence will retry next run"
+      },
+      {
+        "entity": "Li Lu",
+        "security": "CRRC Corporation Ltd. - H Shares",
+        "url": "https://di.hkex.com.hk/filing/di/NSNoticePersonList.aspx?sa2=np&scpid=2387872&sa1=pl&scsd=01%2F04%2F2003&sced=02%2F10%2F2017&pn=Li+Lu&src=MAIN&lang=EN&g_lang=en",
+        "reason": "HKEX repeated server/network failures; source paused for this run; retained evidence will retry next run"
+      },
+      {
+        "entity": "Himalaya Capital Investors, L.P. (formerly known as LL Investment Partners, L.P.)",
+        "security": "CRRC Corporation Ltd. - H Shares",
+        "url": "https://di.hkex.com.hk/filing/di/NSNoticePersonList.aspx?sa2=np&scpid=2387905&sa1=pl&scsd=01%2F04%2F2003&sced=02%2F10%2F2017&pn=Himalaya+Capital&src=MAIN&lang=EN&g_lang=en",
+        "reason": "HKEX repeated server/network failures; source paused for this run; retained evidence will retry next run"
+      },
+      {
+        "entity": "Li Lu",
+        "security": "Postal Savings Bank of China Co., Ltd.  - H Shares",
+        "url": "https://di.hkex.com.hk/di/NSNoticePersonList.aspx?sa2=np&scpid1=35238&scpid3=2&scpid2=142788&sa1=pl&scsd=03%2F07%2F2017&sced=07%2F11%2F2026&pn=Li+Lu&src=MAIN&lang=EN&g_lang=en",
+        "reason": "HKEX repeated server/network failures; source paused for this run; retained evidence will retry next run"
+      },
+      {
+        "entity": "Himalaya Capital Investors, L.P. (formerly known as LL Investment Partners, L.P.)",
+        "security": "Postal Savings Bank of China Co., Ltd.  - H Shares",
+        "url": "https://di.hkex.com.hk/di/NSNoticePersonList.aspx?sa2=np&scpid1=35291&scpid3=2&scpid2=142788&sa1=pl&scsd=03%2F07%2F2017&sced=07%2F11%2F2026&pn=Himalaya+Capital&src=MAIN&lang=EN&g_lang=en",
+        "reason": "HKEX repeated server/network failures; source paused for this run; retained evidence will retry next run"
       },
       {
         "entity": "Himalaya Capital Management LLC (formerly known as Himalaya Management LLC)",
         "security": "Postal Savings Bank of China Co., Ltd.  - H Shares",
-        "url": "https://di.hkex.com.hk/di/NSNoticePersonList.aspx?sa2=np&scpid1=35410&scpid3=2&scpid2=142788&sa1=pl&scsd=03%2f07%2f2017&sced=07%2f11%2f2026&pn=Himalaya+Capital&src=MAIN&lang=EN&g_lang=en&",
-        "reason": "HKEX fetch failed: HTTP Error 500: Internal Server Error"
-      },
-      {
-        "entity": "Li Lu",
-        "security": "BYD Co. Ltd. - H Shares",
-        "url": "https://di.hkex.com.hk/filing/di/NSNoticePersonList.aspx?sa2=np&scpid=2224286&sa1=pl&scsd=01%2f04%2f2003&sced=02%2f10%2f2017&pn=Li+Lu&src=MAIN&lang=EN&g_lang=en&",
-        "reason": "HKEX fetch failed: HTTP Error 500: Internal Server Error"
-      },
-      {
-        "entity": "Li Lu",
-        "security": "BYD Co. Ltd. - H Shares",
-        "url": "https://di.hkex.com.hk/filing/di/NSNoticePersonList.aspx?sa2=np&scpid=2298910&sa1=pl&scsd=01%2f04%2f2003&sced=02%2f10%2f2017&pn=Li+Lu&src=MAIN&lang=EN&g_lang=en&",
-        "reason": "HKEX fetch failed: HTTP Error 500: Internal Server Error"
-      },
-      {
-        "entity": "Li Lu",
-        "security": "CRRC Corporation Ltd. - H Shares",
-        "url": "https://di.hkex.com.hk/filing/di/NSNoticePersonList.aspx?sa2=np&scpid=2387872&sa1=pl&scsd=01%2f04%2f2003&sced=02%2f10%2f2017&pn=Li+Lu&src=MAIN&lang=EN&g_lang=en&",
-        "reason": "HKEX fetch failed: HTTP Error 500: Internal Server Error"
-      },
-      {
-        "entity": "Himalaya Capital Investors, L.P. (formerly known as LL Investment Partners, L.P.)",
-        "security": "BYD Co. Ltd. - H Shares",
-        "url": "https://di.hkex.com.hk/filing/di/NSNoticePersonList.aspx?sa2=np&scpid=2299099&sa1=pl&scsd=01%2f04%2f2003&sced=02%2f10%2f2017&pn=Himalaya+Capital&src=MAIN&lang=EN&g_lang=en&",
-        "reason": "HKEX fetch failed: HTTP Error 500: Internal Server Error"
-      },
-      {
-        "entity": "Himalaya Capital Investors, L.P. (formerly known as LL Investment Partners, L.P.)",
-        "security": "CRRC Corporation Ltd. - H Shares",
-        "url": "https://di.hkex.com.hk/filing/di/NSNoticePersonList.aspx?sa2=np&scpid=2387905&sa1=pl&scsd=01%2f04%2f2003&sced=02%2f10%2f2017&pn=Himalaya+Capital&src=MAIN&lang=EN&g_lang=en&",
-        "reason": "HKEX fetch failed: HTTP Error 500: Internal Server Error"
+        "url": "https://di.hkex.com.hk/di/NSNoticePersonList.aspx?sa2=np&scpid1=35410&scpid3=2&scpid2=142788&sa1=pl&scsd=03%2F07%2F2017&sced=07%2F11%2F2026&pn=Himalaya+Capital&src=MAIN&lang=EN&g_lang=en",
+        "reason": "HKEX repeated server/network failures; source paused for this run; retained evidence will retry next run"
       }
     ],
     "scope": "匹配已配置主体的公开多头权益披露；不等于完整投资组合或当前持仓"
