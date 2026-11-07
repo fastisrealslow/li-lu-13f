@@ -282,6 +282,11 @@ class Client:
                     _LAST_REQUEST = time.monotonic()
                 with self.opener.open(url, timeout=22) as response:
                     html = response.read().decode('utf-8', errors='replace')
+                if urlsplit(url).path.rsplit('/',1)[-1].lower() in ('nssrchpersonlist.aspx','nsnoticepersonlist.aspx'):
+                    # HKEX may return an error/interstitial with HTTP 200.
+                    # Do not cache it and poison every later check in this run.
+                    # Explicit empty results remain valid; unknown pages retry.
+                    page_info(BeautifulSoup(html,'html.parser'),url)
                 self.cache[url] = html
                 return html
             except Exception as exc:

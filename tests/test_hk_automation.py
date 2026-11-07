@@ -9,6 +9,28 @@ from urllib.parse import urlsplit, parse_qs
 
 import hk_disclosures as hk
 
+
+class HKEXResponseRecoveryTests(unittest.TestCase):
+    def test_http_200_error_is_retried_before_caching_a_verified_list(self):
+        from io import BytesIO
+        url=hk.LEGACY+'NSNoticePersonList.aspx?scpid=123'
+        good=(Path(__file__).parent/'fixtures/hkex/lilu_legacy_notices.html').read_bytes()
+        client=hk.Client()
+        with patch.object(client.opener,'open',side_effect=[BytesIO(b'<html>Service temporarily unavailable</html>'),BytesIO(good)]) as request,patch.object(hk.time,'sleep'):
+            html=client.get(url)
+            self.assertEqual(html,good.decode())
+            self.assertEqual(client.get(url),html)
+            self.assertEqual(request.call_count,2)
+
+    def test_repeated_invalid_pages_are_not_cached_or_treated_as_zero_records(self):
+        from io import BytesIO
+        url=hk.BASE+'NSSrchPersonList.aspx?pn=Example';client=hk.Client()
+        with patch.object(client.opener,'open',side_effect=lambda *a,**k:BytesIO(b'<html>Unavailable</html>')),patch.object(hk.time,'sleep'):
+            with self.assertRaisesRegex(OSError,'Unrecognized HKEX'):client.get(url)
+        self.assertNotIn(url,client.cache)
+        with patch.object(client.opener,'open',return_value=BytesIO(b'<html>No records found</html>')):
+            self.assertIn('No records found',client.get(url))
+
 FIXTURES = Path(__file__).parent / 'fixtures' / 'hkex'
 ALIASES = ['Li Lu', 'Himalaya Capital Investors, L.P.']
 LIST = hk.BASE + 'NSNoticePersonList.aspx?scpid1=35238&scpid2=142788&scpid3=2'
