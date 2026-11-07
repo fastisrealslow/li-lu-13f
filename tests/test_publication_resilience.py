@@ -8,6 +8,50 @@ from unittest.mock import patch
 import quote_coverage as q
 
 class PublicationResilienceTests(unittest.TestCase):
+    def test_retirement_discovered_after_price_fetch_is_applied_in_the_same_run(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root=Path(tmp);self.setup_root(root,{'error':True})
+            fund=json.loads((root/'fund.json').read_text());fund['current']['periodEnd']='2020-03-31'
+            (root/'fund.json').write_text(json.dumps(fund))
+            event={'ticker':'OLD','issuer':'EXAMPLE CORP','status':'ceased_trading',
+                   'effectiveDate':'2020-04-01','reason':'已注销','reasonEn':'Retired',
+                   'sourceURL':'https://www.sec.gov/Archives/example.xml'}
+            with patch.object(q,'resolve_active'),patch.object(q,'market_quote',return_value={'error':True}),patch('security_lifecycle.discover_retirements',return_value={'123456789':event}):
+                self.assertEqual(q.refresh(root)['missing'],[])
+            self.assertEqual(json.loads((root/'prices.json').read_text())['quotes']['OLD'],{'status':'ceased_trading','event':event})
+
+    def test_new_retirement_evidence_replaces_cached_quotes_for_every_holder(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root=Path(tmp);self.setup_root(root,{'c':20,'t':time.time()})
+            config=json.loads((root/'investors.json').read_text())
+            config['investors'].append({'id':'second','dataFile':'fund.json','pricesFile':'second.json'})
+            (root/'investors.json').write_text(json.dumps(config))
+            (root/'second.json').write_text(json.dumps({'quotes':{'OLD':{'error':True}}}))
+            event={'ticker':'OLD','issuer':'EXAMPLE CORP','status':'ceased_trading',
+                   'effectiveDate':'2020-01-01','reason':'已注销','reasonEn':'Retired',
+                   'sourceURL':'https://www.sec.gov/Archives/example.xml'}
+            (root/'security_lifecycle.json').write_text(json.dumps({'events':{'123456789':event}}))
+            self.assertEqual(len(q.coverage(root)['missing']),2)
+            self.assertEqual(len(q.publication_coverage(root)['unhandled']),2)
+            q.prepare_publication(root)
+            for file in ('prices.json','second.json'):
+                price=json.loads((root/file).read_text())['quotes']['OLD']
+                self.assertEqual(price,{'status':'ceased_trading','event':event})
+            self.assertEqual(q.coverage(root)['missing'],[])
+            before=(root/'prices.json').read_bytes();q.prepare_publication(root)
+            self.assertEqual((root/'prices.json').read_bytes(),before)
+
+    def test_retirement_does_not_apply_to_another_class_or_future_event(self):
+        for ticker,date in [('OTHER','2020-01-01'),('OLD','2999-01-01')]:
+            with tempfile.TemporaryDirectory() as tmp:
+                root=Path(tmp);self.setup_root(root,{'c':20,'t':time.time()})
+                event={'ticker':ticker,'issuer':'EXAMPLE CORP','status':'ceased_trading',
+                       'effectiveDate':date,'reason':'已注销','reasonEn':'Retired',
+                       'sourceURL':'https://www.sec.gov/Archives/example.xml'}
+                (root/'security_lifecycle.json').write_text(json.dumps({'events':{'123456789':event}}))
+                q.prepare_publication(root)
+                self.assertEqual(json.loads((root/'prices.json').read_text())['quotes']['OLD']['c'],20)
+
     def setup_root(self,root,price):
         (root/'investors.json').write_text(json.dumps({'investors':[{'id':'test','dataFile':'fund.json','pricesFile':'prices.json'}]}))
         (root/'fund.json').write_text(json.dumps({'current':{'holdings':[{'ticker':'OLD','cusip':'123456789','name':'EXAMPLE CORP','shares':5,'value':100}]}}))

@@ -13,6 +13,12 @@ def run(hours=1,conclusion='success',status='completed',event='schedule',ident=1
     return dict(id=ident,created_at=stamp,updated_at=stamp,conclusion=conclusion,status=status,event=event)
 
 class AutomationHealthTests(unittest.TestCase):
+    def test_recent_success_does_not_hide_new_repeated_failures(self):
+        rows=[run(4),run(3,'failure'),run(2,'failure'),run(1,'failure'),run(.5,'skipped')]
+        self.assertEqual(health.persistent_failures({'pages':rows},NOW),['pages'])
+        self.assertEqual(health.persistent_failures({'pages':rows+[run(.1)]},NOW),[])
+        self.assertEqual(health.persistent_failures({'pages':[run(26,'failure'),run(25,'failure'),run(1,'failure')]},NOW),[])
+
     def test_healthy_and_cancelled_obsolete_runs_do_not_trigger_recovery(self):
         self.assertFalse(health.recovery_decision([run(),run(.5,'cancelled')],NOW,18)['dispatch'])
 

@@ -162,6 +162,17 @@ if __name__ == '__main__': unittest.main()
 
 
 class CompletedCoverageTests(unittest.TestCase):
+    def test_filling_a_missing_direction_never_evicts_an_existing_direction(self):
+        from itertools import combinations
+        categories=['trimmed','added','trimmed','added','trimmed','exited','new','hold']
+        facts={'kind':'investor','items':[{'id':f'f{i}','category':category,
+               'change':'股数不变' if category=='hold' else '已披露'} for i,category in enumerate(categories)]}
+        for size in range(1,6):
+            for chosen in combinations([f['id'] for f in facts['items']],size):
+                result=ai.complete_selection({'factIds':list(chosen)},facts)
+                self.assertLessEqual(len(result['factIds']),ai.limit_for(facts))
+                self.assertEqual(set(facts['items'][int(k[1:])]['category'] for k in result['factIds']) & {'new','added','trimmed','exited'}, {'new','added','trimmed','exited'})
+
     def test_missing_directions_and_required_limits_are_completed_from_known_facts(self):
         facts={'kind':'investor','requiredIds':['scope','options'],'items':[{'id':key,'category':category,'change':'已披露'} for key,category in [('scope','scope'),('options','instrument'),('new','new'),('add','added'),('trim','trimmed'),('exit','exited')]]}
         selected=ai.complete_selection({'factIds':['trim']},facts)

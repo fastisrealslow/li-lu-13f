@@ -22,6 +22,17 @@ def parsed(value):
 def finished(run):
     return parsed(run.get('updated_at')) or parsed(run.get('created_at'))
 
+def persistent_failures(evidence, now):
+    """A prior success must not mask a new sequence of failed publications."""
+    result=[]
+    for key,runs in evidence.items():
+        last=max((finished(r) for r in runs if r.get('conclusion')=='success' and finished(r)),default=None)
+        failed=[r for r in runs if r.get('conclusion') in ('failure','timed_out','action_required')
+                and finished(r) and timedelta(0)<=now-finished(r)<timedelta(hours=24)
+                and (last is None or finished(r)>last)]
+        if len(failed)>=3:result.append(key)
+    return result
+
 def recovery_decision(runs, now, max_age, needed=False, active_timeout=4):
     """A fresh active run owns recovery; manual dispatches have a six-hour cooldown."""
     active=[r for r in runs if r.get('status') in ACTIVE]
@@ -198,8 +209,8 @@ def main():
             issues.append({'code':'publication_probe_failed','reason':str(exc)})
         report=plan(evidence,issues,now)
         report['site']=site
-        persistent=[key for key,runs in evidence.items() if len([r for r in runs if r.get('conclusion') in ('failure','timed_out') and finished(r) and now-finished(r)<timedelta(hours=24)])>=3 and not any(r.get('conclusion')=='success' and finished(r) and now-finished(r)<timedelta(hours=12) for r in runs)]
-        report['status']='degraded' if persistent else 'recovering' if issues else 'healthy'
+        persistent=persistent_failures(evidence,now)
+        report['status']='degraded' if persistent or unavailable else 'recovering' if report['issues'] else 'healthy'
         report['persistentFailures']=persistent
         for key,error in unavailable.items():report['workflows'][key]={'dispatch':False,'reason':'workflow_api_unavailable','error':error}
         for key,decision in report['workflows'].items():

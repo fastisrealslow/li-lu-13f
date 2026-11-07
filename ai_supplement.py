@@ -178,10 +178,15 @@ def complete_selection(selection,facts):
     if facts['kind']=='investor':
         for category in ('new','added','trimmed','exited'):
             available=[f['id'] for f in facts['items'] if f.get('category')==category]
-            if available and not any(k in available for k in ids+mandatory):mandatory.append(available[0])
+            # Reserve even an already-selected direction before truncation.
+            # Otherwise adding a missing direction can evict the only example
+            # of another direction at the end of the model's selection.
+            if available and not any(k in available for k in mandatory):
+                mandatory.append(next((k for k in ids if k in available),available[0]))
     unchanged=('股数不变','上季股数未知，不判断增减','无持仓','增减未知')
     changes=[f['id'] for f in facts['items'] if f['change'] not in unchanged]
-    if changes and not any(k in changes for k in ids+mandatory):mandatory.append(changes[0])
+    if changes and not any(k in changes for k in mandatory):
+        mandatory.append(next((k for k in ids if k in changes),changes[0]))
     mandatory=list(dict.fromkeys(mandatory))
     repaired={**selection,'factIds':mandatory+[k for k in ids if k not in mandatory][:max(0,limit_for(facts)-len(mandatory))]}
     topics=facts.get('briefing',{}).get('details',[])

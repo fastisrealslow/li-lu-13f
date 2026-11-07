@@ -149,6 +149,16 @@ def prepare_publication(root=ROOT):
                     holdings.append({'ticker':tk});seen.add(tk)
         for h in holdings:
             if h.get('shareType','SH')!='SH':continue
+            from security_lifecycle import event_for
+            event=event_for(h,root)
+            if event:
+                # Discovery can happen after the quote pass. Apply its evidence
+                # to every holder in the same publication, even with a cached
+                # positive quote. A pre-retirement price is not a live price.
+                terminal={'status':'ceased_trading','event':event}
+                if payload.setdefault('quotes',{}).get(h['ticker'])!=terminal:
+                    payload['quotes'][h['ticker']]=terminal;changed=True
+                continue
             action=aliases.get(h.get('cusip'),{})
             if action.get('preserveCost') is False and action.get('kind')=='spin_off_rename':
                 payload.setdefault('corporateActions',{})[h['cusip']]=action
@@ -174,6 +184,8 @@ def publication_coverage(root=ROOT):
     root=Path(root);report=coverage(root);unhandled=[]
     configs={i['id']:i for i in load(root/'investors.json')['investors']}
     for issue in report['missing']:
+        if issue['reason']=='lifecycle_state_not_applied':
+            unhandled.append(issue);continue
         q=load(root/configs[issue['investor']]['pricesFile']).get('quotes',{}).get(issue['ticker'],{})
         a=q.get('availability',{});stamp=a.get('checkedAt','')
         try:age=time.time()-datetime.fromisoformat(stamp).timestamp()
@@ -192,7 +204,12 @@ def coverage(root=ROOT):
         for h in data['current']['holdings']:
             if h.get('shareType','SH')!='SH':continue
             from security_lifecycle import event_for
-            if event_for(h,root):continue
+            event=event_for(h,root)
+            if event:
+                q=prices.get('quotes',{}).get(h['ticker'],{})
+                if q.get('status')!='ceased_trading' or q.get('event')!=event:
+                    issues.append({'investor':inv['id'],'ticker':h['ticker'],'cusip':h.get('cusip'),'name':h['name'],'reason':'lifecycle_state_not_applied'})
+                continue
             if qref := warrant_reference(h,data['current']):
                 if prices.get('quotes',{}).get(h['ticker']) == qref:
                     continue  # dated filed unit value, explicitly not a live quote
@@ -268,6 +285,7 @@ def refresh(root=ROOT,all_quotes=False,workers=4):
                 path=root/'security_lifecycle.json';state=load(path) if path.exists() else {'version':1,'events':{}}
                 state['events'].update(found);save(path,state)
         except Exception as exc:print('Corporate-action evidence retained:',type(exc).__name__,flush=True)
+    prepare_publication(root)
     return coverage(root)
 
 def main():
