@@ -1063,8 +1063,8 @@
           "shares": 5988977,
           "value": 95524000,
           "sector": "汽车制造",
-          "prevShares": 5986470,
-          "prevValue": 117634000,
+          "prevShares": 0,
+          "prevValue": 0,
           "cnName": "通用汽车",
           "displayName": "General Motors",
           "sectorEn": "Automotive manufacturing"
@@ -1348,8 +1348,8 @@
           "shareType": "SH",
           "putCall": "",
           "sector": "汽车制造",
-          "prevShares": 5986448,
-          "prevValue": 97543000,
+          "prevShares": 0,
+          "prevValue": 0,
           "cnName": "通用汽车",
           "displayName": "General Motors",
           "sectorEn": "Automotive manufacturing"
@@ -18438,7 +18438,7 @@
       },
       "2005 Q1": {
         "version": 1,
-        "checkedAt": "2026-11-07",
+        "checkedAt": "2026-11-08",
         "source": "https://www.sec.gov/Archives/edgar/data/1173334/0000950137-05-006058.txt",
         "filingDate": "2005-05-16",
         "sourceDigest": "0fd7cfb3e51599950a6b0de37600e580e396be2061d227b3a7b20b2648261c0f",
@@ -18452,7 +18452,7 @@
             "price": 87000.0,
             "date": "2005-03-31",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/BRK-A?period1=0&period2=1794142951&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/BRK-A?period1=0&period2=1794237178&interval=1d&events=splits",
             "candidates": [
               1
             ]
@@ -18463,7 +18463,7 @@
       },
       "2005 Q2": {
         "version": 1,
-        "checkedAt": "2026-11-07",
+        "checkedAt": "2026-11-08",
         "source": "https://www.sec.gov/Archives/edgar/data/1173334/0000950137-05-010281.txt",
         "filingDate": "2005-08-15",
         "sourceDigest": "b2f12e84d3e7efcea0766ee714024f6f611d4ca2063eff4452cf8fa533c46cc9",
@@ -18477,7 +18477,7 @@
             "price": 83500.0,
             "date": "2005-06-30",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/BRK-A?period1=0&period2=1794160642&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/BRK-A?period1=0&period2=1794237178&interval=1d&events=splits",
             "candidates": [
               1
             ]
@@ -18488,13 +18488,25 @@
       },
       "2005 Q3": {
         "version": 1,
-        "checkedAt": "2026-11-07",
+        "checkedAt": "2026-11-08",
         "source": "https://www.sec.gov/Archives/edgar/data/1173334/0000950137-05-013811.txt",
         "filingDate": "2005-11-14",
         "sourceDigest": "c6bf09371b14669b577c5addf21f5b1d201d17fa5f4bac0d8886ad50b2048eef",
-        "sourceHash": "5860056a16cffac1cacfb2b7bfaa17d12e74e7e1b07df8eeb894a9eee8ed5dda",
+        "sourceHash": "a463211a5ddb6d88d2a1e3bea9c2942e0cb34c54a955921338e106f5ae172013",
         "status": "pending",
         "anchors": [
+          {
+            "ticker": "FRFHF",
+            "cusip": "303901102",
+            "filedPrice": 173.90215673618377,
+            "price": 173.89999389648438,
+            "date": "2005-09-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/FRFHF?period1=0&period2=1794237179&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
           {
             "ticker": "BRK/A",
             "cusip": "084670108",
@@ -18502,24 +18514,36 @@
             "price": 82000.0,
             "date": "2005-09-30",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/BRK-A?period1=0&period2=1794160642&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/BRK-A?period1=0&period2=1794237178&interval=1d&events=splits",
             "candidates": [
               1
             ]
           }
         ],
         "errors": [],
-        "normalizedHash": "5860056a16cffac1cacfb2b7bfaa17d12e74e7e1b07df8eeb894a9eee8ed5dda"
+        "normalizedHash": "a463211a5ddb6d88d2a1e3bea9c2942e0cb34c54a955921338e106f5ae172013"
       },
       "2005 Q4": {
         "version": 1,
-        "checkedAt": "2026-11-07",
+        "checkedAt": "2026-11-08",
         "source": "https://www.sec.gov/Archives/edgar/data/1173334/0000950137-06-001860.txt",
         "filingDate": "2006-02-15",
         "sourceDigest": "751cca8464b67c297199ea9b8efcfd03299f5e6f0d9e941c6605bed5b27222b9",
-        "sourceHash": "153c8a81eac8f471a4fa580d018c69e504d68ee078c23674d8a974f40cf589d0",
+        "sourceHash": "21d0c4341d4c93b9c593ca0c783c0b158bf790f4fbbcbd7450d41802b5c2612f",
         "status": "pending",
         "anchors": [
+          {
+            "ticker": "FRFHF",
+            "cusip": "303901102",
+            "filedPrice": 143.3594292147076,
+            "price": 143.36000061035156,
+            "date": "2005-12-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/FRFHF?period1=0&period2=1794237179&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
           {
             "ticker": "BRK/A",
             "cusip": "084670108",
@@ -18527,24 +18551,36 @@
             "price": 88620.0,
             "date": "2005-12-30",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/BRK-A?period1=0&period2=1794160642&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/BRK-A?period1=0&period2=1794237178&interval=1d&events=splits",
             "candidates": [
               1
             ]
           }
         ],
         "errors": [],
-        "normalizedHash": "153c8a81eac8f471a4fa580d018c69e504d68ee078c23674d8a974f40cf589d0"
+        "normalizedHash": "21d0c4341d4c93b9c593ca0c783c0b158bf790f4fbbcbd7450d41802b5c2612f"
       },
       "2006 Q1": {
         "version": 1,
-        "checkedAt": "2026-11-07",
+        "checkedAt": "2026-11-08",
         "source": "https://www.sec.gov/Archives/edgar/data/1173334/0000950137-06-005869.txt",
         "filingDate": "2006-05-12",
         "sourceDigest": "002a2e7b5e85b1de6357ac86c6ba6337f2aa42fe78304f04e8f7932d20db1568",
-        "sourceHash": "1f8c98be256060131121c93293744033af1fa9e5d8d62a1ad56569dcbfc6c947",
+        "sourceHash": "b7b6c892b978667508c5d2be4cb71980b89bd1f954fd502dbc5d781c9403bdc3",
         "status": "pending",
         "anchors": [
+          {
+            "ticker": "FRFHF",
+            "cusip": "303901102",
+            "filedPrice": 107.20819086477219,
+            "price": 107.20999908447266,
+            "date": "2006-03-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/FRFHF?period1=0&period2=1794237179&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
           {
             "ticker": "BRK/A",
             "cusip": "084670108",
@@ -18552,24 +18588,36 @@
             "price": 90350.0,
             "date": "2006-03-31",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/BRK-A?period1=0&period2=1794160642&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/BRK-A?period1=0&period2=1794237178&interval=1d&events=splits",
             "candidates": [
               1
             ]
           }
         ],
         "errors": [],
-        "normalizedHash": "1f8c98be256060131121c93293744033af1fa9e5d8d62a1ad56569dcbfc6c947"
+        "normalizedHash": "b7b6c892b978667508c5d2be4cb71980b89bd1f954fd502dbc5d781c9403bdc3"
       },
       "2006 Q2": {
         "version": 1,
-        "checkedAt": "2026-11-07",
+        "checkedAt": "2026-11-08",
         "source": "https://www.sec.gov/Archives/edgar/data/1173334/0000950137-06-009230.txt",
         "filingDate": "2006-08-15",
         "sourceDigest": "6f5c96fced6b8a5715ba39329dd1a3c605360e75ed6a2c040d9441a75401abed",
-        "sourceHash": "600e8c2d272faa621155f781d860c73241d9098e1a011e0dab09e982e2cd40cb",
+        "sourceHash": "de38494c748d837ae83b24b4e0a71cf38bc81a492508d91095c5ea48e0973ec6",
         "status": "pending",
         "anchors": [
+          {
+            "ticker": "FRFHF",
+            "cusip": "303901102",
+            "filedPrice": 95.03125778278691,
+            "price": 95.02999877929688,
+            "date": "2006-06-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/FRFHF?period1=0&period2=1794237179&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
           {
             "ticker": "BRK/A",
             "cusip": "084670108",
@@ -18577,14 +18625,14 @@
             "price": 91659.0,
             "date": "2006-06-30",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/BRK-A?period1=0&period2=1794113326&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/BRK-A?period1=0&period2=1794237178&interval=1d&events=splits",
             "candidates": [
               1
             ]
           }
         ],
         "errors": [],
-        "normalizedHash": "600e8c2d272faa621155f781d860c73241d9098e1a011e0dab09e982e2cd40cb"
+        "normalizedHash": "de38494c748d837ae83b24b4e0a71cf38bc81a492508d91095c5ea48e0973ec6"
       },
       "2006 Q3": {
         "version": 1,
@@ -19413,7 +19461,7 @@
     ],
     "excludedValueQuarters": [],
     "coverage": {
-      "checkedAt": "2026-11-08T12:23:25Z",
+      "checkedAt": "2026-11-08T15:12:57Z",
       "missingQuarters": [],
       "repairedThisRun": [],
       "errors": {},
@@ -19520,7 +19568,7 @@
     "name": "Mohnish Pabrai",
     "manager": "Dalal Street, LLC",
     "costHistoryFrom": "2012 Q1",
-    "lastUpdated": "2026-11-08T12:23:25Z",
+    "lastUpdated": "2026-11-08T15:12:57Z",
     "shareActions": [
       {
         "ticker": "GOOG",
