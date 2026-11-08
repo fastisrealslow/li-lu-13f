@@ -414,6 +414,7 @@ tbody tr:hover { background: #f2f5ed; }
 .trade-source-detail,.trade-price-details{font-size:.68rem;margin-top:8px;color:var(--text-lighter)}
 .trade-source-detail summary,.trade-price-details summary{cursor:pointer;color:var(--brand-blue)}
 .trade-source-detail small{display:block;margin-top:5px}
+.timeline-status>small{display:block;color:var(--text-lighter);font-size:.66rem;margin-top:5px;line-height:1.5}
 .trade-timeline table{width:100%;font-size:.8rem}
 .trade-timeline td{vertical-align:top;white-space:normal}
 .trade-quarter-list{display:grid;gap:8px;min-width:0;margin-top:8px}
@@ -436,9 +437,16 @@ tbody tr:hover { background: #f2f5ed; }
  #tab-changes tbody,.trade-timeline tbody{display:grid;gap:12px}
  #tab-changes tbody tr,.trade-timeline tbody tr{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));border:1px solid var(--border-light);border-radius:8px;padding:8px;background:var(--white)}
  #tab-changes td,.trade-timeline td{display:block!important;min-width:0;width:auto!important;border:0;white-space:normal;overflow-wrap:anywhere;padding:8px;font-size:.76rem}
- #tab-changes td:first-child{max-width:none}.trade-timeline td:first-child{grid-column:1/-1;max-width:none}
+ #tab-changes td:first-child{max-width:none}.trade-timeline td:first-child{grid-column:1;grid-row:1;max-width:none}
  .trade-timeline td{text-align:left!important}
- .trade-timeline td:last-child{grid-column:1/-1;border-top:1px solid var(--border-light);margin-top:4px;padding-top:12px}
+ .trade-timeline td.timeline-meta{display:contents!important}
+ .trade-timeline td.timeline-meta[data-label]::before{display:none}
+ .trade-timeline .timeline-status{grid-column:2;grid-row:1;padding:8px;min-width:0;text-align:right;font-size:.7rem;line-height:1.6;overflow-wrap:anywhere}
+ .trade-timeline .timeline-actions{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:0 16px;border-top:1px solid var(--border-light);margin:4px 8px 0;padding-top:4px;min-width:0}
+ .trade-timeline .timeline-actions>details{flex:1 1 calc(50% - 16px);min-width:0;margin:0;font-size:.72rem}
+ .trade-timeline .timeline-actions>details>summary{padding:8px 0;min-height:32px;box-sizing:border-box}
+ .trade-timeline .timeline-actions>details[open]{flex-basis:100%;order:1}
+ .trade-timeline .timeline-actions .trade-quarter-list{margin:0 0 8px}
  .trade-timeline td:nth-child(2){grid-column:1/-1}
  .trade-timeline td:nth-child(2)>strong,.trade-timeline td:nth-child(2)>small{display:inline-block;margin:0 10px 0 0}
  .trade-timeline td.trade-price-cell[data-label]::before{font-size:.72rem}

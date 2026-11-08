@@ -2062,7 +2062,7 @@ async function renderTimelineTable() {
       <td class="trade-price-cell" data-label="${isEn?'Current price':'当前价格'}">${tradeQuoteHTML(e)}</td>
       <td class="trade-price-cell" data-label="${isEn?'Historical buy (est.)':'历史买入均价（估）'}">${estimatePriceHTML(ledger?.averageBuy,e,tradeHistoryCoverage(ledger,'buy'))}</td>
       <td class="trade-price-cell" data-label="${isEn?'Historical sale (est.)':'历史卖出均价（估）'}">${estimatePriceHTML(ledger?.averageSell,e,tradeHistoryCoverage(ledger,'sell'))}</td>
-      <td data-label="${isEn?'Status / period':'状态 / 区间'}">${status}<small>${hkEscape(e.first)}–${hkEscape(e.last)}</small>${priceDetails}<details class="trade-source-detail"><summary>${isEn?'Share history':'持股记录'}</summary>${e.shareInfo}</details></td>
+      <td class="timeline-meta" data-label="${isEn?'Status / period':'状态 / 区间'}"><div class="timeline-status">${status}<small>${hkEscape(e.first)}–${hkEscape(e.last)}</small></div><div class="timeline-actions">${priceDetails}<details class="trade-source-detail"><summary>${isEn?'Share history':'持股记录'}</summary>${e.shareInfo}</details></div></td>
     </tr>`;
   });
   html += '</tbody></table></div>';
