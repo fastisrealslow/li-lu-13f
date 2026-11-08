@@ -280153,7 +280153,7 @@
           "prevValue": 0
         },
         {
-          "ticker": "?GENERAL MOTORS CO",
+          "ticker": "GM/WS/B",
           "name": "GENERAL MOTORS CO",
           "cls": "*W EXP 07/10/201",
           "cusip": "37045V126",
@@ -447812,7 +447812,7 @@
         "source": "https://www.sec.gov/Archives/edgar/data/949509/000094950916000011/1Q16_13F_XML.xml",
         "filingDate": "2016-05-16",
         "sourceDigest": "1e54966e500580f0257954f3df00ad6bd7ffea52ee5e6be968025601c04210e5",
-        "sourceHash": "5818066b7d297477907636003f7198feb77411f9c2628613a11719bcbd5a6be7",
+        "sourceHash": "d4fa133bf466c4860cb650d89401887e06bba42e771bde6a449f3378f579df37",
         "status": "pending",
         "anchors": [
           {
@@ -447822,7 +447822,7 @@
             "price": 2.9200000762939453,
             "date": "2016-03-31",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/FBP?period1=0&period2=1794223882&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/FBP?period1=0&period2=1794227086&interval=1d&events=splits",
             "candidates": [
               1
             ]
@@ -447834,7 +447834,7 @@
             "price": 18.719999313354492,
             "date": "2016-03-31",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/ALLY?period1=0&period2=1794223882&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/ALLY?period1=0&period2=1794227086&interval=1d&events=splits",
             "candidates": [
               1
             ]
@@ -447846,7 +447846,7 @@
             "price": 4.53000020980835,
             "date": "2016-03-31",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/PBR-A?period1=0&period2=1794223882&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/PBR-A?period1=0&period2=1794227087&interval=1d&events=splits",
             "candidates": []
           },
           {
@@ -447856,7 +447856,7 @@
             "price": 7.670000076293945,
             "date": "2016-03-31",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/MTG?period1=0&period2=1794223883&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/MTG?period1=0&period2=1794227087&interval=1d&events=splits",
             "candidates": [
               1
             ]
@@ -447868,12 +447868,12 @@
             "price": 1.7799995183944701,
             "date": "2016-03-31",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/GGB?period1=0&period2=1794223883&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/GGB?period1=0&period2=1794227087&interval=1d&events=splits",
             "candidates": []
           }
         ],
         "errors": [],
-        "normalizedHash": "5818066b7d297477907636003f7198feb77411f9c2628613a11719bcbd5a6be7"
+        "normalizedHash": "d4fa133bf466c4860cb650d89401887e06bba42e771bde6a449f3378f579df37"
       },
       "2016 Q2": {
         "version": 1,
@@ -451517,9 +451517,21 @@
         "source": "https://www.sec.gov/Archives/edgar/data/949509/0000949509-02-000004.txt",
         "filingDate": "2002-02-13",
         "sourceDigest": "7e728b8b6a0908d6dddaf2d32d313514337a915caee2e5ff1d0a0488e03d4c33",
-        "sourceHash": "60e1a6eec729344d5861202f7972cf504ee5b041f3d2fc4d1ed2d78ca9d04232",
+        "sourceHash": "977bcd37ce9677d3939478343c22b7d89130c4ddf60fb9695dce907668af4be0",
         "status": "pending",
         "anchors": [
+          {
+            "ticker": "LNWO",
+            "cusip": "80874P109",
+            "filedPrice": 8.749974555743277,
+            "price": 8.75,
+            "date": "2001-12-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/LNWO?period1=0&period2=1794227085&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
           {
             "ticker": "BVN",
             "cusip": "204448104",
@@ -451527,14 +451539,16 @@
             "price": 20.729999542236328,
             "date": "2001-12-31",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/BVN?period1=0&period2=1794193007&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/BVN?period1=0&period2=1794227086&interval=1d&events=splits",
             "candidates": [
               1
             ]
           }
         ],
-        "errors": [],
-        "normalizedHash": "60e1a6eec729344d5861202f7972cf504ee5b041f3d2fc4d1ed2d78ca9d04232"
+        "errors": [
+          "MBT: ValueError"
+        ],
+        "normalizedHash": "977bcd37ce9677d3939478343c22b7d89130c4ddf60fb9695dce907668af4be0"
       },
       "2002 Q2": {
         "version": 1,
@@ -452872,13 +452886,25 @@
       },
       "2002 Q1": {
         "version": 1,
-        "checkedAt": "2026-11-07",
+        "checkedAt": "2026-11-08",
         "source": "https://www.sec.gov/Archives/edgar/data/949509/0000949509-02-000009.txt",
         "filingDate": "2002-05-09",
         "sourceDigest": "6238e543f9b70d665f0d611e399ea5e8f6d4413d6958b4cf050bc0c55429091d",
-        "sourceHash": "18623e9a86d990b39caa50ecb8661f3646b8d139c126b9ab3bb4ce1a3da7786e",
+        "sourceHash": "d42157219b19d49a72223ae41fcc664229b9b72120b6a2e353ceca62e5844665",
         "status": "pending",
         "anchors": [
+          {
+            "ticker": "LNWO",
+            "cusip": "80874P109",
+            "filedPrice": 8.37,
+            "price": 8.369999885559082,
+            "date": "2002-03-28",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/LNWO?period1=0&period2=1794227085&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
           {
             "ticker": "BVN",
             "cusip": "204448104",
@@ -452886,18 +452912,18 @@
             "price": 27.010000228881836,
             "date": "2002-03-28",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/BVN?period1=0&period2=1794117763&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/BVN?period1=0&period2=1794227086&interval=1d&events=splits",
             "candidates": [
               1
             ]
           }
         ],
         "errors": [],
-        "normalizedHash": "18623e9a86d990b39caa50ecb8661f3646b8d139c126b9ab3bb4ce1a3da7786e"
+        "normalizedHash": "d42157219b19d49a72223ae41fcc664229b9b72120b6a2e353ceca62e5844665"
       },
       "2002 Q3": {
         "version": 1,
-        "checkedAt": "2026-11-07",
+        "checkedAt": "2026-11-08",
         "source": "https://www.sec.gov/Archives/edgar/data/949509/0000949509-03-000018.txt",
         "filingDate": "2003-05-16",
         "sourceDigest": "872430b9f2038e44975984200e1e39e8ab7618cdbf068bf65319adcfe73ea8fd",
@@ -453211,7 +453237,7 @@
       },
       "2002 Q4": {
         "version": 1,
-        "checkedAt": "2026-11-07",
+        "checkedAt": "2026-11-08",
         "source": "https://www.sec.gov/Archives/edgar/data/949509/0000949509-03-000014.txt",
         "filingDate": "2003-05-16",
         "sourceDigest": "bdbb13c48b5c5170deb005940dd5c57e97f35a24c89792f14d16684b6d629d81",
@@ -453746,7 +453772,7 @@
         "version": 1,
         "status": "pending",
         "checkedAt": "2026-11-08",
-        "normalizedHash": "8d37407ee3733cebb5b40c28f9f197d2c470ba7b6ca3eb4535f1f3e77856fade",
+        "normalizedHash": "68ef283c60cb54b5a5973d3ec096b3fe2fa6737c9a4b9d0bd8851265f7205848",
         "error": "Legacy table reconciliation failed: 216/218 rows, $4249430000/$4290914000"
       },
       "2010 Q2": {
@@ -454118,7 +454144,7 @@
         "source": "https://www.sec.gov/Archives/edgar/data/949509/000094950913000026/2q2012amend.xml",
         "filingDate": "2013-07-08",
         "sourceDigest": "e8ae31ca8637e4d2c20af67738be1860def6800f6c8c7cf9a9d7fb181930676b",
-        "sourceHash": "944f13c312aeec8ec791aa220283f526e68154b75b4dadb6d656bae8165777c6",
+        "sourceHash": "89893428e9c2a3b402447fd4c16f0ad2ecedc134fd268b412cf5a0a70f3de983",
         "status": "verified",
         "factor": 1,
         "anchors": [
@@ -454186,7 +454212,7 @@
         "agreementCount": 5,
         "anchorCount": 5,
         "outlierTickers": [],
-        "normalizedHash": "944f13c312aeec8ec791aa220283f526e68154b75b4dadb6d656bae8165777c6"
+        "normalizedHash": "89893428e9c2a3b402447fd4c16f0ad2ecedc134fd268b412cf5a0a70f3de983"
       },
       "2012 Q3": {
         "version": 1,
@@ -454371,11 +454397,11 @@
     "instrumentVerification": {
       "pendingQuarters": [],
       "errors": {},
-      "checkedAt": "2026-11-08T11:31:20.642789+00:00"
+      "checkedAt": "2026-11-08T12:24:44.138426+00:00"
     },
     "excludedValueQuarters": [],
     "coverage": {
-      "checkedAt": "2026-11-08T11:31:21Z",
+      "checkedAt": "2026-11-08T12:24:44Z",
       "missingQuarters": [
         "1999 Q3",
         "1999 Q4",
@@ -454401,15 +454427,15 @@
         "2008 Q2": "Legacy table reconciliation failed: 216/218 rows, $4249430000/$4290914000"
       },
       "attempts": {
+        "1999 Q4": 10,
         "2003 Q3": 9,
+        "1999 Q3": 10,
         "2001 Q3": 9,
-        "1999 Q4": 9,
-        "2001 Q2": 9,
-        "2005 Q4": 9,
-        "2008 Q2": 16,
+        "2011 Q4": 9,
         "2004 Q2": 9,
-        "1999 Q3": 9,
-        "2011 Q4": 8
+        "2008 Q2": 17,
+        "2001 Q2": 9,
+        "2005 Q4": 9
       },
       "pendingRefreshQuarters": [
         "1999 Q1",
@@ -454447,7 +454473,7 @@
         "schemaVersion": 1,
         "cik": "949509",
         "checkedAt": "2026-11-06T13:57:40Z",
-        "attemptedAt": "2026-11-08T11:31:21Z",
+        "attemptedAt": "2026-11-08T12:24:44Z",
         "status": "checked",
         "indexes": {
           "2000/QTR2": {
@@ -454843,7 +454869,7 @@
       "VC",
       "XOP"
     ],
-    "lastUpdated": "2026-11-08T11:31:20Z",
+    "lastUpdated": "2026-11-08T12:24:44Z",
     "manager": "Oaktree Capital Management, L.P.",
     "notablePeople": [
       "Howard Marks"

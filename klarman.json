@@ -5,7 +5,7 @@
     "notablePeople": [
       "Seth Klarman"
     ],
-    "lastUpdated": "2026-11-08T11:30:40Z",
+    "lastUpdated": "2026-11-08T12:24:12Z",
     "aiSummary": "克拉曼大幅增持亚马逊与谷歌，新进芝商所等，显示其持续看好科技巨头及特定周期机会，同时减持部分传统行业仓位。",
     "aiSummaryQuarter": "2026 Q2",
     "shareActions": [
@@ -14223,7 +14223,7 @@
           "prevValue": 70113000
         },
         {
-          "ticker": "?SPIRIT AEROSYSTEMS HLDGS INC",
+          "ticker": "SPR",
           "name": "SPIRIT AEROSYSTEMS HLDGS INC",
           "cls": "COM CL A",
           "cusip": "848574109",
@@ -50925,7 +50925,7 @@
               "value": 113904000
             }
           ],
-          "ticker": "?DOMTAR CORP",
+          "ticker": "UFS",
           "sector": "其他",
           "prevShares": 3234071,
           "prevValue": 53621000
@@ -57153,7 +57153,7 @@
               "value": 53621000
             }
           ],
-          "ticker": "?DOMTAR CORP",
+          "ticker": "UFS",
           "sector": "其他",
           "prevShares": 0,
           "prevValue": 0
@@ -57678,7 +57678,7 @@
               "value": 160689000
             }
           ],
-          "ticker": "?DOMTAR CORP",
+          "ticker": "UFS",
           "sector": "其他",
           "prevShares": 3234071,
           "prevValue": 113904000
@@ -58132,7 +58132,7 @@
               "value": 172421000
             }
           ],
-          "ticker": "?DOMTAR CORP",
+          "ticker": "UFS",
           "sector": "其他",
           "prevShares": 2900000,
           "prevValue": 160689000
@@ -58586,7 +58586,7 @@
               "value": 89699000
             }
           ],
-          "ticker": "?DOMTAR CORP",
+          "ticker": "UFS",
           "sector": "其他",
           "prevShares": 2676927,
           "prevValue": 172421000
@@ -58974,7 +58974,7 @@
               "value": 51664000
             }
           ],
-          "ticker": "?DOMTAR CORP",
+          "ticker": "UFS",
           "sector": "其他",
           "prevShares": 1825000,
           "prevValue": 89699000
@@ -63312,19 +63312,16 @@
       ]
     },
     "coverage": {
-      "checkedAt": "2026-11-08T11:30:42Z",
+      "checkedAt": "2026-11-08T12:24:13Z",
       "missingQuarters": [
         "1999 Q3"
       ],
-      "repairedThisRun": [
-        "2012 Q4",
-        "2013 Q1"
-      ],
+      "repairedThisRun": [],
       "errors": {
         "1999 Q3": "Legacy table reconciliation failed: 40/41 rows, $610102000/$647531000"
       },
       "attempts": {
-        "1999 Q3": 33
+        "1999 Q3": 34
       },
       "pendingRefreshQuarters": [],
       "expandedLookup": null,
@@ -67523,7 +67520,7 @@
         "source": "https://www.sec.gov/Archives/edgar/data/1061768/000156761920010141/form13fInfoTable.xml",
         "filingDate": "2020-05-14",
         "sourceDigest": "544d5ebe544ec4685a079d507a0ccfae5df42a5f06c02d438c75c5dcd63b5a29",
-        "sourceHash": "acc4546e44c9bfd2b2855ed8fa39c6e49074f497fe61cfe52f91f5101f9b3997",
+        "sourceHash": "e6fb593daf0761920db8ebefc8faa1d2872fd49fc677eac954c61c950c5518ce",
         "status": "verified",
         "factor": 1,
         "anchors": [
@@ -67588,7 +67585,7 @@
             ]
           }
         ],
-        "normalizedHash": "acc4546e44c9bfd2b2855ed8fa39c6e49074f497fe61cfe52f91f5101f9b3997"
+        "normalizedHash": "e6fb593daf0761920db8ebefc8faa1d2872fd49fc677eac954c61c950c5518ce"
       },
       "2020 Q2": {
         "version": 1,
@@ -69195,75 +69192,87 @@
       },
       "2004 Q1": {
         "version": 1,
-        "checkedAt": "2026-11-07",
+        "checkedAt": "2026-11-08",
         "source": "https://www.sec.gov/Archives/edgar/data/1061768/0001061768-04-000029.txt",
         "filingDate": "2004-05-13",
         "sourceDigest": "ac653878b656d84e2da8d85f672630dcaae201ae4e525d272e2efec7bc65e674",
-        "sourceHash": "5e3b4a67c60cf20adbb8e2023436ad70c753a7c879c84eb092b23b3d85f7a4df",
+        "sourceHash": "241031b1f6d98d4f2f6831eb6c0449c59aa374b3be40a2bb72da6df296ea8120",
         "status": "pending",
         "anchors": [],
-        "errors": [],
-        "normalizedHash": "5e3b4a67c60cf20adbb8e2023436ad70c753a7c879c84eb092b23b3d85f7a4df"
+        "errors": [
+          "OMN: ValueError"
+        ],
+        "normalizedHash": "241031b1f6d98d4f2f6831eb6c0449c59aa374b3be40a2bb72da6df296ea8120"
       },
       "2004 Q2": {
         "version": 1,
-        "checkedAt": "2026-11-07",
+        "checkedAt": "2026-11-08",
         "source": "https://www.sec.gov/Archives/edgar/data/1061768/0001061768-04-000035.txt",
         "filingDate": "2004-08-13",
         "sourceDigest": "4f9545900a59c7b29c96fb8975bf62d528bebec3d4a2e1b3b38d0b9dad2a985d",
-        "sourceHash": "6c0d9e2c229d28a755904f528698f99eebd81b1a73f50e15c70cee93ea61d177",
+        "sourceHash": "697c5b8ad22dc27a4ff44f910a9e9313e5f890e0a80af36d1e68992e654a9775",
         "status": "pending",
         "anchors": [],
-        "errors": [],
-        "normalizedHash": "6c0d9e2c229d28a755904f528698f99eebd81b1a73f50e15c70cee93ea61d177"
+        "errors": [
+          "OMN: ValueError"
+        ],
+        "normalizedHash": "697c5b8ad22dc27a4ff44f910a9e9313e5f890e0a80af36d1e68992e654a9775"
       },
       "2004 Q3": {
         "version": 1,
-        "checkedAt": "2026-11-07",
+        "checkedAt": "2026-11-08",
         "source": "https://www.sec.gov/Archives/edgar/data/1061768/0001061768-04-000039.txt",
         "filingDate": "2004-11-12",
         "sourceDigest": "c77266584645bce1a8e338441182656078739dabb1031f88e31e380d3cd8150b",
-        "sourceHash": "82434c238db236a2b404bc8baeb1b75e00dcffcec03473eda59a079d23c1fc02",
+        "sourceHash": "9d7e6f78539995a65d6845464fdaf312f082db88de078b4e234199c0e7f0e656",
         "status": "pending",
         "anchors": [],
-        "errors": [],
-        "normalizedHash": "82434c238db236a2b404bc8baeb1b75e00dcffcec03473eda59a079d23c1fc02"
+        "errors": [
+          "OMN: ValueError"
+        ],
+        "normalizedHash": "9d7e6f78539995a65d6845464fdaf312f082db88de078b4e234199c0e7f0e656"
       },
       "2004 Q4": {
         "version": 1,
-        "checkedAt": "2026-11-07",
+        "checkedAt": "2026-11-08",
         "source": "https://www.sec.gov/Archives/edgar/data/1061768/0001061768-05-000012.txt",
         "filingDate": "2005-02-11",
         "sourceDigest": "e8f262cb73d15b529f67cb3fccb7fb915c69089b75f3796eac3bf6685c96a840",
-        "sourceHash": "8a12ab1247f9062dbb7067dbab6782320937f2c575e02e5f82e68061a58ca96e",
+        "sourceHash": "1117154250dcb39ce892e7c787813fbc38dc67922cb4bf62abdb06f67310ed7e",
         "status": "pending",
         "anchors": [],
-        "errors": [],
-        "normalizedHash": "8a12ab1247f9062dbb7067dbab6782320937f2c575e02e5f82e68061a58ca96e"
+        "errors": [
+          "OMN: ValueError"
+        ],
+        "normalizedHash": "1117154250dcb39ce892e7c787813fbc38dc67922cb4bf62abdb06f67310ed7e"
       },
       "2005 Q1": {
         "version": 1,
-        "checkedAt": "2026-11-07",
+        "checkedAt": "2026-11-08",
         "source": "https://www.sec.gov/Archives/edgar/data/1061768/0001061768-05-000015.txt",
         "filingDate": "2005-05-13",
         "sourceDigest": "1c76671959be288c6e4b9717347b1e73fa29c37b2b4db694af1f26cc1baf6227",
-        "sourceHash": "7eeeb06ef2689fbaa17a2cae661c43c20c98a23cb54e13513e0b72b282f65922",
+        "sourceHash": "0fcf0c73ab7391544a11909d75f50394bb072ad98cc3827b31b58ce2677351d9",
         "status": "pending",
         "anchors": [],
-        "errors": [],
-        "normalizedHash": "7eeeb06ef2689fbaa17a2cae661c43c20c98a23cb54e13513e0b72b282f65922"
+        "errors": [
+          "OMN: ValueError"
+        ],
+        "normalizedHash": "0fcf0c73ab7391544a11909d75f50394bb072ad98cc3827b31b58ce2677351d9"
       },
       "2005 Q2": {
         "version": 1,
-        "checkedAt": "2026-11-07",
+        "checkedAt": "2026-11-08",
         "source": "https://www.sec.gov/Archives/edgar/data/1061768/0001061768-05-000019.txt",
         "filingDate": "2005-08-12",
         "sourceDigest": "746dccd9b6a7edfebe2837bf344bffc7b23bc0423a19457d11d0e2cce8d91c57",
-        "sourceHash": "222e68d20f5a644dd40db6112f2e59bb0f62a74cb542db91af9a7439ed6dfcec",
+        "sourceHash": "5227673dd0b73be7eececfdba99346d01c6e10ba5bfa782ce305343d05c77522",
         "status": "pending",
         "anchors": [],
-        "errors": [],
-        "normalizedHash": "222e68d20f5a644dd40db6112f2e59bb0f62a74cb542db91af9a7439ed6dfcec"
+        "errors": [
+          "OMN: ValueError"
+        ],
+        "normalizedHash": "5227673dd0b73be7eececfdba99346d01c6e10ba5bfa782ce305343d05c77522"
       },
       "2005 Q3": {
         "version": 1,
