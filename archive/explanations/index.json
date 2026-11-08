@@ -512,10 +512,10 @@
       "reason": "ValueError: Unsupported numerical claim: 9"
     },
     "webb-38c6e1d522bcc3": {
-      "at": "2026-11-08T04:35:48+00:00",
+      "at": "2026-11-08T15:23:49+00:00",
       "status": "retry",
       "inputHash": "45538c74bfcc56378ef59e18952471103c113462d915d0f8b685e81dd1569a80",
-      "reason": "ValueError: Incomplete AI Review at 900 tokens"
+      "reason": "ValueError: Bilingual editorial review: The English text incorrectly states the cancer diagnosis date as 'June 2020' while the source (s0) specifies 'June 2020' for prostat"
     },
     "buffett-8cfe0c548fe1a9": {
       "at": "2026-11-08T15:06:01+00:00",
@@ -542,7 +542,7 @@
       "reason": "ValueError: Bilingual editorial review: The Chinese text claims Buffett 'candidly admits he has never used slides before,' but the source (s4) states he taught college clas"
     },
     "pabrai-7cdabeb4fe63b6": {
-      "at": "2026-11-08T02:35:04+00:00",
+      "at": "2026-11-08T15:08:53+00:00",
       "status": "retry",
       "inputHash": "c5028c13bfc0a24445e6f91045c8909bfbcaa2b6b3fd81a70edae3f21ee734cf",
       "reason": "ValueError: Unsupported numerical claim: 1"
@@ -720,10 +720,10 @@
       "reason": "ValueError: Bilingual editorial review: The source text (s1) explicitly states the script was written by the speechwriter for Saddam Hussein, but the content paraphrase cla"
     },
     "buffett-d6f1a801f004df": {
-      "at": "2026-11-08T04:15:34+00:00",
+      "at": "2026-11-08T15:25:12+00:00",
       "status": "retry",
       "inputHash": "5e6f0af3b4f6b4986097903db9bab953daf45a3d009a0aabf2c838c01c2a8e57",
-      "reason": "ValueError: Bilingual editorial review: The source does not mention 'opportunity cost' or 'internal capital allocation' theories; the text attributes Buffett's view to his "
+      "reason": "ValueError: Bilingual editorial review: The English text contains a factual error: it claims Buffett believes management can convert retained cash into assets worth 'more t"
     },
     "buffett-56163a42ef5133": {
       "at": "2026-11-08T05:41:07+00:00",
@@ -744,10 +744,10 @@
       "reason": "ValueError: Incomplete AI Review at 900 tokens"
     },
     "buffett-e7d731459f5bc2": {
-      "at": "2026-11-08T02:45:42+00:00",
+      "at": "2026-11-08T15:24:49+00:00",
       "status": "retry",
       "inputHash": "3b5d9392674186401a1c09b88846ce96c56b01708121cde78191439879891921",
-      "reason": "ValueError: Unsupported numerical claim: 120%"
+      "reason": "ValueError: Bilingual editorial review: The source text (s111) states 'overwhelmingly, closed-end funds have gone to discounts' and uses a hypothetical scenario about payin"
     },
     "pabrai-c31cbca535cfa5": {
       "at": "2026-11-08T03:03:17+00:00",
@@ -1031,16 +1031,16 @@
       "reason": "ValueError: Bilingual editorial review: The source text (s7-s9) does not mention 'cash dividends' or contrast spawners with dividend-reliant strategies; it only contrasts c"
     },
     "pabrai-fe92dc8bae7992": {
-      "at": "2026-11-08T02:10:45+00:00",
+      "at": "2026-11-08T15:08:58+00:00",
       "status": "retry",
       "inputHash": "f46971eec03c33bed2847d9bb72763792d651d1a5a7e086c2b6f4b16f39b4315",
-      "reason": "ValueError: Copied source passage"
+      "reason": "ValueError: Bilingual editorial review: The Chinese text claims 'millions of years' (over millions of years), but source s3 states 'millennia' (thousands of years).; The Ch"
     },
     "pabrai-56b8c04cb25a32": {
-      "at": "2026-11-08T02:56:58+00:00",
+      "at": "2026-11-08T15:18:08+00:00",
       "status": "retry",
       "inputHash": "54b7c9fb9a8ee008ffe080419bc55ebd4052407d67bb0a004fe685545cb03e43",
-      "reason": "ValueError: Bilingual editorial review: The English translation of the heading contains a factual error: it states Buffett was 81 in 2012, but the source text (s3) explicit"
+      "reason": "ValueError: Bilingual editorial review: The English translation in the `content` section incorrectly translates 'lottery tickets' (s1) as 'discarded lottery tickets', where"
     },
     "pabrai-2dadcddfebe9d5": {
       "at": "2026-11-08T15:08:05+00:00",
@@ -1097,16 +1097,16 @@
       "reason": "ValueError: Bilingual editorial review: The source text does not support the claim that Rain Industries had a PE of 0.1; it states the market cap was ~$200M vs $2B revenue "
     },
     "pabrai-36450d370316ee": {
-      "at": "2026-11-08T03:04:55+00:00",
+      "at": "2026-11-08T15:18:13+00:00",
       "status": "retry",
       "inputHash": "ce433e0b519779154bc0bcf5dd15d2d5b324810bcc3336cdf79eff981d5030c1",
-      "reason": "ValueError: Bilingual editorial review: The source text (s2) cuts off mid-sentence ('It's very dangerous to'), but the provided content accurately reflects the complete tho"
+      "reason": "ValueError: Copied source passage"
     },
     "pabrai-18c92ff6cf0411": {
-      "at": "2026-11-08T02:18:36+00:00",
+      "at": "2026-11-08T15:17:33+00:00",
       "status": "retry",
       "inputHash": "7d10c52179c247f4c7294163bc2bbe9a2f7fc068aefe1f75c735cdc4d6b51c80",
-      "reason": "ValueError: Bilingual editorial review: The English translation of 'Pabrai' in the summary incorrectly uses 'Mohnish Pabrai' twice when referring to the speaker Sean (who i"
+      "reason": "ValueError: Bilingual editorial review: The source text (s3) does not mention 'charity lunch auctions' or the 'Glide Foundation'; it only mentions a charity lunch auction r"
     },
     "pabrai-0fc40bd3353d10": {
       "at": "2026-11-08T05:13:19+00:00",
@@ -1115,7 +1115,7 @@
       "reason": "ValueError: Unsupported numerical claim: 1.5%"
     },
     "pabrai-cbe1dfa22a4564": {
-      "at": "2026-11-08T03:00:54+00:00",
+      "at": "2026-11-08T15:22:51+00:00",
       "status": "retry",
       "inputHash": "9100216339c47101ffd0a04bf378cd97beddaa0dc1c0b461cdccca93a75a1b43",
       "reason": "ValueError: Unsupported numerical claim: 2"
@@ -1139,10 +1139,10 @@
       "reason": "ValueError: Unsupported numerical claim: 100"
     },
     "pabrai-f3593335049251": {
-      "at": "2026-11-08T02:25:24+00:00",
+      "at": "2026-11-08T15:23:38+00:00",
       "status": "retry",
       "inputHash": "282f660b324229fd9e891811e33df4630c2991ccc5a2240d92a5a2a6165ca686",
-      "reason": "ValueError: Bilingual editorial review: The English translation of the evidence text contains a critical factual error: it misquotes Mohnish Pabrai's original statement abo"
+      "reason": "ValueError: Bilingual editorial review: The English translation of the evidence text is missing; it ends abruptly at 'the people who' without completing the sentence found "
     },
     "pabrai-276244f32cb972": {
       "at": "2026-11-08T03:55:58+00:00",
@@ -1157,10 +1157,10 @@
       "reason": "ValueError: Unsupported scaled numerical claim: 600"
     },
     "pabrai-890538700bb512": {
-      "at": "2026-11-08T02:29:56+00:00",
+      "at": "2026-11-08T15:21:26+00:00",
       "status": "retry",
       "inputHash": "30f3e5564c03eb730615821a68a8fa602e8365e07ef182e5e80dfce1c1290856",
-      "reason": "ValueError: Bilingual editorial review: The Chinese text claims Pabrai 'did not frame it as a simple dialectical analysis' but instead illustrated a perspective rooted in g"
+      "reason": "ValueError: Bilingual editorial review: The Chinese section incorrectly states Ashok joined in '11th standard' while the source text only mentions 'in 11th standard' as par"
     },
     "pabrai-341e9bdd1f2352": {
       "at": "2026-11-08T14:31:19+00:00",
@@ -1181,10 +1181,10 @@
       "reason": "ValueError: Unsupported numerical claim: 9"
     },
     "pabrai-0578ad73179b18": {
-      "at": "2026-11-08T02:19:26+00:00",
+      "at": "2026-11-08T15:19:53+00:00",
       "status": "retry",
       "inputHash": "7016c3f96a85251933e612fc0da12d4f11cfbd03ed32458c3270f89093f0b4b6",
-      "reason": "ValueError: Bilingual editorial review: The English translation in the content section contains a factual error regarding Pabrai's educational path. The source text (s3) st"
+      "reason": "ValueError: Bilingual editorial review: The source text (s2-s4) does not mention 'high-income temptations' as a pitfall; it only lists focusing on popular fields, friends' "
     },
     "pabrai-ac73782c4fb468": {
       "at": "2026-11-08T14:03:21+00:00",
@@ -1259,10 +1259,10 @@
       "reason": "ValueError: Unsupported numerical claim: 1,000"
     },
     "pabrai-6dd66553e9d9ce": {
-      "at": "2026-11-08T02:28:07+00:00",
+      "at": "2026-11-08T15:27:03+00:00",
       "status": "retry",
       "inputHash": "513d94599cadb560acfa23941d98e3cf7de9c345b77ec1f582c75cf2182af419",
-      "reason": "ValueError: Bilingual editorial review: The source text (s3) attributes a quote about selling investments too soon to 'Thomas Thomas Phelps' in the book '100 to 1 in the St"
+      "reason": "ValueError: Bilingual editorial review: The source text does not mention the daughter's name; the content correctly states she is unnamed.; The source text does not explici"
     },
     "pabrai-2babcacb8a348d": {
       "at": "2026-11-08T03:12:03+00:00",
@@ -1277,16 +1277,16 @@
       "reason": "ValueError: Unsupported numerical claim: 0"
     },
     "pabrai-fc099d6ba1ac88": {
-      "at": "2026-11-08T02:48:08+00:00",
+      "at": "2026-11-08T15:27:29+00:00",
       "status": "retry",
       "inputHash": "cd6bbae9552dfc90beea8daa56d3beb3bda1d6cea2f4ce950c06d521d2e16a72",
-      "reason": "ValueError: Bilingual editorial review: The source text (s6) does not state that Munger gave shares in Coca-Cola; it only says Pabrai knows he gave Coke shares in the past "
+      "reason": "ValueError: Bilingual editorial review: The source text (s7) states Charlie Munger will be 100 on January 1st; the interview date is June 28, 2023. If this statement is fac"
     },
     "pabrai-99a0eff7272af5": {
-      "at": "2026-11-08T02:35:18+00:00",
+      "at": "2026-11-08T15:29:32+00:00",
       "status": "retry",
       "inputHash": "f967ae2af5db8e86a46609e0593938baf78d47b56796c3327f5acbb550db9f51",
-      "reason": "ValueError: Bilingual editorial review: The English paragraph incorrectly states that Samsung 'voluntarily maintained a 50% market share' to avoid regulatory scrutiny. The "
+      "reason": "ValueError: Bilingual editorial review: The Chinese translation incorrectly states that Pabrai 'supports' (he supports) Charlie Munger's observation. The source text only r"
     },
     "pabrai-6626f4a7337cb1": {
       "at": "2026-11-08T14:36:47+00:00",
@@ -1445,10 +1445,10 @@
       "reason": "ValueError: Unsupported scaled numerical claim: 1.09"
     },
     "pabrai-61e73f76e7f7e6": {
-      "at": "2026-11-08T02:24:52+00:00",
+      "at": "2026-11-08T15:11:27+00:00",
       "status": "retry",
       "inputHash": "3f2a20b5c4c4dd729e3bf0975ae697bb04f973f1411f14951ffd283d3088f2b3",
-      "reason": "ValueError: Bilingual editorial review: The source text does not explicitly state that 'the Native Americans actually secured an excellent deal' (s6); it only states they g"
+      "reason": "ValueError: Incomplete AI Review at 900 tokens"
     },
     "pabrai-d23537e255095e": {
       "at": "2026-11-08T03:16:23+00:00",
@@ -1499,10 +1499,10 @@
       "reason": "ValueError: Unsupported numerical claim: 100"
     },
     "pabrai-59f6d87e592581": {
-      "at": "2026-11-08T02:32:55+00:00",
+      "at": "2026-11-08T15:20:52+00:00",
       "status": "retry",
       "inputHash": "5bb26ae875383112e4640b4bd3a4a8313e135825420a42624f411c0e2e26f00b",
-      "reason": "ValueError: Incomplete AI Review at 900 tokens"
+      "reason": "ValueError: Bilingual editorial review: Evidence ID mismatch: The summary cites 'evidence s7' for both the IPSCO acquisition ($160 offer) and the Reysas warehouse case. Evi"
     },
     "pabrai-ae90652bc59227": {
       "at": "2026-11-08T15:05:59+00:00",
@@ -1559,10 +1559,10 @@
       "reason": "ValueError: Unsupported numerical claim: 6"
     },
     "pabrai-52346dc951afda": {
-      "at": "2026-11-08T02:38:08+00:00",
+      "at": "2026-11-08T15:29:35+00:00",
       "status": "retry",
       "inputHash": "e4e165f6767bad2c9baa52dcb3b486134cb1c4d0d2bf913f572e8b898679c682",
-      "reason": "ValueError: Unsupported scaled numerical claim: 800"
+      "reason": "ValueError: Bilingual editorial review: The source text (s2) does not mention 'yellow shared bicycles' or 'London schools'; it mentions 'yellow bicycles' and 'one of the Lo"
     },
     "pabrai-246965219e21a9": {
       "at": "2026-11-08T03:32:53+00:00",
@@ -1583,10 +1583,10 @@
       "reason": "ValueError: Bilingual editorial review: The source text contains a transcription error ('praise on' instead of 'point out'), which is correctly identified in the provided c"
     },
     "pabrai-a93149b98a61c2": {
-      "at": "2026-11-08T04:21:55+00:00",
+      "at": "2026-11-08T15:29:04+00:00",
       "status": "retry",
       "inputHash": "c5ae94b4dec8734e12b974d3f3121c1fb7a2a833e59653a9092d27276c4dda8c",
-      "reason": "ValueError: Unsupported numerical claim: 1973"
+      "reason": "ValueError: Unsupported numerical claim: 1967"
     },
     "pabrai-3c50faebea715c": {
       "at": "2026-11-08T15:00:09+00:00",
@@ -1607,10 +1607,10 @@
       "reason": "ValueError: Bilingual editorial review: The English translation contains a factual error: 'Pierre Omidyar' is not mentioned in the source text; the source only says 'Pierre"
     },
     "vinall-0bc8d0cd361786": {
-      "at": "2026-11-08T02:41:21+00:00",
+      "at": "2026-11-08T15:18:34+00:00",
       "status": "retry",
       "inputHash": "f47d4ecc7b84b21ccf7510947a41b282d3eed02c47d46d4ec4c2f457ef0e4bb4",
-      "reason": "ValueError: Unsupported numerical claim: 200"
+      "reason": "ValueError: Unsupported numerical claim: 1990"
     },
     "vinall-fc32d3b55fba71": {
       "at": "2026-11-08T03:06:45+00:00",
@@ -1625,10 +1625,10 @@
       "reason": "ValueError: Bilingual editorial review: The Chinese text claims Pabrai cited Charlie Munger's test method stating that if an investor asks whether a company is in their cir"
     },
     "pabrai-bf33f90c636d0e": {
-      "at": "2026-11-08T03:21:27+00:00",
+      "at": "2026-11-08T15:15:10+00:00",
       "status": "retry",
       "inputHash": "37f20a5f90cbf18829ed723f3097372dfb42e8a0d3df00dc9a993789083b0374",
-      "reason": "ValueError: Bilingual editorial review: The English translation in the 'content' section contains a factual error regarding the name of the fund: it translates as 'Mayor an"
+      "reason": "ValueError: Bilingual editorial review: The Chinese text incorrectly attributes the 'Mayors and Powers Fund' example to Pabrai as his own illustration of strategy, whereas "
     },
     "vinall-e7152280e09201": {
       "at": "2026-11-08T05:26:05+00:00",
@@ -1655,10 +1655,10 @@
       "reason": "ValueError: Copied source passage"
     },
     "vinall-bc7f6fa8dbf30a": {
-      "at": "2026-11-08T04:05:01+00:00",
+      "at": "2026-11-08T15:21:57+00:00",
       "status": "retry",
       "inputHash": "e141d90bdefd77ece54e855a5dad79d8794fbe1ff9c06dbc62dbfa37c2d01a6e",
-      "reason": "ValueError: Bilingual editorial review: The Chinese text incorrectly states that Dennis Hong 'recounts being initially skeptical about Vinall around 2015'. The source (s2) "
+      "reason": "ValueError: Bilingual editorial review: The Chinese text claims Hong was 'informed' (via an investor) that he 'must read' the letters. Source s2 states the investor said 'y"
     },
     "vinall-5d9ce22dd4537e": {
       "at": "2026-11-08T04:40:21+00:00",
@@ -1703,7 +1703,7 @@
       "reason": "ValueError: Bilingual editorial review: The Chinese translation of 'annual reports' in the source text is accurate; no correction needed.; The phrase 'it's all about the pe"
     },
     "webb-d8610db2454149": {
-      "at": "2026-11-08T02:38:10+00:00",
+      "at": "2026-11-08T15:29:37+00:00",
       "status": "retry",
       "inputHash": "a384ea2797a33d7ae3d5ca0a3005389257e06b5769de13274f8d2a3857ab543f",
       "reason": "ValueError: No audio obtained"
@@ -1731,10 +1731,10 @@
       "inputHash": "89b12ed11b7829db02bb6e1c822efe4c636c2ca61c5aabe8a9f76656c06a007e"
     },
     "buffett-d5d1d8d7a24118": {
-      "at": "2026-11-08T02:59:03+00:00",
+      "at": "2026-11-08T15:12:53+00:00",
       "status": "retry",
       "inputHash": "15fcb9b55ad4cf16b7be07483ef7f244ac46e2e434cd9788bef5cb094d76d7fd",
-      "reason": "ValueError: Unsupported numerical claim: 48.7%"
+      "reason": "ValueError: Unsupported numerical claim: 49.5%"
     },
     "klarman-aa260b9ff8742e": {
       "at": "2026-10-18T01:14:32+00:00",
@@ -1753,10 +1753,10 @@
       "inputHash": "99099f1a3cd05715da90dd8fd7df79b05fb1572d1c41690694f88a7486dfdf47"
     },
     "buffett-aee30095d338f1": {
-      "at": "2026-11-08T02:24:51+00:00",
+      "at": "2026-11-08T15:13:47+00:00",
       "status": "retry",
       "inputHash": "942cbb319e2bcd38a775c1e07f5090c24e1e3ed25fb6fac2c0efe71a049752c4",
-      "reason": "ValueError: Bilingual editorial review: The English paraphrase incorrectly states that Buffett argues book value 'fails to reflect the true economic reality of the business"
+      "reason": "ValueError: Bilingual editorial review: The English translation contains a factual error: it states 'new GAAP rules caused massive book value volatility due to non-cash ass"
     },
     "buffett-8ece24e5bcaa17": {
       "at": "2026-11-08T04:51:31+00:00",
@@ -1882,10 +1882,10 @@
       "reason": "ValueError: Bilingual editorial review: The English translation in the content section contains a factual error: it states managers view their positions as 'lifelong career"
     },
     "buffett-748aa6d4424b34": {
-      "at": "2026-11-08T02:50:40+00:00",
+      "at": "2026-11-08T15:09:36+00:00",
       "status": "retry",
       "inputHash": "064ba108f79fb9c7e47e9592adda3bd0790f5f9226d076c00b801da972a1e55a",
-      "reason": "ValueError: Bilingual editorial review: The English text contains an unexplained foreign phrase 'fiduciary' inserted mid-sentence ('ensuring consistency between his fiducia"
+      "reason": "ValueError: Copied source passage"
     },
     "buffett-1f81bf7d43a974": {
       "at": "2026-11-08T14:23:09+00:00",
@@ -1906,10 +1906,10 @@
       "reason": "ValueError: Unsupported numerical claim: 48.7%"
     },
     "buffett-5d9a7887401185": {
-      "at": "2026-11-08T02:09:57+00:00",
+      "at": "2026-11-08T15:11:26+00:00",
       "status": "retry",
       "inputHash": "1f1a137ddebeba6c1da50295a86e1a50e72c96701df5a652d75f3db8929ba98b",
-      "reason": "ValueError: Bilingual editorial review: The English paragraph contains factual inaccuracies regarding the source text: it misrepresents Buffett's 'academic voice' reference"
+      "reason": "ValueError: Bilingual editorial review: The English translation in the content section contains a factual error: it states Buffett and Charlie Munger 'currently possess no "
     },
     "buffett-5a848c254e72aa": {
       "at": "2026-11-08T05:42:39+00:00",
@@ -2056,7 +2056,7 @@
       "reason": "ValueError: Copied source passage"
     },
     "marks-e3929fd4a88d38": {
-      "at": "2026-11-08T03:04:57+00:00",
+      "at": "2026-11-08T15:18:15+00:00",
       "status": "retry",
       "inputHash": "19395e204263c51095e5f4d8299c4936240802f8ba6091443f7e947c41446bfc",
       "reason": "ValueError: No audio obtained"
@@ -2068,7 +2068,7 @@
       "reason": "ValueError: Bilingual editorial review: The Chinese text incorrectly attributes the '100% probability' quote to an expert in foreign affairs regarding Iran (2015/2016) with"
     },
     "mclemore-a9cd8c7a92e47d": {
-      "at": "2026-11-08T01:59:41+00:00",
+      "at": "2026-11-08T15:13:14+00:00",
       "status": "retry",
       "inputHash": "5122a46ce25a5f88ab7705a0d6e9d8f2383163deed8c5aefcd5c811c014fad9c",
       "reason": "ValueError: Unsupported numerical claim: 7"
@@ -2122,10 +2122,10 @@
       "reason": "ValueError: Bilingual editorial review: The Chinese text in paragraph 1 incorrectly states Marks distinguishes between 'real bull markets' preceding the 2000 tech bubble an"
     },
     "marks-5617528248df21": {
-      "at": "2026-11-08T03:09:32+00:00",
+      "at": "2026-11-08T15:21:52+00:00",
       "status": "retry",
       "inputHash": "72c62170b3318edd3391a50d8b061c83903d622ec66ea7e8ffb2c74e515f5f14",
-      "reason": "ValueError: Bilingual editorial review: The English translation in the content section incorrectly identifies 'Jeff Solinsky' as Smith's first name; the source text only me"
+      "reason": "ValueError: Copied source passage"
     },
     "marks-e91a1e0d720ee5": {
       "at": "2026-11-08T14:58:20+00:00",
@@ -2140,10 +2140,10 @@
       "reason": "ValueError: Unsupported numerical claim: 2021"
     },
     "marks-512fbdf85d929f": {
-      "at": "2026-11-08T02:40:13+00:00",
+      "at": "2026-11-08T15:18:00+00:00",
       "status": "retry",
       "inputHash": "1bfe43019530ffebf3ef36ae46caf9a68b1b2b5a3a872139b5000c4ffd6ee867",
-      "reason": "ValueError: Bilingual editorial review: The English paraphrase incorrectly states that Buffett's wealth came from 'only a few big winners rather than all investments being "
+      "reason": "ValueError: Bilingual editorial review: The English paraphrase incorrectly attributes the quote about Warren Buffett having twelve great winners to Charlie Munger. The sour"
     },
     "marks-351eab04d3acf4": {
       "at": "2026-11-08T04:58:16+00:00",
@@ -2152,10 +2152,10 @@
       "reason": "ValueError: Unsupported numerical claim: 20"
     },
     "marks-bc5806f86a4042": {
-      "at": "2026-11-08T02:43:42+00:00",
+      "at": "2026-11-08T15:21:31+00:00",
       "status": "retry",
       "inputHash": "0d525c74a863ac22d994c7a662c8ecaf4e46b74b15e74c71334625c08d147196",
-      "reason": "ValueError: Bilingual editorial review: The Chinese text incorrectly states that Howard Marks 'does not directly quote' Benjamin Franklin. The source (s1) explicitly includ"
+      "reason": "ValueError: Copied source passage"
     },
     "marks-dc039fc38e2232": {
       "at": "2026-11-08T03:08:58+00:00",
@@ -2206,10 +2206,10 @@
       "reason": "ValueError: Unsupported numerical claim: 300"
     },
     "marks-6e3354a3a71412": {
-      "at": "2026-11-08T03:14:23+00:00",
+      "at": "2026-11-08T15:28:27+00:00",
       "status": "retry",
       "inputHash": "cc1188fd3508d0b6e1b5345aff934c6436563b785d7d995925899ebd5927296e",
-      "reason": "ValueError: Bilingual editorial review: The English paraphrase incorrectly attributes Mark Twain's quote to 'Mark Twain' in a context where the source explicitly states 'Ma"
+      "reason": "ValueError: Bilingual editorial review: The Chinese translation claims Marks argues cycles 'manifest as repetitions of behavioral patterns' (behavioral patterns repeat), bu"
     },
     "marks-61f97f3ca472e4": {
       "at": "2026-11-08T05:13:48+00:00",
@@ -2373,10 +2373,10 @@
       "reason": "ValueError: Bilingual editorial review: The English text incorrectly states 'deterministic rules comparable to physics' whereas the source (s3) contrasts economics with 're"
     },
     "marks-feeacb8823121d": {
-      "at": "2026-11-08T02:03:18+00:00",
+      "at": "2026-11-08T15:19:10+00:00",
       "status": "retry",
       "inputHash": "e5e52bfa60452a421610cde2368773fbe847383ffa6fa5eaec9f62594787c44f",
-      "reason": "ValueError: Bilingual editorial review: The Chinese text introduces 'risk of ruin' (principal loss) as a specific term not explicitly defined in the source, though the conc"
+      "reason": "ValueError: Copied source passage"
     },
     "marks-6a1195ae7f8bbb": {
       "at": "2026-11-08T03:20:24+00:00",
@@ -2643,10 +2643,10 @@
       "reason": "ValueError: Bilingual editorial review: The Chinese text contains an invented quotation: 'any bond can be triple-A at a price'. The source (s2) states: 'It's been said that"
     },
     "mclemore-19da9051365a28": {
-      "at": "2026-11-08T02:47:09+00:00",
+      "at": "2026-11-08T15:28:34+00:00",
       "status": "retry",
       "inputHash": "4da7d2a54728af69f9a251add7bf9d5d3c92745808f923d1cfcd90eae2786433",
-      "reason": "ValueError: Copied source passage"
+      "reason": "ValueError: Bilingual editorial review: The Chinese text contains an editorial note '(note: original text did not mention 'partial bankruptcy'...)' which is not present in "
     },
     "marks-30e00062105852": {
       "at": "2026-11-08T14:53:43+00:00",
@@ -2691,10 +2691,10 @@
       "reason": "ValueError: Unsupported numerical claim: 500"
     },
     "marks-beab387e2a60a7": {
-      "at": "2026-11-08T03:28:10+00:00",
+      "at": "2026-11-08T15:24:17+00:00",
       "status": "retry",
       "inputHash": "c8c6286a0688bc8f7271cee920a4c4f2c472f8c4ac4d0c5bbc96872b84ef28f4",
-      "reason": "ValueError: Copied source passage"
+      "reason": "ValueError: Incomplete AI Review at 900 tokens"
     },
     "mclemore-2c65c9f6f231b2": {
       "at": "2026-11-08T03:23:28+00:00",
@@ -2907,10 +2907,10 @@
       "reason": "ValueError: Unsupported numerical claim: 1999"
     },
     "mclemore-1be34c42be484e": {
-      "at": "2026-11-08T02:48:28+00:00",
+      "at": "2026-11-08T15:16:34+00:00",
       "status": "retry",
       "inputHash": "aea0c32949b0d7a2724038169239a8e61bf9062296fc7fc43819bd2e3d2fdeb2",
-      "reason": "ValueError: Copied source passage"
+      "reason": "ValueError: Bilingual editorial review: The Chinese text incorrectly states that 'Opportunity Equity Strategy gained 5.8%' is the result of 'underestimated risks such as we"
     },
     "marks-7c8c8b2a70295c": {
       "at": "2026-11-08T14:05:53+00:00",
@@ -2919,10 +2919,10 @@
       "reason": "ValueError: Incomplete AI Review at 900 tokens"
     },
     "mclemore-8b93293153e790": {
-      "at": "2026-11-08T02:52:09+00:00",
+      "at": "2026-11-08T15:21:19+00:00",
       "status": "retry",
       "inputHash": "23793475ea7d7803db89e61e00c2c33021162ab18700d0474571837d47e93410",
-      "reason": "ValueError: Bilingual editorial review: The content section incorrectly attributes specific statistical claims (market gain of 18% since 1995; Opportunity Equity gain of 28"
+      "reason": "ValueError: Unsupported numerical claim: 12"
     },
     "mclemore-267c6afd18f89c": {
       "at": "2026-11-08T14:03:43+00:00",
@@ -2991,10 +2991,10 @@
       "reason": "ValueError: Copied source passage"
     },
     "mclemore-c6fc6378554854": {
-      "at": "2026-11-08T02:57:37+00:00",
+      "at": "2026-11-08T15:30:13+00:00",
       "status": "retry",
       "inputHash": "9e494558fcf8a0a3af1481e5d4b104e5480e4653ea36f41b76eb86f6df4713b2",
-      "reason": "ValueError: Bilingual editorial review: The English translation in the content section misrepresents Samantha McLemore's position. The source text (s0) states she 'strive[s"
+      "reason": "ValueError: Bilingual editorial review: The English translation in the content section contains a factual error: it attributes the quote 'the only source of knowledge is ex"
     },
     "marks-e20814ff0b86b8": {
       "at": "2026-11-08T14:10:18+00:00",
@@ -3057,10 +3057,10 @@
       "reason": "ValueError: Bilingual editorial review: The English paraphrase incorrectly attributes 'cited external warnings' to Marks as if he directly cited the NYT/WSJ links in the te"
     },
     "marks-bc833d3e0b74d7": {
-      "at": "2026-11-08T03:14:37+00:00",
+      "at": "2026-11-08T15:13:01+00:00",
       "status": "retry",
       "inputHash": "d8ced91fee8667f92075141f0c5356942f0500fd5609c9c586156e097a999e3e",
-      "reason": "ValueError: Bilingual editorial review: The English translation in the content section contains a direct copy of the source text from s4 ('CONFIDENTIAL © Oaktree Capital Ma"
+      "reason": "ValueError: Copied source passage"
     },
     "marks-f30850a5af3022": {
       "at": "2026-11-08T03:51:36+00:00",
@@ -3141,10 +3141,10 @@
       "reason": "ValueError: Copied source passage"
     },
     "marks-bc1dda168f409b": {
-      "at": "2026-11-08T03:20:27+00:00",
+      "at": "2026-11-08T15:18:58+00:00",
       "status": "retry",
       "inputHash": "a82b6ae77a1064298bec32e481ebe0bff1534c5a9d5a2ea02421af3e019a77f9",
-      "reason": "ValueError: Unsupported numerical claim: 2008"
+      "reason": "ValueError: Bilingual editorial review: The content section contains an invented quotation: 'In All That Glitters, Howard Marks clearly articulates his stance...' This is n"
     },
     "mclemore-169ce8b084c870": {
       "at": "2026-11-08T14:45:26+00:00",
@@ -3207,7 +3207,7 @@
       "reason": "ValueError: Unsupported numerical claim: 80"
     },
     "marks-11862d6247a0d0": {
-      "at": "2026-11-08T04:14:16+00:00",
+      "at": "2026-11-08T15:11:25+00:00",
       "status": "retry",
       "inputHash": "8a54ce4367408a355610a551accece5191d93368a7e7fde43eff34491697a0be",
       "reason": "ValueError: Unsupported numerical claim: 20"
@@ -3219,7 +3219,7 @@
       "reason": "ValueError: Bilingual editorial review: The English paragraph incorrectly states 'single-A corporate bond' whereas source s5 specifies '10-year single-A corporate', omittin"
     },
     "marks-a7349c82108581": {
-      "at": "2026-11-08T03:26:10+00:00",
+      "at": "2026-11-08T15:23:16+00:00",
       "status": "retry",
       "inputHash": "721ee85413d4f5e5159e675b66282c7eea3b9291d347b5b8043ae13919e72f51",
       "reason": "ValueError: Unsupported numerical claim: 2008"
@@ -3291,7 +3291,7 @@
       "reason": "ValueError: Unsupported numerical claim: 2"
     },
     "marks-50fc9924c3790b": {
-      "at": "2026-11-08T03:30:28+00:00",
+      "at": "2026-11-08T15:26:52+00:00",
       "status": "retry",
       "inputHash": "0bde20d018d8e7ab53e2aba8b9af7bdbc5c169ee867319962c360b8dc5ceffcf",
       "reason": "ValueError: Unsupported numerical claim: 20%"
@@ -3321,10 +3321,10 @@
       "reason": "ValueError: Bilingual editorial review: The English paraphrase incorrectly attributes the 'gorilla experiment' details (background color change, person leaving stage) to pa"
     },
     "marks-4ec6eeb131b75c": {
-      "at": "2026-11-08T04:19:42+00:00",
+      "at": "2026-11-08T15:16:17+00:00",
       "status": "retry",
       "inputHash": "7e2a7cde23d4b45402dcea82291b62dcff4b24f2862493c31e820fa982c92700",
-      "reason": "ValueError: Bilingual editorial review: The English translation in the content section contains factual inaccuracies regarding the source text. Specifically, s3 states 'Nob"
+      "reason": "ValueError: Bilingual editorial review: The English paraphrase in the `paragraphs` section contains a factual error regarding the CDO structure: it states 'promising low yi"
     },
     "mclemore-317d7c6b4d1fe9": {
       "at": "2026-11-08T04:05:59+00:00",
@@ -3375,10 +3375,10 @@
       "reason": "ValueError: Unsupported numerical claim: 3.0%"
     },
     "marks-3c2767447973fe": {
-      "at": "2026-11-08T04:46:30+00:00",
+      "at": "2026-11-08T15:28:43+00:00",
       "status": "retry",
       "inputHash": "e0862b6bfd63d7d997238c031c8adf70b23c5af3cfe7e9d0179b0cdb719787e3",
-      "reason": "ValueError: Bilingual editorial review: The English text incorrectly states Fund A had only $50 in capital during Year 3; source s9 shows Fund A's capital was $1,100 at the"
+      "reason": "ValueError: Bilingual editorial review: The English translation in the 'content' section contains a factual error regarding Fund A's capital size. The source text (s9) stat"
     },
     "mclemore-e2f1a12640c4d3": {
       "at": "2026-11-08T14:23:18+00:00",
@@ -3613,5 +3613,5 @@
       "reason": "ValueError: Bilingual editorial review: The Chinese translation of the evidence section (s0 and s1) contains significant factual inaccuracies regarding the data presented i"
     }
   },
-  "updatedAt": "2026-11-08T15:08:33+00:00"
+  "updatedAt": "2026-11-08T15:30:13+00:00"
 }
