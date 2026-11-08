@@ -18191,11 +18191,11 @@
           ],
           "ticker": "GOOGL",
           "sector": "互联网广告与云服务",
-          "prevShares": 300021,
-          "prevValue": 226366000,
           "cnName": "谷歌（Alphabet）",
           "displayName": "Google / Alphabet",
-          "sectorEn": "Internet advertising and cloud"
+          "sectorEn": "Internet advertising and cloud",
+          "prevShares": 300021,
+          "prevValue": 226366000
         },
         {
           "name": "VISTAPRINT N V",
@@ -18272,8 +18272,8 @@
               "value": 118988000
             }
           ],
-          "ticker": "CMCSA",
-          "sector": "娱乐",
+          "ticker": "CMCSK",
+          "sector": "其他",
           "prevShares": 3405200,
           "prevValue": 118535000
         },
@@ -18576,8 +18576,8 @@
               "value": 107896000
             }
           ],
-          "ticker": "CMCSA",
-          "sector": "娱乐",
+          "ticker": "CMCSK",
+          "sector": "其他",
           "prevShares": 3312573,
           "prevValue": 118988000
         },
@@ -18598,11 +18598,11 @@
           ],
           "ticker": "GOOGL",
           "sector": "互联网广告与云服务",
-          "prevShares": 279130,
-          "prevValue": 197451000,
           "cnName": "谷歌（Alphabet）",
           "displayName": "Google / Alphabet",
-          "sectorEn": "Internet advertising and cloud"
+          "sectorEn": "Internet advertising and cloud",
+          "prevShares": 279130,
+          "prevValue": 197451000
         },
         {
           "name": "HALLIBURTON CO",
@@ -18721,7 +18721,7 @@
           "sector": "其他"
         },
         {
-          "name": "TCA CABLE TV INC",
+          "name": "TCA CABLE TV INC HORACE MANN",
           "cls": "COM",
           "cusip": "872241104",
           "value": 179637000,
@@ -18735,11 +18735,11 @@
               "value": 179637000
             }
           ],
-          "ticker": "?TCA CABLE TV INC",
+          "ticker": "?TCA CABLE TV INC HORACE MANN",
           "sector": "其他"
         },
         {
-          "name": "HORACE MANN EDUCATORS CORP NEW",
+          "name": "EDUCATORS CORP NEW",
           "cls": "COM",
           "cusip": "440327104",
           "value": 67909000,
@@ -18757,7 +18757,7 @@
           "sector": "其他"
         },
         {
-          "name": "AMERICAN EXPRESS CO",
+          "name": "AMERICAN EXPRESS CO FEDERAL HOME LN",
           "cls": "COM",
           "cusip": "025816109",
           "value": 64135000,
@@ -18775,7 +18775,7 @@
           "sector": "金融服务"
         },
         {
-          "name": "FEDERAL HOME LN MTG CORP",
+          "name": "MTG CORP SHAW HORACE MANN FEDERAL HOME LN",
           "cls": "COM",
           "cusip": "313400301",
           "value": 33647000,
@@ -28990,7 +28990,7 @@
         "cik": "1553733",
         "url": "https://www.sec.gov/Archives/edgar/data/1553733/0001172661-13-000435.txt",
         "format": "legacy_13f",
-        "parserVersion": 5,
+        "parserVersion": 6,
         "sourceReconciliation": {
           "status": "reconciled",
           "reportedEntries": 13,
@@ -29010,7 +29010,7 @@
         "cik": "1553733",
         "url": "https://www.sec.gov/Archives/edgar/data/1553733/0001172661-13-000840.txt",
         "format": "legacy_13f",
-        "parserVersion": 5,
+        "parserVersion": 6,
         "sourceReconciliation": {
           "status": "reconciled",
           "reportedEntries": 12,
@@ -29031,7 +29031,7 @@
         "expected13FFileNumber": "028-01658",
         "url": "https://www.sec.gov/Archives/edgar/data/789920/0000950123-99-004850.txt",
         "format": "legacy_13f",
-        "parserVersion": 5,
+        "parserVersion": 6,
         "sourceReconciliation": {
           "status": "reconciled",
           "reportedEntries": 7,
@@ -34145,7 +34145,7 @@
         "source": "https://www.sec.gov/Archives/edgar/data/1553733/0001172661-13-000435.txt",
         "filingDate": "2013-02-14",
         "sourceDigest": "2f657758a26cdc8c7bc19d328467d20b36a9998a1c321ed422c15c8be0f82031",
-        "sourceHash": "9b5a253349aebd67d5f9fd6a711eacddfff708e8419f27c57f97a0b4f5d63e3c",
+        "sourceHash": "5f62832d7693cc04e421a8411055ccb73c2220bb8448910c1f3634161c289c1d",
         "status": "verified",
         "factor": 1,
         "anchors": [
@@ -34174,16 +34174,6 @@
             ]
           },
           {
-            "ticker": "CMCSA",
-            "cusip": "20030N200",
-            "filedPrice": 35.92011406239198,
-            "price": 37.35999898910522,
-            "date": "2012-12-31",
-            "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/CMCSA?period1=0&period2=1792983664&interval=1d&events=splits",
-            "candidates": []
-          },
-          {
             "ticker": "PRI",
             "cusip": "74164M108",
             "filedPrice": 30.00984612778527,
@@ -34209,11 +34199,9 @@
           }
         ],
         "agreementCount": 4,
-        "anchorCount": 5,
-        "outlierTickers": [
-          "CMCSA"
-        ],
-        "normalizedHash": "9b5a253349aebd67d5f9fd6a711eacddfff708e8419f27c57f97a0b4f5d63e3c"
+        "anchorCount": 4,
+        "outlierTickers": [],
+        "normalizedHash": "5f62832d7693cc04e421a8411055ccb73c2220bb8448910c1f3634161c289c1d"
       },
       "2013 Q1": {
         "version": 1,
@@ -34221,7 +34209,7 @@
         "source": "https://www.sec.gov/Archives/edgar/data/1553733/0001172661-13-000840.txt",
         "filingDate": "2013-05-15",
         "sourceDigest": "420ea7feb99fb4fceb30585c2fdb69e0f67ef9c20d35dca908fed522737c9bf1",
-        "sourceHash": "3e3ef95d0cdf95fe1a538f422454295111f10e25c8885dec13b54c6a2307c152",
+        "sourceHash": "724d7dc5c0cd2ab74bdada134a3981a0a6c9f829d32ee68c3c67398df196df56",
         "status": "verified",
         "factor": 1,
         "anchors": [
@@ -34262,16 +34250,6 @@
             ]
           },
           {
-            "ticker": "CMCSA",
-            "cusip": "20030N200",
-            "filedPrice": 39.60997958854021,
-            "price": 41.98000104522705,
-            "date": "2013-03-28",
-            "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/CMCSA?period1=0&period2=1792983664&interval=1d&events=splits",
-            "candidates": []
-          },
-          {
             "ticker": "USB",
             "cusip": "902973304",
             "filedPrice": 33.929964553679405,
@@ -34285,11 +34263,9 @@
           }
         ],
         "agreementCount": 4,
-        "anchorCount": 5,
-        "outlierTickers": [
-          "CMCSA"
-        ],
-        "normalizedHash": "3e3ef95d0cdf95fe1a538f422454295111f10e25c8885dec13b54c6a2307c152"
+        "anchorCount": 4,
+        "outlierTickers": [],
+        "normalizedHash": "724d7dc5c0cd2ab74bdada134a3981a0a6c9f829d32ee68c3c67398df196df56"
       },
       "2020 Q2": {
         "version": 1,
@@ -34449,7 +34425,7 @@
         "source": "https://www.sec.gov/Archives/edgar/data/789920/0000950123-99-004850.txt",
         "filingDate": "1999-05-17",
         "sourceDigest": "7b70316f122ccc02cfb12ac04fd42108880101baefd1c2e6fe5403adca1f76d6",
-        "sourceHash": "8c457ac43ce73e24a93371f9175cad4c2198a822138bfa5fe560b2820ed61e57",
+        "sourceHash": "fabaeae609a6c0b52b73949b304786e8606d3f85cb9ebc91f58c414b5f1d0485",
         "status": "verified",
         "factor": 1,
         "anchors": [
@@ -34493,7 +34469,7 @@
         "agreementCount": 3,
         "anchorCount": 3,
         "outlierTickers": [],
-        "normalizedHash": "8c457ac43ce73e24a93371f9175cad4c2198a822138bfa5fe560b2820ed61e57"
+        "normalizedHash": "fabaeae609a6c0b52b73949b304786e8606d3f85cb9ebc91f58c414b5f1d0485"
       },
       "1999 Q2": {
         "version": 1,
@@ -34755,11 +34731,11 @@
       },
       "2001 Q1": {
         "version": 1,
-        "checkedAt": "2026-11-07",
+        "checkedAt": "2026-11-08",
         "source": "https://www.sec.gov/Archives/edgar/data/789920/0000950123-01-502511.txt",
         "filingDate": "2001-05-15",
         "sourceDigest": "ea8c4a3843143c27b128ba41c766d6beeb798f8c7a633236019f763737905b03",
-        "sourceHash": "7c2de240999250fe8c9b9cd678f4455e4d58c9c04045799a94cc3b51ae65a7f6",
+        "sourceHash": "57bacfc5978b964af549c6e9bb04b7ce18e5a11c565c6bdf712eb8b615df6599",
         "status": "pending",
         "anchors": [
           {
@@ -34769,7 +34745,7 @@
             "price": 23.200000762939453,
             "date": "2001-03-30",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/USB?period1=0&period2=1794113364&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/USB?period1=0&period2=1794223833&interval=1d&events=splits",
             "candidates": [
               1
             ]
@@ -34781,74 +34757,86 @@
             "price": 62.7400016784668,
             "date": "2001-03-30",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/GD?period1=0&period2=1794113364&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/GD?period1=0&period2=1794223833&interval=1d&events=splits",
             "candidates": [
               1
             ]
           }
         ],
-        "errors": [],
-        "normalizedHash": "7c2de240999250fe8c9b9cd678f4455e4d58c9c04045799a94cc3b51ae65a7f6"
+        "errors": [
+          "SJR: ValueError"
+        ],
+        "normalizedHash": "57bacfc5978b964af549c6e9bb04b7ce18e5a11c565c6bdf712eb8b615df6599"
       },
       "2001 Q2": {
         "version": 1,
-        "checkedAt": "2026-11-07",
+        "checkedAt": "2026-11-08",
         "source": "https://www.sec.gov/Archives/edgar/data/789920/0000950123-01-505600.txt",
         "filingDate": "2001-08-14",
         "sourceDigest": "8313358babdc152d7b987bc5f2cd1e1d34eeb7db473ae8925dfdf37534f9e02f",
-        "sourceHash": "045e854d107cb256df51029e559edf8293ada80be2601b191e875fae461ec51e",
+        "sourceHash": "cd8213a76f7854556e77432c1c5c4788fe0557dff6b559bbdcebae435265cccf",
         "status": "pending",
         "anchors": [],
-        "errors": [],
-        "normalizedHash": "045e854d107cb256df51029e559edf8293ada80be2601b191e875fae461ec51e"
+        "errors": [
+          "SJR: ValueError"
+        ],
+        "normalizedHash": "cd8213a76f7854556e77432c1c5c4788fe0557dff6b559bbdcebae435265cccf"
       },
       "2001 Q3": {
         "version": 1,
-        "checkedAt": "2026-11-07",
+        "checkedAt": "2026-11-08",
         "source": "https://www.sec.gov/Archives/edgar/data/789920/0000950123-01-508430.txt",
         "filingDate": "2001-11-14",
         "sourceDigest": "8a722ea762ff6e39720971938162adc1b6a86c7fbb943024b25c04d5f6f1a560",
-        "sourceHash": "170b3cdd96ca469ec17dbb0e795d7a2b088b1358de4d1ac0b38f9ecbd638ffa3",
+        "sourceHash": "f9095a6bd72637fbd011fb90b57f7e2ef649487c7eadd37c039e2bf3a3640e8e",
         "status": "pending",
         "anchors": [],
-        "errors": [],
-        "normalizedHash": "170b3cdd96ca469ec17dbb0e795d7a2b088b1358de4d1ac0b38f9ecbd638ffa3"
+        "errors": [
+          "SJR: ValueError"
+        ],
+        "normalizedHash": "f9095a6bd72637fbd011fb90b57f7e2ef649487c7eadd37c039e2bf3a3640e8e"
       },
       "2001 Q4": {
         "version": 1,
-        "checkedAt": "2026-11-07",
+        "checkedAt": "2026-11-08",
         "source": "https://www.sec.gov/Archives/edgar/data/789920/0000950123-02-001338.txt",
         "filingDate": "2002-02-12",
         "sourceDigest": "4938d398e6a76801b47cf11366ea9ab590a0471348ddeb8a2e5accad81721dca",
-        "sourceHash": "3ba11ab825521f94977a360584f7a72703dd2bbad64c9423caafdeba42264257",
+        "sourceHash": "7511b7185036c55eaa6527e107d1bc927bd5cb4251538cfe4a49adb0f66e3d8f",
         "status": "pending",
         "anchors": [],
-        "errors": [],
-        "normalizedHash": "3ba11ab825521f94977a360584f7a72703dd2bbad64c9423caafdeba42264257"
+        "errors": [
+          "SJR: ValueError"
+        ],
+        "normalizedHash": "7511b7185036c55eaa6527e107d1bc927bd5cb4251538cfe4a49adb0f66e3d8f"
       },
       "2002 Q1": {
         "version": 1,
-        "checkedAt": "2026-11-07",
+        "checkedAt": "2026-11-08",
         "source": "https://www.sec.gov/Archives/edgar/data/789920/0000950123-02-005284.txt",
         "filingDate": "2002-05-15",
         "sourceDigest": "637360540de4f216a6d32454d37d27539beb43ac7677cbd9c71038fb0509753b",
-        "sourceHash": "1095a6febfdf4e36f51068f1e7e6a6b60a8a9fa9de6f36bb363bf2b77d651ccf",
+        "sourceHash": "e61432c915cdaa5fae9d215440a5443dd10c75a3f33603d20e8e6e0f6581fdd2",
         "status": "pending",
         "anchors": [],
-        "errors": [],
-        "normalizedHash": "1095a6febfdf4e36f51068f1e7e6a6b60a8a9fa9de6f36bb363bf2b77d651ccf"
+        "errors": [
+          "SJR: ValueError"
+        ],
+        "normalizedHash": "e61432c915cdaa5fae9d215440a5443dd10c75a3f33603d20e8e6e0f6581fdd2"
       },
       "2002 Q2": {
         "version": 1,
-        "checkedAt": "2026-11-07",
+        "checkedAt": "2026-11-08",
         "source": "https://www.sec.gov/Archives/edgar/data/789920/0000950123-02-007963.txt",
         "filingDate": "2002-08-14",
         "sourceDigest": "9c88a5f6840e2b1d5e8fca34a96a36959aa86203c0d9ba2d89c89cf510716600",
-        "sourceHash": "81790fb891dc56377a2b3a3d182c719093294d8804be64fe386bc3e76c9a8429",
+        "sourceHash": "39afed8bc6900cd63ad20690f147b06dd95751c9dc9b2307eb5bc50059abf213",
         "status": "pending",
         "anchors": [],
-        "errors": [],
-        "normalizedHash": "81790fb891dc56377a2b3a3d182c719093294d8804be64fe386bc3e76c9a8429"
+        "errors": [
+          "SJR: ValueError"
+        ],
+        "normalizedHash": "39afed8bc6900cd63ad20690f147b06dd95751c9dc9b2307eb5bc50059abf213"
       },
       "2002 Q3": {
         "version": 1,
@@ -36769,30 +36757,25 @@
     "instrumentVerification": {
       "pendingQuarters": [],
       "errors": {},
-      "checkedAt": "2026-11-08T02:55:45.790791+00:00"
+      "checkedAt": "2026-11-08T11:30:32.572953+00:00"
     },
     "excludedValueQuarters": [],
     "coverage": {
-      "checkedAt": "2026-11-08T02:55:46Z",
+      "checkedAt": "2026-11-08T11:30:32Z",
       "missingQuarters": [],
       "repairedThisRun": [
-        "2011 Q4",
-        "2012 Q2",
-        "2012 Q3"
+        "2012 Q4",
+        "2013 Q1",
+        "1999 Q1"
       ],
       "errors": {
-        "2012 Q1": "Legacy extraction has no independent completeness evidence",
-        "1999 Q1": "Parser revision could not reproduce the original independent unit proof"
+        "2012 Q1": "Legacy extraction has no independent completeness evidence"
       },
       "attempts": {
-        "2012 Q1": 18,
-        "1999 Q1": 1
+        "2012 Q1": 19
       },
       "pendingRefreshQuarters": [
-        "1999 Q1",
-        "2012 Q1",
-        "2012 Q4",
-        "2013 Q1"
+        "2012 Q1"
       ],
       "expandedLookup": null,
       "status": "continuous_within_stored_range",
@@ -37282,7 +37265,7 @@
     "instrumentHistoryFrom": "1999 Q1",
     "manager": "Brave Warrior Advisors, LLC",
     "costHistoryFrom": "2012 Q1",
-    "lastUpdated": "2026-11-08T02:55:45Z",
+    "lastUpdated": "2026-11-08T11:30:32Z",
     "notablePeople": [
       "Glenn Greenberg"
     ],
