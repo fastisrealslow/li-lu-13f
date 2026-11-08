@@ -53,7 +53,7 @@ def normalized_symbol(ticker):
     return re.sub(r'[./]([AB])$',r'-\1',ticker)
 
 
-def checked_series(result,ticker):
+def checked_series(result,ticker,require_current=True):
     meta=result['meta'];expected=normalized_symbol(ticker)
     if meta.get('symbol','').upper()!=expected.upper() or meta.get('currency')!='USD':
         raise ValueError('Market series identity/currency differs from requested security')
@@ -62,17 +62,23 @@ def checked_series(result,ticker):
     if any(len(values.get(k,[]))!=len(stamps) for k in ['close','low','high']):raise ValueError('Incomplete daily candle columns')
     q={'c':meta.get('regularMarketPrice'),'t':meta.get('regularMarketTime'),'currency':'USD','symbol':meta['symbol'],'verifiedName':meta.get('longName') or meta.get('shortName'),'source':'yahoo_chart','sourceURL':'https://finance.yahoo.com/quote/'+quote(expected,safe='')+'/','fetchedAt':datetime.now(timezone.utc).isoformat()}
     from quote_coverage import valid_quote
-    if not valid_quote(q) or time.time()-q['t']>7*86400:raise ValueError('No current dated trading quote')
+    if not valid_quote(q) and not require_current:
+        last=next(((stamp,close) for stamp,close in reversed(list(zip(stamps,values.get('close',[])))) if type(close) in (int,float) and close>0),None)
+        if last:q.update(t=last[0],c=last[1])
+    if not valid_quote(q):raise ValueError('No dated trading price')
+    if time.time()-q['t']>7*86400:
+        if require_current:raise ValueError('No current dated trading quote')
+        q.update(historyOnly=True,stale=True)
     q['shareActions']=split_events(result)
     return {'timestamps':stamps,'values':values},q
 
 
-def download(ticker,start,root=ROOT,get=None):
+def download(ticker,start,root=ROOT,get=None,history_only=False):
     cache=Path(root)/'.cache/market-series';cache.mkdir(parents=True,exist_ok=True)
     path=cache/(hashlib.sha256((ticker+'|'+str(start)).encode()).hexdigest()+'.json.z')
     if path.exists() and time.time()-path.stat().st_mtime<6*3600:
         try:
-            series,q=checked_series(json.loads(zlib.decompress(path.read_bytes())),ticker)
+            series,q=checked_series(json.loads(zlib.decompress(path.read_bytes())),ticker,require_current=not history_only)
             q['shareActionsSince']=datetime.fromtimestamp(start,timezone.utc).date().isoformat()
             return series,q
         except (ValueError,KeyError,zlib.error,json.JSONDecodeError):pass
@@ -84,12 +90,18 @@ def download(ticker,start,root=ROOT,get=None):
         url=f'https://{host}/v8/finance/chart/{quote(normalized_symbol(ticker),safe="")}?'+urlencode(dict(period1=start,period2=int(time.time())+86400,interval='1d',events='splits'))
         try:
             response=get(url);response.raise_for_status();result=response.json()['chart']['result'][0]
-            series,q=checked_series(result,ticker)
+            series,q=checked_series(result,ticker,require_current=not history_only)
             q['shareActionsSince']=datetime.fromtimestamp(start,timezone.utc).date().isoformat()
             path.write_bytes(zlib.compress(json.dumps(result).encode()))
             return series,q
         except Exception as exc:last=exc
     raise ValueError(str(last))
+
+
+def download_history(ticker,start):
+    # Historical candles remain useful after a delisting; they never become a
+    # fabricated live quote just because their old prices can still be read.
+    return download(ticker,start,history_only=True)
 
 
 def window(ticker,start,end):

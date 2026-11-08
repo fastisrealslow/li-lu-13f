@@ -19,7 +19,9 @@ def warrant_reference(holding, current):
     return None
 
 def load(path):return json.loads(path.read_text())
-def save(path,data):path.write_text(json.dumps(data,ensure_ascii=False,indent=2)+'\n')
+def save(path,data):
+    compact=len(data.get('tradePrices',{}).get('entries',{}))>200
+    path.write_text(json.dumps(data,ensure_ascii=False,indent=None if compact else 2,separators=(',',':') if compact else None)+'\n')
 def symbol(ticker):
     if ticker.endswith('.HK'):return ticker[:-3].lstrip('0').zfill(4)+'.HK'
     return re.sub(r'[/.]([AB])$',r'-\1',ticker)

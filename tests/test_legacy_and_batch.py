@@ -51,6 +51,18 @@ class LegacyAndBatchTests(unittest.TestCase):
         with patch.object(sec,'find_info_table_xml',return_value='/Archives/test.xml'),patch.object(sec,'sec_fetch',return_value=xml):sec.backfill_history_gaps('1',data,[filing])
         self.assertIn('2026 Q1',data['history']['holdings']);self.assertEqual(data['history']['coverage']['missingQuarters'],[])
 
+    def test_old_candles_are_history_only_and_quote_refresh_uses_live_validation(self):
+        result={'meta':{'symbol':'TEST','currency':'USD','regularMarketPrice':10,'regularMarketTime':1000000000},'timestamp':[1000000000],'indicators':{'quote':[{'close':[10],'high':[11],'low':[9]}]}}
+        with self.assertRaises(ValueError):market.checked_series(result,'TEST')
+        series,q=market.checked_series(result,'TEST',require_current=False)
+        self.assertTrue(q['historyOnly']);self.assertEqual(q['t'],1000000000)
+        result['meta']['regularMarketTime']=int(time.time())
+        from unittest.mock import Mock
+        response=Mock();response.json.return_value={'chart':{'result':[result]}}
+        with patch('requests.get',return_value=response):
+            quotes=market.prefetch_quotes(['TEST'])
+        self.assertEqual(quotes['TEST']['c'],10)
+
     def test_batch_history_checks_identity_and_slices_actual_candles_only(self):
         result={'meta':{'symbol':'BRK-B','currency':'USD','regularMarketPrice':100,'regularMarketTime':int(time.time())},'timestamp':[10,20,30],'indicators':{'quote':[{'close':[1,None,3],'high':[2,None,4],'low':[.5,None,2]}]}}
         series,quote=market.checked_series(result,'BRK/B');self.assertEqual(quote['c'],100)

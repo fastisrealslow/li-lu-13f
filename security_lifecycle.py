@@ -54,12 +54,18 @@ def retirement_from_form25(raw,holding,candidate):
     return dict(ticker=holding['ticker'],issuer=name,status='ceased_trading',effectiveDate=signed,reason='交易所已申报该类证券赎回、转换或注销；保留原报告期持仓，不显示虚构现价。',reasonEn='The exchange reported the retirement or replacement of this security class. The original dated position is retained without an invented current quote.',sourceURL=candidate['url'],checkedAt=date.today().isoformat(),issuerCIK=str(candidate['cik']),evidenceType='SEC Form 25-NSE',ruleProvision=rule)
 
 
-def discover_retirements(holdings,since,fetch,limit=8):
+def discover_retirements(holdings,since,fetch,limit=8,until=None):
     """Search SEC quarterly indexes only after quotes and symbol recovery fail."""
     import gzip
     from quote_coverage import issuer_key
-    pending={lifecycle_name(h['name']):h for h in holdings if h.get('cusip') and not h.get('putCall') and h.get('shareType','SH')=='SH' and re.search(r'COM|ORD|CL ',h.get('cls',''),re.I)}
-    start=date.fromisoformat(since);today=date.today();first=start.year*4+(start.month-1)//3;last=today.year*4+(today.month-1)//3
+    grouped={}
+    for h in holdings:
+        if h.get('cusip') and not h.get('putCall') and h.get('shareType','SH')=='SH' and re.search(r'COM|ORD|CL ',h.get('cls',''),re.I):
+            grouped.setdefault(lifecycle_name(h['name']),{})[h['cusip']]=h
+    # Form 25 omits CUSIP. An issuer with several candidate classes cannot be
+    # assigned to an arbitrary historical identifier by name alone.
+    pending={name:next(iter(rows.values())) for name,rows in grouped.items() if len(rows)==1}
+    start=date.fromisoformat(since);today=min(date.today(),date.fromisoformat(until)) if until else date.today();first=start.year*4+(start.month-1)//3;last=today.year*4+(today.month-1)//3
     found={};attempts=0
     for i in range(first,last+1):
         if not pending:break

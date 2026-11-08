@@ -13,6 +13,8 @@ on:
       - "hk_financial_evidence.py"
       - "holdings_diff.py"
       - "fetch_prices_all.py"
+      - "trade_price_history.py"
+      - "historical_security_audit.py"
       - "quote_coverage.py"
       - "security_symbol_recovery.py"
       - "security_symbol_changes.json"
@@ -148,7 +150,10 @@ jobs:
       - name: Resolve unmapped tickers via CUSIP (OpenFIGI)
         id: resolve_cusip
         continue-on-error: true
-        run: python3 resolve_unmapped_tickers.py --active-only
+        run: |
+          python3 resolve_unmapped_tickers.py --active-only
+          python3 resolve_unmapped_tickers.py --history-limit 40
+          python3 historical_security_audit.py
 
       - name: Status - Resolve unmapped tickers
         if: ${{ !cancelled() && steps.init_status.outcome == 'success' }}

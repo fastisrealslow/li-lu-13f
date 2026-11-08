@@ -35,6 +35,22 @@ class BrowserAssetsTests(unittest.TestCase):
         self.assertEqual(result['current']['holdings'][0]['value'],1234567)
         self.assertEqual(result['current']['previousHoldings'][0]['shares'],8)
 
+    def test_trade_archive_is_lazy_and_cached_candles_never_ship_to_browser(self):
+        entry={'ticker':'TEST','cusip':'123456789','averageBuy':11,'averageSell':12,
+               'quarters':[{'quarter':'2026 Q1','buy':10},{'quarter':'2026 Q2','buy':12}],
+               'candles':{'large':'backend cache'},'priceBasis':'hash','checkedAt':'today'}
+        prices={'quotes':{'TEST':{'c':13},'OLD':{'c':2}},
+                'tradePrices':{'version':1,'entries':{'123456789':entry,'old':{**entry,'ticker':'OLD'}}}}
+        before=copy.deepcopy(prices)
+        current=browser.current_prices(prices,{'TEST'})
+        self.assertEqual(set(current['quotes']),{'TEST'})
+        self.assertEqual(len(current['tradePrices']['entries']['123456789']['quarters']),1)
+        full=browser.history_data(fixture(),prices)
+        self.assertEqual(len(full['tradePrices']['entries']['123456789']['quarters']),2)
+        for result in (current,full):
+            self.assertNotIn('candles',result['tradePrices']['entries']['123456789'])
+        self.assertEqual(prices,before)
+
     def test_scope_manager_evidence_and_historical_instruments_are_preserved(self):
         source=fixture();source['meta']['reportingTransition']={'fromQuarter':'2026 Q1'}
         result=browser.current_data(source,{})

@@ -70,7 +70,7 @@ test('quarterly rows and headers refresh for all investors without leaving the t
       assert.match(psus,/新增覆盖/);assert.doesNotMatch(psus,/新进|待比较/);
     }
     for (const h of current.holdings.slice(0,200)) assert.ok(rows.includes(`>${(h.shareType && h.shareType!=='SH'?h.cusip:h.ticker.replace(/^\?/, ''))}</span>`), `${inv.id}: ${h.ticker}`);
-    assert.equal(a.element('chCS').textContent, `${current.quarter} 持股`);
+    assert.equal(a.element('chCS').textContent, '当前价格');
     assert.equal(a.element('tab-changes').classList.contains('d-none'), false);
     assert.equal(a.element('tab-current').classList.contains('d-none'), true);
   }
@@ -213,7 +213,7 @@ test('quarterly comparison includes exits and matches renamed securities without
   assert.equal(a.run('data.current.holdings.length'), 3);
   a.run("lang = 'en'; renderChanges()");
   assert.match(a.element('changesBody').innerHTML, /Exited/);
-  assert.equal(a.element('chCS').textContent, '2026 Q2 Shares');
+  assert.equal(a.element('chCS').textContent, 'Current price');
 });
 
 test('legacy history supplies missing liquidation rows', () => {

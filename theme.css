@@ -409,20 +409,29 @@ tbody tr:hover { background: #f2f5ed; }
 
 .cost-gap small{font-size:.7rem}.cost-gap strong{white-space:normal}
 .cost-method-note{font-size:.72rem;line-height:1.8;margin:8px 0}.cost-method-note summary{cursor:pointer;color:var(--brand-blue)}
-.mobile-change-detail{display:none}
+.trade-price-cell strong{font-variant-numeric:tabular-nums;white-space:nowrap}
+.trade-price-cell small,#tab-changes td>small,.trade-timeline td>small{display:block;color:var(--text-lighter);font-size:.66rem;margin-top:5px;line-height:1.5}
+.trade-source-detail,.trade-price-details{font-size:.68rem;margin-top:8px;color:var(--text-lighter)}
+.trade-source-detail summary,.trade-price-details summary{cursor:pointer;color:var(--brand-blue)}
+.trade-source-detail small{display:block;margin-top:5px}
+.trade-timeline table{width:100%;font-size:.8rem}
+.trade-timeline td{vertical-align:top;white-space:normal}
+.trade-quarter-list{display:grid;gap:8px;min-width:0;margin-top:8px}
+.trade-quarter-list>div{display:grid;gap:4px;border-bottom:1px solid var(--border-light);padding-bottom:6px}
+.security-retired{color:var(--text-lighter);font-size:.72rem}
+#changesAISummary .briefing-compact small{font-size:.65rem;color:var(--text-lighter);margin-left:4px}
 @media(max-width:650px){
- .cost-gap small{font-size:.63rem}
- #tab-changes .table-wrap{overflow:visible}
- #tab-changes table{width:100%;min-width:0;table-layout:fixed}
- #tab-changes th,#tab-changes td{white-space:normal;overflow-wrap:anywhere;padding:12px 5px;font-size:.7rem;vertical-align:top}
- #tab-changes th:nth-child(1){width:25%}
- #tab-changes th:nth-child(2),#tab-changes th:nth-child(5){width:37.5%}
- #tab-changes th:nth-child(3),#tab-changes td:nth-child(3),#tab-changes th:nth-child(4),#tab-changes td:nth-child(4),#tab-changes th:nth-child(6),#tab-changes td:nth-child(6),#tab-changes th:nth-child(7),#tab-changes td:nth-child(7){display:none!important}
- #tab-changes .desktop-change-detail{display:none}
- #tab-changes .mobile-change-detail{display:flex;flex-direction:column;gap:5px;font-variant-numeric:tabular-nums}
- #tab-changes .mobile-change-detail small{font-size:.6rem;color:var(--text-lighter)}
- #tab-changes .stock-cell{min-width:0!important;max-width:none;width:auto!important}
- #tab-changes .name-line{font-size:.65rem;white-space:normal}
+ #tab-changes .table-wrap,.trade-timeline{overflow:visible}
+ #tab-changes table,.trade-timeline table{display:block;width:100%;min-width:0}
+ #tab-changes thead,.trade-timeline thead{display:none}
+ #tab-changes tbody,.trade-timeline tbody{display:grid;gap:12px}
+ #tab-changes tbody tr,.trade-timeline tbody tr{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));border:1px solid var(--border-light);border-radius:8px;padding:8px;background:var(--white)}
+ #tab-changes td,.trade-timeline td{display:block!important;min-width:0;width:auto!important;border:0;white-space:normal;overflow-wrap:anywhere;padding:8px;font-size:.76rem}
+ #tab-changes td:first-child{max-width:none}.trade-timeline td:first-child{grid-column:1/-1;max-width:none}
+ #tab-changes td[data-label]::before,.trade-timeline td[data-label]::before{content:attr(data-label);display:block;color:var(--text-lighter);font-size:.65rem;margin-bottom:5px}
+ #tab-changes td:nth-child(2){text-align:right}
+ #tab-changes .stock-cell,.trade-timeline .stock-cell{min-width:0!important;max-width:none}
+ #tab-changes .name-line,.trade-timeline .name-line{white-space:normal}
 }
 
 /* Keep each portfolio summary centered within its own cell. */

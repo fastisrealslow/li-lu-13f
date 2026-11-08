@@ -48,3 +48,19 @@ test('option references are underlying nominal prices, with no invented premium 
  a.run('h.shareType="CONTRACTS"');assert.equal(a.run('optionNotionalReference(h)'),null);
  a.run('h.shareType="SH";data.current.valueQuality={}');assert.equal(a.run('optionNotionalReference(h)'),null);
 });
+
+test('trade estimates bind to the security class and quarter, with no invented option premium',()=>{
+ const a=app();a.run(`data={current:{quarter:'2026 Q2',holdings:[]},history:{}};prices={tradePrices:{entries:{id:{cusip:'id',ticker:'TEST',quarters:[{quarter:'2026 Q2',action:'trimmed',sell:125,averageCost:80}]}}},quotes:{TEST:{c:100,t:Date.now()/1000}}};var h={ticker:'TEST',cusip:'id',shares:5,prevShares:10,value:500};`);
+ assert.match(a.run('tradePriceCells(h).sell'),/125.00/);
+ assert.match(a.run('tradePriceCells(h).average'),/80.00/);
+ assert.match(a.run('tradePriceCells(h).buy'),/未披露净买卖/);
+ assert.equal(a.run('tradePriceEntry({...h,cusip:"other"})'),null);
+ assert.equal(a.run('tradePriceEntry({...h,putCall:"Put"})'),null);
+ a.run("data.current.quarter='2026 Q3'");assert.doesNotMatch(a.run('tradePriceCells(h).sell'),/125.00/);
+});
+test('confirmed retirements are concise and cannot leak to another class or future date',()=>{
+ const a=app();a.run(`data={current:{holdings:[]}};prices={securityEvents:{id:{ticker:'OLD',status:'ceased_trading',effectiveDate:'2020-01-01'}}};var h={ticker:'OLD',cusip:'id'};`);
+ assert.match(a.run('fmtTicker(h.ticker,h)'),/退市/);assert.match(a.run('tradeQuoteHTML(h)'),/退市/);
+ assert.doesNotMatch(a.run('fmtTicker(h.ticker,{...h,cusip:"other"})'),/退市/);
+ a.run("prices.securityEvents.id.effectiveDate='2099-01-01'");assert.equal(a.run('securityLifecycle(h)'),null);
+});

@@ -104,6 +104,10 @@ def current_prices(prices, tickers=None):
     result = copy.deepcopy(prices)
     result.pop('exitPerf', None)
     result.pop('sourceHistoryFingerprint', None)
+    if result.get('tradePrices'):
+        result['tradePrices']['entries'] = {k: {field: value for field, value in e.items() if field not in ('candles','priceBasis','checkedAt')} for k,e in result['tradePrices'].get('entries', {}).items() if tickers is None or e.get('ticker') in tickers}
+        for e in result['tradePrices']['entries'].values():
+            e['quarters'] = e.get('quarters', [])[-1:]
     if tickers is not None:
         result['quotes'] = {k:v for k,v in result.get('quotes', {}).items() if k in tickers}
         result['costBasis'] = {k:v for k,v in result.get('costBasis', {}).items() if k in tickers}
@@ -121,7 +125,10 @@ def history_data(data, prices):
     managers = bool(data.get('meta', {}).get('reportingTransition'))
     history['holdings'] = {quarter: [compact_row(row, managers) for row in rows]
         for quarter, rows in history.get('holdings', {}).items()}
-    return {'version': 1, 'history': history, 'exitPerf': prices.get('exitPerf', {})}
+    tickers = {h['ticker'] for rows in history.get('holdings', {}).values() for h in rows}
+    trade = {'version': 1, 'entries': {k: {field: value for field,value in e.items() if field not in ('candles','priceBasis','checkedAt')} for k,e in prices.get('tradePrices', {}).get('entries', {}).items() if e.get('ticker') in tickers}}
+    return {'version': 1, 'history': history, 'exitPerf': prices.get('exitPerf', {}),
+            'tradePrices': trade, 'quotes': {k:v for k,v in prices.get('quotes', {}).items() if k in tickers}}
 
 
 def build(root=ROOT, output=None):
@@ -145,6 +152,10 @@ def build(root=ROOT, output=None):
         ident = person['id']
         data, prices = read(root / person['dataFile']), read(root / person['pricesFile'])
         prices = project_prices(data, prices)
+        from security_lifecycle import events
+        ids = {h.get('cusip') for rows in data.get('history', {}).get('holdings', {}).values() for h in rows}
+        ids.update(h.get('cusip') for h in data.get('current', {}).get('holdings', []))
+        prices['securityEvents'] = {k:v for k,v in events(root).items() if k in ids}
         data = display_data(project_identities(data), person.get('browserHoldingLimit'))
         from historical_labels import apply as apply_historical_labels
         apply_historical_labels(data)
@@ -172,7 +183,7 @@ def build(root=ROOT, output=None):
         history = asset(ident, 'history', {**history_data(data, prices), 'investor': ident})
         hk = read(root / person['hkFile']) if person.get('hkFile') and (root / person['hkFile']).exists() else None
         snapshot = asset(ident, 'current', {'version': 1, 'investor': ident,
-            'data': overview, 'prices': current_prices(prices, tickers), 'hk': hk,
+            'data': overview, 'prices': current_prices(prices, {h['ticker'] for h in [*data['current']['holdings'], *data['current'].get('previousHoldings',data.get('history',{}).get('holdings',{}).get(data['current'].get('prevQuarter'),[]))]}), 'hk': hk,
             'insights': {'schemaVersion': 2, 'entries': entries}, 'history': history})
         manifest['investors'][ident] = {'snapshot': snapshot, 'history': history}
     (output / 'manifest.json').write_bytes(encoded(manifest))

@@ -231,6 +231,12 @@ def main():
     resolved_map = load_resolved_map()
     from fetch_13f_all import CUSIP_TICKER_MAP
     resolved_map.update(CUSIP_TICKER_MAP)
+    from historical_security_audit import read_state, write_state
+    audit_state = read_state(BASE)
+    for cusip,event in audit_state.get('events',{}).items():
+        if not event['ticker'].startswith('?'):resolved_map.setdefault(cusip,event['ticker'])
+        elif cusip in resolved_map:event['ticker']=resolved_map[cusip]
+    if not dry_run:write_state(BASE,audit_state)
     print(f"已缓存的 CUSIP 映射: {len(resolved_map)} 条")
 
     if not dry_run:
@@ -250,19 +256,32 @@ def main():
         print("(--dry-run) 跳过 OpenFIGI 调用和文件写入。")
         return
 
+    if '--history-limit' in sys.argv:
+        limit=int(sys.argv[sys.argv.index('--history-limit')+1])
+        attempts=audit_state.setdefault('historyAudit',{}).setdefault('symbolAttempts',{})
+        unresolved_counts=dict(sorted(unresolved_counts.items(),key=lambda item:(attempts.get(item[0],''),-item[1],item[0]))[:max(0,limit)])
     print("调用 OpenFIGI 批量解析...")
     newly_resolved = resolve_via_openfigi(unresolved_counts.keys())
+    if '--history-limit' in sys.argv:
+        from datetime import datetime, timezone
+        stamp=datetime.now(timezone.utc).isoformat()
+        audit_state['historyAudit']['symbolAttempts'].update({c:stamp for c in unresolved_counts})
+        write_state(BASE,audit_state)
     print(f"本次新解析成功: {len(newly_resolved)}/{len(unresolved_counts)}")
 
     if newly_resolved:
         resolved_map.update(newly_resolved)
+        for cusip,ticker in newly_resolved.items():
+            event=audit_state.get('events',{}).get(cusip)
+            if event and event['ticker'].startswith('?'):event['ticker']=ticker
+        write_state(BASE,audit_state)
         save_resolved_map(resolved_map)
         print(f"已写入 {RESOLVED_MAP_PATH}（累计 {len(resolved_map)} 条）")
 
         files_changed, records_fixed = backfill_data_files(data_files, resolved_map)
         print(f"回填完成：{files_changed} 个文件被修改，{records_fixed} 条记录的 ticker 被修正")
     else:
-        print("本次没有新增可用映射（剩余均为 OpenFIGI 也查不到的历史/退市证券，属预期情况）")
+        print("本轮未取得可确认映射；保留原证券标识，后续继续核对，未据此推断退市")
 
 
 if __name__ == "__main__":

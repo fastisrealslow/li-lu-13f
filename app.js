@@ -488,7 +488,7 @@ async function ensureInvestorHistory() {
   const promise=(async()=>{try{
     const value=await globalThis.InvestorSnapshots.history(snapshot.browserProjection.historyAsset,{signal:controller.signal});
     if(requestId!==investorRequestId||data!==snapshot)return;
-    data.history={...value.history,costReferenceProofs:snapshot.history.costReferenceProofs};prices.exitPerf=value.exitPerf;data.browserProjection.historyLoaded=true;
+    data.history={...value.history,costReferenceProofs:snapshot.history.costReferenceProofs};prices.exitPerf=value.exitPerf; if(value.tradePrices)prices.tradePrices=value.tradePrices; prices.quotes={...(value.quotes||{}),...(prices.quotes||{})}; data.browserProjection.historyLoaded=true;
     delete _renderedInvestorViews.history;if(_activeInvestorTab==='history')renderActiveInvestorView();
   }catch(error){if(requestId!==investorRequestId||data!==snapshot||controller.signal.aborted&&_activeInvestorTab!=='history')return;
     const file=snapshot.browserProjection.historyAsset.file;
@@ -613,6 +613,7 @@ async function loadPrices(pf, requestId = investorRequestId, {signal, stamp = Ma
 
 function fmtTicker(tk, holding = null) {
   if(holding?.shareType && holding.shareType!=='SH') return `<span class="ticker" title="CUSIP">${hkEscape(holding.cusip || tk)}</span>`;
+  if(holding && securityLifecycle(holding))return `<span class="ticker">${hkEscape(tk?.startsWith('?')?(holding.cusip || ''):tk)}</span> <span class="security-retired">${lang==='en'?'Delisted':'退市'}</span>`;
   // Handle unmapped tickers (prefixed with ? in fetch_13f.py)
   const unmapped = tk && tk.startsWith('?');
   const display = unmapped ? (holding?.cusip ? 'CUSIP '+holding.cusip : (lang==='en'?'Ticker unavailable':'证券代码未匹配')) : tk;
@@ -1009,7 +1010,7 @@ function renderHoldings() {
     const quoteOK = q && !q.error && Number.isFinite(q.c) && q.c > 0;
     const quoteStale = !!q && (q.stale || !Number.isFinite(q.t) || Date.now()-q.t*1000>7*86400000 || q.t*1000>Date.now()+600000);
     const currentPrice = quoteOK && !quoteStale ? q.c : null;
-    const reason = cb ? null : costState.reason==='archive' && data.meta?.snapshotType==='verified_disclosure_snapshot'?(lang==='en'?'Transaction cost undisclosed':'未披露成交成本'):costUnavailableText(costState.reason);
+    const reason = cb ? null : securityLifecycle(h)?(lang==='en'?'Historical estimate unavailable':'历史估价暂缺'):costState.reason==='archive' && data.meta?.snapshotType==='verified_disclosure_snapshot'?(lang==='en'?'Transaction cost undisclosed':'未披露成交成本'):costUnavailableText(costState.reason);
     const mos = cb ? costGap(currentPrice, cb.recent.buy) : null;
     if(mos!==null) shownGaps.push(mos);
     if(!visibleRows.has(i))return '';
@@ -1017,9 +1018,9 @@ function renderHoldings() {
     const weightText=d.valueQuality?'—':pct+'%';
     const amountText=d.valueQuality?(lang==='en'?'Value unverified':'金额待核实'):currSymbol(h.ticker)+h.value.toLocaleString();
     const quoteDate = quoteDateText(q,h.ticker);
-    const lifecycle=q?.status==='ceased_trading' ? q.event : null;
+    const lifecycle=securityLifecycle(h);
     const filedReference=q?.status==='filing_reference' && q.cusip===h.cusip && Number.isFinite(q.filedUnitValue) && q.filedUnitValue>=0 ? q : null;
-    const priceHtml = filedReference ? `<span class="current-price">${currSymbol(h.ticker)}${filedReference.filedUnitValue.toFixed(2)}</span><small class="quote-date">${hkEscape(filedReference.asOf)}</small><small class="option-field-note">${lang==='en'?'Filed warrant unit value · not a current quote':'权证申报单价 · 非现价'}</small>` : lifecycle ? `<span class="estimate-unavailable">${lang==='en'?'No longer trading':'已停止交易'}</span><small class="quote-date">${hkEscape(lifecycle.effectiveDate)}</small><small class="option-field-note"><a href="${hkEscape(lifecycle.sourceURL)}" target="_blank" rel="noopener noreferrer">${lang==='en'?'Issuer confirmation':'公司公告'}</a></small>` : quoteOK
+    const priceHtml = filedReference ? `<span class="current-price">${currSymbol(h.ticker)}${filedReference.filedUnitValue.toFixed(2)}</span><small class="quote-date">${hkEscape(filedReference.asOf)}</small><small class="option-field-note">${lang==='en'?'Filed warrant unit value · not a current quote':'权证申报单价 · 非现价'}</small>` : lifecycle ? `<span class="estimate-unavailable">${lang==='en'?'Delisted':'退市'}</span><small class="quote-date">${hkEscape(lifecycle.effectiveDate)}</small><small class="option-field-note"><a href="${hkEscape(lifecycle.sourceURL)}" target="_blank" rel="noopener noreferrer">${lang==='en'?'Issuer confirmation':'公司公告'}</a></small>` : quoteOK
       ? `<span class="current-price">${currSymbol(h.ticker)}${q.c.toFixed(2)}</span>${quoteDate?`<small class="quote-date">${quoteDate}</small>`:''}${h.putCall?`<small class="option-field-note">${lang==='en'?'Underlying stock price':'标的股价'}</small>`:''}${q.successorRatio===1&&/^https:\/\/www\.sec\.gov\/Archives\//.test(q.successorSource||'')?`<small class="quote-date"><a href="${hkEscape(q.successorSource)}" target="_blank" rel="noopener noreferrer">${lang==='en'?'1:1 successor quote':'1:1 换股后报价'}</a></small>`:''}${quoteStale ? `<small class="quote-stale">${lang==='en'?'Last saved quote':'上次成功报价'}</small>` : ''}`
       : `<span class="estimate-unavailable">${h.shareType && h.shareType!=='SH' ? (lang==='en'?'Principal security · no stock quote':'本金类证券 · 不适用股价') : (lang === 'en' ? 'Quote unavailable' : '暂无报价')}</span>`;
     const mosHtml = h.putCall ? '<span class="estimate-unavailable">—</span>' : costGapHTML(mos, reason, lang==='en', cb?.recent?.kind);
@@ -1296,34 +1297,76 @@ function costSpanText(at) {
   return `${span?(lang==='en'?`${span} quarters · `:`覆盖${span}个季度 · `):''}${hkEscape(at.first || '')}–${hkEscape(at.last || '')}${count}`;
 }
 
+function tradePriceEntry(h) {
+  if(h.putCall || (h.shareType && h.shareType!=='SH') || /WARRANT|\bUNIT\b|\bW EXP/i.test(h.cls||''))return null;
+  const entry=prices?.tradePrices?.entries?.[h.cusip || h.ticker];
+  return entry && entry.ticker===h.ticker && (!h.cusip || entry.cusip===h.cusip)?entry:null;
+}
+function securityLifecycle(h) {
+  const e=prices?.securityEvents?.[h.cusip] || tradePriceEntry(h)?.lifecycle || ((data?.current?.holdings || []).some(r=>r.cusip && r.cusip===h.cusip)?prices?.quotes?.[h.ticker]?.event:null);
+  return e?.status==='ceased_trading' && e.ticker===h.ticker && e.effectiveDate<=new Date().toISOString().slice(0,10)?e:null;
+}
+function tradeQuoteHTML(h) {
+  const en=lang==='en',event=securityLifecycle(h),q=prices?.quotes?.[h.ticker];
+  if(event)return `<strong class="security-retired">${en?'Delisted':'退市'}</strong><small>${hkEscape(event.effectiveDate)}</small>`;
+  if(h.shareType && h.shareType!=='SH')return en?'Not applicable':'不适用';
+  if(!q || q.error || q.status==='filing_reference' || !Number.isFinite(q.c) || q.c<=0)return '—';
+  const date=quoteDateText(q,h.ticker),stale=q.stale || !date || Date.now()-q.t*1000>7*86400000;
+  return `<strong>${currSymbol(h.ticker)}${q.c.toFixed(2)}</strong><small>${hkEscape(date)}${stale?(en?' · Last quote':' · 上次报价'):''}${h.putCall?(en?' · Underlying':' · 标的股价'):''}</small>`;
+}
+function estimatePriceHTML(value,h,note='') {
+  return Number.isFinite(value) && value>0?`<strong>${currSymbol(h.ticker)}${value.toFixed(2)}</strong>${note?`<small>${hkEscape(note)}</small>`:''}`:`<span class="estimate-unavailable">—</span>${note?`<small>${hkEscape(note)}</small>`:''}`;
+}
+function tradePriceCells(h) {
+  const en=lang==='en',entry=tradePriceEntry(h),quarter=data.current?.quarter;
+  const trade=entry?.quarters?.find(r=>r.quarter===quarter);
+  const state=data.current && !h.exited?holdingCostState(h):null;
+  const average=h.scopeEntry?null:(trade?.averageCost ?? trade?.costBeforeSale ?? state?.basis?.allTime?.avg);
+  const category=changeCategory(h),noTrade=en?'No disclosed net trade':'本季未披露净买卖';
+  const buy=trade?trade.buy:(['new','added'].includes(category) && state?.basis?.recent?.quarter===quarter && ['yahoo','yfinance'].includes(state.basis.recent.source)?state.basis.recent.buy:null);
+  const buyNote=trade?.action==='observed'?(en?'First observed position reference':'首次披露持仓参考'):['new','added'].includes(category)?quarter:(h.putCall?(en?'Premium undisclosed':'权利金未披露'):noTrade);
+  const sellNote=['trimmed','exited'].includes(category)?(trade?.sell?quarter:(en?'Historical prices unavailable':'历史行情待补齐')):h.putCall?(en?'Premium undisclosed':'权利金未披露'):noTrade;
+  return {current:tradeQuoteHTML(h),average:estimatePriceHTML(average,h,en?'Estimated holding cost':'估算持仓均价'),
+    buy:estimatePriceHTML(buy,h,buyNote),sell:estimatePriceHTML(trade?.sell,h,sellNote)};
+}
 function renderChanges() {
   if (globalThis.window?.PublicPortfolio?.render('changes',{data,lang,config:INVESTOR_CFG_BY_ID[investor]})) return;
-  const d = data.current, en = lang === 'en';
-  if (!comparableQuarter()) { document.getElementById('changesBody').innerHTML = `<tr><td colspan="7">${comparisonNotice()}</td></tr>`; return; }
-  const pq = d.prevQuarter || (en ? 'Previous' : '上季');
-  const cq = d.quarter || (en ? 'Current' : '本季');
-  const valueVerified=!d.valueQuality && !data.history?.excludedValueQuarters?.includes(d.prevQuarter);
-  document.getElementById('chPS').innerHTML = `<span class="desktop-change-detail">${hkEscape(pq)} ${en?'Shares':'持股'}</span><span class="mobile-change-detail">${en?'Shares: previous → current':'股数：上季 → 本季'}</span>`;
-  document.getElementById('chCS').textContent = cq + (en ? ' Shares' : ' 持股');
-  document.getElementById('chPV').innerHTML = `<span class="desktop-change-detail">${hkEscape(pq)} ${en?'Value':'市值'}</span><span class="mobile-change-detail">${en?'Value: previous → current':'市值：上季 → 本季'}</span>`;
-  document.getElementById('chCV').textContent = cq + (en ? ' Value' : ' 市值');
-  const changeRows=quarterlyHoldings(),visibleRows=portfolioVisibleIndexes('changes',changeRows);
-  document.getElementById('changesBody').innerHTML = changeRows.filter((h,i)=>visibleRows.has(i)).map(h => {
-    const vd = h.value - h.prevValue;
-    const vc = !valueVerified?'qoq-flat':h.prevValue === 0 ? 'qoq-new' : (vd > 0 ? 'qoq-up' : (vd < 0 ? 'qoq-down' : 'qoq-flat'));
-    const vs = vd > 0 ? '+' : vd < 0 ? '-' : '';
-    const symbol = currSymbol(h.ticker);
-    const exited = h.exited ? `<span class="qoq-down"> · ${en ? 'Exited' : '清仓'}</span>` : '';
-    const splitNote = h.shareAdjustment ? `<div style="font-size:.65rem;color:var(--text-lighter);">${en ? 'Split adjusted; reported ' : '拆股后可比；原申报 '}${h.shareAdjustment.reportedShares.toLocaleString('en-US')} · ×${h.shareAdjustment.factor}</div>` : '';
-    const shareChange=h.scopeEntry?`<span class="qoq-flat">${en?'New coverage':'新增覆盖'}</span>`:fmtShareChg(h.shares,h.prevShares);
-    const sharePrevious=h.prevShares==null?'—':h.prevShares.toLocaleString('en-US');
-    const valuePrevious=!valueVerified || h.prevValue==null?'—':symbol+fmtVal(h.prevValue);
-    const valueCurrent=valueVerified?symbol+fmtVal(h.value):(en?'Value unverified':'金额待核实');
-    const valueChange=!valueVerified?'—':h.prevValue==null?(comparisonState()==='scope_partial'?(en?'New coverage':'新增覆盖'):(en?'Unverified':'待比较')):h.prevValue===0?(en?'New':'新进'):`${vs}${symbol}${fmtVal(Math.abs(vd))} (${fmtPct(h.value,h.prevValue)})`;
-    const mobileShares=`<div class="mobile-change-detail"><small>${hkEscape(pq)} → ${hkEscape(cq)}</small><span>${sharePrevious} → ${h.shares.toLocaleString('en-US')}</span><div>${shareChange}</div>${splitNote}</div>`;
-    const mobileValues=`<div class="mobile-change-detail"><small>${hkEscape(pq)} → ${hkEscape(cq)}</small><span>${valuePrevious} → ${valueCurrent}</span><div class="${vc}">${valueChange}</div></div>`;
-    return `<tr><td class="stock-cell"><span class="ticker-line">${fmtTicker(h.ticker,h)}${exited}</span>${instrumentTag(h)}<span class="name-line">${hkEscape(cn(h.name, h))}</span><span class="sector-badge">${ts(h.sector)}</span></td><td class="change-shares"><span class="desktop-change-detail">${h.prevShares===0?'-':(h.prevShares==null?'—':h.prevShares.toLocaleString('en-US'))}${splitNote}</span>${mobileShares}</td><td>${h.shares.toLocaleString('en-US')}</td><td>${shareChange}</td><td class="change-values"><span class="desktop-change-detail">${!valueVerified || h.prevValue==null?'—':h.prevValue===0?'-':symbol+fmtVal(h.prevValue)}</span>${mobileValues}</td><td>${valueCurrent}</td><td class="${vc}">${valueChange}</td></tr>`;
+  const d=data.current,en=lang==='en';
+  if(!comparableQuarter()){document.getElementById('changesBody').innerHTML=`<tr><td colspan="6">${comparisonNotice()}</td></tr>`;return;}
+  const labels=en?['Quarterly change','Current price','Holding cost (est.)','Quarter buy (est.)','Quarter sale (est.)']:['本季变化','当前价格','持仓均价（估）','本季买入均价（估）','本季卖出均价（估）'];
+  ['chPS','chCS','chPV','chCV','chSell'].forEach((id,i)=>{const el=document.getElementById(id);if(el)el.textContent=labels[i];});
+  const rows=quarterlyHoldings(),visible=portfolioVisibleIndexes('changes',rows);
+  document.getElementById('changesBody').innerHTML=rows.filter((h,i)=>visible.has(i)).map(h=>{
+    const cells=tradePriceCells(h),symbol=currSymbol(h.ticker),verified=!d.valueQuality&&!data.history?.excludedValueQuarters?.includes(d.prevQuarter);
+    const details=`${h.prevShares==null?'—':h.prevShares.toLocaleString('en-US')} → ${h.shares.toLocaleString('en-US')} ${en?'shares':'股'}<br>${h.scopeEntry?(en?'New coverage':'新增覆盖'):fmtShareChg(h.shares,h.prevShares)}${h.shareAdjustment?`<small>${en?'Filed before split':'拆股前申报'} ${h.shareAdjustment.reportedShares.toLocaleString('en-US')}</small>`:''}${verified&&h.prevValue!=null?`<small>${symbol}${fmtVal(h.prevValue)} → ${symbol}${fmtVal(h.value)} · ${h.value-h.prevValue<0?'-':'+'}${symbol}${fmtVal(Math.abs(h.value-h.prevValue))}</small>`:`<small>${en?'Filed value unverified':'金额待核实'}</small>`}`;
+    return `<tr><td class="stock-cell"><span class="ticker-line">${fmtTicker(h.ticker,h)}</span>${instrumentTag(h)}<span class="name-line">${hkEscape(cn(h.name,h))}</span><span class="sector-badge">${hkEscape(ts(h.sector))}</span></td>
+      <td data-label="${labels[0]}"><strong>${hkEscape(changeText(h,en))}</strong><small>${hkEscape(d.quarter)}</small><details class="trade-source-detail"><summary>${en?'Filed figures':'申报数字'}</summary>${details}</details></td>
+      ${['current','average','buy','sell'].map((k,i)=>`<td data-label="${labels[i+1]}" class="trade-price-cell">${cells[k]}</td>`).join('')}</tr>`;
   }).join('');
+  const method=document.getElementById('tradePriceMethod');
+  if(method)method.innerHTML=`<details class="cost-method-note"><summary>${en?'Estimate calculation':'估算方法'}</summary><p>${en?'Buy = quarter low × 70% + mean daily close × 30%; sale = quarter high × 70% + mean daily close × 30%. Holding cost uses added-share weights; reductions retain the remaining cost. Historical averages weight each estimated trade by its net share change.':'买入＝季度最低价×70%＋日收盘均价×30%；卖出＝季度最高价×70%＋日收盘均价×30%。持仓均价按新增股数加权，减仓不改变剩余持仓均价；历史买卖均价按各季净增减股数加权。'}</p><p>${en?'Estimates describe quarterly net changes, not actual executions or future price targets. An exit requires the next consecutive complete report; missing reports do not establish a sale.':'这里估算的是季度净变化对应的价格，不是真实成交价或未来目标价。清仓使用下一份连续完整申报确认不再持有的季度，缺报不当作卖出。最早可见季度已持有的部分，用该季价格作初始参考，不代表真实建仓时间。'}</p></details>`;
+}
+function quarterPriceInsightHTML() {
+  if(!comparableQuarter() || !prices?.tradePrices)return '';
+  const en=lang==='en',rows=quarterlyHoldings().filter(h=>['new','added','trimmed','exited'].includes(changeCategory(h)) && tradePriceEntry(h));
+  rows.sort((a,b)=>Math.max(b.value||0,b.prevValue||0)-Math.max(a.value||0,a.prevValue||0));
+  if(!rows.length)return '';
+  const selected=['new','added','trimmed','exited'].map(k=>rows.find(h=>changeCategory(h)===k)).filter(Boolean);
+  selected.push(...rows.filter(h=>!selected.includes(h)).slice(0,Math.max(0,5-selected.length)));
+  return `<div class="briefing-compact"><h4>${en?'Quarterly price references':'本季交易价格参考'}</h4>${selected.map(h=>{
+    const cells=tradePriceCells(h),sale=['trimmed','exited'].includes(changeCategory(h));
+    const trade=tradePriceEntry(h)?.quarters?.find(r=>r.quarter===data.current.quarter),reference=sale?trade?.sell:trade?.buy,q=prices?.quotes?.[h.ticker];
+    const delta=reference>0&&q?.c>0&&!q.stale&&q.t&&Date.now()-q.t*1000<7*86400000?(q.c/reference-1)*100:null;
+    const comparison=delta===null?'':en?`Current price is ${Math.abs(delta).toFixed(1)}% ${delta>=0?'above':'below'} the quarter's ${sale?'sale':'buy'} estimate.`:`现价较本季${sale?'卖出':'买入'}估价${delta>=0?'高':'低'} ${Math.abs(delta).toFixed(1)}%。`;
+    return `<p><strong>${hkEscape(cn(h.name,h))} · ${hkEscape(changeText(h,en))}</strong><br>${en?'Current':'现价'} ${cells.current} · ${sale?(en?'Sale estimate':'估算卖出均价'):(en?'Buy estimate':'估算买入均价')} ${sale?cells.sell:cells.buy} · ${cells.average}${comparison?`<br><small>${comparison}</small>`:''}</p>`;
+  }).join('')}</div>`;
+}
+function renderTradePriceDetails(el,encodedKey) {
+  if(!el.open || el.dataset.loaded)return;
+  const entry=prices?.tradePrices?.entries?.[decodeURIComponent(encodedKey)];if(!entry)return;
+  el.dataset.loaded='1';const en=lang==='en';
+  const actions=en?{observed:'First observed',new:'New',added:'Added',trimmed:'Reduced',exited:'Exited',hold:'Unchanged'}:{observed:'首次披露参考',new:'建仓',added:'增持',trimmed:'减持',exited:'清仓',hold:'不变'};
+  el.insertAdjacentHTML('beforeend',`<div class="trade-quarter-list">${entry.quarters.filter(r=>r.action!=='hold').map(r=>`<div><strong>${hkEscape(r.quarter)} · ${actions[r.action]||''}</strong><span>${en?'Buy':'买入'} ${estimatePriceHTML(r.buy,entry)} · ${en?'Sale':'卖出'} ${estimatePriceHTML(r.sell,entry)}</span>${r.priceEvidence?.days?`<small>${en?'Low / mean / high':'最低 / 均价 / 最高'}：${[r.priceEvidence.low,r.priceEvidence.mean,r.priceEvidence.high].map(v=>Number.isFinite(v)?v.toFixed(2):'—').join(' / ')} · ${r.priceEvidence.days} ${en?'trading days':'个交易日'}</small>`:''}</div>`).join('')}</div>`);
 }
 
 // AI artifacts load independently; holdings and prices never wait for a model.
@@ -1526,7 +1569,7 @@ function renderInsights(only=null) {
   const aiSummary = comparableQuarter() ? (localAI ? investorSummary(data,localAI.selection.factIds,summaryName) : aiInvestorFallback(data)) : comparisonNotice();
   const quarterText=aiSummary?.split(lang==='en'?'Highlights (partial list): ':'重点（非完整名单）：').at(-1) || comparisonNotice();
   const summary=document.getElementById('changesAISummary');
-  if(summary) summary.innerHTML=scopePanelHTML('changes',[quarterText],localAI);
+  if(summary) summary.innerHTML=quarterPriceInsightHTML() || scopePanelHTML('changes',[quarterText],localAI);
   if(!only){renderScopedInsight('holdings');renderScopedInsight('history');}
   const en=lang==='en', facts=portfolioFacts(data,summaryName);
   if(!comparableQuarter()) ins.push(aiEscape(comparisonNotice()));
@@ -1975,7 +2018,7 @@ async function renderTimelineTable() {
     })
     .sort((a, b) => a.first.localeCompare(b.first));
 
-  let html = '<div class="table-wrap tl-table-wrap"><table style="width:100%;font-size:.82rem;table-layout:fixed;"><colgroup><col style="width:38%"><col style="width:18%"><col style="width:18%"><col style="width:26%"></colgroup><thead><tr><th>'+t('thCompany')+'</th><th>'+t('thFirst')+'</th><th>'+t('thLast')+'</th><th>'+t('thStatus')+'</th></tr></thead><tbody>';
+  let html = '<div class="table-wrap tl-table-wrap trade-timeline"><table><thead><tr><th>'+t('thCompany')+'</th><th>'+(isEn?'Current price':'当前价格')+'</th><th>'+(isEn?'Historical buy (est.)':'历史买入均价（估）')+'</th><th>'+(isEn?'Historical sale (est.)':'历史卖出均价（估）')+'</th><th>'+t('thStatus')+'</th></tr></thead><tbody>';
   const pageKey=investor+'|'+lang+'|'+latest;
   if(timelinePageKey!==pageKey){timelinePageKey=pageKey;timelineLimit=200;}
   const visible=entries.length>200 ? [...entries].sort((a,b)=>Number(b.active)-Number(a.active)||a.first.localeCompare(b.first)).slice(0,timelineLimit) : entries;
@@ -2001,16 +2044,20 @@ async function renderTimelineTable() {
       }
       status+=`<details class="tl-gap-detail"><summary>◐ ${isEn?`Reappeared after absence · ${e.gaps.length} quarters`:`曾缺席后再披露 · 共 ${e.gaps.length} 季`}</summary>${intervals.map(g=>`<small>${hkEscape(g.start)}${g.end!==g.start?'–'+hkEscape(g.end):''} ${isEn?'absent':'未披露'} → ${hkEscape(g.again)} ${isEn?'reported again':'再次披露'}</small>`).join('')}</details>`;
     }
+    const ledger=tradePriceEntry(e),retired=securityLifecycle(e);
+    if(retired)status=`<span class="security-retired">${isEn?'Delisted':'退市'}</span><small>${hkEscape(retired.effectiveDate)}</small>`;
+    const priceDetails=ledger?.quarters?.length?`<details class="trade-price-details" ontoggle="renderTradePriceDetails(this,'${encodeURIComponent(e.cusip || e.ticker).replace(/'/g,'%27')}')"><summary>${isEn?'Quarterly estimates':'历季估价'}</summary></details>`:'';
     html += `<tr>
       <td class="stock-cell"><span class="ticker-line">${fmtTicker(e.ticker,e)}</span>${instrumentTag(e)}<span class="name-line">${hkEscape(cn(e.name, e))}</span><span class="sector-badge">${hkEscape(isEn?(e.sectorEn||ts(e.sector)):e.sector||'行业未分类')}</span><span style="display:block;font-size:.65rem;color:var(--text-lighter);margin-top:2px;">${e.qCount} ${isEn?'quarters':'季'}</span>${e.unknown.length?`<small class="data-quality-note">${isEn?'Missing reports (unknown)':'缺报（未知）'}: ${e.unknown.join(', ')}</small>`:''}</td>
-      <td style="white-space:nowrap">${hkEscape(e.first)}</td>
-      <td style="white-space:nowrap">${hkEscape(e.last)}</td>
-      <td>${status}<div style="margin-top:4px">${e.shareInfo}</div></td>
+      <td class="trade-price-cell" data-label="${isEn?'Current price':'当前价格'}">${tradeQuoteHTML(e)}</td>
+      <td class="trade-price-cell" data-label="${isEn?'Historical buy (est.)':'历史买入均价（估）'}">${estimatePriceHTML(ledger?.averageBuy,e,ledger?.missingBuyQuarters?(isEn?'Price history incomplete':'历史行情待补齐'):'')}${priceDetails}</td>
+      <td class="trade-price-cell" data-label="${isEn?'Historical sale (est.)':'历史卖出均价（估）'}">${estimatePriceHTML(ledger?.averageSell,e,ledger?.missingSellQuarters?(isEn?'Price history incomplete':'历史行情待补齐'):'')}</td>
+      <td data-label="${isEn?'Status / period':'状态 / 区间'}">${status}<small>${hkEscape(e.first)}–${hkEscape(e.last)}</small><details class="trade-source-detail"><summary>${isEn?'Share history':'持股记录'}</summary>${e.shareInfo}</details></td>
     </tr>`;
   });
   html += '</tbody></table></div>';
   if(visible.length<entries.length)html+=`<button class="btn-refresh timeline-more" type="button" onclick="showMoreTimeline()">${isEn?`Show more history (${visible.length} / ${entries.length})`:`展开更多历史（已显示 ${visible.length} / ${entries.length} 项）`}</button>`;
-  html += '<div style="font-size:.68rem;color:var(--text-lighter);margin-top:8px;">'+(isEn?'● Held in latest filing | ○ Absent from latest filing | ◐ Historical reporting gap. Unmatched ticker codes do not indicate delisting.':'● 最新申报持有 | ○ 最新申报未披露 | ◐ 历史上缺席后再披露。代码未匹配不代表退市。')+'</div>';
+  html += '<div style="font-size:.68rem;color:var(--text-lighter);margin-top:8px;">'+(isEn?'● Held in latest filing | ○ Absent from latest filing | ◐ Historical reporting gap | Delisted: confirmed security retirement.':'● 最新申报持有 | ○ 最新申报未披露 | ◐ 历史上缺席后再披露 | 退市：已有原始公告确认。')+'</div>';
   if (isHK) html += '<div style="font-size:.68rem;color:var(--text-lighter);margin-top:4px;">⚠️ Webb 港股持仓数据来源于公开权益披露，非 13F 报告</div>';
   if(data.meta?.instrumentHistoryFrom) html+=`<p class="data-quality-note">${isEn?'Instrument types verified from':'期权相关证券仅展示已核实类别的历史，起点：'} ${data.meta.instrumentHistoryFrom}</p>`;
   container.innerHTML = html;

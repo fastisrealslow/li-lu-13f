@@ -257,12 +257,12 @@ def yahoo_chart(symbol, from_ts, to_ts):
     try:
         import yfinance as yf
         start_dt = datetime.fromtimestamp(from_ts, tz=timezone.utc).strftime('%Y-%m-%d')
-        end_dt   = datetime.fromtimestamp(to_ts,   tz=timezone.utc).strftime('%Y-%m-%d')
+        end_dt   = datetime.fromtimestamp(to_ts+1, tz=timezone.utc).strftime('%Y-%m-%d')
         # yfinance 用短杠格式（BRK-B/BRK-A），上游 13F 数据里同时存在点号（BRK.B）和斜杠（BRK/B）两种写法，都需归一化，
         # 否则斜杠会被 yfinance 内部请求拼进 URL 路径导致请求失败。
         yf_symbol = symbol.replace('.B', '-B').replace('/B', '-B').replace('.A', '-A').replace('/A', '-A')
         t = yf.Ticker(yf_symbol)
-        hist = t.history(start=start_dt, end=end_dt)
+        hist = t.history(start=start_dt, end=end_dt, auto_adjust=False)
         if hist is None or len(hist) == 0:
             return None
         closes = hist['Close'].dropna().tolist()
@@ -652,114 +652,11 @@ def fetch_us(investor, cfg):
         json.dump(dict(updated=datetime.utcnow().isoformat()+'Z', securityIdentityVersion=1, quotes=quotes,
                        costBasis=cost_basis, exitPerf={k:v for k,v in (ex or {}).get('exitPerf',{}).items() if k not in mixed_tickers}), output, indent=2)
 
-    # ── exitPerf：已清仓持仓估算盈亏 ──────────────────────────────────
-    exit_perf = {}
-    current_tks = {h["ticker"] for h in data.get("current", {}).get("holdings", [])}
-    # 找在 history 里出现过、但不在当前持仓的 ticker
-    exited_tks = set()
-    exit_quarters = {}
-    for history_quarter, holdings in hist_holdings.items():
-        for h in holdings:
-            tk2 = h["ticker"]
-            if not tk2.startswith("?") and tk2 not in current_tks:
-                exited_tks.add(tk2)
-                exit_quarters.setdefault(tk2,set()).add(history_quarter)
-
-    existing_ep = (ex.get("exitPerf", {}) if ex else {})
-
-    # An issuer's historical options or principal cannot establish stock profits.
-    mixed = {h['ticker'] for rows in hist_holdings.values() for h in rows
-             if h.get('putCall') or h.get('shareType', 'SH') != 'SH'}
-    exited_tks -= mixed
-    exit_attempts = 0
-    for tk2 in sorted(exited_tks):
-        # 找最后出现的季度（即清仓季度）
-        qtrs_with_tk = sorted(exit_quarters[tk2])
-        if not qtrs_with_tk:
-            continue
-        exit_q = qtrs_with_tk[-1]
-
-        # 缓存检查：exit_q 没变就不重算
-        ex_ep = existing_ep.get(tk2, {})
-        if ex_ep.get("exitQuarter") == exit_q and ex_ep.get("exitPrice") and ex_ep.get("entryPrice"):
-            exit_perf[tk2] = ex_ep
-            continue
-
-        # Extend old estimates in bounded batches while keeping verified caches.
-        if exit_attempts >= cfg.get('exitRequestLimit',20):
-            continue
-        exit_attempts += 1
-        # 清仓季度均价作为卖出价估算
-        qf, qt_ = quarter_ts(exit_q)
-        c2 = yahoo_chart(tk2, qf, qt_)
-        if not c2 or not c2["closes"]:
-            # 用 13F value/shares 兜底
-            for h in hist_holdings.get(exit_q, []):
-                if h["ticker"] == tk2 and h.get("shares", 0) > 0:
-                    exit_price = round(h["value"] / h["shares"], 2)
-                    break
-            else:
-                continue
-        else:
-            avg2  = sum(c2["closes"]) / len(c2["closes"])
-            high2 = max(c2.get("highs", c2["closes"]))
-            exit_price = round(high2 * 0.7 + avg2 * 0.3, 2)
-
-        # 单季度持仓（建仓=清仓同季）：无论哪种方式都不可信，跳过
-        if qtrs_with_tk[0] == exit_q:
-            continue
-        # 建仓成本：用 allTime.avg（如果已算过）
-        entry_price = (cost_basis.get(tk2, {}).get("allTime") or {}).get("avg")
-        if not entry_price:
-            # exitPerf fallback：AVCO 重算建仓成本
-            avco_p2  = 0.0
-            avco_s2  = 0
-            prev_sh2 = 0
-            prev_q2  = None
-            for q2 in qtrs_with_tk:
-                for h in hist_holdings.get(q2, []):
-                    if h["ticker"] == tk2 and h.get("shares", 0) > 0:
-                        sh2 = h["shares"]
-                        if prev_q2:
-                            def q2n(q): y, qn = q.split(" Q"); return int(y) * 4 + int(qn)
-                            if q2n(q2) - q2n(prev_q2) > 1:
-                                avco_p2 = 0.0; avco_s2 = 0; prev_sh2 = 0
-                        if sh2 > prev_sh2:
-                            delta2 = sh2 - prev_sh2
-                            qf2, qt2_ = quarter_ts(q2)
-                            c_buy = yahoo_chart(tk2, qf2, qt2_)
-                            if c_buy and c_buy["closes"]:
-                                avg_b = sum(c_buy["closes"]) / len(c_buy["closes"])
-                                low_b = min(c_buy.get("lows", c_buy["closes"]))
-                                p_buy = low_b * 0.7 + avg_b * 0.3
-                            else:
-                                p_buy = h["value"] / sh2 if sh2 else 0
-                            avco_p2 = (avco_p2 * avco_s2 + p_buy * delta2) / (avco_s2 + delta2)
-                            avco_s2 += delta2
-                            time.sleep(0 if bulk_quotes else 0.3)
-                        elif sh2 < prev_sh2:
-                            avco_s2 = sh2  # 卖出：均价不变
-                        prev_sh2 = sh2
-                        prev_q2  = q2
-            if avco_s2 <= 0 or avco_p2 <= 0:
-                continue
-            entry_price = round(avco_p2, 2)
-
-        if not entry_price:
-            continue
-
-        chg = round((exit_price - entry_price) / entry_price * 100, 1)
-        # 找最早建仓季度（清仓重置后的第一个 buy quarter）
-        entry_q = qtrs_with_tk[0]
-        exit_perf[tk2] = {
-            "entryQuarter": entry_q,
-            "entryPrice":   entry_price,
-            "exitQuarter":  exit_q,
-            "exitPrice":    exit_price,
-            "changePct":    chg,
-        }
-        print(f"  exitPerf {tk2}: entry~${entry_price} ({entry_q}) → exit~${exit_price} ({exit_q}) {chg:+.1f}%")
-        time.sleep(0 if bulk_quotes else 0.3)
+    # Quarterly buys, reductions and exits share one source-bound ledger.
+    from trade_price_history import build as build_trade_prices, exit_performance
+    trade_prices = build_trade_prices(data, quotes, (ex or {}).get('tradePrices'),
+        download_limit=cfg.get('tradeHistoryRequestLimit', 12 if cfg.get('collectMarketActions') else 0))
+    exit_perf = exit_performance(trade_prices)
 
     # ── 写出 ──
     supplement_hk_quotes(cfg, quotes, existing_quotes)
@@ -767,10 +664,10 @@ def fetch_us(investor, cfg):
         if ticker in cost_basis:
             cost_basis[ticker]["splitAdjustedThrough"] = quarter
     out = {"updated": datetime.utcnow().isoformat() + "Z",
-           "quotes": quotes, "costBasis": cost_basis, "exitPerf": exit_perf, "securityIdentityVersion": 1}
+           "quotes": quotes, "costBasis": cost_basis, "exitPerf": exit_perf, "tradePrices": trade_prices, "securityIdentityVersion": 1}
     if bulk_quotes:out['sourceHistoryFingerprint']=source_fingerprint
     with open(prices_file, "w") as f:
-        json.dump(out, f, indent=2)
+        json.dump(out, f, indent=None if len(out.get('tradePrices',{}).get('entries',{}))>200 else 2, separators=(',',':') if len(out.get('tradePrices',{}).get('entries',{}))>200 else None)
     print(f"\n✅ {prices_file} written ({len(quotes)} quotes, {len(cost_basis)} cost basis)")
 
 # ─────────────────────────────────────────────
