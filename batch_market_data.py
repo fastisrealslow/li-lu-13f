@@ -147,15 +147,32 @@ def prefetch(tickers,start,workers=4,loader=download):
     return quotes
 
 
-def prefetch_quotes(tickers,workers=4):
+def prefetch_quotes(tickers,workers=4,root=ROOT):
     def quote_and_actions(ticker):
-        import requests
+        import requests,os,tempfile
+        from quote_coverage import fresh_quote
+        cache=Path(root)/'.cache/live-quotes'
+        path=cache/(hashlib.sha256(normalized_symbol(ticker).upper().encode()).hexdigest()+'.json')
+        try:
+            if time.time()-path.stat().st_mtime<20*60:
+                saved=json.loads(path.read_text())
+                if normalized_symbol(saved.get('symbol','')).upper()==normalized_symbol(ticker).upper() and saved.get('currency')=='USD' and fresh_quote(saved):return saved
+        except (OSError,ValueError,TypeError):pass
         for host in ['query1.finance.yahoo.com','query2.finance.yahoo.com']:
             try:
                 response=requests.get(f'https://{host}/v8/finance/chart/{quote(normalized_symbol(ticker),safe="")}?range=2y&interval=1mo&events=splits',headers={'User-Agent':'Mozilla/5.0'},timeout=30)
                 response.raise_for_status();result=response.json()['chart']['result'][0]
                 _,q=checked_series(result,ticker)
                 q['shareActionsSince']=datetime.fromtimestamp(time.time()-2*365*86400,timezone.utc).date().isoformat()
+                temporary=None
+                try:
+                    cache.mkdir(parents=True,exist_ok=True)
+                    with tempfile.NamedTemporaryFile(mode='w',dir=cache,delete=False) as out:
+                        temporary=out.name;json.dump(q,out,allow_nan=False)
+                    os.replace(temporary,path)
+                except OSError:pass  # Disk-cache failure must not discard a verified quote.
+                finally:
+                    if temporary and os.path.exists(temporary):os.unlink(temporary)
                 return q
             except Exception:continue
         return {'error':True}

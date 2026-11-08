@@ -105,6 +105,7 @@ def current_prices(prices, tickers=None):
     result.pop('exitPerf', None)
     result.pop('sourceHistoryFingerprint', None)
     if result.get('tradePrices'):
+        result['tradePrices'].pop('quoteRefresh',None)
         result['tradePrices']['entries'] = {k: {field: value for field, value in e.items() if field not in ('candles','priceBasis','checkedAt')} for k,e in result['tradePrices'].get('entries', {}).items() if tickers is None or e.get('ticker') in tickers}
         for e in result['tradePrices']['entries'].values():
             e['quarters'] = e.get('quarters', [])[-1:]

@@ -27,6 +27,21 @@ from holdings_diff import share_adjustment, consolidate_holdings, same_security
 from security_identity import project as project_identities, project_prices
 
 
+def write_prices_atomic(path, payload):
+    import tempfile
+    from pathlib import Path
+    path=Path(path);temporary=None
+    try:
+        with tempfile.NamedTemporaryFile(mode='w',encoding='utf-8',dir=path.parent,prefix=path.name+'.',suffix='.tmp',delete=False) as out:
+            temporary=out.name
+            compact=len(payload.get('tradePrices',{}).get('entries',{}))>200
+            json.dump(payload,out,ensure_ascii=False,allow_nan=False,indent=None if compact else 2,separators=(',',':') if compact else None)
+            out.write('\n')
+        os.replace(temporary,path)
+    finally:
+        if temporary and os.path.exists(temporary):os.unlink(temporary)
+
+
 def comparable_price_history(history, current_quarter, market_quotes=None):
     """Use today's split basis for cost estimates; keep filed snapshots unchanged."""
     result = {}
@@ -344,15 +359,24 @@ def fetch_us(investor, cfg):
         start=quarter_ts(min(hist_holdings) if hist_holdings else quarter)[0]
         source_fingerprint=cost_history_fingerprint(hist_holdings,excluded_values)
         since=datetime.fromtimestamp(start,timezone.utc).date().isoformat()
-        needs_history=tickers if not ex or ex.get('sourceHistoryFingerprint')!=source_fingerprint else [tk for tk in tickers if (existing_cb.get(tk,{}).get('averageUnavailable')!='corporate_action' and (existing_cb.get(tk,{}).get('recent',{}).get('source')!='yahoo' or not (existing_cb.get(tk,{}).get('allTime') or {}).get('avg'))) or existing_quotes.get(tk,{}).get('shareActionsSince','9999')>since]
+        needs_history=tickers if not ex or ex.get('sourceHistoryFingerprint')!=source_fingerprint else [tk for tk in tickers if (existing_cb.get(tk,{}).get('averageUnavailable')!='corporate_action' and (existing_cb.get(tk,{}).get('recent',{}).get('source') not in ('yahoo','yfinance') or not (existing_cb.get(tk,{}).get('allTime') or {}).get('avg'))) or existing_quotes.get(tk,{}).get('shareActionsSince','9999')>since]
         bulk_quotes=prefetch(needs_history,start)
         from batch_market_data import prefetch_quotes
-        bulk_quotes.update(prefetch_quotes([tk for tk in tickers if tk not in bulk_quotes]))
+        from historical_quote_refresh import due
+        quote_now=datetime.now(timezone.utc)
+        remaining=[tk for tk in tickers if tk not in bulk_quotes]
+        bulk_quotes.update({tk:existing_quotes[tk] for tk in remaining if not due(existing_quotes.get(tk,{}),quote_now)})
+        bulk_quotes.update(prefetch_quotes([tk for tk in remaining if tk not in bulk_quotes]))
         from batch_market_data import merge_actions
-        changed=[tk for tk in tickers if tk not in needs_history and not bulk_quotes[tk].get('error') and merge_actions(existing_quotes.get(tk,{}),bulk_quotes[tk]).get('shareActions',[])!=existing_quotes.get(tk,{}).get('shareActions',[])]
+        changed=[]
+        for tk in tickers:
+            if tk in needs_history or bulk_quotes[tk].get('error'):continue
+            try:
+                if merge_actions(existing_quotes.get(tk,{}),bulk_quotes[tk]).get('shareActions',[])!=existing_quotes.get(tk,{}).get('shareActions',[]):changed.append(tk)
+            except ValueError:bulk_quotes[tk]={'error':True}
         if changed:bulk_quotes.update(prefetch(changed,start))
     # ── Part 1: 实时报价 (Finnhub) ──
-    quotes = {}
+    quotes = dict(existing_quotes)
     for h in holdings:
         tk = h["ticker"]
         if h.get('shareType', 'SH') != 'SH':
@@ -370,7 +394,8 @@ def fetch_us(investor, cfg):
             from quote_coverage import valid_quote, warrant_reference
             fresh=bulk_quotes[tk];old=existing_quotes.get(tk,{})
             from batch_market_data import merge_actions
-            quotes[tk]=merge_actions(old,fresh) if valid_quote(fresh) else {**old,'stale':True} if valid_quote(old) else warrant_reference(h,current) or {'error':True}
+            try:quotes[tk]=merge_actions(old,fresh) if valid_quote(fresh) else {**old,'stale':True} if valid_quote(old) else warrant_reference(h,current) or {'error':True}
+            except ValueError:quotes[tk]={**old,'stale':True} if valid_quote(old) else {'error':True}
             continue
         # 当天缓存
         if tk in existing_quotes:
@@ -647,10 +672,10 @@ def fetch_us(investor, cfg):
     for ticker in split_tickers:
         if ticker in cost_basis:
             cost_basis[ticker]["splitAdjustedThrough"] = quarter
-    with open(prices_file, 'w') as output:
-        mixed_tickers={h['ticker'] for rows in hist_holdings.values() for h in rows if h.get('putCall') or h.get('shareType','SH')!='SH'}
-        json.dump(dict(updated=datetime.utcnow().isoformat()+'Z', securityIdentityVersion=1, quotes=quotes,
-                       costBasis=cost_basis, exitPerf={k:v for k,v in (ex or {}).get('exitPerf',{}).items() if k not in mixed_tickers}), output, indent=2)
+    mixed_tickers={h['ticker'] for rows in hist_holdings.values() for h in rows if h.get('putCall') or h.get('shareType','SH')!='SH'}
+    checkpoint={**(ex or {}),'updated':datetime.utcnow().isoformat()+'Z','securityIdentityVersion':1,
+                'quotes':quotes,'costBasis':cost_basis,'exitPerf':{k:v for k,v in (ex or {}).get('exitPerf',{}).items() if k not in mixed_tickers}}
+    write_prices_atomic(prices_file,checkpoint)
 
     # Quarterly buys, reductions and exits share one source-bound ledger.
     from trade_price_history import build as build_trade_prices, exit_performance
@@ -666,8 +691,7 @@ def fetch_us(investor, cfg):
     out = {"updated": datetime.utcnow().isoformat() + "Z",
            "quotes": quotes, "costBasis": cost_basis, "exitPerf": exit_perf, "tradePrices": trade_prices, "securityIdentityVersion": 1}
     if bulk_quotes:out['sourceHistoryFingerprint']=source_fingerprint
-    with open(prices_file, "w") as f:
-        json.dump(out, f, indent=None if len(out.get('tradePrices',{}).get('entries',{}))>200 else 2, separators=(',',':') if len(out.get('tradePrices',{}).get('entries',{}))>200 else None)
+    write_prices_atomic(prices_file,out)
     print(f"\n✅ {prices_file} written ({len(quotes)} quotes, {len(cost_basis)} cost basis)")
 
 # ─────────────────────────────────────────────
@@ -822,8 +846,7 @@ def fetch_hk(investor, cfg):
     out = {"quarter": quarter,
            "updatedAt": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
            "currency": "HKD", "quotes": quotes, "costBasis": cost_basis}
-    with open(prices_file, "w") as f:
-        json.dump(out, f, ensure_ascii=False, indent=2)
+    write_prices_atomic(prices_file,out)
 
     ok  = sum(1 for v in quotes.values() if not v.get("error"))
     err = sum(1 for v in quotes.values() if v.get("error"))
@@ -849,9 +872,7 @@ def main():
             existing = json.load(f)
         existing['quotes'] = supplement_hk_quotes(cfg, dict(existing.get('quotes', {})), existing.get('quotes', {}))
         existing['hkQuotesUpdatedAt'] = datetime.now(timezone.utc).isoformat()
-        with open(cfg['prices'], 'w', encoding='utf-8') as f:
-            json.dump(existing, f, ensure_ascii=False, indent=2)
-            f.write('\n')
+        write_prices_atomic(cfg['prices'],existing)
         return
 
     if cfg["market"] == "HK":

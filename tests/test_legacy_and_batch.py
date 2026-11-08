@@ -59,8 +59,8 @@ class LegacyAndBatchTests(unittest.TestCase):
         result['meta']['regularMarketTime']=int(time.time())
         from unittest.mock import Mock
         response=Mock();response.json.return_value={'chart':{'result':[result]}}
-        with patch('requests.get',return_value=response):
-            quotes=market.prefetch_quotes(['TEST'])
+        with tempfile.TemporaryDirectory() as tmp,patch('requests.get',return_value=response):
+            quotes=market.prefetch_quotes(['TEST'],root=Path(tmp))
         self.assertEqual(quotes['TEST']['c'],10)
 
     def test_recent_history_cache_reuses_longest_same_basis_and_ignores_stale_or_broken(self):

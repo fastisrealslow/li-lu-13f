@@ -80,6 +80,16 @@ class TradePricesTests(unittest.TestCase):
         self.assertEqual(quotes['OLD']['status'],'ceased_trading')
         self.assertEqual(quotes['OLD']['event'],event)
 
+    def test_split_before_first_holding_does_not_redownload_complete_history(self):
+        h=dict(ticker='TEST',cusip='123456789',cls='COM',shares=10,value=100)
+        data={'current':{'quarter':'2026 Q2','holdings':[h]},'history':{'holdings':{'2026 Q1':[h]}}}
+        with patch('batch_market_data.window',return_value=(True,{'closes':[10],'highs':[12],'lows':[8]})):
+            prior=build(data,{},download_limit=0)
+        quotes={'TEST':{'shareActions':[{'date':'2000-01-01','factor':2}]}}
+        with patch('batch_market_data.window',return_value=(False,None)):
+            result=build(data,quotes,prior,download_limit=0)
+        self.assertEqual(result['entries']['123456789']['averageBuy'],8.6)
+
     def test_invalid_candles_are_rejected(self):
         for c in [None,{}, {'closes':[float('nan')],'lows':[1],'highs':[2]}, {'closes':[1],'lows':[0],'highs':[2]}]:
             self.assertIsNone(candle_estimates(c))

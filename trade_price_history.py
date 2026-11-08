@@ -113,18 +113,10 @@ def build(data, quotes, previous=None, *, download_limit=12, loader=None, now=No
     if current.get('prevQuarter') and isinstance(current.get('previousHoldings'), list):
         raw.setdefault(current['prevQuarter'], current['previousHoldings'])
     raw = {q: rows for q, rows in raw.items() if quarter_index(q) is not None and q <= current.get('quarter', q)}
+    quote_state=copy.deepcopy((previous or {}).get('quoteRefresh',{}))
     if refresh_quotes and download_limit > 0:
-        from quote_coverage import fresh_quote
-        from batch_market_data import prefetch_quotes, merge_actions
-        from security_lifecycle import event_for
-        recent = current.get('previousHoldings',raw.get(current.get('prevQuarter'),[]))
-        wanted = {h['ticker'] for h in recent if equity(h) and not h['ticker'].startswith('?')
-                  and not h['ticker'].endswith('.HK') and not event_for(h) and not fresh_quote(quotes.get(h['ticker'],{}))}
-        wanted.update(tk for tk,q in quotes.items() if q.get('status')!='ceased_trading'
-                      and not tk.startswith('?') and not tk.endswith('.HK') and not fresh_quote(q))
-        for tk,q in prefetch_quotes(sorted(wanted)[:max(24,download_limit)]).items() if wanted else []:
-            if not q.get('error'):
-                quotes[tk]=merge_actions(quotes.get(tk,{}),q)
+        from historical_quote_refresh import refresh
+        quote_state=refresh(data,quotes,quote_state,limit=max(24,download_limit),now=datetime.fromisoformat(now.replace('Z','+00:00')))
     history = comparable_price_history(raw, current.get('quarter', ''), quotes)
     securities = {}
     for q, holdings in sorted(history.items()):
@@ -150,7 +142,10 @@ def build(data, quotes, previous=None, *, download_limit=12, loader=None, now=No
         meta = data.get('meta', {})
         boundary = max(scope, meta.get('costHistoryFrom', ''), meta.get('instrumentHistoryFrom', '') if tk in meta.get('instrumentHistoryTickers', []) else '')
         actions = quotes.get(tk, {}).get('shareActions', [])
-        basis = hashlib.sha256(json.dumps([tk, actions, meta.get('shareActions', [])], sort_keys=True).encode()).hexdigest()
+        first_date=first[:4]+'-'+str((int(first[-1])-1)*3+1).zfill(2)+'-01'
+        relevant_actions=[a for a in actions if a['date']>=first_date]
+        basis = hashlib.sha256(json.dumps([tk, relevant_actions, meta.get('shareActions', [])], sort_keys=True).encode()).hexdigest()
+        legacy_basis=hashlib.sha256(json.dumps([tk, actions, meta.get('shareActions', [])], sort_keys=True).encode()).hexdigest()
         blocked=set(excluded)
         uncertain=[a for a in actions if not is_share_split(a,h)]
         if uncertain:
@@ -158,7 +153,9 @@ def build(data, quotes, previous=None, *, download_limit=12, loader=None, now=No
             action_quarter=last_action[:4]+' Q'+str((int(last_action[5:7])-1)//3+1)
             blocked.update(q for q in rows if q<=action_quarter)
         cached = old.get(k, {})
-        candles = copy.deepcopy(cached.get('candles', {})) if cached.get('priceBasis') == basis else {}
+        same_basis=cached.get('priceBasis') in (basis,legacy_basis)
+        if not same_basis:cached={**cached,'checkedAt':''}
+        candles = copy.deepcopy(cached.get('candles', {})) if same_basis else {}
         preliminary = calculate(rows, candles, blocked, boundary, scope)
         needed = [r['quarter'] for r in preliminary['quarters'] if ('buy' in r or 'sell' in r) and r['quarter'] not in candles and r['quarter'] not in blocked]
         prepared.append(dict(k=k, h=h, rows=rows, boundary=boundary, scope=scope, candles=candles,
@@ -185,10 +182,12 @@ def build(data, quotes, previous=None, *, download_limit=12, loader=None, now=No
         from batch_market_data import merge_actions
         for tk, quote in fresh.items():
             if not quote.get('error'):
-                quotes[tk] = merge_actions(quote,quotes[tk]) if quotes.get(tk,{}).get('status')=='ceased_trading' or (quote.get('historyOnly') and quotes.get(tk,{}).get('t',0)>quote.get('t',0)) else merge_actions(quotes.get(tk, {}), quote)
+                try:
+                    quotes[tk] = merge_actions(quote,quotes[tk]) if quotes.get(tk,{}).get('status')=='ceased_trading' or (quote.get('historyOnly') and quotes.get(tk,{}).get('t',0)>quote.get('t',0)) else merge_actions(quotes.get(tk, {}), quote)
+                except ValueError:SERIES.pop(tk,None)
         # New split evidence changes both price and share bases. Rebuild them
         # together before using the downloaded historical series.
-        rebuilt = build(data, quotes, previous, download_limit=0, now=now, refresh_quotes=False)
+        rebuilt = build(data, quotes, {**(previous or {}),'quoteRefresh':quote_state}, download_limit=0, now=now, refresh_quotes=False)
         for p in selected:
             if p['k'] in rebuilt['entries']:
                 rebuilt['entries'][p['k']]['checkedAt'] = now
@@ -213,7 +212,7 @@ def build(data, quotes, previous=None, *, download_limit=12, loader=None, now=No
     for h in current.get('holdings',[]):
         event=event_for(h)
         if event:quotes.setdefault(h['ticker'],{}).update(status='ceased_trading',event=event)
-    return {'version': VERSION, 'entries': result}
+    return {'version': VERSION, 'entries': result, 'quoteRefresh':quote_state}
 
 
 def exit_performance(ledger):
@@ -263,8 +262,8 @@ def refresh_file(person, root, limit=12, cached=None):
             except ValueError:continue
     prices['tradePrices']=build(data,quotes,prices.get('tradePrices'),download_limit=limit)
     prices['exitPerf']=exit_performance(prices['tradePrices'])
-    temp=price_path.with_suffix('.json.tmp')
-    temp.write_text(json.dumps(prices,ensure_ascii=False,indent=None if len(prices['tradePrices']['entries'])>200 else 2,separators=(',',':') if len(prices['tradePrices']['entries'])>200 else None)+'\n');temp.replace(price_path)
+    from fetch_prices_all import write_prices_atomic
+    write_prices_atomic(price_path,prices)
     entries=prices['tradePrices']['entries']
     return {'investor':person['id'],'securities':len(entries),'buyAverages':sum(e.get('averageBuy') is not None for e in entries.values()),'saleAverages':sum(e.get('averageSell') is not None for e in entries.values())}
 

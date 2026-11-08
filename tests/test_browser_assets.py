@@ -40,7 +40,7 @@ class BrowserAssetsTests(unittest.TestCase):
                'quarters':[{'quarter':'2026 Q1','buy':10},{'quarter':'2026 Q2','buy':12}],
                'candles':{'large':'backend cache'},'priceBasis':'hash','checkedAt':'today'}
         prices={'quotes':{'TEST':{'c':13},'OLD':{'c':2}},
-                'tradePrices':{'version':1,'entries':{'123456789':entry,'old':{**entry,'ticker':'OLD'}}}}
+                'tradePrices':{'version':1,'quoteRefresh':{'private':'retry scheduling'},'entries':{'123456789':entry,'old':{**entry,'ticker':'OLD'}}}}
         before=copy.deepcopy(prices)
         current=browser.current_prices(prices,{'TEST'})
         self.assertEqual(set(current['quotes']),{'TEST'})
@@ -48,6 +48,7 @@ class BrowserAssetsTests(unittest.TestCase):
         full=browser.history_data(fixture(),prices)
         self.assertEqual(len(full['tradePrices']['entries']['123456789']['quarters']),2)
         for result in (current,full):
+            self.assertNotIn('quoteRefresh',result['tradePrices'])
             self.assertNotIn('candles',result['tradePrices']['entries']['123456789'])
         self.assertEqual(prices,before)
 

@@ -54,6 +54,7 @@ jobs:
           python3 -m unittest discover -s tests -p test_security_identity.py -v
           python3 -m unittest discover -s tests -p test_cost_calculation.py -v
           python3 -m unittest discover -s tests -p test_trade_price_history.py -v
+          python3 -m unittest discover -s tests -p test_historical_quote_refresh.py -v
           python3 -m unittest discover -s tests -p test_historical_security_audit.py -v
           python3 -m unittest discover -s tests -p test_legacy_and_batch.py -v
           python3 -m unittest discover -s tests -p test_13f_units.py -v
