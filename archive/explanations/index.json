@@ -482,10 +482,10 @@
       "inputHash": "d2f558b2a1b622bf582b2dfce2480f4a0f8bd7f734b166044248788dd547680b"
     },
     "vinall-79dd2e86c60222": {
-      "at": "2026-11-08T04:36:47+00:00",
+      "at": "2026-11-08T18:21:58+00:00",
       "status": "retry",
       "inputHash": "1206f3fca75fbd6cd82870ad1f4873f4fe8958401574237a01d3f19e85cccce9",
-      "reason": "ValueError: Bilingual editorial review: The source text (s0) states NAV decreased by 5.8% since the start of the year; the content correctly reflects this.; The source text"
+      "reason": "ValueError: Unsupported numerical claim: 6"
     },
     "webb-1b2d5eb1f6cde7": {
       "at": "2026-11-08T15:33:40+00:00",
@@ -506,10 +506,10 @@
       "reason": "ValueError: Bilingual editorial review: The source text (s9) contains no mention of Buffett downplaying Google; it quotes Mohnish Pabrai discussing a CNBC snippet where *he"
     },
     "vinall-2c8021ee8f5f62": {
-      "at": "2026-11-08T06:01:52+00:00",
+      "at": "2026-11-08T18:08:16+00:00",
       "status": "retry",
       "inputHash": "31008bb54652daf1224abce54b2998f44b943f9b08078fbd3365b56bca57362c",
-      "reason": "ValueError: Unsupported numerical claim: 9"
+      "reason": "ValueError: English text contains untranslated Chinese"
     },
     "webb-38c6e1d522bcc3": {
       "at": "2026-11-08T15:23:49+00:00",
@@ -638,7 +638,7 @@
       "reason": "ValueError: Unsupported numerical claim: 62%"
     },
     "buffett-b39c1475f5798b": {
-      "at": "2026-11-08T03:47:09+00:00",
+      "at": "2026-11-08T18:07:25+00:00",
       "status": "retry",
       "inputHash": "fa2037bd29f450754718c74c89df8e1067b1337a368e32d2f77fab1b480b97ca",
       "reason": "ValueError: Unsupported numerical claim: 3"
@@ -714,10 +714,10 @@
       "reason": "ValueError: Unsupported numerical claim: 3%"
     },
     "buffett-8788fc4c92b085": {
-      "at": "2026-11-08T06:10:09+00:00",
+      "at": "2026-11-08T18:14:57+00:00",
       "status": "retry",
       "inputHash": "966d590bfc2bf36ab4d3404c83801c4b71f12dbcc4a4d31e20411a687f4bc976",
-      "reason": "ValueError: Bilingual editorial review: The source text (s1) explicitly states the script was written by the speechwriter for Saddam Hussein, but the content paraphrase cla"
+      "reason": "ValueError: Bilingual editorial review: The source text (s1) states Buffett will follow a script written by the speechwriter for Saddam Hussein. The provided content claims"
     },
     "buffett-d6f1a801f004df": {
       "at": "2026-11-08T15:25:12+00:00",
@@ -852,7 +852,7 @@
       "reason": "ValueError: English text contains untranslated Chinese"
     },
     "pabrai-9f46a7707898d1": {
-      "at": "2026-11-08T06:16:42+00:00",
+      "at": "2026-11-08T18:19:53+00:00",
       "status": "retry",
       "inputHash": "4ea7f7e1666f036759fc89b7aefc7ba295fd837590039261ec3528593b8312b0",
       "reason": "ValueError: Unsupported numerical claim: 1973"
@@ -1025,10 +1025,10 @@
       "reason": "ValueError: Bilingual editorial review: The English translation of 'buying Cokes from his grandfather's store at a nickel a piece, and then selling them at a dime a piece' "
     },
     "pabrai-96a9fab5d602f9": {
-      "at": "2026-11-08T06:31:25+00:00",
+      "at": "2026-11-08T18:16:53+00:00",
       "status": "retry",
       "inputHash": "82b6a0151b8903655945cc4e5fbd21f4dde54786010a242a84a95ee57e169992",
-      "reason": "ValueError: Bilingual editorial review: The source text (s7-s9) does not mention 'cash dividends' or contrast spawners with dividend-reliant strategies; it only contrasts c"
+      "reason": "ValueError: Unsupported numerical claim: 60"
     },
     "pabrai-fe92dc8bae7992": {
       "at": "2026-11-08T15:08:58+00:00",
@@ -1073,10 +1073,10 @@
       "reason": "ValueError: Unsupported scaled numerical claim: 1600"
     },
     "pabrai-4ec62ff4a3f14c": {
-      "at": "2026-11-08T06:00:55+00:00",
+      "at": "2026-11-08T18:10:12+00:00",
       "status": "retry",
       "inputHash": "cf8d7694ba4e0f4c6fa20d6cf4eaebe28fcc4382723b5e024ea18e01a1edca76",
-      "reason": "ValueError: Bilingual editorial review: The source text does not mention Pabrai being 'fired' or receiving only 'short-term cash-out'; it states he was 'cashed out' and his"
+      "reason": "ValueError: Unsupported numerical claim: 3%"
     },
     "pabrai-8a633b38cd8ccf": {
       "at": "2026-11-08T16:05:00+00:00",
@@ -1205,10 +1205,10 @@
       "reason": "ValueError: Unsupported scaled numerical claim: 2"
     },
     "pabrai-514a02fe7f32ad": {
-      "at": "2026-11-08T06:06:02+00:00",
+      "at": "2026-11-08T18:15:17+00:00",
       "status": "retry",
       "inputHash": "00ffb209f9f369e8c2aa5994104c9d0fbe4bd5f98fc6bea95a030ee507ed241b",
-      "reason": "ValueError: Unsupported numerical claim: 90"
+      "reason": "ValueError: Unsupported numerical claim: 20"
     },
     "pabrai-8435d5f0523bcc": {
       "at": "2026-11-08T17:43:12+00:00",
@@ -2200,10 +2200,10 @@
       "reason": "ValueError: Bilingual editorial review: The English translation in the content section contains a factual error: it states 'income growth from enhanced benefits' added $2 t"
     },
     "marks-1dfb5f6b217cd3": {
-      "at": "2026-11-08T05:37:55+00:00",
+      "at": "2026-11-08T18:10:27+00:00",
       "status": "retry",
       "inputHash": "a8252ac27c1b19cc22d45ba71f815a8141577653cc0e12971ec4586f64e45247",
-      "reason": "ValueError: Unsupported numerical claim: 300"
+      "reason": "ValueError: Unsupported numerical claim: 8"
     },
     "marks-6e3354a3a71412": {
       "at": "2026-11-08T15:28:27+00:00",
@@ -2349,10 +2349,10 @@
       "reason": "ValueError: Bilingual editorial review: The English translation in the content section misattributes the quote 'the best prophet is the worst guesser' to Thomas Hobbes; the"
     },
     "marks-a118789c16f302": {
-      "at": "2026-11-08T05:44:38+00:00",
+      "at": "2026-11-08T18:18:18+00:00",
       "status": "retry",
       "inputHash": "2ffa33e018bf298474095ded678d3279eee2bf785cb9818b12f25b6815b7317e",
-      "reason": "ValueError: Copied source passage"
+      "reason": "ValueError: Unsupported numerical claim: 20"
     },
     "marks-b88c0cce52f3a9": {
       "at": "2026-11-08T16:52:08+00:00",
@@ -2523,10 +2523,10 @@
       "reason": "ValueError: Copied source passage"
     },
     "mclemore-aef9e9f4818acd": {
-      "at": "2026-11-08T03:49:43+00:00",
+      "at": "2026-11-08T18:14:55+00:00",
       "status": "retry",
       "inputHash": "bf61c774bcb82436de628c54b548f238edcca0af60c3608ba79da4e13998ce94",
-      "reason": "ValueError: Unsupported numerical claim: 2"
+      "reason": "ValueError: Incomplete AI Review at 900 tokens"
     },
     "marks-230a625785c3f8": {
       "at": "2026-11-08T16:45:11+00:00",
@@ -2553,10 +2553,10 @@
       "reason": "ValueError: Bilingual editorial review: The source text (s4) states principles were published in 'spring of 1995', but the content section claims they were established in '"
     },
     "mclemore-9000b9fa2afe82": {
-      "at": "2026-11-08T03:53:05+00:00",
+      "at": "2026-11-08T18:21:06+00:00",
       "status": "retry",
       "inputHash": "799a16f4ed4f1fbfff5bcebbb98d9c212e6bc4a1bd34dcc5e61054429ec8038b",
-      "reason": "ValueError: Bilingual editorial review: The source text does not explicitly state that Amazon's Q3 revenue growth was 'up 30% YoY' or AWS revenue grew '78% YoY'; it only me"
+      "reason": "ValueError: Bilingual editorial review: The source text does not explicitly state that Amazon.com Inc. was a 'top contributor' or Pandora Media Inc. was a 'top detractor'; "
     },
     "marks-0a01e0343a6027": {
       "at": "2026-11-08T16:02:26+00:00",
@@ -2715,10 +2715,10 @@
       "reason": "ValueError: Unsupported numerical claim: 80"
     },
     "mclemore-91da59523b1f9c": {
-      "at": "2026-11-08T06:41:09+00:00",
+      "at": "2026-11-08T18:07:32+00:00",
       "status": "retry",
       "inputHash": "30bd13db233f614f681e7c6036d71e876d104a832e04b7fe28c509561be4ddb0",
-      "reason": "ValueError: Bilingual editorial review: The source text states net debt is below 'pre-interest, pre-tax profit' (EBIT), but the content incorrectly uses 'EBITDA'.; The sour"
+      "reason": "ValueError: Bilingual editorial review: The Chinese text incorrectly states Delta's net debt is below one times EBITDA, whereas the source (s0) specifies 'less than one tim"
     },
     "marks-d39edc8226b5ec": {
       "at": "2026-11-08T17:46:56+00:00",
@@ -2757,10 +2757,10 @@
       "reason": "ValueError: Unsupported numerical claim: 9"
     },
     "mclemore-92ade9941ec48a": {
-      "at": "2026-11-08T06:47:03+00:00",
+      "at": "2026-11-08T18:12:42+00:00",
       "status": "retry",
       "inputHash": "54c7a6322ed6690f7e0bbdebf29c4afef96dbe57cf6081f4ba1667774138d505",
-      "reason": "ValueError: Bilingual editorial review: The Chinese text incorrectly attributes the 'long-term option positions added late last year' to Samantha McLemore's personal strate"
+      "reason": "ValueError: Unsupported numerical claim: 1999"
     },
     "marks-c01b618e554553": {
       "at": "2026-11-08T13:58:22+00:00",
@@ -3255,7 +3255,7 @@
       "reason": "ValueError: Copied source passage"
     },
     "mclemore-505262b2106961": {
-      "at": "2026-11-08T05:37:58+00:00",
+      "at": "2026-11-08T18:10:34+00:00",
       "status": "retry",
       "inputHash": "608757a443c7931e2859efae13cc19fb197bfa490873884e89875d5828996eff",
       "reason": "ValueError: No supported arguments in source"
@@ -3405,10 +3405,10 @@
       "reason": "ValueError: Bilingual editorial review: The Chinese text incorrectly states 'market pushed up to around 3300 points' (pushed up/raised) instead of 'market fell to around 33"
     },
     "marks-4d9d62a305917d": {
-      "at": "2026-11-08T04:38:16+00:00",
+      "at": "2026-11-08T18:07:46+00:00",
       "status": "retry",
       "inputHash": "0b5b3d7f7b1ff957f94e5fd1b8e40ecb5cbba136328a0f0ef9d253adb358db9e",
-      "reason": "ValueError: Bilingual editorial review: The English translation in the 'content' section contains factual errors regarding the RCA stock price recovery timeline. The source"
+      "reason": "ValueError: Unsupported numerical claim: 1720"
     },
     "mclemore-2ab9591831eb1d": {
       "at": "2026-11-08T15:36:58+00:00",
@@ -3429,10 +3429,10 @@
       "reason": "ValueError: Copied source passage"
     },
     "marks-767838293600df": {
-      "at": "2026-11-08T04:40:58+00:00",
+      "at": "2026-11-08T18:11:18+00:00",
       "status": "retry",
       "inputHash": "a32026f50662efd378d855f21920cf42dba405dbeb45dea4421253a5fcb8475f",
-      "reason": "ValueError: Unsupported numerical claim: 1994"
+      "reason": "ValueError: Unsupported numerical claim: 2"
     },
     "mclemore-c9cce3ba950c1c": {
       "at": "2026-11-08T14:38:30+00:00",
@@ -3447,16 +3447,16 @@
       "reason": "ValueError: Bilingual editorial review: The English translation in the content section contains factual errors regarding the source text: it incorrectly states 'fund redemp"
     },
     "marks-33ba7b1341d9b6": {
-      "at": "2026-11-08T04:46:25+00:00",
+      "at": "2026-11-08T18:18:05+00:00",
       "status": "retry",
       "inputHash": "48cb88c734be0d07a4915317215670283352c90c5de4d85ae97bb6f0c8cbb241",
-      "reason": "ValueError: Bilingual editorial review: The source text (s0) contains a typo 'UourU' which should be 'our'. The provided English content paraphrases this as 'raise one's ow"
+      "reason": "ValueError: Bilingual editorial review: The source text contains a typo: 'UourU' instead of 'our'. This is corrected to 'our' in the English paraphrase.; The Chinese transl"
     },
     "marks-5a01e8c6cdc121": {
-      "at": "2026-11-08T04:50:45+00:00",
+      "at": "2026-11-08T18:23:18+00:00",
       "status": "retry",
       "inputHash": "9d5b056bcec5e945c888e2566b24e562796dac2014dc5f493d4a1684eb08bcc2",
-      "reason": "ValueError: Bilingual editorial review: The English text incorrectly paraphrases the source quote. The source says 'everything is triple-A at the right price', but the tran"
+      "reason": "ValueError: Unsupported numerical claim: 20"
     },
     "mclemore-c63cd49977e879": {
       "at": "2026-11-08T04:53:29+00:00",
@@ -3613,5 +3613,5 @@
       "reason": "ValueError: Copied source passage"
     }
   },
-  "updatedAt": "2026-11-08T18:06:37+00:00"
+  "updatedAt": "2026-11-08T18:23:18+00:00"
 }
