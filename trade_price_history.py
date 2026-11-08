@@ -100,7 +100,7 @@ def build(data, quotes, previous=None, *, download_limit=12, loader=None, now=No
     from security_identity import project
     from reporting_scope import same_manager_history
     from batch_market_data import SERIES, prefetch, window, is_share_split, download_history
-    from security_lifecycle import events
+    from security_lifecycle import events, event_for
     now = now or datetime.now(timezone.utc).isoformat()
     if data.get('meta', {}).get('snapshotType') or data.get('history', {}).get('verification', {}).get('status') == 'unverified':
         return {'version': VERSION, 'entries': {}}
@@ -167,9 +167,15 @@ def build(data, quotes, previous=None, *, download_limit=12, loader=None, now=No
     # last attempt so one unavailable security cannot starve the remaining queue.
     active = {key(h): h.get('value', 0) for h in current.get('holdings', [])}
     prepared.sort(key=lambda p: (0 if p['currentTrade'] else 1 if p['k'] in active else 2, p['cached'].get('checkedAt', ''), -max(active.get(p['k'], 0),p['h'].get('value',0)), p['k']))
+    def needs_series(p):
+        tk=p['h']['ticker']
+        if tk not in SERIES:return True
+        series=SERIES[tk]
+        return bool(series and series.get('timestamps') and p['needed']
+                    and series['timestamps'][0]>quarter_ts(min(p['needed']))[1])
     eligible = [p for p in prepared if p['needed'] and not p['h']['ticker'].startswith('?')
-                and not p['h']['ticker'].endswith('.HK') and p['h']['ticker'] not in SERIES
-                and p['cached'].get('checkedAt', '')[:10] != now[:10]]
+                and not p['h']['ticker'].endswith('.HK') and needs_series(p)
+                and (p['cached'].get('ticker')!=p['h']['ticker'] or p['cached'].get('checkedAt', '')[:10] != now[:10])]
     historic = [p for p in eligible if p['k'] not in active and not p['currentTrade']]
     reserved = historic[:min(4, download_limit//3)]
     selected = [p for p in eligible if p not in reserved][:max(0,download_limit-len(reserved))]+reserved
@@ -179,7 +185,7 @@ def build(data, quotes, previous=None, *, download_limit=12, loader=None, now=No
         from batch_market_data import merge_actions
         for tk, quote in fresh.items():
             if not quote.get('error'):
-                quotes[tk] = merge_actions(quote,quotes[tk]) if quote.get('historyOnly') and quotes.get(tk,{}).get('t',0)>quote.get('t',0) else merge_actions(quotes.get(tk, {}), quote)
+                quotes[tk] = merge_actions(quote,quotes[tk]) if quotes.get(tk,{}).get('status')=='ceased_trading' or (quote.get('historyOnly') and quotes.get(tk,{}).get('t',0)>quote.get('t',0)) else merge_actions(quotes.get(tk, {}), quote)
         # New split evidence changes both price and share bases. Rebuild them
         # together before using the downloaded historical series.
         rebuilt = build(data, quotes, previous, download_limit=0, now=now, refresh_quotes=False)
@@ -203,6 +209,10 @@ def build(data, quotes, previous=None, *, download_limit=12, loader=None, now=No
         if event and event['ticker'] == tk and event['effectiveDate'] <= now[:10]:
             entry['lifecycle'] = event
         result[p['k']] = entry
+    # Historical responses must never undo a confirmed current-class retirement.
+    for h in current.get('holdings',[]):
+        event=event_for(h)
+        if event:quotes.setdefault(h['ticker'],{}).update(status='ceased_trading',event=event)
     return {'version': VERSION, 'entries': result}
 
 
@@ -222,13 +232,36 @@ def exit_performance(ledger):
     return result
 
 
-def refresh_file(person, root, limit=12):
+def refresh_file(person, root, limit=12, cached=None):
     from pathlib import Path
     root=Path(root)
     data=json.loads((root/person['dataFile']).read_text())
     price_path=root/person['pricesFile']
     prices=json.loads(price_path.read_text())
-    prices['tradePrices']=build(data,prices.setdefault('quotes',{}),prices.get('tradePrices'),download_limit=limit)
+    quotes=prices.setdefault('quotes',{})
+    if cached:
+        from batch_market_data import SERIES, normalized_symbol, merge_actions
+        holdings=list(data.get('current',{}).get('holdings',[]))
+        for rows in data.get('history',{}).get('holdings',{}).values():holdings.extend(rows)
+        from fetch_prices_all import quarter_ts
+        starts={}
+        for quarter,rows in data.get('history',{}).get('holdings',{}).items():
+            if quarter_index(quarter) is None:continue
+            for h in rows:
+                tk=h.get('ticker','');starts[tk]=min(starts.get(tk,float('inf')),quarter_ts(quarter)[0])
+        for ticker in {h.get('ticker','') for h in holdings}:
+            item=cached.get(normalized_symbol(ticker))
+            if not item:continue
+            series,q=item
+            start=starts.get(ticker,0)
+            first_trade=q.get('historyFirstTrade') or 0
+            if series['timestamps'][0]>max(start,first_trade)+7*86400:continue
+            old=quotes.get(ticker,{})
+            try:
+                quotes[ticker]=merge_actions(q,old) if old.get('status')=='ceased_trading' or old.get('t',0)>q.get('t',0) else merge_actions(old,q)
+                SERIES[ticker]=series
+            except ValueError:continue
+    prices['tradePrices']=build(data,quotes,prices.get('tradePrices'),download_limit=limit)
     prices['exitPerf']=exit_performance(prices['tradePrices'])
     temp=price_path.with_suffix('.json.tmp')
     temp.write_text(json.dumps(prices,ensure_ascii=False,indent=None if len(prices['tradePrices']['entries'])>200 else 2,separators=(',',':') if len(prices['tradePrices']['entries'])>200 else None)+'\n');temp.replace(price_path)
@@ -240,7 +273,10 @@ if __name__ == '__main__':
     import argparse
     from pathlib import Path
     parser=argparse.ArgumentParser();parser.add_argument('--investor');parser.add_argument('--limit',type=int,default=12)
+    parser.add_argument('--reuse-cache',action='store_true')
     args=parser.parse_args();root=Path(__file__).resolve().parent
+    from batch_market_data import cached_histories
+    cached=cached_histories(root) if args.reuse_cache else None
     for person in json.loads((root/'investors.json').read_text())['investors']:
         if person.get('source13F') and (not args.investor or person['id']==args.investor):
-            print(refresh_file(person,root,args.limit),flush=True)
+            print(refresh_file(person,root,args.limit,cached),flush=True)

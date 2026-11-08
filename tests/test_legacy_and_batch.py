@@ -63,6 +63,19 @@ class LegacyAndBatchTests(unittest.TestCase):
             quotes=market.prefetch_quotes(['TEST'])
         self.assertEqual(quotes['TEST']['c'],10)
 
+    def test_recent_history_cache_reuses_longest_same_basis_and_ignores_stale_or_broken(self):
+        import os,zlib
+        with tempfile.TemporaryDirectory() as tmp:
+            root=Path(tmp);cache=root/'.cache/market-series';cache.mkdir(parents=True)
+            def write(name,stamps,age=0):
+                result={'meta':{'symbol':'TEST','currency':'USD','regularMarketPrice':10,'regularMarketTime':int(time.time()),'firstTradeDate':1},'timestamp':stamps,'indicators':{'quote':[{'close':[10]*len(stamps),'high':[11]*len(stamps),'low':[9]*len(stamps)}]}}
+                path=cache/name;path.write_bytes(zlib.compress(json.dumps(result).encode()));os.utime(path,(time.time()-age,time.time()-age))
+            write('long.json.z',[1,2,3],10);write('short.json.z',[2,3]);write('expired.json.z',[0,1,2,3],30000)
+            (cache/'bad.json.z').write_bytes(b'not compressed')
+            rows=market.cached_histories(root)
+            self.assertEqual(rows['TEST'][0]['timestamps'],[1,2,3])
+            self.assertEqual(rows['TEST'][1]['historyFirstTrade'],1)
+
     def test_batch_history_checks_identity_and_slices_actual_candles_only(self):
         result={'meta':{'symbol':'BRK-B','currency':'USD','regularMarketPrice':100,'regularMarketTime':int(time.time())},'timestamp':[10,20,30],'indicators':{'quote':[{'close':[1,None,3],'high':[2,None,4],'low':[.5,None,2]}]}}
         series,quote=market.checked_series(result,'BRK/B');self.assertEqual(quote['c'],100)

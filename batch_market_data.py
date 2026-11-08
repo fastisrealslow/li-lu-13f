@@ -98,6 +98,25 @@ def download(ticker,start,root=ROOT,get=None,history_only=False):
     raise ValueError(str(last))
 
 
+def cached_histories(root=ROOT, max_age=6*3600):
+    """Reuse verified recent original responses across different request windows."""
+    found={}
+    for path in sorted((Path(root)/'.cache/market-series').glob('*.json.z'),key=lambda p:p.stat().st_mtime,reverse=True):
+        if time.time()-path.stat().st_mtime>max_age:continue
+        try:
+            result=json.loads(zlib.decompress(path.read_bytes()))
+            ticker=result['meta']['symbol']
+            series,q=checked_series(result,ticker,require_current=False)
+            q['historyFirstTrade']=result['meta'].get('firstTradeDate')
+            if not series['timestamps']:continue
+            old=found.get(ticker)
+            # Never mix responses adjusted for different corporate actions.
+            if old and (q['shareActions']!=old[1]['shareActions'] or len(series['timestamps'])<=len(old[0]['timestamps'])):continue
+            found[ticker]=(series,q)
+        except (KeyError,ValueError,TypeError,zlib.error,OSError):continue
+    return found
+
+
 def download_history(ticker,start):
     # Historical candles remain useful after a delisting; they never become a
     # fabricated live quote just because their old prices can still be read.

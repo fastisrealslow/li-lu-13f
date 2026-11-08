@@ -40,6 +40,46 @@ class TradePricesTests(unittest.TestCase):
         self.assertEqual(out['averageSell'],30)
         self.assertEqual(exit_performance({'entries':{'x':{'ticker':'T',**out}}}),{})
 
+    def test_short_recent_series_does_not_block_older_missing_quarters(self):
+        import batch_market_data as market
+        from fetch_prices_all import quarter_ts
+        h=dict(ticker='TEST',cusip='123456789',cls='COM',shares=10,value=100)
+        data={'current':{'quarter':'2026 Q2','holdings':[h]},'history':{'holdings':{'2025 Q4':[h],'2026 Q1':[h]}}}
+        recent={'timestamps':[quarter_ts('2026 Q1')[0]],'values':{'close':[10],'high':[12],'low':[8]}}
+        calls=[]
+        def loader(ticker,start):
+            calls.append((ticker,start))
+            return {'timestamps':[quarter_ts('2025 Q4')[0]+86400],'values':{'close':[10],'high':[12],'low':[8]}},{'shareActions':[]}
+        with patch.dict(market.SERIES,{'TEST':recent},clear=True):
+            out=build(data,{},download_limit=1,loader=loader,refresh_quotes=False)
+        self.assertEqual(len(calls),1)
+        self.assertEqual(out['entries']['123456789']['averageBuy'],8.6)
+
+    def test_corrected_symbol_retries_even_when_old_symbol_failed_today(self):
+        from datetime import datetime,timezone
+        import batch_market_data as market
+        from fetch_prices_all import quarter_ts
+        h=dict(ticker='NEW',cusip='123456789',cls='COM',shares=10,value=100)
+        data={'current':{'quarter':'2026 Q2','holdings':[h]},'history':{'holdings':{'2026 Q1':[h]}}}
+        previous={'version':1,'entries':{'123456789':{'ticker':'WRONG','checkedAt':datetime.now(timezone.utc).isoformat()}}}
+        calls=[]
+        def loader(ticker,start):
+            calls.append(ticker)
+            return {'timestamps':[quarter_ts('2026 Q1')[0]+86400],'values':{'close':[10],'high':[12],'low':[8]}},{'shareActions':[]}
+        with patch.dict(market.SERIES,{},clear=True):
+            out=build(data,{},previous,download_limit=1,loader=loader,refresh_quotes=False)
+        self.assertEqual(calls,['NEW']);self.assertEqual(out['entries']['123456789']['averageBuy'],8.6)
+
+    def test_historical_prices_cannot_clear_confirmed_retirement(self):
+        h=dict(ticker='OLD',cusip='123456789',cls='COM',shares=10,value=100)
+        data={'current':{'quarter':'2026 Q2','holdings':[h]},'history':{'holdings':{}}}
+        event={'ticker':'OLD','status':'ceased_trading','effectiveDate':'2026-07-01'}
+        quotes={'OLD':{'c':10,'t':1000}}
+        with patch('security_lifecycle.event_for',return_value=event):
+            build(data,quotes,download_limit=0)
+        self.assertEqual(quotes['OLD']['status'],'ceased_trading')
+        self.assertEqual(quotes['OLD']['event'],event)
+
     def test_invalid_candles_are_rejected(self):
         for c in [None,{}, {'closes':[float('nan')],'lows':[1],'highs':[2]}, {'closes':[1],'lows':[0],'highs':[2]}]:
             self.assertIsNone(candle_estimates(c))

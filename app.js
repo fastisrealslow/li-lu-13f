@@ -1326,7 +1326,7 @@ function tradePriceCells(h) {
   const buy=trade?trade.buy:(['new','added'].includes(category) && state?.basis?.recent?.quarter===quarter && ['yahoo','yfinance'].includes(state.basis.recent.source)?state.basis.recent.buy:null);
   const buyNote=trade?.action==='observed'?(en?'First observed position reference':'首次披露持仓参考'):['new','added'].includes(category)?quarter:(h.putCall?(en?'Premium undisclosed':'权利金未披露'):noTrade);
   const sellNote=['trimmed','exited'].includes(category)?(trade?.sell?quarter:(en?'Historical prices unavailable':'历史行情待补齐')):h.putCall?(en?'Premium undisclosed':'权利金未披露'):noTrade;
-  return {current:tradeQuoteHTML(h),average:estimatePriceHTML(average,h,en?'Estimated holding cost':'估算持仓均价'),
+  return {current:tradeQuoteHTML(h),average:estimatePriceHTML(average,h),
     buy:estimatePriceHTML(buy,h,buyNote),sell:estimatePriceHTML(trade?.sell,h,sellNote)};
 }
 function renderChanges() {
@@ -1358,15 +1358,25 @@ function quarterPriceInsightHTML() {
     const trade=tradePriceEntry(h)?.quarters?.find(r=>r.quarter===data.current.quarter),reference=sale?trade?.sell:trade?.buy,q=prices?.quotes?.[h.ticker];
     const delta=reference>0&&q?.c>0&&!q.stale&&q.t&&Date.now()-q.t*1000<7*86400000?(q.c/reference-1)*100:null;
     const comparison=delta===null?'':en?`Current price is ${Math.abs(delta).toFixed(1)}% ${delta>=0?'above':'below'} the quarter's ${sale?'sale':'buy'} estimate.`:`现价较本季${sale?'卖出':'买入'}估价${delta>=0?'高':'低'} ${Math.abs(delta).toFixed(1)}%。`;
-    return `<p><strong>${hkEscape(cn(h.name,h))} · ${hkEscape(changeText(h,en))}</strong><br>${en?'Current':'现价'} ${cells.current} · ${sale?(en?'Sale estimate':'估算卖出均价'):(en?'Buy estimate':'估算买入均价')} ${sale?cells.sell:cells.buy} · ${cells.average}${comparison?`<br><small>${comparison}</small>`:''}</p>`;
+    const metrics=[[en?'Current price':'现价',cells.current],[sale?(en?'Sale estimate':'估算卖出均价'):(en?'Buy estimate':'估算买入均价'),sale?cells.sell:cells.buy],[en?'Holding cost estimate':'估算持仓均价',cells.average]];
+    return `<article class="trade-price-brief"><h5>${hkEscape(cn(h.name,h))} · ${hkEscape(changeText(h,en))}</h5><div class="trade-price-metrics">${metrics.map(([label,value])=>`<div class="trade-price-metric"><span class="trade-metric-label">${label}</span><div class="trade-metric-value">${value}</div></div>`).join('')}</div>${comparison?`<p class="trade-price-comparison">${comparison}</p>`:''}</article>`;
   }).join('')}</div>`;
+}
+function tradeHistoryCoverage(entry,side) {
+  if(!entry)return '';
+  const missing=side==='buy'?entry.missingBuyQuarters:entry.missingSellQuarters,en=lang==='en';
+  const count=(entry.quarters||[]).filter(r=>Number.isFinite(r[side])&&r[side]>0).length;
+  return missing?(en?`${missing} ${side} quarters lack prices`:`尚缺 ${missing} 个${side==='buy'?'买入':'卖出'}季度行情`):count?(en?`${count} quarters with price evidence`:`依据 ${count} 个季度行情`):'';
 }
 function renderTradePriceDetails(el,encodedKey) {
   if(!el.open || el.dataset.loaded)return;
   const entry=prices?.tradePrices?.entries?.[decodeURIComponent(encodedKey)];if(!entry)return;
   el.dataset.loaded='1';const en=lang==='en';
   const actions=en?{observed:'First observed',new:'New',added:'Added',trimmed:'Reduced',exited:'Exited',hold:'Unchanged'}:{observed:'首次披露参考',new:'建仓',added:'增持',trimmed:'减持',exited:'清仓',hold:'不变'};
-  el.insertAdjacentHTML('beforeend',`<div class="trade-quarter-list">${entry.quarters.filter(r=>r.action!=='hold').map(r=>`<div><strong>${hkEscape(r.quarter)} · ${actions[r.action]||''}</strong><span>${en?'Buy':'买入'} ${estimatePriceHTML(r.buy,entry)} · ${en?'Sale':'卖出'} ${estimatePriceHTML(r.sell,entry)}</span>${r.priceEvidence?.days?`<small>${en?'Low / mean / high':'最低 / 均价 / 最高'}：${[r.priceEvidence.low,r.priceEvidence.mean,r.priceEvidence.high].map(v=>Number.isFinite(v)?v.toFixed(2):'—').join(' / ')} · ${r.priceEvidence.days} ${en?'trading days':'个交易日'}</small>`:''}</div>`).join('')}</div>`);
+  el.insertAdjacentHTML('beforeend',`<div class="trade-quarter-list">${entry.quarters.filter(r=>r.action!=='hold').map(r=>{
+    const sale=['trimmed','exited'].includes(r.action);
+    return `<div><strong>${hkEscape(r.quarter)} · ${actions[r.action]||''}</strong><span class="trade-quarter-price">${sale?(en?'Sale estimate':'估算卖出均价'):(en?'Buy estimate':'估算买入均价')} ${estimatePriceHTML(sale?r.sell:r.buy,entry)}</span>${r.priceEvidence?.days?`<small>${en?'Low / mean / high':'最低 / 日均收盘 / 最高'}：${[r.priceEvidence.low,r.priceEvidence.mean,r.priceEvidence.high].map(v=>Number.isFinite(v)?v.toFixed(2):'—').join(' / ')}<br>${r.priceEvidence.days} ${en?'trading days':'个交易日'}</small>`:''}</div>`;
+  }).join('')}</div>`);
 }
 
 // AI artifacts load independently; holdings and prices never wait for a model.
@@ -2050,9 +2060,9 @@ async function renderTimelineTable() {
     html += `<tr>
       <td class="stock-cell"><span class="ticker-line">${fmtTicker(e.ticker,e)}</span>${instrumentTag(e)}<span class="name-line">${hkEscape(cn(e.name, e))}</span><span class="sector-badge">${hkEscape(isEn?(e.sectorEn||ts(e.sector)):e.sector||'行业未分类')}</span><span style="display:block;font-size:.65rem;color:var(--text-lighter);margin-top:2px;">${e.qCount} ${isEn?'quarters':'季'}</span>${e.unknown.length?`<small class="data-quality-note">${isEn?'Missing reports (unknown)':'缺报（未知）'}: ${e.unknown.join(', ')}</small>`:''}</td>
       <td class="trade-price-cell" data-label="${isEn?'Current price':'当前价格'}">${tradeQuoteHTML(e)}</td>
-      <td class="trade-price-cell" data-label="${isEn?'Historical buy (est.)':'历史买入均价（估）'}">${estimatePriceHTML(ledger?.averageBuy,e,ledger?.missingBuyQuarters?(isEn?'Price history incomplete':'历史行情待补齐'):'')}${priceDetails}</td>
-      <td class="trade-price-cell" data-label="${isEn?'Historical sale (est.)':'历史卖出均价（估）'}">${estimatePriceHTML(ledger?.averageSell,e,ledger?.missingSellQuarters?(isEn?'Price history incomplete':'历史行情待补齐'):'')}</td>
-      <td data-label="${isEn?'Status / period':'状态 / 区间'}">${status}<small>${hkEscape(e.first)}–${hkEscape(e.last)}</small><details class="trade-source-detail"><summary>${isEn?'Share history':'持股记录'}</summary>${e.shareInfo}</details></td>
+      <td class="trade-price-cell" data-label="${isEn?'Historical buy (est.)':'历史买入均价（估）'}">${estimatePriceHTML(ledger?.averageBuy,e,tradeHistoryCoverage(ledger,'buy'))}</td>
+      <td class="trade-price-cell" data-label="${isEn?'Historical sale (est.)':'历史卖出均价（估）'}">${estimatePriceHTML(ledger?.averageSell,e,tradeHistoryCoverage(ledger,'sell'))}</td>
+      <td data-label="${isEn?'Status / period':'状态 / 区间'}">${status}<small>${hkEscape(e.first)}–${hkEscape(e.last)}</small>${priceDetails}<details class="trade-source-detail"><summary>${isEn?'Share history':'持股记录'}</summary>${e.shareInfo}</details></td>
     </tr>`;
   });
   html += '</tbody></table></div>';

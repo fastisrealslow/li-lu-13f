@@ -217,7 +217,7 @@ TICKER_MAP = {
     "NEXTERA ENERGY INC": "NEE",
     "NRG ENERGY INC": "NRG",
     "VISTRA CORP": "VST",
-    "SABLE OFFSHORE CORP": "SABLE",
+    "SABLE OFFSHORE CORP": "SOC",
     # 工业
     "NUCOR CORP": "NUE",
     "NUCOR CORPORATION": "NUE",
@@ -571,7 +571,7 @@ SECTORS = {
     "HCC": "煤炭", "AMR": "冶金/煤炭", "DB": "金融/银行",
     "DOC": "房地产", "MKTX": "金融服务", "CSGP": "房地产",
     "UWMC": "金融", "TREE": "金融", "CHGG": "教育",
-    "SABLE": "能源", "BF.B": "消费", "BF.A": "消费",
+    "SABLE": "能源", "SOC": "能源", "BF.B": "消费", "BF.A": "消费",
     "FNF": "金融服务", "FG": "保险", "FAF": "金融服务",
     "PRM": "工业", "R": "工业", "RYAAY": "消费", "SNX": "科技",
     "MRP": "金融服务", "MPLX": "能源", "STNE": "金融服务",
