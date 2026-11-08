@@ -24315,8 +24315,8 @@
               "value": 630896000
             }
           ],
-          "ticker": "CMCSA",
-          "sector": "娱乐",
+          "ticker": "CMCSK",
+          "sector": "其他",
           "prevShares": 50470486,
           "prevValue": 995278000
         },
@@ -24557,9 +24557,9 @@
           ],
           "ticker": "CMCSA",
           "sector": "娱乐",
+          "cnName": "康卡斯特",
           "prevShares": 1042205,
-          "prevValue": 20458000,
-          "cnName": "康卡斯特"
+          "prevValue": 20458000
         }
       ],
       "2009 Q1": [
@@ -24940,7 +24940,7 @@
               "value": 191710000
             }
           ],
-          "ticker": "?VARIAN MED SYS INC",
+          "ticker": "VAR",
           "sector": "其他",
           "prevShares": 0,
           "prevValue": 0
@@ -25162,7 +25162,7 @@
               "value": 286636000
             }
           ],
-          "ticker": "?VARIAN MED SYS INC",
+          "ticker": "VAR",
           "sector": "其他",
           "prevShares": 5455610,
           "prevValue": 191710000
@@ -25384,7 +25384,7 @@
               "value": 167936000
             }
           ],
-          "ticker": "?VARIAN MED SYS INC",
+          "ticker": "VAR",
           "sector": "其他",
           "prevShares": 6803610,
           "prevValue": 286636000
@@ -25669,7 +25669,7 @@
               "value": 54245000
             }
           ],
-          "ticker": "?VARIAN MED SYS INC",
+          "ticker": "VAR",
           "sector": "其他",
           "prevShares": 3584538,
           "prevValue": 167936000
@@ -35223,11 +35223,11 @@
       },
       "2006 Q1": {
         "version": 1,
-        "checkedAt": "2026-11-07",
+        "checkedAt": "2026-11-08",
         "source": "https://www.sec.gov/Archives/edgar/data/789920/0000950123-06-006337.txt",
         "filingDate": "2006-05-15",
         "sourceDigest": "49aa43760280d582b42c5c03ebfe11cf40b94b0baa2daeedbf958b19acb0aeef",
-        "sourceHash": "dc1c70b200d82c7c77b83e561d8d3fc9d8eb43923bf521df59c0d657249abdf5",
+        "sourceHash": "ba4846a25151d8a8396b15991a18ee4eb421e61717971d1186273311ebba83f7",
         "status": "pending",
         "anchors": [
           {
@@ -35237,7 +35237,7 @@
             "price": 61.0,
             "date": "2006-03-31",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/FMCC?period1=0&period2=1794104678&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/FMCC?period1=0&period2=1794247918&interval=1d&events=splits",
             "candidates": [
               1
             ]
@@ -35249,26 +35249,30 @@
             "price": 55.86000061035156,
             "date": "2006-03-31",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/UNH?period1=0&period2=1794104678&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/UNH?period1=0&period2=1794247918&interval=1d&events=splits",
             "candidates": [
               1
             ]
           }
         ],
-        "errors": [],
-        "normalizedHash": "dc1c70b200d82c7c77b83e561d8d3fc9d8eb43923bf521df59c0d657249abdf5"
+        "errors": [
+          "CMCSK: ValueError"
+        ],
+        "normalizedHash": "ba4846a25151d8a8396b15991a18ee4eb421e61717971d1186273311ebba83f7"
       },
       "2006 Q2": {
         "version": 1,
-        "checkedAt": "2026-11-07",
+        "checkedAt": "2026-11-08",
         "source": "https://www.sec.gov/Archives/edgar/data/789920/0000950123-06-010471.txt",
         "filingDate": "2006-08-14",
         "sourceDigest": "846d66053bcb1bac745cff9b0eb7c8733da5e910bc4ee116c10fe69cd27a8fee",
-        "sourceHash": "d98d716a07bc900f6e7963cc7c430bd4f7c08848a57cfaff2c04fd4c578983df",
+        "sourceHash": "b86079450759f8831280c1ad2d19d083361b62b7dbbf3598d7c8da5bd415f72d",
         "status": "pending",
         "anchors": [],
-        "errors": [],
-        "normalizedHash": "d98d716a07bc900f6e7963cc7c430bd4f7c08848a57cfaff2c04fd4c578983df"
+        "errors": [
+          "CMCSK: ValueError"
+        ],
+        "normalizedHash": "b86079450759f8831280c1ad2d19d083361b62b7dbbf3598d7c8da5bd415f72d"
       },
       "2006 Q3": {
         "version": 1,
@@ -35324,25 +35328,13 @@
       },
       "2006 Q4": {
         "version": 1,
-        "checkedAt": "2026-11-07",
+        "checkedAt": "2026-11-08",
         "source": "https://www.sec.gov/Archives/edgar/data/789920/0000950123-07-002120.txt",
         "filingDate": "2007-02-14",
         "sourceDigest": "eb10544184de70183468d1b87e4eedbd657613e591ade06a006822f6a1218611",
-        "sourceHash": "685f9655b5a5d0a89342d8dc7256cadbeebe3d917b004c684db33a86c100191e",
+        "sourceHash": "81a807403aeb81597173c8394b64a9dbdcfd7b91f2865f2e0a58e57782bdff14",
         "status": "pending",
         "anchors": [
-          {
-            "ticker": "CMCSA",
-            "cusip": "20030N200",
-            "filedPrice": 41.87998929112502,
-            "price": 42.33000255775451,
-            "date": "2006-12-29",
-            "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/CMCSA?period1=0&period2=1794105964&interval=1d&events=splits",
-            "candidates": [
-              1
-            ]
-          },
           {
             "ticker": "NKE",
             "cusip": "654106103",
@@ -35350,13 +35342,15 @@
             "price": 99.02999877929688,
             "date": "2006-12-29",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/NKE?period1=0&period2=1794105965&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/NKE?period1=0&period2=1794247918&interval=1d&events=splits",
             "candidates": [
               1
             ]
           }
         ],
-        "errors": [],
+        "errors": [
+          "CMCSK: ValueError"
+        ],
         "normalizedHash": "685f9655b5a5d0a89342d8dc7256cadbeebe3d917b004c684db33a86c100191e"
       },
       "2007 Q1": {
@@ -35541,25 +35535,13 @@
       },
       "2007 Q4": {
         "version": 1,
-        "checkedAt": "2026-11-07",
+        "checkedAt": "2026-11-08",
         "source": "https://www.sec.gov/Archives/edgar/data/789920/0000950123-08-001675.txt",
         "filingDate": "2008-02-14",
         "sourceDigest": "c8ae697ffd26734ef1c10b3bd8ac6fb7259cc9777f0e61ae7c4349f89619eec1",
-        "sourceHash": "f3945498474587de97679aab9f89378dd740a513f72e27d6be8db9e45fcaf64b",
+        "sourceHash": "0de263b830cb600760b1a664c06480b53d6c6c611a50f830e15d152ed8816f86",
         "status": "pending",
         "anchors": [
-          {
-            "ticker": "CMCSA",
-            "cusip": "20030N200",
-            "filedPrice": 18.120001031543687,
-            "price": 18.259999307632444,
-            "date": "2007-12-31",
-            "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/CMCSA?period1=0&period2=1794142978&interval=1d&events=splits",
-            "candidates": [
-              1
-            ]
-          },
           {
             "ticker": "RYAAY",
             "cusip": "783513104",
@@ -35567,13 +35549,27 @@
             "price": 39.44000296039581,
             "date": "2007-12-31",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/RYAAY?period1=0&period2=1794142978&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/RYAAY?period1=0&period2=1794247919&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "CMCSA",
+            "cusip": "20030N101",
+            "filedPrice": 18.260133477896655,
+            "price": 18.259999307632444,
+            "date": "2007-12-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/CMCSA?period1=0&period2=1794247919&interval=1d&events=splits",
             "candidates": [
               1
             ]
           }
         ],
-        "errors": [],
+        "errors": [
+          "CMCSK: ValueError"
+        ],
         "normalizedHash": "f3945498474587de97679aab9f89378dd740a513f72e27d6be8db9e45fcaf64b"
       },
       "2008 Q1": {
@@ -35682,25 +35678,13 @@
       },
       "2008 Q3": {
         "version": 1,
-        "checkedAt": "2026-11-07",
+        "checkedAt": "2026-11-08",
         "source": "https://www.sec.gov/Archives/edgar/data/789920/0000950123-08-015401.txt",
         "filingDate": "2008-11-14",
         "sourceDigest": "6e74edc5549a94db6798dca3e662c00e2b227d4b21d5ca964194162c00003cd1",
-        "sourceHash": "67ad7decbba1b700ea65d6f1e608daab731ed1985ac74f2ee00b879edc6dd621",
+        "sourceHash": "042fa64049f220069088cc810d0bd62b56a8e49e43e9c31e8273db95b7e5da91",
         "status": "pending",
         "anchors": [
-          {
-            "ticker": "CMCSA",
-            "cusip": "20030N200",
-            "filedPrice": 19.720000318602043,
-            "price": 19.629999238967894,
-            "date": "2008-09-30",
-            "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/CMCSA?period1=0&period2=1794142978&interval=1d&events=splits",
-            "candidates": [
-              1
-            ]
-          },
           {
             "ticker": "RYAAY",
             "cusip": "783513104",
@@ -35708,34 +35692,39 @@
             "price": 22.430001650619506,
             "date": "2008-09-30",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/RYAAY?period1=0&period2=1794142978&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/RYAAY?period1=0&period2=1794247919&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "CMCSA",
+            "cusip": "20030N101",
+            "filedPrice": 19.6295354560763,
+            "price": 19.629999238967894,
+            "date": "2008-09-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/CMCSA?period1=0&period2=1794247919&interval=1d&events=splits",
             "candidates": [
               1
             ]
           }
         ],
-        "errors": [],
+        "errors": [
+          "CMCSK: ValueError"
+        ],
         "normalizedHash": "67ad7decbba1b700ea65d6f1e608daab731ed1985ac74f2ee00b879edc6dd621"
       },
       "2008 Q4": {
         "version": 1,
-        "checkedAt": "2026-11-07",
+        "checkedAt": "2026-11-08",
         "source": "https://www.sec.gov/Archives/edgar/data/789920/0000950123-09-002872.txt",
         "filingDate": "2009-02-17",
         "sourceDigest": "cfabbbc51c98e5743ed4390c84f04fb2fb6367bfd8ad0b4ddc7c85c5a876d193",
-        "sourceHash": "06e1292962a2a8ad135b12f918e26ad41fe0fd84c29277c2d71a7f2d68bb85de",
-        "status": "pending",
+        "sourceHash": "c414e68b8abed20310fc6517164291dca631db997817a442a88af70f39672e0b",
+        "status": "verified",
+        "factor": 1,
         "anchors": [
-          {
-            "ticker": "CMCSA",
-            "cusip": "20030N200",
-            "filedPrice": 16.149994957094343,
-            "price": 16.87999971103668,
-            "date": "2008-12-31",
-            "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/CMCSA?period1=0&period2=1794142978&interval=1d&events=splits",
-            "candidates": []
-          },
           {
             "ticker": "RYAAY",
             "cusip": "783513104",
@@ -35743,7 +35732,7 @@
             "price": 29.079998930597306,
             "date": "2008-12-31",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/RYAAY?period1=0&period2=1794142978&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/RYAAY?period1=0&period2=1794247919&interval=1d&events=splits",
             "candidates": [
               1
             ]
@@ -35755,14 +35744,28 @@
             "price": 18.549999237060547,
             "date": "2008-12-31",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/AXP?period1=0&period2=1794142978&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/AXP?period1=0&period2=1794247919&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "CMCSA",
+            "cusip": "20030N101",
+            "filedPrice": 16.88072257424822,
+            "price": 16.87999971103668,
+            "date": "2008-12-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/CMCSA?period1=0&period2=1794247919&interval=1d&events=splits",
             "candidates": [
               1
             ]
           }
         ],
-        "errors": [],
-        "normalizedHash": "06e1292962a2a8ad135b12f918e26ad41fe0fd84c29277c2d71a7f2d68bb85de"
+        "agreementCount": 3,
+        "anchorCount": 3,
+        "outlierTickers": [],
+        "normalizedHash": "c414e68b8abed20310fc6517164291dca631db997817a442a88af70f39672e0b"
       },
       "2009 Q1": {
         "version": 1,
@@ -35834,7 +35837,7 @@
         "source": "https://www.sec.gov/Archives/edgar/data/789920/0000950123-09-035441.txt",
         "filingDate": "2009-08-14",
         "sourceDigest": "3b1956899b8de05997df2c8648df5bf16378bbe75124b7073d38709aa68ddddd",
-        "sourceHash": "7a04a2c073b222becbde3a96f22e595d88090f646835fea8c347f2ae1dedbe4b",
+        "sourceHash": "183715650f3bef5f1629b907aeaff32394cef5e949a1efcf75dce35a7348c357",
         "status": "verified",
         "factor": 1,
         "anchors": [
@@ -35902,7 +35905,7 @@
         "agreementCount": 5,
         "anchorCount": 5,
         "outlierTickers": [],
-        "normalizedHash": "7a04a2c073b222becbde3a96f22e595d88090f646835fea8c347f2ae1dedbe4b"
+        "normalizedHash": "183715650f3bef5f1629b907aeaff32394cef5e949a1efcf75dce35a7348c357"
       },
       "2009 Q3": {
         "version": 1,
@@ -35910,7 +35913,7 @@
         "source": "https://www.sec.gov/Archives/edgar/data/789920/0000950123-09-063143.txt",
         "filingDate": "2009-11-16",
         "sourceDigest": "5d54c525b34b6f9fe7a1b8ea43d9116ca2987b3fbf51165c9af834d30001808c",
-        "sourceHash": "cf39df7d73cd8e6111d005b0a1cd52e2f93c2efda38333f0d62e679ff9298d6a",
+        "sourceHash": "9b1eb2717eeb0ebb4a8e18ec93efe29a7eaffa8589f1be5993411c1d78bf54a7",
         "status": "verified",
         "factor": 1,
         "anchors": [
@@ -35978,7 +35981,7 @@
         "outlierTickers": [
           "CMCSA"
         ],
-        "normalizedHash": "cf39df7d73cd8e6111d005b0a1cd52e2f93c2efda38333f0d62e679ff9298d6a"
+        "normalizedHash": "9b1eb2717eeb0ebb4a8e18ec93efe29a7eaffa8589f1be5993411c1d78bf54a7"
       },
       "2009 Q4": {
         "version": 1,
@@ -36045,7 +36048,7 @@
         "source": "https://www.sec.gov/Archives/edgar/data/789920/0001172661-10-000329.txt",
         "filingDate": "2010-05-17",
         "sourceDigest": "83d4897efbd2ce8b6fce20d6ae0ad5ae286aa9ed4d9f831097e1409690385b69",
-        "sourceHash": "0d59fe8a19ddb5135f72217503a1dda31cd4907a9bdc6a3882420acca71e6dc8",
+        "sourceHash": "37f93e41d3505e0cd3140e74949c4a8e73f52f8bc23c2ccc634bfc6755970297",
         "status": "verified",
         "factor": 1,
         "anchors": [
@@ -36113,7 +36116,7 @@
         "outlierTickers": [
           "CMCSA"
         ],
-        "normalizedHash": "0d59fe8a19ddb5135f72217503a1dda31cd4907a9bdc6a3882420acca71e6dc8"
+        "normalizedHash": "37f93e41d3505e0cd3140e74949c4a8e73f52f8bc23c2ccc634bfc6755970297"
       },
       "2010 Q3": {
         "version": 1,
@@ -36687,11 +36690,11 @@
     "instrumentVerification": {
       "pendingQuarters": [],
       "errors": {},
-      "checkedAt": "2026-11-08T15:13:32.876181+00:00"
+      "checkedAt": "2026-11-08T18:11:57.772666+00:00"
     },
     "excludedValueQuarters": [],
     "coverage": {
-      "checkedAt": "2026-11-08T15:13:32Z",
+      "checkedAt": "2026-11-08T18:11:57Z",
       "missingQuarters": [],
       "repairedThisRun": [],
       "errors": {},
@@ -37185,7 +37188,7 @@
     "instrumentHistoryFrom": "1999 Q1",
     "manager": "Brave Warrior Advisors, LLC",
     "costHistoryFrom": "2012 Q1",
-    "lastUpdated": "2026-11-08T15:13:32Z",
+    "lastUpdated": "2026-11-08T18:11:57Z",
     "notablePeople": [
       "Glenn Greenberg"
     ],

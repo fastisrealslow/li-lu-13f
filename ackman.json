@@ -5,7 +5,7 @@
     "notablePeople": [
       "Bill Ackman"
     ],
-    "lastUpdated": "2026-11-08T15:13:47Z",
+    "lastUpdated": "2026-11-08T18:12:11Z",
     "aiSummary": "阿克曼 Q1 大幅减持谷歌并新建微软仓位，同时增持亚马逊，显示其持续优化科技股组合的结构性调整。",
     "aiSummaryQuarter": "2026 Q1",
     "legacyFilers": [
@@ -14105,7 +14105,7 @@
       ]
     },
     "coverage": {
-      "checkedAt": "2026-11-08T15:13:47Z",
+      "checkedAt": "2026-11-08T18:12:11Z",
       "missingQuarters": [],
       "repairedThisRun": [],
       "errors": {},
@@ -15107,7 +15107,7 @@
     "instrumentVerification": {
       "pendingQuarters": [],
       "errors": {},
-      "checkedAt": "2026-11-08T15:13:47.431093+00:00"
+      "checkedAt": "2026-11-08T18:12:11.285368+00:00"
     },
     "valueAudit": {
       "2026 Q2": {
@@ -15273,11 +15273,11 @@
       },
       "2013 Q4": {
         "version": 1,
-        "checkedAt": "2026-11-07",
+        "checkedAt": "2026-11-08",
         "source": "https://www.sec.gov/Archives/edgar/data/1336528/000117266114000750/infotable.xml",
         "filingDate": "2014-02-14",
         "sourceDigest": "20273c35e19aa83217140c7d09f77c739b08bc31154e6cab22dc85b9784f3512",
-        "sourceHash": "caf01c2ea4608c5b234849ff0878df3bd3fc775435d042503a5b6b67ec9ac043",
+        "sourceHash": "5bcf455b59ba6f7c40b528878bf067afc203fe9b087c390f9a095a2116ac5214",
         "status": "pending",
         "anchors": [
           {
@@ -15287,7 +15287,7 @@
             "price": 111.78000368499755,
             "date": "2013-12-31",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/APD?period1=0&period2=1794113381&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/APD?period1=0&period2=1794247932&interval=1d&events=splits",
             "candidates": [
               1
             ]
@@ -15299,22 +15299,24 @@
             "price": 81.41000366210938,
             "date": "2013-12-31",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/PG?period1=0&period2=1794113379&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/PG?period1=0&period2=1794247932&interval=1d&events=splits",
             "candidates": [
               1
             ]
           }
         ],
-        "errors": [],
-        "normalizedHash": "caf01c2ea4608c5b234849ff0878df3bd3fc775435d042503a5b6b67ec9ac043"
+        "errors": [
+          "HHC: ValueError"
+        ],
+        "normalizedHash": "5bcf455b59ba6f7c40b528878bf067afc203fe9b087c390f9a095a2116ac5214"
       },
       "2014 Q1": {
         "version": 1,
-        "checkedAt": "2026-11-07",
+        "checkedAt": "2026-11-08",
         "source": "https://www.sec.gov/Archives/edgar/data/1336528/000117266114001128/infotable.xml",
         "filingDate": "2014-05-15",
         "sourceDigest": "f69b5134286ca50c2940b09f52dc92401dafffa24245fd9c03f5e0a33682c4b7",
-        "sourceHash": "5ff03ff64ad43691d1b5fa2664faccb489c630020915cd8fd39ff5d013007e10",
+        "sourceHash": "6a2c7905d4c2eb8f85a28a31a05bba6e07107ad82bcf47290cb6b4ebee9cd216",
         "status": "pending",
         "anchors": [
           {
@@ -15324,22 +15326,24 @@
             "price": 119.04000337982177,
             "date": "2014-03-31",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/APD?period1=0&period2=1794117733&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/APD?period1=0&period2=1794247932&interval=1d&events=splits",
             "candidates": [
               1
             ]
           }
         ],
-        "errors": [],
-        "normalizedHash": "5ff03ff64ad43691d1b5fa2664faccb489c630020915cd8fd39ff5d013007e10"
+        "errors": [
+          "HHC: ValueError"
+        ],
+        "normalizedHash": "6a2c7905d4c2eb8f85a28a31a05bba6e07107ad82bcf47290cb6b4ebee9cd216"
       },
       "2014 Q2": {
         "version": 1,
-        "checkedAt": "2026-11-07",
+        "checkedAt": "2026-11-08",
         "source": "https://www.sec.gov/Archives/edgar/data/1336528/000117266114001490/infotable.xml",
         "filingDate": "2014-08-14",
         "sourceDigest": "2d3280638d3ad9c212ec0f41e3742dfd2ab83a257f3828142977c4f4321833c5",
-        "sourceHash": "5faead0f88d08a43e1a32b34b2424f3f88a62e7981ffa1584ab78a95399c78f9",
+        "sourceHash": "62545951a03b0dc607c8e9ea113bc80801d124df3068cbc0ef24522ee7dba2a3",
         "status": "pending",
         "anchors": [
           {
@@ -15349,22 +15353,24 @@
             "price": 128.619998046875,
             "date": "2014-06-30",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/APD?period1=0&period2=1794117733&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/APD?period1=0&period2=1794247932&interval=1d&events=splits",
             "candidates": [
               1
             ]
           }
         ],
-        "errors": [],
-        "normalizedHash": "5faead0f88d08a43e1a32b34b2424f3f88a62e7981ffa1584ab78a95399c78f9"
+        "errors": [
+          "HHC: ValueError"
+        ],
+        "normalizedHash": "62545951a03b0dc607c8e9ea113bc80801d124df3068cbc0ef24522ee7dba2a3"
       },
       "2014 Q3": {
         "version": 1,
-        "checkedAt": "2026-11-07",
+        "checkedAt": "2026-11-08",
         "source": "https://www.sec.gov/Archives/edgar/data/1336528/000117266114001862/infotable.xml",
         "filingDate": "2014-11-14",
         "sourceDigest": "16d3b823356afae6730f63866749f85af429622eb38e788c10d23da5b252a81d",
-        "sourceHash": "ccac86271ac58335f42196482657b8689f2eebe331d9cc32c49a1ecd66f34f8b",
+        "sourceHash": "ff4275fe89b4f699bc87b76a1f638e005944c26f4b72585c6f537a8a95542620",
         "status": "pending",
         "anchors": [
           {
@@ -15374,7 +15380,7 @@
             "price": 130.17999736785887,
             "date": "2014-09-30",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/APD?period1=0&period2=1794117733&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/APD?period1=0&period2=1794247932&interval=1d&events=splits",
             "candidates": [
               1
             ]
@@ -15386,14 +15392,16 @@
             "price": 36.95000076293945,
             "date": "2014-09-30",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/ZTS?period1=0&period2=1794117733&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/ZTS?period1=0&period2=1794247933&interval=1d&events=splits",
             "candidates": [
               1
             ]
           }
         ],
-        "errors": [],
-        "normalizedHash": "ccac86271ac58335f42196482657b8689f2eebe331d9cc32c49a1ecd66f34f8b"
+        "errors": [
+          "HHC: ValueError"
+        ],
+        "normalizedHash": "ff4275fe89b4f699bc87b76a1f638e005944c26f4b72585c6f537a8a95542620"
       },
       "2014 Q4": {
         "version": 1,
@@ -18582,7 +18590,7 @@
         "source": "https://www.sec.gov/Archives/edgar/data/1336528/0001172661-06-000115.txt",
         "filingDate": "2006-02-14",
         "sourceDigest": "471985c6ededc211ed237f2376494fa38d7052b57afb1bfdd787182d7dfa2740",
-        "sourceHash": "c33d998546aab2c8b4bfae0c67fc9c33accf67472e7906ca13513290bf829b72",
+        "sourceHash": "abfab5d856d1170f0beb598b66590d6e4bf0d64ae0b41e6e0a0f947e959dd5de",
         "status": "pending",
         "anchors": [
           {
@@ -18592,14 +18600,16 @@
             "price": 33.720001220703125,
             "date": "2005-12-30",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/MCD?period1=0&period2=1794192967&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/MCD?period1=0&period2=1794247933&interval=1d&events=splits",
             "candidates": [
               1
             ]
           }
         ],
-        "errors": [],
-        "normalizedHash": "c33d998546aab2c8b4bfae0c67fc9c33accf67472e7906ca13513290bf829b72"
+        "errors": [
+          "SHLDQ: ValueError"
+        ],
+        "normalizedHash": "abfab5d856d1170f0beb598b66590d6e4bf0d64ae0b41e6e0a0f947e959dd5de"
       },
       "2006 Q1": {
         "version": 1,
@@ -18607,7 +18617,7 @@
         "source": "https://www.sec.gov/Archives/edgar/data/1336528/0000902664-06-001522.txt",
         "filingDate": "2006-05-15",
         "sourceDigest": "4d0061b1cb2d9d60ed9ac35dbd1c9459fa34ce89aba90e1d82bb26d08535492c",
-        "sourceHash": "b722e1705dfee032969002e22c7438d4b730a2ae9f762416b7b0189ed12e6f56",
+        "sourceHash": "d0431aa3f0bfe70b01f58220d953397f2d1621c943b9e9faf7a28fb1de2b74b8",
         "status": "pending",
         "anchors": [
           {
@@ -18617,7 +18627,7 @@
             "price": 53.0099983215332,
             "date": "2006-03-31",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/KSS?period1=0&period2=1794192967&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/KSS?period1=0&period2=1794247934&interval=1d&events=splits",
             "candidates": [
               1
             ]
@@ -18629,14 +18639,17 @@
             "price": 34.36000061035156,
             "date": "2006-03-31",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/MCD?period1=0&period2=1794192967&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/MCD?period1=0&period2=1794247933&interval=1d&events=splits",
             "candidates": [
               1
             ]
           }
         ],
-        "errors": [],
-        "normalizedHash": "b722e1705dfee032969002e22c7438d4b730a2ae9f762416b7b0189ed12e6f56"
+        "errors": [
+          "VIAB: ValueError",
+          "SHLDQ: ValueError"
+        ],
+        "normalizedHash": "d0431aa3f0bfe70b01f58220d953397f2d1621c943b9e9faf7a28fb1de2b74b8"
       },
       "2006 Q2": {
         "version": 1,

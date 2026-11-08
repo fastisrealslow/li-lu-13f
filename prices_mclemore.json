@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-08T15:19:22.998358Z",
+  "updated": "2026-11-08T18:14:05.103117Z",
   "quotes": {
     "RPRX": {
       "c": 67.3,
@@ -15772,46 +15772,6 @@
         "priceBasis": "b6952f59fb3266881d3c4453e63cb417718d189e16afaeea8d42784ad37a73f7",
         "checkedAt": ""
       },
-      "899896104": {
-        "ticker": "TUPBQ",
-        "cusip": "899896104",
-        "quarters": [
-          {
-            "quarter": "2021 Q4",
-            "action": "observed",
-            "shares": 283100,
-            "previousShares": null,
-            "buy": null,
-            "averageCost": null
-          },
-          {
-            "quarter": "2022 Q1",
-            "action": "added",
-            "shares": 300300,
-            "previousShares": 283100,
-            "buy": null,
-            "averageCost": null
-          },
-          {
-            "quarter": "2022 Q2",
-            "action": "exited",
-            "shares": 0,
-            "previousShares": 300300,
-            "sell": null,
-            "costBeforeSale": null,
-            "averageCost": null
-          }
-        ],
-        "averageBuy": null,
-        "averageSell": null,
-        "missingBuyQuarters": 2,
-        "missingSellQuarters": 1,
-        "first": "2021 Q4",
-        "last": "2022 Q2",
-        "candles": {},
-        "priceBasis": "f4df29d27ed9f43a852a106071861f939c328debb3295575dc540d5bb4bc2c0f",
-        "checkedAt": "2026-11-08T15:19:22.649092+00:00"
-      },
       "30034T103": {
         "ticker": "?EVERI HLDGS INC",
         "cusip": "30034T103",
@@ -16000,7 +15960,20 @@
         "last": "2022 Q2",
         "candles": {},
         "priceBasis": "991c267d3e393e804b79effc7017b2c9202d98c106930bc231c8036fe2e8d101",
-        "checkedAt": ""
+        "checkedAt": "",
+        "lifecycle": {
+          "ticker": "?WW INTL INC",
+          "issuer": "WW INTERNATIONAL, INC.",
+          "status": "ceased_trading",
+          "effectiveDate": "2025-07-03",
+          "reason": "交易所已申报该类证券赎回、转换或注销；保留原报告期持仓，不显示虚构现价。",
+          "reasonEn": "The exchange reported the retirement or replacement of this security class. The original dated position is retained without an invented current quote.",
+          "sourceURL": "https://www.sec.gov/Archives/edgar/data/105319/000135445725000613/primary_doc.xml",
+          "checkedAt": "2026-11-08",
+          "issuerCIK": "105319",
+          "evidenceType": "SEC Form 25-NSE",
+          "ruleProvision": "17 CFR 240.12d2-2(a)(3)"
+        }
       },
       "860897107": {
         "ticker": "SFIX",
@@ -22366,6 +22339,46 @@
         },
         "priceBasis": "68be112936b47a4ee00b6d9e0eb9a54e02df57e815b6e0197679d368c30938f4",
         "checkedAt": "2026-11-08T12:28:05.854825+00:00"
+      },
+      "899896104": {
+        "ticker": "TUPBQ",
+        "cusip": "899896104",
+        "quarters": [
+          {
+            "quarter": "2021 Q4",
+            "action": "observed",
+            "shares": 283100,
+            "previousShares": null,
+            "buy": null,
+            "averageCost": null
+          },
+          {
+            "quarter": "2022 Q1",
+            "action": "added",
+            "shares": 300300,
+            "previousShares": 283100,
+            "buy": null,
+            "averageCost": null
+          },
+          {
+            "quarter": "2022 Q2",
+            "action": "exited",
+            "shares": 0,
+            "previousShares": 300300,
+            "sell": null,
+            "costBeforeSale": null,
+            "averageCost": null
+          }
+        ],
+        "averageBuy": null,
+        "averageSell": null,
+        "missingBuyQuarters": 2,
+        "missingSellQuarters": 1,
+        "first": "2021 Q4",
+        "last": "2022 Q2",
+        "candles": {},
+        "priceBasis": "f4df29d27ed9f43a852a106071861f939c328debb3295575dc540d5bb4bc2c0f",
+        "checkedAt": "2026-11-08T15:19:22.649092+00:00"
       }
     },
     "quoteRefresh": {
@@ -22554,5 +22567,5 @@
   },
   "securityIdentityVersion": 1,
   "sourceHistoryFingerprint": "4b32d24606e0809736fd732ddd0a51c698148f6de3cef474736863a9d373191d",
-  "quoteCoverageCheckedAt": "2026-11-08T15:29:43.828341+00:00"
+  "quoteCoverageCheckedAt": "2026-11-08T18:22:45.752614+00:00"
 }
