@@ -530,10 +530,10 @@
       "reason": "ValueError: Bilingual editorial review: The source text does not contain any mention of 'market sentiment' (market sentiment) or 'contrarian investing' (contrarian investin"
     },
     "vinall-b8757c659b8401": {
-      "at": "2026-11-08T17:04:08+00:00",
+      "at": "2026-11-08T22:52:38+00:00",
       "status": "retry",
       "inputHash": "259588b8fb80deba3028e4c0bb289884be1df032ee261719c328e81644d70917",
-      "reason": "ValueError: Unsupported numerical claim: 12"
+      "reason": "ValueError: Bilingual editorial review: Author name mismatch: Source uses 'Rob Vinall' (s0, s1), but content claims 'Rob Vinall' is the author while evidence IDs suggest RV"
     },
     "buffett-0dffc205cf0707": {
       "at": "2026-11-08T22:34:24+00:00",
@@ -3613,5 +3613,5 @@
       "reason": "ValueError: Bilingual editorial review: The English text incorrectly states revenue grew from $21.6 million to $72.9 million without explicitly mentioning the intermediate "
     }
   },
-  "updatedAt": "2026-11-08T22:51:49+00:00"
+  "updatedAt": "2026-11-08T22:52:38+00:00"
 }
