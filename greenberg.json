@@ -18353,7 +18353,7 @@
               "value": 87878000
             }
           ],
-          "ticker": "?EXPRESS SCRIPTS HLDG CO",
+          "ticker": "ESRX",
           "sector": "其他",
           "prevShares": 0,
           "prevValue": 0
@@ -18455,7 +18455,7 @@
               "value": 230384000
             }
           ],
-          "ticker": "?EXPRESS SCRIPTS HLDG CO",
+          "ticker": "ESRX",
           "sector": "其他",
           "prevShares": 1627364,
           "prevValue": 87878000
@@ -34133,7 +34133,7 @@
         "source": "https://www.sec.gov/Archives/edgar/data/1553733/0001172661-13-000435.txt",
         "filingDate": "2013-02-14",
         "sourceDigest": "2f657758a26cdc8c7bc19d328467d20b36a9998a1c321ed422c15c8be0f82031",
-        "sourceHash": "5f62832d7693cc04e421a8411055ccb73c2220bb8448910c1f3634161c289c1d",
+        "sourceHash": "b9b1649de85164ee169cc46f9ee860c9d72287476b82f8ccb0b9b5eda651d4cd",
         "status": "verified",
         "factor": 1,
         "anchors": [
@@ -34189,7 +34189,7 @@
         "agreementCount": 4,
         "anchorCount": 4,
         "outlierTickers": [],
-        "normalizedHash": "5f62832d7693cc04e421a8411055ccb73c2220bb8448910c1f3634161c289c1d"
+        "normalizedHash": "b9b1649de85164ee169cc46f9ee860c9d72287476b82f8ccb0b9b5eda651d4cd"
       },
       "2013 Q1": {
         "version": 1,
@@ -34197,7 +34197,7 @@
         "source": "https://www.sec.gov/Archives/edgar/data/1553733/0001172661-13-000840.txt",
         "filingDate": "2013-05-15",
         "sourceDigest": "420ea7feb99fb4fceb30585c2fdb69e0f67ef9c20d35dca908fed522737c9bf1",
-        "sourceHash": "724d7dc5c0cd2ab74bdada134a3981a0a6c9f829d32ee68c3c67398df196df56",
+        "sourceHash": "4e85422dee51fc0682adc3f000479d5b6e58cd7c0050793858ed2fac5565854d",
         "status": "verified",
         "factor": 1,
         "anchors": [
@@ -34253,7 +34253,7 @@
         "agreementCount": 4,
         "anchorCount": 4,
         "outlierTickers": [],
-        "normalizedHash": "724d7dc5c0cd2ab74bdada134a3981a0a6c9f829d32ee68c3c67398df196df56"
+        "normalizedHash": "4e85422dee51fc0682adc3f000479d5b6e58cd7c0050793858ed2fac5565854d"
       },
       "2020 Q2": {
         "version": 1,
@@ -34694,11 +34694,11 @@
       },
       "2000 Q4": {
         "version": 1,
-        "checkedAt": "2026-11-08",
+        "checkedAt": "2026-11-09",
         "source": "https://www.sec.gov/Archives/edgar/data/789920/0000950123-01-001453.txt",
         "filingDate": "2001-02-14",
         "sourceDigest": "8f7786590168392efc317bc590285df75f3b5bd9d366d9a25e5615aa3948c32d",
-        "sourceHash": "396cc55652530ff07bc50654699d4bc4c12487a22ee2ca72a8ac2efd44593ea7",
+        "sourceHash": "495c99dd339825c1e794f93289f5cb80c25ebe8394138cdd2432cb1978c2a11f",
         "status": "pending",
         "anchors": [
           {
@@ -34708,7 +34708,7 @@
             "price": 23.25,
             "date": "2000-12-29",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/USB?period1=0&period2=1794192947&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/USB?period1=0&period2=1794350953&interval=1d&events=splits",
             "candidates": []
           },
           {
@@ -34718,18 +34718,20 @@
             "price": 78.0,
             "date": "2000-12-29",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/GD?period1=0&period2=1794192947&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/GD?period1=0&period2=1794350954&interval=1d&events=splits",
             "candidates": [
               1
             ]
           }
         ],
-        "errors": [],
-        "normalizedHash": "396cc55652530ff07bc50654699d4bc4c12487a22ee2ca72a8ac2efd44593ea7"
+        "errors": [
+          "SJR: ValueError"
+        ],
+        "normalizedHash": "495c99dd339825c1e794f93289f5cb80c25ebe8394138cdd2432cb1978c2a11f"
       },
       "2001 Q1": {
         "version": 1,
-        "checkedAt": "2026-11-08",
+        "checkedAt": "2026-11-09",
         "source": "https://www.sec.gov/Archives/edgar/data/789920/0000950123-01-502511.txt",
         "filingDate": "2001-05-15",
         "sourceDigest": "ea8c4a3843143c27b128ba41c766d6beeb798f8c7a633236019f763737905b03",
@@ -34743,7 +34745,7 @@
             "price": 23.200000762939453,
             "date": "2001-03-30",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/USB?period1=0&period2=1794223833&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/USB?period1=0&period2=1794350953&interval=1d&events=splits",
             "candidates": [
               1
             ]
@@ -34755,7 +34757,7 @@
             "price": 62.7400016784668,
             "date": "2001-03-30",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/GD?period1=0&period2=1794223833&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/GD?period1=0&period2=1794350954&interval=1d&events=splits",
             "candidates": [
               1
             ]
@@ -34768,7 +34770,7 @@
       },
       "2001 Q2": {
         "version": 1,
-        "checkedAt": "2026-11-08",
+        "checkedAt": "2026-11-09",
         "source": "https://www.sec.gov/Archives/edgar/data/789920/0000950123-01-505600.txt",
         "filingDate": "2001-08-14",
         "sourceDigest": "8313358babdc152d7b987bc5f2cd1e1d34eeb7db473ae8925dfdf37534f9e02f",
@@ -34782,7 +34784,7 @@
       },
       "2001 Q3": {
         "version": 1,
-        "checkedAt": "2026-11-08",
+        "checkedAt": "2026-11-09",
         "source": "https://www.sec.gov/Archives/edgar/data/789920/0000950123-01-508430.txt",
         "filingDate": "2001-11-14",
         "sourceDigest": "8a722ea762ff6e39720971938162adc1b6a86c7fbb943024b25c04d5f6f1a560",
@@ -34796,7 +34798,7 @@
       },
       "2001 Q4": {
         "version": 1,
-        "checkedAt": "2026-11-08",
+        "checkedAt": "2026-11-09",
         "source": "https://www.sec.gov/Archives/edgar/data/789920/0000950123-02-001338.txt",
         "filingDate": "2002-02-12",
         "sourceDigest": "4938d398e6a76801b47cf11366ea9ab590a0471348ddeb8a2e5accad81721dca",
@@ -34810,7 +34812,7 @@
       },
       "2002 Q1": {
         "version": 1,
-        "checkedAt": "2026-11-08",
+        "checkedAt": "2026-11-09",
         "source": "https://www.sec.gov/Archives/edgar/data/789920/0000950123-02-005284.txt",
         "filingDate": "2002-05-15",
         "sourceDigest": "637360540de4f216a6d32454d37d27539beb43ac7677cbd9c71038fb0509753b",
@@ -36693,11 +36695,11 @@
     "instrumentVerification": {
       "pendingQuarters": [],
       "errors": {},
-      "checkedAt": "2026-11-09T03:13:51.491550+00:00"
+      "checkedAt": "2026-11-09T22:49:13.142497+00:00"
     },
     "excludedValueQuarters": [],
     "coverage": {
-      "checkedAt": "2026-11-09T03:13:51Z",
+      "checkedAt": "2026-11-09T22:49:13Z",
       "missingQuarters": [],
       "repairedThisRun": [],
       "errors": {},
@@ -37191,7 +37193,7 @@
     "instrumentHistoryFrom": "1999 Q1",
     "manager": "Brave Warrior Advisors, LLC",
     "costHistoryFrom": "2012 Q1",
-    "lastUpdated": "2026-11-09T03:13:51Z",
+    "lastUpdated": "2026-11-09T22:49:13Z",
     "notablePeople": [
       "Glenn Greenberg"
     ],
