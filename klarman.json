@@ -5,7 +5,7 @@
     "notablePeople": [
       "Seth Klarman"
     ],
-    "lastUpdated": "2026-11-08T18:12:05Z",
+    "lastUpdated": "2026-11-09T03:13:59Z",
     "aiSummary": "克拉曼大幅增持亚马逊与谷歌，新进芝商所等，显示其持续看好科技巨头及特定周期机会，同时减持部分传统行业仓位。",
     "aiSummaryQuarter": "2026 Q2",
     "shareActions": [
@@ -39074,7 +39074,7 @@
               "value": 1783000
             }
           ],
-          "ticker": "?ALLSCRIPTS HEALTHCARE SOLUTI",
+          "ticker": "MDRX",
           "sector": "其他",
           "prevShares": 0,
           "prevValue": 0
@@ -52557,7 +52557,7 @@
               "value": 43450000
             }
           ],
-          "ticker": "?HESS CORP",
+          "ticker": "HES",
           "sector": "其他",
           "prevShares": 0,
           "prevValue": 0
@@ -63312,7 +63312,7 @@
       ]
     },
     "coverage": {
-      "checkedAt": "2026-11-08T18:12:05Z",
+      "checkedAt": "2026-11-09T03:13:59Z",
       "missingQuarters": [
         "1999 Q3"
       ],
@@ -63321,7 +63321,7 @@
         "1999 Q3": "Legacy table reconciliation failed: 40/41 rows, $610102000/$647531000"
       },
       "attempts": {
-        "1999 Q3": 36
+        "1999 Q3": 37
       },
       "pendingRefreshQuarters": [],
       "expandedLookup": null,
@@ -69660,11 +69660,11 @@
       },
       "2009 Q3": {
         "version": 1,
-        "checkedAt": "2026-11-07",
+        "checkedAt": "2026-11-09",
         "source": "https://www.sec.gov/Archives/edgar/data/1061768/0001061768-09-000159.txt",
         "filingDate": "2009-11-12",
         "sourceDigest": "25044f8bcff9d28873817f6c5ca62fee3babb5b291e1605681aceee1876cadff",
-        "sourceHash": "2e806a81388be9cd09ba646d4f6d430cc2b55bc5a7723ebf52334048afa03ef4",
+        "sourceHash": "6974845e857f2f25ca80a1b2bbead078eb29afcb22e6a6bfdbb0f596e12db422",
         "status": "pending",
         "anchors": [
           {
@@ -69674,22 +69674,26 @@
             "price": 26.579999923706055,
             "date": "2009-09-30",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/VSAT?period1=0&period2=1794108157&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/VSAT?period1=0&period2=1794280441&interval=1d&events=splits",
             "candidates": [
               1
             ]
           }
         ],
-        "errors": [],
-        "normalizedHash": "2e806a81388be9cd09ba646d4f6d430cc2b55bc5a7723ebf52334048afa03ef4"
+        "errors": [
+          "UFS: ValueError",
+          "MGAM: ValueError",
+          "ELOS: ValueError"
+        ],
+        "normalizedHash": "6974845e857f2f25ca80a1b2bbead078eb29afcb22e6a6bfdbb0f596e12db422"
       },
       "2001 Q1": {
         "version": 1,
-        "checkedAt": "2026-11-08",
+        "checkedAt": "2026-11-09",
         "source": "https://www.sec.gov/Archives/edgar/data/1054420/0001054420-01-500008.txt",
         "filingDate": "2001-05-14",
         "sourceDigest": "866accda277bcc9b5728ce8a3506aede7633b9d5b307c62d1f686b2185107e38",
-        "sourceHash": "a877b8f53b13391c15358eecf6dfbc6036504e32f593c66887e23840694f40a5",
+        "sourceHash": "b0540af724147455804551fa71af575c1cb6d8e12f9c7c25b1baba780a4a66d0",
         "status": "pending",
         "anchors": [
           {
@@ -69699,7 +69703,7 @@
             "price": 8.499999634552003,
             "date": "2001-03-30",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/VTR?period1=0&period2=1794192955&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/VTR?period1=0&period2=1794280443&interval=1d&events=splits",
             "candidates": [
               1
             ]
@@ -69711,38 +69715,44 @@
             "price": 12.699999809265137,
             "date": "2001-03-30",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/WAB?period1=0&period2=1794192955&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/WAB?period1=0&period2=1794280443&interval=1d&events=splits",
             "candidates": [
               1
             ]
           }
         ],
-        "errors": [],
-        "normalizedHash": "a877b8f53b13391c15358eecf6dfbc6036504e32f593c66887e23840694f40a5"
+        "errors": [
+          "OMN: ValueError"
+        ],
+        "normalizedHash": "b0540af724147455804551fa71af575c1cb6d8e12f9c7c25b1baba780a4a66d0"
       },
       "2001 Q2": {
         "version": 1,
-        "checkedAt": "2026-11-08",
+        "checkedAt": "2026-11-09",
         "source": "https://www.sec.gov/Archives/edgar/data/1054420/0001072613-01-500821.txt",
         "filingDate": "2001-08-14",
         "sourceDigest": "ad0dc06fa96b8c1ac9cac48ca78cc343120030dc0658d1bb17b3a7a142e9cefd",
-        "sourceHash": "b9df3ea9da036cd8e568738849133d98adcdf229b59b54368759e2d9aed8e589",
+        "sourceHash": "6d780d6075a6f7aec5c2f326de0f2445b722600e276540118c1351784388960b",
         "status": "pending",
         "anchors": [],
-        "errors": [],
-        "normalizedHash": "b9df3ea9da036cd8e568738849133d98adcdf229b59b54368759e2d9aed8e589"
+        "errors": [
+          "OMN: ValueError"
+        ],
+        "normalizedHash": "6d780d6075a6f7aec5c2f326de0f2445b722600e276540118c1351784388960b"
       },
       "2001 Q3": {
         "version": 1,
-        "checkedAt": "2026-11-08",
+        "checkedAt": "2026-11-09",
         "source": "https://www.sec.gov/Archives/edgar/data/1054420/0001054420-01-500023.txt",
         "filingDate": "2001-11-14",
         "sourceDigest": "651f7ce58e42ac17589c3bb3d7f35201ebe7c7e0512fee436cd0f028433fa635",
-        "sourceHash": "ba01717b330c2eac69be28ea1a585ce06808e6d944a8cfab2b2d5cdf01fe1d5a",
+        "sourceHash": "4b89bda32f28d61efcedcf421e9c432e87c48a3a8127ac0718b2f56dbd0e9195",
         "status": "pending",
         "anchors": [],
-        "errors": [],
-        "normalizedHash": "ba01717b330c2eac69be28ea1a585ce06808e6d944a8cfab2b2d5cdf01fe1d5a"
+        "errors": [
+          "OMN: ValueError"
+        ],
+        "normalizedHash": "4b89bda32f28d61efcedcf421e9c432e87c48a3a8127ac0718b2f56dbd0e9195"
       },
       "2001 Q4": {
         "version": 1,
@@ -69847,11 +69857,11 @@
       },
       "2009 Q2": {
         "version": 1,
-        "checkedAt": "2026-11-07",
+        "checkedAt": "2026-11-09",
         "source": "https://www.sec.gov/Archives/edgar/data/1061768/0001061768-09-000141.txt",
         "filingDate": "2009-08-14",
         "sourceDigest": "8afbd7dabbb5c4550a30c4811c0932f2d3514ecb91f4df244930f53ddac1ba8b",
-        "sourceHash": "cdf624f585d0166ab6313b17f587adbd954adc3924f9045196701aabc66fb09d",
+        "sourceHash": "c27cb978cf88165e54698640afa66f633844ab83c5d6112f807867b55bd8624e",
         "status": "pending",
         "anchors": [
           {
@@ -69861,22 +69871,27 @@
             "price": 25.639999389648438,
             "date": "2009-06-30",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/VSAT?period1=0&period2=1794108157&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/VSAT?period1=0&period2=1794280441&interval=1d&events=splits",
             "candidates": [
               1
             ]
           }
         ],
-        "errors": [],
-        "normalizedHash": "cdf624f585d0166ab6313b17f587adbd954adc3924f9045196701aabc66fb09d"
+        "errors": [
+          "PDLI: ValueError",
+          "UFS: ValueError",
+          "ELOS: ValueError",
+          "MGAM: ValueError"
+        ],
+        "normalizedHash": "c27cb978cf88165e54698640afa66f633844ab83c5d6112f807867b55bd8624e"
       },
       "2009 Q4": {
         "version": 1,
-        "checkedAt": "2026-11-07",
+        "checkedAt": "2026-11-09",
         "source": "https://www.sec.gov/Archives/edgar/data/1061768/0001140361-10-006076.txt",
         "filingDate": "2010-02-12",
         "sourceDigest": "ce78509842869ecd6f248ea88b7cc2c56aa3bf8ae5147565cc97a0d19c06eb22",
-        "sourceHash": "1d42d4bc0819fbb44f5d097d374b8a3e9bb2195b6a930bd63c34b6f0f06b1266",
+        "sourceHash": "7a9ea49fb5c1c9ea059d5d66a41e99e09c47a7da9546d976eb7d900c17e1e089",
         "status": "pending",
         "anchors": [
           {
@@ -69886,14 +69901,19 @@
             "price": 31.780000686645508,
             "date": "2009-12-31",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/VSAT?period1=0&period2=1794108157&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/VSAT?period1=0&period2=1794280441&interval=1d&events=splits",
             "candidates": [
               1
             ]
           }
         ],
-        "errors": [],
-        "normalizedHash": "1d42d4bc0819fbb44f5d097d374b8a3e9bb2195b6a930bd63c34b6f0f06b1266"
+        "errors": [
+          "UFS: ValueError",
+          "MGAM: ValueError",
+          "CIT: ValueError",
+          "ELOS: ValueError"
+        ],
+        "normalizedHash": "7a9ea49fb5c1c9ea059d5d66a41e99e09c47a7da9546d976eb7d900c17e1e089"
       },
       "1999 Q1": {
         "version": 1,
