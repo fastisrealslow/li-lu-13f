@@ -1037,10 +1037,10 @@
       "reason": "ValueError: Bilingual editorial review: Fact error: Source s3 states 'millennia' (thousands of years), but content claims 'millions of years'.; Fact error: Source s5 mentio"
     },
     "pabrai-56b8c04cb25a32": {
-      "at": "2026-11-08T20:31:19+00:00",
+      "at": "2026-11-09T03:15:03+00:00",
       "status": "retry",
       "inputHash": "54b7c9fb9a8ee008ffe080419bc55ebd4052407d67bb0a004fe685545cb03e43",
-      "reason": "JSONDecodeError: Expecting ',' delimiter: line 6 column 56 (char 379)"
+      "reason": "ValueError: Incomplete AI Review at 900 tokens"
     },
     "pabrai-2dadcddfebe9d5": {
       "at": "2026-11-08T20:08:47+00:00",
@@ -3613,5 +3613,5 @@
       "reason": "ValueError: Bilingual editorial review: The English text incorrectly states revenue grew from $21.6 million to $72.9 million without explicitly mentioning the intermediate "
     }
   },
-  "updatedAt": "2026-11-09T03:14:46+00:00"
+  "updatedAt": "2026-11-09T03:15:03+00:00"
 }
