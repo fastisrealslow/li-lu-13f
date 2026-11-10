@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-10T04:57:38.094621Z",
+  "updated": "2026-11-10T20:09:10.895401Z",
   "quotes": {
     "LOAR": {
       "c": 78.57,
@@ -796,6 +796,30 @@
       "stale": true,
       "shareActions": [],
       "shareActionsSince": "2006-01-01"
+    },
+    "MS": {
+      "c": 187.606,
+      "t": 1794341322,
+      "currency": "USD",
+      "symbol": "MS",
+      "verifiedName": "Morgan Stanley",
+      "source": "yahoo_chart",
+      "sourceURL": "https://finance.yahoo.com/quote/MS/",
+      "fetchedAt": "2026-11-10T20:09:10.711435+00:00",
+      "shareActions": [],
+      "shareActionsSince": "2006-01-01"
+    },
+    "SAFT": {
+      "c": 104.51,
+      "t": 1794339678,
+      "currency": "USD",
+      "symbol": "SAFT",
+      "verifiedName": "Safety Insurance Group, Inc.",
+      "source": "yahoo_chart",
+      "sourceURL": "https://finance.yahoo.com/quote/SAFT/",
+      "fetchedAt": "2026-11-10T20:09:10.739274+00:00",
+      "shareActions": [],
+      "shareActionsSince": "2006-01-01"
     }
   },
   "costBasis": {
@@ -1000,6 +1024,14 @@
       "changePct": 52.3,
       "methodVersion": 1
     },
+    "MS": {
+      "entryQuarter": "2006 Q1",
+      "entryPrice": 57.791,
+      "exitQuarter": "2006 Q2",
+      "exitPrice": 64.6919,
+      "changePct": 11.9,
+      "methodVersion": 1
+    },
     "SLGN": {
       "entryQuarter": "2012 Q4",
       "entryPrice": 20.702,
@@ -1038,6 +1070,14 @@
       "exitQuarter": "2020 Q4",
       "exitPrice": 3.8018,
       "changePct": -40.1,
+      "methodVersion": 1
+    },
+    "SAFT": {
+      "entryQuarter": "2011 Q3",
+      "entryPrice": 36.6136,
+      "exitQuarter": "2011 Q4",
+      "exitPrice": 43.4925,
+      "changePct": 18.8,
       "methodVersion": 1
     },
     "TDG": {
@@ -5278,52 +5318,6 @@
         "priceBasis": "6b83fb11c4766e839d7d2d9af4ee795f8abdf2b4d6a554a64d4ac7779398f677",
         "checkedAt": "2026-11-08T11:30:55.965911+00:00"
       },
-      "151020104": {
-        "ticker": "CELG",
-        "cusip": "151020104",
-        "quarters": [
-          {
-            "quarter": "2019 Q1",
-            "action": "observed",
-            "shares": 6752869,
-            "previousShares": null,
-            "buy": null,
-            "averageCost": null
-          },
-          {
-            "quarter": "2019 Q2",
-            "action": "hold",
-            "shares": 6752869,
-            "previousShares": 6752869,
-            "averageCost": null
-          },
-          {
-            "quarter": "2019 Q3",
-            "action": "hold",
-            "shares": 6752869,
-            "previousShares": 6752869,
-            "averageCost": null
-          },
-          {
-            "quarter": "2019 Q4",
-            "action": "exited",
-            "shares": 0,
-            "previousShares": 6752869,
-            "sell": null,
-            "costBeforeSale": null,
-            "averageCost": null
-          }
-        ],
-        "averageBuy": null,
-        "averageSell": null,
-        "missingBuyQuarters": 1,
-        "missingSellQuarters": 1,
-        "first": "2019 Q1",
-        "last": "2019 Q4",
-        "candles": {},
-        "priceBasis": "402f64aeffff0978a42b1ba6193123e82e65206e21c6ef09480206fef3e3b63a",
-        "checkedAt": "2026-11-10T04:57:37.416971+00:00"
-      },
       "15912K100": {
         "ticker": "?CHANGE HEALTHCARE INC",
         "cusip": "15912K100",
@@ -5487,77 +5481,6 @@
         "priceBasis": "df77afc838d1f585d22832bf2039a6209ebd41d627e6eae994e1dffba1ce877f",
         "checkedAt": ""
       },
-      "887317303": {
-        "ticker": "TWX",
-        "cusip": "887317303",
-        "quarters": [
-          {
-            "quarter": "2016 Q4",
-            "action": "observed",
-            "shares": 3050000,
-            "previousShares": null,
-            "buy": null,
-            "averageCost": null
-          },
-          {
-            "quarter": "2017 Q1",
-            "action": "hold",
-            "shares": 3050000,
-            "previousShares": 3050000,
-            "averageCost": null
-          },
-          {
-            "quarter": "2017 Q2",
-            "action": "hold",
-            "shares": 3050000,
-            "previousShares": 3050000,
-            "averageCost": null
-          },
-          {
-            "quarter": "2017 Q3",
-            "action": "exited",
-            "shares": 0,
-            "previousShares": 3050000,
-            "sell": null,
-            "costBeforeSale": null,
-            "averageCost": null
-          },
-          {
-            "quarter": "2017 Q4",
-            "action": "new",
-            "shares": 2980642,
-            "previousShares": 0,
-            "buy": null,
-            "averageCost": null
-          },
-          {
-            "quarter": "2018 Q1",
-            "action": "added",
-            "shares": 3346103,
-            "previousShares": 2980642,
-            "buy": null,
-            "averageCost": null
-          },
-          {
-            "quarter": "2018 Q2",
-            "action": "exited",
-            "shares": 0,
-            "previousShares": 3346103,
-            "sell": null,
-            "costBeforeSale": null,
-            "averageCost": null
-          }
-        ],
-        "averageBuy": null,
-        "averageSell": null,
-        "missingBuyQuarters": 3,
-        "missingSellQuarters": 2,
-        "first": "2016 Q4",
-        "last": "2018 Q2",
-        "candles": {},
-        "priceBasis": "ace77cd05e0cb9e886a2214d57b9397648f7a2dac3120d7f0c68a82c0ac62fa7",
-        "checkedAt": "2026-11-10T04:57:37.416971+00:00"
-      },
       "G2554F113": {
         "ticker": "?COVIDIEN PLC",
         "cusip": "G2554F113",
@@ -5597,94 +5520,6 @@
         "candles": {},
         "priceBasis": "e0550a2d4d5f06fee13187aa3a7ab44427953aacd98c0c2d1f47d7905dbef0da",
         "checkedAt": ""
-      },
-      "021346101": {
-        "ticker": "AABA",
-        "cusip": "021346101",
-        "quarters": [
-          {
-            "quarter": "2017 Q2",
-            "action": "observed",
-            "shares": 3914805,
-            "previousShares": null,
-            "buy": null,
-            "averageCost": null
-          },
-          {
-            "quarter": "2017 Q3",
-            "action": "hold",
-            "shares": 3914805,
-            "previousShares": 3914805,
-            "averageCost": null
-          },
-          {
-            "quarter": "2017 Q4",
-            "action": "hold",
-            "shares": 3914805,
-            "previousShares": 3914805,
-            "averageCost": null
-          },
-          {
-            "quarter": "2018 Q1",
-            "action": "hold",
-            "shares": 3914805,
-            "previousShares": 3914805,
-            "averageCost": null
-          },
-          {
-            "quarter": "2018 Q2",
-            "action": "trimmed",
-            "shares": 3822305,
-            "previousShares": 3914805,
-            "sell": null,
-            "costBeforeSale": null,
-            "averageCost": null
-          },
-          {
-            "quarter": "2018 Q3",
-            "action": "trimmed",
-            "shares": 3769842,
-            "previousShares": 3822305,
-            "sell": null,
-            "costBeforeSale": null,
-            "averageCost": null
-          },
-          {
-            "quarter": "2018 Q4",
-            "action": "exited",
-            "shares": 0,
-            "previousShares": 3769842,
-            "sell": null,
-            "costBeforeSale": null,
-            "averageCost": null
-          },
-          {
-            "quarter": "2019 Q3",
-            "action": "new",
-            "shares": 12650000,
-            "previousShares": 0,
-            "buy": null,
-            "averageCost": null
-          },
-          {
-            "quarter": "2019 Q4",
-            "action": "exited",
-            "shares": 0,
-            "previousShares": 12650000,
-            "sell": null,
-            "costBeforeSale": null,
-            "averageCost": null
-          }
-        ],
-        "averageBuy": null,
-        "averageSell": null,
-        "missingBuyQuarters": 2,
-        "missingSellQuarters": 4,
-        "first": "2017 Q2",
-        "last": "2019 Q4",
-        "candles": {},
-        "priceBasis": "d7dfaa9568d9a719e9cc15875cb64cea98722bb592282d858779ca25a6e0a5e4",
-        "checkedAt": "2026-11-10T04:57:37.416971+00:00"
       },
       "563568104": {
         "ticker": "?MANITOWOC FOODSERVICE INC",
@@ -8829,7 +8664,7 @@
         "checkedAt": ""
       },
       "617446448": {
-        "ticker": "?Morgan Stanley",
+        "ticker": "MS",
         "cusip": "617446448",
         "quarters": [
           {
@@ -8837,28 +8672,65 @@
             "action": "observed",
             "shares": 544200,
             "previousShares": null,
-            "buy": null,
-            "averageCost": null
+            "priceEvidence": {
+              "buy": 57.791,
+              "sell": 63.034,
+              "low": 56.7400016784668,
+              "high": 64.2300033569336,
+              "mean": 60.24338703770791,
+              "days": 62,
+              "source": "historical_daily_prices"
+            },
+            "buy": 57.791,
+            "averageCost": 57.791
           },
           {
             "quarter": "2006 Q2",
             "action": "exited",
             "shares": 0,
             "previousShares": 544200,
-            "sell": null,
-            "costBeforeSale": null,
+            "priceEvidence": {
+              "buy": 56.6559,
+              "sell": 64.6919,
+              "low": 54.52000045776367,
+              "high": 66.0,
+              "mean": 61.63952412680974,
+              "days": 63,
+              "source": "historical_daily_prices"
+            },
+            "sell": 64.6919,
+            "costBeforeSale": 57.791,
             "averageCost": null
           }
         ],
-        "averageBuy": null,
-        "averageSell": null,
-        "missingBuyQuarters": 1,
-        "missingSellQuarters": 1,
+        "averageBuy": 57.791,
+        "averageSell": 64.6919,
+        "missingBuyQuarters": 0,
+        "missingSellQuarters": 0,
         "first": "2006 Q1",
         "last": "2006 Q2",
-        "candles": {},
-        "priceBasis": "10a9ee5002adb7e16080e0467be5d4f118b64a731d22b28aa6ce08eb2a33545e",
-        "checkedAt": ""
+        "candles": {
+          "2006 Q1": {
+            "buy": 57.791,
+            "sell": 63.034,
+            "low": 56.7400016784668,
+            "high": 64.2300033569336,
+            "mean": 60.24338703770791,
+            "days": 62,
+            "source": "historical_daily_prices"
+          },
+          "2006 Q2": {
+            "buy": 56.6559,
+            "sell": 64.6919,
+            "low": 54.52000045776367,
+            "high": 66.0,
+            "mean": 61.63952412680974,
+            "days": 63,
+            "source": "historical_daily_prices"
+          }
+        },
+        "priceBasis": "4620e14f4e105bfa664c4373cef15caa70e6333f42740313f8cee0de70b91bd8",
+        "checkedAt": "2026-11-10T20:09:10.072107+00:00"
       },
       "624758207": {
         "ticker": "?MUELLER WTR PRODS INC",
@@ -11914,56 +11786,6 @@
         "priceBasis": "3cd5fafe98fe558d657b9f9f6d2f0aee76422bf3a6e216e27faa74741c2b837c",
         "checkedAt": ""
       },
-      "381317106": {
-        "ticker": "GDW",
-        "cusip": "381317106",
-        "quarters": [
-          {
-            "quarter": "2006 Q1",
-            "action": "observed",
-            "shares": 1289300,
-            "previousShares": null,
-            "buy": null,
-            "averageCost": null
-          },
-          {
-            "quarter": "2006 Q2",
-            "action": "trimmed",
-            "shares": 757300,
-            "previousShares": 1289300,
-            "sell": null,
-            "costBeforeSale": null,
-            "averageCost": null
-          },
-          {
-            "quarter": "2006 Q3",
-            "action": "trimmed",
-            "shares": 49100,
-            "previousShares": 757300,
-            "sell": null,
-            "costBeforeSale": null,
-            "averageCost": null
-          },
-          {
-            "quarter": "2006 Q4",
-            "action": "exited",
-            "shares": 0,
-            "previousShares": 49100,
-            "sell": null,
-            "costBeforeSale": null,
-            "averageCost": null
-          }
-        ],
-        "averageBuy": null,
-        "averageSell": null,
-        "missingBuyQuarters": 1,
-        "missingSellQuarters": 3,
-        "first": "2006 Q1",
-        "last": "2006 Q4",
-        "candles": {},
-        "priceBasis": "c0012b359a21d463485bbc1fe16c08bed5e0fad7b57d01e0a7d4b098c256caa4",
-        "checkedAt": "2026-11-10T04:57:37.416971+00:00"
-      },
       "29285W104": {
         "ticker": "?ENGILITY HLDGS INC",
         "cusip": "29285W104",
@@ -12038,7 +11860,7 @@
         "checkedAt": ""
       },
       "78648T100": {
-        "ticker": "?SAFETY INS GROUP INC",
+        "ticker": "SAFT",
         "cusip": "78648T100",
         "quarters": [
           {
@@ -12046,31 +11868,58 @@
             "action": "observed",
             "shares": 554411,
             "previousShares": null,
-            "buy": null,
-            "averageCost": null
+            "priceEvidence": {
+              "buy": 34.8101,
+              "sell": 38.4151,
+              "low": 34.119998931884766,
+              "high": 39.27000045776367,
+              "mean": 36.4203125834465,
+              "days": 64,
+              "source": "historical_daily_prices"
+            },
+            "buy": 34.8101,
+            "averageCost": 34.8101
           },
           {
             "quarter": "2008 Q1",
             "action": "added",
             "shares": 865411,
             "previousShares": 554411,
-            "buy": null,
-            "averageCost": null
+            "priceEvidence": {
+              "buy": 33.6507,
+              "sell": 38.8447,
+              "low": 32.38999938964844,
+              "high": 39.810001373291016,
+              "mean": 36.592294849333214,
+              "days": 61,
+              "source": "historical_daily_prices"
+            },
+            "buy": 33.6507,
+            "averageCost": 34.3935
           },
           {
             "quarter": "2008 Q2",
             "action": "hold",
             "shares": 865411,
             "previousShares": 865411,
-            "averageCost": null
+            "averageCost": 34.3935
           },
           {
             "quarter": "2008 Q3",
             "action": "exited",
             "shares": 0,
             "previousShares": 865411,
-            "sell": null,
-            "costBeforeSale": null,
+            "priceEvidence": {
+              "buy": 36.9711,
+              "sell": 47.0441,
+              "low": 35.0,
+              "high": 49.38999938964844,
+              "mean": 41.570312440395355,
+              "days": 64,
+              "source": "historical_daily_prices"
+            },
+            "sell": 47.0441,
+            "costBeforeSale": 34.3935,
             "averageCost": null
           },
           {
@@ -12078,23 +11927,41 @@
             "action": "new",
             "shares": 77345,
             "previousShares": 0,
-            "buy": null,
-            "averageCost": null
+            "priceEvidence": {
+              "buy": 35.0879,
+              "sell": 38.2799,
+              "low": 34.16999816894531,
+              "high": 38.72999954223633,
+              "mean": 37.22952385554238,
+              "days": 63,
+              "source": "historical_daily_prices"
+            },
+            "buy": 35.0879,
+            "averageCost": 35.0879
           },
           {
             "quarter": "2010 Q3",
             "action": "hold",
             "shares": 77345,
             "previousShares": 77345,
-            "averageCost": null
+            "averageCost": 35.0879
           },
           {
             "quarter": "2010 Q4",
             "action": "exited",
             "shares": 0,
             "previousShares": 77345,
-            "sell": null,
-            "costBeforeSale": null,
+            "priceEvidence": {
+              "buy": 43.2896,
+              "sell": 48.9106,
+              "low": 41.91999816894531,
+              "high": 49.95000076293945,
+              "mean": 46.48546898365021,
+              "days": 64,
+              "source": "historical_daily_prices"
+            },
+            "sell": 48.9106,
+            "costBeforeSale": 35.0879,
             "averageCost": null
           },
           {
@@ -12102,28 +11969,110 @@
             "action": "new",
             "shares": 79757,
             "previousShares": 0,
-            "buy": null,
-            "averageCost": null
+            "priceEvidence": {
+              "buy": 36.6136,
+              "sell": 41.8636,
+              "low": 35.5,
+              "high": 43.0,
+              "mean": 39.21187460422516,
+              "days": 64,
+              "source": "historical_daily_prices"
+            },
+            "buy": 36.6136,
+            "averageCost": 36.6136
           },
           {
             "quarter": "2011 Q4",
             "action": "exited",
             "shares": 0,
             "previousShares": 79757,
-            "sell": null,
-            "costBeforeSale": null,
+            "priceEvidence": {
+              "buy": 37.7455,
+              "sell": 43.4925,
+              "low": 36.400001525878906,
+              "high": 44.61000061035156,
+              "mean": 40.88507921733554,
+              "days": 63,
+              "source": "historical_daily_prices"
+            },
+            "sell": 43.4925,
+            "costBeforeSale": 36.6136,
             "averageCost": null
           }
         ],
-        "averageBuy": null,
-        "averageSell": null,
-        "missingBuyQuarters": 4,
-        "missingSellQuarters": 3,
+        "averageBuy": 34.6192,
+        "averageSell": 46.9083,
+        "missingBuyQuarters": 0,
+        "missingSellQuarters": 0,
         "first": "2007 Q4",
         "last": "2011 Q4",
-        "candles": {},
-        "priceBasis": "2d3bf0b62a4d487a7cf921b134a9ce0eeb53867694febeb57a2a9bb5142692da",
-        "checkedAt": ""
+        "candles": {
+          "2007 Q4": {
+            "buy": 34.8101,
+            "sell": 38.4151,
+            "low": 34.119998931884766,
+            "high": 39.27000045776367,
+            "mean": 36.4203125834465,
+            "days": 64,
+            "source": "historical_daily_prices"
+          },
+          "2008 Q1": {
+            "buy": 33.6507,
+            "sell": 38.8447,
+            "low": 32.38999938964844,
+            "high": 39.810001373291016,
+            "mean": 36.592294849333214,
+            "days": 61,
+            "source": "historical_daily_prices"
+          },
+          "2008 Q3": {
+            "buy": 36.9711,
+            "sell": 47.0441,
+            "low": 35.0,
+            "high": 49.38999938964844,
+            "mean": 41.570312440395355,
+            "days": 64,
+            "source": "historical_daily_prices"
+          },
+          "2010 Q2": {
+            "buy": 35.0879,
+            "sell": 38.2799,
+            "low": 34.16999816894531,
+            "high": 38.72999954223633,
+            "mean": 37.22952385554238,
+            "days": 63,
+            "source": "historical_daily_prices"
+          },
+          "2010 Q4": {
+            "buy": 43.2896,
+            "sell": 48.9106,
+            "low": 41.91999816894531,
+            "high": 49.95000076293945,
+            "mean": 46.48546898365021,
+            "days": 64,
+            "source": "historical_daily_prices"
+          },
+          "2011 Q3": {
+            "buy": 36.6136,
+            "sell": 41.8636,
+            "low": 35.5,
+            "high": 43.0,
+            "mean": 39.21187460422516,
+            "days": 64,
+            "source": "historical_daily_prices"
+          },
+          "2011 Q4": {
+            "buy": 37.7455,
+            "sell": 43.4925,
+            "low": 36.400001525878906,
+            "high": 44.61000061035156,
+            "mean": 40.88507921733554,
+            "days": 63,
+            "source": "historical_daily_prices"
+          }
+        },
+        "priceBasis": "1f3e825771c5a763b85ff28c6f705f6e6395a0817d527e4c4fed08a5b8b63b54",
+        "checkedAt": "2026-11-10T20:09:10.072107+00:00"
       },
       "45031U101": {
         "ticker": "?ISTAR FINL INC",
@@ -19380,6 +19329,261 @@
           "sourceURL": "https://investor.clearchannel.com/financials/sec-filings/content/0001213900-26-109385/ea030842201ex99-1.htm",
           "checkedAt": "2026-10-25"
         }
+      },
+      "151020104": {
+        "ticker": "CELG",
+        "cusip": "151020104",
+        "quarters": [
+          {
+            "quarter": "2019 Q1",
+            "action": "observed",
+            "shares": 6752869,
+            "previousShares": null,
+            "buy": null,
+            "averageCost": null
+          },
+          {
+            "quarter": "2019 Q2",
+            "action": "hold",
+            "shares": 6752869,
+            "previousShares": 6752869,
+            "averageCost": null
+          },
+          {
+            "quarter": "2019 Q3",
+            "action": "hold",
+            "shares": 6752869,
+            "previousShares": 6752869,
+            "averageCost": null
+          },
+          {
+            "quarter": "2019 Q4",
+            "action": "exited",
+            "shares": 0,
+            "previousShares": 6752869,
+            "sell": null,
+            "costBeforeSale": null,
+            "averageCost": null
+          }
+        ],
+        "averageBuy": null,
+        "averageSell": null,
+        "missingBuyQuarters": 1,
+        "missingSellQuarters": 1,
+        "first": "2019 Q1",
+        "last": "2019 Q4",
+        "candles": {},
+        "priceBasis": "402f64aeffff0978a42b1ba6193123e82e65206e21c6ef09480206fef3e3b63a",
+        "checkedAt": "2026-11-10T04:57:37.416971+00:00"
+      },
+      "887317303": {
+        "ticker": "TWX",
+        "cusip": "887317303",
+        "quarters": [
+          {
+            "quarter": "2016 Q4",
+            "action": "observed",
+            "shares": 3050000,
+            "previousShares": null,
+            "buy": null,
+            "averageCost": null
+          },
+          {
+            "quarter": "2017 Q1",
+            "action": "hold",
+            "shares": 3050000,
+            "previousShares": 3050000,
+            "averageCost": null
+          },
+          {
+            "quarter": "2017 Q2",
+            "action": "hold",
+            "shares": 3050000,
+            "previousShares": 3050000,
+            "averageCost": null
+          },
+          {
+            "quarter": "2017 Q3",
+            "action": "exited",
+            "shares": 0,
+            "previousShares": 3050000,
+            "sell": null,
+            "costBeforeSale": null,
+            "averageCost": null
+          },
+          {
+            "quarter": "2017 Q4",
+            "action": "new",
+            "shares": 2980642,
+            "previousShares": 0,
+            "buy": null,
+            "averageCost": null
+          },
+          {
+            "quarter": "2018 Q1",
+            "action": "added",
+            "shares": 3346103,
+            "previousShares": 2980642,
+            "buy": null,
+            "averageCost": null
+          },
+          {
+            "quarter": "2018 Q2",
+            "action": "exited",
+            "shares": 0,
+            "previousShares": 3346103,
+            "sell": null,
+            "costBeforeSale": null,
+            "averageCost": null
+          }
+        ],
+        "averageBuy": null,
+        "averageSell": null,
+        "missingBuyQuarters": 3,
+        "missingSellQuarters": 2,
+        "first": "2016 Q4",
+        "last": "2018 Q2",
+        "candles": {},
+        "priceBasis": "ace77cd05e0cb9e886a2214d57b9397648f7a2dac3120d7f0c68a82c0ac62fa7",
+        "checkedAt": "2026-11-10T04:57:37.416971+00:00"
+      },
+      "021346101": {
+        "ticker": "AABA",
+        "cusip": "021346101",
+        "quarters": [
+          {
+            "quarter": "2017 Q2",
+            "action": "observed",
+            "shares": 3914805,
+            "previousShares": null,
+            "buy": null,
+            "averageCost": null
+          },
+          {
+            "quarter": "2017 Q3",
+            "action": "hold",
+            "shares": 3914805,
+            "previousShares": 3914805,
+            "averageCost": null
+          },
+          {
+            "quarter": "2017 Q4",
+            "action": "hold",
+            "shares": 3914805,
+            "previousShares": 3914805,
+            "averageCost": null
+          },
+          {
+            "quarter": "2018 Q1",
+            "action": "hold",
+            "shares": 3914805,
+            "previousShares": 3914805,
+            "averageCost": null
+          },
+          {
+            "quarter": "2018 Q2",
+            "action": "trimmed",
+            "shares": 3822305,
+            "previousShares": 3914805,
+            "sell": null,
+            "costBeforeSale": null,
+            "averageCost": null
+          },
+          {
+            "quarter": "2018 Q3",
+            "action": "trimmed",
+            "shares": 3769842,
+            "previousShares": 3822305,
+            "sell": null,
+            "costBeforeSale": null,
+            "averageCost": null
+          },
+          {
+            "quarter": "2018 Q4",
+            "action": "exited",
+            "shares": 0,
+            "previousShares": 3769842,
+            "sell": null,
+            "costBeforeSale": null,
+            "averageCost": null
+          },
+          {
+            "quarter": "2019 Q3",
+            "action": "new",
+            "shares": 12650000,
+            "previousShares": 0,
+            "buy": null,
+            "averageCost": null
+          },
+          {
+            "quarter": "2019 Q4",
+            "action": "exited",
+            "shares": 0,
+            "previousShares": 12650000,
+            "sell": null,
+            "costBeforeSale": null,
+            "averageCost": null
+          }
+        ],
+        "averageBuy": null,
+        "averageSell": null,
+        "missingBuyQuarters": 2,
+        "missingSellQuarters": 4,
+        "first": "2017 Q2",
+        "last": "2019 Q4",
+        "candles": {},
+        "priceBasis": "d7dfaa9568d9a719e9cc15875cb64cea98722bb592282d858779ca25a6e0a5e4",
+        "checkedAt": "2026-11-10T04:57:37.416971+00:00"
+      },
+      "381317106": {
+        "ticker": "GDW",
+        "cusip": "381317106",
+        "quarters": [
+          {
+            "quarter": "2006 Q1",
+            "action": "observed",
+            "shares": 1289300,
+            "previousShares": null,
+            "buy": null,
+            "averageCost": null
+          },
+          {
+            "quarter": "2006 Q2",
+            "action": "trimmed",
+            "shares": 757300,
+            "previousShares": 1289300,
+            "sell": null,
+            "costBeforeSale": null,
+            "averageCost": null
+          },
+          {
+            "quarter": "2006 Q3",
+            "action": "trimmed",
+            "shares": 49100,
+            "previousShares": 757300,
+            "sell": null,
+            "costBeforeSale": null,
+            "averageCost": null
+          },
+          {
+            "quarter": "2006 Q4",
+            "action": "exited",
+            "shares": 0,
+            "previousShares": 49100,
+            "sell": null,
+            "costBeforeSale": null,
+            "averageCost": null
+          }
+        ],
+        "averageBuy": null,
+        "averageSell": null,
+        "missingBuyQuarters": 1,
+        "missingSellQuarters": 3,
+        "first": "2006 Q1",
+        "last": "2006 Q4",
+        "candles": {},
+        "priceBasis": "c0012b359a21d463485bbc1fe16c08bed5e0fad7b57d01e0a7d4b098c256caa4",
+        "checkedAt": "2026-11-10T04:57:37.416971+00:00"
       }
     },
     "quoteRefresh": {
@@ -19725,10 +19929,22 @@
         "nextAttemptAt": "2026-11-11T04:57:37.416971+00:00",
         "failures": 1,
         "error": "quote_unavailable"
+      },
+      "MS": {
+        "cusip": "617446448",
+        "lastAttemptAt": "2026-11-10T20:09:10.072107+00:00",
+        "nextAttemptAt": "2026-11-11T20:09:10.072107+00:00",
+        "failures": 0
+      },
+      "SAFT": {
+        "cusip": "78648T100",
+        "lastAttemptAt": "2026-11-10T20:09:10.072107+00:00",
+        "nextAttemptAt": "2026-11-11T20:09:10.072107+00:00",
+        "failures": 0
       }
     }
   },
   "securityIdentityVersion": 1,
   "sourceHistoryFingerprint": "bbf1cc7f8b77a681231a2ec68f67fda9371dfde1a17d6d1ee083d3a45b6b2469",
-  "quoteCoverageCheckedAt": "2026-11-10T05:09:29.314894+00:00"
+  "quoteCoverageCheckedAt": "2026-11-10T20:25:36.123361+00:00"
 }

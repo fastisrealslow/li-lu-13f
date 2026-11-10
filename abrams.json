@@ -5,7 +5,7 @@
     "notablePeople": [
       "David Abrams"
     ],
-    "lastUpdated": "2026-11-10T04:57:35Z",
+    "lastUpdated": "2026-11-10T20:09:07Z",
     "aiSummary": "艾布拉姆斯本季度减持谷歌 A 股 27%，显示其对该科技巨头估值或前景的调整，同时维持对洛尔控股等五家公司的核心持仓。",
     "aiSummaryQuarter": "2026 Q2",
     "instrumentHistoryTickers": [
@@ -22487,7 +22487,7 @@
       ]
     },
     "coverage": {
-      "checkedAt": "2026-11-10T04:57:35Z",
+      "checkedAt": "2026-11-10T20:09:07Z",
       "missingQuarters": [],
       "repairedThisRun": [],
       "errors": {},
@@ -23509,7 +23509,7 @@
     "instrumentVerification": {
       "pendingQuarters": [],
       "errors": {},
-      "checkedAt": "2026-11-10T04:57:35.536966+00:00"
+      "checkedAt": "2026-11-10T20:09:07.090050+00:00"
     },
     "valueAudit": {
       "2013 Q4": {
@@ -28289,8 +28289,9 @@
         "source": "https://www.sec.gov/Archives/edgar/data/1358706/0001140361-10-033337.txt",
         "filingDate": "2010-08-13",
         "sourceDigest": "a8b67e5be3a87987a1d46d5bdcd39eaabf79e045a30629453a95b9abc818e339",
-        "sourceHash": "99434ef3d06ad14b873b18e8c75994a0a3791bfbc016554fb20f8af23f9d0e19",
-        "status": "pending",
+        "sourceHash": "9101890f2405bd4072d4f01bbcd71ebd64ceb7717d71b48ba3951028367ccd0b",
+        "status": "verified",
+        "factor": 1,
         "anchors": [
           {
             "ticker": "SLM",
@@ -28299,7 +28300,7 @@
             "price": 10.390000824928284,
             "date": "2010-06-30",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/SLM?period1=0&period2=1794368500&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/SLM?period1=0&period2=1794427747&interval=1d&events=splits",
             "candidates": [
               1
             ]
@@ -28311,16 +28312,28 @@
             "price": 45.7599983215332,
             "date": "2010-06-30",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/MHK?period1=0&period2=1794368500&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/MHK?period1=0&period2=1794427748&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "SAFT",
+            "cusip": "78648T100",
+            "filedPrice": 37.015967418708385,
+            "price": 37.02000045776367,
+            "date": "2010-06-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/SAFT?period1=0&period2=1794427749&interval=1d&events=splits",
             "candidates": [
               1
             ]
           }
         ],
-        "errors": [
-          "CIT: ValueError"
-        ],
-        "normalizedHash": "99434ef3d06ad14b873b18e8c75994a0a3791bfbc016554fb20f8af23f9d0e19"
+        "agreementCount": 3,
+        "anchorCount": 3,
+        "outlierTickers": [],
+        "normalizedHash": "9101890f2405bd4072d4f01bbcd71ebd64ceb7717d71b48ba3951028367ccd0b"
       },
       "2010 Q3": {
         "version": 1,
@@ -28328,8 +28341,9 @@
         "source": "https://www.sec.gov/Archives/edgar/data/1358706/0001140361-10-045264.txt",
         "filingDate": "2010-11-12",
         "sourceDigest": "fba81b75962b95e6fbae9f1fcc5daabea10886b3fa047987abb98f2c863c74ba",
-        "sourceHash": "799d35c896cbea9086d7923ec4c14160b0fbab671a2d255484687d18f7f1c510",
-        "status": "pending",
+        "sourceHash": "746080aaeda482902806fa74e53ef003d844e250accea86c60d74fcce5fab6b3",
+        "status": "verified",
+        "factor": 1,
         "anchors": [
           {
             "ticker": "SLM",
@@ -28338,7 +28352,7 @@
             "price": 11.550001967430115,
             "date": "2010-09-30",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/SLM?period1=0&period2=1794368500&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/SLM?period1=0&period2=1794427747&interval=1d&events=splits",
             "candidates": [
               1
             ]
@@ -28350,14 +28364,28 @@
             "price": 53.29999923706055,
             "date": "2010-09-30",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/MHK?period1=0&period2=1794368500&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/MHK?period1=0&period2=1794427748&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "SAFT",
+            "cusip": "78648T100",
+            "filedPrice": 42.01952291680134,
+            "price": 42.02000045776367,
+            "date": "2010-09-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/SAFT?period1=0&period2=1794427749&interval=1d&events=splits",
             "candidates": [
               1
             ]
           }
         ],
-        "errors": [],
-        "normalizedHash": "799d35c896cbea9086d7923ec4c14160b0fbab671a2d255484687d18f7f1c510"
+        "agreementCount": 3,
+        "anchorCount": 3,
+        "outlierTickers": [],
+        "normalizedHash": "746080aaeda482902806fa74e53ef003d844e250accea86c60d74fcce5fab6b3"
       },
       "2010 Q4": {
         "version": 1,
