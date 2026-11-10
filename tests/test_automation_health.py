@@ -123,6 +123,29 @@ class AutomationHealthTests(unittest.TestCase):
         decisions=health.plan(evidence,[{'code':'publication_probe_failed'}],NOW)['workflows']
         self.assertTrue(decisions['pages']['dispatch']);self.assertFalse(decisions['data']['dispatch'])
 
+    def test_isolated_quote_outage_does_not_recollect_recent_filings(self):
+        evidence={key:[run()] for key in health.WORKFLOWS}
+        issues=[{'code':'quote_coverage','count':2}]
+        result=health.plan(evidence,issues,NOW)
+        self.assertFalse(result['workflows']['data']['dispatch'])
+        self.assertEqual(result['issues'],issues)
+        for extra in ({'code':'partial_update'},{'code':'source_stale'}):
+            self.assertTrue(health.plan(evidence,issues+[extra],NOW)['workflows']['data']['dispatch'])
+        evidence['data']=[run(13)]
+        self.assertTrue(health.plan(evidence,issues,NOW)['workflows']['data']['dispatch'])
+        evidence['data']=[run(),run(.5,'failure')]
+        self.assertTrue(health.plan(evidence,issues,NOW)['workflows']['data']['dispatch'])
+
+    def test_new_publication_is_not_blocked_by_six_hour_collection_cooldown(self):
+        evidence={key:[run(3)] for key in health.WORKFLOWS}
+        evidence['pages']=[run(2,event='workflow_dispatch')]
+        evidence['data']=[run(1)]
+        self.assertTrue(health.plan(evidence,[],NOW)['workflows']['pages']['dispatch'])
+        evidence['pages']=[run(.2,'failure',event='workflow_dispatch')]
+        self.assertFalse(health.plan(evidence,[],NOW)['workflows']['pages']['dispatch'])
+        evidence['pages']=[run(1,'failure',event='workflow_dispatch'),run(2,'failure'),run(3,'failure')]
+        self.assertFalse(health.plan(evidence,[],NOW)['workflows']['pages']['dispatch'])
+
     def test_repeated_failures_back_off_but_do_not_disable_daily_recovery(self):
         failures=[run(1,'failure'),run(2,'failure'),run(3,'failure'),run(8,'failure',event='workflow_dispatch')]
         self.assertEqual(health.recovery_decision(failures,NOW,18)['reason'],'recovery_cooldown')

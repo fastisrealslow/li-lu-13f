@@ -33,7 +33,7 @@ def persistent_failures(evidence, now):
         if len(failed)>=3:result.append(key)
     return result
 
-def recovery_decision(runs, now, max_age, needed=False, active_timeout=4):
+def recovery_decision(runs, now, max_age, needed=False, active_timeout=4, cooldown_hours=6):
     """A fresh active run owns recovery; manual dispatches have a six-hour cooldown."""
     active=[r for r in runs if r.get('status') in ACTIVE]
     stalled=[r for r in active if (parsed(r.get('run_started_at')) or parsed(r.get('created_at'))) and now-(parsed(r.get('run_started_at')) or parsed(r['created_at']))>timedelta(hours=active_timeout)]
@@ -44,7 +44,7 @@ def recovery_decision(runs, now, max_age, needed=False, active_timeout=4):
     if current:return {'dispatch':False,'reason':'already_active',**cancellations}
     manual=[parsed(r.get('created_at')) for r in runs if r.get('event')=='workflow_dispatch']
     recent_failures=[r for r in runs if r.get('conclusion') in ('failure','timed_out') and finished(r) and now-finished(r)<timedelta(hours=24)]
-    cooldown=12 if len(recent_failures)>=3 else 6
+    cooldown=max(12, cooldown_hours) if len(recent_failures)>=3 else cooldown_hours
     if any(t and now-t<timedelta(hours=cooldown) for t in manual):
         return {'dispatch':False,'reason':'recovery_cooldown',**cancellations}
     successes=[r for r in runs if r.get('conclusion')=='success' and finished(r)]
@@ -109,15 +109,23 @@ def plan(evidence, issues, now):
     decisions={}
     for key in WORKFLOWS:
         max_age={'data':18,'personal':18,'archive':24}.get(key,36)
+        relevant=[issue for issue in issues if target(issue)==key]
+        # A provider outage for one security must not repeatedly re-fetch every
+        # filing. Keep the warning visible; the regular daily run still retries.
+        # Missing schedules and failed runs are recovered independently below.
+        if key=='data' and relevant and all(i['code']=='quote_coverage' for i in relevant):
+            latest=max((finished(r) for r in evidence.get(key,[]) if r.get('conclusion')=='success' and finished(r)),default=None)
+            if latest and now-latest<timedelta(hours=12):relevant=[]
         decisions[key]=recovery_decision(evidence.get(key,[]),now,max_age,
-                                        needed=any(target(issue)==key for issue in issues),
-                                        active_timeout=8 if key=='archive' else 4)
+                                        needed=bool(relevant),
+                                        active_timeout=8 if key=='archive' else 4,
+                                        cooldown_hours=.5 if key=='pages' else 6)
     good_data=[r for key in ('data','personal','ai','archive') for r in evidence.get(key,[]) if r.get('conclusion')=='success' and finished(r)]
     good_pages=[r for r in evidence['pages'] if r.get('conclusion')=='success' and finished(r)]
     if good_data:
         data_time=max(map(finished,good_data));page_time=max(map(finished,good_pages),default=None)
         if now-data_time>timedelta(minutes=30) and (page_time is None or page_time<data_time):
-            decisions['pages']=recovery_decision(evidence['pages'],now,36,needed=True)
+            decisions['pages']=recovery_decision(evidence['pages'],now,36,needed=True,cooldown_hours=.5)
             issues=[*issues,{'code':'publication_missing'}]
     return {'checkedAt':now.isoformat(),'issues':issues,'workflows':decisions}
 
