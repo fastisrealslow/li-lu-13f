@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-11T03:22:13Z",
+  "updatedAt": "2026-11-11T16:15:04Z",
   "knownStocks": {
     "duan": [
       "09992.HK"
@@ -5422,7 +5422,7 @@
   "verificationRuns": [
     {
       "investor": "abrams",
-      "checkedAt": "2026-11-11T03:20:07Z",
+      "checkedAt": "2026-11-11T16:13:10Z",
       "status": "checked",
       "queries": [
         {
@@ -5463,8 +5463,8 @@
     },
     {
       "investor": "ackman",
-      "checkedAt": "2026-11-11T03:20:04Z",
-      "status": "checked",
+      "checkedAt": "2026-11-11T16:12:03Z",
+      "status": "partial",
       "queries": [
         {
           "query": "Pershing Square Capital Management, L.P.",
@@ -5482,9 +5482,7 @@
         },
         {
           "query": "Pershing Square Capital Management, L.P.",
-          "archive": "legacy",
-          "status": "ok",
-          "matchedSecurities": 0,
+          "status": "failed",
           "url": "https://di.hkex.com.hk/filing/di/NSSrchPersonList.aspx?sa1=pl&scsd=01%2F04%2F2003&sced=02%2F10%2F2017&pn=Pershing+Square+Capital+Management%2C+L.P.&src=MAIN&lang=EN&g_lang=en"
         },
         {
@@ -5499,13 +5497,19 @@
       "verifiedSecurities": 0,
       "pendingSecurities": 0,
       "recordsFetched": 0,
-      "errors": [],
+      "errors": [
+        {
+          "query": "Pershing Square Capital Management, L.P.",
+          "url": "https://di.hkex.com.hk/filing/di/NSSrchPersonList.aspx?sa1=pl&scsd=01%2F04%2F2003&sced=02%2F10%2F2017&pn=Pershing+Square+Capital+Management%2C+L.P.&src=MAIN&lang=EN&g_lang=en",
+          "reason": "HKEX fetch failed: The read operation timed out"
+        }
+      ],
       "scope": "匹配已配置主体的公开多头权益披露；不等于完整投资组合或当前持仓"
     },
     {
       "investor": "akre",
-      "checkedAt": "2026-11-11T03:19:36Z",
-      "status": "checked",
+      "checkedAt": "2026-11-11T16:11:08Z",
+      "status": "partial",
       "queries": [
         {
           "query": "Akre Capital",
@@ -5530,9 +5534,7 @@
         },
         {
           "query": "Chuck Akre",
-          "archive": "legacy",
-          "status": "ok",
-          "matchedSecurities": 0,
+          "status": "failed",
           "url": "https://di.hkex.com.hk/filing/di/NSSrchPersonList.aspx?sa1=pl&scsd=01%2F04%2F2003&sced=02%2F10%2F2017&pn=Chuck+Akre&src=MAIN&lang=EN&g_lang=en"
         }
       ],
@@ -5540,12 +5542,18 @@
       "verifiedSecurities": 0,
       "pendingSecurities": 0,
       "recordsFetched": 0,
-      "errors": [],
+      "errors": [
+        {
+          "query": "Chuck Akre",
+          "url": "https://di.hkex.com.hk/filing/di/NSSrchPersonList.aspx?sa1=pl&scsd=01%2F04%2F2003&sced=02%2F10%2F2017&pn=Chuck+Akre&src=MAIN&lang=EN&g_lang=en",
+          "reason": "HKEX fetch failed: The read operation timed out"
+        }
+      ],
       "scope": "匹配已配置主体的公开多头权益披露；不等于完整投资组合或当前持仓"
     },
     {
       "investor": "berkowitz",
-      "checkedAt": "2026-11-11T03:20:16Z",
+      "checkedAt": "2026-11-11T16:13:17Z",
       "status": "checked",
       "queries": [
         {
@@ -5586,7 +5594,7 @@
     },
     {
       "investor": "buffett",
-      "checkedAt": "2026-11-11T03:19:04Z",
+      "checkedAt": "2026-11-11T16:10:41Z",
       "status": "checked",
       "queries": [
         {
@@ -5627,7 +5635,7 @@
     },
     {
       "investor": "duan",
-      "checkedAt": "2026-11-11T03:17:55Z",
+      "checkedAt": "2026-11-11T16:10:05Z",
       "status": "checked",
       "queries": [
         {
@@ -5668,7 +5676,7 @@
     },
     {
       "investor": "greenberg",
-      "checkedAt": "2026-11-11T03:19:49Z",
+      "checkedAt": "2026-11-11T16:11:19Z",
       "status": "checked",
       "queries": [
         {
@@ -5709,7 +5717,7 @@
     },
     {
       "investor": "greenblatt",
-      "checkedAt": "2026-11-11T03:21:18Z",
+      "checkedAt": "2026-11-11T16:14:42Z",
       "status": "checked",
       "queries": [
         {
@@ -5750,7 +5758,7 @@
     },
     {
       "investor": "hawkins",
-      "checkedAt": "2026-11-11T03:20:22Z",
+      "checkedAt": "2026-11-11T16:13:29Z",
       "status": "checked",
       "queries": [
         {
@@ -5791,8 +5799,8 @@
     },
     {
       "investor": "klarman",
-      "checkedAt": "2026-11-11T03:19:49Z",
-      "status": "checked",
+      "checkedAt": "2026-11-11T16:11:55Z",
+      "status": "partial",
       "queries": [
         {
           "query": "Baupost Group, LLC",
@@ -5810,9 +5818,7 @@
         },
         {
           "query": "Baupost Group, LLC",
-          "archive": "legacy",
-          "status": "ok",
-          "matchedSecurities": 0,
+          "status": "failed",
           "url": "https://di.hkex.com.hk/filing/di/NSSrchPersonList.aspx?sa1=pl&scsd=01%2F04%2F2003&sced=02%2F10%2F2017&pn=Baupost+Group%2C+LLC&src=MAIN&lang=EN&g_lang=en"
         },
         {
@@ -5827,12 +5833,18 @@
       "verifiedSecurities": 0,
       "pendingSecurities": 0,
       "recordsFetched": 0,
-      "errors": [],
+      "errors": [
+        {
+          "query": "Baupost Group, LLC",
+          "url": "https://di.hkex.com.hk/filing/di/NSSrchPersonList.aspx?sa1=pl&scsd=01%2F04%2F2003&sced=02%2F10%2F2017&pn=Baupost+Group%2C+LLC&src=MAIN&lang=EN&g_lang=en",
+          "reason": "HKEX fetch failed: The read operation timed out"
+        }
+      ],
       "scope": "匹配已配置主体的公开多头权益披露；不等于完整投资组合或当前持仓"
     },
     {
       "investor": "lilu",
-      "checkedAt": "2026-11-11T03:17:55Z",
+      "checkedAt": "2026-11-11T16:10:05Z",
       "status": "checked",
       "queries": [
         {
@@ -5873,7 +5885,7 @@
     },
     {
       "investor": "marks",
-      "checkedAt": "2026-11-11T03:20:56Z",
+      "checkedAt": "2026-11-11T16:14:18Z",
       "status": "checked",
       "queries": [
         {
@@ -5914,7 +5926,7 @@
     },
     {
       "investor": "mclemore",
-      "checkedAt": "2026-11-11T03:21:23Z",
+      "checkedAt": "2026-11-11T16:14:48Z",
       "status": "checked",
       "queries": [
         {
@@ -5955,7 +5967,7 @@
     },
     {
       "investor": "pabrai",
-      "checkedAt": "2026-11-11T03:17:55Z",
+      "checkedAt": "2026-11-11T16:10:05Z",
       "status": "checked",
       "queries": [
         {
@@ -5996,7 +6008,7 @@
     },
     {
       "investor": "tepper",
-      "checkedAt": "2026-11-11T03:18:27Z",
+      "checkedAt": "2026-11-11T16:10:22Z",
       "status": "checked",
       "queries": [
         {
@@ -6037,7 +6049,7 @@
     },
     {
       "investor": "vinall",
-      "checkedAt": "2026-11-11T03:20:33Z",
+      "checkedAt": "2026-11-11T16:13:50Z",
       "status": "checked",
       "queries": [
         {
@@ -6092,7 +6104,7 @@
     },
     {
       "investor": "webb",
-      "checkedAt": "2026-11-11T03:18:35Z",
+      "checkedAt": "2026-11-11T16:10:29Z",
       "status": "checked",
       "queries": [
         {

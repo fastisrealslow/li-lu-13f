@@ -5805,7 +5805,7 @@
               "value": 14991000
             }
           ],
-          "ticker": "?Genco Shipping & Trading Ltd.",
+          "ticker": "GNKOQ",
           "sector": "干散货航运",
           "cnName": "根科航运",
           "displayName": "Genco Shipping & Trading",
@@ -6221,7 +6221,7 @@
               "value": 9238000
             }
           ],
-          "ticker": "?Genco Shipping & Trading Ltd.",
+          "ticker": "GNKOQ",
           "sector": "干散货航运",
           "cnName": "根科航运",
           "displayName": "Genco Shipping & Trading",
@@ -6591,7 +6591,7 @@
               "value": 2212000
             }
           ],
-          "ticker": "?Trading Ltd.",
+          "ticker": "GNKOQ",
           "sector": "干散货航运",
           "cnName": "根科航运",
           "displayName": "Genco Shipping & Trading",
@@ -16156,11 +16156,11 @@
       },
       "2015 Q3": {
         "version": 1,
-        "checkedAt": "2026-11-08",
+        "checkedAt": "2026-11-11",
         "source": "https://www.sec.gov/Archives/edgar/data/1549575/000154957515000010/infotable.xml",
         "filingDate": "2015-11-12",
         "sourceDigest": "dddc7d4685d945eba36623ac5dd798ff0300814b684af3a27278c89913d112e0",
-        "sourceHash": "bd393611b0af18655e3e6fca7e6002c011fff5b2f03cf91e87a74ffda8595d28",
+        "sourceHash": "ed5c723dedfc0ae4778703551969aa9204cdc2af7fbf3b22c5939bf328cfd9b5",
         "status": "pending",
         "anchors": [
           {
@@ -16170,7 +16170,7 @@
             "price": 35.02000045776367,
             "date": "2015-09-30",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/PKX?period1=0&period2=1794192904&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/PKX?period1=0&period2=1794500115&interval=1d&events=splits",
             "candidates": [
               1
             ]
@@ -16182,22 +16182,24 @@
             "price": 608.4199905395508,
             "date": "2015-09-30",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/GOOG?period1=0&period2=1794192904&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/GOOG?period1=0&period2=1794500115&interval=1d&events=splits",
             "candidates": [
               1
             ]
           }
         ],
-        "errors": [],
+        "errors": [
+          "ZINCQ: ValueError"
+        ],
         "normalizedHash": "1651f0a6f60d169526460e462edcab75a2d07bc3371f93d554c1a4f9696f3042"
       },
       "2015 Q4": {
         "version": 1,
-        "checkedAt": "2026-11-08",
+        "checkedAt": "2026-11-11",
         "source": "https://www.sec.gov/Archives/edgar/data/1549575/000154957516000012/infotable.xml",
         "filingDate": "2016-02-12",
         "sourceDigest": "7f918bbaba9ae015c5b553b8462817f187b1051fad4c6d255af5362c21fa712e",
-        "sourceHash": "71fdd983e3fb5b1e292e3a0add232db4eeaa1f5486134b947ff7508279d03eb1",
+        "sourceHash": "ad56e0c5ca7e07e56ec9c52514120102f5049d7dde992d39cfdd2b8c08941606",
         "status": "pending",
         "anchors": [
           {
@@ -16207,7 +16209,7 @@
             "price": 132.0399932861328,
             "date": "2015-12-31",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/BRK-B?period1=0&period2=1794223797&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/BRK-B?period1=0&period2=1794500115&interval=1d&events=splits",
             "candidates": [
               1
             ]
@@ -16219,13 +16221,15 @@
             "price": 758.8800048828125,
             "date": "2015-12-31",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/GOOG?period1=0&period2=1794223799&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/GOOG?period1=0&period2=1794500115&interval=1d&events=splits",
             "candidates": [
               1
             ]
           }
         ],
-        "errors": [],
+        "errors": [
+          "ZINCQ: ValueError"
+        ],
         "normalizedHash": "f5006d476437a7cd061118d1d701f12d36257f6c774d4a7a6353598e585164fa"
       },
       "2016 Q1": {
@@ -16487,11 +16491,11 @@
       },
       "2017 Q2": {
         "version": 1,
-        "checkedAt": "2026-11-08",
+        "checkedAt": "2026-11-11",
         "source": "https://www.sec.gov/Archives/edgar/data/1549575/000154957517000009/infotable.xml",
         "filingDate": "2017-08-11",
         "sourceDigest": "a5ca34c650513ba6785d6085b6966ea62d3ca34112f34262c738752cff21c560",
-        "sourceHash": "169759a35e197bb70c76ea27d359c3679d70bbfdd927fa98b5b7caf14c7b1d7f",
+        "sourceHash": "31370dec6f7783f9402a21bd169c31ceaebfc4ce20e9ca1f45dab25f590f7b7b",
         "status": "pending",
         "anchors": [
           {
@@ -16501,7 +16505,7 @@
             "price": 62.13999938964844,
             "date": "2017-06-30",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/LUV?period1=0&period2=1794223799&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/LUV?period1=0&period2=1794500115&interval=1d&events=splits",
             "candidates": [
               1
             ]
@@ -16513,7 +16517,7 @@
             "price": 908.7300109863281,
             "date": "2017-06-30",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/GOOG?period1=0&period2=1794223799&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/GOOG?period1=0&period2=1794500115&interval=1d&events=splits",
             "candidates": [
               1
             ]
@@ -16524,7 +16528,7 @@
       },
       "2017 Q3": {
         "version": 1,
-        "checkedAt": "2026-11-08",
+        "checkedAt": "2026-11-11",
         "source": "https://www.sec.gov/Archives/edgar/data/1549575/000154957517000014/infotable.xml",
         "filingDate": "2017-11-13",
         "sourceDigest": "91e22df95d049dd23060f293dc55924cc31cec55581fc70dd97362bd0ed7d07f",
@@ -16538,7 +16542,7 @@
             "price": 55.97999954223633,
             "date": "2017-09-29",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/LUV?period1=0&period2=1794223799&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/LUV?period1=0&period2=1794500115&interval=1d&events=splits",
             "candidates": [
               1
             ]
@@ -16550,7 +16554,7 @@
             "price": 959.1100311279297,
             "date": "2017-09-29",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/GOOG?period1=0&period2=1794223799&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/GOOG?period1=0&period2=1794500115&interval=1d&events=splits",
             "candidates": [
               1
             ]
@@ -16561,7 +16565,7 @@
       },
       "2017 Q4": {
         "version": 1,
-        "checkedAt": "2026-11-08",
+        "checkedAt": "2026-11-11",
         "source": "https://www.sec.gov/Archives/edgar/data/1549575/000154957518000003/infotable.xml",
         "filingDate": "2018-02-13",
         "sourceDigest": "d6e2734447755c7cfe0a9d20cbba34b6dbebbaa5e4a4cc9efcaa66a3832a3cf0",
@@ -16575,7 +16579,7 @@
             "price": 65.44999694824219,
             "date": "2017-12-29",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/LUV?period1=0&period2=1794227009&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/LUV?period1=0&period2=1794500115&interval=1d&events=splits",
             "candidates": [
               1
             ]
@@ -16587,7 +16591,7 @@
             "price": 1046.3999938964844,
             "date": "2017-12-29",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/GOOG?period1=0&period2=1794227010&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/GOOG?period1=0&period2=1794500115&interval=1d&events=splits",
             "candidates": [
               1
             ]
@@ -19350,11 +19354,11 @@
       },
       "2011 Q2": {
         "version": 1,
-        "checkedAt": "2026-11-09",
+        "checkedAt": "2026-11-11",
         "source": "https://www.sec.gov/Archives/edgar/data/1173334/0000950123-11-077493.txt",
         "filingDate": "2011-08-15",
         "sourceDigest": "779afcfe5101f9a6bd2e53045a8f571a649004aa3de32b615e8bc355245714b8",
-        "sourceHash": "7ffb56f8daceccb6fd7459259bae196a7c9b698427205b7e5b5f1f5c67ffc5c6",
+        "sourceHash": "a2c16da7e794e347bad17a844d8dfba408af9603feb5145c9ddb7225df4567a2",
         "status": "pending",
         "anchors": [
           {
@@ -19364,7 +19368,7 @@
             "price": 28.059999465942383,
             "date": "2011-06-30",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/WFC?period1=0&period2=1794280406&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/WFC?period1=0&period2=1794500118&interval=1d&events=splits",
             "candidates": [
               1
             ]
@@ -19376,16 +19380,20 @@
             "price": 108.62000274658203,
             "date": "2011-06-30",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/PKX?period1=0&period2=1794280407&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/PKX?period1=0&period2=1794500115&interval=1d&events=splits",
             "candidates": [
               1
             ]
           }
         ],
         "errors": [
-          "PNCLQ: ValueError"
+          "CSE: ValueError",
+          "PNCLQ: ValueError",
+          "ZINCQ: ValueError",
+          "ATSG: ValueError",
+          "WFC/WS: ValueError"
         ],
-        "normalizedHash": "7ffb56f8daceccb6fd7459259bae196a7c9b698427205b7e5b5f1f5c67ffc5c6"
+        "normalizedHash": "a2c16da7e794e347bad17a844d8dfba408af9603feb5145c9ddb7225df4567a2"
       },
       "2011 Q4": {
         "version": 1,
@@ -19583,7 +19591,7 @@
     ],
     "excludedValueQuarters": [],
     "coverage": {
-      "checkedAt": "2026-11-11T03:22:25Z",
+      "checkedAt": "2026-11-11T16:15:13Z",
       "missingQuarters": [],
       "repairedThisRun": [],
       "errors": {},
@@ -19690,7 +19698,7 @@
     "name": "Mohnish Pabrai",
     "manager": "Dalal Street, LLC",
     "costHistoryFrom": "2012 Q1",
-    "lastUpdated": "2026-11-11T03:22:25Z",
+    "lastUpdated": "2026-11-11T16:15:13Z",
     "shareActions": [
       {
         "ticker": "GOOG",
