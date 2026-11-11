@@ -1307,10 +1307,10 @@
       "reason": "ValueError: Bilingual editorial review: The Chinese text incorrectly states Nick Sleep invested in 'Amazon, Costco, Berkshire Hathaway' as three stocks, but the source (s7)"
     },
     "pabrai-35e6c02262592b": {
-      "at": "2026-11-10T16:53:06+00:00",
+      "at": "2026-11-11T03:18:30+00:00",
       "status": "retry",
       "inputHash": "5a7c3b47eee745fd1103fc0f1fc7e9cb7a246980452aea4c5e780ce0d9a19ecb",
-      "reason": "ValueError: Bilingual editorial review: The source text cuts off mid-sentence in section s4 ('...and that dollar is growing'), preventing verification of the specific claim"
+      "reason": "ValueError: Unsupported scaled numerical claim: 10"
     },
     "pabrai-a9fc9ab5dab038": {
       "at": "2026-11-10T17:06:09+00:00",
@@ -3619,5 +3619,5 @@
       "reason": "ValueError: Bilingual editorial review: The English title 'Rob's 2026 Postcard from China' in the content section does not match the provided basis text which states 'Rob's"
     }
   },
-  "updatedAt": "2026-11-11T03:18:09+00:00"
+  "updatedAt": "2026-11-11T03:18:30+00:00"
 }
