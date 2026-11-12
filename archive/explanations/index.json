@@ -1355,10 +1355,10 @@
       "reason": "ValueError: Bilingual editorial review: The Chinese text claims Pabrai 'avoided the Nasdaq index's decline' (Nasdaq 5000->1200), but the source states he 'sidestepped the b"
     },
     "vinall-ac99a6ec8608a5": {
-      "at": "2026-11-11T17:28:00+00:00",
+      "at": "2026-11-12T04:00:09+00:00",
       "status": "retry",
       "inputHash": "cdff013dc10407a889c756ede9e92ffc1eae348de89054ae5ca4593410792268",
-      "reason": "ValueError: Bilingual editorial review: The source text does not mention the book title 'Five Moat Myths' or the author Rob Vinall; these are external canonical names added"
+      "reason": "ValueError: Bilingual editorial review: Author name mismatch: Source ASR identifies the speaker as 'Warren Buffett' (s15), but content attributes the framework to 'Rob Vina"
     },
     "pabrai-00ca7a03f93774": {
       "at": "2026-11-12T03:49:25+00:00",
@@ -3625,5 +3625,5 @@
       "reason": "ValueError: Unsupported numerical claim: 8"
     }
   },
-  "updatedAt": "2026-11-12T03:59:15+00:00"
+  "updatedAt": "2026-11-12T04:00:09+00:00"
 }
