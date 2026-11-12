@@ -1361,10 +1361,10 @@
       "reason": "ValueError: Bilingual editorial review: The source text does not mention the book title 'Five Moat Myths' or the author Rob Vinall; these are external canonical names added"
     },
     "pabrai-00ca7a03f93774": {
-      "at": "2026-11-11T18:55:49+00:00",
+      "at": "2026-11-12T03:49:25+00:00",
       "status": "retry",
       "inputHash": "7a780324a4c1dcbdcfc045aaa3611e3f567512c64585e7595819d72853e2e4e7",
-      "reason": "ValueError: Unsupported numerical claim: 0.625%"
+      "reason": "ValueError: Unsupported numerical claim: 15%"
     },
     "pabrai-1e84c0b65621b6": {
       "at": "2026-11-12T02:02:31+00:00",
@@ -2355,13 +2355,13 @@
       "reason": "JSONDecodeError: Expecting ',' delimiter: line 4 column 54 (char 88)"
     },
     "marks-b88c0cce52f3a9": {
-      "at": "2026-11-11T18:45:12+00:00",
+      "at": "2026-11-12T03:49:19+00:00",
       "status": "retry",
       "inputHash": "9d9adf7a1154deec63b8585db9e06412e05b8ef336970a67101237e49b73f1ea",
-      "reason": "ValueError: Bilingual editorial review: The Chinese text claims Priceline.com lost '$114 million selling $35 million worth of tickets' while the source (s2) states it 'lost"
+      "reason": "ValueError: Bilingual editorial review: The English translation in the 'content' section contains factual errors regarding specific data points found in source s1. Source s"
     },
     "mclemore-0be81e13a45531": {
-      "at": "2026-11-11T18:45:15+00:00",
+      "at": "2026-11-12T03:49:21+00:00",
       "status": "retry",
       "inputHash": "1c44d5bcef4cfc66ef4e3a6b29fddd7e95e1d87e48ab81b04bd3bea1f8b9e268",
       "reason": "ValueError: No supported arguments in source"
@@ -3625,5 +3625,5 @@
       "reason": "ValueError: Unsupported numerical claim: 8"
     }
   },
-  "updatedAt": "2026-11-12T03:48:14+00:00"
+  "updatedAt": "2026-11-12T03:49:25+00:00"
 }
