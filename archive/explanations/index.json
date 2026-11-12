@@ -1936,10 +1936,10 @@
       "reason": "ValueError: Bilingual editorial review: The source text (s0-s2) contains raw numerical data but lacks explicit labels for the three columns. The content claims these repres"
     },
     "buffett-c7a8c84705ccbc": {
-      "at": "2026-11-11T17:57:13+00:00",
+      "at": "2026-11-12T04:52:20+00:00",
       "status": "retry",
       "inputHash": "fd6b73201bd913bacaeb4a847ce0334c60b3039dcf18095799791c91e22bcd18",
-      "reason": "ValueError: Bilingual editorial review: The English paragraph incorrectly states Buffett's rationale for diverging from GAAP. Source s40 explicitly says the goal is to pres"
+      "reason": "ValueError: Unsupported scaled numerical claim: 15.4"
     },
     "buffett-0c25d3f43a667d": {
       "at": "2026-11-12T01:43:59+00:00",
@@ -3625,5 +3625,5 @@
       "reason": "ValueError: Unsupported numerical claim: 8"
     }
   },
-  "updatedAt": "2026-11-12T04:52:16+00:00"
+  "updatedAt": "2026-11-12T04:52:20+00:00"
 }
