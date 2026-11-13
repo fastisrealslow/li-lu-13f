@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-13T17:47:40.049963Z",
+  "updated": "2026-11-13T20:11:44.387463Z",
   "quotes": {
     "AAPL": {
       "c": 354.88,
@@ -639,6 +639,18 @@
       "fetchedAt": "2026-11-13T17:47:39.191993+00:00",
       "shareActions": [],
       "shareActionsSince": "2010-09-30"
+    },
+    "ASML": {
+      "c": 1492.39,
+      "t": 1794600698,
+      "currency": "USD",
+      "symbol": "ASML",
+      "verifiedName": "ASML Holding N.V.",
+      "source": "yahoo_chart",
+      "sourceURL": "https://finance.yahoo.com/quote/ASML/",
+      "fetchedAt": "2026-11-13T20:11:43.540778+00:00",
+      "shareActions": [],
+      "shareActionsSince": "2024-11-13"
     }
   },
   "costBasis": {
@@ -983,6 +995,14 @@
       "exitQuarter": "2021 Q1",
       "exitPrice": 167.7436,
       "changePct": 99.0,
+      "methodVersion": 1
+    },
+    "ASML": {
+      "entryQuarter": "2025 Q3",
+      "entryPrice": 714.2575,
+      "exitQuarter": "2026 Q1",
+      "exitPrice": 1494.1612,
+      "changePct": 109.2,
       "methodVersion": 1
     },
     "BAC": {
@@ -6796,7 +6816,7 @@
         "checkedAt": ""
       },
       "N07059210": {
-        "ticker": "?ASML HOLDING N V",
+        "ticker": "ASML",
         "cusip": "N07059210",
         "quarters": [
           {
@@ -6804,37 +6824,92 @@
             "action": "observed",
             "shares": 80000,
             "previousShares": null,
-            "buy": null,
-            "averageCost": null
+            "priceEvidence": {
+              "buy": 714.2575,
+              "sell": 920.0575,
+              "low": 683.47998046875,
+              "high": 977.47998046875,
+              "mean": 786.071720123291,
+              "days": 64,
+              "source": "historical_daily_prices"
+            },
+            "buy": 714.2575,
+            "averageCost": 714.2575
           },
           {
             "quarter": "2025 Q4",
             "action": "trimmed",
             "shares": 9900,
             "previousShares": 80000,
-            "sell": null,
-            "costBeforeSale": null,
-            "averageCost": null
+            "priceEvidence": {
+              "buy": 967.7334,
+              "sell": 1112.1504,
+              "low": 935.4099731445312,
+              "high": 1141.719970703125,
+              "mean": 1043.1546802520752,
+              "days": 64,
+              "source": "historical_daily_prices"
+            },
+            "sell": 1112.1504,
+            "costBeforeSale": 714.2575,
+            "averageCost": 714.2575
           },
           {
             "quarter": "2026 Q1",
             "action": "exited",
             "shares": 0,
             "previousShares": 9900,
-            "sell": null,
-            "costBeforeSale": null,
+            "priceEvidence": {
+              "buy": 1204.5432,
+              "sell": 1494.1612,
+              "low": 1133.47998046875,
+              "high": 1547.219970703125,
+              "mean": 1370.3573778496414,
+              "days": 61,
+              "source": "historical_daily_prices"
+            },
+            "sell": 1494.1612,
+            "costBeforeSale": 714.2575,
             "averageCost": null
           }
         ],
-        "averageBuy": null,
-        "averageSell": null,
-        "missingBuyQuarters": 1,
-        "missingSellQuarters": 2,
+        "averageBuy": 714.2575,
+        "averageSell": 1159.4242,
+        "missingBuyQuarters": 0,
+        "missingSellQuarters": 0,
         "first": "2025 Q3",
         "last": "2026 Q1",
-        "candles": {},
-        "priceBasis": "9923c752337152e8b39d7e1a64bfab8fec0edf82ba6b9c8e8973ae0bf44043c9",
-        "checkedAt": ""
+        "candles": {
+          "2025 Q3": {
+            "buy": 714.2575,
+            "sell": 920.0575,
+            "low": 683.47998046875,
+            "high": 977.47998046875,
+            "mean": 786.071720123291,
+            "days": 64,
+            "source": "historical_daily_prices"
+          },
+          "2025 Q4": {
+            "buy": 967.7334,
+            "sell": 1112.1504,
+            "low": 935.4099731445312,
+            "high": 1141.719970703125,
+            "mean": 1043.1546802520752,
+            "days": 64,
+            "source": "historical_daily_prices"
+          },
+          "2026 Q1": {
+            "buy": 1204.5432,
+            "sell": 1494.1612,
+            "low": 1133.47998046875,
+            "high": 1547.219970703125,
+            "mean": 1370.3573778496414,
+            "days": 61,
+            "source": "historical_daily_prices"
+          }
+        },
+        "priceBasis": "25b5926c0d2141db547043233d2644b89cd6d4cdf058e2ebfbf129ab4ef02061",
+        "checkedAt": "2026-11-13T20:11:42.954664+00:00"
       },
       "060505104": {
         "ticker": "BAC",
@@ -9637,10 +9712,16 @@
         "lastAttemptAt": "2026-11-13T17:47:38.642068+00:00",
         "nextAttemptAt": "2026-11-14T17:47:38.642068+00:00",
         "failures": 0
+      },
+      "ASML": {
+        "cusip": "N07059210",
+        "lastAttemptAt": "2026-11-13T20:11:42.954664+00:00",
+        "nextAttemptAt": "2026-11-14T20:11:42.954664+00:00",
+        "failures": 0
       }
     }
   },
   "securityIdentityVersion": 1,
   "sourceHistoryFingerprint": "a049682db73280bd536c2f3a2d441c448ee36a2c925c94dee3dfa1a29dc6df24",
-  "quoteCoverageCheckedAt": "2026-11-13T18:01:03.201812+00:00"
+  "quoteCoverageCheckedAt": "2026-11-13T20:26:58.360542+00:00"
 }

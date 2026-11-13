@@ -34472,7 +34472,7 @@
       },
       "1999 Q2": {
         "version": 1,
-        "checkedAt": "2026-11-12",
+        "checkedAt": "2026-11-13",
         "source": "https://www.sec.gov/Archives/edgar/data/789920/0000950123-99-007735.txt",
         "filingDate": "1999-08-16",
         "sourceDigest": "63da871fbdc5b658ff40e9ceea34671b0b030a93c76f038297ad541f68dfbf46",
@@ -34486,7 +34486,7 @@
             "price": 58.0,
             "date": "1999-06-30",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/FMCC?period1=0&period2=1794602135&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/FMCC?period1=0&period2=1794687137&interval=1d&events=splits",
             "candidates": [
               1
             ]
@@ -34499,7 +34499,7 @@
       },
       "1999 Q3": {
         "version": 1,
-        "checkedAt": "2026-11-12",
+        "checkedAt": "2026-11-13",
         "source": "https://www.sec.gov/Archives/edgar/data/789920/0000950123-99-010197.txt",
         "filingDate": "1999-11-15",
         "sourceDigest": "1db519bf6c53f519649de15c507b894856f8754a85c9be9d36b8a50f8be552d0",
@@ -34513,7 +34513,7 @@
             "price": 52.0,
             "date": "1999-09-30",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/FMCC?period1=0&period2=1794602135&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/FMCC?period1=0&period2=1794687137&interval=1d&events=splits",
             "candidates": [
               1
             ]
@@ -34526,11 +34526,11 @@
       },
       "1999 Q4": {
         "version": 1,
-        "checkedAt": "2026-11-12",
+        "checkedAt": "2026-11-13",
         "source": "https://www.sec.gov/Archives/edgar/data/789920/0000950123-00-001204.txt",
         "filingDate": "2000-02-14",
         "sourceDigest": "0f5d1a0c9afc9d8993250d66097838f7615c9010d2a502902c08bfdffb0970d2",
-        "sourceHash": "27d36eb3532600d9405ee460c083de7ceaab56f5e32e372c68868b4914089508",
+        "sourceHash": "d598bc89dc0b3cfd70b819d44d588a8fc7573fbf014a3e6380d1cbd326f8725b",
         "status": "pending",
         "anchors": [
           {
@@ -34540,7 +34540,7 @@
             "price": 52.75,
             "date": "1999-12-31",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/GD?period1=0&period2=1794602135&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/GD?period1=0&period2=1794687137&interval=1d&events=splits",
             "candidates": [
               1
             ]
@@ -34552,16 +34552,17 @@
             "price": 47.0625,
             "date": "1999-12-31",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/FMCC?period1=0&period2=1794602135&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/FMCC?period1=0&period2=1794687137&interval=1d&events=splits",
             "candidates": [
               1
             ]
           }
         ],
         "errors": [
-          "SJR: ValueError"
+          "SJR: ValueError",
+          "YCC: ValueError"
         ],
-        "normalizedHash": "27d36eb3532600d9405ee460c083de7ceaab56f5e32e372c68868b4914089508"
+        "normalizedHash": "d598bc89dc0b3cfd70b819d44d588a8fc7573fbf014a3e6380d1cbd326f8725b"
       },
       "2000 Q1": {
         "version": 1,
@@ -34964,48 +34965,54 @@
       },
       "2003 Q3": {
         "version": 1,
-        "checkedAt": "2026-11-11",
+        "checkedAt": "2026-11-13",
         "source": "https://www.sec.gov/Archives/edgar/data/789920/0000950123-03-012638.txt",
         "filingDate": "2003-11-13",
         "sourceDigest": "ce4fb931a876130e51e5457e0a4bdb8da1d46b3957b232607d9af6fe388f8f29",
-        "sourceHash": "4a1106b4467a93c54230c8b5351d11e2f17da265800a55ce7ca9bfd0eda2d722",
+        "sourceHash": "b5664dfe37161856d3ef5c3014e833a8bb4670d41279032d82d65e2ebea0b7d2",
         "status": "pending",
         "anchors": [],
         "errors": [
           "CMCSK: ValueError",
-          "SJR: ValueError"
+          "SJR: ValueError",
+          "YCC: ValueError",
+          "ECA: ValueError"
         ],
-        "normalizedHash": "d7b83138301d07300413e778e8f9f200189ce0726704242458672aa2cc001a8c"
+        "normalizedHash": "3b2c6aa2c159992d1be9ae1dd87442fd5938cd2e81589cfb93debc982af529bf"
       },
       "2003 Q4": {
         "version": 1,
-        "checkedAt": "2026-11-11",
+        "checkedAt": "2026-11-13",
         "source": "https://www.sec.gov/Archives/edgar/data/789920/0000950123-04-001667.txt",
         "filingDate": "2004-02-13",
         "sourceDigest": "457e05d3df7f68c12e4d4ef5895c6b7d94909f6698e0c55494a051ac5786d964",
-        "sourceHash": "a93cc6bb4949a43f85d5f802d6f289c6da5d2e47f868648507a4794d0daf24e3",
+        "sourceHash": "de466f83c16651c00eee9ad533f20a2d9db089250e0deef24c15b10f2f4354ee",
         "status": "pending",
         "anchors": [],
         "errors": [
           "CMCSK: ValueError",
-          "SJR: ValueError"
+          "SJR: ValueError",
+          "ECA: ValueError",
+          "YCC: ValueError"
         ],
-        "normalizedHash": "f6afe22f91240e2ea8ed0c61156424678fe1cac720bad4a4ea5159bb2047e2d3"
+        "normalizedHash": "1f7434872be8918f16bf6d76381ae2a99be1319c037f6450481a08a0b0c2abd8"
       },
       "2004 Q1": {
         "version": 1,
-        "checkedAt": "2026-11-11",
+        "checkedAt": "2026-11-13",
         "source": "https://www.sec.gov/Archives/edgar/data/789920/0000950123-04-006395.txt",
         "filingDate": "2004-05-14",
         "sourceDigest": "bbc21a2e6c25e86003e7750abbccdec9f80b959e63168488a5b1f7a35b09941a",
-        "sourceHash": "dd2fc4d18eb1976c2fe7cf6090fdebae9c491e0c32b8bfe85e5fc4bd109f8945",
+        "sourceHash": "d9c8c5739b64a24f1f6af3d3ad51fc766e527a3a579f0dd5a9da711be0a1fae0",
         "status": "pending",
         "anchors": [],
         "errors": [
           "CMCSK: ValueError",
-          "SJR: ValueError"
+          "SJR: ValueError",
+          "ECA: ValueError",
+          "YCC: ValueError"
         ],
-        "normalizedHash": "dd2fc4d18eb1976c2fe7cf6090fdebae9c491e0c32b8bfe85e5fc4bd109f8945"
+        "normalizedHash": "d9c8c5739b64a24f1f6af3d3ad51fc766e527a3a579f0dd5a9da711be0a1fae0"
       },
       "2004 Q2": {
         "version": 1,
@@ -36775,11 +36782,11 @@
     "instrumentVerification": {
       "pendingQuarters": [],
       "errors": {},
-      "checkedAt": "2026-11-13T17:48:02.450408+00:00"
+      "checkedAt": "2026-11-13T20:12:14.966701+00:00"
     },
     "excludedValueQuarters": [],
     "coverage": {
-      "checkedAt": "2026-11-13T17:48:02Z",
+      "checkedAt": "2026-11-13T20:12:15Z",
       "missingQuarters": [],
       "repairedThisRun": [],
       "errors": {},
@@ -37273,7 +37280,7 @@
     "instrumentHistoryFrom": "1999 Q1",
     "manager": "Brave Warrior Advisors, LLC",
     "costHistoryFrom": "2012 Q1",
-    "lastUpdated": "2026-11-13T17:48:02Z",
+    "lastUpdated": "2026-11-13T20:12:14Z",
     "notablePeople": [
       "Glenn Greenberg"
     ],
