@@ -5,7 +5,7 @@
     "notablePeople": [
       "Bill Ackman"
     ],
-    "lastUpdated": "2026-11-12T20:35:47Z",
+    "lastUpdated": "2026-11-13T03:48:45Z",
     "aiSummary": "阿克曼 Q1 大幅减持谷歌并新建微软仓位，同时增持亚马逊，显示其持续优化科技股组合的结构性调整。",
     "aiSummaryQuarter": "2026 Q1",
     "legacyFilers": [
@@ -14108,7 +14108,7 @@
       ]
     },
     "coverage": {
-      "checkedAt": "2026-11-12T20:35:47Z",
+      "checkedAt": "2026-11-13T03:48:45Z",
       "missingQuarters": [],
       "repairedThisRun": [],
       "errors": {},
@@ -15110,7 +15110,7 @@
     "instrumentVerification": {
       "pendingQuarters": [],
       "errors": {},
-      "checkedAt": "2026-11-12T20:35:47.607529+00:00"
+      "checkedAt": "2026-11-13T03:48:45.310697+00:00"
     },
     "valueAudit": {
       "2026 Q2": {
@@ -18710,11 +18710,11 @@
       },
       "2006 Q4": {
         "version": 1,
-        "checkedAt": "2026-11-11",
+        "checkedAt": "2026-11-13",
         "source": "https://www.sec.gov/Archives/edgar/data/1336528/0001172661-07-000166.txt",
         "filingDate": "2007-02-14",
         "sourceDigest": "25eddf088f767ea707d6258771116ce58629d1bb1894d50df7720b870ca1c8cf",
-        "sourceHash": "280d83193772396f25f50c84f643dcbf9de6da898b48e78f0281c11dd9446dc7",
+        "sourceHash": "c6903cb5bea9f2a1b53e32bc12d0b49527536e1391a4922e97d87106626e2b7a",
         "status": "pending",
         "anchors": [
           {
@@ -18724,24 +18724,25 @@
             "price": 44.33000183105469,
             "date": "2006-12-29",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/MCD?period1=0&period2=1794453810&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/MCD?period1=0&period2=1794628126&interval=1d&events=splits",
             "candidates": [
               1
             ]
           }
         ],
         "errors": [
+          "BGPIQ: ValueError",
           "BKS: ValueError"
         ],
-        "normalizedHash": "280d83193772396f25f50c84f643dcbf9de6da898b48e78f0281c11dd9446dc7"
+        "normalizedHash": "c6903cb5bea9f2a1b53e32bc12d0b49527536e1391a4922e97d87106626e2b7a"
       },
       "2007 Q1": {
         "version": 1,
-        "checkedAt": "2026-11-11",
+        "checkedAt": "2026-11-13",
         "source": "https://www.sec.gov/Archives/edgar/data/1336528/0001172661-07-000259.txt",
         "filingDate": "2007-05-15",
         "sourceDigest": "7b0390309221e6adb2838bf96719e5f881cd4ab9e34a6884df24cc622d1f3f4c",
-        "sourceHash": "d039492b91ba7aa9179f9214e7a72cf67e4324bbb8adab49c5333953c98b1140",
+        "sourceHash": "82ff5f7702d78c3cf0d3d6d96fd906c7517e3d651ca838184c3257f6e272a5ba",
         "status": "pending",
         "anchors": [
           {
@@ -18751,24 +18752,25 @@
             "price": 45.04999923706055,
             "date": "2007-03-30",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/MCD?period1=0&period2=1794453810&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/MCD?period1=0&period2=1794628126&interval=1d&events=splits",
             "candidates": [
               1
             ]
           }
         ],
         "errors": [
+          "BGPIQ: ValueError",
           "BKS: ValueError"
         ],
-        "normalizedHash": "d039492b91ba7aa9179f9214e7a72cf67e4324bbb8adab49c5333953c98b1140"
+        "normalizedHash": "82ff5f7702d78c3cf0d3d6d96fd906c7517e3d651ca838184c3257f6e272a5ba"
       },
       "2007 Q2": {
         "version": 1,
-        "checkedAt": "2026-11-11",
+        "checkedAt": "2026-11-13",
         "source": "https://www.sec.gov/Archives/edgar/data/1336528/0001172661-07-000402.txt",
         "filingDate": "2007-08-14",
         "sourceDigest": "ed19a54423c2ef230fa2a41b530a42ec856428088243059e945fac86650ccb27",
-        "sourceHash": "f1e48b50e226a9ff020f6a0d2cd3fe7e3e43dc8b8b7bee77e58c19f49aac8904",
+        "sourceHash": "611970ae18e8732e210c87e8e67ff67e186ab7dd438729f5f48da7404008edfa",
         "status": "pending",
         "anchors": [
           {
@@ -18778,7 +18780,7 @@
             "price": 50.7599983215332,
             "date": "2007-06-29",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/MCD?period1=0&period2=1794453810&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/MCD?period1=0&period2=1794628126&interval=1d&events=splits",
             "candidates": [
               1
             ]
@@ -18790,20 +18792,21 @@
             "price": 63.599998474121094,
             "date": "2007-06-29",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/TGT?period1=0&period2=1794453811&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/TGT?period1=0&period2=1794628127&interval=1d&events=splits",
             "candidates": [
               1
             ]
           }
         ],
         "errors": [
+          "BGPIQ: ValueError",
           "BKS: ValueError"
         ],
-        "normalizedHash": "f1e48b50e226a9ff020f6a0d2cd3fe7e3e43dc8b8b7bee77e58c19f49aac8904"
+        "normalizedHash": "611970ae18e8732e210c87e8e67ff67e186ab7dd438729f5f48da7404008edfa"
       },
       "2007 Q3": {
         "version": 1,
-        "checkedAt": "2026-11-11",
+        "checkedAt": "2026-11-13",
         "source": "https://www.sec.gov/Archives/edgar/data/1336528/0001172661-07-000521.txt",
         "filingDate": "2007-11-14",
         "sourceDigest": "2d4c92fcf42ee5b16960919e8867a6e3d112f3b58722e820b5ac03e2f5f25f07",
@@ -18817,7 +18820,7 @@
             "price": 54.470001220703125,
             "date": "2007-09-28",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/MCD?period1=0&period2=1794500163&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/MCD?period1=0&period2=1794628126&interval=1d&events=splits",
             "candidates": [
               1
             ]
@@ -18829,7 +18832,7 @@
             "price": 63.56999969482422,
             "date": "2007-09-28",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/TGT?period1=0&period2=1794500165&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/TGT?period1=0&period2=1794628127&interval=1d&events=splits",
             "candidates": [
               1
             ]
@@ -18844,7 +18847,7 @@
       },
       "2007 Q4": {
         "version": 1,
-        "checkedAt": "2026-11-11",
+        "checkedAt": "2026-11-13",
         "source": "https://www.sec.gov/Archives/edgar/data/1336528/0001172661-08-000167.txt",
         "filingDate": "2008-02-14",
         "sourceDigest": "504f4dca399db3167dc226f11019326775c6b96f71a666c2c37448f923179fc8",
@@ -18858,7 +18861,7 @@
             "price": 50.0,
             "date": "2007-12-31",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/TGT?period1=0&period2=1794500165&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/TGT?period1=0&period2=1794628127&interval=1d&events=splits",
             "candidates": [
               1
             ]
@@ -18873,7 +18876,7 @@
       },
       "2008 Q1": {
         "version": 1,
-        "checkedAt": "2026-11-11",
+        "checkedAt": "2026-11-13",
         "source": "https://www.sec.gov/Archives/edgar/data/1336528/0001172661-08-000313.txt",
         "filingDate": "2008-05-15",
         "sourceDigest": "ae93ac00f7672300969c5f3548015d586176af11f995300a3ff255f828813eac",
@@ -18887,7 +18890,7 @@
             "price": 50.68000030517578,
             "date": "2008-03-31",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/TGT?period1=0&period2=1794500165&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/TGT?period1=0&period2=1794628127&interval=1d&events=splits",
             "candidates": [
               1
             ]
