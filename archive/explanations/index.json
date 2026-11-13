@@ -1900,10 +1900,10 @@
       "reason": "ValueError: Bilingual editorial review: The Chinese text incorrectly attributes the quote 'a rising tide lifts all yachts' to President Kennedy; the source (s1) states this"
     },
     "buffett-7b71380e8c8636": {
-      "at": "2026-11-12T20:55:40+00:00",
+      "at": "2026-11-13T03:04:28+00:00",
       "status": "retry",
       "inputHash": "5404e8a75438671c080f70ed839b841d11e90c8e2311043cbc02b0da1fcb79b4",
-      "reason": "ValueError: Bilingual editorial review: The source text (s0-s2) contains only raw numerical data tables with years and two columns of percentages; it does not explicitly st"
+      "reason": "ValueError: Unsupported numerical claim: -48.7%"
     },
     "buffett-5d9a7887401185": {
       "at": "2026-11-13T00:28:29+00:00",
@@ -3631,5 +3631,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-13T03:03:33+00:00"
+  "updatedAt": "2026-11-13T03:04:28+00:00"
 }
