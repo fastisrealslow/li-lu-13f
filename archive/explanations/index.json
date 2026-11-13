@@ -1529,10 +1529,10 @@
       "reason": "ValueError: Bilingual editorial review: The English translation in the 'content' section contains a critical factual error regarding the source text (s5). It states Pabrai "
     },
     "pabrai-7b63bdce3eef9a": {
-      "at": "2026-11-13T05:50:21+00:00",
+      "at": "2026-11-13T18:03:49+00:00",
       "status": "retry",
       "inputHash": "68d5f7c9f40789729bebada2a9716f4f437e424e0a4f8745b935f1986e2cd3ef",
-      "reason": "ValueError: Bilingual editorial review: The source text (s6) does not mention the book titles 'One Up on Wall Street' or 'Beating the Street'. The editor inserted these can"
+      "reason": "ValueError: Bilingual editorial review: The English text in the source (s6) does not mention 'Up on Wall Street'; it only states 'I looked up and I found a second book'. Th"
     },
     "vinall-c12bae3cc1e659": {
       "at": "2026-11-13T17:11:38+00:00",
@@ -3631,5 +3631,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-13T18:03:15+00:00"
+  "updatedAt": "2026-11-13T18:03:49+00:00"
 }
