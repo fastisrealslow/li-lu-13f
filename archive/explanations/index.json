@@ -1133,10 +1133,10 @@
       "reason": "ValueError: Bilingual editorial review: The English text incorrectly states Pabrai 'funded it solely with his 401k account and a car worth $70,000'. The source (s8) says he"
     },
     "pabrai-6aa3d87fb959bc": {
-      "at": "2026-11-13T00:14:19+00:00",
+      "at": "2026-11-13T07:32:16+00:00",
       "status": "retry",
       "inputHash": "b5b45c2462b4586b3a0106d7dac82038e6b9f295bd95ce522a69f080b23e2c1e",
-      "reason": "ValueError: Unsupported scaled numerical claim: 80"
+      "reason": "JSONDecodeError: Extra data: line 4 column 1 (char 1049)"
     },
     "pabrai-f3593335049251": {
       "at": "2026-11-13T03:31:37+00:00",
@@ -3631,5 +3631,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-13T07:27:41+00:00"
+  "updatedAt": "2026-11-13T07:32:16+00:00"
 }
