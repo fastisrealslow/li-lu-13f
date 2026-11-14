@@ -5,7 +5,7 @@
     "notablePeople": [
       "David Abrams"
     ],
-    "lastUpdated": "2026-11-14T06:22:19Z",
+    "lastUpdated": "2026-11-14T13:41:53Z",
     "aiSummary": "艾布拉姆斯本季度减持谷歌 A 股 27%，显示其对该科技巨头估值或前景的调整，同时维持对洛尔控股等五家公司的核心持仓。",
     "aiSummaryQuarter": "2026 Q2",
     "instrumentHistoryTickers": [
@@ -3767,7 +3767,7 @@
           "prevValue": 144692000
         },
         {
-          "ticker": "?WELBILT INC",
+          "ticker": "WBT",
           "name": "WELBILT INC",
           "cls": "COM",
           "cusip": "949090104",
@@ -4024,7 +4024,7 @@
           "prevValue": 140824000
         },
         {
-          "ticker": "?WELBILT INC",
+          "ticker": "WBT",
           "name": "WELBILT INC",
           "cls": "COM",
           "cusip": "949090104",
@@ -22765,7 +22765,7 @@
       ]
     },
     "coverage": {
-      "checkedAt": "2026-11-14T06:22:19Z",
+      "checkedAt": "2026-11-14T13:41:53Z",
       "missingQuarters": [],
       "repairedThisRun": [],
       "errors": {},
@@ -23797,7 +23797,7 @@
     "instrumentVerification": {
       "pendingQuarters": [],
       "errors": {},
-      "checkedAt": "2026-11-14T06:22:19.050646+00:00"
+      "checkedAt": "2026-11-14T13:41:53.529410+00:00"
     },
     "valueAudit": {
       "2013 Q4": {
@@ -24976,7 +24976,7 @@
         "source": "https://www.sec.gov/Archives/edgar/data/1358706/000117266117001035/infotable.xml",
         "filingDate": "2017-05-12",
         "sourceDigest": "aff5f7bf05a360eba34bb2d4b1475541f9a04091434e5a8e6ef023a14f2a046a",
-        "sourceHash": "87340cd2f1aceaa9ea7a245cb4d79a9b5f9beabf72743aa825cd2c3d834b964c",
+        "sourceHash": "d716fc7a039ecbae54398b4423b4b0cc748b2f0a665b240491aa85d57c6d293d",
         "status": "verified",
         "factor": 1,
         "anchors": [
@@ -25041,7 +25041,7 @@
             ]
           }
         ],
-        "normalizedHash": "87340cd2f1aceaa9ea7a245cb4d79a9b5f9beabf72743aa825cd2c3d834b964c"
+        "normalizedHash": "d716fc7a039ecbae54398b4423b4b0cc748b2f0a665b240491aa85d57c6d293d"
       },
       "2017 Q2": {
         "version": 1,
@@ -25049,7 +25049,7 @@
         "source": "https://www.sec.gov/Archives/edgar/data/1358706/000117266117001555/infotable.xml",
         "filingDate": "2017-08-11",
         "sourceDigest": "9351f53d285a0115668a48121a9f5089effa883e5f3a37d3c8649efbba1308b4",
-        "sourceHash": "f77356275d94a19daa09db805179d4d02f1880b0db645619b15da78a4abcdeb0",
+        "sourceHash": "c433f92edf191ba9d4d6895c86521b77fb1794af8edb4a337be224801b809973",
         "status": "verified",
         "factor": 1,
         "anchors": [
@@ -25114,7 +25114,7 @@
             ]
           }
         ],
-        "normalizedHash": "f77356275d94a19daa09db805179d4d02f1880b0db645619b15da78a4abcdeb0"
+        "normalizedHash": "c433f92edf191ba9d4d6895c86521b77fb1794af8edb4a337be224801b809973"
       },
       "2017 Q3": {
         "version": 1,
@@ -28681,7 +28681,7 @@
         "source": "https://www.sec.gov/Archives/edgar/data/1358706/0001140361-11-008336.txt",
         "filingDate": "2011-02-11",
         "sourceDigest": "1534e9ed836f8287a9b8999d0e578c29d2bf96354306677788aef8722f8f29e8",
-        "sourceHash": "cda52ba37dd63e7ffe6bc0d0fb415c67f3517693cb95201cd9a127712b172fc3",
+        "sourceHash": "9f5ed28a1a8c0ff70baacb4fa04377bd09d47d0ee535ef76fa224d3c6a6b1727",
         "status": "pending",
         "anchors": [
           {
@@ -28691,14 +28691,16 @@
             "price": 12.590000691413879,
             "date": "2010-12-31",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/SLM?period1=0&period2=1794714253&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/SLM?period1=0&period2=1794750114&interval=1d&events=splits",
             "candidates": [
               1
             ]
           }
         ],
-        "errors": [],
-        "normalizedHash": "cda52ba37dd63e7ffe6bc0d0fb415c67f3517693cb95201cd9a127712b172fc3"
+        "errors": [
+          "CFN: ValueError"
+        ],
+        "normalizedHash": "9f5ed28a1a8c0ff70baacb4fa04377bd09d47d0ee535ef76fa224d3c6a6b1727"
       },
       "2011 Q1": {
         "version": 1,
@@ -28706,7 +28708,7 @@
         "source": "https://www.sec.gov/Archives/edgar/data/1358706/0001172661-11-000335.txt",
         "filingDate": "2011-05-13",
         "sourceDigest": "fbbeaed0c9c0d7a5eb142da4a2c9322a4248f087d05d3697ed5ef8ceaebd78b4",
-        "sourceHash": "5557177d1cad00b0afeb1b9d753d0a4bce54ff38d07ae1055f9194612a0aced2",
+        "sourceHash": "22947dbb7ff11306f4145b76564c8006556ed040a9190394fd052a88bf077de8",
         "status": "pending",
         "anchors": [
           {
@@ -28716,7 +28718,7 @@
             "price": 16.739999771118164,
             "date": "2011-03-31",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/HRB?period1=0&period2=1794714254&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/HRB?period1=0&period2=1794750114&interval=1d&events=splits",
             "candidates": [
               1
             ]
@@ -28728,14 +28730,16 @@
             "price": 15.300001497268678,
             "date": "2011-03-31",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/SLM?period1=0&period2=1794714253&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/SLM?period1=0&period2=1794750114&interval=1d&events=splits",
             "candidates": [
               1
             ]
           }
         ],
-        "errors": [],
-        "normalizedHash": "5557177d1cad00b0afeb1b9d753d0a4bce54ff38d07ae1055f9194612a0aced2"
+        "errors": [
+          "CFN: ValueError"
+        ],
+        "normalizedHash": "22947dbb7ff11306f4145b76564c8006556ed040a9190394fd052a88bf077de8"
       },
       "2011 Q2": {
         "version": 1,
@@ -28743,7 +28747,7 @@
         "source": "https://www.sec.gov/Archives/edgar/data/1358706/0001172661-11-000518.txt",
         "filingDate": "2011-08-12",
         "sourceDigest": "68335adfdd80600c41c9ac88c07f1be1eb8fc18f2990818a63f1d68e335d1c56",
-        "sourceHash": "39c630ee4b3a760aacaa3d4df54842b63786426199090664085732e382a5ab31",
+        "sourceHash": "c06f169ee13f8f263bd2882ca4f52746b38eb6dc1546ae0dc6563aa9155fd47f",
         "status": "pending",
         "anchors": [
           {
@@ -28753,7 +28757,7 @@
             "price": 16.040000915527344,
             "date": "2011-06-30",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/HRB?period1=0&period2=1794723739&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/HRB?period1=0&period2=1794750114&interval=1d&events=splits",
             "candidates": [
               1
             ]
@@ -28765,14 +28769,16 @@
             "price": 16.81000079917908,
             "date": "2011-06-30",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/SLM?period1=0&period2=1794723739&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/SLM?period1=0&period2=1794750114&interval=1d&events=splits",
             "candidates": [
               1
             ]
           }
         ],
-        "errors": [],
-        "normalizedHash": "39c630ee4b3a760aacaa3d4df54842b63786426199090664085732e382a5ab31"
+        "errors": [
+          "CFN: ValueError"
+        ],
+        "normalizedHash": "c06f169ee13f8f263bd2882ca4f52746b38eb6dc1546ae0dc6563aa9155fd47f"
       },
       "2011 Q3": {
         "version": 1,

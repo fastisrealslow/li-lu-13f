@@ -5,7 +5,7 @@
     "notablePeople": [
       "Bill Ackman"
     ],
-    "lastUpdated": "2026-11-14T06:22:13Z",
+    "lastUpdated": "2026-11-14T13:41:50Z",
     "aiSummary": "阿克曼 Q1 大幅减持谷歌并新建微软仓位，同时增持亚马逊，显示其持续优化科技股组合的结构性调整。",
     "aiSummaryQuarter": "2026 Q1",
     "legacyFilers": [
@@ -8442,10 +8442,10 @@
           "ticker": "SHLDQ",
           "sector": "百货零售",
           "cnName": "西尔斯控股",
-          "displayName": "Sears Holdings",
-          "sectorEn": "Department-store retail",
           "prevShares": 0,
-          "prevValue": 0
+          "prevValue": 0,
+          "displayName": "Sears Holdings",
+          "sectorEn": "Department-store retail"
         },
         {
           "name": "BARNES & NOBLE INC",
@@ -14108,7 +14108,7 @@
       ]
     },
     "coverage": {
-      "checkedAt": "2026-11-14T06:22:14Z",
+      "checkedAt": "2026-11-14T13:41:50Z",
       "missingQuarters": [],
       "repairedThisRun": [],
       "errors": {},
@@ -15110,7 +15110,7 @@
     "instrumentVerification": {
       "pendingQuarters": [],
       "errors": {},
-      "checkedAt": "2026-11-14T06:22:13.939979+00:00"
+      "checkedAt": "2026-11-14T13:41:50.642149+00:00"
     },
     "valueAudit": {
       "2026 Q2": {
@@ -18738,7 +18738,7 @@
       },
       "2007 Q1": {
         "version": 1,
-        "checkedAt": "2026-11-13",
+        "checkedAt": "2026-11-14",
         "source": "https://www.sec.gov/Archives/edgar/data/1336528/0001172661-07-000259.txt",
         "filingDate": "2007-05-15",
         "sourceDigest": "7b0390309221e6adb2838bf96719e5f881cd4ab9e34a6884df24cc622d1f3f4c",
@@ -18752,7 +18752,7 @@
             "price": 45.04999923706055,
             "date": "2007-03-30",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/MCD?period1=0&period2=1794628126&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/MCD?period1=0&period2=1794750111&interval=1d&events=splits",
             "candidates": [
               1
             ]
@@ -18766,7 +18766,7 @@
       },
       "2007 Q2": {
         "version": 1,
-        "checkedAt": "2026-11-13",
+        "checkedAt": "2026-11-14",
         "source": "https://www.sec.gov/Archives/edgar/data/1336528/0001172661-07-000402.txt",
         "filingDate": "2007-08-14",
         "sourceDigest": "ed19a54423c2ef230fa2a41b530a42ec856428088243059e945fac86650ccb27",
@@ -18780,7 +18780,7 @@
             "price": 50.7599983215332,
             "date": "2007-06-29",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/MCD?period1=0&period2=1794628126&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/MCD?period1=0&period2=1794750111&interval=1d&events=splits",
             "candidates": [
               1
             ]
@@ -18792,7 +18792,7 @@
             "price": 63.599998474121094,
             "date": "2007-06-29",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/TGT?period1=0&period2=1794628127&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/TGT?period1=0&period2=1794750111&interval=1d&events=splits",
             "candidates": [
               1
             ]
@@ -18806,12 +18806,13 @@
       },
       "2007 Q3": {
         "version": 1,
-        "checkedAt": "2026-11-13",
+        "checkedAt": "2026-11-14",
         "source": "https://www.sec.gov/Archives/edgar/data/1336528/0001172661-07-000521.txt",
         "filingDate": "2007-11-14",
         "sourceDigest": "2d4c92fcf42ee5b16960919e8867a6e3d112f3b58722e820b5ac03e2f5f25f07",
-        "sourceHash": "a726f2fbe4b0d0b1a1b3a3bed8dd2d12d057a7a4bc63fe0cf17f4441ca0e3119",
-        "status": "pending",
+        "sourceHash": "3c2ee63d32c5cd88384037e8c8d39461e80734ea0b30eced9c1eb3fb86dc0017",
+        "status": "verified",
+        "factor": 1,
         "anchors": [
           {
             "ticker": "MCD",
@@ -18820,7 +18821,7 @@
             "price": 54.470001220703125,
             "date": "2007-09-28",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/MCD?period1=0&period2=1794628126&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/MCD?period1=0&period2=1794750111&interval=1d&events=splits",
             "candidates": [
               1
             ]
@@ -18832,26 +18833,36 @@
             "price": 63.56999969482422,
             "date": "2007-09-28",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/TGT?period1=0&period2=1794628127&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/TGT?period1=0&period2=1794750111&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "GLRE",
+            "cusip": "G4095J109",
+            "filedPrice": 20.28,
+            "price": 20.280000686645508,
+            "date": "2007-09-28",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/GLRE?period1=0&period2=1794750112&interval=1d&events=splits",
             "candidates": [
               1
             ]
           }
         ],
-        "errors": [
-          "BGPIQ: ValueError",
-          "BKS: ValueError",
-          "SHLDQ: ValueError"
-        ],
-        "normalizedHash": "a726f2fbe4b0d0b1a1b3a3bed8dd2d12d057a7a4bc63fe0cf17f4441ca0e3119"
+        "agreementCount": 3,
+        "anchorCount": 3,
+        "outlierTickers": [],
+        "normalizedHash": "3c2ee63d32c5cd88384037e8c8d39461e80734ea0b30eced9c1eb3fb86dc0017"
       },
       "2007 Q4": {
         "version": 1,
-        "checkedAt": "2026-11-13",
+        "checkedAt": "2026-11-14",
         "source": "https://www.sec.gov/Archives/edgar/data/1336528/0001172661-08-000167.txt",
         "filingDate": "2008-02-14",
         "sourceDigest": "504f4dca399db3167dc226f11019326775c6b96f71a666c2c37448f923179fc8",
-        "sourceHash": "aca47ce48f5dbeb1a25c7e1fcfa9b974d6ce4b37c18daa8d3af448a3c9e96696",
+        "sourceHash": "0adc7e51f248719dc7b9c9f4232fb7fae84b74f0e4a0353f9cc3783c51fa6756",
         "status": "pending",
         "anchors": [
           {
@@ -18861,7 +18872,19 @@
             "price": 50.0,
             "date": "2007-12-31",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/TGT?period1=0&period2=1794628127&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/TGT?period1=0&period2=1794750111&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "GLRE",
+            "cusip": "G4095J109",
+            "filedPrice": 20.792,
+            "price": 20.790000915527344,
+            "date": "2007-12-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/GLRE?period1=0&period2=1794750112&interval=1d&events=splits",
             "candidates": [
               1
             ]
@@ -18872,15 +18895,15 @@
           "BKS: ValueError",
           "SHLDQ: ValueError"
         ],
-        "normalizedHash": "aca47ce48f5dbeb1a25c7e1fcfa9b974d6ce4b37c18daa8d3af448a3c9e96696"
+        "normalizedHash": "0adc7e51f248719dc7b9c9f4232fb7fae84b74f0e4a0353f9cc3783c51fa6756"
       },
       "2008 Q1": {
         "version": 1,
-        "checkedAt": "2026-11-13",
+        "checkedAt": "2026-11-14",
         "source": "https://www.sec.gov/Archives/edgar/data/1336528/0001172661-08-000313.txt",
         "filingDate": "2008-05-15",
         "sourceDigest": "ae93ac00f7672300969c5f3548015d586176af11f995300a3ff255f828813eac",
-        "sourceHash": "e09ed38b643d89568468bf5645921817bb71914378c8949c71998230e0d8a0d5",
+        "sourceHash": "742ac5305a94430b2e52a71910594cf94721f3228687b519fea138befa169aaf",
         "status": "pending",
         "anchors": [
           {
@@ -18890,7 +18913,19 @@
             "price": 50.68000030517578,
             "date": "2008-03-31",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/TGT?period1=0&period2=1794628127&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/TGT?period1=0&period2=1794750111&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "GLRE",
+            "cusip": "G4095J109",
+            "filedPrice": 18.599067645705368,
+            "price": 18.600000381469727,
+            "date": "2008-03-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/GLRE?period1=0&period2=1794750112&interval=1d&events=splits",
             "candidates": [
               1
             ]
@@ -18901,15 +18936,15 @@
           "SHLDQ: ValueError",
           "BKS: ValueError"
         ],
-        "normalizedHash": "e09ed38b643d89568468bf5645921817bb71914378c8949c71998230e0d8a0d5"
+        "normalizedHash": "742ac5305a94430b2e52a71910594cf94721f3228687b519fea138befa169aaf"
       },
       "2008 Q2": {
         "version": 1,
-        "checkedAt": "2026-11-13",
+        "checkedAt": "2026-11-14",
         "source": "https://www.sec.gov/Archives/edgar/data/1336528/0001172661-08-000498.txt",
         "filingDate": "2008-08-14",
         "sourceDigest": "bb67eb06ef9e587fb514355e300063556a5c250f5c5a487acc9a72e1ea925239",
-        "sourceHash": "4a7a8b252c58e17ea28be51ef8ce435e55ffa02de38dd1810fc422078154a602",
+        "sourceHash": "5b968420adc07380bf47aa6729d4c0b3138d225c90c8383e52cfc5fc5eb889ef",
         "status": "pending",
         "anchors": [
           {
@@ -18919,7 +18954,19 @@
             "price": 46.4900016784668,
             "date": "2008-06-30",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/TGT?period1=0&period2=1794678494&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/TGT?period1=0&period2=1794750111&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "GLRE",
+            "cusip": "G4095J109",
+            "filedPrice": 22.86,
+            "price": 22.860000610351562,
+            "date": "2008-06-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/GLRE?period1=0&period2=1794750112&interval=1d&events=splits",
             "candidates": [
               1
             ]
@@ -18930,7 +18977,7 @@
           "SHLDQ: ValueError",
           "BKS: ValueError"
         ],
-        "normalizedHash": "4a7a8b252c58e17ea28be51ef8ce435e55ffa02de38dd1810fc422078154a602"
+        "normalizedHash": "5b968420adc07380bf47aa6729d4c0b3138d225c90c8383e52cfc5fc5eb889ef"
       },
       "2008 Q3": {
         "version": 1,
