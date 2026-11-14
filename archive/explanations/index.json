@@ -1629,10 +1629,10 @@
       "reason": "ValueError: Bilingual editorial review: The source text does not mention 'two blocks' (China and the West); it refers to 'the two blocks' in a context implying China and th"
     },
     "pabrai-d4447e08f97b61": {
-      "at": "2026-11-14T06:12:26+00:00",
+      "at": "2026-11-14T15:12:00+00:00",
       "status": "retry",
       "inputHash": "dd7184a59188ecc24b9bb14c173cc7a21f7e8b100209f1790db32d8d47ca3e92",
-      "reason": "ValueError: Bilingual editorial review: The English translation of 'bottom 4%' in s19 is inaccurate; the source text states 'the other 92' out of 100, which equals 92%, not"
+      "reason": "ValueError: Unsupported numerical claim: 100"
     },
     "pabrai-bf33f90c636d0e": {
       "at": "2026-11-14T06:20:35+00:00",
@@ -3640,5 +3640,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-14T15:11:04+00:00"
+  "updatedAt": "2026-11-14T15:12:00+00:00"
 }
