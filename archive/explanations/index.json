@@ -582,10 +582,10 @@
       "reason": "ValueError: Incomplete AI Review at 900 tokens"
     },
     "pabrai-80ac2772f94ba4": {
-      "at": "2026-11-14T03:05:27+00:00",
+      "at": "2026-11-14T08:59:27+00:00",
       "status": "retry",
       "inputHash": "13aa1ee6f43a048e56b259cfed50f497bc0e8337defe223690e99ece6d519885",
-      "reason": "ValueError: Bilingual editorial review: The source text (s5) ends mid-sentence ('when it was bought and'), but the content section incorrectly claims John Arrillaga 'became"
+      "reason": "ValueError: Bilingual editorial review: The English text contains a grammatical error: 'over an 70-to-80-year' should be 'over a 70-to-80-year'.; The English text incorrect"
     },
     "vinall-c919ac8b6b58c4": {
       "at": "2026-11-14T05:09:31+00:00",
@@ -3640,5 +3640,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-14T08:58:29+00:00"
+  "updatedAt": "2026-11-14T08:59:27+00:00"
 }
