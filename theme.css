@@ -488,3 +488,42 @@ tbody tr:hover { background: #f2f5ed; }
 .portfolio-controls{display:flex;align-items:end;flex-wrap:wrap;gap:10px;margin:12px 0 18px}.portfolio-controls label{display:grid;gap:5px;font-size:.7rem;color:var(--text-light);flex:1;min-width:150px}.portfolio-controls input{min-height:40px;font:inherit;font-size:.8rem;border:1px solid var(--border);background:var(--white);color:var(--text);border-radius:5px;padding:8px 10px}.portfolio-controls button{min-height:40px;padding:8px 12px;border:1px solid var(--border);border-radius:5px;background:var(--white);color:var(--brand-blue);cursor:pointer}.portfolio-controls button:disabled{opacity:.4;cursor:default}.portfolio-controls>span{font-size:.72rem;color:var(--text-light);padding-bottom:10px}
 @media(max-width:640px){.portfolio-controls label{flex-basis:100%}.portfolio-controls>span{flex:1}}
 @media(max-width:640px){.homework-table tbody tr{padding:10px;gap:7px 8px;margin-bottom:8px}.homework-table .hw-company{display:grid!important;grid-template-columns:auto minmax(0,1fr);align-items:baseline;column-gap:8px;padding-bottom:6px!important}.homework-table .hw-company .ticker-line{font-size:.94rem}.homework-table .hw-company .name-line{font-size:.74rem}.homework-table .hw-company>.hw-direction{display:none}.homework-table td:nth-child(3)>small:last-child{display:none}.homework-table td>small{font-size:.61rem;line-height:1.4;margin-top:2px}.homework-table td[data-label]::before{margin-bottom:2px;font-size:.62rem}.homework-table .hw-holders{padding-top:5px!important}.hw-holder-line{margin:2px 0;line-height:1.5}.hw-holder-line small{font-size:.62rem}.hw-holder-line .hw-investor-link{min-height:0;font-size:.7rem}.hw-holders>.hw-holder-line:nth-of-type(n+4){display:none}.hw-calculation{margin-top:3px}.hw-calculation summary{min-height:30px;padding:3px 0}.hw-facts{padding:9px 0;margin-bottom:12px;gap:6px}.hw-facts strong{font-size:1.06rem}.hw-intro{margin-bottom:10px}.hw-intro p{font-size:.7rem;line-height:1.5}}
+
+/* Research accents: color describes the field or filing status, never a trade recommendation. */
+.change-new{--change-ink:#275486;--change-wash:#edf2f8}
+.change-added{--change-ink:#216447;--change-wash:#edf5f0}
+.change-trimmed{--change-ink:#9b3e3e;--change-wash:#fbefed}
+.change-exited{--change-ink:#813d50;--change-wash:#f7edf0}
+.change-hold,.change-unknown{--change-ink:#59616a;--change-wash:#f0f0ed}
+#tab-changes .change-badge{display:inline-block;padding:4px 8px;border-radius:5px;background:var(--change-wash);color:var(--change-ink);font-size:.78rem;line-height:1.55}
+#tab-changes .change-row>td:first-child{box-shadow:inset 3px 0 var(--change-ink)}
+#tab-changes .change-count{display:inline-flex;align-items:baseline;gap:7px;margin:0 6px 6px 0;padding:5px 9px;border-radius:5px;background:var(--change-wash);color:var(--change-ink);font-size:.74rem;font-weight:500}
+#tab-changes .change-count b{font-size:1rem;font-variant-numeric:tabular-nums}
+#tab-changes .change-group>summary{color:var(--change-ink);font-weight:600}
+:is(#tab-changes,#tab-history) .price-current>strong{color:#275486}
+:is(#tab-changes,#tab-history) .price-average>strong{color:#65517b}
+:is(#tab-changes,#tab-history) .price-buy>strong{color:#216447}
+:is(#tab-changes,#tab-history) .price-sell>strong{color:#95513c}
+#tab-changes .price-current{background:rgba(49,90,112,.045)}
+#tab-history .tl-status-current,#tab-history .tl-status-absent,#tab-history .security-retired{display:inline-block;border-radius:5px;padding:3px 7px;line-height:1.6;font-weight:600}
+#tab-history .tl-status-current{background:#edf5f0;color:#216447}
+#tab-history .tl-status-absent,#tab-history .security-retired{background:#f0f0ed;color:#59616a}
+#tab-history .tl-gap-detail>summary{color:#806020}
+#tab-history .history-held>td:first-child{box-shadow:inset 3px 0 #216447}
+#tab-history .history-absent>td:first-child,#tab-history .history-retired>td:first-child{box-shadow:inset 3px 0 #aaa99f}
+#tab-history .chart-wrap{border-top:3px solid var(--brand-blue);background:var(--white)}
+#tab-changes .scope-heading h3,#tab-history .scope-heading h3,#tab-homework .scope-heading h3{border-left:3px solid var(--gold);padding-left:10px}
+#tab-homework .hw-facts{background:var(--surface-soft);border-radius:7px;padding:12px}
+#tab-homework .hw-facts>span:nth-child(2) strong{color:#216447}
+#tab-homework .hw-facts>span:nth-child(4) strong{color:#806020}
+:is(#tab-spinoff,#tab-spinoff_us) .sd-kpis button:not([aria-pressed=true]) b{color:var(--brand-blue)}
+#tab-personal .pp-metric>b:not(.pp-na){color:#275486}
+#tab-personal .pp-metric+.pp-metric>b:not(.pp-na){color:#65517b}
+#tab-personal .pp-score>b{color:#806020}
+@media(max-width:650px){
+ #tab-changes .change-row>td:first-child,#tab-history .history-row>td:first-child{box-shadow:none}
+ #tab-changes tbody tr.change-row{border-left:3px solid var(--change-ink)}
+ #tab-history .trade-timeline tr.history-held{border-left:3px solid #216447}
+ #tab-history .trade-timeline tr.history-absent,#tab-history .trade-timeline tr.history-retired{border-left:3px solid #aaa99f}
+ #tab-changes .price-current{border-radius:5px}
+}

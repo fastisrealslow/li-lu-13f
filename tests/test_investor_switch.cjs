@@ -63,10 +63,10 @@ test('quarterly rows and headers refresh for all investors without leaving the t
       assert.ok(!rows.includes('新进'));
       continue;
     }
-    assert.ok((rows.match(/<tr>/g) || []).length >= Math.min(200,current.holdings.length), inv.id);
+    assert.ok((rows.match(/<tr(?:\s[^>]*)?>/g) || []).length >= Math.min(200,current.holdings.length), inv.id);
     assert.equal(a.run('data.current.holdings.length'), current.holdings.length, 'Current holdings count must exclude exits');
     if (a.run('comparisonState()')==='scope_partial') {
-      const psus=rows.split('<tr>').find(x=>x.includes('>PSUS</span>'));
+      const psus=rows.split(/<tr(?:\s[^>]*)?>/).find(x=>x.includes('>PSUS</span>'));
       assert.match(psus,/新增覆盖/);assert.doesNotMatch(psus,/新进|待比较/);
     }
     for (const h of current.holdings.slice(0,200)) assert.ok(rows.includes(`>${(h.shareType && h.shareType!=='SH'?h.cusip:h.ticker.replace(/^\?/, ''))}</span>`), `${inv.id}: ${h.ticker}`);
