@@ -5,7 +5,7 @@
     "notablePeople": [
       "Bill Ackman"
     ],
-    "lastUpdated": "2026-11-14T13:41:50Z",
+    "lastUpdated": "2026-11-14T18:38:15Z",
     "aiSummary": "阿克曼 Q1 大幅减持谷歌并新建微软仓位，同时增持亚马逊，显示其持续优化科技股组合的结构性调整。",
     "aiSummaryQuarter": "2026 Q1",
     "legacyFilers": [
@@ -14108,7 +14108,7 @@
       ]
     },
     "coverage": {
-      "checkedAt": "2026-11-14T13:41:50Z",
+      "checkedAt": "2026-11-14T18:38:15Z",
       "missingQuarters": [],
       "repairedThisRun": [],
       "errors": {},
@@ -15110,7 +15110,7 @@
     "instrumentVerification": {
       "pendingQuarters": [],
       "errors": {},
-      "checkedAt": "2026-11-14T13:41:50.642149+00:00"
+      "checkedAt": "2026-11-14T18:38:15.322089+00:00"
     },
     "valueAudit": {
       "2026 Q2": {
@@ -19421,11 +19421,11 @@
       },
       "2011 Q1": {
         "version": 1,
-        "checkedAt": "2026-11-13",
+        "checkedAt": "2026-11-14",
         "source": "https://www.sec.gov/Archives/edgar/data/1336528/0001172661-11-000410.txt",
         "filingDate": "2011-05-16",
         "sourceDigest": "4da0f92306f4c8bdb153024e8bac91c8ab4e0103d36e43420e79d225b5a96277",
-        "sourceHash": "770554e8f97909645dd004b10b7d0b10d72fc253c0a59be511515ec0f27611c2",
+        "sourceHash": "6f7e2b89011ecbccc750b619f464c5302a312bed6ea97ac1e18b90cb1d9a8b30",
         "status": "pending",
         "anchors": [
           {
@@ -19435,7 +19435,19 @@
             "price": 4.420000076293945,
             "date": "2011-03-31",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/C?period1=0&period2=1794678495&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/C?period1=0&period2=1794767897&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "GLRE",
+            "cusip": "G4095J109",
+            "filedPrice": 28.208,
+            "price": 28.209999084472656,
+            "date": "2011-03-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/GLRE?period1=0&period2=1794767897&interval=1d&events=splits",
             "candidates": [
               1
             ]
@@ -19444,15 +19456,15 @@
         "errors": [
           "HHC: ValueError"
         ],
-        "normalizedHash": "770554e8f97909645dd004b10b7d0b10d72fc253c0a59be511515ec0f27611c2"
+        "normalizedHash": "6f7e2b89011ecbccc750b619f464c5302a312bed6ea97ac1e18b90cb1d9a8b30"
       },
       "2011 Q2": {
         "version": 1,
-        "checkedAt": "2026-11-13",
+        "checkedAt": "2026-11-14",
         "source": "https://www.sec.gov/Archives/edgar/data/1336528/0001172661-11-000580.txt",
         "filingDate": "2011-08-15",
         "sourceDigest": "cfffea71a5cb21d5288f2a0f9a72ebd4d7243789fa92d7cda5b7619726377dfa",
-        "sourceHash": "54ca98179fec8394fb0ae9ff2a08553abbd7f07b8ea346a5fec72e4bc9ba75e9",
+        "sourceHash": "a1c427f656094c80e14ce1568aa9526a8caf2f1089a41f8360f12bb1ac8f3ad2",
         "status": "pending",
         "anchors": [
           {
@@ -19462,7 +19474,19 @@
             "price": 41.63999938964844,
             "date": "2011-06-30",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/C?period1=0&period2=1794678495&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/C?period1=0&period2=1794767897&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "GLRE",
+            "cusip": "G4095J109",
+            "filedPrice": 26.288,
+            "price": 26.290000915527344,
+            "date": "2011-06-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/GLRE?period1=0&period2=1794767897&interval=1d&events=splits",
             "candidates": [
               1
             ]
@@ -19471,11 +19495,11 @@
         "errors": [
           "HHC: ValueError"
         ],
-        "normalizedHash": "54ca98179fec8394fb0ae9ff2a08553abbd7f07b8ea346a5fec72e4bc9ba75e9"
+        "normalizedHash": "a1c427f656094c80e14ce1568aa9526a8caf2f1089a41f8360f12bb1ac8f3ad2"
       },
       "2011 Q3": {
         "version": 1,
-        "checkedAt": "2026-11-13",
+        "checkedAt": "2026-11-14",
         "source": "https://www.sec.gov/Archives/edgar/data/1336528/0001172661-11-000752.txt",
         "filingDate": "2011-11-14",
         "sourceDigest": "9545e6fffcef2a3ff86b401941f672e3167d7e594c45a289e3d65fbc51eed7f5",
@@ -19489,7 +19513,7 @@
             "price": 25.6200008392334,
             "date": "2011-09-30",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/C?period1=0&period2=1794678495&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/C?period1=0&period2=1794767897&interval=1d&events=splits",
             "candidates": [
               1
             ]
@@ -19501,7 +19525,7 @@
             "price": 19.34000015258789,
             "date": "2011-09-30",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/LOW?period1=0&period2=1794678496&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/LOW?period1=0&period2=1794767898&interval=1d&events=splits",
             "candidates": [
               1
             ]
@@ -19514,7 +19538,7 @@
       },
       "2011 Q4": {
         "version": 1,
-        "checkedAt": "2026-11-13",
+        "checkedAt": "2026-11-14",
         "source": "https://www.sec.gov/Archives/edgar/data/1336528/0001172661-12-000268.txt",
         "filingDate": "2012-02-14",
         "sourceDigest": "479943fbfee54f96393782dba05b40db1cdc8a6b6ebb13939097fc313d73f79b",
@@ -19528,7 +19552,7 @@
             "price": 26.309999465942383,
             "date": "2011-12-30",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/C?period1=0&period2=1794678495&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/C?period1=0&period2=1794767897&interval=1d&events=splits",
             "candidates": [
               1
             ]
@@ -19540,7 +19564,7 @@
             "price": 17.030000867843626,
             "date": "2011-12-30",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/FBIN?period1=0&period2=1794678497&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/FBIN?period1=0&period2=1794767898&interval=1d&events=splits",
             "candidates": [
               1
             ]
@@ -19553,7 +19577,7 @@
       },
       "2012 Q1": {
         "version": 1,
-        "checkedAt": "2026-11-13",
+        "checkedAt": "2026-11-14",
         "source": "https://www.sec.gov/Archives/edgar/data/1336528/0001172661-12-000641.txt",
         "filingDate": "2012-05-15",
         "sourceDigest": "9d0c1145cbb47002658e49b43ad9c4eb18ee9aa4573d96a1e9302e28b1935a18",
@@ -19567,7 +19591,7 @@
             "price": 36.54999923706055,
             "date": "2012-03-30",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/C?period1=0&period2=1794687157&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/C?period1=0&period2=1794767897&interval=1d&events=splits",
             "candidates": [
               1
             ]
@@ -19579,7 +19603,7 @@
             "price": 22.070001125335693,
             "date": "2012-03-30",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/FBIN?period1=0&period2=1794687157&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/FBIN?period1=0&period2=1794767898&interval=1d&events=splits",
             "candidates": [
               1
             ]
@@ -19761,12 +19785,13 @@
       },
       "2010 Q1": {
         "version": 1,
-        "checkedAt": "2026-11-13",
+        "checkedAt": "2026-11-14",
         "source": "https://www.sec.gov/Archives/edgar/data/1336528/0001172661-10-000509.txt",
         "filingDate": "2010-08-16",
         "sourceDigest": "f65b7c6a10649196fe735fdc4fd78a740d8d5f8d901b12878a6cc6f13fc78079",
-        "sourceHash": "f0376dd8ad43b781473a7e2a8dfc7cbc078ef3c9210d7a2f1fb90275804697f2",
-        "status": "pending",
+        "sourceHash": "10275478b1f45b3b5531bfd6c04e37e0d7eafec2dc1fbc5e8235f9f83c97baff",
+        "status": "verified",
+        "factor": 1,
         "anchors": [
           {
             "ticker": "TGT",
@@ -19775,7 +19800,7 @@
             "price": 52.599998474121094,
             "date": "2010-03-31",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/TGT?period1=0&period2=1794678494&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/TGT?period1=0&period2=1794767895&interval=1d&events=splits",
             "candidates": [
               1
             ]
@@ -19787,16 +19812,28 @@
             "price": 38.330000345230104,
             "date": "2010-03-31",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/YUM?period1=0&period2=1794678495&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/YUM?period1=0&period2=1794767896&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "GLRE",
+            "cusip": "G4095J109",
+            "filedPrice": 26.68,
+            "price": 26.68000030517578,
+            "date": "2010-03-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/GLRE?period1=0&period2=1794767897&interval=1d&events=splits",
             "candidates": [
               1
             ]
           }
         ],
-        "errors": [
-          "BGPIQ: ValueError"
-        ],
-        "normalizedHash": "f0376dd8ad43b781473a7e2a8dfc7cbc078ef3c9210d7a2f1fb90275804697f2"
+        "agreementCount": 3,
+        "anchorCount": 3,
+        "outlierTickers": [],
+        "normalizedHash": "10275478b1f45b3b5531bfd6c04e37e0d7eafec2dc1fbc5e8235f9f83c97baff"
       }
     },
     "excludedValueQuarters": [],
