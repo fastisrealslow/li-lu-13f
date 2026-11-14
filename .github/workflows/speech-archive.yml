@@ -1,8 +1,8 @@
 name: Update Speech Archive
 on:
   schedule:
-    - cron: '45 22 * * *'
-    - cron: '45 6,14 * * *'
+    # Short, resumable batches save partials before a runner can be reclaimed.
+    - cron: '45 */4 * * *'
   workflow_dispatch:
     inputs:
       resume_run:
@@ -75,7 +75,7 @@ jobs:
       matrix:
         shard: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]
     runs-on: ubuntu-24.04
-    timeout-minutes: 350
+    timeout-minutes: 115
     permissions:
       contents: write
       actions: write
@@ -161,8 +161,8 @@ jobs:
           done
           ollama pull "$AI_MODEL"
       - name: Generate, verify and publish each complete work
-        timeout-minutes: 310
-        run: python3 -u archive_explanations.py generate --model "$AI_MODEL" --limit 230 --minutes 300 --shard ${{ matrix.shard }} --shards 14
+        timeout-minutes: 85
+        run: python3 -u archive_explanations.py generate --model "$AI_MODEL" --limit 230 --minutes 75 --shard ${{ matrix.shard }} --shards 14
       - name: Preserve partial sections for retry
         if: always()
         uses: actions/upload-artifact@v4

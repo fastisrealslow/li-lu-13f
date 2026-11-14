@@ -29,7 +29,12 @@ def retry_configured_cloud():
         if json.loads(result['choices'][0]['message']['content']).get('ok') is True:
             os.environ['SILICONFLOW_KEY']=key
             print('Configured cloud model recovered; continuing the saved batch.',flush=True)
-    except Exception as error:print('Cloud recheck:',type(error).__name__,getattr(error,'code',''),'CPU continues.',flush=True)
+    except Exception as error:
+        # Billing/authentication failures cannot be repaired by rapid requests.
+        # A later batch still probes again, while current CPU work continues.
+        if getattr(error,'code',None) in (401,402,403,404):
+            _CLOUD_NEXT_CHECK=time.monotonic()+7200
+        print('Cloud recheck:',type(error).__name__,getattr(error,'code',''),'CPU continues.',flush=True)
 
 
 def output_schema(prompt):
@@ -82,7 +87,7 @@ def ask(system,prompt,model,tokens=2600):
                 continue
             if key and exc.code in (401,402,403,404):
                 if os.environ.get('ARCHIVE_PROBE_MODE')=='1' or not os.environ.get('ARCHIVE_CLOUD_KEY'):raise
-                os.environ['SILICONFLOW_KEY']='';_CLOUD_NEXT_CHECK=time.monotonic()+600
+                os.environ['SILICONFLOW_KEY']='';_CLOUD_NEXT_CHECK=time.monotonic()+7200
                 print('Cloud unavailable:',exc.code,'continuing with CPU.',flush=True)
                 return ask(system,prompt,model,tokens)
             if exc.code not in (429,500,502,503,504) or attempt==3:raise

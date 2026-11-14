@@ -101,6 +101,21 @@ class SectionGenerationTests(unittest.TestCase):
             self.assertEqual(result['attempts']['test']['status'],'ok')
             self.assertFalse(any('archive/explanations/old.json' in c for c in commands))
 
+    def test_account_failure_backs_off_without_disabling_future_recovery(self):
+        failure=urllib.error.HTTPError('https://example.test',402,'credit',{},None)
+        payload={'choices':[{'message':{'content':'{"ok":true}'}}]}
+        with patch.dict(os.environ,{'ARCHIVE_CLOUD_KEY':'synthetic','SILICONFLOW_KEY':''}),patch.object(generator,'_CLOUD_NEXT_CHECK',0),patch.object(generator.time,'monotonic',return_value=100) as clock,patch.object(generator.urllib.request,'urlopen',side_effect=[failure,io.BytesIO(json.dumps(payload).encode())]) as request:
+            generator.retry_configured_cloud()
+            self.assertEqual(generator._CLOUD_NEXT_CHECK,7300)
+            clock.return_value=701
+            generator.retry_configured_cloud()
+            self.assertEqual(request.call_count,1)
+            self.assertEqual(os.environ['SILICONFLOW_KEY'],'')
+            clock.return_value=7301
+            generator.retry_configured_cloud()
+            self.assertEqual(request.call_count,2)
+            self.assertEqual(os.environ['SILICONFLOW_KEY'],'synthetic')
+
     def test_restored_cloud_credit_is_rechecked_without_restarting_cpu_work(self):
         payload={'choices':[{'message':{'content':'{"ok":true}'}}]}
         with patch.dict(os.environ,{'ARCHIVE_CLOUD_KEY':'synthetic-test-key','SILICONFLOW_KEY':''}),patch.object(generator,'_CLOUD_NEXT_CHECK',0),patch.object(generator.urllib.request,'urlopen',return_value=io.BytesIO(json.dumps(payload).encode())):
