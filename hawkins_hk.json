@@ -3419,7 +3419,7 @@
   ],
   "source": "HKEX DI 原始申报表及权益披露列表（DION + 2003–2017历史库）",
   "disclaimer": "历史披露不代表当前持仓；搜索日期不等于披露日期。未搜到记录不代表已清仓或低于5%。比例须按原披露的股份类别解读。",
-  "lastUpdated": "2026-11-14T03:42:59Z",
+  "lastUpdated": "2026-11-14T06:18:57Z",
   "schemaVersion": 3,
   "investor": "hawkins",
   "source_bindings": {
@@ -3567,7 +3567,7 @@
     }
   },
   "audit": {
-    "checkedAt": "2026-11-14T03:42:59Z",
+    "checkedAt": "2026-11-14T06:18:57Z",
     "status": "partial",
     "queries": [
       {
@@ -3599,52 +3599,52 @@
       {
         "query": "Southeastern Asset Management, Inc.",
         "url": "https://di.hkex.com.hk/di/NSSrchPersonList.aspx?sa1=pl&scsd=03%2F07%2F2017&sced=14%2F11%2F2026&pn=Southeastern+Asset+Management%2C+Inc.&src=MAIN&lang=EN&g_lang=en",
-        "reason": "HKEX repeated server/network failures; source paused for this run; retained evidence will retry next run"
+        "reason": "HKEX fetch failed: HTTP Error 403: Forbidden"
       },
       {
         "query": "Mason Hawkins",
         "url": "https://di.hkex.com.hk/di/NSSrchPersonList.aspx?sa1=pl&scsd=03%2F07%2F2017&sced=14%2F11%2F2026&pn=Mason+Hawkins&src=MAIN&lang=EN&g_lang=en",
-        "reason": "HKEX repeated server/network failures; source paused for this run; retained evidence will retry next run"
+        "reason": "HKEX fetch failed: HTTP Error 403: Forbidden"
       },
       {
         "query": "Southeastern Asset Management, Inc.",
         "url": "https://di.hkex.com.hk/filing/di/NSSrchPersonList.aspx?sa1=pl&scsd=01%2F04%2F2003&sced=02%2F10%2F2017&pn=Southeastern+Asset+Management%2C+Inc.&src=MAIN&lang=EN&g_lang=en",
-        "reason": "HKEX repeated server/network failures; source paused for this run; retained evidence will retry next run"
+        "reason": "HKEX fetch failed: HTTP Error 403: Forbidden"
       },
       {
         "query": "Mason Hawkins",
         "url": "https://di.hkex.com.hk/filing/di/NSSrchPersonList.aspx?sa1=pl&scsd=01%2F04%2F2003&sced=02%2F10%2F2017&pn=Mason+Hawkins&src=MAIN&lang=EN&g_lang=en",
-        "reason": "HKEX repeated server/network failures; source paused for this run; retained evidence will retry next run"
+        "reason": "HKEX fetch failed: HTTP Error 403: Forbidden"
       },
       {
         "entity": "Southeastern Asset Management, Inc.",
         "security": "Melco International Development Ltd.",
         "url": "https://di.hkex.com.hk/di/NSNoticePersonList.aspx?sa2=np&scpid1=1392&scpid3=0&scpid2=342&sa1=pl&scsd=03%2F07%2F2017&sced=14%2F11%2F2026&pn=Southeastern+Asset+Management%2C+Inc.&src=MAIN&lang=EN&g_lang=en",
-        "reason": "HKEX repeated server/network failures; source paused for this run; retained evidence will retry next run"
+        "reason": "HKEX fetch failed: HTTP Error 403: Forbidden"
       },
       {
         "entity": "Southeastern Asset Management, Inc.",
         "security": "Melco International Development Ltd.",
         "url": "https://di.hkex.com.hk/filing/di/NSNoticePersonList.aspx?sa2=np&scpid=2382265&sa1=pl&scsd=01%2F04%2F2003&sced=02%2F10%2F2017&pn=Southeastern+Asset+Management%2C+Inc.&src=MAIN&lang=EN&g_lang=en",
-        "reason": "HKEX repeated server/network failures; source paused for this run; retained evidence will retry next run"
+        "reason": "HKEX fetch failed: HTTP Error 403: Forbidden"
       },
       {
         "entity": "Southeastern Asset Management, Inc.",
         "security": "Great Eagle Holdings Ltd.",
         "url": "https://di.hkex.com.hk/filing/di/NSNoticePersonList.aspx?sa2=np&scpid=2354759&sa1=pl&scsd=01%2F04%2F2003&sced=02%2F10%2F2017&pn=Southeastern+Asset+Management%2C+Inc.&src=MAIN&lang=EN&g_lang=en",
-        "reason": "HKEX repeated server/network failures; source paused for this run; retained evidence will retry next run"
+        "reason": "HKEX fetch failed: HTTP Error 403: Forbidden"
       },
       {
         "entity": "Southeastern Asset Management, Inc.",
         "security": "Hopewell Holdings Ltd.",
         "url": "https://di.hkex.com.hk/filing/di/NSNoticePersonList.aspx?sa2=np&scpid=2360056&sa1=pl&scsd=01%2F04%2F2003&sced=02%2F10%2F2017&pn=Southeastern+Asset+Management%2C+Inc.&src=MAIN&lang=EN&g_lang=en",
-        "reason": "HKEX repeated server/network failures; source paused for this run; retained evidence will retry next run"
+        "reason": "HKEX fetch failed: HTTP Error 403: Forbidden"
       },
       {
         "entity": "Southeastern Asset Management, Inc.",
         "security": "K. Wah International Holdings Ltd.",
         "url": "https://di.hkex.com.hk/filing/di/NSNoticePersonList.aspx?sa2=np&scpid=2338119&sa1=pl&scsd=01%2F04%2F2003&sced=02%2F10%2F2017&pn=Southeastern+Asset+Management%2C+Inc.&src=MAIN&lang=EN&g_lang=en",
-        "reason": "HKEX repeated server/network failures; source paused for this run; retained evidence will retry next run"
+        "reason": "HKEX fetch failed: HTTP Error 403: Forbidden"
       }
     ],
     "scope": "匹配已配置主体的公开多头权益披露；不等于完整投资组合或当前持仓"

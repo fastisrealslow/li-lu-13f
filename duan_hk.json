@@ -852,7 +852,7 @@
       "pending_newer_notices": []
     }
   ],
-  "lastUpdated": "2026-11-14T03:42:51Z",
+  "lastUpdated": "2026-11-14T06:17:41Z",
   "schemaVersion": 3,
   "investor": "duan",
   "source_bindings": {
@@ -920,7 +920,7 @@
     }
   },
   "audit": {
-    "checkedAt": "2026-11-14T03:42:51Z",
+    "checkedAt": "2026-11-14T06:17:41Z",
     "status": "partial",
     "queries": [
       {
@@ -952,34 +952,34 @@
       {
         "query": "H&H International Investment",
         "url": "https://di.hkex.com.hk/di/NSSrchPersonList.aspx?sa1=pl&scsd=03%2F07%2F2017&sced=14%2F11%2F2026&pn=H%26H+International+Investment&src=MAIN&lang=EN&g_lang=en",
-        "reason": "HKEX fetch failed: HTTP Error 500: Internal Server Error"
+        "reason": "HKEX fetch failed: HTTP Error 403: Forbidden"
       },
       {
         "query": "Duan Yong",
         "url": "https://di.hkex.com.hk/di/NSSrchPersonList.aspx?sa1=pl&scsd=03%2F07%2F2017&sced=14%2F11%2F2026&pn=Duan+Yong&src=MAIN&lang=EN&g_lang=en",
-        "reason": "HKEX repeated server/network failures; source paused for this run; retained evidence will retry next run"
+        "reason": "HKEX fetch failed: HTTP Error 403: Forbidden"
       },
       {
         "query": "H&H International Investment",
         "url": "https://di.hkex.com.hk/filing/di/NSSrchPersonList.aspx?sa1=pl&scsd=01%2F04%2F2003&sced=02%2F10%2F2017&pn=H%26H+International+Investment&src=MAIN&lang=EN&g_lang=en",
-        "reason": "HKEX repeated server/network failures; source paused for this run; retained evidence will retry next run"
+        "reason": "HKEX fetch failed: HTTP Error 403: Forbidden"
       },
       {
         "query": "Duan Yong",
         "url": "https://di.hkex.com.hk/filing/di/NSSrchPersonList.aspx?sa1=pl&scsd=01%2F04%2F2003&sced=02%2F10%2F2017&pn=Duan+Yong&src=MAIN&lang=EN&g_lang=en",
-        "reason": "HKEX repeated server/network failures; source paused for this run; retained evidence will retry next run"
+        "reason": "HKEX fetch failed: HTTP Error 403: Forbidden"
       },
       {
         "entity": "H&H International Investment, LLC",
         "security": "Pop Mart International Group Ltd.",
         "url": "https://di.hkex.com.hk/di/NSNoticePersonList.aspx?sa2=np&scpid1=156901&scpid3=0&scpid2=312028&sa1=pl&scsd=03%2F07%2F2017&sced=14%2F11%2F2026&pn=H%26H+International+Investment&src=MAIN&lang=EN&g_lang=en",
-        "reason": "HKEX repeated server/network failures; source paused for this run; retained evidence will retry next run"
+        "reason": "HKEX fetch failed: HTTP Error 403: Forbidden"
       },
       {
         "entity": "Duan Yong Ping",
         "security": "Pop Mart International Group Ltd.",
         "url": "https://di.hkex.com.hk/di/NSNoticePersonList.aspx?sa2=np&scpid1=156902&scpid3=0&scpid2=312028&sa1=pl&scsd=03%2F07%2F2017&sced=14%2F11%2F2026&pn=Duan+Yong&src=MAIN&lang=EN&g_lang=en",
-        "reason": "HKEX repeated server/network failures; source paused for this run; retained evidence will retry next run"
+        "reason": "HKEX fetch failed: HTTP Error 403: Forbidden"
       }
     ],
     "scope": "匹配已配置主体的公开多头权益披露；不等于完整投资组合或当前持仓"
