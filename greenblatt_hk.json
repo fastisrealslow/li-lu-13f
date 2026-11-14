@@ -8,41 +8,33 @@
       "Joel Greenblatt"
     ]
   },
-  "lastUpdated": "2026-11-13T20:10:19Z",
+  "lastUpdated": "2026-11-14T03:42:59Z",
   "source": "HKEX DI 原始申报表及权益披露列表（DION + 2003–2017历史库）",
   "disclaimer": "历史披露不代表当前持仓；搜索日期不等于披露日期。未搜到记录不代表已清仓或低于5%。比例须按原披露的股份类别解读。",
   "schemaVersion": 3,
   "source_bindings": {},
   "audit": {
-    "checkedAt": "2026-11-13T20:10:19Z",
-    "status": "checked",
+    "checkedAt": "2026-11-14T03:42:59Z",
+    "status": "partial",
     "queries": [
       {
         "query": "Gotham Asset Management",
-        "archive": "dion",
-        "status": "ok",
-        "matchedSecurities": 0,
-        "url": "https://di.hkex.com.hk/di/NSSrchPersonList.aspx?sa1=pl&scsd=03%2F07%2F2017&sced=13%2F11%2F2026&pn=Gotham+Asset+Management&src=MAIN&lang=EN&g_lang=en"
+        "status": "failed",
+        "url": "https://di.hkex.com.hk/di/NSSrchPersonList.aspx?sa1=pl&scsd=03%2F07%2F2017&sced=14%2F11%2F2026&pn=Gotham+Asset+Management&src=MAIN&lang=EN&g_lang=en"
       },
       {
         "query": "Joel Greenblatt",
-        "archive": "dion",
-        "status": "ok",
-        "matchedSecurities": 0,
-        "url": "https://di.hkex.com.hk/di/NSSrchPersonList.aspx?sa1=pl&scsd=03%2F07%2F2017&sced=13%2F11%2F2026&pn=Joel+Greenblatt&src=MAIN&lang=EN&g_lang=en"
+        "status": "failed",
+        "url": "https://di.hkex.com.hk/di/NSSrchPersonList.aspx?sa1=pl&scsd=03%2F07%2F2017&sced=14%2F11%2F2026&pn=Joel+Greenblatt&src=MAIN&lang=EN&g_lang=en"
       },
       {
         "query": "Gotham Asset Management",
-        "archive": "legacy",
-        "status": "ok",
-        "matchedSecurities": 0,
+        "status": "failed",
         "url": "https://di.hkex.com.hk/filing/di/NSSrchPersonList.aspx?sa1=pl&scsd=01%2F04%2F2003&sced=02%2F10%2F2017&pn=Gotham+Asset+Management&src=MAIN&lang=EN&g_lang=en"
       },
       {
         "query": "Joel Greenblatt",
-        "archive": "legacy",
-        "status": "ok",
-        "matchedSecurities": 0,
+        "status": "failed",
         "url": "https://di.hkex.com.hk/filing/di/NSSrchPersonList.aspx?sa1=pl&scsd=01%2F04%2F2003&sced=02%2F10%2F2017&pn=Joel+Greenblatt&src=MAIN&lang=EN&g_lang=en"
       }
     ],
@@ -50,7 +42,28 @@
     "verifiedSecurities": 0,
     "pendingSecurities": 0,
     "recordsFetched": 0,
-    "errors": [],
+    "errors": [
+      {
+        "query": "Gotham Asset Management",
+        "url": "https://di.hkex.com.hk/di/NSSrchPersonList.aspx?sa1=pl&scsd=03%2F07%2F2017&sced=14%2F11%2F2026&pn=Gotham+Asset+Management&src=MAIN&lang=EN&g_lang=en",
+        "reason": "HKEX repeated server/network failures; source paused for this run; retained evidence will retry next run"
+      },
+      {
+        "query": "Joel Greenblatt",
+        "url": "https://di.hkex.com.hk/di/NSSrchPersonList.aspx?sa1=pl&scsd=03%2F07%2F2017&sced=14%2F11%2F2026&pn=Joel+Greenblatt&src=MAIN&lang=EN&g_lang=en",
+        "reason": "HKEX repeated server/network failures; source paused for this run; retained evidence will retry next run"
+      },
+      {
+        "query": "Gotham Asset Management",
+        "url": "https://di.hkex.com.hk/filing/di/NSSrchPersonList.aspx?sa1=pl&scsd=01%2F04%2F2003&sced=02%2F10%2F2017&pn=Gotham+Asset+Management&src=MAIN&lang=EN&g_lang=en",
+        "reason": "HKEX repeated server/network failures; source paused for this run; retained evidence will retry next run"
+      },
+      {
+        "query": "Joel Greenblatt",
+        "url": "https://di.hkex.com.hk/filing/di/NSSrchPersonList.aspx?sa1=pl&scsd=01%2F04%2F2003&sced=02%2F10%2F2017&pn=Joel+Greenblatt&src=MAIN&lang=EN&g_lang=en",
+        "reason": "HKEX repeated server/network failures; source paused for this run; retained evidence will retry next run"
+      }
+    ],
     "scope": "匹配已配置主体的公开多头权益披露；不等于完整投资组合或当前持仓"
   }
 }
