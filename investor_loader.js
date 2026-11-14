@@ -1,9 +1,18 @@
 /* Immutable browser files are generated during deployment from validated data. */
 (function(root){
   const snapshots=new Map(),histories=new Map();
+  // Budget serialized bytes as a conservative, stable proxy for memory. Keep
+  // ordinary portfolios across visits without retaining unbounded history.
+  const snapshotBudget=8*1024*1024,historyBudget=16*1024*1024;
+  const sizeOf=(entry)=>Number.isSafeInteger(entry.bytes)&&entry.bytes>0?entry.bytes:1024*1024;
   let manifest=null,manifestAt=0,manifestRequest=null,manifestVersion=0;
   const asset=value=>value && /^browser\/[a-z][a-z0-9_]*-(?:current|history)-[a-f0-9]{24}\.json$/.test(value.file||'');
-  const remember=(cache,key,value,limit)=>{cache.delete(key);cache.set(key,value);while(cache.size>limit)cache.delete(cache.keys().next().value);return value;};
+  function remember(cache,entry,value,budget){
+    cache.delete(entry.file);cache.set(entry.file,{value,bytes:sizeOf(entry)});
+    let total=0;for(const item of cache.values())total+=item.bytes;
+    while(total>budget||cache.size>32){const key=cache.keys().next().value;total-=cache.get(key).bytes;cache.delete(key);}
+    return value;
+  }
   async function fetchAsset(entry,options){
     const compressed=typeof DecompressionStream==='function'&&entry.gzipFile===entry.file+'.gz';
     const response=await fetch(compressed?entry.gzipFile:entry.file,options);
@@ -34,21 +43,21 @@
     const available=await getManifest(fresh),entry=available?.investors&&Object.prototype.hasOwnProperty.call(available.investors,id)?available.investors[id]:null;
     if(!entry)return null;
     if(signal?.aborted)throw Error('Selection superseded');
-    if(!fresh&&snapshots.has(entry.snapshot.file))return remember(snapshots,entry.snapshot.file,snapshots.get(entry.snapshot.file),3);
+    if(!fresh&&snapshots.has(entry.snapshot.file))return remember(snapshots,entry.snapshot,snapshots.get(entry.snapshot.file).value,snapshotBudget);
     const {response,value}=await fetchAsset(entry.snapshot,{signal,cache:fresh?'no-store':'default'});
     if(response.status===404&&!retried){await getManifest(true);return load(id,{signal,retried:true});}
     if(!response.ok)throw Error('Investor snapshot HTTP '+response.status);
     if(value.version!==1||value.investor!==id||!value.data?.current||!value.prices?.quotes||Array.isArray(value.prices.quotes)||!asset(value.history)||value.history.file!==entry.history.file||value.data.browserProjection?.version!==1||value.insights?.schemaVersion!==2||!value.insights.entries)throw Error('Invalid investor snapshot');
     for(const [kind,digest] of Object.entries(value.data.browserProjection.sources||{}))if(!/^[a-f0-9]{64}$/.test(digest)||value.insights.entries[kind+':'+id]?.source?.browserSource!==digest)throw Error('Investor insight source mismatch');
-    return remember(snapshots,entry.snapshot.file,value,3);
+    return remember(snapshots,entry.snapshot,value,snapshotBudget);
   }
   async function history(entry,{signal}={}){
     if(!asset(entry))throw Error('Invalid history path');
-    if(histories.has(entry.file))return histories.get(entry.file);
+    if(histories.has(entry.file))return remember(histories,entry,histories.get(entry.file).value,historyBudget);
     const {response,value}=await fetchAsset(entry,{signal,cache:'default'});
     if(!response.ok){const error=Error('History HTTP '+response.status);error.status=response.status;throw error;}
     const id=/^browser\/([a-z][a-z0-9_]*)-history-/.exec(entry.file)[1];if(value.version!==1||value.investor!==id||!value.history?.holdings||!value.exitPerf)throw Error('Invalid history snapshot');
-    return remember(histories,entry.file,value,1);
+    return remember(histories,entry,value,historyBudget);
   }
   root.InvestorSnapshots={load,history,getManifest};
 })(globalThis);

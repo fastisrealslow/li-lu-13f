@@ -489,7 +489,9 @@ async function ensureInvestorHistory() {
     const value=await globalThis.InvestorSnapshots.history(snapshot.browserProjection.historyAsset,{signal:controller.signal});
     if(requestId!==investorRequestId||data!==snapshot)return;
     data.history={...value.history,costReferenceProofs:snapshot.history.costReferenceProofs};prices.exitPerf=value.exitPerf; if(value.tradePrices)prices.tradePrices=value.tradePrices; prices.quotes={...(value.quotes||{}),...(prices.quotes||{})}; data.browserProjection.historyLoaded=true;
-    delete _renderedInvestorViews.history;if(_activeInvestorTab==='history')renderActiveInvestorView();
+    // The overview already drew the chart and insight. Only the timeline needs
+    // the newly loaded holdings; rebuilding the chart forces another layout.
+    if(_activeInvestorTab==='history'){renderTimelineTable();_renderedInvestorViews.history=investorRequestId+'|'+lang+'|full';}
   }catch(error){if(requestId!==investorRequestId||data!==snapshot||controller.signal.aborted&&_activeInvestorTab!=='history')return;
     const file=snapshot.browserProjection.historyAsset.file;
     if(error.status===404&&!_historyRecoveryAssets.has(file)){_historyRecoveryAssets.add(file);if(_historyRecoveryAssets.size>10)_historyRecoveryAssets.delete(_historyRecoveryAssets.values().next().value);await switchInvestor(target,{fresh:true});return;}
@@ -967,20 +969,24 @@ function toggleOptionPosition(button) {
 }
 function syncOptionDetailColumns() {
   if(typeof getComputedStyle!=='function')return;
+  // Hidden detail rows need no measurement. Measuring headers immediately after
+  // replacing the table forces a synchronous layout of the entire portfolio.
+  const cells=[...document.querySelectorAll('#holdingsBody .option-details-row:not([hidden]) > td')];
+  if(!cells.length)return;
   const columns=[...document.querySelectorAll('#tab-current > .table-wrap thead th')].filter(th=>getComputedStyle(th).display!=='none').length;
-  if(columns)document.querySelectorAll('#holdingsBody .option-details-row > td').forEach(td=>{td.colSpan=columns;});
+  if(columns)cells.forEach(td=>{td.colSpan=columns;});
 }
 const _portfolioViews={};
 function portfolioVisibleIndexes(kind,rows) {
   let state=_portfolioViews[kind];if(!state||state.investor!==investor)state=_portfolioViews[kind]={investor,query:'',page:0};
-  const pageSize=rows.length>200&&globalThis.window?.innerWidth<640?50:200;
+  const pageSize=globalThis.window?.innerWidth<640?50:200;
   if(state.pageSize&&state.pageSize!==pageSize)state.page=Math.floor(state.page*state.pageSize/pageSize);
   state.pageSize=pageSize;
   const term=state.query.trim().toLowerCase();let matches=rows.map((h,i)=>({h,i})).filter(({h})=>!term||[h.ticker,h.name,h.cnName,h.cusip].join(' ').toLowerCase().includes(term));
   const pages=Math.max(1,Math.ceil(matches.length/pageSize));state.page=Math.max(0,Math.min(pages-1,state.page));
   const target=document.getElementById(kind==='current'?'holdingsControls':'changesControls');
   if(target){
-    target.innerHTML=rows.length<=200&&!state.query?'':`<div class="portfolio-controls"><label>${lang==='en'?'Find a security':'查找证券'}<input id="portfolio-search-${kind}" type="search" value="${hkEscape(state.query)}" placeholder="${lang==='en'?'Company, ticker or CUSIP':'公司、代码或 CUSIP'}" oninput="setPortfolioView('${kind}','query',this.value)"></label><span>${lang==='en'?'Showing':'显示'} ${matches.length?state.page*pageSize+1:0}–${Math.min((state.page+1)*pageSize,matches.length)} / ${matches.length}</span><button type="button" onclick="setPortfolioView('${kind}','page',${state.page-1})"${state.page===0?' disabled':''}>${lang==='en'?'Previous':'上一页'}</button><button type="button" onclick="setPortfolioView('${kind}','page',${state.page+1})"${state.page>=pages-1?' disabled':''}>${lang==='en'?'Next':'下一页'}</button></div>`;
+    target.innerHTML=rows.length<=pageSize&&!state.query?'':`<div class="portfolio-controls"><label>${lang==='en'?'Find a security':'查找证券'}<input id="portfolio-search-${kind}" type="search" value="${hkEscape(state.query)}" placeholder="${lang==='en'?'Company, ticker or CUSIP':'公司、代码或 CUSIP'}" oninput="setPortfolioView('${kind}','query',this.value)"></label><span>${lang==='en'?'Showing':'显示'} ${matches.length?state.page*pageSize+1:0}–${Math.min((state.page+1)*pageSize,matches.length)} / ${matches.length}</span><button type="button" onclick="setPortfolioView('${kind}','page',${state.page-1})"${state.page===0?' disabled':''}>${lang==='en'?'Previous':'上一页'}</button><button type="button" onclick="setPortfolioView('${kind}','page',${state.page+1})"${state.page>=pages-1?' disabled':''}>${lang==='en'?'Next':'下一页'}</button></div>`;
   }
   return new Set(matches.slice(state.page*pageSize,(state.page+1)*pageSize).map(x=>x.i));
 }
@@ -1013,6 +1019,7 @@ function renderHoldings() {
     const reason = cb ? null : securityLifecycle(h)?(lang==='en'?'Historical estimate unavailable':'历史估价暂缺'):costState.reason==='archive' && data.meta?.snapshotType==='verified_disclosure_snapshot'?(lang==='en'?'Transaction cost undisclosed':'未披露成交成本'):costUnavailableText(costState.reason);
     const mos = cb ? costGap(currentPrice, cb.recent.buy) : null;
     if(mos!==null) shownGaps.push(mos);
+    if(cb && !cb.recent.kind && mos!==null && mos>=10)mosItems.push({ticker:h.ticker,name:h.name,cnName:h.cnName||'',mos:mos.toFixed(1),cost:cb.recent.buy,price:currentPrice});
     if(!visibleRows.has(i))return '';
     const pct=d.valueQuality?0:(h.value/d.totalValue*100).toFixed(2);
     const weightText=d.valueQuality?'—':pct+'%';
@@ -1042,7 +1049,6 @@ function renderHoldings() {
       compactCost = `<span class="mobile-estimate-label">${rc.kind==='adjusted_quarter_reference'?(lang==='en'?'Corporate-action adjusted reference':'公司行动后季末参考'):rc.kind==='quarter_reference'?(lang==='en'?'Quarter-end':'季末参考'):rc.kind==='scope_initial'?(lang==='en'?'Scope ref.':'首季参考'):(lang === 'en' ? 'Buy ref.' : '加仓参考')} <strong>${symbol}${rc.buy.toFixed(2)}</strong></span><small>${costPeriodLabel}${hkEscape(rc.quarter)}</small>`;
       if (costState.averagePending) compactCost += `<small>${costState.averageReason==='corporate_action'?(lang==='en'?'Historical averages do not span this corporate action':'公司行动前后不混算历史均价'):costState.averageReason==='units'?(lang==='en'?'Average awaits historical value verification':'历史金额待核实，长期均价暂缺'):(lang==='en'?'Average awaits split correction':'长期均价待拆股校正')}</small>`;
       if (at) compactCost += `<small class="mobile-average-cost">${lang==='en'?'Avg. (est.)':'历次均价（估）'} ${symbol}${at.avg.toFixed(2)}</small><small>${costSpanText(at)}</small>`;
-      if (!rc.kind && mos !== null && mos >= 10) mosItems.push({ticker:h.ticker,name:h.name,cnName:h.cnName||'',mos:mos.toFixed(1),cost:rc.buy,price:currentPrice});
     }
     const mobileCostHtml = h.putCall ? (optionReference?`<div class="mobile-cost-detail">${compactCost}</div>`:'') : `<div class="mobile-cost-detail">${compactCost}${cb?mosHtml:''}</div>`;
 
@@ -1974,35 +1980,24 @@ function renderEarlierDisclosures() {
 }
 let timelinePageKey='', timelineLimit=200;
 function showMoreTimeline(){timelineLimit+=200;renderTimelineTable();}
-async function renderTimelineTable() {
-  if (globalThis.window?.PublicPortfolio?.render('timeline',{data,lang,config:INVESTOR_CFG_BY_ID[investor]})) return;
-  const container = document.getElementById('timelineCanvas');
-  if(document.getElementById('tab-history')?.classList?.contains('d-none')) return;
-  if (!data) return;
-  if (data.history?.verification?.status === 'unverified') {
-    container.innerHTML = `<p style="color:var(--text-lighter);">${lang === 'en' ? 'A holdings timeline requires dated historical snapshots.' : '持仓时间轴需要可核对日期的历史快照，暂不展示。'}</p>`;
-    return;
-  }
-  const hdata = projectSecuritySnapshot(data).history?.holdings;
-  if (!hdata || Object.keys(hdata).length === 0) {
-    container.innerHTML = '<p style="text-align:center;color:var(--text-lighter);padding:40px;">历史持仓数据加载中…</p>';
-    return;
-  }
+const _timelineModels=new WeakMap();
+function timelineModel(snapshot) {
+  const source=snapshot.history.holdings,prior=_timelineModels.get(source);
+  if(prior && prior.current===snapshot.current && prior.meta===snapshot.meta)return prior.value;
+  const hdata=projectSecuritySnapshot(snapshot).history.holdings;
   const quarters = Object.keys(hdata).sort();
   const latest = quarters[quarters.length - 1];
-  const isHK = investor === 'webb';
-  const isEn = lang === 'en';
   const tickerInfo = {};
   for (const q of quarters) {
     for (const h of consolidateHoldings(hdata[q])) {
-      if(instrumentHistoryIncludes(data.meta||{},h.ticker) && q<data.meta.instrumentHistoryFrom) continue;
+      if(instrumentHistoryIncludes(snapshot.meta||{},h.ticker) && q<snapshot.meta.instrumentHistoryFrom) continue;
       if (!(h.shares > 0)) continue;
       const tk = JSON.stringify([h.cusip || [h.ticker,h.cls||''],instrument(h)]);
       if (!tickerInfo[tk]) tickerInfo[tk] = {ticker:h.ticker,cusip:h.cusip,shareType:h.shareType,putCall:h.putCall,cls:h.cls,first: q, last: q, quarters: [], sector: h.sector, sectorEn:h.sectorEn, displayName:h.displayName, name: h.name, cnName: h.cnName||'', maxShares: 0, curShares: 0};
       else {tickerInfo[tk].last=q; if(!h.ticker.startsWith('?'))tickerInfo[tk].ticker=h.ticker;}
       if(h.reportedIdentity)tickerInfo[tk].identityBridge=true;
       tickerInfo[tk].quarters.push(q);
-      const factor = shareActionsFor(h,data).filter(a =>
+      const factor = shareActionsFor(h,snapshot).filter(a =>
         q < a.quarter && a.quarter <= latest
       ).reduce((product, a) => product * a.factor, 1);
       const comparableShares = h.shares * factor;
@@ -2028,10 +2023,32 @@ async function renderTimelineTable() {
     })
     .sort((a, b) => a.first.localeCompare(b.first));
 
+  const value={entries,quarters,latest};
+  _timelineModels.set(source,{current:snapshot.current,meta:snapshot.meta,value});
+  return value;
+}
+
+async function renderTimelineTable() {
+  if (globalThis.window?.PublicPortfolio?.render('timeline',{data,lang,config:INVESTOR_CFG_BY_ID[investor]})) return;
+  const container = document.getElementById('timelineCanvas');
+  if(document.getElementById('tab-history')?.classList?.contains('d-none')) return;
+  if (!data) return;
+  if (data.history?.verification?.status === 'unverified') {
+    container.innerHTML = `<p style="color:var(--text-lighter);">${lang === 'en' ? 'A holdings timeline requires dated historical snapshots.' : '持仓时间轴需要可核对日期的历史快照，暂不展示。'}</p>`;
+    return;
+  }
+  const hdata = data.history?.holdings;
+  if (!hdata || Object.keys(hdata).length === 0) {
+    container.innerHTML = '<p style="text-align:center;color:var(--text-lighter);padding:40px;">历史持仓数据加载中…</p>';
+    return;
+  }
+  const {entries,quarters,latest}=timelineModel(data);
+  const isHK=investor==='webb',isEn=lang==='en';
+
   let html = '<div class="table-wrap tl-table-wrap trade-timeline"><table><thead><tr><th>'+t('thCompany')+'</th><th>'+(isEn?'Current price':'当前价格')+'</th><th>'+(isEn?'Historical buy (est.)':'历史买入均价（估）')+'</th><th>'+(isEn?'Historical sale (est.)':'历史卖出均价（估）')+'</th><th>'+t('thStatus')+'</th></tr></thead><tbody>';
-  const pageKey=investor+'|'+lang+'|'+latest;
-  if(timelinePageKey!==pageKey){timelinePageKey=pageKey;timelineLimit=200;}
-  const visible=entries.length>200 ? [...entries].sort((a,b)=>Number(b.active)-Number(a.active)||a.first.localeCompare(b.first)).slice(0,timelineLimit) : entries;
+  const pageKey=investor+'|'+lang+'|'+latest+'|'+(globalThis.window?.innerWidth<640?'mobile':'desktop');
+  if(timelinePageKey!==pageKey){timelinePageKey=pageKey;timelineLimit=globalThis.window?.innerWidth<640?50:200;}
+  const visible=entries.length>(globalThis.window?.innerWidth<640?50:200) ? [...entries].sort((a,b)=>Number(b.active)-Number(a.active)||a.first.localeCompare(b.first)).slice(0,timelineLimit) : entries;
   visible.forEach(e => {
     if (e.active && e.curShares > 0 && e.maxShares > 0) {
       const ratio = (e.curShares / e.maxShares * 100).toFixed(0);
