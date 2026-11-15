@@ -1867,12 +1867,12 @@
       "reason": "ValueError: Bilingual editorial review: The English translation in 'content' incorrectly identifies Peter Lynch's book as 'One Up on Wall Street'; the source text (s6) only"
     },
     "vinall-c12bae3cc1e659": {
-      "at": "2026-11-15T03:05:15+00:00",
+      "at": "2026-11-15T16:20:05+00:00",
       "status": "retry",
       "inputHash": "4ca6e3a0857d06c74dde6a50b3aefc28e8ad8b399354f392f613d090278df977",
-      "failures": 1,
-      "nextAttemptAt": "2026-11-15T07:05:15+00:00",
-      "reason": "ValueError: Bilingual editorial review: The source text does not explicitly state that Rob Vinall 'argues' or 'supports the view' in a formal sense; it describes his personal experience and observations. The phrasing implies a structured argument where the source only provides anecdotal evidence.; The source mentions 'insights... have not aged too badly' but d"
+      "failures": 2,
+      "nextAttemptAt": "2026-11-16T00:20:05+00:00",
+      "reason": "ValueError: Bilingual editorial review: The Chinese text incorrectly states the author's name as 'Rob Vinall' in English within the paragraph, whereas the canonical name provided is 'Rob Vinall'. While phonetically similar, the source explicitly uses 'Vinall', and the user-provided canonical list confirms 'Vinall'. The text should use the exact canonical form."
     },
     "pabrai-1e956456cad67c": {
       "at": "2026-11-15T04:20:40+00:00",
@@ -4456,5 +4456,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T16:19:23+00:00"
+  "updatedAt": "2026-11-15T16:20:05+00:00"
 }
