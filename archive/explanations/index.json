@@ -4473,12 +4473,12 @@
       "reason": "ValueError: Bilingual editorial review: The English content incorrectly paraphrases the ASR text by adding 'short-term actors' (not in source) and 'money' instead of 'investing'.; The Chinese content adds 'public discourse' (source says 'discussion') and 'fairness' (not in source).; Both versions add 'valuable insights' (source says 'helpful').; The English ve"
     },
     "greenblatt-fa1bc818776c75": {
-      "at": "2026-11-15T07:22:15+00:00",
+      "at": "2026-11-15T21:25:56+00:00",
       "status": "retry",
       "inputHash": "34b9c685e1aeb066573ff80e3642750b561929b928e33b3d90a58d2b9e282312",
-      "failures": 1,
-      "nextAttemptAt": "2026-11-15T11:22:15+00:00",
-      "reason": "ValueError: Bilingual editorial review: The source text does not explicitly state that Greenblatt's intuition is 'deeply rooted in his nature' or that he owns 'a piece of a business' rather than shares; it only says owning a piece of a business is what you own at the end of the day. The paraphrase adds interpretive weight not present in the ASR.; The source me"
+      "failures": 2,
+      "nextAttemptAt": "2026-11-16T05:25:56+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English translation of 'Cyber and rivalry is always good' (s13) appears to be a transcription error or misinterpretation; contextually it likely refers to 'Cyrus and rivalry' or similar, but the source text itself contains this phrase. The editor should not invent corrections for unclear ASR data unless it contradict"
     },
     "akre-98d708d2727ef5": {
       "at": "2026-11-15T16:00:24+00:00",
@@ -4558,5 +4558,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T21:25:41+00:00"
+  "updatedAt": "2026-11-15T21:25:56+00:00"
 }
