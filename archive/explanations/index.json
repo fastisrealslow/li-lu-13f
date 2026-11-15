@@ -3029,10 +3029,12 @@
       "reason": "ValueError: Unsupported numerical claim: 20"
     },
     "marks-3068c27c26de17": {
-      "at": "2026-11-14T21:43:31+00:00",
+      "at": "2026-11-15T08:16:59+00:00",
       "status": "retry",
       "inputHash": "b55950f8cd0534c24d6bb412301ea7d28dbdf8e9341352426d794c2ef3edd8ec",
-      "reason": "ValueError: Bilingual editorial review: The English translation of the heading is inaccurate: 'Subjectivity of Tax Fairness and the Controversy over Capital Gains Tax' misr"
+      "failures": 1,
+      "nextAttemptAt": "2026-11-15T12:16:59+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English translation in the content section misrepresents the source text by adding 'compared to' and 'for example asking if', which are not present in s10 or s11.; The Chinese translation incorrectly attributes the quote about millionaires/billionaries to Howard Marks, whereas s9 clearly attributes it to [Senate Majo"
     },
     "marks-2a08abe8cdf605": {
       "at": "2026-11-15T08:02:03+00:00",
@@ -4332,5 +4334,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T08:16:40+00:00"
+  "updatedAt": "2026-11-15T08:16:59+00:00"
 }
