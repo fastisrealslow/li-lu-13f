@@ -436,10 +436,12 @@
       "reason": "ValueError: Unsupported numerical claim: 0.80"
     },
     "greenberg-6ffab78b7040e3": {
-      "at": "2026-11-14T21:02:38+00:00",
+      "at": "2026-11-15T02:50:47+00:00",
       "status": "retry",
       "inputHash": "b456036ff1b37cf34edfad5075c65e756686ff7a37ac1ebfd351701f188dfdc7",
-      "reason": "ValueError: Bilingual editorial review: The source text does not mention 'mainstream value investing' or 'geniuses'; Shapiro contrasts their approach with what others call "
+      "failures": 1,
+      "nextAttemptAt": "2026-11-15T06:50:47+00:00",
+      "reason": "ValueError: Bilingual editorial review: The source text does not contain the phrase 'best revenge' in relation to share repurchases; this is an editorial interpretation added by the content generator.; The source text does not mention 'market corrections' or 'internal capital operations' as mechanisms for value realization; these are inferred concepts not pres"
     },
     "hawkins-4bfffa4e8bf77c": {
       "at": "2026-11-14T21:23:32+00:00",
@@ -3658,5 +3660,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T02:49:55+00:00"
+  "updatedAt": "2026-11-15T02:50:47+00:00"
 }
