@@ -1363,10 +1363,12 @@
       "reason": "ValueError: Bilingual editorial review: The source text (s2) does not mention 'height' or 'intelligence' as examples of varying talents; it only refers to people being 'tall', 'short', 'ahead', or 'behind'.; The source text does not explicitly state that continuous learning can 'outperform raw intelligence'; this is an editorial interpretation added in the con"
     },
     "pabrai-276244f32cb972": {
-      "at": "2026-11-14T21:48:07+00:00",
+      "at": "2026-11-15T16:20:25+00:00",
       "status": "retry",
       "inputHash": "15f87973ed97eda7c62a1230a40dc2d547d3969d065cbc3de48aff6769f6d4e6",
-      "reason": "ValueError: Unsupported numerical claim: 3"
+      "failures": 1,
+      "nextAttemptAt": "2026-11-15T20:20:25+00:00",
+      "reason": "ValueError: Unsupported scaled numerical claim: 65"
     },
     "pabrai-0060079ccab254": {
       "at": "2026-11-14T21:36:18+00:00",
@@ -4458,5 +4460,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T16:20:05+00:00"
+  "updatedAt": "2026-11-15T16:20:25+00:00"
 }
