@@ -3709,10 +3709,12 @@
       "reason": "ValueError: Bilingual editorial review: The source text (s0) states 'That's a simple sentence but one with significant implications' referring to the uncertainty claim, not"
     },
     "marks-159247340c6388": {
-      "at": "2026-11-14T08:47:48+00:00",
+      "at": "2026-11-15T16:52:14+00:00",
       "status": "retry",
       "inputHash": "2f65c3b39af38f2235052b249ec59467aa062fe593d45163f406df1bcccac84a",
-      "reason": "ValueError: Bilingual editorial review: The English content incorrectly translates 'exotic investments' as 'exotic investments' (redundant/unnatural phrasing); should be 'e"
+      "failures": 1,
+      "nextAttemptAt": "2026-11-15T20:52:14+00:00",
+      "reason": "ValueError: Bilingual editorial review: The source text (s26) does not mention 'exotic investments' or 'proprietary profits'; it only mentions 'ultra-high leverage' and 'off-limits activities'. The paraphrase adds specific terms not present in the evidence.; The source text (s30) states that consensus oscillates but does not explicitly state that 'no single go"
     },
     "marks-9d549bcb95c052": {
       "at": "2026-11-15T03:13:41+00:00",
@@ -4526,5 +4528,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T16:52:10+00:00"
+  "updatedAt": "2026-11-15T16:52:14+00:00"
 }
