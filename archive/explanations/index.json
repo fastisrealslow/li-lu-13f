@@ -1465,10 +1465,12 @@
       "reason": "ValueError: Bilingual editorial review: The English translation incorrectly states 'Stanley Steamer' went bankrupt; the source text only lists birth and death years for com"
     },
     "pabrai-61e73f76e7f7e6": {
-      "at": "2026-11-14T08:00:42+00:00",
+      "at": "2026-11-15T02:52:17+00:00",
       "status": "retry",
       "inputHash": "3f2a20b5c4c4dd729e3bf0975ae697bb04f973f1411f14951ffd283d3088f2b3",
-      "reason": "ValueError: Unsupported numerical claim: 160"
+      "failures": 1,
+      "nextAttemptAt": "2026-11-15T06:52:17+00:00",
+      "reason": "ValueError: Bilingual editorial review: The source text (s4) states the deal was for 'about 60 guilders', which is approximately $24. The content section claims it was sold for '$24' without mentioning the guilder conversion or the original currency context, creating a slight factual simplification not explicitly detailed in the source.; The source text (s5) m"
     },
     "pabrai-d23537e255095e": {
       "at": "2026-11-14T08:20:33+00:00",
@@ -3664,5 +3666,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T02:51:24+00:00"
+  "updatedAt": "2026-11-15T02:52:17+00:00"
 }
