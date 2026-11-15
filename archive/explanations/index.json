@@ -1485,10 +1485,12 @@
       "reason": "ValueError: Unsupported numerical claim: 1%"
     },
     "pabrai-7b7fa2ae604775": {
-      "at": "2026-11-14T13:46:06+00:00",
+      "at": "2026-11-15T04:22:39+00:00",
       "status": "retry",
       "inputHash": "f58250303d97eb5facb233f7c8a0f1454ad019b17d5ae1335c529d052ecb891f",
-      "reason": "ValueError: Bilingual editorial review: The English translation of 'conquering' all past JEE papers is slightly inaccurate; the source says 'solved every past JEE paper', i"
+      "failures": 1,
+      "nextAttemptAt": "2026-11-15T08:22:39+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English translation in the source content incorrectly states 'entering IIT or a particular major' as if they are separate options; the original text indicates students want to get to IIT (possibly a specific campus) and a particular major, implying these are combined aspirations.; The English translation misrepresent"
     },
     "pabrai-6295b96a9b0552": {
       "at": "2026-11-15T03:25:13+00:00",
@@ -3962,5 +3964,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T04:21:17+00:00"
+  "updatedAt": "2026-11-15T04:22:39+00:00"
 }
