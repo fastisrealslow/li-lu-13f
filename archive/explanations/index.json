@@ -2396,10 +2396,12 @@
       "reason": "ValueError: Bilingual editorial review: The content incorrectly attributes a 'decline in the media industry' to Buffett's argument in s1; the source text discusses general capital scale effects, not specific media sector decline.; The content misrepresents the $370 million figure as 'operating earnings' equivalent to pre-tax profit, whereas the source explicit"
     },
     "buffett-3eda688cd8a50f": {
-      "at": "2026-11-14T15:26:43+00:00",
+      "at": "2026-11-15T08:12:32+00:00",
       "status": "retry",
       "inputHash": "4adf803b1cf25dda6bc812081112dcfcf3ba633c5a8bccefdacc1f3aa2104355",
-      "reason": "JSONDecodeError: Extra data: line 1 column 2042 (char 2041)"
+      "failures": 1,
+      "nextAttemptAt": "2026-11-15T12:12:32+00:00",
+      "reason": "ValueError: Copied source passage"
     },
     "buffett-ba600cd7bd91ce": {
       "at": "2026-11-15T03:53:38+00:00",
@@ -4316,5 +4318,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T08:12:31+00:00"
+  "updatedAt": "2026-11-15T08:12:32+00:00"
 }
