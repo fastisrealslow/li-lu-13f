@@ -2430,10 +2430,12 @@
       "reason": "ValueError: Bilingual editorial review: The English content claims Howard Marks argues rent control 'deprives tenants of the ability to monetize their bargain-priced housing', but the source (s2) states they 'can't make that asset monetizable' and 'tend not to move', which implies a lack of mobility rather than an inability to monetize. The phrasing misreprese"
     },
     "marks-634492e880737b": {
-      "at": "2026-11-14T21:27:36+00:00",
+      "at": "2026-11-15T07:51:09+00:00",
       "status": "retry",
       "inputHash": "52be25d256367455039c27902eacf93f3a317c5103fe48fe6a3357ce5bdd691d",
-      "reason": "ValueError: Bilingual editorial review: The Chinese text incorrectly attributes the personal anecdote about Northern Rock and the 2% penalty to Howard Marks ('...but facing"
+      "failures": 1,
+      "nextAttemptAt": "2026-11-15T11:51:09+00:00",
+      "reason": "ValueError: Unsupported numerical claim: 16"
     },
     "marks-2bc1ddf3b547f3": {
       "at": "2026-11-14T22:10:36+00:00",
@@ -4228,5 +4230,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T07:51:03+00:00"
+  "updatedAt": "2026-11-15T07:51:09+00:00"
 }
