@@ -57,7 +57,7 @@ async function call(name,a){
   if(!entry||entry.reviewStatus!=='verified'||!/^archive\/explanations\/[a-z0-9_-]+\.json$/.test(entry.file))throw Error('No verified guide available for this work');
   return load(entry.file);
  }
- if(name==='get_update_status')return load('run_status.json');
+ if(name==='get_update_status'){const d=await load('run_status.json');const runs=[...(d.runs||[])].sort((a,b)=>String(b.run_id).localeCompare(String(a.run_id)));return{latest:runs[0]||null,recent:runs.slice(1,6).map(({run_id,trigger,status,startedAt,finishedAt})=>({run_id,trigger,status,startedAt,finishedAt}))};}
  throw Error('Unknown tool');
 }
 export async function onRequest({request}){
