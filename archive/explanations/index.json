@@ -3335,10 +3335,12 @@
       "reason": "ValueError: Bilingual editorial review: The Chinese text incorrectly states that Opportunity Equity gained 5.8% in Q3 while the S&P 500 gained 5.9%, but the source (s0) says Opportunity Equity gained 5.8% and S&P 500 gained 5.9%, which is correct; however, it later claims Opportunity Equity's annual return outperformed the Dow and smaller caps despite lagging "
     },
     "marks-7c8c8b2a70295c": {
-      "at": "2026-11-14T14:40:21+00:00",
+      "at": "2026-11-15T07:29:15+00:00",
       "status": "retry",
       "inputHash": "9bcd2dec9801aee3d424853dd860e6c8197508e6e739afc7371f7b28ae7ec996",
-      "reason": "ValueError: Bilingual editorial review: The Chinese translation of the Galbraith quote is accurate but slightly verbose; a more concise version would be: 'There are two kin"
+      "failures": 1,
+      "nextAttemptAt": "2026-11-15T11:29:15+00:00",
+      "reason": "ValueError: Bilingual editorial review: The source text does not contain the phrase 'new inventions never seen before' in s1; it states 'many new inventions are in place that never existed before', which is a minor phrasing difference but not a factual error.; The source text does not explicitly state that Marks aims to remind investors to remain humble and ca"
     },
     "mclemore-8b93293153e790": {
       "at": "2026-11-15T03:13:41+00:00",
@@ -4150,5 +4152,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T07:29:06+00:00"
+  "updatedAt": "2026-11-15T07:29:15+00:00"
 }
