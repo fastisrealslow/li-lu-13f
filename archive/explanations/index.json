@@ -2044,10 +2044,12 @@
       "reason": "ValueError: Unsupported numerical claim: 23.8%"
     },
     "buffett-a8cc7c4a7e73c5": {
-      "at": "2026-11-14T01:24:18+00:00",
+      "at": "2026-11-15T03:21:07+00:00",
       "status": "retry",
       "inputHash": "d887906af8672540f2d0d6d35489fa0577d96fd1167966b5a83624841b38dffb",
-      "reason": "ValueError: Unsupported scaled numerical claim: 16.32"
+      "failures": 1,
+      "nextAttemptAt": "2026-11-15T07:21:07+00:00",
+      "reason": "ValueError: Unsupported numerical claim: 1994"
     },
     "buffett-03ea47cc01ea52": {
       "at": "2026-11-14T07:21:46+00:00",
@@ -3780,5 +3782,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T03:20:52+00:00"
+  "updatedAt": "2026-11-15T03:21:07+00:00"
 }
