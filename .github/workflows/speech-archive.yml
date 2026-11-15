@@ -135,7 +135,7 @@ jobs:
         id: work
         run: |
           python3 archive_explanations.py plan --shard ${{ matrix.shard }} --shards 14 > "$RUNNER_TEMP/archive-plan.json"
-          python3 -c "import json,os; n=json.load(open(os.environ['RUNNER_TEMP']+'/archive-plan.json'))['pending']; print('pending='+str(n))" >> "$GITHUB_OUTPUT"
+          python3 -c "import json,os,pathlib; n=json.load(open(os.environ['RUNNER_TEMP']+'/archive-plan.json'))['pending']; n+=len(list(pathlib.Path('.archive-work/partials').glob('publish-*.json'))); print('pending='+str(n))" >> "$GITHUB_OUTPUT"
       - name: Configure local model storage
         run: echo "OLLAMA_MODELS=$RUNNER_TEMP/lilu-ollama-models" >> "$GITHUB_ENV"
       - uses: actions/cache@v4
