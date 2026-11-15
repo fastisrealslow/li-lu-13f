@@ -2666,10 +2666,12 @@
       "reason": "ValueError: Unsupported numerical claim: 2"
     },
     "marks-6e3354a3a71412": {
-      "at": "2026-11-14T21:55:10+00:00",
+      "at": "2026-11-15T08:26:45+00:00",
       "status": "retry",
       "inputHash": "cc1188fd3508d0b6e1b5345aff934c6436563b785d7d995925899ebd5927296e",
-      "reason": "ValueError: Bilingual editorial review: The Chinese text incorrectly attributes Mark Twain's quote 'History doesn't repeat itself, but it rhymes' to Howard Marks as his own"
+      "failures": 1,
+      "nextAttemptAt": "2026-11-15T12:26:45+00:00",
+      "reason": "ValueError: Bilingual editorial review: The Chinese text incorrectly states 'predictable outcomes' (result has predictability) for point (c), whereas the source says results are predictable but timing/extent are not; this is a minor nuance error.; The Chinese text omits the phrase 'dumb deals get done' from the source, replacing it with 'inefficient deals bein"
     },
     "marks-61f97f3ca472e4": {
       "at": "2026-11-14T14:44:40+00:00",
@@ -4378,5 +4380,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T08:25:48+00:00"
+  "updatedAt": "2026-11-15T08:26:45+00:00"
 }
