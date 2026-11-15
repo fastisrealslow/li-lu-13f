@@ -3589,12 +3589,12 @@
       "reason": "ValueError: Bilingual editorial review: The source text does not contain the phrase 'new inventions never seen before' in s1; it states 'many new inventions are in place that never existed before', which is a minor phrasing difference but not a factual error.; The source text does not explicitly state that Marks aims to remind investors to remain humble and ca"
     },
     "mclemore-8b93293153e790": {
-      "at": "2026-11-15T03:13:41+00:00",
+      "at": "2026-11-15T16:22:56+00:00",
       "status": "retry",
       "inputHash": "23793475ea7d7803db89e61e00c2c33021162ab18700d0474571837d47e93410",
-      "failures": 1,
-      "nextAttemptAt": "2026-11-15T07:13:41+00:00",
-      "reason": "ValueError: Unsupported numerical claim: 12"
+      "failures": 2,
+      "nextAttemptAt": "2026-11-16T00:22:56+00:00",
+      "reason": "ValueError: Bilingual editorial review: The source text does not mention 'Opportunity Equity' or claim it gained an average of 28% when the CBOE put-to-call ratio exceeded 1; this appears to be a hallucinated statistic in the content section.; The source text states that markets have gained in 100% of subsequent one-year periods since 1995, but does not specif"
     },
     "mclemore-267c6afd18f89c": {
       "at": "2026-11-15T04:51:44+00:00",
@@ -4464,5 +4464,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T16:21:50+00:00"
+  "updatedAt": "2026-11-15T16:22:56+00:00"
 }
