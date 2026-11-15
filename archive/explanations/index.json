@@ -1855,12 +1855,12 @@
       "reason": "ValueError: Incomplete AI Review at 1800 tokens"
     },
     "pabrai-ae90652bc59227": {
-      "at": "2026-11-15T04:32:04+00:00",
+      "at": "2026-11-15T22:03:25+00:00",
       "status": "retry",
       "inputHash": "bfb2753d89c72b4a4f976ed71aed42149eff3f2db99c11b8ef8e28fa1a91acdb",
-      "failures": 1,
-      "nextAttemptAt": "2026-11-15T08:32:04+00:00",
-      "reason": "ValueError: Incomplete AI Review at 1800 tokens"
+      "failures": 2,
+      "nextAttemptAt": "2026-11-16T06:03:25+00:00",
+      "reason": "ValueError: Unsupported numerical claim: 80%"
     },
     "pabrai-2a0d3eaffc9c99": {
       "at": "2026-11-15T04:25:41+00:00",
@@ -4622,5 +4622,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T22:03:24+00:00"
+  "updatedAt": "2026-11-15T22:03:25+00:00"
 }
