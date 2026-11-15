@@ -3411,10 +3411,12 @@
       "reason": "ValueError: Unsupported numerical claim: 80"
     },
     "marks-11862d6247a0d0": {
-      "at": "2026-11-14T07:27:23+00:00",
+      "at": "2026-11-15T03:45:01+00:00",
       "status": "retry",
       "inputHash": "8a54ce4367408a355610a551accece5191d93368a7e7fde43eff34491697a0be",
-      "reason": "ValueError: Bilingual editorial review: The English translation in the 'content' section misquotes Howard Marks. The source (s20) asks: 'what's an asset's price? Is it what"
+      "failures": 1,
+      "nextAttemptAt": "2026-11-15T07:45:01+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English translation in 'content.paragraphs[0]' contains a concrete factual error regarding the source text: it states 'when trading is scarce' whereas the source (s23) explicitly says 'With little trading taking place'. While semantically similar, the source uses a specific condition ('little') which should be reflec"
     },
     "marks-7344b034ec8674": {
       "at": "2026-11-14T14:34:42+00:00",
@@ -3858,5 +3860,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T03:44:57+00:00"
+  "updatedAt": "2026-11-15T03:45:01+00:00"
 }
