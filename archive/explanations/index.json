@@ -1341,10 +1341,12 @@
       "reason": "ValueError: Unsupported scaled numerical claim: 600"
     },
     "pabrai-890538700bb512": {
-      "at": "2026-11-14T14:07:17+00:00",
+      "at": "2026-11-15T08:06:04+00:00",
       "status": "retry",
       "inputHash": "30f3e5564c03eb730615821a68a8fa602e8365e07ef182e5e80dfce1c1290856",
-      "reason": "ValueError: Bilingual editorial review: The Chinese heading 'Ashok Kumar  case: Dialectical Analysis of Advantages and Disadvantages' is not supported by the source text; t"
+      "failures": 1,
+      "nextAttemptAt": "2026-11-15T12:06:04+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English text incorrectly claims Pabrai 'dialectically analyzed' the case; the source only states he told a story about Ashok and asked students to raise hands for rank 62.; The English text invents a specific response ('do not read his name...') that is not in the source; the source says students don't know his story"
     },
     "pabrai-341e9bdd1f2352": {
       "at": "2026-11-15T03:06:09+00:00",
@@ -4288,5 +4290,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T08:05:39+00:00"
+  "updatedAt": "2026-11-15T08:06:04+00:00"
 }
