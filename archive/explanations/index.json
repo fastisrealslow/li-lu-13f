@@ -2214,10 +2214,12 @@
       "reason": "ValueError: Unsupported numerical claim: 11"
     },
     "buffett-bc092806e972bf": {
-      "at": "2026-11-14T08:38:26+00:00",
+      "at": "2026-11-15T04:18:31+00:00",
       "status": "retry",
       "inputHash": "7f4790ecedde33e161d485ca03fbf389e59b410ccf822fac7e99f26320289826",
-      "reason": "ValueError: Unsupported numerical claim: 1964"
+      "failures": 1,
+      "nextAttemptAt": "2026-11-15T08:18:31+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English text incorrectly states the letter was issued by 'then-CEO Charlie Munger' and not signed by Buffett; historically, the letters were signed by both Buffett and Munger as co-Chairs of the Board.; The English text misidentifies the author as 'Walter Buffett'; the correct name is 'Warren Buffett'.; The English t"
     },
     "buffett-8ac7156186bd0c": {
       "at": "2026-11-14T14:54:24+00:00",
@@ -3950,5 +3952,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T04:16:52+00:00"
+  "updatedAt": "2026-11-15T04:18:31+00:00"
 }
