@@ -1513,10 +1513,12 @@
       "reason": "ValueError: Bilingual editorial review: The English text claims Pabrai 'supports this by sharing personal anecdotes' about Munger's birthday parties. However, s7 is a transcript of Mohnish Pabrai *recalling* an interview with Munger where Pabrai was the guest; it does not contain Pabrai recounting his own interactions as if he were the primary subject sharing "
     },
     "pabrai-99a0eff7272af5": {
-      "at": "2026-11-14T14:19:59+00:00",
+      "at": "2026-11-15T08:16:40+00:00",
       "status": "retry",
       "inputHash": "f967ae2af5db8e86a46609e0593938baf78d47b56796c3327f5acbb550db9f51",
-      "reason": "ValueError: Bilingual editorial review: The English translation of 'Capex' as 'capital expenditure' is accurate but slightly formal; 'capital spending' or 'investment' migh"
+      "failures": 1,
+      "nextAttemptAt": "2026-11-15T12:16:40+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English translation of 'Coke and Pepsi bottlers' as 'distributors' is accurate; however, the source text specifies 'bottlers', which are specific to beverage distribution. While 'distributors' is a reasonable paraphrase for general understanding, it slightly broadens the scope. Given the instruction to avoid generic "
     },
     "pabrai-6626f4a7337cb1": {
       "at": "2026-11-15T03:20:20+00:00",
@@ -4330,5 +4332,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T08:16:26+00:00"
+  "updatedAt": "2026-11-15T08:16:40+00:00"
 }
