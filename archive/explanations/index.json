@@ -1557,10 +1557,12 @@
       "reason": "ValueError: Bilingual editorial review: The source text (s2) states Mohnish Pabrai heard about Warren Buffett and Charlie Munger 'about eight years after I left Clemson' in 1994. The content section claims this happened 'eight years after leaving school (in 1994)', implying he left Clemson in 1986. However, s2 also says 'It's been 35 years since I left Clemson"
     },
     "pabrai-632419fca50123": {
-      "at": "2026-11-14T08:52:34+00:00",
+      "at": "2026-11-15T04:25:20+00:00",
       "status": "retry",
       "inputHash": "f32d1ad6908dad1d38b2f61b02dc4e1cc44972c2bb654b2211cf115f0c8b7955",
-      "reason": "ValueError: Bilingual editorial review: The English translation incorrectly states 'Stanley Steamer' went bankrupt; the source text only lists birth and death years for com"
+      "failures": 1,
+      "nextAttemptAt": "2026-11-15T08:25:20+00:00",
+      "reason": "ValueError: Unsupported scaled numerical claim: 1.09"
     },
     "pabrai-61e73f76e7f7e6": {
       "at": "2026-11-15T02:52:17+00:00",
@@ -3970,5 +3972,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T04:24:06+00:00"
+  "updatedAt": "2026-11-15T04:25:20+00:00"
 }
