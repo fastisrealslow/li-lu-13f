@@ -3553,9 +3553,11 @@
       "reason": "ValueError: Bilingual editorial review: The Chinese text claims the framework's reliance on 'predictable returns' was a 'flawed assumption' (‘...flawed assumption that investment returns behave predictably...'），while the source (s0) only states this as an important assumption without explicitly labeling it flawed; the flaw is demonstrated later by Mandelbrot, "
     },
     "mclemore-97a86175f75125": {
-      "at": "2026-11-14T08:47:04+00:00",
+      "at": "2026-11-15T22:01:31+00:00",
       "status": "retry",
       "inputHash": "42d2de4bffebbeae214de10236e65973472cce15325965a6ebb0e2de26e13fd1",
+      "failures": 1,
+      "nextAttemptAt": "2026-11-16T02:01:31+00:00",
       "reason": "ValueError: Source contains too little coherent evidence"
     },
     "mclemore-99ed96032e2668": {
@@ -4610,5 +4612,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T22:01:28+00:00"
+  "updatedAt": "2026-11-15T22:01:31+00:00"
 }
