@@ -3583,12 +3583,12 @@
       "reason": "ValueError: No supported arguments in source"
     },
     "mclemore-13b076ee4e21ff": {
-      "at": "2026-11-15T04:21:17+00:00",
+      "at": "2026-11-15T17:05:28+00:00",
       "status": "retry",
       "inputHash": "ee3fca761365b7fe73e93eba700ec131c2c38b4cf96dd39340a17d786a2f78d8",
-      "failures": 1,
-      "nextAttemptAt": "2026-11-15T08:21:17+00:00",
-      "reason": "ValueError: Bilingual editorial review: The Chinese text incorrectly attributes the quote about not growing rich by taking a four-point profit to Edwin Lefèvre; the source text presents this as a general saying ('They say...') and only explicitly quotes Lefèvre regarding 'sitting tight', though the attribution in the Chinese version conflates the two distinct "
+      "failures": 2,
+      "nextAttemptAt": "2026-11-16T01:05:28+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English text states 'since World War II' but the evidence (s0) only specifies data since 1945; adding 'World War II' is an external assumption not in the source.; The Chinese text claims 'years where the market rose as much as it did in the first two months of the year', which misrepresents the source's condition ('w"
     },
     "marks-a54b6d962b74e9": {
       "at": "2026-11-15T07:24:51+00:00",
@@ -4556,5 +4556,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T17:05:21+00:00"
+  "updatedAt": "2026-11-15T17:05:28+00:00"
 }
