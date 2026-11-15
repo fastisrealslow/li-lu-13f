@@ -2618,10 +2618,12 @@
       "reason": "ValueError: Copied source passage"
     },
     "marks-351eab04d3acf4": {
-      "at": "2026-11-14T14:32:16+00:00",
+      "at": "2026-11-15T16:13:41+00:00",
       "status": "retry",
       "inputHash": "b01a63885dcf099242e5ee093983331497a6d96e641517bb498118f333154bc9",
-      "reason": "ValueError: Unsupported numerical claim: 20"
+      "failures": 1,
+      "nextAttemptAt": "2026-11-15T20:13:41+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English translation incorrectly states that Marks observes the market has become popular with 'marketable securities holding direct loans'. The source text (s4) describes investment vehicles for individual investors and retirement accounts but does not use the term 'marketable securities' or imply they are already po"
     },
     "marks-bc5806f86a4042": {
       "at": "2026-11-15T04:41:11+00:00",
@@ -4438,5 +4440,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T16:13:27+00:00"
+  "updatedAt": "2026-11-15T16:13:41+00:00"
 }
