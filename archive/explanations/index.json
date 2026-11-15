@@ -3687,9 +3687,11 @@
       "reason": "ValueError: Bilingual editorial review: The English translation in 'content.paragraphs[0]' contains a concrete factual error regarding the source text: it states 'when trading is scarce' whereas the source (s23) explicitly says 'With little trading taking place'. While semantically similar, the source uses a specific condition ('little') which should be reflec"
     },
     "marks-7344b034ec8674": {
-      "at": "2026-11-14T14:34:42+00:00",
+      "at": "2026-11-15T07:32:47+00:00",
       "status": "retry",
       "inputHash": "5c58de2b81d494135eda1d25841bb0d17387e197cab07f969356042c7b0f99f8",
+      "failures": 1,
+      "nextAttemptAt": "2026-11-15T11:32:47+00:00",
       "reason": "ValueError: Unsupported numerical claim: 500"
     },
     "marks-a7349c82108581": {
@@ -4162,5 +4164,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T07:32:11+00:00"
+  "updatedAt": "2026-11-15T07:32:47+00:00"
 }
