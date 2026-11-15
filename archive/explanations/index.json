@@ -2582,10 +2582,12 @@
       "reason": "ValueError: Unsupported numerical claim: 6"
     },
     "marks-1dfb5f6b217cd3": {
-      "at": "2026-11-14T21:31:25+00:00",
+      "at": "2026-11-15T07:58:43+00:00",
       "status": "retry",
       "inputHash": "a8252ac27c1b19cc22d45ba71f815a8141577653cc0e12971ec4586f64e45247",
-      "reason": "ValueError: Unsupported scaled numerical claim: 2000"
+      "failures": 1,
+      "nextAttemptAt": "2026-11-15T11:58:43+00:00",
+      "reason": "ValueError: Unsupported numerical claim: 2"
     },
     "marks-6e3354a3a71412": {
       "at": "2026-11-14T21:55:10+00:00",
@@ -4262,5 +4264,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T07:58:42+00:00"
+  "updatedAt": "2026-11-15T07:58:43+00:00"
 }
