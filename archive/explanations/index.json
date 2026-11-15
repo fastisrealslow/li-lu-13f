@@ -2775,10 +2775,12 @@
       "reason": "ValueError: Bilingual editorial review: The English translation contains a fabricated quote: 'the best prophet is the best guesser' is misattributed to Hobbes in the source text (s2), which actually says 'The best prophet, Thomas Hobbes once wrote, is the best guesser.' The phrasing implies Hobbes wrote it, but the source does not explicitly attribute the quot"
     },
     "marks-a118789c16f302": {
-      "at": "2026-11-14T21:37:58+00:00",
+      "at": "2026-11-15T08:06:52+00:00",
       "status": "retry",
       "inputHash": "2ffa33e018bf298474095ded678d3279eee2bf785cb9818b12f25b6815b7317e",
-      "reason": "ValueError: Bilingual editorial review: The English translation in the content section contains a factual error regarding Buffett's quote. The source text (s13) states: 'Th"
+      "failures": 1,
+      "nextAttemptAt": "2026-11-15T12:06:52+00:00",
+      "reason": "ValueError: Copied source passage"
     },
     "marks-b88c0cce52f3a9": {
       "at": "2026-11-15T03:05:26+00:00",
@@ -4292,5 +4294,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T08:06:44+00:00"
+  "updatedAt": "2026-11-15T08:06:52+00:00"
 }
