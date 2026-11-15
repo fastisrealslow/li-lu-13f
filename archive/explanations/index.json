@@ -3081,10 +3081,12 @@
       "reason": "ValueError: Bilingual editorial review: The English content incorrectly translates 'exotic investments' as 'exotic investments' (redundant/unnatural phrasing); should be 'e"
     },
     "marks-9d549bcb95c052": {
-      "at": "2026-11-14T07:09:55+00:00",
+      "at": "2026-11-15T03:13:41+00:00",
       "status": "retry",
       "inputHash": "08a20ae3e9880d050f2e13526d721b99fb23111f5608e05b94528f901ea25919",
-      "reason": "ValueError: Bilingual editorial review: The English text in the 'content' section contains a factual error: it states that forecasters were certain the U.S. economy was 'ga"
+      "failures": 1,
+      "nextAttemptAt": "2026-11-15T07:13:41+00:00",
+      "reason": "ValueError: Bilingual editorial review: The Chinese text contains an unverified claim that 'zero interest rates' (zero rate) or 'Fed reducing bond buying' did not necessarily lead to GDP rebound or higher rates. The source only states these were contrary to expectations and failed to produce the expected results; it does not explicitly link them as causal cond"
     },
     "marks-60fc27c3fdbd0f": {
       "at": "2026-11-14T21:57:13+00:00",
@@ -3750,5 +3752,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T03:12:26+00:00"
+  "updatedAt": "2026-11-15T03:13:41+00:00"
 }
