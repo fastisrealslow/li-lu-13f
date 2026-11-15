@@ -3965,10 +3965,12 @@
       "reason": "ValueError: Bilingual editorial review: The Chinese text claims McLemore 'did not deny' (‘...she did not deny...') the iPad cannibalization concern, whereas the source only states she 'believes' it could happen; adding 'without denying' is an unwritten editorial interpretation.; The English text incorrectly attributes a specific belief ('due to concerns that.."
     },
     "mclemore-9341e741c2e577": {
-      "at": "2026-11-14T08:36:27+00:00",
+      "at": "2026-11-15T16:47:16+00:00",
       "status": "retry",
       "inputHash": "3748963183503a3be5c15d5be4e04b34c9a55dababb1dff35d32669af6ed00eb",
-      "reason": "ValueError: Unsupported numerical claim: 1990"
+      "failures": 1,
+      "nextAttemptAt": "2026-11-15T20:47:16+00:00",
+      "reason": "ValueError: Incomplete AI Review at 1800 tokens"
     },
     "mclemore-7e9619ce77a7e6": {
       "at": "2026-11-14T08:47:51+00:00",
@@ -4514,5 +4516,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T16:46:55+00:00"
+  "updatedAt": "2026-11-15T16:47:16+00:00"
 }
