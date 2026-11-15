@@ -2776,10 +2776,12 @@
       "reason": "ValueError: Unsupported numerical claim: 1990"
     },
     "marks-560f70ec2eec1a": {
-      "at": "2026-11-14T21:52:38+00:00",
+      "at": "2026-11-15T16:32:28+00:00",
       "status": "retry",
       "inputHash": "460d2bc5e59ac36f88806b90df809036440d9ebbfe62f43a4e956b696641a61c",
-      "reason": "ValueError: Bilingual editorial review: The Chinese text incorrectly attributes the conversation in evidence s9 to a time when Howard and Andrew 'lived together' in 2020. T"
+      "failures": 1,
+      "nextAttemptAt": "2026-11-15T20:32:28+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English translation in the content section misattributes the dialogue participants: it refers to 'Andrew' as 'his son Andrew', but the source text (s9) only labels speakers as 'A:' and 'H:', without explicitly stating Andrew is Howard's son. While this is a common external fact, the instruction forbids demanding exam"
     },
     "marks-f0ad7ce26c845b": {
       "at": "2026-11-15T07:58:35+00:00",
@@ -4486,5 +4488,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T16:31:43+00:00"
+  "updatedAt": "2026-11-15T16:32:28+00:00"
 }
