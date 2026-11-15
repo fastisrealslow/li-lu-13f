@@ -2230,10 +2230,12 @@
       "reason": "ValueError: Bilingual editorial review: The English paraphrase incorrectly states that companies are 'unwilling or unable' to absorb costs; the source only says they 'won't be eager' and may not have enough margin, omitting the definitive inability.; The Chinese text claims the author argues for a 'lag in production cycles'; while supply shortages are mentione"
     },
     "marks-bee01f7fefbaee": {
-      "at": "2026-11-14T08:15:40+00:00",
+      "at": "2026-11-15T04:06:05+00:00",
       "status": "retry",
       "inputHash": "6dd9da60809e39709c13e2eefad5cc4b015784f7627c46c27e9315488171fc4a",
-      "reason": "ValueError: Bilingual editorial review: The English translation incorrectly states 'rent control deprives tenants of the ability to monetize their bargain-priced housing as"
+      "failures": 1,
+      "nextAttemptAt": "2026-11-15T08:06:05+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English content claims Howard Marks argues rent control 'deprives tenants of the ability to monetize their bargain-priced housing', but the source (s2) states they 'can't make that asset monetizable' and 'tend not to move', which implies a lack of mobility rather than an inability to monetize. The phrasing misreprese"
     },
     "marks-634492e880737b": {
       "at": "2026-11-14T21:27:36+00:00",
@@ -3904,5 +3906,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T03:58:08+00:00"
+  "updatedAt": "2026-11-15T04:06:05+00:00"
 }
