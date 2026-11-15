@@ -1473,10 +1473,12 @@
       "reason": "ValueError: Bilingual editorial review: The source text does not mention 'funeral homes' or 'steel companies'; it only states 'I was buying funeral homes, steel companies, "
     },
     "vinall-ac99a6ec8608a5": {
-      "at": "2026-11-14T14:50:01+00:00",
+      "at": "2026-11-15T04:38:59+00:00",
       "status": "retry",
       "inputHash": "cdff013dc10407a889c756ede9e92ffc1eae348de89054ae5ca4593410792268",
-      "reason": "ValueError: Bilingual editorial review: The source text (s8-s10) does not contain the theoretical definition of a 'moat' or discuss its dynamic nature; it only describes Ro"
+      "failures": 1,
+      "nextAttemptAt": "2026-11-15T08:38:59+00:00",
+      "reason": "ValueError: Bilingual editorial review: The source (ASR) contains no mention of 'book value' (s12-s14), 'static moats', or the specific phrase 'Beyond Book Value'. The content section incorrectly attributes these concepts to Rob Vinall's speech based on inference rather than evidence.; The source mentions a conflict between European regulators and the SEC rega"
     },
     "pabrai-00ca7a03f93774": {
       "at": "2026-11-15T04:22:41+00:00",
@@ -4012,5 +4014,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T04:38:31+00:00"
+  "updatedAt": "2026-11-15T04:38:59+00:00"
 }
