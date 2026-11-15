@@ -2801,10 +2801,12 @@
       "inputHash": "ff0fdc04069e3ce3d3c32e34c54d6653ba3cef07bc0143623b7a4eec7cc5e5ef"
     },
     "marks-024bc47d523dd8": {
-      "at": "2026-11-14T22:01:44+00:00",
+      "at": "2026-11-15T15:59:36+00:00",
       "status": "retry",
       "inputHash": "94b76cbc6f21b0f2379440caa243328ebb197196ec580809d0ef5303eff421ea",
-      "reason": "ValueError: Bilingual editorial review: The English translation contains a factual error regarding the 'cash for clunkers' program: it incorrectly states the credit amount "
+      "failures": 1,
+      "nextAttemptAt": "2026-11-15T19:59:36+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English translation in the content section contains a factual error regarding the 'cash for clunkers' program. The source text (s7) states this program existed in 2009, but the translation incorrectly attributes it to the federal government as if it were a direct mandate rather than a specific auto-repair incentive p"
     },
     "marks-43a83bc1418080": {
       "at": "2026-11-15T04:31:44+00:00",
@@ -4398,5 +4400,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T15:59:32+00:00"
+  "updatedAt": "2026-11-15T15:59:36+00:00"
 }
