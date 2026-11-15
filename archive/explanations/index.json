@@ -1185,10 +1185,12 @@
       "reason": "ValueError: Bilingual editorial review: The Chinese heading 'Ashok Kumar  case: Dialectical Analysis of Advantages and Disadvantages' is not supported by the source text; t"
     },
     "pabrai-341e9bdd1f2352": {
-      "at": "2026-11-14T05:44:33+00:00",
+      "at": "2026-11-15T03:06:09+00:00",
       "status": "retry",
       "inputHash": "87ab4f7aecaeaae10a76598f22e6d78b0a6618649a0bff7be7328cf0989d5e1e",
-      "reason": "ValueError: Bilingual editorial review: The source text (s4) does not explicitly state 'Feynman method' as a methodology; it only says 'Mohnish: The best way to learn is to"
+      "failures": 1,
+      "nextAttemptAt": "2026-11-15T07:06:09+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English paragraph incorrectly states Pabrai seeks managers with 'a significant amount of skin in the game,' whereas the source (s6) specifies 'a large portion of their assets being co-invested alongside me.'; The English paragraph claims Pabrai prefers managers 'ideally in their mid-40s,' but the source (s6) states t"
     },
     "pabrai-eac064fbe28765": {
       "at": "2026-11-14T15:21:05+00:00",
@@ -3722,5 +3724,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T03:05:29+00:00"
+  "updatedAt": "2026-11-15T03:06:09+00:00"
 }
