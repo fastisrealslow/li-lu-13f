@@ -3217,12 +3217,12 @@
       "reason": "ValueError: Bilingual editorial review: The Chinese translation of s2 ('I remember having a spirited discussion...') is missing the specific detail about the 'University of Chicago' mentioned in the source text.; The Chinese translation of s3 incorrectly states that Marks admitted they were both right and wrong regarding the 'surface-level fact', whereas the s"
     },
     "marks-184e7e53d76037": {
-      "at": "2026-11-15T03:53:25+00:00",
+      "at": "2026-11-15T16:46:55+00:00",
       "status": "retry",
       "inputHash": "4f6da51e457541900ff5c176440544a52a3b922510f308422efb0ee12093478c",
-      "failures": 1,
-      "nextAttemptAt": "2026-11-15T07:53:25+00:00",
-      "reason": "ValueError: Bilingual editorial review: The Chinese summary incorrectly states that Howard Marks 'cites his affirmation of the United States' unique advantages over the past two centuries'. While he lists these advantages in section s4, the text does not explicitly frame them as a 'citation' or external reference; they are presented as direct observations with"
+      "failures": 2,
+      "nextAttemptAt": "2026-11-16T00:46:55+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English paragraph incorrectly states 'over 230 years' and 'more than 140 years', whereas the source text (s4) uses exact figures '230 years' and '140 years'.; The English paragraph omits the specific list of colonial powers mentioned in s5 ('England, France, Spain and Portugal'), replacing them with a generic 'Britai"
     },
     "marks-10f074d6974836": {
       "at": "2026-11-15T02:55:00+00:00",
@@ -4514,5 +4514,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T16:46:42+00:00"
+  "updatedAt": "2026-11-15T16:46:55+00:00"
 }
