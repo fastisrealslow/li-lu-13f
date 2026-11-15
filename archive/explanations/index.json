@@ -1191,10 +1191,12 @@
       "reason": "ValueError: Bilingual editorial review: The English translation of 'the cake is not fully baked yet' in s3 is metaphorically accurate but lacks explicit textual grounding; the source text does not contain this idiom, only the Chinese summary which uses it. The JSON content claims Pabrai says this phrase directly, while the evidence (s3) only contains Shaan's q"
     },
     "pabrai-96a9fab5d602f9": {
-      "at": "2026-11-14T06:04:52+00:00",
+      "at": "2026-11-15T08:19:10+00:00",
       "status": "retry",
       "inputHash": "82b6a0151b8903655945cc4e5fbd21f4dde54786010a242a84a95ee57e169992",
-      "reason": "ValueError: Bilingual editorial review: The English translation of 'focused mouse straps' is incorrect; the source text uses 'mouse traps', and 'strap' is a non-existent te"
+      "failures": 1,
+      "nextAttemptAt": "2026-11-15T12:19:10+00:00",
+      "reason": "ValueError: Incomplete AI Review at 1800 tokens"
     },
     "pabrai-fe92dc8bae7992": {
       "at": "2026-11-15T03:57:10+00:00",
@@ -4338,5 +4340,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T08:17:32+00:00"
+  "updatedAt": "2026-11-15T08:19:10+00:00"
 }
