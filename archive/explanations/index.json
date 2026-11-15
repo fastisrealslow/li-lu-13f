@@ -1465,10 +1465,12 @@
       "reason": "ValueError: Bilingual editorial review: The source text (s8-s10) does not contain the theoretical definition of a 'moat' or discuss its dynamic nature; it only describes Ro"
     },
     "pabrai-00ca7a03f93774": {
-      "at": "2026-11-14T08:45:27+00:00",
+      "at": "2026-11-15T04:22:41+00:00",
       "status": "retry",
       "inputHash": "7a780324a4c1dcbdcfc045aaa3611e3f567512c64585e7595819d72853e2e4e7",
-      "reason": "ValueError: Unsupported numerical claim: 0.625%"
+      "failures": 1,
+      "nextAttemptAt": "2026-11-15T08:22:41+00:00",
+      "reason": "ValueError: Bilingual editorial review: The Chinese translation incorrectly attributes the 'Ten Commandments' narrative to Pabrai's own conversations with God; the source text (s2) explicitly states that Moses made up the commandments and God gave the real ones through Arvind's class.; The English translation uses 'skim off the top' instead of the literal quot"
     },
     "pabrai-1e84c0b65621b6": {
       "at": "2026-11-15T03:49:15+00:00",
@@ -3964,5 +3966,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T04:22:39+00:00"
+  "updatedAt": "2026-11-15T04:22:41+00:00"
 }
