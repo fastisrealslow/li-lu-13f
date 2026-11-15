@@ -2102,10 +2102,12 @@
       "reason": "ValueError: Bilingual editorial review: The English paraphrase incorrectly attributes the 'boiling frog' metaphor to Howard Marks as if he originated it; the source text on"
     },
     "marks-81b1197a807270": {
-      "at": "2026-11-14T06:47:34+00:00",
+      "at": "2026-11-15T02:55:33+00:00",
       "status": "retry",
       "inputHash": "f6a8f537dbd19631afc63b902330f44895199fd7dd35449293f5dcbc8a97989d",
-      "reason": "ValueError: Bilingual editorial review: The source text (s7) does not contain Feynman's quote about electrons having feelings; this is an invented quotation by the editor.;"
+      "failures": 1,
+      "nextAttemptAt": "2026-11-15T06:55:33+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English paraphrase incorrectly states that companies are 'unwilling or unable' to absorb costs; the source only says they 'won't be eager' and may not have enough margin, omitting the definitive inability.; The Chinese text claims the author argues for a 'lag in production cycles'; while supply shortages are mentione"
     },
     "marks-bee01f7fefbaee": {
       "at": "2026-11-14T08:15:40+00:00",
@@ -3678,5 +3680,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T02:55:12+00:00"
+  "updatedAt": "2026-11-15T02:55:33+00:00"
 }
