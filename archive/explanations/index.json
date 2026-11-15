@@ -968,10 +968,12 @@
       "reason": "ValueError: Bilingual editorial review: The Chinese text incorrectly states Rob Vinall was hired 'before the start of his senior year' (high school senior), whereas the ASR transcript (s6) explicitly says 'before my senior year started', referring to college senior year. The English translation correctly reflects this context.; The phrase 'undue responsibility"
     },
     "pabrai-9f46a7707898d1": {
-      "at": "2026-11-14T21:46:10+00:00",
+      "at": "2026-11-15T08:12:28+00:00",
       "status": "retry",
       "inputHash": "4ea7f7e1666f036759fc89b7aefc7ba295fd837590039261ec3528593b8312b0",
-      "reason": "ValueError: Unsupported scaled numerical claim: 2"
+      "failures": 1,
+      "nextAttemptAt": "2026-11-15T12:12:28+00:00",
+      "reason": "ValueError: Unsupported numerical claim: 1973"
     },
     "pabrai-07edcbfd5c328f": {
       "at": "2026-11-15T07:22:04+00:00",
@@ -4312,5 +4314,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T08:10:41+00:00"
+  "updatedAt": "2026-11-15T08:12:28+00:00"
 }
