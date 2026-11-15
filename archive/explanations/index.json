@@ -958,12 +958,12 @@
       "reason": "ValueError: Bilingual editorial review: The English translation contains a factual error: it states 'even fund managers with poor long-term performance can still receive substantial returns', whereas the source text (s3) explicitly notes that fees are paid regardless of making or losing money, and s4 questions if professionals deserve high compensation without"
     },
     "pabrai-001b06856653c9": {
-      "at": "2026-11-15T07:38:40+00:00",
+      "at": "2026-11-15T21:29:13+00:00",
       "status": "retry",
       "inputHash": "c08d37d6cfef2b746eaec2c90dce97e1ef5d7c7dd287daf7b5f80b500c2e1a6e",
-      "failures": 1,
-      "nextAttemptAt": "2026-11-15T11:38:40+00:00",
-      "reason": "ValueError: Bilingual editorial review: The source text (s9) explicitly states: 'there's a cultural difference' and attributes this observation to Mohnish Pabrai ('Mohnish: When I was in Omaha...'). The content section incorrectly claims 'Pabrai did not explicitly frame this as a cultural difference', which contradicts the direct quote.; The source text (s9) s"
+      "failures": 2,
+      "nextAttemptAt": "2026-11-16T05:29:13+00:00",
+      "reason": "ValueError: Bilingual editorial review: The source text (s9) does not contain the phrase 'cloning mature technologies' or the concept of engineers being 'masters of cloning'; this is an invented paraphrase.; The source text (s9) does not mention that Microsoft has 'never felt embarrassed by a lack of such applied outputs'; this claim is fabricated.; The source"
     },
     "lilu-11d369bb564cef": {
       "at": "2026-11-15T08:19:39+00:00",
@@ -4560,5 +4560,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T21:27:37+00:00"
+  "updatedAt": "2026-11-15T21:29:13+00:00"
 }
