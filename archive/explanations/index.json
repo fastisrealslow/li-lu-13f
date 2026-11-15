@@ -3303,10 +3303,12 @@
       "reason": "ValueError: Bilingual editorial review: The English text in the paragraph incorrectly attributes the quote to Carl Tannenbaum as a direct statement of 'ingredients... were present but underappreciated' and 'questioned the previous presumption'. The source (s13) presents these ideas as reported speech ('said...', 'he added', 'I don't think...'), not as direct q"
     },
     "mclemore-b21e171f7506d8": {
-      "at": "2026-11-14T21:21:32+00:00",
+      "at": "2026-11-15T21:40:35+00:00",
       "status": "retry",
       "inputHash": "eea35894b689f63bb69a0d7a14fbc873806c5c36d1ae134cfe5ee0e82ec82e7e",
-      "reason": "ValueError: Bilingual editorial review: The source text does not mention 'long-term put options' (long-term call options were mentioned); the content incorrectly states she"
+      "failures": 1,
+      "nextAttemptAt": "2026-11-16T01:40:35+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English text incorrectly states that Pulte Homes (PHM) rose to $29 and Bank of America (BAC) to $32; the source only provides these figures as current prices relative to their 2011 lows ($3 and $6), not historical peak prices.; The English text claims long-term call options are 'not something that we do that much in "
     },
     "marks-790d38d2f071e8": {
       "at": "2026-11-15T16:50:18+00:00",
@@ -4580,5 +4582,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T21:40:34+00:00"
+  "updatedAt": "2026-11-15T21:40:35+00:00"
 }
