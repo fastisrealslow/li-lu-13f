@@ -3741,12 +3741,12 @@
       "reason": "ValueError: Bilingual editorial review: The source text (s26) does not mention 'exotic investments' or 'proprietary profits'; it only mentions 'ultra-high leverage' and 'off-limits activities'. The paraphrase adds specific terms not present in the evidence.; The source text (s30) states that consensus oscillates but does not explicitly state that 'no single go"
     },
     "marks-9d549bcb95c052": {
-      "at": "2026-11-15T03:13:41+00:00",
+      "at": "2026-11-15T17:07:32+00:00",
       "status": "retry",
       "inputHash": "08a20ae3e9880d050f2e13526d721b99fb23111f5608e05b94528f901ea25919",
-      "failures": 1,
-      "nextAttemptAt": "2026-11-15T07:13:41+00:00",
-      "reason": "ValueError: Bilingual editorial review: The Chinese text contains an unverified claim that 'zero interest rates' (zero rate) or 'Fed reducing bond buying' did not necessarily lead to GDP rebound or higher rates. The source only states these were contrary to expectations and failed to produce the expected results; it does not explicitly link them as causal cond"
+      "failures": 2,
+      "nextAttemptAt": "2026-11-16T01:07:32+00:00",
+      "reason": "JSONDecodeError: Expecting ',' delimiter: line 3 column 1 (char 830)"
     },
     "marks-60fc27c3fdbd0f": {
       "at": "2026-11-15T16:03:57+00:00",
@@ -4556,5 +4556,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T17:07:21+00:00"
+  "updatedAt": "2026-11-15T17:07:32+00:00"
 }
