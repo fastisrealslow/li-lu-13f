@@ -4013,10 +4013,12 @@
       "reason": "ValueError: Source contains too little coherent evidence"
     },
     "mclemore-884df225027818": {
-      "at": "2026-11-14T21:27:57+00:00",
+      "at": "2026-11-15T17:03:48+00:00",
       "status": "retry",
       "inputHash": "064bb470034a76721ac55141a6ba1dffade4a4da659c5460b65f1d2319e42075",
-      "reason": "ValueError: Unsupported numerical claim: 80"
+      "failures": 1,
+      "nextAttemptAt": "2026-11-15T21:03:48+00:00",
+      "reason": "ValueError: Bilingual editorial review: The Chinese text incorrectly states 'no historical instance where a bear market was followed by a negative second year after a positive first year' (never had a positive first year and negative second year), whereas the source says losses in the second year were a continuation of the first year's losses, implying there *"
     },
     "marks-11862d6247a0d0": {
       "at": "2026-11-15T03:45:01+00:00",
@@ -4552,5 +4554,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T17:03:44+00:00"
+  "updatedAt": "2026-11-15T17:03:48+00:00"
 }
