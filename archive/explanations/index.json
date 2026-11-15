@@ -2899,10 +2899,12 @@
       "reason": "ValueError: Bilingual editorial review: The English translation contains factual errors regarding the source text. The source (s12) states officials 'prefer to put off the "
     },
     "mclemore-d125d606df3e41": {
-      "at": "2026-11-14T06:42:17+00:00",
+      "at": "2026-11-15T02:58:39+00:00",
       "status": "retry",
       "inputHash": "25b6ea58d57896faeba0529e6608706510e1398cb4c087ab50cfc79927b1d4b8",
-      "reason": "ValueError: Bilingual editorial review: The source text does not mention Uber or Microsoft gating usage; it only states that companies like them have gated usage to manage "
+      "failures": 1,
+      "nextAttemptAt": "2026-11-15T06:58:39+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English text in the source (`s1`) does not explicitly mention 'RPRX' or 'PGEN'; these tickers appear only in `s2` as a separate list of investments. The content section incorrectly attributes specific holdings (RPRX, PGEN) to Samantha McLemore's strategy in `s1`, conflating the two distinct evidence sections.; The En"
     },
     "mclemore-d1590c8fd49264": {
       "at": "2026-11-14T06:42:22+00:00",
@@ -3694,5 +3696,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T02:58:11+00:00"
+  "updatedAt": "2026-11-15T02:58:39+00:00"
 }
