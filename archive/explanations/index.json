@@ -1503,10 +1503,12 @@
       "reason": "ValueError: Bilingual editorial review: The Chinese text claims Peter Thiel's lecture was delivered at Stanford Business School 'between 2015 and 2016', but the source (s3) states he posted it in '2015 or 2016' and describes it as 'one of the lectures that he gave at Stanford Business School', implying the posting date is the specific anchor, not a two-year ra"
     },
     "pabrai-fc099d6ba1ac88": {
-      "at": "2026-11-14T07:34:44+00:00",
+      "at": "2026-11-15T08:15:23+00:00",
       "status": "retry",
       "inputHash": "cd6bbae9552dfc90beea8daa56d3beb3bda1d6cea2f4ce950c06d521d2e16a72",
-      "reason": "ValueError: Bilingual editorial review: The source text (s6) discusses Warren Buffett giving shares to his children, not Charlie Munger. The content section incorrectly att"
+      "failures": 1,
+      "nextAttemptAt": "2026-11-15T12:15:23+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English text claims Pabrai 'supports this by sharing personal anecdotes' about Munger's birthday parties. However, s7 is a transcript of Mohnish Pabrai *recalling* an interview with Munger where Pabrai was the guest; it does not contain Pabrai recounting his own interactions as if he were the primary subject sharing "
     },
     "pabrai-99a0eff7272af5": {
       "at": "2026-11-14T14:19:59+00:00",
@@ -4326,5 +4328,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T08:14:25+00:00"
+  "updatedAt": "2026-11-15T08:15:23+00:00"
 }
