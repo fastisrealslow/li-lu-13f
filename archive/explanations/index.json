@@ -2440,12 +2440,12 @@
       "reason": "ValueError: Bilingual editorial review: The Chinese text incorrectly states LTV and Baldwin-United book values as $652 million and $397 million respectively; source s1 specifies these figures in the context of bankruptcies but does not explicitly assign them to specific companies in that sentence structure, though the order implies LTV=$652M and Baldwin-United"
     },
     "buffett-3f57382d485003": {
-      "at": "2026-11-15T03:32:50+00:00",
+      "at": "2026-11-15T21:27:16+00:00",
       "status": "retry",
       "inputHash": "352f7c6df7ba949ff9af50423f888fbb7ea19c0daeb99bc5de4678868204aa9f",
-      "failures": 1,
-      "nextAttemptAt": "2026-11-15T07:32:50+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English text incorrectly states 'annual percentage change in per-share book value and per-share market value', which is redundant and slightly inaccurate; the source data presents two distinct metrics (Book Value % Change and Market Value % Change) side-by-side for each year, not a single combined metric. A clearer p"
+      "failures": 2,
+      "nextAttemptAt": "2026-11-16T05:27:16+00:00",
+      "reason": "ValueError: Unsupported numerical claim: 20.3%"
     },
     "buffett-a8cc7c4a7e73c5": {
       "at": "2026-11-15T03:21:07+00:00",
@@ -4560,5 +4560,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T21:27:01+00:00"
+  "updatedAt": "2026-11-15T21:27:16+00:00"
 }
