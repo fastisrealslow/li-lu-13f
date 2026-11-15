@@ -1279,10 +1279,12 @@
       "reason": "ValueError: Bilingual editorial review: The English text in the source (s3) states Buffett's lunch auction price jumped to 'like a quarter million' ($250,000), not 'nearly twenty million dollars'. The summary incorrectly inflates this figure.; The source (s3) mentions Mohnish Pabrai's net worth was 'north of like $80 million' in 2007 due to cloning Buffett. Th"
     },
     "pabrai-0fc40bd3353d10": {
-      "at": "2026-11-14T07:14:01+00:00",
+      "at": "2026-11-15T07:59:06+00:00",
       "status": "retry",
       "inputHash": "d44678e2e428b239bea946bee468dfac314667cd12045486829d2b2e7fcccfea",
-      "reason": "ValueError: Unsupported numerical claim: 1.5%"
+      "failures": 1,
+      "nextAttemptAt": "2026-11-15T11:59:06+00:00",
+      "reason": "ValueError: Unsupported numerical claim: 10%"
     },
     "pabrai-cbe1dfa22a4564": {
       "at": "2026-11-15T07:57:37+00:00",
@@ -4266,5 +4268,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T07:58:52+00:00"
+  "updatedAt": "2026-11-15T07:59:06+00:00"
 }
