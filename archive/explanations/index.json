@@ -3263,10 +3263,12 @@
       "reason": "ValueError: Bilingual editorial review: The Chinese text incorrectly attributes the quote about not growing rich by taking a four-point profit to Edwin Lefèvre; the source text presents this as a general saying ('They say...') and only explicitly quotes Lefèvre regarding 'sitting tight', though the attribution in the Chinese version conflates the two distinct "
     },
     "marks-a54b6d962b74e9": {
-      "at": "2026-11-14T14:36:06+00:00",
+      "at": "2026-11-15T07:24:51+00:00",
       "status": "retry",
       "inputHash": "a63cc15adff673525bf6c341164cdedca884b7b9a670d3d3545abdf1c436813c",
-      "reason": "ValueError: Bilingual editorial review: The English translation of 'Triple-A CDOs are as safe as triple-A corporate debt but will deliver higher returns' in s6 is accurate;"
+      "failures": 1,
+      "nextAttemptAt": "2026-11-15T11:24:51+00:00",
+      "reason": "ValueError: Copied source passage"
     },
     "marks-0536029da7292f": {
       "at": "2026-11-15T04:55:35+00:00",
@@ -4130,5 +4132,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T07:22:20+00:00"
+  "updatedAt": "2026-11-15T07:24:51+00:00"
 }
