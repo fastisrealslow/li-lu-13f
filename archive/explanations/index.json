@@ -564,10 +564,12 @@
       "reason": "ValueError: Bilingual editorial review: The source text (s0) states the NAV increased by '1,264.3% since its inception', but the Chinese translation claims this is a 'cumulative increase of 1,264.3%' (which implies the final value is 12,643.7%, contradicting the €1,353.7 NAV). The source does not support the interpretation that the *total* growth is 1,264.3% v"
     },
     "buffett-0dffc205cf0707": {
-      "at": "2026-11-14T15:01:14+00:00",
+      "at": "2026-11-15T04:49:18+00:00",
       "status": "retry",
       "inputHash": "1d76788f6afc3705ee7312a9df35d32e151aa4a046a084d5a6cdc80fb154b0d8",
-      "reason": "ValueError: Bilingual editorial review: The source text (s4) states Buffett taught from age 21 to 88 and never used a slide; the analysis incorrectly claims he 'never recal"
+      "failures": 1,
+      "nextAttemptAt": "2026-11-15T08:49:18+00:00",
+      "reason": "ValueError: Incomplete AI Review at 1800 tokens"
     },
     "pabrai-7cdabeb4fe63b6": {
       "at": "2026-11-15T04:33:42+00:00",
@@ -4036,5 +4038,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T04:47:55+00:00"
+  "updatedAt": "2026-11-15T04:49:18+00:00"
 }
