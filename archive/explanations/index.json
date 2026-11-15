@@ -3955,9 +3955,11 @@
       "reason": "ValueError: Bilingual editorial review: The Chinese translation incorrectly translates 'game plans' in s4 as 'game' (e.g., 'game of the Loser', 'swinging for the fences'), whereas the source text explicitly uses 'game plan' twice. The metaphor is about investment strategies, not a literal game.; The Chinese translation adds specific examples ('high yield bonds"
     },
     "marks-bc1dda168f409b": {
-      "at": "2026-11-14T15:07:42+00:00",
+      "at": "2026-11-15T21:36:22+00:00",
       "status": "retry",
       "inputHash": "a82b6ae77a1064298bec32e481ebe0bff1534c5a9d5a2ea02421af3e019a77f9",
+      "failures": 1,
+      "nextAttemptAt": "2026-11-16T01:36:22+00:00",
       "reason": "ValueError: Unsupported numerical claim: 2008"
     },
     "mclemore-169ce8b084c870": {
@@ -4570,5 +4572,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T21:35:41+00:00"
+  "updatedAt": "2026-11-15T21:36:22+00:00"
 }
