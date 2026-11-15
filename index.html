@@ -193,6 +193,15 @@ tbody tr:last-child td{border-bottom:none}
 .footer p{font-size:.75rem;line-height:1.8}
 .footer a{color:var(--gold);text-decoration:none}
 .footer a:hover{text-decoration:underline}
+.mcp-access{margin:22px auto 0;padding-top:20px;border-top:1px solid rgba(255,255,255,.18);max-width:680px;text-align:left;color:rgba(255,255,255,.78)}
+.mcp-access h3{font-size:1rem;color:#fff;margin:0 0 8px}
+.mcp-access p,.mcp-access li{font-size:.8rem;line-height:1.8}
+.mcp-address{display:flex;gap:10px;align-items:center;margin:12px 0;flex-wrap:wrap}
+.mcp-address input{flex:1;min-width:0;width:100%;font:inherit;font-size:.8rem;color:#fff;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.25);border-radius:5px;padding:10px}
+.mcp-address button{border:1px solid var(--gold);border-radius:5px;background:transparent;color:var(--gold);padding:9px 14px;font:inherit;font-size:.8rem;cursor:pointer}
+.mcp-access summary{cursor:pointer;color:var(--gold);font-size:.8rem;padding:4px 0}
+.mcp-access ol{padding-left:22px;margin:8px 0}
+.mcp-access input:focus-visible,.mcp-access button:focus-visible,.mcp-access summary:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
 .footer .links{display:flex;justify-content:center;gap:20px;margin:10px 0;flex-wrap:wrap}
 
 @media(max-width:640px){
@@ -615,9 +624,28 @@ th .info-wrap{position:relative;display:inline-flex}
     </div>
     <p class="investor-context"><span data-i18n="footerUpdate">数据更新：</span><span id="updateTime" style="font-weight:600;color:var(--gold);"></span><span data-i18n="footerWeekly"> · GitHub Actions 每日自动更新</span></p>
     <p style="margin-top:8px;color:#64748b">📬 <a href="mailto:fastisrealslow@163.com">fastisrealslow@163.com</a></p>
+    <section class="mcp-access" aria-labelledby="mcpAccessTitle">
+      <h3 id="mcpAccessTitle" data-mcp-zh="在 ChatGPT 中查询 · MCP" data-mcp-en="Ask in ChatGPT · MCP">在 ChatGPT 中查询 · MCP</h3>
+      <p data-mcp-zh="直接查询投资者持仓、历史变化、神奇公式、分拆公告和作品导读。公开只读，无需登录。" data-mcp-en="Query holdings, history, Magic Formula calculations, spin-offs and reading guides. Public, read-only; no sign-in required.">直接查询投资者持仓、历史变化、神奇公式、分拆公告和作品导读。公开只读，无需登录。</p>
+      <div class="mcp-address">
+        <input id="mcpAddress" aria-label="MCP URL" readonly value="https://li-lu-13f.pages.dev/mcp" onclick="this.select()">
+        <button type="button" id="mcpCopy" data-mcp-zh="复制地址" data-mcp-en="Copy URL">复制地址</button>
+      </div>
+      <span id="mcpCopyStatus" role="status" style="font-size:.75rem"></span>
+      <details>
+        <summary data-mcp-zh="如何添加到 ChatGPT" data-mcp-en="Connect to ChatGPT">如何添加到 ChatGPT</summary>
+        <ol>
+          <li data-mcp-zh="在 ChatGPT 设置的应用中，启用开发者模式（如需），创建自定义 MCP 应用。" data-mcp-en="In ChatGPT Settings → Apps, enable developer mode if needed and create a custom MCP app.">在 ChatGPT 设置的应用中，启用开发者模式（如需），创建自定义 MCP 应用。</li>
+          <li data-mcp-zh="粘贴上述地址，名称可填“投资研究库”，认证选择“无认证 / No authentication”。" data-mcp-en="Paste the URL, name it Investment Research, and select No authentication.">粘贴上述地址，名称可填“投资研究库”，认证选择“无认证 / No authentication”。</li>
+          <li data-mcp-zh="在对话中选择该应用，试问：“李录最新持仓有哪些？”或“最近有哪些港股分拆？”" data-mcp-en="Select the app in a conversation and ask: What are Li Lu’s latest reported holdings? Or: What are the latest Hong Kong spin-offs?">在对话中选择该应用，试问：“李录最新持仓有哪些？”或“最近有哪些港股分拆？”</li>
+        </ol>
+        <p><span data-mcp-zh="自定义 MCP 的可用性取决于 ChatGPT 套餐和工作区设置。" data-mcp-en="Custom MCP availability depends on your ChatGPT plan and workspace settings.">自定义 MCP 的可用性取决于 ChatGPT 套餐和工作区设置。</span> <a href="https://help.openai.com/en/articles/12584461" target="_blank" rel="noopener noreferrer" data-mcp-zh="官方接入说明 ↗" data-mcp-en="Official setup guide ↗">官方接入说明 ↗</a></p>
+      </details>
+    </section>
   </div>
 </footer>
 
+<script src="mcp_footer.js?v=1" defer></script>
 <script src="archive_entry.js?v=9"></script>
 <script src="disclosure_analysis.js?v=5"></script>
 <link rel="stylesheet" href="public_portfolio.css?v=2">
