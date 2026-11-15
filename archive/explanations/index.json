@@ -1435,10 +1435,12 @@
       "reason": "ValueError: Unsupported numerical claim: 0.625%"
     },
     "pabrai-1e84c0b65621b6": {
-      "at": "2026-11-14T08:04:34+00:00",
+      "at": "2026-11-15T03:49:15+00:00",
       "status": "retry",
       "inputHash": "4437820dec69f689168a7ff5aad9e377afcbef5a3753ba0545a0279a80bc1449",
-      "reason": "ValueError: Unsupported scaled numerical claim: 65"
+      "failures": 1,
+      "nextAttemptAt": "2026-11-15T07:49:15+00:00",
+      "reason": "ValueError: Unsupported scaled numerical claim: 25"
     },
     "pabrai-9bcc73108a5168": {
       "at": "2026-11-14T21:20:38+00:00",
@@ -3874,5 +3876,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T03:49:13+00:00"
+  "updatedAt": "2026-11-15T03:49:15+00:00"
 }
