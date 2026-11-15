@@ -1875,10 +1875,12 @@
       "reason": "ValueError: Bilingual editorial review: The English translation in the content section misattributes the quote about Microsoft employees believing the company would 'go straight up' to Pabrai's observation of their mindset; the source text (s5) records this as the employees' response to Pabrai's warning, not Pabrai's own sentiment.; The English translation inc"
     },
     "pabrai-7b63bdce3eef9a": {
-      "at": "2026-11-14T15:00:50+00:00",
+      "at": "2026-11-15T16:55:29+00:00",
       "status": "retry",
       "inputHash": "68d5f7c9f40789729bebada2a9716f4f437e424e0a4f8745b935f1986e2cd3ef",
-      "reason": "ValueError: Bilingual editorial review: The English translation in 'content' incorrectly identifies Peter Lynch's book as 'One Up on Wall Street'; the source text (s6) only"
+      "failures": 1,
+      "nextAttemptAt": "2026-11-15T20:55:29+00:00",
+      "reason": "ValueError: Bilingual editorial review: The source text (s6) does not mention 'One Up on Wall Street' or 'Beating the Street'; it only states Pabrai read two Peter Lynch books and ran out of them. The specific titles are invented.; The source text (s1) mentions 'TransTech' was started with savings and credit card 'bearings', which is a mistranslation of 'balan"
     },
     "vinall-c12bae3cc1e659": {
       "at": "2026-11-15T16:20:05+00:00",
@@ -4534,5 +4536,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T16:55:17+00:00"
+  "updatedAt": "2026-11-15T16:55:29+00:00"
 }
