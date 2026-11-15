@@ -2356,12 +2356,12 @@
       "reason": "ValueError: Bilingual editorial review: The source text (s0-s2) contains only raw numerical data tables with no explicit author attribution or direct quotes from Buffett. The content section attributes the argument to 'Buffett' and describes his 'investment philosophy,' which is an editorial interpretation not directly supported by the provided evidence snippe"
     },
     "buffett-5d9a7887401185": {
-      "at": "2026-11-15T03:37:00+00:00",
+      "at": "2026-11-15T21:50:02+00:00",
       "status": "retry",
       "inputHash": "1f1a137ddebeba6c1da50295a86e1a50e72c96701df5a652d75f3db8929ba98b",
-      "failures": 1,
-      "nextAttemptAt": "2026-11-15T07:37:00+00:00",
-      "reason": "ValueError: Copied source passage"
+      "failures": 2,
+      "nextAttemptAt": "2026-11-16T05:50:02+00:00",
+      "reason": "ValueError: Unsupported scaled numerical claim: -1,434"
     },
     "buffett-5a848c254e72aa": {
       "at": "2026-11-15T04:50:52+00:00",
@@ -4596,5 +4596,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T21:49:38+00:00"
+  "updatedAt": "2026-11-15T21:50:02+00:00"
 }
