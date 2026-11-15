@@ -878,10 +878,12 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     },
     "vinall-467e0c3e85b252": {
-      "at": "2026-11-14T05:31:00+00:00",
+      "at": "2026-11-15T05:12:05+00:00",
       "status": "retry",
       "inputHash": "3c5008a532056a12133be0fedb68b589cd812015b73371bc08cb6d373af1e3c8",
-      "reason": "ValueError: Bilingual editorial review: The source text does not mention 'Luke' among the four sons; it only names 'Ian and Lucas'.; The source states there were 'four kids"
+      "failures": 1,
+      "nextAttemptAt": "2026-11-15T09:12:05+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English translation of 'Rob Vinall' in the content section incorrectly uses the Chinese name 'Rob Vinall' (should be 'Luke Vinall' based on context or correct canonical mapping if Luke is the speaker; however, the source text refers to 'Ian and Lucas' as sons, implying the speaker is likely one of them or their fathe"
     },
     "buffett-87787b7bbb5dca": {
       "at": "2026-11-14T06:42:32+00:00",
@@ -4102,5 +4104,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T05:11:46+00:00"
+  "updatedAt": "2026-11-15T05:12:05+00:00"
 }
