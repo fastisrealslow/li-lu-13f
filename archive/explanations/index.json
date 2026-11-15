@@ -1239,12 +1239,12 @@
       "reason": "ValueError: Bilingual editorial review: The Chinese text claims 'millions of years' (over millions of years), but source s3 states 'millennia' (thousands of years).; The Chinese text incorrectly attributes the quote about wealth transfer from active to inactive traders to Warren Buffett; source s5 attributes this quote to Warren Buffett, but the context implie"
     },
     "pabrai-56b8c04cb25a32": {
-      "at": "2026-11-15T07:52:54+00:00",
+      "at": "2026-11-15T22:31:15+00:00",
       "status": "retry",
       "inputHash": "54b7c9fb9a8ee008ffe080419bc55ebd4052407d67bb0a004fe685545cb03e43",
-      "failures": 1,
-      "nextAttemptAt": "2026-11-15T11:52:54+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English translation of the heading incorrectly translates 'Market Anomalies and Early Investment Methods: From Betting Tickets to Moody's Manuals' as 'From Betting Tickets to Moody's Manuals', omitting the phrase 'Early Investment Methods'.; The English paragraph misquotes Buffett's efficient market theory story. The"
+      "failures": 2,
+      "nextAttemptAt": "2026-11-16T06:31:15+00:00",
+      "reason": "ValueError: Bilingual editorial review: s1: Source states Buffett collected 'tickets' (racing tickets) and gave them to his aunt Alice. The summary incorrectly identifies these as 'lottery tickets'.; s2: Source describes Warren Buffett's early twenties research on Moody's Manuals. The summary attributes this specific activity to 'Arthur Buffett', which is a fa"
     },
     "pabrai-2dadcddfebe9d5": {
       "at": "2026-11-15T21:39:25+00:00",
@@ -4648,5 +4648,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T22:30:54+00:00"
+  "updatedAt": "2026-11-15T22:31:15+00:00"
 }
