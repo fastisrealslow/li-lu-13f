@@ -1543,10 +1543,12 @@
       "reason": "ValueError: Bilingual editorial review: The source text (s4) states the deal was for 'about 60 guilders', which is approximately $24. The content section claims it was sold for '$24' without mentioning the guilder conversion or the original currency context, creating a slight factual simplification not explicitly detailed in the source.; The source text (s5) m"
     },
     "pabrai-d23537e255095e": {
-      "at": "2026-11-14T08:20:33+00:00",
+      "at": "2026-11-15T04:08:09+00:00",
       "status": "retry",
       "inputHash": "9356bc88be6b6b84eec0b66e8293aa5229c1b14270dd2a53c0ddf2cc9d9c75d6",
-      "reason": "ValueError: Bilingual editorial review: The source text (s0) states 'IITs have accepted 888 Dakshana's scholars out of a total universe of 1715', which calculates to approx"
+      "failures": 1,
+      "nextAttemptAt": "2026-11-15T08:08:09+00:00",
+      "reason": "ValueError: Bilingual editorial review: The source text (s0) states: 'IITs have accepted 888 Dakshana's scholars out of a total universe of 1715. That is a hit rate of 52%.' It does not explicitly state this is an 'annual' or 'cumulative' dataset, nor does it confirm the figures refer to 'total universe' in a way that validates the specific phrasing used in th"
     },
     "pabrai-d28857586cddd3": {
       "at": "2026-11-14T21:23:42+00:00",
@@ -3916,5 +3918,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T04:07:34+00:00"
+  "updatedAt": "2026-11-15T04:08:09+00:00"
 }
