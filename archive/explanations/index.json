@@ -1273,10 +1273,12 @@
       "reason": "JSONDecodeError: Expecting ',' delimiter: line 4 column 1 (char 891)"
     },
     "pabrai-36450d370316ee": {
-      "at": "2026-11-14T21:46:35+00:00",
+      "at": "2026-11-15T08:14:02+00:00",
       "status": "retry",
       "inputHash": "ce433e0b519779154bc0bcf5dd15d2d5b324810bcc3336cdf79eff981d5030c1",
-      "reason": "ValueError: Bilingual editorial review: The source text does not mention 'thin variables' or describe them as 'thin variables'; it states entrepreneurs focus on 'three or f"
+      "failures": 1,
+      "nextAttemptAt": "2026-11-15T12:14:02+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English translation in the 'content' section misrepresents Pabrai's argument by implying he claims professional investors are 'unable to grasp' core variables like businessmen. The source text states they are 'missing some very fundamental' aspects and that looking at businesses through spreadsheets is insufficient, "
     },
     "pabrai-18c92ff6cf0411": {
       "at": "2026-11-15T04:06:11+00:00",
@@ -4320,5 +4322,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T08:13:31+00:00"
+  "updatedAt": "2026-11-15T08:14:02+00:00"
 }
