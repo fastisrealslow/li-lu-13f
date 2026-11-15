@@ -3793,10 +3793,12 @@
       "reason": "ValueError: Bilingual editorial review: Factual error: The source text (s1) states 'O'Toole's Commentary', not 'Etorre's Observation'. The Chinese text incorrectly attribut"
     },
     "marks-bbc89691ff2f77": {
-      "at": "2026-11-14T06:49:07+00:00",
+      "at": "2026-11-15T16:20:05+00:00",
       "status": "retry",
       "inputHash": "a0116eeea0708b6f143c9c1d0b8fc24186ee21dc4aa125e0474338d329dde9c4",
-      "reason": "ValueError: Bilingual editorial review: The English translation in the content section misrepresents Howard Marks' argument by claiming he 'refutes the view that cycles sho"
+      "failures": 1,
+      "nextAttemptAt": "2026-11-15T20:20:05+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English text in the 'content' section contains a factual error regarding the article title. The source data (basis: official_text) does not support the claim that the article is titled 'Ditto'. The provided evidence (s5-s7) discusses cycles and real estate but does not mention a title named 'Ditto'. The Chinese title"
     },
     "marks-fb59f6882d1313": {
       "at": "2026-11-14T06:49:09+00:00",
