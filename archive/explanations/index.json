@@ -2921,10 +2921,12 @@
       "reason": "ValueError: No supported arguments in source"
     },
     "marks-03b5c3b2f8cbe5": {
-      "at": "2026-11-14T21:58:53+00:00",
+      "at": "2026-11-15T16:39:04+00:00",
       "status": "retry",
       "inputHash": "9d2d022252965978660a42fbcc1f84eff42b24574838abb09ba299325f58381c",
-      "reason": "ValueError: Bilingual editorial review: The English paraphrase incorrectly states that economics 'cannot guarantee an outcome where if a, then b'. The source (s3) says ther"
+      "failures": 1,
+      "nextAttemptAt": "2026-11-15T20:39:04+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English translation in the 'content' section contains a factual error: it attributes the hierarchy (facts, logical inferences, guesses) to Marc Lipsitch's memos about epidemiology. The source text (s3) states that *Howard Marks* himself has mentioned Lipsitch in his own memos and applies this hierarchy to contrast ec"
     },
     "marks-feeacb8823121d": {
       "at": "2026-11-15T08:10:41+00:00",
@@ -4498,5 +4500,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T16:38:01+00:00"
+  "updatedAt": "2026-11-15T16:39:04+00:00"
 }
