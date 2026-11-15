@@ -3345,12 +3345,12 @@
       "reason": "ValueError: Bilingual editorial review: The English translation contains an untranslatable phrase 'popularity peak' instead of the standard term 'peak popularity'.; The text claims Howard Marks did not cite a specific quote to support his view, contradicting the provided source evidence (s2) which explicitly includes the quote: 'any bond can be triple-A at a p"
     },
     "mclemore-19da9051365a28": {
-      "at": "2026-11-15T04:46:36+00:00",
+      "at": "2026-11-15T22:30:32+00:00",
       "status": "retry",
       "inputHash": "4da7d2a54728af69f9a251add7bf9d5d3c92745808f923d1cfcd90eae2786433",
-      "failures": 1,
-      "nextAttemptAt": "2026-11-15T08:46:36+00:00",
-      "reason": "ValueError: Bilingual editorial review: The Chinese text claims the author 'Samantha McLemore' articulated a method based on her 'actual investment experience'. The source (s12) does not explicitly state she personally invested in Capital One; it says 'Capital One is a company we've admired', implying team analysis rather than personal ownership, though 'we' s"
+      "failures": 2,
+      "nextAttemptAt": "2026-11-16T06:30:32+00:00",
+      "reason": "ValueError: Incomplete AI Write at 3200 tokens"
     },
     "marks-30e00062105852": {
       "at": "2026-11-15T16:57:54+00:00",
@@ -4648,5 +4648,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T22:29:55+00:00"
+  "updatedAt": "2026-11-15T22:30:32+00:00"
 }
