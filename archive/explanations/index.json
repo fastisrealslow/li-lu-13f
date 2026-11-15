@@ -4263,10 +4263,12 @@
       "reason": "ValueError: Unsupported numerical claim: 40%"
     },
     "marks-e5bdd615b21806": {
-      "at": "2026-11-14T15:19:31+00:00",
+      "at": "2026-11-15T21:53:44+00:00",
       "status": "retry",
       "inputHash": "81d9dcc941017e24e7475f952d7f5243c933d89144642a16a52a22180ca94d73",
-      "reason": "ValueError: Bilingual editorial review: The English translation in `content.paragraphs` contains significant factual and attribution errors not present in the source text.;"
+      "failures": 1,
+      "nextAttemptAt": "2026-11-16T01:53:44+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English translation in the `content.paragraphs` section contains factual and identity errors: it misidentifies 'Howard Marks' as 'Marks' (unnecessary abbreviation) and incorrectly states that Jevons' viewpoint is from 'over a century ago'. Given the source text cites Jevons (1835-1882) and the article date is 2007, J"
     },
     "mclemore-42236f637fd9da": {
       "at": "2026-11-15T16:48:56+00:00",
@@ -4602,5 +4604,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T21:53:41+00:00"
+  "updatedAt": "2026-11-15T21:53:44+00:00"
 }
