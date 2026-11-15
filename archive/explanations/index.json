@@ -3163,10 +3163,12 @@
       "reason": "ValueError: Bilingual editorial review: The English translation of 'primitive refuge' in paragraph en correctly reflects s0's 'primitive refuge', but the Chinese text adds "
     },
     "mclemore-7e32ab18209c03": {
-      "at": "2026-11-14T07:27:31+00:00",
+      "at": "2026-11-15T03:28:23+00:00",
       "status": "retry",
       "inputHash": "f41eac1dd22322b73fbce3ce47452844f3ea601dcf309b32b568ed5ca9cd4fa9",
-      "reason": "ValueError: Bilingual editorial review: The English translation in the content section contains a factual error regarding JPMorgan's valuation status. The source text (s4) "
+      "failures": 1,
+      "nextAttemptAt": "2026-11-15T07:28:23+00:00",
+      "reason": "ValueError: Unsupported numerical claim: 25%"
     },
     "marks-f89cab08d781ec": {
       "at": "2026-11-14T06:42:00+00:00",
@@ -3585,10 +3587,12 @@
       "reason": "ValueError: Unsupported numerical claim: 2008"
     },
     "mclemore-24b0bf430a4f7b": {
-      "at": "2026-11-14T07:03:27+00:00",
+      "at": "2026-11-15T03:28:25+00:00",
       "status": "retry",
       "inputHash": "ed8ee50dc3abf57c5e3ff895b049bfdf064339a39a1a48f6749ba59d14bcbab8",
-      "reason": "ValueError: Unsupported numerical claim: 35.11%"
+      "failures": 1,
+      "nextAttemptAt": "2026-11-15T07:28:25+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English text in the 'paragraphs' section contains a factual error: it incorrectly attributes Genworth Financial's underperformance to the 'insurance and streaming industries,' whereas the source (s8) identifies Genworth as an insurance company and Netflix as a streaming service. The original text correctly links Genw"
     },
     "mclemore-a6ec30c11ce4f3": {
       "at": "2026-11-14T13:57:37+00:00",
@@ -3798,11 +3802,13 @@
       "reason": "ValueError: Bilingual editorial review: The source text does not state that the 60% accuracy applies to 'each variable' simultaneously resulting in a 13% combined probabili"
     },
     "mclemore-f9530f786e15f6": {
-      "at": "2026-11-14T08:33:51+00:00",
+      "at": "2026-11-15T03:28:43+00:00",
       "status": "retry",
       "inputHash": "75dabd4be28eb41da312612255bd9b02b24a2743edb56b00692aff69b37ebaa0",
+      "failures": 1,
+      "nextAttemptAt": "2026-11-15T07:28:43+00:00",
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T03:27:35+00:00"
+  "updatedAt": "2026-11-15T03:28:43+00:00"
 }
