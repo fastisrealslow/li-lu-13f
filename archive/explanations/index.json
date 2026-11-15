@@ -2693,10 +2693,12 @@
       "reason": "ValueError: Bilingual editorial review: The English translation of s21 incorrectly states winning/losing are signals of 'luck rather than decision-making ability', whereas "
     },
     "mclemore-aef9e9f4818acd": {
-      "at": "2026-11-14T08:20:32+00:00",
+      "at": "2026-11-15T03:54:39+00:00",
       "status": "retry",
       "inputHash": "bf61c774bcb82436de628c54b548f238edcca0af60c3608ba79da4e13998ce94",
-      "reason": "ValueError: Unsupported numerical claim: 2"
+      "failures": 1,
+      "nextAttemptAt": "2026-11-15T07:54:39+00:00",
+      "reason": "ValueError: Unsupported numerical claim: 8"
     },
     "marks-230a625785c3f8": {
       "at": "2026-11-14T13:46:44+00:00",
@@ -3890,5 +3892,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T03:54:16+00:00"
+  "updatedAt": "2026-11-15T03:54:39+00:00"
 }
