@@ -2422,10 +2422,12 @@
       "reason": "ValueError: Bilingual editorial review: The Chinese text incorrectly names 'Cornhusker Casualty Company' as 'Cornell Husker', which is a factual error; the source (s7) correctly identifies it as 'Cornhusker Casualty Company'.; The Chinese text omits specific acquisition details mentioned in s7, such as 'Kerkling Reinsurance Corporation' and 'Cypress Insurance "
     },
     "webb-179567759f28d7": {
-      "at": "2026-11-14T21:15:33+00:00",
+      "at": "2026-11-15T22:16:15+00:00",
       "status": "retry",
       "inputHash": "cf7d6d95503a5cb885d73aa79828e5c44d5557eefdc3a6ba7177bbbcd30f94f0",
-      "reason": "ValueError: Unsupported numerical claim: 1"
+      "failures": 1,
+      "nextAttemptAt": "2026-11-16T02:16:15+00:00",
+      "reason": "ValueError: No audio obtained"
     },
     "buffett-578f40d06138b1": {
       "at": "2026-11-15T04:55:36+00:00",
@@ -4638,5 +4640,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T22:16:13+00:00"
+  "updatedAt": "2026-11-15T22:16:15+00:00"
 }
