@@ -3830,10 +3830,12 @@
       "reason": "ValueError: Bilingual editorial review: The Chinese content incorrectly attributes Jesse Livermore's quote to Bill Miller ('...a point she directly attributes to Jesse Livermore's maxim... rather than Bill Miller'), whereas the English source text states Bill Miller replied by quoting Jesse Livermore. The attribution logic is reversed in the translation.; The "
     },
     "mclemore-55cd43fef76dd0": {
-      "at": "2026-11-14T03:13:42+00:00",
+      "at": "2026-11-15T04:13:34+00:00",
       "status": "retry",
       "inputHash": "4c742ce23cba6141396c0f6d0283a6edb9923a7bc928e83d2bed8442aa07ecc2",
-      "reason": "ValueError: Incomplete AI Review at 900 tokens"
+      "failures": 1,
+      "nextAttemptAt": "2026-11-15T08:13:34+00:00",
+      "reason": "ValueError: Bilingual editorial review: The Chinese translation incorrectly states Amazon's competitive advantage is 'like Microsoft' (‘...dominate the accelerated computing revolution much like Microsoft'), whereas the source text explicitly compares Nvidia to Microsoft ('We see more similarities to Microsoft than Cisco') and implies Amazon's situation is dif"
     },
     "mclemore-691d3d597a3576": {
       "at": "2026-11-14T03:45:22+00:00",
@@ -3932,5 +3934,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T04:12:23+00:00"
+  "updatedAt": "2026-11-15T04:13:34+00:00"
 }
