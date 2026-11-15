@@ -1317,12 +1317,12 @@
       "reason": "ValueError: Bilingual editorial review: The source text (s2) cuts off mid-sentence ('It's very dangerous to'), but the paraphrase completes this thought logically based on context. While not a factual error, the paraphrase adds words ('to predict business trajectories') that are implied but not explicitly stated in the provided evidence snippet.; The paraphras"
     },
     "pabrai-18c92ff6cf0411": {
-      "at": "2026-11-15T04:06:11+00:00",
+      "at": "2026-11-15T21:57:37+00:00",
       "status": "retry",
       "inputHash": "7d10c52179c247f4c7294163bc2bbe9a2f7fc068aefe1f75c735cdc4d6b51c80",
-      "failures": 1,
-      "nextAttemptAt": "2026-11-15T08:06:11+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English text in the source (s3) states Buffett's lunch auction price jumped to 'like a quarter million' ($250,000), not 'nearly twenty million dollars'. The summary incorrectly inflates this figure.; The source (s3) mentions Mohnish Pabrai's net worth was 'north of like $80 million' in 2007 due to cloning Buffett. Th"
+      "failures": 2,
+      "nextAttemptAt": "2026-11-16T05:57:37+00:00",
+      "reason": "ValueError: Bilingual editorial review: The source text (s3) states Pabrai copied his philosophy from Warren Buffett, not Mohnish Dalal. The content section incorrectly attributes the book 'Dhandho Investor' and concepts to Mohnish Dalal.; The source text (s3) mentions a charity lunch auction for the Glide Foundation in San Francisco. The content section incor"
     },
     "pabrai-0fc40bd3353d10": {
       "at": "2026-11-15T07:59:06+00:00",
@@ -4606,5 +4606,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T21:56:40+00:00"
+  "updatedAt": "2026-11-15T21:57:37+00:00"
 }
