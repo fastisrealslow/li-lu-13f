@@ -1145,12 +1145,12 @@
       "reason": "ValueError: Incomplete AI Write at 3200 tokens"
     },
     "pabrai-89c54f52c79a5d": {
-      "at": "2026-11-15T03:25:59+00:00",
+      "at": "2026-11-15T16:31:08+00:00",
       "status": "retry",
       "inputHash": "48c33f4bf55327b631f8d5edb8838d3382ff15898c5dc51d11a2f0b735a635da",
-      "failures": 1,
-      "nextAttemptAt": "2026-11-15T07:25:59+00:00",
-      "reason": "ValueError: Bilingual editorial review: The source text (s1) states Mohnish Pabrai started giving when he was 42 and his net worth crossed $50 million. The content section incorrectly attributes this to 'Pabrai' without specifying it is Mohnish Pabrai, though the name is correct.; The source text (s3) mentions IBM as a company that provides matching funds for "
+      "failures": 2,
+      "nextAttemptAt": "2026-11-16T00:31:08+00:00",
+      "reason": "ValueError: Bilingual editorial review: The source text (s1) states Mohnish Pabrai started giving when his net worth crossed $50 million and he was 42. The content section claims this happened 'at age forty-two' but phrases it as 'deciding instead to start when his net worth exceeded fifty million dollars at age forty-two'. This is a slight conflation; the sou"
     },
     "pabrai-31dca9727a5159": {
       "at": "2026-11-15T07:25:44+00:00",
@@ -4482,5 +4482,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T16:30:43+00:00"
+  "updatedAt": "2026-11-15T16:31:08+00:00"
 }
