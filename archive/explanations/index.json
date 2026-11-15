@@ -3725,9 +3725,11 @@
       "reason": "ValueError: Bilingual editorial review: The Chinese text incorrectly states the grandmother's portfolio had an 'explicit objective of capital appreciation' (explicit objective of capital appreciation), whereas the source only mentions the author's own risk tolerance and objectives were higher than average; it does not explicitly state the grandmother's origina"
     },
     "mclemore-3cfab01d768cef": {
-      "at": "2026-11-14T08:01:07+00:00",
+      "at": "2026-11-15T04:32:12+00:00",
       "status": "retry",
       "inputHash": "cdbfdee208dab576813eca72290e1d44bc9a9c5da144a6415604e2ccb579c433",
+      "failures": 1,
+      "nextAttemptAt": "2026-11-15T08:32:12+00:00",
       "reason": "ValueError: Unsupported numerical claim: 3"
     },
     "mclemore-5f88e2f44ff29d": {
@@ -3988,5 +3990,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T04:32:04+00:00"
+  "updatedAt": "2026-11-15T04:32:12+00:00"
 }
