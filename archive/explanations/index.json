@@ -1054,10 +1054,12 @@
       "reason": "ValueError: Bilingual editorial review: The English translation incorrectly attributes Warren Buffett's 58-year tenure to Pabrai ('during his 58 years of running Berkshire "
     },
     "pabrai-c601c5640111d6": {
-      "at": "2026-11-14T05:39:17+00:00",
+      "at": "2026-11-15T07:57:22+00:00",
       "status": "retry",
       "inputHash": "e32bcdfbc843caa48fc9a723c3c99199d434cc9ba64e75c22a923297ef257ea6",
-      "reason": "ValueError: Bilingual editorial review: The English text in the JSON 'content' section contains a factual error regarding the speaker's age and role. The source (s25) state"
+      "failures": 1,
+      "nextAttemptAt": "2026-11-15T11:57:22+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English translation of 'American Express' is correct; however, the phrase 'free consumption' slightly misrepresents the source's intent of 'spend as you want', which implies autonomy rather than just freedom from restriction. A more precise phrasing would be 'allowing them to spend as they wished without asking for p"
     },
     "lilu-f9c5b8c9904f52": {
       "at": "2026-11-15T04:15:41+00:00",
@@ -4250,5 +4252,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T07:56:50+00:00"
+  "updatedAt": "2026-11-15T07:57:22+00:00"
 }
