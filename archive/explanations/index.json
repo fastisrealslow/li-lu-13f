@@ -2114,10 +2114,12 @@
       "reason": "ValueError: Copied source passage"
     },
     "buffett-5a848c254e72aa": {
-      "at": "2026-11-14T13:56:10+00:00",
+      "at": "2026-11-15T04:50:52+00:00",
       "status": "retry",
       "inputHash": "0319c4c3b0f29539758461897817e256743bf93decdcdd10b42d1a96b5732155",
-      "reason": "ValueError: Bilingual editorial review: The English text contains a factual error: it states 'per-share investments increased to $129,253' but the source (s18) says 'increa"
+      "failures": 1,
+      "nextAttemptAt": "2026-11-15T08:50:52+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English paragraph in the content section contains significant factual errors regarding the data presented in evidence s6. It states 'per-share book value growth from $19 to $134,973', but the source text (s6) explicitly says 'book value has grown from $19 to $134,973' referring to total company book value, not per-sh"
     },
     "buffett-b5218ddf52191e": {
       "at": "2026-11-15T03:39:23+00:00",
@@ -4042,5 +4044,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T04:49:50+00:00"
+  "updatedAt": "2026-11-15T04:50:52+00:00"
 }
