@@ -2432,12 +2432,12 @@
       "reason": "ValueError: No audio obtained"
     },
     "buffett-7838e59f11e3a4": {
-      "at": "2026-11-15T03:44:40+00:00",
+      "at": "2026-11-15T21:32:58+00:00",
       "status": "retry",
       "inputHash": "5b4f64938033fa4b84aa1258552b075f1d6e2e7213803ba67c7553e2595dc78f",
-      "failures": 1,
-      "nextAttemptAt": "2026-11-15T07:44:40+00:00",
-      "reason": "ValueError: Bilingual editorial review: The Chinese text incorrectly states LTV and Baldwin-United book values as $652 million and $397 million respectively; source s1 specifies these figures in the context of bankruptcies but does not explicitly assign them to specific companies in that sentence structure, though the order implies LTV=$652M and Baldwin-United"
+      "failures": 2,
+      "nextAttemptAt": "2026-11-16T05:32:58+00:00",
+      "reason": "ValueError: Bilingual editorial review: Factual error: The source text (s0) states 'Over the last 23 years... since present management took over', but the content section incorrectly attributes the argument to 'General Motors subsidiaries' and claims LTV/Baldwin-United were under GM. The source only mentions these companies went bankrupt; it does not link them"
     },
     "buffett-3f57382d485003": {
       "at": "2026-11-15T21:27:16+00:00",
@@ -4566,5 +4566,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T21:32:49+00:00"
+  "updatedAt": "2026-11-15T21:32:58+00:00"
 }
