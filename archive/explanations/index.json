@@ -4359,10 +4359,12 @@
       "reason": "ValueError: Bilingual editorial review: The section contains a meta-commentary on validation feedback ('addressing the validation feedback... this section's interpretation "
     },
     "greenblatt-11a476109fb052": {
-      "at": "2026-11-14T22:12:34+00:00",
+      "at": "2026-11-15T16:17:23+00:00",
       "status": "retry",
       "inputHash": "11b5980f86175d1a6a0e2fc7c61ad4b90a0fafb7db4dff86a099c7403d96bd07",
-      "reason": "ValueError: Bilingual editorial review: The source text (s7-s9) does not contain the phrase 'invest now, harvest later' or explicitly state it as a framework; this is an ed"
+      "failures": 1,
+      "nextAttemptAt": "2026-11-15T20:17:23+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English content incorrectly paraphrases the ASR text by adding 'short-term actors' (not in source) and 'money' instead of 'investing'.; The Chinese content adds 'public discourse' (source says 'discussion') and 'fairness' (not in source).; Both versions add 'valuable insights' (source says 'helpful').; The English ve"
     },
     "greenblatt-fa1bc818776c75": {
       "at": "2026-11-15T07:22:15+00:00",
@@ -4448,5 +4450,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T16:17:02+00:00"
+  "updatedAt": "2026-11-15T16:17:23+00:00"
 }
