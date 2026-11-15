@@ -1225,9 +1225,11 @@
       "reason": "ValueError: Bilingual editorial review: The source text (s8) does not mention 'MasterCard' in the context of antitrust policies or shareholder value maximization; it only states MasterCard has high net income vs revenues and trades at a high multiple. The claim about antitrust pressure is an inference not found in the text.; The source text (s9) mentions Tence"
     },
     "pabrai-801d184237a3d3": {
-      "at": "2026-11-14T22:00:02+00:00",
+      "at": "2026-11-15T08:19:42+00:00",
       "status": "retry",
       "inputHash": "d38b7bc62c8608859e4c8884d748b155678606dbbd11185f9dde1cfa9508a8c1",
+      "failures": 1,
+      "nextAttemptAt": "2026-11-15T12:19:42+00:00",
       "reason": "ValueError: Unsupported numerical claim: 3%"
     },
     "pabrai-d094a7f0cb80e3": {
@@ -4346,5 +4348,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T08:19:39+00:00"
+  "updatedAt": "2026-11-15T08:19:42+00:00"
 }
