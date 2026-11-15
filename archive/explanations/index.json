@@ -2873,10 +2873,12 @@
       "reason": "ValueError: Bilingual editorial review: The Chinese text contains a factual error regarding Howard Marks' position: it states he argues that defining liquidity by 'ease of "
     },
     "mclemore-27e48025ed61f3": {
-      "at": "2026-11-14T08:47:01+00:00",
+      "at": "2026-11-15T03:05:13+00:00",
       "status": "retry",
       "inputHash": "ebe223faeb1c1f83a9ef3e8f7b646e2d49f31b35af42b313d2dc326150f47dc1",
-      "reason": "ValueError: Bilingual editorial review: The English text incorrectly states that Benoit Mandelbrot revealed 'market fat tails demonstrate the flaw' rather than noting that "
+      "failures": 1,
+      "nextAttemptAt": "2026-11-15T07:05:13+00:00",
+      "reason": "ValueError: Bilingual editorial review: The Chinese text claims McLemore argues the industry chose volatility because it was 'the only quantifiable metric' (‘...because it is the only quantifiable metric...'）。Source s0 states the choice was made because volatility 'could be directly measured' while risk 'couldn't', not that it was the *only* option. The source"
     },
     "mclemore-97a86175f75125": {
       "at": "2026-11-14T08:47:04+00:00",
@@ -3712,5 +3714,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T03:04:40+00:00"
+  "updatedAt": "2026-11-15T03:05:13+00:00"
 }
