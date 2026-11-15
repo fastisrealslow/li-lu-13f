@@ -2989,10 +2989,12 @@
       "reason": "ValueError: Bilingual editorial review: The English translation of the heading is inaccurate: 'Subjectivity of Tax Fairness and the Controversy over Capital Gains Tax' misr"
     },
     "marks-2a08abe8cdf605": {
-      "at": "2026-11-14T15:25:35+00:00",
+      "at": "2026-11-15T08:02:03+00:00",
       "status": "retry",
       "inputHash": "6950ef671c17465d544d091934ed9c898b640c36803c8f416dd978b72d5ba175",
-      "reason": "ValueError: Unsupported numerical claim: 50"
+      "failures": 1,
+      "nextAttemptAt": "2026-11-15T12:02:03+00:00",
+      "reason": "ValueError: Copied source passage"
     },
     "mclemore-9000b9fa2afe82": {
       "at": "2026-11-15T04:10:26+00:00",
@@ -4272,5 +4274,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T08:01:53+00:00"
+  "updatedAt": "2026-11-15T08:02:03+00:00"
 }
