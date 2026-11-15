@@ -3671,9 +3671,11 @@
       "reason": "ValueError: Bilingual editorial review: The Chinese text contains significant factual errors regarding the source evidence (s2). It claims the low-interest rate trend has b"
     },
     "mclemore-fb12d1f663a2b3": {
-      "at": "2026-11-14T14:59:44+00:00",
+      "at": "2026-11-15T07:45:47+00:00",
       "status": "retry",
       "inputHash": "33e28d82fd17a7087235b0ad56596608991d9df7ab942408999b8ea5c2d4e3b9",
+      "failures": 1,
+      "nextAttemptAt": "2026-11-15T11:45:47+00:00",
       "reason": "ValueError: Unsupported numerical claim: 2"
     },
     "marks-9befc7c45ab79c": {
@@ -4208,5 +4210,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T07:45:25+00:00"
+  "updatedAt": "2026-11-15T07:45:47+00:00"
 }
