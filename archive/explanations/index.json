@@ -2102,10 +2102,12 @@
       "reason": "ValueError: Bilingual editorial review: The Chinese text contains a factual error: it states '206 billion' (206  billion) instead of the source's '$20.6 billion'.; The English text incorrectly translates '206 billion' as '$20.6 billion', which is actually correct in value but inconsistent with the Chinese typo if interpreted literally; however, since the Chine"
     },
     "buffett-66688fc8f75fb7": {
-      "at": "2026-11-14T07:09:15+00:00",
+      "at": "2026-11-15T07:55:49+00:00",
       "status": "retry",
       "inputHash": "71fda9d9e87e317fc9306833fd8128213a14e2fb5f972808e4f0b8897ca6b233",
-      "reason": "ValueError: Bilingual editorial review: The Chinese text claims the net worth increase in 1994 was $1.45 billion, which matches source s0 ($1.45 billion), but the English t"
+      "failures": 1,
+      "nextAttemptAt": "2026-11-15T11:55:49+00:00",
+      "reason": "ValueError: Unsupported scaled numerical claim: 10"
     },
     "buffett-5ac84a1f6e89c4": {
       "at": "2026-11-14T14:33:16+00:00",
@@ -4244,5 +4246,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T07:55:04+00:00"
+  "updatedAt": "2026-11-15T07:55:49+00:00"
 }
