@@ -1325,10 +1325,12 @@
       "reason": "ValueError: Bilingual editorial review: The English translation of 'Capex' as 'capital expenditure' is accurate but slightly formal; 'capital spending' or 'investment' migh"
     },
     "pabrai-6626f4a7337cb1": {
-      "at": "2026-11-14T05:50:13+00:00",
+      "at": "2026-11-15T03:20:20+00:00",
       "status": "retry",
       "inputHash": "5e1cf85223f3b54cf55c730d08e203c501203a2035ade0d1b3b933b371c8cc1f",
-      "reason": "ValueError: Unsupported numerical claim: 100%"
+      "failures": 1,
+      "nextAttemptAt": "2026-11-15T07:20:20+00:00",
+      "reason": "ValueError: Unsupported numerical claim: 1994"
     },
     "pabrai-61590880adbe35": {
       "at": "2026-11-14T21:11:36+00:00",
@@ -3770,5 +3772,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T03:16:29+00:00"
+  "updatedAt": "2026-11-15T03:20:20+00:00"
 }
