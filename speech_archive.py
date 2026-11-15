@@ -492,7 +492,7 @@ def video_text(work, allow_asr=False):
     directory.mkdir(parents=True,exist_ok=True)
     with nullcontext(directory) as tmp:
         out = Path(tmp)
-        if video and not any(f.suffix!='.part' for f in out.glob("audio.*")):
+        if video and not any(f.suffix!='.part' and f.stat().st_size>0 for f in out.glob("audio.*")):
             url = "https://www.youtube.com/watch?v=" + video["id"] if video["kind"] == "youtube" else video["url"]
             cmd = ["yt-dlp", "--skip-download", "--write-subs", "--write-auto-subs",
                    "--sub-langs", "en.*,zh.*", "--sub-format", "json3/vtt", "--no-playlist",
@@ -511,7 +511,7 @@ def video_text(work, allow_asr=False):
             if download.returncode:
                 for f in out.glob("audio.*"):
                     f.unlink()
-        files = [f for f in out.glob("audio.*") if f.suffix != ".part"]
+        files = [f for f in out.glob("audio.*") if f.suffix != ".part" and f.stat().st_size>0]
         if not files and audio and allow_asr:
             req = urllib.request.Request(audio["url"], headers=HEADERS)
             with urllib.request.urlopen(req, timeout=budget.timeout(45)) as r, (out / "audio.media.part").open("wb") as target:
@@ -528,7 +528,7 @@ def video_text(work, allow_asr=False):
                 if expected_length and total != expected_length:
                     raise ValueError("Incomplete audio download; do not label a partial recording as fully processed")
             (out / "audio.media.part").replace(out / "audio.media")
-        files = [f for f in out.glob("audio.*") if f.suffix != ".part"]
+        files = [f for f in out.glob("audio.*") if f.suffix != ".part" and f.stat().st_size>0]
         if not files:
             raise ValueError("No audio obtained")
         from faster_whisper import WhisperModel
