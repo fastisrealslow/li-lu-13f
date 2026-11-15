@@ -1999,10 +1999,12 @@
       "reason": "ValueError: Bilingual editorial review: The source (s1-s3) does not mention 'cautious optimism' or specific geopolitical risks; the text only states a lack of basic understanding and missed opportunity. The claim that he expresses 'cautious optimism' is an unwritten interpretation.; The source does not explicitly state that people will 'miss out on the former'"
     },
     "pabrai-d4447e08f97b61": {
-      "at": "2026-11-14T15:12:00+00:00",
+      "at": "2026-11-15T21:33:14+00:00",
       "status": "retry",
       "inputHash": "dd7184a59188ecc24b9bb14c173cc7a21f7e8b100209f1790db32d8d47ca3e92",
-      "reason": "ValueError: Unsupported numerical claim: 100"
+      "failures": 1,
+      "nextAttemptAt": "2026-11-16T01:33:14+00:00",
+      "reason": "ValueError: Unsupported numerical claim: 92%"
     },
     "pabrai-bf33f90c636d0e": {
       "at": "2026-11-15T08:22:36+00:00",
@@ -4566,5 +4568,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T21:32:58+00:00"
+  "updatedAt": "2026-11-15T21:33:14+00:00"
 }
