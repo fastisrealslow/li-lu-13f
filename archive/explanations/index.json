@@ -3209,10 +3209,12 @@
       "reason": "ValueError: Bilingual editorial review: The source text explicitly mentions 'concerns about the economy and Iraq' as factors producing exaggerated risk aversion. The conten"
     },
     "marks-b834dc74a3b582": {
-      "at": "2026-11-14T06:31:12+00:00",
+      "at": "2026-11-15T02:52:41+00:00",
       "status": "retry",
       "inputHash": "9a7bd09212767de836cee7089b7b7563b0585013f886342624aac1a8fb82a7ef",
-      "reason": "ValueError: Copied source passage"
+      "failures": 1,
+      "nextAttemptAt": "2026-11-15T06:52:41+00:00",
+      "reason": "ValueError: Bilingual editorial review: The Chinese text incorrectly attributes the quote about Ed Thorp and blackjack to Howard Marks in 'A Case in Point'. The source (s3) states that Thorp wrote the book on blackjack decades ago; s4 confirms Thorp turned to convertible arbitrage after casinos evicted counters. However, the Chinese paragraph claims this is an"
     },
     "mclemore-41dc37ba8f99c2": {
       "at": "2026-11-14T21:31:44+00:00",
@@ -3666,5 +3668,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T02:52:17+00:00"
+  "updatedAt": "2026-11-15T02:52:41+00:00"
 }
