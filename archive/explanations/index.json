@@ -2348,10 +2348,12 @@
       "reason": "ValueError: Bilingual editorial review: The English translation of s6 misquotes Pascal. The source text quotes: 'It has struck me that all the misfortunes of men spring from the single cause that they are unable to stay quietly in one room.' The provided translation adds 'human' and changes 'men' to 'human', altering the specific phrasing.; The English transla"
     },
     "buffett-1f81bf7d43a974": {
-      "at": "2026-11-14T22:11:47+00:00",
+      "at": "2026-11-15T22:29:55+00:00",
       "status": "retry",
       "inputHash": "f55c6183977322ae49d581d01d67affe43c3e9b44649e4d6afbc9d631e223395",
-      "reason": "ValueError: Copied source passage"
+      "failures": 1,
+      "nextAttemptAt": "2026-11-16T02:29:55+00:00",
+      "reason": "ValueError: Unsupported numerical claim: 2000"
     },
     "buffett-766f4b175f2242": {
       "at": "2026-11-15T16:32:40+00:00",
@@ -4646,5 +4648,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T22:29:23+00:00"
+  "updatedAt": "2026-11-15T22:29:55+00:00"
 }
