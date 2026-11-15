@@ -4158,10 +4158,12 @@
       "reason": "ValueError: Bilingual editorial review: The English title 'Rob's 2026 Postcard from China' does not match the ASR text which refers to a 'postcard' but the content discusses AI perception shifts; the Chinese title explicitly mentions 'AI', which is absent in the ASR evidence (s0-s2).; The English heading claims the shift is about 'Chinese Public Perception of "
     },
     "marks-3582a029e7c200": {
-      "at": "2026-11-14T14:51:52+00:00",
+      "at": "2026-11-15T07:37:03+00:00",
       "status": "retry",
       "inputHash": "1a845dca9addfdfe29ca516f82344bce7c4af1ea6d6337266479e861b249ce23",
-      "reason": "ValueError: Bilingual editorial review: The source text does not state that the 60% accuracy applies to 'each variable' simultaneously resulting in a 13% combined probabili"
+      "failures": 1,
+      "nextAttemptAt": "2026-11-15T11:37:03+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English paraphrase incorrectly attributes the specific calculation (60% accuracy leading to 13% combined probability) as a direct argument by Howard Marks in the text. While Marks discusses the concept of multiplying probabilities and uses 60% as an example for top-down investing, he does not explicitly state 'if eac"
     },
     "mclemore-f9530f786e15f6": {
       "at": "2026-11-15T03:28:43+00:00",
@@ -4172,5 +4174,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T07:36:36+00:00"
+  "updatedAt": "2026-11-15T07:37:03+00:00"
 }
