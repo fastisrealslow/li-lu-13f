@@ -2512,12 +2512,12 @@
       "reason": "ValueError: Copied source passage"
     },
     "buffett-ba600cd7bd91ce": {
-      "at": "2026-11-15T03:53:38+00:00",
+      "at": "2026-11-15T21:35:03+00:00",
       "status": "retry",
       "inputHash": "9125cce955976ca3b07237659118b02e163d89c9db1a21b96da63e4bcddeea1d",
-      "failures": 1,
-      "nextAttemptAt": "2026-11-15T07:53:38+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English paraphrase incorrectly states Buffett 'clarifies his capital structure strategy' as if it were a primary focus; the source text focuses on explaining derivative transactions as insurance-like activities and responding to criticism about float usage, not explicitly detailing a 'capital structure strategy'.; Th"
+      "failures": 2,
+      "nextAttemptAt": "2026-11-16T05:35:03+00:00",
+      "reason": "ValueError: Bilingual editorial review: The source text (s60-s62) does not mention 'capital structure strategy' or explicitly state that Buffett is defending against 'external skepticism regarding his aggressive derivative positions'. The paragraph's interpretation adds these framing elements which are not present in the provided evidence.; The source text sta"
     },
     "buffett-954ddfb7d50c36": {
       "at": "2026-11-15T04:14:15+00:00",
@@ -4570,5 +4570,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T21:34:41+00:00"
+  "updatedAt": "2026-11-15T21:35:03+00:00"
 }
