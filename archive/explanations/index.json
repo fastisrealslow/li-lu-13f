@@ -566,10 +566,12 @@
       "reason": "ValueError: Unsupported numerical claim: 6"
     },
     "lilu-26e7f20245e789": {
-      "at": "2026-11-14T07:35:09+00:00",
+      "at": "2026-11-15T02:47:08+00:00",
       "status": "retry",
       "inputHash": "f5d65497be8780448e85ddf4def2f657ae0c873ab9b32528286ad0200f342815",
-      "reason": "ValueError: Bilingual editorial review: The English translation of the evidence quote in the content section is inconsistent with the provided source text (missing 'and' be"
+      "failures": 1,
+      "nextAttemptAt": "2026-11-15T06:47:08+00:00",
+      "reason": "ValueError: Bilingual editorial review: The source text does not explicitly state that Li Lu 'did not confine' Munger's thought to strategies; it only states he placed his ideas in a broader narrative. The claim about distinguishing him from other philosophers is an editorial interpretation not directly supported by the provided evidence.; The phrase 'numerica"
     },
     "buffett-af803f0ccc1d8b": {
       "at": "2026-11-14T08:29:59+00:00",
@@ -3642,5 +3644,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T02:44:36+00:00"
+  "updatedAt": "2026-11-15T02:47:08+00:00"
 }
