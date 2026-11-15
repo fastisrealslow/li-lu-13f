@@ -3607,10 +3607,12 @@
       "reason": "ValueError: Copied source passage"
     },
     "marks-05b38067d482db": {
-      "at": "2026-11-14T14:30:15+00:00",
+      "at": "2026-11-15T07:27:06+00:00",
       "status": "retry",
       "inputHash": "c059d951b763be37ac7080839d7e7324bce04c6610655c0e672c589837bb46f7",
-      "reason": "ValueError: Bilingual editorial review: The English translation of 'improbable disaster' is accurate but the surrounding phrasing ('as warned by Nassim Nicholas Taleb in hi"
+      "failures": 1,
+      "nextAttemptAt": "2026-11-15T11:27:06+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English translation contains factual errors regarding the author attribution: it incorrectly attributes the quote about 'improbable disasters' and the general discussion to Howard Marks, whereas the source text (s25) explicitly states that Nassim Nicholas Taleb wrote 'Fooled by Randomness' on this subject. The origin"
     },
     "marks-2b0acf3944f6ef": {
       "at": "2026-11-14T22:03:41+00:00",
@@ -4144,5 +4146,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T07:26:49+00:00"
+  "updatedAt": "2026-11-15T07:27:06+00:00"
 }
