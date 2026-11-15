@@ -4015,10 +4015,12 @@
       "reason": "ValueError: Unsupported numerical claim: 12%"
     },
     "marks-4d9d62a305917d": {
-      "at": "2026-11-14T15:17:50+00:00",
+      "at": "2026-11-15T08:04:03+00:00",
       "status": "retry",
       "inputHash": "0b5b3d7f7b1ff957f94e5fd1b8e40ecb5cbba136328a0f0ef9d253adb358db9e",
-      "reason": "ValueError: Bilingual editorial review: The English translation in the 'content' section misattributes the quote about competitive advantage to Buffett. The source text (s8"
+      "failures": 1,
+      "nextAttemptAt": "2026-11-15T12:04:03+00:00",
+      "reason": "ValueError: Bilingual editorial review: The source text (s4) does not contain the phrase 'unrestrained fools'; it uses 'unrestrained by reason or experience'. The paraphrase incorrectly attributes this specific quote to Howard Marks instead of Robert Digby.; The source text (s5) states that 'the entire furor over technology, e-commerce and telecom stocks stems"
     },
     "mclemore-2ab9591831eb1d": {
       "at": "2026-11-15T04:41:50+00:00",
@@ -4280,5 +4282,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T08:03:41+00:00"
+  "updatedAt": "2026-11-15T08:04:03+00:00"
 }
