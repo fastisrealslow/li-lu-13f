@@ -534,12 +534,12 @@
       "reason": "ValueError: No audio obtained"
     },
     "pabrai-84930e49b02b52": {
-      "at": "2026-11-15T05:05:38+00:00",
+      "at": "2026-11-15T22:23:52+00:00",
       "status": "retry",
       "inputHash": "b4d36f511c7aedd42636de384f8527b7507d4382936957e66a1f014c97a55b01",
-      "failures": 1,
-      "nextAttemptAt": "2026-11-15T09:05:38+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English translation of the paragraph incorrectly states 'Google's $100 billion in 2027 equivalent to $20 billion five years ago'. The source text (s10) says '$100 billion... in 2027' is equivalent to '$20 billion five or five years ago'. The translation omits the year '2027' from the first figure, implying the spendi"
+      "failures": 2,
+      "nextAttemptAt": "2026-11-16T06:23:52+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English translation in the 'content' section misquotes Zuckerberg. The source text (s9) states: 'Whether the bet works or not, we do not know. But we have to play.' The provided translation adds 'whether', changing it to 'Whether the bet works or not, we do not know,' which alters the original phrasing found in the e"
     },
     "vinall-2c8021ee8f5f62": {
       "at": "2026-11-15T08:08:35+00:00",
@@ -4644,5 +4644,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T22:23:36+00:00"
+  "updatedAt": "2026-11-15T22:23:52+00:00"
 }
