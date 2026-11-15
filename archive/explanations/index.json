@@ -2778,10 +2778,12 @@
       "reason": "ValueError: Unsupported numerical claim: 10"
     },
     "marks-e1667423e3df2b": {
-      "at": "2026-11-14T15:23:28+00:00",
+      "at": "2026-11-15T21:46:44+00:00",
       "status": "retry",
       "inputHash": "09d7b5357b85f87ed103d12dc32bc0d78c7bd00a009eaac0b44d0ad9d3c18f1e",
-      "reason": "ValueError: Bilingual editorial review: The Chinese text incorrectly attributes the specific stock example (4% position, $40 to $50) as Howard Marks' own or Oaktree Capital"
+      "failures": 1,
+      "nextAttemptAt": "2026-11-16T01:46:44+00:00",
+      "reason": "ValueError: Bilingual editorial review: The Chinese translation contains a factual error regarding the calculation logic: it states '25% stock price increase multiplied by 4% position size' but then incorrectly claims the text says '25% multiplied by 4%' (25% * 4% = 1%, which is mathematically correct, but the parenthetical clarification in the source text imp"
     },
     "marks-49e0212382a26b": {
       "at": "2026-11-15T07:31:57+00:00",
@@ -4588,5 +4590,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T21:46:11+00:00"
+  "updatedAt": "2026-11-15T21:46:44+00:00"
 }
