@@ -1235,12 +1235,12 @@
       "reason": "ValueError: Bilingual editorial review: The English translation of the heading incorrectly translates 'Market Anomalies and Early Investment Methods: From Betting Tickets to Moody's Manuals' as 'From Betting Tickets to Moody's Manuals', omitting the phrase 'Early Investment Methods'.; The English paragraph misquotes Buffett's efficient market theory story. The"
     },
     "pabrai-2dadcddfebe9d5": {
-      "at": "2026-11-15T07:58:42+00:00",
+      "at": "2026-11-15T21:39:25+00:00",
       "status": "retry",
       "inputHash": "2c705de2bd89c5a4ab38a2e8ae4e80b62b957162a4a74675e8e7463c78d0f4f6",
-      "failures": 1,
-      "nextAttemptAt": "2026-11-15T11:58:42+00:00",
-      "reason": "ValueError: Bilingual editorial review: The source text (s8) does not mention 'MasterCard' in the context of antitrust policies or shareholder value maximization; it only states MasterCard has high net income vs revenues and trades at a high multiple. The claim about antitrust pressure is an inference not found in the text.; The source text (s9) mentions Tence"
+      "failures": 2,
+      "nextAttemptAt": "2026-11-16T05:39:25+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English translation contains a factual error: 'moderate share buybacks' contradicts the source text which states buybacks are powerful at 'modest valuations' (low multiples), not moderate ones.; The English translation incorrectly summarizes Pabrai's stance on Tencent, claiming he did not explicitly confirm if the mo"
     },
     "pabrai-801d184237a3d3": {
       "at": "2026-11-15T08:19:42+00:00",
@@ -4578,5 +4578,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T21:38:51+00:00"
+  "updatedAt": "2026-11-15T21:39:25+00:00"
 }
