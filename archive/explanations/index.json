@@ -814,10 +814,12 @@
       "reason": "ValueError: Bilingual editorial review: The English text incorrectly attributes the definition of civilization ('difference between human beings and their hominid ancestors"
     },
     "lilu-1abd9fac13a133": {
-      "at": "2026-11-14T13:47:30+00:00",
+      "at": "2026-11-15T04:20:31+00:00",
       "status": "retry",
       "inputHash": "0a0f97870ba74586001cffc1b0a70112c9d2162592515640edff0b78f97fdbae",
-      "reason": "ValueError: Bilingual editorial review: The English translation in the content section incorrectly translates 'creature' as 'creatures' (plural) when the source text uses t"
+      "failures": 1,
+      "nextAttemptAt": "2026-11-15T08:20:31+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English translation in the content section incorrectly translates 'tool versus creature' as 'tool and creature', losing the critical contrast implied by the source text.; The English translation renders 'lording over' as 'ruled by', which weakens the intended sense of domination and arrogance present in the original "
     },
     "pabrai-deed882841e367": {
       "at": "2026-11-14T15:14:33+00:00",
@@ -3952,5 +3954,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T04:18:31+00:00"
+  "updatedAt": "2026-11-15T04:20:31+00:00"
 }
