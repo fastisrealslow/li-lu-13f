@@ -1277,10 +1277,12 @@
       "reason": "ValueError: Unsupported numerical claim: 1000"
     },
     "pabrai-c9c2f45338a0ca": {
-      "at": "2026-11-14T14:39:49+00:00",
+      "at": "2026-11-15T07:48:26+00:00",
       "status": "retry",
       "inputHash": "f74e05d1fa5529a41df403090f7254455600cf786a5e55655368994358b1573c",
-      "reason": "ValueError: Bilingual editorial review: The English translation in `content.paragraphs[0].en` contains a factual error: it states 'Pabrai does not claim... that humans' ave"
+      "failures": 1,
+      "nextAttemptAt": "2026-11-15T11:48:26+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English translation in 'content' contains a factual error: it states 'Pabrai does not assert that humans possess a 'hunter-gatherer instinct' for herding', which misrepresents the source text. The source (s2) says humans have an aversion to cloning may go back to evolutionary history where following the crowd was the"
     },
     "pabrai-9152afaf247ee4": {
       "at": "2026-11-15T04:32:30+00:00",
@@ -4220,5 +4222,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T07:48:03+00:00"
+  "updatedAt": "2026-11-15T07:48:26+00:00"
 }
