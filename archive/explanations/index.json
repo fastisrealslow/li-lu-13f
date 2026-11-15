@@ -3119,10 +3119,12 @@
       "reason": "ValueError: Copied source passage"
     },
     "marks-cbe22289f97d98": {
-      "at": "2026-11-14T22:09:28+00:00",
+      "at": "2026-11-15T16:48:03+00:00",
       "status": "retry",
       "inputHash": "4e40c594ccf6785641936ce41784939d25440331523a8e33417e1d6040e85315",
-      "reason": "ValueError: Incomplete AI Review at 900 tokens"
+      "failures": 1,
+      "nextAttemptAt": "2026-11-15T20:48:03+00:00",
+      "reason": "ValueError: Bilingual editorial review: The source text (s4-s6) contains only a dialogue and brief commentary; it does not explicitly state that 'institutional structures force capital to bear the burden of negative rates' or transform negative rates into a 'pervasive structural reality'. This is an editorial interpretation added in the Chinese paragraph witho"
     },
     "marks-a8162651bb160c": {
       "at": "2026-11-14T14:48:30+00:00",
@@ -4520,5 +4522,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T16:47:55+00:00"
+  "updatedAt": "2026-11-15T16:48:03+00:00"
 }
