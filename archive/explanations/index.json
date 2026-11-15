@@ -1385,10 +1385,12 @@
       "reason": "ValueError: Bilingual editorial review: The English translation of the heading contains a factual error: the source text states the brain is 'fastest-growing organ' in the "
     },
     "pabrai-af56eda3b8814e": {
-      "at": "2026-11-14T07:19:20+00:00",
+      "at": "2026-11-15T08:03:41+00:00",
       "status": "retry",
       "inputHash": "dada15f38b99675a81412739bd958157247c15138f886e288b0c4422c877d102",
-      "reason": "ValueError: Unsupported numerical claim: 7"
+      "failures": 1,
+      "nextAttemptAt": "2026-11-15T12:03:41+00:00",
+      "reason": "ValueError: Unsupported scaled numerical claim: 2"
     },
     "pabrai-514a02fe7f32ad": {
       "at": "2026-11-15T03:14:22+00:00",
@@ -4278,5 +4280,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T08:03:07+00:00"
+  "updatedAt": "2026-11-15T08:03:41+00:00"
 }
