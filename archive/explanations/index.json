@@ -2678,10 +2678,12 @@
       "reason": "ValueError: Bilingual editorial review: The source text (s1) does not contain the phrase 'original sin of slavery'; this is an invented concept in the provided evidence.; The source text (s3) mentions 'individual as well as institutionalized racism' but does not explicitly link it to slavery as its historical root; attributing this specific causal link directl"
     },
     "marks-dc039fc38e2232": {
-      "at": "2026-11-14T15:16:08+00:00",
+      "at": "2026-11-15T21:36:54+00:00",
       "status": "retry",
       "inputHash": "04271958088a97e75a838220d3f43f89c3795b6ccad48c7a92f2246cc124e578",
-      "reason": "ValueError: Bilingual editorial review: The English translation of 'obsessing over negatives' in the Chinese paragraph (s2) uses a literal translation that does not match t"
+      "failures": 1,
+      "nextAttemptAt": "2026-11-16T01:36:54+00:00",
+      "reason": "ValueError: Copied source passage"
     },
     "marks-3d6b648c8dc059": {
       "at": "2026-11-15T16:19:15+00:00",
@@ -4572,5 +4574,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T21:36:22+00:00"
+  "updatedAt": "2026-11-15T21:36:54+00:00"
 }
