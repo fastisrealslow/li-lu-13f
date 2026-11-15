@@ -2554,12 +2554,12 @@
       "reason": "ValueError: Copied source passage"
     },
     "marks-81b1197a807270": {
-      "at": "2026-11-15T02:55:33+00:00",
+      "at": "2026-11-15T16:42:30+00:00",
       "status": "retry",
       "inputHash": "f6a8f537dbd19631afc63b902330f44895199fd7dd35449293f5dcbc8a97989d",
-      "failures": 1,
-      "nextAttemptAt": "2026-11-15T06:55:33+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English paraphrase incorrectly states that companies are 'unwilling or unable' to absorb costs; the source only says they 'won't be eager' and may not have enough margin, omitting the definitive inability.; The Chinese text claims the author argues for a 'lag in production cycles'; while supply shortages are mentione"
+      "failures": 2,
+      "nextAttemptAt": "2026-11-16T00:42:30+00:00",
+      "reason": "ValueError: Bilingual editorial review: The source text (s7) does not contain the quote 'imagine how much harder physics would be if electrons had feelings' attributed to Richard Feynman; this is an editorial addition not found in the provided evidence.; The source text (s6) lists Trump's tariff goals as a bulleted list without explicitly stating they are 'sup"
     },
     "marks-bee01f7fefbaee": {
       "at": "2026-11-15T04:06:05+00:00",
@@ -4508,5 +4508,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T16:42:17+00:00"
+  "updatedAt": "2026-11-15T16:42:30+00:00"
 }
