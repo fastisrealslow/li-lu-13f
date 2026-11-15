@@ -1353,12 +1353,12 @@
       "reason": "ValueError: Bilingual editorial review: The source text (s30) states 'I think this was in 82', but the ASR note claims a 'numerical validation risk' without providing evidence of an error; the year 1982 is plausible for Pabrai's graduation and computer enthusiasm, so labeling it as a potential error is speculative.; The source text (s30) says 'I have no idea w"
     },
     "pabrai-6aa3d87fb959bc": {
-      "at": "2026-11-15T03:58:08+00:00",
+      "at": "2026-11-15T21:37:29+00:00",
       "status": "retry",
       "inputHash": "b5b45c2462b4586b3a0106d7dac82038e6b9f295bd95ce522a69f080b23e2c1e",
-      "failures": 1,
-      "nextAttemptAt": "2026-11-15T07:58:08+00:00",
-      "reason": "ValueError: Unsupported numerical claim: 20"
+      "failures": 2,
+      "nextAttemptAt": "2026-11-16T05:37:29+00:00",
+      "reason": "ValueError: Unsupported scaled numerical claim: 80"
     },
     "pabrai-f3593335049251": {
       "at": "2026-11-15T04:09:29+00:00",
@@ -4574,5 +4574,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T21:37:11+00:00"
+  "updatedAt": "2026-11-15T21:37:29+00:00"
 }
