@@ -3727,10 +3727,12 @@
       "reason": "ValueError: Unsupported numerical claim: 2000"
     },
     "marks-3c656ae75a63ce": {
-      "at": "2026-11-14T14:59:28+00:00",
+      "at": "2026-11-15T17:07:57+00:00",
       "status": "retry",
       "inputHash": "27a1763d942be20c8c515e8ea1c00fc458757c054c81d339183150b07488eb2e",
-      "reason": "ValueError: Bilingual editorial review: The source text (s0) states 'That's a simple sentence but one with significant implications' referring to the uncertainty claim, not"
+      "failures": 1,
+      "nextAttemptAt": "2026-11-15T21:07:57+00:00",
+      "reason": "ValueError: Bilingual editorial review: The source text (s0) states the NYT article was about John Bogle on August 12, but does not explicitly name 'Vanguard' in that specific sentence; however, s1 quotes Bogle and the context implies his identity. The content section correctly identifies him as Vanguard's founder based on general knowledge consistent with the"
     },
     "marks-159247340c6388": {
       "at": "2026-11-15T16:52:14+00:00",
@@ -4556,5 +4558,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T17:07:32+00:00"
+  "updatedAt": "2026-11-15T17:07:57+00:00"
 }
