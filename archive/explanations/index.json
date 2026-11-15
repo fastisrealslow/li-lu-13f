@@ -3469,12 +3469,12 @@
       "reason": "ValueError: Copied source passage"
     },
     "mclemore-27e48025ed61f3": {
-      "at": "2026-11-15T03:05:13+00:00",
+      "at": "2026-11-15T16:30:43+00:00",
       "status": "retry",
       "inputHash": "ebe223faeb1c1f83a9ef3e8f7b646e2d49f31b35af42b313d2dc326150f47dc1",
-      "failures": 1,
-      "nextAttemptAt": "2026-11-15T07:05:13+00:00",
-      "reason": "ValueError: Bilingual editorial review: The Chinese text claims McLemore argues the industry chose volatility because it was 'the only quantifiable metric' (‘...because it is the only quantifiable metric...'）。Source s0 states the choice was made because volatility 'could be directly measured' while risk 'couldn't', not that it was the *only* option. The source"
+      "failures": 2,
+      "nextAttemptAt": "2026-11-16T00:30:43+00:00",
+      "reason": "ValueError: Bilingual editorial review: The Chinese text claims the framework's reliance on 'predictable returns' was a 'flawed assumption' (‘...flawed assumption that investment returns behave predictably...'），while the source (s0) only states this as an important assumption without explicitly labeling it flawed; the flaw is demonstrated later by Mandelbrot, "
     },
     "mclemore-97a86175f75125": {
       "at": "2026-11-14T08:47:04+00:00",
@@ -4482,5 +4482,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T16:30:32+00:00"
+  "updatedAt": "2026-11-15T16:30:43+00:00"
 }
