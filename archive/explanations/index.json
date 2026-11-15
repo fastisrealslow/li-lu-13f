@@ -388,10 +388,12 @@
       "inputHash": "63f3693c7630856da5bbffe62df644e74756b2463c0aa14641d5f2d555159952"
     },
     "klarman-aec591deef918e": {
-      "at": "2026-11-14T15:22:54+00:00",
+      "at": "2026-11-15T03:38:21+00:00",
       "status": "retry",
       "inputHash": "9e77b936d15cfc19dcd7d66b520d877346df68b08733b68812ba19a316a9ee7f",
-      "reason": "ValueError: Copied source passage"
+      "failures": 1,
+      "nextAttemptAt": "2026-11-15T07:38:21+00:00",
+      "reason": "ValueError: Bilingual editorial review: Factual error: The source (s42) states Bill Stevenson and Howard Stevenson founded the firm with last names 'P.O.' and 'S.T.', but the content incorrectly attributes co-founding to 'Bill Stevenson and Howard Stern'. Howard Stern is a media personality; the correct co-founder is Howard Stevenson.; Factual error: The sourc"
     },
     "pabrai-c7c47a77315015": {
       "at": "2026-10-18T01:38:43+00:00",
@@ -3834,5 +3836,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T03:37:40+00:00"
+  "updatedAt": "2026-11-15T03:38:21+00:00"
 }
