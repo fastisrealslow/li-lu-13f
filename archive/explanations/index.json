@@ -2875,10 +2875,12 @@
       "reason": "ValueError: Bilingual editorial review: The content falsely claims Howard Marks distinguishes economics from politics or proposes a 'wants, resources, and trade-offs' triad as their fundamental difference; the source text defines economics solely through choice, scarcity, and unlimited wants vs. limited resources, with no mention of political distinction.; The"
     },
     "marks-37b489c9444212": {
-      "at": "2026-11-14T15:05:06+00:00",
+      "at": "2026-11-15T16:43:02+00:00",
       "status": "retry",
       "inputHash": "d21ebb799ed9a1475ec17c9b113e95eb4bb24f908ecf3b8faf741ee2228a2577",
-      "reason": "ValueError: Bilingual editorial review: The source text (s4) ends abruptly with '© OAKTREE CAPITAL MANAGEMENT, L.P. ALL RIGHTS RESERVED.' before completing the sentence abo"
+      "failures": 1,
+      "nextAttemptAt": "2026-11-15T20:43:02+00:00",
+      "reason": "ValueError: Unsupported numerical claim: 50%"
     },
     "marks-afaf50fd1a0d44": {
       "at": "2026-11-15T16:39:37+00:00",
@@ -4510,5 +4512,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T16:42:53+00:00"
+  "updatedAt": "2026-11-15T16:43:02+00:00"
 }
