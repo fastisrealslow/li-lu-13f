@@ -3427,10 +3427,12 @@
       "reason": "ValueError: Unsupported numerical claim: 70"
     },
     "mclemore-91da59523b1f9c": {
-      "at": "2026-11-14T21:46:08+00:00",
+      "at": "2026-11-15T22:03:41+00:00",
       "status": "retry",
       "inputHash": "30bd13db233f614f681e7c6036d71e876d104a832e04b7fe28c509561be4ddb0",
-      "reason": "ValueError: Bilingual editorial review: The Chinese text incorrectly states that Delta's free cash flow yield is 'more than 100% higher' (actual >100% higher) reaching 12%."
+      "failures": 1,
+      "nextAttemptAt": "2026-11-16T02:03:41+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English translation incorrectly substitutes 'EBITDA' for the source text's 'pre-interest, pre-tax profit'. The correct term is EBIT (Earnings Before Interest and Taxes).; The English translation adds the phrase 'a point highlighted by recent changes in executive pay structures', which is not explicitly stated in the "
     },
     "marks-d39edc8226b5ec": {
       "at": "2026-11-15T16:54:29+00:00",
@@ -4622,5 +4624,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T22:03:25+00:00"
+  "updatedAt": "2026-11-15T22:03:41+00:00"
 }
