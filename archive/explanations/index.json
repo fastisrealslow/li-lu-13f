@@ -1307,12 +1307,12 @@
       "reason": "ValueError: Bilingual editorial review: The source text (s7) does not mention 'numerous' or 'severely undervalued'; it states there are 'at least six or seven' instances of PE ~1 in the portfolio over 19 years, which contradicts the claim of 'numerous'.; The source text (s8) explicitly states Rain Industries was trading at a normal multiple ('10 or 15 times ea"
     },
     "pabrai-36450d370316ee": {
-      "at": "2026-11-15T08:14:02+00:00",
+      "at": "2026-11-15T21:47:55+00:00",
       "status": "retry",
       "inputHash": "ce433e0b519779154bc0bcf5dd15d2d5b324810bcc3336cdf79eff981d5030c1",
-      "failures": 1,
-      "nextAttemptAt": "2026-11-15T12:14:02+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English translation in the 'content' section misrepresents Pabrai's argument by implying he claims professional investors are 'unable to grasp' core variables like businessmen. The source text states they are 'missing some very fundamental' aspects and that looking at businesses through spreadsheets is insufficient, "
+      "failures": 2,
+      "nextAttemptAt": "2026-11-16T05:47:55+00:00",
+      "reason": "ValueError: Bilingual editorial review: The source text (s2) cuts off mid-sentence ('It's very dangerous to'), but the paraphrase completes this thought logically based on context. While not a factual error, the paraphrase adds words ('to predict business trajectories') that are implied but not explicitly stated in the provided evidence snippet.; The paraphras"
     },
     "pabrai-18c92ff6cf0411": {
       "at": "2026-11-15T04:06:11+00:00",
@@ -4592,5 +4592,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T21:47:50+00:00"
+  "updatedAt": "2026-11-15T21:47:55+00:00"
 }
