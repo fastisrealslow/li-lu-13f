@@ -1527,10 +1527,12 @@
       "reason": "ValueError: Unsupported numerical claim: 100"
     },
     "pabrai-59f6d87e592581": {
-      "at": "2026-11-14T08:09:49+00:00",
+      "at": "2026-11-15T03:05:17+00:00",
       "status": "retry",
       "inputHash": "5bb26ae875383112e4640b4bd3a4a8313e135825420a42624f411c0e2e26f00b",
-      "reason": "ValueError: Incomplete AI Review at 900 tokens"
+      "failures": 1,
+      "nextAttemptAt": "2026-11-15T07:05:17+00:00",
+      "reason": "ValueError: Incomplete AI Review at 1800 tokens"
     },
     "pabrai-ae90652bc59227": {
       "at": "2026-11-14T09:08:17+00:00",
@@ -3716,5 +3718,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T03:05:15+00:00"
+  "updatedAt": "2026-11-15T03:05:17+00:00"
 }
