@@ -1589,12 +1589,12 @@
       "reason": "ValueError: Bilingual editorial review: The source text (s2) does not mention Seinfeld's book title 'Is This Anything?' or the specific episode about rental cars; it only references his general approach of writing daily observations. The claim that he wrote a book called 'Is This Anything?' is an invention.; The source text (s4) states Pabrai has no plans for "
     },
     "pabrai-4c377fa29a8e7e": {
-      "at": "2026-11-15T04:20:52+00:00",
+      "at": "2026-11-15T22:31:42+00:00",
       "status": "retry",
       "inputHash": "32ff5880bf04a7de408f56f8c7c616a2ebe03f93bc6489095d654cd67c7edf9a",
-      "failures": 1,
-      "nextAttemptAt": "2026-11-15T08:20:52+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English summary incorrectly states that Nick Sleep 'advocated for directly investing the funds into the five to six stocks' and 'promised no management fees'. The source text (s6) shows Sleep instructing investors to invest in those stocks themselves; he did not promise to manage them or waive fees himself. He explic"
+      "failures": 2,
+      "nextAttemptAt": "2026-11-16T06:31:42+00:00",
+      "reason": "ValueError: Bilingual editorial review: The source text (s6) states Nick Sleep told investors to invest in 'the five, six stocks that we have most your money in', but the summary claims he suggested investing in 'the five or six stocks comprising the majority of the fund's holdings'. The phrase 'most your money in' refers to the specific concentration of the i"
     },
     "pabrai-35e6c02262592b": {
       "at": "2026-11-15T08:20:38+00:00",
@@ -4648,5 +4648,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T22:31:40+00:00"
+  "updatedAt": "2026-11-15T22:31:42+00:00"
 }
