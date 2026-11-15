@@ -3137,10 +3137,12 @@
       "reason": "ValueError: Unsupported numerical claim: 20"
     },
     "mclemore-152dc68a1c7545": {
-      "at": "2026-11-14T06:58:11+00:00",
+      "at": "2026-11-15T03:03:12+00:00",
       "status": "retry",
       "inputHash": "43e1ace4e6432d5499b761dc177975a0252b0b3b399ec7570b72d89c3bc56a49",
-      "reason": "ValueError: Bilingual editorial review: The English translation in `content.paragraphs[0]` incorrectly states 'oppose viewing them as guaranteed high-return areas' when the"
+      "failures": 1,
+      "nextAttemptAt": "2026-11-15T07:03:12+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English paraphrase incorrectly states 'Nasdaq-7 (Mag 7)' instead of the source's 'Mag 7'.; The English paraphrase misattributes Bill Miller's quote context; the source says he remarked on the market's strong gains and rising valuations, not specifically that AI transformation is grand scale.; The English paraphrase i"
     },
     "marks-91985ba4dc0de1": {
       "at": "2026-11-14T21:50:07+00:00",
@@ -3704,5 +3706,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T03:02:16+00:00"
+  "updatedAt": "2026-11-15T03:03:12+00:00"
 }
