@@ -2398,10 +2398,12 @@
       "reason": "ValueError: Bilingual editorial review: The Chinese summary incorrectly states that experts were certain Hillary Clinton would win (80%) AND that a Trump victory would cause a market collapse. The source text says almost everyone was certain of both (a) and (b), but the specific 80% figure is attributed to the 'least certain pundits' regarding Clinton's win, n"
     },
     "mclemore-a9cd8c7a92e47d": {
-      "at": "2026-11-14T06:57:04+00:00",
+      "at": "2026-11-15T07:48:44+00:00",
       "status": "retry",
       "inputHash": "5122a46ce25a5f88ab7705a0d6e9d8f2383163deed8c5aefcd5c811c014fad9c",
-      "reason": "ValueError: Bilingual editorial review: The Chinese text incorrectly attributes Charlie Munger's quote about 'invitations to the pie counter' as advice against taking only "
+      "failures": 1,
+      "nextAttemptAt": "2026-11-15T11:48:44+00:00",
+      "reason": "ValueError: Unsupported numerical claim: 2.02"
     },
     "marks-93eb0a116a164b": {
       "at": "2026-11-15T07:32:11+00:00",
@@ -4222,5 +4224,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T07:48:26+00:00"
+  "updatedAt": "2026-11-15T07:48:44+00:00"
 }
