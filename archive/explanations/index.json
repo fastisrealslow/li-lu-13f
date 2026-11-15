@@ -534,10 +534,12 @@
       "reason": "ValueError: English text contains untranslated Chinese"
     },
     "webb-38c6e1d522bcc3": {
-      "at": "2026-11-14T07:47:10+00:00",
+      "at": "2026-11-15T04:15:28+00:00",
       "status": "retry",
       "inputHash": "45538c74bfcc56378ef59e18952471103c113462d915d0f8b685e81dd1569a80",
-      "reason": "ValueError: Bilingual editorial review: The English translation incorrectly states 'diagnosed with prostate cancer that had metastasized to his bones in June 2020', whereas"
+      "failures": 1,
+      "nextAttemptAt": "2026-11-15T08:15:28+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English translation of 'Long Hair' as 'Long Hair of the Stock Market' is a literal translation; while accurate to the source's nickname context, it lacks the idiomatic punch of 'Stock Market Long Hair'. However, given the instruction to reject invented content and allow paraphrase, this is acceptable.; The phrase 'vo"
     },
     "buffett-8cfe0c548fe1a9": {
       "at": "2026-11-14T09:08:23+00:00",
@@ -3940,5 +3942,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T04:14:32+00:00"
+  "updatedAt": "2026-11-15T04:15:28+00:00"
 }
