@@ -3675,12 +3675,12 @@
       "reason": "ValueError: Bilingual editorial review: The source text does not mention 'Opportunity Equity' or claim it gained an average of 28% when the CBOE put-to-call ratio exceeded 1; this appears to be a hallucinated statistic in the content section.; The source text states that markets have gained in 100% of subsequent one-year periods since 1995, but does not specif"
     },
     "mclemore-267c6afd18f89c": {
-      "at": "2026-11-15T04:51:44+00:00",
+      "at": "2026-11-15T21:32:49+00:00",
       "status": "retry",
       "inputHash": "589f046a09d6fc9237277a11680d2ad5849ee4c1ec213538236612a68d2c8810",
-      "failures": 1,
-      "nextAttemptAt": "2026-11-15T08:51:44+00:00",
-      "reason": "ValueError: Bilingual editorial review: The Chinese text incorrectly states the strategy achieved a 'net return' of 37.6% in 2023; the source (s0) explicitly says it 'advanced 37.6% net of fees', which refers to total return/advance, not necessarily a simple annualized net return figure without context of compounding over time.; The Chinese text claims the str"
+      "failures": 2,
+      "nextAttemptAt": "2026-11-16T05:32:49+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English paraphrase incorrectly states that fee reductions 'bolstered' the strategy's performance; the source indicates fees will help lower client costs with asset growth but does not claim they directly caused the 37.6% return.; The English paraphrase claims the outperformance was 'dampened by poor handling,' wherea"
     },
     "marks-82b8d3d26c60a7": {
       "at": "2026-11-15T16:35:37+00:00",
@@ -4566,5 +4566,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T21:32:47+00:00"
+  "updatedAt": "2026-11-15T21:32:49+00:00"
 }
