@@ -2114,10 +2114,12 @@
       "reason": "ValueError: Unsupported numerical claim: 1994"
     },
     "buffett-03ea47cc01ea52": {
-      "at": "2026-11-14T07:21:46+00:00",
+      "at": "2026-11-15T03:51:48+00:00",
       "status": "retry",
       "inputHash": "e496569cb0dad7c35485dcddf8581d0d7c9d1bd755de18da0e9c0ffa010f749c",
-      "reason": "ValueError: Incomplete AI Review at 900 tokens"
+      "failures": 1,
+      "nextAttemptAt": "2026-11-15T07:51:48+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English paraphrase incorrectly attributes the quote 'If something's not worth doing at all, it's not worth doing well' to Buffett as a general maxim regarding small commitments. Source s2 states: '(But we try to avoid small commitments - “If something’s not worth doing at all, it’s not worth doing well”.)'. The sourc"
     },
     "buffett-85b7099c08190e": {
       "at": "2026-11-14T14:04:23+00:00",
@@ -3880,5 +3882,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T03:51:40+00:00"
+  "updatedAt": "2026-11-15T03:51:48+00:00"
 }
