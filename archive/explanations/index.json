@@ -3893,10 +3893,12 @@
       "reason": "ValueError: Bilingual editorial review: The English translation in the 'content' section incorrectly states that McLemore argues investors should avoid treating AI as a guaranteed high-return area; the source text only expresses disagreement with adding Bitcoin, Mag 7, and AI to the list of euphoric conditions without explicitly calling them 'guaranteed'.; The"
     },
     "marks-91985ba4dc0de1": {
-      "at": "2026-11-14T21:50:07+00:00",
+      "at": "2026-11-15T21:44:31+00:00",
       "status": "retry",
       "inputHash": "779d351272925e61d10df454b4a0ae348c55d2320eb111a600fed6fa49fd5149",
-      "reason": "ValueError: Bilingual editorial review: Factual error: The source text (s1) states 'O'Toole's Commentary', not 'Etorre's Observation'. The Chinese text incorrectly attribut"
+      "failures": 1,
+      "nextAttemptAt": "2026-11-16T01:44:31+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English title 'Etorre's Wisdom' is incorrect; the source text refers to 'Howard Marks', not 'Etorre'.; The Chinese and English content incorrectly cite 'O'Toole's Commentary'; the source (s1) clearly states 'Murphy was an optimist', referring to Murphy's Law, not O'Toole.; The content invents a specific quote ('The o"
     },
     "marks-bbc89691ff2f77": {
       "at": "2026-11-15T16:20:05+00:00",
@@ -4586,5 +4588,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T21:44:22+00:00"
+  "updatedAt": "2026-11-15T21:44:31+00:00"
 }
