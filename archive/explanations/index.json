@@ -734,10 +734,12 @@
       "reason": "ValueError: Bilingual editorial review: The source text (s1) states the script was written by 'the speechwriter for Saddam Hussein', not 'Saddam Hussein's speechwriter'. Wh"
     },
     "buffett-d6f1a801f004df": {
-      "at": "2026-11-14T06:28:01+00:00",
+      "at": "2026-11-15T02:49:19+00:00",
       "status": "retry",
       "inputHash": "5e6f0af3b4f6b4986097903db9bab953daf45a3d009a0aabf2c838c01c2a8e57",
-      "reason": "ValueError: Bilingual editorial review: The English text contains a factual error: it states 'refused to pay dividends', but the source (s543) only mentions the shareholder"
+      "failures": 1,
+      "nextAttemptAt": "2026-11-15T06:49:19+00:00",
+      "reason": "ValueError: Bilingual editorial review: The Chinese translation of 'perhaps unjustifiably' as 'perhaps not fairly/unjustifiably' is slightly off; 'unjustifiably' here implies the view might be wrong but he feels it's right. A better fit is 'perhaps wrongly' or keeping 'unjustifiably' with context.; The phrase 'so far justified' is translated as 'based on exper"
     },
     "buffett-56163a42ef5133": {
       "at": "2026-11-14T14:54:59+00:00",
@@ -3652,5 +3654,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T02:49:05+00:00"
+  "updatedAt": "2026-11-15T02:49:19+00:00"
 }
