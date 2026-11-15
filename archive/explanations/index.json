@@ -740,10 +740,12 @@
       "inputHash": "d3c8e59998069cd89f516c183f44c39e0e4522d560ab7429e5a68f8819f9009d"
     },
     "buffett-4e1e67fe2cf0cb": {
-      "at": "2026-11-14T08:56:09+00:00",
+      "at": "2026-11-15T03:44:42+00:00",
       "status": "retry",
       "inputHash": "ee7958ce5411d19457a8da4c7cc32941fa697e4b02fa5234e5ff600d4833a949",
-      "reason": "ValueError: Unsupported numerical claim: 3%"
+      "failures": 1,
+      "nextAttemptAt": "2026-11-15T07:44:42+00:00",
+      "reason": "ValueError: Unsupported numerical claim: 50%"
     },
     "buffett-8788fc4c92b085": {
       "at": "2026-11-14T14:59:49+00:00",
@@ -3854,5 +3856,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T03:44:40+00:00"
+  "updatedAt": "2026-11-15T03:44:42+00:00"
 }
