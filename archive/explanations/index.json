@@ -4359,12 +4359,12 @@
       "reason": "ValueError: Bilingual editorial review: The source text (s4) does not contain the phrase 'unrestrained fools'; it uses 'unrestrained by reason or experience'. The paraphrase incorrectly attributes this specific quote to Howard Marks instead of Robert Digby.; The source text (s5) states that 'the entire furor over technology, e-commerce and telecom stocks stems"
     },
     "mclemore-2ab9591831eb1d": {
-      "at": "2026-11-15T04:41:50+00:00",
+      "at": "2026-11-15T22:25:40+00:00",
       "status": "retry",
       "inputHash": "db33b03493c9439ad8647c9d02d9979c92a46db5c44da8c6a3c1a3e6d9cd3e58",
-      "failures": 1,
-      "nextAttemptAt": "2026-11-15T08:41:50+00:00",
-      "reason": "ValueError: Unsupported numerical claim: 2008"
+      "failures": 2,
+      "nextAttemptAt": "2026-11-16T06:25:40+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English translation in the 'content' section incorrectly attributes the view that volatility is misunderstood as purely negative to Samantha McLemore; however, the source text (s7) states this belief ('volatility is significantly misunderstood') without explicitly naming her as the proponent of this specific phrasing"
     },
     "mclemore-24b0bf430a4f7b": {
       "at": "2026-11-15T17:01:32+00:00",
@@ -4644,5 +4644,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T22:24:58+00:00"
+  "updatedAt": "2026-11-15T22:25:40+00:00"
 }
