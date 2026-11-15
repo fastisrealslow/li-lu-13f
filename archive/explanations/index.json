@@ -1527,12 +1527,12 @@
       "reason": "ValueError: Unsupported numerical claim: 1,000"
     },
     "pabrai-6dd66553e9d9ce": {
-      "at": "2026-11-15T03:46:22+00:00",
+      "at": "2026-11-15T22:03:02+00:00",
       "status": "retry",
       "inputHash": "513d94599cadb560acfa23941d98e3cf7de9c345b77ec1f582c75cf2182af419",
-      "failures": 1,
-      "nextAttemptAt": "2026-11-15T07:46:22+00:00",
-      "reason": "ValueError: Bilingual editorial review: The source text does not mention 'Monsoon' as the daughter's name; it only refers to her as 'the younger one'. The editor added this specific name without evidence.; The source text attributes the quote about selling too soon to 'Thomas Thomas Phelps', but the editor corrected it to 'Thomas Phelps' and claimed he is a fa"
+      "failures": 2,
+      "nextAttemptAt": "2026-11-16T06:03:02+00:00",
+      "reason": "ValueError: Bilingual editorial review: The source text (s2) states Mohnish has two daughters and that the younger one is named Monsoon. The content section incorrectly attributes these facts to 'Pabrai' (the interviewer), whereas the dialogue clearly identifies Mohnish as the speaker discussing his own daughters.; The source text (s3) mentions a quote from Th"
     },
     "pabrai-2babcacb8a348d": {
       "at": "2026-11-15T08:13:31+00:00",
@@ -4620,5 +4620,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T22:02:31+00:00"
+  "updatedAt": "2026-11-15T22:03:02+00:00"
 }
