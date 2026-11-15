@@ -4047,10 +4047,12 @@
       "reason": "ValueError: Bilingual editorial review: The source text (s7-s9) does not contain the phrase 'invest now, harvest later' or explicitly state it as a framework; this is an ed"
     },
     "greenblatt-fa1bc818776c75": {
-      "at": "2026-11-14T21:17:49+00:00",
+      "at": "2026-11-15T07:22:15+00:00",
       "status": "retry",
       "inputHash": "34b9c685e1aeb066573ff80e3642750b561929b928e33b3d90a58d2b9e282312",
-      "reason": "ValueError: Bilingual editorial review: The English translation contains factual errors regarding the author's name: 'Greenblatt' is incorrectly translated as 'Graham' in t"
+      "failures": 1,
+      "nextAttemptAt": "2026-11-15T11:22:15+00:00",
+      "reason": "ValueError: Bilingual editorial review: The source text does not explicitly state that Greenblatt's intuition is 'deeply rooted in his nature' or that he owns 'a piece of a business' rather than shares; it only says owning a piece of a business is what you own at the end of the day. The paraphrase adds interpretive weight not present in the ASR.; The source me"
     },
     "akre-98d708d2727ef5": {
       "at": "2026-11-15T04:07:28+00:00",
@@ -4124,5 +4126,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T07:22:04+00:00"
+  "updatedAt": "2026-11-15T07:22:15+00:00"
 }
