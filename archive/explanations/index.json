@@ -1653,10 +1653,12 @@
       "reason": "ValueError: Bilingual editorial review: The Chinese text incorrectly identifies the major shareholder of Tencent as 'Improvis'. The ASR transcript (s5) states 'improsis', b"
     },
     "pabrai-e6af35bb77e6df": {
-      "at": "2026-11-14T08:25:02+00:00",
+      "at": "2026-11-15T03:20:52+00:00",
       "status": "retry",
       "inputHash": "80586a54758a53f023e34931bc998b9ec42c77a1805d6442c80ad4711df7d0ba",
-      "reason": "ValueError: Bilingual editorial review: The English translation contains factual errors regarding the names of philanthropists mentioned by Pabrai. The source text refers t"
+      "failures": 1,
+      "nextAttemptAt": "2026-11-15T07:20:52+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English translation contains a factual error: it states Buffett donates '5% of his net assets annually' (s7 says '5% of the balance', which is similar but the text doesn't explicitly say 'net assets'; more importantly, the text says 'If he lived forever... tens of millions', implying a perpetual mechanism, not necess"
     },
     "vinall-0bc8d0cd361786": {
       "at": "2026-11-14T06:18:22+00:00",
@@ -3778,5 +3780,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T03:20:45+00:00"
+  "updatedAt": "2026-11-15T03:20:52+00:00"
 }
