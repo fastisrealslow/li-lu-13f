@@ -1487,10 +1487,12 @@
       "reason": "ValueError: Unsupported scaled numerical claim: 25"
     },
     "pabrai-04dcf10dc78aff": {
-      "at": "2026-11-14T21:42:26+00:00",
+      "at": "2026-11-15T16:50:59+00:00",
       "status": "retry",
       "inputHash": "86876fb89624f1db4b86921a83f58e7a61e36fba05cc2461f91d73e8973fd676",
-      "reason": "ValueError: Bilingual editorial review: The source text (s30) ends abruptly mid-sentence ('...privately run airports run a lot'), making the final claim about 'only 4% to 5"
+      "failures": 1,
+      "nextAttemptAt": "2026-11-15T20:50:59+00:00",
+      "reason": "ValueError: Unsupported scaled numerical claim: 6.5"
     },
     "vinall-469b9af861796c": {
       "at": "2026-11-15T05:07:04+00:00",
@@ -4524,5 +4526,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T16:50:18+00:00"
+  "updatedAt": "2026-11-15T16:50:59+00:00"
 }
