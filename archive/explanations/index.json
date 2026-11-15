@@ -3773,10 +3773,12 @@
       "reason": "ValueError: Bilingual editorial review: The English translation contains a factual error: it states Marks 'refrains from attempting to predict specific directions' (s2/s3), whereas the source text (s1) explicitly says he does NOT differ from 'them' just in terms of knowing the future, implying both groups attempt prediction but differ in other ways. The summar"
     },
     "marks-fe3c74ab153e7a": {
-      "at": "2026-11-14T03:00:00+00:00",
+      "at": "2026-11-15T04:06:41+00:00",
       "status": "retry",
       "inputHash": "f511955e1e66b5f94e9d0f23bc83491f9ab78024ccf1420b1a6bd3d1b5a33294",
-      "reason": "ValueError: Bilingual editorial review: The English summary incorrectly attributes the phrase 'blindness to consensus' (consensus blindness) to Howard Marks. The source tex"
+      "failures": 1,
+      "nextAttemptAt": "2026-11-15T08:06:41+00:00",
+      "reason": "ValueError: Bilingual editorial review: The Chinese text incorrectly claims Marks 'does not explicitly assert that markets are perpetually inefficient'. The source (s1) states: 'Thus the thinking I did about alpha... has convinced me to set out my views on all of these subjects.' This implies he is moving from discussing efficiency to arguing for inefficiency,"
     },
     "mclemore-665e38247ebf50": {
       "at": "2026-11-14T00:29:29+00:00",
@@ -3908,5 +3910,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T04:06:11+00:00"
+  "updatedAt": "2026-11-15T04:06:41+00:00"
 }
