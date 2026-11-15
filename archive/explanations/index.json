@@ -3849,10 +3849,12 @@
       "reason": "ValueError: Bilingual editorial review: The English translation of 'tippy top' in paragraph 7 is inaccurate; 'tippy top' means a small tip or peak, not the maximum limit. It should be corrected to 'very top' or 'absolute top' to convey the intended meaning of the budget's upper limit.; The phrase 'informal word-of-mouth channels' in paragraph 8 is redundant an"
     },
     "mclemore-eb19ffa8d4e786": {
-      "at": "2026-11-14T14:06:02+00:00",
+      "at": "2026-11-15T04:56:13+00:00",
       "status": "retry",
       "inputHash": "4fbf88bdecfcfab33383498bea4c83bf0994311f3102c9e4092f16203e0858e2",
-      "reason": "ValueError: Bilingual editorial review: The English translation of '70% of equity trading is now price reaction based' in the source (s2) was rendered as 'based on price re"
+      "failures": 1,
+      "nextAttemptAt": "2026-11-15T08:56:13+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English translation contains factual errors regarding the source text: it misstates the Brexit event as 'market decline' when the source says 'market tanked' followed by a 'decline', but incorrectly summarizes the rebound data. The source states the S&P gained each of four days, ending 5.1% above Monday's close, whic"
     },
     "marks-33ba7b1341d9b6": {
       "at": "2026-11-14T21:03:13+00:00",
@@ -4056,5 +4058,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T04:55:36+00:00"
+  "updatedAt": "2026-11-15T04:56:13+00:00"
 }
