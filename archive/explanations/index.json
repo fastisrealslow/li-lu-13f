@@ -1551,10 +1551,12 @@
       "reason": "ValueError: Bilingual editorial review: The English summary incorrectly states that Nick Sleep 'advocated for directly investing the funds into the five to six stocks' and 'promised no management fees'. The source text (s6) shows Sleep instructing investors to invest in those stocks themselves; he did not promise to manage them or waive fees himself. He explic"
     },
     "pabrai-35e6c02262592b": {
-      "at": "2026-11-14T15:09:11+00:00",
+      "at": "2026-11-15T08:20:38+00:00",
       "status": "retry",
       "inputHash": "5a7c3b47eee745fd1103fc0f1fc7e9cb7a246980452aea4c5e780ce0d9a19ecb",
-      "reason": "ValueError: Unsupported numerical claim: 40%"
+      "failures": 1,
+      "nextAttemptAt": "2026-11-15T12:20:38+00:00",
+      "reason": "ValueError: Bilingual editorial review: The source text does not explicitly mention 'Benjamin Graham' or his specific teaching of 'buying low and selling high as it approaches fair value'; it only refers to 'what Ben Graham kind of the Father of Value Investing taught us'. While this is a canonical association, the source itself lacks the explicit attribution "
     },
     "pabrai-a9fc9ab5dab038": {
       "at": "2026-11-15T04:16:52+00:00",
@@ -4354,5 +4356,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T08:20:34+00:00"
+  "updatedAt": "2026-11-15T08:20:38+00:00"
 }
