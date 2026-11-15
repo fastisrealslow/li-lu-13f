@@ -2798,12 +2798,12 @@
       "reason": "ValueError: Bilingual editorial review: The English translation in the 'content' section incorrectly attributes the phrase 'simple thought process' to Howard Marks as a description of investors. The source text (s7) states: 'Their thought process is simple', referring to the investors' linear logic, not Marks' own view. Marks describes this as the *opposite* o"
     },
     "marks-95f37ab6394745": {
-      "at": "2026-11-15T02:58:11+00:00",
+      "at": "2026-11-15T16:43:19+00:00",
       "status": "retry",
       "inputHash": "6e6b18cf3560db53816f6af9a4c94fcd0ba3b2d8299635fd9bee7cab66aee270",
-      "failures": 1,
-      "nextAttemptAt": "2026-11-15T06:58:11+00:00",
-      "reason": "ValueError: Bilingual editorial review: The Chinese text incorrectly states that Marks established the $11 billion reserve fund 'between January 2007 and March 2008' as a continuous period for establishment; the source (s7) indicates the fund was organized during this timeframe to be created later, specifically noting investment began prior to Lehman's bankrup"
+      "failures": 2,
+      "nextAttemptAt": "2026-11-16T00:43:19+00:00",
+      "reason": "ValueError: Bilingual editorial review: The Chinese text incorrectly states that Marks established the $11 billion reserve fund 'between January 2007 and March 2008'. The source (s7) says the fund was created to give capital 'if things reached crisis proportions' and that they started investing it 'prior to Lehman's bankruptcy' (which occurred in September 200"
     },
     "marks-fca35f29cc0342": {
       "at": "2026-11-15T04:40:33+00:00",
@@ -4512,5 +4512,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T16:43:05+00:00"
+  "updatedAt": "2026-11-15T16:43:19+00:00"
 }
