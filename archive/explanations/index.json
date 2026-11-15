@@ -1583,10 +1583,12 @@
       "reason": "ValueError: Unsupported numerical claim: 7%"
     },
     "pabrai-2ce3d6b3b0941e": {
-      "at": "2026-11-14T07:42:28+00:00",
+      "at": "2026-11-15T08:19:33+00:00",
       "status": "retry",
       "inputHash": "635dd25b0773874f07342654bdc55ab8a714718d41f2e00375a30955ce88184e",
-      "reason": "ValueError: Bilingual editorial review: The content incorrectly claims Pabrai did not specify the identity of the person who sent the verse version; however, he explicitly "
+      "failures": 1,
+      "nextAttemptAt": "2026-11-15T12:19:33+00:00",
+      "reason": "ValueError: Unsupported numerical claim: 650,000"
     },
     "pabrai-a0c9e522d9ad82": {
       "at": "2026-11-14T15:13:46+00:00",
@@ -4340,5 +4342,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T08:19:10+00:00"
+  "updatedAt": "2026-11-15T08:19:33+00:00"
 }
