@@ -2584,12 +2584,12 @@
       "reason": "ValueError: Bilingual editorial review: The source text (s7) does not contain the quote 'imagine how much harder physics would be if electrons had feelings' attributed to Richard Feynman; this is an editorial addition not found in the provided evidence.; The source text (s6) lists Trump's tariff goals as a bulleted list without explicitly stating they are 'sup"
     },
     "marks-bee01f7fefbaee": {
-      "at": "2026-11-15T04:06:05+00:00",
+      "at": "2026-11-15T21:39:42+00:00",
       "status": "retry",
       "inputHash": "6dd9da60809e39709c13e2eefad5cc4b015784f7627c46c27e9315488171fc4a",
-      "failures": 1,
-      "nextAttemptAt": "2026-11-15T08:06:05+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English content claims Howard Marks argues rent control 'deprives tenants of the ability to monetize their bargain-priced housing', but the source (s2) states they 'can't make that asset monetizable' and 'tend not to move', which implies a lack of mobility rather than an inability to monetize. The phrasing misreprese"
+      "failures": 2,
+      "nextAttemptAt": "2026-11-16T05:39:42+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English translation contains factual errors regarding the source text. The source (s0) states the memo title is 'Shall We Repeal the Laws of Economics?', but the translation incorrectly uses 'More on Repealing...'.; The translation misrepresents the author's argument in s2. The source says governments 'can't make dev"
     },
     "marks-634492e880737b": {
       "at": "2026-11-15T07:51:09+00:00",
@@ -4578,5 +4578,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T21:39:25+00:00"
+  "updatedAt": "2026-11-15T21:39:42+00:00"
 }
