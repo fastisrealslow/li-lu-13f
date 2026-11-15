@@ -3347,10 +3347,12 @@
       "reason": "ValueError: Bilingual editorial review: The English translation of the heading 'The Unquantifiable Future: Intuition and Known Unknowns' does not match the Chinese title 'Irreducible Future: Intuition and Known Unknowns' (implied by context) or accurately reflect the source text's focus on 'risk as a number'.; The paragraph incorrectly attributes the quote to "
     },
     "mclemore-d16097db687c13": {
-      "at": "2026-11-14T21:32:29+00:00",
+      "at": "2026-11-15T21:48:19+00:00",
       "status": "retry",
       "inputHash": "2631f7e7490bf65d3cec016fce2ba6c048127e005c9202c2bd212ace3f5d318e",
-      "reason": "ValueError: Bilingual editorial review: The Chinese text claims Valeant's valuation will improve from '4x P/E to at least double' (8x), but the source only states it is cur"
+      "failures": 1,
+      "nextAttemptAt": "2026-11-16T01:48:19+00:00",
+      "reason": "ValueError: Copied source passage"
     },
     "marks-291f5ca02350d0": {
       "at": "2026-11-15T04:46:16+00:00",
@@ -4592,5 +4594,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T21:47:55+00:00"
+  "updatedAt": "2026-11-15T21:48:19+00:00"
 }
