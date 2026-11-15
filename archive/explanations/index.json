@@ -2000,10 +2000,12 @@
       "reason": "ValueError: Bilingual editorial review: The English text contains a factual error: it states 'per-share investments increased to $129,253' but the source (s18) says 'increa"
     },
     "buffett-b5218ddf52191e": {
-      "at": "2026-11-14T07:12:33+00:00",
+      "at": "2026-11-15T03:39:23+00:00",
       "status": "retry",
       "inputHash": "fcc7050dbe387812d047f1bc550260bcb5c860d34b80fde93f8e620e86e4aaa5",
-      "reason": "ValueError: Bilingual editorial review: Factual error: The source text (s6) explicitly states the group earned about 67% 'on average equity capital', but the content sectio"
+      "failures": 1,
+      "nextAttemptAt": "2026-11-15T07:39:23+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English translation in the content section contains a factual error: it misspells 'Santed Seven' as 'Santed', whereas the source text (s6) clearly states 'Santed Seven'. The correct term is 'Santed Seven'."
     },
     "buffett-7766ba88798e3f": {
       "at": "2026-11-14T14:53:13+00:00",
@@ -3838,5 +3840,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T03:38:27+00:00"
+  "updatedAt": "2026-11-15T03:39:23+00:00"
 }
