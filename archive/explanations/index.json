@@ -1537,10 +1537,12 @@
       "reason": "ValueError: Unsupported numerical claim: 1994"
     },
     "pabrai-61590880adbe35": {
-      "at": "2026-11-14T21:11:36+00:00",
+      "at": "2026-11-15T08:23:52+00:00",
       "status": "retry",
       "inputHash": "d397d5521d3490392f03dbe081317b8254539057e84db112a65dfebf2bf4eeb0",
-      "reason": "ValueError: Bilingual editorial review: The English text incorrectly attributes the quote 'The best way to learn is to teach' and the Seinfeld anecdote to Pabrai as his own"
+      "failures": 1,
+      "nextAttemptAt": "2026-11-15T12:23:52+00:00",
+      "reason": "ValueError: Bilingual editorial review: The source text (s2) does not mention Seinfeld's book title 'Is This Anything?' or the specific episode about rental cars; it only references his general approach of writing daily observations. The claim that he wrote a book called 'Is This Anything?' is an invention.; The source text (s4) states Pabrai has no plans for "
     },
     "pabrai-4c377fa29a8e7e": {
       "at": "2026-11-15T04:20:52+00:00",
@@ -4364,5 +4366,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T08:22:49+00:00"
+  "updatedAt": "2026-11-15T08:23:52+00:00"
 }
