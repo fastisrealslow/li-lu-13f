@@ -1018,10 +1018,12 @@
       "reason": "ValueError: Incomplete AI Review at 1800 tokens"
     },
     "pabrai-1410746e64c5fd": {
-      "at": "2026-11-14T21:33:17+00:00",
+      "at": "2026-11-15T16:00:39+00:00",
       "status": "retry",
       "inputHash": "1f11cf62d1efe16e7efd29c8dc84a86a9d428dd71d3cace8e4f7a2e00a056dfa",
-      "reason": "ValueError: Bilingual editorial review: The English paragraph in the source content incorrectly attributes the quote about 'under-promise and over-deliver' to Pabrai; the t"
+      "failures": 1,
+      "nextAttemptAt": "2026-11-15T20:00:39+00:00",
+      "reason": "ValueError: Bilingual editorial review: Author attribution error: The text attributes views to 'Pabrai (Mohnish)', but the source data identifies 'Mohnish' as the speaker and 'Ash' as the other participant. Pabrai is not mentioned in the provided evidence sections.; Factual claim error: The text states 'Pabrai points out that the company's eventual success was"
     },
     "buffett-30a507095b61cd": {
       "at": "2026-11-15T07:52:07+00:00",
@@ -4404,5 +4406,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T16:00:24+00:00"
+  "updatedAt": "2026-11-15T16:00:39+00:00"
 }
