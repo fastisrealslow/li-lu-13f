@@ -1863,10 +1863,12 @@
       "reason": "ValueError: Copied source passage"
     },
     "vinall-e6b74c1e685c92": {
-      "at": "2026-11-14T14:07:09+00:00",
+      "at": "2026-11-15T05:13:40+00:00",
       "status": "retry",
       "inputHash": "4fc993cc64a187473a0dc1da7459d2f49095eedd9116bd076f97604650606826",
-      "reason": "ValueError: Bilingual editorial review: Author name mismatch: Source uses 'Vinall' (s4, s6), but content claims 'Rob Vinall'. Canonical list includes 'Rob Vinall', so the f"
+      "failures": 1,
+      "nextAttemptAt": "2026-11-15T09:13:40+00:00",
+      "reason": "ValueError: Bilingual editorial review: The source text (s1-s3) does not contain the specific phrase 'over-reliance on a margin of safety' or explicitly state that this strategy 'often leads to misjudgment'. It only says implementation has 'led them astray' due to assumptions about self-care via margin, which is a slight generalization.; The source text (s1) s"
     },
     "vinall-bc7f6fa8dbf30a": {
       "at": "2026-11-14T22:10:42+00:00",
@@ -4104,5 +4106,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T05:12:05+00:00"
+  "updatedAt": "2026-11-15T05:13:40+00:00"
 }
