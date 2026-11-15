@@ -4534,12 +4534,12 @@
       "reason": "ValueError: Bilingual editorial review: The source text does not explicitly state that revenue increased from $21.6 million to $53.1 million and then to $72.9 million; it only mentions the third-quarter figure of $72.9 million growing 37% sequentially. The intermediate figures are inferred but not directly supported by the provided evidence.; The source text d"
     },
     "vinall-9841a594da96d9": {
-      "at": "2026-11-15T04:44:51+00:00",
+      "at": "2026-11-15T21:25:41+00:00",
       "status": "retry",
       "inputHash": "904d036646eb217f3ee2cfb7cf2fa881c5d17b20ad25dcdec5a8a7df88bb4a83",
-      "failures": 1,
-      "nextAttemptAt": "2026-11-15T08:44:51+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English title 'Rob's 2026 Postcard from China' does not match the ASR text which refers to a 'postcard' but the content discusses AI perception shifts; the Chinese title explicitly mentions 'AI', which is absent in the ASR evidence (s0-s2).; The English heading claims the shift is about 'Chinese Public Perception of "
+      "failures": 2,
+      "nextAttemptAt": "2026-11-16T05:25:41+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English title 'Shift in Chinese Public Perception of AI: From 'Communist Backwater' to 'Fear of Innovation'' contradicts the source text (s0-s2), which discusses global sentiment toward Chinese companies and Western competition, not specifically 'Chinese public perception of AI'.; The Chinese heading claims the autho"
     },
     "marks-3582a029e7c200": {
       "at": "2026-11-15T07:37:03+00:00",
@@ -4558,5 +4558,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T21:24:39+00:00"
+  "updatedAt": "2026-11-15T21:25:41+00:00"
 }
