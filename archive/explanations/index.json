@@ -878,10 +878,12 @@
       "reason": "ValueError: Bilingual editorial review: The content claims the section discusses 'compounding growth' and its 'exponential effect', but the provided source text (s13-s15) c"
     },
     "buffett-98e90a4cbe9b9a": {
-      "at": "2026-11-14T14:52:32+00:00",
+      "at": "2026-11-15T07:44:09+00:00",
       "status": "retry",
       "inputHash": "4ca52cd078b7ec227bc345736c0dda40ed2ebb561b23f42bbae0dc5cc71c004b",
-      "reason": "ValueError: Bilingual editorial review: The English translation incorrectly attributes the phrase 'sucking your thumb' to Buffett; the source text (s193) clearly states Cha"
+      "failures": 1,
+      "nextAttemptAt": "2026-11-15T11:44:09+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English translation of the Chinese paragraph incorrectly paraphrases Buffett's original quote. The source (s192) states he 'quit or waited for it to come back' after prices rose, whereas the provided English text claims he would 'stop adding capital or wait for a pullback'. This is an unsupported editorial interpreta"
     },
     "pabrai-8e99da8abadc1f": {
       "at": "2026-11-14T21:23:25+00:00",
@@ -4202,5 +4204,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T07:43:38+00:00"
+  "updatedAt": "2026-11-15T07:44:09+00:00"
 }
