@@ -4024,10 +4024,12 @@
       "reason": "ValueError: Unsupported numerical claim: 11"
     },
     "pabrai-6c0b7ef252e6e1": {
-      "at": "2026-11-14T21:08:22+00:00",
+      "at": "2026-11-15T04:58:30+00:00",
       "status": "retry",
       "inputHash": "71dfdbbbf3314e4bd2eb193ab2f4d386a3527cd6a78197dec9bfdfc579a104ec",
-      "reason": "ValueError: Bilingual editorial review: The Chinese text claims Pabrai cited a colloquial phrase about 'men eventually leaving the boys' to imply divergence between AI and "
+      "failures": 1,
+      "nextAttemptAt": "2026-11-15T08:58:30+00:00",
+      "reason": "ValueError: Bilingual editorial review: The source text (s4) contains the phrase 'the men will eventually be separated from the boys' but does not provide an explicit definition or explanation of who 'men' and 'boys' refer to in this specific context. The provided content invents a detailed interpretation linking 'men' to 'long-term value creators' and 'boys' "
     },
     "mclemore-63c13891e48d9e": {
       "at": "2026-11-14T06:19:07+00:00",
@@ -4058,5 +4060,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T04:56:13+00:00"
+  "updatedAt": "2026-11-15T04:58:30+00:00"
 }
