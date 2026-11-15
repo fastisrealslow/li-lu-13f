@@ -3163,10 +3163,12 @@
       "reason": "ValueError: Bilingual editorial review: The English translation of 'primitive refuge' in paragraph en correctly reflects s0's 'primitive refuge', but the Chinese text adds "
     },
     "mclemore-7e32ab18209c03": {
-      "at": "2026-11-14T07:27:31+00:00",
+      "at": "2026-11-15T03:28:23+00:00",
       "status": "retry",
       "inputHash": "f41eac1dd22322b73fbce3ce47452844f3ea601dcf309b32b568ed5ca9cd4fa9",
-      "reason": "ValueError: Bilingual editorial review: The English translation in the content section contains a factual error regarding JPMorgan's valuation status. The source text (s4) "
+      "failures": 1,
+      "nextAttemptAt": "2026-11-15T07:28:23+00:00",
+      "reason": "ValueError: Unsupported numerical claim: 25%"
     },
     "marks-f89cab08d781ec": {
       "at": "2026-11-14T06:42:00+00:00",
@@ -3804,5 +3806,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T03:27:35+00:00"
+  "updatedAt": "2026-11-15T03:28:23+00:00"
 }
