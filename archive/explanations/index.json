@@ -3853,9 +3853,11 @@
       "reason": "ValueError: Bilingual editorial review: The English translation in the 'content' section contains a factual error regarding Ben Graham's affiliation. The source text states"
     },
     "berkowitz-7aacda9994cc0c": {
-      "at": "2026-11-14T14:16:49+00:00",
+      "at": "2026-11-15T04:07:15+00:00",
       "status": "retry",
       "inputHash": "7d8a2e2629f6bcaa257d638a062459f24201354dd1c5420697f0d3e2b4cb1eca",
+      "failures": 1,
+      "nextAttemptAt": "2026-11-15T08:07:15+00:00",
       "reason": "ValueError: Unsupported numerical claim: 12"
     },
     "berkowitz-5e514b72ec1a07": {
@@ -3910,5 +3912,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T04:06:41+00:00"
+  "updatedAt": "2026-11-15T04:07:15+00:00"
 }
