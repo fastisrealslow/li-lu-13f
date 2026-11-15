@@ -2825,10 +2825,12 @@
       "reason": "ValueError: Bilingual editorial review: The source text does not mention 'long-term put options' (long-term call options were mentioned); the content incorrectly states she"
     },
     "marks-790d38d2f071e8": {
-      "at": "2026-11-14T14:53:21+00:00",
+      "at": "2026-11-15T03:57:59+00:00",
       "status": "retry",
       "inputHash": "1d35cff1af0cdd8e652130a224735d86f9204a42f01be21030948526a70448f7",
-      "reason": "ValueError: Bilingual editorial review: The English translation of 'any bond can be triple-A at a price' is grammatically incomplete; it should be 'any bond can be triple-A"
+      "failures": 1,
+      "nextAttemptAt": "2026-11-15T07:57:59+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English paraphrase in the content section is accurate and faithful to the source text (s2, s3), correctly capturing Howard Marks' argument about psychology driving market pricing. No factual errors or invented quotations were found.; The Chinese translation accurately reflects the English source material and maintain"
     },
     "mclemore-19da9051365a28": {
       "at": "2026-11-14T13:52:17+00:00",
@@ -3900,5 +3902,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T03:57:10+00:00"
+  "updatedAt": "2026-11-15T03:57:59+00:00"
 }
