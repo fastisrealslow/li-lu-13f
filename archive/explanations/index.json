@@ -3283,10 +3283,12 @@
       "reason": "ValueError: Bilingual editorial review: The English translation in the content section incorrectly attributes the quote 'Congratulations!' to Oaktree Capital Management as "
     },
     "marks-9d7aef0141d4d1": {
-      "at": "2026-11-14T07:20:11+00:00",
+      "at": "2026-11-15T03:32:06+00:00",
       "status": "retry",
       "inputHash": "0cdf58c4bfadd7d347a8995a2791e4214bb164a4f7fe06044d7bf7eb7f681aa6",
-      "reason": "ValueError: Bilingual editorial review: s0: 'forecasters' in source is a direct paraphrase of Galbraith's concept; no invented quote exists.; s1: 'brutally honest' matches "
+      "failures": 1,
+      "nextAttemptAt": "2026-11-15T07:32:06+00:00",
+      "reason": "ValueError: Bilingual editorial review: The Chinese text incorrectly attributes the quote about forecasters to John Kenneth Galbraith; the source (s0) explicitly states 'paraphrase John Kenneth Galbraith', but the actual famous quote regarding those who know they don't know vs. those who think they do is widely associated with Amos Tversky, who is cited immedi"
     },
     "marks-d7340ccf6b811f": {
       "at": "2026-11-14T21:58:51+00:00",
@@ -3814,5 +3816,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T03:30:04+00:00"
+  "updatedAt": "2026-11-15T03:32:06+00:00"
 }
