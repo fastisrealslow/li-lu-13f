@@ -2550,10 +2550,12 @@
       "reason": "ValueError: Bilingual editorial review: The Chinese text incorrectly attributes the specific stock example (4% position, $40 to $50) as Howard Marks' own or Oaktree Capital"
     },
     "marks-49e0212382a26b": {
-      "at": "2026-11-14T14:58:59+00:00",
+      "at": "2026-11-15T07:31:57+00:00",
       "status": "retry",
       "inputHash": "4fc2cef43c39352d833c1cd958bbd646208f9db9d653a53ea608dfaaeb8f49c5",
-      "reason": "ValueError: Incomplete AI Review at 900 tokens"
+      "failures": 1,
+      "nextAttemptAt": "2026-11-15T11:31:57+00:00",
+      "reason": "ValueError: Bilingual editorial review: The source text (s13) does not attribute the quote 'All great investments begin in discomfort' to Warren Buffett; it attributes it to Howard Marks himself ('As I put it...'). The provided translation incorrectly assigns this quote to Buffett.; The source text (s13) describes Buffett's habit as liking hamburgers and eatin"
     },
     "marks-e85898c6125044": {
       "at": "2026-11-14T14:52:50+00:00",
@@ -4158,5 +4160,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T07:30:07+00:00"
+  "updatedAt": "2026-11-15T07:31:57+00:00"
 }
