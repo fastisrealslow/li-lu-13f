@@ -2300,10 +2300,12 @@
       "reason": "ValueError: Bilingual editorial review: The English text in the 'content' section contains a factual error: it states Howard Marks is 'not an economist or Fed expert,' wher"
     },
     "marks-95f37ab6394745": {
-      "at": "2026-11-14T06:44:00+00:00",
+      "at": "2026-11-15T02:58:11+00:00",
       "status": "retry",
       "inputHash": "6e6b18cf3560db53816f6af9a4c94fcd0ba3b2d8299635fd9bee7cab66aee270",
-      "reason": "ValueError: Unsupported numerical claim: 9"
+      "failures": 1,
+      "nextAttemptAt": "2026-11-15T06:58:11+00:00",
+      "reason": "ValueError: Bilingual editorial review: The Chinese text incorrectly states that Marks established the $11 billion reserve fund 'between January 2007 and March 2008' as a continuous period for establishment; the source (s7) indicates the fund was organized during this timeframe to be created later, specifically noting investment began prior to Lehman's bankrup"
     },
     "marks-fca35f29cc0342": {
       "at": "2026-11-14T09:30:17+00:00",
@@ -3692,5 +3694,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T02:58:00+00:00"
+  "updatedAt": "2026-11-15T02:58:11+00:00"
 }
