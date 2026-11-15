@@ -2162,10 +2162,12 @@
       "reason": "JSONDecodeError: Extra data: line 1 column 2042 (char 2041)"
     },
     "buffett-ba600cd7bd91ce": {
-      "at": "2026-11-14T08:05:18+00:00",
+      "at": "2026-11-15T03:53:38+00:00",
       "status": "retry",
       "inputHash": "9125cce955976ca3b07237659118b02e163d89c9db1a21b96da63e4bcddeea1d",
-      "reason": "ValueError: Bilingual editorial review: The Chinese text incorrectly states that MiTek completed five acquisitions 'over the past eleven months' (past tense), whereas the s"
+      "failures": 1,
+      "nextAttemptAt": "2026-11-15T07:53:38+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English paraphrase incorrectly states Buffett 'clarifies his capital structure strategy' as if it were a primary focus; the source text focuses on explaining derivative transactions as insurance-like activities and responding to criticism about float usage, not explicitly detailing a 'capital structure strategy'.; Th"
     },
     "buffett-954ddfb7d50c36": {
       "at": "2026-11-14T08:30:07+00:00",
@@ -3886,5 +3888,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T03:53:25+00:00"
+  "updatedAt": "2026-11-15T03:53:38+00:00"
 }
