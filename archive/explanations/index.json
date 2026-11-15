@@ -3445,10 +3445,12 @@
       "reason": "ValueError: Bilingual editorial review: The English paragraph incorrectly attributes the quote 'That is what learning is. You suddenly understand something you've understood all your life, but in a new way.' to Doris Lessing; source s0 lists this quote without an author, and source s1 explicitly states it is from Nobel Prize winner Doris Lessing, creating a co"
     },
     "marks-e20814ff0b86b8": {
-      "at": "2026-11-14T14:47:50+00:00",
+      "at": "2026-11-15T07:35:34+00:00",
       "status": "retry",
       "inputHash": "52e9abfa8198a2ead272705a76d49e8233f3a5896feeb85221512e6c617ad6e6",
-      "reason": "ValueError: Bilingual editorial review: The source text does not mention 'Stuart' as a character in a commercial; it refers to 'Mr. P.' (s1).; The source text does not desc"
+      "failures": 1,
+      "nextAttemptAt": "2026-11-15T11:35:34+00:00",
+      "reason": "ValueError: Copied source passage"
     },
     "mclemore-435757d6a2be73": {
       "at": "2026-11-15T05:14:19+00:00",
@@ -4168,5 +4170,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T07:34:18+00:00"
+  "updatedAt": "2026-11-15T07:35:34+00:00"
 }
