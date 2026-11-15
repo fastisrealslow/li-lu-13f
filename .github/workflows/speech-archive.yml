@@ -23,6 +23,8 @@ on:
       - investors.json
       - archive/explanation_expansion_baselines.json
       - archive/sources.json
+      - tests/test_archive_stability.py
+      - tests/test_archive_generator.py
       - tests/test_archive_explanations.py
       - .github/workflows/speech-archive.yml
 permissions:
@@ -51,6 +53,7 @@ jobs:
           python3 -m unittest discover -s tests -p test_archive_generator.py -v
           python3 -m unittest discover -s tests -p test_archive_continuation.py -v
           python3 -m unittest discover -s tests -p test_publisher_transcripts.py -v
+          python3 -m unittest discover -s tests -p test_archive_stability.py -v
           python3 archive_explanations.py validate
       - name: Discover sources and rebuild investor guides
         timeout-minutes: 12
@@ -80,8 +83,6 @@ jobs:
       contents: write
       actions: write
     env:
-      SILICONFLOW_KEY: ${{ secrets.SILICONFLOW_KEY }}
-      ARCHIVE_CLOUD_KEY: ${{ secrets.SILICONFLOW_KEY }}
       AI_MODEL: qwen3.5:4b-q4_K_M
       OLLAMA_NUM_PARALLEL: '1'
       OLLAMA_MAX_LOADED_MODELS: '1'
@@ -119,34 +120,13 @@ jobs:
           path: .archive-work/partials
           github-token: ${{ github.token }}
           run-id: ${{ steps.continuation.outputs.run_id }}
-      - name: Verify configured model service
-        id: provider
-        run: |
-          python3 - <<'PY'
-          import os
-          from archive_generator import ask
-          os.environ['ARCHIVE_PROBE_MODE']='1'
-          provider='cpu'
-          if os.environ.get('SILICONFLOW_KEY'):
-            for model in ['Qwen/Qwen3.5-9B','Qwen/Qwen3.5-4B']:
-              os.environ['ARCHIVE_CLOUD_MODEL']=model
-              try:
-                ask('Return JSON only: {"ok":true}.',{},model,64)
-                provider='cloud'
-                with open(os.environ['GITHUB_ENV'],'a') as f:f.write('ARCHIVE_CLOUD_MODEL='+model+'\n')
-                break
-              except Exception as e:print('Model probe:',model,type(e).__name__,getattr(e,'code',''))
-          if provider=='cpu':
-            with open(os.environ['GITHUB_ENV'],'a') as f:f.write('SILICONFLOW_KEY=\n')
-          with open(os.environ['GITHUB_OUTPUT'],'a') as f:f.write('provider='+provider+'\n')
-          print('Selected provider:',provider)
-          PY
-          echo "OLLAMA_MODELS=$RUNNER_TEMP/lilu-ollama-models" >> "$GITHUB_ENV"
+      - name: Configure local model storage
+        run: echo "OLLAMA_MODELS=$RUNNER_TEMP/lilu-ollama-models" >> "$GITHUB_ENV"
       - uses: actions/cache@v4
         with:
           path: ${{ env.OLLAMA_MODELS }}
           key: qwen-cpu-v1-${{ runner.os }}-${{ env.AI_MODEL }}
-      - name: Start fallback CPU model
+      - name: Start local CPU model
         timeout-minutes: 15
         run: |
           curl --fail --location --retry 3 --max-time 420 https://github.com/ollama/ollama/releases/download/v0.34.1/ollama-linux-amd64.tar.zst -o "$RUNNER_TEMP/archive-ollama.tar.zst"
@@ -162,7 +142,16 @@ jobs:
           ollama pull "$AI_MODEL"
       - name: Generate, verify and publish each complete work
         timeout-minutes: 85
-        run: python3 -u archive_explanations.py generate --model "$AI_MODEL" --limit 230 --minutes 75 --shard ${{ matrix.shard }} --shards 14
+        run: |
+          set -o pipefail
+          python3 -u archive_explanations.py generate --model "$AI_MODEL" --limit 230 --minutes 75 --shard ${{ matrix.shard }} --shards 14 | tee "$RUNNER_TEMP/archive-batch.log"
+          tail -n 1 "$RUNNER_TEMP/archive-batch.log" >> "$GITHUB_STEP_SUMMARY"
+          python3 - "$RUNNER_TEMP/archive-batch.log" <<'PY'
+          import json,sys
+          result=json.loads(open(sys.argv[1]).read().splitlines()[-1])
+          if result['pending'] and not result['generated'] and not result['checkpointProgress']:
+              print('::warning::No new approved guide or draft progress in this batch; inspect retry reasons and deferred count.')
+          PY
       - name: Preserve partial sections for retry
         if: always()
         uses: actions/upload-artifact@v4

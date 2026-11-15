@@ -244,6 +244,29 @@ def pending(root=ROOT):
     return first+rest
 
 
+def draft_progress(root,work):
+    path=Path(root)/'.archive-work/partials'/f'{work["id"]}.json'
+    try:state=read(path,{})
+    except (json.JSONDecodeError,UnicodeDecodeError):return 0
+    if not isinstance(state,dict) or state.get('inputHash')!=input_hash(work):return 0
+    return len(state.get('argumentCards',[]))+len(state.get('sections',[]))+bool(state.get('outline'))+bool(state.get('draftParagraph'))
+
+
+def retry_due(work,attempt,now=None):
+    if attempt.get('inputHash')!=input_hash(work) or attempt.get('status')!='retry':return True
+    try:due=dt.datetime.fromisoformat(attempt.get('nextAttemptAt',''))
+    except (TypeError,ValueError):return True
+    if due.tzinfo is None:return True
+    return due <= (now or dt.datetime.now(dt.timezone.utc))
+
+
+def retry_attempt(work,previous,error):
+    failures=min(20,previous.get('failures',0)+1) if previous.get('inputHash')==input_hash(work) else 1
+    due=dt.datetime.now(dt.timezone.utc)+dt.timedelta(hours=min(72,4*2**(failures-1)))
+    return {'at':stamp(),'status':'retry','inputHash':input_hash(work),'failures':failures,
+            'nextAttemptAt':due.isoformat(timespec='seconds'),'reason':type(error).__name__+': '+str(error)[:350]}
+
+
 def run(root=ROOT,model='qwen3.5:4b-q4_K_M',limit=230,minutes=300,shard=0,shards=1):
     with budget.limit(minutes*60):
         return run_batch(root,model,limit,minutes,shard,shards)
@@ -257,6 +280,13 @@ def run_batch(root,model,limit,minutes,shard,shards):
     baselines=read(root/'archive/explanation_baselines.json',{})
     start=time.monotonic();done=0;continuation=False
     todo=[w for w in pending(root) if int(hashlib.sha256(w['id'].encode()).hexdigest(),16)%shards==shard]
+    deferred=sum(not retry_due(w,index.get('attempts',{}).get(w['id'],{})) for w in todo)
+    todo=[w for w in todo if retry_due(w,index.get('attempts',{}).get(w['id'],{}))]
+    # Resume saved work before opening another long source. The source digest
+    # is checked again inside generate before any draft is actually reused.
+    todo.sort(key=lambda w:not bool(draft_progress(root,w)))
+    progress_before={w['id']:draft_progress(root,w) for w in todo}
+    failed=0
     for work in todo[:limit]:
         if time.monotonic()-start>minutes*60-60:
             continuation=True
@@ -273,7 +303,7 @@ def run_batch(root,model,limit,minutes,shard,shards):
             note=generate_sections(work,chunks,basis,model,needed,root);validate(note,work,chunks,needed)
             note.update(kind='ai_explanation',version=VERSION,reviewVersion=1,workId=work['id'],sourceBasis=basis,sourceURL=url,
                         sourceDigest=hashlib.sha256(text.encode()).hexdigest(),inputHash=input_hash(work),
-                        model=os.environ.get('ARCHIVE_CLOUD_MODEL','Qwen/Qwen3.5-9B')+' (SiliconFlow)' if os.environ.get('SILICONFLOW_KEY') else model,generatedAt=stamp(),minimumChineseCharacters=needed,catalogDate=work.get('date'),catalogTitle=work['title']['en'],
+                        model=model,generatedAt=stamp(),minimumChineseCharacters=needed,catalogDate=work.get('date'),catalogTitle=work['title']['en'],
                         evidence=[{'id':c['id']} for c in chunks],label={'zh':'作品导读 · 依据原始材料撰写，非原文。','en':'Reading guide based on source material; not the original text.'})
             if work.get('_materialURL'):note['materialURL']=work['_materialURL']
             if work.get('_materialURLs'):note['materialURLs']=work['_materialURLs']
@@ -288,13 +318,15 @@ def run_batch(root,model,limit,minutes,shard,shards):
         except Exception as e:
             # Never publish a title-only placeholder or replace a valid prior
             # explanation with an error, a denied page or unfinished generation.
-            index['attempts'][work['id']]={'at':stamp(),'status':'retry','inputHash':input_hash(work),'reason':type(e).__name__+': '+str(e)[:160]}
-            print('Retained / retry',work['id'],type(e).__name__,flush=True)
+            index['attempts'][work['id']]=retry_attempt(work,index['attempts'].get(work['id'],{}),e)
+            failed+=1
+            print('Retained / retry',work['id'],index['attempts'][work['id']]['reason'],flush=True)
         index['updatedAt']=stamp();write(root/'archive/explanations/index.json',index)
         if os.environ.get('ARCHIVE_PUBLISH_EACH')=='1':
             from archive_generator import publish
             index=publish(root,index,work['id'])
-    return {'generated':done,'pending':len(pending(root)),'continuation':continuation}
+    return {'generated':done,'pending':len(pending(root)),'continuation':continuation,'failed':failed,'deferred':deferred,
+            'checkpointProgress':sum(max(0,draft_progress(root,w)-progress_before[w['id']]) for w in todo)}
 
 def validate_saved(root=ROOT,only=None):
     root=Path(root);works={w['id']:w for w in read(root/'archive/catalog.json')['works']};index=read(root/'archive/explanations/index.json',{'entries':{}});baselines=read(root/'archive/explanation_baselines.json',{})

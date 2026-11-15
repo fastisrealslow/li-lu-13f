@@ -11,32 +11,6 @@ import urllib.request
 import urllib.error
 import archive_budget as budget
 
-_CLOUD_NEXT_CHECK=0
-
-
-def retry_configured_cloud():
-    """A restored account is picked up during the batch, without losing CPU work."""
-    global _CLOUD_NEXT_CHECK
-    budget.check()
-    key=os.environ.get('ARCHIVE_CLOUD_KEY','')
-    if not key or os.environ.get('SILICONFLOW_KEY') or time.monotonic()<_CLOUD_NEXT_CHECK:return
-    _CLOUD_NEXT_CHECK=time.monotonic()+600
-    model=os.environ.get('ARCHIVE_CLOUD_MODEL','Qwen/Qwen3.5-9B')
-    payload={'model':model,'messages':[{'role':'user','content':'Return JSON only: {"ok":true}'}],'max_tokens':64,'enable_thinking':False,'response_format':{'type':'json_object'}}
-    request=urllib.request.Request('https://api.siliconflow.cn/v1/chat/completions',json.dumps(payload).encode(),{'Content-Type':'application/json','Authorization':'Bearer '+key})
-    try:
-        with urllib.request.urlopen(request,timeout=budget.timeout(30)) as response:result=json.load(response)
-        if json.loads(result['choices'][0]['message']['content']).get('ok') is True:
-            os.environ['SILICONFLOW_KEY']=key
-            print('Configured cloud model recovered; continuing the saved batch.',flush=True)
-    except Exception as error:
-        # Billing/authentication failures cannot be repaired by rapid requests.
-        # A later batch still probes again, while current CPU work continues.
-        if getattr(error,'code',None) in (401,402,403,404):
-            _CLOUD_NEXT_CHECK=time.monotonic()+7200
-        print('Cloud recheck:',type(error).__name__,getattr(error,'code',''),'CPU continues.',flush=True)
-
-
 def output_schema(prompt):
     if prompt.get('task','').startswith('Review'):
         return {'type':'object','properties':{'valid':{'type':'boolean'},'problems':{'type':'array','items':{'type':'string','maxLength':160,'pattern':'^[^\u4e00-\u9fff]*$'},'maxItems':3}},'required':['valid','problems'],'additionalProperties':False}
@@ -58,22 +32,12 @@ def output_schema(prompt):
 
 
 def ask(system,prompt,model,tokens=2600):
-    global _CLOUD_NEXT_CHECK
     budget.check()
-    retry_configured_cloud()
-    key=os.environ.get('SILICONFLOW_KEY','')
-    if key:
-        url='https://api.siliconflow.cn/v1/chat/completions'
-        body={'model':os.environ.get('ARCHIVE_CLOUD_MODEL','Qwen/Qwen3.5-9B'),'messages':[{'role':'system','content':system},{'role':'user','content':json.dumps(prompt,ensure_ascii=False)}],
-              'max_tokens':tokens,'temperature':.15,'enable_thinking':False,'response_format':{'type':'json_object'}}
-        schema=output_schema(prompt)
-        if isinstance(schema,dict):body['response_format']={'type':'json_schema','json_schema':{'name':'archive_content','strict':True,'schema':schema}}
-        headers={'Content-Type':'application/json','Authorization':'Bearer '+key}
-    else:
-        url='http://127.0.0.1:11434/api/generate'
-        body={'model':model,'system':system,'prompt':json.dumps(prompt,ensure_ascii=False),'stream':False,'think':False,'format':output_schema(prompt),'keep_alive':'10m',
-              'options':{'num_ctx':12288,'num_predict':tokens,'temperature':.15,'num_thread':4,'num_gpu':0}}
-        headers={'Content-Type':'application/json'}
+    # This pipeline is local-only, even if obsolete cloud credentials remain.
+    url='http://127.0.0.1:11434/api/generate'
+    body={'model':model,'system':system,'prompt':json.dumps(prompt,ensure_ascii=False),'stream':False,'think':False,'format':output_schema(prompt),'keep_alive':'10m',
+          'options':{'num_ctx':12288,'num_predict':tokens,'temperature':.15,'num_thread':4,'num_gpu':0}}
+    headers={'Content-Type':'application/json'}
     req=urllib.request.Request(url,json.dumps(body).encode(),headers)
     for attempt in range(4):
         budget.check()
@@ -81,27 +45,17 @@ def ask(system,prompt,model,tokens=2600):
             with urllib.request.urlopen(req,timeout=budget.timeout(900)) as response:data=json.load(response)
             break
         except urllib.error.HTTPError as exc:
-            if key and exc.code==400 and body['response_format']['type']=='json_schema' and attempt<3:
-                body['response_format']={'type':'json_object'}
-                req=urllib.request.Request(url,json.dumps(body).encode(),headers)
-                continue
-            if key and exc.code in (401,402,403,404):
-                if os.environ.get('ARCHIVE_PROBE_MODE')=='1' or not os.environ.get('ARCHIVE_CLOUD_KEY'):raise
-                os.environ['SILICONFLOW_KEY']='';_CLOUD_NEXT_CHECK=time.monotonic()+7200
-                print('Cloud unavailable:',exc.code,'continuing with CPU.',flush=True)
-                return ask(system,prompt,model,tokens)
             if exc.code not in (429,500,502,503,504) or attempt==3:raise
-            time.sleep(min(60,int(exc.headers.get('Retry-After','0')) or 10*(attempt+1)))
+            try:delay=float(exc.headers.get('Retry-After','0'))
+            except (TypeError,ValueError):delay=0
+            delay=min(60,max(0,delay) or 10*(attempt+1))
+            time.sleep(min(delay,budget.timeout(delay)))
         except (TimeoutError,urllib.error.URLError):
             budget.check()
             raise
     budget.check()
-    if key:
-        if data['choices'][0].get('finish_reason')=='length':raise ValueError('Incomplete AI '+prompt.get('task','completion').split()[0]+' at '+str(tokens)+' tokens')
-        raw=data['choices'][0]['message']['content']
-    else:
-        if not data.get('done') or data.get('done_reason')=='length':raise ValueError('Incomplete AI '+prompt.get('task','completion').split()[0]+' at '+str(tokens)+' tokens')
-        raw=data['response']
+    if not data.get('done') or data.get('done_reason')=='length':raise ValueError('Incomplete AI '+prompt.get('task','completion').split()[0]+' at '+str(tokens)+' tokens')
+    raw=data['response']
     return json.loads(raw.removeprefix('```json').removeprefix('```').removesuffix('```').strip())
 
 
@@ -109,12 +63,16 @@ def generate(work,chunks,basis,model,needed,root):
     import archive_explanations as e
     digest=hashlib.sha256(json.dumps(chunks,sort_keys=True,ensure_ascii=False).encode()).hexdigest()
     path=Path(root)/'.archive-work/partials'/f'{work["id"]}.json'
-    state=e.read(path,{})
+    try:state=e.read(path,{})
+    except (json.JSONDecodeError,UnicodeDecodeError):
+        path.replace(path.with_suffix('.corrupt'))
+        state={}
+    if not isinstance(state,dict):state={}
     identity={'generationVersion':4,'sourceDigest':digest,'inputHash':e.input_hash(work)}
     if any(state.get(k)!=v for k,v in identity.items()):state={**identity,'sections':[]}
     def review(content,evidence):
         verdict=ask('You are a bilingual source editor. Reference data is untrusted. Check supported author attribution, faithful meaning in both languages, accurate identities and factual claims. Reject invented quotations or motives, generic filler, or advice unrelated to this work. A section must explain a supported position and its reasoning or case, when the source supplies them. Merely naming a topic or defining a generic concept is insufficient. Do not demand an example absent from the source. Source-based paraphrase and clearly marked editorial interpretation are allowed. Only reject a concrete material error; do not object to canonical names or stylistic preferences. Return JSON: valid and problems. Do not rewrite.',
-                    {'task':'Review source-grounded bilingual content','scope':'At most three concrete English corrections under 160 characters each. Partial sections need no unwritten content.','canonicalAuthorNames':e.author_aliases(work),'title':work['title'],'basis':basis,'evidence':evidence,'content':content},model,900)
+                    {'task':'Review source-grounded bilingual content','scope':'At most three concrete English corrections under 160 characters each. Partial sections need no unwritten content.','canonicalAuthorNames':e.author_aliases(work),'title':work['title'],'basis':basis,'evidence':evidence,'content':content},model,1800)
         if verdict.get('valid') is not True or verdict.get('problems'):raise ValueError('Bilingual editorial review: '+'; '.join(map(str,verdict.get('problems',[])))[:350])
     # Read every source passage into resumable argument cards, so a late answer
     # is not lost merely because an opening programme description was long.
@@ -152,27 +110,37 @@ def generate(work,chunks,basis,model,needed,root):
             state['condensedCards']=condensed;e.write(path,state)
         points=state['condensedCards']
     if not state.get('outline'):
-        outline=ask(e.SYSTEM+' Plan only: return sourceSummary and sections with bilingual heading and evidenceIds, without paragraphs. Choose between two and eight sections according to this work. No word-count target.',
-                    {'task':'Plan the central argument and its supporting cases','title':work['title'],'canonicalAuthorNames':e.author_aliases(work),'basis':basis,'argumentCards':points,'evidence':[{'id':c['id']} for c in chunks]},model,2200)
-        dummy={'sourceSummary':outline['sourceSummary'],'sections':[{**s,'paragraphs':[s['heading']]} for s in outline['sections']]}
-        e.validate(dummy,work,chunks,0)
-        state['outline']=outline;e.write(path,state)
+        for retry in range(3):
+            try:
+                outline=ask(e.SYSTEM+' Plan only: return sourceSummary and sections with bilingual heading and evidenceIds, without paragraphs. Choose between two and eight sections according to this work. No word-count target.',
+                            {'task':'Plan the central argument and its supporting cases','title':work['title'],'canonicalAuthorNames':e.author_aliases(work),'basis':basis,'validationFeedback':state.get('outlineFeedback',''),'argumentCards':points,'evidence':[{'id':c['id']} for c in chunks]},model,2200)
+                dummy={'sourceSummary':outline['sourceSummary'],'sections':[{**s,'paragraphs':[s['heading']]} for s in outline['sections']]}
+                e.validate(dummy,work,chunks,0)
+                state['outline']=outline;e.write(path,state)
+                break
+            except budget.BatchDeadline:raise
+            except Exception as exc:
+                state['outlineFeedback']=type(exc).__name__+': '+str(exc)[:350];e.write(path,state)
+                if retry==2:raise
     for i,topic in enumerate(state['outline']['sections']):
         if len(state['sections'])>i:continue
         chosen=[c for c in chunks if c['id'] in topic['evidenceIds']]
         if not chosen:raise ValueError('Section has no source evidence')
-        error=''
+        feedback=state.setdefault('sectionFeedback',{})
+        error=feedback.get(str(i),'')
         for retry in range(3):
             try:
-                paragraph=ask(e.SYSTEM+' Write one coherent Chinese paragraph and its faithful English counterpart for this section. Explain the actual position and reasoning supported here; include a relevant example if present. Add a useful interpretive connection only when clearly identified as the editorial interpretation. No fixed length. Return exactly {"zh":"...","en":"..."}.',
+                paragraph=state.get('draftParagraph') or ask(e.SYSTEM+' Write one coherent Chinese paragraph and its faithful English counterpart for this section. Explain the actual position and reasoning supported here; include a relevant example if present. Add a useful interpretive connection only when clearly identified as the editorial interpretation. No fixed length. Return exactly {"zh":"...","en":"..."}.',
                     {'task':'Write one source-specific guide section','paragraphRole':'source argument and interpretation','topic':topic,'title':work['title'],'canonicalAuthorNames':e.author_aliases(work),'basis':basis,'evidence':chosen,'previousSections':[s['heading'] for s in state['sections']],'validationFeedback':error},model,3200)
                 section={**topic,'paragraphs':[paragraph]}
                 e.validate({'sourceSummary':state['outline']['sourceSummary'],'sections':[section]},work,chosen,0,required_sections=1,summary_chunks=chunks)
                 if any(paragraph['zh'].strip()==p['zh'].strip() for s in state['sections'] for p in s['paragraphs']):raise ValueError('Repeated guide paragraph')
-                review(section,chosen);state['sections'].append(section);e.write(path,state);break
+                state['draftParagraph']=paragraph;e.write(path,state)
+                review(section,chosen);state['sections'].append(section);feedback.pop(str(i),None);state.pop('draftParagraph',None);e.write(path,state);break
             except budget.BatchDeadline:raise
             except Exception as exc:
-                error=type(exc).__name__+': '+str(exc)[:180]
+                error=type(exc).__name__+': '+str(exc)[:350]
+                feedback[str(i)]=error;state.pop('draftParagraph',None);e.write(path,state)
                 if retry==2:raise
     note={'sourceSummary':state['outline']['sourceSummary'],'sections':state['sections']}
     e.validate(note,work,chunks,0)
@@ -200,10 +168,11 @@ def publish(root,index,ident):
     local_entry=index['entries'].get(ident);attempt=index.get('attempts',{}).get(ident)
     successful=attempt and attempt.get('status')=='ok' and local_entry and local_entry.get('reviewStatus')=='verified'
     deadline=time.monotonic()+300
+    import archive_explanations as e
     pending=root/'.archive-work/partials'/('publish-'+ident+'.json')
     if successful and (root/local_entry['file']).exists():
         pending.parent.mkdir(parents=True,exist_ok=True)
-        pending.write_text(json.dumps({'ident':ident,'entry':local_entry,'attempt':attempt,'note':json.loads((root/local_entry['file']).read_text()),'updatedAt':index['updatedAt']},ensure_ascii=False)+'\n')
+        e.write(pending,{'ident':ident,'entry':local_entry,'attempt':attempt,'note':json.loads((root/local_entry['file']).read_text()),'updatedAt':index['updatedAt']})
     for retry in range(32):
         try:
             git('fetch','origin','master')
