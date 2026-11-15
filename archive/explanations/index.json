@@ -1783,10 +1783,12 @@
       "reason": "ValueError: Bilingual editorial review: The English translation contains factual errors regarding the 'Mayors and Powers Fund' location (stated as Minneapolis in text, but "
     },
     "vinall-e7152280e09201": {
-      "at": "2026-11-14T09:05:59+00:00",
+      "at": "2026-11-15T04:29:34+00:00",
       "status": "retry",
       "inputHash": "2ad49bd1e1000da0b4d3a205753de4ee39f193efb4f7e77769f26756a16b547e",
-      "reason": "ValueError: Unsupported numerical claim: 6"
+      "failures": 1,
+      "nextAttemptAt": "2026-11-15T08:29:34+00:00",
+      "reason": "ValueError: Unsupported numerical claim: 1"
     },
     "vinall-1a696674979425": {
       "at": "2026-11-14T14:01:28+00:00",
@@ -3982,5 +3984,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T04:29:15+00:00"
+  "updatedAt": "2026-11-15T04:29:34+00:00"
 }
