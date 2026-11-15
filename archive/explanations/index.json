@@ -2101,10 +2101,12 @@
       "reason": "ValueError: Bilingual editorial review: The English paragraph contains an unverified claim: 'even though this process is challenging and requires overcoming one's own cogni"
     },
     "webb-d8610db2454149": {
-      "at": "2026-11-14T21:53:28+00:00",
+      "at": "2026-11-15T16:56:55+00:00",
       "status": "retry",
       "inputHash": "a384ea2797a33d7ae3d5ca0a3005389257e06b5769de13274f8d2a3857ab543f",
-      "reason": "ValueError: Bilingual editorial review: The content incorrectly attributes the official government statement to David Webb as his personal view.; The text claims 'David Web"
+      "failures": 1,
+      "nextAttemptAt": "2026-11-15T20:56:55+00:00",
+      "reason": "ValueError: No audio obtained"
     },
     "webb-d31dfedd345c79": {
       "at": "2026-10-18T01:38:54+00:00",
@@ -4538,5 +4540,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T16:56:53+00:00"
+  "updatedAt": "2026-11-15T16:56:55+00:00"
 }
