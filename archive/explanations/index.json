@@ -355,10 +355,12 @@
       "inputHash": "600f9e783cf9ca80ad12e68cfd9efedcf4f09e6a8fcc69138beba2ce549b6b5e"
     },
     "akre-6c46aa04220a2d": {
-      "at": "2026-11-14T21:22:14+00:00",
+      "at": "2026-11-15T07:44:17+00:00",
       "status": "retry",
       "inputHash": "b142ad68dde885486863c4b03c557d141d066cbe78b877993d445316207bb132",
-      "reason": "ValueError: Bilingual editorial review: The Chinese text contradicts the source evidence (s0, s2, s6) by claiming Akre's strategy prioritizes increasing dividends. Source s"
+      "failures": 1,
+      "nextAttemptAt": "2026-11-15T11:44:17+00:00",
+      "reason": "ValueError: Unsupported numerical claim: 19%"
     },
     "berkowitz-82e815f64d1abc": {
       "at": "2026-10-18T01:39:01+00:00",
@@ -4204,5 +4206,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T07:44:09+00:00"
+  "updatedAt": "2026-11-15T07:44:17+00:00"
 }
