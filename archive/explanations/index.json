@@ -3505,10 +3505,12 @@
       "reason": "ValueError: Unsupported numerical claim: 8"
     },
     "marks-01e90dde9f9adf": {
-      "at": "2026-11-14T06:32:21+00:00",
+      "at": "2026-11-15T16:00:01+00:00",
       "status": "retry",
       "inputHash": "aadb2544d0290565d7c5439b82758647840cd5173a8e5cd6b3dd6cadbcd1e9c5",
-      "reason": "ValueError: Bilingual editorial review: The English paragraph contains a fabricated summary of Marks' intent ('His purpose is to remind investors...') which is not explicit"
+      "failures": 1,
+      "nextAttemptAt": "2026-11-15T20:00:01+00:00",
+      "reason": "ValueError: Bilingual editorial review: The content section incorrectly claims that the fourth anomaly (interweaving of anomalies challenging traditional logic) is 'implied in the logic' but not explicitly listed in the provided source text. The source text only lists three bullet points; adding a fourth point as if it were part of the original enumeration con"
     },
     "marks-d02a84b5f6393d": {
       "at": "2026-11-15T03:07:24+00:00",
@@ -4400,5 +4402,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T15:59:53+00:00"
+  "updatedAt": "2026-11-15T16:00:01+00:00"
 }
