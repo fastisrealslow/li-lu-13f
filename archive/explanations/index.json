@@ -3659,10 +3659,12 @@
       "reason": "ValueError: Bilingual editorial review: The Chinese text incorrectly attributes the quote about Ed Thorp and blackjack to Howard Marks in 'A Case in Point'. The source (s3) states that Thorp wrote the book on blackjack decades ago; s4 confirms Thorp turned to convertible arbitrage after casinos evicted counters. However, the Chinese paragraph claims this is an"
     },
     "mclemore-41dc37ba8f99c2": {
-      "at": "2026-11-14T21:31:44+00:00",
+      "at": "2026-11-15T07:36:36+00:00",
       "status": "retry",
       "inputHash": "1e55559a1c024e48da8706151a88ad1fe99258724b95833b9ec549f66525f94a",
-      "reason": "ValueError: Bilingual editorial review: The source text does not mention 'Samantha McLemore' in the evidence section (s1); she is only referenced in the editorial content a"
+      "failures": 1,
+      "nextAttemptAt": "2026-11-15T11:36:36+00:00",
+      "reason": "ValueError: Bilingual editorial review: The Chinese text claims McLemore 'did not deny' (‘...she did not deny...') the iPad cannibalization concern, whereas the source only states she 'believes' it could happen; adding 'without denying' is an unwritten editorial interpretation.; The English text incorrectly attributes a specific belief ('due to concerns that.."
     },
     "mclemore-9341e741c2e577": {
       "at": "2026-11-14T08:36:27+00:00",
@@ -4170,5 +4172,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T07:35:34+00:00"
+  "updatedAt": "2026-11-15T07:36:36+00:00"
 }
