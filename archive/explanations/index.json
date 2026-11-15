@@ -1667,10 +1667,12 @@
       "reason": "ValueError: Bilingual editorial review: The source text does not explicitly state that Rob Vinall 'argues' or 'supports the view' in a formal sense; it describes his personal experience and observations. The phrasing implies a structured argument where the source only provides anecdotal evidence.; The source mentions 'insights... have not aged too badly' but d"
     },
     "pabrai-1e956456cad67c": {
-      "at": "2026-11-14T02:07:07+00:00",
+      "at": "2026-11-15T04:20:40+00:00",
       "status": "retry",
       "inputHash": "067c627cd69870aa6bfc7d791a2ec58805940a9dbe1a08b37da77713f9f9c1e4",
-      "reason": "ValueError: Bilingual editorial review: The source text (s3) explicitly names 'David Hawkins' and quotes his thesis ('if I lie to you... in your subconscious state, you do'"
+      "failures": 1,
+      "nextAttemptAt": "2026-11-15T08:20:40+00:00",
+      "reason": "ValueError: Bilingual editorial review: The source text (s2-s4) does not mention 'David Hawkins' or his theory regarding 'muscle weakness' in the context of lying; Pabrai refers to a book called 'Power Versus Force' but does not name the author. This is an invented attribution.; The source text describes the effect of lying as making people feel 'weak' (muscle"
     },
     "pabrai-d1dea134078fdc": {
       "at": "2026-11-14T21:35:28+00:00",
@@ -3954,5 +3956,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T04:20:31+00:00"
+  "updatedAt": "2026-11-15T04:20:40+00:00"
 }
