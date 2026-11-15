@@ -4329,12 +4329,12 @@
       "reason": "ValueError: Bilingual editorial review: The source text does not explicitly state that Greenblatt's intuition is 'deeply rooted in his nature' or that he owns 'a piece of a business' rather than shares; it only says owning a piece of a business is what you own at the end of the day. The paraphrase adds interpretive weight not present in the ASR.; The source me"
     },
     "akre-98d708d2727ef5": {
-      "at": "2026-11-15T04:07:28+00:00",
+      "at": "2026-11-15T16:00:24+00:00",
       "status": "retry",
       "inputHash": "de28f90c78a9f1fc6c4016ca336a9c87eed46839598d73ebce2ba0e7662a6e85",
-      "failures": 1,
-      "nextAttemptAt": "2026-11-15T08:07:28+00:00",
-      "reason": "ValueError: Bilingual editorial review: The source text does not mention Columbia University; it only states Buffett was a student of Ben Graham. The addition of 'at Columbia University' is an external fact not present in the provided evidence.; The source text does not use the phrase 'economic royalty'; it uses 'an economic royalty of some kind exists'. The p"
+      "failures": 2,
+      "nextAttemptAt": "2026-11-16T00:00:24+00:00",
+      "reason": "ValueError: Bilingual editorial review: The source text (s0) does not mention 'Benjamin Graham' by name; it only says 'student of Ben Graham'. The Chinese translation uses the full name 'Benjamin Graham', which is acceptable as a canonical expansion, but the English translation should match the source's brevity or use the canonical form if allowed. However, si"
     },
     "berkowitz-7aacda9994cc0c": {
       "at": "2026-11-15T04:07:15+00:00",
@@ -4404,5 +4404,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T16:00:05+00:00"
+  "updatedAt": "2026-11-15T16:00:24+00:00"
 }
