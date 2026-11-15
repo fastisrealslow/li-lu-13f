@@ -4003,10 +4003,12 @@
       "reason": "ValueError: Bilingual editorial review: The English translation contains factual errors regarding the author attribution: it incorrectly attributes the quote about 'improbable disasters' and the general discussion to Howard Marks, whereas the source text (s25) explicitly states that Nassim Nicholas Taleb wrote 'Fooled by Randomness' on this subject. The origin"
     },
     "marks-2b0acf3944f6ef": {
-      "at": "2026-11-14T22:03:41+00:00",
+      "at": "2026-11-15T21:56:20+00:00",
       "status": "retry",
       "inputHash": "c636142f41179d8f622b08bb1db732fd9c6340e084246dd4f186f05a3343b0a1",
-      "reason": "ValueError: Bilingual editorial review: The Chinese text contains significant factual errors regarding the source evidence (s2). It claims the low-interest rate trend has b"
+      "failures": 1,
+      "nextAttemptAt": "2026-11-16T01:56:20+00:00",
+      "reason": "ValueError: Unsupported numerical claim: 1990"
     },
     "mclemore-fb12d1f663a2b3": {
       "at": "2026-11-15T07:45:47+00:00",
@@ -4604,5 +4606,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T21:56:08+00:00"
+  "updatedAt": "2026-11-15T21:56:20+00:00"
 }
