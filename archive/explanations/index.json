@@ -4531,12 +4531,12 @@
       "reason": "ValueError: Bilingual editorial review: The source text (s0) does not mention 'Benjamin Graham' by name; it only says 'student of Ben Graham'. The Chinese translation uses the full name 'Benjamin Graham', which is acceptable as a canonical expansion, but the English translation should match the source's brevity or use the canonical form if allowed. However, si"
     },
     "berkowitz-7aacda9994cc0c": {
-      "at": "2026-11-15T04:07:15+00:00",
+      "at": "2026-11-15T21:53:13+00:00",
       "status": "retry",
       "inputHash": "7d8a2e2629f6bcaa257d638a062459f24201354dd1c5420697f0d3e2b4cb1eca",
-      "failures": 1,
-      "nextAttemptAt": "2026-11-15T08:07:15+00:00",
-      "reason": "ValueError: Unsupported numerical claim: 12"
+      "failures": 2,
+      "nextAttemptAt": "2026-11-16T05:53:13+00:00",
+      "reason": "ValueError: Incomplete AI Review at 1800 tokens"
     },
     "berkowitz-5e514b72ec1a07": {
       "at": "2026-11-15T16:55:32+00:00",
@@ -4600,5 +4600,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T21:52:54+00:00"
+  "updatedAt": "2026-11-15T21:53:13+00:00"
 }
