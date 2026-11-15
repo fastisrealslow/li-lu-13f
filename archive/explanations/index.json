@@ -1996,10 +1996,12 @@
       "reason": "ValueError: Bilingual editorial review: The English translation contains a factual error: it states 'individual income tax rates' while the source text (s7) only mentions '"
     },
     "buffett-9c95e843e00d00": {
-      "at": "2026-11-14T07:39:53+00:00",
+      "at": "2026-11-15T03:26:43+00:00",
       "status": "retry",
       "inputHash": "90cdf85e3e14e271a5874cadb196f9b57d9aa2b73e48c8e6dfab3a1fec1d89f1",
-      "reason": "ValueError: Unsupported numerical claim: 26.4%"
+      "failures": 1,
+      "nextAttemptAt": "2026-11-15T07:26:43+00:00",
+      "reason": "ValueError: Unsupported numerical claim: 48.7%"
     },
     "buffett-c7a8c84705ccbc": {
       "at": "2026-11-15T03:04:40+00:00",
@@ -3798,5 +3800,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T03:25:59+00:00"
+  "updatedAt": "2026-11-15T03:26:43+00:00"
 }
