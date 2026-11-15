@@ -1099,10 +1099,12 @@
       "reason": "ValueError: Bilingual editorial review: The English translation in the 'content' section contains a factual error regarding Sam Walton's quote. The source text (s24) states"
     },
     "buffett-2d755ae6f4137c": {
-      "at": "2026-11-14T07:02:58+00:00",
+      "at": "2026-11-15T07:52:06+00:00",
       "status": "retry",
       "inputHash": "62fb8ead1e8e910db33c1c12750360c6d520fecbdbadf4dfb9b1c0b1f11b37ab",
-      "reason": "ValueError: Bilingual editorial review: The source content contains a factual mismatch: the section title claims to discuss 'Natural Disaster Risks and Underwriting Capacit"
+      "failures": 1,
+      "nextAttemptAt": "2026-11-15T11:52:06+00:00",
+      "reason": "ValueError: Bilingual editorial review: The provided content claims evidence s150-s152 focuses on 'Natural Disaster Risks and Underwriting Capacity' (a topic not present in the transcript), whereas the actual transcript discusses the profitability of the shoe industry and management quality.; The section explicitly states that the evidence clarifies a misunder"
     },
     "pabrai-700b304a279285": {
       "at": "2026-11-15T02:57:09+00:00",
@@ -4232,5 +4234,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T07:51:52+00:00"
+  "updatedAt": "2026-11-15T07:52:06+00:00"
 }
