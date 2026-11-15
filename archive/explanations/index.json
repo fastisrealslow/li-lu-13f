@@ -1980,10 +1980,12 @@
       "reason": "ValueError: Unsupported numerical claim: 2.5%"
     },
     "buffett-5d9a7887401185": {
-      "at": "2026-11-14T07:45:06+00:00",
+      "at": "2026-11-15T03:37:00+00:00",
       "status": "retry",
       "inputHash": "1f1a137ddebeba6c1da50295a86e1a50e72c96701df5a652d75f3db8929ba98b",
-      "reason": "ValueError: Bilingual editorial review: The English paraphrase incorrectly attributes the phrase 'mushrooming capital base' to Buffett's own words; the source text uses thi"
+      "failures": 1,
+      "nextAttemptAt": "2026-11-15T07:37:00+00:00",
+      "reason": "ValueError: Copied source passage"
     },
     "buffett-5a848c254e72aa": {
       "at": "2026-11-14T13:56:10+00:00",
@@ -3828,5 +3830,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T03:36:25+00:00"
+  "updatedAt": "2026-11-15T03:37:00+00:00"
 }
