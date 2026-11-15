@@ -3123,10 +3123,12 @@
       "reason": "ValueError: Bilingual editorial review: The English paraphrase incorrectly states 'eliminating Pandora Media Inc. due to sluggish user growth and copyright royalty disputes leading to quarterly losses'. The source text (s3) confirms the decline (-37.16%) and mentions disappointing user growth/hours and a better-than-expected CRB ruling, but does not explicitly"
     },
     "marks-0a01e0343a6027": {
-      "at": "2026-11-14T08:09:00+00:00",
+      "at": "2026-11-15T16:11:47+00:00",
       "status": "retry",
       "inputHash": "175ad8d6e8906d83a35ca6015e395d3b2613ec17ec4e61ae43d2b3be2d12b880",
-      "reason": "ValueError: Bilingual editorial review: The English paraphrase in the content section misattributes a specific quote about asset prices regaining prior highs to Howard Mark"
+      "failures": 1,
+      "nextAttemptAt": "2026-11-15T20:11:47+00:00",
+      "reason": "ValueError: Unsupported numerical claim: 70"
     },
     "marks-56a312bace66fa": {
       "at": "2026-11-14T15:19:59+00:00",
@@ -4432,5 +4434,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T16:09:46+00:00"
+  "updatedAt": "2026-11-15T16:11:47+00:00"
 }
