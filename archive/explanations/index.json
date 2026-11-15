@@ -2634,12 +2634,12 @@
       "reason": "ValueError: Bilingual editorial review: The Chinese text incorrectly attributes the quote 'History doesn't repeat itself' to Mark Twain using only the first four words from 1874; the source (s0) states Twain used these four words but there is no clear evidence he said the rest, and it was others who completed the rhyme.; The Chinese text claims Marks explicitl"
     },
     "marks-5617528248df21": {
-      "at": "2026-11-15T08:20:28+00:00",
+      "at": "2026-11-15T21:50:38+00:00",
       "status": "retry",
       "inputHash": "72c62170b3318edd3391a50d8b061c83903d622ec66ea7e8ffb2c74e515f5f14",
-      "failures": 1,
-      "nextAttemptAt": "2026-11-15T12:20:28+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English paraphrase incorrectly attributes the quote 'Success is never accidental' to Jack Dorsey; the source text (s2) states this was a recent tweet by Twitter founder Jack Dorsey, but does not explicitly confirm he said it himself as a direct attribution in the provided text structure, though the phrasing implies i"
+      "failures": 2,
+      "nextAttemptAt": "2026-11-16T05:50:38+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English paraphrase in the content section is too long (236 characters) and exceeds the 160-character limit per correction constraint.; The phrase 'unforeseeable random events' conflates 'random' with 'unforeseeable'; the source text uses 'perhaps-random but certainly unforeseeable', which implies unpredictability rat"
     },
     "marks-e91a1e0d720ee5": {
       "at": "2026-11-15T05:11:17+00:00",
@@ -4596,5 +4596,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T21:50:02+00:00"
+  "updatedAt": "2026-11-15T21:50:38+00:00"
 }
