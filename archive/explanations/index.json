@@ -1635,10 +1635,12 @@
       "reason": "ValueError: Bilingual editorial review: The English translation in the 'content' section contains factual inaccuracies regarding the source text (s0 and s13). Specifically, it misrepresents Vijay's description of Pabrai's achievements as an external summation rather than a direct quote from Vijay within the transcript. The phrase 'Although the speaker Vijay me"
     },
     "pabrai-9a0eba26aa2ca1": {
-      "at": "2026-11-14T13:58:06+00:00",
+      "at": "2026-11-15T04:37:06+00:00",
       "status": "retry",
       "inputHash": "64459bc9da3b1aabb44389afedb829c01c8b04c434c3a0ea9f5e54c3fedbbfff",
-      "reason": "ValueError: Unsupported numerical claim: 100"
+      "failures": 1,
+      "nextAttemptAt": "2026-11-15T08:37:06+00:00",
+      "reason": "ValueError: Bilingual editorial review: The source text (s1-s3) does not mention 'wide moat strategy' (widesmoat), 'voting with feet', or the specific phrase 'reflection on early investment methodology'; these are editorial interpretations not found in the transcript.; The source text does not state that Pabrai invested in ten stocks; it says he put his millio"
     },
     "pabrai-59f6d87e592581": {
       "at": "2026-11-15T03:05:17+00:00",
@@ -4004,5 +4006,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T04:36:48+00:00"
+  "updatedAt": "2026-11-15T04:37:06+00:00"
 }
