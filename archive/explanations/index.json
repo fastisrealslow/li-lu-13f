@@ -4317,10 +4317,12 @@
       "reason": "ValueError: Bilingual editorial review: The English paragraph contains a factual error regarding the historical context: it claims 'limited past capital forced managers to "
     },
     "mclemore-f83d00a61891f4": {
-      "at": "2026-11-14T21:32:22+00:00",
+      "at": "2026-11-15T16:34:59+00:00",
       "status": "retry",
       "inputHash": "cee70f821473a70e7e3c25b2a65e1e51ad97e01717dc71af716a87d31e6044f9",
-      "reason": "ValueError: Unsupported scaled numerical claim: 20"
+      "failures": 1,
+      "nextAttemptAt": "2026-11-15T20:34:59+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English translation in the 'content' section contains a factual error regarding Rocket Companies' valuation multiple. The source text (s7) states the company is trading at '14x next year's earnings', but the translation incorrectly writes it as '14 times next year's earnings'. While grammatically similar, the phrasin"
     },
     "marks-60b6da1ebf415b": {
       "at": "2026-11-15T02:49:55+00:00",
@@ -4492,5 +4494,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T16:34:43+00:00"
+  "updatedAt": "2026-11-15T16:34:59+00:00"
 }
