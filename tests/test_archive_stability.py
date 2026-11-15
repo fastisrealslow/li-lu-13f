@@ -58,6 +58,36 @@ class BatchStabilityTests(unittest.TestCase):
                     self.assertEqual(len(resumed),8-boundary)
                     self.assertEqual(len(e.read(Path(tmp)/'.archive-work/partials'/f'{work["id"]}.json')['sections']),2)
 
+    def test_three_complete_rounds_of_fourteen_short_shards(self):
+        works=[]
+        for shard in range(14):
+            n=0
+            while int(hashlib.sha256(f'round-{shard}-{n}'.encode()).hexdigest(),16)%14!=shard:n+=1
+            works.append({'id':f'round-{shard}-{n}','investor':'synthetic','title':{'zh':'测试','en':'Test'},'sources':[{'url':'https://publisher.example/source'}]})
+        with tempfile.TemporaryDirectory() as tmp,redirect_stdout(io.StringIO()),patch.dict('os.environ',{'ARCHIVE_PUBLISH_EACH':'0'}),patch.object(e,'obtain_material',return_value=('Synthetic source','official_text','https://publisher.example/source')),patch.object(e.source,'source_chunks',return_value=CHUNKS):
+            root=Path(tmp);e.write(root/'archive/catalog.json',{'works':works})
+            results=[]
+            for round_no in range(3):
+                for shard in range(14):
+                    calls=0
+                    def short_batch(system,prompt,model,tokens):
+                        nonlocal calls
+                        calls+=1
+                        if round_no<2 and calls==4:raise budget.BatchDeadline()
+                        return answer(system,prompt,model,tokens)
+                    with patch.object(g,'ask',side_effect=short_batch):
+                        result=e.run(root,model='local-test',minutes=2,shard=shard,shards=14)
+                    results.append(result)
+                    if round_no<2:
+                        self.assertTrue(result['continuation'])
+                        self.assertGreater(result['checkpointProgress'],0)
+                        self.assertEqual(result['failed'],0)
+            self.assertEqual(sum(r['generated'] for r in results),14)
+            self.assertEqual(results[-1]['pending'],0)
+            index=e.read(root/'archive/explanations/index.json')
+            self.assertEqual(len(index['entries']),14)
+            self.assertTrue(all(a['status']=='ok' for a in index['attempts'].values()))
+
     def test_failed_editorial_feedback_survives_the_next_batch(self):
         work={'id':'feedback','title':{'zh':'测试','en':'Test'}}
         with tempfile.TemporaryDirectory() as tmp,redirect_stdout(io.StringIO()):

@@ -75,6 +75,7 @@ jobs:
           python3 -m unittest discover -s tests -p test_verbatim_texts.py -v
           python3 -m unittest discover -s tests -p test_archive_explanations.py -v
           python3 -m unittest discover -s tests -p test_archive_generator.py -v
+          python3 -m unittest discover -s tests -p test_archive_stability.py -v
           python3 -m unittest discover -s tests -p test_publisher_transcripts.py -v
           python3 speech_archive.py validate
           python3 archive_explanations.py validate

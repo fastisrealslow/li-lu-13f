@@ -31,7 +31,8 @@ permissions:
   contents: read
 concurrency:
   group: speech-archive-master
-  cancel-in-progress: ${{ github.event_name == 'push' }}
+  # Finish the active short batch so saved progress survives unrelated pushes.
+  cancel-in-progress: false
 jobs:
   catalogue:
     runs-on: ubuntu-24.04
