@@ -3547,9 +3547,11 @@
       "reason": "ValueError: Bilingual editorial review: The Chinese text incorrectly attributes a specific misquote to Charles Darwin without verifying if the source (s0) explicitly names "
     },
     "mclemore-7cec44513d4e52": {
-      "at": "2026-11-14T21:24:56+00:00",
+      "at": "2026-11-15T07:25:00+00:00",
       "status": "retry",
       "inputHash": "86a6a270808bcbd7c5e47c6ec4d8835ef7906d38575aed4aaa326698c938e7d3",
+      "failures": 1,
+      "nextAttemptAt": "2026-11-15T11:25:00+00:00",
       "reason": "ValueError: Unsupported numerical claim: 50%"
     },
     "marks-268f0205d751c3": {
@@ -4132,5 +4134,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T07:24:51+00:00"
+  "updatedAt": "2026-11-15T07:25:00+00:00"
 }
