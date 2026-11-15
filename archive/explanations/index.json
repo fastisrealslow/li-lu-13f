@@ -522,10 +522,12 @@
       "reason": "ValueError: No audio obtained"
     },
     "pabrai-84930e49b02b52": {
-      "at": "2026-11-14T15:18:53+00:00",
+      "at": "2026-11-15T05:05:38+00:00",
       "status": "retry",
       "inputHash": "b4d36f511c7aedd42636de384f8527b7507d4382936957e66a1f014c97a55b01",
-      "reason": "ValueError: Bilingual editorial review: The English translation of the paragraph contains a factual error regarding the specific quote attributed to Zuckerberg. The source "
+      "failures": 1,
+      "nextAttemptAt": "2026-11-15T09:05:38+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English translation of the paragraph incorrectly states 'Google's $100 billion in 2027 equivalent to $20 billion five years ago'. The source text (s10) says '$100 billion... in 2027' is equivalent to '$20 billion five or five years ago'. The translation omits the year '2027' from the first figure, implying the spendi"
     },
     "vinall-2c8021ee8f5f62": {
       "at": "2026-11-14T21:37:03+00:00",
@@ -4080,5 +4082,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T05:05:02+00:00"
+  "updatedAt": "2026-11-15T05:05:38+00:00"
 }
