@@ -99,6 +99,9 @@ jobs:
             if path.name!='index.json' and path.as_posix() not in approved:path.unlink()
           PY
 
+      - name: Remove private working caches
+        run: rm -rf .archive-work .cache
+
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:

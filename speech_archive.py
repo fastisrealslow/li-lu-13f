@@ -6,6 +6,7 @@ No full-text translation is produced without an explicit republication licence.
 from __future__ import annotations
 
 import argparse
+from contextlib import nullcontext
 import concurrent.futures
 import datetime as dt
 import hashlib
@@ -485,9 +486,13 @@ def video_text(work, allow_asr=False):
                 raw,_=fetch(item['url']);found=embedded_source_media(raw,item['url'])
                 if found:video=found[0];break
             except Exception:continue
-    with tempfile.TemporaryDirectory(prefix="investor-speech-") as tmp:
+    # Preserve a completed download across short inference/ASR batches.
+    media_key=hashlib.sha256(json.dumps([work.get('id'),video,audio],sort_keys=True).encode()).hexdigest()
+    directory=ROOT/'.archive-work/partials'/('media-'+media_key)
+    directory.mkdir(parents=True,exist_ok=True)
+    with nullcontext(directory) as tmp:
         out = Path(tmp)
-        if video:
+        if video and not any(f.suffix!='.part' for f in out.glob("audio.*")):
             url = "https://www.youtube.com/watch?v=" + video["id"] if video["kind"] == "youtube" else video["url"]
             cmd = ["yt-dlp", "--skip-download", "--write-subs", "--write-auto-subs",
                    "--sub-langs", "en.*,zh.*", "--sub-format", "json3/vtt", "--no-playlist",
@@ -509,7 +514,7 @@ def video_text(work, allow_asr=False):
         files = [f for f in out.glob("audio.*") if f.suffix != ".part"]
         if not files and audio and allow_asr:
             req = urllib.request.Request(audio["url"], headers=HEADERS)
-            with urllib.request.urlopen(req, timeout=budget.timeout(45)) as r, (out / "audio.media").open("wb") as target:
+            with urllib.request.urlopen(req, timeout=budget.timeout(45)) as r, (out / "audio.media.part").open("wb") as target:
                 if r.headers.get('Content-Type','').lower().startswith(('image/','text/','application/pdf')):
                     raise ValueError('Publisher enclosure is not an audio recording')
                 total = 0
@@ -522,17 +527,23 @@ def video_text(work, allow_asr=False):
                     target.write(chunk)
                 if expected_length and total != expected_length:
                     raise ValueError("Incomplete audio download; do not label a partial recording as fully processed")
+            (out / "audio.media.part").replace(out / "audio.media")
         files = [f for f in out.glob("audio.*") if f.suffix != ".part"]
         if not files:
             raise ValueError("No audio obtained")
         from faster_whisper import WhisperModel
         model = WhisperModel("small", device="cpu", compute_type="int8", cpu_threads=4)
         # Recognition uses the entire available recording, not an opening excerpt.
-        segments, info = model.transcribe(str(files[0]), vad_filter=True)
-        parts=[]
+        progress_path=out/'recognition.json'
+        try:progress=read(progress_path,{'parts':[],'end':0})
+        except (ValueError,OSError):progress={'parts':[],'end':0}
+        segments, info = model.transcribe(str(files[0]), vad_filter=True, clip_timestamps=str(progress['end']))
+        parts=progress['parts']
         for s in segments:
+            if s.end<=progress['end']:continue
             budget.check()
             parts.append(f"[{int(s.start)//60:02d}:{int(s.start)%60:02d}] {s.text}")
+            progress['end']=s.end;write(progress_path,progress)
         text="\n".join(parts)
         if len(text) < 600:
             raise ValueError("Insufficient speech recognition output")
@@ -661,7 +672,8 @@ def discover(root=ROOT):
         except Exception as exc:
             report.append({"investor": source["investor"], "url": source.get("url", "https://www.bing.com/search"), "status": "retained", "error": type(exc).__name__})
     catalog["works"] = merge_works(catalog["works"], incoming)
-    catalog["updatedAt"] = now()
+    if catalog.get("works") != read(root / "archive/catalog.json", {}).get("works"):
+        catalog["updatedAt"] = now()
     catalog["discovery"] = report
     validate_catalog(catalog, root)
     write(root / "archive/catalog.json", catalog)

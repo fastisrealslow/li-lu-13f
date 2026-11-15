@@ -15,6 +15,8 @@ on:
     paths:
       - speech_archive.py
       - archive_guides.py
+      - tests/test_incremental_jobs.py
+      - archive_maintenance.py
       - archive_generator.py
       - archive_budget.py
       - archive_continuation.py
@@ -55,10 +57,18 @@ jobs:
           python3 -m unittest discover -s tests -p test_archive_continuation.py -v
           python3 -m unittest discover -s tests -p test_publisher_transcripts.py -v
           python3 -m unittest discover -s tests -p test_archive_stability.py -v
+          pip install exchange-calendars==4.13.3
+          python3 -m unittest discover -s tests -p test_incremental_jobs.py -v
           python3 archive_explanations.py validate
+      - uses: actions/cache@v4
+        with:
+          path: .archive-work/discovery.json
+          key: archive-discovery-${{ github.run_id }}
+          restore-keys: archive-discovery-
       - name: Discover sources and rebuild investor guides
         timeout-minutes: 12
-        run: python3 -u speech_archive.py discover
+        run: |
+          python3 -u archive_maintenance.py discover
       - name: Publish catalogue
         run: |
           git config user.name 'github-actions[bot]'
@@ -121,6 +131,11 @@ jobs:
           path: .archive-work/partials
           github-token: ${{ github.token }}
           run-id: ${{ steps.continuation.outputs.run_id }}
+      - name: Check runnable work before loading a model
+        id: work
+        run: |
+          python3 archive_explanations.py plan --shard ${{ matrix.shard }} --shards 14 > "$RUNNER_TEMP/archive-plan.json"
+          python3 -c "import json,os; n=json.load(open(os.environ['RUNNER_TEMP']+'/archive-plan.json'))['pending']; print('pending='+str(n))" >> "$GITHUB_OUTPUT"
       - name: Configure local model storage
         run: echo "OLLAMA_MODELS=$RUNNER_TEMP/lilu-ollama-models" >> "$GITHUB_ENV"
       - uses: actions/cache@v4
@@ -128,6 +143,7 @@ jobs:
           path: ${{ env.OLLAMA_MODELS }}
           key: qwen-cpu-v1-${{ runner.os }}-${{ env.AI_MODEL }}
       - name: Start local CPU model
+        if: steps.work.outputs.pending != '0'
         timeout-minutes: 15
         run: |
           curl --fail --location --retry 3 --max-time 420 https://github.com/ollama/ollama/releases/download/v0.34.1/ollama-linux-amd64.tar.zst -o "$RUNNER_TEMP/archive-ollama.tar.zst"
@@ -142,6 +158,7 @@ jobs:
           done
           ollama pull "$AI_MODEL"
       - name: Generate, verify and publish each complete work
+        if: steps.work.outputs.pending != '0'
         timeout-minutes: 85
         run: |
           set -o pipefail

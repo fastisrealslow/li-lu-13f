@@ -2,11 +2,17 @@ name: Update Personal Portfolio
 
 on:
   schedule:
-    - cron: '35 0,13 * * *' # 08:35 / 21:35 Asia/Shanghai
+    # Beijing 06:35, 12:15, 16:35; US open +45m guarded for DST.
+    - cron: '35 22 * * *'
+    - cron: '15 4 * * *'
+    - cron: '35 8 * * *'
+    - cron: '15 14 * * *'
+    - cron: '15 15 * * *'
   workflow_dispatch:
   push:
     branches: [master]
     paths:
+      - market_schedule.py
       - .github/workflows/personal-portfolio.yml
       - update_personal_portfolio.py
       - publish_personal_portfolio.py
@@ -24,7 +30,23 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
+  timing:
+    runs-on: ubuntu-latest
+    outputs:
+      run: ${{ steps.clock.outputs.run }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install exchange-calendars==4.13.3
+      - id: clock
+        env:
+          EVENT_SCHEDULE: ${{ github.event.schedule }}
+        run: python market_schedule.py --schedule "$EVENT_SCHEDULE"
   update:
+    needs: timing
+    if: needs.timing.outputs.run == 'true'
     runs-on: ubuntu-latest
     timeout-minutes: 25
     steps:
@@ -38,7 +60,10 @@ jobs:
       - name: Remember calculation source
         run: echo "PERSONAL_SOURCE_SHA=$(git rev-parse HEAD)" >> "$GITHUB_ENV"
       - name: Install report readers
-        run: pip install pymupdf==1.28.2 beautifulsoup4==4.15.0 pdfminer.six==20260107
+        run: pip install exchange-calendars==4.13.3 pymupdf==1.28.2 beautifulsoup4==4.15.0 pdfminer.six==20260107
+      - name: Select markets with fresh sessions
+        id: markets
+        run: python market_schedule.py
       - uses: actions/cache@v4
         with:
           path: .cache/personal-reports
@@ -49,7 +74,11 @@ jobs:
           python -m unittest discover -s tests -p test_magic_formula.py -v
           python -m unittest discover -s tests -p test_personal_publication.py -v
       - name: Discover reports, verify inputs, update prices and recalculate
-        run: python update_personal_portfolio.py --verify-reports
+        run: if [ -n "$MARKET_REFRESH" ]; then
+            python update_personal_portfolio.py --verify-reports
+          else
+            python update_personal_portfolio.py --verify-reports --no-quotes
+          fi
       - name: Validate personal data before publishing
         run: |
           python -c "import json; from magic_formula import validate_dataset; validate_dataset(json.load(open('personal_portfolio.json')))"

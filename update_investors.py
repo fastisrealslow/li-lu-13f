@@ -55,6 +55,8 @@ def run(people, runner=subprocess.run, pause=time.sleep, retries=2):
     for investor in people:
         original=checkpoint(snapshot_files(investor))
         for kind,args in commands(investor):
+            markets=os.environ.get('MARKET_REFRESH')
+            if kind=='prices' and markets is not None and ('US' if investor.get('source13F') else 'HK') not in markets.split(','):continue
             key=investor['id']+'_'+kind
             STEP_LABELS[key]=investor['name']+' '+{'13f':'13F','audit':'申报金额复核','identities':'证券代码核对','holdings':'港股披露','prices':'股价与成本','disclosures':'项目与权益披露'}[kind]
             try:

@@ -2,11 +2,17 @@ name: Update 13F Data
 
 on:
   schedule:
-    - cron: '0 0,13 * * *'  # UTC 00:00 (HKT 08:00 港股开盘前) + UTC 13:00 (HKT 21:00 美股盘中)
+    # Beijing 06:35, 12:15, 16:35; US open +45m guarded for DST.
+    - cron: '35 22 * * *'
+    - cron: '15 4 * * *'
+    - cron: '35 8 * * *'
+    - cron: '15 14 * * *'
+    - cron: '15 15 * * *'
   workflow_dispatch:
   push:
     branches: [master]
     paths:
+      - "market_schedule.py"
       - ".github/workflows/update.yml"
       - "monitor_hk_disclosures.py"
       - "hk_disclosures.py"
@@ -79,7 +85,23 @@ permissions:
   contents: write
 
 jobs:
+  timing:
+    runs-on: ubuntu-latest
+    outputs:
+      run: ${{ steps.clock.outputs.run }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install exchange-calendars==4.13.3
+      - id: clock
+        env:
+          EVENT_SCHEDULE: ${{ github.event.schedule }}
+        run: python market_schedule.py --schedule "$EVENT_SCHEDULE"
   update:
+    needs: timing
+    if: needs.timing.outputs.run == 'true'
     runs-on: ubuntu-latest
     timeout-minutes: 90
     env:
@@ -101,8 +123,11 @@ jobs:
           python-version: '3.12'
 
       - name: Install dependencies
-        run: pip install yfinance pdfminer.six rapidfuzz beautifulsoup4
+        run: pip install exchange-calendars==4.13.3 yfinance pdfminer.six rapidfuzz beautifulsoup4
 
+      - name: Select markets with fresh sessions
+        id: markets
+        run: python market_schedule.py
       - name: Restore immutable SEC originals
         uses: actions/cache@v4
         with:

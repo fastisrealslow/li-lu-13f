@@ -44,6 +44,7 @@ def write(path,value):
 def stamp():return dt.datetime.now(dt.timezone.utc).isoformat(timespec='seconds')
 def input_hash(work):
     keys={k:work.get(k) for k in ['id','investor','title','date','sources','sourceScope','sourcePageRange']}
+    if work.get('sourceRevision'):keys['sourceRevision']=work['sourceRevision']
     return hashlib.sha256(json.dumps([VERSION,keys],sort_keys=True,ensure_ascii=False).encode()).hexdigest()
 def minimum(work,baselines):
     # Kept as an API argument for old checkpoints. Quality is source fit,
@@ -228,6 +229,21 @@ def episode_material(work,description,url,audio_url=None):
             return text,basis,url
     return description,'description',url
 
+def cached_material(work,root):
+    # Private runner cache; never part of the published repository.
+    path=Path(root)/'.archive-work/partials'/('material-'+work['id']+'.json')
+    try:cached=read(path,{})
+    except (ValueError,OSError):cached={}
+    if cached.get('inputHash')==input_hash(work) and cached.get('text'):
+        for key,value in cached.get('metadata',{}).items():work[key]=value
+        return cached['text'],cached['basis'],cached['url']
+    text,basis,url=obtain_material(work)
+    if basis!='description' and len(source.source_chunks(text))>=2:
+        write(path,{'inputHash':input_hash(work),'text':text,'basis':basis,'url':url,
+                    'metadata':{k:work[k] for k in ('_materialURL','_materialURLs') if k in work}})
+    return text,basis,url
+
+
 def pending(root=ROOT):
     root=Path(root);catalog=read(root/'archive/catalog.json');index=read(root/'archive/explanations/index.json',{'entries':{},'attempts':{}})
     todo=[];covered=set()
@@ -293,7 +309,7 @@ def run_batch(root,model,limit,minutes,shard,shards):
             break
         try:
             budget.check()
-            text,basis,url=obtain_material(work)
+            text,basis,url=cached_material(work,root)
             budget.check()
             if basis=='description':raise ValueError('Programme topics do not contain the author\'s argument; obtain original text or the full recording')
             chunks=source.source_chunks(text)
@@ -353,6 +369,6 @@ def validate_saved(root=ROOT,only=None):
 
 if __name__=='__main__':
     p=argparse.ArgumentParser();p.add_argument('action',choices=['plan','generate','validate']);p.add_argument('--model',default='qwen3.5:4b-q4_K_M');p.add_argument('--limit',type=int,default=230);p.add_argument('--minutes',type=int,default=300);p.add_argument('--shard',type=int,default=0);p.add_argument('--shards',type=int,default=1);a=p.parse_args()
-    if a.action=='plan':print(json.dumps({'pending':len(pending())}))
+    if a.action=='plan':print(json.dumps({'pending':len([w for w in pending() if int(hashlib.sha256(w['id'].encode()).hexdigest(),16)%a.shards==a.shard and retry_due(w,read(ROOT/'archive/explanations/index.json',{}).get('attempts',{}).get(w['id'],{}))])}))
     elif a.action=='validate':print('Validated explanations:',validate_saved())
     else:print(json.dumps(run(model=a.model,limit=a.limit,minutes=a.minutes,shard=a.shard,shards=a.shards)))
