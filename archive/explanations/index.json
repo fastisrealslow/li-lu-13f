@@ -2959,10 +2959,12 @@
       "reason": "ValueError: Copied source passage"
     },
     "marks-76d48589ef63f2": {
-      "at": "2026-11-14T15:13:19+00:00",
+      "at": "2026-11-15T16:49:38+00:00",
       "status": "retry",
       "inputHash": "132fad5c7eaf162d2b120185cf2facc739dd3bc9f72036d6aae89fb5ff0ca58e",
-      "reason": "ValueError: Incomplete AI Review at 900 tokens"
+      "failures": 1,
+      "nextAttemptAt": "2026-11-15T20:49:38+00:00",
+      "reason": "ValueError: Bilingual editorial review: The source (s3) does not mention 'Latino', 'Asian-American', or 'unmarried' as Obama's supporting groups; it only lists 'Latino', 'African-American', and 'Asian-American' alongside 'female', 'younger', 'college-educated'.; The source (s4) refers to a 1930 painting by Grant Wood titled 'American Gothic', not 'American Cas"
     },
     "marks-3becefd0c7c602": {
       "at": "2026-11-15T16:47:48+00:00",
@@ -4522,5 +4524,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T16:48:56+00:00"
+  "updatedAt": "2026-11-15T16:49:38+00:00"
 }
