@@ -2200,10 +2200,12 @@
       "reason": "ValueError: Copied source passage"
     },
     "marks-d5c428885322b6": {
-      "at": "2026-11-14T06:39:07+00:00",
+      "at": "2026-11-15T02:53:57+00:00",
       "status": "retry",
       "inputHash": "95f2d6b5c6c184e4da502178ef039c08202bda0a4c034856e1a49ee70c921fe6",
-      "reason": "ValueError: Bilingual editorial review: The Chinese text incorrectly states that J.P. Morgan's anecdote about the shoeshine boy is cited 'as a warning' (as a warning), wher"
+      "failures": 1,
+      "nextAttemptAt": "2026-11-15T06:53:57+00:00",
+      "reason": "ValueError: Unsupported numerical claim: 17"
     },
     "marks-db887d46ee15cf": {
       "at": "2026-11-14T21:42:20+00:00",
@@ -3670,5 +3672,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T02:53:00+00:00"
+  "updatedAt": "2026-11-15T02:53:57+00:00"
 }
