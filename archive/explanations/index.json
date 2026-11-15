@@ -3847,10 +3847,12 @@
       "reason": "ValueError: Bilingual editorial review: The English translation contains factual errors regarding the author's name: 'Greenblatt' is incorrectly translated as 'Graham' in t"
     },
     "akre-98d708d2727ef5": {
-      "at": "2026-11-14T14:18:13+00:00",
+      "at": "2026-11-15T04:07:28+00:00",
       "status": "retry",
       "inputHash": "de28f90c78a9f1fc6c4016ca336a9c87eed46839598d73ebce2ba0e7662a6e85",
-      "reason": "ValueError: Bilingual editorial review: The English translation in the 'content' section contains a factual error regarding Ben Graham's affiliation. The source text states"
+      "failures": 1,
+      "nextAttemptAt": "2026-11-15T08:07:28+00:00",
+      "reason": "ValueError: Bilingual editorial review: The source text does not mention Columbia University; it only states Buffett was a student of Ben Graham. The addition of 'at Columbia University' is an external fact not present in the provided evidence.; The source text does not use the phrase 'economic royalty'; it uses 'an economic royalty of some kind exists'. The p"
     },
     "berkowitz-7aacda9994cc0c": {
       "at": "2026-11-15T04:07:15+00:00",
@@ -3912,5 +3914,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T04:07:15+00:00"
+  "updatedAt": "2026-11-15T04:07:28+00:00"
 }
