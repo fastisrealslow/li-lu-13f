@@ -3335,10 +3335,12 @@
       "reason": "ValueError: Unsupported scaled numerical claim: 2.3"
     },
     "marks-335d41f318ca1e": {
-      "at": "2026-11-14T14:07:47+00:00",
+      "at": "2026-11-15T05:02:56+00:00",
       "status": "retry",
       "inputHash": "e0299aefcd01dac30d43a165ba25aaac19c1aeb0714f2ab2151a3d9b99debce6",
-      "reason": "ValueError: Bilingual editorial review: The English translation of 'You Can't Predict. You Can Prepare.' is missing a period after 'Predict' in the original source text (s0"
+      "failures": 1,
+      "nextAttemptAt": "2026-11-15T09:02:56+00:00",
+      "reason": "ValueError: Unsupported numerical claim: 2000"
     },
     "marks-3c656ae75a63ce": {
       "at": "2026-11-14T14:59:28+00:00",
@@ -4072,5 +4074,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T05:02:11+00:00"
+  "updatedAt": "2026-11-15T05:02:56+00:00"
 }
