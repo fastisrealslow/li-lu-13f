@@ -2760,10 +2760,12 @@
       "reason": "ValueError: Bilingual editorial review: The source text (s13) does not attribute the quote 'All great investments begin in discomfort' to Warren Buffett; it attributes it to Howard Marks himself ('As I put it...'). The provided translation incorrectly assigns this quote to Buffett.; The source text (s13) describes Buffett's habit as liking hamburgers and eatin"
     },
     "marks-e85898c6125044": {
-      "at": "2026-11-14T14:52:50+00:00",
+      "at": "2026-11-15T16:31:09+00:00",
       "status": "retry",
       "inputHash": "8ddf39479f3b32eb95c5a717bb27fcbbe8da22a2185ecb2880c5f9337193b85e",
-      "reason": "ValueError: Copied source passage"
+      "failures": 1,
+      "nextAttemptAt": "2026-11-15T20:31:09+00:00",
+      "reason": "ValueError: Bilingual editorial review: The Chinese text contains a factual error: it claims Kaufman predicted the secular trend would turn 'upward' (translating 'secular sweep downwards... is over'), whereas the source (s13) states he said the downward sweep was 'over' and we are about to have a 'gentle swing upwards'. The phrasing in the Chinese text ('long-"
     },
     "marks-31c5c4c7673de3": {
       "at": "2026-11-15T03:37:40+00:00",
@@ -4482,5 +4484,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T16:31:08+00:00"
+  "updatedAt": "2026-11-15T16:31:09+00:00"
 }
