@@ -1189,10 +1189,12 @@
       "reason": "ValueError: Bilingual editorial review: The Chinese text incorrectly attributes the quote about 'nine days' and Turkish investor behavior to Graham; the source (s5) explicitly states this observation was made by Pabrai regarding local Turks.; The Chinese text misidentifies Cialdini as 'Hillary'; the source (s3) clearly refers to 'Cialdini's book'.; The Chinese"
     },
     "pabrai-56b8c04cb25a32": {
-      "at": "2026-11-14T21:46:07+00:00",
+      "at": "2026-11-15T07:52:54+00:00",
       "status": "retry",
       "inputHash": "54b7c9fb9a8ee008ffe080419bc55ebd4052407d67bb0a004fe685545cb03e43",
-      "reason": "ValueError: Bilingual editorial review: s1: 'drunkard' is a misquote; source says 'some drunkard had discarded', implying uncertainty about the discarder's state, not neces"
+      "failures": 1,
+      "nextAttemptAt": "2026-11-15T11:52:54+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English translation of the heading incorrectly translates 'Market Anomalies and Early Investment Methods: From Betting Tickets to Moody's Manuals' as 'From Betting Tickets to Moody's Manuals', omitting the phrase 'Early Investment Methods'.; The English paragraph misquotes Buffett's efficient market theory story. The"
     },
     "pabrai-2dadcddfebe9d5": {
       "at": "2026-11-14T21:36:50+00:00",
@@ -4236,5 +4238,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T07:52:07+00:00"
+  "updatedAt": "2026-11-15T07:52:54+00:00"
 }
