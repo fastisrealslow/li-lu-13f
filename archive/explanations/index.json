@@ -4099,10 +4099,12 @@
       "reason": "ValueError: Bilingual editorial review: The Chinese text incorrectly attributes the specific claim that 'new names acquired previously' are a key driver to Samantha McLemore. The source (s0) states: 'some new names we didn't own back then have helped fuel recent performance,' referring to the Strategy's team, not specifically to 'names acquired previously' as "
     },
     "marks-767838293600df": {
-      "at": "2026-11-14T15:24:50+00:00",
+      "at": "2026-11-15T08:17:32+00:00",
       "status": "retry",
       "inputHash": "a32026f50662efd378d855f21920cf42dba405dbeb45dea4421253a5fcb8475f",
-      "reason": "ValueError: Unsupported numerical claim: 1995"
+      "failures": 1,
+      "nextAttemptAt": "2026-11-15T12:17:32+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English text incorrectly states the source of the samples as 'stored in his desk drawer at The Wall Street Journal'. The original text (s0) says he was stashing away surveys from the Wall Street Journal, but they were stored in *his* (Howard Marks') desk drawer. The preposition 'at' implies the drawer belongs to or i"
     },
     "mclemore-c9cce3ba950c1c": {
       "at": "2026-11-15T03:33:52+00:00",
@@ -4336,5 +4338,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T08:17:00+00:00"
+  "updatedAt": "2026-11-15T08:17:32+00:00"
 }
