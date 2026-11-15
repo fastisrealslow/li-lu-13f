@@ -2907,9 +2907,11 @@
       "reason": "ValueError: Bilingual editorial review: The English text in the source (`s1`) does not explicitly mention 'RPRX' or 'PGEN'; these tickers appear only in `s2` as a separate list of investments. The content section incorrectly attributes specific holdings (RPRX, PGEN) to Samantha McLemore's strategy in `s1`, conflating the two distinct evidence sections.; The En"
     },
     "mclemore-d1590c8fd49264": {
-      "at": "2026-11-14T06:42:22+00:00",
+      "at": "2026-11-15T02:58:41+00:00",
       "status": "retry",
       "inputHash": "34b0b662738ba0a42026e3655b9e6211510105013ead142c325ec37698b19e09",
+      "failures": 1,
+      "nextAttemptAt": "2026-11-15T06:58:41+00:00",
       "reason": "ValueError: No supported arguments in source"
     },
     "mclemore-13b076ee4e21ff": {
@@ -3696,5 +3698,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T02:58:39+00:00"
+  "updatedAt": "2026-11-15T02:58:41+00:00"
 }
