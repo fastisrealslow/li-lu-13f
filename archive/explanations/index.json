@@ -3847,10 +3847,12 @@
       "reason": "ValueError: Bilingual editorial review: The English translation in the content section incorrectly states 'relative to the economy's size' instead of 'relative to the size of the economy', which is a minor stylistic preference rather than a factual error.; The Chinese text adds 'health-care legislation' as an example of stalemates, which is supported by the so"
     },
     "marks-bc833d3e0b74d7": {
-      "at": "2026-11-14T15:04:25+00:00",
+      "at": "2026-11-15T21:30:29+00:00",
       "status": "retry",
       "inputHash": "d8ced91fee8667f92075141f0c5356942f0500fd5609c9c586156e097a999e3e",
-      "reason": "ValueError: Bilingual editorial review: The English translation in the 'content' section contains significant factual and stylistic deviations from the source text (evidenc"
+      "failures": 1,
+      "nextAttemptAt": "2026-11-16T01:30:29+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English translation in the `content` section misquotes Howard Marks' actual argument. In s5, Marks states: 'theory is quite right when it says the market can't be beat... certainly by the vast majority of investors.' The provided translation adds 'from a theoretical standpoint' ('from theory's perspective') which is "
     },
     "marks-f30850a5af3022": {
       "at": "2026-11-15T05:10:37+00:00",
@@ -4562,5 +4564,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T21:29:46+00:00"
+  "updatedAt": "2026-11-15T21:30:29+00:00"
 }
