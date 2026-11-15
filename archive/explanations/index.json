@@ -3217,10 +3217,12 @@
       "reason": "ValueError: Unsupported numerical claim: 3"
     },
     "marks-c21c960d0844fd": {
-      "at": "2026-11-14T21:07:33+00:00",
+      "at": "2026-11-15T21:27:01+00:00",
       "status": "retry",
       "inputHash": "55839b6b6ce208fe8221cea61160071a2c82a1a500d3a9045d7131d3fe351a9d",
-      "reason": "ValueError: Incomplete AI Review at 900 tokens"
+      "failures": 1,
+      "nextAttemptAt": "2026-11-16T01:27:01+00:00",
+      "reason": "ValueError: Copied source passage"
     },
     "marks-88f102e1c2bfef": {
       "at": "2026-11-15T16:59:52+00:00",
@@ -4558,5 +4560,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T21:26:18+00:00"
+  "updatedAt": "2026-11-15T21:27:01+00:00"
 }
