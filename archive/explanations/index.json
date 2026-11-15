@@ -3572,10 +3572,12 @@
       "reason": "ValueError: Unsupported numerical claim: 100"
     },
     "mclemore-d10ee1cde69171": {
-      "at": "2026-11-14T02:55:18+00:00",
+      "at": "2026-11-15T02:55:05+00:00",
       "status": "retry",
       "inputHash": "962b83e5e26ba8796cbe192e84c9ac2165d10fdc968693993138c77e8b5e42e5",
-      "reason": "ValueError: Unsupported numerical claim: 20"
+      "failures": 1,
+      "nextAttemptAt": "2026-11-15T06:55:05+00:00",
+      "reason": "ValueError: Bilingual editorial review: The Chinese content incorrectly attributes Jesse Livermore's quote to Bill Miller ('...a point she directly attributes to Jesse Livermore's maxim... rather than Bill Miller'), whereas the English source text states Bill Miller replied by quoting Jesse Livermore. The attribution logic is reversed in the translation.; The "
     },
     "mclemore-55cd43fef76dd0": {
       "at": "2026-11-14T03:13:42+00:00",
@@ -3674,5 +3676,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T02:55:00+00:00"
+  "updatedAt": "2026-11-15T02:55:05+00:00"
 }
