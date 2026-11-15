@@ -2298,12 +2298,12 @@
       "reason": "ValueError: Bilingual editorial review: The English paragraph incorrectly states that float is 'money held by an insurer that it has received as premiums but has not yet paid out as losses'. Source s25 defines float as 'money we hold but don't own', implying ownership issues rather than just timing of payout.; The English paragraph claims the conclusion on neg"
     },
     "buffett-1ea6f63056d762": {
-      "at": "2026-11-15T03:12:26+00:00",
+      "at": "2026-11-15T16:45:02+00:00",
       "status": "retry",
       "inputHash": "e545d4228f11793ac74e9e2e8d2b07ea3128c5611d38a30cb7a3edd71fc453dc",
-      "failures": 1,
-      "nextAttemptAt": "2026-11-15T07:12:26+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English paragraph in the content section contains significant factual errors regarding the source text. It claims managers 'feel no sense of failure even if they remain in the same position five years later,' which contradicts s20 stating they 'may well feel like failures' if they stay in the same position.; The Engl"
+      "failures": 2,
+      "nextAttemptAt": "2026-11-16T00:45:02+00:00",
+      "reason": "ValueError: Bilingual editorial review: The source text (s18-s20) does not mention 'future growth' or 'lifelong missions'; it only states the goal is to avoid a disappointing future and that managers love their work. The claim about 'non-utilitarian motivation being key to future growth' is an editorial interpretation not explicitly supported by the provided e"
     },
     "buffett-748aa6d4424b34": {
       "at": "2026-11-15T07:47:18+00:00",
@@ -4512,5 +4512,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T16:43:19+00:00"
+  "updatedAt": "2026-11-15T16:45:02+00:00"
 }
