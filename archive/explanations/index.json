@@ -1585,10 +1585,12 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     },
     "pabrai-5940c7a73f82e5": {
-      "at": "2026-11-14T06:03:44+00:00",
+      "at": "2026-11-15T03:38:27+00:00",
       "status": "retry",
       "inputHash": "1766ad519fb200ff2185f226c34a4176070f7ee334d99a00e4b3a9502dfb1ac6",
-      "reason": "ValueError: Bilingual editorial review: The English text in the 'evidence' section (s4) contains a truncated sentence ending with 'not such good', which is incomplete and l"
+      "failures": 1,
+      "nextAttemptAt": "2026-11-15T07:38:27+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English translation in the content section misattributes the quote about Microsoft employees believing the company would 'go straight up' to Pabrai's observation of their mindset; the source text (s5) records this as the employees' response to Pabrai's warning, not Pabrai's own sentiment.; The English translation inc"
     },
     "pabrai-7b63bdce3eef9a": {
       "at": "2026-11-14T15:00:50+00:00",
@@ -3836,5 +3838,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T03:38:21+00:00"
+  "updatedAt": "2026-11-15T03:38:27+00:00"
 }
