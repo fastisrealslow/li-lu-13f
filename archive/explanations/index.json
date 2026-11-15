@@ -1583,10 +1583,12 @@
       "reason": "ValueError: English text contains untranslated Chinese"
     },
     "pabrai-ebc459cca804c1": {
-      "at": "2026-11-14T01:58:35+00:00",
+      "at": "2026-11-15T04:11:29+00:00",
       "status": "retry",
       "inputHash": "6194868b9b88bd39ec48cff0733bc03f5f3e81e1ed00cfa537560472cfa6d8c2",
-      "reason": "ValueError: Bilingual editorial review: The Chinese translation incorrectly states the book was borrowed during World War II (1941) when the text only specifies he checked "
+      "failures": 1,
+      "nextAttemptAt": "2026-11-15T08:11:29+00:00",
+      "reason": "ValueError: Bilingual editorial review: The source text (s1) does not explicitly attribute the quote 'take a simple idea and take it seriously' to Einstein; Mohnish states he is unsure of the origin. The summary presents this as a confirmed citation.; The source text (s3) states Buffett's estimate was that by age 35 he would be a millionaire, but does not expl"
     },
     "pabrai-c6c00d61fd5d75": {
       "at": "2026-11-15T02:56:29+00:00",
@@ -3926,5 +3928,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T04:10:49+00:00"
+  "updatedAt": "2026-11-15T04:11:29+00:00"
 }
