@@ -4177,10 +4177,12 @@
       "reason": "ValueError: Bilingual editorial review: The Chinese translation in the `content` section incorrectly attributes the quote about the paralyzed victim and wheelchair to Samantha McLemore. The source text (s1) explicitly states this is Larry Summers' point ('Framed this way... It's like a victim paralyzed...'), not McLemore's.; The English translation in the `con"
     },
     "marks-77e61c6230c5f6": {
-      "at": "2026-11-14T15:05:51+00:00",
+      "at": "2026-11-15T22:15:07+00:00",
       "status": "retry",
       "inputHash": "826faf15d98e393e2a6d8fd0227fc87613f815cc53c61b155e33036b697e7e25",
-      "reason": "ValueError: Unsupported numerical claim: 1980"
+      "failures": 1,
+      "nextAttemptAt": "2026-11-16T02:15:07+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English text contains a factual error regarding the bond investment experience: it claims Marks bought 'seemingly riskless junk bonds at low prices', whereas the source (s3) states these were 'Bought when \"riskless\"' and later found to be a disaster, implying they were purchased when perceived as safe (likely not nec"
     },
     "marks-0a65905a75a4f5": {
       "at": "2026-11-15T07:37:53+00:00",
@@ -4632,5 +4634,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T22:13:25+00:00"
+  "updatedAt": "2026-11-15T22:15:07+00:00"
 }
