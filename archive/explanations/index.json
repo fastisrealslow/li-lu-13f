@@ -1795,12 +1795,12 @@
       "reason": "ValueError: Bilingual editorial review: The source text (s1) does not explicitly attribute the quote 'take a simple idea and take it seriously' to Einstein; Mohnish states he is unsure of the origin. The summary presents this as a confirmed citation.; The source text (s3) states Buffett's estimate was that by age 35 he would be a millionaire, but does not expl"
     },
     "pabrai-c6c00d61fd5d75": {
-      "at": "2026-11-15T02:56:29+00:00",
+      "at": "2026-11-15T16:01:59+00:00",
       "status": "retry",
       "inputHash": "aa63454949e27bada43391194c2083fb90210d4cb72ff5c8428a62775235c6f3",
-      "failures": 1,
-      "nextAttemptAt": "2026-11-15T06:56:29+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English translation in the 'content' section contains factual inaccuracies regarding the source text (s0 and s13). Specifically, it misrepresents Vijay's description of Pabrai's achievements as an external summation rather than a direct quote from Vijay within the transcript. The phrase 'Although the speaker Vijay me"
+      "failures": 2,
+      "nextAttemptAt": "2026-11-16T00:01:59+00:00",
+      "reason": "ValueError: Unsupported scaled numerical claim: 5"
     },
     "pabrai-9a0eba26aa2ca1": {
       "at": "2026-11-15T04:37:06+00:00",
@@ -4408,5 +4408,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T16:01:29+00:00"
+  "updatedAt": "2026-11-15T16:01:59+00:00"
 }
