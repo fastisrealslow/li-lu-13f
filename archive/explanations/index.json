@@ -3271,10 +3271,12 @@
       "reason": "ValueError: Unsupported numerical claim: 12"
     },
     "mclemore-267c6afd18f89c": {
-      "at": "2026-11-14T21:04:05+00:00",
+      "at": "2026-11-15T04:51:44+00:00",
       "status": "retry",
       "inputHash": "589f046a09d6fc9237277a11680d2ad5849ee4c1ec213538236612a68d2c8810",
-      "reason": "ValueError: Unsupported numerical claim: 13%"
+      "failures": 1,
+      "nextAttemptAt": "2026-11-15T08:51:44+00:00",
+      "reason": "ValueError: Bilingual editorial review: The Chinese text incorrectly states the strategy achieved a 'net return' of 37.6% in 2023; the source (s0) explicitly says it 'advanced 37.6% net of fees', which refers to total return/advance, not necessarily a simple annualized net return figure without context of compounding over time.; The Chinese text claims the str"
     },
     "marks-82b8d3d26c60a7": {
       "at": "2026-11-14T08:30:54+00:00",
@@ -4044,5 +4046,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T04:50:52+00:00"
+  "updatedAt": "2026-11-15T04:51:44+00:00"
 }
