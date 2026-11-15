@@ -894,10 +894,12 @@
       "reason": "ValueError: Bilingual editorial review: The English translation in the content section incorrectly translates 'tool versus creature' as 'tool and creature', losing the critical contrast implied by the source text.; The English translation renders 'lording over' as 'ruled by', which weakens the intended sense of domination and arrogance present in the original "
     },
     "pabrai-deed882841e367": {
-      "at": "2026-11-14T15:14:33+00:00",
+      "at": "2026-11-15T22:27:13+00:00",
       "status": "retry",
       "inputHash": "c1196969031f851ef22db0b1b25b76469b5ace52d0abe526bb35068e056d5bb9",
-      "reason": "ValueError: Bilingual editorial review: The content claims the section discusses 'compounding growth' and its 'exponential effect', but the provided source text (s13-s15) c"
+      "failures": 1,
+      "nextAttemptAt": "2026-11-16T02:27:12+00:00",
+      "reason": "ValueError: Bilingual editorial review: The source text (s13-s15) does not contain any mention of 'compounding', 'wealth generation', or 'mathematical formulas'. The section claims Pabrai discussed these concepts and tested Kevin's understanding of them, but the provided evidence only covers happiness, money, Bridge, chess, and time management.; The content ha"
     },
     "buffett-98e90a4cbe9b9a": {
       "at": "2026-11-15T07:44:09+00:00",
@@ -4644,5 +4646,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T22:25:40+00:00"
+  "updatedAt": "2026-11-15T22:27:13+00:00"
 }
