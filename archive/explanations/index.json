@@ -3021,10 +3021,12 @@
       "reason": "ValueError: Bilingual editorial review: The Chinese translation of the Galbraith quote is accurate but slightly verbose; a more concise version would be: 'There are two kin"
     },
     "mclemore-8b93293153e790": {
-      "at": "2026-11-14T06:52:04+00:00",
+      "at": "2026-11-15T03:13:41+00:00",
       "status": "retry",
       "inputHash": "23793475ea7d7803db89e61e00c2c33021162ab18700d0474571837d47e93410",
-      "reason": "ValueError: Bilingual editorial review: The Chinese translation of 'Opportunity Equity' as 'Opportunity Equity' (repeated) is inconsistent with the source text's context; i"
+      "failures": 1,
+      "nextAttemptAt": "2026-11-15T07:13:41+00:00",
+      "reason": "ValueError: Unsupported numerical claim: 12"
     },
     "mclemore-267c6afd18f89c": {
       "at": "2026-11-14T21:04:05+00:00",
