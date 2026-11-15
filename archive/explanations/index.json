@@ -2688,12 +2688,12 @@
       "reason": "ValueError: Bilingual editorial review: The English translation incorrectly states that Marks observes the market has become popular with 'marketable securities holding direct loans'. The source text (s4) describes investment vehicles for individual investors and retirement accounts but does not use the term 'marketable securities' or imply they are already po"
     },
     "marks-bc5806f86a4042": {
-      "at": "2026-11-15T04:41:11+00:00",
+      "at": "2026-11-15T22:16:20+00:00",
       "status": "retry",
       "inputHash": "0d525c74a863ac22d994c7a662c8ecaf4e46b74b15e74c71334625c08d147196",
-      "failures": 1,
-      "nextAttemptAt": "2026-11-15T08:41:11+00:00",
-      "reason": "ValueError: Bilingual editorial review: The source text (s1) does not contain the phrase 'original sin of slavery'; this is an invented concept in the provided evidence.; The source text (s3) mentions 'individual as well as institutionalized racism' but does not explicitly link it to slavery as its historical root; attributing this specific causal link directl"
+      "failures": 2,
+      "nextAttemptAt": "2026-11-16T06:16:20+00:00",
+      "reason": "ValueError: Copied source passage"
     },
     "marks-dc039fc38e2232": {
       "at": "2026-11-15T21:36:54+00:00",
@@ -4640,5 +4640,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T22:16:15+00:00"
+  "updatedAt": "2026-11-15T22:16:20+00:00"
 }
