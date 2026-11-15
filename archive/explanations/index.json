@@ -1791,10 +1791,12 @@
       "reason": "ValueError: Bilingual editorial review: The English translation contains a factual error: it states Buffett donates '5% of his net assets annually' (s7 says '5% of the balance', which is similar but the text doesn't explicitly say 'net assets'; more importantly, the text says 'If he lived forever... tens of millions', implying a perpetual mechanism, not necess"
     },
     "vinall-0bc8d0cd361786": {
-      "at": "2026-11-14T06:18:22+00:00",
+      "at": "2026-11-15T05:00:53+00:00",
       "status": "retry",
       "inputHash": "f47d4ecc7b84b21ccf7510947a41b282d3eed02c47d46d4ec4c2f457ef0e4bb4",
-      "reason": "ValueError: Bilingual editorial review: The English translation of the heading '1. Historical Resilience and Financial Independence' is factually inaccurate based on the pr"
+      "failures": 1,
+      "nextAttemptAt": "2026-11-15T09:00:53+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English translation of the heading incorrectly uses 'Gathering' instead of the more standard term 'Conference' or 'Event' for a corporate annual meeting context.; The English paragraph contains a factual error: it states Zohar highlighted flaws in the 'MySpace comment model', whereas the source text (s29) explicitly "
     },
     "vinall-fc32d3b55fba71": {
       "at": "2026-11-15T03:56:07+00:00",
@@ -4068,5 +4070,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T05:00:41+00:00"
+  "updatedAt": "2026-11-15T05:00:53+00:00"
 }
