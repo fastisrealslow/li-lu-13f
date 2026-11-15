@@ -1477,10 +1477,12 @@
       "reason": "ValueError: Incomplete AI Review at 900 tokens"
     },
     "pabrai-669ee549324b11": {
-      "at": "2026-11-14T01:49:54+00:00",
+      "at": "2026-11-15T03:48:15+00:00",
       "status": "retry",
       "inputHash": "3dcd814a226b27f9418794b72bf768569c96db3ad5cb45410116611497fef339",
-      "reason": "ValueError: Bilingual editorial review: The source text (s4-s6) does not contain any explicit statements about Pabrai's 'investment philosophy core tenets' or principles. T"
+      "failures": 1,
+      "nextAttemptAt": "2026-11-15T07:48:15+00:00",
+      "reason": "ValueError: Bilingual editorial review: The source text (s4-s6) does not contain the phrases 'core investment philosophy', 'control of key variables', or 'hands-on business experience' as defined in the provided English content. The question asked about these topics, but Pabrai's answer focuses entirely on food delivery industry efficiency and reconfiguration."
     },
     "pabrai-3e87834c3b997b": {
       "at": "2026-11-14T07:47:13+00:00",
@@ -3870,5 +3872,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T03:47:56+00:00"
+  "updatedAt": "2026-11-15T03:48:15+00:00"
 }
