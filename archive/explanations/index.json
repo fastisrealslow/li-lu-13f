@@ -1161,10 +1161,12 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     },
     "pabrai-a08413f47088be": {
-      "at": "2026-11-14T06:49:47+00:00",
+      "at": "2026-11-15T07:45:25+00:00",
       "status": "retry",
       "inputHash": "e0d728dcf1dbcdc0030a0a94b51d25b84925c064cdfcb68220445c8bb820881a",
-      "reason": "ValueError: Incomplete AI Review at 900 tokens"
+      "failures": 1,
+      "nextAttemptAt": "2026-11-15T11:45:25+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English translation of 'the cake is not fully baked yet' in s3 is metaphorically accurate but lacks explicit textual grounding; the source text does not contain this idiom, only the Chinese summary which uses it. The JSON content claims Pabrai says this phrase directly, while the evidence (s3) only contains Shaan's q"
     },
     "pabrai-96a9fab5d602f9": {
       "at": "2026-11-14T06:04:52+00:00",
@@ -4206,5 +4208,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T07:44:17+00:00"
+  "updatedAt": "2026-11-15T07:45:25+00:00"
 }
