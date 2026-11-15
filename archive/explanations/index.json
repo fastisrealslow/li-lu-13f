@@ -1369,12 +1369,12 @@
       "reason": "ValueError: Unsupported scaled numerical claim: 80"
     },
     "pabrai-f3593335049251": {
-      "at": "2026-11-15T04:09:29+00:00",
+      "at": "2026-11-15T22:04:13+00:00",
       "status": "retry",
       "inputHash": "282f660b324229fd9e891811e33df4630c2991ccc5a2240d92a5a2a6165ca686",
-      "failures": 1,
-      "nextAttemptAt": "2026-11-15T08:09:29+00:00",
-      "reason": "ValueError: Bilingual editorial review: The source text (s2) does not mention 'height' or 'intelligence' as examples of varying talents; it only refers to people being 'tall', 'short', 'ahead', or 'behind'.; The source text does not explicitly state that continuous learning can 'outperform raw intelligence'; this is an editorial interpretation added in the con"
+      "failures": 2,
+      "nextAttemptAt": "2026-11-16T06:04:13+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English translation in the content section misrepresents Pabrai's actual words. The source text (s2) contains no mention of 'outperforming raw intelligence' or a 'logical framework dividing life stages into a focus period and an expansion period.' These are editorial interpretations not found in the provided evidence"
     },
     "pabrai-276244f32cb972": {
       "at": "2026-11-15T16:20:25+00:00",
@@ -4624,5 +4624,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T22:04:02+00:00"
+  "updatedAt": "2026-11-15T22:04:13+00:00"
 }
