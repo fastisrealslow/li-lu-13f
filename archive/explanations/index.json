@@ -4309,12 +4309,12 @@
       "reason": "ValueError: Bilingual editorial review: The English text incorrectly states the source of the samples as 'stored in his desk drawer at The Wall Street Journal'. The original text (s0) says he was stashing away surveys from the Wall Street Journal, but they were stored in *his* (Howard Marks') desk drawer. The preposition 'at' implies the drawer belongs to or i"
     },
     "mclemore-c9cce3ba950c1c": {
-      "at": "2026-11-15T03:33:52+00:00",
+      "at": "2026-11-15T17:07:21+00:00",
       "status": "retry",
       "inputHash": "6b31b9484ff6529134a19771a193ec219553ef59a410403d3fe759cd99e12149",
-      "failures": 1,
-      "nextAttemptAt": "2026-11-15T07:33:52+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English translation of 'tippy top' in paragraph 7 is inaccurate; 'tippy top' means a small tip or peak, not the maximum limit. It should be corrected to 'very top' or 'absolute top' to convey the intended meaning of the budget's upper limit.; The phrase 'informal word-of-mouth channels' in paragraph 8 is redundant an"
+      "failures": 2,
+      "nextAttemptAt": "2026-11-16T01:07:21+00:00",
+      "reason": "ValueError: Bilingual editorial review: The source text uses 'tippy top' (slang for highest point), while the summary paraphrases it as 'at the very tippy top', which is acceptable but slightly redundant; however, this does not constitute a concrete material error requiring rejection.; The phrase 'signing over the holidays' in the source likely means 'signed w"
     },
     "mclemore-eb19ffa8d4e786": {
       "at": "2026-11-15T04:56:13+00:00",
@@ -4556,5 +4556,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T17:05:28+00:00"
+  "updatedAt": "2026-11-15T17:07:21+00:00"
 }
