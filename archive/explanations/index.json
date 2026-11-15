@@ -628,10 +628,12 @@
       "reason": "ValueError: Bilingual editorial review: The content incorrectly claims the transcript states Rob Vinall 'argues' that his arrangement allowed him to get to know places more"
     },
     "buffett-d5e534b6a5c51f": {
-      "at": "2026-11-14T21:10:12+00:00",
+      "at": "2026-11-15T07:19:16+00:00",
       "status": "retry",
       "inputHash": "c64c3a78710f50283513e55879e9627874f7c7e79e5ab6b3643e0a7ef771be30",
-      "reason": "ValueError: Unsupported numerical claim: 35%"
+      "failures": 1,
+      "nextAttemptAt": "2026-11-15T11:19:16+00:00",
+      "reason": "ValueError: Unsupported numerical claim: 3"
     },
     "pabrai-f557b2c57744d9": {
       "at": "2026-11-15T04:53:21+00:00",
@@ -4118,5 +4120,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T07:18:19+00:00"
+  "updatedAt": "2026-11-15T07:19:16+00:00"
 }
