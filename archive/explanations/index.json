@@ -3119,10 +3119,12 @@
       "reason": "ValueError: Bilingual editorial review: The English paraphrase incorrectly states that 'most participants cannot consistently outperform the market' as a reason why short-t"
     },
     "marks-b1a24fd7f60406": {
-      "at": "2026-11-14T15:22:07+00:00",
+      "at": "2026-11-15T16:58:52+00:00",
       "status": "retry",
       "inputHash": "20a0112d39ecb7abe03e5f4b82bdfce885d05a40b9bb35ed0c9d98e992433d0c",
-      "reason": "ValueError: Bilingual editorial review: The English translation of the evidence section incorrectly states 'low rates forced investors to seek alternative investments for h"
+      "failures": 1,
+      "nextAttemptAt": "2026-11-15T20:58:52+00:00",
+      "reason": "ValueError: Bilingual editorial review: The Chinese text incorrectly attributes the phrase 'collusion between liquidity and regulatory absence' (liquidity and regulatory absence's collusion) to Howard Marks. The source evidence (s2, s3, s6) describes the phenomenon but does not explicitly state that this constitutes a 'collusion' or attribute that specific phr"
     },
     "marks-19e82a738d8712": {
       "at": "2026-11-15T16:08:29+00:00",
@@ -4544,5 +4546,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T16:58:38+00:00"
+  "updatedAt": "2026-11-15T16:58:52+00:00"
 }
