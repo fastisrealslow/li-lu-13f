@@ -2903,12 +2903,12 @@
       "reason": "ValueError: Unsupported numerical claim: 2"
     },
     "marks-827f8ac1bdac2c": {
-      "at": "2026-11-15T03:01:56+00:00",
+      "at": "2026-11-15T16:48:46+00:00",
       "status": "retry",
       "inputHash": "48312ec04f8acc9fe651e0261cbfca7476c6d003445b1c9d085a2134c18fe610",
-      "failures": 1,
-      "nextAttemptAt": "2026-11-15T07:01:56+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English translation contains a fabricated quote: 'the best prophet is the best guesser' is misattributed to Hobbes in the source text (s2), which actually says 'The best prophet, Thomas Hobbes once wrote, is the best guesser.' The phrasing implies Hobbes wrote it, but the source does not explicitly attribute the quot"
+      "failures": 2,
+      "nextAttemptAt": "2026-11-16T00:48:46+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English translation of s2 contains a factual error: it misquotes Thomas Hobbes. The source text (s2) states 'the best prophet is the best guesser', but the translation renders this as 'the best prophet is the worst guesser'. This contradicts the original meaning and the canonical attribution.; The English translation"
     },
     "marks-a118789c16f302": {
       "at": "2026-11-15T08:06:52+00:00",
@@ -4522,5 +4522,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T16:48:03+00:00"
+  "updatedAt": "2026-11-15T16:48:46+00:00"
 }
