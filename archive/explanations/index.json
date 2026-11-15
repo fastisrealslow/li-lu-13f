@@ -2366,12 +2366,12 @@
       "reason": "ValueError: Bilingual editorial review: The English paragraph in the content section contains significant factual errors regarding the data presented in evidence s6. It states 'per-share book value growth from $19 to $134,973', but the source text (s6) explicitly says 'book value has grown from $19 to $134,973' referring to total company book value, not per-sh"
     },
     "buffett-b5218ddf52191e": {
-      "at": "2026-11-15T03:39:23+00:00",
+      "at": "2026-11-15T21:26:18+00:00",
       "status": "retry",
       "inputHash": "fcc7050dbe387812d047f1bc550260bcb5c860d34b80fde93f8e620e86e4aaa5",
-      "failures": 1,
-      "nextAttemptAt": "2026-11-15T07:39:23+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English translation in the content section contains a factual error: it misspells 'Santed Seven' as 'Santed', whereas the source text (s6) clearly states 'Santed Seven'. The correct term is 'Santed Seven'."
+      "failures": 2,
+      "nextAttemptAt": "2026-11-16T05:26:18+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English text in the content section contains factual errors regarding the 'Sainted Seven' list. The source (s6) lists 'Fechheimer', but the actual company is 'Fenchner'. Also, 'See's' refers to 'See's Candies', and 'World Book' is incomplete; the source says 'World Book' but implies a specific entity context not full"
     },
     "buffett-7766ba88798e3f": {
       "at": "2026-11-15T16:47:55+00:00",
@@ -4558,5 +4558,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T21:26:00+00:00"
+  "updatedAt": "2026-11-15T21:26:18+00:00"
 }
