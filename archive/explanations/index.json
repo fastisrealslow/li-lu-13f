@@ -1205,10 +1205,12 @@
       "reason": "ValueError: Bilingual editorial review: The English translation in `content.paragraphs[0].en` contains a factual error: it states 'Pabrai does not claim... that humans' ave"
     },
     "pabrai-9152afaf247ee4": {
-      "at": "2026-11-14T14:59:05+00:00",
+      "at": "2026-11-15T04:32:30+00:00",
       "status": "retry",
       "inputHash": "754c2124bcd3591a58d8ae6d0a40511d1d515752d36df33cd8329283bbbed39f",
-      "reason": "ValueError: Bilingual editorial review: The English translation incorrectly states 'completed multiple MBAs' whereas the source text says 'finished many MBAs', implying com"
+      "failures": 1,
+      "nextAttemptAt": "2026-11-15T08:32:30+00:00",
+      "reason": "ValueError: Unsupported numerical claim: 1982"
     },
     "pabrai-6aa3d87fb959bc": {
       "at": "2026-11-15T03:58:08+00:00",
@@ -3990,5 +3992,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T04:32:12+00:00"
+  "updatedAt": "2026-11-15T04:32:30+00:00"
 }
