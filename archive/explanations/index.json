@@ -2933,10 +2933,12 @@
       "reason": "ValueError: Bilingual editorial review: The English paraphrase in the content section is accurate and faithful to the source text (s2, s3), correctly capturing Howard Marks' argument about psychology driving market pricing. No factual errors or invented quotations were found.; The Chinese translation accurately reflects the English source material and maintain"
     },
     "mclemore-19da9051365a28": {
-      "at": "2026-11-14T13:52:17+00:00",
+      "at": "2026-11-15T04:46:36+00:00",
       "status": "retry",
       "inputHash": "4da7d2a54728af69f9a251add7bf9d5d3c92745808f923d1cfcd90eae2786433",
-      "reason": "ValueError: Bilingual editorial review: The English translation of 'tangible book value per share' as '$84 per share in tangible book value' is slightly redundant but accep"
+      "failures": 1,
+      "nextAttemptAt": "2026-11-15T08:46:36+00:00",
+      "reason": "ValueError: Bilingual editorial review: The Chinese text claims the author 'Samantha McLemore' articulated a method based on her 'actual investment experience'. The source (s12) does not explicitly state she personally invested in Capital One; it says 'Capital One is a company we've admired', implying team analysis rather than personal ownership, though 'we' s"
     },
     "marks-30e00062105852": {
       "at": "2026-11-14T14:51:30+00:00",
@@ -4030,5 +4032,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T04:46:16+00:00"
+  "updatedAt": "2026-11-15T04:46:36+00:00"
 }
