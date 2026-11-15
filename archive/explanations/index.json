@@ -2848,12 +2848,12 @@
       "reason": "ValueError: Bilingual editorial review: The Chinese text incorrectly states that Marks established the $11 billion reserve fund 'between January 2007 and March 2008'. The source (s7) says the fund was created to give capital 'if things reached crisis proportions' and that they started investing it 'prior to Lehman's bankruptcy' (which occurred in September 200"
     },
     "marks-fca35f29cc0342": {
-      "at": "2026-11-15T04:40:33+00:00",
+      "at": "2026-11-15T22:18:44+00:00",
       "status": "retry",
       "inputHash": "584949d5d553dfe3e88c4dd4820627220f9d434bc04ff0058868169002672ed1",
-      "failures": 1,
-      "nextAttemptAt": "2026-11-15T08:40:33+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English translation in the content section misquotes Scott Sagan's actual words. The source (s6) states: 'Things that have never happened before happen all the time.' The provided text incorrectly adds a leading 'that' ('that things...'), altering the original phrasing.; The English translation omits the specific lis"
+      "failures": 2,
+      "nextAttemptAt": "2026-11-16T06:18:44+00:00",
+      "reason": "JSONDecodeError: Extra data: line 4 column 1 (char 2227)"
     },
     "marks-c3270b71aecf96": {
       "at": "2026-11-15T21:49:38+00:00",
@@ -4640,5 +4640,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T22:17:50+00:00"
+  "updatedAt": "2026-11-15T22:18:44+00:00"
 }
