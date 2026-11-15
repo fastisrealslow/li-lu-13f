@@ -3635,10 +3635,12 @@
       "reason": "ValueError: Bilingual editorial review: The Chinese text contains an unverified claim that 'zero interest rates' (zero rate) or 'Fed reducing bond buying' did not necessarily lead to GDP rebound or higher rates. The source only states these were contrary to expectations and failed to produce the expected results; it does not explicitly link them as causal cond"
     },
     "marks-60fc27c3fdbd0f": {
-      "at": "2026-11-14T21:57:13+00:00",
+      "at": "2026-11-15T16:03:57+00:00",
       "status": "retry",
       "inputHash": "999758a5e7009515dfbcc95fbb1a236c905ba0365224b9425b77946d81ba90e8",
-      "reason": "ValueError: Bilingual editorial review: The Chinese text contains factual errors regarding the source material. The original quote (s13) states Greece wanted to meet its pe"
+      "failures": 1,
+      "nextAttemptAt": "2026-11-15T20:03:57+00:00",
+      "reason": "ValueError: Unsupported numerical claim: 4"
     },
     "mclemore-c6fc6378554854": {
       "at": "2026-11-15T03:23:32+00:00",
@@ -4412,5 +4414,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T16:03:51+00:00"
+  "updatedAt": "2026-11-15T16:03:57+00:00"
 }
