@@ -622,10 +622,12 @@
       "reason": "ValueError: Bilingual editorial review: The English text in the 'content' section contains a factual error regarding the date: it states 'May 1, 2026', which is in the future relative to the current real-world date and contradicts the context of established figures like Charlie Munger and Warren Buffett who are deceased or retired. The source data ('basis': 'o"
     },
     "vinall-c919ac8b6b58c4": {
-      "at": "2026-11-14T14:31:44+00:00",
+      "at": "2026-11-15T07:38:31+00:00",
       "status": "retry",
       "inputHash": "5af4c68010fe5d16e180b31a59d9e58951db06672d9fbd70506aed811829e319",
-      "reason": "ValueError: Bilingual editorial review: The content incorrectly claims the transcript states Rob Vinall 'argues' that his arrangement allowed him to get to know places more"
+      "failures": 1,
+      "nextAttemptAt": "2026-11-15T11:38:31+00:00",
+      "reason": "ValueError: Bilingual editorial review: The Chinese text incorrectly states that Rob Vinall 'corrected the misconception' regarding Buffett's meeting being a non-business highlight; the source only says he clarified it was business-focused while identifying the Shanghai wedding as the non-business highlight. The phrasing implies an error in the reader's unders"
     },
     "buffett-d5e534b6a5c51f": {
       "at": "2026-11-15T07:19:16+00:00",
@@ -4178,5 +4180,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T07:38:06+00:00"
+  "updatedAt": "2026-11-15T07:38:31+00:00"
 }
