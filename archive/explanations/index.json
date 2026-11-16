@@ -3223,12 +3223,12 @@
       "reason": "ValueError: Bilingual editorial review: The English translation in the content section misrepresents the source text by adding 'compared to' and 'for example asking if', which are not present in s10 or s11.; The Chinese translation incorrectly attributes the quote about millionaires/billionaries to Howard Marks, whereas s9 clearly attributes it to [Senate Majo"
     },
     "marks-2a08abe8cdf605": {
-      "at": "2026-11-15T08:02:03+00:00",
+      "at": "2026-11-16T05:38:38+00:00",
       "status": "retry",
       "inputHash": "6950ef671c17465d544d091934ed9c898b640c36803c8f416dd978b72d5ba175",
-      "failures": 1,
-      "nextAttemptAt": "2026-11-15T12:02:03+00:00",
-      "reason": "ValueError: Copied source passage"
+      "failures": 2,
+      "nextAttemptAt": "2026-11-16T13:38:38+00:00",
+      "reason": "ValueError: Bilingual editorial review: The source text (s5) states 'Twenty-four of the fifty largest corporate pension plans' but does not explicitly claim these are the 'fifty largest corporate pension plans' as a universal fact; it presents them as a specific statistic for that year. The paraphrase frames this as a definitive classification which slightly o"
     },
     "mclemore-9000b9fa2afe82": {
       "at": "2026-11-15T04:10:26+00:00",
@@ -4652,5 +4652,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-16T05:38:19+00:00"
+  "updatedAt": "2026-11-16T05:38:38+00:00"
 }
