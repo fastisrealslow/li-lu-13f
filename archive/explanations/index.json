@@ -1332,12 +1332,12 @@
       "reason": "ValueError: Bilingual editorial review: The source text (s1) does not explicitly state that Pabrai sold his business *before* becoming an official professional investor; it says he eventually sold it before becoming one, implying the sequence but not as a definitive factual claim in the provided excerpt. The paraphrase presents this as a confirmed fact.; The s"
     },
     "pabrai-18c92ff6cf0411": {
-      "at": "2026-11-15T21:57:37+00:00",
+      "at": "2026-11-16T19:43:43+00:00",
       "status": "retry",
       "inputHash": "7d10c52179c247f4c7294163bc2bbe9a2f7fc068aefe1f75c735cdc4d6b51c80",
-      "failures": 2,
-      "nextAttemptAt": "2026-11-16T05:57:37+00:00",
-      "reason": "ValueError: Bilingual editorial review: The source text (s3) states Pabrai copied his philosophy from Warren Buffett, not Mohnish Dalal. The content section incorrectly attributes the book 'Dhandho Investor' and concepts to Mohnish Dalal.; The source text (s3) mentions a charity lunch auction for the Glide Foundation in San Francisco. The content section incor"
+      "failures": 3,
+      "nextAttemptAt": "2026-11-17T11:43:43+00:00",
+      "reason": "ValueError: Bilingual editorial review: The source text (s3) states Mohnish Pabrai's net worth was 'north of like $80 million' in 2007 due to 'cloning Buffett'. The summary claims this is because he copied Buffett's philosophy. This misattributes the cause; the text explicitly links his wealth to 'cloning' (copying) as a method, not necessarily the philosophic"
     },
     "pabrai-0fc40bd3353d10": {
       "at": "2026-11-16T07:32:34+00:00",
@@ -4661,5 +4661,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-16T19:43:18+00:00"
+  "updatedAt": "2026-11-16T19:43:43+00:00"
 }
