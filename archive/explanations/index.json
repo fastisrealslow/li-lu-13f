@@ -2836,12 +2836,12 @@
       "reason": "ValueError: Unsupported numerical claim: 1967"
     },
     "marks-560f70ec2eec1a": {
-      "at": "2026-11-15T16:32:28+00:00",
+      "at": "2026-11-16T08:10:21+00:00",
       "status": "retry",
       "inputHash": "460d2bc5e59ac36f88806b90df809036440d9ebbfe62f43a4e956b696641a61c",
-      "failures": 1,
-      "nextAttemptAt": "2026-11-15T20:32:28+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English translation in the content section misattributes the dialogue participants: it refers to 'Andrew' as 'his son Andrew', but the source text (s9) only labels speakers as 'A:' and 'H:', without explicitly stating Andrew is Howard's son. While this is a common external fact, the instruction forbids demanding exam"
+      "failures": 2,
+      "nextAttemptAt": "2026-11-16T16:10:21+00:00",
+      "reason": "ValueError: Bilingual editorial review: The source text does not mention 'panic or greed' (fear/greed) as the primary drivers for selling; it specifically mentions investors becoming 'depressed or fearful' and selling in 'panic', but the core argument is about avoiding selling because things are 'down' or 'up'. The summary generalizes this into 'panic or greed"
     },
     "marks-f0ad7ce26c845b": {
       "at": "2026-11-16T05:49:59+00:00",
@@ -4656,5 +4656,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-16T08:10:16+00:00"
+  "updatedAt": "2026-11-16T08:10:21+00:00"
 }
