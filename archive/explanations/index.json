@@ -1409,12 +1409,12 @@
       "reason": "ValueError: Bilingual editorial review: The English text incorrectly claims Pabrai 'dialectically analyzed' the case; the source only states he told a story about Ashok and asked students to raise hands for rank 62.; The English text invents a specific response ('do not read his name...') that is not in the source; the source says students don't know his story"
     },
     "pabrai-341e9bdd1f2352": {
-      "at": "2026-11-15T03:06:09+00:00",
+      "at": "2026-11-16T05:18:27+00:00",
       "status": "retry",
       "inputHash": "87ab4f7aecaeaae10a76598f22e6d78b0a6618649a0bff7be7328cf0989d5e1e",
-      "failures": 1,
-      "nextAttemptAt": "2026-11-15T07:06:09+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English paragraph incorrectly states Pabrai seeks managers with 'a significant amount of skin in the game,' whereas the source (s6) specifies 'a large portion of their assets being co-invested alongside me.'; The English paragraph claims Pabrai prefers managers 'ideally in their mid-40s,' but the source (s6) states t"
+      "failures": 2,
+      "nextAttemptAt": "2026-11-16T13:18:27+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English translation in the 'content' section contains a factual error regarding the order of criteria. The source text (s6) lists: 1. Skin in the game, 2. Age (mid-40s), 3. Track record/years, 4. Fishing style. However, the provided English translation states 'placing age as the third criterion with specific performa"
     },
     "pabrai-eac064fbe28765": {
       "at": "2026-11-15T08:08:10+00:00",
@@ -4650,5 +4650,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-16T05:18:19+00:00"
+  "updatedAt": "2026-11-16T05:18:27+00:00"
 }
