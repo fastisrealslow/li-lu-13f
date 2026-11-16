@@ -3817,12 +3817,12 @@
       "reason": "ValueError: Unsupported numerical claim: 4"
     },
     "mclemore-c6fc6378554854": {
-      "at": "2026-11-15T16:30:32+00:00",
+      "at": "2026-11-16T08:21:47+00:00",
       "status": "retry",
       "inputHash": "9e494558fcf8a0a3af1481e5d4b104e5480e4653ea36f41b76eb86f6df4713b2",
-      "failures": 2,
-      "nextAttemptAt": "2026-11-16T00:30:32+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English translation of Einstein's quote is incorrect. The source text states 'The only source of knowledge is experience,' but the provided translation renders it as 'knowledge is the only source of experience.'; The English translation misattributes a quote to Doris Lessing. The source text attributes 'That is what "
+      "failures": 3,
+      "nextAttemptAt": "2026-11-17T00:21:47+00:00",
+      "reason": "ValueError: Bilingual editorial review: The paraphrase in section s1 incorrectly attributes a quote to 'Nobel Prize winner Doris Lessing'. The source text (s0) lists her name but does not mention the Nobel Prize. This is a factual error regarding her identity.; The paraphrase in section s2 states that shorting 'increases position weight as prices fall, which i"
     },
     "marks-e20814ff0b86b8": {
       "at": "2026-11-16T06:00:52+00:00",
@@ -4656,5 +4656,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-16T08:21:36+00:00"
+  "updatedAt": "2026-11-16T08:21:47+00:00"
 }
