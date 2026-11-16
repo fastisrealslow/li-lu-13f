@@ -4232,12 +4232,12 @@
       "reason": "ValueError: Bilingual editorial review: The source text does not mention 'belief perseverance' (belief perseverance) in relation to the disposition effect; it only mentions behavioral tendencies and historical inclination to cut back too much. The paraphrase introduces a specific psychological term not found in the evidence.; The source states the team maintai"
     },
     "mclemore-a8b41109aa8688": {
-      "at": "2026-11-15T16:34:43+00:00",
+      "at": "2026-11-16T15:19:11+00:00",
       "status": "retry",
       "inputHash": "b4a2964986e6e472c116e478fc0c0b6c85f94bf1fd9343b995b2b3421ae113a4",
-      "failures": 2,
-      "nextAttemptAt": "2026-11-16T00:34:43+00:00",
-      "reason": "ValueError: Bilingual editorial review: The Chinese text incorrectly states that the $700M return implies a yield of 7% at the current price; mathematically, $700M/$10B market cap equals 7%, but the text conflates this with the 'entire market cap' claim without clarifying the discrepancy between the $700M return and the full $10B cap.; The Chinese text claims "
+      "failures": 3,
+      "nextAttemptAt": "2026-11-17T07:19:11+00:00",
+      "reason": "ValueError: Copied source passage"
     },
     "mclemore-2cd355e2f0ad30": {
       "at": "2026-11-15T22:07:02+00:00",
@@ -4659,5 +4659,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-16T15:18:43+00:00"
+  "updatedAt": "2026-11-16T15:19:11+00:00"
 }
