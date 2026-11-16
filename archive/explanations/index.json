@@ -1150,12 +1150,12 @@
       "reason": "ValueError: Bilingual editorial review: The English translation in the content section misattributes a quote to Buffett that is not supported by the source text; the source only attributes 'Nothing comes from inside the browser search' to Pabrai (via Gates' example), while the translation incorrectly links it to Buffett.; The English translation adds interpret"
     },
     "buffett-2d755ae6f4137c": {
-      "at": "2026-11-16T05:50:36+00:00",
+      "at": "2026-11-16T19:55:00+00:00",
       "status": "retry",
       "inputHash": "62fb8ead1e8e910db33c1c12750360c6d520fecbdbadf4dfb9b1c0b1f11b37ab",
-      "failures": 2,
-      "nextAttemptAt": "2026-11-16T13:50:36+00:00",
-      "reason": "ValueError: Bilingual editorial review: The content claims a 'fundamental error' in the source material (s150-s152) regarding natural disaster risks. However, the provided evidence explicitly discusses the shoe industry's profitability and management quality. While the content correctly identifies that the evidence does not support the topic of 'Natural Disast"
+      "failures": 3,
+      "nextAttemptAt": "2026-11-17T11:55:00+00:00",
+      "reason": "ValueError: Copied source passage"
     },
     "pabrai-700b304a279285": {
       "at": "2026-11-16T07:26:42+00:00",
@@ -4663,5 +4663,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-16T19:54:14+00:00"
+  "updatedAt": "2026-11-16T19:55:00+00:00"
 }
