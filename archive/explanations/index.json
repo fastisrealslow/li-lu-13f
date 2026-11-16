@@ -2105,12 +2105,12 @@
       "reason": "ValueError: Unsupported numerical claim: 12"
     },
     "vinall-53f42cca11bfa3": {
-      "at": "2026-11-15T21:38:51+00:00",
+      "at": "2026-11-16T07:44:05+00:00",
       "status": "retry",
       "inputHash": "14d4f420a6eed2b73323d44a7dc800c66c244ace8bc033a5326f74b876c5360f",
-      "failures": 1,
-      "nextAttemptAt": "2026-11-16T01:38:51+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English text incorrectly states 'MIT Endowment manager actively invited him', whereas the source (s2) attributes the outreach to MIT itself ('They were the first institutional investor... to reach out to me'), not specifically the endowment manager.; The English text claims this attitude has deepened his admiration f"
+      "failures": 2,
+      "nextAttemptAt": "2026-11-16T15:44:05+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English text incorrectly states MITIMCo is 'one of the world's largest university endowments' based on s1/s2; while implied by context ('largest endowment', 'largest universities'), the source does not explicitly rank it among the top globally.; The phrase 'value-investing philosophy, which prioritizes substance over"
     },
     "lilu-a3cf37658bd8ce": {
       "at": "2026-11-15T22:31:40+00:00",
@@ -4654,5 +4654,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-16T07:43:43+00:00"
+  "updatedAt": "2026-11-16T07:44:05+00:00"
 }
