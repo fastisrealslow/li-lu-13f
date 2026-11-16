@@ -2382,12 +2382,12 @@
       "reason": "ValueError: Unsupported scaled numerical claim: -1,434"
     },
     "buffett-5a848c254e72aa": {
-      "at": "2026-11-15T04:50:52+00:00",
+      "at": "2026-11-16T05:05:20+00:00",
       "status": "retry",
       "inputHash": "0319c4c3b0f29539758461897817e256743bf93decdcdd10b42d1a96b5732155",
-      "failures": 1,
-      "nextAttemptAt": "2026-11-15T08:50:52+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English paragraph in the content section contains significant factual errors regarding the data presented in evidence s6. It states 'per-share book value growth from $19 to $134,973', but the source text (s6) explicitly says 'book value has grown from $19 to $134,973' referring to total company book value, not per-sh"
+      "failures": 2,
+      "nextAttemptAt": "2026-11-16T13:05:20+00:00",
+      "reason": "ValueError: Bilingual editorial review: The Chinese text incorrectly states Buffett 'argues for a distinction' (arguing for a difference) between financial growth and intrinsic value; the source actually argues that intrinsic value *far exceeds* book value and that they are different metrics to track.; The Chinese text claims underperformance is due to 'relati"
     },
     "buffett-b5218ddf52191e": {
       "at": "2026-11-15T21:26:18+00:00",
@@ -4650,5 +4650,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-16T05:04:22+00:00"
+  "updatedAt": "2026-11-16T05:05:20+00:00"
 }
