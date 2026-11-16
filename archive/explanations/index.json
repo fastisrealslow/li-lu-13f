@@ -4638,12 +4638,12 @@
       "reason": "ValueError: Bilingual editorial review: The English title 'Rob's 2026 Postcard from China' does not match the ASR text which refers to it as 'Rob's 2026 postcard from China' (missing apostrophe in source).; The Chinese heading claims the shift is about 'Chinese Public Perception of AI', but the ASR text (s0, s1) discusses general public perception of China and"
     },
     "marks-3582a029e7c200": {
-      "at": "2026-11-15T07:37:03+00:00",
+      "at": "2026-11-16T07:33:37+00:00",
       "status": "retry",
       "inputHash": "1a845dca9addfdfe29ca516f82344bce7c4af1ea6d6337266479e861b249ce23",
-      "failures": 1,
-      "nextAttemptAt": "2026-11-15T11:37:03+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English paraphrase incorrectly attributes the specific calculation (60% accuracy leading to 13% combined probability) as a direct argument by Howard Marks in the text. While Marks discusses the concept of multiplying probabilities and uses 60% as an example for top-down investing, he does not explicitly state 'if eac"
+      "failures": 2,
+      "nextAttemptAt": "2026-11-16T15:33:37+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English translation of the heading 'Core Argument: The High Uncertainty Nature of AI Investment' is a generic summary and does not faithfully reflect the specific content of the provided source text (which discusses probability calculations, credit risks, and Claude's scoring).; The English paragraph contains factual"
     },
     "mclemore-f9530f786e15f6": {
       "at": "2026-11-16T05:19:56+00:00",
@@ -4654,5 +4654,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-16T07:33:17+00:00"
+  "updatedAt": "2026-11-16T07:33:37+00:00"
 }
