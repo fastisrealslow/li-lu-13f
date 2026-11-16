@@ -2808,12 +2808,12 @@
       "reason": "ValueError: Bilingual editorial review: The Chinese translation contains a factual error regarding the calculation logic: it states '25% stock price increase multiplied by 4% position size' but then incorrectly claims the text says '25% multiplied by 4%' (25% * 4% = 1%, which is mathematically correct, but the parenthetical clarification in the source text imp"
     },
     "marks-49e0212382a26b": {
-      "at": "2026-11-15T07:31:57+00:00",
+      "at": "2026-11-16T05:18:49+00:00",
       "status": "retry",
       "inputHash": "4fc2cef43c39352d833c1cd958bbd646208f9db9d653a53ea608dfaaeb8f49c5",
-      "failures": 1,
-      "nextAttemptAt": "2026-11-15T11:31:57+00:00",
-      "reason": "ValueError: Bilingual editorial review: The source text (s13) does not attribute the quote 'All great investments begin in discomfort' to Warren Buffett; it attributes it to Howard Marks himself ('As I put it...'). The provided translation incorrectly assigns this quote to Buffett.; The source text (s13) describes Buffett's habit as liking hamburgers and eatin"
+      "failures": 2,
+      "nextAttemptAt": "2026-11-16T13:18:49+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English content incorrectly attributes the quote 'For years, investors thought conditions were good...' to Howard Marks as a direct statement from him in the article. The source text (s12) presents this as the author's own belief ('we at Oaktree believed'), not a quotation of someone else.; The English content miside"
     },
     "marks-e85898c6125044": {
       "at": "2026-11-15T16:31:09+00:00",
@@ -4650,5 +4650,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-16T05:18:27+00:00"
+  "updatedAt": "2026-11-16T05:18:49+00:00"
 }
