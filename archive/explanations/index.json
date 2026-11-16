@@ -2993,12 +2993,12 @@
       "reason": "ValueError: Bilingual editorial review: The English translation in the 'content' section contains a factual error: it attributes the hierarchy (facts, logical inferences, guesses) to Marc Lipsitch's memos about epidemiology. The source text (s3) states that *Howard Marks* himself has mentioned Lipsitch in his own memos and applies this hierarchy to contrast ec"
     },
     "marks-feeacb8823121d": {
-      "at": "2026-11-15T08:10:41+00:00",
+      "at": "2026-11-16T07:46:47+00:00",
       "status": "retry",
       "inputHash": "e5e52bfa60452a421610cde2368773fbe847383ffa6fa5eaec9f62594787c44f",
-      "failures": 1,
-      "nextAttemptAt": "2026-11-15T12:10:41+00:00",
-      "reason": "ValueError: Bilingual editorial review: The Chinese text claims the author argues that 'real-world investing faces a lethal asymmetrical risk: the risk of ruin', which contradicts the source stating leverage magnification is 'typically symmetrical' and the asymmetry lies in the lack of corresponding upside compensation for the risk of ruin, not that ruin itsel"
+      "failures": 2,
+      "nextAttemptAt": "2026-11-16T15:46:47+00:00",
+      "reason": "ValueError: Bilingual editorial review: The source text (s3) states leverage magnifies gains and losses 'typically symmetrical' but does not explicitly define this as a mathematical property; the claim of 'symmetrical mathematical effect' is an editorial interpretation not directly supported by the text.; The source text (s4) describes the risk of ruin as havi"
     },
     "marks-6a1195ae7f8bbb": {
       "at": "2026-11-16T05:21:38+00:00",
@@ -4654,5 +4654,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-16T07:46:03+00:00"
+  "updatedAt": "2026-11-16T07:46:47+00:00"
 }
