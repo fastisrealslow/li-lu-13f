@@ -996,12 +996,12 @@
       "reason": "ValueError: Bilingual editorial review: The Chinese text incorrectly states Rob Vinall was hired 'after college' (graduated), while the ASR transcript (s6) explicitly says he was offered a job 'before my senior year started', meaning before graduation.; The Chinese text claims there was 'no requirement for freshman internships', whereas the ASR (s7) states one"
     },
     "pabrai-9f46a7707898d1": {
-      "at": "2026-11-15T08:12:28+00:00",
+      "at": "2026-11-16T07:45:13+00:00",
       "status": "retry",
       "inputHash": "4ea7f7e1666f036759fc89b7aefc7ba295fd837590039261ec3528593b8312b0",
-      "failures": 1,
-      "nextAttemptAt": "2026-11-15T12:12:28+00:00",
-      "reason": "ValueError: Unsupported numerical claim: 1973"
+      "failures": 2,
+      "nextAttemptAt": "2026-11-16T15:45:13+00:00",
+      "reason": "ValueError: Unsupported numerical claim: 6.5"
     },
     "pabrai-07edcbfd5c328f": {
       "at": "2026-11-16T05:06:59+00:00",
@@ -4654,5 +4654,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-16T07:44:53+00:00"
+  "updatedAt": "2026-11-16T07:45:13+00:00"
 }
