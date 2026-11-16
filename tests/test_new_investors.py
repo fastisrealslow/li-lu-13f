@@ -47,11 +47,30 @@ class NewInvestors(unittest.TestCase):
                     with patch.object(pricing,'finnhub',return_value=dict(c=100,h=100,l=100,o=100,pc=100,t=1)),patch.object(pricing,'yahoo_chart',return_value=None),patch.object(pricing.time,'sleep'):
                         pricing.fetch_us('test',dict(data=str(path),prices=str(prices)))
                 return subprocess.CompletedProcess(args,0)
-            with patch.dict(os.environ,{'TRACK_RUN_STATUS':'0'}),contextlib.redirect_stdout(io.StringIO()):
+            # This regression always exercises US pricing, independent of the live
+            # market selection exported by the scheduled workflow.
+            with patch.dict(os.environ,{'TRACK_RUN_STATUS':'0','MARKET_REFRESH':'US'}),contextlib.redirect_stdout(io.StringIO()):
                 failed=update_investors.run([dict(id='test',name='Test',source13F=True)],runner)
             self.assertEqual(failed,[])
             self.assertEqual(json.loads(prices.read_text())['costBasis']['AAA']['recent']['buy'],100)
             self.assertEqual(json.loads(path.read_text())['current']['totalValue'],300000)
+
+    def test_market_selection_skips_only_unselected_price_phases(self):
+        import os, subprocess
+        people=[dict(id='us',name='US',source13F=True),dict(id='hk',name='HK',source13F=False)]
+        for markets,expected in [('HK,CN',{'hk'}),('US',{'us'}),('US,HK',{'us','hk'}),('',set())]:
+            with self.subTest(markets=markets):
+                calls=[]
+                def runner(args,**kwargs):
+                    calls.append(args[2:])
+                    return subprocess.CompletedProcess(args,0)
+                with patch.dict(os.environ,{'TRACK_RUN_STATUS':'0','MARKET_REFRESH':markets}):
+                    self.assertEqual(update_investors.run(people,runner),[])
+                priced={args[-1] for args in calls if args[0]=='fetch_prices_all.py'}
+                self.assertEqual(priced,expected)
+                self.assertTrue(any(args[0]=='fetch_13f_all.py' for args in calls))
+                self.assertTrue(any(args[0]=='audit_13f_history.py' for args in calls))
+                self.assertTrue(any(args[0]=='fetch_webb_holdings.py' for args in calls))
 
     def test_failed_unit_audit_cannot_overwrite_the_previous_price_snapshot(self):
         import os,subprocess
