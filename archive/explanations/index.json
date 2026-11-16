@@ -1769,12 +1769,12 @@
       "reason": "ValueError: Bilingual editorial review: The source text (s2) explicitly states that Mohnish Pabrai is 'sorry' for not remembering Mr. Dhanuka's face, contradicting the claim in the content section that both guests taught investment wisdom together at Omaha.; The source text (s2) attributes the teaching of 'cloning' strategy to the host ('lessons we learned... "
     },
     "pabrai-f5fcff5c4d79a8": {
-      "at": "2026-11-15T15:59:53+00:00",
+      "at": "2026-11-16T05:37:19+00:00",
       "status": "retry",
       "inputHash": "02144b6d0dca10bc382de80731e62f6d86fa8d0158352089869913e456b0cffd",
-      "failures": 2,
-      "nextAttemptAt": "2026-11-15T23:59:53+00:00",
-      "reason": "ValueError: Unsupported scaled numerical claim: 10"
+      "failures": 3,
+      "nextAttemptAt": "2026-11-16T21:37:19+00:00",
+      "reason": "ValueError: Bilingual editorial review: The Chinese text claims Pabrai clarified that his startup was not funded by 'one million dollars' (one hundred thousand), but the source (s1) states he founded it with 'a little over a hundred thousand dollars'. The claim of an error regarding one million is unsupported; the text correctly reports the ~$100k figure.; The"
     },
     "pabrai-632419fca50123": {
       "at": "2026-11-15T21:59:03+00:00",
@@ -4652,5 +4652,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-16T05:37:01+00:00"
+  "updatedAt": "2026-11-16T05:37:19+00:00"
 }
