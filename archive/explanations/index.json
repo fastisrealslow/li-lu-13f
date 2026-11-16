@@ -1663,12 +1663,12 @@
       "reason": "ValueError: Unsupported numerical claim: 3"
     },
     "vinall-ac99a6ec8608a5": {
-      "at": "2026-11-15T04:38:59+00:00",
+      "at": "2026-11-16T04:59:56+00:00",
       "status": "retry",
       "inputHash": "cdff013dc10407a889c756ede9e92ffc1eae348de89054ae5ca4593410792268",
-      "failures": 1,
-      "nextAttemptAt": "2026-11-15T08:38:59+00:00",
-      "reason": "ValueError: Bilingual editorial review: The source (ASR) contains no mention of 'book value' (s12-s14), 'static moats', or the specific phrase 'Beyond Book Value'. The content section incorrectly attributes these concepts to Rob Vinall's speech based on inference rather than evidence.; The source mentions a conflict between European regulators and the SEC rega"
+      "failures": 2,
+      "nextAttemptAt": "2026-11-16T12:59:56+00:00",
+      "reason": "ValueError: Bilingual editorial review: Author name mismatch: Source uses 'Rob Vinall' (s12-s14), but content claims 'Rob Vinall' is the speaker. While phonetically similar, the source text does not explicitly confirm the spelling 'Vinall', and the provided canonical list includes both 'Vinall' and 'Verner'. The content's use of 'Vinall' contradicts the likely"
     },
     "pabrai-00ca7a03f93774": {
       "at": "2026-11-15T21:56:08+00:00",
@@ -4650,5 +4650,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-16T04:59:26+00:00"
+  "updatedAt": "2026-11-16T04:59:56+00:00"
 }
