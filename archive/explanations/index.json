@@ -1673,12 +1673,12 @@
       "reason": "ValueError: Bilingual editorial review: Author name mismatch: Source uses 'Rob Vinall' (s12-s14), but content claims 'Rob Vinall' is the speaker. While phonetically similar, the source text does not explicitly confirm the spelling 'Vinall', and the provided canonical list includes both 'Vinall' and 'Verner'. The content's use of 'Vinall' contradicts the likely"
     },
     "pabrai-00ca7a03f93774": {
-      "at": "2026-11-15T21:56:08+00:00",
+      "at": "2026-11-16T08:32:56+00:00",
       "status": "retry",
       "inputHash": "7a780324a4c1dcbdcfc045aaa3611e3f567512c64585e7595819d72853e2e4e7",
-      "failures": 2,
-      "nextAttemptAt": "2026-11-16T05:56:08+00:00",
-      "reason": "ValueError: Bilingual editorial review: The source text (s2) states that Mohnish Pabrai claims God gave him the commandments through Arvind's class, but the provided content section attributes this to 'Pabrai' without mentioning Arvind or the divine origin, creating a factual gap.; The source text (s3) explicitly states Warren Buffett took 0.625% in 1962 after"
+      "failures": 3,
+      "nextAttemptAt": "2026-11-17T00:32:56+00:00",
+      "reason": "ValueError: Unsupported numerical claim: 15%"
     },
     "pabrai-1e84c0b65621b6": {
       "at": "2026-11-15T22:07:21+00:00",
@@ -4656,5 +4656,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-16T08:32:40+00:00"
+  "updatedAt": "2026-11-16T08:32:56+00:00"
 }
