@@ -1900,12 +1900,12 @@
       "reason": "ValueError: Bilingual editorial review: The Chinese translation incorrectly attributes the Microsoft example to 'early employees' (early investors) who were introduced by a fund manager; the source text states the speaker met with current/former employees directly after being introduced by an early investor.; The Chinese translation misrepresents the employees"
     },
     "pabrai-7b63bdce3eef9a": {
-      "at": "2026-11-15T16:55:29+00:00",
+      "at": "2026-11-16T14:57:47+00:00",
       "status": "retry",
       "inputHash": "68d5f7c9f40789729bebada2a9716f4f437e424e0a4f8745b935f1986e2cd3ef",
-      "failures": 1,
-      "nextAttemptAt": "2026-11-15T20:55:29+00:00",
-      "reason": "ValueError: Bilingual editorial review: The source text (s6) does not mention 'One Up on Wall Street' or 'Beating the Street'; it only states Pabrai read two Peter Lynch books and ran out of them. The specific titles are invented.; The source text (s1) mentions 'TransTech' was started with savings and credit card 'bearings', which is a mistranslation of 'balan"
+      "failures": 2,
+      "nextAttemptAt": "2026-11-16T22:57:47+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English translation in 'content' incorrectly states Pabrai had 'only a small amount of savings and credit card balances', whereas source s1 specifies 'under a hundred thousand' (approx. $100k), which is not merely 'small'.; The English translation claims he was 'ready to read fifty more if available', but source s6 s"
     },
     "vinall-c12bae3cc1e659": {
       "at": "2026-11-16T04:59:57+00:00",
@@ -4659,5 +4659,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-16T14:57:45+00:00"
+  "updatedAt": "2026-11-16T14:57:47+00:00"
 }
