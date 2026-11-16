@@ -2071,12 +2071,12 @@
       "reason": "ValueError: Bilingual editorial review: The English translation in the 'content' section contains factual errors regarding the source text.; The phrase 'dealing in cigarettes and lottery tickets' is a mistranslation of the Chinese 'purveyors of', which implies distribution/sales rather than just dealing; however, the bigger issue is the misinterpretation of th"
     },
     "vinall-5d9ce22dd4537e": {
-      "at": "2026-11-15T07:26:49+00:00",
+      "at": "2026-11-16T05:04:01+00:00",
       "status": "retry",
       "inputHash": "2415fa16d12887ffcf317a2f26cf7a36573dc7b68ffad00ac6ac325024fd43d1",
-      "failures": 1,
-      "nextAttemptAt": "2026-11-15T11:26:49+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English text incorrectly attributes the seven characteristics and specific examples (Google vs. Deutsche Bank) to 'Rob Vinall' through the lens of 'The Intelligent Investor'. The source evidence (s6-s8) is an ASR transcript where the speaker discusses compounders but does not explicitly name themselves as Rob Vinall "
+      "failures": 2,
+      "nextAttemptAt": "2026-11-16T13:04:01+00:00",
+      "reason": "ValueError: Bilingual editorial review: Author name mismatch: Source uses 'Rob Vinall' (s6-s8), but content claims 'Rob Vinall' is operating within Graham's framework. The source text does not mention Benjamin Graham or 'The Intelligent Investor'.; Factual error: Content states the speaker 'does not directly quote Graham's original text', yet the title and int"
     },
     "vinall-0316198ffd7198": {
       "at": "2026-11-15T07:54:02+00:00",
@@ -4650,5 +4650,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-16T05:03:38+00:00"
+  "updatedAt": "2026-11-16T05:04:01+00:00"
 }
