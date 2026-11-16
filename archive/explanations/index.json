@@ -1916,12 +1916,12 @@
       "reason": "ValueError: Bilingual editorial review: The Chinese text incorrectly states Rob Vinall made his first investment in Baidu in 2013. Source s0 explicitly says: 'since 2013, when I made our first investment... which I wrote about in my 2012 investor letter.' This implies the investment happened after the 2012 letter (likely late 2013 or early 2014), not that he i"
     },
     "pabrai-1e956456cad67c": {
-      "at": "2026-11-15T04:20:40+00:00",
+      "at": "2026-11-16T14:58:27+00:00",
       "status": "retry",
       "inputHash": "067c627cd69870aa6bfc7d791a2ec58805940a9dbe1a08b37da77713f9f9c1e4",
-      "failures": 1,
-      "nextAttemptAt": "2026-11-15T08:20:40+00:00",
-      "reason": "ValueError: Bilingual editorial review: The source text (s2-s4) does not mention 'David Hawkins' or his theory regarding 'muscle weakness' in the context of lying; Pabrai refers to a book called 'Power Versus Force' but does not name the author. This is an invented attribution.; The source text describes the effect of lying as making people feel 'weak' (muscle"
+      "failures": 2,
+      "nextAttemptAt": "2026-11-16T22:58:27+00:00",
+      "reason": "ValueError: Bilingual editorial review: The source text (s2) states Charlie Munger talks about 'the latticework of mental models' but does not specify a number like '30'. The content section claims Pabrai mentions applying 'about thirty mental models', which is an invention not found in the provided evidence.; The source text (s4) ends abruptly with 'But what "
     },
     "pabrai-d1dea134078fdc": {
       "at": "2026-11-15T16:17:02+00:00",
@@ -4659,5 +4659,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-16T14:58:23+00:00"
+  "updatedAt": "2026-11-16T14:58:27+00:00"
 }
