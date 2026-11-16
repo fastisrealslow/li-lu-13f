@@ -2076,12 +2076,12 @@
       "reason": "ValueError: Bilingual editorial review: The English translation of 'purveyors' in the source text is accurate ('purveyors of cigarettes and lottery tickets'), but the Chinese translation uses 'retail business' which slightly broadens the scope; however, this is a minor semantic nuance not constituting a concrete material error.; The phrase 'blue collar industr"
     },
     "vinall-5d9ce22dd4537e": {
-      "at": "2026-11-16T05:04:01+00:00",
+      "at": "2026-11-16T14:43:31+00:00",
       "status": "retry",
       "inputHash": "2415fa16d12887ffcf317a2f26cf7a36573dc7b68ffad00ac6ac325024fd43d1",
-      "failures": 2,
-      "nextAttemptAt": "2026-11-16T13:04:01+00:00",
-      "reason": "ValueError: Bilingual editorial review: Author name mismatch: Source uses 'Rob Vinall' (s6-s8), but content claims 'Rob Vinall' is operating within Graham's framework. The source text does not mention Benjamin Graham or 'The Intelligent Investor'.; Factual error: Content states the speaker 'does not directly quote Graham's original text', yet the title and int"
+      "failures": 3,
+      "nextAttemptAt": "2026-11-17T06:43:31+00:00",
+      "reason": "ValueError: Bilingual editorial review: Author attribution error: The source text (ASR) identifies the speaker as 'Rob Vinall' in s8 ('Google most certainly is a Compounder'), but the content section attributes these views to 'Rob Vinall' while referencing 'The Intelligent Investor'. However, Rob Vinall is not the author of 'The Intelligent Investor'; that boo"
     },
     "vinall-0316198ffd7198": {
       "at": "2026-11-16T07:39:15+00:00",
@@ -4659,5 +4659,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-16T14:43:10+00:00"
+  "updatedAt": "2026-11-16T14:43:31+00:00"
 }
