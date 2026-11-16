@@ -1401,12 +1401,12 @@
       "reason": "ValueError: Bilingual editorial review: The source text contains a fabricated date (June 11, 2054) presented as fact by Mohnish Pabrai; this is not an external error but an invented claim within the dialogue that contradicts canonical facts about his life and the current year.; The source claims Pabrai will leave Earth in 2054 after controlling his heart via s"
     },
     "pabrai-890538700bb512": {
-      "at": "2026-11-15T08:06:04+00:00",
+      "at": "2026-11-16T08:03:20+00:00",
       "status": "retry",
       "inputHash": "30f3e5564c03eb730615821a68a8fa602e8365e07ef182e5e80dfce1c1290856",
-      "failures": 1,
-      "nextAttemptAt": "2026-11-15T12:06:04+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English text incorrectly claims Pabrai 'dialectically analyzed' the case; the source only states he told a story about Ashok and asked students to raise hands for rank 62.; The English text invents a specific response ('do not read his name...') that is not in the source; the source says students don't know his story"
+      "failures": 2,
+      "nextAttemptAt": "2026-11-16T16:03:20+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English translation in the 'content' section incorrectly attributes the dialogue about hobbies to Pabrai himself ('when Shiva Sai from JNV Rangareddy asked about his hobbies'), whereas the source text (s3) clearly shows Shiva Sai asking Mohnish, and it is Mohnish who responds with the story of T. Ashok Kumar.; The En"
     },
     "pabrai-341e9bdd1f2352": {
       "at": "2026-11-16T05:18:27+00:00",
@@ -4656,5 +4656,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-16T08:02:55+00:00"
+  "updatedAt": "2026-11-16T08:03:20+00:00"
 }
