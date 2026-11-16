@@ -3844,12 +3844,12 @@
       "reason": "ValueError: Bilingual editorial review: The Chinese text incorrectly attributes the quote about bull markets being 'born on pessimism' to Samantha McLemore; source s3 explicitly states this is a favorite quote from Sir John Templeton.; The Chinese text claims McLemore argues we are in the 'acceptance phase' implying diminishing returns, but source s3 states La"
     },
     "marks-1dc8ee1ff847bc": {
-      "at": "2026-11-15T21:29:46+00:00",
+      "at": "2026-11-16T15:33:50+00:00",
       "status": "retry",
       "inputHash": "b450a99619f34418659224eb8ca705e708aa20e3ac813221cd04825f271afb44",
-      "failures": 1,
-      "nextAttemptAt": "2026-11-16T01:29:46+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English translation in the content section contains a factual error: it attributes 'A Short History of Financial Euphoria' to John Kenneth Galbraith as if he wrote it, whereas source s1 only lists the title and author (Galbraith) as a reference point for an observation that appeared in his work, not necessarily imply"
+      "failures": 2,
+      "nextAttemptAt": "2026-11-16T23:33:50+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English translation of s0 correctly reflects the source text's phrasing regarding 'primitive refuge' and dismissal of past experience.; The English translation of s1 accurately captures Galbraith's point about John Q. Investor repeating past mistakes.; The English translation of s3 correctly attributes Mark Twain's q"
     },
     "mclemore-7e32ab18209c03": {
       "at": "2026-11-15T21:41:58+00:00",
@@ -4659,5 +4659,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-16T15:32:51+00:00"
+  "updatedAt": "2026-11-16T15:33:50+00:00"
 }
