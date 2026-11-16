@@ -3692,12 +3692,12 @@
       "reason": "ValueError: Bilingual editorial review: The content section incorrectly claims that the fourth anomaly (interweaving of anomalies challenging traditional logic) is 'implied in the logic' but not explicitly listed in the provided source text. The source text only lists three bullet points; adding a fourth point as if it were part of the original enumeration con"
     },
     "marks-d02a84b5f6393d": {
-      "at": "2026-11-15T17:02:59+00:00",
+      "at": "2026-11-16T15:08:13+00:00",
       "status": "retry",
       "inputHash": "2915564da40cbde0264b335ffcc663501ec9cf2f19dc0808b60b42e18f5055e6",
-      "failures": 2,
-      "nextAttemptAt": "2026-11-16T01:02:59+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English translation in the 'content' section misquotes Munger's actual words from evidence s0. The source text states: 'Anyone who finds it easy is stupid.' The provided translation says: 'finding it easy is stupid,' which omits the critical subject 'Anyone who'.; The English translation in the 'content' section misq"
+      "failures": 3,
+      "nextAttemptAt": "2026-11-17T07:08:13+00:00",
+      "reason": "ValueError: Bilingual editorial review: The Chinese text introduces 'cognitive and behavioral challenges' and 'self-correcting mechanisms' which are not present in the source evidence (s0-s2). The source only states that efforts drive out opportunities and make securities fairly priced; it does not explicitly mention cognitive/behavioral challenges or self-cor"
     },
     "mclemore-db30e1e142df0a": {
       "at": "2026-11-15T21:32:47+00:00",
@@ -4659,5 +4659,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-16T15:07:54+00:00"
+  "updatedAt": "2026-11-16T15:08:13+00:00"
 }
