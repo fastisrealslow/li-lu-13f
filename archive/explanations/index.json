@@ -1569,12 +1569,12 @@
       "reason": "ValueError: Bilingual editorial review: The Chinese text incorrectly attributes the quote about Munger being 99 years old to Pabrai himself ('...stressing that even at 99 years old, Munger is still striving...'). The source (s7) clearly states 'He's 99 years old now' referring to Charlie Munger, not Pabrai. Pabrai is the one recounting the interview and his ow"
     },
     "pabrai-99a0eff7272af5": {
-      "at": "2026-11-15T08:16:40+00:00",
+      "at": "2026-11-16T08:07:43+00:00",
       "status": "retry",
       "inputHash": "f967ae2af5db8e86a46609e0593938baf78d47b56796c3327f5acbb550db9f51",
-      "failures": 1,
-      "nextAttemptAt": "2026-11-15T12:16:40+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English translation of 'Coke and Pepsi bottlers' as 'distributors' is accurate; however, the source text specifies 'bottlers', which are specific to beverage distribution. While 'distributors' is a reasonable paraphrase for general understanding, it slightly broadens the scope. Given the instruction to avoid generic "
+      "failures": 2,
+      "nextAttemptAt": "2026-11-16T16:07:43+00:00",
+      "reason": "ValueError: Unsupported numerical claim: -97%"
     },
     "pabrai-6626f4a7337cb1": {
       "at": "2026-11-16T05:24:20+00:00",
@@ -4656,5 +4656,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-16T08:07:29+00:00"
+  "updatedAt": "2026-11-16T08:07:43+00:00"
 }
