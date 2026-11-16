@@ -2660,12 +2660,12 @@
       "reason": "ValueError: Bilingual editorial review: The Chinese text incorrectly attributes the quote 'History doesn't repeat itself' entirely to Mark Twain without clarifying that only the first four words are verified; it implies full attribution where the source says evidence is lacking.; The Chinese text states the Financial Times and New York Times relied 'solely' on"
     },
     "marks-5617528248df21": {
-      "at": "2026-11-15T21:50:38+00:00",
+      "at": "2026-11-16T08:06:29+00:00",
       "status": "retry",
       "inputHash": "72c62170b3318edd3391a50d8b061c83903d622ec66ea7e8ffb2c74e515f5f14",
-      "failures": 2,
-      "nextAttemptAt": "2026-11-16T05:50:38+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English paraphrase in the content section is too long (236 characters) and exceeds the 160-character limit per correction constraint.; The phrase 'unforeseeable random events' conflates 'random' with 'unforeseeable'; the source text uses 'perhaps-random but certainly unforeseeable', which implies unpredictability rat"
+      "failures": 3,
+      "nextAttemptAt": "2026-11-17T00:06:29+00:00",
+      "reason": "ValueError: Bilingual editorial review: The Chinese text incorrectly attributes Jack Dorsey's tweet 'You make your own luck' to Howard Marks as an example of his argument; the source (s2) clearly states this quote is from Dorsey.; The Chinese text claims Gladwell's book 'Outliers' is cited as an 'example' (e.g., 1), whereas the source (s4) implies it is used t"
     },
     "marks-e91a1e0d720ee5": {
       "at": "2026-11-16T07:49:43+00:00",
@@ -4656,5 +4656,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-16T08:06:25+00:00"
+  "updatedAt": "2026-11-16T08:06:29+00:00"
 }
