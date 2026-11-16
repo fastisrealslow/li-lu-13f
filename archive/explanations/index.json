@@ -3457,12 +3457,12 @@
       "reason": "ValueError: Bilingual editorial review: The English translation incorrectly substitutes 'EBITDA' for the source text's 'pre-interest, pre-tax profit'. The correct term is EBIT (Earnings Before Interest and Taxes).; The English translation adds the phrase 'a point highlighted by recent changes in executive pay structures', which is not explicitly stated in the "
     },
     "marks-d39edc8226b5ec": {
-      "at": "2026-11-15T16:54:29+00:00",
+      "at": "2026-11-16T08:01:35+00:00",
       "status": "retry",
       "inputHash": "c6271ade474619d78e16e2e2a5530762855a24224d3aa4f02edebd5ee50c6a63",
-      "failures": 2,
-      "nextAttemptAt": "2026-11-16T00:54:29+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English translation in the content section misquotes John Kenneth Galbraith. The source text (s2) quotes him as: 'We have two classes of forecasters: Those who don't know -- and those who don't know they don't know.' The provided translation omits the second clause ('and those who don't know they don't know'), alteri"
+      "failures": 3,
+      "nextAttemptAt": "2026-11-17T00:01:35+00:00",
+      "reason": "ValueError: Bilingual editorial review: The Chinese text incorrectly attributes the quote 'We have two classes of forecasters...' to John Kenneth Galbraith; the source (s2) explicitly states 'I agree with John Kenneth Galbraith' but does not provide the quote itself, and this specific phrasing is historically associated with Nassim Nicholas Taleb, not Galbrait"
     },
     "mclemore-06adf7d58762c4": {
       "at": "2026-11-15T21:23:27+00:00",
@@ -4656,5 +4656,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-16T08:01:29+00:00"
+  "updatedAt": "2026-11-16T08:01:35+00:00"
 }
