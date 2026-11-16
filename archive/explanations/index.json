@@ -3190,12 +3190,12 @@
       "reason": "ValueError: Bilingual editorial review: The English text contains a factual error regarding the dialogue: it claims Marks 'immediately recognized' the punitive nature and admitted 'then don't put it in the bank,' whereas the source (s5) shows he first suggested depositing, then corrected himself to 'don't put it in the bank' only after his lawyer insisted. The"
     },
     "marks-a8162651bb160c": {
-      "at": "2026-11-15T16:53:08+00:00",
+      "at": "2026-11-16T19:21:59+00:00",
       "status": "retry",
       "inputHash": "bfc42d192d872273d32a6560ce2f702fb703641f052308fe54e6beb906f504ab",
-      "failures": 1,
-      "nextAttemptAt": "2026-11-15T20:53:08+00:00",
-      "reason": "ValueError: Bilingual editorial review: The Chinese text incorrectly attributes the quote 'I am not sure' to Howard Marks as a direct definition of his state of knowledge; the source (s21) presents it as an example ('some variation of') rather than a formal definition.; The Chinese text states that attempting to eliminate uncertainty leads to overconfidence, w"
+      "failures": 2,
+      "nextAttemptAt": "2026-11-17T03:21:59+00:00",
+      "reason": "ValueError: Copied source passage"
     },
     "mclemore-aef9e9f4818acd": {
       "at": "2026-11-16T05:46:37+00:00",
@@ -4661,5 +4661,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-16T19:21:45+00:00"
+  "updatedAt": "2026-11-16T19:21:59+00:00"
 }
