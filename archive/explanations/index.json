@@ -793,12 +793,12 @@
       "reason": "ValueError: Bilingual editorial review: The English text incorrectly states Buffett considered 'holding preferred stock' more attractive; the transcript (s184) explicitly says he loved buying 'the Goldman preferred', not Harley-Davidson's.; The English text claims he avoided equity valuation uncertainty by using debt, but s183 states he knew Harley wouldn't go"
     },
     "buffett-9a23c10a029cef": {
-      "at": "2026-11-15T04:38:31+00:00",
+      "at": "2026-11-16T07:37:04+00:00",
       "status": "retry",
       "inputHash": "3e5cb8c0b0e1c4dcf23b78d66f6b71b8982c98ca32fcef3ab0f3c6ced09ca8d6",
-      "failures": 1,
-      "nextAttemptAt": "2026-11-15T08:38:31+00:00",
-      "reason": "ValueError: Unsupported numerical claim: 1"
+      "failures": 2,
+      "nextAttemptAt": "2026-11-16T15:37:04+00:00",
+      "reason": "ValueError: Repeated paragraphs cannot pad an explanation"
     },
     "buffett-8a8f946f7a99e0": {
       "at": "2026-11-02T03:44:02+00:00",
@@ -4654,5 +4654,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-16T07:36:33+00:00"
+  "updatedAt": "2026-11-16T07:37:04+00:00"
 }
