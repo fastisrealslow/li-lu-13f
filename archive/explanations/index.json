@@ -1068,12 +1068,12 @@
       "reason": "JSONDecodeError: Expecting ',' delimiter: line 4 column 325 (char 360)"
     },
     "pabrai-0c3b0137fc117b": {
-      "at": "2026-11-15T05:07:14+00:00",
+      "at": "2026-11-16T07:40:51+00:00",
       "status": "retry",
       "inputHash": "d920bdd63f02da0b3d18c94617678336364bf0951691b29fde9ce6a8048744ed",
-      "failures": 1,
-      "nextAttemptAt": "2026-11-15T09:07:14+00:00",
-      "reason": "ValueError: Bilingual editorial review: The source text (s3) states 'it is richer than Elon and everyone' without specifying 'Musk', but the Chinese translation uses 'Elon Musk'. While 'Elon' is a common shorthand, the full name 'Musk' is not in the source. However, given the context of global wealth rankings, this is a minor stylistic preference rather than a"
+      "failures": 2,
+      "nextAttemptAt": "2026-11-16T15:40:51+00:00",
+      "reason": "ValueError: Bilingual editorial review: The source text (s4) is cut off mid-sentence ('who has visited more') and does not contain the specific claim that 'these giants were essentially followers of the Me Too model rather than true innovators'. This conclusion appears to be an editorial interpretation added in the content section without direct textual suppor"
     },
     "pabrai-656ae25b22f620": {
       "at": "2026-11-16T05:11:03+00:00",
@@ -4654,5 +4654,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-16T07:40:37+00:00"
+  "updatedAt": "2026-11-16T07:40:51+00:00"
 }
