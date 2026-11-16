@@ -636,12 +636,12 @@
       "reason": "ValueError: Bilingual editorial review: The English text incorrectly attributes the '20-punch card' metaphor to Buffett while the source (s5) explicitly states 'Buffett talks about...'; The English text misrepresents John Arrillaga's background as a friend of Charlie Munger who invested in real estate near Stanford, whereas s5 describes him as John Arrillaga's"
     },
     "vinall-c919ac8b6b58c4": {
-      "at": "2026-11-16T04:58:15+00:00",
+      "at": "2026-11-16T14:41:43+00:00",
       "status": "retry",
       "inputHash": "5af4c68010fe5d16e180b31a59d9e58951db06672d9fbd70506aed811829e319",
-      "failures": 2,
-      "nextAttemptAt": "2026-11-16T12:58:15+00:00",
-      "reason": "ValueError: Bilingual editorial review: The Chinese text incorrectly claims the source 'explicitly mentions' witnessing Warren Buffett's final meeting; the ASR only states attending the Berkshire Hathaway shareholder meeting without confirming Buffett's presence or the 'final' nature of the meeting.; The English text similarly misrepresents the evidence by sta"
+      "failures": 3,
+      "nextAttemptAt": "2026-11-17T06:41:43+00:00",
+      "reason": "ValueError: Bilingual editorial review: The source text does not mention 'Spring Break' (s1), only 'spring break' in the context of visiting China; adding 'Spring Break' as a specific event name is an unwritten assumption.; The source states Buffett's meeting was his 'final shareholder meeting' (s0, s3); the content claims this is a 'significant point from a b"
     },
     "buffett-d5e534b6a5c51f": {
       "at": "2026-11-16T07:24:33+00:00",
@@ -4659,5 +4659,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-16T14:41:37+00:00"
+  "updatedAt": "2026-11-16T14:41:43+00:00"
 }
