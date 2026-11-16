@@ -3796,12 +3796,12 @@
       "reason": "ValueError: Bilingual editorial review: The source text (s0) states the NYT article was about John Bogle on August 12, but does not explicitly name 'Vanguard' in that specific sentence; however, s1 quotes Bogle and the context implies his identity. The content section correctly identifies him as Vanguard's founder based on general knowledge consistent with the"
     },
     "marks-159247340c6388": {
-      "at": "2026-11-15T16:52:14+00:00",
+      "at": "2026-11-16T15:11:52+00:00",
       "status": "retry",
       "inputHash": "2f65c3b39af38f2235052b249ec59467aa062fe593d45163f406df1bcccac84a",
-      "failures": 1,
-      "nextAttemptAt": "2026-11-15T20:52:14+00:00",
-      "reason": "ValueError: Bilingual editorial review: The source text (s26) does not mention 'exotic investments' or 'proprietary profits'; it only mentions 'ultra-high leverage' and 'off-limits activities'. The paraphrase adds specific terms not present in the evidence.; The source text (s30) states that consensus oscillates but does not explicitly state that 'no single go"
+      "failures": 2,
+      "nextAttemptAt": "2026-11-16T23:11:52+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English translation contains 'exotic investments' and 'proprietary profits', which are not present in the source text (s26 uses 'exotic investments' but does not specify 'proprietary profits'; s30 is cut off).; The Chinese and English paragraphs include extensive editorial interpretation and analysis (e.g., 'moral ha"
     },
     "marks-9d549bcb95c052": {
       "at": "2026-11-15T17:07:32+00:00",
@@ -4659,5 +4659,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-16T15:11:49+00:00"
+  "updatedAt": "2026-11-16T15:11:52+00:00"
 }
