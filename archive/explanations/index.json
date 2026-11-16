@@ -572,12 +572,12 @@
       "reason": "ValueError: Bilingual editorial review: The English paragraph incorrectly states Pabrai 'hosting' a lunch with Buffett; source s6 shows he was the *bidder* paying for the lunch to thank Buffett.; The English paragraph claims participants paid '$26 million', but source s7 specifies the winner paid '$26 million' (singular), not collectively.; The English paragra"
     },
     "vinall-b8757c659b8401": {
-      "at": "2026-11-16T05:42:12+00:00",
+      "at": "2026-11-16T14:46:41+00:00",
       "status": "retry",
       "inputHash": "259588b8fb80deba3028e4c0bb289884be1df032ee261719c328e81644d70917",
-      "failures": 2,
-      "nextAttemptAt": "2026-11-16T13:42:12+00:00",
-      "reason": "ValueError: Bilingual editorial review: The source (s0) states the NAV increased by '1,264.3% since its inception', but the Chinese translation claims this is a 'cumulative increase of 1,264.3%' without clarifying it represents a total return or multiple (e.g., 12.6x), which can be misleading for investors.; The source (s0) explicitly states the NAV increased "
+      "failures": 3,
+      "nextAttemptAt": "2026-11-17T06:46:41+00:00",
+      "reason": "ValueError: Bilingual editorial review: Canonical name mismatch: Source uses 'Vinall' but canonical list requires 'Vinall'.; Factually unsupported claim: The text states Prosus value is 'over 100%' of net asset value, which is logically impossible for a single component unless there are negative liabilities or accounting errors; the source likely means 'approx"
     },
     "buffett-0dffc205cf0707": {
       "at": "2026-11-16T05:36:04+00:00",
@@ -4659,5 +4659,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-16T14:46:25+00:00"
+  "updatedAt": "2026-11-16T14:46:41+00:00"
 }
