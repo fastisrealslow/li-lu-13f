@@ -3228,12 +3228,12 @@
       "reason": "ValueError: Bilingual editorial review: The English translation in the content section misidentifies the author as 'Howard Marks'. The source text (s9) explicitly attributes the quote to '[Senate Majority Leader] Reid', and the title lists 'Howard Marks' only as the copyright holder of the article itself, not necessarily the speaker of the quoted material. Whi"
     },
     "marks-2a08abe8cdf605": {
-      "at": "2026-11-16T05:38:38+00:00",
+      "at": "2026-11-16T19:03:02+00:00",
       "status": "retry",
       "inputHash": "6950ef671c17465d544d091934ed9c898b640c36803c8f416dd978b72d5ba175",
-      "failures": 2,
-      "nextAttemptAt": "2026-11-16T13:38:38+00:00",
-      "reason": "ValueError: Bilingual editorial review: The source text (s5) states 'Twenty-four of the fifty largest corporate pension plans' but does not explicitly claim these are the 'fifty largest corporate pension plans' as a universal fact; it presents them as a specific statistic for that year. The paraphrase frames this as a definitive classification which slightly o"
+      "failures": 3,
+      "nextAttemptAt": "2026-11-17T11:03:02+00:00",
+      "reason": "ValueError: Copied source passage"
     },
     "mclemore-9000b9fa2afe82": {
       "at": "2026-11-16T05:54:47+00:00",
@@ -4659,5 +4659,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-16T19:02:56+00:00"
+  "updatedAt": "2026-11-16T19:03:02+00:00"
 }
