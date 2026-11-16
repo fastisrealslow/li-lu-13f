@@ -2020,12 +2020,12 @@
       "reason": "ValueError: Bilingual editorial review: The Chinese text incorrectly states that Rob Vinall 'admitted he had previously doubted whether one could learn much from spending only a few days in such a vast country as China' (referring to the first trip). Source s1 says: 'I wrote then that I was sceptical before the trip about how much one person can learn from spe"
     },
     "pabrai-d4447e08f97b61": {
-      "at": "2026-11-15T21:33:14+00:00",
+      "at": "2026-11-16T15:10:15+00:00",
       "status": "retry",
       "inputHash": "dd7184a59188ecc24b9bb14c173cc7a21f7e8b100209f1790db32d8d47ca3e92",
-      "failures": 1,
-      "nextAttemptAt": "2026-11-16T01:33:14+00:00",
-      "reason": "ValueError: Unsupported numerical claim: 92%"
+      "failures": 2,
+      "nextAttemptAt": "2026-11-16T23:10:15+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English translation of 'notorious cheapskate' is accurate to the source text but carries a negative connotation not explicitly present in the Chinese ('a notorious cheapskate'), which frames it neutrally as a competitive trait. The source text says 'I'm a notorious cheapskate', so the translation is faithful.; The ph"
     },
     "pabrai-bf33f90c636d0e": {
       "at": "2026-11-15T08:22:36+00:00",
@@ -4659,5 +4659,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-16T15:08:46+00:00"
+  "updatedAt": "2026-11-16T15:10:15+00:00"
 }
