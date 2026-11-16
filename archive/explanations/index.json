@@ -3271,12 +3271,12 @@
       "reason": "ValueError: Unsupported numerical claim: 20"
     },
     "marks-6b3b7eccb7e22b": {
-      "at": "2026-11-15T08:27:07+00:00",
+      "at": "2026-11-16T07:40:06+00:00",
       "status": "retry",
       "inputHash": "a29ed5b000b5125d757ad6e5db106ce4bbade02ec59896da17ab8a1af5433ff0",
-      "failures": 1,
-      "nextAttemptAt": "2026-11-15T12:27:07+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English paragraph misquotes the source text: it changes 'discredited with the irrational dream' to 'discredited with', which alters the meaning. The correct phrasing should be 'once discredited, investors give up on that irrational dream'.; The English paragraph adds 'late 2000 internet bubble' instead of '1999-2000'"
+      "failures": 2,
+      "nextAttemptAt": "2026-11-16T15:40:06+00:00",
+      "reason": "ValueError: Bilingual editorial review: The Chinese text incorrectly defines 'silver bullet' as 'asset class or investment technique countable for high returns with low risk', whereas the source (s2) only mentions 'high returns with low risk' without specifying it must be an asset class or technique; this is an unwritten addition.; The Chinese text states inve"
     },
     "marks-daf0ad253be7ac": {
       "at": "2026-11-16T05:14:28+00:00",
@@ -4654,5 +4654,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-16T07:39:26+00:00"
+  "updatedAt": "2026-11-16T07:40:06+00:00"
 }
