@@ -1060,12 +1060,12 @@
       "reason": "ValueError: Copied source passage"
     },
     "pabrai-a368a4ef14193f": {
-      "at": "2026-11-15T05:08:30+00:00",
+      "at": "2026-11-16T06:06:40+00:00",
       "status": "retry",
       "inputHash": "92dfe0c6e61567496dd2ce5c545da682075f0c7ff02b880bfac1a2cd16402306",
-      "failures": 1,
-      "nextAttemptAt": "2026-11-15T09:08:30+00:00",
-      "reason": "ValueError: Bilingual editorial review: Author attribution error: The text attributes the interview and views to 'Pabrai' (referring to Peter Pabrai), but the source evidence (s3, s4, s5) clearly identifies the speaker as 'Mohnish' (Mohnish Pabrai). While 'Pabrai' is a canonical name, the text incorrectly frames Mohnish's own words and experiences as if they w"
+      "failures": 2,
+      "nextAttemptAt": "2026-11-16T14:06:40+00:00",
+      "reason": "JSONDecodeError: Expecting ',' delimiter: line 4 column 325 (char 360)"
     },
     "pabrai-0c3b0137fc117b": {
       "at": "2026-11-15T05:07:14+00:00",
@@ -4654,5 +4654,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-16T06:06:26+00:00"
+  "updatedAt": "2026-11-16T06:06:40+00:00"
 }
