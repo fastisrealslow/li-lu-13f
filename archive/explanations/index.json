@@ -1361,12 +1361,12 @@
       "reason": "ValueError: Bilingual editorial review: The source text (s2) states: 'I still do not understand why humans have an aversion to cloning.' The content section claims Pabrai argues that he does not understand the aversion but then proceeds to explain it as stemming from evolutionary herd mentality. This contradicts the source, which explicitly says he does not un"
     },
     "pabrai-9152afaf247ee4": {
-      "at": "2026-11-15T16:43:05+00:00",
+      "at": "2026-11-16T05:45:38+00:00",
       "status": "retry",
       "inputHash": "754c2124bcd3591a58d8ae6d0a40511d1d515752d36df33cd8329283bbbed39f",
-      "failures": 2,
-      "nextAttemptAt": "2026-11-16T00:43:05+00:00",
-      "reason": "ValueError: Bilingual editorial review: The source text (s30) states 'I think this was in 82', but the ASR note claims a 'numerical validation risk' without providing evidence of an error; the year 1982 is plausible for Pabrai's graduation and computer enthusiasm, so labeling it as a potential error is speculative.; The source text (s30) says 'I have no idea w"
+      "failures": 3,
+      "nextAttemptAt": "2026-11-16T21:45:38+00:00",
+      "reason": "ValueError: Bilingual editorial review: The Chinese text claims Pabrai completed 'many MBA courses' before age 17-18. The source (s26) states he 'finished many MBAs', which is ambiguous and could imply degrees or course modules; the translation should reflect this nuance to avoid implying formal degree completion without explicit confirmation.; The Chinese tex"
     },
     "pabrai-6aa3d87fb959bc": {
       "at": "2026-11-15T21:37:29+00:00",
@@ -4652,5 +4652,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-16T05:45:22+00:00"
+  "updatedAt": "2026-11-16T05:45:38+00:00"
 }
