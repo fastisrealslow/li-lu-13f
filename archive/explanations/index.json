@@ -1462,12 +1462,12 @@
       "reason": "ValueError: Bilingual editorial review: The English translation of 'board of directors' in s3 is accurate; however, the Chinese text uses '...commonly called a quintessential entrepreneur...' which slightly misrepresents the source's direct quote structure. The source says 'you might call him', implying a suggestion rather than a common title.; The English tra"
     },
     "pabrai-af56eda3b8814e": {
-      "at": "2026-11-16T07:41:25+00:00",
+      "at": "2026-11-16T20:08:01+00:00",
       "status": "retry",
       "inputHash": "dada15f38b99675a81412739bd958157247c15138f886e288b0c4422c877d102",
-      "failures": 2,
-      "nextAttemptAt": "2026-11-16T15:41:25+00:00",
-      "reason": "ValueError: Bilingual editorial review: The source text does not mention 'Queen Isabella' or Columbus's voyage; it only mentions a story starting with Columbus sailing for America without specifying the year 1491 or the $30,000 figure.; The source text does not explicitly state that Einstein called compounding 'the eighth wonder of the world'; this is an exter"
+      "failures": 3,
+      "nextAttemptAt": "2026-11-17T12:08:01+00:00",
+      "reason": "ValueError: Unsupported numerical claim: 100"
     },
     "pabrai-514a02fe7f32ad": {
       "at": "2026-11-16T08:01:06+00:00",
@@ -4663,5 +4663,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-16T20:07:38+00:00"
+  "updatedAt": "2026-11-16T20:08:01+00:00"
 }
