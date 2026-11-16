@@ -2852,12 +2852,12 @@
       "reason": "ValueError: Bilingual editorial review: The English text incorrectly translates 'on-the-one-hand-but-on-the-other-hand' as a coherent phrase; it should be split into two separate concepts: 'on the one hand' and 'on the other hand', reflecting the source's intended meaning of contrasting perspectives.; The English text adds the specific term 'cognitive bias ana"
     },
     "marks-95f37ab6394745": {
-      "at": "2026-11-15T16:43:19+00:00",
+      "at": "2026-11-16T08:34:06+00:00",
       "status": "retry",
       "inputHash": "6e6b18cf3560db53816f6af9a4c94fcd0ba3b2d8299635fd9bee7cab66aee270",
-      "failures": 2,
-      "nextAttemptAt": "2026-11-16T00:43:19+00:00",
-      "reason": "ValueError: Bilingual editorial review: The Chinese text incorrectly states that Marks established the $11 billion reserve fund 'between January 2007 and March 2008'. The source (s7) says the fund was created to give capital 'if things reached crisis proportions' and that they started investing it 'prior to Lehman's bankruptcy' (which occurred in September 200"
+      "failures": 3,
+      "nextAttemptAt": "2026-11-17T00:34:06+00:00",
+      "reason": "ValueError: Unsupported numerical claim: 9"
     },
     "marks-fca35f29cc0342": {
       "at": "2026-11-15T22:18:44+00:00",
@@ -4656,5 +4656,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-16T08:33:44+00:00"
+  "updatedAt": "2026-11-16T08:34:06+00:00"
 }
