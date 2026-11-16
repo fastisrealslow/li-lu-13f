@@ -2206,12 +2206,12 @@
       "reason": "ValueError: Bilingual editorial review: The English text incorrectly states 'unrealized capital gains from pre-1987 holdings' were reserved at the 28% rate. The source (s7) clarifies that pre-1987 gains carry reserves booked at the 28% rate, while unrealized profits generated in 1987 and 1988 are reserved at the 34% rate. The text conflates these two categorie"
     },
     "hawkins-07ba7351c5c8c9": {
-      "at": "2026-11-16T05:33:18+00:00",
+      "at": "2026-11-16T20:06:58+00:00",
       "status": "retry",
       "inputHash": "28f771b0e61a10ef0244a7223b6669523c73b870af745ae71f6edbbd8c140f94",
-      "failures": 2,
-      "nextAttemptAt": "2026-11-16T13:33:18+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English paragraph incorrectly states that the core value stems from the 'specific cost structure' of the cable division; the source (s14) only mentions looking at costs to explain why people pay for cable, not that this specific cost structure is the source of value.; The English paragraph claims Hawkins emphasizes v"
+      "failures": 3,
+      "nextAttemptAt": "2026-11-17T12:06:58+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English paragraph incorrectly states that 'Comcast's historical cable division contributes two-thirds of the company's value.' Source s14 only mentions this regarding Comcast's *cable segment* (business side), not the entire company. The source text says: 'For that business, the big concern is cord cutting... the vas"
     },
     "buffett-a281a253c85fdf": {
       "at": "2026-11-16T05:46:46+00:00",
@@ -4663,5 +4663,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-16T20:06:47+00:00"
+  "updatedAt": "2026-11-16T20:06:58+00:00"
 }
