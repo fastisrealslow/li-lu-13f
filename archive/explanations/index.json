@@ -480,12 +480,12 @@
       "reason": "ValueError: Bilingual editorial review: The Chinese text claims 'founder contributes the idea (goodwill)' but s5 states the investor owns a third for $500 while the founder owns two-thirds via goodwill; the phrasing implies the founder's contribution is solely the idea without clarifying the equity split mechanics explicitly as in the source.; The Chinese text"
     },
     "buffett-7177025720de85": {
-      "at": "2026-11-15T17:00:27+00:00",
+      "at": "2026-11-16T06:04:35+00:00",
       "status": "retry",
       "inputHash": "69abb8c8071120fbb3e18b06656133c2bff3deaadf67b3f041f399ae4f5fadcd",
-      "failures": 2,
-      "nextAttemptAt": "2026-11-16T01:00:27+00:00",
-      "reason": "ValueError: Unsupported numerical claim: 1"
+      "failures": 3,
+      "nextAttemptAt": "2026-11-16T22:04:35+00:00",
+      "reason": "ValueError: Bilingual editorial review: The source text (s6) states operating earnings were 'a little over $8 billion', but the content claims it was exactly '$8 billion'. The phrase 'a little over' is a specific qualifier present in the source that should be preserved or clarified.; The source text (s10) contains a transcription error: 'in the lest' instead o"
     },
     "duan-f6089c3187bde2": {
       "at": "2026-10-18T01:38:43+00:00",
@@ -4652,5 +4652,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-16T06:03:50+00:00"
+  "updatedAt": "2026-11-16T06:04:35+00:00"
 }
