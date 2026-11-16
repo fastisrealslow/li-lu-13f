@@ -4042,12 +4042,12 @@
       "reason": "ValueError: Bilingual editorial review: The English text incorrectly attributes the phrase 'improbable disasters' to Howard Marks as a direct quote from Nassim Nicholas Taleb's 'Fooled by Randomness', whereas the source (s25) states that Marks calls them this ('what I call the...') and only references Taleb's book regarding deception by randomness, not this sp"
     },
     "marks-2b0acf3944f6ef": {
-      "at": "2026-11-15T21:56:20+00:00",
+      "at": "2026-11-16T19:15:12+00:00",
       "status": "retry",
       "inputHash": "c636142f41179d8f622b08bb1db732fd9c6340e084246dd4f186f05a3343b0a1",
-      "failures": 1,
-      "nextAttemptAt": "2026-11-16T01:56:20+00:00",
-      "reason": "ValueError: Unsupported numerical claim: 1990"
+      "failures": 2,
+      "nextAttemptAt": "2026-11-17T03:15:12+00:00",
+      "reason": "ValueError: Bilingual editorial review: The Chinese translation of the evidence section contains a factual error: it states '1991 to 1993' as the period for fabulous performance, but the source text (s2) explicitly says 'from 1991 to 1993'. Wait, checking again. Source s2: 'from 1991 to 1993'. Translation: '1991 1993'. This matches. No error here.; The Chinese"
     },
     "mclemore-fb12d1f663a2b3": {
       "at": "2026-11-16T07:53:27+00:00",
@@ -4659,5 +4659,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-16T19:14:18+00:00"
+  "updatedAt": "2026-11-16T19:15:12+00:00"
 }
