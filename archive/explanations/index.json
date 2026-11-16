@@ -1070,12 +1070,12 @@
       "reason": "JSONDecodeError: Expecting ',' delimiter: line 4 column 325 (char 360)"
     },
     "pabrai-0c3b0137fc117b": {
-      "at": "2026-11-16T07:40:51+00:00",
+      "at": "2026-11-16T20:08:26+00:00",
       "status": "retry",
       "inputHash": "d920bdd63f02da0b3d18c94617678336364bf0951691b29fde9ce6a8048744ed",
-      "failures": 2,
-      "nextAttemptAt": "2026-11-16T15:40:51+00:00",
-      "reason": "ValueError: Bilingual editorial review: The source text (s4) is cut off mid-sentence ('who has visited more') and does not contain the specific claim that 'these giants were essentially followers of the Me Too model rather than true innovators'. This conclusion appears to be an editorial interpretation added in the content section without direct textual suppor"
+      "failures": 3,
+      "nextAttemptAt": "2026-11-17T12:08:26+00:00",
+      "reason": "ValueError: Bilingual editorial review: The source text (s2) attributes the claim that 'Bill Gates and Sam Walton are both greatest cloners' to Mohnish, but the Chinese summary incorrectly states this as Pabrai's argument or implies Pabrai is making the comparison. The English paragraph also ambiguously shifts agency.; The source text (s4) cuts off mid-sentenc"
     },
     "pabrai-656ae25b22f620": {
       "at": "2026-11-16T19:30:07+00:00",
@@ -4663,5 +4663,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-16T20:08:01+00:00"
+  "updatedAt": "2026-11-16T20:08:26+00:00"
 }
