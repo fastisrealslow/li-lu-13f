@@ -1228,12 +1228,12 @@
       "reason": "ValueError: Bilingual editorial review: The source text does not mention 'physiological plasticity' (physiological plasticity) as a mechanism; it only states that the window is critical for specialization and that early experiences shape long-term ability. The claim about physiological plasticity is an external interpretation not explicitly supported by the pr"
     },
     "pabrai-96a9fab5d602f9": {
-      "at": "2026-11-15T08:19:10+00:00",
+      "at": "2026-11-16T15:16:56+00:00",
       "status": "retry",
       "inputHash": "82b6a0151b8903655945cc4e5fbd21f4dde54786010a242a84a95ee57e169992",
-      "failures": 1,
-      "nextAttemptAt": "2026-11-15T12:19:10+00:00",
-      "reason": "ValueError: Incomplete AI Review at 1800 tokens"
+      "failures": 2,
+      "nextAttemptAt": "2026-11-16T23:16:56+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English translation contains a factual error: it states NVR 'bought back shares to multiply its stock price more than 70 times', whereas the source text (s8) explicitly says 'the stock has gone up more than 70 times' and 'they have taken all their free cash flow every year and pounded it into buybacks'. The translati"
     },
     "pabrai-fe92dc8bae7992": {
       "at": "2026-11-15T21:48:46+00:00",
@@ -4659,5 +4659,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-16T15:16:40+00:00"
+  "updatedAt": "2026-11-16T15:16:56+00:00"
 }
