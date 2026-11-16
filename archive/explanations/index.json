@@ -1244,12 +1244,12 @@
       "reason": "ValueError: Bilingual editorial review: The Chinese text claims 'millions of years' (over millions of years), but source s3 states 'millennia' (thousands of years).; The Chinese text incorrectly attributes the quote about wealth transfer from active to inactive traders to Warren Buffett; source s5 attributes this quote to Warren Buffett, but the context implie"
     },
     "pabrai-56b8c04cb25a32": {
-      "at": "2026-11-15T22:31:15+00:00",
+      "at": "2026-11-16T15:28:18+00:00",
       "status": "retry",
       "inputHash": "54b7c9fb9a8ee008ffe080419bc55ebd4052407d67bb0a004fe685545cb03e43",
-      "failures": 2,
-      "nextAttemptAt": "2026-11-16T06:31:15+00:00",
-      "reason": "ValueError: Bilingual editorial review: s1: Source states Buffett collected 'tickets' (racing tickets) and gave them to his aunt Alice. The summary incorrectly identifies these as 'lottery tickets'.; s2: Source describes Warren Buffett's early twenties research on Moody's Manuals. The summary attributes this specific activity to 'Arthur Buffett', which is a fa"
+      "failures": 3,
+      "nextAttemptAt": "2026-11-17T07:28:18+00:00",
+      "reason": "ValueError: Unsupported numerical claim: 20"
     },
     "pabrai-2dadcddfebe9d5": {
       "at": "2026-11-16T07:53:36+00:00",
@@ -4659,5 +4659,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-16T15:27:18+00:00"
+  "updatedAt": "2026-11-16T15:28:18+00:00"
 }
