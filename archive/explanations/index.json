@@ -972,12 +972,12 @@
       "reason": "ValueError: Bilingual editorial review: The English translation in the content section misquotes Li Lu's original axiom. The source text (s2) states: 'where you sit determines how you think and what you say.' The provided translation renders it as 'where you sit determines what you say,' omitting the critical phrase 'how you think' which is central to his argu"
     },
     "pabrai-001b06856653c9": {
-      "at": "2026-11-15T21:29:13+00:00",
+      "at": "2026-11-16T07:36:33+00:00",
       "status": "retry",
       "inputHash": "c08d37d6cfef2b746eaec2c90dce97e1ef5d7c7dd287daf7b5f80b500c2e1a6e",
-      "failures": 2,
-      "nextAttemptAt": "2026-11-16T05:29:13+00:00",
-      "reason": "ValueError: Bilingual editorial review: The source text (s9) does not contain the phrase 'cloning mature technologies' or the concept of engineers being 'masters of cloning'; this is an invented paraphrase.; The source text (s9) does not mention that Microsoft has 'never felt embarrassed by a lack of such applied outputs'; this claim is fabricated.; The source"
+      "failures": 3,
+      "nextAttemptAt": "2026-11-16T23:36:33+00:00",
+      "reason": "ValueError: Bilingual editorial review: The source text (s9) does not mention 'cloning' technology or describe engineers as masters of it; the phrase is an editorial interpretation not found in the evidence.; The source text (s10) cuts off mid-sentence ('they may') and does not support the claim that Google relies primarily on acquisitions rather than internal"
     },
     "lilu-11d369bb564cef": {
       "at": "2026-11-15T08:19:39+00:00",
@@ -4654,5 +4654,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-16T07:36:06+00:00"
+  "updatedAt": "2026-11-16T07:36:33+00:00"
 }
