@@ -1935,12 +1935,12 @@
       "reason": "ValueError: Bilingual editorial review: The source text (s0) states the NAV was €669.03 as of 30 June 2023, but the content section incorrectly claims this figure represents a compound annual growth rate (CAGR) since inception in September 2008; the CAGR of 13.8% is correctly cited in s1.; The source text (s2) states that Credit Acceptance and Prosus remained "
     },
     "pabrai-52346dc951afda": {
-      "at": "2026-11-15T03:14:34+00:00",
+      "at": "2026-11-16T05:06:40+00:00",
       "status": "retry",
       "inputHash": "e4e165f6767bad2c9baa52dcb3b486134cb1c4d0d2bf913f572e8b898679c682",
-      "failures": 1,
-      "nextAttemptAt": "2026-11-15T07:14:34+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English translation of the Einstein quote ('take a simple idea and take it seriously') is inaccurate; the source text (s2) attributes the sentiment but does not provide this exact phrasing, indicating a potential fabrication or misattribution.; The claim that Buffett read the book 'even before he was 11' contradicts "
+      "failures": 2,
+      "nextAttemptAt": "2026-11-16T13:06:40+00:00",
+      "reason": "ValueError: Incomplete AI Review at 1800 tokens"
     },
     "pabrai-246965219e21a9": {
       "at": "2026-11-15T04:32:46+00:00",
@@ -4650,5 +4650,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-16T05:05:20+00:00"
+  "updatedAt": "2026-11-16T05:06:40+00:00"
 }
