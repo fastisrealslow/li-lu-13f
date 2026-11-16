@@ -2252,12 +2252,12 @@
       "reason": "ValueError: Unsupported scaled numerical claim: 13"
     },
     "buffett-ce523e8f200e16": {
-      "at": "2026-11-15T07:34:18+00:00",
+      "at": "2026-11-16T07:50:10+00:00",
       "status": "retry",
       "inputHash": "0e395c7bc9c7700dbc62fd9a6339822c5085c5dc940e54c26549a07827d25d87",
-      "failures": 1,
-      "nextAttemptAt": "2026-11-15T11:34:18+00:00",
-      "reason": "ValueError: Bilingual editorial review: The Chinese text contains a factual error: it states '206 billion' (206  billion) instead of the source's '$20.6 billion'.; The English text incorrectly translates '206 billion' as '$20.6 billion', which is actually correct in value but inconsistent with the Chinese typo if interpreted literally; however, since the Chine"
+      "failures": 2,
+      "nextAttemptAt": "2026-11-16T15:50:10+00:00",
+      "reason": "ValueError: Bilingual editorial review: The Chinese text incorrectly attributes the $53.7 billion unrealized gain to a 'new GAAP rule implemented in 2018' as if it were a standard accounting requirement; the source (s8) clarifies this is a specific change requiring inclusion of net changes, not a pre-existing rule.; The Chinese text states Buffett argues the r"
     },
     "buffett-66688fc8f75fb7": {
       "at": "2026-11-16T05:58:07+00:00",
@@ -4654,5 +4654,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-16T07:49:43+00:00"
+  "updatedAt": "2026-11-16T07:50:10+00:00"
 }
