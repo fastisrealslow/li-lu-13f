@@ -2807,12 +2807,12 @@
       "reason": "ValueError: Unsupported numerical claim: 10"
     },
     "marks-e1667423e3df2b": {
-      "at": "2026-11-15T21:46:44+00:00",
+      "at": "2026-11-16T15:27:18+00:00",
       "status": "retry",
       "inputHash": "09d7b5357b85f87ed103d12dc32bc0d78c7bd00a009eaac0b44d0ad9d3c18f1e",
-      "failures": 1,
-      "nextAttemptAt": "2026-11-16T01:46:44+00:00",
-      "reason": "ValueError: Bilingual editorial review: The Chinese translation contains a factual error regarding the calculation logic: it states '25% stock price increase multiplied by 4% position size' but then incorrectly claims the text says '25% multiplied by 4%' (25% * 4% = 1%, which is mathematically correct, but the parenthetical clarification in the source text imp"
+      "failures": 2,
+      "nextAttemptAt": "2026-11-16T23:27:18+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English translation in the 'content' section contains a factual error regarding the stock price increase percentage. The source text (s8) states a '25% stock price increase', but the translation incorrectly calculates this as a 1% NAV increase by multiplying 25% by 4% without clarifying that the fund's position is 4%"
     },
     "marks-49e0212382a26b": {
       "at": "2026-11-16T05:18:49+00:00",
@@ -4659,5 +4659,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-16T15:26:09+00:00"
+  "updatedAt": "2026-11-16T15:27:18+00:00"
 }
