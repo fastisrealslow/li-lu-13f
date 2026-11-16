@@ -614,12 +614,12 @@
       "reason": "ValueError: Bilingual editorial review: The English translation in the content section misrepresents the source text by adding specific claims (e.g., 'modern morality and transaction', 'ethics and commerce') not present in the evidence.; The Chinese text incorrectly states that the original text does not elaborate on mechanisms, which is an editorial interpret"
     },
     "buffett-af803f0ccc1d8b": {
-      "at": "2026-11-16T05:16:44+00:00",
+      "at": "2026-11-16T20:01:20+00:00",
       "status": "retry",
       "inputHash": "9fc8f0ed71bd50c28e6c7f6ce8384ad7b925286089f9069620ad409431af6bab",
-      "failures": 2,
-      "nextAttemptAt": "2026-11-16T13:16:44+00:00",
-      "reason": "ValueError: Unsupported scaled numerical claim: 210"
+      "failures": 3,
+      "nextAttemptAt": "2026-11-17T12:01:20+00:00",
+      "reason": "ValueError: Unsupported scaled numerical claim: 100"
     },
     "buffett-a01d917b8f91d1": {
       "at": "2026-11-16T15:01:42+00:00",
@@ -4663,5 +4663,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-16T20:01:04+00:00"
+  "updatedAt": "2026-11-16T20:01:20+00:00"
 }
