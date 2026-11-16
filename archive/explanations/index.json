@@ -4205,12 +4205,12 @@
       "reason": "ValueError: Bilingual editorial review: The English text contains a factual error regarding the bond investment experience: it claims Marks bought 'seemingly riskless junk bonds at low prices', whereas the source (s3) states these were 'Bought when \"riskless\"' and later found to be a disaster, implying they were purchased when perceived as safe (likely not nec"
     },
     "marks-0a65905a75a4f5": {
-      "at": "2026-11-15T07:37:53+00:00",
+      "at": "2026-11-16T08:08:53+00:00",
       "status": "retry",
       "inputHash": "0120b18b91035ae434a3d391a5d8a81f7d59232fac13c826a14afc6a174a6843",
-      "failures": 1,
-      "nextAttemptAt": "2026-11-15T11:37:53+00:00",
-      "reason": "ValueError: Unsupported numerical claim: 2"
+      "failures": 2,
+      "nextAttemptAt": "2026-11-16T16:08:53+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English translation of the evidence section contains factual errors regarding the source text. Specifically, it misrepresents the 'Jumbo Shrimp' quote and the specific date (February 4) mentioned in s2.; The English translation incorrectly attributes the phrase 'silver lining' to the strategist's comment in s2, where"
     },
     "marks-50fc9924c3790b": {
       "at": "2026-11-15T21:44:19+00:00",
@@ -4656,5 +4656,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-16T08:08:34+00:00"
+  "updatedAt": "2026-11-16T08:08:53+00:00"
 }
