@@ -9,6 +9,7 @@ on:
     paths:
       - automation_health.py
       - .github/workflows/automation-health.yml
+      - tests/test_recovery_productivity.py
       - tests/test_automation_health.py
 
 permissions:
@@ -34,6 +35,7 @@ jobs:
         run: |
           python3 -m unittest discover -s tests -p test_automation_health.py -v
           python3 -m unittest discover -s tests -p test_chain_resilience.py -v
+          python3 -m unittest discover -s tests -p test_recovery_productivity.py -v
       - name: Inspect freshness and recover collection or publication
         env:
           GITHUB_TOKEN: ${{ github.token }}

@@ -15,7 +15,7 @@ def output_schema(prompt):
     if prompt.get('task','').startswith('Review'):
         return {'type':'object','properties':{'valid':{'type':'boolean'},'problems':{'type':'array','items':{'type':'string','maxLength':160,'pattern':'^[^\u4e00-\u9fff]*$'},'maxItems':3}},'required':['valid','problems'],'additionalProperties':False}
     if prompt.get('task','').startswith('Write'):
-        return {'type':'object','properties':{k:{'type':'string','minLength':1,**({'pattern':'^[^\u4e00-\u9fff]*$'} if k=='en' else {})} for k in ['zh','en']},'required':['zh','en'],'additionalProperties':False}
+        return {'type':'object','properties':{k:{'type':'string','minLength':1,'maxLength':900 if k=='zh' else 2600,**({'pattern':'^[^\u4e00-\u9fff]*$'} if k=='en' else {})} for k in ['zh','en']},'required':['zh','en'],'additionalProperties':False}
     if prompt.get('task','').startswith('Map'):
         ids=[c['id'] for c in prompt.get('evidence',[])]
         point={'type':'object','properties':{'claim':{'type':'string','minLength':1,'maxLength':400},'evidenceIds':{'type':'array','items':{'type':'string','enum':ids},'minItems':1,'maxItems':3}},'required':['claim','evidenceIds'],'additionalProperties':False}
@@ -144,8 +144,8 @@ def generate(work,chunks,basis,model,needed,root):
         error=feedback.get(str(i),'')
         for retry in range(3):
             try:
-                paragraph=state.get('draftParagraph') or ask(e.SYSTEM+' Write one coherent Chinese paragraph and its faithful English counterpart for this section. Explain the actual position and reasoning supported here; include a relevant example if present. Add a useful interpretive connection only when clearly identified as the editorial interpretation. No fixed length. Return exactly {"zh":"...","en":"..."}.',
-                    {'task':'Write one source-specific guide section','paragraphRole':'source argument and interpretation','topic':topic,'title':work['title'],'canonicalAuthorNames':e.author_aliases(work),'basis':basis,'evidence':chosen,'previousSections':[s['heading'] for s in state['sections']],'validationFeedback':error},model,3200)
+                paragraph=state.get('draftParagraph') or ask(e.SYSTEM+' Write one coherent Chinese paragraph and its faithful English counterpart for this section. Explain the actual position and reasoning supported here; include a relevant example if present. Add a useful interpretive connection only when clearly identified as the editorial interpretation. Focus on the most important supported claim and reasoning. At most 900 Chinese characters and 2600 English characters. Prefer a concise paraphrase; never copy twelve consecutive English words. Only use numbers explicitly present in the selected evidence; omit nonessential numerical detail rather than inventing or converting it. Return exactly {"zh":"...","en":"..."}.',
+                    {'task':'Write one source-specific guide section','paragraphRole':'source argument and interpretation','topic':topic,'title':work['title'],'canonicalAuthorNames':e.author_aliases(work),'basis':basis,'evidence':chosen,'previousSections':[s['heading'] for s in state['sections']],'validationFeedback':error,'allowedNumericLiterals':sorted(set(e.NUMBER.findall(' '.join(c['text'] for c in chosen))))},model,3200)
                 section={**topic,'paragraphs':[paragraph]}
                 e.validate({'sourceSummary':state['outline']['sourceSummary'],'sections':[section]},work,chosen,0,required_sections=1,summary_chunks=chunks)
                 if any(paragraph['zh'].strip()==p['zh'].strip() for s in state['sections'] for p in s['paragraphs']):raise ValueError('Repeated guide paragraph')

@@ -35,7 +35,14 @@ def persistent_failures(evidence, now):
 
 def recovery_decision(runs, now, max_age, needed=False, active_timeout=4, cooldown_hours=6):
     """A fresh active run owns recovery; manual dispatches have a six-hour cooldown."""
+    last_success=max((finished(r) for r in runs if r.get('conclusion')=='success' and finished(r)),default=None)
     active=[r for r in runs if r.get('status') in ACTIVE]
+    # GitHub can retain a ghost in-progress row after cancellation. A newer
+    # completed success already supersedes its work; it must not cause endless
+    # cancellations and manual dispatches on every health check.
+    active=[r for r in active if not (last_success and parsed(r.get('created_at'))
+            and parsed(r['created_at'])<last_success
+            and now-(parsed(r.get('run_started_at')) or parsed(r['created_at']))>timedelta(hours=active_timeout))]
     stalled=[r for r in active if (parsed(r.get('run_started_at')) or parsed(r.get('created_at'))) and now-(parsed(r.get('run_started_at')) or parsed(r['created_at']))>timedelta(hours=active_timeout)]
     current=[r for r in active if r not in stalled]
     cancellations={'cancel':[r['id'] for r in stalled]}
@@ -166,6 +173,25 @@ def published_site_health(root, repository, fetch=None):
         if limit and len(bundle['data']['current']['holdings'])>limit:raise ValueError('Published portfolio limit was not applied')
     return {'status':'checked','url':base}
 
+def archive_productivity(root, now):
+    """Observe useful approved output separately from workflow completion."""
+    root=Path(root)
+    path=root/'archive/explanations/index.json'
+    if not path.exists():return {'status':'unavailable'}
+    index=json.loads(path.read_text())
+    entries=[row for row in index.get('entries',{}).values() if row.get('reviewStatus')=='verified']
+    latest=max((parsed(row.get('generatedAt')) for row in entries if parsed(row.get('generatedAt'))),default=None)
+    attempted=max((parsed(row.get('at')) for row in index.get('attempts',{}).values() if parsed(row.get('at'))),default=None)
+    from archive_explanations import pending
+    remaining=len(pending(root))
+    stalled=bool(remaining and attempted and now-attempted<timedelta(hours=24)
+                 and (latest is None or now-latest>timedelta(hours=48)))
+    return {'status':'no_recent_approved_output' if stalled else 'checked',
+            'pending':remaining,'verified':len(entries),
+            'latestApprovedAt':latest.isoformat() if latest else None,
+            'latestAttemptAt':attempted.isoformat() if attempted else None}
+
+
 def public_service_health(request=None):
     """Probe the actual user-facing Pages deployment and MCP data calls."""
     base='https://li-lu-13f.pages.dev'
@@ -264,6 +290,12 @@ def main():
         persistent=persistent_failures(evidence,now)
         report['status']='degraded' if persistent or unavailable or report['publicService']['status']!='checked' else 'recovering' if report['issues'] else 'healthy'
         report['persistentFailures']=persistent
+        try:report['archiveProductivity']=archive_productivity(root,now)
+        except Exception as exc:report['archiveProductivity']={'status':'unavailable','reason':str(exc)}
+        if report['archiveProductivity']['status']=='no_recent_approved_output':
+            report['issues'].append({'code':'archive_no_recent_approved_output'})
+            if report['status']=='healthy':report['status']='attention'
+            print('::warning::Archive batches are running without recent approved output; inspect source and validation failures. No redundant recovery dispatched.')
         for key,error in unavailable.items():report['workflows'][key]={'dispatch':False,'reason':'workflow_api_unavailable','error':error}
         for key,decision in report['workflows'].items():
             try:
