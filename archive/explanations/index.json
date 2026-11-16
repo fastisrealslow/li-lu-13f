@@ -3721,12 +3721,12 @@
       "reason": "ValueError: Bilingual editorial review: The Chinese text incorrectly attributes the quote to Galbraith as his 'favorite saying' rather than a direct citation of his known work; sources only state it is 'my favorite quote from John Kenneth Galbraith', which implies Marks' preference, not necessarily that it is his own or definitively labeled 'favorite' in the p"
     },
     "mclemore-8b93293153e790": {
-      "at": "2026-11-15T16:22:56+00:00",
+      "at": "2026-11-16T08:07:29+00:00",
       "status": "retry",
       "inputHash": "23793475ea7d7803db89e61e00c2c33021162ab18700d0474571837d47e93410",
-      "failures": 2,
-      "nextAttemptAt": "2026-11-16T00:22:56+00:00",
-      "reason": "ValueError: Bilingual editorial review: The source text does not mention 'Opportunity Equity' or claim it gained an average of 28% when the CBOE put-to-call ratio exceeded 1; this appears to be a hallucinated statistic in the content section.; The source text states that markets have gained in 100% of subsequent one-year periods since 1995, but does not specif"
+      "failures": 3,
+      "nextAttemptAt": "2026-11-17T00:07:29+00:00",
+      "reason": "ValueError: Unsupported numerical claim: 12"
     },
     "mclemore-267c6afd18f89c": {
       "at": "2026-11-15T21:32:49+00:00",
@@ -4656,5 +4656,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-16T08:07:25+00:00"
+  "updatedAt": "2026-11-16T08:07:29+00:00"
 }
