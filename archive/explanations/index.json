@@ -1945,12 +1945,12 @@
       "reason": "ValueError: Incomplete AI Review at 1800 tokens"
     },
     "pabrai-246965219e21a9": {
-      "at": "2026-11-15T04:32:46+00:00",
+      "at": "2026-11-16T06:03:42+00:00",
       "status": "retry",
       "inputHash": "eff8beef13d4c1d2c235f2683a1e0cf34733689e8501a9787e29eabae19f321e",
-      "failures": 1,
-      "nextAttemptAt": "2026-11-15T08:32:46+00:00",
-      "reason": "ValueError: Bilingual editorial review: The source text (s14) does not mention 'cloning' in the context of being 'beneath themselves'; it states low-life people do not consider cloning beneath them, but the preceding sentence about considering something beneath themselves is grammatically disconnected from the specific examples given.; The source text (s15) ex"
+      "failures": 2,
+      "nextAttemptAt": "2026-11-16T14:03:42+00:00",
+      "reason": "ValueError: Bilingual editorial review: The Chinese text claims Pabrai argues that 'value investing lies in identifying and replicating businesses... rather than relying on high intelligence'. This contradicts s15 where he explicitly states Sam Walton had a higher IQ than most people in the room and was not someone who would have blown IQ tests, implying succe"
     },
     "pabrai-81ff2f9d531409": {
       "at": "2026-11-15T17:00:01+00:00",
@@ -4652,5 +4652,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-16T06:03:36+00:00"
+  "updatedAt": "2026-11-16T06:03:42+00:00"
 }
