@@ -624,6 +624,8 @@ def _build_value_screen():
         cur=dr.get('current',{});total=cur.get('totalValue',0);merged={}
         for h in cur.get('holdings',[]):
             tk=h.get('ticker','')
+            from security_lifecycle import event_for
+            if event_for(h):continue  # ticker reuse must not revive a retired class
             if h.get('putCall') or h.get('shareType','SH')!='SH' or re.search(r'\bWARRANT\b',h.get('cls',''),re.I) or not tk or tk.startswith('?') or tk.endswith('.HK'):continue
             if tk not in merged:merged[tk]={**h}
             else:
@@ -634,7 +636,8 @@ def _build_value_screen():
             scope=transition.get('fromQuarter')==cur.get('quarter') and transition.get('comparisonScopeChanged') and not same_manager_history(dr,h)
             comparable=prev is not None and not scope
             chg=('new' if prev==0 else 'added' if shares>prev else 'trimmed' if shares<prev else 'hold') if comparable else 'unknown'
-            cost=pr.get('costBasis',{}).get(tk,{}) if not cur.get('valueQuality') else {};rc=cost.get('recent') or {};buy=rc.get('buy');q=best_quotes.get(tk,{})
+            from quote_transitions import transition_for
+            cost=pr.get('costBasis',{}).get(tk,{}) if not cur.get('valueQuality') and not transition_for(h) else {};rc=cost.get('recent') or {};buy=rc.get('buy');q=best_quotes.get(tk,{})
             buy=buy if isinstance(buy,(int,float)) and buy>0 else None
             mos=(buy-q['c'])/buy*100 if buy and q else None
             entry={'id':inv['id'],'name':inv['name'],'nameEn':inv['nameEn'],'weight':round(h['value']/total*100,2) if total and not cur.get('valueQuality') else None,'chg':chg,'reportQuarter':cur.get('quarter'),'shares':shares,'previousShares':prev if comparable else None,'shareChangePct':round((shares-prev)/prev*100,3) if comparable and prev else None,'buy':round(buy,2) if buy else None,'buyQuarter':rc.get('quarter'),'referenceKind':rc.get('kind','buying_reference'),'referenceSource':rc.get('source'),'atAvg':(cost.get('allTime') or {}).get('avg'),'costFirst':(cost.get('allTime') or {}).get('first'),'costLast':(cost.get('allTime') or {}).get('last'),'buyQuarters':(cost.get('allTime') or {}).get('buy_quarters'),'sourceFiling':cur.get('sourceFiling'),'mos':round(mos,1) if mos is not None else None,'qualifies':mos is not None and mos>=10}

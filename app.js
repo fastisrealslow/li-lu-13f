@@ -885,7 +885,7 @@ function holdingCostState(h, snapshot = data, priceSnapshot = prices) {
 }
 function costUnavailableText(reason, en = lang === 'en') {
   const messages = {
-    corporate_action: ['分拆后成本待重新分配', 'Cost allocation after spin-off pending'],
+    corporate_action: ['公司行动后成本/分派待核对', 'Corporate-action cost/distribution review pending'],
     option: ['期权不适用', 'Not for options'], principal: ['本金不适用', 'Not for principal'],
     archive: ['历史快照不估算', 'Archive only'], units: ['申报单位待核实', 'Filed units unverified'],
     scope: ['申报范围待比较', 'Reporting scope changed'], classes: ['股类历史待核实', 'Share-class history unverified'],
@@ -1028,7 +1028,7 @@ function renderHoldings() {
     const lifecycle=securityLifecycle(h);
     const filedReference=q?.status==='filing_reference' && q.cusip===h.cusip && Number.isFinite(q.filedUnitValue) && q.filedUnitValue>=0 ? q : null;
     const priceHtml = filedReference ? `<span class="current-price">${currSymbol(h.ticker)}${filedReference.filedUnitValue.toFixed(2)}</span><small class="quote-date">${hkEscape(filedReference.asOf)}</small><small class="option-field-note">${lang==='en'?'Filed warrant unit value · not a current quote':'权证申报单价 · 非现价'}</small>` : lifecycle ? `<span class="estimate-unavailable">${lang==='en'?'Delisted':'退市'}</span><small class="quote-date">${hkEscape(lifecycle.effectiveDate)}</small><small class="option-field-note"><a href="${hkEscape(lifecycle.sourceURL)}" target="_blank" rel="noopener noreferrer">${lang==='en'?'Issuer confirmation':'公司公告'}</a></small>` : quoteOK
-      ? `<span class="current-price">${currSymbol(h.ticker)}${q.c.toFixed(2)}</span>${quoteDate?`<small class="quote-date">${quoteDate}</small>`:''}${h.putCall?`<small class="option-field-note">${lang==='en'?'Underlying stock price':'标的股价'}</small>`:''}${q.successorRatio===1&&/^https:\/\/www\.sec\.gov\/Archives\//.test(q.successorSource||'')?`<small class="quote-date"><a href="${hkEscape(q.successorSource)}" target="_blank" rel="noopener noreferrer">${lang==='en'?'1:1 successor quote':'1:1 换股后报价'}</a></small>`:''}${quoteStale ? `<small class="quote-stale">${lang==='en'?'Last saved quote':'上次成功报价'}</small>` : ''}`
+      ? `<span class="current-price">${currSymbol(h.ticker)}${q.c.toFixed(2)}</span>${quoteDate?`<small class="quote-date">${quoteDate}</small>`:''}${h.putCall?`<small class="option-field-note">${lang==='en'?'Underlying stock price':'标的股价'}</small>`:''}${quoteTransitionHTML(h,q)}${q.successorRatio===1&&/^https:\/\/www\.sec\.gov\/Archives\//.test(q.successorSource||'')?`<small class="quote-date"><a href="${hkEscape(q.successorSource)}" target="_blank" rel="noopener noreferrer">${lang==='en'?'1:1 successor quote':'1:1 换股后报价'}</a></small>`:''}${quoteStale ? `<small class="quote-stale">${lang==='en'?'Last saved quote':'上次成功报价'}</small>` : ''}`
       : `<span class="estimate-unavailable">${h.shareType && h.shareType!=='SH' ? (lang==='en'?'Principal security · no stock quote':'本金类证券 · 不适用股价') : (lang === 'en' ? 'Quote unavailable' : '暂无报价')}</span>`;
     const mosHtml = h.putCall ? '<span class="estimate-unavailable">—</span>' : costGapHTML(mos, reason, lang==='en', cb?.recent?.kind);
     let costHtml = h.putCall ? '<span class="estimate-unavailable">—</span>' : `<span class="estimate-unavailable">${hkEscape(reason)}</span>`;
@@ -1312,13 +1312,18 @@ function securityLifecycle(h) {
   const e=prices?.securityEvents?.[h.cusip] || tradePriceEntry(h)?.lifecycle || ((data?.current?.holdings || []).some(r=>r.cusip && r.cusip===h.cusip)?prices?.quotes?.[h.ticker]?.event:null);
   return e?.status==='ceased_trading' && e.ticker===h.ticker && e.effectiveDate<=new Date().toISOString().slice(0,10)?e:null;
 }
+function quoteTransitionHTML(h,q) {
+  const a=q?.quoteTransition;
+  if(!a || a.cusip!==h.cusip || a.ticker!==h.ticker || q.quotedForCUSIP!==h.cusip)return '';
+  return `<small class="quote-date"><a href="${hkEscape(a.sourceURL)}" target="_blank" rel="noopener noreferrer">${hkEscape(lang==='en'?a.noteEn:a.note)}</a></small>`;
+}
 function tradeQuoteHTML(h) {
   const en=lang==='en',event=securityLifecycle(h),q=prices?.quotes?.[h.ticker];
   if(event)return `<strong class="security-retired">${en?'Delisted':'退市'}</strong><small>${hkEscape(event.effectiveDate)}</small>`;
   if(h.shareType && h.shareType!=='SH')return en?'Not applicable':'不适用';
   if(!q || q.error || q.status==='filing_reference' || !Number.isFinite(q.c) || q.c<=0)return '—';
   const date=quoteDateText(q,h.ticker),stale=q.stale || !date || Date.now()-q.t*1000>7*86400000;
-  return `<strong>${currSymbol(h.ticker)}${q.c.toFixed(2)}</strong><small>${hkEscape(date)}${stale?(en?' · Last quote':' · 上次报价'):''}${h.putCall?(en?' · Underlying':' · 标的股价'):''}</small>`;
+  return `<strong>${currSymbol(h.ticker)}${q.c.toFixed(2)}</strong><small>${hkEscape(date)}${stale?(en?' · Last quote':' · 上次报价'):''}${h.putCall?(en?' · Underlying':' · 标的股价'):''}</small>${quoteTransitionHTML(h,q)}`;
 }
 function estimatePriceHTML(value,h,note='') {
   return Number.isFinite(value) && value>0?`<strong>${currSymbol(h.ticker)}${value.toFixed(2)}</strong>${note?`<small>${hkEscape(note)}</small>`:''}`:`<span class="estimate-unavailable">—</span>${note?`<small>${hkEscape(note)}</small>`:''}`;
@@ -1327,7 +1332,7 @@ function tradePriceCells(h) {
   const en=lang==='en',entry=tradePriceEntry(h),quarter=data.current?.quarter;
   const trade=entry?.quarters?.find(r=>r.quarter===quarter);
   const state=data.current && !h.exited?holdingCostState(h):null;
-  const average=h.scopeEntry?null:(trade?.averageCost ?? trade?.costBeforeSale ?? state?.basis?.allTime?.avg);
+  const average=h.scopeEntry || state?.reason==='corporate_action'?null:(trade?.averageCost ?? trade?.costBeforeSale ?? state?.basis?.allTime?.avg);
   const category=changeCategory(h),noTrade=en?'No disclosed net trade':'本季未披露净买卖';
   const buy=trade?trade.buy:(['new','added'].includes(category) && state?.basis?.recent?.quarter===quarter && ['yahoo','yfinance'].includes(state.basis.recent.source)?state.basis.recent.buy:null);
   const buyNote=trade?.action==='observed'?(en?'First observed position reference':'首次披露持仓参考'):['new','added'].includes(category)?quarter:(h.putCall?(en?'Premium undisclosed':'权利金未披露'):noTrade);

@@ -85,6 +85,8 @@ def resolve_active(root,configs):
         quotes=load(root/inv['pricesFile']).get('quotes',{})
         for h in load(root/inv['dataFile'])['current']['holdings']:
             q=quotes.get(h['ticker'],{})
+            from quote_transitions import transition_for
+            if transition_for(h):continue  # quote-only route, never rename filed history
             if q.get('status') in ('ceased_trading','filing_reference') or h.get('putCall'):continue
             if h.get('cusip') and h.get('shareType','SH')=='SH' and (h['ticker'].startswith('?') or not valid_quote(q) or q.get('stale') or time.time()-q.get('t',0)>7*86400):
                 candidates.append(h)
@@ -143,6 +145,9 @@ def prepare_publication(root=ROOT):
     for inv in configs:
         path=root/inv['pricesFile'];payload=load(path);changed=False
         holdings=list(load(root/inv['dataFile'])['current']['holdings'])
+        from quote_transitions import apply as apply_transitions, transition_for
+        if any(transition_for(h) for h in holdings):
+            apply_transitions(payload,holdings);changed=True
         seen={h['ticker'] for h in holdings}
         if inv.get('hkFile') and (root/inv['hkFile']).exists():
             for h in load(root/inv['hkFile']).get('holdings',[]):
@@ -247,6 +252,8 @@ def refresh(root=ROOT,all_quotes=False,workers=4):
                     files[inv['pricesFile']].setdefault('quotes',{})[h['ticker']]=warrant_reference(h,load(root/inv['dataFile'])['current'])
                     continue
             if h.get('shareType','SH')!='SH' or h['ticker'].startswith('?'):continue
+            from quote_transitions import transition_for
+            if transition_for(h):continue  # fetched below via CUSIP-bound quote route
             q=files[inv['pricesFile']].get('quotes',{}).get(h['ticker'],{})
             if all_quotes or not valid_quote(q) or q.get('stale') or time.time()-q.get('t',0)>3*86400:wanted.add(h['ticker'])
     results={}
@@ -259,6 +266,8 @@ def refresh(root=ROOT,all_quotes=False,workers=4):
         path=root/inv['pricesFile'];data=files[inv['pricesFile']];quotes=data.setdefault('quotes',{})
         for h in load(root/inv['dataFile'])['current']['holdings']:
             tk=h['ticker'];fresh=results.get(tk);old=quotes.get(tk,{})
+            from security_lifecycle import event_for
+            if event_for(h,root):continue  # reused symbol cannot revive retired class
             if fresh and valid_quote(fresh) and (not valid_quote(old) or fresh['t']>=old['t']):
                 from batch_market_data import merge_actions
                 quotes[tk]=merge_actions(old,fresh)
@@ -267,6 +276,8 @@ def refresh(root=ROOT,all_quotes=False,workers=4):
             a=aliases.get(h.get('cusip'),{})
             if a.get('kind')=='one_for_one_reorganization' and a.get('conversionRatio')==1 and valid_quote(quotes.get(h['ticker'],{})):
                 quotes[h['ticker']]['successorRatio']=1;quotes[h['ticker']]['successorSource']=a['sourceURL']
+        from quote_transitions import apply as apply_transitions
+        apply_transitions(data,load(root/inv['dataFile'])['current']['holdings'],market_quote)
         data['quoteCoverageCheckedAt']=datetime.now(timezone.utc).isoformat()
         if any(valid_quote(results.get(h['ticker'],{})) for h in load(root/inv['dataFile'])['current']['holdings']):data['updatedAt']=data['quoteCoverageCheckedAt']
         save(path,data)
