@@ -1300,12 +1300,12 @@
       "reason": "ValueError: Unsupported numerical claim: 3%"
     },
     "pabrai-8a633b38cd8ccf": {
-      "at": "2026-11-15T21:32:34+00:00",
+      "at": "2026-11-16T14:58:23+00:00",
       "status": "retry",
       "inputHash": "af07bd382f547a181e858e4f731fce97baaf3cb3e2ea701fd3ac9b125112d35e",
-      "failures": 2,
-      "nextAttemptAt": "2026-11-16T05:32:34+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English translation in the 'content' section contains a significant factual error: it claims Pabrai hosts 'Assam tea' gatherings in Austin. The source text (s12) states he serves Assam tea but does not specify the location as Austin; while Mohnish mentions moving to Austin, the specific context of the tea gatherings "
+      "failures": 3,
+      "nextAttemptAt": "2026-11-17T06:58:23+00:00",
+      "reason": "ValueError: Bilingual editorial review: The Chinese text claims the father's quote ('one good wife and one friend') appears verbatim in the source, but it is only paraphrased as 'My dad used to say...' without exact wording.; The English text incorrectly states the quote does not appear verbatim, contradicting the Chinese translation which asserts alignment wi"
     },
     "buffett-9b2d5fb57fd0af": {
       "at": "2026-11-16T05:54:00+00:00",
@@ -4659,5 +4659,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-16T14:57:47+00:00"
+  "updatedAt": "2026-11-16T14:58:23+00:00"
 }
