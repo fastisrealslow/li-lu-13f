@@ -3911,12 +3911,12 @@
       "reason": "ValueError: Bilingual editorial review: The English translation in the `content` section misquotes Howard Marks' actual argument. In s5, Marks states: 'theory is quite right when it says the market can't be beat... certainly by the vast majority of investors.' The provided translation adds 'from a theoretical standpoint' ('from theory's perspective') which is "
     },
     "marks-f30850a5af3022": {
-      "at": "2026-11-15T05:10:37+00:00",
+      "at": "2026-11-16T07:47:09+00:00",
       "status": "retry",
       "inputHash": "7a21938d61a803380758e021def2153a6265ae73de706451061de894384dac5c",
-      "failures": 1,
-      "nextAttemptAt": "2026-11-15T09:10:37+00:00",
-      "reason": "ValueError: Bilingual editorial review: The Chinese text misquotes 'Dandy Don' Meredith's actual Monday Night Football line ('They don't make 'em anymore the way they used to... but then again they never did') as a satirical quote about manufacturing; the source only attributes this specific phrasing to him, without context implying he was commenting on produc"
+      "failures": 2,
+      "nextAttemptAt": "2026-11-16T15:47:09+00:00",
+      "reason": "ValueError: Bilingual editorial review: The Chinese text invents a specific satirical quote from 'Dandy Don' Meredith ('they don't make them anymore the way they used to') which is not present in source s6. Source s6 contains: 'They don't make 'em anymore the way they used to,' he said, 'but then again they never did.' The paraphrase omits the crucial second c"
     },
     "marks-a7f3636fd038a4": {
       "at": "2026-11-15T21:23:07+00:00",
@@ -4654,5 +4654,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-16T07:46:47+00:00"
+  "updatedAt": "2026-11-16T07:47:09+00:00"
 }
