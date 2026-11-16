@@ -2028,12 +2028,12 @@
       "reason": "ValueError: Bilingual editorial review: The English translation of 'notorious cheapskate' is accurate to the source text but carries a negative connotation not explicitly present in the Chinese ('a notorious cheapskate'), which frames it neutrally as a competitive trait. The source text says 'I'm a notorious cheapskate', so the translation is faithful.; The ph"
     },
     "pabrai-bf33f90c636d0e": {
-      "at": "2026-11-15T08:22:36+00:00",
+      "at": "2026-11-16T15:32:23+00:00",
       "status": "retry",
       "inputHash": "37f20a5f90cbf18829ed723f3097372dfb42e8a0d3df00dc9a993789083b0374",
-      "failures": 1,
-      "nextAttemptAt": "2026-11-15T12:22:36+00:00",
-      "reason": "ValueError: Bilingual editorial review: The source text (s3) explicitly states the Mayors and Powers Fund is based in 'Minneapolis', but the Chinese translation incorrectly claims it is based in the 'state of Minnesota' without mentioning Minneapolis.; The source text (s4) refers to John Arrillaga as a friend of Charlie Munger, but the Chinese translation omit"
+      "failures": 2,
+      "nextAttemptAt": "2026-11-16T23:32:23+00:00",
+      "reason": "ValueError: Bilingual editorial review: The source text does not mention 'John Arrillaga' as a friend of Charlie Munger; it states 'There's a good friend of Charlie Munger... I think he is or was in the first 400 John Arrillaga'. The translation presents this as a definitive fact without reflecting the speaker's uncertainty.; The source text does not explicitl"
     },
     "vinall-e7152280e09201": {
       "at": "2026-11-16T07:33:17+00:00",
@@ -4659,5 +4659,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-16T15:32:18+00:00"
+  "updatedAt": "2026-11-16T15:32:23+00:00"
 }
