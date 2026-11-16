@@ -3421,12 +3421,12 @@
       "reason": "ValueError: Bilingual editorial review: The English paragraph in the content section contains a factual error regarding the CNBC interview: it states 'prospective returns are low' and 'risks are high', but source s7 explicitly lists these as four points that 'nobody disagrees with', implying they are widely accepted facts. However, the Chinese translation corr"
     },
     "mclemore-2c65c9f6f231b2": {
-      "at": "2026-11-15T07:47:22+00:00",
+      "at": "2026-11-16T05:27:41+00:00",
       "status": "retry",
       "inputHash": "37eea942ac0006a963a59a95aefc35d0d57e60d2c24ae6789c18e473b441ea11",
-      "failures": 1,
-      "nextAttemptAt": "2026-11-15T11:47:22+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English paraphrase incorrectly states that Farfetch's stock 'plummeted to $7' as a result of market misinterpretation and aversion to losing companies. The source text (s6) only mentions the stock briefly hitting $7 after encountering difficulties; it does not explicitly state that the drop was caused by 'general ave"
+      "failures": 2,
+      "nextAttemptAt": "2026-11-16T13:27:41+00:00",
+      "reason": "ValueError: Bilingual editorial review: The Chinese summary incorrectly attributes the specific example of Farfetch plummeting to $7 due to market misinterpretation of its acquisition of New Guards Group as being from Samantha McLemore's article 'The Perils of Rearview Mirror Investing'. While the source text (s6) discusses Farfetch and mentions a drop to $7, "
     },
     "marks-7e2836402d3f86": {
       "at": "2026-11-16T05:18:19+00:00",
@@ -4652,5 +4652,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-16T05:27:02+00:00"
+  "updatedAt": "2026-11-16T05:27:41+00:00"
 }
