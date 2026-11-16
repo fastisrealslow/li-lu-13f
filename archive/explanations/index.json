@@ -436,12 +436,12 @@
       "reason": "ValueError: Bilingual editorial review: The English translation of s65 misquotes Buffett's actual words; the source text contains no mention of 'X plus a half a percent' or 'X minus a half a percent', yet the content section attributes this specific numerical comparison to him.; The English translation of s83 incorrectly paraphrases the original text. The sour"
     },
     "duan-d7212008ca9cb0": {
-      "at": "2026-11-16T05:11:42+00:00",
+      "at": "2026-11-16T19:22:51+00:00",
       "status": "retry",
       "inputHash": "810a3b2f8d5187262731841344f42e605af7008d3c96b30a47d7a05a465596bd",
-      "failures": 2,
-      "nextAttemptAt": "2026-11-16T13:11:42+00:00",
-      "reason": "ValueError: Unsupported numerical claim: 0.80"
+      "failures": 3,
+      "nextAttemptAt": "2026-11-17T11:22:51+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English text incorrectly translates 'Baobao High Steps' as 'Bao Bao', omitting the full name 'Baobao' (which refers to Baobao) and missing the Chinese term 'Gao Bu Bu' entirely. The correct translation should be 'Bao Bao' or 'Baobao' for the first brand, but the second brand is clearly 'Gao Bu Bu' (High Steps), not j"
     },
     "greenberg-6ffab78b7040e3": {
       "at": "2026-11-16T14:35:06+00:00",
@@ -4661,5 +4661,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-16T19:22:07+00:00"
+  "updatedAt": "2026-11-16T19:22:51+00:00"
 }
