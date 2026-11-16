@@ -1486,12 +1486,12 @@
       "reason": "ValueError: Unsupported scaled numerical claim: 60"
     },
     "pabrai-636da2e84a2df1": {
-      "at": "2026-11-15T22:17:21+00:00",
+      "at": "2026-11-16T20:01:04+00:00",
       "status": "retry",
       "inputHash": "9818d8800976d2faff0770df267ac6254f64d1b828dbc32efb65a4bb752ed2d1",
-      "failures": 2,
-      "nextAttemptAt": "2026-11-16T06:17:21+00:00",
-      "reason": "ValueError: Bilingual editorial review: The Chinese text incorrectly states Rakesh's position was 'less than $25 million to $50 million' (2500  wan - 5000 wan), whereas the source (s12) says 'worth less than $50 million or $25 million', implying a single value under $50M, not a range starting at 25M.; The Chinese text claims Pabrai cites Rakesh's case as proof"
+      "failures": 3,
+      "nextAttemptAt": "2026-11-17T12:01:04+00:00",
+      "reason": "ValueError: Bilingual editorial review: The source text (s12) does not mention 'Rakesh' as a specific individual; the phrase is 'Rakesh's 3% of his portfolio', which likely refers to a fund manager named Rakesh or a typo for 'Rakesh' in a specific context, but the source does not explicitly name a person named 'Rakesh' as an investor case study in a way that s"
     },
     "pabrai-75b47c21fd6d84": {
       "at": "2026-11-16T15:08:43+00:00",
@@ -4663,5 +4663,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-16T19:59:40+00:00"
+  "updatedAt": "2026-11-16T20:01:04+00:00"
 }
