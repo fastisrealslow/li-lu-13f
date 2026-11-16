@@ -1553,12 +1553,12 @@
       "reason": "ValueError: Unsupported numerical claim: 60%"
     },
     "pabrai-e25d421918d362": {
-      "at": "2026-11-15T21:44:22+00:00",
+      "at": "2026-11-16T08:16:14+00:00",
       "status": "retry",
       "inputHash": "558873c3ea6c5ef3c2dd9870217d60b64f3da944a56d2169f2a57840e24ab0b6",
-      "failures": 2,
-      "nextAttemptAt": "2026-11-16T05:44:22+00:00",
-      "reason": "ValueError: Bilingual editorial review: The source text (s3-s5) does not mention 'Roth IRA backlash'; this is an invented detail in the content section.; The source text does not explicitly state that Pabrai emphasizes 'primary sources' or encourages watching videos directly as a reflection of his philosophy; this is editorial interpretation not grounded in th"
+      "failures": 3,
+      "nextAttemptAt": "2026-11-17T00:16:14+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English translation of the lecture title is incorrect: 'Competition is for Losers' should be 'Competition Is for Winners'.; The Chinese text incorrectly attributes the phrase 'doggie dog world' to Thiel; this is a mistranslation or hallucination, as the original quote refers to 'dog-eat-dog', and the specific phrasin"
     },
     "pabrai-fc099d6ba1ac88": {
       "at": "2026-11-16T07:54:30+00:00",
@@ -4656,5 +4656,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-16T08:16:13+00:00"
+  "updatedAt": "2026-11-16T08:16:14+00:00"
 }
