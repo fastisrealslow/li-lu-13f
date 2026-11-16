@@ -3169,12 +3169,12 @@
       "reason": "ValueError: Bilingual editorial review: The Chinese text incorrectly attributes the phrase 'collusion between liquidity and regulatory absence' (liquidity and regulatory absence's collusion) to Howard Marks. The source evidence (s2, s3, s6) describes the phenomenon but does not explicitly state that this constitutes a 'collusion' or attribute that specific phr"
     },
     "marks-19e82a738d8712": {
-      "at": "2026-11-15T16:08:29+00:00",
+      "at": "2026-11-16T08:21:15+00:00",
       "status": "retry",
       "inputHash": "a40afde2c785402f009e40c232fe3955ddcb9e424569f1911c72cc00c5da2efa",
-      "failures": 1,
-      "nextAttemptAt": "2026-11-15T20:08:29+00:00",
-      "reason": "ValueError: Copied source passage"
+      "failures": 2,
+      "nextAttemptAt": "2026-11-16T16:21:15+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English translation of 'V-shaped' recovery is accurate; no correction needed.; The attribution of the quote to Howard Marks is correct per canonical names.; The factual claims regarding Powell and Evans are supported by the source text."
     },
     "marks-cbe22289f97d98": {
       "at": "2026-11-15T16:48:03+00:00",
@@ -4656,5 +4656,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-16T08:21:13+00:00"
+  "updatedAt": "2026-11-16T08:21:15+00:00"
 }
