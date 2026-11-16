@@ -3994,12 +3994,12 @@
       "reason": "ValueError: Bilingual editorial review: The English text contains a factual error regarding Howard Marks' argument. The source (s5) states that providers accept 'less of in order to accelerate the pace', but the translation claims they accept 'less on returns, safety, or price'. The source explicitly links accepting less only to 'return' and 'safety', not 'pri"
     },
     "marks-9d7aef0141d4d1": {
-      "at": "2026-11-15T21:29:21+00:00",
+      "at": "2026-11-16T15:25:28+00:00",
       "status": "retry",
       "inputHash": "0cdf58c4bfadd7d347a8995a2791e4214bb164a4f7fe06044d7bf7eb7f681aa6",
-      "failures": 2,
-      "nextAttemptAt": "2026-11-16T05:29:21+00:00",
-      "reason": "ValueError: Bilingual editorial review: s0: 'paraphrase John Kenneth Galbraith' is factually incorrect; Marks actually quotes Galbraith directly ('I feel there are two kinds of forecasters...'), not paraphrases him.; s1: 'Amos Tversky' is a factual error. The correct name is Daniel Kahneman (who won the Nobel Prize with Tversky, but the specific quote about kn"
+      "failures": 3,
+      "nextAttemptAt": "2026-11-17T07:25:28+00:00",
+      "reason": "ValueError: Bilingual editorial review: Factual Error: The source text (s1) explicitly names 'Amos Tversky' but does not state he was 'late' or deceased. While Amos Tversky is historically deceased, the provided source text lacks this attribution.; Factual Error: The source text (s2) refers to a 'drive' as an analogy for uncertainty in general ('In any endeavo"
     },
     "marks-d7340ccf6b811f": {
       "at": "2026-11-15T21:52:54+00:00",
@@ -4659,5 +4659,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-16T15:24:55+00:00"
+  "updatedAt": "2026-11-16T15:25:28+00:00"
 }
