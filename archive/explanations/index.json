@@ -926,12 +926,12 @@
       "reason": "ValueError: Bilingual editorial review: The source text does not mention Pabrai's physical appearance or hair loss; this is an invented detail.; The source text does not state that YouTube audiences become bored by seeing the same questions and answers; this is an unsupported inference."
     },
     "vinall-467e0c3e85b252": {
-      "at": "2026-11-16T05:49:01+00:00",
+      "at": "2026-11-16T14:54:00+00:00",
       "status": "retry",
       "inputHash": "3c5008a532056a12133be0fedb68b589cd812015b73371bc08cb6d373af1e3c8",
-      "failures": 2,
-      "nextAttemptAt": "2026-11-16T13:49:01+00:00",
-      "reason": "ValueError: Bilingual editorial review: The content incorrectly attributes a specific quote about 'Luke' and the assignment of mining/oil paths to Rob Vinall's grandfather. The source text (s8) states: 'He said, you know Luke you're gonna be in mining...'. While it mentions 'Ian and Lucas' as two of four kids, it does not explicitly name them as 'Luke' or conf"
+      "failures": 3,
+      "nextAttemptAt": "2026-11-17T06:54:00+00:00",
+      "reason": "ValueError: Bilingual editorial review: Author name mismatch: Source s7/s8 refers to 'Ian and Lucas' (grandfather's sons), but content incorrectly identifies them as 'cousins'.; Factual error in attribution: Content claims 'Rob Vinall notes these sons knew exactly what they would do', but the source text attributes this observation to the grandfather ('He said"
     },
     "buffett-87787b7bbb5dca": {
       "at": "2026-11-14T06:42:32+00:00",
@@ -4659,5 +4659,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-16T14:53:27+00:00"
+  "updatedAt": "2026-11-16T14:54:00+00:00"
 }
