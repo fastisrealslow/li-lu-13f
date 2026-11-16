@@ -1441,12 +1441,12 @@
       "reason": "ValueError: Bilingual editorial review: The English translation of the heading 'I. Career Selection: Follow Passion Rather Than Trends' is grammatically awkward and slightly redundant; a more natural phrasing would be 'I. Career Selection: Following Passion Over Trends'.; In paragraph 2, the phrase 'upon returning to the US' incorrectly implies Pabrai returned"
     },
     "pabrai-ac73782c4fb468": {
-      "at": "2026-11-15T08:10:07+00:00",
+      "at": "2026-11-16T06:02:44+00:00",
       "status": "retry",
       "inputHash": "646ba2637a95b22616e050913e38c54c44d16c05e5d3bd9160e1d091d30cc227",
-      "failures": 1,
-      "nextAttemptAt": "2026-11-15T12:10:07+00:00",
-      "reason": "ValueError: Unsupported numerical claim: 1"
+      "failures": 2,
+      "nextAttemptAt": "2026-11-16T14:02:44+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English title 'Session with Ashoka Investment Club on April 22, 2025' contains a future date relative to the current real-world time (2024), which is a factual inconsistency in the source metadata.; The Chinese translation of 'mishmash' as 'mixed body' or 'combination' slightly loses the original colloquial nuance of"
     },
     "pabrai-5b328b6415f6b0": {
       "at": "2026-11-16T05:11:24+00:00",
@@ -4652,5 +4652,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-16T06:02:34+00:00"
+  "updatedAt": "2026-11-16T06:02:44+00:00"
 }
