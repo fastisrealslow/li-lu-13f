@@ -414,11 +414,11 @@
       "inputHash": "cf449ddd33916dfcbe6fa4d2bbf3088a2c92a4b03bc93c5166d1813f9593be28"
     },
     "akre-2215a13c870884": {
-      "at": "2026-11-15T08:27:09+00:00",
+      "at": "2026-11-16T04:52:41+00:00",
       "status": "retry",
       "inputHash": "74bc55a285ce586e24ecf746784578f598618ef42506ec5d27fbbe41238fa949",
-      "failures": 2,
-      "nextAttemptAt": "2026-11-15T16:27:09+00:00",
+      "failures": 3,
+      "nextAttemptAt": "2026-11-16T20:52:41+00:00",
       "reason": "ValueError: No supported arguments in source"
     },
     "berkowitz-c60a89666ffbc0": {
@@ -472,12 +472,12 @@
       "reason": "ValueError: Unsupported numerical claim: 1994"
     },
     "ackman-918af90dea38d8": {
-      "at": "2026-11-15T16:36:28+00:00",
+      "at": "2026-11-16T05:01:43+00:00",
       "status": "retry",
       "inputHash": "47fa63450520730afba6b4dad46abbf3dd4dbc7d689321f44bde935db2157aa5",
-      "failures": 2,
-      "nextAttemptAt": "2026-11-16T00:36:28+00:00",
-      "reason": "ValueError: Bilingual editorial review: The source text (s4) states the investor puts up $500 for 500 shares at $1 each, but s5 claims this gives them a third of the business. Mathematically, 500/1000 is exactly half, not one-third. The summary incorrectly states 'one-third ownership' in both languages.; The source text (s4) says the investor puts up $500 for "
+      "failures": 3,
+      "nextAttemptAt": "2026-11-16T21:01:43+00:00",
+      "reason": "ValueError: Bilingual editorial review: The Chinese text claims 'founder contributes the idea (goodwill)' but s5 states the investor owns a third for $500 while the founder owns two-thirds via goodwill; the phrasing implies the founder's contribution is solely the idea without clarifying the equity split mechanics explicitly as in the source.; The Chinese text"
     },
     "buffett-7177025720de85": {
       "at": "2026-11-15T17:00:27+00:00",
@@ -542,11 +542,11 @@
       "reason": "ValueError: Bilingual editorial review: The English translation in the 'content' section misquotes Zuckerberg. The source text (s9) states: 'Whether the bet works or not, we do not know. But we have to play.' The provided translation adds 'whether', changing it to 'Whether the bet works or not, we do not know,' which alters the original phrasing found in the e"
     },
     "vinall-2c8021ee8f5f62": {
-      "at": "2026-11-15T08:08:35+00:00",
+      "at": "2026-11-16T05:06:48+00:00",
       "status": "retry",
       "inputHash": "31008bb54652daf1224abce54b2998f44b943f9b08078fbd3365b56bca57362c",
-      "failures": 1,
-      "nextAttemptAt": "2026-11-15T12:08:35+00:00",
+      "failures": 2,
+      "nextAttemptAt": "2026-11-16T13:06:48+00:00",
       "reason": "ValueError: Unsupported numerical claim: 9"
     },
     "webb-38c6e1d522bcc3": {
@@ -596,11 +596,11 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     },
     "vinall-29124350f57833": {
-      "at": "2026-11-15T22:15:22+00:00",
+      "at": "2026-11-16T04:57:02+00:00",
       "status": "retry",
       "inputHash": "47994a4cc8c74d2cc15701ff8a19de77c088681d3a426d80011aba881380ab45",
-      "failures": 1,
-      "nextAttemptAt": "2026-11-16T02:15:22+00:00",
+      "failures": 2,
+      "nextAttemptAt": "2026-11-16T12:57:02+00:00",
       "reason": "ValueError: Unsupported numerical claim: 6"
     },
     "lilu-26e7f20245e789": {
@@ -636,12 +636,12 @@
       "reason": "ValueError: Bilingual editorial review: The English text in the 'content' section contains a factual error regarding the date: it states 'May 1, 2026', which is in the future relative to the current real-world date and contradicts the context of established figures like Charlie Munger and Warren Buffett who are deceased or retired. The source data ('basis': 'o"
     },
     "vinall-c919ac8b6b58c4": {
-      "at": "2026-11-15T07:38:31+00:00",
+      "at": "2026-11-16T04:58:15+00:00",
       "status": "retry",
       "inputHash": "5af4c68010fe5d16e180b31a59d9e58951db06672d9fbd70506aed811829e319",
-      "failures": 1,
-      "nextAttemptAt": "2026-11-15T11:38:31+00:00",
-      "reason": "ValueError: Bilingual editorial review: The Chinese text incorrectly states that Rob Vinall 'corrected the misconception' regarding Buffett's meeting being a non-business highlight; the source only says he clarified it was business-focused while identifying the Shanghai wedding as the non-business highlight. The phrasing implies an error in the reader's unders"
+      "failures": 2,
+      "nextAttemptAt": "2026-11-16T12:58:15+00:00",
+      "reason": "ValueError: Bilingual editorial review: The Chinese text incorrectly claims the source 'explicitly mentions' witnessing Warren Buffett's final meeting; the ASR only states attending the Berkshire Hathaway shareholder meeting without confirming Buffett's presence or the 'final' nature of the meeting.; The English text similarly misrepresents the evidence by sta"
     },
     "buffett-d5e534b6a5c51f": {
       "at": "2026-11-15T17:03:44+00:00",
@@ -668,12 +668,12 @@
       "reason": "ValueError: Unsupported numerical claim: 9"
     },
     "vinall-7630ddfba8bfe7": {
-      "at": "2026-11-15T08:23:59+00:00",
+      "at": "2026-11-16T05:02:37+00:00",
       "status": "retry",
       "inputHash": "d497297541bbb935cdda5daff33c945223c3772e99bd3fdd425c525762819e05",
-      "failures": 1,
-      "nextAttemptAt": "2026-11-15T12:23:59+00:00",
-      "reason": "ValueError: Bilingual editorial review: The source text (s3-s5) does not mention 'fossil fuels' or 'policy signals', nor does it discuss 'energy transition' or 'macro-environmental analysis'. The content section incorrectly claims these topics are absent from the provided evidence while implying they were part of the broader context, which is an unsupported ed"
+      "failures": 2,
+      "nextAttemptAt": "2026-11-16T13:02:37+00:00",
+      "reason": "ValueError: Bilingual editorial review: The source text (s3-s5) does not mention 'fossil fuels' or 'policy signals'. The content section explicitly states these topics are absent but claims the discussion provides a 'micro-level insight into the broader operation of financial systems' and reflects an investment approach of understanding commercial essence thro"
     },
     "lilu-1cde24ccac1bfb": {
       "at": "2026-11-15T21:31:13+00:00",
@@ -700,11 +700,11 @@
       "reason": "ValueError: Unsupported numerical claim: 3%"
     },
     "buffett-93d809e47b192e": {
-      "at": "2026-11-15T05:14:42+00:00",
+      "at": "2026-11-16T04:57:32+00:00",
       "status": "retry",
       "inputHash": "5cb5bd7ff80bba09e4615146a3625e7af29086b53e5fdec573223c077739edef",
-      "failures": 1,
-      "nextAttemptAt": "2026-11-15T09:14:42+00:00",
+      "failures": 2,
+      "nextAttemptAt": "2026-11-16T12:57:32+00:00",
       "reason": "ValueError: Copied source passage"
     },
     "buffett-5fd3188639a7cb": {
@@ -948,9 +948,11 @@
       "reason": "ValueError: Bilingual editorial review: The source text (s27, s33, s34) does not mention 'insurance float' or the 'regulatory environment of insurance float'. The content section incorrectly attributes this topic to Buffett's Q&A.; The source text does not contain the phrase 'physical delivery'. It only discusses trading shares A for 30 shares B without specif"
     },
     "pabrai-d51fbb24bf6958": {
-      "at": "2026-11-14T22:10:06+00:00",
+      "at": "2026-11-16T04:57:21+00:00",
       "status": "retry",
       "inputHash": "19593a7f3e4c6ac8fd30b1ecabd7c7a9f05c57c33e4da23b3d3bb7c5fe48bf04",
+      "failures": 1,
+      "nextAttemptAt": "2026-11-16T08:57:21+00:00",
       "reason": "ValueError: Unsupported numerical claim: 1994"
     },
     "pabrai-cefd7c5b124db7": {
@@ -962,12 +964,12 @@
       "reason": "ValueError: Unsupported numerical claim: 120"
     },
     "lilu-63e169968280e2": {
-      "at": "2026-11-15T04:10:04+00:00",
+      "at": "2026-11-16T04:59:10+00:00",
       "status": "retry",
       "inputHash": "0d5f7bd6818c60f47737a5f811de10bd729af1cf918f7bbccebb682513747d21",
-      "failures": 1,
-      "nextAttemptAt": "2026-11-15T08:10:04+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English translation contains a factual error: it states 'even fund managers with poor long-term performance can still receive substantial returns', whereas the source text (s3) explicitly notes that fees are paid regardless of making or losing money, and s4 questions if professionals deserve high compensation without"
+      "failures": 2,
+      "nextAttemptAt": "2026-11-16T12:59:10+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English translation in the content section misquotes Li Lu's original axiom. The source text (s2) states: 'where you sit determines how you think and what you say.' The provided translation renders it as 'where you sit determines what you say,' omitting the critical phrase 'how you think' which is central to his argu"
     },
     "pabrai-001b06856653c9": {
       "at": "2026-11-15T21:29:13+00:00",
@@ -986,12 +988,12 @@
       "reason": "ValueError: Bilingual editorial review: The English text incorrectly states Li Lu 'introduced every company he had invested in, researched, or was interested in' when the source (s12) says he introduced companies he 'invested in, researched, or was interested in to Charlie', implying a specific list rather than an exhaustive portfolio introduction; the parenth"
     },
     "vinall-407826a49480a2": {
-      "at": "2026-11-15T07:25:00+00:00",
+      "at": "2026-11-16T04:56:55+00:00",
       "status": "retry",
       "inputHash": "8f4974f5354db3278ec8cba3249c9413948390cca3dfe85e3051a13f78c119a6",
-      "failures": 1,
-      "nextAttemptAt": "2026-11-15T11:25:00+00:00",
-      "reason": "ValueError: Bilingual editorial review: The Chinese text incorrectly states Rob Vinall was hired 'before the start of his senior year' (high school senior), whereas the ASR transcript (s6) explicitly says 'before my senior year started', referring to college senior year. The English translation correctly reflects this context.; The phrase 'undue responsibility"
+      "failures": 2,
+      "nextAttemptAt": "2026-11-16T12:56:55+00:00",
+      "reason": "ValueError: Bilingual editorial review: The Chinese text incorrectly states Rob Vinall was hired 'after college' (graduated), while the ASR transcript (s6) explicitly says he was offered a job 'before my senior year started', meaning before graduation.; The Chinese text claims there was 'no requirement for freshman internships', whereas the ASR (s7) states one"
     },
     "pabrai-9f46a7707898d1": {
       "at": "2026-11-15T08:12:28+00:00",
@@ -1002,12 +1004,12 @@
       "reason": "ValueError: Unsupported numerical claim: 1973"
     },
     "pabrai-07edcbfd5c328f": {
-      "at": "2026-11-15T07:22:04+00:00",
+      "at": "2026-11-16T05:06:59+00:00",
       "status": "retry",
       "inputHash": "d1fa780cedb37aaadfefbd72056985fc89f0e6c8e3b6e46201d2da7fa14f3eee",
-      "failures": 1,
-      "nextAttemptAt": "2026-11-15T11:22:04+00:00",
-      "reason": "ValueError: Unsupported numerical claim: 96%"
+      "failures": 2,
+      "nextAttemptAt": "2026-11-16T13:06:59+00:00",
+      "reason": "ValueError: Unsupported numerical claim: 1974"
     },
     "lilu-f461b1db08860a": {
       "at": "2026-11-15T15:58:30+00:00",
@@ -1343,12 +1345,12 @@
       "reason": "ValueError: Unsupported numerical claim: 10%"
     },
     "pabrai-cbe1dfa22a4564": {
-      "at": "2026-11-15T07:57:37+00:00",
+      "at": "2026-11-16T05:03:38+00:00",
       "status": "retry",
       "inputHash": "9100216339c47101ffd0a04bf378cd97beddaa0dc1c0b461cdccca93a75a1b43",
-      "failures": 1,
-      "nextAttemptAt": "2026-11-15T11:57:37+00:00",
-      "reason": "ValueError: Unsupported numerical claim: 1000"
+      "failures": 2,
+      "nextAttemptAt": "2026-11-16T13:03:38+00:00",
+      "reason": "ValueError: Unsupported numerical claim: 2"
     },
     "pabrai-c9c2f45338a0ca": {
       "at": "2026-11-15T07:48:26+00:00",
@@ -1511,12 +1513,12 @@
       "reason": "ValueError: Unsupported scaled numerical claim: 6.5"
     },
     "vinall-469b9af861796c": {
-      "at": "2026-11-15T16:54:57+00:00",
+      "at": "2026-11-16T05:02:26+00:00",
       "status": "retry",
       "inputHash": "04b912cfa579ed70f2a884ba3db6a3f8874717a2e60b6e0c23557713476f294b",
-      "failures": 2,
-      "nextAttemptAt": "2026-11-16T00:54:57+00:00",
-      "reason": "ValueError: Copied source passage"
+      "failures": 3,
+      "nextAttemptAt": "2026-11-16T21:02:26+00:00",
+      "reason": "ValueError: Incomplete AI Review at 1800 tokens"
     },
     "pabrai-bde4422fef8ed1": {
       "at": "2026-11-15T22:21:41+00:00",
@@ -1629,11 +1631,11 @@
       "reason": "ValueError: Unsupported numerical claim: 60%"
     },
     "pabrai-e1be2343625f85": {
-      "at": "2026-11-15T04:23:17+00:00",
+      "at": "2026-11-16T05:02:58+00:00",
       "status": "retry",
       "inputHash": "72da30ea733dbabf2c35378a14ff791a6bf8fd042b7d59ba74938527a3f4bb21",
-      "failures": 1,
-      "nextAttemptAt": "2026-11-15T08:23:17+00:00",
+      "failures": 2,
+      "nextAttemptAt": "2026-11-16T13:02:58+00:00",
       "reason": "ValueError: Unsupported numerical claim: 7%"
     },
     "pabrai-2ce3d6b3b0941e": {
@@ -1661,12 +1663,12 @@
       "reason": "ValueError: Unsupported numerical claim: 3"
     },
     "vinall-ac99a6ec8608a5": {
-      "at": "2026-11-15T04:38:59+00:00",
+      "at": "2026-11-16T04:59:56+00:00",
       "status": "retry",
       "inputHash": "cdff013dc10407a889c756ede9e92ffc1eae348de89054ae5ca4593410792268",
-      "failures": 1,
-      "nextAttemptAt": "2026-11-15T08:38:59+00:00",
-      "reason": "ValueError: Bilingual editorial review: The source (ASR) contains no mention of 'book value' (s12-s14), 'static moats', or the specific phrase 'Beyond Book Value'. The content section incorrectly attributes these concepts to Rob Vinall's speech based on inference rather than evidence.; The source mentions a conflict between European regulators and the SEC rega"
+      "failures": 2,
+      "nextAttemptAt": "2026-11-16T12:59:56+00:00",
+      "reason": "ValueError: Bilingual editorial review: Author name mismatch: Source uses 'Rob Vinall' (s12-s14), but content claims 'Rob Vinall' is the speaker. While phonetically similar, the source text does not explicitly confirm the spelling 'Vinall', and the provided canonical list includes both 'Vinall' and 'Verner'. The content's use of 'Vinall' contradicts the likely"
     },
     "pabrai-00ca7a03f93774": {
       "at": "2026-11-15T21:56:08+00:00",
@@ -1749,11 +1751,11 @@
       "reason": "ValueError: Unsupported numerical claim: 1982"
     },
     "vinall-2f7ded18efd67f": {
-      "at": "2026-11-15T16:13:13+00:00",
+      "at": "2026-11-16T05:04:22+00:00",
       "status": "retry",
       "inputHash": "d81aca6d68ee81808c6d7be343561a04d30a30cc30b287e08d0110f0e9ed83fb",
-      "failures": 1,
-      "nextAttemptAt": "2026-11-15T20:13:13+00:00",
+      "failures": 2,
+      "nextAttemptAt": "2026-11-16T13:04:22+00:00",
       "reason": "ValueError: Unsupported numerical claim: 12"
     },
     "pabrai-73536d0821810e": {
@@ -1821,12 +1823,12 @@
       "reason": "ValueError: Bilingual editorial review: The English text incorrectly translates 'stalks' as 'stocks' (evidence s20: 'two stalks make up 70%' vs 'two stocks'), which contradicts the context of stock portfolios.; The English text misinterprets 'pruning flowers and watering weeds' as a mechanical practice to be opposed, whereas the source implies Pabrai dislikes "
     },
     "vinall-733efaf9628935": {
-      "at": "2026-11-15T07:38:59+00:00",
+      "at": "2026-11-16T05:01:39+00:00",
       "status": "retry",
       "inputHash": "02b2b183ae00d71cc3eeca29893d297669f235e2eb84e6c981252b381f58f5d6",
-      "failures": 1,
-      "nextAttemptAt": "2026-11-15T11:38:59+00:00",
-      "reason": "ValueError: Bilingual editorial review: The source text contains no mention of 'white male' or 'enemies'; the content section incorrectly attributes these details to Rob Vinall.; The source states feedback is via email in a one-on-one format; the content claims this is what 'aided' the lack of dysfunction, whereas the source only notes it as a fact without off"
+      "failures": 2,
+      "nextAttemptAt": "2026-11-16T13:01:39+00:00",
+      "reason": "ValueError: Copied source passage"
     },
     "pabrai-ebc459cca804c1": {
       "at": "2026-11-15T04:11:29+00:00",
@@ -1901,12 +1903,12 @@
       "reason": "ValueError: Bilingual editorial review: The source text (s6) does not mention 'One Up on Wall Street' or 'Beating the Street'; it only states Pabrai read two Peter Lynch books and ran out of them. The specific titles are invented.; The source text (s1) mentions 'TransTech' was started with savings and credit card 'bearings', which is a mistranslation of 'balan"
     },
     "vinall-c12bae3cc1e659": {
-      "at": "2026-11-15T16:20:05+00:00",
+      "at": "2026-11-16T04:59:57+00:00",
       "status": "retry",
       "inputHash": "4ca6e3a0857d06c74dde6a50b3aefc28e8ad8b399354f392f613d090278df977",
-      "failures": 2,
-      "nextAttemptAt": "2026-11-16T00:20:05+00:00",
-      "reason": "ValueError: Bilingual editorial review: The Chinese text incorrectly states the author's name as 'Rob Vinall' in English within the paragraph, whereas the canonical name provided is 'Rob Vinall'. While phonetically similar, the source explicitly uses 'Vinall', and the user-provided canonical list confirms 'Vinall'. The text should use the exact canonical form."
+      "failures": 3,
+      "nextAttemptAt": "2026-11-16T20:59:57+00:00",
+      "reason": "ValueError: Bilingual editorial review: The Chinese text incorrectly states Rob Vinall made his first investment in Baidu in 2013. Source s0 explicitly says: 'since 2013, when I made our first investment... which I wrote about in my 2012 investor letter.' This implies the investment happened after the 2012 letter (likely late 2013 or early 2014), not that he i"
     },
     "pabrai-1e956456cad67c": {
       "at": "2026-11-15T04:20:40+00:00",
@@ -1933,12 +1935,12 @@
       "reason": "ValueError: Bilingual editorial review: The source text (s0) states the NAV was €669.03 as of 30 June 2023, but the content section incorrectly claims this figure represents a compound annual growth rate (CAGR) since inception in September 2008; the CAGR of 13.8% is correctly cited in s1.; The source text (s2) states that Credit Acceptance and Prosus remained "
     },
     "pabrai-52346dc951afda": {
-      "at": "2026-11-15T03:14:34+00:00",
+      "at": "2026-11-16T05:06:40+00:00",
       "status": "retry",
       "inputHash": "e4e165f6767bad2c9baa52dcb3b486134cb1c4d0d2bf913f572e8b898679c682",
-      "failures": 1,
-      "nextAttemptAt": "2026-11-15T07:14:34+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English translation of the Einstein quote ('take a simple idea and take it seriously') is inaccurate; the source text (s2) attributes the sentiment but does not provide this exact phrasing, indicating a potential fabrication or misattribution.; The claim that Buffett read the book 'even before he was 11' contradicts "
+      "failures": 2,
+      "nextAttemptAt": "2026-11-16T13:06:40+00:00",
+      "reason": "ValueError: Incomplete AI Review at 1800 tokens"
     },
     "pabrai-246965219e21a9": {
       "at": "2026-11-15T04:32:46+00:00",
@@ -1957,12 +1959,12 @@
       "reason": "ValueError: Unsupported numerical claim: 1982"
     },
     "vinall-a3bab53252f0cc": {
-      "at": "2026-11-15T16:46:34+00:00",
+      "at": "2026-11-16T05:00:38+00:00",
       "status": "retry",
       "inputHash": "a572550245502990e21b4d7f15382a94451ecc3751feb7acf5a3e75fb321019c",
-      "failures": 1,
-      "nextAttemptAt": "2026-11-15T20:46:34+00:00",
-      "reason": "ValueError: Bilingual editorial review: The Chinese text claims Rob Vinall 'expresses a deep concern' and 'realizes' he is selecting for a specific demographic; however, the source (s1-s3) only states that starting the podcast gives him a sense of freedom to write about these topics and fears the mental illness he encountered. It does not explicitly state his "
+      "failures": 2,
+      "nextAttemptAt": "2026-11-16T13:00:38+00:00",
+      "reason": "ValueError: Bilingual editorial review: The Chinese text claims the author 'argues' (argues/posits) a specific causal link between reading his letters and falling into conspiracy theories. The source (s2, s3) only states he fears this demographic *may* select for similar traits and disclaims clinical expertise; it does not present a formal argument or evidence"
     },
     "pabrai-a93149b98a61c2": {
       "at": "2026-11-15T16:55:40+00:00",
@@ -1997,12 +1999,12 @@
       "reason": "ValueError: Bilingual editorial review: The English translation contains a factual error: it states Buffett donates '5% of his net assets annually' (s7 says '5% of the balance', which is similar but the text doesn't explicitly say 'net assets'; more importantly, the text says 'If he lived forever... tens of millions', implying a perpetual mechanism, not necess"
     },
     "vinall-0bc8d0cd361786": {
-      "at": "2026-11-15T05:00:53+00:00",
+      "at": "2026-11-16T04:57:21+00:00",
       "status": "retry",
       "inputHash": "f47d4ecc7b84b21ccf7510947a41b282d3eed02c47d46d4ec4c2f457ef0e4bb4",
-      "failures": 1,
-      "nextAttemptAt": "2026-11-15T09:00:53+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English translation of the heading incorrectly uses 'Gathering' instead of the more standard term 'Conference' or 'Event' for a corporate annual meeting context.; The English paragraph contains a factual error: it states Zohar highlighted flaws in the 'MySpace comment model', whereas the source text (s29) explicitly "
+      "failures": 2,
+      "nextAttemptAt": "2026-11-16T12:57:21+00:00",
+      "reason": "ValueError: Bilingual editorial review: The Chinese text claims Zohar 'accelerated the release' (accelerate) based on the ASR evidence which only states they 'delayed the release by a few months' before releasing it; the source does not confirm an acceleration of the release itself, only that they delayed and then released.; The Chinese text states Zohar 'emph"
     },
     "vinall-fc32d3b55fba71": {
       "at": "2026-11-15T22:32:29+00:00",
@@ -2037,11 +2039,11 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     },
     "vinall-1a696674979425": {
-      "at": "2026-11-15T04:51:59+00:00",
+      "at": "2026-11-16T04:55:53+00:00",
       "status": "retry",
       "inputHash": "e3360c561be849039ee2d06823adbfd7fbd3f47c0f6c4abdb1883ed42bababe6",
-      "failures": 1,
-      "nextAttemptAt": "2026-11-15T08:51:59+00:00",
+      "failures": 2,
+      "nextAttemptAt": "2026-11-16T12:55:53+00:00",
       "reason": "ValueError: Unsupported numerical claim: 2008"
     },
     "vinall-2fe1a33a372fd2": {
@@ -2053,28 +2055,28 @@
       "reason": "ValueError: Bilingual editorial review: The source text does not mention 'Local Entrepreneurs Organization (EO)' as a specific entity; it only says 'Local Entrepreneurs Organization or EO' which is likely an abbreviation for 'East African Entrepreneurs' or similar, but the exact name isn't verified in the ASR. However, since the user's instruction allows sourc"
     },
     "vinall-e6b74c1e685c92": {
-      "at": "2026-11-15T05:13:40+00:00",
+      "at": "2026-11-16T04:58:33+00:00",
       "status": "retry",
       "inputHash": "4fc993cc64a187473a0dc1da7459d2f49095eedd9116bd076f97604650606826",
-      "failures": 1,
-      "nextAttemptAt": "2026-11-15T09:13:40+00:00",
-      "reason": "ValueError: Bilingual editorial review: The source text (s1-s3) does not contain the specific phrase 'over-reliance on a margin of safety' or explicitly state that this strategy 'often leads to misjudgment'. It only says implementation has 'led them astray' due to assumptions about self-care via margin, which is a slight generalization.; The source text (s1) s"
+      "failures": 2,
+      "nextAttemptAt": "2026-11-16T12:58:33+00:00",
+      "reason": "ValueError: Copied source passage"
     },
     "vinall-bc7f6fa8dbf30a": {
-      "at": "2026-11-15T16:30:06+00:00",
+      "at": "2026-11-16T04:59:10+00:00",
       "status": "retry",
       "inputHash": "e141d90bdefd77ece54e855a5dad79d8794fbe1ff9c06dbc62dbfa37c2d01a6e",
-      "failures": 1,
-      "nextAttemptAt": "2026-11-15T20:30:06+00:00",
-      "reason": "ValueError: Bilingual editorial review: The source text (s9) states 'my journey as an investor was not the most obvious one... I came to investing in a fairly roundabout way.' The editor's interpretation claims this phrase was spoken by host Tillman, but the transcript shows Dennis Hong saying it. This is a factual error regarding speaker attribution.; The sou"
+      "failures": 2,
+      "nextAttemptAt": "2026-11-16T12:59:10+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English translation in the 'content' section contains factual errors regarding the source text.; The phrase 'dealing in cigarettes and lottery tickets' is a mistranslation of the Chinese 'purveyors of', which implies distribution/sales rather than just dealing; however, the bigger issue is the misinterpretation of th"
     },
     "vinall-5d9ce22dd4537e": {
-      "at": "2026-11-15T07:26:49+00:00",
+      "at": "2026-11-16T05:04:01+00:00",
       "status": "retry",
       "inputHash": "2415fa16d12887ffcf317a2f26cf7a36573dc7b68ffad00ac6ac325024fd43d1",
-      "failures": 1,
-      "nextAttemptAt": "2026-11-15T11:26:49+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English text incorrectly attributes the seven characteristics and specific examples (Google vs. Deutsche Bank) to 'Rob Vinall' through the lens of 'The Intelligent Investor'. The source evidence (s6-s8) is an ASR transcript where the speaker discusses compounders but does not explicitly name themselves as Rob Vinall "
+      "failures": 2,
+      "nextAttemptAt": "2026-11-16T13:04:01+00:00",
+      "reason": "ValueError: Bilingual editorial review: Author name mismatch: Source uses 'Rob Vinall' (s6-s8), but content claims 'Rob Vinall' is operating within Graham's framework. The source text does not mention Benjamin Graham or 'The Intelligent Investor'.; Factual error: Content states the speaker 'does not directly quote Graham's original text', yet the title and int"
     },
     "vinall-0316198ffd7198": {
       "at": "2026-11-15T07:54:02+00:00",
@@ -2085,11 +2087,11 @@
       "reason": "ValueError: Unsupported numerical claim: 2%"
     },
     "vinall-794ed52da6ee85": {
-      "at": "2026-11-15T04:26:18+00:00",
+      "at": "2026-11-16T05:02:27+00:00",
       "status": "retry",
       "inputHash": "77c6da2c909e6b174d7c2335866934cb564cc7eb0f7b1f4feaac59050037cb64",
-      "failures": 1,
-      "nextAttemptAt": "2026-11-15T08:26:18+00:00",
+      "failures": 2,
+      "nextAttemptAt": "2026-11-16T13:02:27+00:00",
       "reason": "ValueError: Unsupported numerical claim: 9"
     },
     "vinall-df59d376d9122d": {
@@ -2380,12 +2382,12 @@
       "reason": "ValueError: Unsupported scaled numerical claim: -1,434"
     },
     "buffett-5a848c254e72aa": {
-      "at": "2026-11-15T04:50:52+00:00",
+      "at": "2026-11-16T05:05:20+00:00",
       "status": "retry",
       "inputHash": "0319c4c3b0f29539758461897817e256743bf93decdcdd10b42d1a96b5732155",
-      "failures": 1,
-      "nextAttemptAt": "2026-11-15T08:50:52+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English paragraph in the content section contains significant factual errors regarding the data presented in evidence s6. It states 'per-share book value growth from $19 to $134,973', but the source text (s6) explicitly says 'book value has grown from $19 to $134,973' referring to total company book value, not per-sh"
+      "failures": 2,
+      "nextAttemptAt": "2026-11-16T13:05:20+00:00",
+      "reason": "ValueError: Bilingual editorial review: The Chinese text incorrectly states Buffett 'argues for a distinction' (arguing for a difference) between financial growth and intrinsic value; the source actually argues that intrinsic value *far exceeds* book value and that they are different metrics to track.; The Chinese text claims underperformance is due to 'relati"
     },
     "buffett-b5218ddf52191e": {
       "at": "2026-11-15T21:26:18+00:00",
@@ -4555,12 +4557,12 @@
       "reason": "ValueError: Bilingual editorial review: The section contains a meta-commentary on validation feedback ('addressing the validation feedback... this section's interpretation "
     },
     "greenblatt-11a476109fb052": {
-      "at": "2026-11-15T16:17:23+00:00",
+      "at": "2026-11-16T04:59:26+00:00",
       "status": "retry",
       "inputHash": "11b5980f86175d1a6a0e2fc7c61ad4b90a0fafb7db4dff86a099c7403d96bd07",
-      "failures": 1,
-      "nextAttemptAt": "2026-11-15T20:17:23+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English content incorrectly paraphrases the ASR text by adding 'short-term actors' (not in source) and 'money' instead of 'investing'.; The Chinese content adds 'public discourse' (source says 'discussion') and 'fairness' (not in source).; Both versions add 'valuable insights' (source says 'helpful').; The English ve"
+      "failures": 2,
+      "nextAttemptAt": "2026-11-16T12:59:26+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English translation contains the phrase 'longer-term horizon' which is a direct translation of the ASR text's likely error ('horizon') and lacks parallel structure with 'current investments', creating awkward phrasing.; The Chinese translation uses 'horizon' as a loanword without translating it to its meaning (e.g., "
     },
     "greenblatt-fa1bc818776c75": {
       "at": "2026-11-15T21:25:56+00:00",
@@ -4648,5 +4650,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-15T22:32:47+00:00"
+  "updatedAt": "2026-11-16T05:06:59+00:00"
 }
