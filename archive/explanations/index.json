@@ -1823,12 +1823,12 @@
       "reason": "ValueError: Bilingual editorial review: The English text incorrectly translates 'stalks' as 'stocks' (evidence s20: 'two stalks make up 70%' vs 'two stocks'), which contradicts the context of stock portfolios.; The English text misinterprets 'pruning flowers and watering weeds' as a mechanical practice to be opposed, whereas the source implies Pabrai dislikes "
     },
     "vinall-733efaf9628935": {
-      "at": "2026-11-15T07:38:59+00:00",
+      "at": "2026-11-16T05:01:39+00:00",
       "status": "retry",
       "inputHash": "02b2b183ae00d71cc3eeca29893d297669f235e2eb84e6c981252b381f58f5d6",
-      "failures": 1,
-      "nextAttemptAt": "2026-11-15T11:38:59+00:00",
-      "reason": "ValueError: Bilingual editorial review: The source text contains no mention of 'white male' or 'enemies'; the content section incorrectly attributes these details to Rob Vinall.; The source states feedback is via email in a one-on-one format; the content claims this is what 'aided' the lack of dysfunction, whereas the source only notes it as a fact without off"
+      "failures": 2,
+      "nextAttemptAt": "2026-11-16T13:01:39+00:00",
+      "reason": "ValueError: Copied source passage"
     },
     "pabrai-ebc459cca804c1": {
       "at": "2026-11-15T04:11:29+00:00",
@@ -4650,5 +4650,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-16T05:00:38+00:00"
+  "updatedAt": "2026-11-16T05:01:39+00:00"
 }
