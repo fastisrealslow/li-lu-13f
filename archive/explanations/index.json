@@ -1161,12 +1161,12 @@
       "reason": "ValueError: Bilingual editorial review: The source text does not explicitly state that Michael Goldberg 'retired decades ago' or is 'no longer active at Berkshire'; it only says he has been inactive for over 20 years and Warren Buffett keeps him on the payroll. The claim about his retirement status is an inference, not a direct fact from the text.; The source "
     },
     "pabrai-89c54f52c79a5d": {
-      "at": "2026-11-15T16:31:08+00:00",
+      "at": "2026-11-16T07:33:12+00:00",
       "status": "retry",
       "inputHash": "48c33f4bf55327b631f8d5edb8838d3382ff15898c5dc51d11a2f0b735a635da",
-      "failures": 2,
-      "nextAttemptAt": "2026-11-16T00:31:08+00:00",
-      "reason": "ValueError: Bilingual editorial review: The source text (s1) states Mohnish Pabrai started giving when his net worth crossed $50 million and he was 42. The content section claims this happened 'at age forty-two' but phrases it as 'deciding instead to start when his net worth exceeded fifty million dollars at age forty-two'. This is a slight conflation; the sou"
+      "failures": 3,
+      "nextAttemptAt": "2026-11-16T23:33:12+00:00",
+      "reason": "ValueError: Unsupported scaled numerical claim: 100"
     },
     "pabrai-31dca9727a5159": {
       "at": "2026-11-15T07:25:44+00:00",
@@ -4654,5 +4654,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-16T07:32:53+00:00"
+  "updatedAt": "2026-11-16T07:33:12+00:00"
 }
