@@ -1628,12 +1628,12 @@
       "reason": "ValueError: Incomplete AI Write at 3200 tokens"
     },
     "pabrai-1ef3ab18d3d46e": {
-      "at": "2026-11-16T05:25:45+00:00",
+      "at": "2026-11-16T19:10:20+00:00",
       "status": "retry",
       "inputHash": "e74ec1d25d2195259c423bd7861c06bd5cb5428a7bdb0c089ccb7a542d7f772d",
-      "failures": 2,
-      "nextAttemptAt": "2026-11-16T13:25:45+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English paraphrase in `content.paragraphs[0].en` contains a factual error: it states Pabrai's father noted 'no one leaves Earth with even a pin's worth of wealth,' whereas the source text (s2) attributes this quote to Pabrai himself ('My dad used to say that no one has succeeded in even taking a pin with them when th"
+      "failures": 3,
+      "nextAttemptAt": "2026-11-17T11:10:20+00:00",
+      "reason": "ValueError: Copied source passage"
     },
     "pabrai-e1be2343625f85": {
       "at": "2026-11-16T05:02:58+00:00",
@@ -4659,5 +4659,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-16T19:09:58+00:00"
+  "updatedAt": "2026-11-16T19:10:20+00:00"
 }
