@@ -2961,12 +2961,12 @@
       "reason": "ValueError: Bilingual editorial review: The English translation of s2 contains a factual error: it misquotes Thomas Hobbes. The source text (s2) states 'the best prophet is the best guesser', but the translation renders this as 'the best prophet is the worst guesser'. This contradicts the original meaning and the canonical attribution.; The English translation"
     },
     "marks-a118789c16f302": {
-      "at": "2026-11-15T08:06:52+00:00",
+      "at": "2026-11-16T08:21:13+00:00",
       "status": "retry",
       "inputHash": "2ffa33e018bf298474095ded678d3279eee2bf785cb9818b12f25b6815b7317e",
-      "failures": 1,
-      "nextAttemptAt": "2026-11-15T12:06:52+00:00",
-      "reason": "ValueError: Copied source passage"
+      "failures": 2,
+      "nextAttemptAt": "2026-11-16T16:21:13+00:00",
+      "reason": "ValueError: Bilingual editorial review: The Chinese text incorrectly attributes the quote 'We don't consider ourselves to be value investors...' to Buffett alone; the source (s13) explicitly states 'As Buffett put it' but the preceding sentence says 'Both Graham and Buffett... viewed value investing as consisting of...', implying a shared view, not necessarily"
     },
     "marks-b88c0cce52f3a9": {
       "at": "2026-11-15T22:03:59+00:00",
@@ -4656,5 +4656,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-16T08:21:10+00:00"
+  "updatedAt": "2026-11-16T08:21:13+00:00"
 }
