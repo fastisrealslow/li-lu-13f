@@ -2084,12 +2084,12 @@
       "reason": "ValueError: Bilingual editorial review: Author attribution error: The source text (ASR) identifies the speaker as 'Rob Vinall' in s8 ('Google most certainly is a Compounder'), but the content section attributes these views to 'Rob Vinall' while referencing 'The Intelligent Investor'. However, Rob Vinall is not the author of 'The Intelligent Investor'; that boo"
     },
     "vinall-0316198ffd7198": {
-      "at": "2026-11-16T07:39:15+00:00",
+      "at": "2026-11-16T19:14:35+00:00",
       "status": "retry",
       "inputHash": "b79ed1640cbbc9c0f7dc5a1684a0c5c1e42081f7db0bc64378b2dc60f74efda3",
-      "failures": 2,
-      "nextAttemptAt": "2026-11-16T15:39:15+00:00",
-      "reason": "ValueError: Bilingual editorial review: The source text (s3) states Rob Vinall felt going to China 'was 10 years too late' or 'something of going there', but does not explicitly claim this is based on a lack of quantitative analysis. The paragraph adds an unsupported editorial interpretation ('not supported by quantitative analysis... stems from his personal o"
+      "failures": 3,
+      "nextAttemptAt": "2026-11-17T11:14:35+00:00",
+      "reason": "ValueError: Bilingual editorial review: The source text (s3) states Rob Vinall was in a study tour 'this fall' with tech entrepreneurs. The content section claims this occurred 'in 2024', but the transcript only says 'this fall' without an explicit year. While context implies 2024, the specific date is not explicitly stated in the provided ASR text.; The sourc"
     },
     "vinall-794ed52da6ee85": {
       "at": "2026-11-16T14:44:26+00:00",
@@ -4659,5 +4659,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-16T19:15:12+00:00"
+  "updatedAt": "2026-11-16T19:14:35+00:00"
 }
