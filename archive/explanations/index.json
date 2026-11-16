@@ -3804,12 +3804,12 @@
       "reason": "ValueError: Bilingual editorial review: The English translation contains 'exotic investments' and 'proprietary profits', which are not present in the source text (s26 uses 'exotic investments' but does not specify 'proprietary profits'; s30 is cut off).; The Chinese and English paragraphs include extensive editorial interpretation and analysis (e.g., 'moral ha"
     },
     "marks-9d549bcb95c052": {
-      "at": "2026-11-15T17:07:32+00:00",
+      "at": "2026-11-16T15:14:40+00:00",
       "status": "retry",
       "inputHash": "08a20ae3e9880d050f2e13526d721b99fb23111f5608e05b94528f901ea25919",
-      "failures": 2,
-      "nextAttemptAt": "2026-11-16T01:07:32+00:00",
-      "reason": "JSONDecodeError: Expecting ',' delimiter: line 3 column 1 (char 830)"
+      "failures": 3,
+      "nextAttemptAt": "2026-11-17T07:14:40+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English translation in the content section contains a factual error regarding the source text: it states 'forecasters were certain the U.S. economy was recovering' (recovering), whereas the source text (s12) explicitly says 'gaining steam', which implies acceleration or momentum, not necessarily recovery from a downt"
     },
     "marks-60fc27c3fdbd0f": {
       "at": "2026-11-16T14:45:06+00:00",
@@ -4659,5 +4659,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-16T15:14:00+00:00"
+  "updatedAt": "2026-11-16T15:14:40+00:00"
 }
