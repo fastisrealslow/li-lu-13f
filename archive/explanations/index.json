@@ -3180,12 +3180,12 @@
       "reason": "ValueError: Bilingual editorial review: The English translation of 'V-shaped' recovery is accurate; no correction needed.; The attribution of the quote to Howard Marks is correct per canonical names.; The factual claims regarding Powell and Evans are supported by the source text."
     },
     "marks-cbe22289f97d98": {
-      "at": "2026-11-15T16:48:03+00:00",
+      "at": "2026-11-16T14:50:02+00:00",
       "status": "retry",
       "inputHash": "4e40c594ccf6785641936ce41784939d25440331523a8e33417e1d6040e85315",
-      "failures": 1,
-      "nextAttemptAt": "2026-11-15T20:48:03+00:00",
-      "reason": "ValueError: Bilingual editorial review: The source text (s4-s6) contains only a dialogue and brief commentary; it does not explicitly state that 'institutional structures force capital to bear the burden of negative rates' or transform negative rates into a 'pervasive structural reality'. This is an editorial interpretation added in the Chinese paragraph witho"
+      "failures": 2,
+      "nextAttemptAt": "2026-11-16T22:50:02+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English text contains a factual error regarding the dialogue: it claims Marks 'immediately recognized' the punitive nature and admitted 'then don't put it in the bank,' whereas the source (s5) shows he first suggested depositing, then corrected himself to 'don't put it in the bank' only after his lawyer insisted. The"
     },
     "marks-a8162651bb160c": {
       "at": "2026-11-15T16:53:08+00:00",
@@ -4659,5 +4659,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-16T14:49:22+00:00"
+  "updatedAt": "2026-11-16T14:50:02+00:00"
 }
