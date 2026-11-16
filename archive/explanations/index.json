@@ -564,12 +564,12 @@
       "reason": "ValueError: No audio obtained"
     },
     "pabrai-902245e808126f": {
-      "at": "2026-11-15T04:28:02+00:00",
+      "at": "2026-11-16T05:12:03+00:00",
       "status": "retry",
       "inputHash": "0380768a64240b20e08d0cff333d2d15a7d69f41e9e400dbf4e64f53a93603ea",
-      "failures": 1,
-      "nextAttemptAt": "2026-11-15T08:28:02+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English paragraph incorrectly claims Pabrai rates the lunch '15 out of 10' and that the source states 'beyond 100% without specifying 15'. The source (s8) explicitly states: 'Warren Buffett's lunch was 15 out of 10. It went beyond 100% for several reasons.' The draft text misquotes the specific number '15' as if it w"
+      "failures": 2,
+      "nextAttemptAt": "2026-11-16T13:12:03+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English paragraph incorrectly states Pabrai 'hosting' a lunch with Buffett; source s6 shows he was the *bidder* paying for the lunch to thank Buffett.; The English paragraph claims participants paid '$26 million', but source s7 specifies the winner paid '$26 million' (singular), not collectively.; The English paragra"
     },
     "vinall-b8757c659b8401": {
       "at": "2026-11-15T03:37:21+00:00",
@@ -4650,5 +4650,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-16T05:11:45+00:00"
+  "updatedAt": "2026-11-16T05:12:03+00:00"
 }
