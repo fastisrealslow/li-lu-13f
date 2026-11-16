@@ -4479,12 +4479,12 @@
       "reason": "ValueError: Bilingual editorial review: The English translation in the 'content' section contains a factual error regarding Rocket Companies' valuation multiple. The source text (s7) states the company is trading at '14x next year's earnings', but the translation incorrectly writes it as '14 times next year's earnings'. While grammatically similar, the phrasin"
     },
     "marks-60b6da1ebf415b": {
-      "at": "2026-11-15T02:49:55+00:00",
+      "at": "2026-11-16T05:58:14+00:00",
       "status": "retry",
       "inputHash": "7f89aacf4dcc81a417d61c68bd9342ab2c758bd1142751c42bbfb8fbf80b002f",
-      "failures": 1,
-      "nextAttemptAt": "2026-11-15T06:49:55+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English translation contains a factual error: it states Marks 'refrains from attempting to predict specific directions' (s2/s3), whereas the source text (s1) explicitly says he does NOT differ from 'them' just in terms of knowing the future, implying both groups attempt prediction but differ in other ways. The summar"
+      "failures": 2,
+      "nextAttemptAt": "2026-11-16T13:58:14+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English translation of s3 bullet point (a) incorrectly states 'everyone can be successful at the same time' instead of the source's '(a) everyone can be successful at the same time' - wait, this is a match. Let me re-read carefully.; Re-evaluating s3: Source says '(a) everyone can be successful at the same time'. Tra"
     },
     "marks-fe3c74ab153e7a": {
       "at": "2026-11-15T04:06:41+00:00",
@@ -4652,5 +4652,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-16T05:58:07+00:00"
+  "updatedAt": "2026-11-16T05:58:14+00:00"
 }
