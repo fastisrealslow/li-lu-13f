@@ -2268,12 +2268,12 @@
       "reason": "ValueError: Incomplete AI Review at 1800 tokens"
     },
     "buffett-5ac84a1f6e89c4": {
-      "at": "2026-11-15T16:25:31+00:00",
+      "at": "2026-11-16T08:16:45+00:00",
       "status": "retry",
       "inputHash": "ef31d06c81472ba7b921f9efbc58c0edb39848d7b365ad990e252b3f3dcd2d52",
-      "failures": 1,
-      "nextAttemptAt": "2026-11-15T20:25:31+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English text incorrectly attributes the view that 'the increase in Berkshire's per-share intrinsic value over the past 50 years is roughly equal to the 1,826,163% gain in market price' to Buffett himself. Source s8 explicitly states: 'Charlie Munger... and I believe that has been true at Berkshire', referring to the "
+      "failures": 2,
+      "nextAttemptAt": "2026-11-16T16:16:45+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English paraphrase incorrectly attributes the specific claim about intrinsic value growth being 'roughly equal to' the stock price gain to Buffett alone. Source s8 explicitly states: 'Charlie Munger... and I believe that has been true at Berkshire: In our view, the increase in Berkshire's per-share intrinsic value ov"
     },
     "buffett-3d2de219cbd196": {
       "at": "2026-11-14T14:33:18+00:00",
@@ -4656,5 +4656,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-16T08:16:27+00:00"
+  "updatedAt": "2026-11-16T08:16:45+00:00"
 }
