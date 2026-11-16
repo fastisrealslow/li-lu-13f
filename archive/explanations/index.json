@@ -4405,12 +4405,12 @@
       "reason": "ValueError: Bilingual editorial review: The source text uses 'tippy top' (slang for highest point), while the summary paraphrases it as 'at the very tippy top', which is acceptable but slightly redundant; however, this does not constitute a concrete material error requiring rejection.; The phrase 'signing over the holidays' in the source likely means 'signed w"
     },
     "mclemore-eb19ffa8d4e786": {
-      "at": "2026-11-15T04:56:13+00:00",
+      "at": "2026-11-16T05:09:33+00:00",
       "status": "retry",
       "inputHash": "4fbf88bdecfcfab33383498bea4c83bf0994311f3102c9e4092f16203e0858e2",
-      "failures": 1,
-      "nextAttemptAt": "2026-11-15T08:56:13+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English translation contains factual errors regarding the source text: it misstates the Brexit event as 'market decline' when the source says 'market tanked' followed by a 'decline', but incorrectly summarizes the rebound data. The source states the S&P gained each of four days, ending 5.1% above Monday's close, whic"
+      "failures": 2,
+      "nextAttemptAt": "2026-11-16T13:09:33+00:00",
+      "reason": "ValueError: Unsupported numerical claim: 2"
     },
     "marks-33ba7b1341d9b6": {
       "at": "2026-11-15T08:22:13+00:00",
@@ -4650,5 +4650,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-16T05:08:42+00:00"
+  "updatedAt": "2026-11-16T05:09:33+00:00"
 }
