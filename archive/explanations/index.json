@@ -668,12 +668,12 @@
       "reason": "ValueError: Repeated paragraphs cannot pad an explanation"
     },
     "vinall-7630ddfba8bfe7": {
-      "at": "2026-11-16T05:02:37+00:00",
+      "at": "2026-11-16T14:42:21+00:00",
       "status": "retry",
       "inputHash": "d497297541bbb935cdda5daff33c945223c3772e99bd3fdd425c525762819e05",
-      "failures": 2,
-      "nextAttemptAt": "2026-11-16T13:02:37+00:00",
-      "reason": "ValueError: Bilingual editorial review: The source text (s3-s5) does not mention 'fossil fuels' or 'policy signals'. The content section explicitly states these topics are absent but claims the discussion provides a 'micro-level insight into the broader operation of financial systems' and reflects an investment approach of understanding commercial essence thro"
+      "failures": 3,
+      "nextAttemptAt": "2026-11-17T06:42:21+00:00",
+      "reason": "ValueError: Bilingual editorial review: The content claims Rob Vinall discussed 'fossil fuels' and 'policy signals', but the provided ASR evidence (s3-s5) contains no mention of these topics.; The text states he addressed a question about 'how this operates', yet the specific question from Paolo regarding credit acceptance is not included in the evidence, maki"
     },
     "lilu-1cde24ccac1bfb": {
       "at": "2026-11-16T07:39:08+00:00",
@@ -4659,5 +4659,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-16T14:41:43+00:00"
+  "updatedAt": "2026-11-16T14:42:21+00:00"
 }
