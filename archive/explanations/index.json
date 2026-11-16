@@ -1249,12 +1249,12 @@
       "reason": "ValueError: Bilingual editorial review: s1: Source states Buffett collected 'tickets' (racing tickets) and gave them to his aunt Alice. The summary incorrectly identifies these as 'lottery tickets'.; s2: Source describes Warren Buffett's early twenties research on Moody's Manuals. The summary attributes this specific activity to 'Arthur Buffett', which is a fa"
     },
     "pabrai-2dadcddfebe9d5": {
-      "at": "2026-11-15T21:39:25+00:00",
+      "at": "2026-11-16T07:53:36+00:00",
       "status": "retry",
       "inputHash": "2c705de2bd89c5a4ab38a2e8ae4e80b62b957162a4a74675e8e7463c78d0f4f6",
-      "failures": 2,
-      "nextAttemptAt": "2026-11-16T05:39:25+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English translation contains a factual error: 'moderate share buybacks' contradicts the source text which states buybacks are powerful at 'modest valuations' (low multiples), not moderate ones.; The English translation incorrectly summarizes Pabrai's stance on Tencent, claiming he did not explicitly confirm if the mo"
+      "failures": 3,
+      "nextAttemptAt": "2026-11-16T23:53:36+00:00",
+      "reason": "ValueError: Bilingual editorial review: The Chinese text claims Pabrai discussed 'payment system friction' (paying system friction), but the source text (s8) only mentions MasterCard's cash position and share buybacks; no discussion of payment systems exists.; The Chinese text states Pabrai evaluated Japanese real estate companies as 'spawners' facing bank hes"
     },
     "pabrai-801d184237a3d3": {
       "at": "2026-11-15T08:19:42+00:00",
@@ -4656,5 +4656,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-16T07:53:27+00:00"
+  "updatedAt": "2026-11-16T07:53:36+00:00"
 }
