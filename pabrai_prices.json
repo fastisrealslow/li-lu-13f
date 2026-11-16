@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-14T18:37:41.969821Z",
+  "updated": "2026-11-16T18:55:29.969633Z",
   "quotes": {
     "HCC": {
       "c": 83.35,
@@ -430,6 +430,18 @@
         }
       ],
       "shareActionsSince": "1999-01-01"
+    },
+    "AER": {
+      "c": 173.35,
+      "t": 1794855278,
+      "currency": "USD",
+      "symbol": "AER",
+      "verifiedName": "AerCap Holdings N.V.",
+      "source": "yahoo_chart",
+      "sourceURL": "https://finance.yahoo.com/quote/AER/",
+      "fetchedAt": "2026-11-16T18:55:29.755004+00:00",
+      "shareActions": [],
+      "shareActionsSince": "2005-10-01"
     }
   },
   "costBasis": {
@@ -510,6 +522,14 @@
       "exitQuarter": "2018 Q1",
       "exitPrice": 58.101,
       "changePct": 82.9,
+      "methodVersion": 1
+    },
+    "AER": {
+      "entryQuarter": "2016 Q2",
+      "entryPrice": 37.3331,
+      "exitQuarter": "2018 Q1",
+      "exitPrice": 54.5275,
+      "changePct": 46.1,
       "methodVersion": 1
     },
     "MU": {
@@ -1954,7 +1974,7 @@
         "checkedAt": ""
       },
       "N00985106": {
-        "ticker": "?AERCAP HOLDINGS NV",
+        "ticker": "AER",
         "cusip": "N00985106",
         "quarters": [
           {
@@ -1962,76 +1982,203 @@
             "action": "observed",
             "shares": 624160,
             "previousShares": null,
-            "buy": null,
-            "averageCost": null
+            "priceEvidence": {
+              "buy": 33.5292,
+              "sell": 41.1522,
+              "low": 31.450000762939453,
+              "high": 42.34000015258789,
+              "mean": 38.38062483072281,
+              "days": 64,
+              "source": "historical_daily_prices"
+            },
+            "buy": 33.5292,
+            "averageCost": 33.5292
           },
           {
             "quarter": "2016 Q3",
             "action": "hold",
             "shares": 624160,
             "previousShares": 624160,
-            "averageCost": null
+            "averageCost": 33.5292
           },
           {
             "quarter": "2016 Q4",
             "action": "added",
             "shares": 671685,
             "previousShares": 624160,
-            "buy": null,
-            "averageCost": null
+            "priceEvidence": {
+              "buy": 39.3587,
+              "sell": 44.4897,
+              "low": 38.20000076293945,
+              "high": 45.529998779296875,
+              "mean": 42.06238101777576,
+              "days": 63,
+              "source": "historical_daily_prices"
+            },
+            "buy": 39.3587,
+            "averageCost": 33.9417
           },
           {
             "quarter": "2017 Q1",
             "action": "added",
             "shares": 819185,
             "previousShares": 671685,
-            "buy": null,
-            "averageCost": null
+            "priceEvidence": {
+              "buy": 42.511,
+              "sell": 48.195,
+              "low": 41.540000915527344,
+              "high": 49.65999984741211,
+              "mean": 44.77661298936413,
+              "days": 62,
+              "source": "historical_daily_prices"
+            },
+            "buy": 42.511,
+            "averageCost": 35.4846
           },
           {
             "quarter": "2017 Q2",
             "action": "added",
             "shares": 999935,
             "previousShares": 819185,
-            "buy": null,
-            "averageCost": null
+            "priceEvidence": {
+              "buy": 43.1677,
+              "sell": 46.7237,
+              "low": 42.349998474121094,
+              "high": 47.43000030517578,
+              "mean": 45.07555540781173,
+              "days": 63,
+              "source": "historical_daily_prices"
+            },
+            "buy": 43.1677,
+            "averageCost": 36.8734
           },
           {
             "quarter": "2017 Q3",
             "action": "added",
             "shares": 1047160,
             "previousShares": 999935,
-            "buy": null,
-            "averageCost": null
+            "priceEvidence": {
+              "buy": 47.0651,
+              "sell": 50.5931,
+              "low": 46.22999954223633,
+              "high": 51.27000045776367,
+              "mean": 49.013650863889666,
+              "days": 63,
+              "source": "historical_daily_prices"
+            },
+            "buy": 47.0651,
+            "averageCost": 37.3331
           },
           {
             "quarter": "2017 Q4",
             "action": "trimmed",
             "shares": 807721,
             "previousShares": 1047160,
-            "sell": null,
-            "costBeforeSale": null,
-            "averageCost": null
+            "priceEvidence": {
+              "buy": 49.968,
+              "sell": 53.769,
+              "low": 49.06999969482422,
+              "high": 54.5,
+              "mean": 52.06349212404282,
+              "days": 63,
+              "source": "historical_daily_prices"
+            },
+            "sell": 53.769,
+            "costBeforeSale": 37.3331,
+            "averageCost": 37.3331
           },
           {
             "quarter": "2018 Q1",
             "action": "exited",
             "shares": 0,
             "previousShares": 807721,
-            "sell": null,
-            "costBeforeSale": null,
+            "priceEvidence": {
+              "buy": 49.3615,
+              "sell": 54.5275,
+              "low": 48.290000915527344,
+              "high": 55.66999816894531,
+              "mean": 51.861639366775265,
+              "days": 61,
+              "source": "historical_daily_prices"
+            },
+            "sell": 54.5275,
+            "costBeforeSale": 37.3331,
             "averageCost": null
           }
         ],
-        "averageBuy": null,
-        "averageSell": null,
-        "missingBuyQuarters": 5,
-        "missingSellQuarters": 2,
+        "averageBuy": 37.3331,
+        "averageSell": 54.3541,
+        "missingBuyQuarters": 0,
+        "missingSellQuarters": 0,
         "first": "2016 Q2",
         "last": "2018 Q1",
-        "candles": {},
-        "priceBasis": "61ed20d3a3017e3be4c93d580b44069de3190669095835dac230630c3f813a7e",
-        "checkedAt": ""
+        "candles": {
+          "2016 Q2": {
+            "buy": 33.5292,
+            "sell": 41.1522,
+            "low": 31.450000762939453,
+            "high": 42.34000015258789,
+            "mean": 38.38062483072281,
+            "days": 64,
+            "source": "historical_daily_prices"
+          },
+          "2016 Q4": {
+            "buy": 39.3587,
+            "sell": 44.4897,
+            "low": 38.20000076293945,
+            "high": 45.529998779296875,
+            "mean": 42.06238101777576,
+            "days": 63,
+            "source": "historical_daily_prices"
+          },
+          "2017 Q1": {
+            "buy": 42.511,
+            "sell": 48.195,
+            "low": 41.540000915527344,
+            "high": 49.65999984741211,
+            "mean": 44.77661298936413,
+            "days": 62,
+            "source": "historical_daily_prices"
+          },
+          "2017 Q2": {
+            "buy": 43.1677,
+            "sell": 46.7237,
+            "low": 42.349998474121094,
+            "high": 47.43000030517578,
+            "mean": 45.07555540781173,
+            "days": 63,
+            "source": "historical_daily_prices"
+          },
+          "2017 Q3": {
+            "buy": 47.0651,
+            "sell": 50.5931,
+            "low": 46.22999954223633,
+            "high": 51.27000045776367,
+            "mean": 49.013650863889666,
+            "days": 63,
+            "source": "historical_daily_prices"
+          },
+          "2017 Q4": {
+            "buy": 49.968,
+            "sell": 53.769,
+            "low": 49.06999969482422,
+            "high": 54.5,
+            "mean": 52.06349212404282,
+            "days": 63,
+            "source": "historical_daily_prices"
+          },
+          "2018 Q1": {
+            "buy": 49.3615,
+            "sell": 54.5275,
+            "low": 48.290000915527344,
+            "high": 55.66999816894531,
+            "mean": 51.861639366775265,
+            "days": 61,
+            "source": "historical_daily_prices"
+          }
+        },
+        "priceBasis": "fd1b59f332d3ff15c84bb305331ba87ac6133c43ffedb521f437d96ec9358227",
+        "checkedAt": "2026-11-16T18:55:29.028245+00:00"
       },
       "38259P706": {
         "ticker": "GOOG",
@@ -6122,7 +6269,7 @@
         "last": "2012 Q2",
         "candles": {},
         "priceBasis": "3402362a1e620590871f090c1e31bf8c7c1520f4180722c3a4fcde7e9a68a9f5",
-        "checkedAt": "2026-11-14T03:43:15.239977+00:00"
+        "checkedAt": "2026-11-16T18:55:29.028245+00:00"
       },
       "165167107": {
         "ticker": "CHK",
@@ -6218,7 +6365,7 @@
         "last": "2014 Q3",
         "candles": {},
         "priceBasis": "95ea4fc24a46d1b02a44d26f839c32be44c12c304be59af9579d9db4ed3d3379",
-        "checkedAt": "2026-11-14T03:43:15.239977+00:00"
+        "checkedAt": "2026-11-16T18:55:29.028245+00:00"
       },
       "14055X102": {
         "ticker": "CSE",
@@ -6250,7 +6397,7 @@
         "last": "2012 Q2",
         "candles": {},
         "priceBasis": "543502c0b3576e9e969fb52f4849c287abfabbb60181c90a8a1fe54ad0a6a0d9",
-        "checkedAt": "2026-11-14T03:43:15.239977+00:00"
+        "checkedAt": "2026-11-16T18:55:29.028245+00:00"
       },
       "440694305": {
         "ticker": "ZINCQ",
@@ -6390,7 +6537,7 @@
         "last": "2016 Q1",
         "candles": {},
         "priceBasis": "1f32050e9c9a645bee91fb0f43e3d838e9a043ca6c4be817836381b518682176",
-        "checkedAt": "2026-11-14T03:43:15.239977+00:00"
+        "checkedAt": "2026-11-16T18:55:29.028245+00:00"
       },
       "723443107": {
         "ticker": "PNCLQ",
@@ -6422,7 +6569,7 @@
         "last": "2012 Q2",
         "candles": {},
         "priceBasis": "3c440806cf029bd861b04dca311a60be70e93772f9f606e8d754ffb7d8e3cf67",
-        "checkedAt": "2026-11-14T03:43:15.239977+00:00"
+        "checkedAt": "2026-11-16T18:55:29.028245+00:00"
       }
     },
     "quoteRefresh": {
@@ -6482,9 +6629,9 @@
       },
       "CHK": {
         "cusip": "165167107",
-        "lastAttemptAt": "2026-11-12T04:32:45.407657+00:00",
-        "nextAttemptAt": "2026-11-16T04:32:45.407657+00:00",
-        "failures": 3,
+        "lastAttemptAt": "2026-11-16T18:55:29.028245+00:00",
+        "nextAttemptAt": "2026-11-24T18:55:29.028245+00:00",
+        "failures": 4,
         "error": "quote_unavailable"
       },
       "FRFHF": {
@@ -6543,9 +6690,9 @@
       },
       "SHLDQ": {
         "cusip": "812350106",
-        "lastAttemptAt": "2026-11-12T04:32:45.407657+00:00",
-        "nextAttemptAt": "2026-11-16T04:32:45.407657+00:00",
-        "failures": 3,
+        "lastAttemptAt": "2026-11-16T18:55:29.028245+00:00",
+        "nextAttemptAt": "2026-11-24T18:55:29.028245+00:00",
+        "failures": 4,
         "error": "quote_unavailable"
       },
       "SRG": {
@@ -6580,9 +6727,9 @@
       },
       "WCG": {
         "cusip": "94946T106",
-        "lastAttemptAt": "2026-11-12T04:32:45.407657+00:00",
-        "nextAttemptAt": "2026-11-16T04:32:45.407657+00:00",
-        "failures": 3,
+        "lastAttemptAt": "2026-11-16T18:55:29.028245+00:00",
+        "nextAttemptAt": "2026-11-24T18:55:29.028245+00:00",
+        "failures": 4,
         "error": "quote_unavailable"
       },
       "WFC": {
@@ -6593,9 +6740,9 @@
       },
       "PNCLQ": {
         "cusip": "723443107",
-        "lastAttemptAt": "2026-11-12T04:32:45.407657+00:00",
-        "nextAttemptAt": "2026-11-16T04:32:45.407657+00:00",
-        "failures": 3,
+        "lastAttemptAt": "2026-11-16T18:55:29.028245+00:00",
+        "nextAttemptAt": "2026-11-24T18:55:29.028245+00:00",
+        "failures": 4,
         "error": "quote_unavailable"
       },
       "STMP": {
@@ -6642,28 +6789,34 @@
       },
       "GNKOQ": {
         "cusip": "Y2685T107",
-        "lastAttemptAt": "2026-11-12T20:35:03.153510+00:00",
-        "nextAttemptAt": "2026-11-14T20:35:03.153510+00:00",
-        "failures": 2,
+        "lastAttemptAt": "2026-11-16T18:55:29.028245+00:00",
+        "nextAttemptAt": "2026-11-20T18:55:29.028245+00:00",
+        "failures": 3,
         "error": "quote_unavailable"
       },
       "BPO": {
         "cusip": "112900105",
-        "lastAttemptAt": "2026-11-14T06:21:32.446499+00:00",
-        "nextAttemptAt": "2026-11-16T06:21:32.446499+00:00",
-        "failures": 2,
+        "lastAttemptAt": "2026-11-16T18:55:29.028245+00:00",
+        "nextAttemptAt": "2026-11-20T18:55:29.028245+00:00",
+        "failures": 3,
         "error": "quote_unavailable"
       },
       "POT": {
         "cusip": "73755L107",
-        "lastAttemptAt": "2026-11-14T06:21:32.446499+00:00",
-        "nextAttemptAt": "2026-11-16T06:21:32.446499+00:00",
-        "failures": 2,
+        "lastAttemptAt": "2026-11-16T18:55:29.028245+00:00",
+        "nextAttemptAt": "2026-11-20T18:55:29.028245+00:00",
+        "failures": 3,
         "error": "quote_unavailable"
+      },
+      "AER": {
+        "cusip": "N00985106",
+        "lastAttemptAt": "2026-11-16T18:55:29.028245+00:00",
+        "nextAttemptAt": "2026-11-17T18:55:29.028245+00:00",
+        "failures": 0
       }
     }
   },
   "securityIdentityVersion": 1,
   "sourceHistoryFingerprint": "f3282bca78b66028dea8fb9c344353fce01ea6d612c8b26437aaa0df21386542",
-  "quoteCoverageCheckedAt": "2026-11-16T12:59:02.334151+00:00"
+  "quoteCoverageCheckedAt": "2026-11-16T19:08:50.146269+00:00"
 }

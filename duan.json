@@ -5,7 +5,7 @@
     "notablePeople": [
       "Duan Yongping"
     ],
-    "lastUpdated": "2026-11-16T12:46:24Z",
+    "lastUpdated": "2026-11-16T18:55:32Z",
     "aiSummary": "段永平 2026 年二季度新增阿里、增持拼多与迪士尼，同时大幅减持英伟达、谷歌及微软，显示其持续聚焦中国资产并调整科技股持仓结构。",
     "aiSummaryQuarter": "2026 Q2",
     "shareActions": [
@@ -81,6 +81,15 @@
         "sourceKind": "market_share_split"
       },
       {
+        "ticker": "OXY",
+        "cusip": "674599105",
+        "date": "2006-08-16",
+        "factor": 2.0,
+        "quarter": "2006 Q3",
+        "source": "https://finance.yahoo.com/quote/OXY/",
+        "sourceKind": "market_share_split"
+      },
+      {
         "ticker": "NVDA",
         "cusip": "67066G104",
         "date": "2000-06-27",
@@ -123,15 +132,6 @@
         "factor": 10.0,
         "quarter": "2024 Q2",
         "source": "https://finance.yahoo.com/quote/NVDA/",
-        "sourceKind": "market_share_split"
-      },
-      {
-        "ticker": "OXY",
-        "cusip": "674599105",
-        "date": "2006-08-16",
-        "factor": 2.0,
-        "quarter": "2006 Q3",
-        "source": "https://finance.yahoo.com/quote/OXY/",
         "sourceKind": "market_share_split"
       },
       {
@@ -187,43 +187,359 @@
         "quarter": "2003 Q3",
         "source": "https://finance.yahoo.com/quote/SNPS/",
         "sourceKind": "market_share_split"
-      },
-      {
-        "ticker": "INOD",
-        "cusip": "457642205",
-        "date": "1999-09-10",
-        "factor": 3.0,
-        "quarter": "1999 Q3",
-        "source": "https://finance.yahoo.com/quote/INOD/",
-        "sourceKind": "market_share_split"
-      },
-      {
-        "ticker": "INOD",
-        "cusip": "457642205",
-        "date": "2000-12-04",
-        "factor": 2.0,
-        "quarter": "2000 Q4",
-        "source": "https://finance.yahoo.com/quote/INOD/",
-        "sourceKind": "market_share_split"
-      },
-      {
-        "ticker": "INOD",
-        "cusip": "457642205",
-        "date": "2001-03-26",
-        "factor": 2.0,
-        "quarter": "2001 Q1",
-        "source": "https://finance.yahoo.com/quote/INOD/",
-        "sourceKind": "market_share_split"
       }
     ]
   },
   "current": {
-    "quarter": "2026 Q2",
-    "filingDate": "2026-08-14",
-    "sourceFiling": "https://www.sec.gov/Archives/edgar/data/1759760/000175976026000007/0001759760-26-000007-index.html",
-    "periodEnd": "2026-06-30",
-    "totalValue": 19100584155,
+    "quarter": "2026 Q3",
+    "filingDate": "2026-11-16",
+    "sourceFiling": "https://www.sec.gov/Archives/edgar/data/1759760/000175976026000008/0001759760-26-000008-index.html",
+    "periodEnd": "2026-09-30",
+    "totalValue": 17190742843,
     "holdings": [
+      {
+        "ticker": "AAPL",
+        "name": "APPLE INC",
+        "cls": "COM",
+        "cusip": "037833100",
+        "shares": 21202403,
+        "value": 7060824247,
+        "shareType": "SH",
+        "putCall": "",
+        "managerAllocations": [
+          {
+            "managerIds": [],
+            "shares": 21202403,
+            "value": 7060824247
+          }
+        ],
+        "sector": "科技",
+        "prevShares": 27098707,
+        "prevValue": 7841281858,
+        "cnName": "苹果"
+      },
+      {
+        "ticker": "BRK/B",
+        "name": "BERKSHIRE HATHAWAY INC DEL",
+        "cls": "CL B NEW",
+        "cusip": "084670702",
+        "shares": 8356796,
+        "value": 4161266568,
+        "shareType": "SH",
+        "putCall": "",
+        "managerAllocations": [
+          {
+            "managerIds": [],
+            "shares": 8356796,
+            "value": 4161266568
+          }
+        ],
+        "sector": "保险与综合投资",
+        "cnName": "伯克希尔·哈撒韦 B 类",
+        "prevShares": 9229696,
+        "prevValue": 4618447581,
+        "displayName": "Berkshire Hathaway Class B",
+        "sectorEn": "Insurance and diversified investments"
+      },
+      {
+        "ticker": "PDD",
+        "name": "PDD HOLDINGS INC",
+        "cls": "SPONSORED ADS",
+        "cusip": "722304102",
+        "shares": 27990859,
+        "value": 2181607550,
+        "shareType": "SH",
+        "putCall": "",
+        "managerAllocations": [
+          {
+            "managerIds": [],
+            "shares": 27990859,
+            "value": 2181607550
+          }
+        ],
+        "sector": "电商",
+        "prevShares": 25022094,
+        "prevValue": 1908685330,
+        "cnName": "拼多多"
+      },
+      {
+        "ticker": "TSLA",
+        "name": "TESLA INC",
+        "cls": "COM",
+        "cusip": "88160R101",
+        "shares": 4080000,
+        "value": 1447624800,
+        "shareType": "SH",
+        "putCall": "",
+        "managerAllocations": [
+          {
+            "managerIds": [],
+            "shares": 4080000,
+            "value": 1447624800
+          }
+        ],
+        "sector": "汽车/新能源",
+        "prevShares": 3380400,
+        "prevValue": 1421796240,
+        "cnName": "特斯拉"
+      },
+      {
+        "ticker": "OXY",
+        "name": "OCCIDENTAL PETE CORP",
+        "cls": "COM",
+        "cusip": "674599105",
+        "shares": 10261500,
+        "value": 567666180,
+        "shareType": "SH",
+        "putCall": "",
+        "managerAllocations": [
+          {
+            "managerIds": [],
+            "shares": 10261500,
+            "value": 567666180
+          }
+        ],
+        "sector": "能源",
+        "prevShares": 10261500,
+        "prevValue": 498401055,
+        "cnName": "西方石油"
+      },
+      {
+        "ticker": "NVDA",
+        "name": "NVIDIA CORPORATION",
+        "cls": "COM",
+        "cusip": "67066G104",
+        "shares": 2319475,
+        "value": 529721701,
+        "shareType": "SH",
+        "putCall": "",
+        "managerAllocations": [
+          {
+            "managerIds": [],
+            "shares": 2319475,
+            "value": 529721701
+          }
+        ],
+        "sector": "半导体",
+        "prevShares": 6280675,
+        "prevValue": 1256700261,
+        "cnName": "英伟达"
+      },
+      {
+        "ticker": "GOOG",
+        "name": "ALPHABET INC",
+        "cls": "CAP STK CL C",
+        "cusip": "02079K107",
+        "shares": 1151700,
+        "value": 392430258,
+        "shareType": "SH",
+        "putCall": "",
+        "managerAllocations": [
+          {
+            "managerIds": [],
+            "shares": 1151700,
+            "value": 392430258
+          }
+        ],
+        "sector": "互联网广告与云服务",
+        "cnName": "谷歌（Alphabet）",
+        "prevShares": 1968600,
+        "prevValue": 695565438,
+        "displayName": "Google / Alphabet",
+        "sectorEn": "Internet advertising and cloud"
+      },
+      {
+        "ticker": "MSFT",
+        "name": "MICROSOFT CORP",
+        "cls": "COM",
+        "cusip": "594918104",
+        "shares": 694100,
+        "value": 356003890,
+        "shareType": "SH",
+        "putCall": "",
+        "managerAllocations": [
+          {
+            "managerIds": [],
+            "shares": 694100,
+            "value": 356003890
+          }
+        ],
+        "sector": "科技",
+        "prevShares": 754100,
+        "prevValue": 281294382,
+        "cnName": "微软"
+      },
+      {
+        "ticker": "DIS",
+        "name": "DISNEY WALT CO",
+        "cls": "COM",
+        "cusip": "254687106",
+        "shares": 1706600,
+        "value": 179022340,
+        "shareType": "SH",
+        "putCall": "",
+        "managerAllocations": [
+          {
+            "managerIds": [],
+            "shares": 1706600,
+            "value": 179022340
+          }
+        ],
+        "sector": "娱乐",
+        "prevShares": 1706600,
+        "prevValue": 164260250,
+        "cnName": "迪士尼"
+      },
+      {
+        "ticker": "UNH",
+        "name": "UNITEDHEALTH GROUP INC",
+        "cls": "COM",
+        "cusip": "91324P102",
+        "shares": 399600,
+        "value": 146685168,
+        "shareType": "SH",
+        "putCall": "",
+        "managerAllocations": [
+          {
+            "managerIds": [],
+            "shares": 399600,
+            "value": 146685168
+          }
+        ],
+        "sector": "保险",
+        "prevShares": 399600,
+        "prevValue": 166085748,
+        "cnName": "联合健康"
+      },
+      {
+        "ticker": "CRDO",
+        "name": "CREDO TECHNOLOGY GROUP HOLDI",
+        "cls": "ORDINARY SHARES",
+        "cusip": "G25457105",
+        "shares": 601300,
+        "value": 117127227,
+        "shareType": "SH",
+        "putCall": "",
+        "managerAllocations": [
+          {
+            "managerIds": [],
+            "shares": 601300,
+            "value": 117127227
+          }
+        ],
+        "sector": "半导体",
+        "prevShares": 701200,
+        "prevValue": 190691340,
+        "cnName": "思瑞光电"
+      },
+      {
+        "ticker": "SPCX",
+        "name": "SPACE EXPLORATION TECHN CORP",
+        "cls": "CLASS A COM STK",
+        "cusip": "84615Q103",
+        "shares": 199900,
+        "value": 30156914,
+        "shareType": "SH",
+        "putCall": "",
+        "managerAllocations": [
+          {
+            "managerIds": [],
+            "shares": 199900,
+            "value": 30156914
+          }
+        ],
+        "sector": "工业",
+        "prevShares": 0,
+        "prevValue": 0,
+        "cnName": "Space Exploration Technologies Corp."
+      },
+      {
+        "ticker": "PLTR",
+        "name": "PALANTIR TECHNOLOGIES INC",
+        "cls": "CL A",
+        "cusip": "69608A108",
+        "shares": 60000,
+        "value": 11223000,
+        "shareType": "SH",
+        "putCall": "",
+        "managerAllocations": [
+          {
+            "managerIds": [],
+            "shares": 60000,
+            "value": 11223000
+          }
+        ],
+        "sector": "科技",
+        "prevShares": 60000,
+        "prevValue": 7000200,
+        "cnName": "Palantir Technologies Inc."
+      },
+      {
+        "ticker": "SNPS",
+        "name": "SYNOPSYS INC",
+        "cls": "COM",
+        "cusip": "871607107",
+        "shares": 10000,
+        "value": 4349400,
+        "shareType": "SH",
+        "putCall": "",
+        "managerAllocations": [
+          {
+            "managerIds": [],
+            "shares": 10000,
+            "value": 4349400
+          }
+        ],
+        "sector": "半导体",
+        "prevShares": 10000,
+        "prevValue": 4460700,
+        "cnName": "新思科技"
+      },
+      {
+        "ticker": "SNOW",
+        "name": "SNOWFLAKE INC",
+        "cls": "COM SHS",
+        "cusip": "833445109",
+        "shares": 10000,
+        "value": 3395600,
+        "shareType": "SH",
+        "putCall": "",
+        "managerAllocations": [
+          {
+            "managerIds": [],
+            "shares": 10000,
+            "value": 3395600
+          }
+        ],
+        "sector": "科技",
+        "prevShares": 10000,
+        "prevValue": 2545000,
+        "cnName": "Snowflake Inc."
+      },
+      {
+        "ticker": "TEM",
+        "name": "TEMPUS AI INC",
+        "cls": "CL A",
+        "cusip": "88023B103",
+        "shares": 20000,
+        "value": 1638000,
+        "shareType": "SH",
+        "putCall": "",
+        "managerAllocations": [
+          {
+            "managerIds": [],
+            "shares": 20000,
+            "value": 1638000
+          }
+        ],
+        "sector": "医药",
+        "prevShares": 20000,
+        "prevValue": 1158600,
+        "cnName": "泰普斯 AI"
+      }
+    ],
+    "prevQuarter": "2026 Q2",
+    "previousHoldings": [
       {
         "ticker": "AAPL",
         "name": "APPLE INC",
@@ -262,11 +578,11 @@
           }
         ],
         "sector": "保险与综合投资",
-        "prevShares": 9147796,
-        "prevValue": 4383623843,
         "cnName": "伯克希尔·哈撒韦 B 类",
         "displayName": "Berkshire Hathaway Class B",
-        "sectorEn": "Insurance and diversified investments"
+        "sectorEn": "Insurance and diversified investments",
+        "prevShares": 9147796,
+        "prevValue": 4383623843
       },
       {
         "ticker": "PDD",
@@ -348,11 +664,11 @@
           }
         ],
         "sector": "互联网广告与云服务",
-        "prevShares": 3706000,
-        "prevValue": 1063103160,
         "cnName": "谷歌（Alphabet）",
         "displayName": "Google / Alphabet",
-        "sectorEn": "Internet advertising and cloud"
+        "sectorEn": "Internet advertising and cloud",
+        "prevShares": 3706000,
+        "prevValue": 1063103160
       },
       {
         "ticker": "OXY",
@@ -476,11 +792,11 @@
           }
         ],
         "sector": "电商与云服务",
-        "prevShares": 0,
-        "prevValue": 0,
         "cnName": "阿里巴巴",
         "displayName": "Alibaba",
-        "sectorEn": "E-commerce and cloud"
+        "sectorEn": "E-commerce and cloud",
+        "prevShares": 0,
+        "prevValue": 0
       },
       {
         "ticker": "CRCL",
@@ -609,413 +925,7 @@
         "cnName": "Innodata Inc."
       }
     ],
-    "prevQuarter": "2026 Q1",
-    "previousHoldings": [
-      {
-        "ticker": "AAPL",
-        "name": "APPLE INC",
-        "cls": "COM",
-        "cusip": "037833100",
-        "shares": 28945607,
-        "value": 7346105601,
-        "shareType": "SH",
-        "putCall": "",
-        "managerAllocations": [
-          {
-            "managerIds": [],
-            "shares": 28945607,
-            "value": 7346105601
-          }
-        ],
-        "sector": "科技",
-        "prevShares": 32358507,
-        "prevValue": 8796983713,
-        "cnName": "苹果"
-      },
-      {
-        "ticker": "BRK/B",
-        "name": "BERKSHIRE HATHAWAY INC DEL",
-        "cls": "CL B NEW",
-        "cusip": "084670702",
-        "shares": 9147796,
-        "value": 4383623843,
-        "shareType": "SH",
-        "putCall": "",
-        "managerAllocations": [
-          {
-            "managerIds": [],
-            "shares": 9147796,
-            "value": 4383623843
-          }
-        ],
-        "sector": "保险与综合投资",
-        "cnName": "伯克希尔·哈撒韦 B 类",
-        "displayName": "Berkshire Hathaway Class B",
-        "sectorEn": "Insurance and diversified investments",
-        "prevShares": 7176196,
-        "prevValue": 3607114919
-      },
-      {
-        "ticker": "NVDA",
-        "name": "NVIDIA CORPORATION",
-        "cls": "COM",
-        "cusip": "67066G104",
-        "shares": 13843775,
-        "value": 2414354360,
-        "shareType": "SH",
-        "putCall": "",
-        "managerAllocations": [
-          {
-            "managerIds": [],
-            "shares": 13843775,
-            "value": 2414354360
-          }
-        ],
-        "sector": "半导体",
-        "prevShares": 7237100,
-        "prevValue": 1349719150,
-        "cnName": "英伟达"
-      },
-      {
-        "ticker": "PDD",
-        "name": "PDD HOLDINGS INC",
-        "cls": "SPONSORED ADS",
-        "cusip": "722304102",
-        "shares": 19748294,
-        "value": 2017880681,
-        "shareType": "SH",
-        "putCall": "",
-        "managerAllocations": [
-          {
-            "managerIds": [],
-            "shares": 19748294,
-            "value": 2017880681
-          }
-        ],
-        "sector": "电商",
-        "prevShares": 11536694,
-        "prevValue": 1308145733,
-        "cnName": "拼多多"
-      },
-      {
-        "ticker": "TSLA",
-        "name": "TESLA INC",
-        "cls": "COM",
-        "cusip": "88160R101",
-        "shares": 3408900,
-        "value": 1267258575,
-        "shareType": "SH",
-        "putCall": "",
-        "managerAllocations": [
-          {
-            "managerIds": [],
-            "shares": 3408900,
-            "value": 1267258575
-          }
-        ],
-        "sector": "汽车/新能源",
-        "prevShares": 0,
-        "prevValue": 0,
-        "cnName": "特斯拉"
-      },
-      {
-        "ticker": "GOOG",
-        "name": "ALPHABET INC",
-        "cls": "CAP STK CL C",
-        "cusip": "02079K107",
-        "shares": 3706000,
-        "value": 1063103160,
-        "shareType": "SH",
-        "putCall": "",
-        "managerAllocations": [
-          {
-            "managerIds": [],
-            "shares": 3706000,
-            "value": 1063103160
-          }
-        ],
-        "sector": "互联网广告与云服务",
-        "cnName": "谷歌（Alphabet）",
-        "displayName": "Google / Alphabet",
-        "sectorEn": "Internet advertising and cloud",
-        "prevShares": 1855400,
-        "prevValue": 582224520
-      },
-      {
-        "ticker": "OXY",
-        "name": "OCCIDENTAL PETE CORP",
-        "cls": "COM",
-        "cusip": "674599105",
-        "shares": 10261500,
-        "value": 666997500,
-        "shareType": "SH",
-        "putCall": "",
-        "managerAllocations": [
-          {
-            "managerIds": [],
-            "shares": 10261500,
-            "value": 666997500
-          }
-        ],
-        "sector": "能源",
-        "prevShares": 13172600,
-        "prevValue": 541657312,
-        "cnName": "西方石油"
-      },
-      {
-        "ticker": "MSFT",
-        "name": "MICROSOFT CORP",
-        "cls": "COM",
-        "cusip": "594918104",
-        "shares": 1016000,
-        "value": 376092720,
-        "shareType": "SH",
-        "putCall": "",
-        "managerAllocations": [
-          {
-            "managerIds": [],
-            "shares": 1016000,
-            "value": 376092720
-          }
-        ],
-        "sector": "科技",
-        "prevShares": 859000,
-        "prevValue": 415429580,
-        "cnName": "微软"
-      },
-      {
-        "ticker": "UNH",
-        "name": "UNITEDHEALTH GROUP INC",
-        "cls": "COM",
-        "cusip": "91324P102",
-        "shares": 601400,
-        "value": 162732826,
-        "shareType": "SH",
-        "putCall": "",
-        "managerAllocations": [
-          {
-            "managerIds": [],
-            "shares": 601400,
-            "value": 162732826
-          }
-        ],
-        "sector": "保险",
-        "prevShares": 0,
-        "prevValue": 0,
-        "cnName": "联合健康"
-      },
-      {
-        "ticker": "DIS",
-        "name": "DISNEY WALT CO",
-        "cls": "COM",
-        "cusip": "254687106",
-        "shares": 1511800,
-        "value": 145707284,
-        "shareType": "SH",
-        "putCall": "",
-        "managerAllocations": [
-          {
-            "managerIds": [],
-            "shares": 1511800,
-            "value": 145707284
-          }
-        ],
-        "sector": "娱乐",
-        "prevShares": 712000,
-        "prevValue": 81004240,
-        "cnName": "迪士尼"
-      },
-      {
-        "ticker": "CRDO",
-        "name": "CREDO TECHNOLOGY GROUP HOLDI",
-        "cls": "ORDINARY SHARES",
-        "cusip": "G25457105",
-        "shares": 751200,
-        "value": 70515144,
-        "shareType": "SH",
-        "putCall": "",
-        "managerAllocations": [
-          {
-            "managerIds": [],
-            "shares": 751200,
-            "value": 70515144
-          }
-        ],
-        "sector": "半导体",
-        "prevShares": 141300,
-        "prevValue": 20331657,
-        "cnName": "思瑞光电"
-      },
-      {
-        "ticker": "TSM",
-        "name": "TAIWAN SEMICONDUCTOR MANUFAC",
-        "cls": "SPONSORED ADS",
-        "cusip": "874039100",
-        "shares": 151200,
-        "value": 51098040,
-        "shareType": "SH",
-        "putCall": "",
-        "managerAllocations": [
-          {
-            "managerIds": [],
-            "shares": 151200,
-            "value": 51098040
-          }
-        ],
-        "sector": "半导体",
-        "prevShares": 1224384,
-        "prevValue": 372078054,
-        "cnName": "台积电"
-      },
-      {
-        "ticker": "CRCL",
-        "name": "CIRCLE INTERNET GROUP INC",
-        "cls": "COM CL A",
-        "cusip": "172573107",
-        "shares": 200000,
-        "value": 19082000,
-        "shareType": "SH",
-        "putCall": "",
-        "managerAllocations": [
-          {
-            "managerIds": [],
-            "shares": 200000,
-            "value": 19082000
-          }
-        ],
-        "sector": "金融服务",
-        "prevShares": 0,
-        "prevValue": 0,
-        "cnName": "圈网集团"
-      },
-      {
-        "ticker": "PLTR",
-        "name": "PALANTIR TECHNOLOGIES INC",
-        "cls": "CL A",
-        "cusip": "69608A108",
-        "shares": 60000,
-        "value": 8776800,
-        "shareType": "SH",
-        "putCall": "",
-        "managerAllocations": [
-          {
-            "managerIds": [],
-            "shares": 60000,
-            "value": 8776800
-          }
-        ],
-        "sector": "科技",
-        "prevShares": 0,
-        "prevValue": 0,
-        "cnName": "Palantir Technologies Inc."
-      },
-      {
-        "ticker": "SNPS",
-        "name": "SYNOPSYS INC",
-        "cls": "COM",
-        "cusip": "871607107",
-        "shares": 10000,
-        "value": 3964800,
-        "shareType": "SH",
-        "putCall": "",
-        "managerAllocations": [
-          {
-            "managerIds": [],
-            "shares": 10000,
-            "value": 3964800
-          }
-        ],
-        "sector": "半导体",
-        "prevShares": 0,
-        "prevValue": 0,
-        "cnName": "新思科技"
-      },
-      {
-        "ticker": "CRWD",
-        "name": "CROWDSTRIKE HLDGS INC",
-        "cls": "CL A",
-        "cusip": "22788C105",
-        "shares": 10000,
-        "value": 3904100,
-        "shareType": "SH",
-        "putCall": "",
-        "managerAllocations": [
-          {
-            "managerIds": [],
-            "shares": 10000,
-            "value": 3904100
-          }
-        ],
-        "sector": "网络安全",
-        "prevShares": 0,
-        "prevValue": 0,
-        "cnName": "CrowdStrike Holdings, Inc."
-      },
-      {
-        "ticker": "SNOW",
-        "name": "SNOWFLAKE INC",
-        "cls": "COM SHS",
-        "cusip": "833445109",
-        "shares": 10000,
-        "value": 1508200,
-        "shareType": "SH",
-        "putCall": "",
-        "managerAllocations": [
-          {
-            "managerIds": [],
-            "shares": 10000,
-            "value": 1508200
-          }
-        ],
-        "sector": "科技",
-        "prevShares": 0,
-        "prevValue": 0,
-        "cnName": "Snowflake Inc."
-      },
-      {
-        "ticker": "TEM",
-        "name": "TEMPUS AI INC",
-        "cls": "CL A",
-        "cusip": "88023B103",
-        "shares": 20000,
-        "value": 904400,
-        "shareType": "SH",
-        "putCall": "",
-        "managerAllocations": [
-          {
-            "managerIds": [],
-            "shares": 20000,
-            "value": 904400
-          }
-        ],
-        "sector": "医药",
-        "prevShares": 110000,
-        "prevValue": 6495500,
-        "cnName": "泰普斯 AI"
-      },
-      {
-        "ticker": "INOD",
-        "name": "INNODATA INC",
-        "cls": "COM NEW",
-        "cusip": "457642205",
-        "shares": 10000,
-        "value": 386200,
-        "shareType": "SH",
-        "putCall": "",
-        "managerAllocations": [
-          {
-            "managerIds": [],
-            "shares": 10000,
-            "value": 386200
-          }
-        ],
-        "sector": "科技",
-        "prevShares": 0,
-        "prevValue": 0,
-        "cnName": "Innodata Inc."
-      }
-    ],
-    "prevTotalValue": 20003996234
+    "prevTotalValue": 19100584155
   },
   "history": {
     "quarters": [
@@ -1049,7 +959,8 @@
       "2025 Q3",
       "2025 Q4",
       "2026 Q1",
-      "2026 Q2"
+      "2026 Q2",
+      "2026 Q3"
     ],
     "values": [
       835.759,
@@ -1082,7 +993,8 @@
       14678.516884,
       17488.569921,
       20003.996234,
-      19100.584155
+      19100.584155,
+      17190.742843
     ],
     "holdings": {
       "2018 Q4": [
@@ -6018,11 +5930,11 @@
             }
           ],
           "sector": "保险与综合投资",
-          "prevShares": 9147796,
-          "prevValue": 4383623843,
           "cnName": "伯克希尔·哈撒韦 B 类",
           "displayName": "Berkshire Hathaway Class B",
-          "sectorEn": "Insurance and diversified investments"
+          "sectorEn": "Insurance and diversified investments",
+          "prevShares": 9147796,
+          "prevValue": 4383623843
         },
         {
           "ticker": "PDD",
@@ -6104,11 +6016,11 @@
             }
           ],
           "sector": "互联网广告与云服务",
-          "prevShares": 3706000,
-          "prevValue": 1063103160,
           "cnName": "谷歌（Alphabet）",
           "displayName": "Google / Alphabet",
-          "sectorEn": "Internet advertising and cloud"
+          "sectorEn": "Internet advertising and cloud",
+          "prevShares": 3706000,
+          "prevValue": 1063103160
         },
         {
           "ticker": "OXY",
@@ -6232,11 +6144,11 @@
             }
           ],
           "sector": "电商与云服务",
-          "prevShares": 0,
-          "prevValue": 0,
           "cnName": "阿里巴巴",
           "displayName": "Alibaba",
-          "sectorEn": "E-commerce and cloud"
+          "sectorEn": "E-commerce and cloud",
+          "prevShares": 0,
+          "prevValue": 0
         },
         {
           "ticker": "CRCL",
@@ -6364,10 +6276,352 @@
           "prevValue": 386200,
           "cnName": "Innodata Inc."
         }
+      ],
+      "2026 Q3": [
+        {
+          "ticker": "AAPL",
+          "name": "APPLE INC",
+          "cls": "COM",
+          "cusip": "037833100",
+          "shares": 21202403,
+          "value": 7060824247,
+          "shareType": "SH",
+          "putCall": "",
+          "managerAllocations": [
+            {
+              "managerIds": [],
+              "shares": 21202403,
+              "value": 7060824247
+            }
+          ],
+          "sector": "科技",
+          "prevShares": 27098707,
+          "prevValue": 7841281858,
+          "cnName": "苹果"
+        },
+        {
+          "ticker": "BRK/B",
+          "name": "BERKSHIRE HATHAWAY INC DEL",
+          "cls": "CL B NEW",
+          "cusip": "084670702",
+          "shares": 8356796,
+          "value": 4161266568,
+          "shareType": "SH",
+          "putCall": "",
+          "managerAllocations": [
+            {
+              "managerIds": [],
+              "shares": 8356796,
+              "value": 4161266568
+            }
+          ],
+          "sector": "保险与综合投资",
+          "cnName": "伯克希尔·哈撒韦 B 类",
+          "prevShares": 9229696,
+          "prevValue": 4618447581,
+          "displayName": "Berkshire Hathaway Class B",
+          "sectorEn": "Insurance and diversified investments"
+        },
+        {
+          "ticker": "PDD",
+          "name": "PDD HOLDINGS INC",
+          "cls": "SPONSORED ADS",
+          "cusip": "722304102",
+          "shares": 27990859,
+          "value": 2181607550,
+          "shareType": "SH",
+          "putCall": "",
+          "managerAllocations": [
+            {
+              "managerIds": [],
+              "shares": 27990859,
+              "value": 2181607550
+            }
+          ],
+          "sector": "电商",
+          "prevShares": 25022094,
+          "prevValue": 1908685330,
+          "cnName": "拼多多"
+        },
+        {
+          "ticker": "TSLA",
+          "name": "TESLA INC",
+          "cls": "COM",
+          "cusip": "88160R101",
+          "shares": 4080000,
+          "value": 1447624800,
+          "shareType": "SH",
+          "putCall": "",
+          "managerAllocations": [
+            {
+              "managerIds": [],
+              "shares": 4080000,
+              "value": 1447624800
+            }
+          ],
+          "sector": "汽车/新能源",
+          "prevShares": 3380400,
+          "prevValue": 1421796240,
+          "cnName": "特斯拉"
+        },
+        {
+          "ticker": "OXY",
+          "name": "OCCIDENTAL PETE CORP",
+          "cls": "COM",
+          "cusip": "674599105",
+          "shares": 10261500,
+          "value": 567666180,
+          "shareType": "SH",
+          "putCall": "",
+          "managerAllocations": [
+            {
+              "managerIds": [],
+              "shares": 10261500,
+              "value": 567666180
+            }
+          ],
+          "sector": "能源",
+          "prevShares": 10261500,
+          "prevValue": 498401055,
+          "cnName": "西方石油"
+        },
+        {
+          "ticker": "NVDA",
+          "name": "NVIDIA CORPORATION",
+          "cls": "COM",
+          "cusip": "67066G104",
+          "shares": 2319475,
+          "value": 529721701,
+          "shareType": "SH",
+          "putCall": "",
+          "managerAllocations": [
+            {
+              "managerIds": [],
+              "shares": 2319475,
+              "value": 529721701
+            }
+          ],
+          "sector": "半导体",
+          "prevShares": 6280675,
+          "prevValue": 1256700261,
+          "cnName": "英伟达"
+        },
+        {
+          "ticker": "GOOG",
+          "name": "ALPHABET INC",
+          "cls": "CAP STK CL C",
+          "cusip": "02079K107",
+          "shares": 1151700,
+          "value": 392430258,
+          "shareType": "SH",
+          "putCall": "",
+          "managerAllocations": [
+            {
+              "managerIds": [],
+              "shares": 1151700,
+              "value": 392430258
+            }
+          ],
+          "sector": "互联网广告与云服务",
+          "cnName": "谷歌（Alphabet）",
+          "prevShares": 1968600,
+          "prevValue": 695565438,
+          "displayName": "Google / Alphabet",
+          "sectorEn": "Internet advertising and cloud"
+        },
+        {
+          "ticker": "MSFT",
+          "name": "MICROSOFT CORP",
+          "cls": "COM",
+          "cusip": "594918104",
+          "shares": 694100,
+          "value": 356003890,
+          "shareType": "SH",
+          "putCall": "",
+          "managerAllocations": [
+            {
+              "managerIds": [],
+              "shares": 694100,
+              "value": 356003890
+            }
+          ],
+          "sector": "科技",
+          "prevShares": 754100,
+          "prevValue": 281294382,
+          "cnName": "微软"
+        },
+        {
+          "ticker": "DIS",
+          "name": "DISNEY WALT CO",
+          "cls": "COM",
+          "cusip": "254687106",
+          "shares": 1706600,
+          "value": 179022340,
+          "shareType": "SH",
+          "putCall": "",
+          "managerAllocations": [
+            {
+              "managerIds": [],
+              "shares": 1706600,
+              "value": 179022340
+            }
+          ],
+          "sector": "娱乐",
+          "prevShares": 1706600,
+          "prevValue": 164260250,
+          "cnName": "迪士尼"
+        },
+        {
+          "ticker": "UNH",
+          "name": "UNITEDHEALTH GROUP INC",
+          "cls": "COM",
+          "cusip": "91324P102",
+          "shares": 399600,
+          "value": 146685168,
+          "shareType": "SH",
+          "putCall": "",
+          "managerAllocations": [
+            {
+              "managerIds": [],
+              "shares": 399600,
+              "value": 146685168
+            }
+          ],
+          "sector": "保险",
+          "prevShares": 399600,
+          "prevValue": 166085748,
+          "cnName": "联合健康"
+        },
+        {
+          "ticker": "CRDO",
+          "name": "CREDO TECHNOLOGY GROUP HOLDI",
+          "cls": "ORDINARY SHARES",
+          "cusip": "G25457105",
+          "shares": 601300,
+          "value": 117127227,
+          "shareType": "SH",
+          "putCall": "",
+          "managerAllocations": [
+            {
+              "managerIds": [],
+              "shares": 601300,
+              "value": 117127227
+            }
+          ],
+          "sector": "半导体",
+          "prevShares": 701200,
+          "prevValue": 190691340,
+          "cnName": "思瑞光电"
+        },
+        {
+          "ticker": "SPCX",
+          "name": "SPACE EXPLORATION TECHN CORP",
+          "cls": "CLASS A COM STK",
+          "cusip": "84615Q103",
+          "shares": 199900,
+          "value": 30156914,
+          "shareType": "SH",
+          "putCall": "",
+          "managerAllocations": [
+            {
+              "managerIds": [],
+              "shares": 199900,
+              "value": 30156914
+            }
+          ],
+          "sector": "工业",
+          "prevShares": 0,
+          "prevValue": 0,
+          "cnName": "Space Exploration Technologies Corp."
+        },
+        {
+          "ticker": "PLTR",
+          "name": "PALANTIR TECHNOLOGIES INC",
+          "cls": "CL A",
+          "cusip": "69608A108",
+          "shares": 60000,
+          "value": 11223000,
+          "shareType": "SH",
+          "putCall": "",
+          "managerAllocations": [
+            {
+              "managerIds": [],
+              "shares": 60000,
+              "value": 11223000
+            }
+          ],
+          "sector": "科技",
+          "prevShares": 60000,
+          "prevValue": 7000200,
+          "cnName": "Palantir Technologies Inc."
+        },
+        {
+          "ticker": "SNPS",
+          "name": "SYNOPSYS INC",
+          "cls": "COM",
+          "cusip": "871607107",
+          "shares": 10000,
+          "value": 4349400,
+          "shareType": "SH",
+          "putCall": "",
+          "managerAllocations": [
+            {
+              "managerIds": [],
+              "shares": 10000,
+              "value": 4349400
+            }
+          ],
+          "sector": "半导体",
+          "prevShares": 10000,
+          "prevValue": 4460700,
+          "cnName": "新思科技"
+        },
+        {
+          "ticker": "SNOW",
+          "name": "SNOWFLAKE INC",
+          "cls": "COM SHS",
+          "cusip": "833445109",
+          "shares": 10000,
+          "value": 3395600,
+          "shareType": "SH",
+          "putCall": "",
+          "managerAllocations": [
+            {
+              "managerIds": [],
+              "shares": 10000,
+              "value": 3395600
+            }
+          ],
+          "sector": "科技",
+          "prevShares": 10000,
+          "prevValue": 2545000,
+          "cnName": "Snowflake Inc."
+        },
+        {
+          "ticker": "TEM",
+          "name": "TEMPUS AI INC",
+          "cls": "CL A",
+          "cusip": "88023B103",
+          "shares": 20000,
+          "value": 1638000,
+          "shareType": "SH",
+          "putCall": "",
+          "managerAllocations": [
+            {
+              "managerIds": [],
+              "shares": 20000,
+              "value": 1638000
+            }
+          ],
+          "sector": "医药",
+          "prevShares": 20000,
+          "prevValue": 1158600,
+          "cnName": "泰普斯 AI"
+        }
       ]
     },
     "coverage": {
-      "checkedAt": "2026-11-16T12:46:24Z",
+      "checkedAt": "2026-11-16T18:55:32Z",
       "missingQuarters": [],
       "repairedThisRun": [],
       "errors": {},
@@ -6633,6 +6887,16 @@
         "coverSource": "https://www.sec.gov/Archives/edgar/data/1759760/000108514625001626/primary_doc.xml",
         "cik": "1759760",
         "url": "https://www.sec.gov/Archives/edgar/data/1759760/000108514625001626/infotable.xml"
+      },
+      "2026 Q3": {
+        "accession": "000175976026000008",
+        "accessionDashed": "0001759760-26-000008",
+        "filingDate": "2026-11-16",
+        "reportDate": "2026-09-30",
+        "form": "13F-HR",
+        "primaryDocument": "xslForm13F_X02/primary_doc.xml",
+        "cik": "1759760",
+        "url": "https://www.sec.gov/Archives/edgar/data/1759760/000175976026000008/infotable.xml"
       }
     },
     "valueAudit": {
@@ -8901,6 +9165,82 @@
         "anchorCount": 5,
         "outlierTickers": [],
         "normalizedHash": "1c11d0ecab5a879d5b667a5f5f24e765e3d828bb350a1143aaa018d423f510c2"
+      },
+      "2026 Q3": {
+        "version": 1,
+        "checkedAt": "2026-11-16",
+        "source": "https://www.sec.gov/Archives/edgar/data/1759760/000175976026000008/infotable.xml",
+        "filingDate": "2026-11-16",
+        "sourceDigest": "81c8baa0c38cfbc4438dec3059d581dc0b4f7503b03f5a3507ad64ab467c76fc",
+        "sourceHash": "dedae169290704bedbe66da0d59d53a2e6ec778edcd554c331c3d0b62561b5a7",
+        "status": "verified",
+        "factor": 1,
+        "anchors": [
+          {
+            "ticker": "PDD",
+            "cusip": "722304102",
+            "filedPrice": 77.93999998356607,
+            "price": 77.94000244140625,
+            "date": "2026-09-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/PDD?period1=0&period2=1794941732&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "AAPL",
+            "cusip": "037833100",
+            "filedPrice": 333.01999999717015,
+            "price": 333.0199890136719,
+            "date": "2026-09-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/AAPL?period1=0&period2=1794941732&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "OXY",
+            "cusip": "674599105",
+            "filedPrice": 55.32,
+            "price": 55.31999969482422,
+            "date": "2026-09-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/OXY?period1=0&period2=1794941733&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "BRK/B",
+            "cusip": "084670702",
+            "filedPrice": 497.9499999760674,
+            "price": 497.95001220703125,
+            "date": "2026-09-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/BRK-B?period1=0&period2=1794941733&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "TSLA",
+            "cusip": "88160R101",
+            "filedPrice": 354.81,
+            "price": 354.80999755859375,
+            "date": "2026-09-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/TSLA?period1=0&period2=1794941733&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          }
+        ],
+        "agreementCount": 5,
+        "anchorCount": 5,
+        "outlierTickers": [],
+        "normalizedHash": "dedae169290704bedbe66da0d59d53a2e6ec778edcd554c331c3d0b62561b5a7"
       }
     },
     "excludedValueQuarters": [],
