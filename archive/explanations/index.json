@@ -988,12 +988,12 @@
       "reason": "ValueError: Bilingual editorial review: The English text incorrectly states Li Lu 'introduced every company he had invested in, researched, or was interested in' when the source (s12) says he introduced companies he 'invested in, researched, or was interested in to Charlie', implying a specific list rather than an exhaustive portfolio introduction; the parenth"
     },
     "vinall-407826a49480a2": {
-      "at": "2026-11-16T04:56:55+00:00",
+      "at": "2026-11-16T14:34:57+00:00",
       "status": "retry",
       "inputHash": "8f4974f5354db3278ec8cba3249c9413948390cca3dfe85e3051a13f78c119a6",
-      "failures": 2,
-      "nextAttemptAt": "2026-11-16T12:56:55+00:00",
-      "reason": "ValueError: Bilingual editorial review: The Chinese text incorrectly states Rob Vinall was hired 'after college' (graduated), while the ASR transcript (s6) explicitly says he was offered a job 'before my senior year started', meaning before graduation.; The Chinese text claims there was 'no requirement for freshman internships', whereas the ASR (s7) states one"
+      "failures": 3,
+      "nextAttemptAt": "2026-11-17T06:34:57+00:00",
+      "reason": "ValueError: Bilingual editorial review: The Chinese text incorrectly states Rob Vinall was hired 'before starting his senior year' (before beginning his senior year), whereas the source says he was hired 'before my senior year started', which implies before he began his senior year. However, the translation adds 'of college' after 'senior year', creating a sli"
     },
     "pabrai-9f46a7707898d1": {
       "at": "2026-11-16T07:45:13+00:00",
@@ -4659,5 +4659,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-16T14:34:49+00:00"
+  "updatedAt": "2026-11-16T14:34:57+00:00"
 }
