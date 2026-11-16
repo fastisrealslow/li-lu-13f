@@ -1036,12 +1036,12 @@
       "reason": "ValueError: Incomplete AI Review at 1800 tokens"
     },
     "pabrai-1410746e64c5fd": {
-      "at": "2026-11-15T16:00:39+00:00",
+      "at": "2026-11-16T06:03:43+00:00",
       "status": "retry",
       "inputHash": "1f11cf62d1efe16e7efd29c8dc84a86a9d428dd71d3cace8e4f7a2e00a056dfa",
-      "failures": 1,
-      "nextAttemptAt": "2026-11-15T20:00:39+00:00",
-      "reason": "ValueError: Bilingual editorial review: Author attribution error: The text attributes views to 'Pabrai (Mohnish)', but the source data identifies 'Mohnish' as the speaker and 'Ash' as the other participant. Pabrai is not mentioned in the provided evidence sections.; Factual claim error: The text states 'Pabrai points out that the company's eventual success was"
+      "failures": 2,
+      "nextAttemptAt": "2026-11-16T14:03:43+00:00",
+      "reason": "ValueError: Bilingual editorial review: The source text (s14) does not mention 'private equity-funded acquisition cycles' or 'subsequent shareholder exit patterns' as the reason for TransDigm's sustained performance; it only states that PE roots and a philosophy of shareholders making money and exiting were factors. The specific phrasing about 'cycles' and 'pa"
     },
     "buffett-30a507095b61cd": {
       "at": "2026-11-16T05:35:24+00:00",
@@ -4652,5 +4652,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-16T06:03:42+00:00"
+  "updatedAt": "2026-11-16T06:03:43+00:00"
 }
