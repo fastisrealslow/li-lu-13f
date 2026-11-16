@@ -374250,7 +374250,7 @@
             }
           ],
           "ticker": "FCX",
-          "sector": "材料",
+          "sector": "采矿",
           "cnName": "自由港麦克莫兰"
         },
         {
@@ -376051,9 +376051,9 @@
           ],
           "ticker": "?UNITEDGLOBALCOM",
           "sector": "有线电视与宽带",
+          "cnName": "联合全球通信",
           "prevShares": 438500,
           "prevValue": 19842000,
-          "cnName": "联合全球通信",
           "displayName": "UnitedGlobalCom",
           "sectorEn": "Cable and broadband"
         },
@@ -376353,10 +376353,10 @@
             }
           ],
           "ticker": "FCX",
-          "sector": "材料",
+          "sector": "采矿",
+          "cnName": "自由港麦克莫兰",
           "prevShares": 216300,
-          "prevValue": 2001000,
-          "cnName": "自由港麦克莫兰"
+          "prevValue": 2001000
         },
         {
           "name": "LTV CORP NEW",
@@ -376815,9 +376815,9 @@
           ],
           "ticker": "TEO",
           "sector": "传媒",
+          "cnName": "Telecom Argentina S.A.",
           "prevShares": 44300,
-          "prevValue": 1218000,
-          "cnName": "Telecom Argentina S.A."
+          "prevValue": 1218000
         },
         {
           "name": "ADVANTICA RESTAURANT GROUP INC",
@@ -452808,7 +452808,7 @@
       },
       "1999 Q1": {
         "version": 1,
-        "checkedAt": "2026-11-14",
+        "checkedAt": "2026-11-16",
         "source": "https://www.sec.gov/Archives/edgar/data/949509/0000949509-99-000002.txt",
         "filingDate": "1999-05-14",
         "sourceDigest": "1eeaea99ddf2addb0874fac2b6fc18db4d5df8c56e997b5d9ca128c16e7743fe",
@@ -452822,7 +452822,7 @@
             "price": 17.1875,
             "date": "1999-03-31",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/EME?period1=0&period2=1794723767&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/EME?period1=0&period2=1794891409&interval=1d&events=splits",
             "candidates": [
               1
             ]
@@ -452885,12 +452885,13 @@
       },
       "2000 Q2": {
         "version": 1,
-        "checkedAt": "2026-11-14",
+        "checkedAt": "2026-11-16",
         "source": "https://www.sec.gov/Archives/edgar/data/949509/0000949509-00-500002.txt",
         "filingDate": "2000-08-09",
         "sourceDigest": "99714724d690698edacbbfb633e44073126dd4b01c61dd564d4c4d49c08ff9ad",
-        "sourceHash": "894385ec5b895fdc4d3a5d781cecc57cefd73f9fc11a7a8b338d74b50fb5277b",
-        "status": "pending",
+        "sourceHash": "3ba16a6b81d8cb729a78b5b08015b8d4b2441699b90ba2f0ac21340d1e8c7f93",
+        "status": "verified",
+        "factor": 1,
         "anchors": [
           {
             "ticker": "EME",
@@ -452899,7 +452900,19 @@
             "price": 23.1875,
             "date": "2000-06-30",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/EME?period1=0&period2=1794723767&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/EME?period1=0&period2=1794891409&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "FCX",
+            "cusip": "35671D857",
+            "filedPrice": 9.251040221914009,
+            "price": 9.25,
+            "date": "2000-06-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/FCX?period1=0&period2=1794891410&interval=1d&events=splits",
             "candidates": [
               1
             ]
@@ -452911,23 +452924,26 @@
             "price": 27.5,
             "date": "2000-06-30",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/TEO?period1=0&period2=1794723767&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/TEO?period1=0&period2=1794891410&interval=1d&events=splits",
             "candidates": [
               1
             ]
           }
         ],
-        "errors": [],
-        "normalizedHash": "894385ec5b895fdc4d3a5d781cecc57cefd73f9fc11a7a8b338d74b50fb5277b"
+        "agreementCount": 3,
+        "anchorCount": 3,
+        "outlierTickers": [],
+        "normalizedHash": "3ba16a6b81d8cb729a78b5b08015b8d4b2441699b90ba2f0ac21340d1e8c7f93"
       },
       "2000 Q3": {
         "version": 1,
-        "checkedAt": "2026-11-14",
+        "checkedAt": "2026-11-16",
         "source": "https://www.sec.gov/Archives/edgar/data/949509/0000949509-00-500003.txt",
         "filingDate": "2000-11-13",
         "sourceDigest": "6e7ee187d5e0626979ef2358e74c85cdd8cfe27f835b0f6dbbf0edc0ffcebb3c",
-        "sourceHash": "b7dd2640dfacdf2fb3b6017ed13f41a6cb04ba31e37205b3e53684f156a25e14",
-        "status": "pending",
+        "sourceHash": "5ab92d92419f42b99cef13f8a7ba5d1a819d5085ffddfd0e775d29252c096e66",
+        "status": "verified",
+        "factor": 1,
         "anchors": [
           {
             "ticker": "EME",
@@ -452936,7 +452952,19 @@
             "price": 26.0,
             "date": "2000-09-29",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/EME?period1=0&period2=1794750132&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/EME?period1=0&period2=1794891409&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "FCX",
+            "cusip": "35671D857",
+            "filedPrice": 8.811990301961648,
+            "price": 8.8125,
+            "date": "2000-09-29",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/FCX?period1=0&period2=1794891410&interval=1d&events=splits",
             "candidates": [
               1
             ]
@@ -452948,20 +452976,20 @@
             "price": 21.625,
             "date": "2000-09-29",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/TEO?period1=0&period2=1794750132&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/TEO?period1=0&period2=1794891410&interval=1d&events=splits",
             "candidates": [
               1
             ]
           }
         ],
-        "errors": [
-          "PTRCY: ValueError"
-        ],
-        "normalizedHash": "b7dd2640dfacdf2fb3b6017ed13f41a6cb04ba31e37205b3e53684f156a25e14"
+        "agreementCount": 3,
+        "anchorCount": 3,
+        "outlierTickers": [],
+        "normalizedHash": "5ab92d92419f42b99cef13f8a7ba5d1a819d5085ffddfd0e775d29252c096e66"
       },
       "2002 Q1": {
         "version": 1,
-        "checkedAt": "2026-11-14",
+        "checkedAt": "2026-11-16",
         "source": "https://www.sec.gov/Archives/edgar/data/949509/0000949509-02-000009.txt",
         "filingDate": "2002-05-09",
         "sourceDigest": "6238e543f9b70d665f0d611e399ea5e8f6d4413d6958b4cf050bc0c55429091d",
@@ -452975,7 +453003,7 @@
             "price": 8.369999885559082,
             "date": "2002-03-28",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/LNWO?period1=0&period2=1794750133&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/LNWO?period1=0&period2=1794891410&interval=1d&events=splits",
             "candidates": [
               1
             ]
@@ -452987,7 +453015,7 @@
             "price": 27.010000228881836,
             "date": "2002-03-28",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/BVN?period1=0&period2=1794750133&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/BVN?period1=0&period2=1794891410&interval=1d&events=splits",
             "candidates": [
               1
             ]
@@ -453000,7 +453028,7 @@
       },
       "2002 Q3": {
         "version": 1,
-        "checkedAt": "2026-11-14",
+        "checkedAt": "2026-11-16",
         "source": "https://www.sec.gov/Archives/edgar/data/949509/0000949509-03-000018.txt",
         "filingDate": "2003-05-16",
         "sourceDigest": "872430b9f2038e44975984200e1e39e8ab7618cdbf068bf65319adcfe73ea8fd",
@@ -454495,11 +454523,11 @@
     "instrumentVerification": {
       "pendingQuarters": [],
       "errors": {},
-      "checkedAt": "2026-11-16T03:13:12.645068+00:00"
+      "checkedAt": "2026-11-16T04:56:48.350304+00:00"
     },
     "excludedValueQuarters": [],
     "coverage": {
-      "checkedAt": "2026-11-16T03:13:13Z",
+      "checkedAt": "2026-11-16T04:56:48Z",
       "missingQuarters": [
         "1999 Q3",
         "1999 Q4",
@@ -454525,15 +454553,15 @@
         "2008 Q2": "Legacy table reconciliation failed: 216/218 rows, $4249430000/$4290914000"
       },
       "attempts": {
-        "2001 Q2": 17,
+        "1999 Q3": 18,
         "2003 Q3": 17,
-        "2011 Q4": 16,
-        "2004 Q2": 17,
         "2001 Q3": 17,
+        "2008 Q2": 38,
+        "2001 Q2": 17,
+        "2005 Q4": 17,
+        "2004 Q2": 17,
         "1999 Q4": 17,
-        "2005 Q4": 16,
-        "2008 Q2": 37,
-        "1999 Q3": 17
+        "2011 Q4": 17
       },
       "pendingRefreshQuarters": [
         "1999 Q1",
@@ -454571,7 +454599,7 @@
         "schemaVersion": 1,
         "cik": "949509",
         "checkedAt": "2026-11-13T17:48:42Z",
-        "attemptedAt": "2026-11-16T03:13:13Z",
+        "attemptedAt": "2026-11-16T04:56:48Z",
         "status": "checked",
         "indexes": {
           "2000/QTR2": {
@@ -454967,7 +454995,7 @@
       "VC",
       "XOP"
     ],
-    "lastUpdated": "2026-11-16T03:13:12Z",
+    "lastUpdated": "2026-11-16T04:56:48Z",
     "manager": "Oaktree Capital Management, L.P.",
     "notablePeople": [
       "Howard Marks"
