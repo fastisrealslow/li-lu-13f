@@ -3057,12 +3057,12 @@
       "reason": "ValueError: Unsupported numerical claim: 95%"
     },
     "marks-84d025a64e4210": {
-      "at": "2026-11-15T16:01:29+00:00",
+      "at": "2026-11-16T08:12:21+00:00",
       "status": "retry",
       "inputHash": "b9784dfcd19157a15d8221adfad6f031867730672c4637e3126a5dd63f8afe47",
-      "failures": 1,
-      "nextAttemptAt": "2026-11-15T20:01:29+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English summary incorrectly states 'when the Fed cut rates to zero and then raised them rapidly' as if it happened within the same period; the source (s1) clarifies this was a two-phase process: first cutting to zero (2008-2021), then raising rates later, which should be phrased more carefully to reflect the distinct"
+      "failures": 2,
+      "nextAttemptAt": "2026-11-16T16:12:21+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English translation in the 'content' section contains factual errors not present in the source text: it incorrectly states 'Silicon Bank' instead of 'Silicon Valley Bank', and misattributes a specific quote or concept from 'The Price of Time' regarding car credit costs which is only mentioned as an example in s3, not"
     },
     "marks-c2f73bb78fc82d": {
       "at": "2026-11-15T22:01:28+00:00",
@@ -4656,5 +4656,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-16T08:11:55+00:00"
+  "updatedAt": "2026-11-16T08:12:21+00:00"
 }
