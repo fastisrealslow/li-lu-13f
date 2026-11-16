@@ -3758,12 +3758,12 @@
       "reason": "ValueError: Bilingual editorial review: The English paraphrase in the 'content' section contains a significant factual error regarding the source text. The source (s4) states: 'As we've found new ideas, we've largely funded them with names where fundamentals have disappointed us.' This implies using disappointing stocks to fund new ideas. However, the paraphra"
     },
     "marks-f9e0b29654a3d7": {
-      "at": "2026-11-15T16:09:17+00:00",
+      "at": "2026-11-16T19:31:05+00:00",
       "status": "retry",
       "inputHash": "640a9a31e262fc38a3379c32275876bbda3c3ff4e78543918def573398aaf831",
-      "failures": 1,
-      "nextAttemptAt": "2026-11-15T20:09:17+00:00",
-      "reason": "ValueError: Copied source passage"
+      "failures": 2,
+      "nextAttemptAt": "2026-11-17T03:31:05+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English translation in the source content incorrectly states 'total LP capital' instead of 'total committed capital', which contradicts the evidence text referring to 'total committed capital'.; The Chinese translation adds specific details not present in the source, such as 'reduced denominator of uncommitted capita"
     },
     "mclemore-2d8e2bfcb0d305": {
       "at": "2026-11-16T15:38:01+00:00",
@@ -4661,5 +4661,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-16T19:30:07+00:00"
+  "updatedAt": "2026-11-16T19:31:05+00:00"
 }
