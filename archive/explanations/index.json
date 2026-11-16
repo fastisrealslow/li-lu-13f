@@ -1700,12 +1700,12 @@
       "reason": "ValueError: Unsupported numerical claim: 1%"
     },
     "pabrai-7b7fa2ae604775": {
-      "at": "2026-11-15T21:54:09+00:00",
+      "at": "2026-11-16T15:25:57+00:00",
       "status": "retry",
       "inputHash": "f58250303d97eb5facb233f7c8a0f1454ad019b17d5ae1335c529d052ecb891f",
-      "failures": 2,
-      "nextAttemptAt": "2026-11-16T05:54:09+00:00",
-      "reason": "ValueError: Bilingual editorial review: The source text does not mention the term 'self-efficacy' (self-eficacy), though it describes behaviors consistent with that concept; adding this specific psychological term is an editorial interpretation not found in the evidence.; The source states Ashok solved past papers for '30 years twice', but the paragraph struct"
+      "failures": 3,
+      "nextAttemptAt": "2026-11-17T07:25:57+00:00",
+      "reason": "ValueError: Bilingual editorial review: Factual error in s15: The source states Ashok solved past papers for '30' years (likely a transcription error for 30 days or months), but the content claims '30 years'.; Factual error in s15: The source mentions Ashok spent time on papers for 'eight hours', but does not specify this duration as a daily habit over 30 year"
     },
     "pabrai-6295b96a9b0552": {
       "at": "2026-11-16T05:28:06+00:00",
@@ -4659,5 +4659,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-16T15:25:28+00:00"
+  "updatedAt": "2026-11-16T15:25:57+00:00"
 }
