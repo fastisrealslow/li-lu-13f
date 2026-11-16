@@ -1169,12 +1169,12 @@
       "reason": "ValueError: Unsupported scaled numerical claim: 100"
     },
     "pabrai-31dca9727a5159": {
-      "at": "2026-11-15T07:25:44+00:00",
+      "at": "2026-11-16T07:40:37+00:00",
       "status": "retry",
       "inputHash": "0a8e3c31f2753b01733ce418d4c919dbca9d007cf12dd69ee3b7817923bce61e",
-      "failures": 1,
-      "nextAttemptAt": "2026-11-15T11:25:44+00:00",
-      "reason": "ValueError: Bilingual editorial review: In s1, the text states Mohnish Pabrai paid over $650,000 for lunch with Warren Buffett in 2007. However, historical records and widely reported facts indicate this amount was approximately $30,000 (or roughly $40,000 depending on inflation adjustments), not $650,000. This is a significant factual error regarding a well-d"
+      "failures": 2,
+      "nextAttemptAt": "2026-11-16T15:40:37+00:00",
+      "reason": "ValueError: Bilingual editorial review: s1 text contains a factual error: it mentions 'DJ Khaled' and his song 'All I Do Is Win', which is completely unrelated to the context of Mohnish Pabrai, Warren Buffett, or Harvard Business School. This appears to be an injected hallucination.; s2 text ends abruptly mid-sentence ('He is'), but s6 begins with 'Pg 3 of 20 "
     },
     "pabrai-81c4cce972a1fc": {
       "at": "2026-11-15T21:26:00+00:00",
@@ -4654,5 +4654,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-16T07:40:06+00:00"
+  "updatedAt": "2026-11-16T07:40:37+00:00"
 }
