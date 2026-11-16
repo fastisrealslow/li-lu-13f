@@ -1492,12 +1492,12 @@
       "reason": "ValueError: Bilingual editorial review: The Chinese text incorrectly states Rakesh's position was 'less than $25 million to $50 million' (2500  wan - 5000 wan), whereas the source (s12) says 'worth less than $50 million or $25 million', implying a single value under $50M, not a range starting at 25M.; The Chinese text claims Pabrai cites Rakesh's case as proof"
     },
     "pabrai-75b47c21fd6d84": {
-      "at": "2026-11-15T21:41:36+00:00",
+      "at": "2026-11-16T15:08:43+00:00",
       "status": "retry",
       "inputHash": "e68ebe0b60fb00116b73baa746b42947746caccf9705150b209d8c23015e4cb3",
-      "failures": 2,
-      "nextAttemptAt": "2026-11-16T05:41:36+00:00",
-      "reason": "ValueError: Unsupported numerical claim: 500"
+      "failures": 3,
+      "nextAttemptAt": "2026-11-17T07:08:43+00:00",
+      "reason": "ValueError: Unsupported numerical claim: 100"
     },
     "pabrai-386c7195e5a2bb": {
       "at": "2026-11-16T06:07:07+00:00",
@@ -4659,5 +4659,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-16T15:08:24+00:00"
+  "updatedAt": "2026-11-16T15:08:43+00:00"
 }
