@@ -1561,12 +1561,12 @@
       "reason": "ValueError: Bilingual editorial review: The source text (s3-s5) does not mention 'Roth IRA backlash'; this is an invented detail in the content section.; The source text does not explicitly state that Pabrai emphasizes 'primary sources' or encourages watching videos directly as a reflection of his philosophy; this is editorial interpretation not grounded in th"
     },
     "pabrai-fc099d6ba1ac88": {
-      "at": "2026-11-15T08:15:23+00:00",
+      "at": "2026-11-16T07:54:30+00:00",
       "status": "retry",
       "inputHash": "cd6bbae9552dfc90beea8daa56d3beb3bda1d6cea2f4ce950c06d521d2e16a72",
-      "failures": 1,
-      "nextAttemptAt": "2026-11-15T12:15:23+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English text claims Pabrai 'supports this by sharing personal anecdotes' about Munger's birthday parties. However, s7 is a transcript of Mohnish Pabrai *recalling* an interview with Munger where Pabrai was the guest; it does not contain Pabrai recounting his own interactions as if he were the primary subject sharing "
+      "failures": 2,
+      "nextAttemptAt": "2026-11-16T15:54:30+00:00",
+      "reason": "ValueError: Bilingual editorial review: The Chinese text incorrectly attributes the quote about Munger being 99 years old to Pabrai himself ('...stressing that even at 99 years old, Munger is still striving...'). The source (s7) clearly states 'He's 99 years old now' referring to Charlie Munger, not Pabrai. Pabrai is the one recounting the interview and his ow"
     },
     "pabrai-99a0eff7272af5": {
       "at": "2026-11-15T08:16:40+00:00",
@@ -4656,5 +4656,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-16T07:54:16+00:00"
+  "updatedAt": "2026-11-16T07:54:30+00:00"
 }
