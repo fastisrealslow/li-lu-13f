@@ -3231,12 +3231,12 @@
       "reason": "ValueError: Bilingual editorial review: The source text (s5) states 'Twenty-four of the fifty largest corporate pension plans' but does not explicitly claim these are the 'fifty largest corporate pension plans' as a universal fact; it presents them as a specific statistic for that year. The paraphrase frames this as a definitive classification which slightly o"
     },
     "mclemore-9000b9fa2afe82": {
-      "at": "2026-11-15T04:10:26+00:00",
+      "at": "2026-11-16T05:54:47+00:00",
       "status": "retry",
       "inputHash": "799a16f4ed4f1fbfff5bcebbb98d9c212e6bc4a1bd34dcc5e61054429ec8038b",
-      "failures": 1,
-      "nextAttemptAt": "2026-11-15T08:10:26+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English paraphrase incorrectly states 'eliminating Pandora Media Inc. due to sluggish user growth and copyright royalty disputes leading to quarterly losses'. The source text (s3) confirms the decline (-37.16%) and mentions disappointing user growth/hours and a better-than-expected CRB ruling, but does not explicitly"
+      "failures": 2,
+      "nextAttemptAt": "2026-11-16T13:54:47+00:00",
+      "reason": "ValueError: Bilingual editorial review: The source text does not explicitly state that the strategy's core is 'achieving excess returns' (implied but not stated as a direct claim about the mechanism); it states the goal is to 'monetize volatility... and add to names where we think the market doesn't appropriately reflect embedded intrinsic value'.; The source "
     },
     "marks-0a01e0343a6027": {
       "at": "2026-11-15T16:11:47+00:00",
@@ -4652,5 +4652,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-16T05:54:00+00:00"
+  "updatedAt": "2026-11-16T05:54:47+00:00"
 }
