@@ -787,12 +787,12 @@
       "reason": "ValueError: Bilingual editorial review: The source text (s4) states the Rockefeller Foundation has $1 billion invested and must spend 5% ($50 million), but does not mention a '7-8% annual return' or that this leads to asset growth; s5 introduces the 7-8% figure without explicitly linking it as a guaranteed return rate in the same sentence structure, making the"
     },
     "buffett-63e629862df341": {
-      "at": "2026-11-16T05:13:45+00:00",
+      "at": "2026-11-16T20:11:12+00:00",
       "status": "retry",
       "inputHash": "ad562648d2c67ec85cd1231785be2da292b2a5468a43241889eed7b7e9d1c32b",
-      "failures": 2,
-      "nextAttemptAt": "2026-11-16T13:13:45+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English text incorrectly states Buffett considered 'holding preferred stock' more attractive; the transcript (s184) explicitly says he loved buying 'the Goldman preferred', not Harley-Davidson's.; The English text claims he avoided equity valuation uncertainty by using debt, but s183 states he knew Harley wouldn't go"
+      "failures": 3,
+      "nextAttemptAt": "2026-11-17T12:11:12+00:00",
+      "reason": "ValueError: Unsupported numerical claim: 15%"
     },
     "buffett-9a23c10a029cef": {
       "at": "2026-11-16T20:02:04+00:00",
@@ -4663,5 +4663,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-16T20:10:20+00:00"
+  "updatedAt": "2026-11-16T20:11:12+00:00"
 }
