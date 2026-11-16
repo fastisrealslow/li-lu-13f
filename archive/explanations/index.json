@@ -1575,12 +1575,12 @@
       "reason": "ValueError: Bilingual editorial review: The English translation of 'Coke and Pepsi bottlers' as 'distributors' is accurate; however, the source text specifies 'bottlers', which are specific to beverage distribution. While 'distributors' is a reasonable paraphrase for general understanding, it slightly broadens the scope. Given the instruction to avoid generic "
     },
     "pabrai-6626f4a7337cb1": {
-      "at": "2026-11-15T03:20:20+00:00",
+      "at": "2026-11-16T05:24:20+00:00",
       "status": "retry",
       "inputHash": "5e1cf85223f3b54cf55c730d08e203c501203a2035ade0d1b3b933b371c8cc1f",
-      "failures": 1,
-      "nextAttemptAt": "2026-11-15T07:20:20+00:00",
-      "reason": "ValueError: Unsupported numerical claim: 1994"
+      "failures": 2,
+      "nextAttemptAt": "2026-11-16T13:24:20+00:00",
+      "reason": "ValueError: Unsupported numerical claim: 100%"
     },
     "pabrai-61590880adbe35": {
       "at": "2026-11-15T08:23:52+00:00",
@@ -4650,5 +4650,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-16T05:22:41+00:00"
+  "updatedAt": "2026-11-16T05:24:20+00:00"
 }
