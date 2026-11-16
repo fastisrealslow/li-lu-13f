@@ -2612,12 +2612,12 @@
       "reason": "ValueError: Bilingual editorial review: The source text (s7) does not contain the quote 'imagine how much harder physics would be if electrons had feelings' attributed to Richard Feynman; this is an editorial addition not found in the provided evidence.; The source text (s6) lists Trump's tariff goals as a bulleted list without explicitly stating they are 'sup"
     },
     "marks-bee01f7fefbaee": {
-      "at": "2026-11-15T21:39:42+00:00",
+      "at": "2026-11-16T08:11:03+00:00",
       "status": "retry",
       "inputHash": "6dd9da60809e39709c13e2eefad5cc4b015784f7627c46c27e9315488171fc4a",
-      "failures": 2,
-      "nextAttemptAt": "2026-11-16T05:39:42+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English translation contains factual errors regarding the source text. The source (s0) states the memo title is 'Shall We Repeal the Laws of Economics?', but the translation incorrectly uses 'More on Repealing...'.; The translation misrepresents the author's argument in s2. The source says governments 'can't make dev"
+      "failures": 3,
+      "nextAttemptAt": "2026-11-17T00:11:03+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English paragraph misattributes the author's name: the source text (s0) uses 'Howard Marks', but the content section incorrectly writes 'Howard Mark'.; The English paragraph contains a factual error regarding the memo title: the source text (s0) states 'Shall We Repeal the Laws of Economics?', while the content secti"
     },
     "marks-634492e880737b": {
       "at": "2026-11-16T08:07:18+00:00",
@@ -4656,5 +4656,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-16T08:10:43+00:00"
+  "updatedAt": "2026-11-16T08:11:03+00:00"
 }
