@@ -4269,12 +4269,12 @@
       "reason": "ValueError: Unsupported numerical claim: 12"
     },
     "marks-8e0d101c47385d": {
-      "at": "2026-11-15T07:49:50+00:00",
+      "at": "2026-11-16T08:21:34+00:00",
       "status": "retry",
       "inputHash": "5b832f5fbaa19c0af91b93203ba0f8ca904220713dd975fbb2c6ad76322ac747",
-      "failures": 1,
-      "nextAttemptAt": "2026-11-15T11:49:50+00:00",
-      "reason": "ValueError: Bilingual editorial review: The Chinese text incorrectly attributes the quote 'extreme brevity of the financial memory' to John Kenneth Galbraith; the source (s4) explicitly cites this phrase as being said by Howard Marks himself.; The English translation in the content section misattributes the same quote to 'new generations' instead of correctly "
+      "failures": 2,
+      "nextAttemptAt": "2026-11-16T16:21:34+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English translation of the Chinese paragraph contains a critical factual error: it attributes the quote 'extreme brevity of the financial memory' to Howard Marks himself ('Marks himself cites...'), whereas the source text (s4) clearly states this is a saying by John Kenneth Galbraith.; The English translation incorre"
     },
     "mclemore-a61e7ae6d42bfd": {
       "at": "2026-11-15T16:38:01+00:00",
@@ -4656,5 +4656,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-16T08:21:15+00:00"
+  "updatedAt": "2026-11-16T08:21:34+00:00"
 }
