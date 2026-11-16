@@ -1217,12 +1217,12 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     },
     "pabrai-a08413f47088be": {
-      "at": "2026-11-15T07:45:25+00:00",
+      "at": "2026-11-16T05:39:17+00:00",
       "status": "retry",
       "inputHash": "e0d728dcf1dbcdc0030a0a94b51d25b84925c064cdfcb68220445c8bb820881a",
-      "failures": 1,
-      "nextAttemptAt": "2026-11-15T11:45:25+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English translation of 'the cake is not fully baked yet' in s3 is metaphorically accurate but lacks explicit textual grounding; the source text does not contain this idiom, only the Chinese summary which uses it. The JSON content claims Pabrai says this phrase directly, while the evidence (s3) only contains Shaan's q"
+      "failures": 2,
+      "nextAttemptAt": "2026-11-16T13:39:17+00:00",
+      "reason": "ValueError: Bilingual editorial review: The source text does not mention 'physiological plasticity' (physiological plasticity) as a mechanism; it only states that the window is critical for specialization and that early experiences shape long-term ability. The claim about physiological plasticity is an external interpretation not explicitly supported by the pr"
     },
     "pabrai-96a9fab5d602f9": {
       "at": "2026-11-15T08:19:10+00:00",
@@ -4652,5 +4652,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-16T05:38:38+00:00"
+  "updatedAt": "2026-11-16T05:39:17+00:00"
 }
