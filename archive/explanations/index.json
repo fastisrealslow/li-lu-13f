@@ -3641,12 +3641,12 @@
       "reason": "ValueError: No supported arguments in source"
     },
     "mclemore-13b076ee4e21ff": {
-      "at": "2026-11-15T17:05:28+00:00",
+      "at": "2026-11-16T08:13:34+00:00",
       "status": "retry",
       "inputHash": "ee3fca761365b7fe73e93eba700ec131c2c38b4cf96dd39340a17d786a2f78d8",
-      "failures": 2,
-      "nextAttemptAt": "2026-11-16T01:05:28+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English text states 'since World War II' but the evidence (s0) only specifies data since 1945; adding 'World War II' is an external assumption not in the source.; The Chinese text claims 'years where the market rose as much as it did in the first two months of the year', which misrepresents the source's condition ('w"
+      "failures": 3,
+      "nextAttemptAt": "2026-11-17T00:13:34+00:00",
+      "reason": "ValueError: Bilingual editorial review: The Chinese text incorrectly attributes the quote to Edwin Lefèvre's 'Reminiscences of a Stock Operator' as if it were a direct citation within the article structure; the source (s0) presents it as an external reference ('â Edwin Lefèvre...') rather than a quoted passage integrated into McLemore's narrative voice. Whil"
     },
     "marks-a54b6d962b74e9": {
       "at": "2026-11-16T05:45:22+00:00",
@@ -4656,5 +4656,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-16T08:12:30+00:00"
+  "updatedAt": "2026-11-16T08:13:34+00:00"
 }
