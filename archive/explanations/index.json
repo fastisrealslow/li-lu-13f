@@ -2956,12 +2956,12 @@
       "reason": "ValueError: Bilingual editorial review: The Chinese text claims Marks argues markets swung to 'record-breaking single-day rallies', but source s0 only mentions a 'best three-day stretch' (17.5% gain over Tuesday-Thursday), not a single-day rally.; The Chinese text states the bond issuance was '$107 billion in investment-grade bonds', while source s1 specifies "
     },
     "marks-827f8ac1bdac2c": {
-      "at": "2026-11-15T16:48:46+00:00",
+      "at": "2026-11-16T14:56:47+00:00",
       "status": "retry",
       "inputHash": "48312ec04f8acc9fe651e0261cbfca7476c6d003445b1c9d085a2134c18fe610",
-      "failures": 2,
-      "nextAttemptAt": "2026-11-16T00:48:46+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English translation of s2 contains a factual error: it misquotes Thomas Hobbes. The source text (s2) states 'the best prophet is the best guesser', but the translation renders this as 'the best prophet is the worst guesser'. This contradicts the original meaning and the canonical attribution.; The English translation"
+      "failures": 3,
+      "nextAttemptAt": "2026-11-17T06:56:47+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English translation of the heading ('Human Resistance...') does not match the provided source text's actual title context; the source cites Mark Lilla's article titled 'No One Knows What's Going to Happen', but the content summary attributes the core argument about prediction limits directly to Howard Marks without c"
     },
     "marks-a118789c16f302": {
       "at": "2026-11-16T08:21:13+00:00",
@@ -4659,5 +4659,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-16T14:56:46+00:00"
+  "updatedAt": "2026-11-16T14:56:47+00:00"
 }
