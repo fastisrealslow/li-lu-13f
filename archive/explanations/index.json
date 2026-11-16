@@ -1817,12 +1817,12 @@
       "reason": "ValueError: Unsupported numerical claim: 7"
     },
     "pabrai-ca1a86e32f1581": {
-      "at": "2026-11-15T16:42:00+00:00",
+      "at": "2026-11-16T08:31:36+00:00",
       "status": "retry",
       "inputHash": "1f51254f2c7a117b7e1ad2e45877ded41d7167d56c04a60232acd7581da2151c",
-      "failures": 1,
-      "nextAttemptAt": "2026-11-15T20:42:00+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English text incorrectly translates 'stalks' as 'stocks' (evidence s20: 'two stalks make up 70%' vs 'two stocks'), which contradicts the context of stock portfolios.; The English text misinterprets 'pruning flowers and watering weeds' as a mechanical practice to be opposed, whereas the source implies Pabrai dislikes "
+      "failures": 2,
+      "nextAttemptAt": "2026-11-16T16:31:36+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English text incorrectly states 'liquidation value was $8 to $9 per share' while the source (s18) says 'liquidation value was 8 or $9'. The number '8' lacks a currency symbol in the source, but context implies USD. The correction should reflect the source's ambiguity or standardize based on context without inventing "
     },
     "vinall-733efaf9628935": {
       "at": "2026-11-16T05:01:39+00:00",
@@ -4656,5 +4656,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-16T08:31:16+00:00"
+  "updatedAt": "2026-11-16T08:31:36+00:00"
 }
