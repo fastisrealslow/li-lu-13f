@@ -1020,12 +1020,12 @@
       "reason": "ValueError: Bilingual editorial review: The English translation in the content section misrepresents the source text's logic. The Chinese states Li Lu expressed personal delight ('expressed his personal delight') and derived a claim from it, whereas the English incorrectly frames this as an 'example to support his argument' ('as an example to support his argum"
     },
     "lilu-cd61a9ec3c93bd": {
-      "at": "2026-11-15T07:22:17+00:00",
+      "at": "2026-11-16T07:27:24+00:00",
       "status": "retry",
       "inputHash": "e133997104dd032f27765b0d1513b83e318c1f7c64db4ae0e04bf465ede2a9a3",
-      "failures": 1,
-      "nextAttemptAt": "2026-11-15T11:22:17+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English translation in the 'content' section incorrectly attributes the argument about agricultural civilization limitations and government evolution to Li Lu. The source text (s74) presents these ideas as general historical observations without explicitly naming Li Lu as the speaker for this specific paragraph.; The"
+      "failures": 2,
+      "nextAttemptAt": "2026-11-16T15:27:24+00:00",
+      "reason": "ValueError: Unsupported numerical claim: 2,000"
     },
     "pabrai-d346f1bebb0f55": {
       "at": "2026-11-15T03:55:38+00:00",
@@ -4654,5 +4654,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-16T07:26:53+00:00"
+  "updatedAt": "2026-11-16T07:27:24+00:00"
 }
