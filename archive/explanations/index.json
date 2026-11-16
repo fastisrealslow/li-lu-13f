@@ -2478,12 +2478,12 @@
       "reason": "ValueError: Bilingual editorial review: The English text claims Buffett argues his philosophy by presenting data from 1965 to 1992. While the evidence (s0-s2) covers this range, the specific claim that he uses these tables to argue 'Investing is business, not gambling' conflates two distinct sections of the letter; the quote appears in the introduction/conclus"
     },
     "buffett-a8cc7c4a7e73c5": {
-      "at": "2026-11-15T03:21:07+00:00",
+      "at": "2026-11-16T08:07:25+00:00",
       "status": "retry",
       "inputHash": "d887906af8672540f2d0d6d35489fa0577d96fd1167966b5a83624841b38dffb",
-      "failures": 1,
-      "nextAttemptAt": "2026-11-15T07:21:07+00:00",
-      "reason": "ValueError: Unsupported numerical claim: 1994"
+      "failures": 2,
+      "nextAttemptAt": "2026-11-16T16:07:25+00:00",
+      "reason": "ValueError: Unsupported scaled numerical claim: 163.2"
     },
     "buffett-03ea47cc01ea52": {
       "at": "2026-11-15T21:40:01+00:00",
@@ -4656,5 +4656,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-16T08:07:18+00:00"
+  "updatedAt": "2026-11-16T08:07:25+00:00"
 }
