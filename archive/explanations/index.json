@@ -1929,12 +1929,12 @@
       "reason": "ValueError: Bilingual editorial review: The English translation in the `content` section incorrectly states that Pabrai 'advocates for adopting a cloning model to learn from others.' The source text (s6) says he copied an idea from Warren and Charlie and uses cloning as a model to adopt smart actions, but does not explicitly advocate it as a general learning p"
     },
     "vinall-1ed9722f24818c": {
-      "at": "2026-11-15T22:12:10+00:00",
+      "at": "2026-11-16T07:25:54+00:00",
       "status": "retry",
       "inputHash": "a252be135d1ba7a1f0d2a4ea75422717e9507456483dfabd3d88d73a6c8e7a7d",
-      "failures": 2,
-      "nextAttemptAt": "2026-11-16T06:12:10+00:00",
-      "reason": "ValueError: Bilingual editorial review: The source text (s0) states the NAV was €669.03 as of 30 June 2023, but the content section incorrectly claims this figure represents a compound annual growth rate (CAGR) since inception in September 2008; the CAGR of 13.8% is correctly cited in s1.; The source text (s2) states that Credit Acceptance and Prosus remained "
+      "failures": 3,
+      "nextAttemptAt": "2026-11-16T23:25:54+00:00",
+      "reason": "ValueError: Unsupported numerical claim: 6"
     },
     "pabrai-52346dc951afda": {
       "at": "2026-11-16T05:06:40+00:00",
@@ -4654,5 +4654,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-16T07:24:49+00:00"
+  "updatedAt": "2026-11-16T07:25:54+00:00"
 }
