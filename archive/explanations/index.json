@@ -3609,12 +3609,12 @@
       "reason": "ValueError: Bilingual editorial review: The source text (s24) contains a corrupted string 'very © Oaktree Capital Management...' which appears to be an accidental inclusion of a copyright notice within the sentence. The original English text should read 'starting from a very low base', but the provided evidence includes the copyright text in place of 'low'.; T"
     },
     "mclemore-7e3060921fa5c7": {
-      "at": "2026-11-15T17:01:36+00:00",
+      "at": "2026-11-16T08:08:34+00:00",
       "status": "retry",
       "inputHash": "da9c9da283543570e62774929bb47eb0928e9d6c2293a3bd38ad2f606e2f065d",
-      "failures": 2,
-      "nextAttemptAt": "2026-11-16T01:01:36+00:00",
-      "reason": "ValueError: Unsupported numerical claim: 2023"
+      "failures": 3,
+      "nextAttemptAt": "2026-11-17T00:08:34+00:00",
+      "reason": "ValueError: Unsupported numerical claim: -1.9%"
     },
     "marks-ed788f8b22d0f1": {
       "at": "2026-11-15T17:03:03+00:00",
@@ -4656,5 +4656,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-16T08:07:43+00:00"
+  "updatedAt": "2026-11-16T08:08:34+00:00"
 }
