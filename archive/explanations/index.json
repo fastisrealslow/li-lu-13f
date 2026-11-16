@@ -534,12 +534,12 @@
       "reason": "ValueError: No audio obtained"
     },
     "pabrai-84930e49b02b52": {
-      "at": "2026-11-15T22:23:52+00:00",
+      "at": "2026-11-16T19:09:14+00:00",
       "status": "retry",
       "inputHash": "b4d36f511c7aedd42636de384f8527b7507d4382936957e66a1f014c97a55b01",
-      "failures": 2,
-      "nextAttemptAt": "2026-11-16T06:23:52+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English translation in the 'content' section misquotes Zuckerberg. The source text (s9) states: 'Whether the bet works or not, we do not know. But we have to play.' The provided translation adds 'whether', changing it to 'Whether the bet works or not, we do not know,' which alters the original phrasing found in the e"
+      "failures": 3,
+      "nextAttemptAt": "2026-11-17T11:09:14+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English translation of Zuckerberg's quote in the content section is inaccurate: it renders 'Whether the bet works or not' as 'Whether the bet works or not', which is redundant and misses the nuance of uncertainty about the outcome. A more faithful translation would be 'Whether this bet pays off or not, we do not know"
     },
     "vinall-2c8021ee8f5f62": {
       "at": "2026-11-16T14:46:44+00:00",
@@ -846,12 +846,12 @@
       "reason": "ValueError: Unsupported numerical claim: 1%"
     },
     "lilu-e7f97d240f730c": {
-      "at": "2026-11-15T21:50:59+00:00",
+      "at": "2026-11-16T19:07:45+00:00",
       "status": "retry",
       "inputHash": "7b41dfe01abd22c80a40620be7b66b5bea7859557ceadb3a77bb535436f199fa",
-      "failures": 1,
-      "nextAttemptAt": "2026-11-16T01:50:59+00:00",
-      "reason": "ValueError: Copied source passage"
+      "failures": 2,
+      "nextAttemptAt": "2026-11-17T03:07:45+00:00",
+      "reason": "ValueError: Bilingual editorial review: The source text (s0) states 'Li Liu', but the canonical author name is 'Li Lu'. The content section uses 'Li Lu' correctly.; The source text (s3) refers to 'Deng Xiaoping ordered to print a harsh editorial... which in the past meaning that this is the beginning of a crackdown.' The content paraphrase changes 'in the past"
     },
     "buffett-e7d731459f5bc2": {
       "at": "2026-11-16T05:48:55+00:00",
@@ -1108,12 +1108,12 @@
       "reason": "ValueError: Bilingual editorial review: The English translation of s4 misquotes Buffett: Source says 'either it takes or it doesn't' (referring to taking the shot/vaccine), but text claims 'either it works or it doesn't'.; The English translation of s8 incorrectly states 'assess all the facts and truly know what you know and know what you don't know', whereas "
     },
     "vinall-2cbcc40389a099": {
-      "at": "2026-11-16T14:34:39+00:00",
+      "at": "2026-11-16T19:04:53+00:00",
       "status": "retry",
       "inputHash": "a419b449553340d3c6c0f95155f0f6cbe4a5b48cf7f8d3e597f781fa36da4856",
-      "failures": 1,
-      "nextAttemptAt": "2026-11-16T18:34:39+00:00",
-      "reason": "ValueError: Unsupported numerical claim: 9"
+      "failures": 2,
+      "nextAttemptAt": "2026-11-17T03:04:53+00:00",
+      "reason": "ValueError: Unsupported numerical claim: 6"
     },
     "pabrai-7f291e9d73d552": {
       "at": "2026-11-15T16:57:58+00:00",
@@ -1316,12 +1316,12 @@
       "reason": "ValueError: Unsupported numerical claim: 3"
     },
     "pabrai-e3b4089e3ab4c6": {
-      "at": "2026-11-15T16:25:02+00:00",
+      "at": "2026-11-16T19:03:14+00:00",
       "status": "retry",
       "inputHash": "06482ca1be1e492edada57a7dee4873243f975fa01f5d20b8e196300bfe3c83d",
-      "failures": 1,
-      "nextAttemptAt": "2026-11-15T20:25:02+00:00",
-      "reason": "ValueError: Bilingual editorial review: The source text (s7) does not mention 'numerous' or 'severely undervalued'; it states there are 'at least six or seven' instances of PE ~1 in the portfolio over 19 years, which contradicts the claim of 'numerous'.; The source text (s8) explicitly states Rain Industries was trading at a normal multiple ('10 or 15 times ea"
+      "failures": 2,
+      "nextAttemptAt": "2026-11-17T03:03:14+00:00",
+      "reason": "ValueError: Bilingual editorial review: The source text (s7) states Pabrai has been managing money professionally for 'a little over 19 years', not exactly 19. The summary implies a precise count which contradicts the source's approximation.; The source text (s8) mentions Rain Industries made 'something around 10 rupees a quarter about 40, maybe 35 to 50 rupee"
     },
     "pabrai-36450d370316ee": {
       "at": "2026-11-16T08:02:55+00:00",
@@ -1548,12 +1548,12 @@
       "reason": "ValueError: Bilingual editorial review: The source text (s2) states Mohnish has two daughters and that the younger one is named Monsoon. The content section incorrectly attributes these facts to 'Pabrai' (the interviewer), whereas the dialogue clearly identifies Mohnish as the speaker discussing his own daughters.; The source text (s3) mentions a quote from Th"
     },
     "pabrai-2babcacb8a348d": {
-      "at": "2026-11-16T05:16:38+00:00",
+      "at": "2026-11-16T19:01:40+00:00",
       "status": "retry",
       "inputHash": "fd308035c54cf682c575112395691ff01c31023f4f083804d327efb74a1c7b7d",
-      "failures": 2,
-      "nextAttemptAt": "2026-11-16T13:16:38+00:00",
-      "reason": "ValueError: Unsupported numerical claim: 60%"
+      "failures": 3,
+      "nextAttemptAt": "2026-11-17T11:01:40+00:00",
+      "reason": "ValueError: Unsupported numerical claim: 2"
     },
     "pabrai-e25d421918d362": {
       "at": "2026-11-16T08:16:14+00:00",
@@ -1852,12 +1852,12 @@
       "reason": "ValueError: Unsupported scaled numerical claim: 5"
     },
     "pabrai-9a0eba26aa2ca1": {
-      "at": "2026-11-15T22:07:30+00:00",
+      "at": "2026-11-16T19:02:56+00:00",
       "status": "retry",
       "inputHash": "64459bc9da3b1aabb44389afedb829c01c8b04c434c3a0ea9f5e54c3fedbbfff",
-      "failures": 2,
-      "nextAttemptAt": "2026-11-16T06:07:30+00:00",
-      "reason": "ValueError: Bilingual editorial review: The source text (s1-s3) does not mention 'wide moat strategy' (widesmoat strategy), 'information asymmetry', 'institutional friction', or 'public neglect'. These are editorial interpretations not found in the transcript.; The source text does not explicitly state that Pabrai's shift was from 'copying the master' to 'seek"
+      "failures": 3,
+      "nextAttemptAt": "2026-11-17T11:02:56+00:00",
+      "reason": "ValueError: Unsupported numerical claim: 97%"
     },
     "pabrai-59f6d87e592581": {
       "at": "2026-11-15T22:29:23+00:00",
@@ -2285,12 +2285,12 @@
       "reason": "ValueError: No audio obtained"
     },
     "buffett-fdc44b835fd90b": {
-      "at": "2026-11-15T22:23:36+00:00",
+      "at": "2026-11-16T19:05:17+00:00",
       "status": "retry",
       "inputHash": "32380832c77b886df0f76d0fd596fcf6ae7e0c8a924267b4c8c50ea673dfa642",
-      "failures": 1,
-      "nextAttemptAt": "2026-11-16T02:23:36+00:00",
-      "reason": "ValueError: Copied source passage"
+      "failures": 2,
+      "nextAttemptAt": "2026-11-17T03:05:17+00:00",
+      "reason": "ValueError: Bilingual editorial review: The Chinese text incorrectly states Buffett 'refused to shut down such businesses merely to add a fraction of a point' (evidence s26). The source says he won't close them 'merely to add a fraction', implying he would close them if the return was significantly higher, not that he refused to do so for any reason.; The Chin"
     },
     "buffett-93af0e4cfb3935": {
       "at": "2026-10-18T01:09:58+00:00",
@@ -2607,12 +2607,12 @@
       "reason": "ValueError: Bilingual editorial review: The English translation in the content section misrepresents Howard Marks' argument by stating he argues against viewing ultra-low rates as a 'norm'. The source text (s3) explicitly states that ultra-low or declining rates are 'unlikely to be the norm', meaning they are not expected to persist, rather than arguing agains"
     },
     "marks-81b1197a807270": {
-      "at": "2026-11-15T16:42:30+00:00",
+      "at": "2026-11-16T19:05:08+00:00",
       "status": "retry",
       "inputHash": "f6a8f537dbd19631afc63b902330f44895199fd7dd35449293f5dcbc8a97989d",
-      "failures": 2,
-      "nextAttemptAt": "2026-11-16T00:42:30+00:00",
-      "reason": "ValueError: Bilingual editorial review: The source text (s7) does not contain the quote 'imagine how much harder physics would be if electrons had feelings' attributed to Richard Feynman; this is an editorial addition not found in the provided evidence.; The source text (s6) lists Trump's tariff goals as a bulleted list without explicitly stating they are 'sup"
+      "failures": 3,
+      "nextAttemptAt": "2026-11-17T11:05:08+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English translation of the title contains a truncation error: 'Nobody Knows (Yet Again' is missing the closing parenthesis and word 'Again'.; The Chinese content incorrectly attributes the quote about electrons having feelings to Richard Feynman; while the source text mentions this analogy, it does not explicitly nam"
     },
     "marks-bee01f7fefbaee": {
       "at": "2026-11-16T08:11:03+00:00",
@@ -3044,11 +3044,11 @@
       "reason": "ValueError: Bilingual editorial review: The Chinese text claims Yogi Berra's quote is about 'success' (90% mental, 10% physical), but the source text (s10) states it as a general principle ('Baseball is ninety percent mental and the other half is physical') without specifying 'success'.; The Chinese text misquotes Howard Marks' presentation subtitle. Source s1"
     },
     "mclemore-c5946ef5ed6368": {
-      "at": "2026-11-15T22:21:01+00:00",
+      "at": "2026-11-16T19:03:28+00:00",
       "status": "retry",
       "inputHash": "7cb0caea29deadbf824a69d6fd9b05b5bc5d3c02c565a222d647fa88659f8295",
-      "failures": 2,
-      "nextAttemptAt": "2026-11-16T06:21:01+00:00",
+      "failures": 3,
+      "nextAttemptAt": "2026-11-17T11:03:28+00:00",
       "reason": "ValueError: Unsupported numerical claim: 5"
     },
     "marks-7be99caead2493": {
@@ -3092,11 +3092,11 @@
       "reason": "ValueError: Unsupported numerical claim: 2002"
     },
     "mclemore-e425e2e25f97d6": {
-      "at": "2026-11-15T22:24:58+00:00",
+      "at": "2026-11-16T19:09:08+00:00",
       "status": "retry",
       "inputHash": "a2a05b19ff563f00cabb2260bc2fa92f33c7355fb05f55d05137e8998e68a679",
-      "failures": 2,
-      "nextAttemptAt": "2026-11-16T06:24:58+00:00",
+      "failures": 3,
+      "nextAttemptAt": "2026-11-17T11:09:08+00:00",
       "reason": "ValueError: Unsupported numerical claim: 9"
     },
     "marks-ecf926a41adfc5": {
@@ -3228,12 +3228,12 @@
       "reason": "ValueError: Bilingual editorial review: The English translation in the content section misidentifies the author as 'Howard Marks'. The source text (s9) explicitly attributes the quote to '[Senate Majority Leader] Reid', and the title lists 'Howard Marks' only as the copyright holder of the article itself, not necessarily the speaker of the quoted material. Whi"
     },
     "marks-2a08abe8cdf605": {
-      "at": "2026-11-16T05:38:38+00:00",
+      "at": "2026-11-16T19:03:02+00:00",
       "status": "retry",
       "inputHash": "6950ef671c17465d544d091934ed9c898b640c36803c8f416dd978b72d5ba175",
-      "failures": 2,
-      "nextAttemptAt": "2026-11-16T13:38:38+00:00",
-      "reason": "ValueError: Bilingual editorial review: The source text (s5) states 'Twenty-four of the fifty largest corporate pension plans' but does not explicitly claim these are the 'fifty largest corporate pension plans' as a universal fact; it presents them as a specific statistic for that year. The paraphrase frames this as a definitive classification which slightly o"
+      "failures": 3,
+      "nextAttemptAt": "2026-11-17T11:03:02+00:00",
+      "reason": "ValueError: Copied source passage"
     },
     "mclemore-9000b9fa2afe82": {
       "at": "2026-11-16T05:54:47+00:00",
@@ -3852,11 +3852,11 @@
       "reason": "ValueError: Bilingual editorial review: The English translation of s0 correctly reflects the source text's phrasing regarding 'primitive refuge' and dismissal of past experience.; The English translation of s1 accurately captures Galbraith's point about John Q. Investor repeating past mistakes.; The English translation of s3 correctly attributes Mark Twain's q"
     },
     "mclemore-7e32ab18209c03": {
-      "at": "2026-11-15T21:41:58+00:00",
+      "at": "2026-11-16T19:02:25+00:00",
       "status": "retry",
       "inputHash": "f41eac1dd22322b73fbce3ce47452844f3ea601dcf309b32b568ed5ca9cd4fa9",
-      "failures": 2,
-      "nextAttemptAt": "2026-11-16T05:41:58+00:00",
+      "failures": 3,
+      "nextAttemptAt": "2026-11-17T11:02:25+00:00",
       "reason": "ValueError: Unsupported numerical claim: 25%"
     },
     "marks-f89cab08d781ec": {
@@ -3892,11 +3892,11 @@
       "reason": "ValueError: No supported arguments in source"
     },
     "marks-352acf93a6b470": {
-      "at": "2026-11-15T21:37:48+00:00",
+      "at": "2026-11-16T19:01:46+00:00",
       "status": "retry",
       "inputHash": "effc0890899a76cae1a6975a5f9577394280edf82ff1511b03e2a9f046e62d42",
-      "failures": 1,
-      "nextAttemptAt": "2026-11-16T01:37:48+00:00",
+      "failures": 2,
+      "nextAttemptAt": "2026-11-17T03:01:46+00:00",
       "reason": "ValueError: Unsupported numerical claim: 20"
     },
     "marks-f7e5a84063b6ec": {
@@ -3940,12 +3940,12 @@
       "reason": "ValueError: Bilingual editorial review: The English translation in the 'content' section incorrectly states that McLemore argues investors should avoid treating AI as a guaranteed high-return area; the source text only expresses disagreement with adding Bitcoin, Mag 7, and AI to the list of euphoric conditions without explicitly calling them 'guaranteed'.; The"
     },
     "marks-91985ba4dc0de1": {
-      "at": "2026-11-15T21:44:31+00:00",
+      "at": "2026-11-16T19:04:38+00:00",
       "status": "retry",
       "inputHash": "779d351272925e61d10df454b4a0ae348c55d2320eb111a600fed6fa49fd5149",
-      "failures": 1,
-      "nextAttemptAt": "2026-11-16T01:44:31+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English title 'Etorre's Wisdom' is incorrect; the source text refers to 'Howard Marks', not 'Etorre'.; The Chinese and English content incorrectly cite 'O'Toole's Commentary'; the source (s1) clearly states 'Murphy was an optimist', referring to Murphy's Law, not O'Toole.; The content invents a specific quote ('The o"
+      "failures": 2,
+      "nextAttemptAt": "2026-11-17T03:04:38+00:00",
+      "reason": "ValueError: Unsupported numerical claim: 20"
     },
     "marks-bbc89691ff2f77": {
       "at": "2026-11-15T16:20:05+00:00",
@@ -3978,11 +3978,11 @@
       "reason": "ValueError: Bilingual editorial review: The Chinese translation incorrectly states Celgene's stock price as '$89' (implying a specific dollar amount) when the source text says 'high $80's', which refers to the range of high $80s. The translation should reflect the approximate nature or the specific range mentioned in the source.; The Chinese translation claims"
     },
     "marks-268f0205d751c3": {
-      "at": "2026-11-15T21:49:07+00:00",
+      "at": "2026-11-16T19:07:32+00:00",
       "status": "retry",
       "inputHash": "ad568186808dbe0a391856a56c0d3e0ca55d6ef2e79d1555aa31a9bdd455b5ee",
-      "failures": 1,
-      "nextAttemptAt": "2026-11-16T01:49:07+00:00",
+      "failures": 2,
+      "nextAttemptAt": "2026-11-17T03:07:32+00:00",
       "reason": "ValueError: Unsupported numerical claim: 10"
     },
     "marks-79e0140cc8a58c": {
@@ -4382,11 +4382,11 @@
       "reason": "ValueError: Bilingual editorial review: The English translation in the 'content' section incorrectly attributes the view that volatility is misunderstood as purely negative to Samantha McLemore; however, the source text (s7) states this belief ('volatility is significantly misunderstood') without explicitly naming her as the proponent of this specific phrasing"
     },
     "mclemore-24b0bf430a4f7b": {
-      "at": "2026-11-15T17:01:32+00:00",
+      "at": "2026-11-16T19:04:22+00:00",
       "status": "retry",
       "inputHash": "ed8ee50dc3abf57c5e3ff895b049bfdf064339a39a1a48f6749ba59d14bcbab8",
-      "failures": 2,
-      "nextAttemptAt": "2026-11-16T01:01:32+00:00",
+      "failures": 3,
+      "nextAttemptAt": "2026-11-17T11:04:22+00:00",
       "reason": "ValueError: Unsupported numerical claim: 35.11%"
     },
     "mclemore-a6ec30c11ce4f3": {
@@ -4590,12 +4590,12 @@
       "reason": "ValueError: Unsupported numerical claim: 0.50"
     },
     "berkowitz-7aacda9994cc0c": {
-      "at": "2026-11-15T21:53:13+00:00",
+      "at": "2026-11-16T19:04:15+00:00",
       "status": "retry",
       "inputHash": "7d8a2e2629f6bcaa257d638a062459f24201354dd1c5420697f0d3e2b4cb1eca",
-      "failures": 2,
-      "nextAttemptAt": "2026-11-16T05:53:13+00:00",
-      "reason": "ValueError: Incomplete AI Review at 1800 tokens"
+      "failures": 3,
+      "nextAttemptAt": "2026-11-17T11:04:15+00:00",
+      "reason": "ValueError: Unsupported numerical claim: 12"
     },
     "berkowitz-5e514b72ec1a07": {
       "at": "2026-11-16T07:43:27+00:00",
@@ -4659,5 +4659,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-16T15:43:43+00:00"
+  "updatedAt": "2026-11-16T19:09:14+00:00"
 }
