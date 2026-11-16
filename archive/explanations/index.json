@@ -2322,12 +2322,12 @@
       "reason": "ValueError: Bilingual editorial review: The source text does not mention 'HomeServices' as a MidAmerican business segment; it only lists UK utilities, Iowa utility, pipelines, and 'Other (net)'.; The source text does not explicitly state that the zinc project loss was part of MidAmerican's operations or that Buffett used it to prove synergistic effects across "
     },
     "buffett-66b41faf4e8b02": {
-      "at": "2026-11-15T04:20:45+00:00",
+      "at": "2026-11-16T07:53:41+00:00",
       "status": "retry",
       "inputHash": "122b63e206e086d89395c9c5cd41029a4c155659fa94278652243b1e3edf624f",
-      "failures": 1,
-      "nextAttemptAt": "2026-11-15T08:20:45+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English translation of 'so-so' is accurate but slightly informal; 'mediocre' or 'average' might be more formal for a shareholder letter context.; The phrase 'disastrous speculative moves' in the English text adds an adjective ('speculative') not explicitly present in the source Chinese ('bad moves'), which could impl"
+      "failures": 2,
+      "nextAttemptAt": "2026-11-16T15:53:41+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English translation of 'so-so' as 'merely average' slightly alters the original tone; 'mediocre' or 'average at best' might better reflect Buffett's self-deprecating humor.; The phrase 'high-grade bonds that retained their face value' is a reasonable paraphrase for 'flat-lined and simply retained its $1.3 billion val"
     },
     "buffett-e9609ea16efe3e": {
       "at": "2026-11-15T21:47:28+00:00",
@@ -4656,5 +4656,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-16T07:53:36+00:00"
+  "updatedAt": "2026-11-16T07:53:41+00:00"
 }
