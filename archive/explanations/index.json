@@ -4336,12 +4336,12 @@
       "reason": "ValueError: Copied source passage"
     },
     "mclemore-e2f1a12640c4d3": {
-      "at": "2026-11-15T16:55:32+00:00",
+      "at": "2026-11-16T15:43:43+00:00",
       "status": "retry",
       "inputHash": "34699a1d30b5ea3d40ff36369cd56a3837b23611f7f9a0c80b4c49a5d4ab42a8",
-      "failures": 2,
-      "nextAttemptAt": "2026-11-16T00:55:32+00:00",
-      "reason": "ValueError: Bilingual editorial review: The Chinese text claims the author speculates on 'hyperbolic discounting' (translated as 'super-experiential discounting' in the source) incentivizing advisors; however, the English source only mentions 'underlying hyperbolic discounting' as a possibility without asserting it as a fact or detailed speculation about the m"
+      "failures": 3,
+      "nextAttemptAt": "2026-11-17T07:43:43+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English translation in the 'content' section incorrectly states the portfolio was 'inherited from her grandmother' when the source text (s0) says she 'left me with a nice little portfolio', implying inheritance but not using the verb 'inherit'.; The Chinese translation adds 'originally managed by her for stock pickin"
     },
     "mclemore-3cfab01d768cef": {
       "at": "2026-11-15T22:10:16+00:00",
@@ -4659,5 +4659,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-16T15:43:37+00:00"
+  "updatedAt": "2026-11-16T15:43:43+00:00"
 }
