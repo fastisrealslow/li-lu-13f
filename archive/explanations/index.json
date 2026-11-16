@@ -1412,12 +1412,12 @@
       "reason": "ValueError: Bilingual editorial review: The English translation in the 'content' section incorrectly attributes the dialogue about hobbies to Pabrai himself ('when Shiva Sai from JNV Rangareddy asked about his hobbies'), whereas the source text (s3) clearly shows Shiva Sai asking Mohnish, and it is Mohnish who responds with the story of T. Ashok Kumar.; The En"
     },
     "pabrai-341e9bdd1f2352": {
-      "at": "2026-11-16T05:18:27+00:00",
+      "at": "2026-11-16T19:29:24+00:00",
       "status": "retry",
       "inputHash": "87ab4f7aecaeaae10a76598f22e6d78b0a6618649a0bff7be7328cf0989d5e1e",
-      "failures": 2,
-      "nextAttemptAt": "2026-11-16T13:18:27+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English translation in the 'content' section contains a factual error regarding the order of criteria. The source text (s6) lists: 1. Skin in the game, 2. Age (mid-40s), 3. Track record/years, 4. Fishing style. However, the provided English translation states 'placing age as the third criterion with specific performa"
+      "failures": 3,
+      "nextAttemptAt": "2026-11-17T11:29:24+00:00",
+      "reason": "ValueError: Bilingual editorial review: The source text does not mention 'independence' (independence/autonomy) as a criterion for selecting managers; the user's summary introduces this unsupported concept.; The source text does not state that Pabrai places 'experience' at the core of his considerations alongside skin in the game; it only discusses skin in the"
     },
     "pabrai-eac064fbe28765": {
       "at": "2026-11-16T08:28:16+00:00",
@@ -4661,5 +4661,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-16T19:29:21+00:00"
+  "updatedAt": "2026-11-16T19:29:24+00:00"
 }
