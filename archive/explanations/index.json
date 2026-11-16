@@ -4376,12 +4376,12 @@
       "reason": "ValueError: Bilingual editorial review: The source text does not explicitly state that Howard Marks 'released' the memo on January 2, 2000; it only provides the title with this date. The phrasing 'released by Oaktree Capital' is a minor editorial inference but not a concrete factual error.; The source text does not mention CMGI as an example of an investor who"
     },
     "mclemore-2ab9591831eb1d": {
-      "at": "2026-11-15T22:25:40+00:00",
+      "at": "2026-11-16T19:52:41+00:00",
       "status": "retry",
       "inputHash": "db33b03493c9439ad8647c9d02d9979c92a46db5c44da8c6a3c1a3e6d9cd3e58",
-      "failures": 2,
-      "nextAttemptAt": "2026-11-16T06:25:40+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English translation in the 'content' section incorrectly attributes the view that volatility is misunderstood as purely negative to Samantha McLemore; however, the source text (s7) states this belief ('volatility is significantly misunderstood') without explicitly naming her as the proponent of this specific phrasing"
+      "failures": 3,
+      "nextAttemptAt": "2026-11-17T11:52:41+00:00",
+      "reason": "ValueError: Bilingual editorial review: The Chinese text incorrectly attributes the specific compensation details of Jose Neves (Farfetch CEO) and Farfetch's stock price performance to Samantha McLemore. The source evidence (s7) presents these facts as part of a broader argument about market valuation and volatility, but does not explicitly state that McLemore"
     },
     "mclemore-24b0bf430a4f7b": {
       "at": "2026-11-16T19:04:22+00:00",
@@ -4661,5 +4661,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-16T19:51:28+00:00"
+  "updatedAt": "2026-11-16T19:52:41+00:00"
 }
