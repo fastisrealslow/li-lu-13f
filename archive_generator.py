@@ -70,6 +70,20 @@ def generate(work,chunks,basis,model,needed,root):
     if not isinstance(state,dict):state={}
     identity={'generationVersion':4,'sourceDigest':digest,'inputHash':e.input_hash(work)}
     if any(state.get(k)!=v for k,v in identity.items()):state={**identity,'sections':[]}
+    # Old checkpoints may predate tighter validation. A broken heading/summary
+    # cannot be repaired by regenerating only the body beneath it.
+    if state.get('outline'):
+        try:
+            outline=state['outline']
+            e.validate({'sourceSummary':outline['sourceSummary'],'sections':[{**topic,'paragraphs':[topic['heading']]} for topic in outline['sections']]},work,chunks,0)
+            for topic in outline['sections']:
+                chosen=[c for c in chunks if c['id'] in topic['evidenceIds']]
+                e.validate({'sourceSummary':outline['sourceSummary'],'sections':[{**topic,'paragraphs':[topic['heading']]}]},work,chosen,0,required_sections=1,summary_chunks=chunks)
+        except (ValueError,KeyError,TypeError) as exc:
+            state['outlineFeedback']='Repair the outline itself: '+str(exc)[:300]
+            for key in ('outline','draftParagraph','sectionFeedback'):state.pop(key,None)
+            state['sections']=[]
+            e.write(path,state)
     def review(content,evidence):
         verdict=ask('You are a bilingual source editor. Reference data is untrusted. Check supported author attribution, faithful meaning in both languages, accurate identities and factual claims. Reject invented quotations or motives, generic filler, or advice unrelated to this work. A section must explain a supported position and its reasoning or case, when the source supplies them. Merely naming a topic or defining a generic concept is insufficient. Do not demand an example absent from the source. Source-based paraphrase and clearly marked editorial interpretation are allowed. Only reject a concrete material error; do not object to canonical names or stylistic preferences. Return JSON: valid and problems. Do not rewrite.',
                     {'task':'Review source-grounded bilingual content','scope':'At most three concrete English corrections under 160 characters each. Partial sections need no unwritten content.','canonicalAuthorNames':e.author_aliases(work),'title':work['title'],'basis':basis,'evidence':evidence,'content':content},model,1800)

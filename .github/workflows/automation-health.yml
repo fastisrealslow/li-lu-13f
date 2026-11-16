@@ -31,7 +31,9 @@ jobs:
         with:
           python-version: '3.12'
       - name: Test bounded recovery policy
-        run: python3 -m unittest discover -s tests -p test_automation_health.py -v
+        run: |
+          python3 -m unittest discover -s tests -p test_automation_health.py -v
+          python3 -m unittest discover -s tests -p test_chain_resilience.py -v
       - name: Inspect freshness and recover collection or publication
         env:
           GITHUB_TOKEN: ${{ github.token }}

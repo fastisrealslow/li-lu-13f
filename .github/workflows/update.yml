@@ -138,7 +138,8 @@ jobs:
       - name: Test data update regressions
         env:
           TRACK_RUN_STATUS: "0"
-        run: python3 -m unittest discover -s tests -v
+        # Scheduled market selection is production input, not a test fixture.
+        run: env -u MARKET_REFRESH python3 -m unittest discover -s tests -v
 
       # ── 初始化本次运行状态记录 ──
       - name: Init run status

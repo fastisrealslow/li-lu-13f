@@ -166,6 +166,43 @@ def published_site_health(root, repository, fetch=None):
         if limit and len(bundle['data']['current']['holdings'])>limit:raise ValueError('Published portfolio limit was not applied')
     return {'status':'checked','url':base}
 
+def public_service_health(request=None):
+    """Probe the actual user-facing Pages deployment and MCP data calls."""
+    base='https://li-lu-13f.pages.dev'
+    def perform(path,message=None):
+        headers={'User-Agent':'13f-public-service-health'}
+        if message is not None:headers.update({'Content-Type':'application/json','Accept':'application/json, text/event-stream'})
+        req=Request(base+path,headers=headers,data=json.dumps(message).encode() if message is not None else None)
+        # These are read-only MCP calls, safe to retry after a lost response.
+        for attempt in range(2):
+            try:
+                with urlopen(req,timeout=20) as response:
+                    data=response.read(1_000_001)
+                if len(data)>1_000_000:raise ValueError('Unexpectedly large public response')
+                return data
+            except (HTTPError,URLError,TimeoutError):
+                if attempt:raise
+                time.sleep(2)
+    request=request or perform
+    page=request('/').decode()
+    if 'id="mcpAccessTitle"' not in page:raise ValueError('Cloudflare page or MCP entry missing')
+    def rpc(method,params):
+        result=json.loads(request('/mcp',{'jsonrpc':'2.0','id':1,'method':method,'params':params}))
+        if result.get('error') or not isinstance(result.get('result'),dict):raise ValueError('MCP protocol error: '+method)
+        data=result['result']
+        if data.get('isError'):raise ValueError('MCP tool failed: '+method)
+        return data
+    listing=rpc('tools/list',{})
+    required={'get_holdings','get_history','get_reading_guide','get_update_status'}
+    if not required<={t.get('name') for t in listing.get('tools',[])}:raise ValueError('MCP tools are incomplete')
+    result=rpc('tools/call',{'name':'get_holdings','arguments':{'investor':'lilu','limit':1}})
+    text=next((x['text'] for x in result.get('content',[]) if x.get('type')=='text'),'{}')
+    data=json.loads(text).get('data',{})
+    if data.get('investor')!='lilu' or not data.get('quarter') or not data.get('holdings',{}).get('items'):
+        raise ValueError('MCP holdings data is incomplete')
+    return {'status':'checked','url':base,'mcp':base+'/mcp','quarter':data['quarter']}
+
+
 class GitHub:
     def __init__(self,repository,token):
         if not re.fullmatch(r'[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+',repository):raise ValueError('Invalid repository')
@@ -219,8 +256,13 @@ def main():
             issues.append({'code':'publication_probe_failed','reason':str(exc)})
         report=plan(evidence,issues,now)
         report['site']=site
+        try:report['publicService']=public_service_health()
+        except Exception as exc:
+            report['publicService']={'status':'unavailable','reason':str(exc)}
+            # A GitHub Pages rebuild cannot repair a separate Cloudflare service.
+            report['issues'].append({'code':'cloudflare_service_probe_failed','reason':str(exc)})
         persistent=persistent_failures(evidence,now)
-        report['status']='degraded' if persistent or unavailable else 'recovering' if report['issues'] else 'healthy'
+        report['status']='degraded' if persistent or unavailable or report['publicService']['status']!='checked' else 'recovering' if report['issues'] else 'healthy'
         report['persistentFailures']=persistent
         for key,error in unavailable.items():report['workflows'][key]={'dispatch':False,'reason':'workflow_api_unavailable','error':error}
         for key,decision in report['workflows'].items():
@@ -235,6 +277,7 @@ def main():
             except Exception as exc:
                 decision.update(action='recovery_failed',error=str(exc))
         print(json.dumps(report,ensure_ascii=False,indent=2))
+        if report['publicService']['status']!='checked':raise RuntimeError('Public Cloudflare page or MCP probe failed; see retained report')
         if report.get('persistentFailures'):raise RuntimeError('Persistent automation failure: '+', '.join(report['persistentFailures'])+'; recovery requested with bounded retries')
         if unavailable or any(r.get('action')=='recovery_failed' for r in report['workflows'].values()):raise RuntimeError('Some automatic recovery actions could not complete; see retained report')
     finally:
