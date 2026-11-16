@@ -628,12 +628,12 @@
       "reason": "ValueError: Bilingual editorial review: The section claims evidence (s193, s194) discusses Buffett's political views and denies treating donations as a trust. However, the source text for s193 states: 'I don't think I put them in a blind trust at all when I take the job' referring to his 'political views', but does not explicitly state he denied treating donat"
     },
     "pabrai-80ac2772f94ba4": {
-      "at": "2026-11-16T06:03:36+00:00",
+      "at": "2026-11-16T19:44:52+00:00",
       "status": "retry",
       "inputHash": "13aa1ee6f43a048e56b259cfed50f497bc0e8337defe223690e99ece6d519885",
-      "failures": 2,
-      "nextAttemptAt": "2026-11-16T14:03:36+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English text incorrectly attributes the '20-punch card' metaphor to Buffett while the source (s5) explicitly states 'Buffett talks about...'; The English text misrepresents John Arrillaga's background as a friend of Charlie Munger who invested in real estate near Stanford, whereas s5 describes him as John Arrillaga's"
+      "failures": 3,
+      "nextAttemptAt": "2026-11-17T11:44:52+00:00",
+      "reason": "ValueError: Unsupported numerical claim: 2"
     },
     "vinall-c919ac8b6b58c4": {
       "at": "2026-11-16T14:41:43+00:00",
@@ -4661,5 +4661,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-16T19:44:40+00:00"
+  "updatedAt": "2026-11-16T19:44:52+00:00"
 }
