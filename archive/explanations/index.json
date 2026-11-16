@@ -822,12 +822,12 @@
       "reason": "ValueError: Bilingual editorial review: The source text (s1) states the script was written by the speechwriter for Saddam Hussein, but does not claim it is 'full of warmth and participatory elements' as a positive attribute; this phrasing in the content appears to be an editorial interpretation or misrepresentation of the context.; The source text (s30) refers"
     },
     "buffett-d6f1a801f004df": {
-      "at": "2026-11-15T16:35:24+00:00",
+      "at": "2026-11-16T15:37:15+00:00",
       "status": "retry",
       "inputHash": "5e6f0af3b4f6b4986097903db9bab953daf45a3d009a0aabf2c838c01c2a8e57",
-      "failures": 2,
-      "nextAttemptAt": "2026-11-16T00:35:24+00:00",
-      "reason": "ValueError: Bilingual editorial review: The source text (s542-s544) does not explicitly state that 'most assets in his portfolio (such as stocks) possess significant investment value' or that 'both actively buying cheap stocks and passively holding high-value assets can generate positive returns'. The claim about passive holding generating returns is an infere"
+      "failures": 3,
+      "nextAttemptAt": "2026-11-17T07:37:15+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English text claims Buffett believes 'every retained dollar can be converted into more than one dollar of present value.' The source (s544) states: 'by every dollar we retain... we can turn that into a greater than a dollar of present value,' which implies the *result* is >$1, not that each dollar converts to >$1. Th"
     },
     "buffett-56163a42ef5133": {
       "at": "2026-11-15T22:02:31+00:00",
@@ -4659,5 +4659,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-16T15:36:28+00:00"
+  "updatedAt": "2026-11-16T15:37:15+00:00"
 }
