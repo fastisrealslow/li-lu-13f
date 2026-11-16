@@ -2193,12 +2193,12 @@
       "reason": "ValueError: Bilingual editorial review: The English paragraph in the source content is incomplete and cuts off mid-sentence ('...frequently touted 'adjusted EBITDA','), lacking a conclusion or continuation found in the original text.; The Chinese translation of the incomplete sentence ends abruptly without completing the thought about adjusted EBITDA, failing "
     },
     "buffett-8ece24e5bcaa17": {
-      "at": "2026-11-15T16:07:14+00:00",
+      "at": "2026-11-16T06:04:56+00:00",
       "status": "retry",
       "inputHash": "5b9d13691059eb5f50e216d57bba5de007132cc50eed858d38e19542317b69aa",
-      "failures": 1,
-      "nextAttemptAt": "2026-11-15T20:07:14+00:00",
-      "reason": "ValueError: Incomplete AI Review at 1800 tokens"
+      "failures": 2,
+      "nextAttemptAt": "2026-11-16T14:04:56+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English text incorrectly states 'unrealized capital gains from pre-1987 holdings' were reserved at the 28% rate. The source (s7) clarifies that pre-1987 gains carry reserves booked at the 28% rate, while unrealized profits generated in 1987 and 1988 are reserved at the 34% rate. The text conflates these two categorie"
     },
     "hawkins-07ba7351c5c8c9": {
       "at": "2026-11-16T05:33:18+00:00",
@@ -4654,5 +4654,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-16T06:04:03+00:00"
+  "updatedAt": "2026-11-16T06:04:56+00:00"
 }
