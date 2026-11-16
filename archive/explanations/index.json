@@ -4462,12 +4462,12 @@
       "reason": "ValueError: Unsupported numerical claim: 0%"
     },
     "mclemore-1a0847caaee61c": {
-      "at": "2026-11-15T16:19:10+00:00",
+      "at": "2026-11-16T15:21:03+00:00",
       "status": "retry",
       "inputHash": "52db396160f24296ab651380cf0e88d1f6292da0199038a78a4ff95cf8b0be89",
-      "failures": 1,
-      "nextAttemptAt": "2026-11-15T20:19:10+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English translation in the content section incorrectly translates 'janitor' as 'ordinary janitor', but the source text (s1) refers to 'fellow-Vermonter Ronald Read' without explicitly stating his job title as 'janitor' in that specific sentence; however, s1 does say 'former janitor and gas-station attendant', so this"
+      "failures": 2,
+      "nextAttemptAt": "2026-11-16T23:21:03+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English translation in the content section incorrectly translates 'Snickers' as 'Snickers remained the same' but fails to explicitly state that Snickers was the best-selling candy bar in both 1962 and today, which is a key factual claim from source s1.; The Chinese text contains a grammatical error: 'consistently spe"
     },
     "marks-b11ef300a404cf": {
       "at": "2026-11-15T22:10:48+00:00",
@@ -4659,5 +4659,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-16T15:20:52+00:00"
+  "updatedAt": "2026-11-16T15:21:03+00:00"
 }
