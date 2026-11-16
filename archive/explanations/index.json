@@ -1457,12 +1457,12 @@
       "reason": "ValueError: Bilingual editorial review: The Chinese text incorrectly attributes the quote 'Necessity is the mother of all inventions' to Rahul in s6; the source only has Rahul's preceding statement and does not contain this specific English quotation.; The Chinese text claims Pabrai learned to 'turn over every rock' from facing creditor crises, whereas the sou"
     },
     "pabrai-af56eda3b8814e": {
-      "at": "2026-11-15T08:03:41+00:00",
+      "at": "2026-11-16T07:41:25+00:00",
       "status": "retry",
       "inputHash": "dada15f38b99675a81412739bd958157247c15138f886e288b0c4422c877d102",
-      "failures": 1,
-      "nextAttemptAt": "2026-11-15T12:03:41+00:00",
-      "reason": "ValueError: Unsupported scaled numerical claim: 2"
+      "failures": 2,
+      "nextAttemptAt": "2026-11-16T15:41:25+00:00",
+      "reason": "ValueError: Bilingual editorial review: The source text does not mention 'Queen Isabella' or Columbus's voyage; it only mentions a story starting with Columbus sailing for America without specifying the year 1491 or the $30,000 figure.; The source text does not explicitly state that Einstein called compounding 'the eighth wonder of the world'; this is an exter"
     },
     "pabrai-514a02fe7f32ad": {
       "at": "2026-11-15T03:14:22+00:00",
@@ -4654,5 +4654,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-16T07:40:51+00:00"
+  "updatedAt": "2026-11-16T07:41:25+00:00"
 }
