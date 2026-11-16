@@ -4430,12 +4430,12 @@
       "reason": "ValueError: Copied source passage"
     },
     "marks-5a01e8c6cdc121": {
-      "at": "2026-11-15T08:27:09+00:00",
+      "at": "2026-11-16T15:07:17+00:00",
       "status": "retry",
       "inputHash": "9d5b056bcec5e945c888e2566b24e562796dac2014dc5f493d4a1684eb08bcc2",
-      "failures": 1,
-      "nextAttemptAt": "2026-11-15T12:27:09+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English content incorrectly paraphrases the source text by adding the phrase 'meaning that regardless of asset quality, incorrect pricing can destroy investment returns.' This specific reasoning is not present in the provided evidence (s5) and constitutes invented content.; The Chinese content similarly adds the phra"
+      "failures": 2,
+      "nextAttemptAt": "2026-11-16T23:07:17+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English translation incorrectly states 'company prices' instead of 'stock prices' or 'valuation', as LBOs involve corporate valuations, not direct company price movements in the same context.; The Chinese text claims Marx's analysis relies on 'historical facts' to reveal logic, but the source only provides specific e"
     },
     "mclemore-c63cd49977e879": {
       "at": "2026-11-16T14:53:27+00:00",
@@ -4659,5 +4659,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-16T15:07:01+00:00"
+  "updatedAt": "2026-11-16T15:07:17+00:00"
 }
