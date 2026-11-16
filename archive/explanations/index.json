@@ -3275,12 +3275,12 @@
       "reason": "ValueError: Bilingual editorial review: The English paragraph misquotes the source text: it changes 'discredited with the irrational dream' to 'discredited with', which alters the meaning. The correct phrasing should be 'once discredited, investors give up on that irrational dream'.; The English paragraph adds 'late 2000 internet bubble' instead of '1999-2000'"
     },
     "marks-daf0ad253be7ac": {
-      "at": "2026-11-15T16:13:27+00:00",
+      "at": "2026-11-16T05:14:28+00:00",
       "status": "retry",
       "inputHash": "2374b2e2fb04b891e95f63b0db32a450042448ed05497e7f009e425fb3320e94",
-      "failures": 2,
-      "nextAttemptAt": "2026-11-16T00:13:27+00:00",
-      "reason": "ValueError: Bilingual editorial review: The Chinese translation of s2 ('I remember having a spirited discussion...') is missing the specific detail about the 'University of Chicago' mentioned in the source text.; The Chinese translation of s3 incorrectly states that Marks admitted they were both right and wrong regarding the 'surface-level fact', whereas the s"
+      "failures": 3,
+      "nextAttemptAt": "2026-11-16T21:14:28+00:00",
+      "reason": "ValueError: Unsupported numerical claim: 20"
     },
     "marks-184e7e53d76037": {
       "at": "2026-11-15T16:46:55+00:00",
@@ -4650,5 +4650,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-16T05:13:45+00:00"
+  "updatedAt": "2026-11-16T05:14:28+00:00"
 }
