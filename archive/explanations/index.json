@@ -4627,12 +4627,12 @@
       "reason": "ValueError: Bilingual editorial review: The source text (s4) states 'the men will eventually be separated from the boys' without defining who 'men' or 'boys' are. The content section explicitly interprets this as AI leaders ('men') separating from traditional giants ('boys'), which is an unwritten editorial interpretation not supported by the source.; The sour"
     },
     "mclemore-63c13891e48d9e": {
-      "at": "2026-11-15T15:58:34+00:00",
+      "at": "2026-11-16T15:33:54+00:00",
       "status": "retry",
       "inputHash": "d121fa272ec8613c54fcfa64ae7ce184e0f1f50f3f8cd4dc78b112aee6d7590e",
-      "failures": 1,
-      "nextAttemptAt": "2026-11-15T19:58:34+00:00",
-      "reason": "ValueError: Bilingual editorial review: The source text does not explicitly state that revenue increased from $21.6 million to $53.1 million and then to $72.9 million; it only mentions the third-quarter figure of $72.9 million growing 37% sequentially. The intermediate figures are inferred but not directly supported by the provided evidence.; The source text d"
+      "failures": 2,
+      "nextAttemptAt": "2026-11-16T23:33:54+00:00",
+      "reason": "ValueError: Bilingual editorial review: The source text does not explicitly state that revenue grew from $21.6 million to $53.1 million; it only lists the sequence of growth without specifying the intermediate figure.; The source text states 'more than twice consensus' regarding the initial estimate, but does not explicitly confirm that the initial estimate wa"
     },
     "vinall-9841a594da96d9": {
       "at": "2026-11-16T07:26:46+00:00",
@@ -4659,5 +4659,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-16T15:33:50+00:00"
+  "updatedAt": "2026-11-16T15:33:54+00:00"
 }
