@@ -2820,12 +2820,12 @@
       "reason": "ValueError: Bilingual editorial review: The English content incorrectly attributes the quote 'For years, investors thought conditions were good...' to Howard Marks as a direct statement from him in the article. The source text (s12) presents this as the author's own belief ('we at Oaktree believed'), not a quotation of someone else.; The English content miside"
     },
     "marks-e85898c6125044": {
-      "at": "2026-11-15T16:31:09+00:00",
+      "at": "2026-11-16T07:55:03+00:00",
       "status": "retry",
       "inputHash": "8ddf39479f3b32eb95c5a717bb27fcbbe8da22a2185ecb2880c5f9337193b85e",
-      "failures": 1,
-      "nextAttemptAt": "2026-11-15T20:31:09+00:00",
-      "reason": "ValueError: Bilingual editorial review: The Chinese text contains a factual error: it claims Kaufman predicted the secular trend would turn 'upward' (translating 'secular sweep downwards... is over'), whereas the source (s13) states he said the downward sweep was 'over' and we are about to have a 'gentle swing upwards'. The phrasing in the Chinese text ('long-"
+      "failures": 2,
+      "nextAttemptAt": "2026-11-16T15:55:03+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English translation in the content section contains a factual error: 'virtually unforesen' is not a valid English word. It should be corrected to 'unforeseen'.; The Chinese text correctly translates 'unforeseen', but the corresponding English version has a typo that distorts the meaning.; No other concrete errors wer"
     },
     "marks-31c5c4c7673de3": {
       "at": "2026-11-16T07:37:59+00:00",
@@ -4656,5 +4656,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-16T07:54:30+00:00"
+  "updatedAt": "2026-11-16T07:55:03+00:00"
 }
