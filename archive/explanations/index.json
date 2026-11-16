@@ -2972,12 +2972,12 @@
       "reason": "ValueError: Bilingual editorial review: The Chinese text incorrectly attributes the quote 'We don't consider ourselves to be value investors...' to Buffett alone; the source (s13) explicitly states 'As Buffett put it' but the preceding sentence says 'Both Graham and Buffett... viewed value investing as consisting of...', implying a shared view, not necessarily"
     },
     "marks-b88c0cce52f3a9": {
-      "at": "2026-11-15T22:03:59+00:00",
+      "at": "2026-11-16T15:43:36+00:00",
       "status": "retry",
       "inputHash": "9d9adf7a1154deec63b8585db9e06412e05b8ef336970a67101237e49b73f1ea",
-      "failures": 2,
-      "nextAttemptAt": "2026-11-16T06:03:59+00:00",
-      "reason": "ValueError: Bilingual editorial review: The Chinese text claims 'nearly half of the stocks were down' (near 50%), while the source (s1) states 'Almost as many stocks were down (1,318) as up (1,695)', which is approximately 43.5% down and 56.5% up. The phrasing 'nearly half' is a reasonable paraphrase of 'almost as many', so this is not a concrete material erro"
+      "failures": 3,
+      "nextAttemptAt": "2026-11-17T07:43:36+00:00",
+      "reason": "ValueError: Unsupported numerical claim: 5.4%"
     },
     "mclemore-0be81e13a45531": {
       "at": "2026-11-15T22:04:02+00:00",
@@ -4659,5 +4659,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-16T15:42:57+00:00"
+  "updatedAt": "2026-11-16T15:43:36+00:00"
 }
