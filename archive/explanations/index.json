@@ -4031,12 +4031,12 @@
       "reason": "ValueError: Bilingual editorial review: The summary correctly identifies Samantha McLemore as the author using the canonical name.; The summary accurately reflects the core argument regarding oil prices being a net positive for consumers despite regional concerns.; The summary correctly cites the CEOs of JP Morgan and Bank of America as observers of the situat"
     },
     "marks-05b38067d482db": {
-      "at": "2026-11-15T07:27:06+00:00",
+      "at": "2026-11-16T07:53:00+00:00",
       "status": "retry",
       "inputHash": "c059d951b763be37ac7080839d7e7324bce04c6610655c0e672c589837bb46f7",
-      "failures": 1,
-      "nextAttemptAt": "2026-11-15T11:27:06+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English translation contains factual errors regarding the author attribution: it incorrectly attributes the quote about 'improbable disasters' and the general discussion to Howard Marks, whereas the source text (s25) explicitly states that Nassim Nicholas Taleb wrote 'Fooled by Randomness' on this subject. The origin"
+      "failures": 2,
+      "nextAttemptAt": "2026-11-16T15:53:00+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English text incorrectly attributes the phrase 'improbable disasters' to Howard Marks as a direct quote from Nassim Nicholas Taleb's 'Fooled by Randomness', whereas the source (s25) states that Marks calls them this ('what I call the...') and only references Taleb's book regarding deception by randomness, not this sp"
     },
     "marks-2b0acf3944f6ef": {
       "at": "2026-11-15T21:56:20+00:00",
@@ -4656,5 +4656,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-16T07:52:44+00:00"
+  "updatedAt": "2026-11-16T07:53:00+00:00"
 }
