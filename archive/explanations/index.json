@@ -1092,12 +1092,12 @@
       "reason": "ValueError: Bilingual editorial review: The English translation of 'hit rate' as 'win rate' is acceptable but 'hit rate' is more precise for investment contexts; however, this is a minor stylistic choice and not a factual error.; The phrase 'even if Buffett had a 95% error rate' in the English text accurately reflects the source's claim about his miss rate, so"
     },
     "pabrai-c601c5640111d6": {
-      "at": "2026-11-15T07:57:22+00:00",
+      "at": "2026-11-16T08:34:39+00:00",
       "status": "retry",
       "inputHash": "e32bcdfbc843caa48fc9a723c3c99199d434cc9ba64e75c22a923297ef257ea6",
-      "failures": 1,
-      "nextAttemptAt": "2026-11-15T11:57:22+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English translation of 'American Express' is correct; however, the phrase 'free consumption' slightly misrepresents the source's intent of 'spend as you want', which implies autonomy rather than just freedom from restriction. A more precise phrasing would be 'allowing them to spend as they wished without asking for p"
+      "failures": 2,
+      "nextAttemptAt": "2026-11-16T16:34:39+00:00",
+      "reason": "ValueError: Bilingual editorial review: The source text does not mention 'JNV Bangalore' in the provided excerpts (s25-s27); this location appears only in the metadata/title and is absent from the quoted evidence.; The source text does not explicitly state that Pabrai's father granted him financial freedom; it describes his brother giving him access to a purse"
     },
     "lilu-f9c5b8c9904f52": {
       "at": "2026-11-16T05:44:17+00:00",
@@ -4656,5 +4656,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-16T08:34:06+00:00"
+  "updatedAt": "2026-11-16T08:34:39+00:00"
 }
