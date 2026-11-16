@@ -1321,12 +1321,12 @@
       "reason": "ValueError: Bilingual editorial review: The source text (s7) does not mention 'numerous' or 'severely undervalued'; it states there are 'at least six or seven' instances of PE ~1 in the portfolio over 19 years, which contradicts the claim of 'numerous'.; The source text (s8) explicitly states Rain Industries was trading at a normal multiple ('10 or 15 times ea"
     },
     "pabrai-36450d370316ee": {
-      "at": "2026-11-15T21:47:55+00:00",
+      "at": "2026-11-16T08:02:55+00:00",
       "status": "retry",
       "inputHash": "ce433e0b519779154bc0bcf5dd15d2d5b324810bcc3336cdf79eff981d5030c1",
-      "failures": 2,
-      "nextAttemptAt": "2026-11-16T05:47:55+00:00",
-      "reason": "ValueError: Bilingual editorial review: The source text (s2) cuts off mid-sentence ('It's very dangerous to'), but the paraphrase completes this thought logically based on context. While not a factual error, the paraphrase adds words ('to predict business trajectories') that are implied but not explicitly stated in the provided evidence snippet.; The paraphras"
+      "failures": 3,
+      "nextAttemptAt": "2026-11-17T00:02:55+00:00",
+      "reason": "ValueError: Bilingual editorial review: The source text (s1) does not explicitly state that Pabrai sold his business *before* becoming an official professional investor; it says he eventually sold it before becoming one, implying the sequence but not as a definitive factual claim in the provided excerpt. The paraphrase presents this as a confirmed fact.; The s"
     },
     "pabrai-18c92ff6cf0411": {
       "at": "2026-11-15T21:57:37+00:00",
@@ -4656,5 +4656,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-16T08:02:46+00:00"
+  "updatedAt": "2026-11-16T08:02:55+00:00"
 }
