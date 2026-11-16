@@ -4569,12 +4569,12 @@
       "reason": "ValueError: Bilingual editorial review: The English translation contains the phrase 'longer-term horizon' which is a direct translation of the ASR text's likely error ('horizon') and lacks parallel structure with 'current investments', creating awkward phrasing.; The Chinese translation uses 'horizon' as a loanword without translating it to its meaning (e.g., "
     },
     "greenblatt-fa1bc818776c75": {
-      "at": "2026-11-15T21:25:56+00:00",
+      "at": "2026-11-16T07:27:33+00:00",
       "status": "retry",
       "inputHash": "34b9c685e1aeb066573ff80e3642750b561929b928e33b3d90a58d2b9e282312",
-      "failures": 2,
-      "nextAttemptAt": "2026-11-16T05:25:56+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English translation of 'Cyber and rivalry is always good' (s13) appears to be a transcription error or misinterpretation; contextually it likely refers to 'Cyrus and rivalry' or similar, but the source text itself contains this phrase. The editor should not invent corrections for unclear ASR data unless it contradict"
+      "failures": 3,
+      "nextAttemptAt": "2026-11-16T23:27:33+00:00",
+      "reason": "ValueError: Bilingual editorial review: The source text does not mention 'corporate rivalry' or 'cyber/rivalry'; it only states 'Cyber and rivalry is always good', which is a generic statement unrelated to career choice.; The source text does not explicitly state that the competitive nature of his family background made attending Wharton a logical choice; this"
     },
     "akre-98d708d2727ef5": {
       "at": "2026-11-15T16:00:24+00:00",
@@ -4654,5 +4654,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-16T07:27:24+00:00"
+  "updatedAt": "2026-11-16T07:27:33+00:00"
 }
