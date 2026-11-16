@@ -3009,12 +3009,12 @@
       "reason": "ValueError: Copied source passage"
     },
     "marks-76d48589ef63f2": {
-      "at": "2026-11-15T16:49:38+00:00",
+      "at": "2026-11-16T08:26:32+00:00",
       "status": "retry",
       "inputHash": "132fad5c7eaf162d2b120185cf2facc739dd3bc9f72036d6aae89fb5ff0ca58e",
-      "failures": 1,
-      "nextAttemptAt": "2026-11-15T20:49:38+00:00",
-      "reason": "ValueError: Bilingual editorial review: The source (s3) does not mention 'Latino', 'Asian-American', or 'unmarried' as Obama's supporting groups; it only lists 'Latino', 'African-American', and 'Asian-American' alongside 'female', 'younger', 'college-educated'.; The source (s4) refers to a 1930 painting by Grant Wood titled 'American Gothic', not 'American Cas"
+      "failures": 2,
+      "nextAttemptAt": "2026-11-16T16:26:32+00:00",
+      "reason": "ValueError: Bilingual editorial review: The Chinese text incorrectly claims 'roughly 43 states' are uncompetitive; the English source (s12) states 'Most of the 50 states – this year it was roughly 43', which refers to the total number of states considered uncompetitive, not a subset. The phrasing in the translation implies only 43 exist or are being discussed "
     },
     "marks-3becefd0c7c602": {
       "at": "2026-11-15T16:47:48+00:00",
@@ -4656,5 +4656,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-16T08:25:08+00:00"
+  "updatedAt": "2026-11-16T08:26:32+00:00"
 }
