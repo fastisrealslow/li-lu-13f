@@ -3558,12 +3558,12 @@
       "reason": "ValueError: Copied source passage"
     },
     "mclemore-3019cb6aeeae03": {
-      "at": "2026-11-16T05:53:51+00:00",
+      "at": "2026-11-16T19:20:24+00:00",
       "status": "retry",
       "inputHash": "07cf06775ee1d2494565549aff26c54ed3f7afb6da1cacd5c01d56c2373fa009",
-      "failures": 2,
-      "nextAttemptAt": "2026-11-16T13:53:51+00:00",
-      "reason": "ValueError: Bilingual editorial review: The Chinese text incorrectly states that the author argues 'the method of holding matters more than what is held' (holding style vs. asset selection). The source text explicitly states: 'the single most important determinant of long-term returns is not what you own, but how you own it,' which directly supports the claim "
+      "failures": 3,
+      "nextAttemptAt": "2026-11-17T11:20:24+00:00",
+      "reason": "ValueError: Bilingual editorial review: The Chinese translation of 'donut' as 'sweet bun' (implied by context) is acceptable; no correction needed.; The phrase 'pass on that donut' was translated as 'eating it' in the reasoning but correctly rendered as 'resist eating it' in the final paragraph. This is a minor clarity issue but not a factual error.; No concre"
     },
     "mclemore-ef95615b4d0d41": {
       "at": "2026-11-16T15:26:06+00:00",
@@ -4661,5 +4661,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-16T19:19:49+00:00"
+  "updatedAt": "2026-11-16T19:20:24+00:00"
 }
