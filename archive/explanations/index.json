@@ -1220,12 +1220,12 @@
       "reason": "ValueError: Bilingual editorial review: The English translation of 'industrial psychologists' in s3 is accurate; no correction needed.; The English translation of 'Forrest Gump' in s5 is accurate; no correction needed.; The English translation of 'silver spoon' in s60 is accurate; no correction needed."
     },
     "pabrai-a08413f47088be": {
-      "at": "2026-11-16T05:39:17+00:00",
+      "at": "2026-11-16T19:46:15+00:00",
       "status": "retry",
       "inputHash": "e0d728dcf1dbcdc0030a0a94b51d25b84925c064cdfcb68220445c8bb820881a",
-      "failures": 2,
-      "nextAttemptAt": "2026-11-16T13:39:17+00:00",
-      "reason": "ValueError: Bilingual editorial review: The source text does not mention 'physiological plasticity' (physiological plasticity) as a mechanism; it only states that the window is critical for specialization and that early experiences shape long-term ability. The claim about physiological plasticity is an external interpretation not explicitly supported by the pr"
+      "failures": 3,
+      "nextAttemptAt": "2026-11-17T11:46:15+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English translation in the source content incorrectly states that neuron connections grow exponentially between ages 11 and 20; the source text actually says connections grow from birth to age 5, then specialize between 11 and 20.; The English translation misrepresents Buffett's quote by implying he is a 'better busi"
     },
     "pabrai-96a9fab5d602f9": {
       "at": "2026-11-16T15:16:56+00:00",
@@ -4661,5 +4661,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-16T19:45:28+00:00"
+  "updatedAt": "2026-11-16T19:46:15+00:00"
 }
