@@ -1076,12 +1076,12 @@
       "reason": "ValueError: Bilingual editorial review: The source text (s4) is cut off mid-sentence ('who has visited more') and does not contain the specific claim that 'these giants were essentially followers of the Me Too model rather than true innovators'. This conclusion appears to be an editorial interpretation added in the content section without direct textual suppor"
     },
     "pabrai-656ae25b22f620": {
-      "at": "2026-11-16T05:11:03+00:00",
+      "at": "2026-11-16T19:30:07+00:00",
       "status": "retry",
       "inputHash": "17a6cb82183d71de20de077db9f78fa457349eec2c056d4ff31a4a1f2937af83",
-      "failures": 2,
-      "nextAttemptAt": "2026-11-16T13:11:03+00:00",
-      "reason": "ValueError: Unsupported numerical claim: 500"
+      "failures": 3,
+      "nextAttemptAt": "2026-11-17T11:30:07+00:00",
+      "reason": "ValueError: Unsupported numerical claim: 100,000"
     },
     "pabrai-58b2cd1ba68941": {
       "at": "2026-11-16T07:57:17+00:00",
@@ -4661,5 +4661,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-16T19:29:30+00:00"
+  "updatedAt": "2026-11-16T19:30:07+00:00"
 }
