@@ -3645,12 +3645,12 @@
       "reason": "ValueError: Bilingual editorial review: The English text states 'since World War II' but the evidence (s0) only specifies data since 1945; adding 'World War II' is an external assumption not in the source.; The Chinese text claims 'years where the market rose as much as it did in the first two months of the year', which misrepresents the source's condition ('w"
     },
     "marks-a54b6d962b74e9": {
-      "at": "2026-11-15T07:24:51+00:00",
+      "at": "2026-11-16T05:45:22+00:00",
       "status": "retry",
       "inputHash": "a63cc15adff673525bf6c341164cdedca884b7b9a670d3d3545abdf1c436813c",
-      "failures": 1,
-      "nextAttemptAt": "2026-11-15T11:24:51+00:00",
-      "reason": "ValueError: Copied source passage"
+      "failures": 2,
+      "nextAttemptAt": "2026-11-16T13:45:22+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English translation of the evidence section (s5-s7) contains factual errors regarding the specific quotes attributed to Howard Marks. The source text (s6) lists four distinct beliefs: 'worldwide wall of liquidity', 'Triple-A CDOs are as safe...', 'Leverage holds the key...', and 'Tranching... eliminating it'. However"
     },
     "marks-0536029da7292f": {
       "at": "2026-11-15T04:55:35+00:00",
@@ -4652,5 +4652,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-16T05:44:57+00:00"
+  "updatedAt": "2026-11-16T05:45:22+00:00"
 }
