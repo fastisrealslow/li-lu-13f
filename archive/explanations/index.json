@@ -1276,12 +1276,12 @@
       "reason": "ValueError: Bilingual editorial review: The Chinese text incorrectly attributes the narrative of bidding for Buffett's lunch to 'Pabrai' (referring to Mohnish Pabrai) as if he were a separate entity or narrator distinct from himself. The source text (s3, s4, s5) clearly shows that Mohnish Pabrai is the one recounting his own experience ('I had bid...', 'I felt"
     },
     "pabrai-7bfbc5a1d4d5fb": {
-      "at": "2026-11-15T21:40:12+00:00",
+      "at": "2026-11-16T19:43:44+00:00",
       "status": "retry",
       "inputHash": "40abdca7194da6e7c6656837f07dbea65a1de6b62e4ad11d0e4b85baa2027eb6",
-      "failures": 2,
-      "nextAttemptAt": "2026-11-16T05:40:12+00:00",
-      "reason": "ValueError: Unsupported numerical claim: 1.5"
+      "failures": 3,
+      "nextAttemptAt": "2026-11-17T11:43:44+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English translation incorrectly states Buffett 'promised never to sell in the future' (evidence s8). The source text only quotes Buffett's statement that he will 'never sell a share' in the future ('He said that he will... never sell a share'), but does not contain an explicit 'promise' or contractual commitment. Thi"
     },
     "pabrai-1fcbfca9aa46bc": {
       "at": "2026-11-16T15:34:41+00:00",
@@ -4661,5 +4661,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-16T19:43:43+00:00"
+  "updatedAt": "2026-11-16T19:43:44+00:00"
 }
