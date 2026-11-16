@@ -902,12 +902,12 @@
       "reason": "ValueError: Bilingual editorial review: The source text (s13-s15) does not contain any mention of 'compounding', 'wealth generation', or 'mathematical formulas'. The section claims Pabrai discussed these concepts and tested Kevin's understanding of them, but the provided evidence only covers happiness, money, Bridge, chess, and time management.; The content ha"
     },
     "buffett-98e90a4cbe9b9a": {
-      "at": "2026-11-15T07:44:09+00:00",
+      "at": "2026-11-16T08:14:43+00:00",
       "status": "retry",
       "inputHash": "4ca52cd078b7ec227bc345736c0dda40ed2ebb561b23f42bbae0dc5cc71c004b",
-      "failures": 1,
-      "nextAttemptAt": "2026-11-15T11:44:09+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English translation of the Chinese paragraph incorrectly paraphrases Buffett's original quote. The source (s192) states he 'quit or waited for it to come back' after prices rose, whereas the provided English text claims he would 'stop adding capital or wait for a pullback'. This is an unsupported editorial interpreta"
+      "failures": 2,
+      "nextAttemptAt": "2026-11-16T16:14:43+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English translation incorrectly states Buffett invested 'only about $10 billion' instead of more; the source (s193) explicitly says he 'cost us about 10 billion', implying this was the total loss/missed opportunity relative to his original plan, not that he successfully invested only that amount when he intended more"
     },
     "pabrai-8e99da8abadc1f": {
       "at": "2026-11-16T05:57:25+00:00",
@@ -4656,5 +4656,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-16T08:13:56+00:00"
+  "updatedAt": "2026-11-16T08:14:43+00:00"
 }
