@@ -1601,12 +1601,12 @@
       "reason": "ValueError: Bilingual editorial review: The source text (s6) states Nick Sleep told investors to invest in 'the five, six stocks that we have most your money in', but the summary claims he suggested investing in 'the five or six stocks comprising the majority of the fund's holdings'. The phrase 'most your money in' refers to the specific concentration of the i"
     },
     "pabrai-35e6c02262592b": {
-      "at": "2026-11-15T08:20:38+00:00",
+      "at": "2026-11-16T07:27:53+00:00",
       "status": "retry",
       "inputHash": "5a7c3b47eee745fd1103fc0f1fc7e9cb7a246980452aea4c5e780ce0d9a19ecb",
-      "failures": 1,
-      "nextAttemptAt": "2026-11-15T12:20:38+00:00",
-      "reason": "ValueError: Bilingual editorial review: The source text does not explicitly mention 'Benjamin Graham' or his specific teaching of 'buying low and selling high as it approaches fair value'; it only refers to 'what Ben Graham kind of the Father of Value Investing taught us'. While this is a canonical association, the source itself lacks the explicit attribution "
+      "failures": 2,
+      "nextAttemptAt": "2026-11-16T15:27:53+00:00",
+      "reason": "ValueError: Unsupported numerical claim: 40%"
     },
     "pabrai-a9fc9ab5dab038": {
       "at": "2026-11-15T21:47:50+00:00",
@@ -4654,5 +4654,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-16T07:27:33+00:00"
+  "updatedAt": "2026-11-16T07:27:53+00:00"
 }
