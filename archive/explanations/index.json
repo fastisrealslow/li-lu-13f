@@ -4398,12 +4398,12 @@
       "reason": "ValueError: Bilingual editorial review: The Chinese text incorrectly states '2017  year second quarter' (2017  2Q) as the period of underperformance driving mean reversion; the source (s0) clearly attributes the poor performance to the first two quarters of **2016**, not 2017.; The Chinese text omits the specific quantitative comparison mentioned in the source"
     },
     "marks-767838293600df": {
-      "at": "2026-11-15T08:17:32+00:00",
+      "at": "2026-11-16T14:57:42+00:00",
       "status": "retry",
       "inputHash": "a32026f50662efd378d855f21920cf42dba405dbeb45dea4421253a5fcb8475f",
-      "failures": 1,
-      "nextAttemptAt": "2026-11-15T12:17:32+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English text incorrectly states the source of the samples as 'stored in his desk drawer at The Wall Street Journal'. The original text (s0) says he was stashing away surveys from the Wall Street Journal, but they were stored in *his* (Howard Marks') desk drawer. The preposition 'at' implies the drawer belongs to or i"
+      "failures": 2,
+      "nextAttemptAt": "2026-11-16T22:57:42+00:00",
+      "reason": "ValueError: Unsupported numerical claim: 2"
     },
     "mclemore-c9cce3ba950c1c": {
       "at": "2026-11-15T17:07:21+00:00",
@@ -4659,5 +4659,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-16T14:56:47+00:00"
+  "updatedAt": "2026-11-16T14:57:42+00:00"
 }
