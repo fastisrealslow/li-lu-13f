@@ -4066,12 +4066,12 @@
       "reason": "ValueError: Bilingual editorial review: The Chinese text incorrectly states that Howard Marks 'does not mention Iraq as a specific cause' (he does not mention it in the provided source), but then claims this attribution is 'external fabrication rather than a claim supported by the source text'. This is circular and misleading; the source simply omits the cause"
     },
     "marks-b834dc74a3b582": {
-      "at": "2026-11-15T16:21:33+00:00",
+      "at": "2026-11-16T15:04:10+00:00",
       "status": "retry",
       "inputHash": "9a7bd09212767de836cee7089b7b7563b0585013f886342624aac1a8fb82a7ef",
-      "failures": 2,
-      "nextAttemptAt": "2026-11-16T00:21:33+00:00",
-      "reason": "ValueError: Bilingual editorial review: The Chinese content claims Howard Marks discusses specific hedging techniques and explains convertible bond pricing mechanics (e.g., selling at $1,000 when conversion value is $800). However, the provided English source text (s3, s4, s6) does not contain these details. Section s6 mentions a scenario where a bond sells fo"
+      "failures": 3,
+      "nextAttemptAt": "2026-11-17T07:04:10+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English translation in the 'content' section incorrectly attributes the discussion of convertible arbitrage methodology and the $20/$800/$1,000 example to Ed Thorp. The source text (s4) explicitly states that **Thorp** pioneered this field after blackjack; it does not claim he discussed these specific bond mechanics."
     },
     "mclemore-41dc37ba8f99c2": {
       "at": "2026-11-15T22:12:43+00:00",
@@ -4659,5 +4659,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-16T15:03:46+00:00"
+  "updatedAt": "2026-11-16T15:04:10+00:00"
 }
