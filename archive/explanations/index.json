@@ -3332,12 +3332,12 @@
       "reason": "ValueError: Bilingual editorial review: The source text (s10) does not mention 'over-taxation' of hospitals; it only notes shortages and the system being underprepared. The claim that hospitals are 'over-taxed' is an invented motive not supported by the evidence.; The source text (s12) states the health system is 'underprepared' but does not attribute this sta"
     },
     "marks-7b9004acfc98a0": {
-      "at": "2026-11-15T16:16:32+00:00",
+      "at": "2026-11-16T14:38:08+00:00",
       "status": "retry",
       "inputHash": "45210a7e2dc593fa0f4e3cde3ce8d1e0c7f85ef82423c87dae6c6cd124591b9d",
-      "failures": 1,
-      "nextAttemptAt": "2026-11-15T20:16:32+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English text in the paragraph incorrectly attributes the quote to Carl Tannenbaum as a direct statement of 'ingredients... were present but underappreciated' and 'questioned the previous presumption'. The source (s13) presents these ideas as reported speech ('said...', 'he added', 'I don't think...'), not as direct q"
+      "failures": 2,
+      "nextAttemptAt": "2026-11-16T22:38:08+00:00",
+      "reason": "ValueError: Copied source passage"
     },
     "mclemore-b21e171f7506d8": {
       "at": "2026-11-15T21:40:35+00:00",
@@ -4659,5 +4659,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-16T14:37:41+00:00"
+  "updatedAt": "2026-11-16T14:38:08+00:00"
 }
