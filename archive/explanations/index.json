@@ -1729,12 +1729,12 @@
       "reason": "ValueError: Bilingual editorial review: The content incorrectly identifies the speaker's profession as being in 'insurance' (Acquisition Strategy in Insurance), whereas the source text explicitly discusses non-profit foundations and philanthropy.; The content misrepresents Pabrai's argument by claiming he criticizes diversification; the source states that nonp"
     },
     "pabrai-87529cf106b12a": {
-      "at": "2026-11-15T08:25:44+00:00",
+      "at": "2026-11-16T05:32:59+00:00",
       "status": "retry",
       "inputHash": "ac633bc3786100b500ba0893eb8ed436234930d450cee71e509dc3ba9f588c83",
-      "failures": 1,
-      "nextAttemptAt": "2026-11-15T12:25:44+00:00",
-      "reason": "ValueError: Bilingual editorial review: The source text (evidence s4) does not mention 'four' daughters; it states 'There are four of them who started this kind of beauty product stash startup', implying the speaker's daughter and three others, or potentially four entities including the daughter. The summary explicitly claims 'four... founded by his daughters'"
+      "failures": 2,
+      "nextAttemptAt": "2026-11-16T13:32:59+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English translation contains factual inaccuracies regarding the source text. The source states 'four of them who started this kind of beauty product stash startup' (referring to four products/brands), but the translation incorrectly claims these brands were founded by 'his daughters' (plural) without explicit support"
     },
     "pabrai-669ee549324b11": {
       "at": "2026-11-15T03:48:15+00:00",
@@ -4652,5 +4652,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-16T05:32:33+00:00"
+  "updatedAt": "2026-11-16T05:32:59+00:00"
 }
