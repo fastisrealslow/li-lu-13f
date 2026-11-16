@@ -716,12 +716,12 @@
       "reason": "ValueError: Unsupported numerical claim: 62%"
     },
     "buffett-b39c1475f5798b": {
-      "at": "2026-11-16T05:41:32+00:00",
+      "at": "2026-11-16T19:27:06+00:00",
       "status": "retry",
       "inputHash": "fa2037bd29f450754718c74c89df8e1067b1337a368e32d2f77fab1b480b97ca",
-      "failures": 2,
-      "nextAttemptAt": "2026-11-16T13:41:32+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English translation in the 'paragraphs' section contains a significant factual error regarding the source text (s13). The source states Buffett's suggestion was that he lived in a 'grand style' without dividends because he was 'so rich'. The translation incorrectly attributes this to 'his personal spending habits', w"
+      "failures": 3,
+      "nextAttemptAt": "2026-11-17T11:27:06+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English translation misrepresents s30: Buffett states he joined forces with someone he had 'really no contact with', but the text does not claim he participated in a 'war' or that war is generally a bad idea; this is an editorial interpretation presented as fact.; The English translation incorrectly attributes to s31"
     },
     "buffett-30288645558b65": {
       "at": "2026-11-16T06:06:26+00:00",
@@ -4661,5 +4661,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-16T19:26:38+00:00"
+  "updatedAt": "2026-11-16T19:27:06+00:00"
 }
