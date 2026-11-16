@@ -4183,12 +4183,12 @@
       "reason": "ValueError: Bilingual editorial review: The English text incorrectly states LTCM supported '$1.25 trillion in notional value derivatives' while the source (s3) specifies an aggregate 'notional value' of '$1.25 trillion', which refers to the total portfolio including long and short positions, not just derivatives.; The English text claims LTCM borrowed to ampli"
     },
     "mclemore-ffff9205003564": {
-      "at": "2026-11-15T07:26:28+00:00",
+      "at": "2026-11-16T05:21:50+00:00",
       "status": "retry",
       "inputHash": "e198e237dab2e97ce226d874f029823d4346fb81b6602b24cf5f3406df031ee8",
-      "failures": 1,
-      "nextAttemptAt": "2026-11-15T11:26:28+00:00",
-      "reason": "ValueError: Bilingual editorial review: The Chinese translation in the `content` section incorrectly attributes the quote about the paralyzed victim and wheelchair to Samantha McLemore. The source text (s1) explicitly states this is Larry Summers' point ('Framed this way... It's like a victim paralyzed...'), not McLemore's.; The English translation in the `con"
+      "failures": 2,
+      "nextAttemptAt": "2026-11-16T13:21:50+00:00",
+      "reason": "ValueError: Bilingual editorial review: The Chinese text incorrectly attributes the 'wheelchair analogy' to Samantha McLemore; the source (s1) explicitly states it is Larry Summers' point/analogy.; The Chinese text claims McLemore 'applies this logic to interest rates,' whereas the source indicates she uses Summers' analogy to illustrate his point about intere"
     },
     "marks-77e61c6230c5f6": {
       "at": "2026-11-15T22:15:07+00:00",
@@ -4650,5 +4650,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-16T05:21:38+00:00"
+  "updatedAt": "2026-11-16T05:21:50+00:00"
 }
