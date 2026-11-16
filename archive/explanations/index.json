@@ -1100,12 +1100,12 @@
       "reason": "ValueError: Bilingual editorial review: The English translation of 'American Express' is correct; however, the phrase 'free consumption' slightly misrepresents the source's intent of 'spend as you want', which implies autonomy rather than just freedom from restriction. A more precise phrasing would be 'allowing them to spend as they wished without asking for p"
     },
     "lilu-f9c5b8c9904f52": {
-      "at": "2026-11-15T04:15:41+00:00",
+      "at": "2026-11-16T05:44:17+00:00",
       "status": "retry",
       "inputHash": "9addc758852c86ede5329bd7c0146e09e1bab7e0e9d1ba6f26deda417cd8015c",
-      "failures": 1,
-      "nextAttemptAt": "2026-11-15T08:15:41+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English translation in the `content` section contains a factual error: it states Li Lu 'assuring him that even if wrong the loss is limited', whereas the source text (s4) attributes this sentiment to himself ('I was confident... If you're wrong, you won't lose a lot'), not as something he assured Warren Buffett. The "
+      "failures": 2,
+      "nextAttemptAt": "2026-11-16T13:44:17+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English translation of s4 misquotes Buffett: Source says 'either it takes or it doesn't' (referring to taking the shot/vaccine), but text claims 'either it works or it doesn't'.; The English translation of s8 incorrectly states 'assess all the facts and truly know what you know and know what you don't know', whereas "
     },
     "vinall-2cbcc40389a099": {
       "at": "2026-10-18T01:39:01+00:00",
@@ -4652,5 +4652,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-16T05:43:07+00:00"
+  "updatedAt": "2026-11-16T05:44:17+00:00"
 }
