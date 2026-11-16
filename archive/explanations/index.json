@@ -3401,12 +3401,12 @@
       "reason": "ValueError: Bilingual editorial review: The English paraphrase of the quote ('It's what you know for sure that just ain't so') is grammatically incorrect; it should be 'It's what you know for sure that **isn't** so.'; The Chinese text incorrectly attributes the quote to Mark Twain as a direct attribution by Marks, whereas the source states Bruce Newberg thinks"
     },
     "marks-29254e01a9df48": {
-      "at": "2026-11-15T08:24:40+00:00",
+      "at": "2026-11-16T08:35:12+00:00",
       "status": "retry",
       "inputHash": "b399687d4ba229554cb356d2aa01d9a64dedcb7fee00a30e9883f88f413559ea",
-      "failures": 1,
-      "nextAttemptAt": "2026-11-15T12:24:40+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English translation in the 'content' section incorrectly states that Marks cites 'the collapse of prominent 1980s leveraged buyouts' as a crisis event. Source s3 explicitly lists this as part of the 1990 context alongside the Gulf War and Milken's crackdown, not as a standalone crisis event itself.; The English trans"
+      "failures": 2,
+      "nextAttemptAt": "2026-11-16T16:35:12+00:00",
+      "reason": "ValueError: Bilingual editorial review: The Chinese text incorrectly states that Marks' argument is 'rather than offering a generic investment framework' (implying he does NOT offer one), whereas the source text implies his point explains why frameworks fail, not that he provides an alternative. The phrasing suggests a negative conclusion about his utility rat"
     },
     "mclemore-dea7fd5bb5f1eb": {
       "at": "2026-11-15T21:53:41+00:00",
@@ -4656,5 +4656,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-16T08:34:39+00:00"
+  "updatedAt": "2026-11-16T08:35:12+00:00"
 }
