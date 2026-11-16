@@ -4489,12 +4489,12 @@
       "reason": "ValueError: Bilingual editorial review: The English translation of s3 bullet point (a) incorrectly states 'everyone can be successful at the same time' instead of the source's '(a) everyone can be successful at the same time' - wait, this is a match. Let me re-read carefully.; Re-evaluating s3: Source says '(a) everyone can be successful at the same time'. Tra"
     },
     "marks-fe3c74ab153e7a": {
-      "at": "2026-11-15T04:06:41+00:00",
+      "at": "2026-11-16T07:38:47+00:00",
       "status": "retry",
       "inputHash": "f511955e1e66b5f94e9d0f23bc83491f9ab78024ccf1420b1a6bd3d1b5a33294",
-      "failures": 1,
-      "nextAttemptAt": "2026-11-15T08:06:41+00:00",
-      "reason": "ValueError: Bilingual editorial review: The Chinese text incorrectly claims Marks 'does not explicitly assert that markets are perpetually inefficient'. The source (s1) states: 'Thus the thinking I did about alpha... has convinced me to set out my views on all of these subjects.' This implies he is moving from discussing efficiency to arguing for inefficiency,"
+      "failures": 2,
+      "nextAttemptAt": "2026-11-16T15:38:47+00:00",
+      "reason": "ValueError: Bilingual editorial review: The Chinese text claims Marks 'implies' limitations in EMH logic; however, s1 and s4-s5 only state his belief that few use terms correctly and the definition of EMH without explicit implication of its own failure.; The Chinese text states Marks 'reconsiders the sources of alpha'; while consistent with s1's mention of wri"
     },
     "mclemore-665e38247ebf50": {
       "at": "2026-11-14T00:29:29+00:00",
@@ -4654,5 +4654,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-16T07:38:00+00:00"
+  "updatedAt": "2026-11-16T07:38:47+00:00"
 }
