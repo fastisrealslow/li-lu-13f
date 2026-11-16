@@ -3356,12 +3356,12 @@
       "reason": "ValueError: Bilingual editorial review: The English paraphrase in the content section misquotes the source text. The source (s2) states: 'It's been said that \"any bond can be triple-A at a price.\"' The paraphrase changes this to: 'He cites the observation that any bond can be triple-A at a price'. This alters the meaning from a reported saying ('It's been said"
     },
     "mclemore-19da9051365a28": {
-      "at": "2026-11-15T22:30:32+00:00",
+      "at": "2026-11-16T15:17:00+00:00",
       "status": "retry",
       "inputHash": "4da7d2a54728af69f9a251add7bf9d5d3c92745808f923d1cfcd90eae2786433",
-      "failures": 2,
-      "nextAttemptAt": "2026-11-16T06:30:32+00:00",
-      "reason": "ValueError: Incomplete AI Write at 3200 tokens"
+      "failures": 3,
+      "nextAttemptAt": "2026-11-17T07:17:00+00:00",
+      "reason": "ValueError: Bilingual editorial review: The Chinese translation incorrectly states that Samantha McLemore 'sold SmileDirect to fund other ideas' (she sold it to fund her *other* ideas, implying she kept the capital but not necessarily sold it for a specific purpose unrelated to her strategy).; The Chinese translation misrepresents the Vroom section by saying s"
     },
     "marks-30e00062105852": {
       "at": "2026-11-15T16:57:54+00:00",
@@ -4659,5 +4659,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-16T15:16:56+00:00"
+  "updatedAt": "2026-11-16T15:17:00+00:00"
 }
