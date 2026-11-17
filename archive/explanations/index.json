@@ -3280,12 +3280,12 @@
       "reason": "ValueError: Copied source passage"
     },
     "marks-6b3b7eccb7e22b": {
-      "at": "2026-11-16T07:40:06+00:00",
+      "at": "2026-11-17T03:29:45+00:00",
       "status": "retry",
       "inputHash": "a29ed5b000b5125d757ad6e5db106ce4bbade02ec59896da17ab8a1af5433ff0",
-      "failures": 2,
-      "nextAttemptAt": "2026-11-16T15:40:06+00:00",
-      "reason": "ValueError: Bilingual editorial review: The Chinese text incorrectly defines 'silver bullet' as 'asset class or investment technique countable for high returns with low risk', whereas the source (s2) only mentions 'high returns with low risk' without specifying it must be an asset class or technique; this is an unwritten addition.; The Chinese text states inve"
+      "failures": 3,
+      "nextAttemptAt": "2026-11-17T19:29:45+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English translation of 'euphemisms' is incorrect; it should be 'euphemism' (singular) to match the context of a single phrase ('until next time').; The English text adds the phrase 'as previously stated,' which is not present in the source evidence or clearly supported by the provided text structure.; The English tra"
     },
     "marks-daf0ad253be7ac": {
       "at": "2026-11-16T05:14:28+00:00",
@@ -4663,5 +4663,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-17T03:29:01+00:00"
+  "updatedAt": "2026-11-17T03:29:45+00:00"
 }
