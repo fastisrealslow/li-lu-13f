@@ -4204,12 +4204,12 @@
       "reason": "ValueError: Bilingual editorial review: The source text does not mention 'Star Wars prequels' (original six films), but the summary correctly identifies them as the original six films watched by McLemore.; The source text does not explicitly state that McLemore was 'wholly convinced of its correctness,' though it implies her strong agreement with Summers' theo"
     },
     "marks-77e61c6230c5f6": {
-      "at": "2026-11-15T22:15:07+00:00",
+      "at": "2026-11-17T03:59:33+00:00",
       "status": "retry",
       "inputHash": "826faf15d98e393e2a6d8fd0227fc87613f815cc53c61b155e33036b697e7e25",
-      "failures": 1,
-      "nextAttemptAt": "2026-11-16T02:15:07+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English text contains a factual error regarding the bond investment experience: it claims Marks bought 'seemingly riskless junk bonds at low prices', whereas the source (s3) states these were 'Bought when \"riskless\"' and later found to be a disaster, implying they were purchased when perceived as safe (likely not nec"
+      "failures": 2,
+      "nextAttemptAt": "2026-11-17T11:59:33+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English translation contains factual inaccuracies regarding the source text. The phrase 'risk of not taking enough action' is an incorrect paraphrase of the original 'risk of not taking enough risk'.; The English translation incorrectly states that Marks 'explicitly states it is difficult to conclude... thus unable t"
     },
     "marks-0a65905a75a4f5": {
       "at": "2026-11-16T08:08:53+00:00",
@@ -4663,5 +4663,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-17T03:58:59+00:00"
+  "updatedAt": "2026-11-17T03:59:33+00:00"
 }
