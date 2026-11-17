@@ -606,12 +606,12 @@
       "reason": "ValueError: Unsupported numerical claim: 6"
     },
     "lilu-26e7f20245e789": {
-      "at": "2026-11-16T08:16:13+00:00",
+      "at": "2026-11-17T14:47:57+00:00",
       "status": "retry",
       "inputHash": "f5d65497be8780448e85ddf4def2f657ae0c873ab9b32528286ad0200f342815",
-      "failures": 3,
-      "nextAttemptAt": "2026-11-17T00:16:13+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English translation in the content section misrepresents the source text by adding specific claims (e.g., 'modern morality and transaction', 'ethics and commerce') not present in the evidence.; The Chinese text incorrectly states that the original text does not elaborate on mechanisms, which is an editorial interpret"
+      "failures": 4,
+      "nextAttemptAt": "2026-11-18T22:47:57+00:00",
+      "reason": "ValueError: Bilingual editorial review: The source text (s5) is a direct quote attributed to Li Lu. The content accurately reflects the provided evidence without inventing new quotes or motives.; The analysis correctly identifies that the argument relies on abstract concepts ('teachings', 'eternal legacy') rather than specific data, which matches the source's "
     },
     "buffett-af803f0ccc1d8b": {
       "at": "2026-11-16T20:01:20+00:00",
@@ -4669,5 +4669,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-17T14:47:54+00:00"
+  "updatedAt": "2026-11-17T14:47:57+00:00"
 }
