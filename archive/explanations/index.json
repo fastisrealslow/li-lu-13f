@@ -4052,12 +4052,12 @@
       "reason": "ValueError: Bilingual editorial review: The English text incorrectly attributes the phrase 'improbable disasters' to Nassim Nicholas Taleb's book *Fooled by Randomness* without verifying if this specific terminology is used in that work; while Taleb discusses 'black swans', the exact phrasing may be Marks' own or a conflation.; The English text introduces the "
     },
     "marks-2b0acf3944f6ef": {
-      "at": "2026-11-16T19:15:12+00:00",
+      "at": "2026-11-17T15:02:20+00:00",
       "status": "retry",
       "inputHash": "c636142f41179d8f622b08bb1db732fd9c6340e084246dd4f186f05a3343b0a1",
-      "failures": 2,
-      "nextAttemptAt": "2026-11-17T03:15:12+00:00",
-      "reason": "ValueError: Bilingual editorial review: The Chinese translation of the evidence section contains a factual error: it states '1991 to 1993' as the period for fabulous performance, but the source text (s2) explicitly says 'from 1991 to 1993'. Wait, checking again. Source s2: 'from 1991 to 1993'. Translation: '1991 1993'. This matches. No error here.; The Chinese"
+      "failures": 3,
+      "nextAttemptAt": "2026-11-18T07:02:20+00:00",
+      "reason": "ValueError: Bilingual editorial review: The Chinese translation adds interpretive phrases like 'historical lows' (which is implied but not explicitly stated as 'lowest levels of the last thirty years') and 'extreme correlation', which are editorial interpretations rather than direct paraphrases of the source text.; The English translation repeats 'fabulous per"
     },
     "mclemore-fb12d1f663a2b3": {
       "at": "2026-11-17T14:51:49+00:00",
@@ -4669,5 +4669,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-17T15:02:16+00:00"
+  "updatedAt": "2026-11-17T15:02:20+00:00"
 }
