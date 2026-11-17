@@ -771,12 +771,12 @@
       "reason": "ValueError: Bilingual editorial review: The English translation in the `content` section contains a factual error regarding the number of businesses: it states '80+ businesses and hundreds within the Mormon Group', whereas the source text (s2) explicitly says '80+ businesses' and mentions 'hundreds of businesses inside that' referring to the Mormon Group as pa"
     },
     "pabrai-802921b1b7af6e": {
-      "at": "2026-11-16T07:30:52+00:00",
+      "at": "2026-11-17T14:18:37+00:00",
       "status": "retry",
       "inputHash": "294647c39d11b15aa1d910b98938ba2ac8de2180e55c5c55932e26f63a4a9b17",
-      "failures": 3,
-      "nextAttemptAt": "2026-11-16T23:30:52+00:00",
-      "reason": "ValueError: Bilingual editorial review: The Chinese text claims Gates predicted companies would fall into 'oblivion' (a direct translation of the English source), but the source states he said they would go into 'oblivion' and that Bill is mostly right about great companies going into oblivion. The Chinese text adds an interpretation ('cyclical pessimism') not"
+      "failures": 4,
+      "nextAttemptAt": "2026-11-18T22:18:37+00:00",
+      "reason": "ValueError: Unsupported numerical claim: 20"
     },
     "pabrai-bc7ec8286850d8": {
       "at": "2026-11-17T14:06:22+00:00",
@@ -4669,5 +4669,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-17T14:18:11+00:00"
+  "updatedAt": "2026-11-17T14:18:37+00:00"
 }
