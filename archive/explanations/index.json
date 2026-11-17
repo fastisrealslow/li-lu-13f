@@ -1742,12 +1742,12 @@
       "reason": "ValueError: Bilingual editorial review: The English translation in the 'content' section contains a factual error regarding the number of founders. The source text (evidence s4) states 'There are four of them who started this kind of beauty product stash startup', but the translation incorrectly says 'one of whom was a highly gifted chemist responsible for dev"
     },
     "pabrai-669ee549324b11": {
-      "at": "2026-11-16T08:31:48+00:00",
+      "at": "2026-11-17T23:54:53+00:00",
       "status": "retry",
       "inputHash": "3dcd814a226b27f9418794b72bf768569c96db3ad5cb45410116611497fef339",
-      "failures": 2,
-      "nextAttemptAt": "2026-11-16T16:31:48+00:00",
-      "reason": "ValueError: Bilingual editorial review: The source text (s4-s6) does not contain the abstract concepts 'core investment philosophy' or 'control of key variables'. The content editor's interpretation in the English paragraph introduces these terms as if they were present in Pabrai's speech, which is a fabrication. Pabrai discusses food delivery efficiency and i"
+      "failures": 3,
+      "nextAttemptAt": "2026-11-18T15:54:53+00:00",
+      "reason": "ValueError: Bilingual editorial review: The source text (s4) does not mention 'Amazonization' explicitly; the term is an editorial interpretation added in the translation.; The source text (s4) states DoorDash delivers 'mostly one-to-one restaurant', but the translation claims it shifts 'from the current one-to-one restaurant model seen at companies like DoorD"
     },
     "pabrai-3e87834c3b997b": {
       "at": "2026-11-17T03:37:12+00:00",
@@ -4669,5 +4669,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-17T23:54:29+00:00"
+  "updatedAt": "2026-11-17T23:54:53+00:00"
 }
