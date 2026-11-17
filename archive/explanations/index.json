@@ -1022,12 +1022,12 @@
       "reason": "ValueError: Bilingual editorial review: The Chinese text claims Li Lu felt 'elated' (translated as 'elated' in English), but the source text says 'I was elated', which is a direct match. However, the Chinese translation of 'elated' as 'elated' is redundant and should be translated more naturally, e.g., 'overjoyed' or 'thrilled'.; The Chinese text states 'Li Lu"
     },
     "lilu-cd61a9ec3c93bd": {
-      "at": "2026-11-16T07:27:24+00:00",
+      "at": "2026-11-17T04:20:00+00:00",
       "status": "retry",
       "inputHash": "e133997104dd032f27765b0d1513b83e318c1f7c64db4ae0e04bf465ede2a9a3",
-      "failures": 2,
-      "nextAttemptAt": "2026-11-16T15:27:24+00:00",
-      "reason": "ValueError: Unsupported numerical claim: 2,000"
+      "failures": 3,
+      "nextAttemptAt": "2026-11-17T20:20:00+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English translation of 'natural hard ceiling' as 'natural hard ceiling of finite resources' is redundant; 'hard ceiling' implies the limit. Suggested: 'constrained by a natural resource ceiling'.; The phrase 'post-Han war and decay' in the source text refers to the period after the Han dynasty's collapse, not a speci"
     },
     "pabrai-d346f1bebb0f55": {
       "at": "2026-11-17T04:11:57+00:00",
@@ -4669,5 +4669,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-17T04:18:13+00:00"
+  "updatedAt": "2026-11-17T04:20:00+00:00"
 }
