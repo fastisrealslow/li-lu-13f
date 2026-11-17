@@ -138,19 +138,6 @@
       ]
     ],
     [
-      "BATL",
-      "Battalion Oil Corporation",
-      [
-        [
-          "marks",
-          0.05,
-          "hold",
-          "霍华德·马克思",
-          "2026 Q2"
-        ]
-      ]
-    ],
-    [
       "FIS",
       "Fidelity 国家信息服务",
       [
@@ -160,6 +147,19 @@
           "trimmed",
           "梅森·霍金斯",
           "2026 Q3"
+        ]
+      ]
+    ],
+    [
+      "BATL",
+      "Battalion Oil Corporation",
+      [
+        [
+          "marks",
+          0.05,
+          "hold",
+          "霍华德·马克思",
+          "2026 Q2"
         ]
       ]
     ],
@@ -851,10 +851,10 @@
       "ticker": "NUVB",
       "name": "努瓦生科",
       "sector": "医药",
-      "mos": 58.9,
+      "mos": 58.4,
       "mosTier": "深度折价",
       "buy": 9.35,
-      "price": 3.84,
+      "price": 3.88,
       "holders": [
         {
           "investor": "大卫·艾布拉姆斯",
@@ -988,6 +988,34 @@
       "verdictEn": "Among qualifying holders, 0 show entries or additions and 0 reductions. The lowest reference is from Seth Klarman, for 2026 Q2."
     },
     {
+      "ticker": "FIS",
+      "name": "Fidelity 国家信息服务",
+      "sector": "金融服务",
+      "mos": 42.7,
+      "mosTier": "深度折价",
+      "buy": 48.43,
+      "price": 27.77,
+      "holders": [
+        {
+          "investor": "梅森·霍金斯",
+          "investorEn": "Mason Hawkins",
+          "chg": "trimmed",
+          "weight": 1.38,
+          "reportQuarter": "2026 Q3",
+          "buy": 48.43,
+          "buyQuarter": "2026 Q1",
+          "shareChangePct": -0.389,
+          "hold_quarters": 0,
+          "hold_years": 0
+        }
+      ],
+      "holderCount": 1,
+      "holderText": "梅森·霍金斯 2026 Q3",
+      "nearMiss": [],
+      "verdict": "达标持有人中，0 位新增或增持，1 位减持。最低参考来自梅森·霍金斯，对应 2026 Q1。",
+      "verdictEn": "Among qualifying holders, 0 show entries or additions and 1 reductions. The lowest reference is from Mason Hawkins, for 2026 Q1."
+    },
+    {
       "ticker": "BATL",
       "name": "Battalion Oil Corporation",
       "sector": "能源",
@@ -1014,34 +1042,6 @@
       "nearMiss": [],
       "verdict": "达标持有人中，0 位新增或增持，0 位减持。最低参考来自霍华德·马克思，对应 2025 Q3。",
       "verdictEn": "Among qualifying holders, 0 show entries or additions and 0 reductions. The lowest reference is from Howard Marks, for 2025 Q3."
-    },
-    {
-      "ticker": "FIS",
-      "name": "Fidelity 国家信息服务",
-      "sector": "金融服务",
-      "mos": 41.6,
-      "mosTier": "深度折价",
-      "buy": 48.43,
-      "price": 28.3,
-      "holders": [
-        {
-          "investor": "梅森·霍金斯",
-          "investorEn": "Mason Hawkins",
-          "chg": "trimmed",
-          "weight": 1.38,
-          "reportQuarter": "2026 Q3",
-          "buy": 48.43,
-          "buyQuarter": "2026 Q1",
-          "shareChangePct": -0.389,
-          "hold_quarters": 0,
-          "hold_years": 0
-        }
-      ],
-      "holderCount": 1,
-      "holderText": "梅森·霍金斯 2026 Q3",
-      "nearMiss": [],
-      "verdict": "达标持有人中，0 位新增或增持，1 位减持。最低参考来自梅森·霍金斯，对应 2026 Q1。",
-      "verdictEn": "Among qualifying holders, 0 show entries or additions and 1 reductions. The lowest reference is from Mason Hawkins, for 2026 Q1."
     },
     {
       "ticker": "SMRT",
@@ -1713,7 +1713,7 @@
       "ticker": "MLCO",
       "name": "美高梅",
       "sector": "娱乐",
-      "mos": 13.9,
+      "mos": 13.7,
       "mosTier": "轻度折价",
       "buy": 4.93,
       "price": 4.25,
@@ -2075,8 +2075,8 @@
     }
   ],
   "droppedOut": [],
-  "generatedAt": "2026-11-17T14:41:43Z",
+  "generatedAt": "2026-11-17T18:07:32Z",
   "candidateCount": 47,
   "consensusCount": 1,
-  "signalHash": "a6aeefeb6b4f540ac3e35e36ac3db1e13921cd3715f3fc931654b70e28cb79a0"
+  "signalHash": "c0df78254b85e687e907b96539692175c3893aa92945ee5d1dd0018fc7eca27a"
 }
