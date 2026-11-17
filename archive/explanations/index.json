@@ -2649,12 +2649,12 @@
       "reason": "ValueError: Bilingual editorial review: The English translation contains a factual error: it incorrectly states that Claude's skeptics argue 'Everything Claude learned came from human-written text.' The source (s4) actually attributes this claim to the skeptics themselves ('According to Claude, the skeptics argue as follows...'), implying Claude is reporting w"
     },
     "marks-8e0ec13e9cb837": {
-      "at": "2026-11-16T07:52:44+00:00",
+      "at": "2026-11-17T14:11:12+00:00",
       "status": "retry",
       "inputHash": "aae29530db158796b78155e8b1ed83ba5a6857a0ebbd1ec074e3449497113e8e",
-      "failures": 2,
-      "nextAttemptAt": "2026-11-16T15:52:44+00:00",
-      "reason": "ValueError: Bilingual editorial review: The source text (s1) states the matrix compares 'the plan's ability to bear risk' vs 'the plan's willingness to bear risk', but the content section incorrectly attributes these axes to 'investor' characteristics and claims Howard Marks proposed the matrix based on a survey of the board's attitude. The source explicitly s"
+      "failures": 3,
+      "nextAttemptAt": "2026-11-18T06:11:12+00:00",
+      "reason": "ValueError: Bilingual editorial review: The Chinese text claims Howard Marks 'did not claim authorship' of the matrix but describes it as a consultant's tool. The English source (s1) states he was 'impressed' by how the consultant started with the discussion and used a 'simple two-by-two matrix,' implying he adopted or utilized it, but does not explicitly stat"
     },
     "marks-ac11cf5787b86b": {
       "at": "2026-11-16T08:27:41+00:00",
@@ -4669,5 +4669,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-17T14:11:05+00:00"
+  "updatedAt": "2026-11-17T14:11:12+00:00"
 }
