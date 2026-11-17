@@ -928,12 +928,12 @@
       "reason": "ValueError: Bilingual editorial review: The source text (s2) contains the Hindi phrase 'easy question main kya maza hai' which translates to 'what is the fun in easy questions?'. The provided English translation in the content section ('there is no fun in easy questions') accurately reflects this meaning. However, the Chinese translation ('...simple questions "
     },
     "vinall-467e0c3e85b252": {
-      "at": "2026-11-16T14:54:00+00:00",
+      "at": "2026-11-17T14:02:28+00:00",
       "status": "retry",
       "inputHash": "3c5008a532056a12133be0fedb68b589cd812015b73371bc08cb6d373af1e3c8",
-      "failures": 3,
-      "nextAttemptAt": "2026-11-17T06:54:00+00:00",
-      "reason": "ValueError: Bilingual editorial review: Author name mismatch: Source s7/s8 refers to 'Ian and Lucas' (grandfather's sons), but content incorrectly identifies them as 'cousins'.; Factual error in attribution: Content claims 'Rob Vinall notes these sons knew exactly what they would do', but the source text attributes this observation to the grandfather ('He said"
+      "failures": 4,
+      "nextAttemptAt": "2026-11-18T22:02:28+00:00",
+      "reason": "ValueError: Bilingual editorial review: The content incorrectly states that Rob Vinall was assigned to mining/oil/gas by his grandfather. Source s8 explicitly says: 'He said, you know Luke you're gonna be in mining...'. The text later claims this statement addressed Ian and Lucas, contradicting the direct quote attributed to Luke.; The content invents a valida"
     },
     "buffett-87787b7bbb5dca": {
       "at": "2026-11-14T06:42:32+00:00",
@@ -4669,5 +4669,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-17T14:02:21+00:00"
+  "updatedAt": "2026-11-17T14:02:28+00:00"
 }
