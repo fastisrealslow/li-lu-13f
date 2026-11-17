@@ -3022,12 +3022,12 @@
       "reason": "ValueError: Copied source passage"
     },
     "marks-76d48589ef63f2": {
-      "at": "2026-11-16T08:26:32+00:00",
+      "at": "2026-11-17T04:06:53+00:00",
       "status": "retry",
       "inputHash": "132fad5c7eaf162d2b120185cf2facc739dd3bc9f72036d6aae89fb5ff0ca58e",
-      "failures": 2,
-      "nextAttemptAt": "2026-11-16T16:26:32+00:00",
-      "reason": "ValueError: Bilingual editorial review: The Chinese text incorrectly claims 'roughly 43 states' are uncompetitive; the English source (s12) states 'Most of the 50 states – this year it was roughly 43', which refers to the total number of states considered uncompetitive, not a subset. The phrasing in the translation implies only 43 exist or are being discussed "
+      "failures": 3,
+      "nextAttemptAt": "2026-11-17T20:06:53+00:00",
+      "reason": "ValueError: Bilingual editorial review: The source text (s4) states Obama owes victory to 'unmarried' groups; the Chinese translation adds 'single' (implied by unmarried context but not explicit in source structure) which is acceptable paraphrase.; The source text (s3) lists 'urban and suburban' as groups supporting Obama; the translation correctly places this"
     },
     "marks-3becefd0c7c602": {
       "at": "2026-11-16T19:17:18+00:00",
@@ -4669,5 +4669,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-17T04:06:42+00:00"
+  "updatedAt": "2026-11-17T04:06:53+00:00"
 }
