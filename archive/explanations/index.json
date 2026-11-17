@@ -1230,12 +1230,12 @@
       "reason": "ValueError: Bilingual editorial review: The English translation in the source content incorrectly states that neuron connections grow exponentially between ages 11 and 20; the source text actually says connections grow from birth to age 5, then specialize between 11 and 20.; The English translation misrepresents Buffett's quote by implying he is a 'better busi"
     },
     "pabrai-96a9fab5d602f9": {
-      "at": "2026-11-16T15:16:56+00:00",
+      "at": "2026-11-17T14:51:10+00:00",
       "status": "retry",
       "inputHash": "82b6a0151b8903655945cc4e5fbd21f4dde54786010a242a84a95ee57e169992",
-      "failures": 2,
-      "nextAttemptAt": "2026-11-16T23:16:56+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English translation contains a factual error: it states NVR 'bought back shares to multiply its stock price more than 70 times', whereas the source text (s8) explicitly says 'the stock has gone up more than 70 times' and 'they have taken all their free cash flow every year and pounded it into buybacks'. The translati"
+      "failures": 3,
+      "nextAttemptAt": "2026-11-18T06:51:10+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English translation in the 'paragraphs' section contains significant factual errors compared to the source text (evidence s7-s9).; Specific Error 1: The text claims Teledyne repurchased stock 'when US equity markets collapsed'. Source s8 states this happened when markets were 'very cheap and collapsed', implying a lo"
     },
     "pabrai-fe92dc8bae7992": {
       "at": "2026-11-16T19:37:39+00:00",
@@ -4669,5 +4669,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-17T14:51:09+00:00"
+  "updatedAt": "2026-11-17T14:51:10+00:00"
 }
