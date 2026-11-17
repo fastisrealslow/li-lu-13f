@@ -574,12 +574,12 @@
       "reason": "ValueError: Bilingual editorial review: The English paragraph contains factual errors regarding the source text: it misidentifies the lunch as 'charity' (it was a personal thank-you event) and incorrectly states Buffett's budget cap was '$2 million' when the source says Pabrai thought $2 million was reasonable but bid exactly that amount, while the actual cost"
     },
     "vinall-b8757c659b8401": {
-      "at": "2026-11-16T14:46:41+00:00",
+      "at": "2026-11-17T13:59:02+00:00",
       "status": "retry",
       "inputHash": "259588b8fb80deba3028e4c0bb289884be1df032ee261719c328e81644d70917",
-      "failures": 3,
-      "nextAttemptAt": "2026-11-17T06:46:41+00:00",
-      "reason": "ValueError: Bilingual editorial review: Canonical name mismatch: Source uses 'Vinall' but canonical list requires 'Vinall'.; Factually unsupported claim: The text states Prosus value is 'over 100%' of net asset value, which is logically impossible for a single component unless there are negative liabilities or accounting errors; the source likely means 'approx"
+      "failures": 4,
+      "nextAttemptAt": "2026-11-18T21:59:02+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English text incorrectly states 'over 100% of its net asset value' for Prosus's stake in 10 Cent. The source (s12) says the stake is 'over 100% of its net asset value', which implies the stake exceeds the company's total NAV, a factual impossibility for a single holding unless other assets are negative or the phrasin"
     },
     "buffett-0dffc205cf0707": {
       "at": "2026-11-17T04:06:32+00:00",
@@ -4669,5 +4669,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-17T13:58:29+00:00"
+  "updatedAt": "2026-11-17T13:59:02+00:00"
 }
