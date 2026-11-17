@@ -1327,7 +1327,12 @@ function tradeQuoteHTML(h) {
   const en=lang==='en',event=securityLifecycle(h),q=prices?.quotes?.[h.ticker];
   if(event)return `<strong class="security-retired">${en?'Delisted':'退市'}</strong><small>${hkEscape(event.effectiveDate)}</small>`;
   if(h.shareType && h.shareType!=='SH')return en?'Not applicable':'不适用';
-  if(!q || q.error || q.status==='filing_reference' || !Number.isFinite(q.c) || q.c<=0)return '—';
+  if(!q || q.error || q.status==='filing_reference' || !Number.isFinite(q.c) || q.c<=0) {
+    const reason=String(h.ticker||'').startsWith('?')?(en?'Security identity unverified':'证券身份待核实'):
+      q?.status==='filing_reference'?(en?'Filing reference is not a current quote':'申报参考价不代表现价'):
+      (en?'No verified market quote':'暂无可靠市场报价');
+    return `<span class="estimate-unavailable">—</span><small>${hkEscape(reason)}</small>`;
+  }
   const date=quoteDateText(q,h.ticker),stale=q.stale || !date || Date.now()-q.t*1000>7*86400000;
   return `<strong>${currSymbol(h.ticker)}${q.c.toFixed(2)}</strong><small>${hkEscape(date)}${stale?(en?' · Last quote':' · 上次报价'):''}${h.putCall?(en?' · Underlying':' · 标的股价'):''}</small>${quoteTransitionHTML(h,q)}`;
 }
@@ -1380,10 +1385,14 @@ function quarterPriceInsightHTML() {
   }).join('')}</div>`;
 }
 function tradeHistoryCoverage(entry,side) {
-  if(!entry)return '';
-  const missing=side==='buy'?entry.missingBuyQuarters:entry.missingSellQuarters,en=lang==='en';
+  const en=lang==='en';
+  if(!entry)return en?'No verified historical estimate':'暂无可靠历史估价';
+  if(String(entry.ticker||'').startsWith('?'))return en?'Security identity unverified':'证券身份待核实';
+  const boundary=data?.meta?.costHistoryFrom;
+  if(!(entry.quarters||[]).length && boundary)return en?`No eligible estimate; portfolio estimation starts at ${boundary}`:`暂无符合条件的估价；组合估价起点为 ${boundary}`;
+  const missing=side==='buy'?entry.missingBuyQuarters:entry.missingSellQuarters;
   const count=(entry.quarters||[]).filter(r=>Number.isFinite(r[side])&&r[side]>0).length;
-  return missing?(en?`${missing} ${side} quarters lack prices`:`尚缺 ${missing} 个${side==='buy'?'买入':'卖出'}季度行情`):count?(en?`${count} quarters with price evidence`:`依据 ${count} 个季度行情`):'';
+  return missing?(en?`${missing} ${side} quarters lack prices`:`尚缺 ${missing} 个${side==='buy'?'买入':'卖出'}季度行情`):count?(en?`${count} quarters with price evidence`:`依据 ${count} 个季度行情`):(en?'No eligible net-trade estimate':'无符合条件的净买卖估价');
 }
 function renderTradePriceDetails(el,encodedKey) {
   if(!el.open || el.dataset.loaded)return;
