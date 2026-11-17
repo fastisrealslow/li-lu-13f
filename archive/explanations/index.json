@@ -1774,12 +1774,12 @@
       "reason": "ValueError: Bilingual editorial review: The English translation in the content section incorrectly identifies 'Ramesh Damani' as a mentor to 'Big Bull Rakesh Jhunjhunwala'. The source text (s3) states: 'the other referred to as the Nawab of Dalal street, who has been the mentor of Big Bull Rakesh Jhunjhunwala.' Grammatically and contextually in the original Hi"
     },
     "pabrai-f5fcff5c4d79a8": {
-      "at": "2026-11-16T05:37:19+00:00",
+      "at": "2026-11-17T03:39:30+00:00",
       "status": "retry",
       "inputHash": "02144b6d0dca10bc382de80731e62f6d86fa8d0158352089869913e456b0cffd",
-      "failures": 3,
-      "nextAttemptAt": "2026-11-16T21:37:19+00:00",
-      "reason": "ValueError: Bilingual editorial review: The Chinese text claims Pabrai clarified that his startup was not funded by 'one million dollars' (one hundred thousand), but the source (s1) states he founded it with 'a little over a hundred thousand dollars'. The claim of an error regarding one million is unsupported; the text correctly reports the ~$100k figure.; The"
+      "failures": 4,
+      "nextAttemptAt": "2026-11-18T11:39:30+00:00",
+      "reason": "ValueError: Bilingual editorial review: The source text does not mention 'Serene Hall' as a location where Pabrai spent time; he mentions it only in passing without confirming its existence or significance in the provided transcript.; The source states Pabrai heard about Buffett and Munger eight years after leaving Clemson, but does not explicitly confirm the "
     },
     "pabrai-632419fca50123": {
       "at": "2026-11-16T14:41:25+00:00",
@@ -4663,5 +4663,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-17T03:38:19+00:00"
+  "updatedAt": "2026-11-17T03:39:30+00:00"
 }
