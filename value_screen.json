@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-17T03:26:15.970165+00:00",
+  "generatedAt": "2026-11-17T03:59:26.717911+00:00",
   "schemaVersion": 2,
   "ranking": "qualifying_holders_then_cost_gap",
   "candidates": [
@@ -177,6 +177,51 @@
           "buyQuarters": 8,
           "sourceFiling": "https://www.sec.gov/Archives/edgar/data/949509/000094950926000005/0000949509-26-000005-index.html",
           "mos": 73.0,
+          "qualifies": true
+        }
+      ],
+      "otherHolders": [],
+      "totalHolders": 1
+    },
+    {
+      "ticker": "EMBJ",
+      "name": "EMBRAER SA",
+      "cnName": "Embraer S.A.",
+      "sector": "工业",
+      "currency": "USD",
+      "mos": 67.9,
+      "price": 18.77,
+      "priceAsOf": "2026-11-16T21:00:02+00:00",
+      "priceSource": "https://finance.yahoo.com/quote/EMBJ/",
+      "buy": 58.54,
+      "atAvg": 14.83,
+      "referenceInvestorId": "marks",
+      "referenceInvestor": "霍华德·马克思",
+      "referenceInvestorEn": "Howard Marks",
+      "referenceQuarter": "2026 Q1",
+      "referenceSource": "yahoo",
+      "referenceKind": "buying_reference",
+      "investors": [
+        {
+          "id": "marks",
+          "name": "霍华德·马克思",
+          "nameEn": "Howard Marks",
+          "weight": 0.39,
+          "chg": "trimmed",
+          "reportQuarter": "2026 Q2",
+          "shares": 439706,
+          "previousShares": 447606,
+          "shareChangePct": -1.765,
+          "buy": 58.54,
+          "buyQuarter": "2026 Q1",
+          "referenceKind": "buying_reference",
+          "referenceSource": "yahoo",
+          "atAvg": 14.83,
+          "costFirst": "2026 Q1",
+          "costLast": "2026 Q2",
+          "buyQuarters": 1,
+          "sourceFiling": "https://www.sec.gov/Archives/edgar/data/949509/000094950926000005/0000949509-26-000005-index.html",
+          "mos": 67.9,
           "qualifies": true
         }
       ],
@@ -9152,32 +9197,6 @@
         "buyQuarters": 3,
         "sourceFiling": "https://www.sec.gov/Archives/edgar/data/949509/000094950926000005/0000949509-26-000005-index.html",
         "mos": -19.5,
-        "qualifies": false
-      }
-    ],
-    "EMBJ": [
-      {
-        "investor": "霍华德·马克思",
-        "investorEn": "Howard Marks",
-        "id": "marks",
-        "name": "霍华德·马克思",
-        "nameEn": "Howard Marks",
-        "weight": 0.39,
-        "chg": "trimmed",
-        "reportQuarter": "2026 Q2",
-        "shares": 439706,
-        "previousShares": 447606,
-        "shareChangePct": -1.765,
-        "buy": 14.83,
-        "buyQuarter": "2026 Q1",
-        "referenceKind": "buying_reference",
-        "referenceSource": "13f-estimate",
-        "atAvg": 14.83,
-        "costFirst": "2026 Q1",
-        "costLast": "2026 Q2",
-        "buyQuarters": 1,
-        "sourceFiling": "https://www.sec.gov/Archives/edgar/data/949509/000094950926000005/0000949509-26-000005-index.html",
-        "mos": -26.6,
         "qualifies": false
       }
     ],
