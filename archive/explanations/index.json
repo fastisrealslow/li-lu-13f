@@ -2731,12 +2731,12 @@
       "reason": "ValueError: Bilingual editorial review: The English translation incorrectly attributes a specific title ('The Core of Long-Term Success: Avoiding Losses and Maintaining a High Win Rate') to Howard Marks; no such memo exists in the provided source text.; The content claims Marks 'warns investors against crediting any asset class... with a birthright of high ret"
     },
     "marks-6d3a8f0f672f7e": {
-      "at": "2026-11-16T05:49:22+00:00",
+      "at": "2026-11-17T03:50:21+00:00",
       "status": "retry",
       "inputHash": "1a975bfbe1968dee8180f8d9005e8455486ebf64370591de7ec77dd00da48917",
-      "failures": 2,
-      "nextAttemptAt": "2026-11-16T13:49:22+00:00",
-      "reason": "ValueError: Copied source passage"
+      "failures": 3,
+      "nextAttemptAt": "2026-11-17T19:50:21+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English translation in the 'content' section misattributes the author as 'Howard Marks' instead of the canonical name 'Howard Marks' (which is correct) but the Chinese text uses 'Huaerwei Maikesi' which is a literal transliteration error for Howard Marks. The source text does not contain this specific phrasing about "
     },
     "marks-d5c428885322b6": {
       "at": "2026-11-16T08:29:15+00:00",
@@ -4663,5 +4663,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-17T03:50:09+00:00"
+  "updatedAt": "2026-11-17T03:50:21+00:00"
 }
