@@ -1102,12 +1102,12 @@
       "reason": "ValueError: Bilingual editorial review: The source text does not mention 'JNV Bangalore' in the provided excerpts (s25-s27); this location appears only in the metadata/title and is absent from the quoted evidence.; The source text does not explicitly state that Pabrai's father granted him financial freedom; it describes his brother giving him access to a purse"
     },
     "lilu-f9c5b8c9904f52": {
-      "at": "2026-11-16T05:44:17+00:00",
+      "at": "2026-11-17T03:43:45+00:00",
       "status": "retry",
       "inputHash": "9addc758852c86ede5329bd7c0146e09e1bab7e0e9d1ba6f26deda417cd8015c",
-      "failures": 2,
-      "nextAttemptAt": "2026-11-16T13:44:17+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English translation of s4 misquotes Buffett: Source says 'either it takes or it doesn't' (referring to taking the shot/vaccine), but text claims 'either it works or it doesn't'.; The English translation of s8 incorrectly states 'assess all the facts and truly know what you know and know what you don't know', whereas "
+      "failures": 3,
+      "nextAttemptAt": "2026-11-17T19:43:45+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English paraphrase incorrectly attributes Warren Buffett's quote about value investing being 'like an inoculation' to Li Lu as if he were repeating it directly; the source text (s4) shows Li Lu agreeing with what Warren used to say, but the paraphrase frames it as a direct alignment of his personality with the mechan"
     },
     "vinall-2cbcc40389a099": {
       "at": "2026-11-17T03:24:07+00:00",
@@ -4663,5 +4663,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-17T03:43:39+00:00"
+  "updatedAt": "2026-11-17T03:43:45+00:00"
 }
