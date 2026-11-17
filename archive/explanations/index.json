@@ -3174,12 +3174,12 @@
       "reason": "ValueError: Bilingual editorial review: The English translation in the 'content' section contains a factual error regarding the source text. Source s2 states: 'Security prices are determined by events and how investors react to those events...'. The translation incorrectly claims prices are determined 'not by events themselves', contradicting the source.; The "
     },
     "marks-b1a24fd7f60406": {
-      "at": "2026-11-16T14:45:30+00:00",
+      "at": "2026-11-17T04:20:57+00:00",
       "status": "retry",
       "inputHash": "20a0112d39ecb7abe03e5f4b82bdfce885d05a40b9bb35ed0c9d98e992433d0c",
-      "failures": 2,
-      "nextAttemptAt": "2026-11-16T22:45:30+00:00",
-      "reason": "ValueError: Copied source passage"
+      "failures": 3,
+      "nextAttemptAt": "2026-11-17T20:20:57+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English translation of 'disintermediation' in s6 is incorrect; it should be 'disintermediation' (selling loans rather than holding them), but the source text defines it as banks selling off loans rather than holding them. The translation 'disintermediation' is technically correct, but the context implies a specific m"
     },
     "marks-19e82a738d8712": {
       "at": "2026-11-17T03:50:47+00:00",
@@ -4669,5 +4669,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-17T04:20:54+00:00"
+  "updatedAt": "2026-11-17T04:20:57+00:00"
 }
