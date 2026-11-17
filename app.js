@@ -1389,7 +1389,7 @@ function tradeHistoryCoverage(entry,side) {
   if(!entry)return en?'No verified historical estimate':'暂无可靠历史估价';
   if(String(entry.ticker||'').startsWith('?'))return en?'Security identity unverified':'证券身份待核实';
   const boundary=data?.meta?.costHistoryFrom;
-  if(!(entry.quarters||[]).length && boundary)return en?`Estimates start at ${boundary}; earlier filings remain separate`:`估价自 ${boundary} 起；更早申报单独保留`;
+  if(!(entry.quarters||[]).length && boundary)return en?`No eligible estimate; portfolio estimation starts at ${boundary}`:`暂无符合条件的估价；组合估价起点为 ${boundary}`;
   const missing=side==='buy'?entry.missingBuyQuarters:entry.missingSellQuarters;
   const count=(entry.quarters||[]).filter(r=>Number.isFinite(r[side])&&r[side]>0).length;
   return missing?(en?`${missing} ${side} quarters lack prices`:`尚缺 ${missing} 个${side==='buy'?'买入':'卖出'}季度行情`):count?(en?`${count} quarters with price evidence`:`依据 ${count} 个季度行情`):(en?'No eligible net-trade estimate':'无符合条件的净买卖估价');
