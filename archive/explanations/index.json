@@ -2787,12 +2787,12 @@
       "reason": "ValueError: Bilingual editorial review: The Chinese text claims Marks is quoting Mark Twain's intent rather than a direct quote, but the source (s2) presents 'History doesn't repeat itself, but it does rhyme' as Twain's own words, not Marks' interpretation.; The Chinese text states that Marks distinguishes true cycles from random fluctuations based on the 'man"
     },
     "marks-61f97f3ca472e4": {
-      "at": "2026-11-16T07:44:51+00:00",
+      "at": "2026-11-17T03:40:26+00:00",
       "status": "retry",
       "inputHash": "3ca5bb4a2496acea82820b99e8bd8b0bed5e9c61b820de80192b47088588790f",
-      "failures": 2,
-      "nextAttemptAt": "2026-11-16T15:44:51+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English translation of the heading 'Sham Sacrifices vs. Real Sacrifices: The Trap of Security' is a faithful paraphrase but not a direct quote from the source text; however, since the task allows editorial interpretation and the meaning aligns with the source's discussion on sacrifice types, this is acceptable.; The "
+      "failures": 3,
+      "nextAttemptAt": "2026-11-17T19:40:26+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English translation in the source content incorrectly states 'gains that are neither immediate nor tangible' for real sacrifices; the original text (s1) specifies 'neither immediate nor tangible', which is accurate, but the Chinese translation adds 'and perceptible' ('non-tangible') without explicit textual support, "
     },
     "marks-beec2c7e25e1dc": {
       "at": "2026-11-16T19:57:04+00:00",
@@ -4663,5 +4663,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-17T03:39:37+00:00"
+  "updatedAt": "2026-11-17T03:40:26+00:00"
 }
