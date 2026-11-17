@@ -4316,12 +4316,12 @@
       "reason": "ValueError: Unsupported numerical claim: 40%"
     },
     "marks-e5bdd615b21806": {
-      "at": "2026-11-15T21:53:44+00:00",
+      "at": "2026-11-17T03:31:14+00:00",
       "status": "retry",
       "inputHash": "81d9dcc941017e24e7475f952d7f5243c933d89144642a16a52a22180ca94d73",
-      "failures": 1,
-      "nextAttemptAt": "2026-11-16T01:53:44+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English translation in the `content.paragraphs` section contains factual and identity errors: it misidentifies 'Howard Marks' as 'Marks' (unnecessary abbreviation) and incorrectly states that Jevons' viewpoint is from 'over a century ago'. Given the source text cites Jevons (1835-1882) and the article date is 2007, J"
+      "failures": 2,
+      "nextAttemptAt": "2026-11-17T11:31:14+00:00",
+      "reason": "ValueError: Bilingual editorial review: The Chinese translation of the evidence section (s3) incorrectly attributes the quote 'Common Sense' and Other Oxymorons' to Howard Marks. The source text (s3) explicitly states this is a quotation from William Stanley Jevons (1835-1882), not Marks.; The Chinese translation of s3 claims the quote is 'if an investment is "
     },
     "mclemore-42236f637fd9da": {
       "at": "2026-11-16T15:35:00+00:00",
@@ -4663,5 +4663,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-17T03:31:06+00:00"
+  "updatedAt": "2026-11-17T03:31:14+00:00"
 }
