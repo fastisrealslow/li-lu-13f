@@ -1670,12 +1670,12 @@
       "reason": "ValueError: Unsupported numerical claim: 3"
     },
     "vinall-ac99a6ec8608a5": {
-      "at": "2026-11-16T14:35:33+00:00",
+      "at": "2026-11-17T14:15:02+00:00",
       "status": "retry",
       "inputHash": "cdff013dc10407a889c756ede9e92ffc1eae348de89054ae5ca4593410792268",
-      "failures": 3,
-      "nextAttemptAt": "2026-11-17T06:35:33+00:00",
-      "reason": "ValueError: Bilingual editorial review: Author name mismatch: Source uses 'Rob Vinall' (s12-s14), but canonical list requires 'Rob Vinall' (spelled correctly). The source text consistently spells it 'Vinall', which matches the canonical entry exactly. No correction needed here.; Factual error in content interpretation: The source text states the painting shows"
+      "failures": 4,
+      "nextAttemptAt": "2026-11-18T22:15:02+00:00",
+      "reason": "ValueError: Bilingual editorial review: Author name mismatch: Source uses 'Vinall' (s13), but content claims 'Vinall' while canonical list includes 'Rob Vinall'. The source text itself consistently uses 'Vinall', so the content is faithful to the ASR. However, the canonical list has 'Rob Vinall' which matches the source's implied name better than 'Vinall' alon"
     },
     "pabrai-00ca7a03f93774": {
       "at": "2026-11-17T03:59:40+00:00",
@@ -4669,5 +4669,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-17T14:14:17+00:00"
+  "updatedAt": "2026-11-17T14:15:02+00:00"
 }
