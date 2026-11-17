@@ -3366,12 +3366,12 @@
       "reason": "ValueError: Bilingual editorial review: The Chinese text contains an invented quotation: 'any bond can be triple-A at a price' is not found in source s2 or s3. Source s2 says 'It's been said that \"any bond can be triple-A at a price.\"', which implies the quote exists but does not provide the exact wording. The Chinese text presents it as a direct, well-known p"
     },
     "mclemore-19da9051365a28": {
-      "at": "2026-11-16T15:17:00+00:00",
+      "at": "2026-11-17T14:35:09+00:00",
       "status": "retry",
       "inputHash": "4da7d2a54728af69f9a251add7bf9d5d3c92745808f923d1cfcd90eae2786433",
-      "failures": 3,
-      "nextAttemptAt": "2026-11-17T07:17:00+00:00",
-      "reason": "ValueError: Bilingual editorial review: The Chinese translation incorrectly states that Samantha McLemore 'sold SmileDirect to fund other ideas' (she sold it to fund her *other* ideas, implying she kept the capital but not necessarily sold it for a specific purpose unrelated to her strategy).; The Chinese translation misrepresents the Vroom section by saying s"
+      "failures": 4,
+      "nextAttemptAt": "2026-11-18T22:35:09+00:00",
+      "reason": "ValueError: Copied source passage"
     },
     "marks-30e00062105852": {
       "at": "2026-11-16T19:32:39+00:00",
@@ -4669,5 +4669,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-17T14:35:06+00:00"
+  "updatedAt": "2026-11-17T14:35:09+00:00"
 }
