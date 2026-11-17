@@ -896,12 +896,12 @@
       "reason": "ValueError: Bilingual editorial review: The English translation in the content section misrepresents Li Lu's position on 'tools vs creatures' by implying a spectrum between tools and biological creatures ('creature'), whereas the source text explicitly contrasts 'tool versus creature' as an abstract category of agency (machine vs human-like agent), not specifi"
     },
     "pabrai-deed882841e367": {
-      "at": "2026-11-15T22:27:13+00:00",
+      "at": "2026-11-17T03:28:26+00:00",
       "status": "retry",
       "inputHash": "c1196969031f851ef22db0b1b25b76469b5ace52d0abe526bb35068e056d5bb9",
-      "failures": 1,
-      "nextAttemptAt": "2026-11-16T02:27:12+00:00",
-      "reason": "ValueError: Bilingual editorial review: The source text (s13-s15) does not contain any mention of 'compounding', 'wealth generation', or 'mathematical formulas'. The section claims Pabrai discussed these concepts and tested Kevin's understanding of them, but the provided evidence only covers happiness, money, Bridge, chess, and time management.; The content ha"
+      "failures": 2,
+      "nextAttemptAt": "2026-11-17T11:28:26+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English text incorrectly states Justin answered 'I was four' in response to whether his parents bought him a stock; the source (s8) shows Justin said 'I was four' when asked if he bought a stock at age one, implying he did not buy one then but clarifying his actual age is four. The paraphrase misattributes the contex"
     },
     "buffett-98e90a4cbe9b9a": {
       "at": "2026-11-16T08:14:43+00:00",
@@ -4663,5 +4663,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-17T03:28:15+00:00"
+  "updatedAt": "2026-11-17T03:28:26+00:00"
 }
