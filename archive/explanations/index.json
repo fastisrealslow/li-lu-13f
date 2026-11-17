@@ -1558,12 +1558,12 @@
       "reason": "ValueError: Unsupported numerical claim: 2"
     },
     "pabrai-e25d421918d362": {
-      "at": "2026-11-16T08:16:14+00:00",
+      "at": "2026-11-17T03:46:43+00:00",
       "status": "retry",
       "inputHash": "558873c3ea6c5ef3c2dd9870217d60b64f3da944a56d2169f2a57840e24ab0b6",
-      "failures": 3,
-      "nextAttemptAt": "2026-11-17T00:16:14+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English translation of the lecture title is incorrect: 'Competition is for Losers' should be 'Competition Is for Winners'.; The Chinese text incorrectly attributes the phrase 'doggie dog world' to Thiel; this is a mistranslation or hallucination, as the original quote refers to 'dog-eat-dog', and the specific phrasin"
+      "failures": 4,
+      "nextAttemptAt": "2026-11-18T11:46:43+00:00",
+      "reason": "ValueError: Bilingual editorial review: Author attribution error: The source text refers to the host as 'Mohnish' (likely Mohnish Arora), but the content section incorrectly names him 'Mohnish Arja'.; Factual error: The lecture titled 'Competition is for Losers' was delivered by Peter Thiel in 2014, not 'around 2015 or 2016' as stated in the content.; Identity"
     },
     "pabrai-fc099d6ba1ac88": {
       "at": "2026-11-17T03:26:16+00:00",
@@ -4663,5 +4663,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-17T03:46:18+00:00"
+  "updatedAt": "2026-11-17T03:46:43+00:00"
 }
