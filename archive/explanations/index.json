@@ -1622,12 +1622,12 @@
       "reason": "ValueError: Bilingual editorial review: The source text (s2) states: 'Jamaica is part of the West Indies, and it's in the Caribbean near the US.' This phrasing is geographically imprecise. Jamaica is located in the Caribbean Sea, which is south of the US, not 'near' it in a way that suggests proximity like Florida or Bermuda. The source text does not support t"
     },
     "pabrai-5e5f9600af5b36": {
-      "at": "2026-11-16T08:25:08+00:00",
+      "at": "2026-11-17T15:02:16+00:00",
       "status": "retry",
       "inputHash": "25eef77ce1b3c536ad2975d97ba257dbf0174adf94cc7caf8e7031e99e51fb26",
-      "failures": 2,
-      "nextAttemptAt": "2026-11-16T16:25:08+00:00",
-      "reason": "ValueError: Incomplete AI Write at 3200 tokens"
+      "failures": 3,
+      "nextAttemptAt": "2026-11-18T07:02:16+00:00",
+      "reason": "ValueError: Bilingual editorial review: The Chinese text incorrectly attributes the '10 by 10' portfolio strategy to Pabrai. The source (s10) explicitly states this is Mohnish's standard way of investing ('the standard way I try to invest is what I call a 10 by 10 portfolio').; The Chinese text incorrectly attributes the example of the listener being an ER doc"
     },
     "pabrai-1ef3ab18d3d46e": {
       "at": "2026-11-16T19:10:20+00:00",
@@ -4669,5 +4669,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-17T15:01:30+00:00"
+  "updatedAt": "2026-11-17T15:02:16+00:00"
 }
