@@ -1446,12 +1446,12 @@
       "reason": "ValueError: Bilingual editorial review: The English translation of the heading 'I. Career Selection: Follow Passion Rather Than Trends' is a direct paraphrase of the Chinese title but does not appear in the source text; however, this is permitted as editorial interpretation.; The paragraph content accurately reflects the evidence (s2, s3, s4) regarding Pabrai'"
     },
     "pabrai-ac73782c4fb468": {
-      "at": "2026-11-16T06:02:44+00:00",
+      "at": "2026-11-17T03:56:47+00:00",
       "status": "retry",
       "inputHash": "646ba2637a95b22616e050913e38c54c44d16c05e5d3bd9160e1d091d30cc227",
-      "failures": 2,
-      "nextAttemptAt": "2026-11-16T14:02:44+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English title 'Session with Ashoka Investment Club on April 22, 2025' contains a future date relative to the current real-world time (2024), which is a factual inconsistency in the source metadata.; The Chinese translation of 'mishmash' as 'mixed body' or 'combination' slightly loses the original colloquial nuance of"
+      "failures": 3,
+      "nextAttemptAt": "2026-11-17T19:56:47+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English title 'Leveraging Reciprocal Altruism to Build an Edge' is not supported by the source text; the source discusses mental models and human misjudgment, not reciprocal altruism.; The Chinese heading 'Psychological Models and Cognitive Biases: Leveraging Reciprocal Altruism to Build an Edge' contains the unsuppo"
     },
     "pabrai-5b328b6415f6b0": {
       "at": "2026-11-16T15:42:57+00:00",
@@ -4663,5 +4663,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-17T03:56:23+00:00"
+  "updatedAt": "2026-11-17T03:56:47+00:00"
 }
