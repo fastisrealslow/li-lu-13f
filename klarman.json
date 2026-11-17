@@ -5,7 +5,7 @@
     "notablePeople": [
       "Seth Klarman"
     ],
-    "lastUpdated": "2026-11-16T23:58:20Z",
+    "lastUpdated": "2026-11-17T03:03:45Z",
     "aiSummary": "克拉曼大幅增持亚马逊与谷歌，新进芝商所等，显示其持续看好科技巨头及特定周期机会，同时减持部分传统行业仓位。",
     "aiSummaryQuarter": "2026 Q2",
     "shareActions": [
@@ -63729,7 +63729,7 @@
       ]
     },
     "coverage": {
-      "checkedAt": "2026-11-16T23:58:21Z",
+      "checkedAt": "2026-11-17T03:03:45Z",
       "missingQuarters": [
         "1999 Q3"
       ],
@@ -63738,7 +63738,7 @@
         "1999 Q3": "Legacy table reconciliation failed: 40/41 rows, $610102000/$647531000"
       },
       "attempts": {
-        "1999 Q3": 59
+        "1999 Q3": 60
       },
       "pendingRefreshQuarters": [],
       "expandedLookup": null,
@@ -69495,12 +69495,13 @@
       },
       "2002 Q2": {
         "version": 1,
-        "checkedAt": "2026-11-16",
+        "checkedAt": "2026-11-17",
         "source": "https://www.sec.gov/Archives/edgar/data/1061768/0001061768-02-000010.txt",
         "filingDate": "2002-08-13",
         "sourceDigest": "6fb4ad7850171de58a6d988cac9507858334096d26177762b021665a6b22f4d4",
-        "sourceHash": "096c0d3c76efbac0b1d5d7dd30c985188f68384ba314e792a31f6f18553771d2",
-        "status": "pending",
+        "sourceHash": "543c6761526ce07d8f343dd8cb46ebfac170eec884f1cf8b6a7218e67060866d",
+        "status": "verified",
+        "factor": 1,
         "anchors": [
           {
             "ticker": "NHI",
@@ -69509,7 +69510,7 @@
             "price": 16.0,
             "date": "2002-06-28",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/NHI?period1=0&period2=1794900803&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/NHI?period1=0&period2=1794971027&interval=1d&events=splits",
             "candidates": [
               1
             ]
@@ -69521,20 +69522,28 @@
             "price": 11.299999865055085,
             "date": "2002-06-28",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/HST?period1=0&period2=1794900803&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/HST?period1=0&period2=1794971030&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "SRNN",
+            "cusip": "842233108",
+            "filedPrice": 12.885245901639344,
+            "price": 12.899999618530273,
+            "date": "2002-06-28",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/SRNN?period1=0&period2=1794971029&interval=1d&events=splits",
             "candidates": [
               1
             ]
           }
         ],
-        "errors": [
-          "WBR: ValueError",
-          "USI-W: ValueError",
-          "RVSN: ValueError",
-          "GRA: ValueError",
-          "HBP: ValueError"
-        ],
-        "normalizedHash": "096c0d3c76efbac0b1d5d7dd30c985188f68384ba314e792a31f6f18553771d2"
+        "agreementCount": 3,
+        "anchorCount": 3,
+        "outlierTickers": [],
+        "normalizedHash": "543c6761526ce07d8f343dd8cb46ebfac170eec884f1cf8b6a7218e67060866d"
       },
       "2002 Q3": {
         "version": 1,
@@ -70443,11 +70452,11 @@
       },
       "2001 Q1": {
         "version": 1,
-        "checkedAt": "2026-11-16",
+        "checkedAt": "2026-11-17",
         "source": "https://www.sec.gov/Archives/edgar/data/1054420/0001054420-01-500008.txt",
         "filingDate": "2001-05-14",
         "sourceDigest": "866accda277bcc9b5728ce8a3506aede7633b9d5b307c62d1f686b2185107e38",
-        "sourceHash": "2cc728535478933b6579efbecf87bef709a091130e942043742e1438af3d240f",
+        "sourceHash": "a9de0fa9ccc33c78a3d713aca2c09c6ccf48b3c884f2a48c4f8a1eb136c55d80",
         "status": "pending",
         "anchors": [
           {
@@ -70457,7 +70466,7 @@
             "price": 8.499999634552003,
             "date": "2001-03-30",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/VTR?period1=0&period2=1794891397&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/VTR?period1=0&period2=1794971027&interval=1d&events=splits",
             "candidates": [
               1
             ]
@@ -70469,7 +70478,7 @@
             "price": 11.630000114440918,
             "date": "2001-03-30",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/NHI?period1=0&period2=1794891397&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/NHI?period1=0&period2=1794971027&interval=1d&events=splits",
             "candidates": [
               1
             ]
@@ -70483,15 +70492,15 @@
           "CCPRZ: ValueError",
           "HBP: ValueError"
         ],
-        "normalizedHash": "2cc728535478933b6579efbecf87bef709a091130e942043742e1438af3d240f"
+        "normalizedHash": "a9de0fa9ccc33c78a3d713aca2c09c6ccf48b3c884f2a48c4f8a1eb136c55d80"
       },
       "2001 Q2": {
         "version": 1,
-        "checkedAt": "2026-11-16",
+        "checkedAt": "2026-11-17",
         "source": "https://www.sec.gov/Archives/edgar/data/1054420/0001072613-01-500821.txt",
         "filingDate": "2001-08-14",
         "sourceDigest": "ad0dc06fa96b8c1ac9cac48ca78cc343120030dc0658d1bb17b3a7a142e9cefd",
-        "sourceHash": "8719d26c6c445a4c31857428af3da2aa0531143c31fab41bf3af6a46c4524730",
+        "sourceHash": "2419d88d80a675c540f1db816e8266e0cfa32de889e49d771324a6c9f7d5cd73",
         "status": "pending",
         "anchors": [
           {
@@ -70501,7 +70510,7 @@
             "price": 10.300000190734863,
             "date": "2001-06-29",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/NHI?period1=0&period2=1794891397&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/NHI?period1=0&period2=1794971027&interval=1d&events=splits",
             "candidates": [
               1
             ]
@@ -70516,15 +70525,15 @@
           "HBP: ValueError",
           "RVSN: ValueError"
         ],
-        "normalizedHash": "8719d26c6c445a4c31857428af3da2aa0531143c31fab41bf3af6a46c4524730"
+        "normalizedHash": "2419d88d80a675c540f1db816e8266e0cfa32de889e49d771324a6c9f7d5cd73"
       },
       "2001 Q3": {
         "version": 1,
-        "checkedAt": "2026-11-16",
+        "checkedAt": "2026-11-17",
         "source": "https://www.sec.gov/Archives/edgar/data/1054420/0001054420-01-500023.txt",
         "filingDate": "2001-11-14",
         "sourceDigest": "651f7ce58e42ac17589c3bb3d7f35201ebe7c7e0512fee436cd0f028433fa635",
-        "sourceHash": "98e47714e5625dc8cb690673967b79374fc94f453dd90123fa66e1e79cfd2a75",
+        "sourceHash": "8d1586968a6a87df50e381789871b954e250fdd3deb115d40461b58b1225c959",
         "status": "pending",
         "anchors": [
           {
@@ -70534,7 +70543,7 @@
             "price": 13.449999809265137,
             "date": "2001-09-28",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/NHI?period1=0&period2=1794891397&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/NHI?period1=0&period2=1794971027&interval=1d&events=splits",
             "candidates": [
               1
             ]
@@ -70549,15 +70558,15 @@
           "GRA: ValueError",
           "HBP: ValueError"
         ],
-        "normalizedHash": "98e47714e5625dc8cb690673967b79374fc94f453dd90123fa66e1e79cfd2a75"
+        "normalizedHash": "8d1586968a6a87df50e381789871b954e250fdd3deb115d40461b58b1225c959"
       },
       "2001 Q4": {
         "version": 1,
-        "checkedAt": "2026-11-16",
+        "checkedAt": "2026-11-17",
         "source": "https://www.sec.gov/Archives/edgar/data/1054420/0001054420-02-000044.txt",
         "filingDate": "2002-02-13",
         "sourceDigest": "59a768eafec42b25983f189740fb3a00aac0a8874689b4dd23928275c362ae47",
-        "sourceHash": "d3a12a8df7007d1fcbc01f84dddfd50f59f46cc559387c15d6f0d81143d696ac",
+        "sourceHash": "88a3f984ca9f18d938768dc5380f083d471c7f2b296680c4db336ffec9eeb8f4",
         "status": "pending",
         "anchors": [
           {
@@ -70567,7 +70576,7 @@
             "price": 14.800000190734863,
             "date": "2001-12-31",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/NHI?period1=0&period2=1794891397&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/NHI?period1=0&period2=1794971027&interval=1d&events=splits",
             "candidates": [
               1
             ]
@@ -70582,15 +70591,15 @@
           "GRA: ValueError",
           "HBP: ValueError"
         ],
-        "normalizedHash": "d3a12a8df7007d1fcbc01f84dddfd50f59f46cc559387c15d6f0d81143d696ac"
+        "normalizedHash": "88a3f984ca9f18d938768dc5380f083d471c7f2b296680c4db336ffec9eeb8f4"
       },
       "2002 Q1": {
         "version": 1,
-        "checkedAt": "2026-11-16",
+        "checkedAt": "2026-11-17",
         "source": "https://www.sec.gov/Archives/edgar/data/1054420/0001054420-02-000061.txt",
         "filingDate": "2002-05-10",
         "sourceDigest": "60fefaaaa3eb6f442bf11c94f012ea71711aeacbfca9bb533f6c090b8f95c3ea",
-        "sourceHash": "702b26a02617cf5e9484ad6a68cdc47a4ba1a4217af3fcc3a2c928da13cd0fc0",
+        "sourceHash": "cf57d431486c41019576df840826537c50a40fb2f6bba09c555944023b7a75c6",
         "status": "pending",
         "anchors": [
           {
@@ -70600,7 +70609,19 @@
             "price": 14.600000381469727,
             "date": "2002-03-28",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/NHI?period1=0&period2=1794891397&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/NHI?period1=0&period2=1794971027&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "SRNN",
+            "cusip": "842233108",
+            "filedPrice": 11.147540983606557,
+            "price": 11.149999618530273,
+            "date": "2002-03-28",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/SRNN?period1=0&period2=1794971029&interval=1d&events=splits",
             "candidates": [
               1
             ]
@@ -70614,7 +70635,7 @@
           "HBP: ValueError",
           "RVSN: ValueError"
         ],
-        "normalizedHash": "702b26a02617cf5e9484ad6a68cdc47a4ba1a4217af3fcc3a2c928da13cd0fc0"
+        "normalizedHash": "cf57d431486c41019576df840826537c50a40fb2f6bba09c555944023b7a75c6"
       },
       "2007 Q3": {
         "version": 1,
