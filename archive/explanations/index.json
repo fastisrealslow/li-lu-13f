@@ -3632,12 +3632,12 @@
       "reason": "ValueError: Bilingual editorial review: The English text incorrectly states '£350 million' as the gross figure ignoring subsidies, whereas source s14 clarifies that £350m was the gross payment and the net (after EU subsidies) was closer to £200m. The phrasing in the output implies the £350m ignored subsidies rather than stating it was the gross amount before d"
     },
     "mclemore-d125d606df3e41": {
-      "at": "2026-11-16T07:54:06+00:00",
+      "at": "2026-11-17T03:40:50+00:00",
       "status": "retry",
       "inputHash": "25b6ea58d57896faeba0529e6608706510e1398cb4c087ab50cfc79927b1d4b8",
-      "failures": 3,
-      "nextAttemptAt": "2026-11-16T23:54:06+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English paragraph incorrectly attributes the specific stock performance figures (RPRX +46.5%, PGEN +36.4%, etc.) to Samantha McLemore's Opportunity Equity Strategy. The source text (s1) lists these companies in a separate section (s2) under '1H26 Return' without explicitly linking them to her strategy or confirming t"
+      "failures": 4,
+      "nextAttemptAt": "2026-11-18T11:40:50+00:00",
+      "reason": "ValueError: Copied source passage"
     },
     "mclemore-d1590c8fd49264": {
       "at": "2026-11-16T07:54:08+00:00",
@@ -4663,5 +4663,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-17T03:40:31+00:00"
+  "updatedAt": "2026-11-17T03:40:50+00:00"
 }
