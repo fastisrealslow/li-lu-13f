@@ -186,7 +186,12 @@ def fixed_width_tables(source):
                     # belongs to this prefix, not to the previously completed row.
                     # SEC 2011 Q4: Brookfield Residential /  Properties, Inc.
                     indent=lambda text: len(text)-len(text.lstrip())
-                    indented_next=bool(ROW.search(following) and following[:name_end].strip()
+                    # Explicit legal suffixes and a preceding unfinished '&'
+                    # bind backwards even if the next issuer is indented.
+                    suffix_only=bool(re.fullmatch(r'(?:Corporation|Corp\.?|Inc\.?|Incorporated|Ltd\.?|Limited|PLC|L\.?P\.?)',fragment,re.I))
+                    prior_unfinished=bool(previous and previous['name'].rstrip().endswith('&'))
+                    indented_next=bool(not suffix_only and not prior_unfinished
+                                       and ROW.search(following) and following[:name_end].strip()
                                        and indent(following)>indent(line))
                     next_suffix=indented_next or bool(re.match(r'^\s*(?:Ltd\.?|Inc\.?|Corp\.?|Corporation|PLC|L\.?P\.?)\s{2,}',following,re.I))
                     if previous and not name_parts and not next_suffix:

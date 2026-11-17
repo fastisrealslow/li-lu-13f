@@ -26,3 +26,14 @@ class HistoricalIdentitySafety(unittest.TestCase):
         self.assertEqual(got['averageBuy'],10)
         self.assertIsNone(got['averageSell'])
         self.assertEqual(got['quarters'][0]['action'],'observed')
+
+    def test_indented_next_issuer_never_steals_an_explicit_prior_suffix(self):
+        original=Path('tests/fixtures/legacy_wrapped_issuers.txt').read_text()
+        # Move only the next name, not its class/CUSIP/financial columns.
+        raw=original.replace('Dr. Reddys Labs Ltd        ADR',' Dr. Reddys Labs Ltd       ADR')
+        raw=raw.replace('Harvest Nat Res Inc.       COM',' Harvest Nat Res Inc.      COM')
+        rows={h['cusip']:h for h in fixed_width_tables(raw)}
+        self.assertEqual(rows['22282E102']['name'],'Covanta Holding Corporation')
+        self.assertEqual(rows['256135203']['name'],'Dr. Reddys Labs Ltd')
+        self.assertEqual(rows['Y2685T107']['name'],'Genco Shipping & Trading Ltd.')
+        self.assertEqual(rows['41754V103']['name'],'Harvest Nat Res Inc.')
