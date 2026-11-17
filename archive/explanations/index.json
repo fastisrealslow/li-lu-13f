@@ -1702,12 +1702,12 @@
       "reason": "ValueError: Unsupported numerical claim: 1%"
     },
     "pabrai-7b7fa2ae604775": {
-      "at": "2026-11-16T15:25:57+00:00",
+      "at": "2026-11-17T14:51:09+00:00",
       "status": "retry",
       "inputHash": "f58250303d97eb5facb233f7c8a0f1454ad019b17d5ae1335c529d052ecb891f",
-      "failures": 3,
-      "nextAttemptAt": "2026-11-17T07:25:57+00:00",
-      "reason": "ValueError: Bilingual editorial review: Factual error in s15: The source states Ashok solved past papers for '30' years (likely a transcription error for 30 days or months), but the content claims '30 years'.; Factual error in s15: The source mentions Ashok spent time on papers for 'eight hours', but does not specify this duration as a daily habit over 30 year"
+      "failures": 4,
+      "nextAttemptAt": "2026-11-18T22:51:09+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English translation of '30 years twice' is factually incorrect based on the source text; it states '30' (likely meaning 30 papers) but the context implies a duration or count that contradicts 'years'. The source says 'solved every past JEE paper for 30', which likely means 30 papers, not '30 years twice'.; The Englis"
     },
     "pabrai-6295b96a9b0552": {
       "at": "2026-11-16T19:38:25+00:00",
@@ -4669,5 +4669,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-17T14:50:23+00:00"
+  "updatedAt": "2026-11-17T14:51:09+00:00"
 }
