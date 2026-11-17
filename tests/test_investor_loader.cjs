@@ -37,3 +37,26 @@ test('explicit refresh uses a new manifest URL even within the same cache window
   const manifests=urls.filter(url=>url.startsWith('browser/manifest'));
   assert.equal(new Set(manifests).size,3);
 });
+
+
+test('source-only hosts use the fixed published snapshots and keep history lazy',async()=>{
+ const base='https://fastisrealslow.github.io/li-lu-13f/',calls=[],payload=overview('test');
+ const manifest={version:1,investors:{test:{snapshot:asset('test','current'),history:payload.history}}};
+ const l=loader(async url=>{
+  calls.push(url);
+  if(url.startsWith('browser/manifest'))return {ok:true,status:200,json:async()=>{throw new SyntaxError('HTML fallback')}};
+  assert.ok(url.startsWith(base));
+  if(url.includes('manifest.json'))return response(manifest);
+  return response(url.includes('-current-')?payload:{version:1,investor:'test',history:{holdings:{}},exitPerf:{}});
+ });
+ assert.equal((await l.load('test')).investor,'test');
+ assert.equal(calls.length,3);assert.ok(!calls.some(url=>url.includes('-history-')));
+ await l.load('test');assert.equal(calls.length,3);
+ await l.history(payload.history);assert.equal(calls.at(-1),base+payload.history.file);
+});
+
+test('a mirror cannot redirect assets and two unavailable manifests preserve the raw-data fallback',async()=>{
+ const calls=[],l=loader(async url=>{calls.push(url);return response({version:1,investors:{test:{snapshot:{file:'https://evil.test/x.json'},history:asset('test','history')}}});});
+ assert.equal(await l.load('test'),null);assert.equal(calls.length,2);
+ assert.ok(calls.every(url=>url.includes('browser/manifest.json')));
+});

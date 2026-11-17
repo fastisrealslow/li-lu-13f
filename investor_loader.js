@@ -1,6 +1,9 @@
 /* Immutable browser files are generated during deployment from validated data. */
 (function(root){
-  const snapshots=new Map(),histories=new Map();
+  const snapshots=new Map(),histories=new Map(),assetBases=new WeakMap();
+  // Cloudflare's source-only deployment may lack generated assets. This is the
+  // same validated public publication used by MCP, never a manifest-supplied URL.
+  const publication='https://fastisrealslow.github.io/li-lu-13f/';
   // Budget serialized bytes as a conservative, stable proxy for memory. Keep
   // ordinary portfolios across visits without retaining unbounded history.
   const snapshotBudget=8*1024*1024,historyBudget=16*1024*1024;
@@ -15,7 +18,7 @@
   }
   async function fetchAsset(entry,options){
     const compressed=typeof DecompressionStream==='function'&&entry.gzipFile===entry.file+'.gz';
-    const response=await fetch(compressed?entry.gzipFile:entry.file,options);
+    const response=await fetch((assetBases.get(entry)||'')+(compressed?entry.gzipFile:entry.file),options);
     if(!response.ok)return {response};
     // Content-Encoding is decoded by fetch itself; ordinary .gz files need a stream decoder.
     const value=compressed&&!/\bgzip\b/i.test(response.headers?.get('content-encoding')||'')
@@ -26,18 +29,26 @@
   async function getManifest(fresh=false){
     if(!fresh&&Date.now()-manifestAt<300000)return manifest;
     if(!fresh&&manifestRequest)return manifestRequest;
-    const version=++manifestVersion,ctrl=new AbortController(),timer=setTimeout(()=>ctrl.abort(),5000);
+    const version=++manifestVersion;
     const request=(async()=>{
-      try{
-        const response=await fetch('browser/manifest.json?v=1&t='+(fresh?Date.now()+'-'+version:Math.floor(Date.now()/300000)),{cache:'no-store',signal:ctrl.signal});
-        if(!response.ok)throw Error('Browser manifest unavailable');
-        const value=await response.json();if(value.version!==1||!value.investors)throw Error('Invalid browser manifest');
-        for(const [id,entry] of Object.entries(value.investors))if(!/^[a-z][a-z0-9_]{0,30}$/.test(id)||!asset(entry.snapshot)||!asset(entry.history)||!entry.snapshot.file.startsWith('browser/'+id+'-current-')||!entry.history.file.startsWith('browser/'+id+'-history-'))throw Error('Invalid browser asset');
-        if(version===manifestVersion){manifest=value;manifestAt=Date.now();}
-        return value;
-      }catch(error){if(version===manifestVersion){manifestAt=Date.now()-270000;}return manifest;}
-      finally{clearTimeout(timer);if(version===manifestVersion)manifestRequest=null;}
-    })();manifestRequest=request;return request;
+      for(const base of ['',publication]){
+        const ctrl=new AbortController(),timer=setTimeout(()=>ctrl.abort(),5000);
+        try{
+          const response=await fetch(base+'browser/manifest.json?v=1&t='+(fresh?Date.now()+'-'+version:Math.floor(Date.now()/300000)),{cache:'no-store',signal:ctrl.signal});
+          if(!response.ok)throw Error('Browser manifest unavailable');
+          const value=await response.json();if(value.version!==1||!value.investors)throw Error('Invalid browser manifest');
+          for(const [id,entry] of Object.entries(value.investors))if(!/^[a-z][a-z0-9_]{0,30}$/.test(id)||!asset(entry.snapshot)||!asset(entry.history)||!entry.snapshot.file.startsWith('browser/'+id+'-current-')||!entry.history.file.startsWith('browser/'+id+'-history-'))throw Error('Invalid browser asset');
+          for(const entry of Object.values(value.investors)){
+            assetBases.set(entry.snapshot,base);assetBases.set(entry.history,base);
+          }
+          if(version===manifestVersion){manifest=value;manifestAt=Date.now();}
+          return value;
+        }catch(error){/* Try the fixed publication before falling back to full datasets. */}
+        finally{clearTimeout(timer);}
+      }
+      if(version===manifestVersion)manifestAt=Date.now()-270000;
+      return manifest;
+    })().finally(()=>{if(version===manifestVersion)manifestRequest=null;});manifestRequest=request;return request;
   }
   async function load(id,{fresh=false,signal,retried=false}={}){
     const available=await getManifest(fresh),entry=available?.investors&&Object.prototype.hasOwnProperty.call(available.investors,id)?available.investors[id]:null;
@@ -49,6 +60,7 @@
     if(!response.ok)throw Error('Investor snapshot HTTP '+response.status);
     if(value.version!==1||value.investor!==id||!value.data?.current||!value.prices?.quotes||Array.isArray(value.prices.quotes)||!asset(value.history)||value.history.file!==entry.history.file||value.data.browserProjection?.version!==1||value.insights?.schemaVersion!==2||!value.insights.entries)throw Error('Invalid investor snapshot');
     for(const [kind,digest] of Object.entries(value.data.browserProjection.sources||{}))if(!/^[a-f0-9]{64}$/.test(digest)||value.insights.entries[kind+':'+id]?.source?.browserSource!==digest)throw Error('Investor insight source mismatch');
+    assetBases.set(value.history,assetBases.get(entry.history)||'');
     return remember(snapshots,entry.snapshot,value,snapshotBudget);
   }
   async function history(entry,{signal}={}){
