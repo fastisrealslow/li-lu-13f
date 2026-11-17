@@ -89,6 +89,20 @@ class ValidationTests(unittest.TestCase):
         (self.root / "quotes.json").write_text('{"quotes":{}}')
         (self.root / "hk.json").write_text('{"holdings":[]}')
 
+    def test_verified_price_shards_are_staged_and_corruption_blocks_publication(self):
+        from price_storage import write_prices, referenced_shards
+        path = self.root / "quotes.json"
+        payload = {"quotes": {}, "tradePrices": {"entries": {str(i): {"price": i, "evidence": "x" * 400} for i in range(20)}}}
+        write_prices(path, payload, limit=2000, chunk_size=1500)
+        chunks = referenced_shards(path)
+        self.assertGreater(len(chunks), 1)
+        files = validate_data.validate(self.root)
+        for chunk in chunks:
+            self.assertIn(chunk.relative_to(self.root).as_posix(), files)
+        chunks[0].write_text('{}')
+        with self.assertRaisesRegex(ValueError, "integrity mismatch"):
+            validate_data.validate(self.root)
+
     def test_all_data_and_mapping_cache_are_validated_and_included(self):
         (self.root / "resolved_cusip_map.json").write_text('{"111":"ABC"}')
         files = validate_data.validate(self.root)

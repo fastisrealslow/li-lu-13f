@@ -19,6 +19,7 @@
 每个投资者的 data_file / prices_file / market 配置来自仓库根目录的 investors.json（单一权威来源）。
 """
 
+from price_storage import load_prices
 import json, os, sys, time, re, hashlib, math, urllib.request, urllib.error
 from functools import lru_cache
 from zoneinfo import ZoneInfo
@@ -28,18 +29,8 @@ from security_identity import project as project_identities, project_prices
 
 
 def write_prices_atomic(path, payload):
-    import tempfile
-    from pathlib import Path
-    path=Path(path);temporary=None
-    try:
-        with tempfile.NamedTemporaryFile(mode='w',encoding='utf-8',dir=path.parent,prefix=path.name+'.',suffix='.tmp',delete=False) as out:
-            temporary=out.name
-            compact=len(payload.get('tradePrices',{}).get('entries',{}))>200
-            json.dump(payload,out,ensure_ascii=False,allow_nan=False,indent=None if compact else 2,separators=(',',':') if compact else None)
-            out.write('\n')
-        os.replace(temporary,path)
-    finally:
-        if temporary and os.path.exists(temporary):os.unlink(temporary)
+    from price_storage import write_prices
+    write_prices(path, payload)
 
 
 def comparable_price_history(history, current_quarter, market_quotes=None):
@@ -333,11 +324,10 @@ def fetch_us(investor, cfg):
     existing_cb     = {}
     ex = None
     try:
-        with open(prices_file) as f:
-            ex = project_prices(data, json.load(f))
-            existing_quotes = ex.get("quotes", {})
-            existing_cb     = ex.get("costBasis", {})
-            print(f"  Loaded cache: {len(existing_quotes)} quotes, {len(existing_cb)} cost basis")
+        ex = project_prices(data, load_prices(prices_file))
+        existing_quotes = ex.get("quotes", {})
+        existing_cb     = ex.get("costBasis", {})
+        print(f"  Loaded cache: {len(existing_quotes)} quotes, {len(existing_cb)} cost basis")
     except FileNotFoundError:
         pass
 
@@ -718,8 +708,7 @@ def fetch_hk(investor, cfg):
 
     existing = {}
     try:
-        with open(prices_file) as f:
-            existing = json.load(f)
+        existing = load_prices(prices_file)
     except FileNotFoundError:
         pass
     existing_cb = existing.get("costBasis", {})
@@ -868,8 +857,7 @@ def main():
     backfill_data_files([cfg['data']],{**load_resolved_map(),**CUSIP_TICKER_MAP})
 
     if '--hk-only' in sys.argv:
-        with open(cfg['prices'], encoding='utf-8') as f:
-            existing = json.load(f)
+        existing = load_prices(cfg['prices'])
         existing['quotes'] = supplement_hk_quotes(cfg, dict(existing.get('quotes', {})), existing.get('quotes', {}))
         existing['hkQuotesUpdatedAt'] = datetime.now(timezone.utc).isoformat()
         write_prices_atomic(cfg['prices'],existing)

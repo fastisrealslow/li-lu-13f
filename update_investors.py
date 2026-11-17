@@ -1,4 +1,5 @@
 """Registry-driven updates: every configured investor is scheduled automatically."""
+from price_storage import load_prices
 import argparse
 import json
 import os
@@ -86,7 +87,7 @@ def run(people, runner=subprocess.run, pause=time.sleep, retries=2):
                     snapshot=read_json(ROOT/investor['dataFile'])
                     if 'totalValue' not in snapshot.get('current',{}):raise ValueError('Missing current total value')
                     validate_holdings_snapshot(snapshot)
-                if investor.get('pricesFile') and not isinstance(read_json(ROOT/investor['pricesFile']).get('quotes'),dict):
+                if investor.get('pricesFile') and not isinstance(load_prices(ROOT/investor['pricesFile']).get('quotes'),dict):
                     raise ValueError('Missing price quotes')
             except (ValueError,OSError,TypeError,KeyError,AttributeError) as exc:
                 restore(original)

@@ -406,7 +406,12 @@ function investorLoadState(target,error=false) {
 async function investorJSON(file,{signal,stamp,fresh}) {
   const response=await fetch(file+'?v=98&t='+stamp,{signal,cache:fresh?'no-store':'default'});
   if(!response.ok)throw Error(file+' HTTP '+response.status);
-  return response.json();
+  const value=await response.json();
+  if(value?._priceShards){
+    if(!globalThis.PriceShards)throw Error('Price shard loader unavailable');
+    return globalThis.PriceShards.resolve(value,{signal,fresh});
+  }
+  return value;
 }
 function switchInvestor(v,options={}) {
   const target=v&&INVESTORS.includes(v)?v:INVESTORS[(INVESTORS.indexOf(investor)+1)%INVESTORS.length];

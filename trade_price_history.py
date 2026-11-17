@@ -1,4 +1,5 @@
 """Source-bound quarterly trade estimates; no trade dates or executions are invented."""
+from price_storage import load_prices
 import copy
 import hashlib
 import json
@@ -236,7 +237,7 @@ def refresh_file(person, root, limit=12, cached=None):
     root=Path(root)
     data=json.loads((root/person['dataFile']).read_text())
     price_path=root/person['pricesFile']
-    prices=json.loads(price_path.read_text())
+    prices=load_prices(price_path)
     quotes=prices.setdefault('quotes',{})
     if cached:
         from batch_market_data import SERIES, normalized_symbol, merge_actions
