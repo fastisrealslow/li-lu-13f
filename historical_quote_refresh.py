@@ -79,6 +79,21 @@ def refresh(data, quotes, previous=None, *, limit=24, now=None, loader=None):
     return {tk:row for tk,row in state.items() if tk in holdings}
 
 
+def seed_session_quotes(configs, root, now=None):
+    """Reuse only current, non-retired quotes; keep the newest across investors."""
+    now=now or datetime.now(timezone.utc)
+    for cfg in configs:
+        for tk,q in load_prices(root/cfg['pricesFile']).get('quotes',{}).items():
+            if q.get('status')=='ceased_trading' or not q.get('symbol') or due(q,now):
+                continue
+            symbol=normalized_symbol(tk).upper()
+            if normalized_symbol(q['symbol']).upper()!=symbol or q.get('currency','USD')!='USD':
+                continue
+            prior=SESSION_QUOTES.get(normalized_symbol(tk),{})
+            if not fresh_quote(prior,now.timestamp()) or q['t']>=prior.get('t',0):
+                SESSION_QUOTES[normalized_symbol(tk)]=q
+
+
 if __name__=='__main__':
     import argparse,json
     from pathlib import Path
@@ -87,11 +102,7 @@ if __name__=='__main__':
     parser=argparse.ArgumentParser();parser.add_argument('--limit',type=int,default=100);args=parser.parse_args()
     root=Path(__file__).resolve().parent
     configs=[c for c in json.loads((root/'investors.json').read_text())['investors'] if c.get('source13F')]
-    for cfg in configs:
-        for tk,q in load_prices(root/cfg['pricesFile']).get('quotes',{}).items():
-            if q.get('status')!='ceased_trading' and q.get('symbol') and not due(q,datetime.now(timezone.utc)):
-                prior=SESSION_QUOTES.get(normalized_symbol(tk),{})
-            if not fresh_quote(prior,now.timestamp()) or q['t']>=prior.get('t',0):SESSION_QUOTES[normalized_symbol(tk)]=q
+    seed_session_quotes(configs,root)
     for cfg in configs:
         data=json.loads((root/cfg['dataFile']).read_text());path=root/cfg['pricesFile'];prices=load_prices(path);quotes=prices.setdefault('quotes',{})
         before=sum(fresh_quote(q) for q in quotes.values())
