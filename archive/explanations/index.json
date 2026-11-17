@@ -1094,12 +1094,12 @@
       "reason": "ValueError: Bilingual editorial review: The source text does not mention 'high hit rate paradox' (s10 only mentions a low 3% hit rate); this is an invented concept in the translation.; The source states Buffett invested in about 400 stocks over 58 years, but implies these were bets/ideas, not necessarily individual stock purchases; the translation's phrasing '"
     },
     "pabrai-c601c5640111d6": {
-      "at": "2026-11-16T08:34:39+00:00",
+      "at": "2026-11-17T14:40:28+00:00",
       "status": "retry",
       "inputHash": "e32bcdfbc843caa48fc9a723c3c99199d434cc9ba64e75c22a923297ef257ea6",
-      "failures": 2,
-      "nextAttemptAt": "2026-11-16T16:34:39+00:00",
-      "reason": "ValueError: Bilingual editorial review: The source text does not mention 'JNV Bangalore' in the provided excerpts (s25-s27); this location appears only in the metadata/title and is absent from the quoted evidence.; The source text does not explicitly state that Pabrai's father granted him financial freedom; it describes his brother giving him access to a purse"
+      "failures": 3,
+      "nextAttemptAt": "2026-11-18T06:40:28+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English text incorrectly states the father sat them down when 'he was 16 and his brother 17', whereas the source (s25) says 'When I turned 16 and my brother turned 17'. The pronoun 'I' refers to Pabrai, not the father.; The English text claims the father explained they could access the wallet without reporting amount"
     },
     "lilu-f9c5b8c9904f52": {
       "at": "2026-11-17T03:43:45+00:00",
@@ -4669,5 +4669,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-17T14:40:24+00:00"
+  "updatedAt": "2026-11-17T14:40:28+00:00"
 }
