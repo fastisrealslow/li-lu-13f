@@ -2515,12 +2515,12 @@
       "reason": "ValueError: Bilingual editorial review: The English text in the 'content' section contains a factual error regarding Coca-Cola's IPO price. Source s8 states it went public at $40 per share in 1919, but the provided English content incorrectly states '$40 per share'. This is a direct match with the source, so no correction is needed based on the instruction to "
     },
     "buffett-a18ed90fc42670": {
-      "at": "2026-11-16T08:16:27+00:00",
+      "at": "2026-11-17T14:45:58+00:00",
       "status": "retry",
       "inputHash": "0cbe0d06ba075a0bc6f90ed52c4ee7f80443bc41eaaaa6f6d3e8556992297b65",
-      "failures": 2,
-      "nextAttemptAt": "2026-11-16T16:16:27+00:00",
-      "reason": "ValueError: Copied source passage"
+      "failures": 3,
+      "nextAttemptAt": "2026-11-18T06:45:58+00:00",
+      "reason": "ValueError: Unsupported numerical claim: 4000"
     },
     "webb-0ba17a64cdb8de": {
       "at": "2026-11-14T15:02:38+00:00",
@@ -4669,5 +4669,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-17T14:45:35+00:00"
+  "updatedAt": "2026-11-17T14:45:58+00:00"
 }
