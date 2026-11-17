@@ -3584,12 +3584,12 @@
       "reason": "ValueError: Bilingual editorial review: The Chinese text introduces a specific claim ('more wrong than right') attributed to Howard Marks without explicit textual support in the provided source evidence (s3 only mentions 'more wrong than right' as a general statement by the author, but the phrasing 'often more wrong than right' is an editorial expansion not st"
     },
     "mclemore-27e48025ed61f3": {
-      "at": "2026-11-16T05:27:41+00:00",
+      "at": "2026-11-17T03:50:09+00:00",
       "status": "retry",
       "inputHash": "ebe223faeb1c1f83a9ef3e8f7b646e2d49f31b35af42b313d2dc326150f47dc1",
-      "failures": 3,
-      "nextAttemptAt": "2026-11-16T21:27:41+00:00",
-      "reason": "ValueError: Copied source passage"
+      "failures": 4,
+      "nextAttemptAt": "2026-11-18T11:50:09+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English paraphrase of s0 contains a factual error: it states Buffett defined risk as 'probability of causing a loss of purchasing power,' whereas the source text quotes him as defining it as 'the probability of that investment causing its owner a loss of purchasing power.' The addition of 'its owner' is an editorial "
     },
     "mclemore-97a86175f75125": {
       "at": "2026-11-16T14:34:42+00:00",
@@ -4663,5 +4663,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-17T03:49:38+00:00"
+  "updatedAt": "2026-11-17T03:50:09+00:00"
 }
