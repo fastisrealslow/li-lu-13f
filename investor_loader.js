@@ -29,7 +29,7 @@
     const version=++manifestVersion,ctrl=new AbortController(),timer=setTimeout(()=>ctrl.abort(),5000);
     const request=(async()=>{
       try{
-        const response=await fetch('browser/manifest.json?v=1&t='+Math.floor(Date.now()/300000),{cache:'no-store',signal:ctrl.signal});
+        const response=await fetch('browser/manifest.json?v=1&t='+(fresh?Date.now()+'-'+version:Math.floor(Date.now()/300000)),{cache:'no-store',signal:ctrl.signal});
         if(!response.ok)throw Error('Browser manifest unavailable');
         const value=await response.json();if(value.version!==1||!value.investors)throw Error('Invalid browser manifest');
         for(const [id,entry] of Object.entries(value.investors))if(!/^[a-z][a-z0-9_]{0,30}$/.test(id)||!asset(entry.snapshot)||!asset(entry.history)||!entry.snapshot.file.startsWith('browser/'+id+'-current-')||!entry.history.file.startsWith('browser/'+id+'-history-'))throw Error('Invalid browser asset');

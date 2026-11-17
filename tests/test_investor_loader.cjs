@@ -29,3 +29,11 @@ test('returning to a previously viewed history does not decode it again',async()
   for(const id of ['one','two','three','one'])await l.history({...asset(id,'history'),bytes:1000000});
   assert.equal(calls.length,3);
 });
+
+test('explicit refresh uses a new manifest URL even within the same cache window',async()=>{
+  const urls=[];const payload=overview('test');
+  const l=loader(async url=>{urls.push(url);return response(url.startsWith('browser/manifest')?{version:1,investors:{test:{snapshot:asset('test','current'),history:payload.history}}}:payload);});
+  await l.load('test');await l.load('test',{fresh:true});await l.load('test',{fresh:true});
+  const manifests=urls.filter(url=>url.startsWith('browser/manifest'));
+  assert.equal(new Set(manifests).size,3);
+});
