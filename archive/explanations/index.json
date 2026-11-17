@@ -2110,12 +2110,12 @@
       "reason": "ValueError: Unsupported numerical claim: 12"
     },
     "vinall-53f42cca11bfa3": {
-      "at": "2026-11-16T19:22:07+00:00",
+      "at": "2026-11-17T14:10:34+00:00",
       "status": "retry",
       "inputHash": "14d4f420a6eed2b73323d44a7dc800c66c244ace8bc033a5326f74b876c5360f",
-      "failures": 3,
-      "nextAttemptAt": "2026-11-17T11:22:07+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English translation in the content section contains factual inaccuracies not supported by the ASR evidence. Specifically, it claims MITIMCo was 'the first institutional investor to reach out to him personally' (evidence s2), but the source text only states they were 'the first... to ever reach out to me', which is am"
+      "failures": 4,
+      "nextAttemptAt": "2026-11-18T22:10:34+00:00",
+      "reason": "ValueError: Bilingual editorial review: The source text (ASR) does not mention 'value investing philosophy' or 'value investors'. The Chinese content invents this concept and claims Rob Vinall discusses it, which is a hallucination. The English content similarly fabricates the topic of 'value investing philosophy' despite the evidence only discussing scale, ma"
     },
     "lilu-a3cf37658bd8ce": {
       "at": "2026-11-17T03:20:30+00:00",
@@ -4669,5 +4669,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-17T14:10:00+00:00"
+  "updatedAt": "2026-11-17T14:10:34+00:00"
 }
