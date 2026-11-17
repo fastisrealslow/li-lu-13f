@@ -816,12 +816,12 @@
       "reason": "ValueError: Bilingual editorial review: The Chinese text incorrectly states the first quarter was 'second only to global catastrophes' (ranking second), whereas the source (s6) says it was 'probably the second worst quarter for the insurance industry', implying a comparison within the industry, not globally.; The English translation uses 'fifty billion dollars"
     },
     "buffett-8788fc4c92b085": {
-      "at": "2026-11-16T07:39:26+00:00",
+      "at": "2026-11-17T04:03:51+00:00",
       "status": "retry",
       "inputHash": "966d590bfc2bf36ab4d3404c83801c4b71f12dbcc4a4d31e20411a687f4bc976",
-      "failures": 2,
-      "nextAttemptAt": "2026-11-16T15:39:26+00:00",
-      "reason": "ValueError: Bilingual editorial review: The source text (s1) states the script was written by the speechwriter for Saddam Hussein, but does not claim it is 'full of warmth and participatory elements' as a positive attribute; this phrasing in the content appears to be an editorial interpretation or misrepresentation of the context.; The source text (s30) refers"
+      "failures": 3,
+      "nextAttemptAt": "2026-11-17T20:03:51+00:00",
+      "reason": "ValueError: Bilingual editorial review: The content claims Buffett read a script written by Saddam Hussein's speechwriter (s1), which is factually incorrect; the transcript shows Buffett reading his own prepared remarks about meeting logistics.; The text states Buffett answered questions until noon before a break, but the transcript indicates the Q&A session c"
     },
     "buffett-d6f1a801f004df": {
       "at": "2026-11-16T15:37:15+00:00",
@@ -4663,5 +4663,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-17T04:02:01+00:00"
+  "updatedAt": "2026-11-17T04:03:51+00:00"
 }
