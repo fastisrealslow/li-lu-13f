@@ -4629,12 +4629,12 @@
       "reason": "ValueError: Copied source passage"
     },
     "pabrai-6c0b7ef252e6e1": {
-      "at": "2026-11-16T08:28:59+00:00",
+      "at": "2026-11-17T15:06:30+00:00",
       "status": "retry",
       "inputHash": "71dfdbbbf3314e4bd2eb193ab2f4d386a3527cd6a78197dec9bfdfc579a104ec",
-      "failures": 3,
-      "nextAttemptAt": "2026-11-17T00:28:59+00:00",
-      "reason": "ValueError: Bilingual editorial review: The source text (s4) states 'the men will eventually be separated from the boys' without defining who 'men' or 'boys' are. The content section explicitly interprets this as AI leaders ('men') separating from traditional giants ('boys'), which is an unwritten editorial interpretation not supported by the source.; The sour"
+      "failures": 4,
+      "nextAttemptAt": "2026-11-18T23:06:30+00:00",
+      "reason": "ValueError: Bilingual editorial review: The source text (s4) does not contain the specific quote 'the men will eventually be separated from the boys' attributed to Pabrai; this appears to be a hallucinated or misattributed paraphrase of his actual statement ('On the AI side...').; The source text (s4) does not explicitly state that 'new leaders will supersede "
     },
     "mclemore-63c13891e48d9e": {
       "at": "2026-11-17T15:02:59+00:00",
@@ -4669,5 +4669,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-17T15:05:55+00:00"
+  "updatedAt": "2026-11-17T15:06:30+00:00"
 }
