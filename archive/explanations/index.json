@@ -1046,12 +1046,12 @@
       "reason": "ValueError: Bilingual editorial review: The source text (s14) does not explicitly state that TransDigm 'ultimately performed well' as a general fact; it only says the business 'continued to do well' and Pabrai notes this happened despite Akre's model. The paraphrase frames this as an established outcome rather than a nuanced observation.; The source mentions '"
     },
     "buffett-30a507095b61cd": {
-      "at": "2026-11-16T05:35:24+00:00",
+      "at": "2026-11-17T03:30:40+00:00",
       "status": "retry",
       "inputHash": "83760cda18c99df372c30e0bb74f7ca0e2fb64780aeb26d5e28f11724e0ac841",
-      "failures": 2,
-      "nextAttemptAt": "2026-11-16T13:35:24+00:00",
-      "reason": "ValueError: Bilingual editorial review: The source text does not support the claim that Buffett's statement implies 'a specific, actionable calculation endpoint or conceptual terminus' for Judgment Day; it only uses the phrase as a rhetorical device to illustrate present value logic.; The source text does not provide an explanation beyond its literal metaphori"
+      "failures": 3,
+      "nextAttemptAt": "2026-11-17T19:30:40+00:00",
+      "reason": "ValueError: Bilingual editorial review: The source does not support the claim that Buffett's argument 'makes any attempt to separate them contrary to the fundamental logic of market pricing'; he only states there is no distinction in their minds between growth and value.; The source does not support the specific phrase 'day of Judgment' as a formal term for va"
     },
     "pabrai-ebbacc9bcedbf3": {
       "at": "2026-11-16T08:05:34+00:00",
@@ -4663,5 +4663,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-17T03:30:15+00:00"
+  "updatedAt": "2026-11-17T03:30:40+00:00"
 }
