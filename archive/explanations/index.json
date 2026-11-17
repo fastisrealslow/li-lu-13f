@@ -4639,12 +4639,12 @@
       "reason": "ValueError: Bilingual editorial review: The source text does not explicitly state that revenue grew from $21.6 million to $53.1 million; it only lists the sequence of growth without specifying the intermediate figure.; The source text states 'more than twice consensus' regarding the initial estimate, but does not explicitly confirm that the initial estimate wa"
     },
     "vinall-9841a594da96d9": {
-      "at": "2026-11-16T07:26:46+00:00",
+      "at": "2026-11-17T03:32:25+00:00",
       "status": "retry",
       "inputHash": "904d036646eb217f3ee2cfb7cf2fa881c5d17b20ad25dcdec5a8a7df88bb4a83",
-      "failures": 3,
-      "nextAttemptAt": "2026-11-16T23:26:46+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English title 'Rob's 2026 Postcard from China' does not match the ASR text which refers to it as 'Rob's 2026 postcard from China' (missing apostrophe in source).; The Chinese heading claims the shift is about 'Chinese Public Perception of AI', but the ASR text (s0, s1) discusses general public perception of China and"
+      "failures": 4,
+      "nextAttemptAt": "2026-11-18T11:32:25+00:00",
+      "reason": "ValueError: Incomplete AI Review at 1800 tokens"
     },
     "marks-3582a029e7c200": {
       "at": "2026-11-16T07:33:37+00:00",
@@ -4663,5 +4663,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-17T03:32:55+00:00"
+  "updatedAt": "2026-11-17T03:32:25+00:00"
 }
