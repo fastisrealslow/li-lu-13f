@@ -7,7 +7,7 @@ import re
 from decimal import Decimal
 from bs4 import BeautifulSoup
 
-VERSION = 7
+VERSION = 6
 NUMBER = r'[\d,]+(?:\.\d+)?'
 CUSIP=r'(?:[A-Z0-9*@#]{6} {0,3}[A-Z0-9*@#]{2} {0,3}[A-Z0-9*@#]|[0-9]{7,8})'
 ROW=re.compile(r'\b('+CUSIP+r')\s+\$?\s*('+NUMBER+r')\s+('+NUMBER+r')\s*(SH|PRN|PR|PUT|CALL|CO)?(?:\s+(PUT|CALL)\b)?(?=\s|$)',re.I)
@@ -182,18 +182,7 @@ def fixed_width_tables(source):
                     # A name-only line after a complete row is its suffix, not
                     # the prefix of the next issuer (e.g. "Corporation").
                     following=next((x for x in body_lines[line_index+1:] if x.strip()),'')
-                    # An indented issuer fragment on the following financial row
-                    # belongs to this prefix, not to the previously completed row.
-                    # SEC 2011 Q4: Brookfield Residential /  Properties, Inc.
-                    indent=lambda text: len(text)-len(text.lstrip())
-                    # Explicit legal suffixes and a preceding unfinished '&'
-                    # bind backwards even if the next issuer is indented.
-                    suffix_only=bool(re.fullmatch(r'(?:Corporation|Corp\.?|Inc\.?|Incorporated|Ltd\.?|Limited|PLC|L\.?P\.?)',fragment,re.I))
-                    prior_unfinished=bool(previous and previous['name'].rstrip().endswith('&'))
-                    indented_next=bool(not suffix_only and not prior_unfinished
-                                       and ROW.search(following) and following[:name_end].strip()
-                                       and indent(following)>indent(line))
-                    next_suffix=indented_next or bool(re.match(r'^\s*(?:Ltd\.?|Inc\.?|Corp\.?|Corporation|PLC|L\.?P\.?)\s{2,}',following,re.I))
+                    next_suffix=bool(re.match(r'^\s*(?:Ltd\.?|Inc\.?|Corp\.?|Corporation|PLC|L\.?P\.?)\s{2,}',following,re.I))
                     if previous and not name_parts and not next_suffix:
                         previous['name'] += ' ' + fragment
                     else:
