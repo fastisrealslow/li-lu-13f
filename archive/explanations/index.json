@@ -904,12 +904,12 @@
       "reason": "ValueError: Bilingual editorial review: The English text incorrectly states Justin answered 'I was four' in response to whether his parents bought him a stock; the source (s8) shows Justin said 'I was four' when asked if he bought a stock at age one, implying he did not buy one then but clarifying his actual age is four. The paraphrase misattributes the contex"
     },
     "buffett-98e90a4cbe9b9a": {
-      "at": "2026-11-16T08:14:43+00:00",
+      "at": "2026-11-17T14:40:45+00:00",
       "status": "retry",
       "inputHash": "4ca52cd078b7ec227bc345736c0dda40ed2ebb561b23f42bbae0dc5cc71c004b",
-      "failures": 2,
-      "nextAttemptAt": "2026-11-16T16:14:43+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English translation incorrectly states Buffett invested 'only about $10 billion' instead of more; the source (s193) explicitly says he 'cost us about 10 billion', implying this was the total loss/missed opportunity relative to his original plan, not that he successfully invested only that amount when he intended more"
+      "failures": 3,
+      "nextAttemptAt": "2026-11-18T06:40:45+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English translation contains a factual error: it states Buffett 'failed to execute fully' regarding the Walmart purchase. The source text (s193) explicitly says he 'set out to buy 100 million shares... I cost us about 10 billion,' implying the loss came from not maximizing the investment in an already acquired positi"
     },
     "pabrai-8e99da8abadc1f": {
       "at": "2026-11-16T19:25:53+00:00",
@@ -4669,5 +4669,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-17T14:40:28+00:00"
+  "updatedAt": "2026-11-17T14:40:45+00:00"
 }
