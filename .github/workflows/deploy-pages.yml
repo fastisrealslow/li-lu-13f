@@ -67,6 +67,8 @@ jobs:
 
       - name: Validate published data
         run: |
+          python3 price_storage.py
+          python3 -m unittest discover -s tests -p test_price_storage.py
           python3 validate_data.py
           python3 quote_coverage.py --check --publishable
 

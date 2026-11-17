@@ -9,6 +9,7 @@ Actions 跑完 13F 抓取后执行：
 4. 同时维护一个全局缓存 metadata_cache.json，避免重复请求
 """
 
+from price_storage import load_prices
 from holdings_diff import compare_holdings
 
 from update_status import record_ai_warning
@@ -614,7 +615,7 @@ def _build_value_screen():
     sources=[];best_quotes={};all_holders={};nearby={}
     for inv in people:
         try:
-            dr=json.load(open(inv['dataFile']));pr=json.load(open(inv['pricesFile']))
+            dr=json.load(open(inv['dataFile']));pr=load_prices(inv['pricesFile'])
         except (OSError,ValueError):continue
         sources.append((inv,dr,pr))
         for tk,q in pr.get('quotes',{}).items():

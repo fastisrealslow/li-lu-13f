@@ -3,6 +3,7 @@
 The original financial datasets remain the source of truth. History is a
 separate download; the first screen never needs the complete filing archive.
 """
+from price_storage import load_prices
 import argparse
 import copy
 import gzip
@@ -151,7 +152,7 @@ def build(root=ROOT, output=None):
                 'gzipFile': 'browser/' + name + '.gz', 'gzipBytes': len(compressed)}
     for person in people:
         ident = person['id']
-        data, prices = read(root / person['dataFile']), read(root / person['pricesFile'])
+        data, prices = read(root / person['dataFile']), load_prices(root / person['pricesFile'])
         prices = project_prices(data, prices)
         from security_lifecycle import events
         ids = {h.get('cusip') for rows in data.get('history', {}).get('holdings', {}).values() for h in rows}

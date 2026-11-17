@@ -1,4 +1,5 @@
 """Bounded, resumable live quotes for every known historical security."""
+from price_storage import load_prices
 import copy
 from datetime import datetime, timedelta, timezone
 from batch_market_data import normalized_symbol, prefetch_quotes, merge_actions
@@ -87,12 +88,12 @@ if __name__=='__main__':
     root=Path(__file__).resolve().parent
     configs=[c for c in json.loads((root/'investors.json').read_text())['investors'] if c.get('source13F')]
     for cfg in configs:
-        for tk,q in json.loads((root/cfg['pricesFile']).read_text()).get('quotes',{}).items():
+        for tk,q in load_prices(root/cfg['pricesFile']).get('quotes',{}).items():
             if q.get('status')!='ceased_trading' and q.get('symbol') and not due(q,datetime.now(timezone.utc)):
                 prior=SESSION_QUOTES.get(normalized_symbol(tk),{})
             if not fresh_quote(prior,now.timestamp()) or q['t']>=prior.get('t',0):SESSION_QUOTES[normalized_symbol(tk)]=q
     for cfg in configs:
-        data=json.loads((root/cfg['dataFile']).read_text());path=root/cfg['pricesFile'];prices=json.loads(path.read_text());quotes=prices.setdefault('quotes',{})
+        data=json.loads((root/cfg['dataFile']).read_text());path=root/cfg['pricesFile'];prices=load_prices(path);quotes=prices.setdefault('quotes',{})
         before=sum(fresh_quote(q) for q in quotes.values())
         ledger=prices.get('tradePrices',{})
         state=refresh(data,quotes,ledger.get('quoteRefresh'),limit=args.limit)

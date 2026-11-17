@@ -3,6 +3,7 @@
 Project associations are not security positions. Unknown ownership, valuation,
 cost and performance remain unknown; changes in the directory are observations.
 """
+from price_storage import write_prices
 import hashlib
 import json
 from pathlib import Path
@@ -100,7 +101,7 @@ def refresh(config, root=ROOT, get=fetch):
     path.write_text(json.dumps(data,ensure_ascii=False,indent=2)+'\n')
     prices = root/config['pricesFile']
     if not prices.exists():
-        prices.write_text(json.dumps(dict(updatedAt=stamp,quotes={},costBasis={},portfolioMode='public_projects'),indent=2)+'\n')
+        write_prices(prices,dict(updatedAt=stamp,quotes={},costBasis={},portfolioMode='public_projects'))
     print(f"{config['id']}: {len(projects)} official associations, {len(filings)} dated ownership filings; no invented position sizes")
     return data
 

@@ -61,6 +61,7 @@ on:
       - "publish_update_failure.py"
       - "update_status.py"
       - "validate_data.py"
+      - "price_storage.py"
       - "tests/test_update_recovery.py"
       - "sec_history_index.py"
       - "audit_13f_history.py"
@@ -289,6 +290,7 @@ jobs:
           python3 quote_coverage.py --publishable
           python3 -c "import enrich_metadata as e; e._write_value_screen(); e._gen_homework_summary('')"
           python3 ai_supplement.py --refresh-fallbacks
+          python3 price_storage.py
           python3 validate_data.py
 
       - name: Finish run status including validation outcome

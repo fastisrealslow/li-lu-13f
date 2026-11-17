@@ -1,4 +1,5 @@
 """Repair current security identities and quotes; never manufacture a market price."""
+from price_storage import load_prices
 import argparse
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime, timezone
@@ -82,7 +83,7 @@ def resolve_active(root,configs):
     import resolve_unmapped_tickers as resolver
     candidates=[]
     for inv in configs:
-        quotes=load(root/inv['pricesFile']).get('quotes',{})
+        quotes=load_prices(root/inv['pricesFile']).get('quotes',{})
         for h in load(root/inv['dataFile'])['current']['holdings']:
             q=quotes.get(h['ticker'],{})
             from quote_transitions import transition_for
@@ -143,7 +144,7 @@ def prepare_publication(root=ROOT):
     aliases=load(root/'security_symbol_changes.json').get('entries',{}) if (root/'security_symbol_changes.json').exists() else {}
     configs=load(root/'investors.json')['investors']
     for inv in configs:
-        path=root/inv['pricesFile'];payload=load(path);changed=False
+        path=root/inv['pricesFile'];payload=load_prices(path);changed=False
         holdings=list(load(root/inv['dataFile'])['current']['holdings'])
         from quote_transitions import apply as apply_transitions, transition_for
         if any(transition_for(h) for h in holdings):
@@ -194,7 +195,7 @@ def publication_coverage(root=ROOT):
     for issue in report['missing']:
         if issue['reason']=='lifecycle_state_not_applied':
             unhandled.append(issue);continue
-        q=load(root/configs[issue['investor']]['pricesFile']).get('quotes',{}).get(issue['ticker'],{})
+        q=load_prices(root/configs[issue['investor']]['pricesFile']).get('quotes',{}).get(issue['ticker'],{})
         a=q.get('availability',{});stamp=a.get('checkedAt','')
         try:age=time.time()-datetime.fromisoformat(stamp).timestamp()
         except (ValueError,TypeError):age=float('inf')
@@ -208,7 +209,7 @@ def publication_coverage(root=ROOT):
 def coverage(root=ROOT):
     root=Path(root);issues=[];count=0
     for inv in load(root/'investors.json')['investors']:
-        data=load(root/inv['dataFile']);prices=load(root/inv['pricesFile'])
+        data=load(root/inv['dataFile']);prices=load_prices(root/inv['pricesFile'])
         for h in data['current']['holdings']:
             if h.get('shareType','SH')!='SH':continue
             from security_lifecycle import event_for
@@ -232,7 +233,7 @@ def refresh(root=ROOT,all_quotes=False,workers=4):
     configs=load(root/'investors.json')['investors']
     resolver.backfill_data_files([str(root/i['dataFile']) for i in configs],{**resolver.load_resolved_map(),**CUSIP_TICKER_MAP})
     resolve_active(root,configs)
-    files={i['pricesFile']:load(root/i['pricesFile']) for i in configs};wanted=set()
+    files={i['pricesFile']:load_prices(root/i['pricesFile']) for i in configs};wanted=set()
     aliases=load(root/'security_symbol_changes.json').get('entries',{}) if (root/'security_symbol_changes.json').exists() else {}
     for inv in configs:
         for h in load(root/inv['dataFile'])['current']['holdings']:

@@ -1,4 +1,5 @@
 """Validate the same explicit file set that is committed and deployed."""
+from price_storage import load_prices, referenced_shards
 import argparse
 import json
 import math
@@ -167,9 +168,10 @@ def validate(root):
     from security_lifecycle import events
     events(root)
     errors = []
+    shard_files = set()
     for name, role in roles.items():
         try:
-            value = read_json(root / name)
+            value = load_prices(root / name) if role == 'pricesFile' else read_json(root / name)
             if name == 'personal_portfolio.json':
                 from magic_formula import validate_dataset
                 validate_dataset(value)
@@ -184,15 +186,17 @@ def validate(root):
                 validate_holdings_snapshot(value)
             if role == "hkFile":
                 validate_hk_evidence(value)
-            if role == "pricesFile" and not isinstance(value.get("quotes"), dict):
-                raise ValueError("Missing price quotes")
+            if role == "pricesFile":
+                if not isinstance(value.get("quotes"), dict):
+                    raise ValueError("Missing price quotes")
+                shard_files.update(path.relative_to(root).as_posix() for path in referenced_shards(root / name))
             if name == "run_status.json" and not isinstance(value.get("runs"), list):
                 raise ValueError("Missing run status list")
         except (OSError, ValueError, TypeError, AttributeError) as exc:
             errors.append(f"{name}: {exc}")
     if errors:
         raise ValueError("\n".join(errors))
-    return sorted(roles)
+    return sorted(set(roles) | shard_files)
 
 
 def main():
