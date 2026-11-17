@@ -2279,12 +2279,12 @@
       "reason": "ValueError: Bilingual editorial review: The English translation in 'content.paragraphs[0]' contains a factual error: it states net worth increased to '$1.45 billion' in 1994, whereas source s0 explicitly says the gain was '$1.45 billion', not the total net worth.; The English translation incorrectly attributes the maxim 'If something is not worth doing at all,"
     },
     "buffett-5ac84a1f6e89c4": {
-      "at": "2026-11-16T08:16:45+00:00",
+      "at": "2026-11-17T04:22:21+00:00",
       "status": "retry",
       "inputHash": "ef31d06c81472ba7b921f9efbc58c0edb39848d7b365ad990e252b3f3dcd2d52",
-      "failures": 2,
-      "nextAttemptAt": "2026-11-16T16:16:45+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English paraphrase incorrectly attributes the specific claim about intrinsic value growth being 'roughly equal to' the stock price gain to Buffett alone. Source s8 explicitly states: 'Charlie Munger... and I believe that has been true at Berkshire: In our view, the increase in Berkshire's per-share intrinsic value ov"
+      "failures": 3,
+      "nextAttemptAt": "2026-11-17T20:22:21+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English translation incorrectly states '1965 and 1966, year ended 9/30' as if both years had the same fiscal year end; source s6 specifies only 1965 and 1966 were year-ended 9/30, while 1967 was 15 months ended 12/31. The phrasing implies a shared rule for two distinct years without clarifying the difference.; The En"
     },
     "buffett-3d2de219cbd196": {
       "at": "2026-11-14T14:33:18+00:00",
@@ -4669,5 +4669,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-17T04:22:17+00:00"
+  "updatedAt": "2026-11-17T04:22:21+00:00"
 }
