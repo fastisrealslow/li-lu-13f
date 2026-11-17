@@ -974,12 +974,12 @@
       "reason": "ValueError: Bilingual editorial review: The English translation uses 'decoupled' instead of 'delinked', which is a minor stylistic preference but not a factual error; the source explicitly states 'delinked'.; The phrase 'such as 1 to 2 years or 5 to 10 years of records' slightly generalizes the specific examples ('1 or 2 years' and 'past 5 or 10 years') found "
     },
     "pabrai-001b06856653c9": {
-      "at": "2026-11-16T07:36:33+00:00",
+      "at": "2026-11-17T14:26:51+00:00",
       "status": "retry",
       "inputHash": "c08d37d6cfef2b746eaec2c90dce97e1ef5d7c7dd287daf7b5f80b500c2e1a6e",
-      "failures": 3,
-      "nextAttemptAt": "2026-11-16T23:36:33+00:00",
-      "reason": "ValueError: Bilingual editorial review: The source text (s9) does not mention 'cloning' technology or describe engineers as masters of it; the phrase is an editorial interpretation not found in the evidence.; The source text (s10) cuts off mid-sentence ('they may') and does not support the claim that Google relies primarily on acquisitions rather than internal"
+      "failures": 4,
+      "nextAttemptAt": "2026-11-18T22:26:51+00:00",
+      "reason": "ValueError: Bilingual editorial review: The source text does not support the claim that Google's subsequent bets (YouTube, Android) were executed primarily through acquisitions; it states they 'were an acquisition' but implies a lack of internal R&D success rather than execution method as the primary differentiator.; The source does not explicitly state that M"
     },
     "lilu-11d369bb564cef": {
       "at": "2026-11-16T14:36:28+00:00",
@@ -4669,5 +4669,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-17T14:26:29+00:00"
+  "updatedAt": "2026-11-17T14:26:51+00:00"
 }
