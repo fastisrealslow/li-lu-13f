@@ -582,12 +582,12 @@
       "reason": "ValueError: Bilingual editorial review: Canonical name mismatch: Source uses 'Vinall' but canonical list requires 'Vinall'.; Factually unsupported claim: The text states Prosus value is 'over 100%' of net asset value, which is logically impossible for a single component unless there are negative liabilities or accounting errors; the source likely means 'approx"
     },
     "buffett-0dffc205cf0707": {
-      "at": "2026-11-16T05:36:04+00:00",
+      "at": "2026-11-17T04:06:32+00:00",
       "status": "retry",
       "inputHash": "1d76788f6afc3705ee7312a9df35d32e151aa4a046a084d5a6cdc80fb154b0d8",
-      "failures": 2,
-      "nextAttemptAt": "2026-11-16T13:36:04+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English paragraph contains factual errors regarding Charlie Munger's age and health status. The transcript (s1) states he is '96' and 'in fine shape', but the provided English text incorrectly claims he was '96' while implying a different context or misrepresenting the 'fine shape' comment as a separate clarification"
+      "failures": 3,
+      "nextAttemptAt": "2026-11-17T20:06:32+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English text in the 'content' section contains a factual error regarding Charlie Munger's age. The source transcript (s0) does not mention his age as 96; this specific detail is an invention or hallucination in the provided content.; The phrase 'technically bypassed Buffett's role' in the English text is an editorial"
     },
     "pabrai-7cdabeb4fe63b6": {
       "at": "2026-11-16T14:53:20+00:00",
@@ -4669,5 +4669,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-17T04:05:34+00:00"
+  "updatedAt": "2026-11-17T04:06:32+00:00"
 }
