@@ -5,7 +5,7 @@
     "notablePeople": [
       "Bruce Berkowitz"
     ],
-    "lastUpdated": "2026-11-16T18:56:52Z",
+    "lastUpdated": "2026-11-16T23:58:39Z",
     "aiSummary": "伯科威茨大幅增持伯克希尔股票并新增辉瑞等仓位，显示其对核心资产信心增强及看好医药消费板块。",
     "aiSummaryQuarter": "2026 Q2",
     "instrumentHistoryTickers": [
@@ -30,6 +30,15 @@
         "factor": 2.0,
         "quarter": "2014 Q3",
         "source": "https://finance.yahoo.com/quote/EPD/",
+        "sourceKind": "market_share_split"
+      },
+      {
+        "ticker": "BRK/B",
+        "cusip": "084670702",
+        "date": "2010-01-21",
+        "factor": 50.0,
+        "quarter": "2010 Q1",
+        "source": "https://finance.yahoo.com/quote/BRK-B/",
         "sourceKind": "market_share_split"
       },
       {
@@ -69,15 +78,6 @@
         "sourceKind": "market_share_split"
       },
       {
-        "ticker": "BRK/B",
-        "cusip": "084670702",
-        "date": "2010-01-21",
-        "factor": 50.0,
-        "quarter": "2010 Q1",
-        "source": "https://finance.yahoo.com/quote/BRK-B/",
-        "sourceKind": "market_share_split"
-      },
-      {
         "ticker": "PGR",
         "cusip": "743315103",
         "date": "2002-04-23",
@@ -102,6 +102,15 @@
         "factor": 3.0,
         "quarter": "1999 Q3",
         "source": "https://finance.yahoo.com/quote/PFE/",
+        "sourceKind": "market_share_split"
+      },
+      {
+        "ticker": "CF",
+        "cusip": "125269100",
+        "date": "2015-06-18",
+        "factor": 5.0,
+        "quarter": "2015 Q2",
+        "source": "https://finance.yahoo.com/quote/CF/",
         "sourceKind": "market_share_split"
       },
       {
@@ -161,12 +170,352 @@
     ]
   },
   "current": {
-    "quarter": "2026 Q2",
-    "filingDate": "2026-08-14",
-    "sourceFiling": "https://www.sec.gov/Archives/edgar/data/1056831/000091957426005488/0000919574-26-005488-index.html",
-    "periodEnd": "2026-06-30",
-    "totalValue": 1489888626,
+    "quarter": "2026 Q3",
+    "filingDate": "2026-11-16",
+    "sourceFiling": "https://www.sec.gov/Archives/edgar/data/1056831/000091957426008096/0000919574-26-008096-index.html",
+    "periodEnd": "2026-09-30",
+    "totalValue": 1549866942,
     "holdings": [
+      {
+        "ticker": "JOE",
+        "name": "ST JOE CO",
+        "cls": "COM",
+        "cusip": "790148100",
+        "shares": 18182367,
+        "value": 1196036101,
+        "shareType": "SH",
+        "putCall": "",
+        "managerAllocations": [
+          {
+            "managerIds": [
+              "1"
+            ],
+            "shares": 18182367,
+            "value": 1196036101,
+            "managerReference": "1"
+          }
+        ],
+        "sector": "地产",
+        "prevShares": 18182367,
+        "prevValue": 1138761645,
+        "cnName": "圣乔公司"
+      },
+      {
+        "ticker": "EPD",
+        "name": "ENTERPRISE PRODS PARTNERS L",
+        "cls": "COM",
+        "cusip": "293792107",
+        "shares": 5458600,
+        "value": 194380746,
+        "shareType": "SH",
+        "putCall": "",
+        "managerAllocations": [
+          {
+            "managerIds": [
+              "1"
+            ],
+            "shares": 5458600,
+            "value": 194380746,
+            "managerReference": "1"
+          }
+        ],
+        "sector": "能源",
+        "prevShares": 5455800,
+        "prevValue": 200555208,
+        "cnName": "企业产品合作伙伴"
+      },
+      {
+        "ticker": "BRK/B",
+        "name": "BERKSHIRE HATHAWAY INC DEL",
+        "cls": "CL B NEW",
+        "cusip": "084670702",
+        "shares": 100372,
+        "value": 49980237,
+        "shareType": "SH",
+        "putCall": "",
+        "managerAllocations": [
+          {
+            "managerIds": [
+              "1"
+            ],
+            "shares": 100372,
+            "value": 49980237,
+            "managerReference": "1"
+          }
+        ],
+        "sector": "保险与综合投资",
+        "cnName": "伯克希尔·哈撒韦 B 类",
+        "prevShares": 87852,
+        "prevValue": 43960262,
+        "displayName": "Berkshire Hathaway Class B",
+        "sectorEn": "Insurance and diversified investments"
+      },
+      {
+        "ticker": "OZK",
+        "name": "BANK OZK",
+        "cls": "COM",
+        "cusip": "06417N103",
+        "shares": 921452,
+        "value": 42349943,
+        "shareType": "SH",
+        "putCall": "",
+        "managerAllocations": [
+          {
+            "managerIds": [
+              "1"
+            ],
+            "shares": 921452,
+            "value": 42349943,
+            "managerReference": "1"
+          }
+        ],
+        "sector": "金融/银行",
+        "prevShares": 921252,
+        "prevValue": 47988026,
+        "cnName": "奥兹克银行"
+      },
+      {
+        "ticker": "WRB",
+        "name": "WR BERKLEY CORP",
+        "cls": "COM",
+        "cusip": "084423102",
+        "shares": 256350,
+        "value": 17313879,
+        "shareType": "SH",
+        "putCall": "",
+        "managerAllocations": [
+          {
+            "managerIds": [
+              "1"
+            ],
+            "shares": 256350,
+            "value": 17313879,
+            "managerReference": "1"
+          }
+        ],
+        "sector": "保险",
+        "prevShares": 256350,
+        "prevValue": 18080365,
+        "cnName": "伯克利风险"
+      },
+      {
+        "ticker": "BRK/A",
+        "name": "BERKSHIRE HATHAWAY INC DEL",
+        "cls": "CL A",
+        "cusip": "084670108",
+        "shares": 21,
+        "value": 15687105,
+        "shareType": "SH",
+        "putCall": "",
+        "managerAllocations": [
+          {
+            "managerIds": [
+              "1"
+            ],
+            "shares": 21,
+            "value": 15687105,
+            "managerReference": "1"
+          }
+        ],
+        "sector": "保险与综合投资",
+        "cnName": "伯克希尔·哈撒韦 A 类",
+        "prevShares": 11,
+        "prevValue": 8237350,
+        "displayName": "Berkshire Hathaway Class A",
+        "sectorEn": "Insurance and diversified investments"
+      },
+      {
+        "ticker": "PGR",
+        "name": "PROGRESSIVE CORP",
+        "cls": "COM",
+        "cusip": "743315103",
+        "shares": 72200,
+        "value": 14967782,
+        "shareType": "SH",
+        "putCall": "",
+        "managerAllocations": [
+          {
+            "managerIds": [
+              "1"
+            ],
+            "shares": 72200,
+            "value": 14967782,
+            "managerReference": "1"
+          }
+        ],
+        "sector": "保险",
+        "prevShares": 72200,
+        "prevValue": 15772090,
+        "cnName": "进步集团"
+      },
+      {
+        "ticker": "PFE",
+        "name": "PFIZER INC",
+        "cls": "COM",
+        "cusip": "717081103",
+        "shares": 231000,
+        "value": 6588120,
+        "shareType": "SH",
+        "putCall": "",
+        "managerAllocations": [
+          {
+            "managerIds": [
+              "1"
+            ],
+            "shares": 231000,
+            "value": 6588120,
+            "managerReference": "1"
+          }
+        ],
+        "sector": "医药",
+        "prevShares": 231000,
+        "prevValue": 5562480,
+        "cnName": "辉瑞"
+      },
+      {
+        "ticker": "KHC",
+        "name": "KRAFT HEINZ CO",
+        "cls": "COM",
+        "cusip": "500754106",
+        "shares": 202300,
+        "value": 4596256,
+        "shareType": "SH",
+        "putCall": "",
+        "managerAllocations": [
+          {
+            "managerIds": [
+              "1"
+            ],
+            "shares": 202300,
+            "value": 4596256,
+            "managerReference": "1"
+          }
+        ],
+        "sector": "消费",
+        "prevShares": 202300,
+        "prevValue": 4778326,
+        "cnName": "卡夫亨氏"
+      },
+      {
+        "ticker": "CPB",
+        "name": "THE CAMPBELLS COMPANY",
+        "cls": "COM",
+        "cusip": "134429109",
+        "shares": 116500,
+        "value": 2310195,
+        "shareType": "SH",
+        "putCall": "",
+        "managerAllocations": [
+          {
+            "managerIds": [
+              "1"
+            ],
+            "shares": 116500,
+            "value": 2310195,
+            "managerReference": "1"
+          }
+        ],
+        "sector": "消费",
+        "prevShares": 116500,
+        "prevValue": 2594455,
+        "cnName": "汤普森食品"
+      },
+      {
+        "ticker": "CF",
+        "name": "CF INDUSTRIES HOLD",
+        "cls": "COM",
+        "cusip": "125269100",
+        "shares": 19900,
+        "value": 2292480,
+        "shareType": "SH",
+        "putCall": "",
+        "managerAllocations": [
+          {
+            "managerIds": [
+              "1"
+            ],
+            "shares": 19900,
+            "value": 2292480,
+            "managerReference": "1"
+          }
+        ],
+        "sector": "材料",
+        "prevShares": 0,
+        "prevValue": 0,
+        "cnName": "CF 工业控股"
+      },
+      {
+        "ticker": "UPS",
+        "name": "UNITED PARCEL SVCS INC",
+        "cls": "CL B",
+        "cusip": "911312106",
+        "shares": 23800,
+        "value": 2223872,
+        "shareType": "SH",
+        "putCall": "",
+        "managerAllocations": [
+          {
+            "managerIds": [
+              "1"
+            ],
+            "shares": 23800,
+            "value": 2223872,
+            "managerReference": "1"
+          }
+        ],
+        "sector": "工业",
+        "prevShares": 23800,
+        "prevValue": 2558500,
+        "cnName": "联合包裹服务"
+      },
+      {
+        "ticker": "AAPL",
+        "name": "APPLE INC",
+        "cls": "COM",
+        "cusip": "037833100",
+        "shares": 2400,
+        "value": 799248,
+        "shareType": "SH",
+        "putCall": "",
+        "managerAllocations": [
+          {
+            "managerIds": [],
+            "shares": 2400,
+            "value": 799248
+          }
+        ],
+        "sector": "科技",
+        "prevShares": 2400,
+        "prevValue": 694464,
+        "cnName": "苹果"
+      },
+      {
+        "ticker": "HOMB",
+        "name": "HOME BANCSHARES INC",
+        "cls": "COM",
+        "cusip": "436893200",
+        "shares": 12100,
+        "value": 340978,
+        "shareType": "SH",
+        "putCall": "",
+        "managerAllocations": [
+          {
+            "managerIds": [
+              "1"
+            ],
+            "shares": 12100,
+            "value": 340978,
+            "managerReference": "1"
+          }
+        ],
+        "sector": "金融/银行",
+        "prevShares": 12100,
+        "prevValue": 345455,
+        "cnName": "Home BancShares, Inc."
+      }
+    ],
+    "prevQuarter": "2026 Q2",
+    "previousHoldings": [
       {
         "ticker": "JOE",
         "name": "ST JOE CO",
@@ -259,11 +608,11 @@
           }
         ],
         "sector": "保险与综合投资",
-        "prevShares": 50452,
-        "prevValue": 24176598,
         "cnName": "伯克希尔·哈撒韦 B 类",
         "displayName": "Berkshire Hathaway Class B",
-        "sectorEn": "Insurance and diversified investments"
+        "sectorEn": "Insurance and diversified investments",
+        "prevShares": 50452,
+        "prevValue": 24176598
       },
       {
         "ticker": "WRB",
@@ -333,11 +682,11 @@
           }
         ],
         "sector": "保险与综合投资",
-        "prevShares": 2,
-        "prevValue": 1436280,
         "cnName": "伯克希尔·哈撒韦 A 类",
         "displayName": "Berkshire Hathaway Class A",
-        "sectorEn": "Insurance and diversified investments"
+        "sectorEn": "Insurance and diversified investments",
+        "prevShares": 2,
+        "prevValue": 1436280
       },
       {
         "ticker": "PFE",
@@ -481,251 +830,7 @@
         "cnName": "Home BancShares, Inc."
       }
     ],
-    "prevQuarter": "2026 Q1",
-    "previousHoldings": [
-      {
-        "ticker": "JOE",
-        "name": "ST JOE CO",
-        "cls": "COM",
-        "cusip": "790148100",
-        "shares": 19210167,
-        "value": 1206398488,
-        "shareType": "SH",
-        "putCall": "",
-        "managerAllocations": [
-          {
-            "managerIds": [
-              "1"
-            ],
-            "shares": 19210167,
-            "value": 1206398488,
-            "managerReference": "1"
-          }
-        ],
-        "sector": "地产",
-        "prevShares": 19422467,
-        "prevValue": 1153111866,
-        "cnName": "圣乔公司"
-      },
-      {
-        "ticker": "EPD",
-        "name": "ENTERPRISE PRODS PARTNERS L",
-        "cls": "COM",
-        "cusip": "293792107",
-        "shares": 5455800,
-        "value": 206447472,
-        "shareType": "SH",
-        "putCall": "",
-        "managerAllocations": [
-          {
-            "managerIds": [
-              "1"
-            ],
-            "shares": 5455800,
-            "value": 206447472,
-            "managerReference": "1"
-          }
-        ],
-        "sector": "能源",
-        "prevShares": 5450400,
-        "prevValue": 174739824,
-        "cnName": "企业产品合作伙伴"
-      },
-      {
-        "ticker": "OZK",
-        "name": "BANK OZK",
-        "cls": "COM",
-        "cusip": "06417N103",
-        "shares": 921252,
-        "value": 42276263,
-        "shareType": "SH",
-        "putCall": "",
-        "managerAllocations": [
-          {
-            "managerIds": [
-              "1"
-            ],
-            "shares": 921252,
-            "value": 42276263,
-            "managerReference": "1"
-          }
-        ],
-        "sector": "金融/银行",
-        "prevShares": 913652,
-        "prevValue": 42046274,
-        "cnName": "奥兹克银行"
-      },
-      {
-        "ticker": "BRK/B",
-        "name": "BERKSHIRE HATHAWAY INC DEL",
-        "cls": "CL B NEW",
-        "cusip": "084670702",
-        "shares": 50452,
-        "value": 24176598,
-        "shareType": "SH",
-        "putCall": "",
-        "managerAllocations": [
-          {
-            "managerIds": [
-              "1"
-            ],
-            "shares": 50452,
-            "value": 24176598,
-            "managerReference": "1"
-          }
-        ],
-        "sector": "保险与综合投资",
-        "cnName": "伯克希尔·哈撒韦 B 类",
-        "displayName": "Berkshire Hathaway Class B",
-        "sectorEn": "Insurance and diversified investments",
-        "prevShares": 48012,
-        "prevValue": 24133232
-      },
-      {
-        "ticker": "WRB",
-        "name": "WR BERKLEY CORP",
-        "cls": "COM",
-        "cusip": "084423102",
-        "shares": 256350,
-        "value": 16990878,
-        "shareType": "SH",
-        "putCall": "",
-        "managerAllocations": [
-          {
-            "managerIds": [
-              "1"
-            ],
-            "shares": 256350,
-            "value": 16990878,
-            "managerReference": "1"
-          }
-        ],
-        "sector": "保险",
-        "prevShares": 260150,
-        "prevValue": 18241718,
-        "cnName": "伯克利风险"
-      },
-      {
-        "ticker": "PGR",
-        "name": "PROGRESSIVE CORP",
-        "cls": "COM",
-        "cusip": "743315103",
-        "shares": 66400,
-        "value": 13163136,
-        "shareType": "SH",
-        "putCall": "",
-        "managerAllocations": [
-          {
-            "managerIds": [
-              "1"
-            ],
-            "shares": 66400,
-            "value": 13163136,
-            "managerReference": "1"
-          }
-        ],
-        "sector": "保险",
-        "prevShares": 25600,
-        "prevValue": 5829632,
-        "cnName": "进步集团"
-      },
-      {
-        "ticker": "KHC",
-        "name": "KRAFT HEINZ CO",
-        "cls": "COM",
-        "cusip": "500754106",
-        "shares": 105300,
-        "value": 2368197,
-        "shareType": "SH",
-        "putCall": "",
-        "managerAllocations": [
-          {
-            "managerIds": [
-              "1"
-            ],
-            "shares": 105300,
-            "value": 2368197,
-            "managerReference": "1"
-          }
-        ],
-        "sector": "消费",
-        "prevShares": 0,
-        "prevValue": 0,
-        "cnName": "卡夫亨氏"
-      },
-      {
-        "ticker": "BRK/A",
-        "name": "BERKSHIRE HATHAWAY INC DEL",
-        "cls": "CL A",
-        "cusip": "084670108",
-        "shares": 2,
-        "value": 1436280,
-        "shareType": "SH",
-        "putCall": "",
-        "managerAllocations": [
-          {
-            "managerIds": [
-              "1"
-            ],
-            "shares": 2,
-            "value": 1436280,
-            "managerReference": "1"
-          }
-        ],
-        "sector": "保险与综合投资",
-        "cnName": "伯克希尔·哈撒韦 A 类",
-        "displayName": "Berkshire Hathaway Class A",
-        "sectorEn": "Insurance and diversified investments",
-        "prevShares": 1,
-        "prevValue": 754800
-      },
-      {
-        "ticker": "AAPL",
-        "name": "APPLE INC",
-        "cls": "COM",
-        "cusip": "037833100",
-        "shares": 2400,
-        "value": 609096,
-        "shareType": "SH",
-        "putCall": "",
-        "managerAllocations": [
-          {
-            "managerIds": [],
-            "shares": 2400,
-            "value": 609096
-          }
-        ],
-        "sector": "科技",
-        "prevShares": 2400,
-        "prevValue": 652464,
-        "cnName": "苹果"
-      },
-      {
-        "ticker": "HOMB",
-        "name": "HOME BANCSHARES INC",
-        "cls": "COM",
-        "cusip": "436893200",
-        "shares": 12100,
-        "value": 325853,
-        "shareType": "SH",
-        "putCall": "",
-        "managerAllocations": [
-          {
-            "managerIds": [
-              "1"
-            ],
-            "shares": 12100,
-            "value": 325853,
-            "managerReference": "1"
-          }
-        ],
-        "sector": "金融/银行",
-        "prevShares": 0,
-        "prevValue": 0,
-        "cnName": "Home BancShares, Inc."
-      }
-    ],
-    "prevTotalValue": 1514192261
+    "prevTotalValue": 1489888626
   },
   "history": {
     "quarters": [
@@ -837,7 +942,8 @@
       "2025 Q3",
       "2025 Q4",
       "2026 Q1",
-      "2026 Q2"
+      "2026 Q2",
+      "2026 Q3"
     ],
     "values": [
       560.646,
@@ -948,7 +1054,8 @@
       1238.938255,
       1433.641324,
       1514.192261,
-      1489.888626
+      1489.888626,
+      1549.866942
     ],
     "holdings": {
       "2013 Q3": [
@@ -12317,11 +12424,11 @@
             }
           ],
           "sector": "保险与综合投资",
-          "prevShares": 50452,
-          "prevValue": 24176598,
           "cnName": "伯克希尔·哈撒韦 B 类",
           "displayName": "Berkshire Hathaway Class B",
-          "sectorEn": "Insurance and diversified investments"
+          "sectorEn": "Insurance and diversified investments",
+          "prevShares": 50452,
+          "prevValue": 24176598
         },
         {
           "ticker": "WRB",
@@ -12391,11 +12498,11 @@
             }
           ],
           "sector": "保险与综合投资",
-          "prevShares": 2,
-          "prevValue": 1436280,
           "cnName": "伯克希尔·哈撒韦 A 类",
           "displayName": "Berkshire Hathaway Class A",
-          "sectorEn": "Insurance and diversified investments"
+          "sectorEn": "Insurance and diversified investments",
+          "prevShares": 2,
+          "prevValue": 1436280
         },
         {
           "ticker": "PFE",
@@ -17416,7 +17523,7 @@
               "value": 114103000
             }
           ],
-          "ticker": "?MUELLER WTR PRODS INC COM SER",
+          "ticker": "MWA/B",
           "sector": "其他",
           "prevShares": 0,
           "prevValue": 0
@@ -18193,7 +18300,7 @@
               "value": 127533000
             }
           ],
-          "ticker": "?MUELLER WTR PRODS INC COM SER",
+          "ticker": "MWA/B",
           "sector": "其他",
           "prevShares": 7657900,
           "prevValue": 114103000
@@ -18927,7 +19034,7 @@
               "value": 142857000
             }
           ],
-          "ticker": "?MUELLER WTR PRODS INC COM SER",
+          "ticker": "MWA/B",
           "sector": "其他",
           "prevShares": 9524500,
           "prevValue": 127533000
@@ -19641,7 +19748,7 @@
               "value": 102909000
             }
           ],
-          "ticker": "?MUELLER WTR PRODS INC COM SER",
+          "ticker": "MWA/B",
           "sector": "其他",
           "prevShares": 9523800,
           "prevValue": 142857000
@@ -20299,7 +20406,7 @@
               "value": 123212000
             }
           ],
-          "ticker": "?MUELLER WTR PRODS INC COM SER",
+          "ticker": "MWA/B",
           "sector": "其他",
           "prevShares": 9355400,
           "prevValue": 102909000
@@ -21035,7 +21142,7 @@
               "value": 102247000
             }
           ],
-          "ticker": "?MUELLER WTR PRODS INC COM SER",
+          "ticker": "MWA/B",
           "sector": "其他",
           "prevShares": 12358300,
           "prevValue": 123212000
@@ -21990,7 +22097,7 @@
               "value": 64219000
             }
           ],
-          "ticker": "?MUELLER WTR PRODS INC COM SER",
+          "ticker": "MWA/B",
           "sector": "其他",
           "prevShares": 12926000,
           "prevValue": 110388000
@@ -32555,7 +32662,7 @@
               "value": 58729000
             }
           ],
-          "ticker": "?MUELLER WTR PRODS INC COM SER",
+          "ticker": "MWA/B",
           "sector": "其他",
           "prevShares": 9879900,
           "prevValue": 64219000
@@ -54420,7 +54527,7 @@
               "value": 110388000
             }
           ],
-          "ticker": "?MUELLER WTR PRODS INC COM SER",
+          "ticker": "MWA/B",
           "sector": "其他",
           "prevShares": 12975500,
           "prevValue": 102247000
@@ -61193,10 +61300,349 @@
           "prevShares": 10000,
           "prevValue": 0
         }
+      ],
+      "2026 Q3": [
+        {
+          "ticker": "JOE",
+          "name": "ST JOE CO",
+          "cls": "COM",
+          "cusip": "790148100",
+          "shares": 18182367,
+          "value": 1196036101,
+          "shareType": "SH",
+          "putCall": "",
+          "managerAllocations": [
+            {
+              "managerIds": [
+                "1"
+              ],
+              "shares": 18182367,
+              "value": 1196036101,
+              "managerReference": "1"
+            }
+          ],
+          "sector": "地产",
+          "prevShares": 18182367,
+          "prevValue": 1138761645,
+          "cnName": "圣乔公司"
+        },
+        {
+          "ticker": "EPD",
+          "name": "ENTERPRISE PRODS PARTNERS L",
+          "cls": "COM",
+          "cusip": "293792107",
+          "shares": 5458600,
+          "value": 194380746,
+          "shareType": "SH",
+          "putCall": "",
+          "managerAllocations": [
+            {
+              "managerIds": [
+                "1"
+              ],
+              "shares": 5458600,
+              "value": 194380746,
+              "managerReference": "1"
+            }
+          ],
+          "sector": "能源",
+          "prevShares": 5455800,
+          "prevValue": 200555208,
+          "cnName": "企业产品合作伙伴"
+        },
+        {
+          "ticker": "BRK/B",
+          "name": "BERKSHIRE HATHAWAY INC DEL",
+          "cls": "CL B NEW",
+          "cusip": "084670702",
+          "shares": 100372,
+          "value": 49980237,
+          "shareType": "SH",
+          "putCall": "",
+          "managerAllocations": [
+            {
+              "managerIds": [
+                "1"
+              ],
+              "shares": 100372,
+              "value": 49980237,
+              "managerReference": "1"
+            }
+          ],
+          "sector": "保险与综合投资",
+          "cnName": "伯克希尔·哈撒韦 B 类",
+          "prevShares": 87852,
+          "prevValue": 43960262,
+          "displayName": "Berkshire Hathaway Class B",
+          "sectorEn": "Insurance and diversified investments"
+        },
+        {
+          "ticker": "OZK",
+          "name": "BANK OZK",
+          "cls": "COM",
+          "cusip": "06417N103",
+          "shares": 921452,
+          "value": 42349943,
+          "shareType": "SH",
+          "putCall": "",
+          "managerAllocations": [
+            {
+              "managerIds": [
+                "1"
+              ],
+              "shares": 921452,
+              "value": 42349943,
+              "managerReference": "1"
+            }
+          ],
+          "sector": "金融/银行",
+          "prevShares": 921252,
+          "prevValue": 47988026,
+          "cnName": "奥兹克银行"
+        },
+        {
+          "ticker": "WRB",
+          "name": "WR BERKLEY CORP",
+          "cls": "COM",
+          "cusip": "084423102",
+          "shares": 256350,
+          "value": 17313879,
+          "shareType": "SH",
+          "putCall": "",
+          "managerAllocations": [
+            {
+              "managerIds": [
+                "1"
+              ],
+              "shares": 256350,
+              "value": 17313879,
+              "managerReference": "1"
+            }
+          ],
+          "sector": "保险",
+          "prevShares": 256350,
+          "prevValue": 18080365,
+          "cnName": "伯克利风险"
+        },
+        {
+          "ticker": "BRK/A",
+          "name": "BERKSHIRE HATHAWAY INC DEL",
+          "cls": "CL A",
+          "cusip": "084670108",
+          "shares": 21,
+          "value": 15687105,
+          "shareType": "SH",
+          "putCall": "",
+          "managerAllocations": [
+            {
+              "managerIds": [
+                "1"
+              ],
+              "shares": 21,
+              "value": 15687105,
+              "managerReference": "1"
+            }
+          ],
+          "sector": "保险与综合投资",
+          "cnName": "伯克希尔·哈撒韦 A 类",
+          "prevShares": 11,
+          "prevValue": 8237350,
+          "displayName": "Berkshire Hathaway Class A",
+          "sectorEn": "Insurance and diversified investments"
+        },
+        {
+          "ticker": "PGR",
+          "name": "PROGRESSIVE CORP",
+          "cls": "COM",
+          "cusip": "743315103",
+          "shares": 72200,
+          "value": 14967782,
+          "shareType": "SH",
+          "putCall": "",
+          "managerAllocations": [
+            {
+              "managerIds": [
+                "1"
+              ],
+              "shares": 72200,
+              "value": 14967782,
+              "managerReference": "1"
+            }
+          ],
+          "sector": "保险",
+          "prevShares": 72200,
+          "prevValue": 15772090,
+          "cnName": "进步集团"
+        },
+        {
+          "ticker": "PFE",
+          "name": "PFIZER INC",
+          "cls": "COM",
+          "cusip": "717081103",
+          "shares": 231000,
+          "value": 6588120,
+          "shareType": "SH",
+          "putCall": "",
+          "managerAllocations": [
+            {
+              "managerIds": [
+                "1"
+              ],
+              "shares": 231000,
+              "value": 6588120,
+              "managerReference": "1"
+            }
+          ],
+          "sector": "医药",
+          "prevShares": 231000,
+          "prevValue": 5562480,
+          "cnName": "辉瑞"
+        },
+        {
+          "ticker": "KHC",
+          "name": "KRAFT HEINZ CO",
+          "cls": "COM",
+          "cusip": "500754106",
+          "shares": 202300,
+          "value": 4596256,
+          "shareType": "SH",
+          "putCall": "",
+          "managerAllocations": [
+            {
+              "managerIds": [
+                "1"
+              ],
+              "shares": 202300,
+              "value": 4596256,
+              "managerReference": "1"
+            }
+          ],
+          "sector": "消费",
+          "prevShares": 202300,
+          "prevValue": 4778326,
+          "cnName": "卡夫亨氏"
+        },
+        {
+          "ticker": "CPB",
+          "name": "THE CAMPBELLS COMPANY",
+          "cls": "COM",
+          "cusip": "134429109",
+          "shares": 116500,
+          "value": 2310195,
+          "shareType": "SH",
+          "putCall": "",
+          "managerAllocations": [
+            {
+              "managerIds": [
+                "1"
+              ],
+              "shares": 116500,
+              "value": 2310195,
+              "managerReference": "1"
+            }
+          ],
+          "sector": "消费",
+          "prevShares": 116500,
+          "prevValue": 2594455,
+          "cnName": "汤普森食品"
+        },
+        {
+          "ticker": "CF",
+          "name": "CF INDUSTRIES HOLD",
+          "cls": "COM",
+          "cusip": "125269100",
+          "shares": 19900,
+          "value": 2292480,
+          "shareType": "SH",
+          "putCall": "",
+          "managerAllocations": [
+            {
+              "managerIds": [
+                "1"
+              ],
+              "shares": 19900,
+              "value": 2292480,
+              "managerReference": "1"
+            }
+          ],
+          "sector": "材料",
+          "prevShares": 0,
+          "prevValue": 0,
+          "cnName": "CF 工业控股"
+        },
+        {
+          "ticker": "UPS",
+          "name": "UNITED PARCEL SVCS INC",
+          "cls": "CL B",
+          "cusip": "911312106",
+          "shares": 23800,
+          "value": 2223872,
+          "shareType": "SH",
+          "putCall": "",
+          "managerAllocations": [
+            {
+              "managerIds": [
+                "1"
+              ],
+              "shares": 23800,
+              "value": 2223872,
+              "managerReference": "1"
+            }
+          ],
+          "sector": "工业",
+          "prevShares": 23800,
+          "prevValue": 2558500,
+          "cnName": "联合包裹服务"
+        },
+        {
+          "ticker": "AAPL",
+          "name": "APPLE INC",
+          "cls": "COM",
+          "cusip": "037833100",
+          "shares": 2400,
+          "value": 799248,
+          "shareType": "SH",
+          "putCall": "",
+          "managerAllocations": [
+            {
+              "managerIds": [],
+              "shares": 2400,
+              "value": 799248
+            }
+          ],
+          "sector": "科技",
+          "prevShares": 2400,
+          "prevValue": 694464,
+          "cnName": "苹果"
+        },
+        {
+          "ticker": "HOMB",
+          "name": "HOME BANCSHARES INC",
+          "cls": "COM",
+          "cusip": "436893200",
+          "shares": 12100,
+          "value": 340978,
+          "shareType": "SH",
+          "putCall": "",
+          "managerAllocations": [
+            {
+              "managerIds": [
+                "1"
+              ],
+              "shares": 12100,
+              "value": 340978,
+              "managerReference": "1"
+            }
+          ],
+          "sector": "金融/银行",
+          "prevShares": 12100,
+          "prevValue": 345455,
+          "cnName": "Home BancShares, Inc."
+        }
       ]
     },
     "coverage": {
-      "checkedAt": "2026-11-16T18:56:53Z",
+      "checkedAt": "2026-11-16T23:58:40Z",
       "missingQuarters": [
         "2001 Q1"
       ],
@@ -61205,7 +61651,7 @@
         "2001 Q1": "Legacy table reconciliation failed: 82/83 rows, $607125000/$607324000"
       },
       "attempts": {
-        "2001 Q1": 57
+        "2001 Q1": 58
       },
       "pendingRefreshQuarters": [],
       "expandedLookup": null,
@@ -62713,12 +63159,22 @@
           "tableValue": 544221000,
           "difference": 1000
         }
+      },
+      "2026 Q3": {
+        "accession": "000091957426008096",
+        "accessionDashed": "0000919574-26-008096",
+        "filingDate": "2026-11-16",
+        "reportDate": "2026-09-30",
+        "form": "13F-HR",
+        "primaryDocument": "xslForm13F_X02/primary_doc.xml",
+        "cik": "1056831",
+        "url": "https://www.sec.gov/Archives/edgar/data/1056831/000091957426008096/infotable.xml"
       }
     },
     "instrumentVerification": {
       "pendingQuarters": [],
       "errors": {},
-      "checkedAt": "2026-11-16T18:56:52.747806+00:00"
+      "checkedAt": "2026-11-16T23:58:39.725762+00:00"
     },
     "valueAudit": {
       "2013 Q3": {
@@ -66964,7 +67420,7 @@
         "source": "https://www.sec.gov/Archives/edgar/data/1056831/0001056831-07-000001.txt",
         "filingDate": "2007-02-14",
         "sourceDigest": "65f34c7f285497b99857c7b5a82d8a98d80d8d01b1377350affdb01c51cef80d",
-        "sourceHash": "7dcffd75b385c80dd2cdf81d1f325de3502cee8f58dcda920af635809aa27d0a",
+        "sourceHash": "9f374e661534859c9ac916420e58a7f4038f24be822dc187c427bb4d2173e580",
         "status": "verified",
         "factor": 1,
         "anchors": [
@@ -67020,7 +67476,7 @@
         "agreementCount": 4,
         "anchorCount": 4,
         "outlierTickers": [],
-        "normalizedHash": "7dcffd75b385c80dd2cdf81d1f325de3502cee8f58dcda920af635809aa27d0a"
+        "normalizedHash": "9f374e661534859c9ac916420e58a7f4038f24be822dc187c427bb4d2173e580"
       },
       "2007 Q1": {
         "version": 1,
@@ -67028,7 +67484,7 @@
         "source": "https://www.sec.gov/Archives/edgar/data/1056831/0001056831-07-000003.txt",
         "filingDate": "2007-05-14",
         "sourceDigest": "bedf68a53e67775c72f9e4fdfadbe044de6cdac2806a6b6fceccc889f8645e84",
-        "sourceHash": "6c25f64e42ca6cae9cf23178ab6877d784137cb0891e90f0e06f9e72a3d28322",
+        "sourceHash": "4025cf69607fbf4604c69f42799b18f726a20c38ba93e7d3e7d68bcd21a692d4",
         "status": "verified",
         "factor": 1,
         "anchors": [
@@ -67096,7 +67552,7 @@
         "agreementCount": 5,
         "anchorCount": 5,
         "outlierTickers": [],
-        "normalizedHash": "6c25f64e42ca6cae9cf23178ab6877d784137cb0891e90f0e06f9e72a3d28322"
+        "normalizedHash": "4025cf69607fbf4604c69f42799b18f726a20c38ba93e7d3e7d68bcd21a692d4"
       },
       "2007 Q2": {
         "version": 1,
@@ -67104,7 +67560,7 @@
         "source": "https://www.sec.gov/Archives/edgar/data/1056831/0001056831-07-000004.txt",
         "filingDate": "2007-08-14",
         "sourceDigest": "614628cb828c81bc2d7a4adad3137015477568686d98314405bb513f47c34036",
-        "sourceHash": "958564cada4a054c3f0f42788b9c193acf5a3e83bf7cbda7d65d539664eb2701",
+        "sourceHash": "cf97e2f7165a954397783f5d3f4d0cfa97b6c91ce51beeabdb487571318a10c1",
         "status": "verified",
         "factor": 1,
         "anchors": [
@@ -67172,7 +67628,7 @@
         "agreementCount": 5,
         "anchorCount": 5,
         "outlierTickers": [],
-        "normalizedHash": "958564cada4a054c3f0f42788b9c193acf5a3e83bf7cbda7d65d539664eb2701"
+        "normalizedHash": "cf97e2f7165a954397783f5d3f4d0cfa97b6c91ce51beeabdb487571318a10c1"
       },
       "2007 Q3": {
         "version": 1,
@@ -67180,7 +67636,7 @@
         "source": "https://www.sec.gov/Archives/edgar/data/1056831/0001056831-07-000006.txt",
         "filingDate": "2007-11-14",
         "sourceDigest": "aa3236255e9a76901a00963c37eaf78cb88303a79b80af47b2d4228fd0e69d81",
-        "sourceHash": "3355a7e43a8399099f5a54284386affcf41a4465bb9856d077fe7177e3976e47",
+        "sourceHash": "b09bcbdf8b4501e5b5f6a0ce094be86d49d8578a5660192f4dd00cc19c3026b4",
         "status": "verified",
         "factor": 1,
         "anchors": [
@@ -67248,7 +67704,7 @@
         "agreementCount": 5,
         "anchorCount": 5,
         "outlierTickers": [],
-        "normalizedHash": "3355a7e43a8399099f5a54284386affcf41a4465bb9856d077fe7177e3976e47"
+        "normalizedHash": "b09bcbdf8b4501e5b5f6a0ce094be86d49d8578a5660192f4dd00cc19c3026b4"
       },
       "2007 Q4": {
         "version": 1,
@@ -67256,7 +67712,7 @@
         "source": "https://www.sec.gov/Archives/edgar/data/1056831/0001056831-08-000001.txt",
         "filingDate": "2008-02-13",
         "sourceDigest": "60a5794e554d7f4f659ec661bfc32e1e4600817b3cbf50173f6f3ff8e8a00f2a",
-        "sourceHash": "8c38db61668e5f7296718900cc7a5755042674b2bd5577f9d50369cfe58e20d0",
+        "sourceHash": "681808ad4e89a696d68f8fc43fbd4268960edc76e5dc5968162e5cd40d06b9eb",
         "status": "verified",
         "factor": 1,
         "anchors": [
@@ -67324,7 +67780,7 @@
         "agreementCount": 5,
         "anchorCount": 5,
         "outlierTickers": [],
-        "normalizedHash": "8c38db61668e5f7296718900cc7a5755042674b2bd5577f9d50369cfe58e20d0"
+        "normalizedHash": "681808ad4e89a696d68f8fc43fbd4268960edc76e5dc5968162e5cd40d06b9eb"
       },
       "2008 Q1": {
         "version": 1,
@@ -67332,7 +67788,7 @@
         "source": "https://www.sec.gov/Archives/edgar/data/1056831/0001056831-08-000003.txt",
         "filingDate": "2008-05-15",
         "sourceDigest": "0fdcf4fd70a6814f3c3e99e802cb2e75b3283aac3dfc48bf42a27284ef3b5e36",
-        "sourceHash": "7fd40c69e4e60bcfb6649fb2ac8189a61bc561bab120c9def249f872d791160e",
+        "sourceHash": "aec59ae95953b1242ca14e4df0c09117308b79e4eeb20bfa566a2074b8cc9323",
         "status": "verified",
         "factor": 1,
         "anchors": [
@@ -67400,7 +67856,7 @@
         "agreementCount": 5,
         "anchorCount": 5,
         "outlierTickers": [],
-        "normalizedHash": "7fd40c69e4e60bcfb6649fb2ac8189a61bc561bab120c9def249f872d791160e"
+        "normalizedHash": "aec59ae95953b1242ca14e4df0c09117308b79e4eeb20bfa566a2074b8cc9323"
       },
       "2008 Q3": {
         "version": 1,
@@ -67408,7 +67864,7 @@
         "source": "https://www.sec.gov/Archives/edgar/data/1056831/0001056831-08-000005.txt",
         "filingDate": "2008-11-13",
         "sourceDigest": "19ee5be3d005fe2c485e48cd84078d354ecaeb73fe8b0a3a606ed237df9c20fd",
-        "sourceHash": "432a6b66ecfc385fb576e5437beeac6a3bfe15bd36145f2e54acd091c56ea370",
+        "sourceHash": "20a071b8b6dd5b12c47593bc4046b76311e1350b4f6d97fc34c9ca28fe8ea02c",
         "status": "verified",
         "factor": 1,
         "anchors": [
@@ -67476,7 +67932,7 @@
         "agreementCount": 5,
         "anchorCount": 5,
         "outlierTickers": [],
-        "normalizedHash": "432a6b66ecfc385fb576e5437beeac6a3bfe15bd36145f2e54acd091c56ea370"
+        "normalizedHash": "20a071b8b6dd5b12c47593bc4046b76311e1350b4f6d97fc34c9ca28fe8ea02c"
       },
       "2008 Q4": {
         "version": 1,
@@ -67484,7 +67940,7 @@
         "source": "https://www.sec.gov/Archives/edgar/data/1056831/0001056831-09-000001.txt",
         "filingDate": "2009-02-13",
         "sourceDigest": "6c9fe8973e130741766f28e0752cce1e6536200ff52abe0cc8db137f67289ea3",
-        "sourceHash": "03dc8033226924a7a939d7d944693535420ff956140a626e2764e08354ab921c",
+        "sourceHash": "b0cfced269f8c66a263a17ea8c3ad3112510733f10133b1df4f49cc3b3163adb",
         "status": "verified",
         "factor": 1,
         "anchors": [
@@ -67552,7 +68008,7 @@
         "agreementCount": 5,
         "anchorCount": 5,
         "outlierTickers": [],
-        "normalizedHash": "03dc8033226924a7a939d7d944693535420ff956140a626e2764e08354ab921c"
+        "normalizedHash": "b0cfced269f8c66a263a17ea8c3ad3112510733f10133b1df4f49cc3b3163adb"
       },
       "2009 Q1": {
         "version": 1,
@@ -69536,7 +69992,7 @@
         "source": "https://www.sec.gov/Archives/edgar/data/1056831/0001056831-08-000004.txt",
         "filingDate": "2008-08-14",
         "sourceDigest": "29c66517cd79e0c3c71d722706efa99780cf6304113fe059cc599e6c22115099",
-        "sourceHash": "2b1dd8a769661a05ec15d4b2d5098bcce18953049540ff36a051d8ff28e9a443",
+        "sourceHash": "975281420da7dc10a218a1c5f71ab4bf24b96e19f43f9af40361295a2a30d49c",
         "status": "verified",
         "factor": 1,
         "anchors": [
@@ -69604,7 +70060,7 @@
         "agreementCount": 5,
         "anchorCount": 5,
         "outlierTickers": [],
-        "normalizedHash": "2b1dd8a769661a05ec15d4b2d5098bcce18953049540ff36a051d8ff28e9a443"
+        "normalizedHash": "975281420da7dc10a218a1c5f71ab4bf24b96e19f43f9af40361295a2a30d49c"
       },
       "2010 Q2": {
         "version": 1,
@@ -70593,6 +71049,82 @@
         "anchorCount": 5,
         "outlierTickers": [],
         "normalizedHash": "a5561174a73c2aa4ec7ba763002fb116022204f429f5c14fc9915f8dc381c39b"
+      },
+      "2026 Q3": {
+        "version": 1,
+        "checkedAt": "2026-11-16",
+        "source": "https://www.sec.gov/Archives/edgar/data/1056831/000091957426008096/infotable.xml",
+        "filingDate": "2026-11-16",
+        "sourceDigest": "bf777c450384bc76ba2861a1861d67708bb325a22e30b09b925d1679276d663b",
+        "sourceHash": "b8f3e831dc02a32ae29713c4d77688576b81c070667428ee63794e6d3f377671",
+        "status": "verified",
+        "factor": 1,
+        "anchors": [
+          {
+            "ticker": "JOE",
+            "cusip": "790148100",
+            "filedPrice": 65.77999998570043,
+            "price": 65.77999877929688,
+            "date": "2026-09-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/JOE?period1=0&period2=1794959920&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "EPD",
+            "cusip": "293792107",
+            "filedPrice": 35.61,
+            "price": 35.61000061035156,
+            "date": "2026-09-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/EPD?period1=0&period2=1794959920&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "OZK",
+            "cusip": "06417N103",
+            "filedPrice": 45.960009854013016,
+            "price": 45.959999084472656,
+            "date": "2026-09-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/OZK?period1=0&period2=1794959920&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "WRB",
+            "cusip": "084423102",
+            "filedPrice": 67.54,
+            "price": 67.54000091552734,
+            "date": "2026-09-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/WRB?period1=0&period2=1794959921&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "PFE",
+            "cusip": "717081103",
+            "filedPrice": 28.52,
+            "price": 28.520000457763672,
+            "date": "2026-09-30",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/PFE?period1=0&period2=1794959921&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          }
+        ],
+        "agreementCount": 5,
+        "anchorCount": 5,
+        "outlierTickers": [],
+        "normalizedHash": "b8f3e831dc02a32ae29713c4d77688576b81c070667428ee63794e6d3f377671"
       }
     },
     "excludedValueQuarters": [],

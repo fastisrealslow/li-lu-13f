@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-16T18:55:12Z",
+  "updatedAt": "2026-11-16T23:57:25Z",
   "knownStocks": {
     "duan": [
       "09992.HK"
@@ -5422,7 +5422,7 @@
   "verificationRuns": [
     {
       "investor": "abrams",
-      "checkedAt": "2026-11-16T18:52:39Z",
+      "checkedAt": "2026-11-16T23:48:43Z",
       "status": "checked",
       "queries": [
         {
@@ -5463,7 +5463,7 @@
     },
     {
       "investor": "ackman",
-      "checkedAt": "2026-11-16T18:52:25Z",
+      "checkedAt": "2026-11-16T23:48:40Z",
       "status": "checked",
       "queries": [
         {
@@ -5504,7 +5504,7 @@
     },
     {
       "investor": "akre",
-      "checkedAt": "2026-11-16T18:52:05Z",
+      "checkedAt": "2026-11-16T23:48:13Z",
       "status": "checked",
       "queries": [
         {
@@ -5545,7 +5545,7 @@
     },
     {
       "investor": "berkowitz",
-      "checkedAt": "2026-11-16T18:52:42Z",
+      "checkedAt": "2026-11-16T23:48:56Z",
       "status": "checked",
       "queries": [
         {
@@ -5586,7 +5586,7 @@
     },
     {
       "investor": "buffett",
-      "checkedAt": "2026-11-16T18:51:35Z",
+      "checkedAt": "2026-11-16T23:47:54Z",
       "status": "checked",
       "queries": [
         {
@@ -5627,7 +5627,7 @@
     },
     {
       "investor": "duan",
-      "checkedAt": "2026-11-16T18:51:03Z",
+      "checkedAt": "2026-11-16T23:47:00Z",
       "status": "checked",
       "queries": [
         {
@@ -5668,7 +5668,7 @@
     },
     {
       "investor": "greenberg",
-      "checkedAt": "2026-11-16T18:52:14Z",
+      "checkedAt": "2026-11-16T23:48:27Z",
       "status": "checked",
       "queries": [
         {
@@ -5709,7 +5709,7 @@
     },
     {
       "investor": "greenblatt",
-      "checkedAt": "2026-11-16T18:53:56Z",
+      "checkedAt": "2026-11-16T23:50:11Z",
       "status": "checked",
       "queries": [
         {
@@ -5750,8 +5750,8 @@
     },
     {
       "investor": "hawkins",
-      "checkedAt": "2026-11-16T18:52:58Z",
-      "status": "checked",
+      "checkedAt": "2026-11-16T23:48:56Z",
+      "status": "partial",
       "queries": [
         {
           "query": "Southeastern Asset Management, Inc.",
@@ -5785,13 +5785,20 @@
       "discoveredSources": 5,
       "verifiedSecurities": 4,
       "pendingSecurities": 0,
-      "recordsFetched": 104,
-      "errors": [],
+      "recordsFetched": 54,
+      "errors": [
+        {
+          "entity": "Southeastern Asset Management, Inc.",
+          "security": "Melco International Development Ltd.",
+          "url": "https://di.hkex.com.hk/filing/di/NSNoticePersonList.aspx?sa2=np&scpid=2382265&sa1=pl&scsd=01%2f04%2f2003&sced=02%2f10%2f2017&pn=Southeastern+Asset+Management%2c+Inc.&src=MAIN&lang=EN&g_lang=en&",
+          "reason": "HKEX fetch failed: The read operation timed out"
+        }
+      ],
       "scope": "匹配已配置主体的公开多头权益披露；不等于完整投资组合或当前持仓"
     },
     {
       "investor": "klarman",
-      "checkedAt": "2026-11-16T18:52:23Z",
+      "checkedAt": "2026-11-16T23:48:27Z",
       "status": "checked",
       "queries": [
         {
@@ -5832,7 +5839,7 @@
     },
     {
       "investor": "lilu",
-      "checkedAt": "2026-11-16T18:51:03Z",
+      "checkedAt": "2026-11-16T23:47:00Z",
       "status": "checked",
       "queries": [
         {
@@ -5873,7 +5880,7 @@
     },
     {
       "investor": "marks",
-      "checkedAt": "2026-11-16T18:53:24Z",
+      "checkedAt": "2026-11-16T23:49:36Z",
       "status": "checked",
       "queries": [
         {
@@ -5914,7 +5921,7 @@
     },
     {
       "investor": "mclemore",
-      "checkedAt": "2026-11-16T18:54:06Z",
+      "checkedAt": "2026-11-16T23:50:50Z",
       "status": "checked",
       "queries": [
         {
@@ -5955,7 +5962,7 @@
     },
     {
       "investor": "pabrai",
-      "checkedAt": "2026-11-16T18:51:03Z",
+      "checkedAt": "2026-11-16T23:47:00Z",
       "status": "checked",
       "queries": [
         {
@@ -5996,7 +6003,7 @@
     },
     {
       "investor": "tepper",
-      "checkedAt": "2026-11-16T18:51:22Z",
+      "checkedAt": "2026-11-16T23:47:40Z",
       "status": "checked",
       "queries": [
         {
@@ -6037,7 +6044,7 @@
     },
     {
       "investor": "vinall",
-      "checkedAt": "2026-11-16T18:53:02Z",
+      "checkedAt": "2026-11-16T23:49:14Z",
       "status": "checked",
       "queries": [
         {
@@ -6092,8 +6099,8 @@
     },
     {
       "investor": "webb",
-      "checkedAt": "2026-11-16T18:51:26Z",
-      "status": "checked",
+      "checkedAt": "2026-11-16T23:47:52Z",
+      "status": "partial",
       "queries": [
         {
           "query": "Webb David Michael",
@@ -6113,8 +6120,27 @@
       "discoveredSources": 59,
       "verifiedSecurities": 41,
       "pendingSecurities": 0,
-      "recordsFetched": 281,
-      "errors": [],
+      "recordsFetched": 251,
+      "errors": [
+        {
+          "entity": "Webb David Michael",
+          "security": "Lerado Group (Holding) Co. Ltd.",
+          "url": "https://di.hkex.com.hk/filing/di/NSNoticePersonList.aspx?sa2=np&scpid=2273482&sa1=pl&scsd=01%2f04%2f2003&sced=02%2f10%2f2017&pn=Webb+David+Michael&src=MAIN&lang=EN&g_lang=en&",
+          "reason": "HKEX fetch failed: The read operation timed out"
+        },
+        {
+          "entity": "Webb David Michael",
+          "security": "Ming Fai International Holdings Ltd.",
+          "url": "https://di.hkex.com.hk/filing/di/NSNoticePersonList.aspx?sa2=np&scpid=2375284&sa1=pl&scsd=01%2f04%2f2003&sced=02%2f10%2f2017&pn=Webb+David+Michael&src=MAIN&lang=EN&g_lang=en&",
+          "reason": "HKEX fetch failed: The read operation timed out"
+        },
+        {
+          "entity": "Webb David Michael",
+          "security": "Shinhint Acoustic Link Holdings Ltd.",
+          "url": "https://di.hkex.com.hk/filing/di/NSNoticePersonList.aspx?sa2=np&scpid=2245133&sa1=pl&scsd=01%2f04%2f2003&sced=02%2f10%2f2017&pn=Webb+David+Michael&src=MAIN&lang=EN&g_lang=en&",
+          "reason": "HKEX fetch failed: The read operation timed out"
+        }
+      ],
       "scope": "匹配已配置主体的公开多头权益披露；不等于完整投资组合或当前持仓"
     },
     {
