@@ -2928,12 +2928,12 @@
       "reason": "JSONDecodeError: Expecting ',' delimiter: line 6 column 97 (char 1097)"
     },
     "marks-43a83bc1418080": {
-      "at": "2026-11-16T05:53:42+00:00",
+      "at": "2026-11-17T03:56:53+00:00",
       "status": "retry",
       "inputHash": "c5911e39dcc24cef0faa8de8cd007bca9d18c05206afed52469ea55af8982f21",
-      "failures": 2,
-      "nextAttemptAt": "2026-11-16T13:53:42+00:00",
-      "reason": "ValueError: Bilingual editorial review: The Chinese text incorrectly attributes the quote about 'better grades requiring less relaxation' to Howard Marks; this specific example appears in source section s1 without attribution to Marks.; The English text contains a grammatical error: 'difference between economics and politics as lies in' should be 'difference.."
+      "failures": 3,
+      "nextAttemptAt": "2026-11-17T19:56:53+00:00",
+      "reason": "ValueError: Bilingual editorial review: The Chinese section incorrectly claims Howard Marks does not discuss the difference between economics and politics; the provided text only covers choice and scarcity, so any claim about political differences is unsupported by the source.; The English section makes a similar unsupported claim that the text 'without expand"
     },
     "marks-37b489c9444212": {
       "at": "2026-11-16T08:11:25+00:00",
@@ -4663,5 +4663,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-17T03:56:49+00:00"
+  "updatedAt": "2026-11-17T03:56:53+00:00"
 }
