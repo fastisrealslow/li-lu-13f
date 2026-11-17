@@ -2827,12 +2827,12 @@
       "reason": "ValueError: Bilingual editorial review: The Chinese text incorrectly attributes the quote 'All great investments begin in discomfort' to Howard Marks; the source (s13) explicitly states this is a quote from Doug Kass.; The Chinese text claims Buffett's hamburger analogy illustrates that 'when nobody else will [buy], it is the best time to buy'; the source only"
     },
     "marks-e85898c6125044": {
-      "at": "2026-11-16T07:55:03+00:00",
+      "at": "2026-11-17T03:45:46+00:00",
       "status": "retry",
       "inputHash": "8ddf39479f3b32eb95c5a717bb27fcbbe8da22a2185ecb2880c5f9337193b85e",
-      "failures": 2,
-      "nextAttemptAt": "2026-11-16T15:55:03+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English translation in the content section contains a factual error: 'virtually unforesen' is not a valid English word. It should be corrected to 'unforeseen'.; The Chinese text correctly translates 'unforeseen', but the corresponding English version has a typo that distorts the meaning.; No other concrete errors wer"
+      "failures": 3,
+      "nextAttemptAt": "2026-11-17T19:45:46+00:00",
+      "reason": "ValueError: Bilingual editorial review: The Chinese text incorrectly attributes the quote 'the secular sweep downwards in interest rates is over...' to Henry Kaufman as reported by Marks; the source (s13) states this was what Kaufman told the FT, but Marks' own paraphrase in s14 does not confirm he repeated it verbatim or endorsed it as his own view. The Chine"
     },
     "marks-31c5c4c7673de3": {
       "at": "2026-11-16T07:37:59+00:00",
@@ -4663,5 +4663,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-17T03:44:55+00:00"
+  "updatedAt": "2026-11-17T03:45:46+00:00"
 }
