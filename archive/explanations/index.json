@@ -3358,12 +3358,12 @@
       "reason": "ValueError: Unsupported numerical claim: 2008"
     },
     "marks-790d38d2f071e8": {
-      "at": "2026-11-16T07:56:05+00:00",
+      "at": "2026-11-17T14:06:45+00:00",
       "status": "retry",
       "inputHash": "1d35cff1af0cdd8e652130a224735d86f9204a42f01be21030948526a70448f7",
-      "failures": 3,
-      "nextAttemptAt": "2026-11-16T23:56:05+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English paraphrase in the content section misquotes the source text. The source (s2) states: 'It's been said that \"any bond can be triple-A at a price.\"' The paraphrase changes this to: 'He cites the observation that any bond can be triple-A at a price'. This alters the meaning from a reported saying ('It's been said"
+      "failures": 4,
+      "nextAttemptAt": "2026-11-18T22:06:45+00:00",
+      "reason": "ValueError: Bilingual editorial review: The Chinese text contains an invented quotation: 'any bond can be triple-A at a price' is not found in source s2 or s3. Source s2 says 'It's been said that \"any bond can be triple-A at a price.\"', which implies the quote exists but does not provide the exact wording. The Chinese text presents it as a direct, well-known p"
     },
     "mclemore-19da9051365a28": {
       "at": "2026-11-16T15:17:00+00:00",
@@ -4669,5 +4669,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-17T14:06:22+00:00"
+  "updatedAt": "2026-11-17T14:06:45+00:00"
 }
