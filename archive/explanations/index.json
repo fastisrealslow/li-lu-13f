@@ -1406,12 +1406,12 @@
       "reason": "ValueError: Unsupported scaled numerical claim: 600"
     },
     "pabrai-890538700bb512": {
-      "at": "2026-11-16T08:03:20+00:00",
+      "at": "2026-11-17T03:51:40+00:00",
       "status": "retry",
       "inputHash": "30f3e5564c03eb730615821a68a8fa602e8365e07ef182e5e80dfce1c1290856",
-      "failures": 2,
-      "nextAttemptAt": "2026-11-16T16:03:20+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English translation in the 'content' section incorrectly attributes the dialogue about hobbies to Pabrai himself ('when Shiva Sai from JNV Rangareddy asked about his hobbies'), whereas the source text (s3) clearly shows Shiva Sai asking Mohnish, and it is Mohnish who responds with the story of T. Ashok Kumar.; The En"
+      "failures": 3,
+      "nextAttemptAt": "2026-11-17T19:51:40+00:00",
+      "reason": "ValueError: Bilingual editorial review: Canonical author name mismatch: Source text refers to 'Pabrai' (English) and 'Pabrai' (Chinese), but the content section incorrectly uses 'Pabrai' in English while the Chinese title uses 'Pabrai'. The canonical list includes both 'Pabrai' and 'Pabrai', so this is acceptable, but the Chinese text should verify if 'Pabrai'"
     },
     "pabrai-341e9bdd1f2352": {
       "at": "2026-11-16T19:29:24+00:00",
@@ -4663,5 +4663,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-17T03:50:47+00:00"
+  "updatedAt": "2026-11-17T03:51:40+00:00"
 }
