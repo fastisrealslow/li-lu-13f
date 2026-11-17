@@ -17,7 +17,7 @@ from security_identity import project as project_identities, project_prices
 
 ROOT = Path(__file__).resolve().parent
 ROW_FIELDS = ('ticker', 'cusip', 'name', 'cnName', 'cls', 'shares', 'value',
-              'shareType', 'putCall', 'sector', 'shareAdjustment', 'reportedIdentity', 'identityEvidence', 'displayName', 'sectorEn')
+              'shareType', 'putCall', 'sector', 'shareAdjustment', 'reportedIdentity', 'identityEvidence', 'priceIdentityEvidence', 'displayName', 'sectorEn')
 
 
 def encoded(value):
@@ -110,6 +110,8 @@ def current_prices(prices, tickers=None):
         result['tradePrices']['entries'] = {k: {field: value for field, value in e.items() if field not in ('candles','priceBasis','checkedAt')} for k,e in result['tradePrices'].get('entries', {}).items() if tickers is None or e.get('ticker') in tickers}
         for e in result['tradePrices']['entries'].values():
             e['quarters'] = e.get('quarters', [])[-1:]
+            e.pop('historicalSegments', None)
+            e.pop('historicalSegmentGaps', None)
     if tickers is not None:
         result['quotes'] = {k:v for k,v in result.get('quotes', {}).items() if k in tickers}
         result['costBasis'] = {k:v for k,v in result.get('costBasis', {}).items() if k in tickers}

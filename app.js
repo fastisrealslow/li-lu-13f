@@ -1145,6 +1145,17 @@ function renderHoldings() {
 }
 
 function instrument(h) { return [(h.putCall || '').toUpperCase(), (h.shareType || 'SH').toUpperCase()].join('|'); }
+// The checked JSON registry is also generated as a small browser asset.
+function projectVerifiedSymbol(h,quarter) {
+  const e=globalThis.VERIFIED_SECURITY_SYMBOL_RECORDS?.[h.cusip];
+  const name=v=>String(v||'').toUpperCase().replace(/[^A-Z0-9]/g,'');
+  if(!e || !h.ticker?.startsWith('?') || h.putCall || (h.shareType||'SH')!=='SH' ||
+      !e.classes?.includes(String(h.cls||'').trim().toUpperCase()) || name(h.name)!==name(e.issuer) || !/^\d{4} Q[1-4]$/.test(quarter||''))return h;
+  const year=+quarter.slice(0,4),q=+quarter.slice(-1),end=Date.UTC(year,q*3,1),effective=Date.parse(e.effectiveDate+'T00:00:00Z');
+  if(year<1||(year===9999&&q===4)||!Number.isFinite(effective)||effective>=end||!/^https:\/\/www\.sec\.gov\/Archives\/edgar\/data\/\d+\/[\w/-]+\.html?$/.test(e.sourceURL||''))return h;
+  return {...h,ticker:e.ticker,reportedIdentity:h.reportedIdentity||Object.fromEntries(['ticker','cusip','name','cls'].filter(k=>k in h).map(k=>[k,h[k]])),
+    priceIdentityEvidence:{...e,cusip:h.cusip,method:'issuer_cusip_common_symbol_effective_date'}};
+}
 // Derived identities only: keep source fields and a filing-backed audit trail.
 function projectSecuritySnapshot(snapshot) {
   const history=snapshot?.history?.holdings, current=snapshot?.current;
@@ -1169,8 +1180,8 @@ function projectSecuritySnapshot(snapshot) {
       reportedIdentity:Object.fromEntries(['ticker','cusip','name','cls'].filter(k=>k in h).map(k=>[k,h[k]])),
       identityEvidence:{...evidence,method:'unique_exact_name_class_instrument'}};
   };
-  const value={...snapshot,history:{...snapshot.history,holdings:Object.fromEntries(Object.entries(history||{}).map(([q,rows])=>[q,rows.map(row)]))},
-    current:current?{...current,holdings:(current.holdings||[]).map(row),...(current.previousHoldings?{previousHoldings:current.previousHoldings.map(row)}:{})}:current};
+  const value={...snapshot,history:{...snapshot.history,holdings:Object.fromEntries(Object.entries(history||{}).map(([q,rows])=>[q,rows.map(h=>projectVerifiedSymbol(row(h),q))]))},
+    current:current?{...current,holdings:(current.holdings||[]).map(h=>projectVerifiedSymbol(row(h),current.quarter)),...(current.previousHoldings?{previousHoldings:current.previousHoldings.map(h=>projectVerifiedSymbol(row(h),current.prevQuarter))}:{})}:current};
   return value;
 }
 function consolidateHoldings(holdings) {
@@ -1394,15 +1405,28 @@ function tradeHistoryCoverage(entry,side) {
   const count=(entry.quarters||[]).filter(r=>Number.isFinite(r[side])&&r[side]>0).length;
   return missing?(en?`${missing} ${side} quarters lack prices`:`尚缺 ${missing} 个${side==='buy'?'买入':'卖出'}季度行情`):count?(en?`${count} quarters with price evidence`:`依据 ${count} 个季度行情`):(en?'No eligible net-trade estimate':'无符合条件的净买卖估价');
 }
+function historicalSegmentsHTML(entry) {
+  const en=lang==='en',segments=entry?.historicalSegments || [];
+  return segments.map(segment=>{
+    if(segment.kind!=='separate_reporter_reference'||segment.notCombinedWithCurrent!==true)return '';
+    const source=Object.values(segment.filingSources || {}).find(u=>/^https:\/\/www\.sec\.gov\/Archives\/edgar\/data\//.test(u));
+    const scope=`${segment.firstQuarter}–${segment.lastQuarter} · CIK ${segment.reporterCIK}`;
+    return `<section class="trade-history-segment"><h4>${hkEscape(scope)}</h4><small>${en?'Separate filing scope; not combined with current costs or other periods.':'独立申报区间，不与当前成本或其他区间合并。'}</small><p>${en?'Buy reference':'买入参考'} ${estimatePriceHTML(segment.averageBuy,entry)} · ${en?'Sale reference':'卖出参考'} ${estimatePriceHTML(segment.averageSell,entry)}</p>${source?`<a href="${hkEscape(source)}" target="_blank" rel="noopener noreferrer">${en?'Original filing':'原始申报'}</a>`:''}${tradeQuarterRowsHTML(segment.quarters || [],entry)}</section>`;
+  }).join('');
+}
+function tradeQuarterRowsHTML(rows,entry) {
+  const en=lang==='en';
+  const actions=en?{observed:'First observed',new:'New',added:'Added',trimmed:'Reduced',exited:'Exited',hold:'Unchanged'}:{observed:'首次披露参考',new:'建仓',added:'增持',trimmed:'减持',exited:'清仓',hold:'不变'};
+  return `<div class="trade-quarter-list">${rows.filter(r=>r.action!=='hold').map(r=>{
+    const sale=['trimmed','exited'].includes(r.action);
+    return `<div><strong>${hkEscape(r.quarter)} · ${actions[r.action]||''}</strong><span class="trade-quarter-price">${sale?(en?'Sale estimate':'估算卖出均价'):(en?'Buy estimate':'估算买入均价')} ${estimatePriceHTML(sale?r.sell:r.buy,entry)}</span>${r.priceEvidence?.days?`<small>${en?'Low / mean / high':'最低 / 日均收盘 / 最高'}：${[r.priceEvidence.low,r.priceEvidence.mean,r.priceEvidence.high].map(v=>Number.isFinite(v)?v.toFixed(2):'—').join(' / ')}<br>${r.priceEvidence.days} ${en?'trading days':'个交易日'}</small>`:''}</div>`;
+  }).join('')}</div>`;
+}
 function renderTradePriceDetails(el,encodedKey) {
   if(!el.open || el.dataset.loaded)return;
   const entry=prices?.tradePrices?.entries?.[decodeURIComponent(encodedKey)];if(!entry)return;
-  el.dataset.loaded='1';const en=lang==='en';
-  const actions=en?{observed:'First observed',new:'New',added:'Added',trimmed:'Reduced',exited:'Exited',hold:'Unchanged'}:{observed:'首次披露参考',new:'建仓',added:'增持',trimmed:'减持',exited:'清仓',hold:'不变'};
-  el.insertAdjacentHTML('beforeend',`<div class="trade-quarter-list">${entry.quarters.filter(r=>r.action!=='hold').map(r=>{
-    const sale=['trimmed','exited'].includes(r.action);
-    return `<div><strong>${hkEscape(r.quarter)} · ${actions[r.action]||''}</strong><span class="trade-quarter-price">${sale?(en?'Sale estimate':'估算卖出均价'):(en?'Buy estimate':'估算买入均价')} ${estimatePriceHTML(sale?r.sell:r.buy,entry)}</span>${r.priceEvidence?.days?`<small>${en?'Low / mean / high':'最低 / 日均收盘 / 最高'}：${[r.priceEvidence.low,r.priceEvidence.mean,r.priceEvidence.high].map(v=>Number.isFinite(v)?v.toFixed(2):'—').join(' / ')}<br>${r.priceEvidence.days} ${en?'trading days':'个交易日'}</small>`:''}</div>`;
-  }).join('')}</div>`);
+  el.dataset.loaded='1';
+  el.insertAdjacentHTML('beforeend',tradeQuarterRowsHTML(entry.quarters || [],entry)+historicalSegmentsHTML(entry));
 }
 
 // AI artifacts load independently; holdings and prices never wait for a model.
@@ -2097,7 +2121,7 @@ async function renderTimelineTable() {
     }
     const ledger=tradePriceEntry(e),retired=securityLifecycle(e);
     if(retired)status=`<span class="security-retired">${isEn?'Delisted':'退市'}</span><small>${hkEscape(retired.effectiveDate)}</small>`;
-    const priceDetails=ledger?.quarters?.length?`<details class="trade-price-details" ontoggle="renderTradePriceDetails(this,'${encodeURIComponent(e.cusip || e.ticker).replace(/'/g,'%27')}')"><summary>${isEn?'Quarterly estimates':'历季估价'}</summary></details>`:'';
+    const priceDetails=(ledger?.quarters?.length || ledger?.historicalSegments?.length)?`<details class="trade-price-details" ontoggle="renderTradePriceDetails(this,'${encodeURIComponent(e.cusip || e.ticker).replace(/'/g,'%27')}')"><summary>${isEn?'Quarterly estimates':'历季估价'}</summary></details>`:'';
     html += `<tr class="history-row ${retired?'history-retired':e.active?'history-held':'history-absent'}">
       <td class="stock-cell"><span class="ticker-line">${fmtTicker(e.ticker,e)}</span>${instrumentTag(e)}<span class="name-line">${hkEscape(cn(e.name, e))}</span><span class="sector-badge">${hkEscape(isEn?(e.sectorEn||ts(e.sector)):e.sector||'行业未分类')}</span><span style="display:block;font-size:.65rem;color:var(--text-lighter);margin-top:2px;">${e.qCount} ${isEn?'quarters':'季'}</span>${e.unknown.length?`<small class="data-quality-note">${isEn?'Missing reports (unknown)':'缺报（未知）'}: ${e.unknown.join(', ')}</small>`:''}</td>
       <td class="trade-price-cell price-current" data-label="${isEn?'Current price':'当前价格'}">${tradeQuoteHTML(e)}</td>

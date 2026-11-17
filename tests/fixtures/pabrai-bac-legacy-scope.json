@@ -1,0 +1,103 @@
+{
+  "description": "Exact BAC rows and source metadata extracted from stored SEC filings; subset fixture, not a full portfolio. 2011 Q4 row independently checked against original information table line 118.",
+  "meta": {
+    "costHistoryFrom": "2012 Q1"
+  },
+  "history": {
+    "holdings": {
+      "2011 Q3": [
+        {
+          "name": "Bank of America",
+          "cls": "COM",
+          "cusip": "060505104",
+          "value": 43168000,
+          "shares": 7053551,
+          "shareType": "SH",
+          "putCall": "",
+          "managerAllocations": [
+            {
+              "managerIds": [],
+              "shares": 7053551,
+              "value": 43168000
+            }
+          ],
+          "ticker": "BAC",
+          "sector": "银行",
+          "cnName": "美国银行",
+          "prevShares": 0,
+          "prevValue": 0,
+          "displayName": "Bank of America",
+          "sectorEn": "Banking"
+        }
+      ],
+      "2011 Q4": [
+        {
+          "name": "Bank of America",
+          "cls": "COM",
+          "cusip": "060505104",
+          "value": 11876000,
+          "shares": 2135986,
+          "shareType": "SH",
+          "putCall": "",
+          "managerAllocations": [
+            {
+              "managerIds": [],
+              "shares": 2135986,
+              "value": 11876000
+            }
+          ],
+          "ticker": "BAC",
+          "sector": "银行",
+          "cnName": "美国银行",
+          "prevShares": 7053551,
+          "prevValue": 43168000,
+          "displayName": "Bank of America",
+          "sectorEn": "Banking"
+        }
+      ]
+    },
+    "filing_sources": {
+      "2011 Q3": {
+        "cik": "1173334",
+        "accession": "000119312511317251",
+        "accessionDashed": "0001193125-11-317251",
+        "filingDate": "2011-11-18",
+        "reportDate": "2011-09-30",
+        "form": "13F-HR/A",
+        "amendmentType": "RESTATEMENT",
+        "url": "https://www.sec.gov/Archives/edgar/data/1173334/0001193125-11-317251.txt",
+        "format": "legacy_13f",
+        "parserVersion": 6,
+        "sourceReconciliation": {
+          "status": "reconciled",
+          "reportedEntries": 16,
+          "parsedEntries": 16,
+          "reportedValue": 258878000,
+          "tableValue": 258878000,
+          "difference": 0
+        }
+      },
+      "2011 Q4": {
+        "accession": "000119312512060916",
+        "accessionDashed": "0001193125-12-060916",
+        "filingDate": "2012-02-14",
+        "reportDate": "2011-12-31",
+        "form": "13F-HR",
+        "primaryDocument": "d300863d13fhr.txt",
+        "cik": "1173334",
+        "expected13FFileNumber": "028-11257",
+        "url": "https://www.sec.gov/Archives/edgar/data/1173334/0001193125-12-060916.txt",
+        "format": "legacy_13f",
+        "parserVersion": 6,
+        "sourceReconciliation": {
+          "status": "reconciled",
+          "reportedEntries": 13,
+          "parsedEntries": 13,
+          "reportedValue": 235524000,
+          "tableValue": 235524000,
+          "difference": 0
+        }
+      }
+    }
+  }
+}

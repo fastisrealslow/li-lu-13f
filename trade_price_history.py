@@ -142,10 +142,17 @@ def build(data, quotes, previous=None, *, download_limit=12, loader=None, now=No
         scope = transition.get('fromQuarter', '') if transition.get('comparisonScopeChanged') and not same_manager_history(data, h) else ''
         meta = data.get('meta', {})
         boundary = max(scope, meta.get('costHistoryFrom', ''), meta.get('instrumentHistoryFrom', '') if tk in meta.get('instrumentHistoryTickers', []) else '')
+        identity=h.get('priceIdentityEvidence')
+        if identity:
+            effective=identity['effectiveDate']
+            identity_quarter=effective[:4]+' Q'+str((int(effective[5:7])-1)//3+1)
+            boundary=max(boundary,identity_quarter)
         actions = quotes.get(tk, {}).get('shareActions', [])
         first_date=first[:4]+'-'+str((int(first[-1])-1)*3+1).zfill(2)+'-01'
         relevant_actions=[a for a in actions if a['date']>=first_date]
-        basis = hashlib.sha256(json.dumps([tk, relevant_actions, meta.get('shareActions', [])], sort_keys=True).encode()).hexdigest()
+        basis_parts=[tk, relevant_actions, meta.get('shareActions', [])]
+        if h.get('priceIdentityEvidence'):basis_parts.append(h['priceIdentityEvidence'])
+        basis = hashlib.sha256(json.dumps(basis_parts, sort_keys=True).encode()).hexdigest()
         legacy_basis=hashlib.sha256(json.dumps([tk, actions, meta.get('shareActions', [])], sort_keys=True).encode()).hexdigest()
         blocked=set(excluded)
         uncertain=[a for a in actions if not is_share_split(a,h)]
@@ -154,13 +161,22 @@ def build(data, quotes, previous=None, *, download_limit=12, loader=None, now=No
             action_quarter=last_action[:4]+' Q'+str((int(last_action[5:7])-1)//3+1)
             blocked.update(q for q in rows if q<=action_quarter)
         cached = old.get(k, {})
-        same_basis=cached.get('priceBasis') in (basis,legacy_basis)
+        same_basis=cached.get('priceBasis') in ((basis,) if h.get('priceIdentityEvidence') else (basis,legacy_basis))
         if not same_basis:cached={**cached,'checkedAt':''}
         candles = copy.deepcopy(cached.get('candles', {})) if same_basis else {}
         preliminary = calculate(rows, candles, blocked, boundary, scope)
         needed = [r['quarter'] for r in preliminary['quarters'] if ('buy' in r or 'sell' in r) and r['quarter'] not in candles and r['quarter'] not in blocked]
+        # Old reporters remain independent; their estimates can request data but
+        # never enter the current ledger or its weighted averages.
+        from historical_price_segments import plan as segment_plan, estimates as segment_estimates
+        archive_boundary = max(scope, meta.get('costHistoryFrom', ''))
+        segments, segment_gaps = segment_plan(data, history, h, archive_boundary, blocked, quotes.get(tk, {}))
+        for segment in segments:
+            legacy = calculate(segment['rows'], candles)
+            needed.extend(r['quarter'] for r in legacy['quarters'] if ('buy' in r or 'sell' in r) and r['quarter'] not in candles)
+        needed = sorted(set(needed))
         prepared.append(dict(k=k, h=h, rows=rows, boundary=boundary, scope=scope, candles=candles,
-                             basis=basis, needed=needed, cached=cached, blocked=blocked, currentTrade=any(r['quarter']==current.get('quarter') and r['action'] in ('new','added','trimmed','exited') for r in preliminary['quarters'])))
+                             basis=basis, needed=needed, cached=cached, blocked=blocked, segments=segments, segment_gaps=segment_gaps, currentTrade=any(r['quarter']==current.get('quarter') and r['action'] in ('new','added','trimmed','exited') for r in preliminary['quarters'])))
     # The latest displayed portfolio gets priority; historical names rotate by
     # last attempt so one unavailable security cannot starve the remaining queue.
     active = {key(h): h.get('value', 0) for h in current.get('holdings', [])}
@@ -182,6 +198,11 @@ def build(data, quotes, previous=None, *, download_limit=12, loader=None, now=No
         fresh = prefetch([p['h']['ticker'] for p in selected], start, loader=loader or download_history)
         from batch_market_data import merge_actions
         for tk, quote in fresh.items():
+            from verified_security_symbols import quote_matches
+            identity_ok=all(quote_matches(p['h'],quote) for p in prepared if p['h']['ticker']==tk)
+            if not identity_ok:
+                SERIES.pop(tk,None)
+                continue
             if not quote.get('error'):
                 try:
                     quotes[tk] = merge_actions(quote,quotes[tk]) if quotes.get(tk,{}).get('status')=='ceased_trading' or (quote.get('historyOnly') and quotes.get(tk,{}).get('t',0)>quote.get('t',0)) else merge_actions(quotes.get(tk, {}), quote)
@@ -198,13 +219,22 @@ def build(data, quotes, previous=None, *, download_limit=12, loader=None, now=No
     for p in prepared:
         h = p['h']; tk = h['ticker']; candles = p['candles']
         for q in p['needed']:
-            covered, raw_candle = window(tk, *quarter_ts(q))
+            from verified_security_symbols import quote_matches
+            if not quote_matches(h,quotes.get(tk,{})):continue
+            start,end=quarter_ts(q)
+            evidence=h.get('priceIdentityEvidence')
+            if evidence:start=max(start,datetime.fromisoformat(evidence['effectiveDate']).replace(tzinfo=timezone.utc).timestamp())
+            covered, raw_candle = window(tk,start,end)
             estimate = candle_estimates(raw_candle) if covered else None
             if estimate:
                 candles[q] = estimate
         computed = calculate(p['rows'], candles, p['blocked'], p['boundary'], p['scope'])
         entry = dict(ticker=tk, cusip=h.get('cusip'), **computed, candles=candles, priceBasis=p['basis'],
                      checkedAt=now if p['k'] in checked else p['cached'].get('checkedAt', ''))
+        if p['segments']:
+            entry['historicalSegments'] = segment_estimates(p['segments'], candles, quotes.get(tk, {}))
+        if p['segment_gaps']:
+            entry['historicalSegmentGaps'] = p['segment_gaps']
         event = lifecycle.get(h.get('cusip'))
         if event and event['ticker'] == tk and event['effectiveDate'] <= now[:10]:
             entry['lifecycle'] = event
