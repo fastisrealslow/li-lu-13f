@@ -2126,12 +2126,12 @@
       "reason": "JSONDecodeError: Expecting ',' delimiter: line 3 column 23 (char 488)"
     },
     "vinall-c550c8c4eb0384": {
-      "at": "2026-11-17T03:38:19+00:00",
+      "at": "2026-11-17T23:47:59+00:00",
       "status": "retry",
       "inputHash": "1185e6ae44c1d49db2209f103b06e68c24940b3693da4234b57d2ceb975c3565",
-      "failures": 3,
-      "nextAttemptAt": "2026-11-17T19:38:19+00:00",
-      "reason": "ValueError: Bilingual editorial review: The source text contains 'Charlie Manga' (s59), but the editorial content incorrectly corrects this to 'Charlie Munger' without marking it as a transcription error. The instruction requires rejecting concrete material errors; changing a name based on external knowledge rather than the provided ASR evidence violates the '"
+      "failures": 4,
+      "nextAttemptAt": "2026-11-19T07:47:59+00:00",
+      "reason": "ValueError: Unsupported numerical claim: 1990"
     },
     "webb-d8610db2454149": {
       "at": "2026-11-16T19:17:43+00:00",
@@ -4669,5 +4669,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-17T23:47:36+00:00"
+  "updatedAt": "2026-11-17T23:47:59+00:00"
 }
