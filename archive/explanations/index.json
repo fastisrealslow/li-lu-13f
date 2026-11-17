@@ -2547,12 +2547,12 @@
       "reason": "ValueError: Copied source passage"
     },
     "buffett-ba600cd7bd91ce": {
-      "at": "2026-11-16T08:05:11+00:00",
+      "at": "2026-11-17T03:37:56+00:00",
       "status": "retry",
       "inputHash": "9125cce955976ca3b07237659118b02e163d89c9db1a21b96da63e4bcddeea1d",
-      "failures": 3,
-      "nextAttemptAt": "2026-11-17T00:05:11+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English paragraph contains a factual error: it states Buffett 'paid $2.5 billion in losses' (s61), whereas the source text says he was 'required to pay losses of $2.5 billion', implying an obligation rather than a voluntary payment; however, this is minor compared to the next issue.; The English paragraph incorrectly"
+      "failures": 4,
+      "nextAttemptAt": "2026-11-18T11:37:56+00:00",
+      "reason": "ValueError: Bilingual editorial review: The source text (s60-s62) does not mention 'capital structure' or 'academic criticism'. The section title and the paragraph content in the provided JSON are hallucinated additions not found in the evidence.; The source text describes specific derivative transactions (bond defaults, equity puts) but makes no reference to "
     },
     "buffett-954ddfb7d50c36": {
       "at": "2026-11-16T08:20:21+00:00",
@@ -4663,5 +4663,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-17T03:37:29+00:00"
+  "updatedAt": "2026-11-17T03:37:56+00:00"
 }
