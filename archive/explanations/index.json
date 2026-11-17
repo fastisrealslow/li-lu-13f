@@ -2958,12 +2958,12 @@
       "reason": "ValueError: Bilingual editorial review: The English translation in 'content.paragraphs[1]' incorrectly translates 'low risk premiums' (from s13) as 'low risk premiums (in the context of value)' and omits the final phrase 'excessive risk premiums elsewhere' which is present in the source text.; The Chinese translation in 'content.paragraphs[0]' adds interpretiv"
     },
     "marks-8271b6ed8c1a05": {
-      "at": "2026-11-16T05:28:11+00:00",
+      "at": "2026-11-17T04:13:00+00:00",
       "status": "retry",
       "inputHash": "acbc23e8b0dfd58b321deb7bbac1b736dc41264d04aaf3746fdc8b62a793e22e",
-      "failures": 2,
-      "nextAttemptAt": "2026-11-16T13:28:11+00:00",
-      "reason": "ValueError: Bilingual editorial review: The Chinese text claims Marks argues markets swung to 'record-breaking single-day rallies', but source s0 only mentions a 'best three-day stretch' (17.5% gain over Tuesday-Thursday), not a single-day rally.; The Chinese text states the bond issuance was '$107 billion in investment-grade bonds', while source s1 specifies "
+      "failures": 3,
+      "nextAttemptAt": "2026-11-17T20:13:00+00:00",
+      "reason": "ValueError: Unsupported numerical claim: 2"
     },
     "marks-827f8ac1bdac2c": {
       "at": "2026-11-16T14:56:47+00:00",
@@ -4669,5 +4669,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-17T04:12:33+00:00"
+  "updatedAt": "2026-11-17T04:13:00+00:00"
 }
