@@ -444,12 +444,12 @@
       "reason": "ValueError: Bilingual editorial review: The English text incorrectly translates 'Baobao High Steps' as 'Bao Bao', omitting the full name 'Baobao' (which refers to Baobao) and missing the Chinese term 'Gao Bu Bu' entirely. The correct translation should be 'Bao Bao' or 'Baobao' for the first brand, but the second brand is clearly 'Gao Bu Bu' (High Steps), not j"
     },
     "greenberg-6ffab78b7040e3": {
-      "at": "2026-11-16T14:35:06+00:00",
+      "at": "2026-11-17T23:45:29+00:00",
       "status": "retry",
       "inputHash": "b456036ff1b37cf34edfad5075c65e756686ff7a37ac1ebfd351701f188dfdc7",
-      "failures": 4,
-      "nextAttemptAt": "2026-11-17T22:35:06+00:00",
-      "reason": "ValueError: Bilingual editorial review: The source text does not mention 'intrinsic value' or 'long-term holding grounded in intrinsic value'; it only states they look for value to be realized because the business has a value.; The source text does not explicitly state that acquisitions were an 'inevitable outcome for every stock purchase'; it only says many p"
+      "failures": 5,
+      "nextAttemptAt": "2026-11-20T15:45:29+00:00",
+      "reason": "ValueError: Copied source passage"
     },
     "hawkins-4bfffa4e8bf77c": {
       "at": "2026-11-14T21:23:32+00:00",
@@ -4669,5 +4669,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-17T23:45:18+00:00"
+  "updatedAt": "2026-11-17T23:45:29+00:00"
 }
