@@ -1902,12 +1902,12 @@
       "reason": "ValueError: Bilingual editorial review: The Chinese translation incorrectly attributes the Microsoft anecdote to 'an early investor' recommending a meeting; the source text (s5) states it was Patrick Gregory (the host/introducer) who arranged the introduction by an early investor, not Pabrai himself.; The Chinese translation misrepresents Pabrai's conclusion i"
     },
     "pabrai-7b63bdce3eef9a": {
-      "at": "2026-11-16T14:57:47+00:00",
+      "at": "2026-11-17T14:25:19+00:00",
       "status": "retry",
       "inputHash": "68d5f7c9f40789729bebada2a9716f4f437e424e0a4f8745b935f1986e2cd3ef",
-      "failures": 2,
-      "nextAttemptAt": "2026-11-16T22:57:47+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English translation in 'content' incorrectly states Pabrai had 'only a small amount of savings and credit card balances', whereas source s1 specifies 'under a hundred thousand' (approx. $100k), which is not merely 'small'.; The English translation claims he was 'ready to read fifty more if available', but source s6 s"
+      "failures": 3,
+      "nextAttemptAt": "2026-11-18T06:25:19+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English translation of 'One Up on Wall Street' is incorrect; the correct title is 'One Up on Wall Street', not 'Wall Street Father'.; The phrase 'beating the street' in the source text refers to Peter Lynch's book 'Beating the Street', but the translation should be consistent with the actual book title.; The English "
     },
     "vinall-c12bae3cc1e659": {
       "at": "2026-11-17T03:20:33+00:00",
@@ -4669,5 +4669,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-17T14:24:08+00:00"
+  "updatedAt": "2026-11-17T14:25:19+00:00"
 }
