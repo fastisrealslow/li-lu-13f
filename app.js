@@ -1287,7 +1287,8 @@ function investorSummary(snapshot,ids,name,en=lang==='en') {
   if([...directions].some(k=>!chosen.some(id=>known.get(id).category===k))) return null;
   const overview=CHANGE_KEYS.map(k=>`${k==='unknown'&&facts.comparisonState==='scope_partial'?(en?'New coverage':'新增覆盖'):changeLabel(k,en)}${en?' ':''}${facts.stats[k]}${en?'':'项'}`).join(en?', ':'、');
   const clauses=facts.items.filter(f=>chosen.includes(f.id)).map(f=>{
-    const stock=f.ticker.startsWith('?')?f.name || f.ticker.slice(1):f.name && f.name!==f.ticker?`${f.name}（${f.ticker}）`:f.ticker;
+    const displayName=String(f.name || '').trim();
+    const stock=f.ticker.startsWith('?')?displayName || f.ticker.slice(1):displayName && displayName!==f.ticker?`${displayName}（${f.ticker}）`:f.ticker;
     let change=f.change;
     if(en) change=change.replace('上季股数未知，不判断增减','Previous shares unknown; no trade inference').replace('新建仓','New position').replace('股数不变','Shares unchanged').replace('清仓','Exited').replace('增持','Added ').replace('减持','Reduced ').replace('（微量变动）','(small change)').replace('（拆股调整后）','(split adjusted)');
     return stock+(en?': ':'：')+change;
@@ -1470,7 +1471,7 @@ function aiValueFallback(candidates) {
   const rows=candidates.flatMap(c=>(c.investors || []).map(h=>({c,h})));
   rows.sort((a,b)=>(a.h.chg==='hold')-(b.h.chg==='hold'));
   return rows.length ? (en?'Selected holders’ latest disclosures: ':'按各投资人最新披露组合：')+rows.slice(0,3).map(({c,h})=>{
-    const name=c.cnName || c.name || '', stock=name && name!==c.ticker ? `${name}（${c.ticker}）`:c.ticker;
+    const name=String(c.cnName || c.name || '').trim(), stock=name && name!==c.ticker ? `${name}（${c.ticker}）`:c.ticker;
     const weight=typeof h.weight==='number' && Number.isFinite(h.weight) && h.weight>=0 && h.weight<=100 ? (en?`, ${h.weight}% of that investor’s disclosed value`:`，占其披露组合市值${h.weight}%`):'';
     return `${h.name || INVESTOR_LABELS[h.id] || h.id}${en?': ':'：'}${stock}${en?' — ':''}${labels[h.chg] || (en?'Change unknown':'增减未知')}${weight}`;
   }).join(en?'; ':'；')+(en?'.':'。') : '';

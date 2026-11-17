@@ -41,6 +41,21 @@ class AISupplementTests(unittest.TestCase):
         current=ai.tasks(self.root)[0];saved=ai.read(self.root/'ai_supplement.json')['entries'][self.task['id']]
         self.assertEqual(saved['mode'],'deterministic');self.assertTrue(ai.valid_entry(saved,current))
 
+    def test_new_quarter_rejects_old_summary_even_when_shares_unchanged(self):
+        old=ai.make_entry(self.task,self.selection,ai.MODEL)
+        self.data['current']['quarter']='2026 Q3'
+        self.data['current']['prevQuarter']='2026 Q2'
+        ai.write(self.root/'data.json',self.data)
+        current=ai.tasks(self.root)[0]
+        self.assertFalse(ai.valid_entry(old,current))
+        cache={'entries':{current['id']:old}}
+        ai.ensure_safe_entries(cache,[current])
+        entry=cache['entries'][current['id']]
+        self.assertTrue(ai.valid_entry(entry,current))
+        self.assertEqual(entry['facts']['quarter'],'2026 Q3')
+        self.assertIn('2026 Q3',entry['summary'])
+        self.assertNotIn('2026Q2',entry['summary'])
+
     def test_comparison_includes_exit_and_correct_share_change(self):
         facts = self.task['facts']['items']
         self.assertEqual(facts[0]['change'],'增持100.0%')
