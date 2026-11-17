@@ -4044,12 +4044,12 @@
       "reason": "ValueError: Copied source passage"
     },
     "marks-05b38067d482db": {
-      "at": "2026-11-16T07:53:00+00:00",
+      "at": "2026-11-17T14:24:00+00:00",
       "status": "retry",
       "inputHash": "c059d951b763be37ac7080839d7e7324bce04c6610655c0e672c589837bb46f7",
-      "failures": 2,
-      "nextAttemptAt": "2026-11-16T15:53:00+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English text incorrectly attributes the phrase 'improbable disasters' to Howard Marks as a direct quote from Nassim Nicholas Taleb's 'Fooled by Randomness', whereas the source (s25) states that Marks calls them this ('what I call the...') and only references Taleb's book regarding deception by randomness, not this sp"
+      "failures": 3,
+      "nextAttemptAt": "2026-11-18T06:24:00+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English text incorrectly attributes the phrase 'improbable disasters' to Nassim Nicholas Taleb's book *Fooled by Randomness* without verifying if this specific terminology is used in that work; while Taleb discusses 'black swans', the exact phrasing may be Marks' own or a conflation.; The English text introduces the "
     },
     "marks-2b0acf3944f6ef": {
       "at": "2026-11-16T19:15:12+00:00",
@@ -4669,5 +4669,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-17T14:23:27+00:00"
+  "updatedAt": "2026-11-17T14:24:00+00:00"
 }
