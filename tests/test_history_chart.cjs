@@ -18,6 +18,7 @@ function app() {
   };
   const context = vm.createContext({console,Date,localStorage:{getItem:()=>null},window:{innerWidth:1000},
     document:{readyState:'loading',addEventListener(){},getElementById:el,createElement:()=>el('tooltip')}});
+  vm.runInContext(fs.readFileSync(path.join(__dirname,'../verified_security_symbols.js'),'utf8'),context);
   vm.runInContext(fs.readFileSync(path.join(__dirname,'../app.js'),'utf8'),context);
   return {context,el,calls,run:code=>vm.runInContext(code,context)};
 }

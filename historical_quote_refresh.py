@@ -70,6 +70,8 @@ def refresh(data, quotes, previous=None, *, limit=24, now=None, loader=None):
         try:
             if q.get('error') or not fresh_quote(q,now.timestamp()):raise ValueError('quote_unavailable')
             if normalized_symbol(q.get('symbol',tk)).upper()!=normalized_symbol(tk).upper() or q.get('currency','USD')!='USD':raise ValueError('quote_identity')
+            from verified_security_symbols import quote_matches
+            if not quote_matches(h,q):raise ValueError('quote_identity')
             quotes[tk]=merge_actions(quotes.get(tk,{}),q)
         except (ValueError,TypeError,KeyError) as exc:error=str(exc)
         failures=min(8,old.get('failures',0)+1) if error else 0

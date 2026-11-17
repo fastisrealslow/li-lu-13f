@@ -1,0 +1,2 @@
+// Generated from verified_security_symbols.json; do not edit by hand.
+globalThis.VERIFIED_SECURITY_SYMBOL_RECORDS = {"N3167Y103":{"checkedAt":"2026-11-17","classes":["COM","COMMON STOCK"],"effectiveDate":"2016-01-04","issuer":"Ferrari N.V.","note":"Issuer confirms completed separation, NYSE RACE common shares and new CUSIP effective 2016-01-04. Do not join predecessor N3167J106 or special voting shares.","sourceURL":"https://www.sec.gov/Archives/edgar/data/1605484/000160548416000106/exhibit991nv1-4x16.htm","ticker":"RACE"}};

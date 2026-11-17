@@ -57,12 +57,14 @@ def project_row(row, index):
 
 def project(data):
     result = copy.deepcopy(data)
+    from verified_security_symbols import project as project_symbol, records
+    symbol_records=records()
     index = identity_index(data)
     for quarter, rows in result.get('history', {}).get('holdings', {}).items():
-        result['history']['holdings'][quarter] = [project_row(row, index) for row in rows]
+        result['history']['holdings'][quarter] = [project_symbol(project_row(row, index),quarter,symbol_records) for row in rows]
     for key in ('holdings', 'previousHoldings'):
         if key in result.get('current', {}):
-            result['current'][key] = [project_row(row, index) for row in result['current'][key]]
+            result['current'][key] = [project_symbol(project_row(row, index),result['current'].get('quarter' if key=='holdings' else 'prevQuarter',''),symbol_records) for row in result['current'][key]]
     return result
 
 

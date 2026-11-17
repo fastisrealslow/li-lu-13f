@@ -1,0 +1,39 @@
+{
+  "version": 1,
+  "entries": {
+    "060505104": {
+      "method": "sec_cusip_symbol_endpoints",
+      "cusip": "060505104",
+      "ticker": "BAC",
+      "issuer": "Bank of America Corporation",
+      "fromQuarter": "2010 Q1",
+      "throughQuarter": "2026 Q2",
+      "sourceURL": "https://www.sec.gov/Archives/edgar/data/30146/000003014610000011/form026.htm",
+      "currentSourceURL": "https://www.sec.gov/Archives/edgar/data/1608057/000160805726000007/xslForm13F_X02/063026.xml",
+      "checkedAt": "2026-11-17",
+      "evidenceNote": "2010 proxy-voting report binds BAC and 060505104 for common-stock voting; 2026 Q2 13F binds Bank of America (BAC), COM and the identical CUSIP. Identity evidence does not waive intervening corporate-action or filing-reconciliation checks. No earlier period is inferred.",
+      "reviewedFilingRows": [
+        {
+          "quarter": "2011 Q4",
+          "reporterCIK": "1173334",
+          "accession": "000119312512060916",
+          "sourceURL": "https://www.sec.gov/Archives/edgar/data/1173334/000119312512060916/0001193125-12-060916.txt",
+          "name": "Bank of America",
+          "cls": "COM",
+          "cusip": "060505104",
+          "shares": 2135986,
+          "value": 11876000,
+          "shareType": "SH",
+          "putCall": "",
+          "checkedAt": "2026-11-17",
+          "note": "Original information table line: 11,876 thousand USD and 2,135,986 shares. Exact row review only; does not certify neighboring rows or zero holdings."
+        }
+      ],
+      "classes": [
+        "COM",
+        "COMMON",
+        "COMMON STOCK"
+      ]
+    }
+  }
+}
