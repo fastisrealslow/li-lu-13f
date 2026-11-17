@@ -13,6 +13,11 @@
       if(!object(part)||!/^price_shards\/[a-zA-Z0-9_-]+-[a-f0-9]{64}\.json$/.test(part.file||'')||!/^[a-f0-9]{64}$/.test(part.sha256||'')||!part.file.endsWith('-'+part.sha256+'.json')||!Number.isSafeInteger(part.bytes)||part.bytes<=0||part.bytes>25*1024*1024||paths.has(part.file))throw Error('Invalid price shard descriptor');
       paths.add(part.file);
     }
+    if(own(manifest,'sequenceSha256')){
+      const sequence=manifest.files.map(p=>p.file+'\t'+p.sha256+'\t'+p.bytes+'\n').join('');
+      const digest=Array.from(new Uint8Array(await root.crypto.subtle.digest('SHA-256',new TextEncoder().encode(sequence))),x=>x.toString(16).padStart(2,'0')).join('');
+      if(digest!==manifest.sequenceSha256)throw Error('Price shard sequence mismatch');
+    }
     // Do not expose partial data if a later shard is missing, corrupt or aborted.
     async function fetchPart(part){
       if(signal?.aborted)throw Error('Price loading aborted');
