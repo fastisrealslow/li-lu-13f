@@ -3814,12 +3814,12 @@
       "reason": "ValueError: Bilingual editorial review: The Chinese text introduces the concept of 'moral hazard' (moral risk) as a deep insight by Howard Marks. However, the provided source evidence (s26 and s30) does not explicitly mention or define 'moral hazard'. While the description of public overestimating bailouts is consistent with the definition of moral hazard, att"
     },
     "marks-9d549bcb95c052": {
-      "at": "2026-11-16T15:14:40+00:00",
+      "at": "2026-11-17T23:50:05+00:00",
       "status": "retry",
       "inputHash": "08a20ae3e9880d050f2e13526d721b99fb23111f5608e05b94528f901ea25919",
-      "failures": 3,
-      "nextAttemptAt": "2026-11-17T07:14:40+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English translation in the content section contains a factual error regarding the source text: it states 'forecasters were certain the U.S. economy was recovering' (recovering), whereas the source text (s12) explicitly says 'gaining steam', which implies acceleration or momentum, not necessarily recovery from a downt"
+      "failures": 4,
+      "nextAttemptAt": "2026-11-19T07:50:05+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English translation in the 'content' section contains a hallucinated phrase: 'unanimous expectations – that interest rates near zero can fail to produce a strong rebound...' which appears to be an artifact from the source text's copyright line rather than part of the actual argument. The original evidence (s14) does "
     },
     "marks-60fc27c3fdbd0f": {
       "at": "2026-11-16T14:45:06+00:00",
@@ -4669,5 +4669,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-17T23:49:32+00:00"
+  "updatedAt": "2026-11-17T23:50:05+00:00"
 }
