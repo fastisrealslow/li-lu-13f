@@ -1086,12 +1086,12 @@
       "reason": "ValueError: Unsupported numerical claim: 100,000"
     },
     "pabrai-58b2cd1ba68941": {
-      "at": "2026-11-16T07:57:17+00:00",
+      "at": "2026-11-17T04:24:18+00:00",
       "status": "retry",
       "inputHash": "7df9309a6c69f755d883fd174544d687a4eba7aac6b667b98eb8876ce26c7493",
-      "failures": 2,
-      "nextAttemptAt": "2026-11-16T15:57:17+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English translation of 'hit rate' as 'win rate' is acceptable but 'hit rate' is more precise for investment contexts; however, this is a minor stylistic choice and not a factual error.; The phrase 'even if Buffett had a 95% error rate' in the English text accurately reflects the source's claim about his miss rate, so"
+      "failures": 3,
+      "nextAttemptAt": "2026-11-17T20:24:18+00:00",
+      "reason": "ValueError: Bilingual editorial review: The source text does not mention 'high hit rate paradox' (s10 only mentions a low 3% hit rate); this is an invented concept in the translation.; The source states Buffett invested in about 400 stocks over 58 years, but implies these were bets/ideas, not necessarily individual stock purchases; the translation's phrasing '"
     },
     "pabrai-c601c5640111d6": {
       "at": "2026-11-16T08:34:39+00:00",
@@ -4669,5 +4669,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-17T04:23:05+00:00"
+  "updatedAt": "2026-11-17T04:24:18+00:00"
 }
