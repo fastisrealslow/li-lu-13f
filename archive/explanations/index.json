@@ -1990,12 +1990,12 @@
       "reason": "ValueError: Bilingual editorial review: The English translation incorrectly states Pabrai 'spent 13 years completing this journey' (referring to moving to Irvine), whereas the source text says it took 13 years to get here (implying the time taken to establish himself or reach a point where he could give talks, not the duration of the move itself).; The English"
     },
     "vinall-82e487d25fe162": {
-      "at": "2026-11-16T07:29:59+00:00",
+      "at": "2026-11-17T03:19:43+00:00",
       "status": "retry",
       "inputHash": "755c06eed28eecf9175a981e510b960eb9e3eda82cb9a5d1dedca509fda875e0",
-      "failures": 3,
-      "nextAttemptAt": "2026-11-16T23:29:59+00:00",
-      "reason": "ValueError: Bilingual editorial review: The source text (ASR) does not mention 'Regulatory Misinterpretation' or 'regulatory volatility'. The evidence only discusses market panic and paper losses.; The source text does not contain the phrase 'informed outsider' as a direct quote; it is an editorial interpretation added in the content section.; The source text "
+      "failures": 4,
+      "nextAttemptAt": "2026-11-18T11:19:43+00:00",
+      "reason": "ValueError: Unsupported numerical claim: 6"
     },
     "pabrai-e6af35bb77e6df": {
       "at": "2026-11-16T19:55:39+00:00",
@@ -4663,5 +4663,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-17T03:19:40+00:00"
+  "updatedAt": "2026-11-17T03:19:43+00:00"
 }
