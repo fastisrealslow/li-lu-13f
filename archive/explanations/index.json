@@ -1126,12 +1126,12 @@
       "reason": "ValueError: Bilingual editorial review: The source text does not explicitly state that '95% of businesses fail' due to violating Model Number Two; it says 'Most of those businesses—most 95%—will fail because it's a violation of model number two.' The phrasing implies the failure rate among *those* businesses (likely referring to specific types mentioned earlie"
     },
     "pabrai-e2b8759f740dd0": {
-      "at": "2026-11-16T07:30:52+00:00",
+      "at": "2026-11-17T14:40:17+00:00",
       "status": "retry",
       "inputHash": "1b2b5c1adf6509b4dc78080843bf69a13610fbd57b70bda56e6ad842d2328c5c",
-      "failures": 2,
-      "nextAttemptAt": "2026-11-16T15:30:52+00:00",
-      "reason": "ValueError: Incomplete AI Write at 3200 tokens"
+      "failures": 3,
+      "nextAttemptAt": "2026-11-18T06:40:17+00:00",
+      "reason": "ValueError: Unsupported numerical claim: 80%"
     },
     "pabrai-3b2771acdc0e22": {
       "at": "2026-11-16T19:38:28+00:00",
@@ -4669,5 +4669,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-17T14:40:09+00:00"
+  "updatedAt": "2026-11-17T14:40:17+00:00"
 }
