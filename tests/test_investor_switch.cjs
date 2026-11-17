@@ -380,3 +380,16 @@ test('manager evidence enables only the proven securities across an expanded fil
   assert.equal(facts.rows[1].prevShares,null);assert.match(a.run('comparisonNotice()'),/NEW.*新增覆盖/);
   a.run("data.current.prevQuarter='2025 Q4'");assert.equal(a.run('comparisonState()'),'gap');
 });
+
+test('summary rendering trims only label edges and preserves financial facts',()=>{
+  const a=app();
+  a.context.snapshot={current:{quarter:'2026 Q3',prevQuarter:'2026 Q2',
+    holdings:[{ticker:'COO',name:' The Cooper Companies, Inc. ',shares:11,value:110}],
+    previousHoldings:[{ticker:'COO',name:'The Cooper Companies, Inc.',shares:10,value:100}]}};
+  const result=a.run("investorSummary(snapshot,null,'Test',false)");
+  assert.match(result,/The Cooper Companies, Inc.（COO）：增持10.0%/);
+  assert.match(result,/2026 Q3/);
+  assert.doesNotMatch(result,/Inc\. （/);
+  a.context.snapshot.current.holdings[0].shares=9;
+  assert.match(a.run("investorSummary(snapshot,null,'Test',false)"),/减持10.0%/);
+});

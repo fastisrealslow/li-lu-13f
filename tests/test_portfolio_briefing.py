@@ -119,6 +119,12 @@ class PortfolioBriefingTests(unittest.TestCase):
 
     def test_model_can_prioritize_evidence_but_cannot_change_numbers_or_drop_sections(self):
         t=next(t for t in ai.tasks(ROOT) if t['id']=='investor:lilu')
+        # Exercise ordering against a fixed three-topic fixture, not a live
+        # quarter whose narrative may legitimately contain fewer topics.
+        t=copy.deepcopy(t)
+        t['facts']['briefing']={'version':1,'headline':['标题','Headline'],
+            'lead':['本季披露','Reported quarter'],'notes':[],
+            'details':[{'label':[str(i),str(i)],'text':[f'事实 {i}',f'Fact {i}']} for i in range(3)]}
         selection=ai.fallback_selection(t['facts']);selection['topicIds']=['t2','t0']
         e=ai.make_entry(t,selection,ai.MODEL)
         self.assertTrue(ai.valid_entry(e,t))
