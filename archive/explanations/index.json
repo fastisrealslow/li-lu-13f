@@ -1302,12 +1302,12 @@
       "reason": "ValueError: Unsupported numerical claim: 3%"
     },
     "pabrai-8a633b38cd8ccf": {
-      "at": "2026-11-16T14:58:23+00:00",
+      "at": "2026-11-17T14:25:42+00:00",
       "status": "retry",
       "inputHash": "af07bd382f547a181e858e4f731fce97baaf3cb3e2ea701fd3ac9b125112d35e",
-      "failures": 3,
-      "nextAttemptAt": "2026-11-17T06:58:23+00:00",
-      "reason": "ValueError: Bilingual editorial review: The Chinese text claims the father's quote ('one good wife and one friend') appears verbatim in the source, but it is only paraphrased as 'My dad used to say...' without exact wording.; The English text incorrectly states the quote does not appear verbatim, contradicting the Chinese translation which asserts alignment wi"
+      "failures": 4,
+      "nextAttemptAt": "2026-11-18T22:25:42+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English translation in the 'content' section contains a factual error regarding the duration of meetings. The source text (s12) states 'meet someone I had not known or met for an hour or so', implying a meeting lasting about one hour. However, the translation says 'engaging with strangers for approximately one hour b"
     },
     "buffett-9b2d5fb57fd0af": {
       "at": "2026-11-17T03:48:03+00:00",
@@ -4669,5 +4669,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-17T14:25:19+00:00"
+  "updatedAt": "2026-11-17T14:25:42+00:00"
 }
