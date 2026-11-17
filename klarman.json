@@ -5,7 +5,7 @@
     "notablePeople": [
       "Seth Klarman"
     ],
-    "lastUpdated": "2026-11-17T17:54:39Z",
+    "lastUpdated": "2026-11-17T23:02:12Z",
     "aiSummary": "克拉曼大幅增持亚马逊与谷歌，新进芝商所等，显示其持续看好科技巨头及特定周期机会，同时减持部分传统行业仓位。",
     "aiSummaryQuarter": "2026 Q2",
     "shareActions": [
@@ -8036,7 +8036,7 @@
               "value": 47158000
             }
           ],
-          "sector": "其他",
+          "sector": "娱乐",
           "prevShares": 2994010,
           "prevValue": 61647000
         },
@@ -41013,7 +41013,7 @@
               "value": 51856000
             }
           ],
-          "ticker": "?RHI ENTMT INC DEL",
+          "ticker": "RHIEQ",
           "sector": "其他",
           "prevShares": 0,
           "prevValue": 0
@@ -42058,7 +42058,7 @@
               "value": 29733000
             }
           ],
-          "ticker": "?RHI ENTMT INC DEL",
+          "ticker": "RHIEQ",
           "sector": "其他",
           "prevShares": 3480299,
           "prevValue": 51856000
@@ -50392,7 +50392,7 @@
               "value": 7449000
             }
           ],
-          "ticker": "?RHI ENTMT INC DEL",
+          "ticker": "RHIEQ",
           "sector": "其他",
           "prevShares": 3661699,
           "prevValue": 29733000
@@ -51123,7 +51123,7 @@
               "value": 15290000
             }
           ],
-          "ticker": "?RHI ENTMT INC DEL",
+          "ticker": "RHIEQ",
           "sector": "其他",
           "prevShares": 4900551,
           "prevValue": 15633000
@@ -53778,10 +53778,10 @@
           "ticker": "C",
           "sector": "银行",
           "cnName": "花旗集团",
-          "displayName": "Citigroup",
-          "sectorEn": "Banking",
           "prevShares": 0,
-          "prevValue": 0
+          "prevValue": 0,
+          "displayName": "Citigroup",
+          "sectorEn": "Banking"
         },
         {
           "name": "SYNERON MEDICAL LTD         ORD",
@@ -57288,7 +57288,7 @@
               "value": 15633000
             }
           ],
-          "ticker": "?RHI ENTMT INC DEL",
+          "ticker": "RHIEQ",
           "sector": "其他",
           "prevShares": 4900551,
           "prevValue": 7449000
@@ -63729,7 +63729,7 @@
       ]
     },
     "coverage": {
-      "checkedAt": "2026-11-17T17:54:39Z",
+      "checkedAt": "2026-11-17T23:02:13Z",
       "missingQuarters": [
         "1999 Q3"
       ],
@@ -63738,7 +63738,7 @@
         "1999 Q3": "Legacy table reconciliation failed: 40/41 rows, $610102000/$647531000"
       },
       "attempts": {
-        "1999 Q3": 66
+        "1999 Q3": 67
       },
       "pendingRefreshQuarters": [],
       "expandedLookup": null,
@@ -70285,7 +70285,7 @@
         "source": "https://www.sec.gov/Archives/edgar/data/1061768/0001061768-08-000206.txt",
         "filingDate": "2008-11-14",
         "sourceDigest": "493a6f9d962ef99f15373d0bffd9ad7a811db59108635be98ce7b1783e62b617",
-        "sourceHash": "e063927ce2da2764578ad459e4953c233252cf5501d4e204ffd2b29431981cfb",
+        "sourceHash": "5ef2c0ed0ec5a469b9d5941d9a9573325107e4c4fe8fafd5d446dbd2b85f56d5",
         "status": "verified",
         "factor": 1,
         "anchors": [
@@ -70329,7 +70329,7 @@
         "agreementCount": 3,
         "anchorCount": 3,
         "outlierTickers": [],
-        "normalizedHash": "e063927ce2da2764578ad459e4953c233252cf5501d4e204ffd2b29431981cfb"
+        "normalizedHash": "5ef2c0ed0ec5a469b9d5941d9a9573325107e4c4fe8fafd5d446dbd2b85f56d5"
       },
       "2008 Q4": {
         "version": 1,
@@ -71656,6 +71656,462 @@
           "NG"
         ],
         "normalizedHash": "3a0d82a0ca1278a65828012e65943db0c5107f4db098321f700e2f903395732d"
+      },
+      "2012 Q2": {
+        "version": 1,
+        "checkedAt": "2026-11-17",
+        "source": "https://www.sec.gov/Archives/edgar/data/1061768/0001140361-12-036574.txt",
+        "filingDate": "2012-08-13",
+        "sourceDigest": "fb2ee4d9905a1735f766221fcf1054eac59869d4ec513e5961db5c0b36534d61",
+        "sourceHash": "b37de7286a7dcbf0b88e258dad31c8580bc550d2aefddfe1b0a5bb6f9d3af25d",
+        "status": "verified",
+        "factor": 1,
+        "anchors": [
+          {
+            "ticker": "NG",
+            "cusip": "66987E206",
+            "filedPrice": 5.28,
+            "price": 5.28000020980835,
+            "date": "2012-06-29",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/NG?period1=0&period2=1795042934&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "ORCL",
+            "cusip": "68389X105",
+            "filedPrice": 29.7,
+            "price": 29.700000762939453,
+            "date": "2012-06-29",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/ORCL?period1=0&period2=1795042935&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "GNW",
+            "cusip": "37247D106",
+            "filedPrice": 5.66,
+            "price": 5.659999847412109,
+            "date": "2012-06-29",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/GNW?period1=0&period2=1795042937&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "BP",
+            "cusip": "055622104",
+            "filedPrice": 40.539986177067306,
+            "price": 40.540000915527344,
+            "date": "2012-06-29",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/BP?period1=0&period2=1795042937&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "VSAT",
+            "cusip": "92552V100",
+            "filedPrice": 37.77002897404218,
+            "price": 37.77000045776367,
+            "date": "2012-06-29",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/VSAT?period1=0&period2=1795042937&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          }
+        ],
+        "agreementCount": 5,
+        "anchorCount": 5,
+        "outlierTickers": [],
+        "normalizedHash": "b37de7286a7dcbf0b88e258dad31c8580bc550d2aefddfe1b0a5bb6f9d3af25d"
+      },
+      "2012 Q3": {
+        "version": 1,
+        "checkedAt": "2026-11-17",
+        "source": "https://www.sec.gov/Archives/edgar/data/1061768/0001140361-12-046838.txt",
+        "filingDate": "2012-11-13",
+        "sourceDigest": "bd1a1d1abcaecb51517178a1f0f9492bd53f9fa6a50b1c83fa7fe237b756d999",
+        "sourceHash": "2ef86aa7dd59cb07b0b7a1982eeba3b8d22166bbc1e35765fc55fd57b1cb2ff5",
+        "status": "verified",
+        "factor": 1,
+        "anchors": [
+          {
+            "ticker": "NG",
+            "cusip": "66987E206",
+            "filedPrice": 5.6,
+            "price": 5.599999904632568,
+            "date": "2012-09-28",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/NG?period1=0&period2=1795042934&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "GNW",
+            "cusip": "37247D106",
+            "filedPrice": 5.23,
+            "price": 5.230000019073486,
+            "date": "2012-09-28",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/GNW?period1=0&period2=1795042937&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "ORCL",
+            "cusip": "68389X105",
+            "filedPrice": 31.46,
+            "price": 31.459999084472656,
+            "date": "2012-09-28",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/ORCL?period1=0&period2=1795042935&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "BP",
+            "cusip": "055622104",
+            "filedPrice": 42.359974535779244,
+            "price": 42.36000061035156,
+            "date": "2012-09-28",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/BP?period1=0&period2=1795042937&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "VSAT",
+            "cusip": "92552V100",
+            "filedPrice": 37.38,
+            "price": 37.380001068115234,
+            "date": "2012-09-28",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/VSAT?period1=0&period2=1795042937&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          }
+        ],
+        "agreementCount": 5,
+        "anchorCount": 5,
+        "outlierTickers": [],
+        "normalizedHash": "2ef86aa7dd59cb07b0b7a1982eeba3b8d22166bbc1e35765fc55fd57b1cb2ff5"
+      },
+      "2012 Q4": {
+        "version": 1,
+        "checkedAt": "2026-11-17",
+        "source": "https://www.sec.gov/Archives/edgar/data/1061768/0001140361-13-006404.txt",
+        "filingDate": "2013-02-13",
+        "sourceDigest": "23460ffb6d7fc5ef1dcc050b993c3b6fdfab203ea1a2e0cb0f3dfbac7803037e",
+        "sourceHash": "4d7af07a1c98e938c4adf3b8e4553894c2571dc96381d8aa2ba11813f24fdda6",
+        "status": "verified",
+        "factor": 1,
+        "anchors": [
+          {
+            "ticker": "NG",
+            "cusip": "66987E206",
+            "filedPrice": 4.509989256880438,
+            "price": 4.510000228881836,
+            "date": "2012-12-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/NG?period1=0&period2=1795042934&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "GNW",
+            "cusip": "37247D106",
+            "filedPrice": 7.51,
+            "price": 7.510000228881836,
+            "date": "2012-12-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/GNW?period1=0&period2=1795042937&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "VSAT",
+            "cusip": "92552V100",
+            "filedPrice": 38.9,
+            "price": 38.900001525878906,
+            "date": "2012-12-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/VSAT?period1=0&period2=1795042937&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "BP",
+            "cusip": "055622104",
+            "filedPrice": 41.639984341081835,
+            "price": 41.63999938964844,
+            "date": "2012-12-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/BP?period1=0&period2=1795042937&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "ORCL",
+            "cusip": "68389X105",
+            "filedPrice": 33.320008406672294,
+            "price": 33.31999969482422,
+            "date": "2012-12-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/ORCL?period1=0&period2=1795042935&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          }
+        ],
+        "agreementCount": 5,
+        "anchorCount": 5,
+        "outlierTickers": [],
+        "normalizedHash": "4d7af07a1c98e938c4adf3b8e4553894c2571dc96381d8aa2ba11813f24fdda6"
+      },
+      "2013 Q1": {
+        "version": 1,
+        "checkedAt": "2026-11-17",
+        "source": "https://www.sec.gov/Archives/edgar/data/1061768/0001140361-13-020642.txt",
+        "filingDate": "2013-05-14",
+        "sourceDigest": "7aa7b688f1693f4c3e65c0c6ed0f92923c8600f764c3cc28dd8676cde07c8e05",
+        "sourceHash": "55e1c259b6156ec9b5d9beb1fce0db4c4b5ab03b405082cc4fd44e1327820f13",
+        "status": "verified",
+        "factor": 1,
+        "anchors": [
+          {
+            "ticker": "NG",
+            "cusip": "66987E206",
+            "filedPrice": 3.6300217167781708,
+            "price": 3.630000114440918,
+            "date": "2013-03-28",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/NG?period1=0&period2=1795042934&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "BP",
+            "cusip": "055622104",
+            "filedPrice": 42.34997452539164,
+            "price": 42.349998474121094,
+            "date": "2013-03-28",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/BP?period1=0&period2=1795042937&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "AIG",
+            "cusip": "026874784",
+            "filedPrice": 38.820019915275694,
+            "price": 38.81999969482422,
+            "date": "2013-03-28",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/AIG?period1=0&period2=1795042939&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "VSAT",
+            "cusip": "92552V100",
+            "filedPrice": 48.44,
+            "price": 48.439998626708984,
+            "date": "2013-03-28",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/VSAT?period1=0&period2=1795042937&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "ORCL",
+            "cusip": "68389X105",
+            "filedPrice": 32.32995461913437,
+            "price": 32.33000183105469,
+            "date": "2013-03-28",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/ORCL?period1=0&period2=1795042935&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          }
+        ],
+        "agreementCount": 5,
+        "anchorCount": 5,
+        "outlierTickers": [],
+        "normalizedHash": "55e1c259b6156ec9b5d9beb1fce0db4c4b5ab03b405082cc4fd44e1327820f13"
+      },
+      "2017 Q1": {
+        "version": 1,
+        "checkedAt": "2026-11-17",
+        "source": "https://www.sec.gov/Archives/edgar/data/1061768/000114036117022328/form13fInfoTable.xml",
+        "filingDate": "2017-05-25",
+        "sourceDigest": "421f53fc6e082387dd4c84f10b6e50ddf39f962fcae31a95b80d9f2ba1f4758a",
+        "sourceHash": "47ce72cbd4e09cad67ad705e512730389791bcff1f5dd14bc444f791c2433eb9",
+        "status": "verified",
+        "factor": 1,
+        "anchors": [
+          {
+            "ticker": "LNG",
+            "cusip": "16411R208",
+            "filedPrice": 47.26999577471401,
+            "price": 47.27000045776367,
+            "date": "2017-03-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/LNG?period1=0&period2=1795042940&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "SYF",
+            "cusip": "87165B103",
+            "filedPrice": 34.30002830455703,
+            "price": 34.29999923706055,
+            "date": "2017-03-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/SYF?period1=0&period2=1795042940&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "PBF",
+            "cusip": "69318G106",
+            "filedPrice": 22.17000255975274,
+            "price": 22.170000076293945,
+            "date": "2017-03-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/PBF?period1=0&period2=1795042940&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "AR",
+            "cusip": "03674X106",
+            "filedPrice": 22.80998996200231,
+            "price": 22.809999465942383,
+            "date": "2017-03-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/AR?period1=0&period2=1795042940&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "VSAT",
+            "cusip": "92552V100",
+            "filedPrice": 63.81997694658446,
+            "price": 63.81999969482422,
+            "date": "2017-03-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/VSAT?period1=0&period2=1795042937&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          }
+        ],
+        "agreementCount": 5,
+        "anchorCount": 5,
+        "outlierTickers": [],
+        "normalizedHash": "47ce72cbd4e09cad67ad705e512730389791bcff1f5dd14bc444f791c2433eb9"
+      },
+      "2018 Q3": {
+        "version": 1,
+        "checkedAt": "2026-11-17",
+        "source": "https://www.sec.gov/Archives/edgar/data/1061768/000156761918006456/form13fInfoTable.xml",
+        "filingDate": "2018-11-15",
+        "sourceDigest": "c571a0157269288bfab0b613b4ae4e0508062d2c403cba83516068ae88c4eeaf",
+        "sourceHash": "ff7c89f1812c4548f9453546c03d2b38033ba2868cce58c132039bafeb5a0332",
+        "status": "verified",
+        "factor": 1,
+        "anchors": [
+          {
+            "ticker": "AR",
+            "cusip": "03674X106",
+            "filedPrice": 17.710008326754185,
+            "price": 17.709999084472656,
+            "date": "2018-09-28",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/AR?period1=0&period2=1795042940&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "PCG",
+            "cusip": "69331C108",
+            "filedPrice": 46.00999273437694,
+            "price": 46.0099983215332,
+            "date": "2018-09-28",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/PCG?period1=0&period2=1795042941&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "SYF",
+            "cusip": "87165B103",
+            "filedPrice": 31.07997346954732,
+            "price": 31.079999923706055,
+            "date": "2018-09-28",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/SYF?period1=0&period2=1795042940&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "LNG",
+            "cusip": "16411R208",
+            "filedPrice": 69.48997033347457,
+            "price": 69.48999786376953,
+            "date": "2018-09-28",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/LNG?period1=0&period2=1795042940&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          },
+          {
+            "ticker": "VSAT",
+            "cusip": "92552V100",
+            "filedPrice": 63.950018307512025,
+            "price": 63.95000076293945,
+            "date": "2018-09-28",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/VSAT?period1=0&period2=1795042937&interval=1d&events=splits",
+            "candidates": [
+              1
+            ]
+          }
+        ],
+        "agreementCount": 5,
+        "anchorCount": 5,
+        "outlierTickers": [],
+        "normalizedHash": "ff7c89f1812c4548f9453546c03d2b38033ba2868cce58c132039bafeb5a0332"
       }
     },
     "restatementLookupError": "ParseError: mismatched tag: line 108, column 2"
