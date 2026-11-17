@@ -2825,12 +2825,12 @@
       "reason": "ValueError: Bilingual editorial review: The English translation in the 'content' section contains a factual error regarding the stock price increase percentage. The source text (s8) states a '25% stock price increase', but the translation incorrectly calculates this as a 1% NAV increase by multiplying 25% by 4% without clarifying that the fund's position is 4%"
     },
     "marks-49e0212382a26b": {
-      "at": "2026-11-16T15:29:49+00:00",
+      "at": "2026-11-17T14:47:15+00:00",
       "status": "retry",
       "inputHash": "4fc2cef43c39352d833c1cd958bbd646208f9db9d653a53ea608dfaaeb8f49c5",
-      "failures": 3,
-      "nextAttemptAt": "2026-11-17T07:29:49+00:00",
-      "reason": "ValueError: Bilingual editorial review: The Chinese text incorrectly attributes the quote 'All great investments begin in discomfort' to Howard Marks; the source (s13) explicitly states this is a quote from Doug Kass.; The Chinese text claims Buffett's hamburger analogy illustrates that 'when nobody else will [buy], it is the best time to buy'; the source only"
+      "failures": 4,
+      "nextAttemptAt": "2026-11-18T22:47:15+00:00",
+      "reason": "ValueError: Unsupported numerical claim: 3"
     },
     "marks-e85898c6125044": {
       "at": "2026-11-17T03:45:46+00:00",
@@ -4669,5 +4669,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-17T14:46:57+00:00"
+  "updatedAt": "2026-11-17T14:47:15+00:00"
 }
