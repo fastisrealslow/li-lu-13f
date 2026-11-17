@@ -3190,12 +3190,12 @@
       "reason": "ValueError: Unsupported numerical claim: 7"
     },
     "marks-cbe22289f97d98": {
-      "at": "2026-11-16T14:50:02+00:00",
+      "at": "2026-11-17T14:44:28+00:00",
       "status": "retry",
       "inputHash": "4e40c594ccf6785641936ce41784939d25440331523a8e33417e1d6040e85315",
-      "failures": 2,
-      "nextAttemptAt": "2026-11-16T22:50:02+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English text contains a factual error regarding the dialogue: it claims Marks 'immediately recognized' the punitive nature and admitted 'then don't put it in the bank,' whereas the source (s5) shows he first suggested depositing, then corrected himself to 'don't put it in the bank' only after his lawyer insisted. The"
+      "failures": 3,
+      "nextAttemptAt": "2026-11-18T06:44:28+00:00",
+      "reason": "ValueError: Bilingual editorial review: The source text (s5) does not contain the phrase 'legal mandates' regarding not depositing; it states 'You have to put it in the bank' as a general necessity, not a specific legal mandate violation.; The source text (s6) does not mention 'physical and legal constraints'; it only mentions that money must be somewhere and "
     },
     "marks-a8162651bb160c": {
       "at": "2026-11-16T19:21:59+00:00",
@@ -4669,5 +4669,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-17T14:44:24+00:00"
+  "updatedAt": "2026-11-17T14:44:28+00:00"
 }
