@@ -2651,12 +2651,12 @@
       "reason": "ValueError: Bilingual editorial review: The English translation contains an unverified phrase 'genuinely novel' which appears to be a direct insertion without clear source grounding in the provided text segments.; The Chinese text claims Howard Marks argues for 'parity in creative reasoning regardless of whether the raw material came from decades of reading or"
     },
     "marks-8e0ec13e9cb837": {
-      "at": "2026-11-17T14:11:12+00:00",
+      "at": "2026-11-18T18:12:03+00:00",
       "status": "retry",
       "inputHash": "aae29530db158796b78155e8b1ed83ba5a6857a0ebbd1ec074e3449497113e8e",
-      "failures": 3,
-      "nextAttemptAt": "2026-11-18T06:11:12+00:00",
-      "reason": "ValueError: Bilingual editorial review: The Chinese text claims Howard Marks 'did not claim authorship' of the matrix but describes it as a consultant's tool. The English source (s1) states he was 'impressed' by how the consultant started with the discussion and used a 'simple two-by-two matrix,' implying he adopted or utilized it, but does not explicitly stat"
+      "failures": 4,
+      "nextAttemptAt": "2026-11-20T02:12:03+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English translation of 'capitalizing' as 'leveraging its financial strength' is slightly imprecise; the source text says 'taking advantage of', which implies exploiting an existing condition rather than actively deploying capital. A more accurate phrasing would be 'exploiting its financial strength and risk tolerance"
     },
     "marks-ac11cf5787b86b": {
       "at": "2026-11-17T14:33:07+00:00",
@@ -4671,5 +4671,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-18T18:11:41+00:00"
+  "updatedAt": "2026-11-18T18:12:03+00:00"
 }
