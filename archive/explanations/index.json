@@ -3024,12 +3024,12 @@
       "reason": "ValueError: Bilingual editorial review: The Chinese text claims Marks 'cites' Templeton's view but does not explicitly state the citation in the provided source text; it is an editorial interpretation rather than a direct paraphrase of s1.; The Chinese text states 'market participants continue to hear compelling reasons' which slightly misrepresents s3 ('They "
     },
     "marks-76d48589ef63f2": {
-      "at": "2026-11-17T04:06:53+00:00",
+      "at": "2026-11-18T09:04:06+00:00",
       "status": "retry",
       "inputHash": "132fad5c7eaf162d2b120185cf2facc739dd3bc9f72036d6aae89fb5ff0ca58e",
-      "failures": 3,
-      "nextAttemptAt": "2026-11-17T20:06:53+00:00",
-      "reason": "ValueError: Bilingual editorial review: The source text (s4) states Obama owes victory to 'unmarried' groups; the Chinese translation adds 'single' (implied by unmarried context but not explicit in source structure) which is acceptable paraphrase.; The source text (s3) lists 'urban and suburban' as groups supporting Obama; the translation correctly places this"
+      "failures": 4,
+      "nextAttemptAt": "2026-11-19T17:04:06+00:00",
+      "reason": "ValueError: Bilingual editorial review: The source text (s12) states 'In all but a few states' regarding popular vote allocation, while the content claims 'in all but a few states... meaning casting a Republican ticket in California or a Democratic one in Utah is virtually futile'. This implies California and Utah are among the 'few states' where popular votes"
     },
     "marks-3becefd0c7c602": {
       "at": "2026-11-17T23:56:56+00:00",
@@ -4671,5 +4671,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-18T09:03:54+00:00"
+  "updatedAt": "2026-11-18T09:04:06+00:00"
 }
