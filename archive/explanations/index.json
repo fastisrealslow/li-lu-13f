@@ -428,12 +428,12 @@
       "reason": "ValueError: No audio obtained"
     },
     "buffett-5f62bc27d56ea1": {
-      "at": "2026-11-16T19:16:54+00:00",
+      "at": "2026-11-18T08:07:08+00:00",
       "status": "retry",
       "inputHash": "18e7a7de495c3178456da91737fb3ccd0385f0fcdabf30c22dfa0f582c86e51b",
-      "failures": 2,
-      "nextAttemptAt": "2026-11-17T03:16:54+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English translation of s65 misquotes Buffett's actual words; the source text contains no mention of 'X plus a half a percent' or 'X minus a half a percent', yet the content section attributes this specific numerical comparison to him.; The English translation of s83 incorrectly paraphrases the original text. The sour"
+      "failures": 3,
+      "nextAttemptAt": "2026-11-19T00:07:08+00:00",
+      "reason": "ValueError: Unsupported numerical claim: 0.5%"
     },
     "duan-d7212008ca9cb0": {
       "at": "2026-11-18T00:03:49+00:00",
@@ -4671,5 +4671,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-18T08:06:29+00:00"
+  "updatedAt": "2026-11-18T08:07:08+00:00"
 }
