@@ -2457,12 +2457,12 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     },
     "buffett-578f40d06138b1": {
-      "at": "2026-11-17T03:52:36+00:00",
+      "at": "2026-11-18T17:55:15+00:00",
       "status": "retry",
       "inputHash": "f4bba760709a6dd4ee4e22fd766f5f59c0cb555d744a0907002d4e9dd42d2a95",
-      "failures": 3,
-      "nextAttemptAt": "2026-11-17T19:52:36+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English translation contains a factual error: it states that Berkshire's return on tangible equity 'falls far short of the S&P 500 only in contrast to other firms while outperforming them,' which contradicts the source text (s16) stating the industry's return falls short, implying Berkshire performs better. The phras"
+      "failures": 4,
+      "nextAttemptAt": "2026-11-20T01:55:15+00:00",
+      "reason": "ValueError: Bilingual editorial review: The Chinese text incorrectly states Buffett visited GEICO in 'January 1951' when the source (s18) only specifies 'January 1951' without confirming the year; however, historical context and the phrase '20-year-old student' align with 1951, so this is not a factual error but an assumption. The source does not explicitly st"
     },
     "buffett-da6e8edb27e7bb": {
       "at": "2026-11-14T13:59:56+00:00",
@@ -4671,5 +4671,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-18T17:55:01+00:00"
+  "updatedAt": "2026-11-18T17:55:15+00:00"
 }
