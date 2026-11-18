@@ -622,12 +622,12 @@
       "reason": "ValueError: Unsupported scaled numerical claim: 100"
     },
     "buffett-a01d917b8f91d1": {
-      "at": "2026-11-16T15:01:42+00:00",
+      "at": "2026-11-18T00:12:24+00:00",
       "status": "retry",
       "inputHash": "5a08f3a2546486a84442acd10cdd0002bb3380972b59b44b86eeb382b890c526",
-      "failures": 2,
-      "nextAttemptAt": "2026-11-16T23:01:42+00:00",
-      "reason": "ValueError: Bilingual editorial review: The section claims evidence (s193, s194) discusses Buffett's political views and denies treating donations as a trust. However, the source text for s193 states: 'I don't think I put them in a blind trust at all when I take the job' referring to his 'political views', but does not explicitly state he denied treating donat"
+      "failures": 3,
+      "nextAttemptAt": "2026-11-18T16:12:24+00:00",
+      "reason": "ValueError: Bilingual editorial review: The content section incorrectly claims that no discussion on shareholder return policy occurred, despite the title explicitly stating this is about 'Shareholder Return Policy'. The evidence (s193-s196) contains no mention of dividends or repurchases.; The text hallucinates a specific topic ('Shareholder Return Policy') n"
     },
     "pabrai-80ac2772f94ba4": {
       "at": "2026-11-18T00:06:27+00:00",
@@ -4669,5 +4669,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-18T00:12:01+00:00"
+  "updatedAt": "2026-11-18T00:12:24+00:00"
 }
