@@ -1414,12 +1414,12 @@
       "reason": "ValueError: Bilingual editorial review: Canonical author name mismatch: Source text refers to 'Pabrai' (English) and 'Pabrai' (Chinese), but the content section incorrectly uses 'Pabrai' in English while the Chinese title uses 'Pabrai'. The canonical list includes both 'Pabrai' and 'Pabrai', so this is acceptable, but the Chinese text should verify if 'Pabrai'"
     },
     "pabrai-341e9bdd1f2352": {
-      "at": "2026-11-16T19:29:24+00:00",
+      "at": "2026-11-18T00:17:53+00:00",
       "status": "retry",
       "inputHash": "87ab4f7aecaeaae10a76598f22e6d78b0a6618649a0bff7be7328cf0989d5e1e",
-      "failures": 3,
-      "nextAttemptAt": "2026-11-17T11:29:24+00:00",
-      "reason": "ValueError: Bilingual editorial review: The source text does not mention 'independence' (independence/autonomy) as a criterion for selecting managers; the user's summary introduces this unsupported concept.; The source text does not state that Pabrai places 'experience' at the core of his considerations alongside skin in the game; it only discusses skin in the"
+      "failures": 4,
+      "nextAttemptAt": "2026-11-19T08:17:53+00:00",
+      "reason": "ValueError: Bilingual editorial review: The source text does not mention the 'Feynman method' or cite it as Pabrai's reasoning; this is an editorial addition not found in s3 or s4.; The source text does not specify that practitioners starting in the early 20s have 'about 20 years of data points'; it only states they would have 'about 20 odd years' to look back"
     },
     "pabrai-eac064fbe28765": {
       "at": "2026-11-17T23:45:18+00:00",
@@ -4669,5 +4669,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-18T00:17:49+00:00"
+  "updatedAt": "2026-11-18T00:17:53+00:00"
 }
