@@ -1846,12 +1846,12 @@
       "reason": "ValueError: Bilingual editorial review: The source text (s1) does not explicitly confirm the quote is from Einstein; it only states 'I think it's an Einstein quote, I'm not sure where he says that'. The content section incorrectly asserts it is 'not explicitly confirmed as an Einstein quote in the source text' while simultaneously presenting it as a fact witho"
     },
     "pabrai-c6c00d61fd5d75": {
-      "at": "2026-11-17T03:44:51+00:00",
+      "at": "2026-11-18T18:10:46+00:00",
       "status": "retry",
       "inputHash": "aa63454949e27bada43391194c2083fb90210d4cb72ff5c8428a62775235c6f3",
-      "failures": 4,
-      "nextAttemptAt": "2026-11-18T11:44:51+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English text in s0 incorrectly states Pabrai's fund is 'more than half a billion dollars', whereas the transcript (s1) implies a scale of '1 billion, 2 billion, 3 billion' during his testing, and Vijay's introduction mentions 'one of the biggest hedge fund businesses here in Orange County' without specifying the exac"
+      "failures": 5,
+      "nextAttemptAt": "2026-11-21T10:10:46+00:00",
+      "reason": "ValueError: Incomplete AI Review at 1800 tokens"
     },
     "pabrai-9a0eba26aa2ca1": {
       "at": "2026-11-17T15:04:47+00:00",
@@ -4671,5 +4671,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-18T18:10:37+00:00"
+  "updatedAt": "2026-11-18T18:10:46+00:00"
 }
