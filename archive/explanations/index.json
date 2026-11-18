@@ -3956,12 +3956,12 @@
       "reason": "ValueError: Bilingual editorial review: The English paraphrase incorrectly states 'Nifty Fifty 2.0' as if it were a complete thought ('...has reached a tech bubble or a Nifty Fifty 2.0 scenario'). The source text (s6) cuts off mid-sentence: 'We've believed a Tech Bubble/Nifty Fifty 2.0 scenario was a reasonable probability.' The paraphrase implies the sentence"
     },
     "marks-91985ba4dc0de1": {
-      "at": "2026-11-17T14:46:26+00:00",
+      "at": "2026-11-18T18:48:19+00:00",
       "status": "retry",
       "inputHash": "779d351272925e61d10df454b4a0ae348c55d2320eb111a600fed6fa49fd5149",
-      "failures": 3,
-      "nextAttemptAt": "2026-11-18T06:46:26+00:00",
-      "reason": "ValueError: Incomplete AI Review at 1800 tokens"
+      "failures": 4,
+      "nextAttemptAt": "2026-11-20T02:48:19+00:00",
+      "reason": "ValueError: Bilingual editorial review: The Chinese text incorrectly attributes the quote 'Etorre's Observation' to a specific author named 'Etorre', whereas the English source (s1) only states 'Etorre's Observation' as a title without naming an author; the Chinese text invents this attribution.; The Chinese text claims Marks cited a newspaper article from the"
     },
     "marks-bbc89691ff2f77": {
       "at": "2026-11-18T08:32:29+00:00",
@@ -4675,5 +4675,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-18T18:47:55+00:00"
+  "updatedAt": "2026-11-18T18:48:19+00:00"
 }
