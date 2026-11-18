@@ -896,12 +896,12 @@
       "reason": "ValueError: Bilingual editorial review: The source text (s12-s14) does not mention 'ethical boundaries' or the 'Principle of Human-in-the-Loop'; these terms are absent and constitute invented concepts.; The source describes a trajectory from tool to agent to 'man-made god', but does not explicitly state that human society will 'not permit nor wish for' such an"
     },
     "pabrai-deed882841e367": {
-      "at": "2026-11-17T03:28:26+00:00",
+      "at": "2026-11-18T09:01:16+00:00",
       "status": "retry",
       "inputHash": "c1196969031f851ef22db0b1b25b76469b5ace52d0abe526bb35068e056d5bb9",
-      "failures": 2,
-      "nextAttemptAt": "2026-11-17T11:28:26+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English text incorrectly states Justin answered 'I was four' in response to whether his parents bought him a stock; the source (s8) shows Justin said 'I was four' when asked if he bought a stock at age one, implying he did not buy one then but clarifying his actual age is four. The paraphrase misattributes the contex"
+      "failures": 3,
+      "nextAttemptAt": "2026-11-19T01:01:16+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English translation in the 'content' section contains a factual error regarding Bill Gates's age when he started coding. The source text (s5) states Gates started at '10 or 11', but the translation claims 'ten or eleven' while implying a later start context that contradicts the specific ages mentioned for Kevin (10) "
     },
     "buffett-98e90a4cbe9b9a": {
       "at": "2026-11-17T14:40:45+00:00",
@@ -4671,5 +4671,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-18T09:00:24+00:00"
+  "updatedAt": "2026-11-18T09:01:16+00:00"
 }
