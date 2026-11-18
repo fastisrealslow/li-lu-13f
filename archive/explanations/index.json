@@ -2763,12 +2763,12 @@
       "reason": "ValueError: Copied source passage"
     },
     "marks-c5212c233c1cbe": {
-      "at": "2026-11-16T20:01:59+00:00",
+      "at": "2026-11-18T08:24:55+00:00",
       "status": "retry",
       "inputHash": "84d0a8f1c90d034c6e32251bae1663e5c2a845b4f1cc982cdedb449391576f69",
-      "failures": 3,
-      "nextAttemptAt": "2026-11-17T12:01:59+00:00",
-      "reason": "ValueError: Bilingual editorial review: The Chinese text incorrectly attributes the quote about China's business environment to Premier Li Qiang on March 13, 2023. The source (s30) states this was reported by CNN on that date, but does not explicitly confirm Li Qiang made the statement; it only reports the content of the statement attributed to him. While high"
+      "failures": 4,
+      "nextAttemptAt": "2026-11-19T16:24:55+00:00",
+      "reason": "ValueError: Bilingual editorial review: The Chinese translation incorrectly translates 'thinly veiled' as ' thinly veiled' (repeating English) instead of providing a proper Chinese equivalent like ' thinly veiled critique' or ' subtle critique'.; The Chinese translation omits the specific phrase 'socialism' from the original text ('communism/socialism'), which"
     },
     "marks-8541c8bec84077": {
       "at": "2026-11-18T00:42:26+00:00",
@@ -4671,5 +4671,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-18T08:24:47+00:00"
+  "updatedAt": "2026-11-18T08:24:55+00:00"
 }
