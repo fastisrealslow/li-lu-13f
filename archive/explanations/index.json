@@ -630,12 +630,12 @@
       "reason": "ValueError: Bilingual editorial review: The section claims evidence (s193, s194) discusses Buffett's political views and denies treating donations as a trust. However, the source text for s193 states: 'I don't think I put them in a blind trust at all when I take the job' referring to his 'political views', but does not explicitly state he denied treating donat"
     },
     "pabrai-80ac2772f94ba4": {
-      "at": "2026-11-16T19:44:52+00:00",
+      "at": "2026-11-18T00:06:27+00:00",
       "status": "retry",
       "inputHash": "13aa1ee6f43a048e56b259cfed50f497bc0e8337defe223690e99ece6d519885",
-      "failures": 3,
-      "nextAttemptAt": "2026-11-17T11:44:52+00:00",
-      "reason": "ValueError: Unsupported numerical claim: 2"
+      "failures": 4,
+      "nextAttemptAt": "2026-11-19T08:06:27+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English translation incorrectly states '1 plus 1 equals 11' and '1 plus 1 plus 1 plus 1 exceeding 1,000'. The source text (s3) uses these exact figures as illustrative metaphors for the Lollapalooza Effect, not literal mathematical equations. While the numbers are factually incorrect in a mathematical context, they a"
     },
     "vinall-c919ac8b6b58c4": {
       "at": "2026-11-17T13:59:47+00:00",
@@ -4669,5 +4669,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-18T00:05:33+00:00"
+  "updatedAt": "2026-11-18T00:06:27+00:00"
 }
