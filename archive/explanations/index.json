@@ -1234,12 +1234,12 @@
       "reason": "ValueError: Copied source passage"
     },
     "pabrai-96a9fab5d602f9": {
-      "at": "2026-11-17T14:51:10+00:00",
+      "at": "2026-11-18T18:51:12+00:00",
       "status": "retry",
       "inputHash": "82b6a0151b8903655945cc4e5fbd21f4dde54786010a242a84a95ee57e169992",
-      "failures": 3,
-      "nextAttemptAt": "2026-11-18T06:51:10+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English translation in the 'paragraphs' section contains significant factual errors compared to the source text (evidence s7-s9).; Specific Error 1: The text claims Teledyne repurchased stock 'when US equity markets collapsed'. Source s8 states this happened when markets were 'very cheap and collapsed', implying a lo"
+      "failures": 4,
+      "nextAttemptAt": "2026-11-20T02:51:12+00:00",
+      "reason": "ValueError: Unsupported numerical claim: 2009"
     },
     "pabrai-fe92dc8bae7992": {
       "at": "2026-11-18T17:42:31+00:00",
@@ -4675,5 +4675,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-18T18:50:47+00:00"
+  "updatedAt": "2026-11-18T18:51:12+00:00"
 }
