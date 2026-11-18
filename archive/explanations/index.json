@@ -1070,12 +1070,12 @@
       "reason": "ValueError: Bilingual editorial review: The English text incorrectly states Buffett identified 'four exceptional individuals and four who were turn-offs', whereas the source (s3) only mentions identifying 'four... exceptional' and 'four... turnoffs'. The count of ninety-two undecided is accurate in both.; The English text claims Pabrai received 'about thirty l"
     },
     "pabrai-0c3b0137fc117b": {
-      "at": "2026-11-16T20:08:26+00:00",
+      "at": "2026-11-18T00:17:02+00:00",
       "status": "retry",
       "inputHash": "d920bdd63f02da0b3d18c94617678336364bf0951691b29fde9ce6a8048744ed",
-      "failures": 3,
-      "nextAttemptAt": "2026-11-17T12:08:26+00:00",
-      "reason": "ValueError: Bilingual editorial review: The source text (s2) attributes the claim that 'Bill Gates and Sam Walton are both greatest cloners' to Mohnish, but the Chinese summary incorrectly states this as Pabrai's argument or implies Pabrai is making the comparison. The English paragraph also ambiguously shifts agency.; The source text (s4) cuts off mid-sentenc"
+      "failures": 4,
+      "nextAttemptAt": "2026-11-19T08:17:02+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English text incorrectly states the date as 'July 13, 2025' while the Chinese title correctly says '2025 7 13'. The evidence (s2) does not mention a specific date.; The English text misidentifies the speaker of the core argument. The source (s2, s3, s4) clearly attributes the views on cloning to Mohnish and Steven, n"
     },
     "pabrai-656ae25b22f620": {
       "at": "2026-11-16T19:30:07+00:00",
@@ -4669,5 +4669,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-18T00:15:54+00:00"
+  "updatedAt": "2026-11-18T00:17:02+00:00"
 }
