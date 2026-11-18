@@ -4386,12 +4386,12 @@
       "reason": "ValueError: Bilingual editorial review: The English title 'bubble.com' is incorrect; the source text does not mention this domain name.; The Chinese heading claims the article was published in 'Babylon', but the provided evidence (s4) only states it is a memo from Howard Marks without naming the publication venue.; The English paragraph incorrectly attributes "
     },
     "mclemore-2ab9591831eb1d": {
-      "at": "2026-11-16T19:52:41+00:00",
+      "at": "2026-11-18T08:05:28+00:00",
       "status": "retry",
       "inputHash": "db33b03493c9439ad8647c9d02d9979c92a46db5c44da8c6a3c1a3e6d9cd3e58",
-      "failures": 3,
-      "nextAttemptAt": "2026-11-17T11:52:41+00:00",
-      "reason": "ValueError: Bilingual editorial review: The Chinese text incorrectly attributes the specific compensation details of Jose Neves (Farfetch CEO) and Farfetch's stock price performance to Samantha McLemore. The source evidence (s7) presents these facts as part of a broader argument about market valuation and volatility, but does not explicitly state that McLemore"
+      "failures": 4,
+      "nextAttemptAt": "2026-11-19T16:05:28+00:00",
+      "reason": "ValueError: Bilingual editorial review: The Chinese translation incorrectly attributes the quote about mispricings stemming from ignorance and prejudice to Howard Marks; the source text (s8) explicitly states this is a view heard from him, but the sentence structure in the translation implies direct attribution of the explanation ('She cites... who stated that"
     },
     "mclemore-24b0bf430a4f7b": {
       "at": "2026-11-16T19:04:22+00:00",
@@ -4671,5 +4671,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-18T08:05:16+00:00"
+  "updatedAt": "2026-11-18T08:05:28+00:00"
 }
