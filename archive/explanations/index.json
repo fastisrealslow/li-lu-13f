@@ -2926,12 +2926,12 @@
       "inputHash": "ff0fdc04069e3ce3d3c32e34c54d6653ba3cef07bc0143623b7a4eec7cc5e5ef"
     },
     "marks-024bc47d523dd8": {
-      "at": "2026-11-16T08:20:56+00:00",
+      "at": "2026-11-18T00:09:17+00:00",
       "status": "retry",
       "inputHash": "94b76cbc6f21b0f2379440caa243328ebb197196ec580809d0ef5303eff421ea",
-      "failures": 3,
-      "nextAttemptAt": "2026-11-17T00:20:56+00:00",
-      "reason": "JSONDecodeError: Expecting ',' delimiter: line 6 column 97 (char 1097)"
+      "failures": 4,
+      "nextAttemptAt": "2026-11-19T08:09:17+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English translation in `content.paragraphs[0]` incorrectly states 'home sales remained weak in 2009' as a factual claim. The source text (s7) uses the rhetorical structure 'Home sales are weak, but what would they be if...', implying the weakness is current or general, not specifically anchored to 2009 data itself. T"
     },
     "marks-43a83bc1418080": {
       "at": "2026-11-17T03:56:53+00:00",
@@ -4669,5 +4669,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-18T00:08:41+00:00"
+  "updatedAt": "2026-11-18T00:09:17+00:00"
 }
