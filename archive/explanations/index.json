@@ -808,12 +808,12 @@
       "inputHash": "d3c8e59998069cd89f516c183f44c39e0e4522d560ab7429e5a68f8819f9009d"
     },
     "buffett-4e1e67fe2cf0cb": {
-      "at": "2026-11-17T03:31:22+00:00",
+      "at": "2026-11-18T17:54:43+00:00",
       "status": "retry",
       "inputHash": "ee7958ce5411d19457a8da4c7cc32941fa697e4b02fa5234e5ff600d4833a949",
-      "failures": 3,
-      "nextAttemptAt": "2026-11-17T19:31:22+00:00",
-      "reason": "ValueError: Bilingual editorial review: The Chinese text incorrectly states the first quarter was 'second only to global catastrophes' (ranking second), whereas the source (s6) says it was 'probably the second worst quarter for the insurance industry', implying a comparison within the industry, not globally.; The English translation uses 'fifty billion dollars"
+      "failures": 4,
+      "nextAttemptAt": "2026-11-20T01:54:43+00:00",
+      "reason": "ValueError: Bilingual editorial review: The Chinese text claims the first quarter losses were 'second only to a specific quarter from the previous year', but the source (s6) states it was 'probably the second worst quarter for the insurance industry' without specifying the previous year's quarter.; The English text incorrectly translates 'on the order of $50 b"
     },
     "buffett-8788fc4c92b085": {
       "at": "2026-11-18T17:51:59+00:00",
@@ -4671,5 +4671,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-18T17:53:54+00:00"
+  "updatedAt": "2026-11-18T17:54:43+00:00"
 }
