@@ -1358,12 +1358,12 @@
       "reason": "ValueError: Unsupported numerical claim: 2"
     },
     "pabrai-c9c2f45338a0ca": {
-      "at": "2026-11-17T03:24:17+00:00",
+      "at": "2026-11-18T08:28:33+00:00",
       "status": "retry",
       "inputHash": "f74e05d1fa5529a41df403090f7254455600cf786a5e55655368994358b1573c",
-      "failures": 3,
-      "nextAttemptAt": "2026-11-17T19:24:17+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English translation in `content.paragraphs[0].en` contains a factual error regarding the date: it states 'October 14, 2025', which is in the future relative to the current real-world date (2026). The source text does not specify a year, but the title implies a specific event. Assuming the title's date is part of the "
+      "failures": 4,
+      "nextAttemptAt": "2026-11-19T16:28:33+00:00",
+      "reason": "ValueError: Bilingual editorial review: The source text (s2) states: 'I still do not understand why humans have an aversion to cloning. What I do understand is that humans have an aversion to cloning.' The translation claims Pabrai argues humans possess a deep-seated aversion to 'cloning' successful strategies, but the source explicitly says he does *not* unde"
     },
     "pabrai-9152afaf247ee4": {
       "at": "2026-11-17T04:13:23+00:00",
@@ -4671,5 +4671,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-18T08:26:42+00:00"
+  "updatedAt": "2026-11-18T08:28:33+00:00"
 }
