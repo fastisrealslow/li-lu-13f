@@ -3584,12 +3584,12 @@
       "reason": "ValueError: Bilingual editorial review: The Chinese text incorrectly attributes the quote 'viewless and unexpected events thrust themselves continually athwart our path' to Nathaniel Hawthorne's short story 'David Swan'. The provided source (s0) states: 'It reminds us of the short story David Swan by Nathaniel Hawthorne... The story concludes: it's remarkable "
     },
     "marks-8978a654280497": {
-      "at": "2026-11-17T04:12:33+00:00",
+      "at": "2026-11-18T09:03:54+00:00",
       "status": "retry",
       "inputHash": "1239471770aa2765ef4f86bf162dcb26591d651c902d5e6f98447e62db0f65ac",
-      "failures": 3,
-      "nextAttemptAt": "2026-11-17T20:12:33+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English translation in `content.paragraphs[0]` contains significant hallucinations and fabrications not present in the source text (evidence s1-s3).; Specific errors include: inventing a quote about 'market's tolerance for price shocks' (s2 only mentions 'material discount'), claiming Marks warns against binary judgm"
+      "failures": 4,
+      "nextAttemptAt": "2026-11-19T17:03:54+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English translation in the 'content' section contains a significant factual error regarding Howard Marks' actual argument. The source text (s2) states that liquidity is defined by the ability to buy/sell without affecting price ('without the imposition of a material discount'). However, the provided English translati"
     },
     "mclemore-27e48025ed61f3": {
       "at": "2026-11-17T03:50:09+00:00",
@@ -4671,5 +4671,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-18T09:03:44+00:00"
+  "updatedAt": "2026-11-18T09:03:54+00:00"
 }
