@@ -1566,12 +1566,12 @@
       "reason": "ValueError: Bilingual editorial review: Author attribution error: The source text refers to the host as 'Mohnish' (likely Mohnish Arora), but the content section incorrectly names him 'Mohnish Arja'.; Factual error: The lecture titled 'Competition is for Losers' was delivered by Peter Thiel in 2014, not 'around 2015 or 2016' as stated in the content.; Identity"
     },
     "pabrai-fc099d6ba1ac88": {
-      "at": "2026-11-17T03:26:16+00:00",
+      "at": "2026-11-18T08:08:38+00:00",
       "status": "retry",
       "inputHash": "cd6bbae9552dfc90beea8daa56d3beb3bda1d6cea2f4ce950c06d521d2e16a72",
-      "failures": 3,
-      "nextAttemptAt": "2026-11-17T19:26:16+00:00",
-      "reason": "ValueError: Bilingual editorial review: The claim that Munger 'may briefly fall asleep to conserve energy' during conversations is not supported by the source text (s8), which only states he gets tired easily and sometimes sleeps; no reason like 'conserve energy' is provided.; The phrase 'overlaying appropriate emotions on top of understanding a situation' in "
+      "failures": 4,
+      "nextAttemptAt": "2026-11-19T16:08:38+00:00",
+      "reason": "ValueError: Bilingual editorial review: The content incorrectly identifies the speaker as 'Li Jian' (a known investor) when the source text and canonical author names confirm the speaker is Peter Pabrai ('Pabrai'). The entire analysis relies on this factual error.; The content claims Peter Pabrai interviewed Charlie Munger in 2018, but the source text (s7) ind"
     },
     "pabrai-99a0eff7272af5": {
       "at": "2026-11-18T00:40:04+00:00",
@@ -4671,5 +4671,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-18T08:07:27+00:00"
+  "updatedAt": "2026-11-18T08:08:38+00:00"
 }
