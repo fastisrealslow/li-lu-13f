@@ -4076,12 +4076,12 @@
       "reason": "ValueError: Bilingual editorial review: The English text contains no concrete factual errors; all claims (e.g., 'gilt-edge' quality, Iraq concerns, Q1 performance) are directly supported by the provided evidence.; The Chinese translation accurately reflects the source's argument structure and terminology without adding unwritten content or generic filler.; No "
     },
     "marks-b834dc74a3b582": {
-      "at": "2026-11-16T15:04:10+00:00",
+      "at": "2026-11-18T00:40:22+00:00",
       "status": "retry",
       "inputHash": "9a7bd09212767de836cee7089b7b7563b0585013f886342624aac1a8fb82a7ef",
-      "failures": 3,
-      "nextAttemptAt": "2026-11-17T07:04:10+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English translation in the 'content' section incorrectly attributes the discussion of convertible arbitrage methodology and the $20/$800/$1,000 example to Ed Thorp. The source text (s4) explicitly states that **Thorp** pioneered this field after blackjack; it does not claim he discussed these specific bond mechanics."
+      "failures": 4,
+      "nextAttemptAt": "2026-11-19T08:40:22+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English translation in the source content incorrectly states that Ed Thorp 'formalized the process of card counting' as a result of quantifying basic strategy; the original text (s3) only says he went on to formalize it after quantifying the strategy, implying sequence but not causation. The translation adds a causal"
     },
     "mclemore-41dc37ba8f99c2": {
       "at": "2026-11-18T00:32:28+00:00",
@@ -4669,5 +4669,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-18T00:40:04+00:00"
+  "updatedAt": "2026-11-18T00:40:22+00:00"
 }
