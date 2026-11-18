@@ -4440,12 +4440,12 @@
       "reason": "ValueError: Bilingual editorial review: The source text contains a typo 'UourU' in s0 which should be 'our', but the provided content correctly translates this as 'one's own' without introducing new errors.; No factual contradictions or invented quotations were found; the content accurately reflects the source material regarding Howard Marks and Oaktree Capita"
     },
     "marks-5a01e8c6cdc121": {
-      "at": "2026-11-16T15:07:17+00:00",
+      "at": "2026-11-18T00:10:36+00:00",
       "status": "retry",
       "inputHash": "9d5b056bcec5e945c888e2566b24e562796dac2014dc5f493d4a1684eb08bcc2",
-      "failures": 2,
-      "nextAttemptAt": "2026-11-16T23:07:17+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English translation incorrectly states 'company prices' instead of 'stock prices' or 'valuation', as LBOs involve corporate valuations, not direct company price movements in the same context.; The Chinese text claims Marx's analysis relies on 'historical facts' to reveal logic, but the source only provides specific e"
+      "failures": 3,
+      "nextAttemptAt": "2026-11-18T16:10:36+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English translation contains factual errors regarding the source text: 'buying when everyone else is can' should be 'buying when everyone else is selling' (or similar contextually accurate phrasing based on typical Marks rhetoric, but strictly from provided text, it misrepresents the logic).; The phrase 'game between"
     },
     "mclemore-c63cd49977e879": {
       "at": "2026-11-17T23:54:29+00:00",
@@ -4669,5 +4669,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-18T00:10:32+00:00"
+  "updatedAt": "2026-11-18T00:10:36+00:00"
 }
