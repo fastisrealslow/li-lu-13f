@@ -2819,12 +2819,12 @@
       "reason": "ValueError: Incomplete AI Review at 1800 tokens"
     },
     "marks-e1667423e3df2b": {
-      "at": "2026-11-17T14:47:36+00:00",
+      "at": "2026-11-18T08:43:06+00:00",
       "status": "retry",
       "inputHash": "09d7b5357b85f87ed103d12dc32bc0d78c7bd00a009eaac0b44d0ad9d3c18f1e",
-      "failures": 3,
-      "nextAttemptAt": "2026-11-18T06:47:36+00:00",
-      "reason": "ValueError: Copied source passage"
+      "failures": 4,
+      "nextAttemptAt": "2026-11-19T16:43:06+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English translation of the example in paragraph 2 is factually incorrect: it states 'causing the stock price to be expected to rise to $50', whereas the source (s8) says 'the stock will trade tomorrow at $50'. The source describes a future expectation, not an immediate cause-and-effect on today's price.; The English "
     },
     "marks-49e0212382a26b": {
       "at": "2026-11-17T14:47:15+00:00",
@@ -4671,5 +4671,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-18T08:42:28+00:00"
+  "updatedAt": "2026-11-18T08:43:06+00:00"
 }
