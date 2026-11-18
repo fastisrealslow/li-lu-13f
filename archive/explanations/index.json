@@ -1098,12 +1098,12 @@
       "reason": "ValueError: Bilingual editorial review: The source text does not mention the term 'high hit rate paradox' (s10, s12, s13); this is an invented concept in the output.; The source states Buffett had a 3% hit rate over ~400 bets (s10), but the output claims this creates a 'paradox' which is not supported by the text.; The source says See's Candies helped understa"
     },
     "pabrai-c601c5640111d6": {
-      "at": "2026-11-17T14:40:28+00:00",
+      "at": "2026-11-18T18:36:00+00:00",
       "status": "retry",
       "inputHash": "e32bcdfbc843caa48fc9a723c3c99199d434cc9ba64e75c22a923297ef257ea6",
-      "failures": 3,
-      "nextAttemptAt": "2026-11-18T06:40:28+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English text incorrectly states the father sat them down when 'he was 16 and his brother 17', whereas the source (s25) says 'When I turned 16 and my brother turned 17'. The pronoun 'I' refers to Pabrai, not the father.; The English text claims the father explained they could access the wallet without reporting amount"
+      "failures": 4,
+      "nextAttemptAt": "2026-11-20T02:36:00+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English text in the source (s25-s27) is fragmented and lacks coherent sentence structure; the provided English paragraph in 'content' reconstructs meaning not explicitly present in the source fragments.; The Chinese translation contains specific causal links (e.g., 'father chose trust over discipline') that are infer"
     },
     "lilu-f9c5b8c9904f52": {
       "at": "2026-11-18T17:43:35+00:00",
@@ -4675,5 +4675,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-18T18:35:51+00:00"
+  "updatedAt": "2026-11-18T18:36:00+00:00"
 }
