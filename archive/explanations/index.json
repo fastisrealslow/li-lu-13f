@@ -2343,12 +2343,12 @@
       "reason": "ValueError: Unsupported scaled numerical claim: 2500"
     },
     "buffett-e9609ea16efe3e": {
-      "at": "2026-11-16T19:10:50+00:00",
+      "at": "2026-11-18T00:48:15+00:00",
       "status": "retry",
       "inputHash": "3e33aa7f680730bcb96887c414ebccfcdc9db933a8262eb3d4f50789a1f00c45",
-      "failures": 3,
-      "nextAttemptAt": "2026-11-17T11:10:50+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English translation of 'float' as 'money held but not owned' is accurate and faithful to the source text (s25).; The definition of float arising from the time lag between premiums and claims is correctly translated.; The explanation that underwriting loss constitutes the cost of float is accurately conveyed.; The sta"
+      "failures": 4,
+      "nextAttemptAt": "2026-11-19T08:48:15+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English paragraph incorrectly states 'float represents funds held by insurers after premiums are collected but before claims are paid' as a definition of float's essence; the source (s25) defines float simply as money held but not owned due to the timing difference between premium receipt and loss payment, without ex"
     },
     "buffett-1ea6f63056d762": {
       "at": "2026-11-16T15:29:58+00:00",
@@ -4669,5 +4669,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-18T00:47:47+00:00"
+  "updatedAt": "2026-11-18T00:48:15+00:00"
 }
