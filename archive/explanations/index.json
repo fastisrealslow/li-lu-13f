@@ -4488,12 +4488,12 @@
       "reason": "ValueError: Bilingual editorial review: The English text incorrectly states 'prior to 2006' instead of 'prior to the current millennium' as per source s2.; The English text uses 'gold ring' while the Chinese correctly translates the source's 'brass ring'; consistency requires matching the source term.; The English text omits the phrase 'overarching considerati"
     },
     "mclemore-f83d00a61891f4": {
-      "at": "2026-11-16T15:35:53+00:00",
+      "at": "2026-11-18T00:37:59+00:00",
       "status": "retry",
       "inputHash": "cee70f821473a70e7e3c25b2a65e1e51ad97e01717dc71af716a87d31e6044f9",
-      "failures": 2,
-      "nextAttemptAt": "2026-11-16T23:35:53+00:00",
-      "reason": "ValueError: Bilingual editorial review: The source text does not explicitly state that Samantha McLemore 'illustrates' her valuation logic through these cases; it presents the facts and opinions directly. The paraphrase frames this as an illustration of a strategy rather than a direct quote or explicit claim from the author.; The phrase 'leverage crises for va"
+      "failures": 3,
+      "nextAttemptAt": "2026-11-18T16:37:59+00:00",
+      "reason": "ValueError: Unsupported scaled numerical claim: 100"
     },
     "marks-60b6da1ebf415b": {
       "at": "2026-11-17T04:01:50+00:00",
@@ -4669,5 +4669,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-18T00:37:57+00:00"
+  "updatedAt": "2026-11-18T00:37:59+00:00"
 }
