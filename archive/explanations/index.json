@@ -1054,12 +1054,12 @@
       "reason": "ValueError: Bilingual editorial review: The source text (s32) attributes the quote 'A bird in the hand is worth two in the bush' to Aesop. However, historical and literary consensus identifies this proverb as originating from Ben Jonson's play *Sejanus* (1605), not Aesop. While Buffett humorously notes Aesop didn't know it was 600 BC, attributing the quote its"
     },
     "pabrai-ebbacc9bcedbf3": {
-      "at": "2026-11-17T14:17:46+00:00",
+      "at": "2026-11-18T18:04:34+00:00",
       "status": "retry",
       "inputHash": "3a7152d63b46c3fe762c3d1404d21f8660b7951189ac1acc4d8acd2f1f8b511e",
-      "failures": 3,
-      "nextAttemptAt": "2026-11-18T06:17:46+00:00",
-      "reason": "ValueError: Copied source passage"
+      "failures": 4,
+      "nextAttemptAt": "2026-11-20T02:04:34+00:00",
+      "reason": "ValueError: Bilingual editorial review: The content section contains factual errors regarding the source text. The source (s4) states that students refused tasks because they believed 'I didn't go to college to do that' and wanted to work at the counter, not due to GPA standards or high scores.; The content incorrectly claims Pabrai mentioned 'GPA standards' o"
     },
     "pabrai-a368a4ef14193f": {
       "at": "2026-11-17T14:26:29+00:00",
@@ -4671,5 +4671,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-18T18:04:25+00:00"
+  "updatedAt": "2026-11-18T18:04:34+00:00"
 }
