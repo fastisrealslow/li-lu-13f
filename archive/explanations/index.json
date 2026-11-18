@@ -1942,12 +1942,12 @@
       "reason": "ValueError: Bilingual editorial review: The English text incorrectly states 'inception on September 30, 2008' instead of 'inception on 30 September 2008'.; The Chinese text uses '2022  annual outperformance' which is slightly imprecise compared to the source's 'outperformance relative to other holdings in the fund in 2022'.; The English translation of 'weighti"
     },
     "pabrai-52346dc951afda": {
-      "at": "2026-11-16T19:46:24+00:00",
+      "at": "2026-11-18T08:43:13+00:00",
       "status": "retry",
       "inputHash": "e4e165f6767bad2c9baa52dcb3b486134cb1c4d0d2bf913f572e8b898679c682",
-      "failures": 3,
-      "nextAttemptAt": "2026-11-17T11:46:24+00:00",
-      "reason": "ValueError: Unsupported scaled numerical claim: 800"
+      "failures": 4,
+      "nextAttemptAt": "2026-11-19T16:43:13+00:00",
+      "reason": "ValueError: Bilingual editorial review: Author attribution error: The source text (s2, s3, s4) clearly identifies the speaker as 'Mohnish' (referring to Mohnish Pabrai), but the content section incorrectly names him as 'Paul Tudor Jones Jr.'; Factual claim error regarding book price: The source states the book cost approximately 100,000 RMB today based on infl"
     },
     "pabrai-246965219e21a9": {
       "at": "2026-11-17T03:44:02+00:00",
@@ -4671,5 +4671,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-18T08:43:08+00:00"
+  "updatedAt": "2026-11-18T08:43:13+00:00"
 }
