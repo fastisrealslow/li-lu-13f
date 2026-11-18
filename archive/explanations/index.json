@@ -4551,12 +4551,12 @@
       "reason": "ValueError: Bilingual editorial review: The English translation incorrectly states the article title as 'reflecting on Jesse Livermore's...'. The source text indicates Samantha McLemore is quoting/attributing the quote to Livermore ('He replied quoting Jesse Livermore'), not that she is writing an article titled after him. The correct phrasing should be 'in he"
     },
     "mclemore-55cd43fef76dd0": {
-      "at": "2026-11-17T04:25:11+00:00",
+      "at": "2026-11-18T09:12:42+00:00",
       "status": "retry",
       "inputHash": "4c742ce23cba6141396c0f6d0283a6edb9923a7bc928e83d2bed8442aa07ecc2",
-      "failures": 3,
-      "nextAttemptAt": "2026-11-17T20:25:11+00:00",
-      "reason": "ValueError: Copied source passage"
+      "failures": 4,
+      "nextAttemptAt": "2026-11-19T17:12:42+00:00",
+      "reason": "ValueError: Bilingual editorial review: The Chinese text states Apple could achieve 'five percent top-line growth over the next twenty years' (20-year horizon), but the English source only mentions a '5% top-line growth rate' without explicitly specifying the 20-year duration in that specific sentence. While context implies this, the explicit time frame is mis"
     },
     "mclemore-691d3d597a3576": {
       "at": "2026-11-17T14:22:03+00:00",
@@ -4671,5 +4671,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-18T09:11:38+00:00"
+  "updatedAt": "2026-11-18T09:12:42+00:00"
 }
