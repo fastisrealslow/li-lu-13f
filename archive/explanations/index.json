@@ -1734,12 +1734,12 @@
       "reason": "ValueError: Unsupported numerical claim: 90%"
     },
     "pabrai-87529cf106b12a": {
-      "at": "2026-11-16T19:19:46+00:00",
+      "at": "2026-11-18T08:57:35+00:00",
       "status": "retry",
       "inputHash": "ac633bc3786100b500ba0893eb8ed436234930d450cee71e509dc3ba9f588c83",
-      "failures": 3,
-      "nextAttemptAt": "2026-11-17T11:19:46+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English translation in the 'content' section contains a factual error regarding the number of founders. The source text (evidence s4) states 'There are four of them who started this kind of beauty product stash startup', but the translation incorrectly says 'one of whom was a highly gifted chemist responsible for dev"
+      "failures": 4,
+      "nextAttemptAt": "2026-11-19T16:57:35+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English translation incorrectly states the product name as 'Terra edition'; the source text only says 'Terra edition' without specifying it is a pre-shampoo, though context implies it. The Chinese text explicitly links 'Terra edition' to 'pre-shampoo', which is accurate.; The English translation claims the chemist de"
     },
     "pabrai-669ee549324b11": {
       "at": "2026-11-17T23:54:53+00:00",
@@ -4671,5 +4671,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-18T08:55:29+00:00"
+  "updatedAt": "2026-11-18T08:57:35+00:00"
 }
