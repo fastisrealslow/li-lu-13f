@@ -1590,12 +1590,12 @@
       "reason": "ValueError: Unsupported numerical claim: 1994"
     },
     "pabrai-61590880adbe35": {
-      "at": "2026-11-16T14:51:00+00:00",
+      "at": "2026-11-18T00:07:53+00:00",
       "status": "retry",
       "inputHash": "d397d5521d3490392f03dbe081317b8254539057e84db112a65dfebf2bf4eeb0",
-      "failures": 2,
-      "nextAttemptAt": "2026-11-16T22:51:00+00:00",
-      "reason": "ValueError: Bilingual editorial review: The Chinese text incorrectly attributes the quote 'The best way to learn is to teach' to Pabrai as his own philosophy; the source (s2) presents it as a saying he references, not necessarily his personal maxim.; The Chinese text misidentifies Jerry Seinfeld's book title as 'Is This Anything?' when the source (s2) explicit"
+      "failures": 3,
+      "nextAttemptAt": "2026-11-18T16:07:53+00:00",
+      "reason": "ValueError: Bilingual editorial review: The source text (s2) does not mention Jay Seinfeldel or a yellow notepad; it refers to 'Seinfeld' and a 'yellow notepad', but the Chinese translation incorrectly names him as 'Jay Seinfeldel' (likely conflating with Jay Leno or creating a non-existent name).; The source text (s2) does not contain any specific details abo"
     },
     "pabrai-4c377fa29a8e7e": {
       "at": "2026-11-17T03:22:37+00:00",
@@ -4669,5 +4669,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-18T00:07:35+00:00"
+  "updatedAt": "2026-11-18T00:07:53+00:00"
 }
