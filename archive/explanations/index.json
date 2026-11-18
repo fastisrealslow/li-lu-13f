@@ -1406,12 +1406,12 @@
       "reason": "ValueError: Unsupported scaled numerical claim: 600"
     },
     "pabrai-890538700bb512": {
-      "at": "2026-11-17T03:51:40+00:00",
+      "at": "2026-11-18T00:35:28+00:00",
       "status": "retry",
       "inputHash": "30f3e5564c03eb730615821a68a8fa602e8365e07ef182e5e80dfce1c1290856",
-      "failures": 3,
-      "nextAttemptAt": "2026-11-17T19:51:40+00:00",
-      "reason": "ValueError: Bilingual editorial review: Canonical author name mismatch: Source text refers to 'Pabrai' (English) and 'Pabrai' (Chinese), but the content section incorrectly uses 'Pabrai' in English while the Chinese title uses 'Pabrai'. The canonical list includes both 'Pabrai' and 'Pabrai', so this is acceptable, but the Chinese text should verify if 'Pabrai'"
+      "failures": 4,
+      "nextAttemptAt": "2026-11-19T08:35:28+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English translation incorrectly states 'after which no one surpassed this ranking until 2010', whereas the source (s3) says 'since then in 2010 when he got ranked 63 nobody has got a better rank than that', implying the record stood from 2008 through at least 2010, not ending in 2010.; The English translation claims "
     },
     "pabrai-341e9bdd1f2352": {
       "at": "2026-11-18T00:17:53+00:00",
@@ -4669,5 +4669,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-18T00:34:57+00:00"
+  "updatedAt": "2026-11-18T00:35:28+00:00"
 }
