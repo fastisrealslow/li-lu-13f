@@ -1102,12 +1102,12 @@
       "reason": "ValueError: Bilingual editorial review: The English text incorrectly states the father sat them down when 'he was 16 and his brother 17', whereas the source (s25) says 'When I turned 16 and my brother turned 17'. The pronoun 'I' refers to Pabrai, not the father.; The English text claims the father explained they could access the wallet without reporting amount"
     },
     "lilu-f9c5b8c9904f52": {
-      "at": "2026-11-17T03:43:45+00:00",
+      "at": "2026-11-18T17:43:35+00:00",
       "status": "retry",
       "inputHash": "9addc758852c86ede5329bd7c0146e09e1bab7e0e9d1ba6f26deda417cd8015c",
-      "failures": 3,
-      "nextAttemptAt": "2026-11-17T19:43:45+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English paraphrase incorrectly attributes Warren Buffett's quote about value investing being 'like an inoculation' to Li Lu as if he were repeating it directly; the source text (s4) shows Li Lu agreeing with what Warren used to say, but the paraphrase frames it as a direct alignment of his personality with the mechan"
+      "failures": 4,
+      "nextAttemptAt": "2026-11-20T01:43:35+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English translation in the 'content' section contains significant factual errors regarding the source text.; Error 1: The quote attributed to Warren Buffett is misquoted. Source s4 says: 'Value investing is like an inoculation – either it takes or it doesn’t.' The translation adds 'works' and 'doesn't', changing the "
     },
     "vinall-2cbcc40389a099": {
       "at": "2026-11-17T23:49:04+00:00",
@@ -4671,5 +4671,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-18T17:42:31+00:00"
+  "updatedAt": "2026-11-18T17:43:35+00:00"
 }
