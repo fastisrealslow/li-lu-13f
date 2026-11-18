@@ -1602,12 +1602,12 @@
       "reason": "ValueError: Bilingual editorial review: The source text (s2) does not mention Jay Seinfeldel or a yellow notepad; it refers to 'Seinfeld' and a 'yellow notepad', but the Chinese translation incorrectly names him as 'Jay Seinfeldel' (likely conflating with Jay Leno or creating a non-existent name).; The source text (s2) does not contain any specific details abo"
     },
     "pabrai-4c377fa29a8e7e": {
-      "at": "2026-11-17T03:22:37+00:00",
+      "at": "2026-11-18T18:24:26+00:00",
       "status": "retry",
       "inputHash": "32ff5880bf04a7de408f56f8c7c616a2ebe03f93bc6489095d654cd67c7edf9a",
-      "failures": 3,
-      "nextAttemptAt": "2026-11-17T19:22:37+00:00",
-      "reason": "ValueError: Unsupported numerical claim: 1990"
+      "failures": 4,
+      "nextAttemptAt": "2026-11-20T02:24:26+00:00",
+      "reason": "ValueError: Bilingual editorial review: The Chinese text claims 'Sleep advised investors... invest in the five or six stocks held by his fund' (sleep 5-6 stocks), but the English source (s6) states Sleep recommended 'five, six stocks', while Zak invested in 'six stocks'. The text incorrectly attributes the specific list of Amazon/Costco/Berkshire to Sleep as a"
     },
     "pabrai-35e6c02262592b": {
       "at": "2026-11-18T09:09:56+00:00",
@@ -4675,5 +4675,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-18T18:24:25+00:00"
+  "updatedAt": "2026-11-18T18:24:26+00:00"
 }
