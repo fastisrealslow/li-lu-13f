@@ -4266,12 +4266,12 @@
       "reason": "ValueError: Copied source passage"
     },
     "marks-4ec6eeb131b75c": {
-      "at": "2026-11-16T15:41:46+00:00",
+      "at": "2026-11-18T00:15:10+00:00",
       "status": "retry",
       "inputHash": "7e2a7cde23d4b45402dcea82291b62dcff4b24f2862493c31e820fa982c92700",
-      "failures": 3,
-      "nextAttemptAt": "2026-11-17T07:41:46+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English translation of the quote from Kevin Schmidt's firm in s2 is inaccurate: 'We don't get paid unless we say YES' should be 'We don't get paid unless we say NO.'; The Chinese text incorrectly attributes the phrase 'like sausages, you don't want to see how they're made' as a refutation by Howard Marks; the source "
+      "failures": 4,
+      "nextAttemptAt": "2026-11-19T08:15:10+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English translation in `content.paragraphs[0]` incorrectly attributes the 'sausage' quote to Howard Marks as if he coined it or is specifically referencing that specific phrasing; the source (s1) presents it as a general saying ('I've heard it said...') which Marks then contrasts with subprime mortgages, not as his o"
     },
     "mclemore-317d7c6b4d1fe9": {
       "at": "2026-11-16T15:21:18+00:00",
@@ -4669,5 +4669,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-18T00:15:07+00:00"
+  "updatedAt": "2026-11-18T00:15:10+00:00"
 }
