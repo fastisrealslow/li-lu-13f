@@ -3096,12 +3096,12 @@
       "reason": "ValueError: Copied source passage"
     },
     "marks-21f3e9ee0a6256": {
-      "at": "2026-11-17T04:14:44+00:00",
+      "at": "2026-11-18T09:10:46+00:00",
       "status": "retry",
       "inputHash": "125ade9f6b47aa61ea6be7e425330538c307ca820c1ffee2112fcba4cb7a6c3a",
-      "failures": 3,
-      "nextAttemptAt": "2026-11-17T20:14:44+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English translation in the source JSON contains a grammatical error: 'over the preceding decades' should be 'in the preceding decades'.; The Chinese text incorrectly translates 'higher highs and higher lows' as '“higher highs and higher lows”', repeating the English terms within the Chinese quotation marks instead of"
+      "failures": 4,
+      "nextAttemptAt": "2026-11-19T17:10:46+00:00",
+      "reason": "ValueError: Bilingual editorial review: The Chinese translation of 'macro-high' in s5 is rendered as 'macro-environment' ('...macro environment') in the provided content, which fails to capture the specific economic meaning of a peak level in asset prices implied by the context.; The English text in s5 contains an unexplained ellipsis ('...') after 'great dang"
     },
     "mclemore-e425e2e25f97d6": {
       "at": "2026-11-17T15:04:41+00:00",
@@ -4671,5 +4671,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-18T09:10:26+00:00"
+  "updatedAt": "2026-11-18T09:10:46+00:00"
 }
