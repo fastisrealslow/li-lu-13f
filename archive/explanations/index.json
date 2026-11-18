@@ -1902,12 +1902,12 @@
       "reason": "ValueError: Bilingual editorial review: The source text does not contain the phrase 'auction-driven markets'; Pabrai refers to markets as 'frothy' where investors may be 'swimming naked', but never uses the specific term 'auction-driven'.; The source text does not mention that Microsoft employees had 'blind confidence' or were influenced by 'self-interest and "
     },
     "pabrai-7b63bdce3eef9a": {
-      "at": "2026-11-17T14:25:19+00:00",
+      "at": "2026-11-18T08:21:04+00:00",
       "status": "retry",
       "inputHash": "68d5f7c9f40789729bebada2a9716f4f437e424e0a4f8745b935f1986e2cd3ef",
-      "failures": 3,
-      "nextAttemptAt": "2026-11-18T06:25:19+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English translation of 'One Up on Wall Street' is incorrect; the correct title is 'One Up on Wall Street', not 'Wall Street Father'.; The phrase 'beating the street' in the source text refers to Peter Lynch's book 'Beating the Street', but the translation should be consistent with the actual book title.; The English "
+      "failures": 4,
+      "nextAttemptAt": "2026-11-19T16:21:04+00:00",
+      "reason": "ValueError: Unsupported numerical claim: 100,000"
     },
     "vinall-c12bae3cc1e659": {
       "at": "2026-11-17T03:20:33+00:00",
@@ -4671,5 +4671,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-18T08:19:14+00:00"
+  "updatedAt": "2026-11-18T08:21:04+00:00"
 }
