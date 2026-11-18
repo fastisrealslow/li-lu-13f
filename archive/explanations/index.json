@@ -1798,12 +1798,12 @@
       "reason": "ValueError: Bilingual editorial review: The English translation incorrectly states 'roughly $24 at the time' for the 1626 purchase price; the source text implies $24 is the modern equivalent ('which is about $24'), not the historical value.; The English translation misquotes Einstein as saying compounding is 'the eighth wonder of the world'; the source text on"
     },
     "pabrai-d23537e255095e": {
-      "at": "2026-11-16T19:57:01+00:00",
+      "at": "2026-11-18T08:32:27+00:00",
       "status": "retry",
       "inputHash": "9356bc88be6b6b84eec0b66e8293aa5229c1b14270dd2a53c0ddf2cc9d9c75d6",
-      "failures": 3,
-      "nextAttemptAt": "2026-11-17T11:57:01+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English text in the content section incorrectly states the time period as 'between 2011 and 2015', whereas the source (s0) only mentions 'Since 2011' without an end date.; The English text adds specific details not present in the source, such as 'out of a total universe of 1715 admissions', which is not explicitly st"
+      "failures": 4,
+      "nextAttemptAt": "2026-11-19T16:32:27+00:00",
+      "reason": "ValueError: Bilingual editorial review: The source text does not mention 'business school professors' or their tendency to specialize in areas attracting sponsors; it only discusses Mohnish Pabrai's own experience and the general behavior of professors when choosing specializations (attracting money/grants), without specifying business schools.; The source sta"
     },
     "pabrai-d28857586cddd3": {
       "at": "2026-11-18T00:17:49+00:00",
@@ -4671,5 +4671,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-18T08:31:39+00:00"
+  "updatedAt": "2026-11-18T08:32:27+00:00"
 }
