@@ -2210,12 +2210,12 @@
       "reason": "ValueError: Bilingual editorial review: The English translation in the 'content' section incorrectly states that achieving 23.8% growth from $22 million was 'significantly easier' than targeting 15% from $4.9 billion; the source (s6) implies the opposite: it is 'much more difficult' to average 15% growth from the larger base.; The English translation incorrect"
     },
     "hawkins-07ba7351c5c8c9": {
-      "at": "2026-11-16T20:06:58+00:00",
+      "at": "2026-11-18T08:39:49+00:00",
       "status": "retry",
       "inputHash": "28f771b0e61a10ef0244a7223b6669523c73b870af745ae71f6edbbd8c140f94",
-      "failures": 3,
-      "nextAttemptAt": "2026-11-17T12:06:58+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English paragraph incorrectly states that 'Comcast's historical cable division contributes two-thirds of the company's value.' Source s14 only mentions this regarding Comcast's *cable segment* (business side), not the entire company. The source text says: 'For that business, the big concern is cord cutting... the vas"
+      "failures": 4,
+      "nextAttemptAt": "2026-11-19T16:39:49+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English paragraph contains a hallucinated phrase: 'if one deeply analyzes the cost structure, it turns out that most of the value in that business actually stems from specific cost drivers rather than just subscription fee revenue.' The source text (s14) cuts off at 'the vast majority of the value of today's cable se"
     },
     "buffett-a281a253c85fdf": {
       "at": "2026-11-17T03:39:37+00:00",
@@ -4671,5 +4671,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-18T08:38:32+00:00"
+  "updatedAt": "2026-11-18T08:39:49+00:00"
 }
