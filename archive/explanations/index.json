@@ -2353,12 +2353,12 @@
       "reason": "ValueError: Bilingual editorial review: The English paragraph incorrectly states 'float represents funds held by insurers after premiums are collected but before claims are paid' as a definition of float's essence; the source (s25) defines float simply as money held but not owned due to the timing difference between premium receipt and loss payment, without ex"
     },
     "buffett-1ea6f63056d762": {
-      "at": "2026-11-16T15:29:58+00:00",
+      "at": "2026-11-18T08:22:18+00:00",
       "status": "retry",
       "inputHash": "e545d4228f11793ac74e9e2e8d2b07ea3128c5611d38a30cb7a3edd71fc453dc",
-      "failures": 3,
-      "nextAttemptAt": "2026-11-17T07:29:58+00:00",
-      "reason": "ValueError: Bilingual editorial review: The source text does not state that managers 'previously sold their businesses to others... before joining Berkshire'; it only says they 'sold us their businesses' (i.e., sold to Berkshire), making the parenthetical clarification in the English paragraph factually inconsistent with the provided evidence.; The source text"
+      "failures": 4,
+      "nextAttemptAt": "2026-11-19T16:22:18+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English translation in the content section contains significant factual errors regarding the source text (e18-e20). It incorrectly attributes the 'love for work' argument to Buffett alone ('Furthermore, Buffett emphasizes...') when the source text explicitly states this is a joint effort by Charlie Munger and Warren "
     },
     "buffett-748aa6d4424b34": {
       "at": "2026-11-18T00:46:39+00:00",
@@ -4671,5 +4671,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-18T08:21:58+00:00"
+  "updatedAt": "2026-11-18T08:22:18+00:00"
 }
