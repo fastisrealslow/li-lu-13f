@@ -848,12 +848,12 @@
       "reason": "ValueError: Unsupported numerical claim: 1%"
     },
     "lilu-e7f97d240f730c": {
-      "at": "2026-11-16T19:07:45+00:00",
+      "at": "2026-11-18T00:55:13+00:00",
       "status": "retry",
       "inputHash": "7b41dfe01abd22c80a40620be7b66b5bea7859557ceadb3a77bb535436f199fa",
-      "failures": 2,
-      "nextAttemptAt": "2026-11-17T03:07:45+00:00",
-      "reason": "ValueError: Bilingual editorial review: The source text (s0) states 'Li Liu', but the canonical author name is 'Li Lu'. The content section uses 'Li Lu' correctly.; The source text (s3) refers to 'Deng Xiaoping ordered to print a harsh editorial... which in the past meaning that this is the beginning of a crackdown.' The content paraphrase changes 'in the past"
+      "failures": 3,
+      "nextAttemptAt": "2026-11-18T16:55:13+00:00",
+      "reason": "ValueError: Copied source passage"
     },
     "buffett-e7d731459f5bc2": {
       "at": "2026-11-18T00:47:47+00:00",
@@ -4671,5 +4671,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-18T00:54:47+00:00"
+  "updatedAt": "2026-11-18T00:55:13+00:00"
 }
