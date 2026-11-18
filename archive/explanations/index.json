@@ -3808,12 +3808,12 @@
       "reason": "ValueError: Bilingual editorial review: The Chinese text incorrectly attributes the quote about 'worst time for investors' to Howard Marks; source s1 clearly states this is John Bogle's observation.; The English text correctly identifies the quote as Bogle's but fails to explicitly state that Marks is citing Bogle in the first sentence, creating a slight ambig"
     },
     "marks-159247340c6388": {
-      "at": "2026-11-17T14:10:43+00:00",
+      "at": "2026-11-18T18:06:47+00:00",
       "status": "retry",
       "inputHash": "2f65c3b39af38f2235052b249ec59467aa062fe593d45163f406df1bcccac84a",
-      "failures": 3,
-      "nextAttemptAt": "2026-11-18T06:10:43+00:00",
-      "reason": "ValueError: Bilingual editorial review: The Chinese text introduces the concept of 'moral hazard' (moral risk) as a deep insight by Howard Marks. However, the provided source evidence (s26 and s30) does not explicitly mention or define 'moral hazard'. While the description of public overestimating bailouts is consistent with the definition of moral hazard, att"
+      "failures": 4,
+      "nextAttemptAt": "2026-11-20T02:06:47+00:00",
+      "reason": "ValueError: Bilingual editorial review: The Chinese text incorrectly translates 'exotic investments' as 'exotic  investment', missing the article 'the' before 'investment'.; The Chinese text omits the word 'the' in 'the prosaic acts', which is present in the source.; The Chinese text uses '30-times leverage' while the source says '30-times leverage'; this is a"
     },
     "marks-9d549bcb95c052": {
       "at": "2026-11-17T23:50:05+00:00",
@@ -4671,5 +4671,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-18T18:05:42+00:00"
+  "updatedAt": "2026-11-18T18:06:47+00:00"
 }
