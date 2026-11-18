@@ -1026,12 +1026,12 @@
       "reason": "ValueError: Bilingual editorial review: The source text (evidence s5) does not contain the phrase 'Western Civilization' or 'cornerstone'; the English translation in the content section explicitly adds this concept which is absent from the provided evidence.; The source text uses the specific phrasing 'those about one hundred great classics', but the analysis "
     },
     "lilu-cd61a9ec3c93bd": {
-      "at": "2026-11-17T04:20:00+00:00",
+      "at": "2026-11-18T18:41:35+00:00",
       "status": "retry",
       "inputHash": "e133997104dd032f27765b0d1513b83e318c1f7c64db4ae0e04bf465ede2a9a3",
-      "failures": 3,
-      "nextAttemptAt": "2026-11-17T20:20:00+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English translation of 'natural hard ceiling' as 'natural hard ceiling of finite resources' is redundant; 'hard ceiling' implies the limit. Suggested: 'constrained by a natural resource ceiling'.; The phrase 'post-Han war and decay' in the source text refers to the period after the Han dynasty's collapse, not a speci"
+      "failures": 4,
+      "nextAttemptAt": "2026-11-20T02:41:35+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English text incorrectly states 'Roman and Greek' declined while the source only mentions 'Han and Roman Empires'.; The Chinese text claims the system enabled China to 'basically solve' problems of administering a vast empire, which is an overstatement compared to the source's 'guaranteed that those chosen would be f"
     },
     "pabrai-d346f1bebb0f55": {
       "at": "2026-11-18T08:58:37+00:00",
@@ -4675,5 +4675,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-18T18:40:41+00:00"
+  "updatedAt": "2026-11-18T18:41:35+00:00"
 }
