@@ -1510,12 +1510,12 @@
       "reason": "ValueError: Unsupported numerical claim: 7,000"
     },
     "pabrai-04dcf10dc78aff": {
-      "at": "2026-11-16T19:09:58+00:00",
+      "at": "2026-11-18T00:52:53+00:00",
       "status": "retry",
       "inputHash": "86876fb89624f1db4b86921a83f58e7a61e36fba05cc2461f91d73e8973fd676",
-      "failures": 2,
-      "nextAttemptAt": "2026-11-17T03:09:58+00:00",
-      "reason": "ValueError: Incomplete AI Review at 1800 tokens"
+      "failures": 3,
+      "nextAttemptAt": "2026-11-18T16:52:53+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English translation contains factual errors regarding the acquisition price: it states '$400 million for the asset and another $250 million', whereas the source (s29) says 'There was $400 million for the airport and another $250 million for the capex'. The phrasing in the translation implies two separate purchase com"
     },
     "vinall-469b9af861796c": {
       "at": "2026-11-17T03:18:42+00:00",
@@ -4671,5 +4671,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-18T00:50:01+00:00"
+  "updatedAt": "2026-11-18T00:52:53+00:00"
 }
