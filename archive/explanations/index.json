@@ -1518,12 +1518,12 @@
       "reason": "ValueError: Bilingual editorial review: The English translation contains factual errors regarding the acquisition price: it states '$400 million for the asset and another $250 million', whereas the source (s29) says 'There was $400 million for the airport and another $250 million for the capex'. The phrasing in the translation implies two separate purchase com"
     },
     "vinall-469b9af861796c": {
-      "at": "2026-11-17T03:18:42+00:00",
+      "at": "2026-11-18T17:44:57+00:00",
       "status": "retry",
       "inputHash": "04b912cfa579ed70f2a884ba3db6a3f8874717a2e60b6e0c23557713476f294b",
-      "failures": 4,
-      "nextAttemptAt": "2026-11-18T11:18:42+00:00",
-      "reason": "ValueError: Copied source passage"
+      "failures": 5,
+      "nextAttemptAt": "2026-11-21T09:44:57+00:00",
+      "reason": "ValueError: Bilingual editorial review: The heading claims 'diversity' as a core element of American soft power, but the source text (s5, s8, s9) explicitly argues for 'homogeneity' and 'sameness', not diversity. The heading contradicts the provided evidence.; The English translation of the heading uses 'Diversity' instead of 'Homogeneity', which is a direct c"
     },
     "pabrai-bde4422fef8ed1": {
       "at": "2026-11-16T20:04:29+00:00",
@@ -4671,5 +4671,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-18T17:44:45+00:00"
+  "updatedAt": "2026-11-18T17:44:57+00:00"
 }
