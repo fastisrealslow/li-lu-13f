@@ -2859,12 +2859,12 @@
       "reason": "ValueError: Bilingual editorial review: The English translation in the content section contains a factual error: it states 'assets mispriced due to emotional decision-making' whereas the source text (s8) explicitly attributes the opportunities to sellers giving them because of panic/fear ('Negativity reaches a crescendo... causing many investors to become depr"
     },
     "marks-f0ad7ce26c845b": {
-      "at": "2026-11-16T20:04:13+00:00",
+      "at": "2026-11-18T00:54:20+00:00",
       "status": "retry",
       "inputHash": "7e4c2725d4b84796395ee0aaae68e263ea43e3fab59f5ac691cf8bde91968c71",
-      "failures": 3,
-      "nextAttemptAt": "2026-11-17T12:04:13+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English translation of 'on-the-one-hand-but-on-the-other-hand' in s6 is grammatically incorrect; it should be 'one-sided-but-on-the-other-hand' or rephrased as 'both-and'.; The phrase 'first-level thinkers' in s7 is a non-standard idiom; 'first-order thinkers' (used correctly in the English content) is the standard t"
+      "failures": 4,
+      "nextAttemptAt": "2026-11-19T08:54:20+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English translation in the content section misquotes Howard Marks. The source text (s6) contains the phrase 'on-the-one-hand-but-on-the-other-hand', which is a clear error for the idiom 'one thing but another' or 'on the one hand, on the other hand'. The translation renders this as 'contradictions and significant unc"
     },
     "marks-95f37ab6394745": {
       "at": "2026-11-17T23:47:21+00:00",
@@ -4671,5 +4671,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-18T00:54:10+00:00"
+  "updatedAt": "2026-11-18T00:54:20+00:00"
 }
