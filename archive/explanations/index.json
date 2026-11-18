@@ -2940,12 +2940,12 @@
       "reason": "ValueError: Bilingual editorial review: The English translation in `content.paragraphs[0]` incorrectly states 'home sales remained weak in 2009' as a factual claim. The source text (s7) uses the rhetorical structure 'Home sales are weak, but what would they be if...', implying the weakness is current or general, not specifically anchored to 2009 data itself. T"
     },
     "marks-43a83bc1418080": {
-      "at": "2026-11-17T03:56:53+00:00",
+      "at": "2026-11-18T18:15:01+00:00",
       "status": "retry",
       "inputHash": "c5911e39dcc24cef0faa8de8cd007bca9d18c05206afed52469ea55af8982f21",
-      "failures": 3,
-      "nextAttemptAt": "2026-11-17T19:56:53+00:00",
-      "reason": "ValueError: Bilingual editorial review: The Chinese section incorrectly claims Howard Marks does not discuss the difference between economics and politics; the provided text only covers choice and scarcity, so any claim about political differences is unsupported by the source.; The English section makes a similar unsupported claim that the text 'without expand"
+      "failures": 4,
+      "nextAttemptAt": "2026-11-20T02:15:01+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English translation in the 'content' section incorrectly attributes a specific argument about 'economics primacy over politics' to Howard Marks. The source text (s1-s3) defines economics as the study of choice due to scarcity but makes no mention of politics, political roles, or any hierarchy between economics and po"
     },
     "marks-37b489c9444212": {
       "at": "2026-11-18T08:54:28+00:00",
@@ -4675,5 +4675,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-18T18:14:09+00:00"
+  "updatedAt": "2026-11-18T18:15:01+00:00"
 }
