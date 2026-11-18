@@ -1918,12 +1918,12 @@
       "reason": "ValueError: Bilingual editorial review: The source text (s0) states the recording date is 'Tuesday the 25th of July 2023', but the content claims this trip was his first in four years prior to the pandemic. Since he visited annually since 2013, a 2023 visit would be consistent with that history, making the 'first in four years' claim potentially contradictory "
     },
     "pabrai-1e956456cad67c": {
-      "at": "2026-11-16T14:58:27+00:00",
+      "at": "2026-11-18T00:12:32+00:00",
       "status": "retry",
       "inputHash": "067c627cd69870aa6bfc7d791a2ec58805940a9dbe1a08b37da77713f9f9c1e4",
-      "failures": 2,
-      "nextAttemptAt": "2026-11-16T22:58:27+00:00",
-      "reason": "ValueError: Bilingual editorial review: The source text (s2) states Charlie Munger talks about 'the latticework of mental models' but does not specify a number like '30'. The content section claims Pabrai mentions applying 'about thirty mental models', which is an invention not found in the provided evidence.; The source text (s4) ends abruptly with 'But what "
+      "failures": 3,
+      "nextAttemptAt": "2026-11-18T16:12:32+00:00",
+      "reason": "ValueError: Bilingual editorial review: The source text (s3) states Pabrai has 'never tested whether the muscular reactions are there or not', but the provided translation claims he 'has never personally tested Hawkins' theory regarding muscular reactions'. While factually similar, the phrasing in the translation adds a formal tone ('personally tested') and sp"
     },
     "pabrai-d1dea134078fdc": {
       "at": "2026-11-16T15:30:47+00:00",
@@ -4669,5 +4669,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-18T00:12:24+00:00"
+  "updatedAt": "2026-11-18T00:12:32+00:00"
 }
