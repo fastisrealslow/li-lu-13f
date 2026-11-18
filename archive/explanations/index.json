@@ -1014,12 +1014,12 @@
       "reason": "ValueError: Unsupported numerical claim: 20"
     },
     "lilu-f461b1db08860a": {
-      "at": "2026-11-16T20:06:47+00:00",
+      "at": "2026-11-18T08:03:08+00:00",
       "status": "retry",
       "inputHash": "fe91358b1b252370a4dd769dcd3ebb85d02ab09ddb38e56614b6670717f30b3c",
-      "failures": 3,
-      "nextAttemptAt": "2026-11-17T12:06:47+00:00",
-      "reason": "ValueError: Bilingual editorial review: The Chinese text claims Li Lu felt 'elated' (translated as 'elated' in English), but the source text says 'I was elated', which is a direct match. However, the Chinese translation of 'elated' as 'elated' is redundant and should be translated more naturally, e.g., 'overjoyed' or 'thrilled'.; The Chinese text states 'Li Lu"
+      "failures": 4,
+      "nextAttemptAt": "2026-11-19T16:03:08+00:00",
+      "reason": "ValueError: Bilingual editorial review: The source text (evidence s5) does not contain the phrase 'Western Civilization' or 'cornerstone'; the English translation in the content section explicitly adds this concept which is absent from the provided evidence.; The source text uses the specific phrasing 'those about one hundred great classics', but the analysis "
     },
     "lilu-cd61a9ec3c93bd": {
       "at": "2026-11-17T04:20:00+00:00",
@@ -4671,5 +4671,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-18T00:55:13+00:00"
+  "updatedAt": "2026-11-18T08:03:08+00:00"
 }
