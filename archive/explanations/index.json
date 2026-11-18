@@ -1558,12 +1558,12 @@
       "reason": "ValueError: Unsupported numerical claim: 60%"
     },
     "pabrai-e25d421918d362": {
-      "at": "2026-11-17T03:46:43+00:00",
+      "at": "2026-11-18T18:11:40+00:00",
       "status": "retry",
       "inputHash": "558873c3ea6c5ef3c2dd9870217d60b64f3da944a56d2169f2a57840e24ab0b6",
-      "failures": 4,
-      "nextAttemptAt": "2026-11-18T11:46:43+00:00",
-      "reason": "ValueError: Bilingual editorial review: Author attribution error: The source text refers to the host as 'Mohnish' (likely Mohnish Arora), but the content section incorrectly names him 'Mohnish Arja'.; Factual error: The lecture titled 'Competition is for Losers' was delivered by Peter Thiel in 2014, not 'around 2015 or 2016' as stated in the content.; Identity"
+      "failures": 5,
+      "nextAttemptAt": "2026-11-21T10:11:40+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English translation in the 'content' section contains a factual error regarding Peter Thiel's lecture title. The source text (s3) explicitly states the title is 'Competition is for Losers', but the English paragraph incorrectly translates it as 'Competition is for Losers' with an added 'game' at the end ('Competition"
     },
     "pabrai-fc099d6ba1ac88": {
       "at": "2026-11-18T08:08:38+00:00",
@@ -4671,5 +4671,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-18T18:10:46+00:00"
+  "updatedAt": "2026-11-18T18:11:40+00:00"
 }
