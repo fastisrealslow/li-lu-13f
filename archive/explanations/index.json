@@ -3414,12 +3414,12 @@
       "reason": "ValueError: Bilingual editorial review: The English translation of the title is incorrect; it should be 'Admitting Uncertainty: More Dangerous Than Blind Certainty', not 'It's All Good . . . Really?'.; The content incorrectly attributes a quote to Mark Twain via Bruce Newberg. The actual quote ('It ain't what you don't know that gets you into trouble...') is w"
     },
     "marks-29254e01a9df48": {
-      "at": "2026-11-16T08:35:12+00:00",
+      "at": "2026-11-18T00:09:26+00:00",
       "status": "retry",
       "inputHash": "b399687d4ba229554cb356d2aa01d9a64dedcb7fee00a30e9883f88f413559ea",
-      "failures": 2,
-      "nextAttemptAt": "2026-11-16T16:35:12+00:00",
-      "reason": "ValueError: Bilingual editorial review: The Chinese text incorrectly states that Marks' argument is 'rather than offering a generic investment framework' (implying he does NOT offer one), whereas the source text implies his point explains why frameworks fail, not that he provides an alternative. The phrasing suggests a negative conclusion about his utility rat"
+      "failures": 3,
+      "nextAttemptAt": "2026-11-18T16:09:26+00:00",
+      "reason": "ValueError: Unsupported numerical claim: 80"
     },
     "mclemore-dea7fd5bb5f1eb": {
       "at": "2026-11-17T14:41:36+00:00",
@@ -4669,5 +4669,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-18T00:09:17+00:00"
+  "updatedAt": "2026-11-18T00:09:26+00:00"
 }
