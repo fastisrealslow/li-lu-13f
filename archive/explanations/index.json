@@ -824,12 +824,12 @@
       "reason": "ValueError: Bilingual editorial review: The content claims Buffett read a script written by Saddam Hussein's speechwriter (s1), which is factually incorrect; the transcript shows Buffett reading his own prepared remarks about meeting logistics.; The text states Buffett answered questions until noon before a break, but the transcript indicates the Q&A session c"
     },
     "buffett-d6f1a801f004df": {
-      "at": "2026-11-16T15:37:15+00:00",
+      "at": "2026-11-18T00:31:19+00:00",
       "status": "retry",
       "inputHash": "5e6f0af3b4f6b4986097903db9bab953daf45a3d009a0aabf2c838c01c2a8e57",
-      "failures": 3,
-      "nextAttemptAt": "2026-11-17T07:37:15+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English text claims Buffett believes 'every retained dollar can be converted into more than one dollar of present value.' The source (s544) states: 'by every dollar we retain... we can turn that into a greater than a dollar of present value,' which implies the *result* is >$1, not that each dollar converts to >$1. Th"
+      "failures": 4,
+      "nextAttemptAt": "2026-11-19T08:31:19+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English text incorrectly states 'every retained dollar can be turned into more than one dollar of present value overall,' whereas the source (s544) specifies this applies to internal investments or cheap repurchases ('we feel that by every dollar we retain... we can turn that into a greater than a dollar of present v"
     },
     "buffett-56163a42ef5133": {
       "at": "2026-11-17T03:46:18+00:00",
@@ -4669,5 +4669,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-18T00:30:44+00:00"
+  "updatedAt": "2026-11-18T00:31:19+00:00"
 }
