@@ -615,7 +615,9 @@ def _build_value_screen():
     sources=[];best_quotes={};all_holders={};nearby={}
     for inv in people:
         try:
-            dr=json.load(open(inv['dataFile']));pr=load_prices(inv['pricesFile'])
+            with open(inv['dataFile'],encoding='utf-8') as source:
+                dr=json.load(source)
+            pr=load_prices(inv['pricesFile'])
         except (OSError,ValueError):continue
         sources.append((inv,dr,pr))
         for tk,q in pr.get('quotes',{}).items():

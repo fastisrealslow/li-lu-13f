@@ -15,8 +15,9 @@ HK Spinoff Price Auto-Refresh Pipeline
   --ticker   只处理指定母公司（调试用）
 """
 
-import json, re, sys, argparse, warnings, time, os
+import json, re, sys, argparse, warnings, time, os, math
 from pathlib import Path
+from functools import lru_cache
 from datetime import datetime, timedelta, timezone
 import yfinance as yf
 import pandas as pd
@@ -174,10 +175,33 @@ _a_names  = None
 
 
 # ── 名称库初始化（CI环境自动下载）────────────────────────────────
+def read_stock_db(path):
+    """Unavailable/invalid caches must not become a permanent empty registry."""
+    try:
+        value=json.loads(Path(path).read_text(encoding='utf-8'))
+        if not isinstance(value,dict) or not value or any(not isinstance(k,str) or not isinstance(v,str) or not v.strip() for k,v in value.items()):return {}
+        return value
+    except (OSError,ValueError):return {}
+
+
+def save_stock_db(path,value):
+    if not value:raise ValueError('Empty securities registry')
+    from price_storage import atomic
+    atomic(path,(json.dumps(value,ensure_ascii=False)+'\n').encode())
+
+
+def positive_price(value):
+    try:
+        value=float(value)
+        return round(value,3) if math.isfinite(value) and round(value,3)>0 else None
+    except (TypeError,ValueError,OverflowError):return None
+
+
 def ensure_dbs():
     """确保名称库存在，CI环境中自动拉取"""
+    global _hk_names, _a_names
     BKTEST_DIR.mkdir(parents=True, exist_ok=True)
-    if not HK_DB_PATH.exists():
+    if not read_stock_db(HK_DB_PATH):
         print("Downloading HK stock database from HKEX...")
         try:
             import requests, io, openpyxl
@@ -185,6 +209,7 @@ def ensure_dbs():
                 "https://www.hkex.com.hk/eng/services/trading/securities/securitieslists/ListOfSecurities.xlsx",
                 timeout=30, headers={'User-Agent': 'Mozilla/5.0'}
             )
+            resp.raise_for_status()
             wb = openpyxl.load_workbook(io.BytesIO(resp.content))
             ws = wb.active
             rows = list(ws.iter_rows(values_only=True))
@@ -203,13 +228,13 @@ def ensure_dbs():
                         name = str(row[ni]).strip() if row[ni] else ''
                         if code and code.isdigit() and name:
                             hk_db[code.zfill(4) + '.HK'] = name
-            with open(HK_DB_PATH, 'w', encoding='utf-8') as f:
-                json.dump(hk_db, f, ensure_ascii=False)
+            save_stock_db(HK_DB_PATH,hk_db)
+            _hk_names=None
             print(f"  HK DB: {len(hk_db)} stocks saved")
         except Exception as e:
             print(f"  HK DB download failed: {e}")
     
-    if not A_DB_PATH.exists():
+    if not read_stock_db(A_DB_PATH):
         print("Building A-share database via akshare...")
         try:
             import akshare as ak
@@ -220,22 +245,20 @@ def ensure_dbs():
                 suffix = '.SS' if code.startswith(('6','9')) else '.SZ'
                 a_db[code + suffix] = name
                 a_db[code] = name
-            with open(A_DB_PATH, 'w', encoding='utf-8') as f:
-                json.dump(a_db, f, ensure_ascii=False)
+            save_stock_db(A_DB_PATH,a_db)
+            _a_names=None
             print(f"  A DB: {len(a_db)//2} stocks saved")
         except Exception as e:
             print(f"  A DB build failed: {e}")
-            with open(A_DB_PATH, 'w') as f: json.dump({}, f)
+            # Do not save a failure as a successful empty cache; next run retries.
 
 def load_dbs():
     global _hk_names, _a_names
     if _hk_names is None:
-        with open(HK_DB_PATH, encoding='utf-8') as f:
-            hk_db = json.load(f)
+        hk_db=read_stock_db(HK_DB_PATH)
         _hk_names = [(name.upper(), ticker) for ticker, name in hk_db.items()]
     if _a_names is None:
-        with open(A_DB_PATH, encoding='utf-8') as f:
-            a_db = json.load(f)
+        a_db=read_stock_db(A_DB_PATH)
         _a_names = [(name, ticker) for ticker, name in a_db.items() if '.' in ticker]
     return _hk_names, _a_names
 
@@ -276,22 +299,36 @@ def normalize_ticker(ticker: str) -> str:
     return ticker
 
 def fetch_price_on_date(ticker: str, date_str: str, window=7) -> float | None:
-    tk = normalize_ticker(ticker)
-    t0 = datetime.strptime(date_str, '%Y-%m-%d')
-    for delta in list(range(0, window+1)) + list(range(-1, -(window+1), -1)):
-        d = t0 + timedelta(days=delta)
-        try:
-            df = yf.download(tk,
-                             start=d.strftime('%Y-%m-%d'),
-                             end=(d+timedelta(days=2)).strftime('%Y-%m-%d'),
-                             auto_adjust=True, progress=False)
-            if not df.empty:
-                close = df['Close']
-                if isinstance(close, pd.DataFrame): close = close.iloc[:,0]
-                v = close.dropna()
-                if not v.empty: return round(float(v.iloc[0]), 3)
-        except: pass
-    return None
+    return _historical_price(normalize_ticker(ticker),date_str,window)
+
+
+@lru_cache(maxsize=2048)
+def _historical_price(tk,date_str,window):
+    # Cache only within this CLI process, including misses. The next scheduled
+    # run retries and obtains fresh corporate-action-adjusted history.
+    try:
+        t0 = datetime.strptime(date_str, '%Y-%m-%d')
+        # One bounded response replaces up to 15 overlapping downloads. Prefer
+        # the first trading close on/after the date, then the closest prior one.
+        df=yf.download(tk,start=(t0-timedelta(days=window)).strftime('%Y-%m-%d'),
+                       end=(t0+timedelta(days=window+2)).strftime('%Y-%m-%d'),
+                       auto_adjust=True,progress=False)
+        if df.empty:return None
+        close=df['Close']
+        if isinstance(close,pd.DataFrame):close=close.iloc[:,0]
+        close=close.dropna()
+        close=close[close.map(lambda value:positive_price(value) is not None)]
+        if close.empty:return None
+        if isinstance(close.index,pd.DatetimeIndex):
+            close.index=close.index.tz_localize(None)
+            close=close.sort_index()
+            close=close[(close.index>=t0-timedelta(days=window)) & (close.index<t0+timedelta(days=window+2))]
+            if close.empty:return None
+            following=close[close.index>=t0]
+            return positive_price(following.iloc[0] if not following.empty else close.iloc[-1])
+        return positive_price(close.iloc[0])
+    except Exception:return None
+
 
 def fetch_target_market_cap(ticker: str, market: str = 'HK') -> float | None:
     """
@@ -302,8 +339,8 @@ def fetch_target_market_cap(ticker: str, market: str = 'HK') -> float | None:
     CNY_TO_USD = 0.139
     try:
         info = yf.Ticker(normalize_ticker(ticker)).info
-        mc = info.get('marketCap', 0) or 0
-        if mc <= 0:
+        mc = float(info.get('marketCap', 0) or 0)
+        if not math.isfinite(mc) or mc <= 0:
             return None
         if market == 'HK' or ticker.upper().endswith('.HK'):
             return round(mc * HKD_TO_USD / 1e8, 1)
@@ -316,19 +353,25 @@ def fetch_target_market_cap(ticker: str, market: str = 'HK') -> float | None:
 
 
 def fetch_price_latest(ticker: str) -> float | None:
-    tk = normalize_ticker(ticker)
+    return _latest_price(normalize_ticker(ticker))
+
+
+@lru_cache(maxsize=2048)
+def _latest_price(tk):
     try:
         df = yf.download(tk, period='5d', auto_adjust=True, progress=False)
         if not df.empty:
             close = df['Close']
             if isinstance(close, pd.DataFrame): close = close.iloc[:,0]
             v = close.dropna()
-            if not v.empty: return round(float(v.iloc[-1]), 3)
+            if not v.empty:
+                price=positive_price(v.iloc[-1])
+                if price is not None:return price
     except: pass
     try:
         info = yf.Ticker(tk).info
         p = info.get('currentPrice') or info.get('regularMarketPrice')
-        return round(float(p), 3) if p else None
+        return positive_price(p)
     except: return None
 
 def fetch_a_price(raw_code: str, start_date: str) -> tuple[float | None, float | None]:
