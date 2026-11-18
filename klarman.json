@@ -5,7 +5,7 @@
     "notablePeople": [
       "Seth Klarman"
     ],
-    "lastUpdated": "2026-11-18T17:36:07Z",
+    "lastUpdated": "2026-11-18T22:43:38Z",
     "aiSummary": "克拉曼大幅增持亚马逊与谷歌，新进芝商所等，显示其持续看好科技巨头及特定周期机会，同时减持部分传统行业仓位。",
     "aiSummaryQuarter": "2026 Q2",
     "shareActions": [
@@ -63729,7 +63729,7 @@
       ]
     },
     "coverage": {
-      "checkedAt": "2026-11-18T17:36:07Z",
+      "checkedAt": "2026-11-18T22:43:38Z",
       "missingQuarters": [
         "1999 Q3"
       ],
@@ -63738,7 +63738,7 @@
         "1999 Q3": "Legacy table reconciliation failed: 40/41 rows, $610102000/$647531000"
       },
       "attempts": {
-        "1999 Q3": 71
+        "1999 Q3": 72
       },
       "pendingRefreshQuarters": [],
       "expandedLookup": null,
@@ -70333,11 +70333,11 @@
       },
       "2008 Q4": {
         "version": 1,
-        "checkedAt": "2026-11-17",
+        "checkedAt": "2026-11-18",
         "source": "https://www.sec.gov/Archives/edgar/data/1061768/0001061768-09-000102.txt",
         "filingDate": "2009-02-13",
         "sourceDigest": "8d1b983213242ccf0943694ba557198720e0d06a0c0bb84e8783dec709bb9236",
-        "sourceHash": "e069bf0ed33300383f84b7444a70266492a4356959c0f6632cbc5659c87bfe80",
+        "sourceHash": "52fd824868e2fd106138bdbdbb561e037901c8eea639c8f74e354e9b34c8b01f",
         "status": "pending",
         "anchors": [],
         "errors": [
@@ -70346,52 +70346,40 @@
           "BBEPQ: ValueError",
           "OMN: ValueError",
           "LMDIA: ValueError",
+          "RHIEQ: ValueError",
           "CSE: ValueError",
-          "ELOS: ValueError",
-          "MGAM: ValueError"
+          "ELOS: ValueError"
         ],
-        "normalizedHash": "e069bf0ed33300383f84b7444a70266492a4356959c0f6632cbc5659c87bfe80"
+        "normalizedHash": "52fd824868e2fd106138bdbdbb561e037901c8eea639c8f74e354e9b34c8b01f"
       },
       "2009 Q1": {
         "version": 1,
-        "checkedAt": "2026-11-17",
+        "checkedAt": "2026-11-18",
         "source": "https://www.sec.gov/Archives/edgar/data/1061768/0001061768-09-000129.txt",
         "filingDate": "2009-05-14",
         "sourceDigest": "177a09dd6ad92f77540ba4246208999258f502c2b4aee5c472669f5067b63cec",
-        "sourceHash": "bcd5797643b9c92ad5dea4a283f346cc3289b300dd76d3ee851b40085c5a0d48",
+        "sourceHash": "f754923b13eea42258ba43255e67570b798a8f37c08ac525e1c091a169bd6d98",
         "status": "pending",
-        "anchors": [
-          {
-            "ticker": "ITRN",
-            "cusip": "M6158M104",
-            "filedPrice": 7.590063367703505,
-            "price": 7.590000152587891,
-            "date": "2009-03-31",
-            "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/ITRN?period1=0&period2=1795008123&interval=1d&events=splits",
-            "candidates": [
-              1
-            ]
-          }
-        ],
+        "anchors": [],
         "errors": [
           "CSE: ValueError",
           "PDLI: ValueError",
           "BBEPQ: ValueError",
           "OMN: ValueError",
+          "RHIEQ: ValueError",
           "LMDIA: ValueError",
           "ELOS: ValueError",
           "MGAM: ValueError"
         ],
-        "normalizedHash": "bcd5797643b9c92ad5dea4a283f346cc3289b300dd76d3ee851b40085c5a0d48"
+        "normalizedHash": "f754923b13eea42258ba43255e67570b798a8f37c08ac525e1c091a169bd6d98"
       },
       "2009 Q3": {
         "version": 1,
-        "checkedAt": "2026-11-17",
+        "checkedAt": "2026-11-18",
         "source": "https://www.sec.gov/Archives/edgar/data/1061768/0001061768-09-000159.txt",
         "filingDate": "2009-11-12",
         "sourceDigest": "25044f8bcff9d28873817f6c5ca62fee3babb5b291e1605681aceee1876cadff",
-        "sourceHash": "668696750bedecd3c0ee99da4c9a2262a383db66ad7f69805d33c0d5c8a3e14c",
+        "sourceHash": "0840b3a09da4b6fd8af8fb10736ca0bdedc87d45557b25829b43e83a9e3f48d8",
         "status": "pending",
         "anchors": [
           {
@@ -70401,19 +70389,7 @@
             "price": 26.579999923706055,
             "date": "2009-09-30",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/VSAT?period1=0&period2=1795008124&interval=1d&events=splits",
-            "candidates": [
-              1
-            ]
-          },
-          {
-            "ticker": "ITRN",
-            "cusip": "M6158M104",
-            "filedPrice": 10.319766935143685,
-            "price": 10.319999694824219,
-            "date": "2009-09-30",
-            "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/ITRN?period1=0&period2=1795008123&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/VSAT?period1=0&period2=1795128221&interval=1d&events=splits",
             "candidates": [
               1
             ]
@@ -70422,12 +70398,13 @@
         "errors": [
           "CSE: ValueError",
           "BBEPQ: ValueError",
+          "RHIEQ: ValueError",
           "LMDIA: ValueError",
           "UFS: ValueError",
           "MGAM: ValueError",
           "ELOS: ValueError"
         ],
-        "normalizedHash": "668696750bedecd3c0ee99da4c9a2262a383db66ad7f69805d33c0d5c8a3e14c"
+        "normalizedHash": "0840b3a09da4b6fd8af8fb10736ca0bdedc87d45557b25829b43e83a9e3f48d8"
       },
       "2001 Q1": {
         "version": 1,
@@ -70435,7 +70412,7 @@
         "source": "https://www.sec.gov/Archives/edgar/data/1054420/0001054420-01-500008.txt",
         "filingDate": "2001-05-14",
         "sourceDigest": "866accda277bcc9b5728ce8a3506aede7633b9d5b307c62d1f686b2185107e38",
-        "sourceHash": "5859ea26c734320ee090d10d2d0276d409babc190c09870137ed2bb7e3a8a705",
+        "sourceHash": "bcca0e3eb5aa60b43b35a35e1bccc61d46bf3994b27e9b9490ffb8753dfe927a",
         "status": "pending",
         "anchors": [
           {
@@ -70445,7 +70422,7 @@
             "price": 8.499999634552003,
             "date": "2001-03-30",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/VTR?period1=0&period2=1795060612&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/VTR?period1=0&period2=1795128225&interval=1d&events=splits",
             "candidates": [
               1
             ]
@@ -70453,14 +70430,14 @@
         ],
         "errors": [
           "DIMEQ: ValueError",
+          "BNKUZ: ValueError",
           "OMN: ValueError",
           "GRA: ValueError",
           "WBR: ValueError",
           "HCBK: ValueError",
-          "CCPRZ: ValueError",
-          "HBP: ValueError"
+          "CCPRZ: ValueError"
         ],
-        "normalizedHash": "5859ea26c734320ee090d10d2d0276d409babc190c09870137ed2bb7e3a8a705"
+        "normalizedHash": "bcca0e3eb5aa60b43b35a35e1bccc61d46bf3994b27e9b9490ffb8753dfe927a"
       },
       "2001 Q2": {
         "version": 1,
@@ -70648,40 +70625,28 @@
       },
       "2009 Q2": {
         "version": 1,
-        "checkedAt": "2026-11-17",
+        "checkedAt": "2026-11-18",
         "source": "https://www.sec.gov/Archives/edgar/data/1061768/0001061768-09-000141.txt",
         "filingDate": "2009-08-14",
         "sourceDigest": "8afbd7dabbb5c4550a30c4811c0932f2d3514ecb91f4df244930f53ddac1ba8b",
-        "sourceHash": "9566e7633fc63d58f889dd8e21d05530a5c25401a8d058ae0e81fa4e1ef31443",
+        "sourceHash": "9cde0bb7377e0b866547e6292cd47e0b3013004c4203a8e085ead7f60a2aef88",
         "status": "pending",
-        "anchors": [
-          {
-            "ticker": "ITRN",
-            "cusip": "M6158M104",
-            "filedPrice": 8.250119402742254,
-            "price": 8.25,
-            "date": "2009-06-30",
-            "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/ITRN?period1=0&period2=1795008123&interval=1d&events=splits",
-            "candidates": [
-              1
-            ]
-          }
-        ],
+        "anchors": [],
         "errors": [
           "CSE: ValueError",
           "PDLI: ValueError",
           "BBEPQ: ValueError",
+          "RHIEQ: ValueError",
           "LMDIA: ValueError",
           "UFS: ValueError",
           "ELOS: ValueError",
           "MGAM: ValueError"
         ],
-        "normalizedHash": "9566e7633fc63d58f889dd8e21d05530a5c25401a8d058ae0e81fa4e1ef31443"
+        "normalizedHash": "9cde0bb7377e0b866547e6292cd47e0b3013004c4203a8e085ead7f60a2aef88"
       },
       "2009 Q4": {
         "version": 1,
-        "checkedAt": "2026-11-17",
+        "checkedAt": "2026-11-18",
         "source": "https://www.sec.gov/Archives/edgar/data/1061768/0001140361-10-006076.txt",
         "filingDate": "2010-02-12",
         "sourceDigest": "ce78509842869ecd6f248ea88b7cc2c56aa3bf8ae5147565cc97a0d19c06eb22",
@@ -70695,7 +70660,7 @@
             "price": 31.780000686645508,
             "date": "2009-12-31",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/VSAT?period1=0&period2=1795008124&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/VSAT?period1=0&period2=1795128221&interval=1d&events=splits",
             "candidates": [
               1
             ]
@@ -70707,7 +70672,7 @@
             "price": 12.819999694824219,
             "date": "2009-12-31",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/ITRN?period1=0&period2=1795008123&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/ITRN?period1=0&period2=1795128222&interval=1d&events=splits",
             "candidates": [
               1
             ]
