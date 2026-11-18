@@ -4348,12 +4348,12 @@
       "reason": "ValueError: Bilingual editorial review: The English translation contains a factual error: it states Fund A's third-year capital base was 'approximately $50', whereas the source (s9) explicitly states the beginning capital for Fund B in year three was '$1,540' and implies Fund A's was significantly smaller but does not specify '$50'. The text says Fund A had 'j"
     },
     "mclemore-e2f1a12640c4d3": {
-      "at": "2026-11-16T15:43:43+00:00",
+      "at": "2026-11-18T08:41:04+00:00",
       "status": "retry",
       "inputHash": "34699a1d30b5ea3d40ff36369cd56a3837b23611f7f9a0c80b4c49a5d4ab42a8",
-      "failures": 3,
-      "nextAttemptAt": "2026-11-17T07:43:43+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English translation in the 'content' section incorrectly states the portfolio was 'inherited from her grandmother' when the source text (s0) says she 'left me with a nice little portfolio', implying inheritance but not using the verb 'inherit'.; The Chinese translation adds 'originally managed by her for stock pickin"
+      "failures": 4,
+      "nextAttemptAt": "2026-11-19T16:41:04+00:00",
+      "reason": "ValueError: Incomplete AI Review at 1800 tokens"
     },
     "mclemore-3cfab01d768cef": {
       "at": "2026-11-18T00:43:03+00:00",
@@ -4671,5 +4671,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-18T08:40:21+00:00"
+  "updatedAt": "2026-11-18T08:41:04+00:00"
 }
