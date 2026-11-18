@@ -2627,12 +2627,12 @@
       "reason": "ValueError: Bilingual editorial review: The English paraphrase incorrectly states 'domestically produced goods incorporating imported materials' as if it were a separate category from 'imported goods', whereas the source text groups them together under 'goods brought in from abroad, as well as goods made in the U.S. that incorporate imported materials or compo"
     },
     "marks-bee01f7fefbaee": {
-      "at": "2026-11-17T03:42:16+00:00",
+      "at": "2026-11-18T18:06:52+00:00",
       "status": "retry",
       "inputHash": "6dd9da60809e39709c13e2eefad5cc4b015784f7627c46c27e9315488171fc4a",
-      "failures": 4,
-      "nextAttemptAt": "2026-11-18T11:42:16+00:00",
-      "reason": "ValueError: Copied source passage"
+      "failures": 5,
+      "nextAttemptAt": "2026-11-21T10:06:52+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English content does not match the source text (s0-s2). Source s0 discusses 'laws of economics' generally; the English content incorrectly introduces 'fire insurance' as an example.; The English content misrepresents the author's argument. The source states governments enact rules to override economic laws, but the E"
     },
     "marks-634492e880737b": {
       "at": "2026-11-17T23:48:22+00:00",
@@ -4671,5 +4671,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-18T18:06:47+00:00"
+  "updatedAt": "2026-11-18T18:06:52+00:00"
 }
