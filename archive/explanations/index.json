@@ -578,12 +578,12 @@
       "reason": "ValueError: Unsupported scaled numerical claim: 25"
     },
     "vinall-b8757c659b8401": {
-      "at": "2026-11-17T13:59:02+00:00",
+      "at": "2026-11-19T02:12:01+00:00",
       "status": "retry",
       "inputHash": "259588b8fb80deba3028e4c0bb289884be1df032ee261719c328e81644d70917",
-      "failures": 4,
-      "nextAttemptAt": "2026-11-18T21:59:02+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English text incorrectly states 'over 100% of its net asset value' for Prosus's stake in 10 Cent. The source (s12) says the stake is 'over 100% of its net asset value', which implies the stake exceeds the company's total NAV, a factual impossibility for a single holding unless other assets are negative or the phrasin"
+      "failures": 5,
+      "nextAttemptAt": "2026-11-21T18:12:01+00:00",
+      "reason": "ValueError: Bilingual editorial review: The source text (s12) states Prosus's stake in 10C is 'over 100% of its net asset value', which is mathematically impossible for a single stake to exceed total net assets. The content incorrectly interprets this as 'almost entirely (over 100%)' and claims the remainder comprises 'only a few other investments'. This contr"
     },
     "buffett-0dffc205cf0707": {
       "at": "2026-11-18T18:50:47+00:00",
@@ -4675,5 +4675,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-19T02:11:50+00:00"
+  "updatedAt": "2026-11-19T02:12:01+00:00"
 }
