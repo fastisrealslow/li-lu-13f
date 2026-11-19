@@ -3296,12 +3296,12 @@
       "reason": "ValueError: Bilingual editorial review: The Chinese translation in `content.paragraphs[0].zh` invents a specific phrase 'financial memory' (‘ financial memory') which is not explicitly present in the source text; the source says 'financial world' and then quotes Galbraith about 'financial memory', but the translation conflates these slightly differently than t"
     },
     "marks-88f102e1c2bfef": {
-      "at": "2026-11-18T00:07:35+00:00",
+      "at": "2026-11-19T14:21:57+00:00",
       "status": "retry",
       "inputHash": "2d6c9d04590f9312913d773b79aeb2f90e12d5a15170b597e0163f7689d5bbd1",
-      "failures": 4,
-      "nextAttemptAt": "2026-11-19T08:07:35+00:00",
-      "reason": "ValueError: Unsupported numerical claim: 20"
+      "failures": 5,
+      "nextAttemptAt": "2026-11-22T06:21:57+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English translation of s19 misrepresents Marks' 'trial where the defendant picks and pays the judge' analogy. The source states issuers hire agencies *after* hearing likely ratings ('ask a number of prospective judges... before choosing one'), but the translation implies they pick the judge first, then ask for verdic"
     },
     "marks-6b3b7eccb7e22b": {
       "at": "2026-11-18T08:33:04+00:00",
@@ -4691,5 +4691,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-19T14:21:41+00:00"
+  "updatedAt": "2026-11-19T14:21:57+00:00"
 }
