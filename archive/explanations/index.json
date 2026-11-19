@@ -936,12 +936,12 @@
       "reason": "ValueError: Bilingual editorial review: The source text does not mention 'YouTube' or 'view counts'; it only states that videos were recorded and posted online with 'tens of thousands of views', making the specific platform reference an unwritten addition.; The source text does not explicitly state that Pabrai's preference for spontaneous interaction is 'not d"
     },
     "vinall-467e0c3e85b252": {
-      "at": "2026-11-17T14:02:28+00:00",
+      "at": "2026-11-19T02:18:13+00:00",
       "status": "retry",
       "inputHash": "3c5008a532056a12133be0fedb68b589cd812015b73371bc08cb6d373af1e3c8",
-      "failures": 4,
-      "nextAttemptAt": "2026-11-18T22:02:28+00:00",
-      "reason": "ValueError: Bilingual editorial review: The content incorrectly states that Rob Vinall was assigned to mining/oil/gas by his grandfather. Source s8 explicitly says: 'He said, you know Luke you're gonna be in mining...'. The text later claims this statement addressed Ian and Lucas, contradicting the direct quote attributed to Luke.; The content invents a valida"
+      "failures": 5,
+      "nextAttemptAt": "2026-11-21T18:18:13+00:00",
+      "reason": "ValueError: Bilingual editorial review: The source text (evidence s8) states the grandfather said 'Luke you're gonna be in mining', but the content section incorrectly lists three sons with specific paths: Luke to mining, Ian and Lucas to oil and gas. The transcript only mentions assigning Luke to mining; it does not specify paths for Ian or Lucas.; The source"
     },
     "buffett-87787b7bbb5dca": {
       "at": "2026-11-14T06:42:32+00:00",
@@ -4679,5 +4679,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-19T02:17:43+00:00"
+  "updatedAt": "2026-11-19T02:18:13+00:00"
 }
