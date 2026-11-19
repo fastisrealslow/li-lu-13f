@@ -2377,12 +2377,12 @@
       "reason": "ValueError: Bilingual editorial review: The English translation in the content section contains significant factual errors regarding the source text (e18-e20). It incorrectly attributes the 'love for work' argument to Buffett alone ('Furthermore, Buffett emphasizes...') when the source text explicitly states this is a joint effort by Charlie Munger and Warren "
     },
     "buffett-748aa6d4424b34": {
-      "at": "2026-11-18T00:46:39+00:00",
+      "at": "2026-11-19T14:51:53+00:00",
       "status": "retry",
       "inputHash": "064ba108f79fb9c7e47e9592adda3bd0790f5f9226d076c00b801da972a1e55a",
-      "failures": 4,
-      "nextAttemptAt": "2026-11-19T08:46:39+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English text claims Blumkin learned English through 'evening lessons taught by her older daughter,' but source s7 states she taught herself using words learned in school during the day.; The English text incorrectly describes Blumkin's education as lacking knowledge at the 'grammar school level,' whereas source s7 sp"
+      "failures": 5,
+      "nextAttemptAt": "2026-11-22T06:51:53+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English text incorrectly states Blumkin 'persuaded a border guard to leave Russia for America' (s7), whereas the source only says she 'talked her way past a border guard' without implying persuasion of the guard's departure.; The Chinese text claims she learned English 'every evening, the words she had learned in sch"
     },
     "buffett-1f81bf7d43a974": {
       "at": "2026-11-19T02:17:22+00:00",
@@ -4691,5 +4691,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-19T14:50:37+00:00"
+  "updatedAt": "2026-11-19T14:51:53+00:00"
 }
