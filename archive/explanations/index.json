@@ -1270,12 +1270,12 @@
       "reason": "ValueError: Bilingual editorial review: The source text (s1) states Buffett collected tickets 'on the ground or in the trash cans' and gave them to his aunt Alice; it does not explicitly state she collected the money for him, only that he gave her the tickets. The summary claims she 'collected the winnings for him', which is an inference not fully supported by"
     },
     "pabrai-2dadcddfebe9d5": {
-      "at": "2026-11-17T14:38:30+00:00",
+      "at": "2026-11-19T02:42:17+00:00",
       "status": "retry",
       "inputHash": "2c705de2bd89c5a4ab38a2e8ae4e80b62b957162a4a74675e8e7463c78d0f4f6",
-      "failures": 4,
-      "nextAttemptAt": "2026-11-18T22:38:30+00:00",
-      "reason": "ValueError: Unsupported scaled numerical claim: 50"
+      "failures": 5,
+      "nextAttemptAt": "2026-11-21T18:42:17+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English translation incorrectly translates 'Spawners' as 'capital efficiency hierarchy'; the source text uses 'Spawners' (likely a transcription error for 'Sowers') to refer to top-tier businesses in the pyramid, not a concept of capital efficiency.; The English translation misrepresents Pabrai's stance on Tencent; h"
     },
     "pabrai-801d184237a3d3": {
       "at": "2026-11-18T18:04:25+00:00",
@@ -4691,5 +4691,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-19T02:42:02+00:00"
+  "updatedAt": "2026-11-19T02:42:17+00:00"
 }
