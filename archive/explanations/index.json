@@ -4406,12 +4406,12 @@
       "reason": "ValueError: Bilingual editorial review: The source text does not mention 'South-Sea Diet', 'Young Rattles', or 'unthinking Fools' as a coherent phrase; these appear to be misattributed or fabricated elements in the provided content.; The source text does not contain any reference to 'Nancy Sea Bubble'; it refers to the 'South Sea Company' and its historical co"
     },
     "mclemore-2ab9591831eb1d": {
-      "at": "2026-11-18T08:05:28+00:00",
+      "at": "2026-11-19T23:23:57+00:00",
       "status": "retry",
       "inputHash": "db33b03493c9439ad8647c9d02d9979c92a46db5c44da8c6a3c1a3e6d9cd3e58",
-      "failures": 4,
-      "nextAttemptAt": "2026-11-19T16:05:28+00:00",
-      "reason": "ValueError: Bilingual editorial review: The Chinese translation incorrectly attributes the quote about mispricings stemming from ignorance and prejudice to Howard Marks; the source text (s8) explicitly states this is a view heard from him, but the sentence structure in the translation implies direct attribution of the explanation ('She cites... who stated that"
+      "failures": 5,
+      "nextAttemptAt": "2026-11-22T15:23:57+00:00",
+      "reason": "ValueError: Bilingual editorial review: The Chinese text incorrectly states Farfetch's current stock price as '~$15', whereas the source (s7) specifies it as '~$10'.; The Chinese text misrepresents the compensation condition: it claims Jose Neves gets paid if the stock reaches $75, but the source clarifies he is only paid if the stock exceeds $75 AND that spec"
     },
     "mclemore-24b0bf430a4f7b": {
       "at": "2026-11-18T08:48:03+00:00",
@@ -4691,5 +4691,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-19T23:21:41+00:00"
+  "updatedAt": "2026-11-19T23:23:57+00:00"
 }
