@@ -17496,7 +17496,7 @@
       },
       "2022 Q3": {
         "version": 1,
-        "checkedAt": "2026-11-18",
+        "checkedAt": "2026-11-19",
         "source": "https://www.sec.gov/Archives/edgar/data/1549575/000154957522000016/infotable.xml",
         "filingDate": "2022-11-14",
         "sourceDigest": "96d4cd988b85aff7496cc90e0fc7d898b88d2b96b522c1fa57e59e9e77efafa7",
@@ -17510,7 +17510,7 @@
             "price": 50.099998474121094,
             "date": "2022-09-30",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/MU?period1=0&period2=1795109707&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/MU?period1=0&period2=1795210487&interval=1d&events=splits",
             "candidates": [
               1
             ]
@@ -17522,7 +17522,7 @@
             "price": 9.020000457763672,
             "date": "2022-09-30",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/SRG?period1=0&period2=1795109707&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/SRG?period1=0&period2=1795210487&interval=1d&events=splits",
             "candidates": [
               1
             ]
@@ -17631,7 +17631,7 @@
       },
       "2023 Q2": {
         "version": 1,
-        "checkedAt": "2026-11-18",
+        "checkedAt": "2026-11-19",
         "source": "https://www.sec.gov/Archives/edgar/data/1549575/000154957523000014/infotable.xml",
         "filingDate": "2023-08-11",
         "sourceDigest": "26aedb78e2f6db72ec880c3091302b5722e4455a48d26c1fc55b6444c2fcf538",
@@ -17645,7 +17645,7 @@
             "price": 164.36000061035156,
             "date": "2023-06-30",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/AMR?period1=0&period2=1795128180&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/AMR?period1=0&period2=1795210488&interval=1d&events=splits",
             "candidates": [
               1
             ]
@@ -17656,11 +17656,11 @@
       },
       "2023 Q3": {
         "version": 1,
-        "checkedAt": "2026-11-18",
+        "checkedAt": "2026-11-19",
         "source": "https://www.sec.gov/Archives/edgar/data/1549575/000154957523000017/infotable.xml",
         "filingDate": "2023-11-13",
         "sourceDigest": "3d46b133be52b04fa430144bb689c128a3205fb059b6ffc8f725f7d32bbac302",
-        "sourceHash": "3e3b2df434f3bca313fbc5d5e7f5f93f5f8d66ae49d5ddd33aa66be4142819f4",
+        "sourceHash": "57e9f757dfebfd2dd7dec102ef12efe1260224cf4870f41eecd4753344e3bae0",
         "status": "pending",
         "anchors": [
           {
@@ -17670,22 +17670,24 @@
             "price": 259.7300109863281,
             "date": "2023-09-29",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/AMR?period1=0&period2=1795128180&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/AMR?period1=0&period2=1795210488&interval=1d&events=splits",
             "candidates": [
               1
             ]
           }
         ],
-        "errors": [],
+        "errors": [
+          "ARCH: ValueError"
+        ],
         "normalizedHash": "7cb654c1c3c0dd20ebc3f54a8077d338d2028b094ea564b41be50aa854aa5b19"
       },
       "2023 Q4": {
         "version": 1,
-        "checkedAt": "2026-11-18",
+        "checkedAt": "2026-11-19",
         "source": "https://www.sec.gov/Archives/edgar/data/1549575/000154957524000005/infotable.xml",
         "filingDate": "2024-02-14",
         "sourceDigest": "7286c6730631c06db054d0fe69db0acf425e26e15af1ac79b495be021e8a834b",
-        "sourceHash": "e985bc4717cc6113564b27bc058406c73e56f752fed51041f4dc32e71960e176",
+        "sourceHash": "618bd4bfdcbef0617fa437c69f3d75e50a29fb3aa04c125f7217799213f302b9",
         "status": "pending",
         "anchors": [
           {
@@ -17695,7 +17697,7 @@
             "price": 60.970001220703125,
             "date": "2023-12-29",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/HCC?period1=0&period2=1795128181&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/HCC?period1=0&period2=1795210490&interval=1d&events=splits",
             "candidates": [
               1
             ]
@@ -17707,22 +17709,24 @@
             "price": 338.9200134277344,
             "date": "2023-12-29",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/AMR?period1=0&period2=1795128180&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/AMR?period1=0&period2=1795210488&interval=1d&events=splits",
             "candidates": [
               1
             ]
           }
         ],
-        "errors": [],
+        "errors": [
+          "ARCH: ValueError"
+        ],
         "normalizedHash": "d70d67d6f55db4fb47c9c92425f7912568f740e7d3548efcba92963b89c14807"
       },
       "2024 Q1": {
         "version": 1,
-        "checkedAt": "2026-11-18",
+        "checkedAt": "2026-11-19",
         "source": "https://www.sec.gov/Archives/edgar/data/1549575/000154957524000007/infotable.xml",
         "filingDate": "2024-05-14",
         "sourceDigest": "23cba177c59ba3265a6381a7880053f66e4623be4f2e5c4d0774fd0f098d33ed",
-        "sourceHash": "3c8082ea94cdcac9de4d01db75011650beed91c8c0305fad84a796f109302448",
+        "sourceHash": "67ad2c2ca7d36c15cc2eaf49c108c29caa62baf55c9b84d7e7e9f6e452a3c1b9",
         "status": "pending",
         "anchors": [
           {
@@ -17732,7 +17736,7 @@
             "price": 60.70000076293945,
             "date": "2024-03-28",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/HCC?period1=0&period2=1795128181&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/HCC?period1=0&period2=1795210490&interval=1d&events=splits",
             "candidates": [
               1
             ]
@@ -17744,22 +17748,24 @@
             "price": 331.1700134277344,
             "date": "2024-03-28",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/AMR?period1=0&period2=1795128180&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/AMR?period1=0&period2=1795210488&interval=1d&events=splits",
             "candidates": [
               1
             ]
           }
         ],
-        "errors": [],
+        "errors": [
+          "ARCH: ValueError"
+        ],
         "normalizedHash": "3413f7dcb4455bf262f4254cffc6f0b105e92d3a4a6020986704de3978bae381"
       },
       "2024 Q2": {
         "version": 1,
-        "checkedAt": "2026-11-18",
+        "checkedAt": "2026-11-19",
         "source": "https://www.sec.gov/Archives/edgar/data/1549575/000154957524000009/infotable.xml",
         "filingDate": "2024-08-13",
         "sourceDigest": "788695877c6abb177556953b80fb559c79a874c61ba7f09e5569d2b44cd6d2e1",
-        "sourceHash": "a1b49ec7b9958b43420bc5dd1ad6af68d5aa7ee3a690de94be1d54785c6eb5f4",
+        "sourceHash": "32c4e0fb578b6f2bf123b36f7ce100525acab69ef8dfcd52e6af50e31facaf78",
         "status": "pending",
         "anchors": [
           {
@@ -17769,7 +17775,7 @@
             "price": 62.77000045776367,
             "date": "2024-06-28",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/HCC?period1=0&period2=1795128181&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/HCC?period1=0&period2=1795210490&interval=1d&events=splits",
             "candidates": [
               1
             ]
@@ -17781,13 +17787,15 @@
             "price": 280.5299987792969,
             "date": "2024-06-28",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/AMR?period1=0&period2=1795128180&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/AMR?period1=0&period2=1795210488&interval=1d&events=splits",
             "candidates": [
               1
             ]
           }
         ],
-        "errors": [],
+        "errors": [
+          "ARCH: ValueError"
+        ],
         "normalizedHash": "d586e6a0f5d79b31746cf19fe223d9021bae36f05a895e710a53cf7c4b217b84"
       },
       "2024 Q3": {
@@ -20124,7 +20132,7 @@
     ],
     "excludedValueQuarters": [],
     "coverage": {
-      "checkedAt": "2026-11-19T17:40:29Z",
+      "checkedAt": "2026-11-19T21:34:45Z",
       "missingQuarters": [],
       "repairedThisRun": [],
       "errors": {},
@@ -20232,7 +20240,7 @@
     "name": "Mohnish Pabrai",
     "manager": "Dalal Street, LLC",
     "costHistoryFrom": "2012 Q1",
-    "lastUpdated": "2026-11-19T17:40:29Z",
+    "lastUpdated": "2026-11-19T21:34:45Z",
     "shareActions": [
       {
         "ticker": "GOOG",

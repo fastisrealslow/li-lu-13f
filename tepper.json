@@ -75323,9 +75323,19 @@
         "source": "https://www.sec.gov/Archives/edgar/data/1006438/0001006438-04-000003.txt",
         "filingDate": "2004-08-13",
         "sourceDigest": "b832bb05765a4414a58556ce48224d144b09836b66628fc495d63074abedef7b",
-        "sourceHash": "48ee13c17652a1b7129dd80ca6e813f4cf6b857b55cc64a51c49e2c18a513a9b",
+        "sourceHash": "4691be4c77e5f8adc1707f538da8fd40b25478644825e49d2fa36b705349811e",
         "status": "pending",
         "anchors": [
+          {
+            "ticker": "PTBTQ",
+            "cusip": "732827100",
+            "filedPrice": 19.77002015759575,
+            "price": 17.190000534057617,
+            "date": "2004-03-31",
+            "currency": "USD",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/PTBTQ?period1=0&period2=1795210498&interval=1d&events=splits",
+            "candidates": []
+          },
           {
             "ticker": "PKX",
             "cusip": "693483109",
@@ -75333,7 +75343,7 @@
             "price": 35.38999938964844,
             "date": "2004-03-31",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/PKX?period1=0&period2=1795146954&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/PKX?period1=0&period2=1795210499&interval=1d&events=splits",
             "candidates": []
           },
           {
@@ -75343,7 +75353,7 @@
             "price": 24.780000686645508,
             "date": "2004-03-31",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/STLD?period1=0&period2=1795146955&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/STLD?period1=0&period2=1795210500&interval=1d&events=splits",
             "candidates": []
           }
         ],
@@ -75353,7 +75363,7 @@
           "NTLIV: ValueError",
           "AKS: ValueError"
         ],
-        "normalizedHash": "48ee13c17652a1b7129dd80ca6e813f4cf6b857b55cc64a51c49e2c18a513a9b"
+        "normalizedHash": "4691be4c77e5f8adc1707f538da8fd40b25478644825e49d2fa36b705349811e"
       },
       "2004 Q3": {
         "version": 1,
@@ -77528,11 +77538,11 @@
     "instrumentVerification": {
       "pendingQuarters": [],
       "errors": {},
-      "checkedAt": "2026-11-19T17:41:03.004693+00:00"
+      "checkedAt": "2026-11-19T21:34:55.900811+00:00"
     },
     "excludedValueQuarters": [],
     "coverage": {
-      "checkedAt": "2026-11-19T17:41:05Z",
+      "checkedAt": "2026-11-19T21:34:57Z",
       "missingQuarters": [
         "1999 Q3",
         "1999 Q4",
@@ -77564,18 +77574,18 @@
         "1999 Q1": "Legacy table reconciliation failed: 24/25 rows, $222661000/$228622133000"
       },
       "attempts": {
-        "2010 Q2": 19,
-        "2003 Q1": 19,
-        "2003 Q3": 19,
-        "2000 Q1": 20,
-        "1999 Q3": 20,
-        "2001 Q4": 20,
-        "2003 Q4": 19,
         "1999 Q4": 20,
-        "1999 Q1": 61,
-        "2003 Q2": 19,
+        "2000 Q1": 20,
+        "2001 Q4": 20,
+        "1999 Q1": 62,
+        "2010 Q2": 19,
         "2010 Q3": 19,
-        "2002 Q1": 20
+        "2002 Q1": 20,
+        "2003 Q4": 19,
+        "2003 Q3": 20,
+        "1999 Q3": 20,
+        "2003 Q1": 20,
+        "2003 Q2": 20
       },
       "pendingRefreshQuarters": [
         "1999 Q1",
@@ -77636,7 +77646,7 @@
         "schemaVersion": 1,
         "cik": "1656456",
         "checkedAt": "2026-11-13T17:47:42Z",
-        "attemptedAt": "2026-11-19T17:41:03Z",
+        "attemptedAt": "2026-11-19T21:34:56Z",
         "status": "checked",
         "indexes": {
           "2004/QTR3": {
@@ -77975,7 +77985,7 @@
     ],
     "manager": "Appaloosa LP",
     "costHistoryFrom": "2016 Q1",
-    "lastUpdated": "2026-11-19T17:41:03Z",
+    "lastUpdated": "2026-11-19T21:34:55Z",
     "notablePeople": [
       "David Tepper"
     ],
