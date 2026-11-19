@@ -17800,11 +17800,11 @@
       },
       "2024 Q3": {
         "version": 1,
-        "checkedAt": "2026-11-18",
+        "checkedAt": "2026-11-19",
         "source": "https://www.sec.gov/Archives/edgar/data/1549575/000154957524000013/infotable.xml",
         "filingDate": "2024-11-13",
         "sourceDigest": "a77e91bc5b757175d179109d2d2b9223abfed354b7de67b90172c9799579d5d7",
-        "sourceHash": "049313df0201cd589f2b9d524aba04fe3956504294877337cd08d6536f8b300f",
+        "sourceHash": "9d6c200a82d07ebb4fd15ff420e6cf38bd7285660a4cbb5e1935a95834d751e4",
         "status": "pending",
         "anchors": [
           {
@@ -17814,7 +17814,7 @@
             "price": 63.900001525878906,
             "date": "2024-09-30",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/HCC?period1=0&period2=1795128181&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/HCC?period1=0&period2=1795214761&interval=1d&events=splits",
             "candidates": [
               1
             ]
@@ -17826,13 +17826,15 @@
             "price": 236.17999267578125,
             "date": "2024-09-30",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/AMR?period1=0&period2=1795128180&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/AMR?period1=0&period2=1795214762&interval=1d&events=splits",
             "candidates": [
               1
             ]
           }
         ],
-        "errors": [],
+        "errors": [
+          "ARCH: ValueError"
+        ],
         "normalizedHash": "ed3e4f15560ecce15a28cadb965d4939c0db620643d4a8e2086ea4f3b5ec5ade"
       },
       "2024 Q4": {
@@ -20132,7 +20134,7 @@
     ],
     "excludedValueQuarters": [],
     "coverage": {
-      "checkedAt": "2026-11-19T21:34:45Z",
+      "checkedAt": "2026-11-19T22:46:00Z",
       "missingQuarters": [],
       "repairedThisRun": [],
       "errors": {},
@@ -20240,7 +20242,7 @@
     "name": "Mohnish Pabrai",
     "manager": "Dalal Street, LLC",
     "costHistoryFrom": "2012 Q1",
-    "lastUpdated": "2026-11-19T21:34:45Z",
+    "lastUpdated": "2026-11-19T22:46:00Z",
     "shareActions": [
       {
         "ticker": "GOOG",
