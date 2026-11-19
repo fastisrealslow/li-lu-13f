@@ -1910,12 +1910,12 @@
       "reason": "ValueError: Bilingual editorial review: The source text does not explicitly state that Pabrai 'admitted to a tendency' (implies personal habit) but rather describes the general negative of case studies; however, this is a minor interpretative nuance and acceptable.; The phrase 'one in three times' in the English translation matches the source ('one in three ti"
     },
     "pabrai-5940c7a73f82e5": {
-      "at": "2026-11-18T00:43:29+00:00",
+      "at": "2026-11-19T14:39:16+00:00",
       "status": "retry",
       "inputHash": "1766ad519fb200ff2185f226c34a4176070f7ee334d99a00e4b3a9502dfb1ac6",
-      "failures": 4,
-      "nextAttemptAt": "2026-11-19T08:43:29+00:00",
-      "reason": "ValueError: Bilingual editorial review: The source text does not contain the phrase 'auction-driven markets'; Pabrai refers to markets as 'frothy' where investors may be 'swimming naked', but never uses the specific term 'auction-driven'.; The source text does not mention that Microsoft employees had 'blind confidence' or were influenced by 'self-interest and "
+      "failures": 5,
+      "nextAttemptAt": "2026-11-22T06:39:16+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English translation contains a critical factual error: it states Pabrai 'advised against high exposure' to Microsoft. The source text (s5) records his dialogue as 'I don't think it's a good idea to have this much exposure', which is an opinion on the specific situation, not a general advisory stance presented as such"
     },
     "pabrai-7b63bdce3eef9a": {
       "at": "2026-11-18T08:21:04+00:00",
@@ -4691,5 +4691,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-19T14:38:40+00:00"
+  "updatedAt": "2026-11-19T14:39:16+00:00"
 }
