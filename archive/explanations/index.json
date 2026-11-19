@@ -1262,12 +1262,12 @@
       "reason": "ValueError: Copied source passage"
     },
     "pabrai-56b8c04cb25a32": {
-      "at": "2026-11-18T08:13:20+00:00",
+      "at": "2026-11-19T23:24:38+00:00",
       "status": "retry",
       "inputHash": "54b7c9fb9a8ee008ffe080419bc55ebd4052407d67bb0a004fe685545cb03e43",
-      "failures": 4,
-      "nextAttemptAt": "2026-11-19T16:13:20+00:00",
-      "reason": "ValueError: Bilingual editorial review: The source text (s1) states Buffett collected tickets 'on the ground or in the trash cans' and gave them to his aunt Alice; it does not explicitly state she collected the money for him, only that he gave her the tickets. The summary claims she 'collected the winnings for him', which is an inference not fully supported by"
+      "failures": 5,
+      "nextAttemptAt": "2026-11-22T15:24:38+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English translation of 'dogged painstaking approach' is slightly inaccurate; 'dogged' implies persistence but lacks the nuance of 'painstaking' (meticulous/careful). A better phrasing would be 'a dogged and meticulous approach'.; The phrase 'dollar bill on the ground' in the English text is a direct translation of 'o"
     },
     "pabrai-2dadcddfebe9d5": {
       "at": "2026-11-19T02:42:17+00:00",
@@ -4691,5 +4691,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-19T23:24:14+00:00"
+  "updatedAt": "2026-11-19T23:24:38+00:00"
 }
