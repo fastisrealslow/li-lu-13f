@@ -994,12 +994,12 @@
       "reason": "ValueError: Bilingual editorial review: The English text in the foreword summary incorrectly attributes the phrase 'substantial growth in returns' to the period from Q4 2004 to end of 2009, whereas the source (s12) states this result was achieved 'from the fourth quarter of 2004 to the end of 2009' only after mentioning that 'the numbers still fluctuate as bef"
     },
     "vinall-407826a49480a2": {
-      "at": "2026-11-17T13:59:08+00:00",
+      "at": "2026-11-19T02:11:42+00:00",
       "status": "retry",
       "inputHash": "8f4974f5354db3278ec8cba3249c9413948390cca3dfe85e3051a13f78c119a6",
-      "failures": 4,
-      "nextAttemptAt": "2026-11-18T21:59:08+00:00",
-      "reason": "ValueError: Bilingual editorial review: The Chinese text incorrectly states Rob Vinall began working 'after college' (after graduation), whereas the source (s6) explicitly says he was hired 'before his senior year started', meaning he worked during his final year of college.; The English text contains a factual error stating he was hired 'before his senior yea"
+      "failures": 5,
+      "nextAttemptAt": "2026-11-21T18:11:42+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English translation of 'ten years' in s36 is corrected to 'ten years' (no change needed as it matches source), but the phrase 'lasting fifteen to twenty years' in the paragraph incorrectly implies duration rather than tenure length; however, since the instruction forbids rewriting and only allows corrections under 16"
     },
     "pabrai-9f46a7707898d1": {
       "at": "2026-11-18T17:55:44+00:00",
@@ -4675,5 +4675,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-19T02:11:27+00:00"
+  "updatedAt": "2026-11-19T02:11:42+00:00"
 }
