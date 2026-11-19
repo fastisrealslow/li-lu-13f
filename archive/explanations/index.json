@@ -2010,12 +2010,12 @@
       "reason": "ValueError: Bilingual editorial review: The English text incorrectly states the '2% Model' is derived from Buffett donating 5% of his **net worth** to the Gates Foundation. Source s7 explicitly states Buffett set it up as 5% a year going into the Gates Foundation based on **the balance** (implying net assets/wealth), but the source does not mention 'net worth'"
     },
     "vinall-0bc8d0cd361786": {
-      "at": "2026-11-17T13:59:04+00:00",
+      "at": "2026-11-19T02:07:15+00:00",
       "status": "retry",
       "inputHash": "f47d4ecc7b84b21ccf7510947a41b282d3eed02c47d46d4ec4c2f457ef0e4bb4",
-      "failures": 4,
-      "nextAttemptAt": "2026-11-18T21:59:04+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English translation of the heading uses 'Division' instead of the more natural 'Separation' or 'Distinction' for 'role division', but this is a minor stylistic choice and not a factual error.; The phrase 'not be sorry at the mercy of investors' is translated as 'without being sorry at the mercy of investors'. The ori"
+      "failures": 5,
+      "nextAttemptAt": "2026-11-21T18:07:15+00:00",
+      "reason": "ValueError: Unsupported numerical claim: 4"
     },
     "vinall-fc32d3b55fba71": {
       "at": "2026-11-18T17:40:47+00:00",
@@ -4675,5 +4675,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-19T02:06:56+00:00"
+  "updatedAt": "2026-11-19T02:07:15+00:00"
 }
