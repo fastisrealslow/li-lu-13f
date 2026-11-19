@@ -2875,12 +2875,12 @@
       "reason": "ValueError: Bilingual editorial review: The source text does not mention 'distressed debt' in the context of bargain purchases emanating from seller opportunities; it refers generally to 'results like those we target in distressed debt' as an outcome, not the origin mechanism described.; The source does not explicitly state that selling based on fear/panic lea"
     },
     "marks-f0ad7ce26c845b": {
-      "at": "2026-11-18T00:54:20+00:00",
+      "at": "2026-11-19T23:21:41+00:00",
       "status": "retry",
       "inputHash": "7e4c2725d4b84796395ee0aaae68e263ea43e3fab59f5ac691cf8bde91968c71",
-      "failures": 4,
-      "nextAttemptAt": "2026-11-19T08:54:20+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English translation in the content section misquotes Howard Marks. The source text (s6) contains the phrase 'on-the-one-hand-but-on-the-other-hand', which is a clear error for the idiom 'one thing but another' or 'on the one hand, on the other hand'. The translation renders this as 'contradictions and significant unc"
+      "failures": 5,
+      "nextAttemptAt": "2026-11-22T15:21:41+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English text incorrectly translates the Chinese idiom 'on-the-one-hand-but-on-the-other-hand' as 'on-the-one-hand-but-on-the-other-hand'. The source (s6) contains the actual phrase 'on-the-one-hand-but-on-the-other-hand', but the translation in the content section repeats this error instead of correcting it to the st"
     },
     "marks-95f37ab6394745": {
       "at": "2026-11-19T14:04:32+00:00",
@@ -4691,5 +4691,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-19T23:21:21+00:00"
+  "updatedAt": "2026-11-19T23:21:41+00:00"
 }
