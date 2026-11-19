@@ -1078,12 +1078,12 @@
       "reason": "ValueError: Bilingual editorial review: The content section contains factual errors regarding the source text. The source (s4) states that students refused tasks because they believed 'I didn't go to college to do that' and wanted to work at the counter, not due to GPA standards or high scores.; The content incorrectly claims Pabrai mentioned 'GPA standards' o"
     },
     "pabrai-a368a4ef14193f": {
-      "at": "2026-11-17T14:26:29+00:00",
+      "at": "2026-11-19T02:37:00+00:00",
       "status": "retry",
       "inputHash": "92dfe0c6e61567496dd2ce5c545da682075f0c7ff02b880bfac1a2cd16402306",
-      "failures": 3,
-      "nextAttemptAt": "2026-11-18T06:26:29+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English text incorrectly states Buffett identified 'four exceptional individuals and four who were turn-offs', whereas the source (s3) only mentions identifying 'four... exceptional' and 'four... turnoffs'. The count of ninety-two undecided is accurate in both.; The English text claims Pabrai received 'about thirty l"
+      "failures": 4,
+      "nextAttemptAt": "2026-11-20T10:37:00+00:00",
+      "reason": "ValueError: Bilingual editorial review: The Chinese text incorrectly attributes the quote about identifying four exceptional people at a cocktail party to Pabrai. The source (s3) explicitly states this was Buffett's observation of himself, not Pabrai's.; The English translation in the 'paragraphs' section also misattributes the same quote to Pabrai ('Pabrai ex"
     },
     "pabrai-0c3b0137fc117b": {
       "at": "2026-11-18T00:17:02+00:00",
@@ -4691,5 +4691,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-19T02:36:33+00:00"
+  "updatedAt": "2026-11-19T02:37:00+00:00"
 }
