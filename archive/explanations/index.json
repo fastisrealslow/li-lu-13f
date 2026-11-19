@@ -2843,12 +2843,12 @@
       "reason": "ValueError: Bilingual editorial review: The English translation of the example in paragraph 2 is factually incorrect: it states 'causing the stock price to be expected to rise to $50', whereas the source (s8) says 'the stock will trade tomorrow at $50'. The source describes a future expectation, not an immediate cause-and-effect on today's price.; The English "
     },
     "marks-49e0212382a26b": {
-      "at": "2026-11-17T14:47:15+00:00",
+      "at": "2026-11-19T14:03:32+00:00",
       "status": "retry",
       "inputHash": "4fc2cef43c39352d833c1cd958bbd646208f9db9d653a53ea608dfaaeb8f49c5",
-      "failures": 4,
-      "nextAttemptAt": "2026-11-18T22:47:15+00:00",
-      "reason": "ValueError: Unsupported numerical claim: 3"
+      "failures": 5,
+      "nextAttemptAt": "2026-11-22T06:03:32+00:00",
+      "reason": "ValueError: Bilingual editorial review: The Chinese text incorrectly attributes specific investment details or strategies to Warren Buffett that are not present in the source (s12). The source only mentions Buffett as a 'great contrarian' without detailing his specific actions or strategies.; The Chinese text claims Marx 'cites' Buffett, but the source text st"
     },
     "marks-e85898c6125044": {
       "at": "2026-11-18T08:41:49+00:00",
@@ -4691,5 +4691,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-19T14:03:18+00:00"
+  "updatedAt": "2026-11-19T14:03:32+00:00"
 }
