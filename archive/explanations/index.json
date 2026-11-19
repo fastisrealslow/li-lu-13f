@@ -791,12 +791,12 @@
       "reason": "ValueError: Bilingual editorial review: The Chinese translation contains factual errors: it incorrectly states that Vijay Vashee introduced Pabrai to Satya Nadella (the source text only mentions meeting 'Satya' and does not confirm the identity or context), and misrepresents the outcome for Steve Ballmer by claiming his wealth 'significantly diminished' when t"
     },
     "pabrai-bc7ec8286850d8": {
-      "at": "2026-11-17T14:06:22+00:00",
+      "at": "2026-11-19T02:28:24+00:00",
       "status": "retry",
       "inputHash": "50f8d144e9779d0c6043ed45952a3d034c934d5f125463555e25b6d86031cbbb",
-      "failures": 3,
-      "nextAttemptAt": "2026-11-18T06:06:22+00:00",
-      "reason": "ValueError: Bilingual editorial review: The source text (s4) states the Rockefeller Foundation has $1 billion invested and must spend 5% ($50 million), but does not explicitly state the annual net increase is exactly twenty million dollars; it only mentions a return of '7 or 8%' without confirming the specific math in the text.; The source text (s6) lists Esth"
+      "failures": 4,
+      "nextAttemptAt": "2026-11-20T10:28:24+00:00",
+      "reason": "ValueError: Unsupported scaled numerical claim: 4000"
     },
     "buffett-63e629862df341": {
       "at": "2026-11-18T08:21:58+00:00",
@@ -4685,5 +4685,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-19T02:28:14+00:00"
+  "updatedAt": "2026-11-19T02:28:24+00:00"
 }
