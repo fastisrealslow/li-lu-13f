@@ -1238,12 +1238,12 @@
       "reason": "ValueError: Bilingual editorial review: The source text does not mention 'Berkshire Hathaway' as an investment example; Pabrai discusses the Dakshana Foundation and his own funds. This is a factual error in the English paraphrase.; The source text does not explicitly state that failures are more educational than successes ('failures are more educational than s"
     },
     "pabrai-a08413f47088be": {
-      "at": "2026-11-18T00:15:20+00:00",
+      "at": "2026-11-19T14:30:05+00:00",
       "status": "retry",
       "inputHash": "e0d728dcf1dbcdc0030a0a94b51d25b84925c064cdfcb68220445c8bb820881a",
-      "failures": 4,
-      "nextAttemptAt": "2026-11-19T08:15:20+00:00",
-      "reason": "ValueError: Copied source passage"
+      "failures": 5,
+      "nextAttemptAt": "2026-11-22T06:30:05+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English translation in the 'content' section incorrectly attributes the quote about Warren Buffett to Pabrai ('Pabrai argues that...'), whereas the source text (s1) clearly states it is Warren Buffett's own words.; The English translation misrepresents the specific age range for brain specialization. The source (s2) "
     },
     "pabrai-96a9fab5d602f9": {
       "at": "2026-11-18T18:51:12+00:00",
@@ -4691,5 +4691,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-19T14:29:22+00:00"
+  "updatedAt": "2026-11-19T14:30:05+00:00"
 }
