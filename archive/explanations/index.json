@@ -484,12 +484,12 @@
       "reason": "ValueError: Bilingual editorial review: The source text (s4) states the investor puts up $500 for 500 shares at $1 each, but s5 claims the business is worth $1,500 including $1,000 goodwill. The source does not explicitly define 'goodwill' as a separate asset line item with a value of $1,000; it only mentions the founder contributed the idea and name while the"
     },
     "buffett-7177025720de85": {
-      "at": "2026-11-17T14:06:18+00:00",
+      "at": "2026-11-19T02:14:36+00:00",
       "status": "retry",
       "inputHash": "69abb8c8071120fbb3e18b06656133c2bff3deaadf67b3f041f399ae4f5fadcd",
-      "failures": 4,
-      "nextAttemptAt": "2026-11-18T22:06:18+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English text incorrectly states that the $8 billion figure is 'based on GAAP standards which explicitly exclude both realized and unrealized capital gains'. The source (s6) clarifies that operating earnings are calculated under GAAP *excluding* these gains, but does not claim GAAP itself excludes them; rather, Buffet"
+      "failures": 5,
+      "nextAttemptAt": "2026-11-21T18:14:36+00:00",
+      "reason": "ValueError: Bilingual editorial review: The source text (s6) states operating earnings were 'a little over $8 billion', but the content claims it was exactly '$8 billion'. The phrase 'a little over' is a specific qualifier that contradicts the precise figure in the summary.; The source text (s10) mentions managers being surprised by inventory deliveries and ch"
     },
     "duan-f6089c3187bde2": {
       "at": "2026-10-18T01:38:43+00:00",
@@ -4675,5 +4675,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-19T02:14:18+00:00"
+  "updatedAt": "2026-11-19T02:14:36+00:00"
 }
