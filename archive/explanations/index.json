@@ -1674,12 +1674,12 @@
       "reason": "ValueError: Unsupported numerical claim: 3"
     },
     "vinall-ac99a6ec8608a5": {
-      "at": "2026-11-17T14:15:02+00:00",
+      "at": "2026-11-19T02:14:39+00:00",
       "status": "retry",
       "inputHash": "cdff013dc10407a889c756ede9e92ffc1eae348de89054ae5ca4593410792268",
-      "failures": 4,
-      "nextAttemptAt": "2026-11-18T22:15:02+00:00",
-      "reason": "ValueError: Bilingual editorial review: Author name mismatch: Source uses 'Vinall' (s13), but content claims 'Vinall' while canonical list includes 'Rob Vinall'. The source text itself consistently uses 'Vinall', so the content is faithful to the ASR. However, the canonical list has 'Rob Vinall' which matches the source's implied name better than 'Vinall' alon"
+      "failures": 5,
+      "nextAttemptAt": "2026-11-21T18:14:39+00:00",
+      "reason": "ValueError: Bilingual editorial review: The source text (s14) states the painting shows 'the three criteria which I unashamedly lifted from Warren Buffett', but the provided Chinese translation adds an unsupported interpretation that this is a 'fictional framework' and claims Vinall does not directly cite the artwork to explain them. This contradicts the sourc"
     },
     "pabrai-00ca7a03f93774": {
       "at": "2026-11-18T18:22:00+00:00",
@@ -4675,5 +4675,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-19T02:14:36+00:00"
+  "updatedAt": "2026-11-19T02:14:39+00:00"
 }
