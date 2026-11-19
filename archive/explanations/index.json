@@ -3864,12 +3864,12 @@
       "reason": "ValueError: Copied source passage"
     },
     "mclemore-435757d6a2be73": {
-      "at": "2026-11-18T00:01:20+00:00",
+      "at": "2026-11-19T14:11:07+00:00",
       "status": "retry",
       "inputHash": "a1f9cdf65d716a445232b97a6455cfdd756683b0d3f51bb3a07622bec6922a4f",
-      "failures": 4,
-      "nextAttemptAt": "2026-11-19T08:01:20+00:00",
-      "reason": "ValueError: Bilingual editorial review: The Chinese translation incorrectly attributes the article 'Ain't No Valuation High Enough to Keep the Market from Lovin' Growth Stocks!' to Samantha McLemore. The source text (s3) explicitly states: 'One of Bill's best all-time moves was his near-perfect timing when exiting technology stocks in 2000... He pulled this of"
+      "failures": 5,
+      "nextAttemptAt": "2026-11-22T06:11:07+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English translation of 'reversal off bear market lows' as 'reversal off bear market lows' is redundant; corrected to 'reversal from bear market lows'.; The phrase 'top line growth' in the source text refers to revenue growth, but the translation uses 'top line' which can be ambiguous without context; clarified to 're"
     },
     "marks-1dc8ee1ff847bc": {
       "at": "2026-11-18T18:27:30+00:00",
@@ -4691,5 +4691,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-19T14:10:58+00:00"
+  "updatedAt": "2026-11-19T14:11:07+00:00"
 }
