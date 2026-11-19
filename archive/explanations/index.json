@@ -1758,12 +1758,12 @@
       "reason": "ValueError: Bilingual editorial review: The English translation incorrectly states the product name as 'Terra edition'; the source text only says 'Terra edition' without specifying it is a pre-shampoo, though context implies it. The Chinese text explicitly links 'Terra edition' to 'pre-shampoo', which is accurate.; The English translation claims the chemist de"
     },
     "pabrai-669ee549324b11": {
-      "at": "2026-11-17T23:54:53+00:00",
+      "at": "2026-11-19T02:43:41+00:00",
       "status": "retry",
       "inputHash": "3dcd814a226b27f9418794b72bf768569c96db3ad5cb45410116611497fef339",
-      "failures": 3,
-      "nextAttemptAt": "2026-11-18T15:54:53+00:00",
-      "reason": "ValueError: Bilingual editorial review: The source text (s4) does not mention 'Amazonization' explicitly; the term is an editorial interpretation added in the translation.; The source text (s4) states DoorDash delivers 'mostly one-to-one restaurant', but the translation claims it shifts 'from the current one-to-one restaurant model seen at companies like DoorD"
+      "failures": 4,
+      "nextAttemptAt": "2026-11-20T10:43:41+00:00",
+      "reason": "ValueError: Bilingual editorial review: The source text does not contain any information regarding Pabrai's personal entrepreneurial experience or career advice for MBA students; the summary incorrectly claims he 'did not discuss' these topics as if they were mentioned but omitted, whereas the evidence shows no such discussion occurred at all.; The summary sta"
     },
     "pabrai-3e87834c3b997b": {
       "at": "2026-11-18T08:23:34+00:00",
@@ -4691,5 +4691,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-19T02:43:19+00:00"
+  "updatedAt": "2026-11-19T02:43:41+00:00"
 }
