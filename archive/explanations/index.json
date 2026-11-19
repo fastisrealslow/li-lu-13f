@@ -644,12 +644,12 @@
       "reason": "ValueError: Bilingual editorial review: The content claims Buffett discussed 'Shareholder Return Policy' (dividends/repurchases), but the provided evidence (s193, s194, s196) exclusively addresses his political views and separation of personal/corporate roles. There is no mention of dividends or share repurchases in the source text.; The content incorrectly at"
     },
     "pabrai-80ac2772f94ba4": {
-      "at": "2026-11-18T00:06:27+00:00",
+      "at": "2026-11-19T14:33:44+00:00",
       "status": "retry",
       "inputHash": "13aa1ee6f43a048e56b259cfed50f497bc0e8337defe223690e99ece6d519885",
-      "failures": 4,
-      "nextAttemptAt": "2026-11-19T08:06:27+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English translation incorrectly states '1 plus 1 equals 11' and '1 plus 1 plus 1 plus 1 exceeding 1,000'. The source text (s3) uses these exact figures as illustrative metaphors for the Lollapalooza Effect, not literal mathematical equations. While the numbers are factually incorrect in a mathematical context, they a"
+      "failures": 5,
+      "nextAttemptAt": "2026-11-22T06:33:44+00:00",
+      "reason": "ValueError: Bilingual editorial review: The source text (s5) cuts off mid-sentence ('when it was bought and'), making the final clause incomplete. The summary claims he 'could give you the history of every single building,' which is a reasonable inference but not explicitly stated in the provided evidence snippet.; The source text does not mention that John Ar"
     },
     "vinall-c919ac8b6b58c4": {
       "at": "2026-11-19T02:06:24+00:00",
@@ -4691,5 +4691,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-19T14:32:51+00:00"
+  "updatedAt": "2026-11-19T14:33:44+00:00"
 }
