@@ -1582,12 +1582,12 @@
       "reason": "ValueError: Bilingual editorial review: The English translation in the 'content' section contains a factual error regarding Peter Thiel's lecture title. The source text (s3) explicitly states the title is 'Competition is for Losers', but the English paragraph incorrectly translates it as 'Competition is for Losers' with an added 'game' at the end ('Competition"
     },
     "pabrai-fc099d6ba1ac88": {
-      "at": "2026-11-18T08:08:38+00:00",
+      "at": "2026-11-19T23:24:14+00:00",
       "status": "retry",
       "inputHash": "cd6bbae9552dfc90beea8daa56d3beb3bda1d6cea2f4ce950c06d521d2e16a72",
-      "failures": 4,
-      "nextAttemptAt": "2026-11-19T16:08:38+00:00",
-      "reason": "ValueError: Bilingual editorial review: The content incorrectly identifies the speaker as 'Li Jian' (a known investor) when the source text and canonical author names confirm the speaker is Peter Pabrai ('Pabrai'). The entire analysis relies on this factual error.; The content claims Peter Pabrai interviewed Charlie Munger in 2018, but the source text (s7) ind"
+      "failures": 5,
+      "nextAttemptAt": "2026-11-22T15:24:14+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English text incorrectly states 'Munger reiterated... the paramount importance' when the source (s7) attributes this statement to Charlie Munger himself ('He stressed...'), not Pabrai. The Chinese text correctly identifies Munger as the speaker.; The English text claims Pabrai 'recalled their shared dinners in Omaha "
     },
     "pabrai-99a0eff7272af5": {
       "at": "2026-11-18T00:40:04+00:00",
@@ -4691,5 +4691,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-19T23:24:05+00:00"
+  "updatedAt": "2026-11-19T23:24:14+00:00"
 }
