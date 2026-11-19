@@ -2279,12 +2279,12 @@
       "reason": "ValueError: Copied source passage"
     },
     "buffett-ce523e8f200e16": {
-      "at": "2026-11-17T14:57:32+00:00",
+      "at": "2026-11-19T02:59:41+00:00",
       "status": "retry",
       "inputHash": "0e395c7bc9c7700dbc62fd9a6339822c5085c5dc940e54c26549a07827d25d87",
-      "failures": 3,
-      "nextAttemptAt": "2026-11-18T06:57:32+00:00",
-      "reason": "ValueError: Bilingual editorial review: The Chinese text incorrectly states Buffett's partner is 'Munger' (correct) but implies a singular 'he' for both Buffett and Munger in the final clause ('though he does not diminish...'), whereas the source explicitly names both Charlie Munger and Buffett as disagreeing. The English translation correctly uses plural 'the"
+      "failures": 4,
+      "nextAttemptAt": "2026-11-20T10:59:41+00:00",
+      "reason": "ValueError: Bilingual editorial review: The Chinese text incorrectly states that Buffett and Munger 'both disagree' with the rule; the source only explicitly states Buffett's disagreement ('neither Charlie Munger... nor I agree'), though it implies shared skepticism by noting the rule was a 'monumental shift'.; The Chinese text claims the 1,900% increase occur"
     },
     "buffett-66688fc8f75fb7": {
       "at": "2026-11-18T00:39:31+00:00",
@@ -4691,5 +4691,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-19T02:58:41+00:00"
+  "updatedAt": "2026-11-19T02:59:41+00:00"
 }
