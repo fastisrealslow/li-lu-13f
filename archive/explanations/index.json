@@ -4462,12 +4462,12 @@
       "reason": "ValueError: Bilingual editorial review: The Chinese text contains a typo in the source reference: 'UourU' should be 'our'. The English translation correctly renders this as 'our', but the underlying source data has an error.; The Chinese text adds interpretive phrases like 'non-transient market phenomena' and 'timeless principles' which, while faithful to the "
     },
     "marks-5a01e8c6cdc121": {
-      "at": "2026-11-18T00:10:36+00:00",
+      "at": "2026-11-19T14:40:22+00:00",
       "status": "retry",
       "inputHash": "9d5b056bcec5e945c888e2566b24e562796dac2014dc5f493d4a1684eb08bcc2",
-      "failures": 3,
-      "nextAttemptAt": "2026-11-18T16:10:36+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English translation contains factual errors regarding the source text: 'buying when everyone else is can' should be 'buying when everyone else is selling' (or similar contextually accurate phrasing based on typical Marks rhetoric, but strictly from provided text, it misrepresents the logic).; The phrase 'game between"
+      "failures": 4,
+      "nextAttemptAt": "2026-11-20T22:40:22+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English translation of the evidence section (s5) is incomplete and cuts off mid-sentence ('...which were'), making it factually unreliable as a standalone quote.; The Chinese content incorrectly attributes specific causal mechanisms to Howard Marks that are not explicitly detailed in the provided source text (e.g., '"
     },
     "mclemore-c63cd49977e879": {
       "at": "2026-11-19T14:26:45+00:00",
@@ -4691,5 +4691,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-19T14:39:51+00:00"
+  "updatedAt": "2026-11-19T14:40:22+00:00"
 }
