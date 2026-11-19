@@ -2715,12 +2715,12 @@
       "reason": "ValueError: Bilingual editorial review: The English translation contains factual errors regarding the author's name: 'Howard Marks' is correctly used in the source text and canonical list, but the Chinese section incorrectly translates it as 'Hua Wei Ma Si' (a mistranslation of Howard Marks).; The English translation misrepresents the specific yield data cited"
     },
     "marks-512fbdf85d929f": {
-      "at": "2026-11-17T14:23:18+00:00",
+      "at": "2026-11-19T02:44:28+00:00",
       "status": "retry",
       "inputHash": "1bfe43019530ffebf3ef36ae46caf9a68b1b2b5a3a872139b5000c4ffd6ee867",
-      "failures": 4,
-      "nextAttemptAt": "2026-11-18T22:23:18+00:00",
-      "reason": "ValueError: Bilingual editorial review: The source text does not state that Howard Marks wrote the article titled 'The Balance Between Winners and Losers: The Key to Skill and Execution'. The provided content is an excerpt from his Oaktree Capital memo dated 2023-09-12, but it does not contain this specific title or explicitly claim authorship of a work with t"
+      "failures": 5,
+      "nextAttemptAt": "2026-11-21T18:44:28+00:00",
+      "reason": "ValueError: Unsupported numerical claim: 20"
     },
     "marks-351eab04d3acf4": {
       "at": "2026-11-18T08:18:05+00:00",
@@ -4691,5 +4691,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-19T02:44:10+00:00"
+  "updatedAt": "2026-11-19T02:44:28+00:00"
 }
