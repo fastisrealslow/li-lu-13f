@@ -1046,12 +1046,12 @@
       "reason": "ValueError: Bilingual editorial review: The English text incorrectly states 'Roman and Greek' declined while the source only mentions 'Han and Roman Empires'.; The Chinese text claims the system enabled China to 'basically solve' problems of administering a vast empire, which is an overstatement compared to the source's 'guaranteed that those chosen would be f"
     },
     "pabrai-d346f1bebb0f55": {
-      "at": "2026-11-18T08:58:37+00:00",
+      "at": "2026-11-19T23:37:47+00:00",
       "status": "retry",
       "inputHash": "8b8aefaa73adafd677770f8f952d45e05181310719155ee07418940c17a204e9",
-      "failures": 4,
-      "nextAttemptAt": "2026-11-19T16:58:37+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English translation of 'discounted cashflow model' should be hyphenated as 'discounted cash-flow model' for consistency with standard financial terminology.; The phrase 'early 2000s Microsoft case' is slightly ambiguous; the source specifies 'early 2000', so 'early 2000 Microsoft case' is more precise.; The translati"
+      "failures": 5,
+      "nextAttemptAt": "2026-11-22T15:37:47+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English translation in the 'content' section contains a factual error: it states Microsoft's market cap was 'over six hundred billion dollars', whereas the source text (s16) clearly says 'over 600 billion'. Given the context of early 2000 valuations and standard economic data, this likely refers to $600 billion, not "
     },
     "pabrai-1410746e64c5fd": {
       "at": "2026-11-19T14:57:43+00:00",
@@ -4691,5 +4691,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-19T23:36:56+00:00"
+  "updatedAt": "2026-11-19T23:37:47+00:00"
 }
