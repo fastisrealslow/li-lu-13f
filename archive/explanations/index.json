@@ -1558,12 +1558,12 @@
       "reason": "ValueError: Unsupported numerical claim: 1,000"
     },
     "pabrai-6dd66553e9d9ce": {
-      "at": "2026-11-18T08:19:14+00:00",
+      "at": "2026-11-19T23:35:21+00:00",
       "status": "retry",
       "inputHash": "513d94599cadb560acfa23941d98e3cf7de9c345b77ec1f582c75cf2182af419",
-      "failures": 4,
-      "nextAttemptAt": "2026-11-19T16:19:14+00:00",
-      "reason": "ValueError: Bilingual editorial review: The source text does not mention 'Thomas Phelps' or the book '100 to 1 in the Stock Market'; it only refers to a quote from 'one of your favorite books' where Mohnish admits he cannot recall the author's name at that moment.; The source text does not state that personality traits are set between ages five and six; it say"
+      "failures": 5,
+      "nextAttemptAt": "2026-11-22T15:35:21+00:00",
+      "reason": "ValueError: Bilingual editorial review: The source text does not mention 'Thomas Thomas Phelps' as the author of '100 to 1 in the Stock Market'; it only states the book title and attributes a quote about selling too soon without naming the author. The name 'Thomas Thomas Phelps' appears to be an invented or erroneous attribution.; The source text does not expl"
     },
     "pabrai-2babcacb8a348d": {
       "at": "2026-11-18T08:42:28+00:00",
@@ -4691,5 +4691,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-19T23:34:20+00:00"
+  "updatedAt": "2026-11-19T23:35:21+00:00"
 }
