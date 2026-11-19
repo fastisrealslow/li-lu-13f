@@ -1606,12 +1606,12 @@
       "reason": "ValueError: Unsupported numerical claim: 1994"
     },
     "pabrai-61590880adbe35": {
-      "at": "2026-11-18T00:07:53+00:00",
+      "at": "2026-11-19T14:13:57+00:00",
       "status": "retry",
       "inputHash": "d397d5521d3490392f03dbe081317b8254539057e84db112a65dfebf2bf4eeb0",
-      "failures": 3,
-      "nextAttemptAt": "2026-11-18T16:07:53+00:00",
-      "reason": "ValueError: Bilingual editorial review: The source text (s2) does not mention Jay Seinfeldel or a yellow notepad; it refers to 'Seinfeld' and a 'yellow notepad', but the Chinese translation incorrectly names him as 'Jay Seinfeldel' (likely conflating with Jay Leno or creating a non-existent name).; The source text (s2) does not contain any specific details abo"
+      "failures": 4,
+      "nextAttemptAt": "2026-11-20T22:13:57+00:00",
+      "reason": "ValueError: Bilingual editorial review: The Chinese translation of Seinfeld's quote is factually inaccurate: the source text says 'If you have the reservation, it means you have the car,' but the translation adds 'that is the whole point of a reservation' which changes the meaning and is not in the source.; The Chinese translation incorrectly attributes the ob"
     },
     "pabrai-4c377fa29a8e7e": {
       "at": "2026-11-18T18:24:26+00:00",
@@ -4691,5 +4691,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-19T14:13:39+00:00"
+  "updatedAt": "2026-11-19T14:13:57+00:00"
 }
