@@ -2226,12 +2226,12 @@
       "reason": "ValueError: Copied source passage"
     },
     "hawkins-07ba7351c5c8c9": {
-      "at": "2026-11-18T08:39:49+00:00",
+      "at": "2026-11-19T23:58:13+00:00",
       "status": "retry",
       "inputHash": "28f771b0e61a10ef0244a7223b6669523c73b870af745ae71f6edbbd8c140f94",
-      "failures": 4,
-      "nextAttemptAt": "2026-11-19T16:39:49+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English paragraph contains a hallucinated phrase: 'if one deeply analyzes the cost structure, it turns out that most of the value in that business actually stems from specific cost drivers rather than just subscription fee revenue.' The source text (s14) cuts off at 'the vast majority of the value of today's cable se"
+      "failures": 5,
+      "nextAttemptAt": "2026-11-22T15:58:13+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English translation of the paragraph incorrectly states 'two-thirds' for '2/3', which is accurate but stylistically inconsistent with the source's phrasing style; however, the primary error is the misrepresentation of the source's incomplete thought.; The source text (s14) ends abruptly with 'the vast majority of the"
     },
     "buffett-a281a253c85fdf": {
       "at": "2026-11-18T08:44:40+00:00",
@@ -4691,5 +4691,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-19T23:57:42+00:00"
+  "updatedAt": "2026-11-19T23:58:13+00:00"
 }
