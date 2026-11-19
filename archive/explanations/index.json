@@ -4094,12 +4094,12 @@
       "reason": "ValueError: Bilingual editorial review: The source text does not mention 'Iraq' as a cause for risk aversion; it only states 'concerns about the economy and Iraq' without specifying Iraq's role in the under-valuation mechanism.; The source text does not explicitly state that 'extreme sentiment often outlasts the happy medium'; this is an interpretation added b"
     },
     "marks-b834dc74a3b582": {
-      "at": "2026-11-18T00:40:22+00:00",
+      "at": "2026-11-19T14:43:43+00:00",
       "status": "retry",
       "inputHash": "9a7bd09212767de836cee7089b7b7563b0585013f886342624aac1a8fb82a7ef",
-      "failures": 4,
-      "nextAttemptAt": "2026-11-19T08:40:22+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English translation in the source content incorrectly states that Ed Thorp 'formalized the process of card counting' as a result of quantifying basic strategy; the original text (s3) only says he went on to formalize it after quantifying the strategy, implying sequence but not causation. The translation adds a causal"
+      "failures": 5,
+      "nextAttemptAt": "2026-11-22T06:43:43+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English translation in the source content incorrectly translates 'upside potential' as 'upside' and 'downside risk' as 'downside', omitting the noun 'potential' and 'risk'.; The Chinese text contains a factual error regarding Ed Thorp's profession, stating he was an 'MIT professor of mathematics' when the source only"
     },
     "mclemore-41dc37ba8f99c2": {
       "at": "2026-11-19T14:38:40+00:00",
@@ -4691,5 +4691,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-19T14:43:34+00:00"
+  "updatedAt": "2026-11-19T14:43:43+00:00"
 }
