@@ -1718,12 +1718,12 @@
       "reason": "ValueError: Unsupported numerical claim: 1%"
     },
     "pabrai-7b7fa2ae604775": {
-      "at": "2026-11-17T14:51:09+00:00",
+      "at": "2026-11-19T14:03:18+00:00",
       "status": "retry",
       "inputHash": "f58250303d97eb5facb233f7c8a0f1454ad019b17d5ae1335c529d052ecb891f",
-      "failures": 4,
-      "nextAttemptAt": "2026-11-18T22:51:09+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English translation of '30 years twice' is factually incorrect based on the source text; it states '30' (likely meaning 30 papers) but the context implies a duration or count that contradicts 'years'. The source says 'solved every past JEE paper for 30', which likely means 30 papers, not '30 years twice'.; The Englis"
+      "failures": 5,
+      "nextAttemptAt": "2026-11-22T06:03:18+00:00",
+      "reason": "ValueError: Bilingual editorial review: Factual error: The source states Ashok Kumar solved past JEE papers for '30' years (s15), but the text does not explicitly state this duration as a continuous period of study; it mentions a gap between coaching and the 2010 exam, then says he solved papers for 30 years twice. The Chinese translation claims a continuous 3"
     },
     "pabrai-6295b96a9b0552": {
       "at": "2026-11-18T00:27:15+00:00",
@@ -4691,5 +4691,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-19T14:02:19+00:00"
+  "updatedAt": "2026-11-19T14:03:18+00:00"
 }
