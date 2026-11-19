@@ -3832,12 +3832,12 @@
       "reason": "ValueError: Bilingual editorial review: The Chinese text incorrectly translates 'exotic investments' as 'exotic  investment', missing the article 'the' before 'investment'.; The Chinese text omits the word 'the' in 'the prosaic acts', which is present in the source.; The Chinese text uses '30-times leverage' while the source says '30-times leverage'; this is a"
     },
     "marks-9d549bcb95c052": {
-      "at": "2026-11-17T23:50:05+00:00",
+      "at": "2026-11-19T14:08:41+00:00",
       "status": "retry",
       "inputHash": "08a20ae3e9880d050f2e13526d721b99fb23111f5608e05b94528f901ea25919",
-      "failures": 4,
-      "nextAttemptAt": "2026-11-19T07:50:05+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English translation in the 'content' section contains a hallucinated phrase: 'unanimous expectations – that interest rates near zero can fail to produce a strong rebound...' which appears to be an artifact from the source text's copyright line rather than part of the actual argument. The original evidence (s14) does "
+      "failures": 5,
+      "nextAttemptAt": "2026-11-22T06:08:41+00:00",
+      "reason": "ValueError: Bilingual editorial review: The Chinese text contains a factual error: it states 'when everyone expected near-zero interest rates... the result failed to materialize', but the source (s14) says interest rates *near zero* were expected to fail to produce a strong rebound, not that the expectation itself failed. The phrasing implies the expectation w"
     },
     "marks-60fc27c3fdbd0f": {
       "at": "2026-11-18T00:19:30+00:00",
@@ -4691,5 +4691,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-19T14:08:39+00:00"
+  "updatedAt": "2026-11-19T14:08:41+00:00"
 }
