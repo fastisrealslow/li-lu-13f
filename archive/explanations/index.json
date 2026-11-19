@@ -3552,12 +3552,12 @@
       "reason": "ValueError: Bilingual editorial review: The Chinese text claims the matrix was 'helpful' (s7) but adds no source-grounded reasoning for why it is helpful; this is generic filler not supported by the text.; The Chinese text states Marks 'further distinguishes between two definitions of success,' yet the English source only contrasts how many cells represent sat"
     },
     "mclemore-453b77693ecb95": {
-      "at": "2026-11-17T23:53:08+00:00",
+      "at": "2026-11-19T14:36:19+00:00",
       "status": "retry",
       "inputHash": "26b4e3009bd7ca0dab50b2749de38e714e11588182b3f6416a5d021dcd988a4a",
-      "failures": 4,
-      "nextAttemptAt": "2026-11-19T07:53:08+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English translation of 'disappointing on 2019 guidance' in the source text was misinterpreted as 'down from previously guided 8-10%' in the provided content; the source actually states RH is pushing back revenue growth expectations to be lower than previous guidance, not explicitly stating the new range yet.; The Eng"
+      "failures": 5,
+      "nextAttemptAt": "2026-11-22T06:36:19+00:00",
+      "reason": "ValueError: Unsupported scaled numerical claim: 163"
     },
     "marks-c79fd177e3b24a": {
       "at": "2026-11-19T02:12:25+00:00",
@@ -4691,5 +4691,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-19T14:35:39+00:00"
+  "updatedAt": "2026-11-19T14:36:19+00:00"
 }
