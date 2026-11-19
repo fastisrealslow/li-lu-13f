@@ -4062,12 +4062,12 @@
       "reason": "ValueError: Bilingual editorial review: The English translation of 'Stuart Miller' is incorrect; the source text only mentions 'Miller', not his full name. The Chinese text correctly uses 'Stuart Miller', but the English paraphrase invents this detail.; The English translation of '0.7x book value' should be '0.7 times book value' for grammatical correctness, t"
     },
     "marks-05b38067d482db": {
-      "at": "2026-11-17T14:24:00+00:00",
+      "at": "2026-11-19T02:36:16+00:00",
       "status": "retry",
       "inputHash": "c059d951b763be37ac7080839d7e7324bce04c6610655c0e672c589837bb46f7",
-      "failures": 3,
-      "nextAttemptAt": "2026-11-18T06:24:00+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English text incorrectly attributes the phrase 'improbable disasters' to Nassim Nicholas Taleb's book *Fooled by Randomness* without verifying if this specific terminology is used in that work; while Taleb discusses 'black swans', the exact phrasing may be Marks' own or a conflation.; The English text introduces the "
+      "failures": 4,
+      "nextAttemptAt": "2026-11-20T10:36:16+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English translation in the 'content' section contains a significant factual error: it attributes the quote about historical success being unreliable to Howard Marks ('In his article...'), whereas the source text (s25) explicitly states that Nassim Nicholas Taleb wrote the book on this subject and calls it the 'bible'"
     },
     "marks-2b0acf3944f6ef": {
       "at": "2026-11-19T02:23:43+00:00",
@@ -4691,5 +4691,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-19T02:36:05+00:00"
+  "updatedAt": "2026-11-19T02:36:16+00:00"
 }
