@@ -4366,12 +4366,12 @@
       "reason": "ValueError: Bilingual editorial review: The English translation in the 'content' section incorrectly states that Fund A's third-year capital was '$50', whereas evidence s9 confirms it was '$1,540'.; The English translation claims Fund B's IRR is '45%', matching its compound annual return. Evidence s7 explicitly states Fund B's IRR is '21%'.; The English transl"
     },
     "mclemore-e2f1a12640c4d3": {
-      "at": "2026-11-18T08:41:04+00:00",
+      "at": "2026-11-19T23:55:10+00:00",
       "status": "retry",
       "inputHash": "34699a1d30b5ea3d40ff36369cd56a3837b23611f7f9a0c80b4c49a5d4ab42a8",
-      "failures": 4,
-      "nextAttemptAt": "2026-11-19T16:41:04+00:00",
-      "reason": "ValueError: Incomplete AI Review at 1800 tokens"
+      "failures": 5,
+      "nextAttemptAt": "2026-11-22T15:55:10+00:00",
+      "reason": "ValueError: Bilingual editorial review: The Chinese text incorrectly states 'grandfather' (her grandmother) as the primary decision-maker; source s0 says 'grandmother'.; The Chinese text claims the new FA recommended 'only blue chip large cap equities', but source s0 says he suggested equity funds were 'blue chip, large cap investments' while the portfolio was"
     },
     "mclemore-3cfab01d768cef": {
       "at": "2026-11-19T15:01:00+00:00",
@@ -4691,5 +4691,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-19T23:54:01+00:00"
+  "updatedAt": "2026-11-19T23:55:10+00:00"
 }
