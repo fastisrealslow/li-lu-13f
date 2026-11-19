@@ -642,12 +642,12 @@
       "reason": "ValueError: Bilingual editorial review: The English translation incorrectly states '1 plus 1 equals 11' and '1 plus 1 plus 1 plus 1 exceeding 1,000'. The source text (s3) uses these exact figures as illustrative metaphors for the Lollapalooza Effect, not literal mathematical equations. While the numbers are factually incorrect in a mathematical context, they a"
     },
     "vinall-c919ac8b6b58c4": {
-      "at": "2026-11-17T13:59:47+00:00",
+      "at": "2026-11-19T02:06:24+00:00",
       "status": "retry",
       "inputHash": "5af4c68010fe5d16e180b31a59d9e58951db06672d9fbd70506aed811829e319",
-      "failures": 4,
-      "nextAttemptAt": "2026-11-18T21:59:47+00:00",
-      "reason": "ValueError: Bilingual editorial review: The source text does not explicitly state that the trip was 'recorded on Thursday' or specify the day of the week for May 22, 2025; this is an assumption based on external knowledge rather than the provided ASR transcript.; The source text mentions 'a dear friend's wedding in Shanghai' but does not explicitly state it wa"
+      "failures": 5,
+      "nextAttemptAt": "2026-11-21T18:06:24+00:00",
+      "reason": "ValueError: Bilingual editorial review: The Chinese text incorrectly states the wedding was in Shanghai for 'a dear friend's wedding' while the ASR (s3) only mentions 'attending a dear friend's wedding in Shanghai'. The English translation correctly reflects this.; The Chinese text claims the trip included stops in China, Japan, and the US, which is accurate p"
     },
     "buffett-d5e534b6a5c51f": {
       "at": "2026-11-17T14:11:03+00:00",
@@ -4675,5 +4675,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-19T02:05:02+00:00"
+  "updatedAt": "2026-11-19T02:06:24+00:00"
 }
