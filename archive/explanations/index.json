@@ -1750,12 +1750,12 @@
       "reason": "JSONDecodeError: Expecting ',' delimiter: line 3 column 1 (char 651)"
     },
     "pabrai-87529cf106b12a": {
-      "at": "2026-11-18T08:57:35+00:00",
+      "at": "2026-11-19T23:58:55+00:00",
       "status": "retry",
       "inputHash": "ac633bc3786100b500ba0893eb8ed436234930d450cee71e509dc3ba9f588c83",
-      "failures": 4,
-      "nextAttemptAt": "2026-11-19T16:57:35+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English translation incorrectly states the product name as 'Terra edition'; the source text only says 'Terra edition' without specifying it is a pre-shampoo, though context implies it. The Chinese text explicitly links 'Terra edition' to 'pre-shampoo', which is accurate.; The English translation claims the chemist de"
+      "failures": 5,
+      "nextAttemptAt": "2026-11-22T15:58:55+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English translation contains a factual error: the source text states 'less than maybe one tenth or 1%', but the translation renders this as 'less than one-tenth or 1%'. The phrase 'one tenth' is mathematically equivalent to '10%', not '1%'. This creates a logical contradiction in the translation (claiming <10% OR <1%"
     },
     "pabrai-669ee549324b11": {
       "at": "2026-11-19T02:43:41+00:00",
@@ -4691,5 +4691,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-19T23:58:20+00:00"
+  "updatedAt": "2026-11-19T23:58:55+00:00"
 }
