@@ -4454,12 +4454,12 @@
       "reason": "ValueError: Copied source passage"
     },
     "marks-33ba7b1341d9b6": {
-      "at": "2026-11-18T00:05:31+00:00",
+      "at": "2026-11-19T14:35:16+00:00",
       "status": "retry",
       "inputHash": "48cb88c734be0d07a4915317215670283352c90c5de4d85ae97bb6f0c8cbb241",
-      "failures": 3,
-      "nextAttemptAt": "2026-11-18T16:05:31+00:00",
-      "reason": "ValueError: Bilingual editorial review: The source text contains a typo 'UourU' in s0 which should be 'our', but the provided content correctly translates this as 'one's own' without introducing new errors.; No factual contradictions or invented quotations were found; the content accurately reflects the source material regarding Howard Marks and Oaktree Capita"
+      "failures": 4,
+      "nextAttemptAt": "2026-11-20T22:35:16+00:00",
+      "reason": "ValueError: Bilingual editorial review: The Chinese text contains a typo in the source reference: 'UourU' should be 'our'. The English translation correctly renders this as 'our', but the underlying source data has an error.; The Chinese text adds interpretive phrases like 'non-transient market phenomena' and 'timeless principles' which, while faithful to the "
     },
     "marks-5a01e8c6cdc121": {
       "at": "2026-11-18T00:10:36+00:00",
@@ -4691,5 +4691,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-19T14:33:44+00:00"
+  "updatedAt": "2026-11-19T14:35:16+00:00"
 }
