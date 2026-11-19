@@ -604,12 +604,12 @@
       "reason": "ValueError: Bilingual editorial review: The English text incorrectly states Buffett 'joked that Munger had stepped over him technologically'. The source (s1) says Buffett is the one who 'skipped right by me', meaning Buffett surpassed Munger in technology adoption, not the other way around. This reverses the intended meaning.; The phrase 'stepping over a peanu"
     },
     "pabrai-7cdabeb4fe63b6": {
-      "at": "2026-11-17T14:14:17+00:00",
+      "at": "2026-11-19T02:38:11+00:00",
       "status": "retry",
       "inputHash": "c5028c13bfc0a24445e6f91045c8909bfbcaa2b6b3fd81a70edae3f21ee734cf",
-      "failures": 4,
-      "nextAttemptAt": "2026-11-18T22:14:17+00:00",
-      "reason": "ValueError: Unsupported numerical claim: 90%"
+      "failures": 5,
+      "nextAttemptAt": "2026-11-21T18:38:11+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English translation of 'reverse that missage' in s3 was corrected to 'correct', as 'missage' is not a standard word and likely a typo for 'mistake'.; The phrase 'outperform the vast majority without exerting much effort' accurately reflects Mohnish's claim about index funds beating 90%+ of the crowd.; The interpretat"
     },
     "vinall-29124350f57833": {
       "at": "2026-11-19T02:07:55+00:00",
@@ -4691,5 +4691,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-19T02:37:00+00:00"
+  "updatedAt": "2026-11-19T02:38:11+00:00"
 }
