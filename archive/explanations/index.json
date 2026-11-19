@@ -1958,12 +1958,12 @@
       "reason": "ValueError: Unsupported numerical claim: 6"
     },
     "pabrai-52346dc951afda": {
-      "at": "2026-11-18T08:43:13+00:00",
+      "at": "2026-11-19T23:53:13+00:00",
       "status": "retry",
       "inputHash": "e4e165f6767bad2c9baa52dcb3b486134cb1c4d0d2bf913f572e8b898679c682",
-      "failures": 4,
-      "nextAttemptAt": "2026-11-19T16:43:13+00:00",
-      "reason": "ValueError: Bilingual editorial review: Author attribution error: The source text (s2, s3, s4) clearly identifies the speaker as 'Mohnish' (referring to Mohnish Pabrai), but the content section incorrectly names him as 'Paul Tudor Jones Jr.'; Factual claim error regarding book price: The source states the book cost approximately 100,000 RMB today based on infl"
+      "failures": 5,
+      "nextAttemptAt": "2026-11-22T15:53:13+00:00",
+      "reason": "ValueError: Unsupported scaled numerical claim: 800"
     },
     "pabrai-246965219e21a9": {
       "at": "2026-11-18T09:00:24+00:00",
@@ -4691,5 +4691,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-19T23:52:24+00:00"
+  "updatedAt": "2026-11-19T23:53:13+00:00"
 }
