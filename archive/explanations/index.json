@@ -886,12 +886,12 @@
       "reason": "ValueError: Copied source passage"
     },
     "pabrai-c4e5dd4e66fada": {
-      "at": "2026-11-17T14:43:33+00:00",
+      "at": "2026-11-19T03:15:58+00:00",
       "status": "retry",
       "inputHash": "c8703afa637ba881a27abe4ae0063ed42857211001d4a08da7227f2933a87659",
-      "failures": 4,
-      "nextAttemptAt": "2026-11-18T22:43:33+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English translation of the quote 'To encounter misfortune and overcome it is good fortune' accurately reflects the source text.; The description of Charlie Munger's loss of his son to leukemia at age 11 matches the source (s2).; The mention of Munger losing one eye due to a botched cataract operation around age 60 al"
+      "failures": 5,
+      "nextAttemptAt": "2026-11-21T19:15:58+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English text incorrectly attributes the quote 'To encounter misfortune and overcome it is good fortune' to Marcus Aurelius as a direct statement from his book *Meditations*. The source (s2) presents this as a general idea ('There is a quote from him that says...') but does not provide the specific wording of such a q"
     },
     "lilu-c4110941c11d3f": {
       "at": "2026-11-17T23:59:52+00:00",
@@ -4691,5 +4691,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-19T03:15:17+00:00"
+  "updatedAt": "2026-11-19T03:15:58+00:00"
 }
