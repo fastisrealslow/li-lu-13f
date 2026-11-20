@@ -2420,12 +2420,12 @@
       "reason": "ValueError: Copied source passage"
     },
     "buffett-5a848c254e72aa": {
-      "at": "2026-11-18T09:04:36+00:00",
+      "at": "2026-11-20T08:26:08+00:00",
       "status": "retry",
       "inputHash": "0319c4c3b0f29539758461897817e256743bf93decdcdd10b42d1a96b5732155",
-      "failures": 4,
-      "nextAttemptAt": "2026-11-19T17:04:36+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English translation of 'per-share book value' in the Chinese text is accurate; however, the phrase 'net worth appreciation' is slightly imprecise compared to the source's 'gain in net worth'.; The claim that Buffett 'admits Berkshire underperformed... yet this does not negate its long-term advantage' is a faithful pa"
+      "failures": 5,
+      "nextAttemptAt": "2026-11-23T00:26:08+00:00",
+      "reason": "ValueError: Bilingual editorial review: The Chinese text incorrectly states 'net worth appreciation' (342 billion) as if it were a gain in equity value; the source clarifies this was Berkshire's gain in net worth *after* deducting charges, but the phrasing implies the $34.2B is the final result rather than the pre-deduction figure or the specific accounting tr"
     },
     "buffett-b5218ddf52191e": {
       "at": "2026-11-20T00:17:43+00:00",
@@ -4698,5 +4698,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-20T08:25:45+00:00"
+  "updatedAt": "2026-11-20T08:26:08+00:00"
 }
