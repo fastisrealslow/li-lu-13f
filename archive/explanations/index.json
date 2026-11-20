@@ -1102,12 +1102,12 @@
       "reason": "ValueError: Bilingual editorial review: The source text (s2) states Buffett would do '50% a year' if managing $1M-$10M, but does not claim this rate is sustainable indefinitely or that Buffett currently achieves it; the summary implies a general rule rather than a specific hypothetical scenario.; The source text (s4) explicitly sets the context as 'circa 2025'"
     },
     "pabrai-58b2cd1ba68941": {
-      "at": "2026-11-18T18:00:36+00:00",
+      "at": "2026-11-20T08:26:08+00:00",
       "status": "retry",
       "inputHash": "7df9309a6c69f755d883fd174544d687a4eba7aac6b667b98eb8876ce26c7493",
-      "failures": 4,
-      "nextAttemptAt": "2026-11-20T02:00:36+00:00",
-      "reason": "ValueError: Bilingual editorial review: The source text does not mention the term 'high hit rate paradox' (s10, s12, s13); this is an invented concept in the output.; The source states Buffett had a 3% hit rate over ~400 bets (s10), but the output claims this creates a 'paradox' which is not supported by the text.; The source says See's Candies helped understa"
+      "failures": 5,
+      "nextAttemptAt": "2026-11-23T00:26:08+00:00",
+      "reason": "ValueError: Bilingual editorial review: The source text (s10) states Buffett had 'approximately one great idea every five years' over 58 years, totaling 12 ideas. The summary claims this constitutes a 'high hit rate paradox' because the hit rate is only 3%. This contradicts the source's tone; Pabrai explicitly asks why it took so long to find just 12 ideas, fr"
     },
     "pabrai-c601c5640111d6": {
       "at": "2026-11-18T18:36:00+00:00",
