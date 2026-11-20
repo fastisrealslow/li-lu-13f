@@ -5,7 +5,7 @@
     "notablePeople": [
       "Seth Klarman"
     ],
-    "lastUpdated": "2026-11-20T17:17:16Z",
+    "lastUpdated": "2026-11-20T20:18:00Z",
     "aiSummary": "克拉曼大幅增持亚马逊与谷歌，新进芝商所等，显示其持续看好科技巨头及特定周期机会，同时减持部分传统行业仓位。",
     "aiSummaryQuarter": "2026 Q2",
     "shareActions": [
@@ -63729,7 +63729,7 @@
       ]
     },
     "coverage": {
-      "checkedAt": "2026-11-20T17:17:16Z",
+      "checkedAt": "2026-11-20T20:18:00Z",
       "missingQuarters": [
         "1999 Q3"
       ],
@@ -63738,7 +63738,7 @@
         "1999 Q3": "Legacy table reconciliation failed: 40/41 rows, $610102000/$647531000"
       },
       "attempts": {
-        "1999 Q3": 84
+        "1999 Q3": 85
       },
       "pendingRefreshQuarters": [],
       "expandedLookup": null,
@@ -69639,7 +69639,7 @@
         "source": "https://www.sec.gov/Archives/edgar/data/1061768/0001061768-03-000039.txt",
         "filingDate": "2003-05-14",
         "sourceDigest": "5e4e14111c9628dcfcba713492305c946c92cc5d44f490b7192044be3740aef8",
-        "sourceHash": "34d2401a114b3e07b688fea6a174bc481344bbb58daf562be6c3e579d0f81fa0",
+        "sourceHash": "484d1bd8156bf33cfc9f1706971295f6d618c4c807e1ced911b1630217c68e95",
         "status": "pending",
         "anchors": [],
         "errors": [
@@ -69652,7 +69652,7 @@
           "CALGZ: ValueError",
           "HBP: ValueError"
         ],
-        "normalizedHash": "34d2401a114b3e07b688fea6a174bc481344bbb58daf562be6c3e579d0f81fa0"
+        "normalizedHash": "484d1bd8156bf33cfc9f1706971295f6d618c4c807e1ced911b1630217c68e95"
       },
       "2003 Q2": {
         "version": 1,
@@ -69660,7 +69660,7 @@
         "source": "https://www.sec.gov/Archives/edgar/data/1061768/0001061768-03-000047.txt",
         "filingDate": "2003-08-13",
         "sourceDigest": "6f2be6c1c51bd614c31fa19d0273b3b3da23aa2dbe9bf2ff67d3bc32883f7fca",
-        "sourceHash": "e89d67941d20b8ff6ccae5b90cc1782a27f883530baa5a78ff906bc5a3f17a9b",
+        "sourceHash": "1ae98dce090721b73cc568b5cb707a0a4717667f892c3c3dab81c9a3ce2295a0",
         "status": "pending",
         "anchors": [],
         "errors": [
@@ -69671,9 +69671,9 @@
           "HBP: ValueError",
           "NTUS: ValueError",
           "NTLIV: ValueError",
-          "JJZ: ValueError"
+          "ALDN: ValueError"
         ],
-        "normalizedHash": "e89d67941d20b8ff6ccae5b90cc1782a27f883530baa5a78ff906bc5a3f17a9b"
+        "normalizedHash": "1ae98dce090721b73cc568b5cb707a0a4717667f892c3c3dab81c9a3ce2295a0"
       },
       "2003 Q3": {
         "version": 1,
@@ -70690,11 +70690,11 @@
       },
       "1999 Q1": {
         "version": 1,
-        "checkedAt": "2026-10-29",
+        "checkedAt": "2026-11-20",
         "source": "https://www.sec.gov/Archives/edgar/data/1061768/0001054420-99-000019.txt",
         "filingDate": "1999-05-14",
         "sourceDigest": "7f9071831962217b22636f5134b5ac4e41ad51130fde4e0d00bb370723d37cee",
-        "sourceHash": "afd49c0d26411a491bcd4b5f5f9c2ff17af7d939caf452d74e3e78e07ac95abb",
+        "sourceHash": "7d48107f872e817df09f9063e39b57a608b6d47ce2b587909791ac909fcf27ce",
         "status": "pending",
         "anchors": [
           {
@@ -70704,7 +70704,7 @@
             "price": 6.000000552606583,
             "date": "1999-03-31",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/VTR?period1=0&period2=1793386029&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/VTR?period1=0&period2=1795292284&interval=1d&events=splits",
             "candidates": [
               1
             ]
@@ -70716,22 +70716,25 @@
             "price": 13.5625,
             "date": "1999-03-31",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/TMO?period1=0&period2=1793386029&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/TMO?period1=0&period2=1795292284&interval=1d&events=splits",
             "candidates": [
               1
             ]
           }
         ],
-        "errors": [],
-        "normalizedHash": "afd49c0d26411a491bcd4b5f5f9c2ff17af7d939caf452d74e3e78e07ac95abb"
+        "errors": [
+          "OWWI: ValueError",
+          "SCZ/A: ValueError"
+        ],
+        "normalizedHash": "7d48107f872e817df09f9063e39b57a608b6d47ce2b587909791ac909fcf27ce"
       },
       "1999 Q2": {
         "version": 1,
-        "checkedAt": "2026-10-29",
+        "checkedAt": "2026-11-20",
         "source": "https://www.sec.gov/Archives/edgar/data/1061768/0001054420-99-000034.txt",
         "filingDate": "1999-08-13",
         "sourceDigest": "7cf21e7e20882d1948f65eacfb80e544de942d3200e6439cb977c83d1259ce7a",
-        "sourceHash": "2ff2cd5142c4f65683cc20231875bd321291aa2af490912cbe8314fa918a67ca",
+        "sourceHash": "3685591a4799865763fb17aaeaa886faca1eb11a0c7dbd8bf5f40a18812fadd8",
         "status": "pending",
         "anchors": [
           {
@@ -70741,14 +70744,19 @@
             "price": 5.375000260162354,
             "date": "1999-06-30",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/VTR?period1=0&period2=1793386029&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/VTR?period1=0&period2=1795292284&interval=1d&events=splits",
             "candidates": [
               1
             ]
           }
         ],
-        "errors": [],
-        "normalizedHash": "2ff2cd5142c4f65683cc20231875bd321291aa2af490912cbe8314fa918a67ca"
+        "errors": [
+          "WLTGQ: ValueError",
+          "OWWI: ValueError",
+          "EFBC: ValueError",
+          "SCZ/A: ValueError"
+        ],
+        "normalizedHash": "3685591a4799865763fb17aaeaa886faca1eb11a0c7dbd8bf5f40a18812fadd8"
       },
       "2003 Q4": {
         "version": 1,
@@ -70783,11 +70791,11 @@
       },
       "1999 Q4": {
         "version": 1,
-        "checkedAt": "2026-11-07",
+        "checkedAt": "2026-11-20",
         "source": "https://www.sec.gov/Archives/edgar/data/1061768/0001054420-00-000042.txt",
         "filingDate": "2000-02-11",
         "sourceDigest": "08a5f4d655213e1994bc7e5b2406533e4298272bb0475da1251b9662b419c5c0",
-        "sourceHash": "cbfcc77e47d9341310a5396f7a95b426ed7d503cc2d61b2a94179fcba10c7395",
+        "sourceHash": "b7b35486263d82b6d50b8bdd90b53b6ecc3abb2ca49094df9810fae6e6cca9d8",
         "status": "pending",
         "anchors": [
           {
@@ -70797,34 +70805,30 @@
             "price": 4.187500163841248,
             "date": "1999-12-31",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/VTR?period1=0&period2=1794142985&interval=1d&events=splits",
-            "candidates": [
-              1
-            ]
-          },
-          {
-            "ticker": "TDY",
-            "cusip": "879360105",
-            "filedPrice": 9.436657681940702,
-            "price": 9.4375,
-            "date": "1999-12-31",
-            "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/TDY?period1=0&period2=1794142986&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/VTR?period1=0&period2=1795292284&interval=1d&events=splits",
             "candidates": [
               1
             ]
           }
         ],
-        "errors": [],
-        "normalizedHash": "cbfcc77e47d9341310a5396f7a95b426ed7d503cc2d61b2a94179fcba10c7395"
+        "errors": [
+          "STEI: ValueError",
+          "HCBK: ValueError",
+          "WLTGQ: ValueError",
+          "OMN: ValueError",
+          "CCPRZ: ValueError",
+          "HBP: ValueError",
+          "OWWI: ValueError"
+        ],
+        "normalizedHash": "b7b35486263d82b6d50b8bdd90b53b6ecc3abb2ca49094df9810fae6e6cca9d8"
       },
       "2000 Q1": {
         "version": 1,
-        "checkedAt": "2026-11-07",
+        "checkedAt": "2026-11-20",
         "source": "https://www.sec.gov/Archives/edgar/data/1061768/0001054420-00-000049.txt",
         "filingDate": "2000-05-12",
         "sourceDigest": "40238fa0664b5e63c91f1e65b03950102ffe55b7fe99ef4a1da13cf0650faa46",
-        "sourceHash": "b7d578103ad82c6468325fc90baf4357e5e870bedee95d735471e6791a621cd1",
+        "sourceHash": "0a0c48d93481241bf24dc192be6bb381dfccc63d4dd2457949bbbf2c7be35a58",
         "status": "pending",
         "anchors": [
           {
@@ -70834,26 +70838,22 @@
             "price": 3.312499796175957,
             "date": "2000-03-31",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/VTR?period1=0&period2=1794142985&interval=1d&events=splits",
-            "candidates": [
-              1
-            ]
-          },
-          {
-            "ticker": "BC",
-            "cusip": "117043109",
-            "filedPrice": 18.938666666666666,
-            "price": 18.9375,
-            "date": "2000-03-31",
-            "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/BC?period1=0&period2=1794142986&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/VTR?period1=0&period2=1795292284&interval=1d&events=splits",
             "candidates": [
               1
             ]
           }
         ],
-        "errors": [],
-        "normalizedHash": "b7d578103ad82c6468325fc90baf4357e5e870bedee95d735471e6791a621cd1"
+        "errors": [
+          "HCBK: ValueError",
+          "HBP: ValueError",
+          "OMN: ValueError",
+          "WLTGQ: ValueError",
+          "CCPRZ: ValueError",
+          "OWWI: ValueError",
+          "MNY: ValueError"
+        ],
+        "normalizedHash": "0a0c48d93481241bf24dc192be6bb381dfccc63d4dd2457949bbbf2c7be35a58"
       },
       "2000 Q2": {
         "version": 1,
