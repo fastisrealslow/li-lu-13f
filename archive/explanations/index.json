@@ -1966,12 +1966,12 @@
       "reason": "ValueError: Unsupported scaled numerical claim: 800"
     },
     "pabrai-246965219e21a9": {
-      "at": "2026-11-18T09:00:24+00:00",
+      "at": "2026-11-20T00:18:22+00:00",
       "status": "retry",
       "inputHash": "eff8beef13d4c1d2c235f2683a1e0cf34733689e8501a9787e29eabae19f321e",
-      "failures": 4,
-      "nextAttemptAt": "2026-11-19T17:00:24+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English translation in the 'content' section contains significant factual errors and misrepresentations compared to the source text (s14, s15).; Error 1: The source states Microsoft's revenue comes from products that were 'cloned' or 'lifted' (e.g., Office bought from others, Excel from Lotus), but the translation cl"
+      "failures": 5,
+      "nextAttemptAt": "2026-11-22T16:18:22+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English translation in the source content (s14) contains factual errors regarding Microsoft's product origins (e.g., claiming PowerPoint was bought from another company; Word from Word Perfect is historically inaccurate as it was developed by Microsoft).; The English translation in s15 incorrectly states that Burger "
     },
     "pabrai-81ff2f9d531409": {
       "at": "2026-11-18T08:26:21+00:00",
@@ -4694,5 +4694,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-20T00:17:43+00:00"
+  "updatedAt": "2026-11-20T00:18:22+00:00"
 }
