@@ -4072,12 +4072,12 @@
       "reason": "ValueError: Bilingual editorial review: The Chinese text incorrectly attributes the specific annual return figures (15.1% for Lennar and 7.8% for S&P 500) to 'Stuart Miller' taking over in early 1997, whereas the English source explicitly states these returns occurred 'Since Miller took over Lennar in early 1997'. The Chinese text omits the name 'Miller' when "
     },
     "marks-05b38067d482db": {
-      "at": "2026-11-19T02:36:16+00:00",
+      "at": "2026-11-20T17:54:00+00:00",
       "status": "retry",
       "inputHash": "c059d951b763be37ac7080839d7e7324bce04c6610655c0e672c589837bb46f7",
-      "failures": 4,
-      "nextAttemptAt": "2026-11-20T10:36:16+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English translation in the 'content' section contains a significant factual error: it attributes the quote about historical success being unreliable to Howard Marks ('In his article...'), whereas the source text (s25) explicitly states that Nassim Nicholas Taleb wrote the book on this subject and calls it the 'bible'"
+      "failures": 5,
+      "nextAttemptAt": "2026-11-23T09:54:00+00:00",
+      "reason": "ValueError: Bilingual editorial review: The source text (s25) does not mention Nassim Nicholas Taleb's book 'Fooled by Randomness' as a 'bible'; this is an editorial interpretation added in the content section.; The source text (s28) mentions Alexander the Great but does not explicitly ask or state whether he was 'wise to count on them or foolhardy' as a rheto"
     },
     "marks-2b0acf3944f6ef": {
       "at": "2026-11-20T17:42:38+00:00",
@@ -4701,5 +4701,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-20T17:51:16+00:00"
+  "updatedAt": "2026-11-20T17:54:00+00:00"
 }
