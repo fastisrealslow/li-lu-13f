@@ -1142,12 +1142,12 @@
       "reason": "ValueError: Bilingual editorial review: The source text (s8) states '99% of businessmen' and later clarifies 'maybe 99.99%', but the summary presents this as a definitive fact ('causing approximately 99.99% of businessmen to err') without capturing the speaker's uncertainty ('maybe').; The source text (s8) says 'violating model number two', while the summary t"
     },
     "pabrai-e2b8759f740dd0": {
-      "at": "2026-11-19T02:42:02+00:00",
+      "at": "2026-11-20T18:23:07+00:00",
       "status": "retry",
       "inputHash": "1b2b5c1adf6509b4dc78080843bf69a13610fbd57b70bda56e6ad842d2328c5c",
-      "failures": 4,
-      "nextAttemptAt": "2026-11-20T10:42:02+00:00",
-      "reason": "ValueError: Unsupported numerical claim: 8"
+      "failures": 5,
+      "nextAttemptAt": "2026-11-23T10:23:07+00:00",
+      "reason": "ValueError: Unsupported numerical claim: 80%"
     },
     "pabrai-3b2771acdc0e22": {
       "at": "2026-11-19T15:02:37+00:00",
@@ -4701,5 +4701,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-20T18:19:33+00:00"
+  "updatedAt": "2026-11-20T18:23:07+00:00"
 }
