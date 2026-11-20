@@ -4152,12 +4152,12 @@
       "reason": "ValueError: Bilingual editorial review: The English paragraph misrepresents the source text by claiming Marks 'does not explicitly state' supply and demand supplanted fundamentals, whereas s23 states: 'Supply and demand have completely supplanted fundamentals in determining prices.'; The English paragraph incorrectly claims Marks argues valuation is 'not deter"
     },
     "marks-7344b034ec8674": {
-      "at": "2026-11-19T02:44:03+00:00",
+      "at": "2026-11-20T18:01:20+00:00",
       "status": "retry",
       "inputHash": "5c58de2b81d494135eda1d25841bb0d17387e197cab07f969356042c7b0f99f8",
-      "failures": 4,
-      "nextAttemptAt": "2026-11-20T10:44:03+00:00",
-      "reason": "ValueError: Bilingual editorial review: The source text does not explicitly state that the risk-free rate dropped from 'traditional 4%' to 'nearly 1%'; it only says 'The riskless rate isn't 4%; it's closer to 1%', implying a current state rather than a historical decline from 4%.; The source mentions 'venture capital' with its 'low success ratio', but does not"
+      "failures": 5,
+      "nextAttemptAt": "2026-11-23T10:01:20+00:00",
+      "reason": "ValueError: Bilingual editorial review: The source text (s7) states: 'If I can get 10% from stocks... And 25% if I'm going to invest in buyouts... and 30% to induce me to go for venture capital'. The content section incorrectly attributes the 15% requirement to buyouts and the 30% requirement to venture capital. It swaps these figures (s7 says 25% for buyouts,"
     },
     "marks-a7349c82108581": {
       "at": "2026-11-19T14:36:36+00:00",
@@ -4701,5 +4701,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-20T18:01:02+00:00"
+  "updatedAt": "2026-11-20T18:01:20+00:00"
 }
