@@ -2520,12 +2520,12 @@
       "reason": "ValueError: Bilingual editorial review: The Chinese text states 'unreported earnings... totaled $2.8 billion' while the source (s13) says '$2.8 billion of earnings we do not report'. This is accurate.; The Chinese text states 'dividend income (approximately $1.1 billion)' while the source (s13) says 'about $1.1 billion'. This is accurate.; The Chinese text sta"
     },
     "buffett-03ea47cc01ea52": {
-      "at": "2026-11-18T17:53:54+00:00",
+      "at": "2026-11-20T08:18:22+00:00",
       "status": "retry",
       "inputHash": "e496569cb0dad7c35485dcddf8581d0d7c9d1bd755de18da0e9c0ffa010f749c",
-      "failures": 4,
-      "nextAttemptAt": "2026-11-20T01:53:54+00:00",
-      "reason": "ValueError: Bilingual editorial review: The Chinese text claims Buffett 'acknowledged' market values track business values well over long periods but can fluctuate capriciously. The source (s1) states the opposite: 'While market values track business values quite well over long periods... in any given year the relationship can gyrate capriciously.' The phrasin"
+      "failures": 5,
+      "nextAttemptAt": "2026-11-23T00:18:22+00:00",
+      "reason": "ValueError: Bilingual editorial review: The Chinese text claims Buffett 'cites' the ownership percentages (60% of Blue Chip Stamps, 80% of Wesco) as a specific example to explain earnings treatment. However, the source text (s38) presents these facts objectively under the heading 'Sources of Reported Earnings' to illustrate how operating earnings are calculate"
     },
     "buffett-85b7099c08190e": {
       "at": "2026-11-18T18:02:17+00:00",
@@ -4698,5 +4698,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-20T08:17:58+00:00"
+  "updatedAt": "2026-11-20T08:18:22+00:00"
 }
