@@ -4040,12 +4040,12 @@
       "reason": "ValueError: Bilingual editorial review: Factual error: The source text cites John Kenneth Galbraith, but the content section incorrectly attributes the quote to 'Kenneth Galbraith' (missing 'John') and misidentifies the person as a manager type rather than a forecaster.; Factual error: The source text references Amos Tversky, but the content section incorrectl"
     },
     "marks-d7340ccf6b811f": {
-      "at": "2026-11-19T02:19:42+00:00",
+      "at": "2026-11-20T17:37:51+00:00",
       "status": "retry",
       "inputHash": "403e9b13a7471af39baea1bff1b04a29ec17255dbb84f76903847134fb71de84",
-      "failures": 4,
-      "nextAttemptAt": "2026-11-20T10:19:42+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English translation of the title in the source metadata ('How the Game Should Be Played') does not match the actual content theme (avoiding losses vs. seeking big wins); the provided Chinese title is more accurate to the text.; The English paragraph contains a minor typo: 'end up' should be 'be', and 'single-game' is"
+      "failures": 5,
+      "nextAttemptAt": "2026-11-23T09:37:51+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English translation of the Chinese paragraph contains factual inaccuracies regarding the source text.; The source (s0) states Marks wrote a memo in **1990** to take issue with a manager's quote about being in the top/bottom 5%. The translation incorrectly attributes this specific argument to the **1995** memo, confla"
     },
     "marks-b86a61b70ef225": {
       "at": "2026-11-19T15:09:37+00:00",
@@ -4701,5 +4701,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-20T17:37:48+00:00"
+  "updatedAt": "2026-11-20T17:37:51+00:00"
 }
