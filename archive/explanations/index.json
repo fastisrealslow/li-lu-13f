@@ -2544,10 +2544,12 @@
       "reason": "ValueError: Copied source passage"
     },
     "webb-0ba17a64cdb8de": {
-      "at": "2026-11-14T15:02:38+00:00",
+      "at": "2026-11-20T00:28:01+00:00",
       "status": "retry",
       "inputHash": "0001c12e5e95f69b91beb74f161aa40226e07ebc2f9b8c81554f739975f92478",
-      "reason": "ValueError: No audio obtained"
+      "failures": 1,
+      "nextAttemptAt": "2026-11-20T04:28:01+00:00",
+      "reason": "ValueError: Unsupported numerical claim: 2"
     },
     "buffett-9169b59ba08b0c": {
       "at": "2026-11-18T17:56:05+00:00",
@@ -4696,5 +4698,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-20T00:27:04+00:00"
+  "updatedAt": "2026-11-20T00:28:01+00:00"
 }
