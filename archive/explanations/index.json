@@ -4080,12 +4080,12 @@
       "reason": "ValueError: Bilingual editorial review: The English translation in the 'content' section contains a significant factual error: it attributes the quote about historical success being unreliable to Howard Marks ('In his article...'), whereas the source text (s25) explicitly states that Nassim Nicholas Taleb wrote the book on this subject and calls it the 'bible'"
     },
     "marks-2b0acf3944f6ef": {
-      "at": "2026-11-19T02:23:43+00:00",
+      "at": "2026-11-20T17:42:38+00:00",
       "status": "retry",
       "inputHash": "c636142f41179d8f622b08bb1db732fd9c6340e084246dd4f186f05a3343b0a1",
-      "failures": 4,
-      "nextAttemptAt": "2026-11-20T10:23:43+00:00",
-      "reason": "ValueError: Bilingual editorial review: The Chinese text contains significant factual errors regarding Howard Marks' actual arguments in 'Risk in Today's Markets'. It incorrectly claims the article discusses a 'tension between investor behavior and bullish arguments' or that it warns about 'minor rate hikes', whereas the source evidence only states two trends "
+      "failures": 5,
+      "nextAttemptAt": "2026-11-23T09:42:38+00:00",
+      "reason": "ValueError: Copied source passage"
     },
     "mclemore-fb12d1f663a2b3": {
       "at": "2026-11-19T02:36:05+00:00",
@@ -4701,5 +4701,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-20T17:42:06+00:00"
+  "updatedAt": "2026-11-20T17:42:38+00:00"
 }
