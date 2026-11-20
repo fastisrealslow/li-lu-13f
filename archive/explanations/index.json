@@ -1934,12 +1934,12 @@
       "reason": "ValueError: Bilingual editorial review: The source text does not explicitly state that Vinall's views have 'not aged poorly' in the exact phrasing used in the Chinese translation; it says 'they have not aged too badly', which is a minor nuance difference but acceptable.; The source text mentions '2013, when I made our first investment in China in Baidu', imply"
     },
     "pabrai-1e956456cad67c": {
-      "at": "2026-11-19T03:01:14+00:00",
+      "at": "2026-11-20T18:06:56+00:00",
       "status": "retry",
       "inputHash": "067c627cd69870aa6bfc7d791a2ec58805940a9dbe1a08b37da77713f9f9c1e4",
-      "failures": 4,
-      "nextAttemptAt": "2026-11-20T11:01:14+00:00",
-      "reason": "ValueError: Bilingual editorial review: The content section contains a concrete factual error: it claims Pabrai never mentions David Hawkins or his book 'Power Versus Force', whereas the source text (s3) explicitly states he read this book and cites Hawkins' thesis regarding lying and truth.; The content section incorrectly asserts that Pabrai proposed a logar"
+      "failures": 5,
+      "nextAttemptAt": "2026-11-23T10:06:56+00:00",
+      "reason": "ValueError: Bilingual editorial review: The source text does not mention 'David Hawkins' or his book 'Power Versus Force'; it only refers to a 'new age guy in Arizona'.; The source text does not describe the mechanism as causing 'physical weakness in muscles' or 'muscular reactions'; it only mentions feeling good or bad.; The source text does not mention a 'lo"
     },
     "pabrai-d1dea134078fdc": {
       "at": "2026-11-19T14:49:08+00:00",
@@ -4701,5 +4701,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-20T18:06:47+00:00"
+  "updatedAt": "2026-11-20T18:06:56+00:00"
 }
