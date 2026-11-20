@@ -1462,12 +1462,12 @@
       "reason": "ValueError: Bilingual editorial review: The Chinese text claims Pabrai chose computer science due to 'popular trends' or 'parental influence', but the source (s3) states he followed advice because his father wanted them in the US and CS was a hot field at that time; it does not explicitly attribute the choice to parental influence over his own desire.; The Chi"
     },
     "pabrai-ac73782c4fb468": {
-      "at": "2026-11-18T08:58:40+00:00",
+      "at": "2026-11-20T00:14:47+00:00",
       "status": "retry",
       "inputHash": "646ba2637a95b22616e050913e38c54c44d16c05e5d3bd9160e1d091d30cc227",
-      "failures": 4,
-      "nextAttemptAt": "2026-11-19T16:58:40+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English title claims a session date of April 22, 2025, which is in the future relative to the current date (2026), making it factually incorrect.; The content section incorrectly attributes 'Reciprocal Altruism' as a key concept discussed; the source text only mentions mental models and cognitive biases without refer"
+      "failures": 5,
+      "nextAttemptAt": "2026-11-22T16:14:47+00:00",
+      "reason": "ValueError: Bilingual editorial review: The content section incorrectly claims the text discusses 'reciprocal altruism', which is absent from the provided source evidence (s1-s3).; The English translation of the heading introduces 'Reciprocal Altruism' despite no such concept appearing in the source text.; The Chinese text falsely states the text focuses on 'c"
     },
     "pabrai-5b328b6415f6b0": {
       "at": "2026-11-19T23:38:43+00:00",
@@ -4694,5 +4694,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-20T00:14:12+00:00"
+  "updatedAt": "2026-11-20T00:14:47+00:00"
 }
