@@ -902,12 +902,12 @@
       "reason": "ValueError: Copied source passage"
     },
     "lilu-1abd9fac13a133": {
-      "at": "2026-11-18T08:47:16+00:00",
+      "at": "2026-11-20T00:06:34+00:00",
       "status": "retry",
       "inputHash": "0a0f97870ba74586001cffc1b0a70112c9d2162592515640edff0b78f97fdbae",
-      "failures": 4,
-      "nextAttemptAt": "2026-11-19T16:47:16+00:00",
-      "reason": "ValueError: Bilingual editorial review: The source text (s12-s14) does not mention 'ethical boundaries' or the 'Principle of Human-in-the-Loop'; these terms are absent and constitute invented concepts.; The source describes a trajectory from tool to agent to 'man-made god', but does not explicitly state that human society will 'not permit nor wish for' such an"
+      "failures": 5,
+      "nextAttemptAt": "2026-11-22T16:06:34+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English translation in the content section contains a factual error regarding the timeline of the Turing test. The source text (s12) states the Turing test occurred 'nearly four years ago' relative to the speech, but the translation claims it happened 'nearly four years prior to the speech'. While this phrasing is gr"
     },
     "pabrai-deed882841e367": {
       "at": "2026-11-19T23:38:17+00:00",
@@ -4691,5 +4691,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-20T00:05:49+00:00"
+  "updatedAt": "2026-11-20T00:06:34+00:00"
 }
