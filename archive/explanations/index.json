@@ -1614,12 +1614,12 @@
       "reason": "ValueError: Bilingual editorial review: The Chinese translation of Seinfeld's quote is factually inaccurate: the source text says 'If you have the reservation, it means you have the car,' but the translation adds 'that is the whole point of a reservation' which changes the meaning and is not in the source.; The Chinese translation incorrectly attributes the ob"
     },
     "pabrai-4c377fa29a8e7e": {
-      "at": "2026-11-18T18:24:26+00:00",
+      "at": "2026-11-20T08:54:33+00:00",
       "status": "retry",
       "inputHash": "32ff5880bf04a7de408f56f8c7c616a2ebe03f93bc6489095d654cd67c7edf9a",
-      "failures": 4,
-      "nextAttemptAt": "2026-11-20T02:24:26+00:00",
-      "reason": "ValueError: Bilingual editorial review: The Chinese text claims 'Sleep advised investors... invest in the five or six stocks held by his fund' (sleep 5-6 stocks), but the English source (s6) states Sleep recommended 'five, six stocks', while Zak invested in 'six stocks'. The text incorrectly attributes the specific list of Amazon/Costco/Berkshire to Sleep as a"
+      "failures": 5,
+      "nextAttemptAt": "2026-11-23T00:54:33+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English translation in the content section contains factual inaccuracies regarding Nick Sleep's portfolio allocation. The source text (s7) states he put everything into three stocks (Amazon, Costco, Berkshire Hathaway), but the translation claims 'almost his entire capital' and implies Amazon was the largest portion "
     },
     "pabrai-35e6c02262592b": {
       "at": "2026-11-20T00:25:50+00:00",
@@ -4701,5 +4701,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-20T08:52:20+00:00"
+  "updatedAt": "2026-11-20T08:54:33+00:00"
 }
