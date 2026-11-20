@@ -2960,12 +2960,12 @@
       "reason": "ValueError: Bilingual editorial review: The English translation in the 'content' section incorrectly attributes a specific argument about 'economics primacy over politics' to Howard Marks. The source text (s1-s3) defines economics as the study of choice due to scarcity but makes no mention of politics, political roles, or any hierarchy between economics and po"
     },
     "marks-37b489c9444212": {
-      "at": "2026-11-18T08:54:28+00:00",
+      "at": "2026-11-20T00:02:56+00:00",
       "status": "retry",
       "inputHash": "d21ebb799ed9a1475ec17c9b113e95eb4bb24f908ecf3b8faf741ee2228a2577",
-      "failures": 4,
-      "nextAttemptAt": "2026-11-19T16:54:28+00:00",
-      "reason": "ValueError: Unsupported numerical claim: 50%"
+      "failures": 5,
+      "nextAttemptAt": "2026-11-22T16:02:56+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English translation in the content section incorrectly attributes the quote to 'Howard Marks' instead of 'Howard Marks' (as per canonical names), though the name is correct; however, the text omits the copyright notice present in source s4 which ends abruptly with '© OAKTREE CAPITAL MANAGEMENT, L.P. ALL RIGHTS RESERV"
     },
     "marks-afaf50fd1a0d44": {
       "at": "2026-11-18T18:42:18+00:00",
@@ -4691,5 +4691,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-20T00:01:39+00:00"
+  "updatedAt": "2026-11-20T00:02:56+00:00"
 }
