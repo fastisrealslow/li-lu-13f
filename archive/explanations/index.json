@@ -1334,12 +1334,12 @@
       "reason": "ValueError: Unsupported numerical claim: 3"
     },
     "pabrai-e3b4089e3ab4c6": {
-      "at": "2026-11-19T02:39:09+00:00",
+      "at": "2026-11-20T17:46:35+00:00",
       "status": "retry",
       "inputHash": "06482ca1be1e492edada57a7dee4873243f975fa01f5d20b8e196300bfe3c83d",
-      "failures": 4,
-      "nextAttemptAt": "2026-11-20T10:39:09+00:00",
-      "reason": "ValueError: Bilingual editorial review: The source text (s7) states Rain Industries had a PE of '10 or 15 times earnings' at the time, but the summary claims it was trading at 'a PE of around 0.1 despite having normal earnings multiples of 10 to 15 times'. The phrasing 'despite having' implies a contradiction between the low market cap and the high multiple, w"
+      "failures": 5,
+      "nextAttemptAt": "2026-11-23T09:46:35+00:00",
+      "reason": "ValueError: Bilingual editorial review: The source text (s7) states Rain Industries had a PE of '10 or 15 times earnings' at the time, but the summary claims it was trading at '10 to 15 times earnings', which contradicts the earlier statement that it was trading at '10th of revenue, PEs of 0.1'. The source explicitly says 'rain Industries, it had a normal mult"
     },
     "pabrai-36450d370316ee": {
       "at": "2026-11-19T02:57:25+00:00",
@@ -4701,5 +4701,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-20T17:45:26+00:00"
+  "updatedAt": "2026-11-20T17:46:35+00:00"
 }
