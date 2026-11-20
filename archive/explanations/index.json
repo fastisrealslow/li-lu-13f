@@ -1758,12 +1758,12 @@
       "reason": "ValueError: Bilingual editorial review: The English translation contains a factual error: the source text states 'less than maybe one tenth or 1%', but the translation renders this as 'less than one-tenth or 1%'. The phrase 'one tenth' is mathematically equivalent to '10%', not '1%'. This creates a logical contradiction in the translation (claiming <10% OR <1%"
     },
     "pabrai-669ee549324b11": {
-      "at": "2026-11-19T02:43:41+00:00",
+      "at": "2026-11-20T17:51:06+00:00",
       "status": "retry",
       "inputHash": "3dcd814a226b27f9418794b72bf768569c96db3ad5cb45410116611497fef339",
-      "failures": 4,
-      "nextAttemptAt": "2026-11-20T10:43:41+00:00",
-      "reason": "ValueError: Bilingual editorial review: The source text does not contain any information regarding Pabrai's personal entrepreneurial experience or career advice for MBA students; the summary incorrectly claims he 'did not discuss' these topics as if they were mentioned but omitted, whereas the evidence shows no such discussion occurred at all.; The summary sta"
+      "failures": 5,
+      "nextAttemptAt": "2026-11-23T09:51:06+00:00",
+      "reason": "ValueError: Bilingual editorial review: The source text (s4-s6) does not contain any mention of 'drones' or 'AI scheduling' in the context of pre-positioning drivers; these are mentioned only as future possibilities ('Of course, you have drones and everything else that might come in as well'), not as established mechanisms for order prediction. The paraphrase "
     },
     "pabrai-3e87834c3b997b": {
       "at": "2026-11-19T23:35:31+00:00",
@@ -4701,5 +4701,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-20T17:50:58+00:00"
+  "updatedAt": "2026-11-20T17:51:06+00:00"
 }
