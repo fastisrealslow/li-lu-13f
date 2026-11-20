@@ -3952,12 +3952,12 @@
       "reason": "ValueError: Bilingual editorial review: The English translation in the 'content' section contains a significant factual error regarding Howard Marks' position. The source text (s5) states: 'Thus theory is quite right when it says the market can't be beat . . . certainly by the vast majority of investors.' However, the provided English translation claims he 'su"
     },
     "marks-f30850a5af3022": {
-      "at": "2026-11-19T02:28:14+00:00",
+      "at": "2026-11-20T17:47:17+00:00",
       "status": "retry",
       "inputHash": "7a21938d61a803380758e021def2153a6265ae73de706451061de894384dac5c",
-      "failures": 4,
-      "nextAttemptAt": "2026-11-20T10:28:14+00:00",
-      "reason": "ValueError: Bilingual editorial review: The Chinese text claims Howard Marks cites a satirical quote from 'Dandy Don' Meredith on Monday Night Football. The source (s6) confirms the quote and speaker but does not mention 'Monday Night Football', making this an unwritten addition.; The Chinese text states Professor Steven Kaplan's paper shows returns were 'no b"
+      "failures": 5,
+      "nextAttemptAt": "2026-11-23T09:47:17+00:00",
+      "reason": "ValueError: Bilingual editorial review: The Chinese text claims Professor Steven Kaplan is the 'head of the entrepreneurial studies department at the University of Chicago's Graduate School of Business'. The source (s7) only states he 'authored a paper' and his title; it does not confirm his specific departmental role or affiliation with the GSB, which is an e"
     },
     "marks-a7f3636fd038a4": {
       "at": "2026-11-19T14:11:36+00:00",
@@ -4701,5 +4701,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-20T17:46:44+00:00"
+  "updatedAt": "2026-11-20T17:47:17+00:00"
 }
