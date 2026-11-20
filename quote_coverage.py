@@ -145,7 +145,8 @@ def prepare_publication(root=ROOT):
     configs=load(root/'investors.json')['investors']
     for inv in configs:
         path=root/inv['pricesFile'];payload=load_prices(path);changed=False
-        holdings=list(load(root/inv['dataFile'])['current']['holdings'])
+        current=load(root/inv['dataFile'])['current']
+        holdings=list(current['holdings'])
         from quote_transitions import apply as apply_transitions, transition_for
         if any(transition_for(h) for h in holdings):
             apply_transitions(payload,holdings);changed=True
@@ -178,6 +179,12 @@ def prepare_publication(root=ROOT):
                     if cost['allTime'].get('first','')<=boundary:cost['allTime']=None;cost['averageUnavailable']='corporate_action'
                 changed=True
             q=payload.setdefault('quotes',{}).get(h['ticker'],{})
+            reference=warrant_reference(h,current)
+            if reference and not fresh_quote(q):
+                if 'c' in q and not valid_quote({**q,'error':False}):
+                    raise ValueError('Malformed price cannot become a publication fallback: '+h['ticker'])
+                if q!=reference:payload['quotes'][h['ticker']]=reference;changed=True
+                continue
             if q.get('status') in ('ceased_trading','filing_reference') or fresh_quote(q):continue
             if 'c' in q and (not valid_quote({**q,'error':False}) or h['ticker'].endswith('.HK') and q.get('currency')!='HKD'):
                 raise ValueError('Malformed price cannot become a publication fallback: '+h['ticker'])
@@ -247,11 +254,6 @@ def refresh(root=ROOT,all_quotes=False,workers=4):
             if event:
                 files[inv['pricesFile']].setdefault('quotes',{})[h['ticker']]={'status':'ceased_trading','event':event}
                 continue
-            if re.search(r'\bWARRANT\b',h.get('cls',''),re.I):
-                q=files[inv['pricesFile']].get('quotes',{}).get(h['ticker'],{})
-                if not valid_quote(q):
-                    files[inv['pricesFile']].setdefault('quotes',{})[h['ticker']]=warrant_reference(h,load(root/inv['dataFile'])['current'])
-                    continue
             if h.get('shareType','SH')!='SH' or h['ticker'].startswith('?'):continue
             from quote_transitions import transition_for
             if transition_for(h):continue  # fetched below via CUSIP-bound quote route
@@ -265,15 +267,19 @@ def refresh(root=ROOT,all_quotes=False,workers=4):
             print('Quote',tk,'ok' if valid_quote(results[tk]) else 'retry',flush=True)
     for inv in configs:
         path=root/inv['pricesFile'];data=files[inv['pricesFile']];quotes=data.setdefault('quotes',{})
-        for h in load(root/inv['dataFile'])['current']['holdings']:
+        current=load(root/inv['dataFile'])['current']
+        for h in current['holdings']:
             tk=h['ticker'];fresh=results.get(tk);old=quotes.get(tk,{})
             from security_lifecycle import event_for
             if event_for(h,root):continue  # reused symbol cannot revive retired class
             if fresh and valid_quote(fresh) and (not valid_quote(old) or fresh['t']>=old['t']):
                 from batch_market_data import merge_actions
-                quotes[tk]=merge_actions(old,fresh)
+                # A dated filed-unit reference is not market-quote metadata.
+                quotes[tk]=merge_actions({} if old.get('status')=='filing_reference' else old,fresh)
             elif fresh and not valid_quote(fresh) and valid_quote(old):quotes[tk]={**old,'stale':True}
-        for h in load(root/inv['dataFile'])['current']['holdings']:
+            reference=warrant_reference(h,current)
+            if reference and not fresh_quote(quotes.get(tk,{})):quotes[tk]=reference
+        for h in current['holdings']:
             a=aliases.get(h.get('cusip'),{})
             if a.get('kind')=='one_for_one_reorganization' and a.get('conversionRatio')==1 and valid_quote(quotes.get(h['ticker'],{})):
                 quotes[h['ticker']]['successorRatio']=1;quotes[h['ticker']]['successorSource']=a['sourceURL']

@@ -79,4 +79,40 @@ class QuoteCoverageTests(unittest.TestCase):
             self.assertNotIn('LBTYK',json.loads((root/'prices.json').read_text())['costBasis'])
             self.assertEqual(filings.resolve_ticker('LIBERTY GLOBAL LTD','SHS CL C','G61188127'),'LBTYK')
 
+    def test_expired_warrant_falls_back_to_dated_filing_then_recovers_live_quote(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root=Path(tmp);cfg={'id':'test','dataFile':'fund.json','pricesFile':'prices.json'}
+            current={'holdings':[{'ticker':'ALVOW','name':'Synthetic issuer','cusip':'L01800116','cls':'WARRANT','shares':100,'value':25}],'periodEnd':'2026-06-30','sourceFiling':'https://www.sec.gov/Archives/edgar/data/1/1/filing-index.html'}
+            (root/'investors.json').write_text(json.dumps({'investors':[cfg]}));(root/'fund.json').write_text(json.dumps({'current':current}))
+            (root/'prices.json').write_text(json.dumps({'quotes':{'ALVOW':{'c':.27,'t':time.time()-9*86400}}}))
+            with patch.object(quotes,'resolve_active'),patch.object(resolver,'backfill_data_files'),patch.object(quotes,'market_quote',return_value={'error':True}) as request:
+                self.assertEqual(quotes.refresh(root)['missing'],[])
+            request.assert_called_once_with('ALVOW')
+            reference=json.loads((root/'prices.json').read_text())['quotes']['ALVOW']
+            self.assertEqual(reference,quotes.warrant_reference(current['holdings'][0],current))
+            self.assertNotIn('c',reference);self.assertNotIn('t',reference)
+            live={'c':.3,'t':time.time(),'currency':'USD'}
+            with patch.object(quotes,'resolve_active'),patch.object(resolver,'backfill_data_files'),patch.object(quotes,'market_quote',return_value=live) as request:
+                self.assertEqual(quotes.refresh(root)['missing'],[])
+            request.assert_called_once_with('ALVOW')
+            restored=json.loads((root/'prices.json').read_text())['quotes']['ALVOW']
+            self.assertEqual(restored['c'],.3);self.assertNotIn('status',restored);self.assertNotIn('filedUnitValue',restored)
+            self.assertEqual(json.loads((root/'fund.json').read_text())['current'],current)
+
+    def test_publication_warrant_reference_is_not_available_for_unverified_source(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root=Path(tmp);cfg={'id':'test','dataFile':'fund.json','pricesFile':'prices.json'}
+            current={'holdings':[{'ticker':'WARRANT','name':'Synthetic issuer','cusip':'123456789','cls':'WARRANT','shares':100,'value':25}],'periodEnd':'2026-06-30'}
+            (root/'investors.json').write_text(json.dumps({'investors':[cfg]}));(root/'fund.json').write_text(json.dumps({'current':current}))
+            (root/'prices.json').write_text('{"quotes":{}}')
+            quotes.prepare_publication(root)
+            self.assertEqual(len(quotes.coverage(root)['missing']),1)
+            current['sourceFiling']='https://www.sec.gov/Archives/edgar/data/1/1/filing-index.html'
+            (root/'fund.json').write_text(json.dumps({'current':current}))
+            quotes.prepare_publication(root)
+            self.assertEqual(quotes.coverage(root)['missing'],[])
+            (root/'prices.json').write_text(json.dumps({'quotes':{'WARRANT':{'c':0,'t':time.time()}}}))
+            with self.assertRaisesRegex(ValueError,'Malformed price'):
+                quotes.prepare_publication(root)
+
 if __name__=='__main__':unittest.main()
