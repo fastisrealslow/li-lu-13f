@@ -2896,12 +2896,12 @@
       "reason": "ValueError: Bilingual editorial review: The English text incorrectly attributes the quote 'You are!?!' to a reporter friend; source s9 states this was said by a client institution's CIO during equity raising discussions.; The English text omits the specific date (September 18, 2008) mentioned in source s8 regarding Bruce Karsh's team's investment start.; The E"
     },
     "marks-fca35f29cc0342": {
-      "at": "2026-11-18T08:53:07+00:00",
+      "at": "2026-11-20T08:13:24+00:00",
       "status": "retry",
       "inputHash": "584949d5d553dfe3e88c4dd4820627220f9d434bc04ff0058868169002672ed1",
-      "failures": 4,
-      "nextAttemptAt": "2026-11-19T16:53:07+00:00",
-      "reason": "ValueError: Incomplete AI Write at 3200 tokens"
+      "failures": 5,
+      "nextAttemptAt": "2026-11-23T00:13:24+00:00",
+      "reason": "ValueError: Unsupported numerical claim: 3"
     },
     "marks-c3270b71aecf96": {
       "at": "2026-11-19T02:35:55+00:00",
@@ -4698,5 +4698,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-20T08:13:23+00:00"
+  "updatedAt": "2026-11-20T08:13:24+00:00"
 }
