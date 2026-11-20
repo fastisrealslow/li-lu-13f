@@ -1918,12 +1918,12 @@
       "reason": "ValueError: Bilingual editorial review: The English translation contains a critical factual error: it states Pabrai 'advised against high exposure' to Microsoft. The source text (s5) records his dialogue as 'I don't think it's a good idea to have this much exposure', which is an opinion on the specific situation, not a general advisory stance presented as such"
     },
     "pabrai-7b63bdce3eef9a": {
-      "at": "2026-11-18T08:21:04+00:00",
+      "at": "2026-11-20T00:20:48+00:00",
       "status": "retry",
       "inputHash": "68d5f7c9f40789729bebada2a9716f4f437e424e0a4f8745b935f1986e2cd3ef",
-      "failures": 4,
-      "nextAttemptAt": "2026-11-19T16:21:04+00:00",
-      "reason": "ValueError: Unsupported numerical claim: 100,000"
+      "failures": 5,
+      "nextAttemptAt": "2026-11-22T16:20:48+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English translation in the source text contains a critical factual error: it translates 'savings and credit card bearings' as 'mechanical parts', which is nonsensical in this context. The original Chinese text uses 'bearing' (likely a mistranslation of 'balance' or 'funds') to mean money, not mechanical components.; "
     },
     "vinall-c12bae3cc1e659": {
       "at": "2026-11-18T17:45:49+00:00",
@@ -4696,5 +4696,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-20T00:20:19+00:00"
+  "updatedAt": "2026-11-20T00:20:48+00:00"
 }
