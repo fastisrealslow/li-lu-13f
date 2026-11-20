@@ -596,12 +596,12 @@
       "reason": "ValueError: Bilingual editorial review: The source text (s12) states Prosus's stake in 10C is 'over 100% of its net asset value', which is mathematically impossible for a single stake to exceed total net assets. The content incorrectly interprets this as 'almost entirely (over 100%)' and claims the remainder comprises 'only a few other investments'. This contr"
     },
     "buffett-0dffc205cf0707": {
-      "at": "2026-11-18T18:50:47+00:00",
+      "at": "2026-11-20T17:45:26+00:00",
       "status": "retry",
       "inputHash": "1d76788f6afc3705ee7312a9df35d32e151aa4a046a084d5a6cdc80fb154b0d8",
-      "failures": 4,
-      "nextAttemptAt": "2026-11-20T02:50:47+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English text incorrectly states Buffett 'joked that Munger had stepped over him technologically'. The source (s1) says Buffett is the one who 'skipped right by me', meaning Buffett surpassed Munger in technology adoption, not the other way around. This reverses the intended meaning.; The phrase 'stepping over a peanu"
+      "failures": 5,
+      "nextAttemptAt": "2026-11-23T09:45:26+00:00",
+      "reason": "ValueError: Unsupported numerical claim: 1950"
     },
     "pabrai-7cdabeb4fe63b6": {
       "at": "2026-11-19T02:38:11+00:00",
@@ -4701,5 +4701,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-20T17:42:38+00:00"
+  "updatedAt": "2026-11-20T17:45:26+00:00"
 }
