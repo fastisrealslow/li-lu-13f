@@ -3829,12 +3829,12 @@
       "reason": "ValueError: Bilingual editorial review: The Chinese text claims Marks argues that 'history does not simply repeat itself' based on Bogle's observation; however, the source text (s1) only quotes Bogle regarding uncertainty and risk, with no mention of historical repetition or analytical frameworks.; The Chinese text states Marks emphasizes avoiding 'blind optim"
     },
     "marks-159247340c6388": {
-      "at": "2026-11-18T18:06:47+00:00",
+      "at": "2026-11-20T08:06:22+00:00",
       "status": "retry",
       "inputHash": "2f65c3b39af38f2235052b249ec59467aa062fe593d45163f406df1bcccac84a",
-      "failures": 4,
-      "nextAttemptAt": "2026-11-20T02:06:47+00:00",
-      "reason": "ValueError: Bilingual editorial review: The Chinese text incorrectly translates 'exotic investments' as 'exotic  investment', missing the article 'the' before 'investment'.; The Chinese text omits the word 'the' in 'the prosaic acts', which is present in the source.; The Chinese text uses '30-times leverage' while the source says '30-times leverage'; this is a"
+      "failures": 5,
+      "nextAttemptAt": "2026-11-23T00:06:22+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English translation in the content section misrepresents the source text's specific phrasing regarding leverage. Source s26 states '30-times leverage', but the translation uses '30-times leverage rate'. While factually close, it adds an unnecessary word ('rate') not present in the source.; The English translation gen"
     },
     "marks-9d549bcb95c052": {
       "at": "2026-11-19T14:08:41+00:00",
@@ -4698,5 +4698,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-20T08:05:53+00:00"
+  "updatedAt": "2026-11-20T08:06:22+00:00"
 }
