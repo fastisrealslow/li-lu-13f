@@ -1398,12 +1398,12 @@
       "reason": "ValueError: Unsupported numerical claim: 20"
     },
     "pabrai-f3593335049251": {
-      "at": "2026-11-18T18:05:14+00:00",
+      "at": "2026-11-20T08:30:42+00:00",
       "status": "retry",
       "inputHash": "282f660b324229fd9e891811e33df4630c2991ccc5a2240d92a5a2a6165ca686",
-      "failures": 4,
-      "nextAttemptAt": "2026-11-20T02:05:14+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English translation in the 'content' section contains a significant factual error regarding the speaker's name. The source text identifies the speaker as 'Mohnish', but the canonical author names provided are 'Pabrai' and 'Pabrai'. The content incorrectly refers to him as 'the speaker' without using the correct name,"
+      "failures": 5,
+      "nextAttemptAt": "2026-11-23T00:30:42+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English translation contains significant factual and contextual errors not supported by the source text.; The claim that Pabrai 'emphasized continuous learning is the key mechanism for outperforming raw intelligence' is an unsupported editorial interpretation; the source only mentions being a 'continuous learning mac"
     },
     "pabrai-276244f32cb972": {
       "at": "2026-11-19T23:20:35+00:00",
@@ -4698,5 +4698,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-20T08:27:36+00:00"
+  "updatedAt": "2026-11-20T08:30:42+00:00"
 }
