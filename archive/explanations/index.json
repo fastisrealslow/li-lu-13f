@@ -2664,12 +2664,12 @@
       "reason": "ValueError: Bilingual editorial review: The Chinese text cites an article title ('Lessons from Silicon Valley Bank Collapse...') that does not match the provided source evidence or the official English title ('Lessons from Silicon Valley Bank'). This is a factual error regarding the specific work attributed to Howard Marks.; The Chinese text claims SVB investe"
     },
     "marks-2bc1ddf3b547f3": {
-      "at": "2026-11-18T18:13:09+00:00",
+      "at": "2026-11-20T08:45:18+00:00",
       "status": "retry",
       "inputHash": "d1e129a23913777ef0e580c3b9dffdbd16a5a6fe968b5dd071949f91b4f7fd18",
-      "failures": 4,
-      "nextAttemptAt": "2026-11-20T02:13:09+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English translation in the 'content' section incorrectly attributes the skeptics' view to Claude itself ('skeptics represented by Claude argue'), whereas the source text (s4) clearly states 'According to Claude, the skeptics argue as follows', indicating Claude is reporting the skeptics' position, not embodying it.; "
+      "failures": 5,
+      "nextAttemptAt": "2026-11-23T00:45:18+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English translation of 'Howard Marks' as 'Howard·Marks' (with a middle dot) is inconsistent with the canonical name format provided in the source data which uses a space.; The phrase 'Claude just rearranges patterns from its training data' is presented as a direct quote attributed to an unnamed person ('someone'), bu"
     },
     "marks-8e0ec13e9cb837": {
       "at": "2026-11-20T08:19:42+00:00",
@@ -4698,5 +4698,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-20T08:44:39+00:00"
+  "updatedAt": "2026-11-20T08:45:18+00:00"
 }
