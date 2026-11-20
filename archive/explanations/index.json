@@ -1438,12 +1438,12 @@
       "reason": "ValueError: Bilingual editorial review: The source text does not explicitly state 'experience' as a primary criterion alongside skin in the game; it implies experience through age and track record review.; The claim that mutual funds/ETFs outnumber stocks by margin is supported by the source ('more mutual funds than stocks... Probably more ETFs than stocks'), "
     },
     "pabrai-eac064fbe28765": {
-      "at": "2026-11-19T02:54:46+00:00",
+      "at": "2026-11-20T18:11:28+00:00",
       "status": "retry",
       "inputHash": "cf7409aff80388f1feb9816981d9e5a9ed8862d59573258bb1ef916113d4f838",
-      "failures": 4,
-      "nextAttemptAt": "2026-11-20T10:54:46+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English text incorrectly states 'Sol Price' as the model imitated by Microsoft; source s5 only mentions Sol Price for James Sinegal and implies Microsoft clones via Lotus/WordPerfect/Mac without naming a specific 'Sol Price' connection.; The English text claims Buffett raised prices 'significantly above the inflation"
+      "failures": 5,
+      "nextAttemptAt": "2026-11-23T10:11:28+00:00",
+      "reason": "ValueError: Unsupported numerical claim: 1970"
     },
     "vinall-f47e656603551a": {
       "at": "2026-11-19T02:21:55+00:00",
@@ -4701,5 +4701,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-20T18:08:45+00:00"
+  "updatedAt": "2026-11-20T18:11:28+00:00"
 }
