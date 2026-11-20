@@ -28,7 +28,14 @@ def indexes():
 
 def apply_row(row):
     ids,names=indexes()
-    entry=ids.get(row.get('cusip')) or names.get(normalized(row.get('name')))
+    cusip=row.get('cusip')
+    entry=ids.get(cusip)
+    if not entry:
+        entry=names.get(normalized(row.get('name')))
+        # An exact issuer name cannot override a conflicting reported identity.
+        # Keep legacy name-only translations, which assert no CUSIP binding.
+        if cusip and entry and entry.get('cusips'):
+            return False
     if not entry:return False
     fields={k:entry[k] for k in ('cnName','displayName','sector','sectorEn')}
     changed=any(row.get(k)!=v for k,v in fields.items())
