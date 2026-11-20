@@ -3237,12 +3237,12 @@
       "reason": "ValueError: Bilingual editorial review: The Chinese text incorrectly states 'half of the funds ranked in the top 6%' while the source (s0) specifies 'half of the funds they rank in the top 6%'. The phrasing implies a subset within the top 6%, whereas the source indicates half of all funds in that specific top tier.; The Chinese text claims 'over a tenth of tho"
     },
     "marks-230a625785c3f8": {
-      "at": "2026-11-18T18:29:50+00:00",
+      "at": "2026-11-20T08:37:34+00:00",
       "status": "retry",
       "inputHash": "cbd9794f3395a823b1230911455674973814d3843f2586c7e71b1171ca2d652b",
-      "failures": 4,
-      "nextAttemptAt": "2026-11-20T02:29:50+00:00",
-      "reason": "ValueError: Copied source passage"
+      "failures": 5,
+      "nextAttemptAt": "2026-11-23T00:37:34+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English translation of s2 incorrectly states 'the last potential buyer convinces themselves' instead of the source's 'becomes convinced and comes on board', which implies external validation rather than self-persuasion.; The Chinese text in s2 translates 'price becomes immaterial' as 'price becomes irrelevant', missi"
     },
     "marks-27cc308c0945b5": {
       "at": "2026-11-20T07:58:29+00:00",
@@ -4698,5 +4698,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-20T08:37:21+00:00"
+  "updatedAt": "2026-11-20T08:37:34+00:00"
 }
