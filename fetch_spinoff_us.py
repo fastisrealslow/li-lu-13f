@@ -277,32 +277,48 @@ KNOWN_SPINOFFS = [
 
 
 def sec_get(url, opener, sleep=0.3):
-    """带重试的 SEC GET 请求"""
+    """Retry bounded transient read failures; never retry permanent SEC denials."""
     for attempt in range(3):
         try:
             time.sleep(sleep)
             req = Request(url, headers={"User-Agent": UA})
-            return opener.open(req, timeout=20).read()
-        except HTTPError as e:
-            if e.code == 429:
-                wait = 60 * (attempt + 1)
-                print(f"  429 限流，等 {wait}s ...", file=sys.stderr)
-                time.sleep(wait)
-            else:
+            with opener.open(req, timeout=20) as response:
+                return response.read()
+        except HTTPError as error:
+            if error.code not in (408,429,500,502,503,504) or attempt==2:
                 raise
-        except URLError as e:
-            if attempt < 2:
-                time.sleep(10)
-            else:
-                raise
-    raise RuntimeError(f"SEC GET 失败: {url}")
+            delay=60 if error.code==429 else 2*(attempt+1)
+            try:delay=max(delay,float(error.headers.get('Retry-After','0')))
+            except (AttributeError,TypeError,ValueError):pass
+            # A response cannot force an unbounded wait (including inf/NaN).
+            delay=min(60,max(0,delay))
+            print(f"  SEC HTTP {error.code}, retry {attempt+1}/2 in {delay}s",file=sys.stderr)
+            time.sleep(delay)
+        except (URLError,TimeoutError,ConnectionError):
+            if attempt==2:raise
+            time.sleep(2*(attempt+1))
+
+
+class SearchResults(list):
+    complete=True
+
+
+def retain_previous(companies,previous,cutoff,complete=True):
+    """An interrupted search must not retire records it failed to observe."""
+    retained=list(companies);seen={c['ticker'] for c in companies}
+    for ticker,old in previous.items():
+        if ticker in seen:continue
+        dates=[a['date'] for a in old.get('announcements',[]) if a.get('date')]
+        if not complete or (dates and max(dates)>=cutoff):
+            retained.append(old);seen.add(ticker)
+    return retained
 
 
 def search_edgar(opener, query, days=365):
     """搜索 EDGAR 8-K，返回 (adsh, cik, entity_name, file_date) 列表"""
     end_dt = datetime.now(timezone.utc).strftime('%Y-%m-%d')
     start_dt = (datetime.now(timezone.utc) - timedelta(days=days)).strftime('%Y-%m-%d')
-    results = []
+    results = SearchResults()
     from_offset = 0
     page_size = 40
 
@@ -317,11 +333,19 @@ def search_edgar(opener, query, days=365):
                f"&from={from_offset}&size={page_size}")
         try:
             data = json.loads(sec_get(url, opener))
+            payload=data.get('hits') if isinstance(data,dict) else None
+            if not isinstance(payload,dict) or not isinstance(payload.get('hits'),list):
+                raise ValueError('Invalid SEC search response')
+            hits=payload['hits'];total=payload.get('total',{})
+            total=total.get('value') if isinstance(total,dict) else total
+            if type(total) is not int or total<0 or (not hits and from_offset<total):
+                raise ValueError('Incomplete SEC search response')
         except Exception as e:
-            print(f"  搜索失败: {e}", file=sys.stderr)
+            results.complete=False
+            record_source_warning('spinoff_us','部分 SEC 检索未完成；保留已有档案和已获取证据，后续重试')
+            print(f"  搜索未完成: {e}", file=sys.stderr)
             break
 
-        hits = data.get('hits', {}).get('hits', [])
         if not hits:
             break
 
@@ -346,8 +370,7 @@ def search_edgar(opener, query, days=365):
                     'file_date': file_date,
                 })
 
-        total = data.get('hits', {}).get('total', {}).get('value', 0)
-        from_offset += page_size
+        from_offset += len(hits)
         if from_offset >= min(total, 400):  # Bounded pagination, not just the first result page
             break
 
@@ -761,9 +784,11 @@ def main():
     ]
 
     all_hits = {}
+    failed_queries=[]
     for q in queries:
         print(f"\n搜索: {q}")
         hits = search_edgar(opener, q, days=SEARCH_DAYS)
+        if not getattr(hits,'complete',True):failed_queries.append(q)
         print(f"  找到 {len(hits)} 条 8-K")
         for h in hits:
             key = h['adsh']
@@ -892,15 +917,7 @@ def main():
 
     # Step 3.2: 将旧数据中 completed 案例补回（本次搜索窗口外的不会重新出现）
     cutoff_completed = (datetime.now(timezone.utc) - timedelta(days=365)).strftime('%Y-%m-%d')
-    current_tickers = {c['ticker'] for c in companies}
-    for tk, old_c in prev_us.items():
-        if tk in current_tickers:
-            continue
-        # 只保留最近365天内有公告的旧案例（completed 或 in_progress）
-        dates = [a['date'] for a in old_c.get('announcements', []) if a.get('date')]
-        if dates and max(dates) >= cutoff_completed:
-            companies.append(old_c)
-            print(f"  [旧数据恢复] {tk} {old_c.get('name','')} ({old_c.get('status','')})")
+    companies=retain_previous(companies,prev_us,cutoff_completed,complete=not failed_queries)
 
     # Step 3.5: 自动匹配子公司 ticker（通过 EDGAR 搜索子公司名称）
     def lookup_spinoff_ticker(spinoff_name, parent_ticker, opener):
@@ -1022,6 +1039,8 @@ def main():
         'dateFrom': date_from,
         'dateTo': date_to,
         'count': len(companies),
+        'audit': {'searchStatus':'partial' if failed_queries else 'checked',
+                  'queryCount':len(queries),'failedQueryCount':len(failed_queries)},
         'companies': companies,
     }
 

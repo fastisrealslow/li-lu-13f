@@ -94,7 +94,8 @@ def data_health(root, now):
             if (now-quarter_end).days<50:
                 index=now.year*12+month-1-3
                 quarter_end=datetime(index//12,index%12+1,1,tzinfo=timezone.utc)-timedelta(days=1)
-            if period.date()<quarter_end.date():
+            from reporting_scope import notice_covers
+            if period.date()<quarter_end.date() and not notice_covers(data,quarter_end.date().isoformat()):
                 issues.append({'code':'report_overdue','investor':person['id']})
     personal_path=root/'personal_portfolio.json'
     if personal_path.exists():

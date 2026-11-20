@@ -645,6 +645,8 @@ def sec_fetch(path: str, retries: int = 3) -> bytes:
 
 def get_recent_filings(cik: str, include_archives: bool = False, include_restatements: bool = False) -> list[dict]:
     data = json.loads(sec_fetch(f"submissions/CIK{cik.zfill(10)}.json"))
+    from reporting_scope import FilingBatch, notice_candidates
+    notices=notice_candidates(cik,data)
     batches = [data["filings"]["recent"]]
     if include_archives:
         for archive in data["filings"].get("files", []):
@@ -665,7 +667,7 @@ def get_recent_filings(cik: str, include_archives: bool = False, include_restate
             }
     ordered = sorted(filings.values(), key=lambda f: (f["reportDate"], f["filingDate"], f["accession"]), reverse=True)
     if not include_restatements:
-        return ordered
+        return FilingBatch(ordered,notices)
     # Only a complete RESTATEMENT can replace a quarter. Additive amendments
     # contain a subset of securities and must never become a full portfolio.
     complete = {}
@@ -697,7 +699,7 @@ def get_recent_filings(cik: str, include_archives: bool = False, include_restate
                 continue
             filing.update(amendmentType='RESTATEMENT', coverSource='https://www.sec.gov'+path)
         complete[period] = filing
-    return list(complete.values())
+    return FilingBatch(complete.values(),notices)
 
 
 def missing_history_quarters(data):
@@ -1035,19 +1037,21 @@ def warn_unmapped(data: dict):
 def investor_filings(config, full_mode=False):
     """Prefer the current reporter; retain dated, explicitly verified predecessors."""
     sources = [(config['cik'], None, None)] + [(old['cik'], old['beforePeriod'], old) for old in config.get('legacyFilers', [])]
-    by_period = {}
+    from reporting_scope import FilingBatch
+    by_period = {};notices=[]
     for cik, before, legacy in sources:
         if config.get('useRestatements'):
             rows = get_recent_filings(cik, include_archives=full_mode, include_restatements=True)
         else:
             rows = get_recent_filings(cik, include_archives=True) if full_mode else get_recent_filings(cik)
+        if not legacy:notices.extend(getattr(rows,'notices',[]))
         for filing in rows:
             period = filing['reportDate']
             if (legacy and legacy.get('fromPeriod') and period < legacy['fromPeriod']) or (before and period >= before) or (not before and config.get('reportingFrom') and period < config['reportingFrom']):
                 continue
             # Current reporting entity wins over a predecessor for the same period.
             by_period.setdefault(period, {**filing, 'cik': cik, **({'expected13FFileNumber':legacy['reportFileNumber']} if legacy and legacy.get('reportFileNumber') else {})})
-    return sorted(by_period.values(), key=lambda f: (f['reportDate'], f['filingDate']), reverse=True)
+    return FilingBatch(sorted(by_period.values(), key=lambda f: (f['reportDate'], f['filingDate']), reverse=True),notices)
 
 
 def backfill_security_classes(data, filings, max_quarters=4):
@@ -1106,6 +1110,17 @@ def backfill_restatements(data, filings, cik, consolidate=False, limit=4):
             attach_previous(history[current], history[previous], previous_quarter=previous, current_quarter=current)
         print('  Applied complete restatements:', ', '.join(repaired))
     return repaired
+
+
+def update_reporting_notice(key,config,data,filings):
+    from reporting_scope import refresh_notice
+    from update_status import record_source_warning
+    try:
+        refresh_notice(data,config,getattr(filings,'notices',None),sec_fetch)
+        data.get('meta',{}).pop('reportingNoticeRetry',None)
+    except Exception as error:
+        data.setdefault('meta',{})['reportingNoticeRetry']=type(error).__name__
+        record_source_warning(key+'_13f','最新 SEC 通知未完成核实；保留最近独立持仓，后续重试')
 
 
 def process_investor(key: str, config: dict, full_mode: bool):
@@ -1198,6 +1213,7 @@ def process_investor(key: str, config: dict, full_mode: bool):
         record = record_source_notice if source_gap else record_source_warning
         record(step, f"{key} 历史缺 {len(remaining)} 季（{', '.join(remaining)}）：{reason}；不作零持仓")
 
+    update_reporting_notice(key,config,data,filings)
     save_data(config["path"], data)
     warn_unmapped(data)
     print(f"Updated: {len(cur_holdings)} holdings, ${total:,.0f} total")
@@ -1304,6 +1320,7 @@ def process_full(key: str, config: dict, filings: list[dict], data: dict):
     update_history(data, prev_q, prev_holdings)
     update_history(data, latest_q, latest_holdings)
 
+    update_reporting_notice(key,config,data,filings)
     save_data(config["path"], data)
     warn_unmapped(data)
     print(f"\nDone: {new_quarters} new quarters, {refreshed} refreshed.")
