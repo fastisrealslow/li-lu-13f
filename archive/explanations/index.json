@@ -2528,12 +2528,12 @@
       "reason": "ValueError: Bilingual editorial review: The Chinese text claims Buffett 'cites' the ownership percentages (60% of Blue Chip Stamps, 80% of Wesco) as a specific example to explain earnings treatment. However, the source text (s38) presents these facts objectively under the heading 'Sources of Reported Earnings' to illustrate how operating earnings are calculate"
     },
     "buffett-85b7099c08190e": {
-      "at": "2026-11-18T18:02:17+00:00",
+      "at": "2026-11-20T08:49:47+00:00",
       "status": "retry",
       "inputHash": "f62898e78280e64cd0a498450925dbaae39f864057c6984f393685245739c21a",
-      "failures": 4,
-      "nextAttemptAt": "2026-11-20T02:02:17+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English text incorrectly attributes the quote about the market being a 'voting machine' to Ben Graham; historically, this is attributed to Warren Buffett himself.; The Chinese translation omits the specific phrase 'lock-step manner' from the source text when describing how Berkshire's prosperity relates to the compan"
+      "failures": 5,
+      "nextAttemptAt": "2026-11-23T00:49:47+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English paragraph incorrectly states 'Coca-Cola went public in 1919 at $40 per share'. Source s8 says it was '$40 per share' but does not explicitly confirm the IPO price was exactly $40; it only mentions the market value at that time. While likely correct, the source text is slightly ambiguous on the exact IPO price"
     },
     "buffett-a18ed90fc42670": {
       "at": "2026-11-19T02:28:50+00:00",
@@ -4698,5 +4698,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-20T08:47:36+00:00"
+  "updatedAt": "2026-11-20T08:49:47+00:00"
 }
