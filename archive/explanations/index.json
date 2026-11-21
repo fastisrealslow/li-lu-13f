@@ -4529,12 +4529,12 @@
       "reason": "ValueError: Bilingual editorial review: The English translation in `content.paragraphs[0]` incorrectly states that 'risk aversion had to be overcome by high promised returns' (s2). The source text says risk aversion was present and required high returns to *be undertaken*, not that the aversion itself was overcome. A more accurate phrasing would be: 'high prom"
     },
     "mclemore-f83d00a61891f4": {
-      "at": "2026-11-19T23:20:56+00:00",
+      "at": "2026-11-21T13:25:11+00:00",
       "status": "retry",
       "inputHash": "cee70f821473a70e7e3c25b2a65e1e51ad97e01717dc71af716a87d31e6044f9",
-      "failures": 4,
-      "nextAttemptAt": "2026-11-21T07:20:56+00:00",
-      "reason": "ValueError: Unsupported scaled numerical claim: 100"
+      "failures": 5,
+      "nextAttemptAt": "2026-11-24T05:25:11+00:00",
+      "reason": "ValueError: Bilingual editorial review: The Chinese text states Rocket Companies traded between $18 and $34, but the source (s7) specifies it rallied to $34 then traded back down to $20; the range description is slightly inaccurate.; The Chinese text claims Uber holds stakes in Didi and Grab totaling '$10-20 billion', while the source (s6) states '$10-20B'; th"
     },
     "marks-60b6da1ebf415b": {
       "at": "2026-11-19T23:25:29+00:00",
@@ -4710,5 +4710,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-21T13:24:10+00:00"
+  "updatedAt": "2026-11-21T13:25:11+00:00"
 }
