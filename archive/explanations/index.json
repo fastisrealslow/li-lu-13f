@@ -2258,12 +2258,12 @@
       "reason": "ValueError: Bilingual editorial review: The English text incorrectly states 'shareholder dividends' as a corporate expense included in operating costs; the source only lists 'shareholder contributions' ($15.4 million) without specifying they are dividends.; The English text claims investment growth was 'consistently lower', but the source data shows 1987 inves"
     },
     "akre-409d580b78682d": {
-      "at": "2026-11-21T01:50:09+00:00",
+      "at": "2026-11-21T22:21:32+00:00",
       "status": "retry",
       "inputHash": "36e267ef9ae8eef66d883fce2d4faaf9b3f9d8bdb4a9b57c924ba70cf4c8a1b4",
-      "failures": 3,
-      "nextAttemptAt": "2026-11-21T17:50:09+00:00",
-      "reason": "ValueError: Copied source passage"
+      "failures": 4,
+      "nextAttemptAt": "2026-11-23T06:21:32+00:00",
+      "reason": "ValueError: Bilingual editorial review: The source text does not explicitly state that 'retaining cash' is the definition of reinvestment; it defines it as retaining cash *with the aim* of increasing business value. The content section omits this crucial conditional element ('aim of increasing'), presenting a simplified definition that could be misleading with"
     },
     "buffett-c2573b3eeb21ad": {
       "at": "2026-11-19T14:44:51+00:00",
@@ -4718,5 +4718,5 @@
       "reason": "ValueError: Unsupported numerical claim: 90%"
     }
   },
-  "updatedAt": "2026-11-21T22:19:35+00:00"
+  "updatedAt": "2026-11-21T22:21:32+00:00"
 }
