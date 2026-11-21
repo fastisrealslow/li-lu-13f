@@ -1576,12 +1576,12 @@
       "reason": "ValueError: Unsupported numerical claim: 60%"
     },
     "pabrai-e25d421918d362": {
-      "at": "2026-11-18T18:11:40+00:00",
+      "at": "2026-11-21T13:56:32+00:00",
       "status": "retry",
       "inputHash": "558873c3ea6c5ef3c2dd9870217d60b64f3da944a56d2169f2a57840e24ab0b6",
-      "failures": 5,
-      "nextAttemptAt": "2026-11-21T10:11:40+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English translation in the 'content' section contains a factual error regarding Peter Thiel's lecture title. The source text (s3) explicitly states the title is 'Competition is for Losers', but the English paragraph incorrectly translates it as 'Competition is for Losers' with an added 'game' at the end ('Competition"
+      "failures": 6,
+      "nextAttemptAt": "2026-11-24T13:56:32+00:00",
+      "reason": "ValueError: Bilingual editorial review: The source text does not explicitly state the lecture title is 'Competition is for Losers'; it says 'I think the title is...', indicating uncertainty. The summary presents this as a confirmed fact.; The source states Peter Thiel 'posted that video on YouTube' in 2015 or 2016, but does not confirm he 'released' it at that"
     },
     "pabrai-fc099d6ba1ac88": {
       "at": "2026-11-19T23:24:14+00:00",
@@ -4718,5 +4718,5 @@
       "reason": "ValueError: Copied source passage"
     }
   },
-  "updatedAt": "2026-11-21T13:56:25+00:00"
+  "updatedAt": "2026-11-21T13:56:32+00:00"
 }
