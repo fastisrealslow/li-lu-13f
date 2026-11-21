@@ -1928,12 +1928,12 @@
       "reason": "ValueError: Bilingual editorial review: The English translation in the source text contains a critical factual error: it translates 'savings and credit card bearings' as 'mechanical parts', which is nonsensical in this context. The original Chinese text uses 'bearing' (likely a mistranslation of 'balance' or 'funds') to mean money, not mechanical components.; "
     },
     "vinall-c12bae3cc1e659": {
-      "at": "2026-11-18T17:45:49+00:00",
+      "at": "2026-11-21T13:18:20+00:00",
       "status": "retry",
       "inputHash": "4ca6e3a0857d06c74dde6a50b3aefc28e8ad8b399354f392f613d090278df977",
-      "failures": 5,
-      "nextAttemptAt": "2026-11-21T09:45:49+00:00",
-      "reason": "ValueError: Bilingual editorial review: The source text does not explicitly state that Vinall's views have 'not aged poorly' in the exact phrasing used in the Chinese translation; it says 'they have not aged too badly', which is a minor nuance difference but acceptable.; The source text mentions '2013, when I made our first investment in China in Baidu', imply"
+      "failures": 6,
+      "nextAttemptAt": "2026-11-24T13:18:20+00:00",
+      "reason": "ValueError: Bilingual editorial review: The Chinese text incorrectly states Rob Vinall visited China 'annually on average since making his first investment in Baidu in 2013'. Source s0 says he traveled there 'once a year on average since 2013', but the context implies this frequency started *before* the 2013 investment (as the investment is cited as a specific"
     },
     "pabrai-1e956456cad67c": {
       "at": "2026-11-20T18:06:56+00:00",
@@ -4710,5 +4710,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-21T13:17:59+00:00"
+  "updatedAt": "2026-11-21T13:18:20+00:00"
 }
