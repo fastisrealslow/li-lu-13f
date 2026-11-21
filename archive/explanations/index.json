@@ -1608,12 +1608,12 @@
       "reason": "ValueError: Unsupported numerical claim: 1994"
     },
     "pabrai-61590880adbe35": {
-      "at": "2026-11-19T14:13:57+00:00",
+      "at": "2026-11-21T02:00:25+00:00",
       "status": "retry",
       "inputHash": "d397d5521d3490392f03dbe081317b8254539057e84db112a65dfebf2bf4eeb0",
-      "failures": 4,
-      "nextAttemptAt": "2026-11-20T22:13:57+00:00",
-      "reason": "ValueError: Bilingual editorial review: The Chinese translation of Seinfeld's quote is factually inaccurate: the source text says 'If you have the reservation, it means you have the car,' but the translation adds 'that is the whole point of a reservation' which changes the meaning and is not in the source.; The Chinese translation incorrectly attributes the ob"
+      "failures": 5,
+      "nextAttemptAt": "2026-11-23T18:00:25+00:00",
+      "reason": "ValueError: Bilingual editorial review: The Chinese text includes a fabricated quote attributed to Seinfeld ('If you have the reservation, it means you have the car...') which is not present in the source evidence (s2). The source only mentions the episode and Seinfeld's reply about reservations implying cars, but does not contain this specific paraphrased dia"
     },
     "pabrai-4c377fa29a8e7e": {
       "at": "2026-11-20T08:54:33+00:00",
@@ -4710,5 +4710,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-21T02:00:02+00:00"
+  "updatedAt": "2026-11-21T02:00:25+00:00"
 }
