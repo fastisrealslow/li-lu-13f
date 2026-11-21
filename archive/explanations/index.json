@@ -2184,12 +2184,12 @@
       "reason": "ValueError: No audio obtained"
     },
     "akre-0d1bd31522dfd8": {
-      "at": "2026-11-21T13:21:50+00:00",
+      "at": "2026-11-21T22:14:37+00:00",
       "status": "retry",
       "inputHash": "7e5b5816082d3505e8a5591e204ba33d1ea9d5f46a0ae0058c05d9ea717dda11",
-      "failures": 2,
-      "nextAttemptAt": "2026-11-21T21:21:50+00:00",
-      "reason": "ValueError: Bilingual editorial review: The Chinese text includes an editorial summary ('This position addresses...') not present in the source evidence s0.; The English text similarly adds interpretative framing ('He supports this by...', 'provides concrete market observation methods as support') absent from the source.; Both translations exceed the 160-chara"
+      "failures": 3,
+      "nextAttemptAt": "2026-11-22T14:14:37+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English paraphrase incorrectly states 'growth in economic value per unit of ownership' as the sole measure, whereas the source text specifies 'real growth in economic value per unit of ownership'. The adjective 'real' is a critical qualifier absent from the paraphrase.; The English paraphrase claims traditional metri"
     },
     "buffett-d5d1d8d7a24118": {
       "at": "2026-11-19T02:46:52+00:00",
@@ -4718,5 +4718,5 @@
       "reason": "ValueError: Unsupported numerical claim: 90%"
     }
   },
-  "updatedAt": "2026-11-21T22:14:22+00:00"
+  "updatedAt": "2026-11-21T22:14:37+00:00"
 }
