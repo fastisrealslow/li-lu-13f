@@ -1384,12 +1384,12 @@
       "reason": "ValueError: Bilingual editorial review: The source text (s2) states: 'I still do not understand why humans have an aversion to cloning.' The content section claims Pabrai 'admits he does not fully understand why humans harbor an aversion to cloning,' which is a redundant and slightly inaccurate phrasing of the original quote. The source explicitly says he does"
     },
     "pabrai-9152afaf247ee4": {
-      "at": "2026-11-18T18:42:19+00:00",
+      "at": "2026-11-21T13:59:37+00:00",
       "status": "retry",
       "inputHash": "754c2124bcd3591a58d8ae6d0a40511d1d515752d36df33cd8329283bbbed39f",
-      "failures": 5,
-      "nextAttemptAt": "2026-11-21T10:42:19+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English translation contains a factual error: it states Pabrai 'engaged in extensive study related to business management' before turning 17-18. The source text (s26) explicitly says he 'finished many MBAs', which is factually incorrect as he did not obtain formal degrees at that age; the translation incorrectly infe"
+      "failures": 6,
+      "nextAttemptAt": "2026-11-24T13:59:37+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English translation incorrectly states Pabrai completed 'several Master of Business Administration (MBA) degrees' by age 17-18. The source text says he 'finished many MBAs', which in this context refers to courses or programs, not multiple full degrees, as obtaining multiple degrees at that age is factually improbabl"
     },
     "pabrai-6aa3d87fb959bc": {
       "at": "2026-11-19T02:50:18+00:00",
@@ -4718,5 +4718,5 @@
       "reason": "ValueError: Copied source passage"
     }
   },
-  "updatedAt": "2026-11-21T13:59:26+00:00"
+  "updatedAt": "2026-11-21T13:59:37+00:00"
 }
