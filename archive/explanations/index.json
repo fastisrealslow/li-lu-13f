@@ -654,12 +654,12 @@
       "reason": "ValueError: Bilingual editorial review: The source text (s5) cuts off mid-sentence ('when it was bought and'), making the final clause incomplete. The summary claims he 'could give you the history of every single building,' which is a reasonable inference but not explicitly stated in the provided evidence snippet.; The source text does not mention that John Ar"
     },
     "vinall-c919ac8b6b58c4": {
-      "at": "2026-11-19T02:06:24+00:00",
+      "at": "2026-11-21T22:00:57+00:00",
       "status": "retry",
       "inputHash": "5af4c68010fe5d16e180b31a59d9e58951db06672d9fbd70506aed811829e319",
-      "failures": 5,
-      "nextAttemptAt": "2026-11-21T18:06:24+00:00",
-      "reason": "ValueError: Bilingual editorial review: The Chinese text incorrectly states the wedding was in Shanghai for 'a dear friend's wedding' while the ASR (s3) only mentions 'attending a dear friend's wedding in Shanghai'. The English translation correctly reflects this.; The Chinese text claims the trip included stops in China, Japan, and the US, which is accurate p"
+      "failures": 6,
+      "nextAttemptAt": "2026-11-24T22:00:57+00:00",
+      "reason": "ValueError: Bilingual editorial review: The source text does not specify the date of the Shanghai wedding; stating 'May 29' is an invention not found in s0, s1, or s3.; The source text mentions 'Tier 1 cities' but does not explicitly state that this was his 'first time' venturing beyond them, though it implies novelty by saying he enjoyed doing so 'for the fir"
     },
     "buffett-d5e534b6a5c51f": {
       "at": "2026-11-19T02:17:43+00:00",
@@ -4718,5 +4718,5 @@
       "reason": "ValueError: Copied source passage"
     }
   },
-  "updatedAt": "2026-11-21T22:00:30+00:00"
+  "updatedAt": "2026-11-21T22:00:57+00:00"
 }
