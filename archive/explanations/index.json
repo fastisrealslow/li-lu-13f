@@ -4521,12 +4521,12 @@
       "reason": "ValueError: Bilingual editorial review: The English translation of 'best-selling candy bar' incorrectly uses the adjective form 'best-selling' instead of the noun phrase 'the best-selling'.; The Chinese text contains a factual error regarding Ronald Read's net worth; it states '$8M' while the source data (s0) clearly shows his total fortune as '$8M', but the c"
     },
     "marks-b11ef300a404cf": {
-      "at": "2026-11-19T15:01:01+00:00",
+      "at": "2026-11-21T02:53:12+00:00",
       "status": "retry",
       "inputHash": "d47eba5a290fa900f82fb967e7d802654a9f0d9d6546a10e16d2108826247164",
-      "failures": 4,
-      "nextAttemptAt": "2026-11-20T23:01:01+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English translation of 'money mangers' in evidence s4 is a typo; it should be 'managers'. The source text uses 'managers', but the provided translation contains this error.; The phrase 'hoped-for brass ring' in evidence s4 is metaphorical and not explicitly defined as such in the source. While culturally understood, "
+      "failures": 5,
+      "nextAttemptAt": "2026-11-23T18:53:12+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English translation in `content.paragraphs[0]` incorrectly states that 'risk aversion had to be overcome by high promised returns' (s2). The source text says risk aversion was present and required high returns to *be undertaken*, not that the aversion itself was overcome. A more accurate phrasing would be: 'high prom"
     },
     "mclemore-f83d00a61891f4": {
       "at": "2026-11-19T23:20:56+00:00",
@@ -4710,5 +4710,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-21T02:52:58+00:00"
+  "updatedAt": "2026-11-21T02:53:12+00:00"
 }
