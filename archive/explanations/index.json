@@ -944,12 +944,12 @@
       "reason": "ValueError: Bilingual editorial review: The English text in the 'paragraphs' section incorrectly states that Pabrai is now bald ('is now bald due to this period'), whereas the source (s3) only says he used to have a head full of hair when he started and implies his current state without explicitly stating baldness as a fact.; The English text in 'paragraphs' a"
     },
     "vinall-467e0c3e85b252": {
-      "at": "2026-11-19T02:18:13+00:00",
+      "at": "2026-11-21T22:11:20+00:00",
       "status": "retry",
       "inputHash": "3c5008a532056a12133be0fedb68b589cd812015b73371bc08cb6d373af1e3c8",
-      "failures": 5,
-      "nextAttemptAt": "2026-11-21T18:18:13+00:00",
-      "reason": "ValueError: Bilingual editorial review: The source text (evidence s8) states the grandfather said 'Luke you're gonna be in mining', but the content section incorrectly lists three sons with specific paths: Luke to mining, Ian and Lucas to oil and gas. The transcript only mentions assigning Luke to mining; it does not specify paths for Ian or Lucas.; The source"
+      "failures": 6,
+      "nextAttemptAt": "2026-11-24T22:11:20+00:00",
+      "reason": "ValueError: Bilingual editorial review: The content incorrectly states there are 'four children' (s8 mentions 'two of his four kids'), but later lists only three sons (Luke, Ian, Lucas), creating a factual contradiction not present in the source.; The content invents the detail that the grandfather assigned them to 'mining, oil and gas, and other sectors', whe"
     },
     "buffett-87787b7bbb5dca": {
       "at": "2026-11-20T17:49:14+00:00",
@@ -4718,5 +4718,5 @@
       "reason": "ValueError: Unsupported numerical claim: 90%"
     }
   },
-  "updatedAt": "2026-11-21T22:11:06+00:00"
+  "updatedAt": "2026-11-21T22:11:20+00:00"
 }
