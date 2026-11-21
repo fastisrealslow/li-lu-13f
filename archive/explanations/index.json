@@ -2628,12 +2628,12 @@
       "reason": "ValueError: No audio obtained"
     },
     "marks-3792d4cc8456be": {
-      "at": "2026-11-19T03:07:01+00:00",
+      "at": "2026-11-21T02:15:24+00:00",
       "status": "retry",
       "inputHash": "63c9c4a682048eaaa1ed83f3e726b33be2423de10a8126b8e9483825f873aa17",
-      "failures": 4,
-      "nextAttemptAt": "2026-11-20T11:07:01+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English translation in the `content` section incorrectly attributes the 2016 election prediction to 'cautious pundits' (80% chance), whereas the source text (s1) states that 'most forecasters' were certain Hillary would win and only the 'least certain pundits' gave an 80% estimate. This reverses the author's intended"
+      "failures": 5,
+      "nextAttemptAt": "2026-11-23T18:15:24+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English paraphrase in `content.paragraphs[0].en` contains a factual error regarding the Fed's view on inflation: it states the Fed held the view that inflation would prove 'transitory' in 2021. The source text (s2) indicates this was the Fed's view *in* 2021, but notes they were forced to act because their view wasn'"
     },
     "mclemore-a9cd8c7a92e47d": {
       "at": "2026-11-19T14:39:51+00:00",
@@ -4710,5 +4710,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-21T02:15:14+00:00"
+  "updatedAt": "2026-11-21T02:15:24+00:00"
 }
