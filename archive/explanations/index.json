@@ -864,12 +864,12 @@
       "reason": "ValueError: Unsupported numerical claim: 2008"
     },
     "lilu-e7f97d240f730c": {
-      "at": "2026-11-19T14:38:33+00:00",
+      "at": "2026-11-21T02:22:16+00:00",
       "status": "retry",
       "inputHash": "7b41dfe01abd22c80a40620be7b66b5bea7859557ceadb3a77bb535436f199fa",
-      "failures": 4,
-      "nextAttemptAt": "2026-11-20T22:38:33+00:00",
-      "reason": "ValueError: Bilingual editorial review: The source text (s0) states 'Li Liu', but the canonical author name is 'Li Lu'. The summary incorrectly uses 'Li Liu' in multiple places.; The source text (s3) refers to 'Deng Xiaoping ordered', while the summary adds the specific phrase 'characterize it as a riot organized by a small group of enemies' which is an interp"
+      "failures": 5,
+      "nextAttemptAt": "2026-11-23T18:22:16+00:00",
+      "reason": "ValueError: Bilingual editorial review: Factual error: Source s0 states Li Lu was 'deputy commander' (23 years old), but source s7 clarifies he was hiding on an unnamed island while friends in Hong Kong applied for asylum; the text does not support him being a 'deputy commander' of the student headquarters at that time.; Factual error: Source s0 states Li Lu i"
     },
     "buffett-e7d731459f5bc2": {
       "at": "2026-11-19T14:43:34+00:00",
@@ -4710,5 +4710,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-21T02:21:44+00:00"
+  "updatedAt": "2026-11-21T02:22:16+00:00"
 }
