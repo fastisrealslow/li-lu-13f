@@ -787,12 +787,12 @@
       "reason": "ValueError: Bilingual editorial review: The Chinese text claims Pabrai 'does not directly argue' that Abel's style is superior; however, the English evidence explicitly states 'Greg is better than Warren in some important ways,' which constitutes a direct argument for superiority.; The Chinese text incorrectly summarizes Pabrai's reasoning as being based on 'o"
     },
     "pabrai-802921b1b7af6e": {
-      "at": "2026-11-19T02:25:40+00:00",
+      "at": "2026-11-21T22:10:56+00:00",
       "status": "retry",
       "inputHash": "294647c39d11b15aa1d910b98938ba2ac8de2180e55c5c55932e26f63a4a9b17",
-      "failures": 5,
-      "nextAttemptAt": "2026-11-21T18:25:40+00:00",
-      "reason": "ValueError: Bilingual editorial review: The Chinese translation contains factual errors: it incorrectly states that Vijay Vashee introduced Pabrai to Satya Nadella (the source text only mentions meeting 'Satya' and does not confirm the identity or context), and misrepresents the outcome for Steve Ballmer by claiming his wealth 'significantly diminished' when t"
+      "failures": 6,
+      "nextAttemptAt": "2026-11-24T22:10:56+00:00",
+      "reason": "ValueError: Bilingual editorial review: The source text (s3) does not mention 'survivorship bias' or explicitly state that failures are ignored; this is an editorial interpretation added in the content section.; The source text (s3) does not contain a specific valuation model or future prediction, which the content claims Pabrai focused on revealing.; The sour"
     },
     "pabrai-bc7ec8286850d8": {
       "at": "2026-11-20T18:08:45+00:00",
@@ -4718,5 +4718,5 @@
       "reason": "ValueError: Unsupported numerical claim: 90%"
     }
   },
-  "updatedAt": "2026-11-21T22:10:31+00:00"
+  "updatedAt": "2026-11-21T22:10:56+00:00"
 }
