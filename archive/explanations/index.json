@@ -590,12 +590,12 @@
       "reason": "ValueError: Bilingual editorial review: The source text (s6) states Buffett's lunch cost ended at $650,000 and was below his friend Guy Spier's budget; the content incorrectly claims it was 'even below his friend Guy Spier's personal limit' as if a direct comparison of absolute amounts was made, whereas the source only notes Spier's personal cap was $250k and "
     },
     "vinall-b8757c659b8401": {
-      "at": "2026-11-19T02:12:01+00:00",
+      "at": "2026-11-21T22:02:12+00:00",
       "status": "retry",
       "inputHash": "259588b8fb80deba3028e4c0bb289884be1df032ee261719c328e81644d70917",
-      "failures": 5,
-      "nextAttemptAt": "2026-11-21T18:12:01+00:00",
-      "reason": "ValueError: Bilingual editorial review: The source text (s12) states Prosus's stake in 10C is 'over 100% of its net asset value', which is mathematically impossible for a single stake to exceed total net assets. The content incorrectly interprets this as 'almost entirely (over 100%)' and claims the remainder comprises 'only a few other investments'. This contr"
+      "failures": 6,
+      "nextAttemptAt": "2026-11-24T22:02:12+00:00",
+      "reason": "JSONDecodeError: Expecting ',' delimiter: line 1 column 1753 (char 1752)"
     },
     "buffett-0dffc205cf0707": {
       "at": "2026-11-20T17:45:26+00:00",
@@ -4718,5 +4718,5 @@
       "reason": "ValueError: Copied source passage"
     }
   },
-  "updatedAt": "2026-11-21T22:01:55+00:00"
+  "updatedAt": "2026-11-21T22:02:12+00:00"
 }
