@@ -2104,12 +2104,12 @@
       "reason": "ValueError: Bilingual editorial review: The English text incorrectly attributes the work 'The Intelligent Investor' to Rob Vinall. The book is by Benjamin Graham; Vinall is citing it as a lens, not the author.; The Chinese text states 'Through the lens of \"The Intelligent Investor\", Rob Vinall outlines...', which implies he is the author or primary proponent o"
     },
     "vinall-0316198ffd7198": {
-      "at": "2026-11-19T02:09:26+00:00",
+      "at": "2026-11-21T22:01:55+00:00",
       "status": "retry",
       "inputHash": "b79ed1640cbbc9c0f7dc5a1684a0c5c1e42081f7db0bc64378b2dc60f74efda3",
-      "failures": 5,
-      "nextAttemptAt": "2026-11-21T18:09:26+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English translation in the content section contains a factual error regarding the name 'Steven Shen from Ocean and Capital'. The source text (s9) explicitly states 'My friend Steven Shen from Ocean and Capital', but the provided canonical author names list only 'Rob Vinall' and 'Andreas'. There is no evidence in the "
+      "failures": 6,
+      "nextAttemptAt": "2026-11-24T22:01:55+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English text incorrectly specifies a date ('around the 12th of the month' and 'around the 3rd of the month') which is absent from the source ASR transcript.; The English text misattributes the specific phrase 'along those lines' to Steven Shen, whereas the source only states he coined the term or used it 'or somethin"
     },
     "vinall-794ed52da6ee85": {
       "at": "2026-11-19T02:19:04+00:00",
@@ -4718,5 +4718,5 @@
       "reason": "ValueError: Copied source passage"
     }
   },
-  "updatedAt": "2026-11-21T22:01:46+00:00"
+  "updatedAt": "2026-11-21T22:01:55+00:00"
 }
