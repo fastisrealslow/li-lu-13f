@@ -912,12 +912,12 @@
       "reason": "ValueError: Bilingual editorial review: The English translation in the content section contains a factual error regarding the timeline of the Turing test. The source text (s12) states the Turing test occurred 'nearly four years ago' relative to the speech, but the translation claims it happened 'nearly four years prior to the speech'. While this phrasing is gr"
     },
     "pabrai-deed882841e367": {
-      "at": "2026-11-19T23:38:17+00:00",
+      "at": "2026-11-21T13:33:24+00:00",
       "status": "retry",
       "inputHash": "c1196969031f851ef22db0b1b25b76469b5ace52d0abe526bb35068e056d5bb9",
-      "failures": 4,
-      "nextAttemptAt": "2026-11-21T07:38:17+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English translation of 'brain plasticity' in the heading is slightly inaccurate; the text describes 'specialization' and 'real estate allocation', which aligns more with 'neuroplasticity' or 'brain specialization'. However, this is a minor stylistic preference rather than a factual error.; The phrase 'brain plasticit"
+      "failures": 5,
+      "nextAttemptAt": "2026-11-24T05:33:24+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English translation contains a factual error: it states 'while a human infant is born with an immature and dependent brain', but the source text (s5) says 'It is underdeveloped when a baby is born' referring to the brain specifically, not the whole infant. The phrasing in the translation implies the entire infant is "
     },
     "buffett-98e90a4cbe9b9a": {
       "at": "2026-11-20T18:11:52+00:00",
@@ -4718,5 +4718,5 @@
       "reason": "ValueError: Copied source passage"
     }
   },
-  "updatedAt": "2026-11-21T13:32:53+00:00"
+  "updatedAt": "2026-11-21T13:33:24+00:00"
 }
