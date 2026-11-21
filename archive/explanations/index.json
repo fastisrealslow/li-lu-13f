@@ -1192,12 +1192,12 @@
       "reason": "ValueError: Unsupported scaled numerical claim: 100"
     },
     "pabrai-31dca9727a5159": {
-      "at": "2026-11-19T02:53:08+00:00",
+      "at": "2026-11-21T01:54:56+00:00",
       "status": "retry",
       "inputHash": "0a8e3c31f2753b01733ce418d4c919dbca9d007cf12dd69ee3b7817923bce61e",
-      "failures": 4,
-      "nextAttemptAt": "2026-11-20T10:53:08+00:00",
-      "reason": "ValueError: Incomplete AI Review at 1800 tokens"
+      "failures": 5,
+      "nextAttemptAt": "2026-11-23T17:54:56+00:00",
+      "reason": "ValueError: Bilingual editorial review: s1 text mentions DJ Khaled and a song 'All I Do Is Win', but the transcript does not contain this content; it appears to be an invented or hallucinated insertion.; s2 text ends abruptly mid-sentence ('He is'), yet s6 begins with 'Pg 3 of 20 Charles: their case...', implying a continuation that contradicts the source stru"
     },
     "pabrai-81c4cce972a1fc": {
       "at": "2026-11-19T02:34:39+00:00",
@@ -4707,5 +4707,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-21T01:54:41+00:00"
+  "updatedAt": "2026-11-21T01:54:56+00:00"
 }
