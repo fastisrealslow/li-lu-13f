@@ -4481,12 +4481,12 @@
       "reason": "ValueError: Bilingual editorial review: The English translation in the content section incorrectly states 'rising rates could cut prices' whereas the source (s0) explicitly says 'rate movements could cut the other way too' following the context that declining rates raised prices; this misrepresents the directional relationship between rate movements and price "
     },
     "marks-5a01e8c6cdc121": {
-      "at": "2026-11-19T14:40:22+00:00",
+      "at": "2026-11-21T02:29:54+00:00",
       "status": "retry",
       "inputHash": "9d5b056bcec5e945c888e2566b24e562796dac2014dc5f493d4a1684eb08bcc2",
-      "failures": 4,
-      "nextAttemptAt": "2026-11-20T22:40:22+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English translation of the evidence section (s5) is incomplete and cuts off mid-sentence ('...which were'), making it factually unreliable as a standalone quote.; The Chinese content incorrectly attributes specific causal mechanisms to Howard Marks that are not explicitly detailed in the provided source text (e.g., '"
+      "failures": 5,
+      "nextAttemptAt": "2026-11-23T18:29:54+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English translation in the content section contains factual errors regarding the source text. The original Chinese states '1980s' (1980  decade), but the English version incorrectly specifies '1980'.; The English translation misrepresents the phrase 'too-easy credit' as 'overly easy credit', which is a stylistic inco"
     },
     "mclemore-c63cd49977e879": {
       "at": "2026-11-21T02:14:39+00:00",
@@ -4710,5 +4710,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-21T02:28:54+00:00"
+  "updatedAt": "2026-11-21T02:29:54+00:00"
 }
