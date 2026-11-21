@@ -686,12 +686,12 @@
       "reason": "ValueError: Unsupported numerical claim: 12"
     },
     "vinall-7630ddfba8bfe7": {
-      "at": "2026-11-19T02:12:16+00:00",
+      "at": "2026-11-21T22:10:31+00:00",
       "status": "retry",
       "inputHash": "d497297541bbb935cdda5daff33c945223c3772e99bd3fdd425c525762819e05",
-      "failures": 5,
-      "nextAttemptAt": "2026-11-21T18:12:16+00:00",
-      "reason": "ValueError: Bilingual editorial review: The content claims to discuss 'fossil fuels' and 'policy signals', but the provided evidence (s3-s5) contains no mention of these topics.; The text states the company has been owned for 'approximately ten years'. Evidence s4 says 'around about 10 years', which is redundant and slightly ungrammatical; a correction to 'own"
+      "failures": 6,
+      "nextAttemptAt": "2026-11-24T22:10:31+00:00",
+      "reason": "ValueError: Bilingual editorial review: The source text (s3-s5) does not mention 'fossil fuels' or 'policy signals', nor does it discuss 'macroeconomic indicators' or 'government regulatory signals'. The content section incorrectly claims the discussion focuses on these external factors and that they were absent; in reality, the speaker only discussed credit a"
     },
     "lilu-1cde24ccac1bfb": {
       "at": "2026-11-21T21:57:29+00:00",
@@ -4718,5 +4718,5 @@
       "reason": "ValueError: Unsupported numerical claim: 90%"
     }
   },
-  "updatedAt": "2026-11-21T22:10:30+00:00"
+  "updatedAt": "2026-11-21T22:10:31+00:00"
 }
