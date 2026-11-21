@@ -2985,12 +2985,12 @@
       "reason": "ValueError: Bilingual editorial review: The English translation in the content section incorrectly attributes the quote to 'Howard Marks' instead of 'Howard Marks' (as per canonical names), though the name is correct; however, the text omits the copyright notice present in source s4 which ends abruptly with '© OAKTREE CAPITAL MANAGEMENT, L.P. ALL RIGHTS RESERV"
     },
     "marks-afaf50fd1a0d44": {
-      "at": "2026-11-18T18:42:18+00:00",
+      "at": "2026-11-21T14:12:10+00:00",
       "status": "retry",
       "inputHash": "1f08a37f5bd3b272c112115b089389911ea3b81e3e1b229b668dee26a214d92f",
-      "failures": 5,
-      "nextAttemptAt": "2026-11-21T10:42:18+00:00",
-      "reason": "ValueError: Bilingual editorial review: The Chinese text introduces the concept of 'market mispricing' (market pricing error) and 'value-seeking investors', which are not explicitly stated in the provided source evidence. The source only describes the mechanism of contraction and the existence of opportunities without using these specific terms.; The English t"
+      "failures": 6,
+      "nextAttemptAt": "2026-11-24T14:12:10+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English translation of s13 incorrectly states 'low risk' where the source clearly says 'high potential returns, low risk and excessive risk premiums', implying a contradiction in the source text itself rather than an error in translation. The phrase 'low risk' appears alongside 'excessive risk premiums' which are con"
     },
     "marks-8271b6ed8c1a05": {
       "at": "2026-11-20T17:23:55+00:00",
@@ -4718,5 +4718,5 @@
       "reason": "ValueError: Copied source passage"
     }
   },
-  "updatedAt": "2026-11-21T14:08:19+00:00"
+  "updatedAt": "2026-11-21T14:12:10+00:00"
 }
