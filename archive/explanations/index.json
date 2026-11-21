@@ -4169,12 +4169,12 @@
       "reason": "ValueError: Bilingual editorial review: The source text (s7) states: 'If I can get 10% from stocks... And 25% if I'm going to invest in buyouts... and 30% to induce me to go for venture capital'. The content section incorrectly attributes the 15% requirement to buyouts and the 30% requirement to venture capital. It swaps these figures (s7 says 25% for buyouts,"
     },
     "marks-a7349c82108581": {
-      "at": "2026-11-19T14:36:36+00:00",
+      "at": "2026-11-21T02:26:25+00:00",
       "status": "retry",
       "inputHash": "721ee85413d4f5e5159e675b66282c7eea3b9291d347b5b8043ae13919e72f51",
-      "failures": 4,
-      "nextAttemptAt": "2026-11-20T22:36:36+00:00",
-      "reason": "ValueError: Copied source passage"
+      "failures": 5,
+      "nextAttemptAt": "2026-11-23T18:26:25+00:00",
+      "reason": "ValueError: Unsupported numerical claim: 9"
     },
     "marks-1dcf1d2efe542f": {
       "at": "2026-11-19T23:20:50+00:00",
@@ -4710,5 +4710,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-21T02:24:44+00:00"
+  "updatedAt": "2026-11-21T02:26:25+00:00"
 }
