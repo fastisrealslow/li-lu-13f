@@ -694,12 +694,12 @@
       "reason": "ValueError: Bilingual editorial review: The content claims to discuss 'fossil fuels' and 'policy signals', but the provided evidence (s3-s5) contains no mention of these topics.; The text states the company has been owned for 'approximately ten years'. Evidence s4 says 'around about 10 years', which is redundant and slightly ungrammatical; a correction to 'own"
     },
     "lilu-1cde24ccac1bfb": {
-      "at": "2026-11-19T02:05:02+00:00",
+      "at": "2026-11-21T21:57:29+00:00",
       "status": "retry",
       "inputHash": "43d67f7984fe483669631f56c5b7f5dfb5b1cea0cae145ba015b33f6af9e63ab",
-      "failures": 5,
-      "nextAttemptAt": "2026-11-21T18:05:02+00:00",
-      "reason": "ValueError: Copied source passage"
+      "failures": 6,
+      "nextAttemptAt": "2026-11-24T21:57:29+00:00",
+      "reason": "ValueError: Unsupported numerical claim: 1989"
     },
     "buffett-22ca2b1753bbf7": {
       "at": "2026-11-20T00:07:32+00:00",
@@ -4718,5 +4718,5 @@
       "reason": "ValueError: Copied source passage"
     }
   },
-  "updatedAt": "2026-11-21T14:18:30+00:00"
+  "updatedAt": "2026-11-21T21:57:29+00:00"
 }
