@@ -4057,12 +4057,12 @@
       "reason": "ValueError: Bilingual editorial review: The English translation of the Chinese paragraph contains factual inaccuracies regarding the source text.; The source (s0) states Marks wrote a memo in **1990** to take issue with a manager's quote about being in the top/bottom 5%. The translation incorrectly attributes this specific argument to the **1995** memo, confla"
     },
     "marks-b86a61b70ef225": {
-      "at": "2026-11-19T15:09:37+00:00",
+      "at": "2026-11-21T02:52:11+00:00",
       "status": "retry",
       "inputHash": "7fc1e0d2f279a2694111c9f149468f552938f7025a4054c103dd8c3a70d34695",
-      "failures": 4,
-      "nextAttemptAt": "2026-11-20T23:09:37+00:00",
-      "reason": "ValueError: Copied source passage"
+      "failures": 5,
+      "nextAttemptAt": "2026-11-23T18:52:11+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English translation in the 'content' section contains a factual error regarding the timeline: it states '20 or 25 years ago', whereas the source text (s3) specifies '25 or 20 years ago'. While numerically equivalent, the order of presentation differs from the original.; The English translation omits the specific phra"
     },
     "marks-bc1dda168f409b": {
       "at": "2026-11-21T02:21:44+00:00",
@@ -4710,5 +4710,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-21T02:50:55+00:00"
+  "updatedAt": "2026-11-21T02:52:11+00:00"
 }
