@@ -1864,12 +1864,12 @@
       "reason": "ValueError: Bilingual editorial review: The Chinese text claims Buffett pledged he would stop reading the book if not a millionaire by 35; this specific pledge is absent from the provided source (s2/s3), which only mentions his statement about being a millionaire by 35.; The English text states Buffett 'famously pledging' to stop reading, which is an unwritten"
     },
     "pabrai-c6c00d61fd5d75": {
-      "at": "2026-11-18T18:10:46+00:00",
+      "at": "2026-11-21T13:34:46+00:00",
       "status": "retry",
       "inputHash": "aa63454949e27bada43391194c2083fb90210d4cb72ff5c8428a62775235c6f3",
-      "failures": 5,
-      "nextAttemptAt": "2026-11-21T10:10:46+00:00",
-      "reason": "ValueError: Incomplete AI Review at 1800 tokens"
+      "failures": 6,
+      "nextAttemptAt": "2026-11-24T13:34:46+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English text in the 'content' section incorrectly states Pabrai's hedge fund size as 'exceeding half a billion dollars', whereas source s0 explicitly says 'more than half a billion dollars'. While semantically similar, the phrasing differs slightly from the source.; The Chinese translation of 'IIT' is rendered as 'II"
     },
     "pabrai-9a0eba26aa2ca1": {
       "at": "2026-11-19T14:14:27+00:00",
@@ -4718,5 +4718,5 @@
       "reason": "ValueError: Copied source passage"
     }
   },
-  "updatedAt": "2026-11-21T13:33:54+00:00"
+  "updatedAt": "2026-11-21T13:34:46+00:00"
 }
