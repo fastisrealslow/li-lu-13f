@@ -2660,12 +2660,12 @@
       "reason": "ValueError: Bilingual editorial review: The English paraphrase in the content section incorrectly attributes Feynman's quote as 'imagine how much harder physics would be if electrons had feelings' (missing 'much'), whereas the source text s7 reads: 'imagine how much harder physics would be if electrons had feelings.'; The English paraphrase omits the specific "
     },
     "marks-bee01f7fefbaee": {
-      "at": "2026-11-18T18:06:52+00:00",
+      "at": "2026-11-21T13:50:40+00:00",
       "status": "retry",
       "inputHash": "6dd9da60809e39709c13e2eefad5cc4b015784f7627c46c27e9315488171fc4a",
-      "failures": 5,
-      "nextAttemptAt": "2026-11-21T10:06:52+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English content does not match the source text (s0-s2). Source s0 discusses 'laws of economics' generally; the English content incorrectly introduces 'fire insurance' as an example.; The English content misrepresents the author's argument. The source states governments enact rules to override economic laws, but the E"
+      "failures": 6,
+      "nextAttemptAt": "2026-11-24T13:50:40+00:00",
+      "reason": "ValueError: Bilingual editorial review: The provided English content (paragraph) is not grounded in the source text. It introduces 'fire insurance' as an example, which does not appear in any of the three evidence sections (s0, s1, s2). The source only discusses rent control.; The English content claims Marks argues that officials limit rent increases to 'reta"
     },
     "marks-634492e880737b": {
       "at": "2026-11-21T02:23:01+00:00",
@@ -4718,5 +4718,5 @@
       "reason": "ValueError: Copied source passage"
     }
   },
-  "updatedAt": "2026-11-21T13:50:33+00:00"
+  "updatedAt": "2026-11-21T13:50:40+00:00"
 }
