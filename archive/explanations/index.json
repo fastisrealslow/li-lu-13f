@@ -484,12 +484,12 @@
       "reason": "ValueError: Unsupported numerical claim: 1992"
     },
     "ackman-918af90dea38d8": {
-      "at": "2026-11-18T17:45:27+00:00",
+      "at": "2026-11-21T13:13:05+00:00",
       "status": "retry",
       "inputHash": "47fa63450520730afba6b4dad46abbf3dd4dbc7d689321f44bde935db2157aa5",
-      "failures": 5,
-      "nextAttemptAt": "2026-11-21T09:45:27+00:00",
-      "reason": "ValueError: Bilingual editorial review: The source text (s4) states the investor puts up $500 for 500 shares at $1 each, but s5 claims the business is worth $1,500 including $1,000 goodwill. The source does not explicitly define 'goodwill' as a separate asset line item with a value of $1,000; it only mentions the founder contributed the idea and name while the"
+      "failures": 6,
+      "nextAttemptAt": "2026-11-24T13:13:05+00:00",
+      "reason": "ValueError: Bilingual editorial review: The source text does not explicitly state that the investor owns a third of the business; it only says 'He is going to have 500 shares' out of 1,000 total. While mathematically correct (500/1000 = 1/3), the phrase 'owns a third' is an inference not directly in the text.; The source text does not explicitly state that the"
     },
     "buffett-7177025720de85": {
       "at": "2026-11-19T02:14:36+00:00",
@@ -4710,5 +4710,5 @@
       "reason": "ValueError: Unsupported numerical claim: 1"
     }
   },
-  "updatedAt": "2026-11-21T13:10:05+00:00"
+  "updatedAt": "2026-11-21T13:13:05+00:00"
 }
