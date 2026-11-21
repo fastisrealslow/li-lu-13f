@@ -1344,12 +1344,12 @@
       "reason": "ValueError: Bilingual editorial review: The source text (s7) states Rain Industries had a PE of '10 or 15 times earnings' at the time, but the summary claims it was trading at '10 to 15 times earnings', which contradicts the earlier statement that it was trading at '10th of revenue, PEs of 0.1'. The source explicitly says 'rain Industries, it had a normal mult"
     },
     "pabrai-36450d370316ee": {
-      "at": "2026-11-19T02:57:25+00:00",
+      "at": "2026-11-21T22:34:32+00:00",
       "status": "retry",
       "inputHash": "ce433e0b519779154bc0bcf5dd15d2d5b324810bcc3336cdf79eff981d5030c1",
-      "failures": 5,
-      "nextAttemptAt": "2026-11-21T18:57:25+00:00",
-      "reason": "ValueError: Incomplete AI Review at 1800 tokens"
+      "failures": 6,
+      "nextAttemptAt": "2026-11-24T22:34:32+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English translation in the 'content' section contains significant factual errors compared to the source text (evidence s3, s4, s7).; Error 1: The source states Pabrai's skills were NOT genetic ('I wonder if growing up... had help you, or if you think your skills are genetic.' -> 'Mohnish: No, I think that's a good qu"
     },
     "pabrai-18c92ff6cf0411": {
       "at": "2026-11-20T08:22:48+00:00",
@@ -4718,5 +4718,5 @@
       "reason": "ValueError: Unsupported numerical claim: 90%"
     }
   },
-  "updatedAt": "2026-11-21T22:30:53+00:00"
+  "updatedAt": "2026-11-21T22:34:32+00:00"
 }
