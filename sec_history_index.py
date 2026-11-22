@@ -57,6 +57,18 @@ def parse_index(raw, cik):
     return records
 
 
+def verify_plaintext_cover_period(body, header_period):
+    """A dated 13F cover may corroborate the header, but may not override it."""
+    text = re.sub(r'<[^>]+>', ' ', body)
+    matches = re.findall(
+        r'Report\s+for\s+the\s+Calendar\s+Year\s+or\s+Quarter\s+Ended'
+        r'\s*:?\s*(\d{1,2}/\d{1,2}/\d{4})', text, re.I)
+    for date_text in matches:
+        cover_period = datetime.strptime(date_text, '%m/%d/%Y').date().isoformat()
+        if cover_period != header_period:
+            raise ValueError(f'SEC header period {header_period} conflicts with 13F cover period {cover_period}')
+
+
 def bind_submission(raw, candidate, cik):
     body = raw.decode('utf-8', errors='replace')
     header = body.split('</SEC-HEADER>', 1)[0]
@@ -73,6 +85,7 @@ def bind_submission(raw, candidate, cik):
     if filed != candidate['filingDate']:
         raise ValueError('Submission filing date differs from index')
     period = datetime.strptime(field('CONFORMED PERIOD OF REPORT'), '%Y%m%d').strftime('%Y-%m-%d')
+    verify_plaintext_cover_period(body, period)
     amendment = re.search(r'<(?:\w+:)?amendmentType>\s*([^<]+)', body, re.I)
     amendment = amendment[1].strip().upper() if amendment else ''
     if candidate['form']=='13F-HR/A' and not amendment:

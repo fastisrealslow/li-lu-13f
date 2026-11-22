@@ -50,6 +50,16 @@ class HistoryIndexTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError,'CIK/accession'):
             index.bind_submission(submission(),CANDIDATE,'1576745')
 
+    def test_explicit_plaintext_cover_conflict_rejected(self):
+        cover = b'<p>Report for the Calendar Year or Quarter Ended:</p> 06/30/2019'
+        with self.assertRaisesRegex(ValueError, '2019-03-31.*2019-06-30'):
+            index.bind_submission(submission() + cover, CANDIDATE, CIK)
+        with self.assertRaisesRegex(ValueError, '2019-03-31.*2019-06-30'):
+            fetcher.parse_holdings(submission() + cover, filing_date='2019-05-14',
+                                   retain_legacy_discrepancies=True)
+        self.assertEqual(index.bind_submission(
+            submission() + cover.replace(b'06/30',b'03/31'), CANDIDATE, CIK)['reportDate'], '2019-03-31')
+
     def test_full_restatement_allowed_but_additive_amendment_not_whole_portfolio(self):
         for amendment,complete in [('RESTATEMENT',True),('ADD NEW HOLDINGS',False),('',False)]:
             result=index.bind_submission(submission('13F-HR/A',amendment),{**CANDIDATE,'form':'13F-HR/A'},CIK)

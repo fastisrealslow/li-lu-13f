@@ -57,6 +57,8 @@ def _load_investor_config():
         print(f"ERROR: investors.json 读取失败（{e}）", file=sys.stderr)
         sys.exit(1)
 
+    quarantine_path = Path(BASE) / "historical_filing_quarantine.json"
+    quarantine = json.loads(quarantine_path.read_text(encoding="utf-8"))
     cfg = {}
     for inv in investors:
         if not inv.get('source13F'):
@@ -74,6 +76,8 @@ def _load_investor_config():
             entry["legacyFilers"] = inv["legacyFilers"]
         for field in ("reportingFrom", "reportingTransition", "historyGapNotices", "useRestatements", "fullArchiveWorkers", "costHistoryFrom"):
             if inv.get(field): entry[field] = inv[field]
+        if inv["id"] in quarantine:
+            entry["historicalFilingQuarantine"] = quarantine[inv["id"]]
         cfg[inv["id"]] = entry
     return cfg
 
@@ -1034,6 +1038,42 @@ def warn_unmapped(data: dict):
 # 主流程
 # ─────────────────────────────────────────────────────────────
 
+def quarantine_historical_filings(data, configured):
+    """Remove conflicting stored snapshots, not a verified alternative for the same quarter."""
+    if not configured:
+        return
+    history = data['history']
+    affected = set()
+    sources = history.get('filing_sources', {})
+    current = data.get('current', {})
+    for quarter, source in list(sources.items()):
+        accession = source.get('accession') or source.get('accessionDashed', '')
+        accession = accession.replace('-', '')
+        if not accession or accession not in configured:
+            continue
+        if quarter in (current.get('quarter'), current.get('prevQuarter')):
+            raise ValueError('Historical quarantine cannot modify current or previous portfolio')
+        history.setdefault('quarantinedFilings', {})[accession] = {
+            'quarter': quarter, 'reason': configured[accession], 'source': source,
+        }
+        history.setdefault('coverage', {}).setdefault('errors', {})[quarter] = configured[accession]
+        sources.pop(quarter)
+        history.get('valueAudit', {}).pop(quarter, None)
+        history.get('holdings', {}).pop(quarter, None)
+        if quarter in history.get('quarters', []):
+            i = history['quarters'].index(quarter)
+            history['quarters'].pop(i)
+            history['values'].pop(i)
+        affected.add(quarter)
+    for quarter, rows in history.get('holdings', {}).items():
+        year, q = int(quarter[:4]), int(quarter[-1])
+        prior = f"{year - 1} Q4" if q == 1 else f"{year} Q{q - 1}"
+        if prior in affected:
+            for row in rows:
+                row.update(prevShares=None, prevValue=None)
+                row.pop('shareAdjustment', None)
+
+
 def investor_filings(config, full_mode=False):
     """Prefer the current reporter; retain dated, explicitly verified predecessors."""
     sources = [(config['cik'], None, None)] + [(old['cik'], old['beforePeriod'], old) for old in config.get('legacyFilers', [])]
@@ -1046,6 +1086,9 @@ def investor_filings(config, full_mode=False):
             rows = get_recent_filings(cik, include_archives=True) if full_mode else get_recent_filings(cik)
         if not legacy:notices.extend(getattr(rows,'notices',[]))
         for filing in rows:
+            accession = (filing.get('accession') or filing.get('accessionDashed', '')).replace('-', '')
+            if accession in config.get('historicalFilingQuarantine', {}):
+                continue
             period = filing['reportDate']
             if (legacy and legacy.get('fromPeriod') and period < legacy['fromPeriod']) or (before and period >= before) or (not before and config.get('reportingFrom') and period < config['reportingFrom']):
                 continue
@@ -1151,6 +1194,7 @@ def process_investor(key: str, config: dict, full_mode: bool):
             "history": {"quarters": [], "values": [], "holdings": {}},
         }
 
+    quarantine_historical_filings(data, config.get('historicalFilingQuarantine', {}))
     data['meta'].update(manager=config['manager'], managerCIK=cik.zfill(10))
     if config.get('legacyFilers'):
         data['meta']['legacyFilers'] = config['legacyFilers']
