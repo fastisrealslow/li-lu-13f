@@ -1240,12 +1240,12 @@
       "reason": "ValueError: Bilingual editorial review: The source text does not mention 'industrial psychologists' conducting tests on Pabrai; it only states that 'a couple of industrial psychologists do a bunch of tests on me'. While the term is plausible, the specific phrasing in the summary ('conducted tests on him') adds slight interpretive weight not explicitly present "
     },
     "pabrai-a08413f47088be": {
-      "at": "2026-11-19T14:30:05+00:00",
+      "at": "2026-11-22T08:09:13+00:00",
       "status": "retry",
       "inputHash": "e0d728dcf1dbcdc0030a0a94b51d25b84925c064cdfcb68220445c8bb820881a",
-      "failures": 5,
-      "nextAttemptAt": "2026-11-22T06:30:05+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English translation in the 'content' section incorrectly attributes the quote about Warren Buffett to Pabrai ('Pabrai argues that...'), whereas the source text (s1) clearly states it is Warren Buffett's own words.; The English translation misrepresents the specific age range for brain specialization. The source (s2) "
+      "failures": 6,
+      "nextAttemptAt": "2026-11-25T08:09:13+00:00",
+      "reason": "ValueError: Bilingual editorial review: The Chinese text claims the cognitive window closes around age 17, contradicting the source (s2) which states specialization occurs from age 11 to 20.; The Chinese text attributes the quote about Buffett being a better investor because he is a businessman to Pabrai, while the source (s1) explicitly attributes it to Warre"
     },
     "pabrai-96a9fab5d602f9": {
       "at": "2026-11-20T17:28:31+00:00",
@@ -4718,5 +4718,5 @@
       "reason": "ValueError: Copied source passage"
     }
   },
-  "updatedAt": "2026-11-22T08:08:58+00:00"
+  "updatedAt": "2026-11-22T08:09:13+00:00"
 }
