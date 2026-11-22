@@ -19,12 +19,33 @@ def table():
 class BackfillTests(unittest.TestCase):
     def test_acknowledged_gaps_are_quiet_without_hiding_new_missing_quarters(self):
         missing=['2018 Q4','2019 Q1','2019 Q2','2019 Q3','2024 Q2']
-        coverage={'missingQuarters':missing.copy()}
+        coverage={'missingQuarters':missing.copy(),
+                  'expandedLookup':{'status':'checked','requestedQuarters':missing[:4]},
+                  'errors':{q:'No matching complete 13F portfolio in submissions and checked quarterly indexes' for q in missing[:4]}}
         config={'historyGapNotices':{'mutedQuarters':missing[:4]}}
         self.assertEqual(fetch.history_notice_quarters(coverage,config),['2024 Q2'])
         self.assertEqual(coverage['quietMissingQuarters'],missing[:4])
         self.assertEqual(coverage['missingQuarters'],missing)
         self.assertEqual(fetch.history_notice_quarters(coverage,{}),missing)
+
+    def test_reviewed_index_miss_is_not_scanned_until_new_filing_is_seen(self):
+        d=data(); q='2019 Q1'
+        d['history']['quarters']=['2018 Q4','2019 Q2']
+        d['history']['coverage']={'expandedLookup':{'status':'checked','requestedQuarters':[q]},
+            'errors':{q:'No matching complete 13F portfolio in submissions and checked quarterly indexes'}}
+        with patch.object(fetch,'get_recent_filings') as index:
+            fetch.backfill_history_gaps('1709323',d,[],reviewed_quarters=[q])
+        index.assert_not_called()
+        self.assertEqual(d['history']['coverage']['missingQuarters'],[q])
+        self.assertEqual(fetch.history_notice_quarters(d['history']['coverage'],{'historyGapNotices':{'mutedQuarters':[q]}}),[])
+        with patch('audit_13f_history.discover_restatements',return_value={}), patch.object(fetch,'find_info_table_xml',return_value='/Archives/table.xml'), patch.object(fetch,'sec_fetch',side_effect=OSError('source interruption')):
+            fetch.backfill_history_gaps('1709323',d,[filing(1)],reviewed_quarters=[q])
+        self.assertEqual(d['history']['coverage']['errors'][q],'source interruption')
+        self.assertEqual(fetch.history_notice_quarters(d['history']['coverage'],{'historyGapNotices':{'mutedQuarters':[q]}}),[q])
+
+    def test_greenblatt_current_common_share_tickers(self):
+        self.assertEqual(fetch.CUSIP_TICKER_MAP["20603L102"], "CON")
+        self.assertEqual(fetch.CUSIP_TICKER_MAP["04956D107"], "ATMU")
 
     def test_archive_index_is_read_sorted_and_deduplicated(self):
         current={'form':['13F-HR'],'accessionNumber':['new'],'filingDate':['2026-08-14'],'reportDate':['2026-06-30']}
