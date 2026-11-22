@@ -1088,12 +1088,12 @@
       "reason": "ValueError: Copied source passage"
     },
     "pabrai-0c3b0137fc117b": {
-      "at": "2026-11-19T14:46:25+00:00",
+      "at": "2026-11-22T08:25:10+00:00",
       "status": "retry",
       "inputHash": "d920bdd63f02da0b3d18c94617678336364bf0951691b29fde9ce6a8048744ed",
-      "failures": 5,
-      "nextAttemptAt": "2026-11-22T06:46:25+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English translation of 'Me Too' models is contextually inaccurate; it should be 'copycat' or 'imitation' models as the source text explicitly links Gates and Walton to cloning existing businesses rather than a social media reference.; The phrase 'intense cloners' in the English text is a mistranslation of the Chinese"
+      "failures": 6,
+      "nextAttemptAt": "2026-11-25T08:25:10+00:00",
+      "reason": "ValueError: Bilingual editorial review: The source text (s4) is truncated ('who has visited more') and does not contain the claim that Walton 'personally inspect stores along his vacation routes.' This specific detail appears to be an inference or hallucination rather than a supported fact from the provided evidence.; The Chinese translation in the `content` s"
     },
     "pabrai-656ae25b22f620": {
       "at": "2026-11-19T14:41:56+00:00",
@@ -4718,5 +4718,5 @@
       "reason": "ValueError: Copied source passage"
     }
   },
-  "updatedAt": "2026-11-22T08:24:49+00:00"
+  "updatedAt": "2026-11-22T08:25:10+00:00"
 }
