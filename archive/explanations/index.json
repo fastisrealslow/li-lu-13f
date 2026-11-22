@@ -4425,12 +4425,12 @@
       "reason": "ValueError: Bilingual editorial review: The English translation incorrectly translates 'South-Sea Diet' as 'South Sea Company', whereas the source text explicitly quotes Robert Digby referring to it as 'The South Sea Company'. The term 'South-Sea Diet' appears to be a mistranslation or misquote in the provided evidence (s4), but the translation should reflect "
     },
     "mclemore-2ab9591831eb1d": {
-      "at": "2026-11-19T23:23:57+00:00",
+      "at": "2026-11-22T17:01:16+00:00",
       "status": "retry",
       "inputHash": "db33b03493c9439ad8647c9d02d9979c92a46db5c44da8c6a3c1a3e6d9cd3e58",
-      "failures": 5,
-      "nextAttemptAt": "2026-11-22T15:23:57+00:00",
-      "reason": "ValueError: Bilingual editorial review: The Chinese text incorrectly states Farfetch's current stock price as '~$15', whereas the source (s7) specifies it as '~$10'.; The Chinese text misrepresents the compensation condition: it claims Jose Neves gets paid if the stock reaches $75, but the source clarifies he is only paid if the stock exceeds $75 AND that spec"
+      "failures": 6,
+      "nextAttemptAt": "2026-11-25T17:01:16+00:00",
+      "reason": "ValueError: Incomplete AI Review at 1800 tokens"
     },
     "mclemore-24b0bf430a4f7b": {
       "at": "2026-11-20T00:01:39+00:00",
@@ -4718,5 +4718,5 @@
       "reason": "ValueError: Copied source passage"
     }
   },
-  "updatedAt": "2026-11-22T17:01:04+00:00"
+  "updatedAt": "2026-11-22T17:01:16+00:00"
 }
