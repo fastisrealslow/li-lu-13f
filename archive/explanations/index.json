@@ -1584,12 +1584,12 @@
       "reason": "ValueError: Bilingual editorial review: The source text does not explicitly state the lecture title is 'Competition is for Losers'; it says 'I think the title is...', indicating uncertainty. The summary presents this as a confirmed fact.; The source states Peter Thiel 'posted that video on YouTube' in 2015 or 2016, but does not confirm he 'released' it at that"
     },
     "pabrai-fc099d6ba1ac88": {
-      "at": "2026-11-19T23:24:14+00:00",
+      "at": "2026-11-22T17:01:04+00:00",
       "status": "retry",
       "inputHash": "cd6bbae9552dfc90beea8daa56d3beb3bda1d6cea2f4ce950c06d521d2e16a72",
-      "failures": 5,
-      "nextAttemptAt": "2026-11-22T15:24:14+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English text incorrectly states 'Munger reiterated... the paramount importance' when the source (s7) attributes this statement to Charlie Munger himself ('He stressed...'), not Pabrai. The Chinese text correctly identifies Munger as the speaker.; The English text claims Pabrai 'recalled their shared dinners in Omaha "
+      "failures": 6,
+      "nextAttemptAt": "2026-11-25T17:01:04+00:00",
+      "reason": "ValueError: Bilingual editorial review: The Chinese text claims Munger invited Pabrai to his 90th birthday party; the source (s7) states he invited him for his 90th, but later mentions the 95th and 100th parties explicitly, creating a potential confusion in the summary's phrasing of the invitation timeline.; The Chinese text attributes the speculation about Bu"
     },
     "pabrai-99a0eff7272af5": {
       "at": "2026-11-19T23:36:07+00:00",
@@ -4718,5 +4718,5 @@
       "reason": "ValueError: Copied source passage"
     }
   },
-  "updatedAt": "2026-11-22T17:00:14+00:00"
+  "updatedAt": "2026-11-22T17:01:04+00:00"
 }
