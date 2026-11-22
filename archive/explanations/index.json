@@ -2860,12 +2860,12 @@
       "reason": "ValueError: Bilingual editorial review: The English paragraph contains a factual error regarding the stock price increase percentage. The source text (s8) states '25% stock price increase' ($40 to $50), but the generated text incorrectly claims 'a stock rising from $40 to $50' without explicitly stating the 25% figure, while the reasoning mentions 'the 25% sto"
     },
     "marks-49e0212382a26b": {
-      "at": "2026-11-19T14:03:32+00:00",
+      "at": "2026-11-22T07:40:27+00:00",
       "status": "retry",
       "inputHash": "4fc2cef43c39352d833c1cd958bbd646208f9db9d653a53ea608dfaaeb8f49c5",
-      "failures": 5,
-      "nextAttemptAt": "2026-11-22T06:03:32+00:00",
-      "reason": "ValueError: Bilingual editorial review: The Chinese text incorrectly attributes specific investment details or strategies to Warren Buffett that are not present in the source (s12). The source only mentions Buffett as a 'great contrarian' without detailing his specific actions or strategies.; The Chinese text claims Marx 'cites' Buffett, but the source text st"
+      "failures": 6,
+      "nextAttemptAt": "2026-11-25T07:40:27+00:00",
+      "reason": "ValueError: Unsupported numerical claim: 3"
     },
     "marks-e85898c6125044": {
       "at": "2026-11-19T23:51:35+00:00",
@@ -4718,5 +4718,5 @@
       "reason": "ValueError: Unsupported numerical claim: 90%"
     }
   },
-  "updatedAt": "2026-11-22T07:40:13+00:00"
+  "updatedAt": "2026-11-22T07:40:27+00:00"
 }
