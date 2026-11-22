@@ -15,11 +15,40 @@ export const tools=[
 ].map(([name,description,inputSchema])=>({name,description,inputSchema,annotations:{readOnlyHint:true,destructiveHint:false,idempotentHint:true,openWorldHint:false}}));
 const json=(value,status=200)=>new Response(JSON.stringify(value),{status,headers:{'Content-Type':'application/json','Cache-Control':'no-store'}});
 const paginate=(items,a)=>{const offset=a.offset??0,limit=a.limit??20;return{total:items.length,offset,items:items.slice(offset,offset+limit),nextOffset:offset+limit<items.length?offset+limit:null};};
-async function load(path){
+async function load(path, timeout=15000){
  const url=HOME+path;
- const r=await fetch(url,{signal:AbortSignal.timeout(15000),cf:{cacheTtl:120,cacheEverything:true}});
+ const r=await fetch(url,{signal:AbortSignal.timeout(timeout),cf:{cacheTtl:120,cacheEverything:true}});
  if(!r.ok)throw Error('Public source unavailable ('+r.status+'): '+path);
  return r.json();
+}
+function canonical(value) {
+ if(Array.isArray(value))return value.map(canonical);
+ if(value && typeof value==='object'){
+  return Object.fromEntries(Object.keys(value).sort().map(key=>[key,canonical(value[key])]));
+ }
+ return value;
+}
+async function portfolioMeta(data, investor) {
+ const {aiSummary, aiSummaryQuarter, aiSummaryUpdatedAt, ...meta}=data.meta || {};
+ const current=data.current || {};
+ // Scope transitions require manager-level history verification in the browser.
+ if(!current.quarter || meta.reportingTransition || meta.snapshotType)return meta;
+ const fields=['ticker','cusip','shares','value','prevShares','prevValue','cnName','name','cls','putCall','shareType','shareAdjustment'];
+ const rows=items=>(items || []).map(holding=>fields.map(field=>holding[field] ?? null));
+ const source={
+  quarter:current.quarter, prevQuarter:current.prevQuarter ?? null, scope:null,
+  snapshotType:null, valueQuality:current.valueQuality ?? null,
+  holdings:rows(current.holdings),
+  previousHoldings:rows(current.previousHoldings ?? data.history?.holdings?.[current.prevQuarter])
+ };
+ let artifact;
+ try { artifact=await load('ai_supplement.json', 3000); }
+ catch { return meta; }
+ const entry=artifact?.entries?.['investor:'+investor];
+ if(entry?.renderVersion!==4 || !['model_selection','deterministic'].includes(entry.mode) ||
+    typeof entry.summary!=='string' || !entry.summary.trim() ||
+    JSON.stringify(canonical(entry.source))!==JSON.stringify(canonical(source)))return meta;
+ return {...meta,aiSummary:entry.summary,aiSummaryQuarter:current.quarter,aiSummaryUpdatedAt:entry.generatedAt};
 }
 function validate(tool,args){
  if(!args||typeof args!=='object'||Array.isArray(args))throw Error('Arguments must be an object');
@@ -45,9 +74,12 @@ async function call(name,a){
    const i=history.quarters.indexOf(a.quarter);return{investor:person.id,quarter:a.quarter,reportedValue:history.values?.[i],filingSource:history.filing_sources?.[a.quarter],holdings:paginate(history.holdings?.[a.quarter]||[],a)};
   }
   const current=data.current||{};
-  let prices={};if(/^[a-zA-Z0-9_-]+\.json$/.test(person.pricesFile||''))prices=await load(person.pricesFile);
+  const [prices,meta]=await Promise.all([
+   /^[a-zA-Z0-9_-]+\.json$/.test(person.pricesFile||'') ? load(person.pricesFile) : {},
+   portfolioMeta(data,person.id)
+  ]);
   const holdings=paginate(current.holdings||[],a);
-  return{investor:person.id,meta:data.meta,quarter:current.quarter,filingDate:current.filingDate,periodEnd:current.periodEnd,totalValue:current.totalValue,holdings,quoteUpdated:prices.updated,quotes:Object.fromEntries(holdings.items.map(h=>[h.ticker,prices.quotes?.[h.ticker]]).filter(([k,v])=>k&&v))};
+  return{investor:person.id,meta,quarter:current.quarter,filingDate:current.filingDate,periodEnd:current.periodEnd,totalValue:current.totalValue,holdings,quoteUpdated:prices.updated,quotes:Object.fromEntries(holdings.items.map(h=>[h.ticker,prices.quotes?.[h.ticker]]).filter(([k,v])=>k&&v))};
  }
  if(name==='get_personal_portfolio'){const d=await load('personal_portfolio.json');return{...d,companies:paginate(d.companies||[],a)};}
  if(name==='get_spinoffs'){const d=await load('spinoff.json');const q=(a.query||'').toLowerCase();return{updatedAt:d.updatedAt,records:paginate((d.companies||[]).filter(x=>!q||JSON.stringify(x).toLowerCase().includes(q)),a)};}
