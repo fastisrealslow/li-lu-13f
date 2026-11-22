@@ -550,12 +550,12 @@
       "reason": "ValueError: No audio obtained"
     },
     "pabrai-84930e49b02b52": {
-      "at": "2026-11-19T14:21:36+00:00",
+      "at": "2026-11-22T08:09:27+00:00",
       "status": "retry",
       "inputHash": "b4d36f511c7aedd42636de384f8527b7507d4382936957e66a1f014c97a55b01",
-      "failures": 5,
-      "nextAttemptAt": "2026-11-22T06:21:36+00:00",
-      "reason": "ValueError: Bilingual editorial review: The source text (s9) contains no CNBC snippet from Buffett; the editor incorrectly attributes a quote to him.; The source text (s10) states Google spent $100 billion in 2027, equivalent to $20 billion five years prior. The editor's English translation uses 'five years ago' but the Chinese version says 'a few years back',"
+      "failures": 6,
+      "nextAttemptAt": "2026-11-25T08:09:27+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English translation in the content section incorrectly states 'spending $20 billion five years prior' when the source text (s10) says '$20 billion five or five years ago', implying a range rather than a fixed point.; The English translation omits the phrase 'or five years ago' from s10, which is present in the Chines"
     },
     "vinall-2c8021ee8f5f62": {
       "at": "2026-11-21T22:17:34+00:00",
@@ -4718,5 +4718,5 @@
       "reason": "ValueError: Copied source passage"
     }
   },
-  "updatedAt": "2026-11-22T08:09:13+00:00"
+  "updatedAt": "2026-11-22T08:09:27+00:00"
 }
