@@ -1096,12 +1096,12 @@
       "reason": "ValueError: Bilingual editorial review: The source text (s4) is truncated ('who has visited more') and does not contain the claim that Walton 'personally inspect stores along his vacation routes.' This specific detail appears to be an inference or hallucination rather than a supported fact from the provided evidence.; The Chinese translation in the `content` s"
     },
     "pabrai-656ae25b22f620": {
-      "at": "2026-11-19T14:41:56+00:00",
+      "at": "2026-11-22T08:39:10+00:00",
       "status": "retry",
       "inputHash": "17a6cb82183d71de20de077db9f78fa457349eec2c056d4ff31a4a1f2937af83",
-      "failures": 5,
-      "nextAttemptAt": "2026-11-22T06:41:56+00:00",
-      "reason": "ValueError: Bilingual editorial review: The source text (s2) states Buffett would do '50% a year' if managing $1M-$10M, but does not claim this rate is sustainable indefinitely or that Buffett currently achieves it; the summary implies a general rule rather than a specific hypothetical scenario.; The source text (s4) explicitly sets the context as 'circa 2025'"
+      "failures": 6,
+      "nextAttemptAt": "2026-11-25T08:39:10+00:00",
+      "reason": "ValueError: Unsupported numerical claim: 500"
     },
     "pabrai-58b2cd1ba68941": {
       "at": "2026-11-20T08:26:08+00:00",
@@ -4718,5 +4718,5 @@
       "reason": "ValueError: Copied source passage"
     }
   },
-  "updatedAt": "2026-11-22T08:38:38+00:00"
+  "updatedAt": "2026-11-22T08:39:10+00:00"
 }
