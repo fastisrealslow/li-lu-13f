@@ -1136,12 +1136,12 @@
       "reason": "JSONDecodeError: Expecting ',' delimiter: line 1 column 1793 (char 1792)"
     },
     "pabrai-7f291e9d73d552": {
-      "at": "2026-11-19T23:39:30+00:00",
+      "at": "2026-11-22T17:04:14+00:00",
       "status": "retry",
       "inputHash": "e906ed4ac15d08ba3f984411274d28494360b6b82a74d1070761cde5eddda10c",
-      "failures": 5,
-      "nextAttemptAt": "2026-11-22T15:39:30+00:00",
-      "reason": "ValueError: Bilingual editorial review: The source text (s8) states '99% of businessmen' and later clarifies 'maybe 99.99%', but the summary presents this as a definitive fact ('causing approximately 99.99% of businessmen to err') without capturing the speaker's uncertainty ('maybe').; The source text (s8) says 'violating model number two', while the summary t"
+      "failures": 6,
+      "nextAttemptAt": "2026-11-25T17:04:14+00:00",
+      "reason": "ValueError: Bilingual editorial review: The source text (s8) states '99% of businessmen... are violating model number two', but the content incorrectly cites '99.99%' without textual support.; The source text (s9) mentions 'most 95%' of businesses failing, but the content conflates this with a general claim about 'most businesses' failing due to deviation, lac"
     },
     "pabrai-e2b8759f740dd0": {
       "at": "2026-11-20T18:23:07+00:00",
@@ -4718,5 +4718,5 @@
       "reason": "ValueError: Copied source passage"
     }
   },
-  "updatedAt": "2026-11-22T17:03:54+00:00"
+  "updatedAt": "2026-11-22T17:04:14+00:00"
 }
