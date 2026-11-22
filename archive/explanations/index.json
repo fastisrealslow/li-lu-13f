@@ -1464,12 +1464,12 @@
       "reason": "ValueError: Bilingual editorial review: The English translation of the title incorrectly states 'December 26, 2022' while the source text only mentions the date without specifying the year; adding a specific year is an unwritten assumption.; The English paragraph introduces the phrase 'race toward a destination,' which is not present in the source text ('journ"
     },
     "pabrai-ac73782c4fb468": {
-      "at": "2026-11-20T00:14:47+00:00",
+      "at": "2026-11-22T17:53:34+00:00",
       "status": "retry",
       "inputHash": "646ba2637a95b22616e050913e38c54c44d16c05e5d3bd9160e1d091d30cc227",
-      "failures": 5,
-      "nextAttemptAt": "2026-11-22T16:14:47+00:00",
-      "reason": "ValueError: Bilingual editorial review: The content section incorrectly claims the text discusses 'reciprocal altruism', which is absent from the provided source evidence (s1-s3).; The English translation of the heading introduces 'Reciprocal Altruism' despite no such concept appearing in the source text.; The Chinese text falsely states the text focuses on 'c"
+      "failures": 6,
+      "nextAttemptAt": "2026-11-25T17:53:34+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English content incorrectly attributes the concept of 'reciprocal altruism' to Pabrai; the source text discusses 'mental models', 'human misjudgment', and 'evolutionary quirks' but never mentions reciprocal altruism.; The Chinese content falsely claims Pabrai emphasizes building an edge via 'reciprocal altruism'; the"
     },
     "pabrai-5b328b6415f6b0": {
       "at": "2026-11-22T16:59:45+00:00",
@@ -4718,5 +4718,5 @@
       "reason": "ValueError: Copied source passage"
     }
   },
-  "updatedAt": "2026-11-22T17:52:54+00:00"
+  "updatedAt": "2026-11-22T17:53:34+00:00"
 }
