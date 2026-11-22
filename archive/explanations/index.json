@@ -444,12 +444,12 @@
       "reason": "ValueError: Bilingual editorial review: The source text (s83) does not contain the phrase 'no simple linear equation that solves all problems'; it states 'whether you earn X or go broke is not an equation that works', which is a metaphorical statement about financial outcomes, not a literal mathematical claim.; The source text (s86) contains no substantive res"
     },
     "duan-d7212008ca9cb0": {
-      "at": "2026-11-19T14:09:10+00:00",
+      "at": "2026-11-22T07:47:23+00:00",
       "status": "retry",
       "inputHash": "810a3b2f8d5187262731841344f42e605af7008d3c96b30a47d7a05a465596bd",
-      "failures": 5,
-      "nextAttemptAt": "2026-11-22T06:09:10+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English translation of 'for fun' as 'funful' is incorrect; it should be 'for fun'.; The phrase 'tangible company assets' in the English text adds a specific descriptor ('tangible') not explicitly present in the source regarding Buffett's quote, though implied by context."
+      "failures": 6,
+      "nextAttemptAt": "2026-11-25T07:47:23+00:00",
+      "reason": "ValueError: Bilingual editorial review: Incorrect company name: 'Bilibili (Bodobu)' is not in source; source says 'Bubugao' (Step by Step).; Incorrect stock price detail: Source says NetEase was below $1/share, but text claims 'below $1 per share' while also mentioning '$8 cents' earlier. The text explicitly states 'only 80 cents' ($0.80) and 'below $1'.; Miss"
     },
     "greenberg-6ffab78b7040e3": {
       "at": "2026-11-20T17:24:40+00:00",
@@ -4718,5 +4718,5 @@
       "reason": "ValueError: Unsupported numerical claim: 90%"
     }
   },
-  "updatedAt": "2026-11-22T07:46:09+00:00"
+  "updatedAt": "2026-11-22T07:47:23+00:00"
 }
