@@ -865,7 +865,8 @@ def backfill_history_gaps(cik, data, filings, consolidate=False, limit=4, review
             if audit:
                 f.write(f"- Expanded SEC quarterly-index lookup: {audit['status']}\n")
                 f.write("- Scope: same CIK; two filing quarters after each missing report quarter. A search miss is not a zero holding.\n")
-                for key, entry in audit['indexes'].items():
+                # Older preserved lookup records may not include index details.
+                for key, entry in (audit.get('indexes') or {}).items():
                     f.write(f"  - [{key}]({entry['url']}): {entry['status']} ({entry['checkedAt']})\n")
 
 
