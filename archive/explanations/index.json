@@ -3041,12 +3041,12 @@
       "reason": "ValueError: Bilingual editorial review: The English paraphrase in the 'content' section contains a factual error regarding Marc Lipsitch's affiliation. The source text (s3) states he is a 'Professor of Epidemiology at Harvard's T.H. Chan School of Public Health', but the paraphrase incorrectly places the school name before the department ('Harvard T.H. Chan Sc"
     },
     "marks-feeacb8823121d": {
-      "at": "2026-11-19T15:07:34+00:00",
+      "at": "2026-11-22T16:53:30+00:00",
       "status": "retry",
       "inputHash": "e5e52bfa60452a421610cde2368773fbe847383ffa6fa5eaec9f62594787c44f",
-      "failures": 5,
-      "nextAttemptAt": "2026-11-22T07:07:34+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English translation of the title 'The Impact of Debt' does not match the content or the Chinese title which refers to 'The Symmetry of Leverage and Asymmetric Risk'.; The evidence text (s3) contains no mention of a 'six-foot-tall person drowning crossing a stream that was five feet deep on average'; this specific ada"
+      "failures": 6,
+      "nextAttemptAt": "2026-11-25T16:53:30+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English translation of the adage is inaccurate: 'the six-foot-tall person who drowned crossing the stream that was five feet deep on average' should be 'the six-foot-tall man who drowned while crossing a stream that was only five feet deep on average.'; The Chinese text incorrectly states the author's name as 'Howard"
     },
     "marks-6a1195ae7f8bbb": {
       "at": "2026-11-22T07:43:35+00:00",
@@ -4718,5 +4718,5 @@
       "reason": "ValueError: Copied source passage"
     }
   },
-  "updatedAt": "2026-11-22T16:52:51+00:00"
+  "updatedAt": "2026-11-22T16:53:30+00:00"
 }
