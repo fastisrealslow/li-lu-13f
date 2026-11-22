@@ -1128,12 +1128,12 @@
       "reason": "ValueError: Bilingual editorial review: The English translation in the `content.paragraphs` section contains a factual error regarding Warren Buffett's quote. The source text (s4) attributes the quote 'Value investing is like an inoculation – either it takes or it doesn't' to Warren Buffett ('Warren used to say...'). However, this specific phrasing is historic"
     },
     "vinall-2cbcc40389a099": {
-      "at": "2026-11-19T14:03:51+00:00",
+      "at": "2026-11-22T07:35:48+00:00",
       "status": "retry",
       "inputHash": "a419b449553340d3c6c0f95155f0f6cbe4a5b48cf7f8d3e597f781fa36da4856",
-      "failures": 5,
-      "nextAttemptAt": "2026-11-22T06:03:51+00:00",
-      "reason": "ValueError: Unsupported numerical claim: 6"
+      "failures": 6,
+      "nextAttemptAt": "2026-11-25T07:35:48+00:00",
+      "reason": "JSONDecodeError: Expecting ',' delimiter: line 1 column 1793 (char 1792)"
     },
     "pabrai-7f291e9d73d552": {
       "at": "2026-11-19T23:39:30+00:00",
@@ -4718,5 +4718,5 @@
       "reason": "ValueError: Unsupported numerical claim: 90%"
     }
   },
-  "updatedAt": "2026-11-22T07:35:41+00:00"
+  "updatedAt": "2026-11-22T07:35:48+00:00"
 }
