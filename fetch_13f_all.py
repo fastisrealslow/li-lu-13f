@@ -395,6 +395,9 @@ TICKER_CLASS_MAP = {
 # CUSIP → ticker（当名称匹配失败或有多股票类别歧义时优先使用，人工逐条核对）
 # 由 Klarman/Ackman/Abrams/Berkowitz/Hawkins 5 位投资者持仓补充
 CUSIP_TICKER_MAP = {
+    # Common-share CUSIP and ticker bound in SEC N-PORT source filings.
+    "20603L102": "CON",   # https://www.sec.gov/Archives/edgar/data/1655589/000094040026035197/primary_doc.xml
+    "04956D107": "ATMU",  # https://www.sec.gov/Archives/edgar/data/1329377/000094040025009981/xslFormNPORT-P_X01/primary_doc.xml
     "526057104": "LEN",
     "526057302": "LEN/B",
     "530909100": "LLYVA",
@@ -712,10 +715,21 @@ def missing_history_quarters(data):
             if i not in indices]
 
 
+def confirmed_archive_gaps(coverage, reviewed_quarters):
+    """Require both explicit review and a completed, quarter-scoped SEC lookup."""
+    audit = coverage.get("expandedLookup") or {}
+    checked = set(coverage.get("reviewedArchiveGaps") or [])
+    if audit.get("status") == "checked":
+        checked.update(audit.get("requestedQuarters") or [])
+    errors = coverage.get("errors") or {}
+    return {q for q in reviewed_quarters if q in checked and
+            str(errors.get(q, "")).startswith("No matching complete 13F portfolio in submissions and checked quarterly indexes")}
+
+
 def history_notice_quarters(coverage, config):
-    """Silence only acknowledged archive holes, never new missing quarters."""
-    quiet=set(config.get('historyGapNotices',{}).get('mutedQuarters',[]))
-    coverage['quietMissingQuarters']=[q for q in coverage['missingQuarters'] if q in quiet]
+    """Silence only reviewed source absences, never parser or network failures."""
+    quiet = confirmed_archive_gaps(coverage, config.get('historyGapNotices', {}).get('mutedQuarters', []))
+    coverage['quietMissingQuarters'] = [q for q in coverage['missingQuarters'] if q in quiet]
     return [q for q in coverage['missingQuarters'] if q not in quiet]
 
 
@@ -732,7 +746,7 @@ def backfill_filing_provenance(data,filings):
         if len(candidates)==1:sources[q]={**candidates[0],'url':url}
 
 
-def backfill_history_gaps(cik, data, filings, consolidate=False, limit=4):
+def backfill_history_gaps(cik, data, filings, consolidate=False, limit=4, reviewed_quarters=()):
     """Repair bounded gaps on normal runs; failures remain gaps, never zeroes."""
     # Discover leading/trailing omissions too: interior-gap detection alone
     # silently loses years when an initial import starts late.
@@ -742,9 +756,12 @@ def backfill_history_gaps(cik, data, filings, consolidate=False, limit=4):
     from legacy_13f import VERSION as legacy_version
     refresh_legacy={q for q,source in data.get('history',{}).get('filing_sources',{}).items() if source.get('url','').endswith('.txt') and source.get('parserVersion')!=legacy_version}
     actual_gaps=set(missing_history_quarters(data)) | (available-stored)
-    missing=sorted(actual_gaps | refresh_legacy)
-    prior_coverage=data.get("history",{}).get("coverage",{})
-    errors, repaired, audit = {q:e for q,e in prior_coverage.get("errors",{}).items() if q in missing}, [], None
+    prior_coverage = data.get("history", {}).get("coverage", {})
+    # A newly seen filing always takes precedence over an earlier search miss.
+    deferred_archive = confirmed_archive_gaps(prior_coverage, reviewed_quarters) & (actual_gaps - available)
+    missing = sorted((actual_gaps | refresh_legacy) - deferred_archive)
+    errors = {q: e for q, e in prior_coverage.get("errors", {}).items() if q in missing or q in deferred_archive}
+    repaired, audit = [], None
     attempts = data.get("history", {}).get("coverage", {}).get("attempts", {})
     if missing:
         known = {quarter_label(f["reportDate"]) for f in filings}
@@ -824,6 +841,9 @@ def backfill_history_gaps(cik, data, filings, consolidate=False, limit=4):
                 print(f"  Backfilled {quarter}: {len(rows)} rows")
             except Exception as exc:
                 errors[quarter] = str(exc)
+    # Preserve the reviewed lookup evidence when this run did not repeat it.
+    if deferred_archive and audit is None:
+        audit = prior_coverage.get("expandedLookup")
     remaining = sorted(set(missing_history_quarters(data)) | (available-set(data.get("history",{}).get("holdings",{}))))
     data["history"]["coverage"] = {
         "checkedAt": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
@@ -831,6 +851,7 @@ def backfill_history_gaps(cik, data, filings, consolidate=False, limit=4):
         "attempts": {q: attempts[q] for q in set(remaining) | (refresh_legacy-set(repaired)) if q in attempts},
         "pendingRefreshQuarters":sorted(refresh_legacy-set(repaired)),
         "expandedLookup": audit,
+        "reviewedArchiveGaps": sorted(deferred_archive),
         "status": "gaps_remaining" if remaining else "continuous_within_stored_range",
     }
     if remaining:
@@ -1202,7 +1223,8 @@ def process_investor(key: str, config: dict, full_mode: bool):
     if config.get('useRestatements'):
         backfill_restatements(data, filings, cik, consolidate)
     backfill_security_classes(data, filings)
-    backfill_history_gaps(cik, data, filings, consolidate)
+    backfill_history_gaps(cik, data, filings, consolidate,
+                          reviewed_quarters=config.get("historyGapNotices", {}).get("mutedQuarters", []))
     remaining = history_notice_quarters(data["history"]["coverage"],config)
     if remaining:
         from update_status import record_source_warning, record_source_notice

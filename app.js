@@ -2535,13 +2535,14 @@ async function initStatusDot(signal) {
 
 function runHealth(run, now = Date.now()) {
   if (!run) return {state: 'warn', label: lang === 'en' ? 'Update status unavailable' : '更新状态暂不可用'};
-  const steps = Object.entries(run.steps || {}).map(([key,s])=>({...s,status:effectiveStepStatus(key,s)}));
+  const steps = Object.entries(run.steps || {}).map(([key,s])=>({...s,status:effectiveStepStatus(key,s),historicalOnly:historicalCoverageOnly(key,s)}));
   if (steps.some(s => s.status === 'fail')) return {state: 'fail', label: lang === 'en' ? 'Some updates failed' : '部分更新失败'};
   const ts = Date.parse(run.completedAt || run.run_id);
   if (!Number.isFinite(ts) || now - ts > 36 * 3600000) return {state: 'warn', label: lang === 'en' ? 'Update record is stale' : '更新记录已过期，请检查自动更新'};
-  if (steps.some(s => s.status === 'warn')) return {state: 'warn', label: lang === 'en' ? 'Update notices; see details' : '有更新提示，请查看详情'};
+  if (steps.some(s => s.status === 'warn' && !s.historicalOnly)) return {state: 'warn', label: lang === 'en' ? 'Update notices; see details' : '有更新提示，请查看详情'};
   if (run.schemaVersion !== 2) return {state: 'warn', label: lang === 'en' ? 'Older record; AI status unknown' : '旧版记录，未包含 AI 可用状态'};
   if (!run.completedAt || !steps.length) return {state: 'warn', label: lang === 'en' ? 'Update not completed' : '更新尚未完成'};
+  if (steps.some(s => s.historicalOnly)) return {state: 'ok', label: lang === 'en' ? 'Latest update completed; historical gaps listed separately' : '最新更新完成；历史缺档见详情'};
   return {state: 'ok', label: lang === 'en' ? 'Update completed' : '更新完成'};
 }
 
@@ -2729,7 +2730,7 @@ async function renderStatusDrawer() {
 
   let html = `
     <div style="margin-bottom:20px;">
-      <p style="font-size:.8rem;color:var(--text-lighter);">最近 ${runs.length} 次更新记录。黄色表示需留意的更新提示；红色表示更新失败。历史资料缺失的具体范围会注明。</p>
+      <p style="font-size:.8rem;color:var(--text-lighter);">最近 ${runs.length} 次更新记录。状态灯只反映本轮更新。历史缺档仍列在详情，不影响已成功更新的状态；报价缺失、过期和失败仍标明。</p>
     </div>`;
 
   runs.forEach((run, idx) => {
@@ -2774,6 +2775,13 @@ async function renderStatusDrawer() {
   el.innerHTML = html;
 }
 
+// Match the complete producer message. An appended live error, ambiguous
+// record or different step must not be mistaken for an archive-only warning.
+function historicalCoverageOnly(key, step) {
+  const m = String(step?.msg || '').match(/^([a-z_]+) 历史缺 ([1-9]\d*) 季（(\d{4} Q[1-4](?:, \d{4} Q[1-4])*)）：(?:已补查SEC历史索引，仍无可用原始持仓报告|补查未完成或原表未核实，后续重试)；不作零持仓$/u);
+  if (step?.status !== 'warn' || !m || new Set(m[3].split(', ')).size !== Number(m[2])) return false;
+  return key === `${m[1]}_13f` || (key === 'akre_greenberg_13f' && ['akre','greenberg'].includes(m[1]));
+}
 function effectiveStepStatus(key, step) {
   if (mutedHistoryNotice(key,step)) return 'ok';
   // Reclassify only an explicitly completed search, never an interrupted fetch.
@@ -2798,7 +2806,7 @@ function statusStepMessage(stepKey, step) {
   if (missing && /已补查SEC历史索引，仍无可用原始持仓报告/.test(msg)) return lang === 'en'
     ? `${missing[1]} early historical quarters${quarters} lack verifiable SEC holdings reports, even after checking historical indexes. This notice concerns historical coverage, not a failure to load the latest holdings; gaps remain in the history chart.`
     : `早期历史资料缺 ${missing[1]} 个季度${quarters}：补查 SEC 历史索引后，仍未找到可核实的原始持仓报告。这项提示针对历史覆盖，不表示最新持仓加载失败；历史图保留断点。`;
-  if (missing) return lang === 'en' ? `${missing[1]} historical quarters have no verified holdings report. See historical coverage; this is separate from the latest holdings update.` : `历史持仓缺 ${missing[1]} 个季度，请查看历史覆盖说明；此提示不表示最新持仓加载失败。`;
+  if (missing) return lang === 'en' ? `${missing[1]} historical quarters${quarters} have no verified holdings report. See historical coverage; this is separate from the latest holdings update.` : `历史持仓缺 ${missing[1]} 个季度${quarters}，请查看历史覆盖说明；此提示不表示最新持仓加载失败。`;
   return msg;
 }
 
