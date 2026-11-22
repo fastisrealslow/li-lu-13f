@@ -3881,12 +3881,12 @@
       "reason": "ValueError: Bilingual editorial review: The English translation of the title contains a grammatical error: 'We're Not In 1999 Anymore, Toto' should be 'We're Not in 1999 Anymore, Toto' (lowercase 'i' in 'in').; The content section incorrectly attributes the quote 'Let's light this candle!' to Stuart. The source text (s1) states that Stuart suggested 'Research "
     },
     "mclemore-435757d6a2be73": {
-      "at": "2026-11-19T14:11:07+00:00",
+      "at": "2026-11-22T07:43:32+00:00",
       "status": "retry",
       "inputHash": "a1f9cdf65d716a445232b97a6455cfdd756683b0d3f51bb3a07622bec6922a4f",
-      "failures": 5,
-      "nextAttemptAt": "2026-11-22T06:11:07+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English translation of 'reversal off bear market lows' as 'reversal off bear market lows' is redundant; corrected to 'reversal from bear market lows'.; The phrase 'top line growth' in the source text refers to revenue growth, but the translation uses 'top line' which can be ambiguous without context; clarified to 're"
+      "failures": 6,
+      "nextAttemptAt": "2026-11-25T07:43:32+00:00",
+      "reason": "ValueError: Copied source passage"
     },
     "marks-1dc8ee1ff847bc": {
       "at": "2026-11-20T08:25:45+00:00",
@@ -4718,5 +4718,5 @@
       "reason": "ValueError: Unsupported numerical claim: 90%"
     }
   },
-  "updatedAt": "2026-11-22T07:43:30+00:00"
+  "updatedAt": "2026-11-22T07:43:32+00:00"
 }
