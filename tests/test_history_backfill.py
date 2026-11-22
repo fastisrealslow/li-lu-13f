@@ -1,4 +1,7 @@
 import json
+import os
+import tempfile
+from pathlib import Path
 import unittest
 from unittest.mock import patch
 import fetch_13f_all as fetch
@@ -33,9 +36,19 @@ class BackfillTests(unittest.TestCase):
         d['history']['quarters']=['2018 Q4','2019 Q2']
         d['history']['coverage']={'expandedLookup':{'status':'checked','requestedQuarters':[q]},
             'errors':{q:'No matching complete 13F portfolio in submissions and checked quarterly indexes'}}
-        with patch.object(fetch,'get_recent_filings') as index:
-            fetch.backfill_history_gaps('1709323',d,[],reviewed_quarters=[q])
-        index.assert_not_called()
+        with tempfile.TemporaryDirectory() as temp:
+            summary = Path(temp) / 'summary.md'
+            with patch.dict(os.environ, {'GITHUB_STEP_SUMMARY': str(summary)}), patch.object(fetch,'get_recent_filings') as index:
+                fetch.backfill_history_gaps('1709323',d,[],reviewed_quarters=[q])
+            index.assert_not_called()
+            self.assertIn('Expanded SEC quarterly-index lookup: checked', summary.read_text())
+            url = 'https://www.sec.gov/Archives/edgar/full-index/2019/QTR2/master.idx'
+            lookup = d['history']['coverage']['expandedLookup']
+            lookup['indexes'] = {'2019 Q2': {'url': url, 'status': 'checked', 'checkedAt': '2026-11-22'}}
+            with patch.dict(os.environ, {'GITHUB_STEP_SUMMARY': str(summary)}), patch.object(fetch,'get_recent_filings') as index:
+                fetch.backfill_history_gaps('1709323',d,[],reviewed_quarters=[q])
+            index.assert_not_called()
+            self.assertIn(f'[2019 Q2]({url}): checked (2026-11-22)', summary.read_text())
         self.assertEqual(d['history']['coverage']['missingQuarters'],[q])
         self.assertEqual(fetch.history_notice_quarters(d['history']['coverage'],{'historyGapNotices':{'mutedQuarters':[q]}}),[])
         with patch('audit_13f_history.discover_restatements',return_value={}), patch.object(fetch,'find_info_table_xml',return_value='/Archives/table.xml'), patch.object(fetch,'sec_fetch',side_effect=OSError('source interruption')):
