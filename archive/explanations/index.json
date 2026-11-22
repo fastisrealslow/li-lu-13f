@@ -1064,12 +1064,12 @@
       "reason": "ValueError: Bilingual editorial review: The source text (s12-s14) does not mention 'Pabrai' or his name in Chinese ('Parbai') at all; the speakers are Mohnish and Ash. The content section incorrectly attributes views to Pabrai.; The source text discusses TransDigm's success due to its private equity roots, but it does not explicitly state that this was 'rather"
     },
     "buffett-30a507095b61cd": {
-      "at": "2026-11-19T23:52:20+00:00",
+      "at": "2026-11-22T17:31:32+00:00",
       "status": "retry",
       "inputHash": "83760cda18c99df372c30e0bb74f7ca0e2fb64780aeb26d5e28f11724e0ac841",
-      "failures": 5,
-      "nextAttemptAt": "2026-11-22T15:52:20+00:00",
-      "reason": "ValueError: Bilingual editorial review: The source text does not explicitly state that 'all commercial activities are fundamentally value propositions based on the present value of future cash flows'; it only claims a precise figure can be reached if future cash disgorge is known. The paraphrase generalizes this into a broader theoretical claim not directly su"
+      "failures": 6,
+      "nextAttemptAt": "2026-11-25T17:31:32+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English translation in the 'content' section contains factual and grammatical errors: 'disgorge' is misinterpreted as 'paying out or distributing dividends' (Buffett's quote refers to total cash flow over time, not just dividends); 'in his minds' should be singular 'his mind'; 'sound economics' is a mistranslation of"
     },
     "pabrai-ebbacc9bcedbf3": {
       "at": "2026-11-20T08:12:56+00:00",
@@ -4718,5 +4718,5 @@
       "reason": "ValueError: Copied source passage"
     }
   },
-  "updatedAt": "2026-11-22T17:30:27+00:00"
+  "updatedAt": "2026-11-22T17:31:32+00:00"
 }
