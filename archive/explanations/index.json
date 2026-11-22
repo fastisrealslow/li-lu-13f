@@ -4385,12 +4385,12 @@
       "reason": "ValueError: Bilingual editorial review: The Chinese text incorrectly states Fund A's principal at Year 3 is 'approximately $50' (derived from $1,000 growing for two years). The source (s9) explicitly states the beginning capital for Fund A in Year 3 is '$50', but this is a typo in the source itself regarding the calculation ($1,000 * 1.1 * 1.5 = $1,650, not $5"
     },
     "mclemore-e2f1a12640c4d3": {
-      "at": "2026-11-19T23:55:10+00:00",
+      "at": "2026-11-22T17:13:34+00:00",
       "status": "retry",
       "inputHash": "34699a1d30b5ea3d40ff36369cd56a3837b23611f7f9a0c80b4c49a5d4ab42a8",
-      "failures": 5,
-      "nextAttemptAt": "2026-11-22T15:55:10+00:00",
-      "reason": "ValueError: Bilingual editorial review: The Chinese text incorrectly states 'grandfather' (her grandmother) as the primary decision-maker; source s0 says 'grandmother'.; The Chinese text claims the new FA recommended 'only blue chip large cap equities', but source s0 says he suggested equity funds were 'blue chip, large cap investments' while the portfolio was"
+      "failures": 6,
+      "nextAttemptAt": "2026-11-25T17:13:34+00:00",
+      "reason": "ValueError: Bilingual editorial review: The Chinese translation incorrectly translates 'hyperbolic discounting' as 'super-experiential discounting' (should be 'hyperbolic discounting').; The Chinese translation misinterprets the Freakonomics analogy: it claims agents sell their own houses longer to maximize price, whereas the source states they sell client hou"
     },
     "mclemore-3cfab01d768cef": {
       "at": "2026-11-22T08:43:33+00:00",
@@ -4718,5 +4718,5 @@
       "reason": "ValueError: Copied source passage"
     }
   },
-  "updatedAt": "2026-11-22T17:13:25+00:00"
+  "updatedAt": "2026-11-22T17:13:34+00:00"
 }
