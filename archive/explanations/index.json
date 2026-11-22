@@ -1264,12 +1264,12 @@
       "reason": "ValueError: Bilingual editorial review: Factual error: Source s3 mentions 'Cialdini's book' but does not name it; content incorrectly specifies 'Hillary', likely confusing Cialdini with Hillary Clinton.; Factual error: Source s5 states Warren Buffett said the market transfers wealth from active to inactive investors; content attributes this quote to Pabrai ins"
     },
     "pabrai-56b8c04cb25a32": {
-      "at": "2026-11-19T23:24:38+00:00",
+      "at": "2026-11-22T16:48:19+00:00",
       "status": "retry",
       "inputHash": "54b7c9fb9a8ee008ffe080419bc55ebd4052407d67bb0a004fe685545cb03e43",
-      "failures": 5,
-      "nextAttemptAt": "2026-11-22T15:24:38+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English translation of 'dogged painstaking approach' is slightly inaccurate; 'dogged' implies persistence but lacks the nuance of 'painstaking' (meticulous/careful). A better phrasing would be 'a dogged and meticulous approach'.; The phrase 'dollar bill on the ground' in the English text is a direct translation of 'o"
+      "failures": 6,
+      "nextAttemptAt": "2026-11-25T16:48:19+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English translation of 'Stable Boy Selections' as 'newsletter' is inaccurate; the source text describes it as a publication sold to bettors, likely a betting slip or guide, not a standard newsletter.; The claim that Buffett's strategy 'violates' efficient market theory is an editorial interpretation not explicitly st"
     },
     "pabrai-2dadcddfebe9d5": {
       "at": "2026-11-21T22:23:28+00:00",
@@ -4718,5 +4718,5 @@
       "reason": "ValueError: Copied source passage"
     }
   },
-  "updatedAt": "2026-11-22T16:47:44+00:00"
+  "updatedAt": "2026-11-22T16:48:19+00:00"
 }
