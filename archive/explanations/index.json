@@ -3241,12 +3241,12 @@
       "reason": "ValueError: Copied source passage"
     },
     "mclemore-aef9e9f4818acd": {
-      "at": "2026-11-19T14:17:49+00:00",
+      "at": "2026-11-22T07:53:27+00:00",
       "status": "retry",
       "inputHash": "bf61c774bcb82436de628c54b548f238edcca0af60c3608ba79da4e13998ce94",
-      "failures": 5,
-      "nextAttemptAt": "2026-11-22T06:17:49+00:00",
-      "reason": "ValueError: Bilingual editorial review: The Chinese text incorrectly states 'half of the funds ranked in the top 6%' while the source (s0) specifies 'half of the funds they rank in the top 6%'. The phrasing implies a subset within the top 6%, whereas the source indicates half of all funds in that specific top tier.; The Chinese text claims 'over a tenth of tho"
+      "failures": 6,
+      "nextAttemptAt": "2026-11-25T07:53:27+00:00",
+      "reason": "ValueError: Unsupported numerical claim: 2"
     },
     "marks-230a625785c3f8": {
       "at": "2026-11-20T08:37:34+00:00",
@@ -4718,5 +4718,5 @@
       "reason": "ValueError: Unsupported numerical claim: 90%"
     }
   },
-  "updatedAt": "2026-11-22T07:51:55+00:00"
+  "updatedAt": "2026-11-22T07:53:27+00:00"
 }
