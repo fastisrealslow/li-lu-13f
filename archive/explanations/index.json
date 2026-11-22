@@ -1032,12 +1032,12 @@
       "reason": "ValueError: Incomplete AI Review at 1800 tokens"
     },
     "lilu-f461b1db08860a": {
-      "at": "2026-11-19T23:20:58+00:00",
+      "at": "2026-11-22T16:50:58+00:00",
       "status": "retry",
       "inputHash": "fe91358b1b252370a4dd769dcd3ebb85d02ab09ddb38e56614b6670717f30b3c",
-      "failures": 5,
-      "nextAttemptAt": "2026-11-22T15:20:58+00:00",
-      "reason": "ValueError: Bilingual editorial review: The source text (s5) does not mention 'Jim' as the speaker announcing the endowment; it states 'when I heard Jim telling me...', implying Li Lu heard from someone named Jim. The editorial content claims he expressed elation upon hearing Jim's announcement, which is factually consistent with the source but adds interpreti"
+      "failures": 6,
+      "nextAttemptAt": "2026-11-25T16:50:58+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English translation of the evidence text (s5) is missing; only the Chinese paragraph content is provided in the source data.; The English translation of the main body paragraphs contains significant factual and stylistic errors: it misattributes the speaker's emotion as 'joy' when the original Chinese describes 'reli"
     },
     "lilu-cd61a9ec3c93bd": {
       "at": "2026-11-20T08:50:31+00:00",
@@ -4718,5 +4718,5 @@
       "reason": "ValueError: Copied source passage"
     }
   },
-  "updatedAt": "2026-11-22T16:50:00+00:00"
+  "updatedAt": "2026-11-22T16:50:58+00:00"
 }
