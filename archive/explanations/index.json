@@ -1160,12 +1160,12 @@
       "reason": "ValueError: Unsupported numerical claim: 1986"
     },
     "pabrai-e3679afc103fee": {
-      "at": "2026-11-19T14:50:26+00:00",
+      "at": "2026-11-22T16:46:41+00:00",
       "status": "retry",
       "inputHash": "7a6363d6f4a8ec61db067273da49ad4ac2cb28e804c536d44a0d888b2088bf66",
-      "failures": 5,
-      "nextAttemptAt": "2026-11-22T06:50:26+00:00",
-      "reason": "ValueError: Bilingual editorial review: The source text does not explicitly state that Bill Gates integrated technologies from outside sources; it only lists Microsoft's products as clones of others. The paraphrase adds the verb 'integrate' which is an inference.; The source text mentions Sam Walton measuring aisle spacing with his body but does not specify 'b"
+      "failures": 6,
+      "nextAttemptAt": "2026-11-25T16:46:41+00:00",
+      "reason": "ValueError: Bilingual editorial review: The Chinese text claims Buffett said 'Nothing comes from inside the browser search' and labels it a mistranslation/hallucination; however, the source (s26) only quotes Buffett as saying 'Do you know what Bing stands for?', making the specific claim about 'browser search' unsupported by the provided evidence.; The Chinese"
     },
     "buffett-2d755ae6f4137c": {
       "at": "2026-11-22T08:26:51+00:00",
@@ -4718,5 +4718,5 @@
       "reason": "ValueError: Copied source passage"
     }
   },
-  "updatedAt": "2026-11-22T16:45:46+00:00"
+  "updatedAt": "2026-11-22T16:46:41+00:00"
 }
