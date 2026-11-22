@@ -1032,12 +1032,12 @@
       "reason": "ValueError: Incomplete AI Review at 1800 tokens"
     },
     "lilu-f461b1db08860a": {
-      "at": "2026-11-19T23:20:58+00:00",
+      "at": "2026-11-22T16:50:58+00:00",
       "status": "retry",
       "inputHash": "fe91358b1b252370a4dd769dcd3ebb85d02ab09ddb38e56614b6670717f30b3c",
-      "failures": 5,
-      "nextAttemptAt": "2026-11-22T15:20:58+00:00",
-      "reason": "ValueError: Bilingual editorial review: The source text (s5) does not mention 'Jim' as the speaker announcing the endowment; it states 'when I heard Jim telling me...', implying Li Lu heard from someone named Jim. The editorial content claims he expressed elation upon hearing Jim's announcement, which is factually consistent with the source but adds interpreti"
+      "failures": 6,
+      "nextAttemptAt": "2026-11-25T16:50:58+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English translation of the evidence text (s5) is missing; only the Chinese paragraph content is provided in the source data.; The English translation of the main body paragraphs contains significant factual and stylistic errors: it misattributes the speaker's emotion as 'joy' when the original Chinese describes 'reli"
     },
     "lilu-cd61a9ec3c93bd": {
       "at": "2026-11-20T08:50:31+00:00",
@@ -1160,12 +1160,12 @@
       "reason": "ValueError: Unsupported numerical claim: 1986"
     },
     "pabrai-e3679afc103fee": {
-      "at": "2026-11-19T14:50:26+00:00",
+      "at": "2026-11-22T16:46:41+00:00",
       "status": "retry",
       "inputHash": "7a6363d6f4a8ec61db067273da49ad4ac2cb28e804c536d44a0d888b2088bf66",
-      "failures": 5,
-      "nextAttemptAt": "2026-11-22T06:50:26+00:00",
-      "reason": "ValueError: Bilingual editorial review: The source text does not explicitly state that Bill Gates integrated technologies from outside sources; it only lists Microsoft's products as clones of others. The paraphrase adds the verb 'integrate' which is an inference.; The source text mentions Sam Walton measuring aisle spacing with his body but does not specify 'b"
+      "failures": 6,
+      "nextAttemptAt": "2026-11-25T16:46:41+00:00",
+      "reason": "ValueError: Bilingual editorial review: The Chinese text claims Buffett said 'Nothing comes from inside the browser search' and labels it a mistranslation/hallucination; however, the source (s26) only quotes Buffett as saying 'Do you know what Bing stands for?', making the specific claim about 'browser search' unsupported by the provided evidence.; The Chinese"
     },
     "buffett-2d755ae6f4137c": {
       "at": "2026-11-22T08:26:51+00:00",
@@ -1224,11 +1224,11 @@
       "reason": "ValueError: Unsupported numerical claim: 70%"
     },
     "pabrai-b08672fb88c12b": {
-      "at": "2026-11-19T15:07:47+00:00",
+      "at": "2026-11-22T16:48:59+00:00",
       "status": "retry",
       "inputHash": "4b8c3d9e0dd2e41370c6a6edea66a1ca2978b4b92684ea38b3ba377687a796ba",
-      "failures": 5,
-      "nextAttemptAt": "2026-11-22T07:07:47+00:00",
+      "failures": 6,
+      "nextAttemptAt": "2026-11-25T16:48:59+00:00",
       "reason": "ValueError: Unsupported scaled numerical claim: 6"
     },
     "pabrai-3e9043a4dbb0d7": {
@@ -1264,12 +1264,12 @@
       "reason": "ValueError: Bilingual editorial review: Factual error: Source s3 mentions 'Cialdini's book' but does not name it; content incorrectly specifies 'Hillary', likely confusing Cialdini with Hillary Clinton.; Factual error: Source s5 states Warren Buffett said the market transfers wealth from active to inactive investors; content attributes this quote to Pabrai ins"
     },
     "pabrai-56b8c04cb25a32": {
-      "at": "2026-11-19T23:24:38+00:00",
+      "at": "2026-11-22T16:48:19+00:00",
       "status": "retry",
       "inputHash": "54b7c9fb9a8ee008ffe080419bc55ebd4052407d67bb0a004fe685545cb03e43",
-      "failures": 5,
-      "nextAttemptAt": "2026-11-22T15:24:38+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English translation of 'dogged painstaking approach' is slightly inaccurate; 'dogged' implies persistence but lacks the nuance of 'painstaking' (meticulous/careful). A better phrasing would be 'a dogged and meticulous approach'.; The phrase 'dollar bill on the ground' in the English text is a direct translation of 'o"
+      "failures": 6,
+      "nextAttemptAt": "2026-11-25T16:48:19+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English translation of 'Stable Boy Selections' as 'newsletter' is inaccurate; the source text describes it as a publication sold to bettors, likely a betting slip or guide, not a standard newsletter.; The claim that Buffett's strategy 'violates' efficient market theory is an editorial interpretation not explicitly st"
     },
     "pabrai-2dadcddfebe9d5": {
       "at": "2026-11-21T22:23:28+00:00",
@@ -1368,11 +1368,11 @@
       "reason": "ValueError: Unsupported numerical claim: 1970"
     },
     "pabrai-cbe1dfa22a4564": {
-      "at": "2026-11-19T23:31:05+00:00",
+      "at": "2026-11-22T16:52:31+00:00",
       "status": "retry",
       "inputHash": "9100216339c47101ffd0a04bf378cd97beddaa0dc1c0b461cdccca93a75a1b43",
-      "failures": 5,
-      "nextAttemptAt": "2026-11-22T15:31:05+00:00",
+      "failures": 6,
+      "nextAttemptAt": "2026-11-25T16:52:31+00:00",
       "reason": "ValueError: Unsupported numerical claim: 1000"
     },
     "pabrai-c9c2f45338a0ca": {
@@ -1408,11 +1408,11 @@
       "reason": "ValueError: Bilingual editorial review: The English translation contains significant factual and contextual errors not supported by the source text.; The claim that Pabrai 'emphasized continuous learning is the key mechanism for outperforming raw intelligence' is an unsupported editorial interpretation; the source only mentions being a 'continuous learning mac"
     },
     "pabrai-276244f32cb972": {
-      "at": "2026-11-19T23:20:35+00:00",
+      "at": "2026-11-22T16:51:11+00:00",
       "status": "retry",
       "inputHash": "15f87973ed97eda7c62a1230a40dc2d547d3969d065cbc3de48aff6769f6d4e6",
-      "failures": 5,
-      "nextAttemptAt": "2026-11-22T15:20:35+00:00",
+      "failures": 6,
+      "nextAttemptAt": "2026-11-25T16:51:11+00:00",
       "reason": "ValueError: Unsupported numerical claim: 3"
     },
     "pabrai-0060079ccab254": {
@@ -1480,12 +1480,12 @@
       "reason": "ValueError: Bilingual editorial review: The English translation incorrectly states 'frequent family bankruptcies' (implying multiple times) whereas the source text says 'every three or four years my father would go bankrupt', indicating a recurring pattern for one individual over time rather than simultaneous multiple families.; The English translation claims "
     },
     "pabrai-af56eda3b8814e": {
-      "at": "2026-11-19T15:01:39+00:00",
+      "at": "2026-11-22T16:46:55+00:00",
       "status": "retry",
       "inputHash": "dada15f38b99675a81412739bd958157247c15138f886e288b0c4422c877d102",
-      "failures": 5,
-      "nextAttemptAt": "2026-11-22T07:01:39+00:00",
-      "reason": "ValueError: Unsupported numerical claim: 100"
+      "failures": 6,
+      "nextAttemptAt": "2026-11-25T16:46:55+00:00",
+      "reason": "ValueError: Unsupported scaled numerical claim: 2000"
     },
     "pabrai-514a02fe7f32ad": {
       "at": "2026-11-20T08:27:35+00:00",
@@ -1808,12 +1808,12 @@
       "reason": "ValueError: Unsupported scaled numerical claim: 1.09"
     },
     "pabrai-61e73f76e7f7e6": {
-      "at": "2026-11-19T23:44:08+00:00",
+      "at": "2026-11-22T16:46:51+00:00",
       "status": "retry",
       "inputHash": "3f2a20b5c4c4dd729e3bf0975ae697bb04f973f1411f14951ffd283d3088f2b3",
-      "failures": 5,
-      "nextAttemptAt": "2026-11-22T15:44:08+00:00",
-      "reason": "ValueError: Unsupported scaled numerical claim: 100"
+      "failures": 6,
+      "nextAttemptAt": "2026-11-25T16:46:51+00:00",
+      "reason": "ValueError: Unsupported scaled numerical claim: 2.4"
     },
     "pabrai-d23537e255095e": {
       "at": "2026-11-19T23:52:24+00:00",
@@ -1880,11 +1880,11 @@
       "reason": "ValueError: Bilingual editorial review: The source text (s3) states the broker investment was approximately $1,500 ('I think I only invested about $1,500 in the broker'), but the content section claims 'a high-quality broker with a 20% stake held by Goldman Sachs' without specifying the amount. While the 20% stake is mentioned in s3 ('Goldman Sachs had taken a"
     },
     "pabrai-59f6d87e592581": {
-      "at": "2026-11-19T23:48:12+00:00",
+      "at": "2026-11-22T16:52:51+00:00",
       "status": "retry",
       "inputHash": "5bb26ae875383112e4640b4bd3a4a8313e135825420a42624f411c0e2e26f00b",
-      "failures": 5,
-      "nextAttemptAt": "2026-11-22T15:48:12+00:00",
+      "failures": 6,
+      "nextAttemptAt": "2026-11-25T16:52:51+00:00",
       "reason": "ValueError: Unsupported scaled numerical claim: 10"
     },
     "pabrai-ae90652bc59227": {
@@ -2184,12 +2184,12 @@
       "reason": "ValueError: No audio obtained"
     },
     "akre-0d1bd31522dfd8": {
-      "at": "2026-11-21T22:14:37+00:00",
+      "at": "2026-11-22T16:47:44+00:00",
       "status": "retry",
       "inputHash": "7e5b5816082d3505e8a5591e204ba33d1ea9d5f46a0ae0058c05d9ea717dda11",
-      "failures": 3,
-      "nextAttemptAt": "2026-11-22T14:14:37+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English paraphrase incorrectly states 'growth in economic value per unit of ownership' as the sole measure, whereas the source text specifies 'real growth in economic value per unit of ownership'. The adjective 'real' is a critical qualifier absent from the paraphrase.; The English paraphrase claims traditional metri"
+      "failures": 4,
+      "nextAttemptAt": "2026-11-24T00:47:44+00:00",
+      "reason": "ValueError: Copied source passage"
     },
     "buffett-d5d1d8d7a24118": {
       "at": "2026-11-21T22:26:51+00:00",
@@ -2234,12 +2234,12 @@
       "reason": "ValueError: Copied source passage"
     },
     "hawkins-07ba7351c5c8c9": {
-      "at": "2026-11-19T23:58:13+00:00",
+      "at": "2026-11-22T16:52:23+00:00",
       "status": "retry",
       "inputHash": "28f771b0e61a10ef0244a7223b6669523c73b870af745ae71f6edbbd8c140f94",
-      "failures": 5,
-      "nextAttemptAt": "2026-11-22T15:58:13+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English translation of the paragraph incorrectly states 'two-thirds' for '2/3', which is accurate but stylistically inconsistent with the source's phrasing style; however, the primary error is the misrepresentation of the source's incomplete thought.; The source text (s14) ends abruptly with 'the vast majority of the"
+      "failures": 6,
+      "nextAttemptAt": "2026-11-25T16:52:23+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English paragraph incorrectly states that Glotzbach 'acknowledged that some buyers can make good deals with actual synergies'. The source text (s13) says: 'There are instances when buyers can make good deals. There are synergies in this business from time to time - actual synergies, not fake ones.' This is a general "
     },
     "buffett-a281a253c85fdf": {
       "at": "2026-11-19T23:59:42+00:00",
@@ -2420,11 +2420,11 @@
       "reason": "ValueError: Unsupported numerical claim: 129.3%"
     },
     "buffett-5d9a7887401185": {
-      "at": "2026-11-19T23:21:00+00:00",
+      "at": "2026-11-22T16:45:27+00:00",
       "status": "retry",
       "inputHash": "1f1a137ddebeba6c1da50295a86e1a50e72c96701df5a652d75f3db8929ba98b",
-      "failures": 5,
-      "nextAttemptAt": "2026-11-22T15:21:00+00:00",
+      "failures": 6,
+      "nextAttemptAt": "2026-11-25T16:45:27+00:00",
       "reason": "ValueError: Copied source passage"
     },
     "buffett-5a848c254e72aa": {
@@ -2644,12 +2644,12 @@
       "reason": "ValueError: Bilingual editorial review: The Chinese text incorrectly states the US 10-year Treasury yield increase as 'from the previous quarter's lows' while the English source says 'from the lows of last quarter', which is consistent. However, the Chinese text adds 'global developed markets yields rose by an average of 25%' but does not explicitly link this "
     },
     "marks-93eb0a116a164b": {
-      "at": "2026-11-19T14:47:08+00:00",
+      "at": "2026-11-22T16:48:56+00:00",
       "status": "retry",
       "inputHash": "05de7122b0d17752a4b25767846af1bd3365836f7f2fbf7bf57ba5b40c372f6f",
-      "failures": 5,
-      "nextAttemptAt": "2026-11-22T06:47:08+00:00",
-      "reason": "ValueError: Copied source passage"
+      "failures": 6,
+      "nextAttemptAt": "2026-11-25T16:48:56+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English translation of 'Sea Change' in the content section incorrectly refers to it as a 'memo' when the source text and title indicate it is an article or essay ('Oaktree Capital ·  articles and preface').; The phrase 'non-stop accommodative policies' in the English text is a slight over-translation of 'almost the e"
     },
     "marks-81b1197a807270": {
       "at": "2026-11-22T07:46:04+00:00",
@@ -3977,12 +3977,12 @@
       "reason": "ValueError: Bilingual editorial review: The English translation of 'fare-thee-well' in s12 is inaccurate; it should be 'to a T' or similar to convey the idiom meaning 'thoroughly' rather than a farewell.; The Chinese text incorrectly attributes the phrase 'stocks always won out' as a universal fact documented by Siegel, whereas the source (s12) explicitly stat"
     },
     "mclemore-152dc68a1c7545": {
-      "at": "2026-11-19T23:24:00+00:00",
+      "at": "2026-11-22T16:48:46+00:00",
       "status": "retry",
       "inputHash": "43e1ace4e6432d5499b761dc177975a0252b0b3b399ec7570b72d89c3bc56a49",
-      "failures": 5,
-      "nextAttemptAt": "2026-11-22T15:24:00+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English translation incorrectly states 'She did not make an initial investment' when the source text (s5) explicitly says 'We made an initial investment in the Fidelity Wise Origin Bitcoin ETF'. This contradicts the author's own position described in the evidence.; The English translation claims she 'questions whethe"
+      "failures": 6,
+      "nextAttemptAt": "2026-11-25T16:48:46+00:00",
+      "reason": "ValueError: Copied source passage"
     },
     "marks-91985ba4dc0de1": {
       "at": "2026-11-20T08:40:02+00:00",
@@ -4281,11 +4281,11 @@
       "reason": "ValueError: Bilingual editorial review: The Chinese translation of the evidence section contains a factual error: it claims 'she notes that Amazon is both the single largest position in her strategy's history' and 'acknowledging that her team has historically had a tendency to sell winners'. The source text (s3) states Amazon is the 'single biggest contributor"
     },
     "mclemore-a8b41109aa8688": {
-      "at": "2026-11-19T23:24:01+00:00",
+      "at": "2026-11-22T16:47:34+00:00",
       "status": "retry",
       "inputHash": "b4a2964986e6e472c116e478fc0c0b6c85f94bf1fd9343b995b2b3421ae113a4",
-      "failures": 5,
-      "nextAttemptAt": "2026-11-22T15:24:01+00:00",
+      "failures": 6,
+      "nextAttemptAt": "2026-11-25T16:47:34+00:00",
       "reason": "ValueError: Copied source passage"
     },
     "mclemore-2cd355e2f0ad30": {
@@ -4353,12 +4353,12 @@
       "reason": "ValueError: Unsupported numerical claim: 50%"
     },
     "mclemore-3cc6f879b4bbd7": {
-      "at": "2026-11-19T23:29:04+00:00",
+      "at": "2026-11-22T16:51:42+00:00",
       "status": "retry",
       "inputHash": "f9decd940624faa08ddc1eed864259e5da2e123d8211242a0681a3816e874476",
-      "failures": 5,
-      "nextAttemptAt": "2026-11-22T15:29:04+00:00",
-      "reason": "ValueError: Unsupported numerical claim: 40%"
+      "failures": 6,
+      "nextAttemptAt": "2026-11-25T16:51:42+00:00",
+      "reason": "ValueError: Unsupported numerical claim: 50%"
     },
     "marks-e5bdd615b21806": {
       "at": "2026-11-21T02:38:18+00:00",
@@ -4409,11 +4409,11 @@
       "reason": "ValueError: Source contains too little coherent evidence"
     },
     "mclemore-8b002a8c57f9c6": {
-      "at": "2026-11-19T15:09:38+00:00",
+      "at": "2026-11-22T16:48:51+00:00",
       "status": "retry",
       "inputHash": "2d59b1c3aaf9551da6c4cedd7def7f1abb4b1eaa793e8487cfff9e86bae9b3b9",
-      "failures": 5,
-      "nextAttemptAt": "2026-11-22T07:09:38+00:00",
+      "failures": 6,
+      "nextAttemptAt": "2026-11-25T16:48:51+00:00",
       "reason": "ValueError: Unsupported numerical claim: 12%"
     },
     "marks-4d9d62a305917d": {
@@ -4537,11 +4537,11 @@
       "reason": "ValueError: Bilingual editorial review: The Chinese text states Rocket Companies traded between $18 and $34, but the source (s7) specifies it rallied to $34 then traded back down to $20; the range description is slightly inaccurate.; The Chinese text claims Uber holds stakes in Didi and Grab totaling '$10-20 billion', while the source (s6) states '$10-20B'; th"
     },
     "marks-60b6da1ebf415b": {
-      "at": "2026-11-19T23:25:29+00:00",
+      "at": "2026-11-22T16:45:46+00:00",
       "status": "retry",
       "inputHash": "7f89aacf4dcc81a417d61c68bd9342ab2c758bd1142751c42bbfb8fbf80b002f",
-      "failures": 5,
-      "nextAttemptAt": "2026-11-22T15:25:29+00:00",
+      "failures": 6,
+      "nextAttemptAt": "2026-11-25T16:45:46+00:00",
       "reason": "ValueError: Unsupported numerical claim: 1995"
     },
     "marks-fe3c74ab153e7a": {
@@ -4582,12 +4582,12 @@
       "reason": "ValueError: Bilingual editorial review: The English text incorrectly attributes the quote 'Everyone has a plan until they get punched in the face' to Mike Tyson; the source (s0) presents it as a general saying without explicit attribution to Tyson, though the context implies it is widely associated with him. The editor's paraphrase should reflect the source's "
     },
     "mclemore-d10ee1cde69171": {
-      "at": "2026-11-19T23:30:52+00:00",
+      "at": "2026-11-22T16:50:00+00:00",
       "status": "retry",
       "inputHash": "962b83e5e26ba8796cbe192e84c9ac2165d10fdc968693993138c77e8b5e42e5",
-      "failures": 5,
-      "nextAttemptAt": "2026-11-22T15:30:52+00:00",
-      "reason": "ValueError: Unsupported numerical claim: 20"
+      "failures": 6,
+      "nextAttemptAt": "2026-11-25T16:50:00+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English translation of the author's name in the content section uses 'McLemore' instead of the canonical form 'Samantha McLemore' found in the title and evidence metadata.; The Chinese text incorrectly attributes the quote 'the big money is made in the big moves' to Bill Miller as a reply, whereas the source indicate"
     },
     "mclemore-55cd43fef76dd0": {
       "at": "2026-11-19T23:50:18+00:00",
@@ -4718,5 +4718,5 @@
       "reason": "ValueError: Copied source passage"
     }
   },
-  "updatedAt": "2026-11-22T08:44:07+00:00"
+  "updatedAt": "2026-11-22T16:52:51+00:00"
 }
