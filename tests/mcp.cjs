@@ -1,7 +1,7 @@
 const {test}=require('node:test');const assert=require('node:assert/strict');const fs=require('node:fs');
 const modulePromise=import('data:text/javascript;base64,'+Buffer.from(fs.readFileSync('functions/mcp.js')).toString('base64'));
 async function send(method,params={},headers={}){const {onRequest}=await modulePromise;return onRequest({request:new Request('https://li-lu-13f.pages.dev/mcp',{method:'POST',headers:{'Content-Type':'application/json',...headers},body:JSON.stringify({jsonrpc:'2.0',id:1,method,params})})});}
-test('MCP initialize and read-only discovery',async()=>{const r=await(await send('initialize')).json();assert.equal(r.result.protocolVersion,'2025-06-18');const list=await(await send('tools/list')).json();assert.equal(list.result.tools.length,8);assert(list.result.tools.every(t=>t.annotations.readOnlyHint));});
+test('MCP initialize and read-only discovery',async()=>{const r=await(await send('initialize')).json();assert.equal(r.result.protocolVersion,'2025-06-18');const list=await(await send('tools/list')).json();assert.equal(list.result.tools.length,12);assert(list.result.tools.every(t=>t.annotations.readOnlyHint));});
 test('unknown origins and methods rejected',async()=>{assert.equal((await send('ping',{}, {Origin:'https://evil.example'})).status,403);const r=await(await send('execute_shell')).json();assert.equal(r.error.code,-32601);});
 test('invalid arguments never access upstream',async()=>{const r=await(await send('tools/call',{name:'get_reading_guide',arguments:{work_id:'a',url:'https://evil.example'}})).json();assert.equal(r.result.isError,true);});
 test('holdings only return a summary that matches the full current source',async()=>{
@@ -47,3 +47,47 @@ test('holdings only return a summary that matches the full current source',async
  }finally{global.fetch=original;}
 });
 test('reads real fixture, paginates holdings and returns quote timestamps',async()=>{const original=global.fetch;try{global.fetch=async url=>{const file=new URL(url).pathname.replace('/li-lu-13f/','');return Response.json(JSON.parse(fs.readFileSync(file)));};const r=await(await send('tools/call',{name:'get_holdings',arguments:{investor:'lilu',limit:2}})).json();assert(!r.result.isError,JSON.stringify(r));const d=JSON.parse(r.result.content[0].text).data;assert.equal(d.holdings.items.length,2);assert(d.quarter);assert(d.quoteUpdated);const hist=await(await send('tools/call',{name:'get_history',arguments:{investor:'lilu',quarter:'2016 Q4',limit:1}})).json();assert(!hist.result.isError);assert.equal(JSON.parse(hist.result.content[0].text).data.holdings.items.length,1);}finally{global.fetch=original;}});
+
+test('research tools preserve the published scope, evidence and ranking',async()=>{
+ const original=global.fetch;
+ const path='browser/lilu-quarterly-changes-'+'a'.repeat(24)+'.json';
+ const data={
+  'investors.json':{investors:[{id:'lilu',source13F:true,hkFile:'hk_holdings.json'}]},
+  'browser/manifest.json':{investors:{lilu:{quarterlyChanges:{file:path}}}},
+  [path]:{investor:'lilu',version:1,quarter:'2026 Q3',stats:{added:1,exited:1},
+   rows:[{ticker:'TME',category:'added'},{ticker:'PDD',category:'exited'}]},
+  'hk_holdings.json':{investor:'lilu',audit:{status:'history_pending'},holdings:[
+   {ticker:'01211.HK',name:'BYD',verified_disclosures:[{event_date:'2025-01-01',shares:50}],
+    pending_newer_notices:[{date:'2026-09-01'}]}
+  ]},
+  'spinoff_us.json':{eventsSchemaVersion:1,events:[
+   {id:'a',parentName:'Parent A',latestDate:'2025-10-01',recordUpdatedAt:'2026-11-01'},
+   {id:'b',parentName:'Parent B',announcements:[{date:'2026-10-01',url:'https://www.sec.gov/test',direct:true}]}
+  ]},
+  'value_screen.json':{candidates:[{ticker:'ONE'},{ticker:'TWO'}]}
+ };
+ const invoke=async(name,args)=>{
+  const r=await(await send('tools/call',{name,arguments:args})).json();
+  assert(!r.result.isError,JSON.stringify(r));
+  return JSON.parse(r.result.content[0].text).data;
+ };
+ try{
+  global.fetch=async url=>{
+   const file=new URL(url).pathname.replace('/li-lu-13f/','');
+   assert(file in data,file);
+   return Response.json(data[file]);
+  };
+  const changes=await invoke('get_quarterly_changes',{investor:'lilu',category:'exited'});
+  assert.equal(changes.stats.added,1);
+  assert.deepEqual(changes.changes.items,[{ticker:'PDD',category:'exited'}]);
+  const hk=await invoke('get_hk_disclosures',{investor:'lilu',query:'1211'});
+  assert.equal(hk.verification.status,'history_pending');
+  assert.equal(hk.disclosures.items[0].verifiedDisclosures[0].event_date,'2025-01-01');
+  assert.equal(hk.disclosures.items[0].pendingNewerNotices.length,1);
+  const spin=await invoke('get_spinoff_events',{market:'us',limit:1});
+  assert.equal(spin.records.items[0].id,'b');
+  assert.equal(spin.records.nextOffset,1);
+  const screen=await invoke('get_value_screen',{query:'two'});
+  assert.equal(screen.candidates.items[0].rank,2);
+ }finally{global.fetch=original;}
+});

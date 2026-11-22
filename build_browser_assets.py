@@ -13,7 +13,9 @@ import math
 from pathlib import Path
 
 import ai_supplement as ai
+from portfolio_review import category, review
 from security_identity import project as project_identities, project_prices
+from trade_price_history import equity, key as trade_key
 
 ROOT = Path(__file__).resolve().parent
 ROW_FIELDS = ('ticker', 'cusip', 'name', 'cnName', 'cls', 'shares', 'value',
@@ -135,6 +137,49 @@ def history_data(data, prices):
             'tradePrices': trade, 'quotes': {k:v for k,v in prices.get('quotes', {}).items() if k in tickers}}
 
 
+def quarterly_changes(data, prices, investor):
+    current, meta = data['current'], data.get('meta', {})
+    quarter, previous = current.get('quarter'), current.get('prevQuarter')
+    result = review(data)
+    if meta.get('portfolioMode') == 'public_projects':
+        result = {'state': 'public_projects', 'complete': False, 'stats': {}, 'rows': []}
+    elif result['state'] not in ('comparable', 'partial', 'scope_partial'):
+        result['rows'] = []
+    values_verified = not current.get('valueQuality') and previous not in data.get('history', {}).get('excludedValueQuarters', [])
+    entries = prices.get('tradePrices', {}).get('entries', {})
+    rows = []
+    for holding in result['rows']:
+        row = compact_row(holding)
+        row.update(category=category(holding), sharesDelta=None, sharesChangePct=None)
+        old = row.get('prevShares')
+        if old is not None:
+            row['sharesDelta'] = row['shares'] - old
+            if old > 0:
+                row['sharesChangePct'] = round(row['sharesDelta'] / old * 100, 8)
+        if holding.get('scopeEntry'):
+            row['scopeEntry'] = True
+        if not values_verified:
+            row['prevValue'] = row['value'] = None
+        entry = entries.get(trade_key(holding))
+        if (equity(holding) and not holding.get('scopeEntry') and row['category'] != 'unknown'
+                and entry and entry.get('ticker') == row['ticker']
+                and (not row.get('cusip') or entry.get('cusip') == row['cusip'])):
+            trade = next((item for item in entry.get('quarters', []) if item['quarter'] == quarter), None)
+            if trade:
+                row['priceEstimate'] = {k: trade[k] for k in
+                    ('quarter', 'action', 'buy', 'sell', 'averageCost', 'costBeforeSale', 'priceEvidence')
+                    if k in trade}
+        rows.append(row)
+    sources = data.get('history', {}).get('filing_sources', {})
+    return {'version': 1, 'investor': investor, 'quarter': quarter, 'previousQuarter': previous,
+            'periodEnd': current.get('periodEnd'), 'filingDate': current.get('filingDate'),
+            'filingSource': current.get('sourceFiling') or sources.get(quarter),
+            'previousFilingSource': sources.get(previous), 'comparisonState': result['state'],
+            'comparisonComplete': result['complete'], 'displayScope': meta.get('browserScope'),
+            'valueCurrency': 'USD' if values_verified and result['state'] in ('comparable', 'partial', 'scope_partial') else None,
+            'stats': result['stats'] if rows else None, 'rows': rows}
+
+
 def build(root=ROOT, output=None):
     root = Path(root)
     output = Path(output) if output else root / 'browser'
@@ -190,6 +235,8 @@ def build(root=ROOT, output=None):
             'data': overview, 'prices': current_prices(prices, {h['ticker'] for h in [*data['current']['holdings'], *data['current'].get('previousHoldings',data.get('history',{}).get('holdings',{}).get(data['current'].get('prevQuarter'),[]))]}), 'hk': hk,
             'insights': {'schemaVersion': 2, 'entries': entries}, 'history': history})
         manifest['investors'][ident] = {'snapshot': snapshot, 'history': history}
+        if person.get('source13F'):
+            manifest['investors'][ident]['quarterlyChanges'] = asset(ident, 'quarterly-changes', quarterly_changes(data, prices, ident))
     (output / 'manifest.json').write_bytes(encoded(manifest))
     return manifest
 

@@ -74,18 +74,34 @@ class BrowserAssetsTests(unittest.TestCase):
             (root/'ai_supplement.json').write_text(json.dumps(cache))
             first=browser.build(root);entry=first['investors']['test'];snapshot=browser.read(root/entry['snapshot']['file'])
             self.assertNotEqual(snapshot['insights']['entries']['investor:test']['summary'],'Incorrect old numbers')
-            for kind in ('snapshot','history'):
+            for kind in ('snapshot','history','quarterlyChanges'):
                 raw=(root/entry[kind]['file']).read_bytes()
                 self.assertEqual(hashlib.sha256(raw).hexdigest(),entry[kind]['sha256'])
                 compressed=(root/entry[kind]['gzipFile']).read_bytes()
                 self.assertEqual(gzip.decompress(compressed),raw)
                 self.assertEqual(len(compressed),entry[kind]['gzipBytes'])
+            changes=browser.read(root/entry['quarterlyChanges']['file'])
+            self.assertEqual(changes['comparisonState'],'comparable')
+            self.assertEqual(changes['rows'][0]['sharesDelta'],2)
+            self.assertEqual(changes['stats']['added'],1)
             self.assertEqual(browser.build(root),first)
             source['current']['holdings'][0]['value']+=10;source['current']['totalValue']+=10
             (root/'data.json').write_text(json.dumps(source))
             updated=browser.build(root)['investors']['test']['snapshot']['file']
             self.assertNotEqual(updated,entry['snapshot']['file'])
             self.assertTrue((root/entry['snapshot']['file']).exists())
+
+    def test_mcp_comparison_distinguishes_an_exit_from_missing_reporting_periods(self):
+        source=fixture()
+        source['current']['holdings']=[]
+        complete=browser.quarterly_changes(source,{},'test')
+        self.assertEqual(complete['rows'][0]['category'],'exited')
+        self.assertEqual(complete['rows'][0]['sharesDelta'],-8)
+        source['current']['quarter']='2026 Q3'
+        gap=browser.quarterly_changes(source,{},'test')
+        self.assertEqual(gap['comparisonState'],'gap')
+        self.assertIsNone(gap['stats'])
+        self.assertEqual(gap['rows'],[])
 
 
 if __name__=='__main__':unittest.main()
