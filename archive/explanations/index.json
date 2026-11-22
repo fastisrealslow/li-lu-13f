@@ -1968,12 +1968,12 @@
       "reason": "ValueError: Bilingual editorial review: The English translation contains a significant factual error: it states Buffett 'felt he had died and gone to heaven' when the source text says he thought he 'died and went to heaven'. While similar in meaning, the phrasing 'felt he had died' is an unwarranted editorial interpretation not present in the source.; The Engl"
     },
     "pabrai-246965219e21a9": {
-      "at": "2026-11-20T00:18:22+00:00",
+      "at": "2026-11-22T17:42:54+00:00",
       "status": "retry",
       "inputHash": "eff8beef13d4c1d2c235f2683a1e0cf34733689e8501a9787e29eabae19f321e",
-      "failures": 5,
-      "nextAttemptAt": "2026-11-22T16:18:22+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English translation in the source content (s14) contains factual errors regarding Microsoft's product origins (e.g., claiming PowerPoint was bought from another company; Word from Word Perfect is historically inaccurate as it was developed by Microsoft).; The English translation in s15 incorrectly states that Burger "
+      "failures": 6,
+      "nextAttemptAt": "2026-11-25T17:42:54+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English translation in the source content incorrectly states that Microsoft's products were 'formed through acquisitions' or 'adaptation', whereas the original text explicitly lists them as being 'cloned', 'bought from another company', 'lifted from Oracle', etc., without using the terms 'acquisition' or 'adaptation'"
     },
     "pabrai-81ff2f9d531409": {
       "at": "2026-11-20T00:27:04+00:00",
@@ -4718,5 +4718,5 @@
       "reason": "ValueError: Copied source passage"
     }
   },
-  "updatedAt": "2026-11-22T17:42:49+00:00"
+  "updatedAt": "2026-11-22T17:42:54+00:00"
 }
