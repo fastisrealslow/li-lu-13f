@@ -2306,12 +2306,12 @@
       "reason": "ValueError: Unsupported scaled numerical claim: 10"
     },
     "buffett-5ac84a1f6e89c4": {
-      "at": "2026-11-19T23:51:41+00:00",
+      "at": "2026-11-22T17:18:51+00:00",
       "status": "retry",
       "inputHash": "ef31d06c81472ba7b921f9efbc58c0edb39848d7b365ad990e252b3f3dcd2d52",
-      "failures": 5,
-      "nextAttemptAt": "2026-11-22T15:51:41+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English text incorrectly attributes the view that 'stock prices and intrinsic value almost invariably converge' to Charlie Munger ('Charlie Munger... and I believe that has been true at Berkshire'), whereas the source (s8) places this belief solely with Buffett ('In our view... and I believe that has been true at Ber"
+      "failures": 6,
+      "nextAttemptAt": "2026-11-25T17:18:51+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English translation incorrectly states the S&P 500 total return as 'only 11,196% (pre-tax)', whereas the source text explicitly notes that S&P 500 numbers are pre-tax and Berkshire numbers are after-tax. The phrasing implies a negative comparison ('only') not present in the source.; The English translation claims Buf"
     },
     "buffett-3d2de219cbd196": {
       "at": "2026-11-21T22:45:28+00:00",
@@ -4718,5 +4718,5 @@
       "reason": "ValueError: Copied source passage"
     }
   },
-  "updatedAt": "2026-11-22T17:17:34+00:00"
+  "updatedAt": "2026-11-22T17:18:51+00:00"
 }
