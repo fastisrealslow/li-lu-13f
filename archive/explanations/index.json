@@ -2436,12 +2436,12 @@
       "reason": "ValueError: Bilingual editorial review: The Chinese text incorrectly states 'net worth appreciation' (342 billion) as if it were a gain in equity value; the source clarifies this was Berkshire's gain in net worth *after* deducting charges, but the phrasing implies the $34.2B is the final result rather than the pre-deduction figure or the specific accounting tr"
     },
     "buffett-b5218ddf52191e": {
-      "at": "2026-11-20T00:17:43+00:00",
+      "at": "2026-11-22T17:37:01+00:00",
       "status": "retry",
       "inputHash": "fcc7050dbe387812d047f1bc550260bcb5c860d34b80fde93f8e620e86e4aaa5",
-      "failures": 5,
-      "nextAttemptAt": "2026-11-22T16:17:43+00:00",
-      "reason": "JSONDecodeError: Invalid \\escape: line 5 column 53 (char 518)"
+      "failures": 6,
+      "nextAttemptAt": "2026-11-25T17:37:01+00:00",
+      "reason": "ValueError: Bilingual editorial review: The Chinese text claims Buffett argues the 'core link between management capability and shareholder transparency' by citing the 'Sainted Seven'. The source text (s6, s7) discusses high returns and exceptional franchises/management but does not explicitly frame this as a 'core link' to 'shareholder transparency' in that s"
     },
     "buffett-7766ba88798e3f": {
       "at": "2026-11-20T00:12:47+00:00",
@@ -4718,5 +4718,5 @@
       "reason": "ValueError: Copied source passage"
     }
   },
-  "updatedAt": "2026-11-22T17:35:05+00:00"
+  "updatedAt": "2026-11-22T17:37:01+00:00"
 }
