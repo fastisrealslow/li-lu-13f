@@ -1,5 +1,7 @@
 const dataRoot = 'https://fastisrealslow.github.io/li-lu-13f/';
+const publicMcp = 'https://li-lu-13f.pages.dev/mcp';
 const encoder = new TextEncoder();
+const readOnly = {readOnlyHint: true, destructiveHint: false, idempotentHint: true, openWorldHint: false};
 const tool = {
   name: 'compare_investor_changes',
   description: 'Compare one security across investors’ latest published 13F comparisons. Reports may cover different quarters. Unavailable data or a missing match is not evidence of zero holdings. Option and principal rows are separate. Optionally return a CSV.',
@@ -10,8 +12,43 @@ const tool = {
       format: {type: 'string', enum: ['json', 'csv'], default: 'json'}
     }
   },
-  annotations: {readOnlyHint: true, destructiveHint: false, idempotentHint: true, openWorldHint: false}
+  annotations: readOnly
 };
+const watchlistTool = {
+  name: 'export_watchlist_report',
+  description: 'Export a bilingual CSV of selected investors’ US 13F changes, Hong Kong interest forms and issuer spin-off filings. A separate row type reports coverage so an empty result is not mistaken for no change.',
+  inputSchema: {
+    type: 'object', required: ['investors', 'tickers'], additionalProperties: false,
+    properties: {
+      investors: {type: 'array', minItems: 1, maxItems: 5, uniqueItems: true, items: {type: 'string', maxLength: 31}},
+      tickers: {type: 'array', minItems: 1, maxItems: 12, uniqueItems: true, items: {type: 'string', maxLength: 20}},
+      days: {type: 'integer', minimum: 1, maximum: 90, default: 30},
+      offset: {type: 'integer', minimum: 0, maximum: 500, default: 0, description: 'Use the preceding response’s nextOffset to export the next page.'}
+    }
+  },
+  annotations: readOnly
+};
+
+function toolArguments(method, args) {
+  if (!args || typeof args !== 'object' || Array.isArray(args)) return null;
+  const keys = Object.keys(args);
+  if (method === tool.name) {
+    if (keys.some(key => !['ticker', 'format'].includes(key)) ||
+        typeof args.ticker !== 'string' || !/^[A-Z0-9][A-Z0-9./-]{0,14}$/i.test(args.ticker.trim()) ||
+        (Object.hasOwn(args, 'format') && !['json', 'csv'].includes(args.format))) return null;
+    return {ticker: canonicalTicker(args.ticker), format: args.format};
+  }
+  if (method !== watchlistTool.name || keys.some(key => !['investors', 'tickers', 'days', 'offset'].includes(key))) return null;
+  const validList = (value, max, pattern) => Array.isArray(value) && value.length >= 1 && value.length <= max &&
+    new Set(value).size === value.length && value.every(item => typeof item === 'string' && pattern.test(item));
+  const days = Object.hasOwn(args, 'days') ? args.days : 30;
+  const offset = Object.hasOwn(args, 'offset') ? args.offset : 0;
+  if (!validList(args.investors, 5, /^[a-z][a-z0-9_]{0,30}$/) ||
+      !validList(args.tickers, 12, /^[A-Z0-9][A-Z0-9./-]{0,19}$/i) ||
+      !Number.isInteger(days) || days < 1 || days > 90 ||
+      !Number.isInteger(offset) || offset < 0 || offset > 500) return null;
+  return {investors: args.investors, tickers: args.tickers, days, offset};
+}
 
 function json(body, status = 200, headers = {}) {
   return Response.json(body, {status, headers: {'Cache-Control': 'no-store', ...headers}});
@@ -109,22 +146,79 @@ async function compare(ticker) {
   };
 }
 
-function csv(report) {
-  const columns = [
-    'investorId', 'investorName', 'investorNameEn', 'quarter', 'previousQuarter', 'comparisonState',
-    'displayLimit', 'result', 'ticker', 'cusip', 'securityName', 'securityClass', 'putCall', 'quantityType',
-    'category', 'currentQuantity', 'previousQuantity', 'quantityDelta', 'quantityChangePct',
-    'splitFactor', 'scopeEntry', 'filingUrl', 'previousFilingUrl'
-  ];
+function csv(rows, columns) {
   const cell = value => {
     if (value == null) return '';
     if (typeof value === 'number' || typeof value === 'boolean') return String(value);
     const text = /^[\s\uFEFF]*[=+@-]|^[\t\r\n]/.test(value) ? "'" + value : String(value);
     return '"' + text.replaceAll('"', '""') + '"';
   };
-  return '\uFEFF' + [columns.join(','), ...report.rows.map(row =>
-    columns.map(key => cell(key === 'splitFactor' ? row.splitAdjustment?.factor : row[key])).join(',')
+  return '\uFEFF' + [columns.map(([, title]) => title).join(','), ...rows.map(row =>
+    columns.map(([key]) => cell(row[key])).join(',')
   )].join('\r\n') + '\r\n';
+}
+
+function comparisonCsv(report) {
+  const keys = [
+    'investorId', 'investorName', 'investorNameEn', 'quarter', 'previousQuarter', 'comparisonState',
+    'displayLimit', 'result', 'ticker', 'cusip', 'securityName', 'securityClass', 'putCall', 'quantityType',
+    'category', 'currentQuantity', 'previousQuantity', 'quantityDelta', 'quantityChangePct',
+    'splitFactor', 'scopeEntry', 'filingUrl', 'previousFilingUrl'
+  ];
+  return csv(report.rows.map(row => ({...row, splitFactor: row.splitAdjustment?.factor})), keys.map(key => [key, key]));
+}
+
+async function watchlistExport(args) {
+  // Reuse the public service's source selection and publication-date rules.
+  // Limit export size and expose pagination rather than silently dropping rows.
+  const response = await fetch(publicMcp, {
+    method: 'POST', redirect: 'error', signal: AbortSignal.timeout(14000),
+    headers: {'Content-Type': 'application/json', Accept: 'application/json'},
+    body: JSON.stringify({jsonrpc: '2.0', id: 1, method: 'tools/call',
+      params: {name: 'get_watchlist_updates', arguments: {...args, limit: 50}}})
+  });
+  if (!response.ok) throw new Error('Watchlist source unavailable');
+  const result = (await response.json()).result;
+  if (result?.isError || result?.content?.[0]?.type !== 'text') throw new Error('Watchlist source unavailable');
+  const {data} = JSON.parse(result.content[0].text);
+  if (!Array.isArray(data?.updates?.items) || !Array.isArray(data.coverage) || !data.window || !data.watchlist) {
+    throw new Error('Invalid watchlist report');
+  }
+  if (!data.coverage.some(entry => !['source_unavailable', 'not_configured', 'not_applicable'].includes(entry.status))) {
+    throw new Error('No watchlist sources available');
+  }
+  const columns = [
+    ['rowType', '记录类型 / rowType'], ['source', '来源类型 / source'],
+    ['investorName', '投资人 / investor'], ['ticker', '代码 / ticker'], ['name', '名称 / name'],
+    ['date', '公告日 / publicationDate'], ['eventDate', '事件日 / eventDate'],
+    ['quarter', '报告期 / quarter'], ['previousQuarter', '比较期 / previousQuarter'],
+    ['status', '变化或核验状态 / status'], ['entity', '港股申报主体 / reportingEntity'],
+    ['shareClass', '股份类别 / shareClass'], ['quantityType', '证券单位 / quantityType'], ['putCall', '期权 / putCall'],
+    ['previousQuantity', '之前申报数量 / previousQuantity'], ['currentQuantity', '本次申报数量 / currentQuantity'],
+    ['quantityDelta', '申报数量变化 / quantityDelta'], ['quantityChangePct', '申报数量变化百分比 / quantityChangePct'],
+    ['reportedInterestShares', '港股申报权益股数 / reportedInterestShares'],
+    ['reportedInterestPct', '港股申报权益比例 / reportedInterestPct'],
+    ['longInterestChange', '港股多头权益变化 / longInterestChange'],
+    ['title', '公告标题 / title'], ['targetName', '分拆标的 / spinOffTarget'],
+    ['sourceURL', '原文 / originalSource'], ['checkedAt', '数据检查时间 / checkedAt'],
+    ['displayLimit', '比较持仓上限 / displayLimit'], ['pendingNoticeCount', '待核验公告数 / pendingNoticeCount'],
+    ['note', '说明 / note']
+  ];
+  const updates = data.updates.items.map(row => ({...row, rowType: 'update', source: row.kind,
+    status: row.category || row.announcementStatus || row.position}));
+  const coverage = data.coverage.map(row => ({...row, rowType: 'coverage', date: row.filingDate,
+    checkedAt: row.checkedAt, displayLimit: row.displayScope?.limit, note: row.sourceStatus}));
+  const summary = {
+    window: data.window, watchlist: data.watchlist, exported: updates.length,
+    totalMatching: data.updates.total, offset: args.offset, nextOffset: data.updates.nextOffset,
+    truncated: data.updates.nextOffset != null,
+    incompleteSourceCount: data.coverage.filter(row =>
+      ['source_unavailable', 'partial', 'scope_partial', 'unverified', 'history_pending'].includes(row.status)).length,
+    notes: data.notes
+  };
+  const metadata = [{rowType: 'report', status: summary.truncated ? 'truncated' : 'complete_page',
+    note: JSON.stringify(summary)}];
+  return {csv: csv([...metadata, ...updates, ...coverage], columns), summary};
 }
 
 export default {
@@ -152,21 +246,21 @@ export default {
     const fail = (code, text) => json({jsonrpc: '2.0', id: message.id, error: {code, message: text}});
     if (message.method === 'initialize') {
       return reply({protocolVersion: '2025-06-18', capabilities: {tools: {listChanged: false}},
-        serverInfo: {name: 'investment-research-premium', version: '0.1.0'}});
+        serverInfo: {name: 'investment-research-premium', version: '0.2.0'}});
     }
     if (message.method === 'ping') return reply({});
-    if (message.method === 'tools/list') return reply({tools: [tool]});
+    if (message.method === 'tools/list') return reply({tools: [tool, watchlistTool]});
     if (message.method !== 'tools/call') return fail(-32601, 'Method not found');
-    const args = message.params?.arguments;
-    if (message.params?.name !== tool.name || !args || typeof args !== 'object' || Array.isArray(args) ||
-        Object.keys(args).some(key => !['ticker', 'format'].includes(key)) ||
-        typeof args.ticker !== 'string' || !/^[A-Z0-9][A-Z0-9./-]{0,14}$/i.test(args.ticker.trim()) ||
-        (Object.hasOwn(args, 'format') && !['json', 'csv'].includes(args.format))) {
-      return fail(-32602, 'Provide a valid US ticker and an optional format of json or csv');
-    }
+    const name = message.params?.name;
+    const args = toolArguments(name, message.params?.arguments);
+    if (!args) return fail(-32602, 'Invalid tool or arguments; see tools/list');
     try {
-      const report = await compare(canonicalTicker(args.ticker));
-      return reply({content: [{type: 'text', text: args.format === 'csv' ? csv(report) : JSON.stringify(report)}]});
+      if (name === watchlistTool.name) {
+        const report = await watchlistExport(args);
+        return reply({content: [{type: 'text', text: report.csv}], structuredContent: report.summary});
+      }
+      const report = await compare(args.ticker);
+      return reply({content: [{type: 'text', text: args.format === 'csv' ? comparisonCsv(report) : JSON.stringify(report)}]});
     } catch {
       return reply({isError: true, content: [{type: 'text', text: 'Published comparisons could not be loaded. Please retry.'}]});
     }

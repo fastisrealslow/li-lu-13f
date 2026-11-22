@@ -19,7 +19,43 @@ test('all tool access requires a configured secret and a matching bearer credent
   assert.equal((await send('tools/call', {}, {key: 'b'.repeat(64)})).status, 401);
   const list = await (await send('tools/list')).json();
   assert.equal(list.result.tools[0].name, 'compare_investor_changes');
+  assert.equal(list.result.tools[1].name, 'export_watchlist_report');
   assert.equal(list.result.tools[0].annotations.readOnlyHint, true);
+});
+
+test('watchlist CSV includes evidence and coverage, and never forwards the origin credential', async () => {
+  const original = global.fetch;
+  const args = {investors: ['lilu'], tickers: ['PDD', '01211.HK'], days: 90};
+  const input = {name: 'export_watchlist_report', arguments: args};
+  let coverage = [{source: 'sec_13f', status: 'comparable', investorName: '李录'},
+    {source: 'hkex_interests', status: 'source_unavailable', investorName: '李录'}];
+  try {
+    global.fetch = async (url, options) => {
+      assert.equal(url, 'https://li-lu-13f.pages.dev/mcp');
+      assert.equal(new Headers(options.headers).has('Authorization'), false);
+      const request = JSON.parse(options.body);
+      assert.equal(request.params.name, 'get_watchlist_updates');
+      assert.equal(request.params.arguments.limit, 50);
+      return Response.json({result: {content: [{type: 'text', text: JSON.stringify({data: {
+        watchlist: {investors: args.investors, tickers: args.tickers}, window: {since: '2026-09-01', through: '2026-11-22'},
+        updates: {total: 51, nextOffset: 50, items: [
+          {kind: 'sec_13f', ticker: 'PDD', date: '2026-11-16', sourceURL: 'https://www.sec.gov/Archives/edgar/data/1/2/index.html'}
+        ]}, coverage
+      }})}]}});
+    };
+    const r = (await (await send('tools/call', input)).json()).result;
+    assert.equal(r.structuredContent.incompleteSourceCount, 1);
+    assert.equal(r.structuredContent.nextOffset, 50);
+    assert.match(r.content[0].text, /公告日 \/ publicationDate/);
+    assert.match(r.content[0].text, /sec\.gov\/Archives\/edgar\/data/);
+    assert.match(r.content[0].text, /"coverage","hkex_interests"/);
+    assert.match(r.content[0].text, /source_unavailable/);
+    coverage = coverage.slice(1);
+    const failure = (await (await send('tools/call', input)).json()).result;
+    assert.equal(failure.isError, true);
+  } finally {
+    global.fetch = original;
+  }
 });
 
 test('comparison and CSV preserve report scopes, partial failures and instrument identity', async () => {
