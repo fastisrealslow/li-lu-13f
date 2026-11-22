@@ -4113,12 +4113,12 @@
       "reason": "ValueError: Bilingual editorial review: The English content contains a factual error: it claims 'irrational exuberance or fear' is driven by external shocks, whereas the source text only mentions 'concerns about the economy and Iraq' causing 'exaggerated risk aversion'. The phrase 'irrational exuberance' contradicts the context of 'risk aversion' and 'under-va"
     },
     "marks-b834dc74a3b582": {
-      "at": "2026-11-19T14:43:43+00:00",
+      "at": "2026-11-22T07:43:07+00:00",
       "status": "retry",
       "inputHash": "9a7bd09212767de836cee7089b7b7563b0585013f886342624aac1a8fb82a7ef",
-      "failures": 5,
-      "nextAttemptAt": "2026-11-22T06:43:43+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English translation in the source content incorrectly translates 'upside potential' as 'upside' and 'downside risk' as 'downside', omitting the noun 'potential' and 'risk'.; The Chinese text contains a factual error regarding Ed Thorp's profession, stating he was an 'MIT professor of mathematics' when the source only"
+      "failures": 6,
+      "nextAttemptAt": "2026-11-25T07:43:07+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English translation incorrectly states that Thorp formalized basic strategy 'to gain an advantage over the house' as if this was the primary purpose of the strategy itself; the source text indicates the strategy reduces but does not eliminate the casino's advantage, and the advantage comes from card counting (trackin"
     },
     "mclemore-41dc37ba8f99c2": {
       "at": "2026-11-19T14:38:40+00:00",
@@ -4718,5 +4718,5 @@
       "reason": "ValueError: Unsupported numerical claim: 90%"
     }
   },
-  "updatedAt": "2026-11-22T07:40:37+00:00"
+  "updatedAt": "2026-11-22T07:43:07+00:00"
 }
