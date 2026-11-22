@@ -1,7 +1,7 @@
 const {test}=require('node:test');const assert=require('node:assert/strict');const fs=require('node:fs');
 const modulePromise=import('data:text/javascript;base64,'+Buffer.from(fs.readFileSync('functions/mcp.js')).toString('base64'));
 async function send(method,params={},headers={}){const {onRequest}=await modulePromise;return onRequest({request:new Request('https://li-lu-13f.pages.dev/mcp',{method:'POST',headers:{'Content-Type':'application/json',...headers},body:JSON.stringify({jsonrpc:'2.0',id:1,method,params})})});}
-test('MCP initialize and read-only discovery',async()=>{const r=await(await send('initialize')).json();assert.equal(r.result.protocolVersion,'2025-06-18');const list=await(await send('tools/list')).json();assert.equal(list.result.tools.length,12);assert(list.result.tools.every(t=>t.annotations.readOnlyHint));});
+test('MCP initialize and read-only discovery',async()=>{const r=await(await send('initialize')).json();assert.equal(r.result.protocolVersion,'2025-06-18');const list=await(await send('tools/list')).json();assert.equal(list.result.tools.length,13);assert(list.result.tools.every(t=>t.annotations.readOnlyHint));});
 test('unknown origins and methods rejected',async()=>{assert.equal((await send('ping',{}, {Origin:'https://evil.example'})).status,403);const r=await(await send('execute_shell')).json();assert.equal(r.error.code,-32601);});
 test('invalid arguments never access upstream',async()=>{const r=await(await send('tools/call',{name:'get_reading_guide',arguments:{work_id:'a',url:'https://evil.example'}})).json();assert.equal(r.result.isError,true);});
 test('holdings only return a summary that matches the full current source',async()=>{
@@ -89,5 +89,48 @@ test('research tools preserve the published scope, evidence and ranking',async()
   assert.equal(spin.records.nextOffset,1);
   const screen=await invoke('get_value_screen',{query:'two'});
   assert.equal(screen.candidates.items[0].rank,2);
+ }finally{global.fetch=original;}
+});
+
+test('cross-market brief uses HK publication dates and isolates a failed market',async()=>{
+ const original=global.fetch;
+ const path='browser/lilu-quarterly-changes-'+'a'.repeat(24)+'.json';
+ const date=days=>new Date(Date.now()-days*86400000).toISOString().slice(0,10);
+ const form={entity:'Li Lu',share_class:'H Shares',position:'long',verification:'hkex_form',
+  form_url:'https://di.hkex.com.hk/di/NSForm1.aspx?fn=1',shares:20};
+ const fixtures={
+  'investors.json':{investors:[{id:'lilu',name:'李录',source13F:true,hkFile:'hk_holdings.json'}]},
+  'browser/manifest.json':{investors:{lilu:{quarterlyChanges:{file:path}}}},
+  [path]:{investor:'lilu',version:1,quarter:'2026 Q3',rows:[
+   {ticker:'PDD',category:'added'},{ticker:'GOOG',category:'hold'}]},
+  'hk_holdings.json':{investor:'lilu',audit:{status:'history_pending'},holdings:[
+   {ticker:'01211.HK',verified_disclosures:[
+    {...form,filing_ref:'historical',event_date:date(320),filing_date:date(319)},
+    {...form,filing_ref:'filed-recently',event_date:date(40),filing_date:date(2)},
+    {...form,filing_ref:'superseded',event_date:date(1),filing_date:date(1),superseded_by:'filed-recently'},
+    {...form,filing_ref:'index-only',event_date:date(1),filing_date:date(1),verification:'hkex_notice_table'}
+   ],pending_newer_notices:[{date:date(1)}]}
+  ]}
+ };
+ try{
+  global.fetch=async url=>{
+   const key=new URL(url).pathname.replace('/li-lu-13f/','');
+   return fixtures[key]?Response.json(fixtures[key]):new Response(null,{status:503});
+  };
+  const brief=async()=>{
+   const r=await(await send('tools/call',{name:'get_investor_disclosure_brief',arguments:{investor:'lilu',days:7}})).json();
+   assert(!r.result.isError,JSON.stringify(r));
+   return JSON.parse(r.result.content[0].text).data;
+  };
+  const d=await brief();
+  assert.equal(d.us13f.quarter,'2026 Q3');
+  assert.deepEqual(d.us13f.changes.items.map(r=>r.ticker),['PDD']);
+  assert.equal(d.hongKong.recentWindow.total,1);
+  assert.equal(d.hongKong.latestBySecurity.items[0].filingRef,'filed-recently');
+  assert.equal(d.hongKong.pendingNoticeCount,1);
+  delete fixtures['hk_holdings.json'];
+  const partial=await brief();
+  assert.equal(partial.us13f.status,'published');
+  assert.equal(partial.hongKong.status,'source_unavailable');
  }finally{global.fetch=original;}
 });

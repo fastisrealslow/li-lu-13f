@@ -14,6 +14,7 @@ from pathlib import Path
 
 import ai_supplement as ai
 from portfolio_review import category, review
+from reporting_scope import notice_covers
 from security_identity import project as project_identities, project_prices
 from trade_price_history import equity, key as trade_key
 
@@ -171,9 +172,12 @@ def quarterly_changes(data, prices, investor):
                     if k in trade}
         rows.append(row)
     sources = data.get('history', {}).get('filing_sources', {})
+    notice = meta.get('reportingNotice') or {}
+    verified_notice = notice if notice and notice_covers(data, notice.get('periodEnd')) else None
     return {'version': 1, 'investor': investor, 'quarter': quarter, 'previousQuarter': previous,
             'periodEnd': current.get('periodEnd'), 'filingDate': current.get('filingDate'),
             'filingSource': current.get('sourceFiling') or sources.get(quarter),
+            'reportingNotice': verified_notice,
             'previousFilingSource': sources.get(previous), 'comparisonState': result['state'],
             'comparisonComplete': result['complete'], 'displayScope': meta.get('browserScope'),
             'valueCurrency': 'USD' if values_verified and result['state'] in ('comparable', 'partial', 'scope_partial') else None,
