@@ -1664,12 +1664,12 @@
       "reason": "ValueError: Unsupported numerical claim: 7%"
     },
     "pabrai-2ce3d6b3b0941e": {
-      "at": "2026-11-19T23:31:27+00:00",
+      "at": "2026-11-22T17:06:33+00:00",
       "status": "retry",
       "inputHash": "635dd25b0773874f07342654bdc55ab8a714718d41f2e00375a30955ce88184e",
-      "failures": 5,
-      "nextAttemptAt": "2026-11-22T15:31:27+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English summary incorrectly states the win rate requirement as 'two out of three times' (wrong 2/3), whereas the source text explicitly says 'be wrong at least one-third of the time' (correct 2/3). The summary misinterprets the condition for success.; The English summary claims Pabrai advocates looking for 'P/E one s"
+      "failures": 6,
+      "nextAttemptAt": "2026-11-25T17:06:33+00:00",
+      "reason": "ValueError: Unsupported numerical claim: 650,000"
     },
     "pabrai-a0c9e522d9ad82": {
       "at": "2026-11-20T07:54:35+00:00",
@@ -4718,5 +4718,5 @@
       "reason": "ValueError: Copied source passage"
     }
   },
-  "updatedAt": "2026-11-22T17:06:25+00:00"
+  "updatedAt": "2026-11-22T17:06:33+00:00"
 }
