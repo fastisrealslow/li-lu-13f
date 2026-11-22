@@ -1912,12 +1912,12 @@
       "reason": "ValueError: Bilingual editorial review: The source text does not mention Johnson & Johnson or talcum powder issues; this is an invented example.; The source text does not quote John Templeton about analysts being wrong one in three times; this is an invented quotation.; The source text does not state that Graham's method 'failed to accurately predict the futur"
     },
     "pabrai-5940c7a73f82e5": {
-      "at": "2026-11-19T14:39:16+00:00",
+      "at": "2026-11-22T08:35:27+00:00",
       "status": "retry",
       "inputHash": "1766ad519fb200ff2185f226c34a4176070f7ee334d99a00e4b3a9502dfb1ac6",
-      "failures": 5,
-      "nextAttemptAt": "2026-11-22T06:39:16+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English translation contains a critical factual error: it states Pabrai 'advised against high exposure' to Microsoft. The source text (s5) records his dialogue as 'I don't think it's a good idea to have this much exposure', which is an opinion on the specific situation, not a general advisory stance presented as such"
+      "failures": 6,
+      "nextAttemptAt": "2026-11-25T08:35:27+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English translation in the 'content' section contains significant factual errors compared to the source text (s1, s4, s5). Specifically, it misattributes the author of the books mentioned in s1 ('Pabrai' instead of 'Mohnish Pabrai'), incorrectly states the book titles as 'The Dhandho Investor' and 'Mosaic' without ve"
     },
     "pabrai-7b63bdce3eef9a": {
       "at": "2026-11-20T00:20:48+00:00",
@@ -4718,5 +4718,5 @@
       "reason": "ValueError: Copied source passage"
     }
   },
-  "updatedAt": "2026-11-22T08:35:18+00:00"
+  "updatedAt": "2026-11-22T08:35:27+00:00"
 }
