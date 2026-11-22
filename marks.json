@@ -451519,20 +451519,20 @@
         "source": "https://www.sec.gov/Archives/edgar/data/949509/0000949509-01-500006.txt",
         "filingDate": "2001-05-15",
         "sourceDigest": "79e9363edf18137b8a09febed901bb2edcf0f8ac668e712e5426b3be73f302ee",
-        "sourceHash": "9ec7e83f4f2d6650325220b5d12d319107ae9c09a4a2b090a0e5034a7e457e2a",
+        "sourceHash": "8fd2f545b1d295d957507c6e135b3827847d5c03a77e3e3922a93e5cf3ed8672",
         "status": "pending",
         "anchors": [],
         "errors": [
           "CAMZ: ValueError",
+          "PGMXY: ValueError",
           "PNFTQ: ValueError",
           "APPTY: ValueError",
           "SLI: ValueError",
           "CEO: ValueError",
           "TNE: ValueError",
-          "GRL: ValueError",
-          "NRG: ValueError"
+          "GRL: ValueError"
         ],
-        "normalizedHash": "9ec7e83f4f2d6650325220b5d12d319107ae9c09a4a2b090a0e5034a7e457e2a"
+        "normalizedHash": "8fd2f545b1d295d957507c6e135b3827847d5c03a77e3e3922a93e5cf3ed8672"
       },
       "2001 Q4": {
         "version": 1,
@@ -452977,7 +452977,7 @@
         "source": "https://www.sec.gov/Archives/edgar/data/949509/0000949509-02-000009.txt",
         "filingDate": "2002-05-09",
         "sourceDigest": "6238e543f9b70d665f0d611e399ea5e8f6d4413d6958b4cf050bc0c55429091d",
-        "sourceHash": "3fa8536aa3fddc53681d28391958ed49ab44483a10c5cf73e8db1e6fe7526ee2",
+        "sourceHash": "4a090ee69e670ac6dde54034f032fe28a98c8405826a7f9d5b8f610c5c73ad68",
         "status": "pending",
         "anchors": [
           {
@@ -452987,22 +452987,22 @@
             "price": 8.369999885559082,
             "date": "2002-03-28",
             "currency": "USD",
-            "url": "https://query1.finance.yahoo.com/v8/finance/chart/LNWO?period1=0&period2=1795417106&interval=1d&events=splits",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/LNWO?period1=0&period2=1795452050&interval=1d&events=splits",
             "candidates": [
               1
             ]
           }
         ],
         "errors": [
+          "PGMXY: ValueError",
           "JOY: ValueError",
           "CAMZ: ValueError",
           "APPTY: ValueError",
           "PNFTQ: ValueError",
           "CANUY: ValueError",
-          "GRL: ValueError",
-          "SLI: ValueError"
+          "GRL: ValueError"
         ],
-        "normalizedHash": "3fa8536aa3fddc53681d28391958ed49ab44483a10c5cf73e8db1e6fe7526ee2"
+        "normalizedHash": "4a090ee69e670ac6dde54034f032fe28a98c8405826a7f9d5b8f610c5c73ad68"
       },
       "2002 Q3": {
         "version": 1,
@@ -454505,11 +454505,11 @@
     "instrumentVerification": {
       "pendingQuarters": [],
       "errors": {},
-      "checkedAt": "2026-11-22T12:38:34.377660+00:00"
+      "checkedAt": "2026-11-22T16:40:44.006062+00:00"
     },
     "excludedValueQuarters": [],
     "coverage": {
-      "checkedAt": "2026-11-22T12:38:36Z",
+      "checkedAt": "2026-11-22T16:40:46Z",
       "missingQuarters": [
         "1999 Q3",
         "1999 Q4",
@@ -454535,15 +454535,15 @@
         "2008 Q2": "Legacy table reconciliation failed: 216/218 rows, $4249430000/$4290914000"
       },
       "attempts": {
-        "2011 Q4": 32,
-        "2001 Q2": 32,
-        "2003 Q3": 32,
         "2005 Q4": 32,
-        "2001 Q3": 32,
+        "2011 Q4": 32,
         "2004 Q2": 32,
+        "2003 Q3": 32,
+        "1999 Q4": 33,
+        "2001 Q2": 33,
+        "2008 Q2": 79,
         "1999 Q3": 33,
-        "1999 Q4": 32,
-        "2008 Q2": 78
+        "2001 Q3": 33
       },
       "pendingRefreshQuarters": [
         "1999 Q1",
@@ -454581,7 +454581,7 @@
         "schemaVersion": 1,
         "cik": "949509",
         "checkedAt": "2026-11-20T20:18:49Z",
-        "attemptedAt": "2026-11-22T12:38:35Z",
+        "attemptedAt": "2026-11-22T16:40:44Z",
         "status": "checked",
         "indexes": {
           "2000/QTR2": {
@@ -454987,7 +454987,7 @@
       "VC",
       "XOP"
     ],
-    "lastUpdated": "2026-11-22T12:38:34Z",
+    "lastUpdated": "2026-11-22T16:40:44Z",
     "manager": "Oaktree Capital Management, L.P.",
     "notablePeople": [
       "Howard Marks"
