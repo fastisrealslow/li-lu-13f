@@ -840,12 +840,12 @@
       "reason": "ValueError: Bilingual editorial review: The text claims the meeting followed a script written by Saddam Hussein's speechwriter. Source s1 states: 'we'll go through a script that was written by the speechwriter for Saddam Hussein.' This is factually incorrect; there is no evidence in the source or historical record that Buffett used Saddam Hussein's speechwrite"
     },
     "buffett-d6f1a801f004df": {
-      "at": "2026-11-19T14:59:39+00:00",
+      "at": "2026-11-22T07:36:35+00:00",
       "status": "retry",
       "inputHash": "5e6f0af3b4f6b4986097903db9bab953daf45a3d009a0aabf2c838c01c2a8e57",
-      "failures": 5,
-      "nextAttemptAt": "2026-11-22T06:59:39+00:00",
-      "reason": "ValueError: Incomplete AI Review at 1800 tokens"
+      "failures": 6,
+      "nextAttemptAt": "2026-11-25T07:36:35+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English paragraph contains unsupported editorial interpretation: 'he asserts that retaining every dollar can be converted into more than one dollar of present value overall.' The source text says 'by every dollar we retain... we can turn that into a greater than a dollar of present value,' which implies the *company'"
     },
     "buffett-56163a42ef5133": {
       "at": "2026-11-21T13:43:04+00:00",
@@ -4718,5 +4718,5 @@
       "reason": "ValueError: Unsupported numerical claim: 90%"
     }
   },
-  "updatedAt": "2026-11-22T07:36:08+00:00"
+  "updatedAt": "2026-11-22T07:36:35+00:00"
 }
