@@ -2993,11 +2993,11 @@
       "reason": "ValueError: Bilingual editorial review: The English translation of s13 incorrectly states 'low risk' where the source clearly says 'high potential returns, low risk and excessive risk premiums', implying a contradiction in the source text itself rather than an error in translation. The phrase 'low risk' appears alongside 'excessive risk premiums' which are con"
     },
     "marks-8271b6ed8c1a05": {
-      "at": "2026-11-20T17:23:55+00:00",
+      "at": "2026-11-23T20:51:34+00:00",
       "status": "retry",
       "inputHash": "acbc23e8b0dfd58b321deb7bbac1b736dc41264d04aaf3746fdc8b62a793e22e",
-      "failures": 5,
-      "nextAttemptAt": "2026-11-23T09:23:55+00:00",
+      "failures": 6,
+      "nextAttemptAt": "2026-11-26T20:51:34+00:00",
       "reason": "ValueError: Unsupported numerical claim: 2"
     },
     "marks-827f8ac1bdac2c": {
@@ -4049,12 +4049,12 @@
       "reason": "ValueError: Copied source passage"
     },
     "marks-d7340ccf6b811f": {
-      "at": "2026-11-20T17:37:51+00:00",
+      "at": "2026-11-23T20:51:46+00:00",
       "status": "retry",
       "inputHash": "403e9b13a7471af39baea1bff1b04a29ec17255dbb84f76903847134fb71de84",
-      "failures": 5,
-      "nextAttemptAt": "2026-11-23T09:37:51+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English translation of the Chinese paragraph contains factual inaccuracies regarding the source text.; The source (s0) states Marks wrote a memo in **1990** to take issue with a manager's quote about being in the top/bottom 5%. The translation incorrectly attributes this specific argument to the **1995** memo, confla"
+      "failures": 6,
+      "nextAttemptAt": "2026-11-26T20:51:46+00:00",
+      "reason": "JSONDecodeError: Expecting ',' delimiter: line 4 column 413 (char 448)"
     },
     "marks-b86a61b70ef225": {
       "at": "2026-11-21T02:52:11+00:00",
@@ -4718,5 +4718,5 @@
       "reason": "ValueError: Copied source passage"
     }
   },
-  "updatedAt": "2026-11-23T20:50:26+00:00"
+  "updatedAt": "2026-11-23T20:51:46+00:00"
 }
