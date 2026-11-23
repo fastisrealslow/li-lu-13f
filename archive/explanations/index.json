@@ -1936,12 +1936,12 @@
       "reason": "ValueError: Bilingual editorial review: The Chinese text incorrectly states Rob Vinall visited China 'annually on average since making his first investment in Baidu in 2013'. Source s0 says he traveled there 'once a year on average since 2013', but the context implies this frequency started *before* the 2013 investment (as the investment is cited as a specific"
     },
     "pabrai-1e956456cad67c": {
-      "at": "2026-11-20T18:06:56+00:00",
+      "at": "2026-11-23T21:20:46+00:00",
       "status": "retry",
       "inputHash": "067c627cd69870aa6bfc7d791a2ec58805940a9dbe1a08b37da77713f9f9c1e4",
-      "failures": 5,
-      "nextAttemptAt": "2026-11-23T10:06:56+00:00",
-      "reason": "ValueError: Bilingual editorial review: The source text does not mention 'David Hawkins' or his book 'Power Versus Force'; it only refers to a 'new age guy in Arizona'.; The source text does not describe the mechanism as causing 'physical weakness in muscles' or 'muscular reactions'; it only mentions feeling good or bad.; The source text does not mention a 'lo"
+      "failures": 6,
+      "nextAttemptAt": "2026-11-26T21:20:46+00:00",
+      "reason": "ValueError: Bilingual editorial review: The source text (s2, s3) does not mention 'millions of years' or 'cognitive distortions'; it only mentions 'millennia' and 'idiosyncrasies which kind of distort reality'.; The source text (s3) states the book is by 'a new age guy in Arizona', not explicitly 'David Hawkins'. While s2 mentions 'David Hawkins', the specific"
     },
     "pabrai-d1dea134078fdc": {
       "at": "2026-11-21T02:27:21+00:00",
@@ -4718,5 +4718,5 @@
       "reason": "ValueError: Copied source passage"
     }
   },
-  "updatedAt": "2026-11-23T21:20:28+00:00"
+  "updatedAt": "2026-11-23T21:20:46+00:00"
 }
