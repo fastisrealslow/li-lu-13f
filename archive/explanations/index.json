@@ -3225,12 +3225,12 @@
       "reason": "ValueError: Unsupported numerical claim: 9"
     },
     "marks-cbe22289f97d98": {
-      "at": "2026-11-20T17:31:37+00:00",
+      "at": "2026-11-23T20:49:14+00:00",
       "status": "retry",
       "inputHash": "4e40c594ccf6785641936ce41784939d25440331523a8e33417e1d6040e85315",
-      "failures": 5,
-      "nextAttemptAt": "2026-11-23T09:31:37+00:00",
-      "reason": "ValueError: Bilingual editorial review: The source text (s5) contains a copyright notice ('© 2019 OAKTREE CAPITAL MANAGEMENT...') that is not part of the dialogue between Carlos and HM. The paraphrase incorrectly attributes this as part of the conversation flow or implies it was spoken by Marks, which is an editorial interpretation not grounded in the provided"
+      "failures": 6,
+      "nextAttemptAt": "2026-11-26T20:49:14+00:00",
+      "reason": "ValueError: Bilingual editorial review: The source text (s4-s6) does not contain a dialogue where Howard Marks advises against depositing money; it records his initial suggestion ('Put it in the bank') followed by his realization of the negative rate consequence. The paraphrase incorrectly states 'he then advised against depositing' and implies he conceded to "
     },
     "marks-a8162651bb160c": {
       "at": "2026-11-20T18:06:47+00:00",
@@ -4718,5 +4718,5 @@
       "reason": "ValueError: Copied source passage"
     }
   },
-  "updatedAt": "2026-11-23T20:49:04+00:00"
+  "updatedAt": "2026-11-23T20:49:14+00:00"
 }
