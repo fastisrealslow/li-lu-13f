@@ -2852,12 +2852,12 @@
       "reason": "ValueError: Unsupported numerical claim: 10"
     },
     "marks-e1667423e3df2b": {
-      "at": "2026-11-20T08:12:04+00:00",
+      "at": "2026-11-23T08:30:00+00:00",
       "status": "retry",
       "inputHash": "09d7b5357b85f87ed103d12dc32bc0d78c7bd00a009eaac0b44d0ad9d3c18f1e",
-      "failures": 5,
-      "nextAttemptAt": "2026-11-23T00:12:04+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English paragraph contains a factual error regarding the stock price increase percentage. The source text (s8) states '25% stock price increase' ($40 to $50), but the generated text incorrectly claims 'a stock rising from $40 to $50' without explicitly stating the 25% figure, while the reasoning mentions 'the 25% sto"
+      "failures": 6,
+      "nextAttemptAt": "2026-11-26T08:30:00+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English translation in the source content incorrectly states '25% stock price increase' instead of '25% increase' (the text says '25% stock price increase multiplied by the 4% position', implying a 25% move on the stock itself, not 25% of the portfolio).; The English translation incorrectly states 'Canary Capital' in"
     },
     "marks-49e0212382a26b": {
       "at": "2026-11-22T07:40:27+00:00",
@@ -4718,5 +4718,5 @@
       "reason": "ValueError: Copied source passage"
     }
   },
-  "updatedAt": "2026-11-23T08:28:44+00:00"
+  "updatedAt": "2026-11-23T08:30:00+00:00"
 }
