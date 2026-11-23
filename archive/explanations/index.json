@@ -3833,12 +3833,12 @@
       "reason": "ValueError: Bilingual editorial review: The English translation of the author's name 'Howard Marks' is correct, but the Chinese text uses 'Huo Hua De Ma Xi Si', which is a mistranslation or hallucination; the canonical name is 'Howard Marks' (not associated with the surname 'Ma Xi Si').; The content claims the 2001 memo was offered as a 'twofer' with the curre"
     },
     "marks-3c656ae75a63ce": {
-      "at": "2026-11-21T02:05:29+00:00",
+      "at": "2026-11-23T21:48:19+00:00",
       "status": "retry",
       "inputHash": "27a1763d942be20c8c515e8ea1c00fc458757c054c81d339183150b07488eb2e",
-      "failures": 5,
-      "nextAttemptAt": "2026-11-23T18:05:29+00:00",
-      "reason": "ValueError: Bilingual editorial review: The content section contains a factual error: it states Bogle has been in business for 'sixty years', but the source (s1) explicitly says 'after 60 years in the business'. While numerically similar, the phrasing implies he is currently at or past 60 years, whereas the text frames it as a retrospective observation ('after"
+      "failures": 6,
+      "nextAttemptAt": "2026-11-26T21:48:19+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English paraphrase in 'content' contains a factual error regarding Bogle's quote: it states 'Bogle believes investors must wake up because it is the worst investment timing he has ever seen', whereas the source (s1) presents these as two separate statements ('It's urgent that people wake up... This is the worst time."
     },
     "marks-159247340c6388": {
       "at": "2026-11-23T08:42:40+00:00",
@@ -4718,5 +4718,5 @@
       "reason": "ValueError: Copied source passage"
     }
   },
-  "updatedAt": "2026-11-23T21:47:05+00:00"
+  "updatedAt": "2026-11-23T21:48:19+00:00"
 }
