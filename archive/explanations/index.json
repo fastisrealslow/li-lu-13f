@@ -1104,12 +1104,12 @@
       "reason": "ValueError: Unsupported numerical claim: 500"
     },
     "pabrai-58b2cd1ba68941": {
-      "at": "2026-11-20T08:26:08+00:00",
+      "at": "2026-11-23T09:12:04+00:00",
       "status": "retry",
       "inputHash": "7df9309a6c69f755d883fd174544d687a4eba7aac6b667b98eb8876ce26c7493",
-      "failures": 5,
-      "nextAttemptAt": "2026-11-23T00:26:08+00:00",
-      "reason": "ValueError: Bilingual editorial review: The source text (s10) states Buffett had 'approximately one great idea every five years' over 58 years, totaling 12 ideas. The summary claims this constitutes a 'high hit rate paradox' because the hit rate is only 3%. This contradicts the source's tone; Pabrai explicitly asks why it took so long to find just 12 ideas, fr"
+      "failures": 6,
+      "nextAttemptAt": "2026-11-26T09:12:04+00:00",
+      "reason": "ValueError: Bilingual editorial review: The source text does not mention 'high hit rate paradox' (s10, s12); it describes a low hit rate (3%) over many bets. The term 'paradox' is editorial interpretation not found in the source.; The source states Buffett's 58-year period had approximately one great idea every five years (s10), totaling 12 ideas; the summary "
     },
     "pabrai-c601c5640111d6": {
       "at": "2026-11-20T08:42:59+00:00",
@@ -4718,5 +4718,5 @@
       "reason": "ValueError: Copied source passage"
     }
   },
-  "updatedAt": "2026-11-23T09:11:51+00:00"
+  "updatedAt": "2026-11-23T09:12:04+00:00"
 }
