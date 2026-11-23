@@ -582,12 +582,12 @@
       "reason": "ValueError: No audio obtained"
     },
     "pabrai-902245e808126f": {
-      "at": "2026-11-20T17:28:07+00:00",
+      "at": "2026-11-23T21:01:05+00:00",
       "status": "retry",
       "inputHash": "0380768a64240b20e08d0cff333d2d15a7d69f41e9e400dbf4e64f53a93603ea",
-      "failures": 5,
-      "nextAttemptAt": "2026-11-23T09:28:07+00:00",
-      "reason": "ValueError: Bilingual editorial review: The source text (s6) states Buffett's lunch cost ended at $650,000 and was below his friend Guy Spier's budget; the content incorrectly claims it was 'even below his friend Guy Spier's personal limit' as if a direct comparison of absolute amounts was made, whereas the source only notes Spier's personal cap was $250k and "
+      "failures": 6,
+      "nextAttemptAt": "2026-11-26T21:01:05+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English translation contains a factual error: it states Pabrai set a budget cap of '$2 million', whereas the source text (s6) explicitly says he bid '$2 million' as a maximum limit for bidding, not necessarily a pre-set budget cap. The phrasing 'setting a budget cap' misrepresents the context of competitive bidding.;"
     },
     "vinall-b8757c659b8401": {
       "at": "2026-11-21T22:02:12+00:00",
@@ -4718,5 +4718,5 @@
       "reason": "ValueError: Copied source passage"
     }
   },
-  "updatedAt": "2026-11-23T20:59:10+00:00"
+  "updatedAt": "2026-11-23T21:01:05+00:00"
 }
