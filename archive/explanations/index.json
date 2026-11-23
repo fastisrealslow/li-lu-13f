@@ -1640,12 +1640,12 @@
       "reason": "ValueError: Bilingual editorial review: The source text does not explicitly state that 'systematic training models are more critical than population scale'; this is an editorial interpretation of the comparison between Jamaica and the US.; The claim that 'schools across the island host numerous track and field competitions' is supported by s4, but the specific"
     },
     "pabrai-5e5f9600af5b36": {
-      "at": "2026-11-20T17:42:06+00:00",
+      "at": "2026-11-23T20:57:27+00:00",
       "status": "retry",
       "inputHash": "25eef77ce1b3c536ad2975d97ba257dbf0174adf94cc7caf8e7031e99e51fb26",
-      "failures": 5,
-      "nextAttemptAt": "2026-11-23T09:42:06+00:00",
-      "reason": "JSONDecodeError: Expecting ',' delimiter: line 3 column 1 (char 865)"
+      "failures": 6,
+      "nextAttemptAt": "2026-11-26T20:57:27+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English text incorrectly states 'buying an S&P 500 index fund... yields returns from more than ten stocks'. The source (s10) says the investor is 'getting more than that' (referring to Munger's portfolio of ~100 businesses), not that they are getting returns from >10 stocks. The S&P 500 contains exactly 500 stocks, b"
     },
     "pabrai-1ef3ab18d3d46e": {
       "at": "2026-11-22T17:14:44+00:00",
@@ -4718,5 +4718,5 @@
       "reason": "ValueError: Copied source passage"
     }
   },
-  "updatedAt": "2026-11-23T20:57:01+00:00"
+  "updatedAt": "2026-11-23T20:57:27+00:00"
 }
