@@ -795,12 +795,12 @@
       "reason": "ValueError: Bilingual editorial review: The source text (s3) does not mention 'survivorship bias' or explicitly state that failures are ignored; this is an editorial interpretation added in the content section.; The source text (s3) does not contain a specific valuation model or future prediction, which the content claims Pabrai focused on revealing.; The sour"
     },
     "pabrai-bc7ec8286850d8": {
-      "at": "2026-11-20T18:08:45+00:00",
+      "at": "2026-11-23T21:49:24+00:00",
       "status": "retry",
       "inputHash": "50f8d144e9779d0c6043ed45952a3d034c934d5f125463555e25b6d86031cbbb",
-      "failures": 5,
-      "nextAttemptAt": "2026-11-23T10:08:45+00:00",
-      "reason": "ValueError: Unsupported scaled numerical claim: 4000"
+      "failures": 6,
+      "nextAttemptAt": "2026-11-26T21:49:24+00:00",
+      "reason": "ValueError: Bilingual editorial review: The source text (s4) states that US charitable laws require nonprofits to spend 5% of their 'total corpus' annually. The content section incorrectly translates this as 'total corpus' but then adds the parenthetical clarification '(meaning a $1 billion fund must spend $50 million yearly)' which is mathematically correct ("
     },
     "buffett-63e629862df341": {
       "at": "2026-11-22T17:19:22+00:00",
@@ -4718,5 +4718,5 @@
       "reason": "ValueError: Copied source passage"
     }
   },
-  "updatedAt": "2026-11-23T21:48:19+00:00"
+  "updatedAt": "2026-11-23T21:49:24+00:00"
 }
