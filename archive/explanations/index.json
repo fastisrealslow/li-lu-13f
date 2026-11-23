@@ -2684,12 +2684,12 @@
       "reason": "ValueError: Bilingual editorial review: The English translation of 'Howard Marks' as 'Howard·Marks' (with a middle dot) is inconsistent with the canonical name format provided in the source data which uses a space.; The phrase 'Claude just rearranges patterns from its training data' is presented as a direct quote attributed to an unnamed person ('someone'), bu"
     },
     "marks-8e0ec13e9cb837": {
-      "at": "2026-11-20T08:19:42+00:00",
+      "at": "2026-11-23T08:39:58+00:00",
       "status": "retry",
       "inputHash": "aae29530db158796b78155e8b1ed83ba5a6857a0ebbd1ec074e3449497113e8e",
-      "failures": 5,
-      "nextAttemptAt": "2026-11-23T00:19:42+00:00",
-      "reason": "ValueError: Incomplete AI Review at 1800 tokens"
+      "failures": 6,
+      "nextAttemptAt": "2026-11-26T08:39:58+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English translation in the content section misrepresents Howard Marks' actual argument regarding the 'naive' category. In the source text (s2), Marks questions whether 'naive' is a generous description and warns against taking risks one cannot survive, but he does not explicitly state that the behavior is 'more fooli"
     },
     "marks-ac11cf5787b86b": {
       "at": "2026-11-20T08:32:20+00:00",
@@ -4718,5 +4718,5 @@
       "reason": "ValueError: Copied source passage"
     }
   },
-  "updatedAt": "2026-11-23T08:39:25+00:00"
+  "updatedAt": "2026-11-23T08:39:58+00:00"
 }
