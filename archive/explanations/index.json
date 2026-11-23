@@ -1072,12 +1072,12 @@
       "reason": "ValueError: Bilingual editorial review: The English translation in the 'content' section contains factual and grammatical errors: 'disgorge' is misinterpreted as 'paying out or distributing dividends' (Buffett's quote refers to total cash flow over time, not just dividends); 'in his minds' should be singular 'his mind'; 'sound economics' is a mistranslation of"
     },
     "pabrai-ebbacc9bcedbf3": {
-      "at": "2026-11-20T08:12:56+00:00",
+      "at": "2026-11-23T08:42:28+00:00",
       "status": "retry",
       "inputHash": "3a7152d63b46c3fe762c3d1404d21f8660b7951189ac1acc4d8acd2f1f8b511e",
-      "failures": 5,
-      "nextAttemptAt": "2026-11-23T00:12:56+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English content incorrectly states Enterprise Rent-A-Car 'did not operate like most US airport rental companies offering self-drive services'. The source (s3) explicitly confirms this is their standard model: 'Most of the time... car rental companies are based in the airport... You can rent a car without a driver, dr"
+      "failures": 6,
+      "nextAttemptAt": "2026-11-26T08:42:28+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English translation incorrectly states 'airport self-service rentals' for Enterprise Rent-A-Car's initial model; the source (s3) explicitly says they did NOT start with that type of rental.; The English translation misrepresents the reason for hiring one person per location as 'low volume per location'; the source (s"
     },
     "pabrai-a368a4ef14193f": {
       "at": "2026-11-20T18:17:19+00:00",
@@ -4718,5 +4718,5 @@
       "reason": "ValueError: Copied source passage"
     }
   },
-  "updatedAt": "2026-11-23T08:41:19+00:00"
+  "updatedAt": "2026-11-23T08:42:28+00:00"
 }
