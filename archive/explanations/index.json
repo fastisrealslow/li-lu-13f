@@ -452,11 +452,11 @@
       "reason": "ValueError: Bilingual editorial review: Incorrect company name: 'Bilibili (Bodobu)' is not in source; source says 'Bubugao' (Step by Step).; Incorrect stock price detail: Source says NetEase was below $1/share, but text claims 'below $1 per share' while also mentioning '$8 cents' earlier. The text explicitly states 'only 80 cents' ($0.80) and 'below $1'.; Miss"
     },
     "greenberg-6ffab78b7040e3": {
-      "at": "2026-11-20T17:24:40+00:00",
+      "at": "2026-11-23T20:42:36+00:00",
       "status": "retry",
       "inputHash": "b456036ff1b37cf34edfad5075c65e756686ff7a37ac1ebfd351701f188dfdc7",
-      "failures": 6,
-      "nextAttemptAt": "2026-11-23T17:24:40+00:00",
+      "failures": 7,
+      "nextAttemptAt": "2026-11-26T20:42:36+00:00",
       "reason": "ValueError: Copied source passage"
     },
     "hawkins-4bfffa4e8bf77c": {
@@ -542,11 +542,11 @@
       "reason": "ValueError: No audio obtained"
     },
     "buffett-315d0333f57637": {
-      "at": "2026-11-20T17:20:35+00:00",
+      "at": "2026-11-23T20:37:08+00:00",
       "status": "retry",
       "inputHash": "51f1386681ffa328dc1faebb03f603c346fbb525bed766a6232390c60fa21a9f",
-      "failures": 5,
-      "nextAttemptAt": "2026-11-23T09:20:35+00:00",
+      "failures": 6,
+      "nextAttemptAt": "2026-11-26T20:37:08+00:00",
       "reason": "ValueError: No audio obtained"
     },
     "pabrai-84930e49b02b52": {
@@ -1000,12 +1000,12 @@
       "reason": "ValueError: Bilingual editorial review: The source text does not mention 'YouTube' or 'Android' as examples of Google's failed internal ventures; it only states these were acquisitions.; The source text does not explicitly state that Microsoft Research Labs have 'never produced anything useful'; it only notes Pabrai pointed out nothing has come out, and Gates "
     },
     "lilu-11d369bb564cef": {
-      "at": "2026-11-20T18:17:48+00:00",
+      "at": "2026-11-23T20:45:42+00:00",
       "status": "retry",
       "inputHash": "ed56cf20bb10c9816d6076b072bccdfa59ef28e3b15a59c1d675bf65400f37bd",
-      "failures": 5,
-      "nextAttemptAt": "2026-11-23T10:17:48+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English text incorrectly states 'the returns failed to capitalize on still increasing', which misrepresents the source's meaning that uncapitalized returns are still growing; corrected to: 'the returns he failed to capitalize on are still increasing today.'; The English text omits the specific detail from the Chinese"
+      "failures": 6,
+      "nextAttemptAt": "2026-11-26T20:45:42+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English text incorrectly attributes the long-short strategy and its outcomes (2001-2002 crisis performance) to Li Lu's career in general, whereas source s10 explicitly states this was a specific period ('a couple of years') before meeting Munger.; The English text omits the critical detail from s11 that Charlie Munge"
     },
     "vinall-407826a49480a2": {
       "at": "2026-11-21T22:03:52+00:00",
@@ -1248,11 +1248,11 @@
       "reason": "ValueError: Bilingual editorial review: The Chinese text claims the cognitive window closes around age 17, contradicting the source (s2) which states specialization occurs from age 11 to 20.; The Chinese text attributes the quote about Buffett being a better investor because he is a businessman to Pabrai, while the source (s1) explicitly attributes it to Warre"
     },
     "pabrai-96a9fab5d602f9": {
-      "at": "2026-11-20T17:28:31+00:00",
+      "at": "2026-11-23T20:45:40+00:00",
       "status": "retry",
       "inputHash": "82b6a0151b8903655945cc4e5fbd21f4dde54786010a242a84a95ee57e169992",
-      "failures": 5,
-      "nextAttemptAt": "2026-11-23T09:28:31+00:00",
+      "failures": 6,
+      "nextAttemptAt": "2026-11-26T20:45:40+00:00",
       "reason": "ValueError: Unsupported numerical claim: 2009"
     },
     "pabrai-fe92dc8bae7992": {
@@ -1304,12 +1304,12 @@
       "reason": "ValueError: Bilingual editorial review: The source text (s8) cuts off mid-sentence ('at the upper end of that wide'), so the claim about 'psychological advantages' in the English translation is an editorial inference not fully supported by the provided evidence.; The Chinese translation adds specific details like 'Texas Shoes' (source says Dexter Shoes) and 'N"
     },
     "pabrai-1fcbfca9aa46bc": {
-      "at": "2026-11-20T08:59:07+00:00",
+      "at": "2026-11-23T20:44:46+00:00",
       "status": "retry",
       "inputHash": "f44470ddd5212ac7511677caf95ed51cfd6d7e1dc696e20b6b25bbf394902e9b",
-      "failures": 5,
-      "nextAttemptAt": "2026-11-23T00:59:07+00:00",
-      "reason": "ValueError: Unsupported numerical claim: 4%"
+      "failures": 6,
+      "nextAttemptAt": "2026-11-26T20:44:46+00:00",
+      "reason": "ValueError: Unsupported scaled numerical claim: 25"
     },
     "pabrai-4ec62ff4a3f14c": {
       "at": "2026-11-23T08:39:25+00:00",
@@ -1616,12 +1616,12 @@
       "reason": "ValueError: Bilingual editorial review: The Chinese text includes a fabricated quote attributed to Seinfeld ('If you have the reservation, it means you have the car...') which is not present in the source evidence (s2). The source only mentions the episode and Seinfeld's reply about reservations implying cars, but does not contain this specific paraphrased dia"
     },
     "pabrai-4c377fa29a8e7e": {
-      "at": "2026-11-20T08:54:33+00:00",
+      "at": "2026-11-23T20:49:04+00:00",
       "status": "retry",
       "inputHash": "32ff5880bf04a7de408f56f8c7c616a2ebe03f93bc6489095d654cd67c7edf9a",
-      "failures": 5,
-      "nextAttemptAt": "2026-11-23T00:54:33+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English translation in the content section contains factual inaccuracies regarding Nick Sleep's portfolio allocation. The source text (s7) states he put everything into three stocks (Amazon, Costco, Berkshire Hathaway), but the translation claims 'almost his entire capital' and implies Amazon was the largest portion "
+      "failures": 6,
+      "nextAttemptAt": "2026-11-26T20:49:04+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English translation in the content section incorrectly attributes the quote about Nick Sleep returning money to 'Nick Sleep' instead of 'Nick Pabrai', contradicting the source text which refers to him as 'Nick'.; The English translation misrepresents the specific instruction given to investors by omitting the detail "
     },
     "pabrai-35e6c02262592b": {
       "at": "2026-11-22T22:17:45+00:00",
@@ -2274,11 +2274,11 @@
       "reason": "ValueError: Bilingual editorial review: The source text does not explicitly state that Buffett's 'rational investment philosophy' contrasts sharply with his 'attitude of self-criticism'; it only notes he admitted errors. The claim of a 'sharp contrast' is an editorial interpretation not fully supported by the provided text.; The phrase 'small birds strayed int"
     },
     "buffett-3970939bd1323c": {
-      "at": "2026-11-21T01:47:06+00:00",
+      "at": "2026-11-23T20:37:03+00:00",
       "status": "retry",
       "inputHash": "568f474877b7ae5fddd083ec6535540c13ed131cb560b4a249c627c6bd92cac8",
-      "failures": 5,
-      "nextAttemptAt": "2026-11-23T17:47:06+00:00",
+      "failures": 6,
+      "nextAttemptAt": "2026-11-26T20:37:03+00:00",
       "reason": "ValueError: No audio obtained"
     },
     "buffett-ddaef07d238b97": {
@@ -2322,11 +2322,11 @@
       "reason": "ValueError: No audio obtained"
     },
     "buffett-fdc44b835fd90b": {
-      "at": "2026-11-20T17:27:03+00:00",
+      "at": "2026-11-23T20:50:26+00:00",
       "status": "retry",
       "inputHash": "32380832c77b886df0f76d0fd596fcf6ae7e0c8a924267b4c8c50ea673dfa642",
-      "failures": 5,
-      "nextAttemptAt": "2026-11-23T09:27:03+00:00",
+      "failures": 6,
+      "nextAttemptAt": "2026-11-26T20:50:26+00:00",
       "reason": "ValueError: Copied source passage"
     },
     "buffett-93af0e4cfb3935": {
@@ -2524,11 +2524,11 @@
       "reason": "ValueError: Unsupported numerical claim: 23.8%"
     },
     "buffett-a8cc7c4a7e73c5": {
-      "at": "2026-11-20T17:32:59+00:00",
+      "at": "2026-11-23T20:42:18+00:00",
       "status": "retry",
       "inputHash": "d887906af8672540f2d0d6d35489fa0577d96fd1167966b5a83624841b38dffb",
-      "failures": 5,
-      "nextAttemptAt": "2026-11-23T09:32:59+00:00",
+      "failures": 6,
+      "nextAttemptAt": "2026-11-26T20:42:18+00:00",
       "reason": "ValueError: Unsupported scaled numerical claim: 731.25"
     },
     "buffett-03ea47cc01ea52": {
@@ -2548,12 +2548,12 @@
       "reason": "ValueError: Bilingual editorial review: The English translation of s8 misquotes Ben Graham's famous quote by omitting the word 'long' in 'long-run', rendering it as 'long- run' with a hyphen that breaks the standard phrasing. The correct quote is: 'In the short-run, the market is a voting machine... but in the long-run, the market is a weighing machine.'; The "
     },
     "buffett-a18ed90fc42670": {
-      "at": "2026-11-20T17:37:48+00:00",
+      "at": "2026-11-23T20:46:40+00:00",
       "status": "retry",
       "inputHash": "0cbe0d06ba075a0bc6f90ed52c4ee7f80443bc41eaaaa6f6d3e8556992297b65",
-      "failures": 5,
-      "nextAttemptAt": "2026-11-23T09:37:48+00:00",
-      "reason": "ValueError: Unsupported numerical claim: 4000"
+      "failures": 6,
+      "nextAttemptAt": "2026-11-26T20:46:40+00:00",
+      "reason": "ValueError: Copied source passage"
     },
     "webb-0ba17a64cdb8de": {
       "at": "2026-11-22T22:09:59+00:00",
@@ -2620,11 +2620,11 @@
       "reason": "ValueError: Copied source passage"
     },
     "marks-e3929fd4a88d38": {
-      "at": "2026-11-20T17:20:37+00:00",
+      "at": "2026-11-23T20:37:09+00:00",
       "status": "retry",
       "inputHash": "19395e204263c51095e5f4d8299c4936240802f8ba6091443f7e947c41446bfc",
-      "failures": 5,
-      "nextAttemptAt": "2026-11-23T09:20:37+00:00",
+      "failures": 6,
+      "nextAttemptAt": "2026-11-26T20:37:09+00:00",
       "reason": "ValueError: No audio obtained"
     },
     "marks-3792d4cc8456be": {
@@ -3225,12 +3225,12 @@
       "reason": "ValueError: Unsupported numerical claim: 9"
     },
     "marks-cbe22289f97d98": {
-      "at": "2026-11-20T17:31:37+00:00",
+      "at": "2026-11-23T20:49:14+00:00",
       "status": "retry",
       "inputHash": "4e40c594ccf6785641936ce41784939d25440331523a8e33417e1d6040e85315",
-      "failures": 5,
-      "nextAttemptAt": "2026-11-23T09:31:37+00:00",
-      "reason": "ValueError: Bilingual editorial review: The source text (s5) contains a copyright notice ('© 2019 OAKTREE CAPITAL MANAGEMENT...') that is not part of the dialogue between Carlos and HM. The paraphrase incorrectly attributes this as part of the conversation flow or implies it was spoken by Marks, which is an editorial interpretation not grounded in the provided"
+      "failures": 6,
+      "nextAttemptAt": "2026-11-26T20:49:14+00:00",
+      "reason": "ValueError: Bilingual editorial review: The source text (s4-s6) does not contain a dialogue where Howard Marks advises against depositing money; it records his initial suggestion ('Put it in the bank') followed by his realization of the negative rate consequence. The paraphrase incorrectly states 'he then advised against depositing' and implies he conceded to "
     },
     "marks-a8162651bb160c": {
       "at": "2026-11-20T18:06:47+00:00",
@@ -3577,11 +3577,11 @@
       "reason": "ValueError: Bilingual editorial review: The English text incorrectly states the acquisition price as '$50 cash per share plus one combined company share'. The source (s6) specifies '$50 in cash per share and 1 share of the combined company', but does not explicitly state 'plus' in a way that implies addition to the $50 figure; it lists them as separate compone"
     },
     "marks-c79fd177e3b24a": {
-      "at": "2026-11-20T17:28:55+00:00",
+      "at": "2026-11-23T20:41:44+00:00",
       "status": "retry",
       "inputHash": "5f3c22727eb465467cbfce67ce2edd3ed72edc6710c44c6d0e6d016052322089",
-      "failures": 5,
-      "nextAttemptAt": "2026-11-23T09:28:55+00:00",
+      "failures": 6,
+      "nextAttemptAt": "2026-11-26T20:41:44+00:00",
       "reason": "ValueError: Unsupported numerical claim: 20%"
     },
     "marks-215a0c3c70c96e": {
@@ -3633,19 +3633,19 @@
       "reason": "ValueError: Copied source passage"
     },
     "mclemore-97a86175f75125": {
-      "at": "2026-11-20T17:20:30+00:00",
+      "at": "2026-11-23T20:37:04+00:00",
       "status": "retry",
       "inputHash": "42d2de4bffebbeae214de10236e65973472cce15325965a6ebb0e2de26e13fd1",
-      "failures": 5,
-      "nextAttemptAt": "2026-11-23T09:20:30+00:00",
+      "failures": 6,
+      "nextAttemptAt": "2026-11-26T20:37:04+00:00",
       "reason": "ValueError: Source contains too little coherent evidence"
     },
     "mclemore-99ed96032e2668": {
-      "at": "2026-11-20T17:20:33+00:00",
+      "at": "2026-11-23T20:37:12+00:00",
       "status": "retry",
       "inputHash": "6f369e6bd20bbfb07035ee91b984f687aa02bf47c869e05e30fefbba9c873c34",
-      "failures": 5,
-      "nextAttemptAt": "2026-11-23T09:20:33+00:00",
+      "failures": 6,
+      "nextAttemptAt": "2026-11-26T20:37:12+00:00",
       "reason": "ValueError: Source contains too little coherent evidence"
     },
     "marks-279585dbf9b323": {
@@ -3705,11 +3705,11 @@
       "reason": "ValueError: Unsupported numerical claim: 2007"
     },
     "marks-0536029da7292f": {
-      "at": "2026-11-20T17:33:31+00:00",
+      "at": "2026-11-23T20:46:06+00:00",
       "status": "retry",
       "inputHash": "dc77d3a46b8ef9c9d43c14d90365c0e707d2db8122fa4d55fbf3db0dfa9f5c6b",
-      "failures": 5,
-      "nextAttemptAt": "2026-11-23T09:33:31+00:00",
+      "failures": 6,
+      "nextAttemptAt": "2026-11-26T20:46:06+00:00",
       "reason": "ValueError: Unsupported scaled numerical claim: 30"
     },
     "mclemore-6c0b66d07d3c0a": {
@@ -4025,11 +4025,11 @@
       "reason": "ValueError: Bilingual editorial review: The Chinese text incorrectly states Celgene's stock price is ~$89 (implying 7x earnings) while the English source explicitly says it trades in the 'high $80s' and implies a P/E near 10.5x based on current prices, not 7x. The calculation of 7x from $89 and $12.50 EPS is mathematically inconsistent with the stated ~$89 pri"
     },
     "marks-268f0205d751c3": {
-      "at": "2026-11-20T17:25:57+00:00",
+      "at": "2026-11-23T20:41:42+00:00",
       "status": "retry",
       "inputHash": "ad568186808dbe0a391856a56c0d3e0ca55d6ef2e79d1555aa31a9bdd455b5ee",
-      "failures": 5,
-      "nextAttemptAt": "2026-11-23T09:25:57+00:00",
+      "failures": 6,
+      "nextAttemptAt": "2026-11-26T20:41:42+00:00",
       "reason": "ValueError: Unsupported numerical claim: 10"
     },
     "marks-79e0140cc8a58c": {
@@ -4718,5 +4718,5 @@
       "reason": "ValueError: Copied source passage"
     }
   },
-  "updatedAt": "2026-11-23T09:34:16+00:00"
+  "updatedAt": "2026-11-23T20:50:26+00:00"
 }
