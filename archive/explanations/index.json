@@ -1040,12 +1040,12 @@
       "reason": "ValueError: Bilingual editorial review: The English translation of the evidence text (s5) is missing; only the Chinese paragraph content is provided in the source data.; The English translation of the main body paragraphs contains significant factual and stylistic errors: it misattributes the speaker's emotion as 'joy' when the original Chinese describes 'reli"
     },
     "lilu-cd61a9ec3c93bd": {
-      "at": "2026-11-20T08:50:31+00:00",
+      "at": "2026-11-23T09:28:55+00:00",
       "status": "retry",
       "inputHash": "e133997104dd032f27765b0d1513b83e318c1f7c64db4ae0e04bf465ede2a9a3",
-      "failures": 5,
-      "nextAttemptAt": "2026-11-23T00:50:31+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English translation of s76 incorrectly states 'civil management of military officials prevented internal challenges' when the source text says 'management of military officials by civil servants ensured that the government would not be challenged', reversing the agent and patient roles.; The English translation of s7"
+      "failures": 6,
+      "nextAttemptAt": "2026-11-26T09:28:55+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English translation omits the phrase 'natural hard ceiling' from s74, replacing it with just 'natural hard ceiling regarding resources', which is slightly redundant but acceptable; however, the original says 'limited by its natural hard ceiling and finite resources', implying two constraints. The translation merges t"
     },
     "pabrai-d346f1bebb0f55": {
       "at": "2026-11-22T16:56:55+00:00",
@@ -4718,5 +4718,5 @@
       "reason": "ValueError: Copied source passage"
     }
   },
-  "updatedAt": "2026-11-23T09:28:39+00:00"
+  "updatedAt": "2026-11-23T09:28:55+00:00"
 }
