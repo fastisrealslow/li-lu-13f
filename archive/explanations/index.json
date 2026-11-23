@@ -1112,12 +1112,12 @@
       "reason": "ValueError: Bilingual editorial review: The source text does not mention 'high hit rate paradox' (s10, s12); it describes a low hit rate (3%) over many bets. The term 'paradox' is editorial interpretation not found in the source.; The source states Buffett's 58-year period had approximately one great idea every five years (s10), totaling 12 ideas; the summary "
     },
     "pabrai-c601c5640111d6": {
-      "at": "2026-11-20T08:42:59+00:00",
+      "at": "2026-11-23T09:16:39+00:00",
       "status": "retry",
       "inputHash": "e32bcdfbc843caa48fc9a723c3c99199d434cc9ba64e75c22a923297ef257ea6",
-      "failures": 5,
-      "nextAttemptAt": "2026-11-23T00:42:59+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English text claims Pabrai gave his daughters American Express cards with 'no spending limit' and 'unlimited spending', which is a contradiction; standard credit cards have limits. The source (s27) only states 'with no spending limit, and unlimited spending' without specifying the card brand as American Express in th"
+      "failures": 6,
+      "nextAttemptAt": "2026-11-26T09:16:39+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English text incorrectly states 'withdraw money directly from his wallet' (s25) as if it were a physical action; the source describes a conceptual arrangement where the brother sat them down to explain they could 'go to the purse and just take the money,' implying access rather than a specific withdrawal procedure. T"
     },
     "lilu-f9c5b8c9904f52": {
       "at": "2026-11-23T08:26:41+00:00",
@@ -4718,5 +4718,5 @@
       "reason": "ValueError: Copied source passage"
     }
   },
-  "updatedAt": "2026-11-23T09:15:20+00:00"
+  "updatedAt": "2026-11-23T09:16:39+00:00"
 }
