@@ -4057,12 +4057,12 @@
       "reason": "JSONDecodeError: Expecting ',' delimiter: line 4 column 413 (char 448)"
     },
     "marks-b86a61b70ef225": {
-      "at": "2026-11-21T02:52:11+00:00",
+      "at": "2026-11-24T05:52:29+00:00",
       "status": "retry",
       "inputHash": "7fc1e0d2f279a2694111c9f149468f552938f7025a4054c103dd8c3a70d34695",
-      "failures": 5,
-      "nextAttemptAt": "2026-11-23T18:52:11+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English translation in the 'content' section contains a factual error regarding the timeline: it states '20 or 25 years ago', whereas the source text (s3) specifies '25 or 20 years ago'. While numerically equivalent, the order of presentation differs from the original.; The English translation omits the specific phra"
+      "failures": 6,
+      "nextAttemptAt": "2026-11-27T05:52:29+00:00",
+      "reason": "ValueError: Bilingual editorial review: The Chinese translation incorrectly states '20 or 25 years ago' for high yield bonds and '10 or 15 years prior' for distressed debt, whereas the source text specifies '25 or 20 years ago' for high yield bonds and '15 or even 10 years ago' for distressed debt competitors.; The Chinese translation uses '35  years' correctl"
     },
     "marks-bc1dda168f409b": {
       "at": "2026-11-24T05:11:03+00:00",
@@ -4718,5 +4718,5 @@
       "reason": "ValueError: Copied source passage"
     }
   },
-  "updatedAt": "2026-11-24T05:50:06+00:00"
+  "updatedAt": "2026-11-24T05:52:29+00:00"
 }
