@@ -1944,12 +1944,12 @@
       "reason": "ValueError: Bilingual editorial review: The source text (s2, s3) does not mention 'millions of years' or 'cognitive distortions'; it only mentions 'millennia' and 'idiosyncrasies which kind of distort reality'.; The source text (s3) states the book is by 'a new age guy in Arizona', not explicitly 'David Hawkins'. While s2 mentions 'David Hawkins', the specific"
     },
     "pabrai-d1dea134078fdc": {
-      "at": "2026-11-21T02:27:21+00:00",
+      "at": "2026-11-24T06:11:03+00:00",
       "status": "retry",
       "inputHash": "3c4a99d0fe3abfaf01f13e07cf3e282d4f350cd866d026db427398ea7dc20068",
-      "failures": 5,
-      "nextAttemptAt": "2026-11-23T18:27:21+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English translation incorrectly states 'Warren Buffett' and 'Charlie Munger' when the source text only mentions 'Warren and Charlie', omitting their last names which are not in the provided evidence.; The English translation adds specific details about MasterCard's profit margin ('40% of revenue is profit') and oligo"
+      "failures": 6,
+      "nextAttemptAt": "2026-11-27T06:11:03+00:00",
+      "reason": "ValueError: Unsupported scaled numerical claim: 1440"
     },
     "vinall-1ed9722f24818c": {
       "at": "2026-11-21T13:24:10+00:00",
@@ -4718,5 +4718,5 @@
       "reason": "ValueError: Copied source passage"
     }
   },
-  "updatedAt": "2026-11-24T06:09:47+00:00"
+  "updatedAt": "2026-11-24T06:11:03+00:00"
 }
