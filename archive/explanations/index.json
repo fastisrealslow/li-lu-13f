@@ -4521,12 +4521,12 @@
       "reason": "ValueError: Bilingual editorial review: The English translation of 'best-selling candy bar' incorrectly uses the adjective form 'best-selling' instead of the noun phrase 'the best-selling'.; The Chinese text contains a factual error regarding Ronald Read's net worth; it states '$8M' while the source data (s0) clearly shows his total fortune as '$8M', but the c"
     },
     "marks-b11ef300a404cf": {
-      "at": "2026-11-21T02:53:12+00:00",
+      "at": "2026-11-24T05:29:07+00:00",
       "status": "retry",
       "inputHash": "d47eba5a290fa900f82fb967e7d802654a9f0d9d6546a10e16d2108826247164",
-      "failures": 5,
-      "nextAttemptAt": "2026-11-23T18:53:12+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English translation in `content.paragraphs[0]` incorrectly states that 'risk aversion had to be overcome by high promised returns' (s2). The source text says risk aversion was present and required high returns to *be undertaken*, not that the aversion itself was overcome. A more accurate phrasing would be: 'high prom"
+      "failures": 6,
+      "nextAttemptAt": "2026-11-27T05:29:07+00:00",
+      "reason": "ValueError: Bilingual editorial review: The source text (s2, s3, s4) does not mention 'scale expansion' or 'blind pursuit of scale'; the claim that managers no longer face risk because 'scale expansion alone can generate returns' is an editorial interpretation not explicitly supported by the provided evidence.; The phrase 'impulse driven by blind pursuit of sc"
     },
     "mclemore-f83d00a61891f4": {
       "at": "2026-11-21T13:25:11+00:00",
@@ -4718,5 +4718,5 @@
       "reason": "ValueError: Copied source passage"
     }
   },
-  "updatedAt": "2026-11-24T05:28:47+00:00"
+  "updatedAt": "2026-11-24T05:29:07+00:00"
 }
