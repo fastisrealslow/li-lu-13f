@@ -2588,12 +2588,12 @@
       "reason": "ValueError: Copied source passage"
     },
     "buffett-ba600cd7bd91ce": {
-      "at": "2026-11-21T13:44:26+00:00",
+      "at": "2026-11-24T20:16:47+00:00",
       "status": "retry",
       "inputHash": "9125cce955976ca3b07237659118b02e163d89c9db1a21b96da63e4bcddeea1d",
-      "failures": 6,
-      "nextAttemptAt": "2026-11-24T13:44:26+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English paragraph contains factual errors regarding the specific financial figures mentioned in the source text (e.g., it states 'collecting $3.4 billion' for high-yield contracts but omits the context of the $2.5 billion loss leading to net profit, whereas the source explicitly details both inflow and outflow).; The"
+      "failures": 7,
+      "nextAttemptAt": "2026-11-27T20:16:47+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English paragraph incorrectly attributes the 'equity puts' contracts to Buffett personally ('he collected', 'he held'), whereas the source text uses passive voice ('we received', 'our other large derivatives position') and refers to collective company actions.; The English translation of 'settlement value' is slightl"
     },
     "buffett-954ddfb7d50c36": {
       "at": "2026-11-21T14:00:48+00:00",
@@ -4718,5 +4718,5 @@
       "reason": "ValueError: Copied source passage"
     }
   },
-  "updatedAt": "2026-11-24T20:15:25+00:00"
+  "updatedAt": "2026-11-24T20:16:47+00:00"
 }
