@@ -912,12 +912,12 @@
       "reason": "ValueError: Bilingual editorial review: The English translation in the source content (paragraph) contains a factual error: it states 'since the Turing test nearly four years ago' without specifying the year or context, whereas the original transcript (s12) says 'nearly four years ago' relative to the speech date. The translation adds specificity not present i"
     },
     "pabrai-deed882841e367": {
-      "at": "2026-11-21T13:33:24+00:00",
+      "at": "2026-11-24T20:03:44+00:00",
       "status": "retry",
       "inputHash": "c1196969031f851ef22db0b1b25b76469b5ace52d0abe526bb35068e056d5bb9",
-      "failures": 5,
-      "nextAttemptAt": "2026-11-24T05:33:24+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English translation contains a factual error: it states 'while a human infant is born with an immature and dependent brain', but the source text (s5) says 'It is underdeveloped when a baby is born' referring to the brain specifically, not the whole infant. The phrasing in the translation implies the entire infant is "
+      "failures": 6,
+      "nextAttemptAt": "2026-11-27T20:03:44+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English translation of 'brain is optimally set up to specialize' slightly misrepresents the source's metaphorical use of 'real estate' as literal capacity allocation; a more precise phrasing would be 'the brain is optimally configured for specialization'.; The phrase 'diminished learning potential and competitive edg"
     },
     "buffett-98e90a4cbe9b9a": {
       "at": "2026-11-23T21:33:36+00:00",
@@ -4718,5 +4718,5 @@
       "reason": "ValueError: Copied source passage"
     }
   },
-  "updatedAt": "2026-11-24T20:03:08+00:00"
+  "updatedAt": "2026-11-24T20:03:44+00:00"
 }
