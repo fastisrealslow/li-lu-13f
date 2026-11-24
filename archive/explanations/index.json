@@ -1928,12 +1928,12 @@
       "reason": "ValueError: Bilingual editorial review: The source text (s1) states savings and credit card balances were 'under a hundred thousand', but the Chinese translation uses 'capital scale' (capital size), which is an unwritten interpretation rather than a direct paraphrase of the specific financial instrument mentioned.; The source text (s2) mentions Pabrai's father"
     },
     "vinall-c12bae3cc1e659": {
-      "at": "2026-11-21T13:18:20+00:00",
+      "at": "2026-11-24T19:54:21+00:00",
       "status": "retry",
       "inputHash": "4ca6e3a0857d06c74dde6a50b3aefc28e8ad8b399354f392f613d090278df977",
-      "failures": 6,
-      "nextAttemptAt": "2026-11-24T13:18:20+00:00",
-      "reason": "ValueError: Bilingual editorial review: The Chinese text incorrectly states Rob Vinall visited China 'annually on average since making his first investment in Baidu in 2013'. Source s0 says he traveled there 'once a year on average since 2013', but the context implies this frequency started *before* the 2013 investment (as the investment is cited as a specific"
+      "failures": 7,
+      "nextAttemptAt": "2026-11-27T19:54:21+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English text incorrectly states 'facing 1.4 billion Chinese people alone', which misrepresents the source's meaning of having only one person against a population of 1.4 billion; it should be 'one person against 1.4 billion Chinese'.; The phrase 'international-background individuals' is slightly imprecise compared to"
     },
     "pabrai-1e956456cad67c": {
       "at": "2026-11-23T21:20:46+00:00",
@@ -4718,5 +4718,5 @@
       "reason": "ValueError: Copied source passage"
     }
   },
-  "updatedAt": "2026-11-24T19:53:49+00:00"
+  "updatedAt": "2026-11-24T19:54:21+00:00"
 }
