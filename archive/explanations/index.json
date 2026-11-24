@@ -2660,12 +2660,12 @@
       "reason": "ValueError: Bilingual editorial review: The English translation in the 'content' section incorrectly attributes a specific quote to Richard Feynman: 'imagine how much harder physics would be if electrons had feelings.' The source text (s7) contains this exact sentence as an attribution to Feynman. However, this is a widely known misattribution; Feynman never s"
     },
     "marks-bee01f7fefbaee": {
-      "at": "2026-11-21T13:50:40+00:00",
+      "at": "2026-11-24T20:23:54+00:00",
       "status": "retry",
       "inputHash": "6dd9da60809e39709c13e2eefad5cc4b015784f7627c46c27e9315488171fc4a",
-      "failures": 6,
-      "nextAttemptAt": "2026-11-24T13:50:40+00:00",
-      "reason": "ValueError: Bilingual editorial review: The provided English content (paragraph) is not grounded in the source text. It introduces 'fire insurance' as an example, which does not appear in any of the three evidence sections (s0, s1, s2). The source only discusses rent control.; The English content claims Marks argues that officials limit rent increases to 'reta"
+      "failures": 7,
+      "nextAttemptAt": "2026-11-27T20:23:54+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English translation in the source content incorrectly states that 'job seekers' suffer as losers; the original text specifies 'people looking for apartments', not job seekers.; The Chinese content adds an explicit conclusion about 'overall social welfare' which is a paraphrase of the original's implication but not a "
     },
     "marks-634492e880737b": {
       "at": "2026-11-24T05:56:36+00:00",
@@ -4718,5 +4718,5 @@
       "reason": "ValueError: Copied source passage"
     }
   },
-  "updatedAt": "2026-11-24T20:22:54+00:00"
+  "updatedAt": "2026-11-24T20:23:54+00:00"
 }
