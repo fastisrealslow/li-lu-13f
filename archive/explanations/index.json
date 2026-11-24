@@ -4529,12 +4529,12 @@
       "reason": "ValueError: Bilingual editorial review: The source text (s2, s3, s4) does not mention 'scale expansion' or 'blind pursuit of scale'; the claim that managers no longer face risk because 'scale expansion alone can generate returns' is an editorial interpretation not explicitly supported by the provided evidence.; The phrase 'impulse driven by blind pursuit of sc"
     },
     "mclemore-f83d00a61891f4": {
-      "at": "2026-11-21T13:25:11+00:00",
+      "at": "2026-11-24T20:03:08+00:00",
       "status": "retry",
       "inputHash": "cee70f821473a70e7e3c25b2a65e1e51ad97e01717dc71af716a87d31e6044f9",
-      "failures": 5,
-      "nextAttemptAt": "2026-11-24T05:25:11+00:00",
-      "reason": "ValueError: Bilingual editorial review: The Chinese text states Rocket Companies traded between $18 and $34, but the source (s7) specifies it rallied to $34 then traded back down to $20; the range description is slightly inaccurate.; The Chinese text claims Uber holds stakes in Didi and Grab totaling '$10-20 billion', while the source (s6) states '$10-20B'; th"
+      "failures": 6,
+      "nextAttemptAt": "2026-11-27T20:03:08+00:00",
+      "reason": "ValueError: Unsupported scaled numerical claim: 20"
     },
     "marks-60b6da1ebf415b": {
       "at": "2026-11-22T16:45:46+00:00",
@@ -4718,5 +4718,5 @@
       "reason": "ValueError: Copied source passage"
     }
   },
-  "updatedAt": "2026-11-24T20:02:42+00:00"
+  "updatedAt": "2026-11-24T20:03:08+00:00"
 }
