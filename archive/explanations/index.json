@@ -4686,12 +4686,12 @@
       "reason": "ValueError: Bilingual editorial review: The English text incorrectly states revenue increased from $21.6 million to $72.9 million without explicitly mentioning the intermediate $53.1 million figure present in the source evidence (s2), though this is a minor omission rather than a factual error.; The phrase 'one quarter ahead of guidance' in the English text is"
     },
     "vinall-9841a594da96d9": {
-      "at": "2026-11-21T13:26:33+00:00",
+      "at": "2026-11-24T20:00:57+00:00",
       "status": "retry",
       "inputHash": "904d036646eb217f3ee2cfb7cf2fa881c5d17b20ad25dcdec5a8a7df88bb4a83",
-      "failures": 6,
-      "nextAttemptAt": "2026-11-24T13:26:33+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English title 'Rob's 2026 Postcard from China' is a paraphrase of the ASR text but lacks the possessive apostrophe used in the source ('Rob Vinall Podcast' vs 'Rob's'), though this is minor. The primary issue is factual accuracy regarding the author attribution.; The Chinese heading explicitly states 'Chinese Public "
+      "failures": 7,
+      "nextAttemptAt": "2026-11-27T20:00:57+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English title 'Rob's 2026 Postcard from China' does not match the ASR text which refers to it as 'Rob's 2026 postcard', omitting the possessive 'Rob's' in the spoken transcript context (though this is minor).; The Chinese heading claims the content reflects a shift in 'Chinese Public Perception of AI', but the source"
     },
     "marks-3582a029e7c200": {
       "at": "2026-11-23T08:41:19+00:00",
@@ -4718,5 +4718,5 @@
       "reason": "ValueError: Copied source passage"
     }
   },
-  "updatedAt": "2026-11-24T19:58:58+00:00"
+  "updatedAt": "2026-11-24T20:00:57+00:00"
 }
