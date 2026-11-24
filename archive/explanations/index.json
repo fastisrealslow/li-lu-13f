@@ -1440,12 +1440,12 @@
       "reason": "ValueError: Bilingual editorial review: The English translation of s6 misinterprets 'Where do they go?' as 'Where do they go fishing?', but the source text uses this question literally to mean 'What is their leisure activity?', not as a metaphor for crowded trades. The phrase 'not be fishing where everyone else is' implies avoiding activities popular with othe"
     },
     "pabrai-eac064fbe28765": {
-      "at": "2026-11-20T18:11:28+00:00",
+      "at": "2026-11-24T05:10:00+00:00",
       "status": "retry",
       "inputHash": "cf7409aff80388f1feb9816981d9e5a9ed8862d59573258bb1ef916113d4f838",
-      "failures": 5,
-      "nextAttemptAt": "2026-11-23T10:11:28+00:00",
-      "reason": "ValueError: Unsupported numerical claim: 1970"
+      "failures": 6,
+      "nextAttemptAt": "2026-11-27T05:10:00+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English translation of 'OpenAI' as 'OpenAI' is correct, but the Chinese text incorrectly translates it as 'OpenAI (OpenAI)' or implies a different entity name; however, the primary error is the mistranslation of 'cloned' in the context of software. The source says 'Microsoft did none of the work', but the translation"
     },
     "vinall-f47e656603551a": {
       "at": "2026-11-21T22:15:12+00:00",
@@ -4718,5 +4718,5 @@
       "reason": "ValueError: Copied source passage"
     }
   },
-  "updatedAt": "2026-11-24T05:08:38+00:00"
+  "updatedAt": "2026-11-24T05:10:00+00:00"
 }
