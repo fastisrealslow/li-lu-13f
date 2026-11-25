@@ -1168,12 +1168,12 @@
       "reason": "ValueError: Bilingual editorial review: The Chinese text claims Buffett said 'Nothing comes from inside the browser search' and labels it a mistranslation/hallucination; however, the source (s26) only quotes Buffett as saying 'Do you know what Bing stands for?', making the specific claim about 'browser search' unsupported by the provided evidence.; The Chinese"
     },
     "buffett-2d755ae6f4137c": {
-      "at": "2026-11-22T08:26:51+00:00",
+      "at": "2026-11-25T13:42:39+00:00",
       "status": "retry",
       "inputHash": "62fb8ead1e8e910db33c1c12750360c6d520fecbdbadf4dfb9b1c0b1f11b37ab",
-      "failures": 6,
-      "nextAttemptAt": "2026-11-25T08:26:51+00:00",
-      "reason": "ValueError: Bilingual editorial review: The content section incorrectly links evidence IDs s150-s152 (shoe industry discussion) to the heading 'Natural Disaster Risks and Underwriting Capacity'. The transcript provided contains no mention of natural disasters, insurance, underwriting capacity, or climate risk models.; The paragraph claims Buffett discussed mac"
+      "failures": 7,
+      "nextAttemptAt": "2026-11-28T13:42:39+00:00",
+      "reason": "ValueError: Bilingual editorial review: The content section incorrectly attributes a discussion on 'natural disaster risks and underwriting capacity' to the provided transcript evidence (s150-s152), which concerns the shoe industry and management quality.; The text invents specific names (Frank Rooney, Jim Issler, Peter Lunder, Harold Alfond) not present in th"
     },
     "pabrai-700b304a279285": {
       "at": "2026-11-23T08:26:53+00:00",
@@ -4718,5 +4718,5 @@
       "reason": "ValueError: Copied source passage"
     }
   },
-  "updatedAt": "2026-11-25T13:42:01+00:00"
+  "updatedAt": "2026-11-25T13:42:39+00:00"
 }
