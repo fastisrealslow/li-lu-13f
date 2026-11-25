@@ -105,6 +105,36 @@ class BackfillTests(unittest.TestCase):
         get.assert_not_called();request.assert_not_called()
         self.assertEqual(d['history']['coverage']['missingQuarters'],[])
 
+class HistoricalQuarantineTests(unittest.TestCase):
+    def test_removes_only_bound_bad_snapshot_not_a_corrected_quarter(self):
+        hist = {'quarters': ['2003 Q4','2004 Q1','2004 Q2'], 'values': [7,8,9],
+                'holdings': {'2003 Q4': [{'shares': 1}], '2004 Q1': [{'shares': 2}],
+                             '2004 Q2': [{'shares': 3, 'prevShares': 2, 'prevValue': 8}]},
+                'valueAudit': {'2004 Q1': {'status':'verified'}},
+                'filing_sources': {'2004 Q1': {'accessionDashed': '0001006438-04-000003'}}}
+        payload={'history': hist}
+        quarantine={'000100643804000003':'SEC header/cover conflict'}
+        fetch.quarantine_historical_filings(payload,quarantine)
+        self.assertEqual(hist['quarters'],['2003 Q4','2004 Q2'])
+        self.assertEqual(hist['values'],[7,9])
+        self.assertEqual(hist['coverage']['errors']['2004 Q1'], 'SEC header/cover conflict')
+        self.assertEqual(hist['quarantinedFilings']['000100643804000003']['quarter'],'2004 Q1')
+        self.assertNotIn('2004 Q1',hist['valueAudit'])
+        self.assertNotIn('2004 Q1',hist['holdings'])
+        self.assertIsNone(hist['holdings']['2004 Q2'][0]['prevShares'])
+        hist['holdings']['2004 Q1']=[{'shares': 4}]
+        hist['filing_sources']['2004 Q1']={'accession':'000100643804000002'}
+        fetch.quarantine_historical_filings(payload,quarantine)
+        self.assertEqual(hist['holdings']['2004 Q1'][0]['shares'],4)
+
+    def test_choose_distinct_filing_when_newest_same_quarter_is_quarantined(self):
+        conf={'cik':'1656456','legacyFilers':[{'cik':'1006438','beforePeriod':'2016-03-31'}],
+              'historicalFilingQuarantine':{'000100643804000003':'SEC header/cover conflict'}}
+        legacy = [{'accession': f'00010064380400000{i}', 'reportDate': '2004-03-31',
+                   'filingDate': filed} for i,filed in [(3,'2004-08-13'),(2,'2004-05-14')]]
+        with patch.object(fetch,'get_recent_filings',side_effect=[[],legacy]):
+            self.assertEqual([r['accession'] for r in fetch.investor_filings(conf)],['000100643804000002'])
+
 class ReporterTransitionTests(unittest.TestCase):
     def test_parent_history_before_transition_does_not_replace_adviser_history(self):
         parent = [dict(reportDate='2026-06-30', filingDate='2026-08-14'),

@@ -265,6 +265,12 @@ def split_column_tables(source):
 
 def parse_legacy(raw, *, retain_source_discrepancies=False, _use_fixed=True):
     source=raw.decode('utf-8',errors='replace')
+    header = source.split('</SEC-HEADER>', 1)[0]
+    period = re.search(r'^\s*CONFORMED PERIOD OF REPORT:\s*(\d{8})\s*$', header, re.M)
+    if period:
+        from datetime import datetime
+        from sec_history_index import verify_plaintext_cover_period
+        verify_plaintext_cover_period(source, datetime.strptime(period[1], '%Y%m%d').date().isoformat())
     source=re.sub(r'(?<=\d)SHR\b','SH ',source,flags=re.I)
     if not re.search(r'CONFORMED SUBMISSION TYPE:\s*13F-HR\b|<TYPE>13F-HR\b',source,re.I):
         raise ValueError('Legacy source is not a complete 13F holdings report')
