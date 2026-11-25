@@ -1784,12 +1784,12 @@
       "reason": "ValueError: Unsupported numerical claim: 12"
     },
     "pabrai-73536d0821810e": {
-      "at": "2026-11-22T07:48:57+00:00",
+      "at": "2026-11-25T13:03:22+00:00",
       "status": "retry",
       "inputHash": "cff9da5391eb0f78812fb1f177e1863f064015009ae576142a2c23acc86e7704",
-      "failures": 6,
-      "nextAttemptAt": "2026-11-25T07:48:57+00:00",
-      "reason": "ValueError: Bilingual editorial review: The source text does not contain a section titled 'Disclaimer and Author Identity' or any paragraph explicitly clarifying author identity; this is an editorial interpretation added by the content generator.; Evidence s0 states the transcript is for educational/entertainment purposes only but does not claim to clarify aut"
+      "failures": 7,
+      "nextAttemptAt": "2026-11-28T13:03:22+00:00",
+      "reason": "ValueError: Bilingual editorial review: The Chinese text claims 'Omaha' is a poker game ('blackjack lessons'), but evidence s3 states they met in Omaha and played blackjack (a card game), not that Omaha itself is the game.; The Chinese text incorrectly attributes the claim that Damani is Rakesh Jhunjhunwala's mentor to the source text, whereas evidence s3 only"
     },
     "pabrai-f5fcff5c4d79a8": {
       "at": "2026-11-24T19:48:57+00:00",
@@ -4718,5 +4718,5 @@
       "reason": "ValueError: Copied source passage"
     }
   },
-  "updatedAt": "2026-11-25T13:03:07+00:00"
+  "updatedAt": "2026-11-25T13:03:22+00:00"
 }
