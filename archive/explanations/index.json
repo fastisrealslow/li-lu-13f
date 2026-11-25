@@ -686,12 +686,12 @@
       "reason": "ValueError: Unsupported numerical claim: 12"
     },
     "vinall-7630ddfba8bfe7": {
-      "at": "2026-11-21T22:10:31+00:00",
+      "at": "2026-11-25T03:58:09+00:00",
       "status": "retry",
       "inputHash": "d497297541bbb935cdda5daff33c945223c3772e99bd3fdd425c525762819e05",
-      "failures": 6,
-      "nextAttemptAt": "2026-11-24T22:10:31+00:00",
-      "reason": "ValueError: Bilingual editorial review: The source text (s3-s5) does not mention 'fossil fuels' or 'policy signals', nor does it discuss 'macroeconomic indicators' or 'government regulatory signals'. The content section incorrectly claims the discussion focuses on these external factors and that they were absent; in reality, the speaker only discussed credit a"
+      "failures": 7,
+      "nextAttemptAt": "2026-11-28T03:58:09+00:00",
+      "reason": "ValueError: Bilingual editorial review: The source text (s3-s5) does not mention 'fossil fuels' or 'policy signals', yet the content section's heading and English paragraph explicitly include these topics as part of Rob Vinall's discussion. This is a factual error regarding the scope of the provided transcript.; The source text states the company has been owne"
     },
     "lilu-1cde24ccac1bfb": {
       "at": "2026-11-25T03:56:00+00:00",
@@ -4718,5 +4718,5 @@
       "reason": "ValueError: Copied source passage"
     }
   },
-  "updatedAt": "2026-11-25T03:56:24+00:00"
+  "updatedAt": "2026-11-25T03:58:09+00:00"
 }
