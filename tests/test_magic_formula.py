@@ -236,6 +236,53 @@ class ExtractionTests(unittest.TestCase):
         self.assertEqual(q['price'],10.12);self.assertEqual(q['sessionTimestamp'],0);self.assertEqual(q['quoteType'],'daily_close')
 
 
+class QuoteRefreshRegressionTests(unittest.TestCase):
+    def setUp(self):
+        c,q=fixture()
+        self.c=c
+        for ticker in ('0123.HK','000123.SZ'):
+            c['listings'].append({'ticker':ticker,'currency':'USD','ordinarySharesPerQuoteUnit':4})
+        c['results']={l['ticker']:{str(y):calculate(c,q,y) for y in (1,3)} for l in c['listings']}
+
+    def fetch(self,ticker,currency,date='2026-10-12'):
+        return {'price':7.1 if ticker.endswith('=X') else 11,'currency':currency,
+                'asOf':date,'sourceUrl':'https://finance.yahoo.com/quote/'+ticker+'/'}
+
+    def test_us_only_does_not_fetch_asian_quotes_but_recalculates_both_periods(self):
+        from update_personal_portfolio import rebuild_results
+        old=copy.deepcopy(self.c['results'])
+        self.c['annuals'][0]['facts']['operatingProfit']['value']+=40
+        errors=[]
+        with patch('update_personal_portfolio.quote_data',side_effect=self.fetch) as fetch:
+            rebuild_results(self.c,{},errors,{'US'})
+        self.assertEqual([call.args[0] for call in fetch.call_args_list],['SAMPLE','USDCNY=X'])
+        self.assertEqual(errors,[])
+        for t in ('0123.HK','000123.SZ'):
+            q=old[t]['1']['quote']
+            self.assertEqual(self.c['results'][t],{str(y):calculate(self.c,q,y) for y in (1,3)})
+            self.assertNotEqual(self.c['results'][t],old[t])
+        self.assertEqual(self.c['results']['SAMPLE']['1']['quote']['asOf'],'2026-10-12')
+
+    def test_old_active_market_quote_cannot_replace_newer_session(self):
+        from update_personal_portfolio import rebuild_results
+        old=copy.deepcopy(self.c['results']);errors=[]
+        with patch('update_personal_portfolio.quote_data',side_effect=lambda *args:self.fetch(*args,date='2026-10-08')):
+            rebuild_results(self.c,{},errors,{'HK','CN'})
+        self.assertEqual(self.c['results'],old)
+        self.assertEqual(len(errors),2)
+        self.assertTrue(all('Older quote session' in e for e in errors))
+
+    def test_later_session_preserves_fx_when_fx_feed_is_older(self):
+        from update_personal_portfolio import rebuild_results
+        q=self.c['results']['SAMPLE']['1']['quote']
+        q.update(fxDate='2026-10-09',fxSourceUrl='https://finance.yahoo.com/quote/USDCNY=X/')
+        with patch('update_personal_portfolio.quote_data',side_effect=lambda t,c:self.fetch(t,c,date='2026-10-08' if t.endswith('=X') else '2026-10-12')):
+            rebuild_results(self.c,{},[],{'US'})
+        for y in ('1','3'):
+            new=self.c['results']['SAMPLE'][y]['quote']
+            self.assertEqual((new['asOf'],new['price'],new['fxDate'],new['fxToReportCurrency']),('2026-10-12',11,'2026-10-09',7))
+
+
 if __name__=='__main__':unittest.main()
 
 

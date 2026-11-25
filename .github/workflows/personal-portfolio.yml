@@ -76,7 +76,8 @@ jobs:
       - name: Discover reports, verify inputs, update prices and recalculate
         run: |
           if [ -n "$MARKET_REFRESH" ]; then
-            python update_personal_portfolio.py --verify-reports
+            read -r -a markets <<< "${MARKET_REFRESH//,/ }"
+            python update_personal_portfolio.py --verify-reports --markets "${markets[@]}"
           else
             python update_personal_portfolio.py --verify-reports --no-quotes
           fi

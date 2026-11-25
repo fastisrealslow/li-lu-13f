@@ -171,23 +171,40 @@ def quote_data(ticker, currency):
         'sourceUrl':'https://finance.yahoo.com/quote/'+urlquote(ticker,safe='')+'/','source':'Yahoo Finance daily close'}
 
 
-def rebuild_results(c, quotes, failures):
+def listing_market(ticker):
+    if ticker.upper().endswith('.HK'):return 'HK'
+    if ticker.upper().endswith(('.SS','.SZ','.BJ')):return 'CN'
+    return 'US'
+
+
+def rebuild_results(c, quotes, failures, markets=None):
     c.setdefault('results',{})
     for listing in c['listings']:
         ticker=listing['ticker']
+        old=c['results'].get(ticker,{}).get('1',{}).get('quote')
+        if markets is not None and listing_market(ticker) not in markets:
+            if old:c['results'][ticker]={str(years):calculate(c,old,years) for years in (1,3)}
+            continue
         try:
-            key=(ticker,listing['currency']);q=copy.deepcopy(quotes.setdefault(key,quote_data(*key))) if key not in quotes else copy.deepcopy(quotes[key])
+            key=(ticker,listing['currency'])
+            if key not in quotes:quotes[key]=quote_data(*key)
+            q=copy.deepcopy(quotes[key])
+            if old and q['asOf'][:10]<old['asOf'][:10]:
+                raise ValueError('Older quote session '+q['asOf']+' than stored '+old['asOf'])
             q.update(ticker=ticker,ordinarySharesPerQuoteUnit=listing['ordinarySharesPerQuoteUnit'])
             if q['currency']==c['currency']:q.update(fxToReportCurrency=1,fxDate=q['asOf'][:10])
             else:
-                pair=q['currency']+c['currency']+'=X';fk=(pair,c['currency'])
-                fx=quotes[fk] if fk in quotes else quote_data(*fk);quotes[fk]=fx
-                q.update(fxToReportCurrency=fx['price'],fxDate=fx['asOf'][:10],fxSourceUrl=fx['sourceUrl'])
+                fk=(q['currency']+c['currency']+'=X',c['currency'])
+                if fk not in quotes:quotes[fk]=quote_data(*fk)
+                fx=quotes[fk]
+                if old and old.get('fxDate','')>fx['asOf'][:10]:
+                    q.update({k:old[k] for k in ('fxToReportCurrency','fxDate','fxSourceUrl') if k in old})
+                else:
+                    q.update(fxToReportCurrency=fx['price'],fxDate=fx['asOf'][:10],fxSourceUrl=fx['sourceUrl'])
             c['results'][ticker]={str(years):calculate(c,q,years) for years in (1,3)}
         except Exception as exc:
             failures.append(c['id']+' / '+ticker+' quote: '+str(exc))
             # Recalculate against retained dated quote after financial updates.
-            old=c['results'].get(ticker,{}).get('1',{}).get('quote')
             if old:c['results'][ticker]={str(years):calculate(c,old,years) for years in (1,3)}
 
 
@@ -224,7 +241,7 @@ def verify_existing_reports(company,profile,reports,checked):
     return len(changed)
 
 
-def update(data,config,cache,verify=False,discovery=True,quotes_enabled=True):
+def update(data,config,cache,verify=False,discovery=True,quotes_enabled=True,markets=None):
     checked=now();failures=[];quotes={}
     for c in data['companies']:
         print(f"Personal {c['id']}: checking original reports",flush=True)
@@ -275,7 +292,7 @@ def update(data,config,cache,verify=False,discovery=True,quotes_enabled=True):
         except Exception as exc:
             c.clear();c.update(original_company);profile.clear();profile.update(original_profile);config['sources']=original_sources
             failures.append(c['id']+' report: '+str(exc));c['financialStatus']={'checkedAt':checked,'status':'retained','message':'本次财报读取／校验未完成，沿用已核实年报：'+str(exc)}
-        if quotes_enabled:rebuild_results(c,quotes,failures)
+        if quotes_enabled:rebuild_results(c,quotes,failures,markets)
         else:
             for ticker,group in list(c.get('results',{}).items()):
                 q=group['1']['quote'];c['results'][ticker]={str(y):calculate(c,q,y) for y in (1,3)}
@@ -291,9 +308,9 @@ def atomic_json(path,data):
 
 
 def main():
-    parser=argparse.ArgumentParser();parser.add_argument('--verify-reports',action='store_true');parser.add_argument('--no-discovery',action='store_true');parser.add_argument('--no-quotes',action='store_true');parser.add_argument('--cache-dir',type=Path,default=ROOT/'.cache/personal-reports');args=parser.parse_args()
+    parser=argparse.ArgumentParser();parser.add_argument('--verify-reports',action='store_true');parser.add_argument('--no-discovery',action='store_true');parser.add_argument('--no-quotes',action='store_true');parser.add_argument('--cache-dir',type=Path,default=ROOT/'.cache/personal-reports');parser.add_argument('--markets',nargs='+',choices=['US','HK','CN']);args=parser.parse_args()
     data=json.loads((ROOT/'personal_portfolio.json').read_text());config=json.loads((ROOT/'personal_report_profiles.json').read_text())
-    data,config=update(data,config,args.cache_dir,args.verify_reports,not args.no_discovery,not args.no_quotes)
+    data,config=update(data,config,args.cache_dir,args.verify_reports,not args.no_discovery,not args.no_quotes,args.markets)
     atomic_json(ROOT/'personal_portfolio.json',data);atomic_json(ROOT/'personal_report_profiles.json',config)
     print(json.dumps({'companies':len(data['companies']),**data['updateStatus']},ensure_ascii=False))
 
