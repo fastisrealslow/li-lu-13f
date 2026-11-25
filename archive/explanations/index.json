@@ -3505,12 +3505,12 @@
       "reason": "ValueError: Bilingual editorial review: The source text states net debt was reduced to 'less than one times its pre-interest, pre-tax profit' (EBITDA), but the content incorrectly substitutes this with EBIT.; The source text claims Delta trades at a '12% free cash flow yield', whereas the content exaggerates this as 'well over 100% higher' compared to the indu"
     },
     "marks-d39edc8226b5ec": {
-      "at": "2026-11-21T22:18:14+00:00",
+      "at": "2026-11-25T04:09:01+00:00",
       "status": "retry",
       "inputHash": "c6271ade474619d78e16e2e2a5530762855a24224d3aa4f02edebd5ee50c6a63",
-      "failures": 6,
-      "nextAttemptAt": "2026-11-24T22:18:14+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English translation in the source content incorrectly attributes the quote 'We have two classes of forecasters...' to John Kenneth Galbraith. The original text (s2) explicitly states: 'I agree with John Kenneth Galbraith. He said...'. However, this is a well-known misattribution; the quote actually comes from Howard "
+      "failures": 7,
+      "nextAttemptAt": "2026-11-28T04:09:01+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English translation in 'content.paragraphs[0]' contains a factual error: it attributes the quote about forecasters to John Kenneth Galbraith, whereas the source text (evidence s2) explicitly states 'I agree with John Kenneth Galbraith' but does not provide the full quote as attributed to him; the quote itself ('We ha"
     },
     "mclemore-06adf7d58762c4": {
       "at": "2026-11-22T08:07:46+00:00",
@@ -4718,5 +4718,5 @@
       "reason": "ValueError: Copied source passage"
     }
   },
-  "updatedAt": "2026-11-25T04:08:50+00:00"
+  "updatedAt": "2026-11-25T04:09:01+00:00"
 }
