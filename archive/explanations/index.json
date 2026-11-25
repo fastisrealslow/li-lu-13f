@@ -4017,12 +4017,12 @@
       "reason": "ValueError: Unsupported numerical claim: -5.70%"
     },
     "mclemore-7cec44513d4e52": {
-      "at": "2026-11-22T07:57:32+00:00",
+      "at": "2026-11-25T13:22:16+00:00",
       "status": "retry",
       "inputHash": "86a6a270808bcbd7c5e47c6ec4d8835ef7906d38575aed4aaa326698c938e7d3",
-      "failures": 6,
-      "nextAttemptAt": "2026-11-25T07:57:32+00:00",
-      "reason": "ValueError: Bilingual editorial review: The Chinese text incorrectly states Celgene's stock price is ~$89 (implying 7x earnings) while the English source explicitly says it trades in the 'high $80s' and implies a P/E near 10.5x based on current prices, not 7x. The calculation of 7x from $89 and $12.50 EPS is mathematically inconsistent with the stated ~$89 pri"
+      "failures": 7,
+      "nextAttemptAt": "2026-11-28T13:22:16+00:00",
+      "reason": "ValueError: Bilingual editorial review: The Chinese text incorrectly states Celgene trades at 'high $80s' (high 80 dollars) when the source says it sits in the high $80's but explicitly notes valuation is ~$89. The phrase 'currently trading in the high $80s' implies the current price is around $85-$89, which contradicts the later statement that at ~$89 it is 7"
     },
     "marks-268f0205d751c3": {
       "at": "2026-11-23T20:41:42+00:00",
@@ -4718,5 +4718,5 @@
       "reason": "ValueError: Copied source passage"
     }
   },
-  "updatedAt": "2026-11-25T13:20:29+00:00"
+  "updatedAt": "2026-11-25T13:22:16+00:00"
 }
