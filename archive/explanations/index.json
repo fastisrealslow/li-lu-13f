@@ -734,12 +734,12 @@
       "reason": "ValueError: Unsupported numerical claim: 62%"
     },
     "buffett-b39c1475f5798b": {
-      "at": "2026-11-22T07:37:49+00:00",
+      "at": "2026-11-25T13:50:59+00:00",
       "status": "retry",
       "inputHash": "fa2037bd29f450754718c74c89df8e1067b1337a368e32d2f77fab1b480b97ca",
-      "failures": 6,
-      "nextAttemptAt": "2026-11-25T07:37:49+00:00",
-      "reason": "ValueError: Bilingual editorial review: The source text (s30) states Buffett joined forces with someone he had 'really no contact with him' after receiving letters from the press. The content claims this implies a 'lag in information flow,' which is an editorial interpretation not explicitly stated as such in the source; the source only notes the sequence of e"
+      "failures": 7,
+      "nextAttemptAt": "2026-11-28T13:50:59+00:00",
+      "reason": "ValueError: Bilingual editorial review: The Chinese text claims Buffett received letters 'after they'd first been given to the press' (s30), but the transcript only states he received letters after they were 'given to the press', without specifying the sequence of events regarding his own receipt versus the press release timing. The inference that his actions "
     },
     "buffett-30288645558b65": {
       "at": "2026-11-22T17:47:13+00:00",
@@ -4718,5 +4718,5 @@
       "reason": "ValueError: Copied source passage"
     }
   },
-  "updatedAt": "2026-11-25T13:47:04+00:00"
+  "updatedAt": "2026-11-25T13:50:59+00:00"
 }
