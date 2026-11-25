@@ -992,12 +992,12 @@
       "reason": "ValueError: Bilingual editorial review: The English translation in the content section contains a factual error regarding Li Lu's argument: it states 'making it impossible to determine superiority or inferiority based on one to two years... of track records', whereas the source text (s2) explicitly says he cannot tell if a manager is good or bad with 1-2 years"
     },
     "pabrai-001b06856653c9": {
-      "at": "2026-11-21T22:15:42+00:00",
+      "at": "2026-11-25T04:21:20+00:00",
       "status": "retry",
       "inputHash": "c08d37d6cfef2b746eaec2c90dce97e1ef5d7c7dd287daf7b5f80b500c2e1a6e",
-      "failures": 6,
-      "nextAttemptAt": "2026-11-24T22:15:42+00:00",
-      "reason": "ValueError: Bilingual editorial review: The source text does not mention 'YouTube' or 'Android' as examples of Google's failed internal ventures; it only states these were acquisitions.; The source text does not explicitly state that Microsoft Research Labs have 'never produced anything useful'; it only notes Pabrai pointed out nothing has come out, and Gates "
+      "failures": 7,
+      "nextAttemptAt": "2026-11-28T04:21:20+00:00",
+      "reason": "ValueError: Bilingual editorial review: The source text (s9) does not contain the phrase 'masters of cloning'; this is a paraphrase or misinterpretation by the content generator. The original says 'masters of cloning' in the context of 'bread-and-butter engineers', but the specific phrasing and the preceding claim about Microsoft Research Labs producing useful"
     },
     "lilu-11d369bb564cef": {
       "at": "2026-11-23T20:45:42+00:00",
@@ -4718,5 +4718,5 @@
       "reason": "ValueError: Copied source passage"
     }
   },
-  "updatedAt": "2026-11-25T04:20:57+00:00"
+  "updatedAt": "2026-11-25T04:21:20+00:00"
 }
