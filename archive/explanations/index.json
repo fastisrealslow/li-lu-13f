@@ -2250,12 +2250,12 @@
       "reason": "ValueError: Bilingual editorial review: The Chinese text states the industry's combined ratio increased by 'approximately four percentage points' (about four points), which is a faithful paraphrase of the source saying 'About four points in the industry's 1992 combined ratio'.; The Chinese text claims Buffett cited the proverb 'It is only when the tide goes ou"
     },
     "buffett-7a7be582d1415f": {
-      "at": "2026-11-21T22:01:39+00:00",
+      "at": "2026-11-25T03:58:44+00:00",
       "status": "retry",
       "inputHash": "b4f8dd2b997fdb01cc1f5ea07a5414693e325b0b74761b1d1ccb0c4f255d8593",
-      "failures": 6,
-      "nextAttemptAt": "2026-11-24T22:01:39+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English text incorrectly states 'shareholder dividends' as a corporate expense included in operating costs; the source only lists 'shareholder contributions' ($15.4 million) without specifying they are dividends.; The English text claims investment growth was 'consistently lower', but the source data shows 1987 inves"
+      "failures": 7,
+      "nextAttemptAt": "2026-11-28T03:58:44+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English text incorrectly states 'overhead' as '$6.6 million', whereas the source (s3) specifies this amount as corporate expenses assigned to operations but does not explicitly label it 'overhead'; the source lists 'overhead of $6.6 million' directly, so the translation is accurate, but the phrasing in the English co"
     },
     "akre-409d580b78682d": {
       "at": "2026-11-23T08:25:40+00:00",
@@ -4718,5 +4718,5 @@
       "reason": "ValueError: Copied source passage"
     }
   },
-  "updatedAt": "2026-11-25T03:58:09+00:00"
+  "updatedAt": "2026-11-25T03:58:44+00:00"
 }
