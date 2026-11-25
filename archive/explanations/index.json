@@ -1056,12 +1056,12 @@
       "reason": "ValueError: Unsupported numerical claim: 1999"
     },
     "pabrai-1410746e64c5fd": {
-      "at": "2026-11-22T08:32:07+00:00",
+      "at": "2026-11-25T13:54:50+00:00",
       "status": "retry",
       "inputHash": "1f11cf62d1efe16e7efd29c8dc84a86a9d428dd71d3cace8e4f7a2e00a056dfa",
-      "failures": 6,
-      "nextAttemptAt": "2026-11-25T08:32:07+00:00",
-      "reason": "ValueError: Bilingual editorial review: The source text (s12-s14) does not mention 'Pabrai' or his name in Chinese ('Parbai') at all; the speakers are Mohnish and Ash. The content section incorrectly attributes views to Pabrai.; The source text discusses TransDigm's success due to its private equity roots, but it does not explicitly state that this was 'rather"
+      "failures": 7,
+      "nextAttemptAt": "2026-11-28T13:54:50+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English translation in `content.paragraphs[0]` incorrectly attributes the view that 'even with exceptional management, mediocre moats are not ideal combinations' to Pabrai. Source `s13` states: 'We can have a situation where management is exceptional, but the moat is mediocre, and that is not so good.' The source doe"
     },
     "buffett-30a507095b61cd": {
       "at": "2026-11-22T17:31:32+00:00",
@@ -4718,5 +4718,5 @@
       "reason": "ValueError: Copied source passage"
     }
   },
-  "updatedAt": "2026-11-25T13:54:08+00:00"
+  "updatedAt": "2026-11-25T13:54:50+00:00"
 }
