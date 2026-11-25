@@ -654,12 +654,12 @@
       "reason": "ValueError: Bilingual editorial review: The English text contains a grammatical error: 'over an 70 to 80-year' should be 'over a 70 to 80-year'.; The English text incorrectly states 'one bet every three to five years' as if it is a universal rule, whereas the source attributes this specific timeframe ('every three to five years') directly to Buffett's quote co"
     },
     "vinall-c919ac8b6b58c4": {
-      "at": "2026-11-21T22:00:57+00:00",
+      "at": "2026-11-25T13:14:02+00:00",
       "status": "retry",
       "inputHash": "5af4c68010fe5d16e180b31a59d9e58951db06672d9fbd70506aed811829e319",
-      "failures": 6,
-      "nextAttemptAt": "2026-11-24T22:00:57+00:00",
-      "reason": "ValueError: Bilingual editorial review: The source text does not specify the date of the Shanghai wedding; stating 'May 29' is an invention not found in s0, s1, or s3.; The source text mentions 'Tier 1 cities' but does not explicitly state that this was his 'first time' venturing beyond them, though it implies novelty by saying he enjoyed doing so 'for the fir"
+      "failures": 7,
+      "nextAttemptAt": "2026-11-28T13:14:02+00:00",
+      "reason": "ValueError: Bilingual editorial review: The source text does not mention 'Ohio' for Omaha; adding it is an unwritten addition.; The source states Buffett's meeting was his 'final', but the context implies it was a regular annual meeting in 2025 (as he is alive), making 'final' potentially factually unsupported without external knowledge."
     },
     "buffett-d5e534b6a5c51f": {
       "at": "2026-11-25T04:07:28+00:00",
@@ -4718,5 +4718,5 @@
       "reason": "ValueError: Copied source passage"
     }
   },
-  "updatedAt": "2026-11-25T13:13:28+00:00"
+  "updatedAt": "2026-11-25T13:14:02+00:00"
 }
