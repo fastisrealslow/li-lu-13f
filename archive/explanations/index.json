@@ -590,12 +590,12 @@
       "reason": "ValueError: Bilingual editorial review: The English translation contains a factual error: it states Pabrai set a budget cap of '$2 million', whereas the source text (s6) explicitly says he bid '$2 million' as a maximum limit for bidding, not necessarily a pre-set budget cap. The phrasing 'setting a budget cap' misrepresents the context of competitive bidding.;"
     },
     "vinall-b8757c659b8401": {
-      "at": "2026-11-21T22:02:12+00:00",
+      "at": "2026-11-25T13:04:54+00:00",
       "status": "retry",
       "inputHash": "259588b8fb80deba3028e4c0bb289884be1df032ee261719c328e81644d70917",
-      "failures": 6,
-      "nextAttemptAt": "2026-11-24T22:02:12+00:00",
-      "reason": "JSONDecodeError: Expecting ',' delimiter: line 1 column 1753 (char 1752)"
+      "failures": 7,
+      "nextAttemptAt": "2026-11-28T13:04:54+00:00",
+      "reason": "ValueError: Bilingual editorial review: The Chinese text incorrectly states 'Prosus's value consists primarily of its stake in 10 cent, which is over 100% of its net asset value' (evidence s13). The source says the stake is 'over 100% of its net asset value', implying the stake exceeds the company's NAV, not that the stake itself is 100%+ of NAV. This phrasing"
     },
     "buffett-0dffc205cf0707": {
       "at": "2026-11-23T21:17:53+00:00",
@@ -4718,5 +4718,5 @@
       "reason": "ValueError: Copied source passage"
     }
   },
-  "updatedAt": "2026-11-25T13:04:52+00:00"
+  "updatedAt": "2026-11-25T13:04:54+00:00"
 }
