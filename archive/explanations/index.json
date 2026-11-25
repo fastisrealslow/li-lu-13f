@@ -492,12 +492,12 @@
       "reason": "ValueError: Bilingual editorial review: The source text does not explicitly state that the lemonade stand is 'sufficient to make 50 gallons or 800 cups' as a definitive fact; it says 'enough supplies to let's say have 50 gallons', which is a hypothetical example, not a fixed claim. The paraphrase presents this as a concrete fact ('sufficient to make'), which s"
     },
     "buffett-7177025720de85": {
-      "at": "2026-11-21T22:03:53+00:00",
+      "at": "2026-11-25T04:03:00+00:00",
       "status": "retry",
       "inputHash": "69abb8c8071120fbb3e18b06656133c2bff3deaadf67b3f041f399ae4f5fadcd",
-      "failures": 6,
-      "nextAttemptAt": "2026-11-24T22:03:53+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English translation of 'operating earnings' in s6 is inaccurate; Buffett explicitly states it refers to GAAP earnings excluding capital gains. The text correctly identifies this but the phrasing 'reported operating earnings were approximately $8 billion' implies the $8B figure itself excludes capital gains, whereas B"
+      "failures": 7,
+      "nextAttemptAt": "2026-11-28T04:03:00+00:00",
+      "reason": "ValueError: Bilingual editorial review: The source text (s6) states 'operating earnings... excluding however, capital gains', but the content claims Buffett defined it as 'GAAP-calculated earnings' and then added an exclusion. The source does not explicitly state GAAP is the basis for this specific definition; it only says operating earnings are what they refe"
     },
     "duan-f6089c3187bde2": {
       "at": "2026-10-18T01:38:43+00:00",
@@ -4718,5 +4718,5 @@
       "reason": "ValueError: Copied source passage"
     }
   },
-  "updatedAt": "2026-11-25T04:01:18+00:00"
+  "updatedAt": "2026-11-25T04:03:00+00:00"
 }
