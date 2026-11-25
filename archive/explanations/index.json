@@ -2652,12 +2652,12 @@
       "reason": "ValueError: Bilingual editorial review: The English translation of 'Sea Change' in the content section incorrectly refers to it as a 'memo' when the source text and title indicate it is an article or essay ('Oaktree Capital ·  articles and preface').; The phrase 'non-stop accommodative policies' in the English text is a slight over-translation of 'almost the e"
     },
     "marks-81b1197a807270": {
-      "at": "2026-11-22T07:46:04+00:00",
+      "at": "2026-11-25T13:09:46+00:00",
       "status": "retry",
       "inputHash": "f6a8f537dbd19631afc63b902330f44895199fd7dd35449293f5dcbc8a97989d",
-      "failures": 6,
-      "nextAttemptAt": "2026-11-25T07:46:04+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English translation in the 'content' section incorrectly attributes a specific quote to Richard Feynman: 'imagine how much harder physics would be if electrons had feelings.' The source text (s7) contains this exact sentence as an attribution to Feynman. However, this is a widely known misattribution; Feynman never s"
+      "failures": 7,
+      "nextAttemptAt": "2026-11-28T13:09:46+00:00",
+      "reason": "ValueError: Bilingual editorial review: The source text (s6) does not mention 'Richard Feynman' or the quote about electrons having feelings; this is an external addition not found in the provided evidence.; The source text (s7) lists consequences including 'retaliation by other countries', 'price increases and rising inflation', 'destruction of demand', 'rece"
     },
     "marks-bee01f7fefbaee": {
       "at": "2026-11-24T20:23:54+00:00",
@@ -4718,5 +4718,5 @@
       "reason": "ValueError: Copied source passage"
     }
   },
-  "updatedAt": "2026-11-25T13:08:48+00:00"
+  "updatedAt": "2026-11-25T13:09:46+00:00"
 }
