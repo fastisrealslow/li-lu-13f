@@ -6694,6 +6694,2522 @@
         "evidence": " ​ ​ Trading symbol (s) ​ ​ ​ Name of each exchange on which registered American depositary shares (each American depositary share representing four ordinary shares, par value US$0.00001 per share) ​ MNSO ​ The New York Stock Exchange",
         "sourceId": "miniso-2025"
       }
+    },
+    {
+      "id": "carpenter",
+      "name": "谭木匠",
+      "nameEn": "Carpenter Tan",
+      "currency": "CNY",
+      "notes": [
+        "投资物业不计有形经营资本；同步剔除相关净租金和公允价值变动。非质押定存与近一年内到期的保本银行理财计入 EV 抵扣。"
+      ],
+      "annuals": [
+        {
+          "end": "2025-12-31",
+          "months": 12,
+          "audited": true,
+          "facts": {
+            "operatingProfit": {
+              "value": 217150000.0,
+              "evidence": "Profit from operations 217,150 213,545",
+              "page": 77,
+              "raw": "217,150",
+              "sourceId": "t25",
+              "label": "经营利润／营业利润"
+            },
+            "cash": {
+              "value": 79739000.0,
+              "evidence": "Cash and cash equivalents 23(A) 79,739 41,714",
+              "page": 79,
+              "raw": "79,739",
+              "sourceId": "t25",
+              "label": "非受限现金及现金等价物"
+            },
+            "ppe": {
+              "value": 120650000.0,
+              "evidence": "Property, plant and equipment 14(A) 120,650 132,355",
+              "page": 79,
+              "raw": "120,650",
+              "sourceId": "t25",
+              "label": "物业、厂房、设备及在建工程净额"
+            },
+            "rou": {
+              "value": 53551000.0,
+              "evidence": "Right-of-use assets 14(B) 53,551 36,233",
+              "page": 79,
+              "raw": "53,551",
+              "sourceId": "t25",
+              "label": "使用权资产净额"
+            },
+            "currentLeases": {
+              "value": 2943000.0,
+              "evidence": "Lease liabilities 26 2,943 2,161",
+              "page": 79,
+              "raw": "2,943",
+              "sourceId": "t25",
+              "label": "流动租赁负债"
+            },
+            "noncurrentLeases": {
+              "value": 17830000.0,
+              "evidence": "Lease liabilities 26 17,830 9,953",
+              "page": 80,
+              "raw": "17,830",
+              "sourceId": "t25",
+              "label": "非流动租赁负债"
+            },
+            "operatingInvestmentProperty": {
+              "value": 0,
+              "evidence": "按本口径无单列经营性投资物业、独立土地使用权或独立优先权益；投资物业不当成经营固定资本。",
+              "page": 79,
+              "policy": true,
+              "sourceId": "t25",
+              "label": "经营性投资物业"
+            },
+            "landUseRights": {
+              "value": 0,
+              "evidence": "按本口径无单列经营性投资物业、独立土地使用权或独立优先权益；投资物业不当成经营固定资本。",
+              "page": 79,
+              "policy": true,
+              "sourceId": "t25",
+              "label": "单独列示土地使用权净额"
+            },
+            "preferredEquity": {
+              "value": 0,
+              "evidence": "按本口径无单列经营性投资物业、独立土地使用权或独立优先权益；投资物业不当成经营固定资本。",
+              "page": 79,
+              "policy": true,
+              "sourceId": "t25",
+              "label": "永续／优先／赎回及金融衍生负债"
+            },
+            "currentAssets": {
+              "value": 523399000.0,
+              "evidence": "+1 × (Inventories 18 308,556 292,498); +1 × (Trade receivables 19 7,733 7,153); +1 × (Other receivables, deposits and prepayments 20 36,702 10,656); +1 × (Financial assets at fair value through profit or loss 21 80,669 80,791); +1 × (but within one year 23(A) 10,000 105,000); +1 × (Cash and cash equivalents 23(A) 79,739 41,714)",
+              "terms": [
+                {
+                  "value": 308556000.0,
+                  "evidence": "Inventories 18 308,556 292,498",
+                  "page": 79,
+                  "raw": "308,556",
+                  "coefficient": 1
+                },
+                {
+                  "value": 7733000.0,
+                  "evidence": "Trade receivables 19 7,733 7,153",
+                  "page": 79,
+                  "raw": "7,733",
+                  "coefficient": 1
+                },
+                {
+                  "value": 36702000.0,
+                  "evidence": "Other receivables, deposits and prepayments 20 36,702 10,656",
+                  "page": 79,
+                  "raw": "36,702",
+                  "coefficient": 1
+                },
+                {
+                  "value": 80669000.0,
+                  "evidence": "Financial assets at fair value through profit or loss 21 80,669 80,791",
+                  "page": 79,
+                  "raw": "80,669",
+                  "coefficient": 1
+                },
+                {
+                  "value": 10000000.0,
+                  "evidence": "but within one year 23(A) 10,000 105,000",
+                  "page": 79,
+                  "raw": "10,000",
+                  "coefficient": 1
+                },
+                {
+                  "value": 79739000.0,
+                  "evidence": "Cash and cash equivalents 23(A) 79,739 41,714",
+                  "page": 79,
+                  "raw": "79,739",
+                  "coefficient": 1
+                }
+              ],
+              "page": 79,
+              "sourceId": "t25",
+              "label": "流动资产合计"
+            },
+            "currentLiabilities": {
+              "value": 115030000.0,
+              "evidence": "+1 × (Trade payables 24 12,099 9,507); +1 × (Other payables and accruals 25 59,639 47,798); +1 × (Income tax payable 22(A) 40,349 38,595); +1 × (Lease liabilities 26 2,943 2,161)",
+              "terms": [
+                {
+                  "value": 12099000.0,
+                  "evidence": "Trade payables 24 12,099 9,507",
+                  "page": 79,
+                  "raw": "12,099",
+                  "coefficient": 1
+                },
+                {
+                  "value": 59639000.0,
+                  "evidence": "Other payables and accruals 25 59,639 47,798",
+                  "page": 79,
+                  "raw": "59,639",
+                  "coefficient": 1
+                },
+                {
+                  "value": 40349000.0,
+                  "evidence": "Income tax payable 22(A) 40,349 38,595",
+                  "page": 79,
+                  "raw": "40,349",
+                  "coefficient": 1
+                },
+                {
+                  "value": 2943000.0,
+                  "evidence": "Lease liabilities 26 2,943 2,161",
+                  "page": 79,
+                  "raw": "2,943",
+                  "coefficient": 1
+                }
+              ],
+              "page": 79,
+              "sourceId": "t25",
+              "label": "流动负债合计"
+            },
+            "restrictedCash": {
+              "value": 0,
+              "evidence": "现金及存款未单列受限余额。",
+              "page": 79,
+              "policy": true,
+              "sourceId": "t25",
+              "label": "流动受限现金"
+            },
+            "currentDebt": {
+              "value": 0,
+              "evidence": "该负债段未单列借款；租赁负债另计。",
+              "page": 79,
+              "policy": true,
+              "sourceId": "t25",
+              "label": "短期借款／一年内到期债务"
+            },
+            "noncurrentDebt": {
+              "value": 0,
+              "evidence": "该负债段未单列借款；租赁负债另计。",
+              "page": 80,
+              "policy": true,
+              "sourceId": "t25",
+              "label": "长期借款／债券"
+            },
+            "currentNonOperatingLiabilities": {
+              "value": 0.0,
+              "evidence": "Dividend payable – 333",
+              "page": 136,
+              "raw": "–",
+              "label": "流动非经营负债（股利／投资／赎回等）",
+              "sourceId": "t25"
+            },
+            "otherNonOperatingCurrentAssets": {
+              "value": 0,
+              "evidence": "未识别其余可单独划分的流动非经营性应收款；银行存款和理财另计。",
+              "page": 79,
+              "policy": true,
+              "sourceId": "t25",
+              "label": "其他流动非经营资产（应收利息等）"
+            },
+            "minorityInterest": {
+              "value": 0,
+              "evidence": "本年度权益表未列非控股权益。",
+              "page": 80,
+              "policy": true,
+              "sourceId": "t25",
+              "label": "少数股东权益"
+            },
+            "noncurrentCashLike": {
+              "value": 336000000.0,
+              "evidence": "Non-pledged fixed bank deposits with maturity over one year 23(A) 336,000 218,000",
+              "page": 79,
+              "raw": "336,000",
+              "sourceId": "t25",
+              "label": "非受限长期定期存款（EV 抵扣）"
+            },
+            "currentFinancialAssets": {
+              "value": 90669000.0,
+              "evidence": "+1 × (Financial assets at fair value through profit or loss 21 80,669 80,791); +1 × (but within one year 23(A) 10,000 105,000)",
+              "terms": [
+                {
+                  "value": 80669000.0,
+                  "evidence": "Financial assets at fair value through profit or loss 21 80,669 80,791",
+                  "page": 79,
+                  "raw": "80,669",
+                  "coefficient": 1
+                },
+                {
+                  "value": 10000000.0,
+                  "evidence": "but within one year 23(A) 10,000 105,000",
+                  "page": 79,
+                  "raw": "10,000",
+                  "coefficient": 1
+                }
+              ],
+              "page": 79,
+              "sourceId": "t25",
+              "label": "流动金融资产及定期存款"
+            },
+            "ordinaryShares": {
+              "value": 248714000.0,
+              "evidence": "1 January 2025 and 31 December 2025 248,714,000 2,487,140 2,189,160",
+              "page": 138,
+              "raw": "248,714,000",
+              "sourceId": "t25",
+              "label": "期末发行普通股／SS 单位数量"
+            }
+          },
+          "ebitAdjustments": [
+            {
+              "value": -7725000.0,
+              "evidence": "– bank interest income 7,725 11,757",
+              "page": 110,
+              "raw": "7,725",
+              "sourceId": "t25",
+              "label": "扣除银行利息收入"
+            },
+            {
+              "value": -669000.0,
+              "evidence": "fair value through profit or loss (note 21) 669 816",
+              "page": 110,
+              "raw": "669",
+              "sourceId": "t25",
+              "label": "扣除金融理财公允价值收益"
+            },
+            {
+              "value": -2461000.0,
+              "evidence": "Net rental income (2,461) (4,064)",
+              "page": 111,
+              "raw": "(2,461)",
+              "sourceId": "t25",
+              "label": "剔除投资物业净租金（费用表以负数列示）"
+            },
+            {
+              "value": 2700000.0,
+              "evidence": "Change in fair value of investment properties (note 15) (2,700) (7,470)",
+              "page": 110,
+              "raw": "(2,700)",
+              "sourceId": "t25",
+              "label": "剔除投资物业公允价值变动"
+            }
+          ],
+          "evCashLikeFinancialAssets": {
+            "value": 90669000.0,
+            "evidence": "+1 × (but within one year 23(A) 10,000 105,000); +1 × (– maturity within one year 80,669 80,791)",
+            "terms": [
+              {
+                "value": 10000000.0,
+                "evidence": "but within one year 23(A) 10,000 105,000",
+                "page": 79,
+                "raw": "10,000",
+                "coefficient": 1
+              },
+              {
+                "value": 80669000.0,
+                "evidence": "– maturity within one year 80,669 80,791",
+                "page": 131,
+                "raw": "80,669",
+                "coefficient": 1
+              }
+            ],
+            "page": 79,
+            "sourceId": "t25",
+            "label": "可抵扣 EV 的流动存款／证券"
+          }
+        },
+        {
+          "end": "2024-12-31",
+          "months": 12,
+          "audited": true,
+          "facts": {
+            "operatingProfit": {
+              "value": 213545000.0,
+              "evidence": "Profit from operations 217,150 213,545",
+              "page": 77,
+              "raw": "213,545",
+              "sourceId": "t25",
+              "label": "经营利润／营业利润"
+            },
+            "cash": {
+              "value": 41714000.0,
+              "evidence": "Cash and cash equivalents 23(A) 79,739 41,714",
+              "page": 79,
+              "raw": "41,714",
+              "sourceId": "t25",
+              "label": "非受限现金及现金等价物"
+            },
+            "ppe": {
+              "value": 132355000.0,
+              "evidence": "Property, plant and equipment 14(A) 120,650 132,355",
+              "page": 79,
+              "raw": "132,355",
+              "sourceId": "t25",
+              "label": "物业、厂房、设备及在建工程净额"
+            },
+            "rou": {
+              "value": 36233000.0,
+              "evidence": "Right-of-use assets 14(B) 53,551 36,233",
+              "page": 79,
+              "raw": "36,233",
+              "sourceId": "t25",
+              "label": "使用权资产净额"
+            },
+            "currentLeases": {
+              "value": 2161000.0,
+              "evidence": "Lease liabilities 26 2,943 2,161",
+              "page": 79,
+              "raw": "2,161",
+              "sourceId": "t25",
+              "label": "流动租赁负债"
+            },
+            "noncurrentLeases": {
+              "value": 9953000.0,
+              "evidence": "Lease liabilities 26 17,830 9,953",
+              "page": 80,
+              "raw": "9,953",
+              "sourceId": "t25",
+              "label": "非流动租赁负债"
+            },
+            "operatingInvestmentProperty": {
+              "value": 0,
+              "evidence": "按本口径无单列经营性投资物业、独立土地使用权或独立优先权益；投资物业不当成经营固定资本。",
+              "page": 79,
+              "policy": true,
+              "sourceId": "t25",
+              "label": "经营性投资物业"
+            },
+            "landUseRights": {
+              "value": 0,
+              "evidence": "按本口径无单列经营性投资物业、独立土地使用权或独立优先权益；投资物业不当成经营固定资本。",
+              "page": 79,
+              "policy": true,
+              "sourceId": "t25",
+              "label": "单独列示土地使用权净额"
+            },
+            "preferredEquity": {
+              "value": 0,
+              "evidence": "按本口径无单列经营性投资物业、独立土地使用权或独立优先权益；投资物业不当成经营固定资本。",
+              "page": 79,
+              "policy": true,
+              "sourceId": "t25",
+              "label": "永续／优先／赎回及金融衍生负债"
+            },
+            "currentAssets": {
+              "value": 537812000.0,
+              "evidence": "+1 × (Inventories 18 308,556 292,498); +1 × (Trade receivables 19 7,733 7,153); +1 × (Other receivables, deposits and prepayments 20 36,702 10,656); +1 × (Financial assets at fair value through profit or loss 21 80,669 80,791); +1 × (but within one year 23(A) 10,000 105,000); +1 × (Cash and cash equivalents 23(A) 79,739 41,714)",
+              "terms": [
+                {
+                  "value": 292498000.0,
+                  "evidence": "Inventories 18 308,556 292,498",
+                  "page": 79,
+                  "raw": "292,498",
+                  "coefficient": 1
+                },
+                {
+                  "value": 7153000.0,
+                  "evidence": "Trade receivables 19 7,733 7,153",
+                  "page": 79,
+                  "raw": "7,153",
+                  "coefficient": 1
+                },
+                {
+                  "value": 10656000.0,
+                  "evidence": "Other receivables, deposits and prepayments 20 36,702 10,656",
+                  "page": 79,
+                  "raw": "10,656",
+                  "coefficient": 1
+                },
+                {
+                  "value": 80791000.0,
+                  "evidence": "Financial assets at fair value through profit or loss 21 80,669 80,791",
+                  "page": 79,
+                  "raw": "80,791",
+                  "coefficient": 1
+                },
+                {
+                  "value": 105000000.0,
+                  "evidence": "but within one year 23(A) 10,000 105,000",
+                  "page": 79,
+                  "raw": "105,000",
+                  "coefficient": 1
+                },
+                {
+                  "value": 41714000.0,
+                  "evidence": "Cash and cash equivalents 23(A) 79,739 41,714",
+                  "page": 79,
+                  "raw": "41,714",
+                  "coefficient": 1
+                }
+              ],
+              "page": 79,
+              "sourceId": "t25",
+              "label": "流动资产合计"
+            },
+            "currentLiabilities": {
+              "value": 98061000.0,
+              "evidence": "+1 × (Trade payables 24 12,099 9,507); +1 × (Other payables and accruals 25 59,639 47,798); +1 × (Income tax payable 22(A) 40,349 38,595); +1 × (Lease liabilities 26 2,943 2,161)",
+              "terms": [
+                {
+                  "value": 9507000.0,
+                  "evidence": "Trade payables 24 12,099 9,507",
+                  "page": 79,
+                  "raw": "9,507",
+                  "coefficient": 1
+                },
+                {
+                  "value": 47798000.0,
+                  "evidence": "Other payables and accruals 25 59,639 47,798",
+                  "page": 79,
+                  "raw": "47,798",
+                  "coefficient": 1
+                },
+                {
+                  "value": 38595000.0,
+                  "evidence": "Income tax payable 22(A) 40,349 38,595",
+                  "page": 79,
+                  "raw": "38,595",
+                  "coefficient": 1
+                },
+                {
+                  "value": 2161000.0,
+                  "evidence": "Lease liabilities 26 2,943 2,161",
+                  "page": 79,
+                  "raw": "2,161",
+                  "coefficient": 1
+                }
+              ],
+              "page": 79,
+              "sourceId": "t25",
+              "label": "流动负债合计"
+            },
+            "restrictedCash": {
+              "value": 0,
+              "evidence": "现金及存款未单列受限余额。",
+              "page": 79,
+              "policy": true,
+              "sourceId": "t25",
+              "label": "流动受限现金"
+            },
+            "currentDebt": {
+              "value": 0,
+              "evidence": "该负债段未单列借款；租赁负债另计。",
+              "page": 79,
+              "policy": true,
+              "sourceId": "t25",
+              "label": "短期借款／一年内到期债务"
+            },
+            "noncurrentDebt": {
+              "value": 0,
+              "evidence": "该负债段未单列借款；租赁负债另计。",
+              "page": 80,
+              "policy": true,
+              "sourceId": "t25",
+              "label": "长期借款／债券"
+            },
+            "currentNonOperatingLiabilities": {
+              "value": 333000.0,
+              "evidence": "Dividend payable – 333",
+              "page": 136,
+              "raw": "333",
+              "label": "流动非经营负债（股利／投资／赎回等）",
+              "sourceId": "t25"
+            },
+            "otherNonOperatingCurrentAssets": {
+              "value": 0,
+              "evidence": "未识别其余可单独划分的流动非经营性应收款；银行存款和理财另计。",
+              "page": 79,
+              "policy": true,
+              "sourceId": "t25",
+              "label": "其他流动非经营资产（应收利息等）"
+            },
+            "minorityInterest": {
+              "value": 0,
+              "evidence": "本年度权益表未列非控股权益。",
+              "page": 80,
+              "policy": true,
+              "sourceId": "t25",
+              "label": "少数股东权益"
+            },
+            "noncurrentCashLike": {
+              "value": 218000000.0,
+              "evidence": "Non-pledged fixed bank deposits with maturity over one year 23(A) 336,000 218,000",
+              "page": 79,
+              "raw": "218,000",
+              "sourceId": "t25",
+              "label": "非受限长期定期存款（EV 抵扣）"
+            },
+            "currentFinancialAssets": {
+              "value": 185791000.0,
+              "evidence": "+1 × (Financial assets at fair value through profit or loss 21 80,669 80,791); +1 × (but within one year 23(A) 10,000 105,000)",
+              "terms": [
+                {
+                  "value": 80791000.0,
+                  "evidence": "Financial assets at fair value through profit or loss 21 80,669 80,791",
+                  "page": 79,
+                  "raw": "80,791",
+                  "coefficient": 1
+                },
+                {
+                  "value": 105000000.0,
+                  "evidence": "but within one year 23(A) 10,000 105,000",
+                  "page": 79,
+                  "raw": "105,000",
+                  "coefficient": 1
+                }
+              ],
+              "page": 79,
+              "sourceId": "t25",
+              "label": "流动金融资产及定期存款"
+            },
+            "ordinaryShares": {
+              "value": 248714000.0,
+              "evidence": "1 January 2025 and 31 December 2025 248,714,000 2,487,140 2,189,160",
+              "page": 138,
+              "raw": "248,714,000",
+              "sourceId": "t25",
+              "label": "期末发行普通股／SS 单位数量"
+            }
+          },
+          "ebitAdjustments": [
+            {
+              "value": -11757000.0,
+              "evidence": "– bank interest income 7,725 11,757",
+              "page": 110,
+              "raw": "11,757",
+              "sourceId": "t25",
+              "label": "扣除银行利息收入"
+            },
+            {
+              "value": -816000.0,
+              "evidence": "fair value through profit or loss (note 21) 669 816",
+              "page": 110,
+              "raw": "816",
+              "sourceId": "t25",
+              "label": "扣除金融理财公允价值收益"
+            },
+            {
+              "value": -4064000.0,
+              "evidence": "Net rental income (2,461) (4,064)",
+              "page": 111,
+              "raw": "(4,064)",
+              "sourceId": "t25",
+              "label": "剔除投资物业净租金（费用表以负数列示）"
+            },
+            {
+              "value": 7470000.0,
+              "evidence": "Change in fair value of investment properties (note 15) (2,700) (7,470)",
+              "page": 110,
+              "raw": "(7,470)",
+              "sourceId": "t25",
+              "label": "剔除投资物业公允价值变动"
+            }
+          ],
+          "evCashLikeFinancialAssets": {
+            "value": 185791000.0,
+            "evidence": "+1 × (but within one year 23(A) 10,000 105,000); +1 × (– maturity within one year 80,669 80,791)",
+            "terms": [
+              {
+                "value": 105000000.0,
+                "evidence": "but within one year 23(A) 10,000 105,000",
+                "page": 79,
+                "raw": "105,000",
+                "coefficient": 1
+              },
+              {
+                "value": 80791000.0,
+                "evidence": "– maturity within one year 80,669 80,791",
+                "page": 131,
+                "raw": "80,791",
+                "coefficient": 1
+              }
+            ],
+            "page": 79,
+            "sourceId": "t25",
+            "label": "可抵扣 EV 的流动存款／证券"
+          }
+        },
+        {
+          "end": "2023-12-31",
+          "months": 12,
+          "audited": true,
+          "facts": {
+            "operatingProfit": {
+              "value": 210272000.0,
+              "evidence": "Profit from operations 213,545 210,272",
+              "page": 64,
+              "raw": "210,272",
+              "sourceId": "t24",
+              "label": "经营利润／营业利润"
+            },
+            "cash": {
+              "value": 67381000.0,
+              "evidence": "Cash and cash equivalents 23(A) 41,714 67,381",
+              "page": 66,
+              "raw": "67,381",
+              "sourceId": "t24",
+              "label": "非受限现金及现金等价物"
+            },
+            "ppe": {
+              "value": 105925000.0,
+              "evidence": "Property, plant and equipment 14(A) 132,355 105,925",
+              "page": 66,
+              "raw": "105,925",
+              "sourceId": "t24",
+              "label": "物业、厂房、设备及在建工程净额"
+            },
+            "rou": {
+              "value": 38362000.0,
+              "evidence": "Right-of-use assets 14(B) 36,233 38,362",
+              "page": 66,
+              "raw": "38,362",
+              "sourceId": "t24",
+              "label": "使用权资产净额"
+            },
+            "currentLeases": {
+              "value": 2179000.0,
+              "evidence": "Lease liabilities 26 2,161 2,179",
+              "page": 66,
+              "raw": "2,179",
+              "sourceId": "t24",
+              "label": "流动租赁负债"
+            },
+            "noncurrentLeases": {
+              "value": 10638000.0,
+              "evidence": "Lease liabilities 26 9,953 10,638",
+              "page": 67,
+              "raw": "10,638",
+              "sourceId": "t24",
+              "label": "非流动租赁负债"
+            },
+            "operatingInvestmentProperty": {
+              "value": 0,
+              "evidence": "按本口径无单列经营性投资物业、独立土地使用权或独立优先权益；投资物业不当成经营固定资本。",
+              "page": 66,
+              "policy": true,
+              "sourceId": "t24",
+              "label": "经营性投资物业"
+            },
+            "landUseRights": {
+              "value": 0,
+              "evidence": "按本口径无单列经营性投资物业、独立土地使用权或独立优先权益；投资物业不当成经营固定资本。",
+              "page": 66,
+              "policy": true,
+              "sourceId": "t24",
+              "label": "单独列示土地使用权净额"
+            },
+            "preferredEquity": {
+              "value": 0,
+              "evidence": "按本口径无单列经营性投资物业、独立土地使用权或独立优先权益；投资物业不当成经营固定资本。",
+              "page": 66,
+              "policy": true,
+              "sourceId": "t24",
+              "label": "永续／优先／赎回及金融衍生负债"
+            },
+            "currentAssets": {
+              "value": 641319000.0,
+              "evidence": "+1 × (Inventories 18 292,498 248,136); +1 × (Trade receivables 19 7,153 6,808); +1 × (Other receivables, deposits and prepayments 20 10,656 8,994); +1 × (Financial assets at fair value through profit or loss 21 80,791 10,000); +1 × (but within one year 23(A) 105,000 300,000); +1 × (Cash and cash equivalents 23(A) 41,714 67,381)",
+              "terms": [
+                {
+                  "value": 248136000.0,
+                  "evidence": "Inventories 18 292,498 248,136",
+                  "page": 66,
+                  "raw": "248,136",
+                  "coefficient": 1
+                },
+                {
+                  "value": 6808000.0,
+                  "evidence": "Trade receivables 19 7,153 6,808",
+                  "page": 66,
+                  "raw": "6,808",
+                  "coefficient": 1
+                },
+                {
+                  "value": 8994000.0,
+                  "evidence": "Other receivables, deposits and prepayments 20 10,656 8,994",
+                  "page": 66,
+                  "raw": "8,994",
+                  "coefficient": 1
+                },
+                {
+                  "value": 10000000.0,
+                  "evidence": "Financial assets at fair value through profit or loss 21 80,791 10,000",
+                  "page": 66,
+                  "raw": "10,000",
+                  "coefficient": 1
+                },
+                {
+                  "value": 300000000.0,
+                  "evidence": "but within one year 23(A) 105,000 300,000",
+                  "page": 66,
+                  "raw": "300,000",
+                  "coefficient": 1
+                },
+                {
+                  "value": 67381000.0,
+                  "evidence": "Cash and cash equivalents 23(A) 41,714 67,381",
+                  "page": 66,
+                  "raw": "67,381",
+                  "coefficient": 1
+                }
+              ],
+              "page": 66,
+              "sourceId": "t24",
+              "label": "流动资产合计"
+            },
+            "currentLiabilities": {
+              "value": 93194000.0,
+              "evidence": "+1 × (Trade payables 24 9,507 6,856); +1 × (Other payables and accruals 25 47,798 50,435); +1 × (Income tax payable 22(A) 38,595 33,724); +1 × (Lease liabilities 26 2,161 2,179)",
+              "terms": [
+                {
+                  "value": 6856000.0,
+                  "evidence": "Trade payables 24 9,507 6,856",
+                  "page": 66,
+                  "raw": "6,856",
+                  "coefficient": 1
+                },
+                {
+                  "value": 50435000.0,
+                  "evidence": "Other payables and accruals 25 47,798 50,435",
+                  "page": 66,
+                  "raw": "50,435",
+                  "coefficient": 1
+                },
+                {
+                  "value": 33724000.0,
+                  "evidence": "Income tax payable 22(A) 38,595 33,724",
+                  "page": 66,
+                  "raw": "33,724",
+                  "coefficient": 1
+                },
+                {
+                  "value": 2179000.0,
+                  "evidence": "Lease liabilities 26 2,161 2,179",
+                  "page": 66,
+                  "raw": "2,179",
+                  "coefficient": 1
+                }
+              ],
+              "page": 66,
+              "sourceId": "t24",
+              "label": "流动负债合计"
+            },
+            "restrictedCash": {
+              "value": 0,
+              "evidence": "现金及存款未单列受限余额。",
+              "page": 66,
+              "policy": true,
+              "sourceId": "t24",
+              "label": "流动受限现金"
+            },
+            "currentDebt": {
+              "value": 0,
+              "evidence": "该负债段未单列借款；租赁负债另计。",
+              "page": 66,
+              "policy": true,
+              "sourceId": "t24",
+              "label": "短期借款／一年内到期债务"
+            },
+            "noncurrentDebt": {
+              "value": 0,
+              "evidence": "该负债段未单列借款；租赁负债另计。",
+              "page": 67,
+              "policy": true,
+              "sourceId": "t24",
+              "label": "长期借款／债券"
+            },
+            "currentNonOperatingLiabilities": {
+              "value": 1812000.0,
+              "evidence": "Dividend payable 333 1,812",
+              "page": 125,
+              "raw": "1,812",
+              "label": "流动非经营负债（股利／投资／赎回等）",
+              "sourceId": "t24"
+            },
+            "otherNonOperatingCurrentAssets": {
+              "value": 0,
+              "evidence": "未识别其余可单独划分的流动非经营性应收款；银行存款和理财另计。",
+              "page": 66,
+              "policy": true,
+              "sourceId": "t24",
+              "label": "其他流动非经营资产（应收利息等）"
+            },
+            "minorityInterest": {
+              "value": 4099000.0,
+              "evidence": "Non-controlling interests – 4,099",
+              "page": 67,
+              "raw": "4,099",
+              "sourceId": "t24",
+              "label": "少数股东权益"
+            },
+            "noncurrentCashLike": {
+              "value": 53000000.0,
+              "evidence": "Non-pledged fixed bank deposits with maturity over one year 23(A) 218,000 53,000",
+              "page": 66,
+              "raw": "53,000",
+              "sourceId": "t24",
+              "label": "非受限长期定期存款（EV 抵扣）"
+            },
+            "currentFinancialAssets": {
+              "value": 310000000.0,
+              "evidence": "+1 × (Financial assets at fair value through profit or loss 21 80,791 10,000); +1 × (but within one year 23(A) 105,000 300,000)",
+              "terms": [
+                {
+                  "value": 10000000.0,
+                  "evidence": "Financial assets at fair value through profit or loss 21 80,791 10,000",
+                  "page": 66,
+                  "raw": "10,000",
+                  "coefficient": 1
+                },
+                {
+                  "value": 300000000.0,
+                  "evidence": "but within one year 23(A) 105,000 300,000",
+                  "page": 66,
+                  "raw": "300,000",
+                  "coefficient": 1
+                }
+              ],
+              "page": 66,
+              "sourceId": "t24",
+              "label": "流动金融资产及定期存款"
+            },
+            "ordinaryShares": {
+              "value": 248714000.0,
+              "evidence": "1 January 2024 and 31 December 2024 248,714,000 2,487,140 2,189,160",
+              "page": 127,
+              "raw": "248,714,000",
+              "sourceId": "t24",
+              "label": "期末发行普通股／SS 单位数量"
+            }
+          },
+          "ebitAdjustments": [
+            {
+              "value": -8805000.0,
+              "evidence": "– bank interest income 11,757 8,805",
+              "page": 99,
+              "raw": "8,805",
+              "sourceId": "t24",
+              "label": "扣除银行利息收入"
+            },
+            {
+              "value": -883000.0,
+              "evidence": "fair value through profit or loss (note 21) 816 883",
+              "page": 99,
+              "raw": "883",
+              "sourceId": "t24",
+              "label": "扣除金融理财公允价值收益"
+            },
+            {
+              "value": -4189000.0,
+              "evidence": "Net rental income (4,064) (4,189)",
+              "page": 100,
+              "raw": "(4,189)",
+              "sourceId": "t24",
+              "label": "剔除投资物业净租金（费用表以负数列示）"
+            },
+            {
+              "value": 5550000.0,
+              "evidence": "Change in fair value of investment properties (note 15) (7,470) (5,550)",
+              "page": 99,
+              "raw": "(5,550)",
+              "sourceId": "t24",
+              "label": "剔除投资物业公允价值变动"
+            }
+          ],
+          "evCashLikeFinancialAssets": {
+            "value": 310000000.0,
+            "evidence": "+1 × (but within one year 23(A) 105,000 300,000); +1 × (– maturity within one year 80,791 10,000)",
+            "terms": [
+              {
+                "value": 300000000.0,
+                "evidence": "but within one year 23(A) 105,000 300,000",
+                "page": 66,
+                "raw": "300,000",
+                "coefficient": 1
+              },
+              {
+                "value": 10000000.0,
+                "evidence": "– maturity within one year 80,791 10,000",
+                "page": 120,
+                "raw": "10,000",
+                "coefficient": 1
+              }
+            ],
+            "page": 66,
+            "sourceId": "t24",
+            "label": "可抵扣 EV 的流动存款／证券"
+          }
+        }
+      ],
+      "sources": {
+        "t25": {
+          "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0417/2026041701755.pdf",
+          "kind": "annual_report",
+          "title": "2025 年度报告",
+          "sha256": "2520fa3c49abec15e965fa5c21b77d9b35c0f23f3882a91deb399fc8567b74a5"
+        },
+        "t24": {
+          "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2025/0416/2025041601787.pdf",
+          "kind": "annual_report",
+          "title": "2024 年度报告",
+          "sha256": "455e0c8787770b728e9af3166f2046f67326d5156f6a54ab7d71e5b0472da2cd"
+        }
+      },
+      "listings": [
+        {
+          "ticker": "0837.HK",
+          "currency": "HKD",
+          "ordinarySharesPerQuoteUnit": 1
+        }
+      ],
+      "financialStatus": {
+        "checkedAt": "2026-11-25T08:18:22+00:00",
+        "status": "checked",
+        "message": "已核对港交所原始年报和各项附注。"
+      },
+      "results": {
+        "0837.HK": {
+          "1": {
+            "status": "ranked",
+            "reason": "",
+            "capitalCaution": "",
+            "years": 1,
+            "periods": [
+              "2025"
+            ],
+            "ebit": 208995000.0,
+            "investedCapital": 415105000.0,
+            "enterpriseValue": 506686853.05400014,
+            "equityValue": 992321853.0540001,
+            "earningsYield": 0.4124736979858571,
+            "returnOnCapital": 0.503475024391419,
+            "annualComponents": [
+              {
+                "ebit": 208995000.0,
+                "operatingProfit": 217150000.0,
+                "operatingCurrentAssets": 352991000.0,
+                "operatingCurrentLiabilities": 112087000.0,
+                "workingCapital": 240904000.0,
+                "fixedCapital": 174201000.0,
+                "investedCapital": 415105000.0,
+                "debt": 20773000.0,
+                "cashLike": 506408000.0
+              }
+            ],
+            "balanceComponents": {
+              "ebit": 208995000.0,
+              "operatingProfit": 217150000.0,
+              "operatingCurrentAssets": 352991000.0,
+              "operatingCurrentLiabilities": 112087000.0,
+              "workingCapital": 240904000.0,
+              "fixedCapital": 174201000.0,
+              "investedCapital": 415105000.0,
+              "debt": 20773000.0,
+              "cashLike": 506408000.0
+            },
+            "quote": {
+              "price": 4.695,
+              "currency": "HKD",
+              "asOf": "2026-11-25",
+              "sessionTimestamp": 1795570200,
+              "quoteType": "daily_close",
+              "sourceUrl": "https://finance.yahoo.com/quote/0837.HK/",
+              "source": "Yahoo Finance daily close",
+              "ticker": "0837.HK",
+              "ordinarySharesPerQuoteUnit": 1,
+              "fxToReportCurrency": 0.8498,
+              "fxDate": "2026-11-24",
+              "fxSourceUrl": "https://finance.yahoo.com/quote/HKDCNY%3DX/"
+            }
+          },
+          "3": {
+            "status": "ranked",
+            "reason": "",
+            "capitalCaution": "",
+            "years": 3,
+            "periods": [
+              "2025",
+              "2024",
+              "2023"
+            ],
+            "ebit": 205106000.0,
+            "investedCapital": 372485000.0,
+            "enterpriseValue": 506686853.05400014,
+            "equityValue": 992321853.0540001,
+            "earningsYield": 0.4047983458890749,
+            "returnOnCapital": 0.550642307743936,
+            "annualComponents": [
+              {
+                "ebit": 208995000.0,
+                "operatingProfit": 217150000.0,
+                "operatingCurrentAssets": 352991000.0,
+                "operatingCurrentLiabilities": 112087000.0,
+                "workingCapital": 240904000.0,
+                "fixedCapital": 174201000.0,
+                "investedCapital": 415105000.0,
+                "debt": 20773000.0,
+                "cashLike": 506408000.0
+              },
+              {
+                "ebit": 204378000.0,
+                "operatingProfit": 213545000.0,
+                "operatingCurrentAssets": 310307000.0,
+                "operatingCurrentLiabilities": 95567000.0,
+                "workingCapital": 214740000.0,
+                "fixedCapital": 168588000.0,
+                "investedCapital": 383328000.0,
+                "debt": 12114000.0,
+                "cashLike": 445505000.0
+              },
+              {
+                "ebit": 201945000.0,
+                "operatingProfit": 210272000.0,
+                "operatingCurrentAssets": 263938000.0,
+                "operatingCurrentLiabilities": 89203000.0,
+                "workingCapital": 174735000.0,
+                "fixedCapital": 144287000.0,
+                "investedCapital": 319022000.0,
+                "debt": 12817000.0,
+                "cashLike": 430381000.0
+              }
+            ],
+            "balanceComponents": {
+              "ebit": 208995000.0,
+              "operatingProfit": 217150000.0,
+              "operatingCurrentAssets": 352991000.0,
+              "operatingCurrentLiabilities": 112087000.0,
+              "workingCapital": 240904000.0,
+              "fixedCapital": 174201000.0,
+              "investedCapital": 415105000.0,
+              "debt": 20773000.0,
+              "cashLike": 506408000.0
+            },
+            "quote": {
+              "price": 4.695,
+              "currency": "HKD",
+              "asOf": "2026-11-25",
+              "sessionTimestamp": 1795570200,
+              "quoteType": "daily_close",
+              "sourceUrl": "https://finance.yahoo.com/quote/0837.HK/",
+              "source": "Yahoo Finance daily close",
+              "ticker": "0837.HK",
+              "ordinarySharesPerQuoteUnit": 1,
+              "fxToReportCurrency": 0.8498,
+              "fxDate": "2026-11-24",
+              "fxSourceUrl": "https://finance.yahoo.com/quote/HKDCNY%3DX/"
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "sihuan",
+      "name": "四环医药",
+      "nameEn": "Sihuan Pharmaceutical",
+      "currency": "CNY",
+      "notes": [
+        "定期存款计入 EV 抵扣；抵押存款、贷款及未证明保本的理财不抵扣。附属公司投资者赎回义务按类优先权益计入 EV；当期应赎回部分及明确非经营性应付从净运营资本排除。",
+        "用年末已发行股份扣除年报列示的库存股份，股价为港元、财报为人民币。"
+      ],
+      "annuals": [
+        {
+          "end": "2025-12-31",
+          "months": 12,
+          "audited": true,
+          "facts": {
+            "operatingProfit": {
+              "value": 607124000.0,
+              "evidence": "經營溢利╱（虧損） OPERATING PROFIT/(LOSS) 607,124 (138,131)",
+              "page": 139,
+              "raw": "607,124",
+              "sourceId": "s25",
+              "label": "经营利润／营业利润"
+            },
+            "cash": {
+              "value": 3560506000.0,
+              "evidence": "現金及現金等價物 Cash and cash equivalents 24 3,560,506 3,522,383",
+              "page": 141,
+              "raw": "3,560,506",
+              "sourceId": "s25",
+              "label": "非受限现金及现金等价物"
+            },
+            "ppe": {
+              "value": 1902754000.0,
+              "evidence": "物業、廠房及設備 Property, plant and equipment 13 1,902,754 2,007,453",
+              "page": 141,
+              "raw": "1,902,754",
+              "sourceId": "s25",
+              "label": "物业、厂房、设备及在建工程净额"
+            },
+            "rou": {
+              "value": 566779000.0,
+              "evidence": "使用權資產 Right-of-use assets 15 566,779 627,357",
+              "page": 141,
+              "raw": "566,779",
+              "sourceId": "s25",
+              "label": "使用权资产净额"
+            },
+            "currentLeases": {
+              "value": 17751000.0,
+              "evidence": "租賃負債 Lease liabilities 15 17,751 11,380",
+              "page": 141,
+              "raw": "17,751",
+              "sourceId": "s25",
+              "label": "流动租赁负债"
+            },
+            "noncurrentLeases": {
+              "value": 7673000.0,
+              "evidence": "租賃負債 Lease liabilities 15 7,673 12,505",
+              "page": 142,
+              "raw": "7,673",
+              "sourceId": "s25",
+              "label": "非流动租赁负债"
+            },
+            "operatingInvestmentProperty": {
+              "value": 0,
+              "evidence": "按本口径无单列经营性投资物业、独立土地使用权或独立优先权益；投资物业不当成经营固定资本。",
+              "page": 141,
+              "policy": true,
+              "sourceId": "s25",
+              "label": "经营性投资物业"
+            },
+            "landUseRights": {
+              "value": 0,
+              "evidence": "按本口径无单列经营性投资物业、独立土地使用权或独立优先权益；投资物业不当成经营固定资本。",
+              "page": 141,
+              "policy": true,
+              "sourceId": "s25",
+              "label": "单独列示土地使用权净额"
+            },
+            "preferredEquity": {
+              "value": 1294186000.0,
+              "evidence": "其他 Others (iv) 1,294,186 2,459,007",
+              "page": 252,
+              "raw": "1,294,186",
+              "sourceId": "s25",
+              "label": "永续／优先／赎回及金融衍生负债"
+            },
+            "currentAssets": {
+              "value": 6652730000.0,
+              "evidence": "流動資產總額 Total current assets 6,652,730 5,717,563",
+              "page": 141,
+              "raw": "6,652,730",
+              "sourceId": "s25",
+              "label": "流动资产合计"
+            },
+            "currentLiabilities": {
+              "value": 3690045000.0,
+              "evidence": "流動負債總額 Total current liabilities 3,690,045 3,310,416",
+              "page": 141,
+              "raw": "3,690,045",
+              "sourceId": "s25",
+              "label": "流动负债合计"
+            },
+            "restrictedCash": {
+              "value": 117574000.0,
+              "evidence": "已抵押存款 Pledged deposits 24 117,574 99,416",
+              "page": 141,
+              "raw": "117,574",
+              "sourceId": "s25",
+              "label": "流动受限现金"
+            },
+            "minorityInterest": {
+              "value": 1050751000.0,
+              "evidence": "非控股權益 Non-controlling interests 1,050,751 577,046",
+              "page": 142,
+              "raw": "1,050,751",
+              "sourceId": "s25",
+              "label": "少数股东权益"
+            },
+            "noncurrentCashLike": {
+              "value": 104700000.0,
+              "evidence": "定期存款 Time deposits 24 104,700 100,000",
+              "page": 141,
+              "raw": "104,700",
+              "sourceId": "s25",
+              "label": "非受限长期定期存款（EV 抵扣）"
+            },
+            "currentFinancialAssets": {
+              "value": 416781000.0,
+              "evidence": "+1 × (按公平值計入損益的金融資產 Financial assets at fair value through profit or loss 20 350,675 110,578); +1 × (定期存款 Time deposits 24 66,106 144,000)",
+              "terms": [
+                {
+                  "value": 350675000.0,
+                  "evidence": "按公平值計入損益的金融資產 Financial assets at fair value through profit or loss 20 350,675 110,578",
+                  "page": 141,
+                  "raw": "350,675",
+                  "coefficient": 1
+                },
+                {
+                  "value": 66106000.0,
+                  "evidence": "定期存款 Time deposits 24 66,106 144,000",
+                  "page": 141,
+                  "raw": "66,106",
+                  "coefficient": 1
+                }
+              ],
+              "page": 141,
+              "sourceId": "s25",
+              "label": "流动金融资产及定期存款"
+            },
+            "otherNonOperatingCurrentAssets": {
+              "value": 401934000.0,
+              "evidence": "+1 × (向聯營公司貸款 Loans to associates (iii)/38 201,012 277,250); +1 × (向第三方貸款 Loans to third parties (iii) 77,493 130,900); +1 × (應收股息 Dividends receivable 38 40,912 40,912); +1 × (出售附屬公司之應收賬款 Receivable from disposal of subsidiaries 82,517 82,517)",
+              "terms": [
+                {
+                  "value": 201012000.0,
+                  "evidence": "向聯營公司貸款 Loans to associates (iii)/38 201,012 277,250",
+                  "page": 235,
+                  "raw": "201,012",
+                  "coefficient": 1
+                },
+                {
+                  "value": 77493000.0,
+                  "evidence": "向第三方貸款 Loans to third parties (iii) 77,493 130,900",
+                  "page": 235,
+                  "raw": "77,493",
+                  "coefficient": 1
+                },
+                {
+                  "value": 40912000.0,
+                  "evidence": "應收股息 Dividends receivable 38 40,912 40,912",
+                  "page": 235,
+                  "raw": "40,912",
+                  "coefficient": 1
+                },
+                {
+                  "value": 82517000.0,
+                  "evidence": "出售附屬公司之應收賬款 Receivable from disposal of subsidiaries 82,517 82,517",
+                  "page": 235,
+                  "raw": "82,517",
+                  "coefficient": 1
+                }
+              ],
+              "page": 235,
+              "sourceId": "s25",
+              "label": "其他流动非经营资产（应收利息等）"
+            },
+            "currentDebt": {
+              "value": 219358000.0,
+              "evidence": "+1 × (計息銀行借款 Interest-bearing bank borrowings 32 192,314 137,037); +1 × (December 2025, RMB24,244,000); +1 × (There was RMB2,800,000 classified)",
+              "terms": [
+                {
+                  "value": 192314000.0,
+                  "evidence": "計息銀行借款 Interest-bearing bank borrowings 32 192,314 137,037",
+                  "page": 141,
+                  "raw": "192,314",
+                  "coefficient": 1
+                },
+                {
+                  "value": 24244000.0,
+                  "evidence": "December 2025, RMB24,244,000",
+                  "page": 253,
+                  "raw": "24,244,000",
+                  "coefficient": 1
+                },
+                {
+                  "value": 2800000.0,
+                  "evidence": "There was RMB2,800,000 classified",
+                  "page": 253,
+                  "raw": "2,800,000",
+                  "coefficient": 1
+                }
+              ],
+              "page": 141,
+              "sourceId": "s25",
+              "label": "短期借款／一年内到期债务"
+            },
+            "noncurrentDebt": {
+              "value": 726907000.0,
+              "evidence": "+1 × (計息銀行借款 Interest-bearing bank borrowings 32 694,437 704,747); +1 × (其他借款 Other borrowings (ii) 25,244 41,543); +1 × (售後租回 Sale and leaseback (iii) 34,270 35,553); -1 × (December 2025, RMB24,244,000); -1 × (There was RMB2,800,000 classified)",
+              "terms": [
+                {
+                  "value": 694437000.0,
+                  "evidence": "計息銀行借款 Interest-bearing bank borrowings 32 694,437 704,747",
+                  "page": 142,
+                  "raw": "694,437",
+                  "coefficient": 1
+                },
+                {
+                  "value": 25244000.0,
+                  "evidence": "其他借款 Other borrowings (ii) 25,244 41,543",
+                  "page": 252,
+                  "raw": "25,244",
+                  "coefficient": 1
+                },
+                {
+                  "value": 34270000.0,
+                  "evidence": "售後租回 Sale and leaseback (iii) 34,270 35,553",
+                  "page": 252,
+                  "raw": "34,270",
+                  "coefficient": 1
+                },
+                {
+                  "value": 24244000.0,
+                  "evidence": "December 2025, RMB24,244,000",
+                  "page": 253,
+                  "raw": "24,244,000",
+                  "coefficient": -1
+                },
+                {
+                  "value": 2800000.0,
+                  "evidence": "There was RMB2,800,000 classified",
+                  "page": 253,
+                  "raw": "2,800,000",
+                  "coefficient": -1
+                }
+              ],
+              "page": 142,
+              "sourceId": "s25",
+              "label": "长期借款／债券"
+            },
+            "currentNonOperatingLiabilities": {
+              "value": 1598062000.0,
+              "evidence": "+1 × (+1 × (其他流動負債 Other current liabilities 28 1,329,891 1,308,816); -1 × (RMB8,661,000 of the total deferred amount was); -1 × (December 2025, RMB24,244,000); -1 × (There was RMB2,800,000 classified)); +1 × (收購附屬公司應付賬款 Payable for acquisition of a subsidiary 300,000 300,000); +1 × (應付股息 Dividends payable 307 4,354); +1 × (應付利息 Interest payable 3,569 12,613)",
+              "terms": [
+                {
+                  "value": 1294186000.0,
+                  "evidence": "+1 × (其他流動負債 Other current liabilities 28 1,329,891 1,308,816); -1 × (RMB8,661,000 of the total deferred amount was); -1 × (December 2025, RMB24,244,000); -1 × (There was RMB2,800,000 classified)",
+                  "terms": [
+                    {
+                      "value": 1329891000.0,
+                      "evidence": "其他流動負債 Other current liabilities 28 1,329,891 1,308,816",
+                      "page": 141,
+                      "raw": "1,329,891",
+                      "coefficient": 1
+                    },
+                    {
+                      "value": 8661000.0,
+                      "evidence": "RMB8,661,000 of the total deferred amount was",
+                      "page": 252,
+                      "raw": "8,661,000",
+                      "coefficient": -1
+                    },
+                    {
+                      "value": 24244000.0,
+                      "evidence": "December 2025, RMB24,244,000",
+                      "page": 253,
+                      "raw": "24,244,000",
+                      "coefficient": -1
+                    },
+                    {
+                      "value": 2800000.0,
+                      "evidence": "There was RMB2,800,000 classified",
+                      "page": 253,
+                      "raw": "2,800,000",
+                      "coefficient": -1
+                    }
+                  ],
+                  "page": 141,
+                  "coefficient": 1
+                },
+                {
+                  "value": 300000000.0,
+                  "evidence": "收購附屬公司應付賬款 Payable for acquisition of a subsidiary 300,000 300,000",
+                  "page": 254,
+                  "raw": "300,000",
+                  "coefficient": 1
+                },
+                {
+                  "value": 307000.0,
+                  "evidence": "應付股息 Dividends payable 307 4,354",
+                  "page": 254,
+                  "raw": "307",
+                  "coefficient": 1
+                },
+                {
+                  "value": 3569000.0,
+                  "evidence": "應付利息 Interest payable 3,569 12,613",
+                  "page": 254,
+                  "raw": "3,569",
+                  "coefficient": 1
+                }
+              ],
+              "page": 141,
+              "sourceId": "s25",
+              "label": "流动非经营负债（股利／投资／赎回等）"
+            },
+            "ordinaryShares": {
+              "value": 9041800000.0,
+              "evidence": "+1 × (（每股面值0.01港元） 100,000,000 9,329,999 77,058 3,882,304 3,959,362); -1 × (the Group had 288,199,000 (2024:)",
+              "terms": [
+                {
+                  "value": 9329999000.0,
+                  "evidence": "（每股面值0.01港元） 100,000,000 9,329,999 77,058 3,882,304 3,959,362",
+                  "page": 243,
+                  "raw": "9,329,999",
+                  "coefficient": 1
+                },
+                {
+                  "value": 288199000.0,
+                  "evidence": "the Group had 288,199,000 (2024:",
+                  "page": 243,
+                  "raw": "288,199,000",
+                  "coefficient": -1
+                }
+              ],
+              "page": 243,
+              "sourceId": "s25",
+              "label": "期末发行普通股／SS 单位数量"
+            }
+          },
+          "ebitAdjustments": [
+            {
+              "value": -98827000.0,
+              "evidence": "利息收入 Interest income 98,827 175,548",
+              "page": 200,
+              "raw": "98,827",
+              "sourceId": "s25",
+              "label": "扣除利息收入"
+            },
+            {
+              "value": -9704000.0,
+              "evidence": "總額 operating leases (i) 9,704 9,933",
+              "page": 200,
+              "raw": "9,704",
+              "sourceId": "s25",
+              "label": "扣除投资物业租金"
+            },
+            {
+              "value": -13052000.0,
+              "evidence": "出售一家聯營公司及一家合營企業的收益Gain on disposal of an associate and a joint venture 13,052 35,000",
+              "page": 202,
+              "raw": "13,052",
+              "sourceId": "s25",
+              "label": "剔除出售联营／合营收益"
+            },
+            {
+              "value": -17166000.0,
+              "evidence": "視作出售聯營公司之權益的收益 Gain on deemed disposal of interest in associates 17,166 13,198",
+              "page": 202,
+              "raw": "17,166",
+              "sourceId": "s25",
+              "label": "剔除视作出售联营收益"
+            },
+            {
+              "value": -0.0,
+              "evidence": "出售投資物業的收益 Gain on disposal of an investment property – 10,930",
+              "page": 202,
+              "raw": "–",
+              "sourceId": "s25",
+              "label": "剔除出售投资物业收益"
+            },
+            {
+              "value": -1213000.0,
+              "evidence": "變動收益 products, at fair value 1,213 2,284",
+              "page": 202,
+              "raw": "1,213",
+              "sourceId": "s25",
+              "label": "剔除理财公允价值收益"
+            },
+            {
+              "value": -0.0,
+              "evidence": "公平值變動收益 investments, at fair value – 1,010",
+              "page": 202,
+              "raw": "–",
+              "sourceId": "s25",
+              "label": "剔除非上市权益公允价值收益"
+            },
+            {
+              "value": -14893000.0,
+              "evidence": "出售一家附屬公司 Gain on disposal of a subsidiary 14,893 –",
+              "page": 202,
+              "raw": "14,893",
+              "sourceId": "s25",
+              "label": "剔除出售子公司收益"
+            }
+          ],
+          "evCashLikeFinancialAssets": {
+            "value": 66106000.0,
+            "evidence": "定期存款 Time deposits 24 66,106 144,000",
+            "page": 141,
+            "raw": "66,106",
+            "sourceId": "s25",
+            "label": "可抵扣 EV 的流动存款／证券"
+          }
+        },
+        {
+          "end": "2024-12-31",
+          "months": 12,
+          "audited": true,
+          "facts": {
+            "operatingProfit": {
+              "value": -138131000.0,
+              "evidence": "經營溢利╱（虧損） OPERATING PROFIT/(LOSS) 607,124 (138,131)",
+              "page": 139,
+              "raw": "(138,131)",
+              "sourceId": "s25",
+              "label": "经营利润／营业利润"
+            },
+            "cash": {
+              "value": 3522383000.0,
+              "evidence": "現金及現金等價物 Cash and cash equivalents 24 3,560,506 3,522,383",
+              "page": 141,
+              "raw": "3,522,383",
+              "sourceId": "s25",
+              "label": "非受限现金及现金等价物"
+            },
+            "ppe": {
+              "value": 2007453000.0,
+              "evidence": "物業、廠房及設備 Property, plant and equipment 13 1,902,754 2,007,453",
+              "page": 141,
+              "raw": "2,007,453",
+              "sourceId": "s25",
+              "label": "物业、厂房、设备及在建工程净额"
+            },
+            "rou": {
+              "value": 627357000.0,
+              "evidence": "使用權資產 Right-of-use assets 15 566,779 627,357",
+              "page": 141,
+              "raw": "627,357",
+              "sourceId": "s25",
+              "label": "使用权资产净额"
+            },
+            "currentLeases": {
+              "value": 11380000.0,
+              "evidence": "租賃負債 Lease liabilities 15 17,751 11,380",
+              "page": 141,
+              "raw": "11,380",
+              "sourceId": "s25",
+              "label": "流动租赁负债"
+            },
+            "noncurrentLeases": {
+              "value": 12505000.0,
+              "evidence": "租賃負債 Lease liabilities 15 7,673 12,505",
+              "page": 142,
+              "raw": "12,505",
+              "sourceId": "s25",
+              "label": "非流动租赁负债"
+            },
+            "operatingInvestmentProperty": {
+              "value": 0,
+              "evidence": "按本口径无单列经营性投资物业、独立土地使用权或独立优先权益；投资物业不当成经营固定资本。",
+              "page": 141,
+              "policy": true,
+              "sourceId": "s25",
+              "label": "经营性投资物业"
+            },
+            "landUseRights": {
+              "value": 0,
+              "evidence": "按本口径无单列经营性投资物业、独立土地使用权或独立优先权益；投资物业不当成经营固定资本。",
+              "page": 141,
+              "policy": true,
+              "sourceId": "s25",
+              "label": "单独列示土地使用权净额"
+            },
+            "preferredEquity": {
+              "value": 2459007000.0,
+              "evidence": "其他 Others (iv) 1,294,186 2,459,007",
+              "page": 252,
+              "raw": "2,459,007",
+              "sourceId": "s25",
+              "label": "永续／优先／赎回及金融衍生负债"
+            },
+            "currentAssets": {
+              "value": 5717563000.0,
+              "evidence": "流動資產總額 Total current assets 6,652,730 5,717,563",
+              "page": 141,
+              "raw": "5,717,563",
+              "sourceId": "s25",
+              "label": "流动资产合计"
+            },
+            "currentLiabilities": {
+              "value": 3310416000.0,
+              "evidence": "流動負債總額 Total current liabilities 3,690,045 3,310,416",
+              "page": 141,
+              "raw": "3,310,416",
+              "sourceId": "s25",
+              "label": "流动负债合计"
+            },
+            "restrictedCash": {
+              "value": 99416000.0,
+              "evidence": "已抵押存款 Pledged deposits 24 117,574 99,416",
+              "page": 141,
+              "raw": "99,416",
+              "sourceId": "s25",
+              "label": "流动受限现金"
+            },
+            "minorityInterest": {
+              "value": 577046000.0,
+              "evidence": "非控股權益 Non-controlling interests 1,050,751 577,046",
+              "page": 142,
+              "raw": "577,046",
+              "sourceId": "s25",
+              "label": "少数股东权益"
+            },
+            "noncurrentCashLike": {
+              "value": 100000000.0,
+              "evidence": "定期存款 Time deposits 24 104,700 100,000",
+              "page": 141,
+              "raw": "100,000",
+              "sourceId": "s25",
+              "label": "非受限长期定期存款（EV 抵扣）"
+            },
+            "currentFinancialAssets": {
+              "value": 254578000.0,
+              "evidence": "+1 × (按公平值計入損益的金融資產 Financial assets at fair value through profit or loss 20 350,675 110,578); +1 × (定期存款 Time deposits 24 66,106 144,000)",
+              "terms": [
+                {
+                  "value": 110578000.0,
+                  "evidence": "按公平值計入損益的金融資產 Financial assets at fair value through profit or loss 20 350,675 110,578",
+                  "page": 141,
+                  "raw": "110,578",
+                  "coefficient": 1
+                },
+                {
+                  "value": 144000000.0,
+                  "evidence": "定期存款 Time deposits 24 66,106 144,000",
+                  "page": 141,
+                  "raw": "144,000",
+                  "coefficient": 1
+                }
+              ],
+              "page": 141,
+              "sourceId": "s25",
+              "label": "流动金融资产及定期存款"
+            },
+            "otherNonOperatingCurrentAssets": {
+              "value": 531579000.0,
+              "evidence": "+1 × (向聯營公司貸款 Loans to associates (iii)/38 201,012 277,250); +1 × (向第三方貸款 Loans to third parties (iii) 77,493 130,900); +1 × (應收股息 Dividends receivable 38 40,912 40,912); +1 × (出售附屬公司之應收賬款 Receivable from disposal of subsidiaries 82,517 82,517)",
+              "terms": [
+                {
+                  "value": 277250000.0,
+                  "evidence": "向聯營公司貸款 Loans to associates (iii)/38 201,012 277,250",
+                  "page": 235,
+                  "raw": "277,250",
+                  "coefficient": 1
+                },
+                {
+                  "value": 130900000.0,
+                  "evidence": "向第三方貸款 Loans to third parties (iii) 77,493 130,900",
+                  "page": 235,
+                  "raw": "130,900",
+                  "coefficient": 1
+                },
+                {
+                  "value": 40912000.0,
+                  "evidence": "應收股息 Dividends receivable 38 40,912 40,912",
+                  "page": 235,
+                  "raw": "40,912",
+                  "coefficient": 1
+                },
+                {
+                  "value": 82517000.0,
+                  "evidence": "出售附屬公司之應收賬款 Receivable from disposal of subsidiaries 82,517 82,517",
+                  "page": 235,
+                  "raw": "82,517",
+                  "coefficient": 1
+                }
+              ],
+              "page": 235,
+              "sourceId": "s25",
+              "label": "其他流动非经营资产（应收利息等）"
+            },
+            "currentDebt": {
+              "value": 164081000.0,
+              "evidence": "+1 × (計息銀行借款 Interest-bearing bank borrowings 32 192,314 137,037); +1 × (December 2025, RMB24,244,000); +1 × (There was RMB2,800,000 classified)",
+              "terms": [
+                {
+                  "value": 137037000.0,
+                  "evidence": "計息銀行借款 Interest-bearing bank borrowings 32 192,314 137,037",
+                  "page": 141,
+                  "raw": "137,037",
+                  "coefficient": 1
+                },
+                {
+                  "value": 24244000.0,
+                  "evidence": "December 2025, RMB24,244,000",
+                  "page": 253,
+                  "raw": "24,244,000",
+                  "coefficient": 1
+                },
+                {
+                  "value": 2800000.0,
+                  "evidence": "There was RMB2,800,000 classified",
+                  "page": 253,
+                  "raw": "2,800,000",
+                  "coefficient": 1
+                }
+              ],
+              "page": 141,
+              "sourceId": "s25",
+              "label": "短期借款／一年内到期债务"
+            },
+            "noncurrentDebt": {
+              "value": 754799000.0,
+              "evidence": "+1 × (計息銀行借款 Interest-bearing bank borrowings 32 694,437 704,747); +1 × (其他借款 Other borrowings (ii) 25,244 41,543); +1 × (售後租回 Sale and leaseback (iii) 34,270 35,553); -1 × (December 2025, RMB24,244,000); -1 × (There was RMB2,800,000 classified)",
+              "terms": [
+                {
+                  "value": 704747000.0,
+                  "evidence": "計息銀行借款 Interest-bearing bank borrowings 32 694,437 704,747",
+                  "page": 142,
+                  "raw": "704,747",
+                  "coefficient": 1
+                },
+                {
+                  "value": 41543000.0,
+                  "evidence": "其他借款 Other borrowings (ii) 25,244 41,543",
+                  "page": 252,
+                  "raw": "41,543",
+                  "coefficient": 1
+                },
+                {
+                  "value": 35553000.0,
+                  "evidence": "售後租回 Sale and leaseback (iii) 34,270 35,553",
+                  "page": 252,
+                  "raw": "35,553",
+                  "coefficient": 1
+                },
+                {
+                  "value": 24244000.0,
+                  "evidence": "December 2025, RMB24,244,000",
+                  "page": 253,
+                  "raw": "24,244,000",
+                  "coefficient": -1
+                },
+                {
+                  "value": 2800000.0,
+                  "evidence": "There was RMB2,800,000 classified",
+                  "page": 253,
+                  "raw": "2,800,000",
+                  "coefficient": -1
+                }
+              ],
+              "page": 142,
+              "sourceId": "s25",
+              "label": "长期借款／债券"
+            },
+            "currentNonOperatingLiabilities": {
+              "value": 1590078000.0,
+              "evidence": "+1 × (+1 × (其他流動負債 Other current liabilities 28 1,329,891 1,308,816); -1 × (RMB8,661,000 of the total deferred amount was); -1 × (December 2025, RMB24,244,000); -1 × (There was RMB2,800,000 classified)); +1 × (收購附屬公司應付賬款 Payable for acquisition of a subsidiary 300,000 300,000); +1 × (應付股息 Dividends payable 307 4,354); +1 × (應付利息 Interest payable 3,569 12,613)",
+              "terms": [
+                {
+                  "value": 1273111000.0,
+                  "evidence": "+1 × (其他流動負債 Other current liabilities 28 1,329,891 1,308,816); -1 × (RMB8,661,000 of the total deferred amount was); -1 × (December 2025, RMB24,244,000); -1 × (There was RMB2,800,000 classified)",
+                  "terms": [
+                    {
+                      "value": 1308816000.0,
+                      "evidence": "其他流動負債 Other current liabilities 28 1,329,891 1,308,816",
+                      "page": 141,
+                      "raw": "1,308,816",
+                      "coefficient": 1
+                    },
+                    {
+                      "value": 8661000.0,
+                      "evidence": "RMB8,661,000 of the total deferred amount was",
+                      "page": 252,
+                      "raw": "8,661,000",
+                      "coefficient": -1
+                    },
+                    {
+                      "value": 24244000.0,
+                      "evidence": "December 2025, RMB24,244,000",
+                      "page": 253,
+                      "raw": "24,244,000",
+                      "coefficient": -1
+                    },
+                    {
+                      "value": 2800000.0,
+                      "evidence": "There was RMB2,800,000 classified",
+                      "page": 253,
+                      "raw": "2,800,000",
+                      "coefficient": -1
+                    }
+                  ],
+                  "page": 141,
+                  "coefficient": 1
+                },
+                {
+                  "value": 300000000.0,
+                  "evidence": "收購附屬公司應付賬款 Payable for acquisition of a subsidiary 300,000 300,000",
+                  "page": 254,
+                  "raw": "300,000",
+                  "coefficient": 1
+                },
+                {
+                  "value": 4354000.0,
+                  "evidence": "應付股息 Dividends payable 307 4,354",
+                  "page": 254,
+                  "raw": "4,354",
+                  "coefficient": 1
+                },
+                {
+                  "value": 12613000.0,
+                  "evidence": "應付利息 Interest payable 3,569 12,613",
+                  "page": 254,
+                  "raw": "12,613",
+                  "coefficient": 1
+                }
+              ],
+              "page": 141,
+              "sourceId": "s25",
+              "label": "流动非经营负债（股利／投资／赎回等）"
+            },
+            "ordinaryShares": {
+              "value": 9244066000.0,
+              "evidence": "+1 × (（每股面值0.01港元） 100,000,000 9,329,999 77,058 3,882,304 3,959,362); -1 × (the Group had 288,199,000 (2024: 85,933,000))",
+              "terms": [
+                {
+                  "value": 9329999000.0,
+                  "evidence": "（每股面值0.01港元） 100,000,000 9,329,999 77,058 3,882,304 3,959,362",
+                  "page": 243,
+                  "raw": "9,329,999",
+                  "coefficient": 1
+                },
+                {
+                  "value": 85933000.0,
+                  "evidence": "the Group had 288,199,000 (2024: 85,933,000)",
+                  "page": 243,
+                  "raw": "85,933,000",
+                  "coefficient": -1
+                }
+              ],
+              "page": 243,
+              "sourceId": "s25",
+              "label": "期末发行普通股／SS 单位数量"
+            }
+          },
+          "ebitAdjustments": [
+            {
+              "value": -175548000.0,
+              "evidence": "利息收入 Interest income 98,827 175,548",
+              "page": 200,
+              "raw": "175,548",
+              "sourceId": "s25",
+              "label": "扣除利息收入"
+            },
+            {
+              "value": -9933000.0,
+              "evidence": "總額 operating leases (i) 9,704 9,933",
+              "page": 200,
+              "raw": "9,933",
+              "sourceId": "s25",
+              "label": "扣除投资物业租金"
+            },
+            {
+              "value": -35000000.0,
+              "evidence": "出售一家聯營公司及一家合營企業的收益Gain on disposal of an associate and a joint venture 13,052 35,000",
+              "page": 202,
+              "raw": "35,000",
+              "sourceId": "s25",
+              "label": "剔除出售联营／合营收益"
+            },
+            {
+              "value": -13198000.0,
+              "evidence": "視作出售聯營公司之權益的收益 Gain on deemed disposal of interest in associates 17,166 13,198",
+              "page": 202,
+              "raw": "13,198",
+              "sourceId": "s25",
+              "label": "剔除视作出售联营收益"
+            },
+            {
+              "value": -10930000.0,
+              "evidence": "出售投資物業的收益 Gain on disposal of an investment property – 10,930",
+              "page": 202,
+              "raw": "10,930",
+              "sourceId": "s25",
+              "label": "剔除出售投资物业收益"
+            },
+            {
+              "value": -2284000.0,
+              "evidence": "變動收益 products, at fair value 1,213 2,284",
+              "page": 202,
+              "raw": "2,284",
+              "sourceId": "s25",
+              "label": "剔除理财公允价值收益"
+            },
+            {
+              "value": -1010000.0,
+              "evidence": "公平值變動收益 investments, at fair value – 1,010",
+              "page": 202,
+              "raw": "1,010",
+              "sourceId": "s25",
+              "label": "剔除非上市权益公允价值收益"
+            },
+            {
+              "value": -0.0,
+              "evidence": "出售一家附屬公司 Gain on disposal of a subsidiary 14,893 –",
+              "page": 202,
+              "raw": "–",
+              "sourceId": "s25",
+              "label": "剔除出售子公司收益"
+            }
+          ],
+          "evCashLikeFinancialAssets": {
+            "value": 144000000.0,
+            "evidence": "定期存款 Time deposits 24 66,106 144,000",
+            "page": 141,
+            "raw": "144,000",
+            "sourceId": "s25",
+            "label": "可抵扣 EV 的流动存款／证券"
+          }
+        },
+        {
+          "end": "2023-12-31",
+          "months": 12,
+          "audited": true,
+          "facts": {
+            "operatingProfit": {
+              "value": 161698000.0,
+              "evidence": "經營（虧損）╱溢利 OPERATING (LOSS)/PROFIT (138,131) 161,698",
+              "page": 124,
+              "raw": "161,698",
+              "sourceId": "s24",
+              "label": "经营利润／营业利润"
+            },
+            "cash": {
+              "value": 3778666000.0,
+              "evidence": "現金及現金等價物 Cash and cash equivalents 24 3,522,383 3,778,666",
+              "page": 126,
+              "raw": "3,778,666",
+              "sourceId": "s24",
+              "label": "非受限现金及现金等价物"
+            },
+            "ppe": {
+              "value": 2174591000.0,
+              "evidence": "物業、廠房及設備 Property, plant and equipment 13 2,007,453 2,174,591",
+              "page": 126,
+              "raw": "2,174,591",
+              "sourceId": "s24",
+              "label": "物业、厂房、设备及在建工程净额"
+            },
+            "rou": {
+              "value": 667438000.0,
+              "evidence": "使用權資產 Right-of-use assets 15 627,357 667,438",
+              "page": 126,
+              "raw": "667,438",
+              "sourceId": "s24",
+              "label": "使用权资产净额"
+            },
+            "currentLeases": {
+              "value": 12385000.0,
+              "evidence": "租賃負債 Lease liabilities 15 11,380 12,385",
+              "page": 126,
+              "raw": "12,385",
+              "sourceId": "s24",
+              "label": "流动租赁负债"
+            },
+            "noncurrentLeases": {
+              "value": 30276000.0,
+              "evidence": "租賃負債 Lease liabilities 15 12,505 30,276",
+              "page": 127,
+              "raw": "30,276",
+              "sourceId": "s24",
+              "label": "非流动租赁负债"
+            },
+            "operatingInvestmentProperty": {
+              "value": 0,
+              "evidence": "按本口径无单列经营性投资物业、独立土地使用权或独立优先权益；投资物业不当成经营固定资本。",
+              "page": 126,
+              "policy": true,
+              "sourceId": "s24",
+              "label": "经营性投资物业"
+            },
+            "landUseRights": {
+              "value": 0,
+              "evidence": "按本口径无单列经营性投资物业、独立土地使用权或独立优先权益；投资物业不当成经营固定资本。",
+              "page": 126,
+              "policy": true,
+              "sourceId": "s24",
+              "label": "单独列示土地使用权净额"
+            },
+            "preferredEquity": {
+              "value": 3015527000.0,
+              "evidence": "其他 Others (iv) 2,459,007 3,015,527",
+              "page": 243,
+              "raw": "3,015,527",
+              "sourceId": "s24",
+              "label": "永续／优先／赎回及金融衍生负债"
+            },
+            "currentAssets": {
+              "value": 6203755000.0,
+              "evidence": "流動資產總額 Total current assets 5,717,563 6,203,755",
+              "page": 126,
+              "raw": "6,203,755",
+              "sourceId": "s24",
+              "label": "流动资产合计"
+            },
+            "currentLiabilities": {
+              "value": 4106802000.0,
+              "evidence": "流動負債總額 Total current liabilities 3,310,416 4,106,802",
+              "page": 126,
+              "raw": "4,106,802",
+              "sourceId": "s24",
+              "label": "流动负债合计"
+            },
+            "restrictedCash": {
+              "value": 14000000.0,
+              "evidence": "已抵押存款 Pledged deposits 24 99,416 14,000",
+              "page": 126,
+              "raw": "14,000",
+              "sourceId": "s24",
+              "label": "流动受限现金"
+            },
+            "minorityInterest": {
+              "value": 704894000.0,
+              "evidence": "非控股權益 Non-controlling interests 577,046 704,894",
+              "page": 127,
+              "raw": "704,894",
+              "sourceId": "s24",
+              "label": "少数股东权益"
+            },
+            "noncurrentCashLike": {
+              "value": 0.0,
+              "evidence": "定期存款 Time deposits 24 100,000 –",
+              "page": 126,
+              "raw": "–",
+              "sourceId": "s24",
+              "label": "非受限长期定期存款（EV 抵扣）"
+            },
+            "currentFinancialAssets": {
+              "value": 719016000.0,
+              "evidence": "+1 × (按公平值計入損益的金融資產 Financial assets at fair value through profit or loss 20 110,578 589,016); +1 × (定期存款 Time deposits 24 144,000 130,000)",
+              "terms": [
+                {
+                  "value": 589016000.0,
+                  "evidence": "按公平值計入損益的金融資產 Financial assets at fair value through profit or loss 20 110,578 589,016",
+                  "page": 126,
+                  "raw": "589,016",
+                  "coefficient": 1
+                },
+                {
+                  "value": 130000000.0,
+                  "evidence": "定期存款 Time deposits 24 144,000 130,000",
+                  "page": 126,
+                  "raw": "130,000",
+                  "coefficient": 1
+                }
+              ],
+              "page": 126,
+              "sourceId": "s24",
+              "label": "流动金融资产及定期存款"
+            },
+            "otherNonOperatingCurrentAssets": {
+              "value": 508429000.0,
+              "evidence": "+1 × (向聯營公司貸款 Loans to associates (iii)/36 277,250 243,525); +1 × (向第三方貸款 Loans to third parties (iii) 130,900 141,475); +1 × (應收股息 Dividends receivable 36 40,912 40,912); +1 × (出售附屬公司之應收賬款 Receivable from disposal of subsidiaries 82,517 82,517)",
+              "terms": [
+                {
+                  "value": 243525000.0,
+                  "evidence": "向聯營公司貸款 Loans to associates (iii)/36 277,250 243,525",
+                  "page": 224,
+                  "raw": "243,525",
+                  "coefficient": 1
+                },
+                {
+                  "value": 141475000.0,
+                  "evidence": "向第三方貸款 Loans to third parties (iii) 130,900 141,475",
+                  "page": 224,
+                  "raw": "141,475",
+                  "coefficient": 1
+                },
+                {
+                  "value": 40912000.0,
+                  "evidence": "應收股息 Dividends receivable 36 40,912 40,912",
+                  "page": 224,
+                  "raw": "40,912",
+                  "coefficient": 1
+                },
+                {
+                  "value": 82517000.0,
+                  "evidence": "出售附屬公司之應收賬款 Receivable from disposal of subsidiaries 82,517 82,517",
+                  "page": 224,
+                  "raw": "82,517",
+                  "coefficient": 1
+                }
+              ],
+              "page": 224,
+              "sourceId": "s24",
+              "label": "其他流动非经营资产（应收利息等）"
+            },
+            "currentDebt": {
+              "value": 281795000.0,
+              "evidence": "+1 × (計息銀行借款 Interest-bearing bank borrowings 32 137,037 269,680); +1 × (As at 31 December 2024, RMB32,254,000 (31 December 2023: nil)); +1 × ((31 December 2023: 三十一日，人民幣2,683,000元（二 RMB12,115,000). No gain)",
+              "terms": [
+                {
+                  "value": 269680000.0,
+                  "evidence": "計息銀行借款 Interest-bearing bank borrowings 32 137,037 269,680",
+                  "page": 126,
+                  "raw": "269,680",
+                  "coefficient": 1
+                },
+                {
+                  "value": 0,
+                  "evidence": "As at 31 December 2024, RMB32,254,000 (31 December 2023: nil)",
+                  "page": 244,
+                  "raw": "nil",
+                  "coefficient": 1
+                },
+                {
+                  "value": 12115000.0,
+                  "evidence": "(31 December 2023: 三十一日，人民幣2,683,000元（二 RMB12,115,000). No gain",
+                  "page": 244,
+                  "raw": "12,115,000",
+                  "coefficient": 1
+                }
+              ],
+              "page": 126,
+              "sourceId": "s24",
+              "label": "短期借款／一年内到期债务"
+            },
+            "noncurrentDebt": {
+              "value": 926739000.0,
+              "evidence": "+1 × (計息銀行借款 Interest-bearing bank borrowings 32 704,747 864,142); +1 × (其他借款 Other borrowings (ii) 41,543 40,889); +1 × (售後租回 Sale and leaseback (iii) 35,553 33,823); -1 × (As at 31 December 2024, RMB32,254,000 (31 December 2023: nil)); -1 × ((31 December 2023: 三十一日，人民幣2,683,000元（二 RMB12,115,000). No gain)",
+              "terms": [
+                {
+                  "value": 864142000.0,
+                  "evidence": "計息銀行借款 Interest-bearing bank borrowings 32 704,747 864,142",
+                  "page": 127,
+                  "raw": "864,142",
+                  "coefficient": 1
+                },
+                {
+                  "value": 40889000.0,
+                  "evidence": "其他借款 Other borrowings (ii) 41,543 40,889",
+                  "page": 243,
+                  "raw": "40,889",
+                  "coefficient": 1
+                },
+                {
+                  "value": 33823000.0,
+                  "evidence": "售後租回 Sale and leaseback (iii) 35,553 33,823",
+                  "page": 243,
+                  "raw": "33,823",
+                  "coefficient": 1
+                },
+                {
+                  "value": 0,
+                  "evidence": "As at 31 December 2024, RMB32,254,000 (31 December 2023: nil)",
+                  "page": 244,
+                  "raw": "nil",
+                  "coefficient": -1
+                },
+                {
+                  "value": 12115000.0,
+                  "evidence": "(31 December 2023: 三十一日，人民幣2,683,000元（二 RMB12,115,000). No gain",
+                  "page": 244,
+                  "raw": "12,115,000",
+                  "coefficient": -1
+                }
+              ],
+              "page": 127,
+              "sourceId": "s24",
+              "label": "长期借款／债券"
+            },
+            "currentNonOperatingLiabilities": {
+              "value": 2226340000.0,
+              "evidence": "+1 × (+1 × (其他流動負債 Other current liabilities 28 1,308,816 1,937,922); -1 × (RMB11,264,000).); -1 × (As at 31 December 2024, RMB32,254,000 (31 December 2023: nil)); -1 × ((31 December 2023: 三十一日，人民幣2,683,000元（二 RMB12,115,000). No gain)); +1 × (收購附屬公司應付賬款 Payable for acquisition of a subsidiary 300,000 300,000); +1 × (應付股息 Dividends payable 4,354 358); +1 × (應付利息 Interest payable 12,613 11,439)",
+              "terms": [
+                {
+                  "value": 1914543000.0,
+                  "evidence": "+1 × (其他流動負債 Other current liabilities 28 1,308,816 1,937,922); -1 × (RMB11,264,000).); -1 × (As at 31 December 2024, RMB32,254,000 (31 December 2023: nil)); -1 × ((31 December 2023: 三十一日，人民幣2,683,000元（二 RMB12,115,000). No gain)",
+                  "terms": [
+                    {
+                      "value": 1937922000.0,
+                      "evidence": "其他流動負債 Other current liabilities 28 1,308,816 1,937,922",
+                      "page": 126,
+                      "raw": "1,937,922",
+                      "coefficient": 1
+                    },
+                    {
+                      "value": 11264000.0,
+                      "evidence": "RMB11,264,000).",
+                      "page": 243,
+                      "raw": "11,264,000",
+                      "coefficient": -1
+                    },
+                    {
+                      "value": 0,
+                      "evidence": "As at 31 December 2024, RMB32,254,000 (31 December 2023: nil)",
+                      "page": 244,
+                      "raw": "nil",
+                      "coefficient": -1
+                    },
+                    {
+                      "value": 12115000.0,
+                      "evidence": "(31 December 2023: 三十一日，人民幣2,683,000元（二 RMB12,115,000). No gain",
+                      "page": 244,
+                      "raw": "12,115,000",
+                      "coefficient": -1
+                    }
+                  ],
+                  "page": 126,
+                  "coefficient": 1
+                },
+                {
+                  "value": 300000000.0,
+                  "evidence": "收購附屬公司應付賬款 Payable for acquisition of a subsidiary 300,000 300,000",
+                  "page": 245,
+                  "raw": "300,000",
+                  "coefficient": 1
+                },
+                {
+                  "value": 358000.0,
+                  "evidence": "應付股息 Dividends payable 4,354 358",
+                  "page": 245,
+                  "raw": "358",
+                  "coefficient": 1
+                },
+                {
+                  "value": 11439000.0,
+                  "evidence": "應付利息 Interest payable 12,613 11,439",
+                  "page": 245,
+                  "raw": "11,439",
+                  "coefficient": 1
+                }
+              ],
+              "page": 126,
+              "sourceId": "s24",
+              "label": "流动非经营负债（股利／投资／赎回等）"
+            },
+            "ordinaryShares": {
+              "value": 9281566000.0,
+              "evidence": "+1 × (（每股面值0.01港元） 100,000,000 9,329,999 77,058 3,882,304 3,959,362); -1 × (the Group had 85,933,000 (2023: 48,433,000))",
+              "terms": [
+                {
+                  "value": 9329999000.0,
+                  "evidence": "（每股面值0.01港元） 100,000,000 9,329,999 77,058 3,882,304 3,959,362",
+                  "page": 232,
+                  "raw": "9,329,999",
+                  "coefficient": 1
+                },
+                {
+                  "value": 48433000.0,
+                  "evidence": "the Group had 85,933,000 (2023: 48,433,000)",
+                  "page": 232,
+                  "raw": "48,433,000",
+                  "coefficient": -1
+                }
+              ],
+              "page": 232,
+              "sourceId": "s24",
+              "label": "期末发行普通股／SS 单位数量"
+            }
+          },
+          "ebitAdjustments": [
+            {
+              "value": -147908000.0,
+              "evidence": "利息收入 Interest income 175,548 147,908",
+              "page": 185,
+              "raw": "147,908",
+              "sourceId": "s24",
+              "label": "扣除利息收入"
+            },
+            {
+              "value": -10663000.0,
+              "evidence": "總額 property operating leases (i) 9,933 10,663",
+              "page": 185,
+              "raw": "10,663",
+              "sourceId": "s24",
+              "label": "扣除投资物业租金"
+            },
+            {
+              "value": -0.0,
+              "evidence": "出售一家聯營公司的收益 Gain on disposal of an associate 35,000 –",
+              "page": 187,
+              "raw": "–",
+              "sourceId": "s24",
+              "label": "剔除出售联营／合营收益"
+            },
+            {
+              "value": -21251000.0,
+              "evidence": "視作出售聯營公司之權益的收益 Gain on deemed disposal of interest in associates 13,198 21,251",
+              "page": 187,
+              "raw": "21,251",
+              "sourceId": "s24",
+              "label": "剔除视作出售联营收益"
+            },
+            {
+              "value": -0.0,
+              "evidence": "出售投資物業的收益 Gain on disposal of an investment property 10,930 –",
+              "page": 187,
+              "raw": "–",
+              "sourceId": "s24",
+              "label": "剔除出售投资物业收益"
+            },
+            {
+              "value": -2659000.0,
+              "evidence": "變動收益 products, at fair value 2,284 2,659",
+              "page": 187,
+              "raw": "2,659",
+              "sourceId": "s24",
+              "label": "剔除理财公允价值收益"
+            },
+            {
+              "value": -129106000.0,
+              "evidence": "公平值變動收益 investments, at fair value 1,010 129,106",
+              "page": 187,
+              "raw": "129,106",
+              "sourceId": "s24",
+              "label": "剔除非上市权益公允价值收益"
+            }
+          ],
+          "evCashLikeFinancialAssets": {
+            "value": 130000000.0,
+            "evidence": "定期存款 Time deposits 24 144,000 130,000",
+            "page": 126,
+            "raw": "130,000",
+            "sourceId": "s24",
+            "label": "可抵扣 EV 的流动存款／证券"
+          }
+        }
+      ],
+      "sources": {
+        "s25": {
+          "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0427/2026042700708.pdf",
+          "kind": "annual_report",
+          "title": "2025 年度报告",
+          "sha256": "8f2b10ae3ac7e9797a7de38254af84a43e8cb6b868ed04d26424875fcf0762fd"
+        },
+        "s24": {
+          "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2025/0428/2025042801667.pdf",
+          "kind": "annual_report",
+          "title": "2024 年度报告",
+          "sha256": "54839e367eda529cebbd6fea56bee67c1787a4661d2b4ad194a6051c8d5514dc"
+        }
+      },
+      "listings": [
+        {
+          "ticker": "0460.HK",
+          "currency": "HKD",
+          "ordinarySharesPerQuoteUnit": 1
+        }
+      ],
+      "financialStatus": {
+        "checkedAt": "2026-11-25T08:18:38+00:00",
+        "status": "checked",
+        "message": "已核对港交所原始年报和各项附注。"
+      },
+      "results": {
+        "0460.HK": {
+          "1": {
+            "status": "ranked",
+            "reason": "",
+            "capitalCaution": "",
+            "years": 1,
+            "periods": [
+              "2025"
+            ],
+            "ebit": 452269000.0,
+            "investedCapital": 2770594000.0,
+            "enterpriseValue": 4618151674.2,
+            "equityValue": 5032837674.2,
+            "earningsYield": 0.09793290301110484,
+            "returnOnCapital": 0.16323900217787232,
+            "annualComponents": [
+              {
+                "ebit": 452269000.0,
+                "operatingProfit": 607124000.0,
+                "operatingCurrentAssets": 2155935000.0,
+                "operatingCurrentLiabilities": 1854874000.0,
+                "workingCapital": 301061000.0,
+                "fixedCapital": 2469533000.0,
+                "investedCapital": 2770594000.0,
+                "debt": 971689000.0,
+                "cashLike": 3731312000.0
+              }
+            ],
+            "balanceComponents": {
+              "ebit": 452269000.0,
+              "operatingProfit": 607124000.0,
+              "operatingCurrentAssets": 2155935000.0,
+              "operatingCurrentLiabilities": 1854874000.0,
+              "workingCapital": 301061000.0,
+              "fixedCapital": 2469533000.0,
+              "investedCapital": 2770594000.0,
+              "debt": 971689000.0,
+              "cashLike": 3731312000.0
+            },
+            "quote": {
+              "price": 0.655,
+              "currency": "HKD",
+              "asOf": "2026-11-25",
+              "sessionTimestamp": 1795570200,
+              "quoteType": "daily_close",
+              "sourceUrl": "https://finance.yahoo.com/quote/0460.HK/",
+              "source": "Yahoo Finance daily close",
+              "ticker": "0460.HK",
+              "ordinarySharesPerQuoteUnit": 1,
+              "fxToReportCurrency": 0.8498,
+              "fxDate": "2026-11-24",
+              "fxSourceUrl": "https://finance.yahoo.com/quote/HKDCNY%3DX/"
+            }
+          },
+          "3": {
+            "status": "not_ranked",
+            "reason": "经营利润为零或亏损",
+            "capitalCaution": "",
+            "years": 3,
+            "periods": [
+              "2025",
+              "2024",
+              "2023"
+            ],
+            "ebit": -27884666.666666668,
+            "investedCapital": 2536508333.3333335,
+            "enterpriseValue": 4618151674.2,
+            "equityValue": 5032837674.2,
+            "earningsYield": -0.006038057784556657,
+            "returnOnCapital": -0.010993327441594581,
+            "annualComponents": [
+              {
+                "ebit": 452269000.0,
+                "operatingProfit": 607124000.0,
+                "operatingCurrentAssets": 2155935000.0,
+                "operatingCurrentLiabilities": 1854874000.0,
+                "workingCapital": 301061000.0,
+                "fixedCapital": 2469533000.0,
+                "investedCapital": 2770594000.0,
+                "debt": 971689000.0,
+                "cashLike": 3731312000.0
+              },
+              {
+                "ebit": -386034000.0,
+                "operatingProfit": -138131000.0,
+                "operatingCurrentAssets": 1309607000.0,
+                "operatingCurrentLiabilities": 1544877000.0,
+                "workingCapital": -235270000.0,
+                "fixedCapital": 2634810000.0,
+                "investedCapital": 2399540000.0,
+                "debt": 942765000.0,
+                "cashLike": 3766383000.0
+              },
+              {
+                "ebit": -149889000.0,
+                "operatingProfit": 161698000.0,
+                "operatingCurrentAssets": 1183644000.0,
+                "operatingCurrentLiabilities": 1586282000.0,
+                "workingCapital": -402638000.0,
+                "fixedCapital": 2842029000.0,
+                "investedCapital": 2439391000.0,
+                "debt": 1251195000.0,
+                "cashLike": 3908666000.0
+              }
+            ],
+            "balanceComponents": {
+              "ebit": 452269000.0,
+              "operatingProfit": 607124000.0,
+              "operatingCurrentAssets": 2155935000.0,
+              "operatingCurrentLiabilities": 1854874000.0,
+              "workingCapital": 301061000.0,
+              "fixedCapital": 2469533000.0,
+              "investedCapital": 2770594000.0,
+              "debt": 971689000.0,
+              "cashLike": 3731312000.0
+            },
+            "quote": {
+              "price": 0.655,
+              "currency": "HKD",
+              "asOf": "2026-11-25",
+              "sessionTimestamp": 1795570200,
+              "quoteType": "daily_close",
+              "sourceUrl": "https://finance.yahoo.com/quote/0460.HK/",
+              "source": "Yahoo Finance daily close",
+              "ticker": "0460.HK",
+              "ordinarySharesPerQuoteUnit": 1,
+              "fxToReportCurrency": 0.8498,
+              "fxDate": "2026-11-24",
+              "fxSourceUrl": "https://finance.yahoo.com/quote/HKDCNY%3DX/"
+            }
+          }
+        }
+      }
     }
   ],
   "checkedAt": "2026-11-25T05:00:52+00:00",

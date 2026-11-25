@@ -6253,6 +6253,3728 @@
           "audited": false
         }
       ]
+    },
+    {
+      "id": "carpenter",
+      "discovery": {
+        "kind": "hkex",
+        "code": "00837"
+      },
+      "annuals": [
+        {
+          "year": 2025,
+          "sourceId": "t25",
+          "selectors": {
+            "operatingProfit": {
+              "signature": [
+                "CONSOLIDATED STATEMENT OF PROFIT OR LOSS",
+                "Profit from operations"
+              ],
+              "row": "Profit from operations",
+              "occurrence": 0,
+              "matches": 1,
+              "numberCount": 2,
+              "numberIndex": 0,
+              "multiplier": 1000,
+              "unitPattern": "RMB[’']000"
+            },
+            "cash": {
+              "signature": [
+                "CONSOLIDATED STATEMENT OF FINANCIAL POSITION",
+                "Net current assets"
+              ],
+              "row": "Cash and cash equivalents",
+              "occurrence": 0,
+              "matches": 1,
+              "numberCount": 2,
+              "numberIndex": 0,
+              "multiplier": 1000,
+              "unitPattern": "RMB[’']000"
+            },
+            "ppe": {
+              "signature": [
+                "CONSOLIDATED STATEMENT OF FINANCIAL POSITION",
+                "Net current assets"
+              ],
+              "row": "Property, plant and equipment",
+              "occurrence": 0,
+              "matches": 1,
+              "numberCount": 2,
+              "numberIndex": 0,
+              "multiplier": 1000,
+              "unitPattern": "RMB[’']000"
+            },
+            "rou": {
+              "signature": [
+                "CONSOLIDATED STATEMENT OF FINANCIAL POSITION",
+                "Net current assets"
+              ],
+              "row": "Right-of-use assets",
+              "occurrence": 0,
+              "matches": 1,
+              "numberCount": 2,
+              "numberIndex": 0,
+              "multiplier": 1000,
+              "unitPattern": "RMB[’']000"
+            },
+            "currentLeases": {
+              "signature": [
+                "CONSOLIDATED STATEMENT OF FINANCIAL POSITION",
+                "Net current assets"
+              ],
+              "row": "Lease liabilities",
+              "occurrence": 0,
+              "matches": 1,
+              "numberCount": 3,
+              "numberIndex": 1,
+              "multiplier": 1000,
+              "unitPattern": "RMB[’']000"
+            },
+            "noncurrentLeases": {
+              "signature": [
+                "CONSOLIDATED STATEMENT OF FINANCIAL POSITION",
+                "Deferred income"
+              ],
+              "row": "Lease liabilities",
+              "occurrence": 0,
+              "matches": 1,
+              "numberCount": 3,
+              "numberIndex": 1,
+              "multiplier": 1000,
+              "unitPattern": "RMB[’']000"
+            },
+            "operatingInvestmentProperty": {
+              "signature": [
+                "CONSOLIDATED STATEMENT OF FINANCIAL POSITION",
+                "Net current assets"
+              ],
+              "zeroPolicy": "按本口径无单列经营性投资物业、独立土地使用权或独立优先权益；投资物业不当成经营固定资本。",
+              "proof": "(?:PPE|Property, plant and equipment)"
+            },
+            "landUseRights": {
+              "signature": [
+                "CONSOLIDATED STATEMENT OF FINANCIAL POSITION",
+                "Net current assets"
+              ],
+              "zeroPolicy": "按本口径无单列经营性投资物业、独立土地使用权或独立优先权益；投资物业不当成经营固定资本。",
+              "proof": "(?:PPE|Property, plant and equipment)"
+            },
+            "preferredEquity": {
+              "signature": [
+                "CONSOLIDATED STATEMENT OF FINANCIAL POSITION",
+                "Net current assets"
+              ],
+              "zeroPolicy": "按本口径无单列经营性投资物业、独立土地使用权或独立优先权益；投资物业不当成经营固定资本。",
+              "proof": "(?:PPE|Property, plant and equipment)"
+            },
+            "currentAssets": {
+              "terms": [
+                {
+                  "coefficient": 1,
+                  "selector": {
+                    "signature": [
+                      "CONSOLIDATED STATEMENT OF FINANCIAL POSITION",
+                      "Net current assets"
+                    ],
+                    "row": "^Inventories",
+                    "occurrence": 0,
+                    "matches": 1,
+                    "numberCount": 3,
+                    "numberIndex": 1,
+                    "multiplier": 1000,
+                    "unitPattern": "RMB[’']000"
+                  }
+                },
+                {
+                  "coefficient": 1,
+                  "selector": {
+                    "signature": [
+                      "CONSOLIDATED STATEMENT OF FINANCIAL POSITION",
+                      "Net current assets"
+                    ],
+                    "row": "^Trade receivables",
+                    "occurrence": 0,
+                    "matches": 1,
+                    "numberCount": 3,
+                    "numberIndex": 1,
+                    "multiplier": 1000,
+                    "unitPattern": "RMB[’']000"
+                  }
+                },
+                {
+                  "coefficient": 1,
+                  "selector": {
+                    "signature": [
+                      "CONSOLIDATED STATEMENT OF FINANCIAL POSITION",
+                      "Net current assets"
+                    ],
+                    "row": "^Other receivables, deposits and prepayments",
+                    "occurrence": 1,
+                    "matches": 2,
+                    "numberCount": 3,
+                    "numberIndex": 1,
+                    "multiplier": 1000,
+                    "unitPattern": "RMB[’']000"
+                  }
+                },
+                {
+                  "coefficient": 1,
+                  "selector": {
+                    "signature": [
+                      "CONSOLIDATED STATEMENT OF FINANCIAL POSITION",
+                      "Net current assets"
+                    ],
+                    "row": "^Financial assets at fair value through profit or loss",
+                    "occurrence": 0,
+                    "matches": 1,
+                    "numberCount": 3,
+                    "numberIndex": 1,
+                    "multiplier": 1000,
+                    "unitPattern": "RMB[’']000"
+                  }
+                },
+                {
+                  "coefficient": 1,
+                  "selector": {
+                    "signature": [
+                      "CONSOLIDATED STATEMENT OF FINANCIAL POSITION",
+                      "Net current assets"
+                    ],
+                    "row": "^but within one year",
+                    "occurrence": 0,
+                    "matches": 1,
+                    "numberCount": 2,
+                    "numberIndex": 0,
+                    "multiplier": 1000,
+                    "unitPattern": "RMB[’']000"
+                  }
+                },
+                {
+                  "coefficient": 1,
+                  "selector": {
+                    "signature": [
+                      "CONSOLIDATED STATEMENT OF FINANCIAL POSITION",
+                      "Net current assets"
+                    ],
+                    "row": "^Cash and cash equivalents",
+                    "occurrence": 0,
+                    "matches": 1,
+                    "numberCount": 2,
+                    "numberIndex": 0,
+                    "multiplier": 1000,
+                    "unitPattern": "RMB[’']000"
+                  }
+                }
+              ]
+            },
+            "currentLiabilities": {
+              "terms": [
+                {
+                  "coefficient": 1,
+                  "selector": {
+                    "signature": [
+                      "CONSOLIDATED STATEMENT OF FINANCIAL POSITION",
+                      "Net current assets"
+                    ],
+                    "row": "^Trade payables",
+                    "occurrence": 0,
+                    "matches": 1,
+                    "numberCount": 3,
+                    "numberIndex": 1,
+                    "multiplier": 1000,
+                    "unitPattern": "RMB[’']000"
+                  }
+                },
+                {
+                  "coefficient": 1,
+                  "selector": {
+                    "signature": [
+                      "CONSOLIDATED STATEMENT OF FINANCIAL POSITION",
+                      "Net current assets"
+                    ],
+                    "row": "^Other payables and accruals",
+                    "occurrence": 0,
+                    "matches": 1,
+                    "numberCount": 3,
+                    "numberIndex": 1,
+                    "multiplier": 1000,
+                    "unitPattern": "RMB[’']000"
+                  }
+                },
+                {
+                  "coefficient": 1,
+                  "selector": {
+                    "signature": [
+                      "CONSOLIDATED STATEMENT OF FINANCIAL POSITION",
+                      "Net current assets"
+                    ],
+                    "row": "^Income tax payable",
+                    "occurrence": 0,
+                    "matches": 1,
+                    "numberCount": 2,
+                    "numberIndex": 0,
+                    "multiplier": 1000,
+                    "unitPattern": "RMB[’']000"
+                  }
+                },
+                {
+                  "coefficient": 1,
+                  "selector": {
+                    "signature": [
+                      "CONSOLIDATED STATEMENT OF FINANCIAL POSITION",
+                      "Net current assets"
+                    ],
+                    "row": "^Lease liabilities",
+                    "occurrence": 0,
+                    "matches": 1,
+                    "numberCount": 3,
+                    "numberIndex": 1,
+                    "multiplier": 1000,
+                    "unitPattern": "RMB[’']000"
+                  }
+                }
+              ]
+            },
+            "restrictedCash": {
+              "signature": [
+                "CONSOLIDATED STATEMENT OF FINANCIAL POSITION",
+                "Net current assets"
+              ],
+              "zeroPolicy": "现金及存款未单列受限余额。",
+              "proof": "Non-pledged fixed bank deposits",
+              "forbid": "(?m)^Pledged (?:bank )?deposits"
+            },
+            "currentDebt": {
+              "signature": [
+                "CONSOLIDATED STATEMENT OF FINANCIAL POSITION",
+                "Net current assets"
+              ],
+              "zeroPolicy": "该负债段未单列借款；租赁负债另计。",
+              "proof": "Lease liabilities",
+              "forbid": "(?m)^\\s*(?:Bank |Interest-bearing )?(?:borrowings|loans)\\b"
+            },
+            "noncurrentDebt": {
+              "signature": [
+                "CONSOLIDATED STATEMENT OF FINANCIAL POSITION",
+                "Deferred income"
+              ],
+              "zeroPolicy": "该负债段未单列借款；租赁负债另计。",
+              "proof": "Lease liabilities",
+              "forbid": "(?m)^\\s*(?:Bank |Interest-bearing )?(?:borrowings|loans)\\b"
+            },
+            "currentNonOperatingLiabilities": {
+              "signature": [
+                "25. OTHER PAYABLES AND ACCRUALS",
+                "Dividend payable"
+              ],
+              "row": "^Dividend payable",
+              "matches": 1,
+              "numberCount": 2,
+              "numberIndex": 0,
+              "multiplier": 1000,
+              "unitPattern": "RMB[’']000"
+            },
+            "otherNonOperatingCurrentAssets": {
+              "signature": [
+                "CONSOLIDATED STATEMENT OF FINANCIAL POSITION",
+                "Net current assets"
+              ],
+              "zeroPolicy": "未识别其余可单独划分的流动非经营性应收款；银行存款和理财另计。",
+              "proof": "Other receivables, deposits and prepayments"
+            },
+            "minorityInterest": {
+              "signature": [
+                "CONSOLIDATED STATEMENT OF FINANCIAL POSITION",
+                "Deferred income"
+              ],
+              "zeroPolicy": "本年度权益表未列非控股权益。",
+              "proof": "TOTAL EQUITY",
+              "forbid": "(?m)^Non-controlling interests"
+            },
+            "noncurrentCashLike": {
+              "signature": [
+                "CONSOLIDATED STATEMENT OF FINANCIAL POSITION",
+                "Net current assets"
+              ],
+              "row": "^Non-pledged fixed bank deposits with maturity over one year",
+              "occurrence": 0,
+              "matches": 1,
+              "numberCount": 2,
+              "numberIndex": 0,
+              "multiplier": 1000,
+              "unitPattern": "RMB[’']000"
+            },
+            "currentFinancialAssets": {
+              "terms": [
+                {
+                  "coefficient": 1,
+                  "selector": {
+                    "signature": [
+                      "CONSOLIDATED STATEMENT OF FINANCIAL POSITION",
+                      "Net current assets"
+                    ],
+                    "row": "^Financial assets at fair value through profit or loss",
+                    "occurrence": 0,
+                    "matches": 1,
+                    "numberCount": 3,
+                    "numberIndex": 1,
+                    "multiplier": 1000,
+                    "unitPattern": "RMB[’']000"
+                  }
+                },
+                {
+                  "coefficient": 1,
+                  "selector": {
+                    "signature": [
+                      "CONSOLIDATED STATEMENT OF FINANCIAL POSITION",
+                      "Net current assets"
+                    ],
+                    "row": "^but within one year",
+                    "occurrence": 0,
+                    "matches": 1,
+                    "numberCount": 2,
+                    "numberIndex": 0,
+                    "multiplier": 1000,
+                    "unitPattern": "RMB[’']000"
+                  }
+                }
+              ]
+            },
+            "ordinaryShares": {
+              "signature": [
+                "28. SHARE CAPITAL",
+                "Issued and fully paid:"
+              ],
+              "row": "^1 January 20\\d{2} and 31 December 20\\d{2}",
+              "occurrence": 1,
+              "matches": 2,
+              "numberCount": 7,
+              "numberIndex": -3,
+              "multiplier": 1
+            }
+          },
+          "labels": {
+            "currentAssets": "流动资产合计",
+            "cash": "非受限现金及现金等价物",
+            "restrictedCash": "流动受限现金",
+            "currentFinancialAssets": "流动金融资产及定期存款",
+            "currentLiabilities": "流动负债合计",
+            "currentDebt": "短期借款／一年内到期债务",
+            "noncurrentDebt": "长期借款／债券",
+            "currentLeases": "流动租赁负债",
+            "noncurrentLeases": "非流动租赁负债",
+            "ppe": "物业、厂房、设备及在建工程净额",
+            "rou": "使用权资产净额",
+            "operatingInvestmentProperty": "经营性投资物业",
+            "landUseRights": "单独列示土地使用权净额",
+            "minorityInterest": "少数股东权益",
+            "preferredEquity": "永续／优先／赎回及金融衍生负债",
+            "currentNonOperatingLiabilities": "流动非经营负债（股利／投资／赎回等）",
+            "otherNonOperatingCurrentAssets": "其他流动非经营资产（应收利息等）",
+            "noncurrentCashLike": "非受限长期定期存款（EV 抵扣）",
+            "ordinaryShares": "期末发行普通股／SS 单位数量",
+            "operatingProfit": "经营利润／营业利润"
+          },
+          "adjustments": [
+            {
+              "selector": {
+                "signature": [
+                  "NOTES TO THE FINANCIAL STATEMENTS",
+                  "bank interest income"
+                ],
+                "row": "bank interest income",
+                "occurrence": 0,
+                "matches": 1,
+                "numberCount": 3,
+                "numberIndex": 1,
+                "multiplier": 1000,
+                "unitPattern": "RMB[’']000"
+              },
+              "coefficient": -1,
+              "label": "扣除银行利息收入"
+            },
+            {
+              "selector": {
+                "signature": [
+                  "NOTES TO THE FINANCIAL STATEMENTS",
+                  "bank interest income"
+                ],
+                "row": "^fair value through profit or loss",
+                "occurrence": 0,
+                "matches": 1,
+                "numberCount": 2,
+                "numberIndex": 0,
+                "multiplier": 1000,
+                "unitPattern": "RMB[’']000"
+              },
+              "coefficient": -1,
+              "label": "扣除金融理财公允价值收益"
+            },
+            {
+              "selector": {
+                "signature": [
+                  "PROFIT BEFORE TAXATION",
+                  "Net rental income"
+                ],
+                "row": "^Net rental income",
+                "occurrence": 0,
+                "matches": 1,
+                "numberCount": 2,
+                "numberIndex": 0,
+                "multiplier": 1000,
+                "unitPattern": "RMB[’']000"
+              },
+              "coefficient": 1,
+              "label": "剔除投资物业净租金（费用表以负数列示）"
+            },
+            {
+              "selector": {
+                "signature": [
+                  "NOTES TO THE FINANCIAL STATEMENTS",
+                  "bank interest income"
+                ],
+                "row": "^Change in fair value of investment properties",
+                "occurrence": 0,
+                "matches": 1,
+                "numberCount": 2,
+                "numberIndex": 0,
+                "multiplier": 1000,
+                "unitPattern": "RMB[’']000"
+              },
+              "coefficient": -1,
+              "label": "剔除投资物业公允价值变动"
+            }
+          ],
+          "cashLike": {
+            "terms": [
+              {
+                "coefficient": 1,
+                "selector": {
+                  "signature": [
+                    "CONSOLIDATED STATEMENT OF FINANCIAL POSITION",
+                    "Net current assets"
+                  ],
+                  "row": "^but within one year",
+                  "occurrence": 0,
+                  "matches": 1,
+                  "numberCount": 2,
+                  "numberIndex": 0,
+                  "multiplier": 1000,
+                  "unitPattern": "RMB[’']000"
+                }
+              },
+              {
+                "coefficient": 1,
+                "selector": {
+                  "signature": [
+                    "FINANCIAL ASSETS AT FAIR VALUE THROUGH PROFIT OR LOSS",
+                    "Principal Guaranteed Wealth Management Products"
+                  ],
+                  "row": "^. maturity within one year",
+                  "occurrence": 0,
+                  "matches": 1,
+                  "numberCount": 3,
+                  "numberIndex": 1,
+                  "multiplier": 1000,
+                  "unitPattern": "RMB[’']000"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "year": 2024,
+          "sourceId": "t25",
+          "selectors": {
+            "operatingProfit": {
+              "signature": [
+                "CONSOLIDATED STATEMENT OF PROFIT OR LOSS",
+                "Profit from operations"
+              ],
+              "row": "Profit from operations",
+              "occurrence": 0,
+              "matches": 1,
+              "numberCount": 2,
+              "numberIndex": 1,
+              "multiplier": 1000,
+              "unitPattern": "RMB[’']000"
+            },
+            "cash": {
+              "signature": [
+                "CONSOLIDATED STATEMENT OF FINANCIAL POSITION",
+                "Net current assets"
+              ],
+              "row": "Cash and cash equivalents",
+              "occurrence": 0,
+              "matches": 1,
+              "numberCount": 2,
+              "numberIndex": 1,
+              "multiplier": 1000,
+              "unitPattern": "RMB[’']000"
+            },
+            "ppe": {
+              "signature": [
+                "CONSOLIDATED STATEMENT OF FINANCIAL POSITION",
+                "Net current assets"
+              ],
+              "row": "Property, plant and equipment",
+              "occurrence": 0,
+              "matches": 1,
+              "numberCount": 2,
+              "numberIndex": 1,
+              "multiplier": 1000,
+              "unitPattern": "RMB[’']000"
+            },
+            "rou": {
+              "signature": [
+                "CONSOLIDATED STATEMENT OF FINANCIAL POSITION",
+                "Net current assets"
+              ],
+              "row": "Right-of-use assets",
+              "occurrence": 0,
+              "matches": 1,
+              "numberCount": 2,
+              "numberIndex": 1,
+              "multiplier": 1000,
+              "unitPattern": "RMB[’']000"
+            },
+            "currentLeases": {
+              "signature": [
+                "CONSOLIDATED STATEMENT OF FINANCIAL POSITION",
+                "Net current assets"
+              ],
+              "row": "Lease liabilities",
+              "occurrence": 0,
+              "matches": 1,
+              "numberCount": 3,
+              "numberIndex": 2,
+              "multiplier": 1000,
+              "unitPattern": "RMB[’']000"
+            },
+            "noncurrentLeases": {
+              "signature": [
+                "CONSOLIDATED STATEMENT OF FINANCIAL POSITION",
+                "Deferred income"
+              ],
+              "row": "Lease liabilities",
+              "occurrence": 0,
+              "matches": 1,
+              "numberCount": 3,
+              "numberIndex": 2,
+              "multiplier": 1000,
+              "unitPattern": "RMB[’']000"
+            },
+            "operatingInvestmentProperty": {
+              "signature": [
+                "CONSOLIDATED STATEMENT OF FINANCIAL POSITION",
+                "Net current assets"
+              ],
+              "zeroPolicy": "按本口径无单列经营性投资物业、独立土地使用权或独立优先权益；投资物业不当成经营固定资本。",
+              "proof": "(?:PPE|Property, plant and equipment)"
+            },
+            "landUseRights": {
+              "signature": [
+                "CONSOLIDATED STATEMENT OF FINANCIAL POSITION",
+                "Net current assets"
+              ],
+              "zeroPolicy": "按本口径无单列经营性投资物业、独立土地使用权或独立优先权益；投资物业不当成经营固定资本。",
+              "proof": "(?:PPE|Property, plant and equipment)"
+            },
+            "preferredEquity": {
+              "signature": [
+                "CONSOLIDATED STATEMENT OF FINANCIAL POSITION",
+                "Net current assets"
+              ],
+              "zeroPolicy": "按本口径无单列经营性投资物业、独立土地使用权或独立优先权益；投资物业不当成经营固定资本。",
+              "proof": "(?:PPE|Property, plant and equipment)"
+            },
+            "currentAssets": {
+              "terms": [
+                {
+                  "coefficient": 1,
+                  "selector": {
+                    "signature": [
+                      "CONSOLIDATED STATEMENT OF FINANCIAL POSITION",
+                      "Net current assets"
+                    ],
+                    "row": "^Inventories",
+                    "occurrence": 0,
+                    "matches": 1,
+                    "numberCount": 3,
+                    "numberIndex": 2,
+                    "multiplier": 1000,
+                    "unitPattern": "RMB[’']000"
+                  }
+                },
+                {
+                  "coefficient": 1,
+                  "selector": {
+                    "signature": [
+                      "CONSOLIDATED STATEMENT OF FINANCIAL POSITION",
+                      "Net current assets"
+                    ],
+                    "row": "^Trade receivables",
+                    "occurrence": 0,
+                    "matches": 1,
+                    "numberCount": 3,
+                    "numberIndex": 2,
+                    "multiplier": 1000,
+                    "unitPattern": "RMB[’']000"
+                  }
+                },
+                {
+                  "coefficient": 1,
+                  "selector": {
+                    "signature": [
+                      "CONSOLIDATED STATEMENT OF FINANCIAL POSITION",
+                      "Net current assets"
+                    ],
+                    "row": "^Other receivables, deposits and prepayments",
+                    "occurrence": 1,
+                    "matches": 2,
+                    "numberCount": 3,
+                    "numberIndex": 2,
+                    "multiplier": 1000,
+                    "unitPattern": "RMB[’']000"
+                  }
+                },
+                {
+                  "coefficient": 1,
+                  "selector": {
+                    "signature": [
+                      "CONSOLIDATED STATEMENT OF FINANCIAL POSITION",
+                      "Net current assets"
+                    ],
+                    "row": "^Financial assets at fair value through profit or loss",
+                    "occurrence": 0,
+                    "matches": 1,
+                    "numberCount": 3,
+                    "numberIndex": 2,
+                    "multiplier": 1000,
+                    "unitPattern": "RMB[’']000"
+                  }
+                },
+                {
+                  "coefficient": 1,
+                  "selector": {
+                    "signature": [
+                      "CONSOLIDATED STATEMENT OF FINANCIAL POSITION",
+                      "Net current assets"
+                    ],
+                    "row": "^but within one year",
+                    "occurrence": 0,
+                    "matches": 1,
+                    "numberCount": 2,
+                    "numberIndex": 1,
+                    "multiplier": 1000,
+                    "unitPattern": "RMB[’']000"
+                  }
+                },
+                {
+                  "coefficient": 1,
+                  "selector": {
+                    "signature": [
+                      "CONSOLIDATED STATEMENT OF FINANCIAL POSITION",
+                      "Net current assets"
+                    ],
+                    "row": "^Cash and cash equivalents",
+                    "occurrence": 0,
+                    "matches": 1,
+                    "numberCount": 2,
+                    "numberIndex": 1,
+                    "multiplier": 1000,
+                    "unitPattern": "RMB[’']000"
+                  }
+                }
+              ]
+            },
+            "currentLiabilities": {
+              "terms": [
+                {
+                  "coefficient": 1,
+                  "selector": {
+                    "signature": [
+                      "CONSOLIDATED STATEMENT OF FINANCIAL POSITION",
+                      "Net current assets"
+                    ],
+                    "row": "^Trade payables",
+                    "occurrence": 0,
+                    "matches": 1,
+                    "numberCount": 3,
+                    "numberIndex": 2,
+                    "multiplier": 1000,
+                    "unitPattern": "RMB[’']000"
+                  }
+                },
+                {
+                  "coefficient": 1,
+                  "selector": {
+                    "signature": [
+                      "CONSOLIDATED STATEMENT OF FINANCIAL POSITION",
+                      "Net current assets"
+                    ],
+                    "row": "^Other payables and accruals",
+                    "occurrence": 0,
+                    "matches": 1,
+                    "numberCount": 3,
+                    "numberIndex": 2,
+                    "multiplier": 1000,
+                    "unitPattern": "RMB[’']000"
+                  }
+                },
+                {
+                  "coefficient": 1,
+                  "selector": {
+                    "signature": [
+                      "CONSOLIDATED STATEMENT OF FINANCIAL POSITION",
+                      "Net current assets"
+                    ],
+                    "row": "^Income tax payable",
+                    "occurrence": 0,
+                    "matches": 1,
+                    "numberCount": 2,
+                    "numberIndex": 1,
+                    "multiplier": 1000,
+                    "unitPattern": "RMB[’']000"
+                  }
+                },
+                {
+                  "coefficient": 1,
+                  "selector": {
+                    "signature": [
+                      "CONSOLIDATED STATEMENT OF FINANCIAL POSITION",
+                      "Net current assets"
+                    ],
+                    "row": "^Lease liabilities",
+                    "occurrence": 0,
+                    "matches": 1,
+                    "numberCount": 3,
+                    "numberIndex": 2,
+                    "multiplier": 1000,
+                    "unitPattern": "RMB[’']000"
+                  }
+                }
+              ]
+            },
+            "restrictedCash": {
+              "signature": [
+                "CONSOLIDATED STATEMENT OF FINANCIAL POSITION",
+                "Net current assets"
+              ],
+              "zeroPolicy": "现金及存款未单列受限余额。",
+              "proof": "Non-pledged fixed bank deposits",
+              "forbid": "(?m)^Pledged (?:bank )?deposits"
+            },
+            "currentDebt": {
+              "signature": [
+                "CONSOLIDATED STATEMENT OF FINANCIAL POSITION",
+                "Net current assets"
+              ],
+              "zeroPolicy": "该负债段未单列借款；租赁负债另计。",
+              "proof": "Lease liabilities",
+              "forbid": "(?m)^\\s*(?:Bank |Interest-bearing )?(?:borrowings|loans)\\b"
+            },
+            "noncurrentDebt": {
+              "signature": [
+                "CONSOLIDATED STATEMENT OF FINANCIAL POSITION",
+                "Deferred income"
+              ],
+              "zeroPolicy": "该负债段未单列借款；租赁负债另计。",
+              "proof": "Lease liabilities",
+              "forbid": "(?m)^\\s*(?:Bank |Interest-bearing )?(?:borrowings|loans)\\b"
+            },
+            "currentNonOperatingLiabilities": {
+              "signature": [
+                "25. OTHER PAYABLES AND ACCRUALS",
+                "Dividend payable"
+              ],
+              "row": "^Dividend payable",
+              "matches": 1,
+              "numberCount": 2,
+              "numberIndex": 1,
+              "multiplier": 1000,
+              "unitPattern": "RMB[’']000"
+            },
+            "otherNonOperatingCurrentAssets": {
+              "signature": [
+                "CONSOLIDATED STATEMENT OF FINANCIAL POSITION",
+                "Net current assets"
+              ],
+              "zeroPolicy": "未识别其余可单独划分的流动非经营性应收款；银行存款和理财另计。",
+              "proof": "Other receivables, deposits and prepayments"
+            },
+            "minorityInterest": {
+              "signature": [
+                "CONSOLIDATED STATEMENT OF FINANCIAL POSITION",
+                "Deferred income"
+              ],
+              "zeroPolicy": "本年度权益表未列非控股权益。",
+              "proof": "TOTAL EQUITY",
+              "forbid": "(?m)^Non-controlling interests"
+            },
+            "noncurrentCashLike": {
+              "signature": [
+                "CONSOLIDATED STATEMENT OF FINANCIAL POSITION",
+                "Net current assets"
+              ],
+              "row": "^Non-pledged fixed bank deposits with maturity over one year",
+              "occurrence": 0,
+              "matches": 1,
+              "numberCount": 2,
+              "numberIndex": 1,
+              "multiplier": 1000,
+              "unitPattern": "RMB[’']000"
+            },
+            "currentFinancialAssets": {
+              "terms": [
+                {
+                  "coefficient": 1,
+                  "selector": {
+                    "signature": [
+                      "CONSOLIDATED STATEMENT OF FINANCIAL POSITION",
+                      "Net current assets"
+                    ],
+                    "row": "^Financial assets at fair value through profit or loss",
+                    "occurrence": 0,
+                    "matches": 1,
+                    "numberCount": 3,
+                    "numberIndex": 2,
+                    "multiplier": 1000,
+                    "unitPattern": "RMB[’']000"
+                  }
+                },
+                {
+                  "coefficient": 1,
+                  "selector": {
+                    "signature": [
+                      "CONSOLIDATED STATEMENT OF FINANCIAL POSITION",
+                      "Net current assets"
+                    ],
+                    "row": "^but within one year",
+                    "occurrence": 0,
+                    "matches": 1,
+                    "numberCount": 2,
+                    "numberIndex": 1,
+                    "multiplier": 1000,
+                    "unitPattern": "RMB[’']000"
+                  }
+                }
+              ]
+            },
+            "ordinaryShares": {
+              "signature": [
+                "28. SHARE CAPITAL",
+                "Issued and fully paid:"
+              ],
+              "row": "^1 January 20\\d{2} and 31 December 20\\d{2}",
+              "occurrence": 1,
+              "matches": 2,
+              "numberCount": 7,
+              "numberIndex": -3,
+              "multiplier": 1
+            }
+          },
+          "labels": {
+            "currentAssets": "流动资产合计",
+            "cash": "非受限现金及现金等价物",
+            "restrictedCash": "流动受限现金",
+            "currentFinancialAssets": "流动金融资产及定期存款",
+            "currentLiabilities": "流动负债合计",
+            "currentDebt": "短期借款／一年内到期债务",
+            "noncurrentDebt": "长期借款／债券",
+            "currentLeases": "流动租赁负债",
+            "noncurrentLeases": "非流动租赁负债",
+            "ppe": "物业、厂房、设备及在建工程净额",
+            "rou": "使用权资产净额",
+            "operatingInvestmentProperty": "经营性投资物业",
+            "landUseRights": "单独列示土地使用权净额",
+            "minorityInterest": "少数股东权益",
+            "preferredEquity": "永续／优先／赎回及金融衍生负债",
+            "currentNonOperatingLiabilities": "流动非经营负债（股利／投资／赎回等）",
+            "otherNonOperatingCurrentAssets": "其他流动非经营资产（应收利息等）",
+            "noncurrentCashLike": "非受限长期定期存款（EV 抵扣）",
+            "ordinaryShares": "期末发行普通股／SS 单位数量",
+            "operatingProfit": "经营利润／营业利润"
+          },
+          "adjustments": [
+            {
+              "selector": {
+                "signature": [
+                  "NOTES TO THE FINANCIAL STATEMENTS",
+                  "bank interest income"
+                ],
+                "row": "bank interest income",
+                "occurrence": 0,
+                "matches": 1,
+                "numberCount": 3,
+                "numberIndex": 2,
+                "multiplier": 1000,
+                "unitPattern": "RMB[’']000"
+              },
+              "coefficient": -1,
+              "label": "扣除银行利息收入"
+            },
+            {
+              "selector": {
+                "signature": [
+                  "NOTES TO THE FINANCIAL STATEMENTS",
+                  "bank interest income"
+                ],
+                "row": "^fair value through profit or loss",
+                "occurrence": 0,
+                "matches": 1,
+                "numberCount": 2,
+                "numberIndex": 1,
+                "multiplier": 1000,
+                "unitPattern": "RMB[’']000"
+              },
+              "coefficient": -1,
+              "label": "扣除金融理财公允价值收益"
+            },
+            {
+              "selector": {
+                "signature": [
+                  "PROFIT BEFORE TAXATION",
+                  "Net rental income"
+                ],
+                "row": "^Net rental income",
+                "occurrence": 0,
+                "matches": 1,
+                "numberCount": 2,
+                "numberIndex": 1,
+                "multiplier": 1000,
+                "unitPattern": "RMB[’']000"
+              },
+              "coefficient": 1,
+              "label": "剔除投资物业净租金（费用表以负数列示）"
+            },
+            {
+              "selector": {
+                "signature": [
+                  "NOTES TO THE FINANCIAL STATEMENTS",
+                  "bank interest income"
+                ],
+                "row": "^Change in fair value of investment properties",
+                "occurrence": 0,
+                "matches": 1,
+                "numberCount": 2,
+                "numberIndex": 1,
+                "multiplier": 1000,
+                "unitPattern": "RMB[’']000"
+              },
+              "coefficient": -1,
+              "label": "剔除投资物业公允价值变动"
+            }
+          ],
+          "cashLike": {
+            "terms": [
+              {
+                "coefficient": 1,
+                "selector": {
+                  "signature": [
+                    "CONSOLIDATED STATEMENT OF FINANCIAL POSITION",
+                    "Net current assets"
+                  ],
+                  "row": "^but within one year",
+                  "occurrence": 0,
+                  "matches": 1,
+                  "numberCount": 2,
+                  "numberIndex": 1,
+                  "multiplier": 1000,
+                  "unitPattern": "RMB[’']000"
+                }
+              },
+              {
+                "coefficient": 1,
+                "selector": {
+                  "signature": [
+                    "FINANCIAL ASSETS AT FAIR VALUE THROUGH PROFIT OR LOSS",
+                    "Principal Guaranteed Wealth Management Products"
+                  ],
+                  "row": "^. maturity within one year",
+                  "occurrence": 0,
+                  "matches": 1,
+                  "numberCount": 3,
+                  "numberIndex": 2,
+                  "multiplier": 1000,
+                  "unitPattern": "RMB[’']000"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "year": 2023,
+          "sourceId": "t24",
+          "selectors": {
+            "operatingProfit": {
+              "signature": [
+                "CONSOLIDATED STATEMENT OF PROFIT OR LOSS",
+                "Profit from operations"
+              ],
+              "row": "Profit from operations",
+              "occurrence": 0,
+              "matches": 1,
+              "numberCount": 2,
+              "numberIndex": 1,
+              "multiplier": 1000,
+              "unitPattern": "RMB[’']000"
+            },
+            "cash": {
+              "signature": [
+                "CONSOLIDATED STATEMENT OF FINANCIAL POSITION",
+                "Net current assets"
+              ],
+              "row": "Cash and cash equivalents",
+              "occurrence": 0,
+              "matches": 1,
+              "numberCount": 2,
+              "numberIndex": 1,
+              "multiplier": 1000,
+              "unitPattern": "RMB[’']000"
+            },
+            "ppe": {
+              "signature": [
+                "CONSOLIDATED STATEMENT OF FINANCIAL POSITION",
+                "Net current assets"
+              ],
+              "row": "Property, plant and equipment",
+              "occurrence": 0,
+              "matches": 1,
+              "numberCount": 2,
+              "numberIndex": 1,
+              "multiplier": 1000,
+              "unitPattern": "RMB[’']000"
+            },
+            "rou": {
+              "signature": [
+                "CONSOLIDATED STATEMENT OF FINANCIAL POSITION",
+                "Net current assets"
+              ],
+              "row": "Right-of-use assets",
+              "occurrence": 0,
+              "matches": 1,
+              "numberCount": 2,
+              "numberIndex": 1,
+              "multiplier": 1000,
+              "unitPattern": "RMB[’']000"
+            },
+            "currentLeases": {
+              "signature": [
+                "CONSOLIDATED STATEMENT OF FINANCIAL POSITION",
+                "Net current assets"
+              ],
+              "row": "Lease liabilities",
+              "occurrence": 0,
+              "matches": 1,
+              "numberCount": 3,
+              "numberIndex": 2,
+              "multiplier": 1000,
+              "unitPattern": "RMB[’']000"
+            },
+            "noncurrentLeases": {
+              "signature": [
+                "CONSOLIDATED STATEMENT OF FINANCIAL POSITION",
+                "Deferred income"
+              ],
+              "row": "Lease liabilities",
+              "occurrence": 0,
+              "matches": 1,
+              "numberCount": 3,
+              "numberIndex": 2,
+              "multiplier": 1000,
+              "unitPattern": "RMB[’']000"
+            },
+            "operatingInvestmentProperty": {
+              "signature": [
+                "CONSOLIDATED STATEMENT OF FINANCIAL POSITION",
+                "Net current assets"
+              ],
+              "zeroPolicy": "按本口径无单列经营性投资物业、独立土地使用权或独立优先权益；投资物业不当成经营固定资本。",
+              "proof": "(?:PPE|Property, plant and equipment)"
+            },
+            "landUseRights": {
+              "signature": [
+                "CONSOLIDATED STATEMENT OF FINANCIAL POSITION",
+                "Net current assets"
+              ],
+              "zeroPolicy": "按本口径无单列经营性投资物业、独立土地使用权或独立优先权益；投资物业不当成经营固定资本。",
+              "proof": "(?:PPE|Property, plant and equipment)"
+            },
+            "preferredEquity": {
+              "signature": [
+                "CONSOLIDATED STATEMENT OF FINANCIAL POSITION",
+                "Net current assets"
+              ],
+              "zeroPolicy": "按本口径无单列经营性投资物业、独立土地使用权或独立优先权益；投资物业不当成经营固定资本。",
+              "proof": "(?:PPE|Property, plant and equipment)"
+            },
+            "currentAssets": {
+              "terms": [
+                {
+                  "coefficient": 1,
+                  "selector": {
+                    "signature": [
+                      "CONSOLIDATED STATEMENT OF FINANCIAL POSITION",
+                      "Net current assets"
+                    ],
+                    "row": "^Inventories",
+                    "occurrence": 0,
+                    "matches": 1,
+                    "numberCount": 3,
+                    "numberIndex": 2,
+                    "multiplier": 1000,
+                    "unitPattern": "RMB[’']000"
+                  }
+                },
+                {
+                  "coefficient": 1,
+                  "selector": {
+                    "signature": [
+                      "CONSOLIDATED STATEMENT OF FINANCIAL POSITION",
+                      "Net current assets"
+                    ],
+                    "row": "^Trade receivables",
+                    "occurrence": 0,
+                    "matches": 1,
+                    "numberCount": 3,
+                    "numberIndex": 2,
+                    "multiplier": 1000,
+                    "unitPattern": "RMB[’']000"
+                  }
+                },
+                {
+                  "coefficient": 1,
+                  "selector": {
+                    "signature": [
+                      "CONSOLIDATED STATEMENT OF FINANCIAL POSITION",
+                      "Net current assets"
+                    ],
+                    "row": "^Other receivables, deposits and prepayments",
+                    "occurrence": 1,
+                    "matches": 2,
+                    "numberCount": 3,
+                    "numberIndex": 2,
+                    "multiplier": 1000,
+                    "unitPattern": "RMB[’']000"
+                  }
+                },
+                {
+                  "coefficient": 1,
+                  "selector": {
+                    "signature": [
+                      "CONSOLIDATED STATEMENT OF FINANCIAL POSITION",
+                      "Net current assets"
+                    ],
+                    "row": "^Financial assets at fair value through profit or loss",
+                    "occurrence": 0,
+                    "matches": 1,
+                    "numberCount": 3,
+                    "numberIndex": 2,
+                    "multiplier": 1000,
+                    "unitPattern": "RMB[’']000"
+                  }
+                },
+                {
+                  "coefficient": 1,
+                  "selector": {
+                    "signature": [
+                      "CONSOLIDATED STATEMENT OF FINANCIAL POSITION",
+                      "Net current assets"
+                    ],
+                    "row": "^but within one year",
+                    "occurrence": 0,
+                    "matches": 1,
+                    "numberCount": 2,
+                    "numberIndex": 1,
+                    "multiplier": 1000,
+                    "unitPattern": "RMB[’']000"
+                  }
+                },
+                {
+                  "coefficient": 1,
+                  "selector": {
+                    "signature": [
+                      "CONSOLIDATED STATEMENT OF FINANCIAL POSITION",
+                      "Net current assets"
+                    ],
+                    "row": "^Cash and cash equivalents",
+                    "occurrence": 0,
+                    "matches": 1,
+                    "numberCount": 2,
+                    "numberIndex": 1,
+                    "multiplier": 1000,
+                    "unitPattern": "RMB[’']000"
+                  }
+                }
+              ]
+            },
+            "currentLiabilities": {
+              "terms": [
+                {
+                  "coefficient": 1,
+                  "selector": {
+                    "signature": [
+                      "CONSOLIDATED STATEMENT OF FINANCIAL POSITION",
+                      "Net current assets"
+                    ],
+                    "row": "^Trade payables",
+                    "occurrence": 0,
+                    "matches": 1,
+                    "numberCount": 3,
+                    "numberIndex": 2,
+                    "multiplier": 1000,
+                    "unitPattern": "RMB[’']000"
+                  }
+                },
+                {
+                  "coefficient": 1,
+                  "selector": {
+                    "signature": [
+                      "CONSOLIDATED STATEMENT OF FINANCIAL POSITION",
+                      "Net current assets"
+                    ],
+                    "row": "^Other payables and accruals",
+                    "occurrence": 0,
+                    "matches": 1,
+                    "numberCount": 3,
+                    "numberIndex": 2,
+                    "multiplier": 1000,
+                    "unitPattern": "RMB[’']000"
+                  }
+                },
+                {
+                  "coefficient": 1,
+                  "selector": {
+                    "signature": [
+                      "CONSOLIDATED STATEMENT OF FINANCIAL POSITION",
+                      "Net current assets"
+                    ],
+                    "row": "^Income tax payable",
+                    "occurrence": 0,
+                    "matches": 1,
+                    "numberCount": 2,
+                    "numberIndex": 1,
+                    "multiplier": 1000,
+                    "unitPattern": "RMB[’']000"
+                  }
+                },
+                {
+                  "coefficient": 1,
+                  "selector": {
+                    "signature": [
+                      "CONSOLIDATED STATEMENT OF FINANCIAL POSITION",
+                      "Net current assets"
+                    ],
+                    "row": "^Lease liabilities",
+                    "occurrence": 0,
+                    "matches": 1,
+                    "numberCount": 3,
+                    "numberIndex": 2,
+                    "multiplier": 1000,
+                    "unitPattern": "RMB[’']000"
+                  }
+                }
+              ]
+            },
+            "restrictedCash": {
+              "signature": [
+                "CONSOLIDATED STATEMENT OF FINANCIAL POSITION",
+                "Net current assets"
+              ],
+              "zeroPolicy": "现金及存款未单列受限余额。",
+              "proof": "Non-pledged fixed bank deposits",
+              "forbid": "(?m)^Pledged (?:bank )?deposits"
+            },
+            "currentDebt": {
+              "signature": [
+                "CONSOLIDATED STATEMENT OF FINANCIAL POSITION",
+                "Net current assets"
+              ],
+              "zeroPolicy": "该负债段未单列借款；租赁负债另计。",
+              "proof": "Lease liabilities",
+              "forbid": "(?m)^\\s*(?:Bank |Interest-bearing )?(?:borrowings|loans)\\b"
+            },
+            "noncurrentDebt": {
+              "signature": [
+                "CONSOLIDATED STATEMENT OF FINANCIAL POSITION",
+                "Deferred income"
+              ],
+              "zeroPolicy": "该负债段未单列借款；租赁负债另计。",
+              "proof": "Lease liabilities",
+              "forbid": "(?m)^\\s*(?:Bank |Interest-bearing )?(?:borrowings|loans)\\b"
+            },
+            "currentNonOperatingLiabilities": {
+              "signature": [
+                "25. OTHER PAYABLES AND ACCRUALS",
+                "Dividend payable"
+              ],
+              "row": "^Dividend payable",
+              "matches": 1,
+              "numberCount": 2,
+              "numberIndex": 1,
+              "multiplier": 1000,
+              "unitPattern": "RMB[’']000"
+            },
+            "otherNonOperatingCurrentAssets": {
+              "signature": [
+                "CONSOLIDATED STATEMENT OF FINANCIAL POSITION",
+                "Net current assets"
+              ],
+              "zeroPolicy": "未识别其余可单独划分的流动非经营性应收款；银行存款和理财另计。",
+              "proof": "Other receivables, deposits and prepayments"
+            },
+            "minorityInterest": {
+              "signature": [
+                "CONSOLIDATED STATEMENT OF FINANCIAL POSITION",
+                "Deferred income"
+              ],
+              "row": "^Non-controlling interests",
+              "occurrence": 0,
+              "matches": 1,
+              "numberCount": 2,
+              "numberIndex": 1,
+              "multiplier": 1000,
+              "unitPattern": "RMB[’']000"
+            },
+            "noncurrentCashLike": {
+              "signature": [
+                "CONSOLIDATED STATEMENT OF FINANCIAL POSITION",
+                "Net current assets"
+              ],
+              "row": "^Non-pledged fixed bank deposits with maturity over one year",
+              "occurrence": 0,
+              "matches": 1,
+              "numberCount": 2,
+              "numberIndex": 1,
+              "multiplier": 1000,
+              "unitPattern": "RMB[’']000"
+            },
+            "currentFinancialAssets": {
+              "terms": [
+                {
+                  "coefficient": 1,
+                  "selector": {
+                    "signature": [
+                      "CONSOLIDATED STATEMENT OF FINANCIAL POSITION",
+                      "Net current assets"
+                    ],
+                    "row": "^Financial assets at fair value through profit or loss",
+                    "occurrence": 0,
+                    "matches": 1,
+                    "numberCount": 3,
+                    "numberIndex": 2,
+                    "multiplier": 1000,
+                    "unitPattern": "RMB[’']000"
+                  }
+                },
+                {
+                  "coefficient": 1,
+                  "selector": {
+                    "signature": [
+                      "CONSOLIDATED STATEMENT OF FINANCIAL POSITION",
+                      "Net current assets"
+                    ],
+                    "row": "^but within one year",
+                    "occurrence": 0,
+                    "matches": 1,
+                    "numberCount": 2,
+                    "numberIndex": 1,
+                    "multiplier": 1000,
+                    "unitPattern": "RMB[’']000"
+                  }
+                }
+              ]
+            },
+            "ordinaryShares": {
+              "signature": [
+                "28. SHARE CAPITAL",
+                "Issued and fully paid:"
+              ],
+              "row": "^1 January 20\\d{2} and 31 December 20\\d{2}",
+              "occurrence": 1,
+              "matches": 2,
+              "numberCount": 7,
+              "numberIndex": -3,
+              "multiplier": 1
+            }
+          },
+          "labels": {
+            "currentAssets": "流动资产合计",
+            "cash": "非受限现金及现金等价物",
+            "restrictedCash": "流动受限现金",
+            "currentFinancialAssets": "流动金融资产及定期存款",
+            "currentLiabilities": "流动负债合计",
+            "currentDebt": "短期借款／一年内到期债务",
+            "noncurrentDebt": "长期借款／债券",
+            "currentLeases": "流动租赁负债",
+            "noncurrentLeases": "非流动租赁负债",
+            "ppe": "物业、厂房、设备及在建工程净额",
+            "rou": "使用权资产净额",
+            "operatingInvestmentProperty": "经营性投资物业",
+            "landUseRights": "单独列示土地使用权净额",
+            "minorityInterest": "少数股东权益",
+            "preferredEquity": "永续／优先／赎回及金融衍生负债",
+            "currentNonOperatingLiabilities": "流动非经营负债（股利／投资／赎回等）",
+            "otherNonOperatingCurrentAssets": "其他流动非经营资产（应收利息等）",
+            "noncurrentCashLike": "非受限长期定期存款（EV 抵扣）",
+            "ordinaryShares": "期末发行普通股／SS 单位数量",
+            "operatingProfit": "经营利润／营业利润"
+          },
+          "adjustments": [
+            {
+              "selector": {
+                "signature": [
+                  "NOTES TO THE FINANCIAL STATEMENTS",
+                  "bank interest income"
+                ],
+                "row": "bank interest income",
+                "occurrence": 0,
+                "matches": 1,
+                "numberCount": 3,
+                "numberIndex": 2,
+                "multiplier": 1000,
+                "unitPattern": "RMB[’']000"
+              },
+              "coefficient": -1,
+              "label": "扣除银行利息收入"
+            },
+            {
+              "selector": {
+                "signature": [
+                  "NOTES TO THE FINANCIAL STATEMENTS",
+                  "bank interest income"
+                ],
+                "row": "^fair value through profit or loss",
+                "occurrence": 0,
+                "matches": 1,
+                "numberCount": 2,
+                "numberIndex": 1,
+                "multiplier": 1000,
+                "unitPattern": "RMB[’']000"
+              },
+              "coefficient": -1,
+              "label": "扣除金融理财公允价值收益"
+            },
+            {
+              "selector": {
+                "signature": [
+                  "PROFIT BEFORE TAXATION",
+                  "Net rental income"
+                ],
+                "row": "^Net rental income",
+                "occurrence": 0,
+                "matches": 1,
+                "numberCount": 2,
+                "numberIndex": 1,
+                "multiplier": 1000,
+                "unitPattern": "RMB[’']000"
+              },
+              "coefficient": 1,
+              "label": "剔除投资物业净租金（费用表以负数列示）"
+            },
+            {
+              "selector": {
+                "signature": [
+                  "NOTES TO THE FINANCIAL STATEMENTS",
+                  "bank interest income"
+                ],
+                "row": "^Change in fair value of investment properties",
+                "occurrence": 0,
+                "matches": 1,
+                "numberCount": 2,
+                "numberIndex": 1,
+                "multiplier": 1000,
+                "unitPattern": "RMB[’']000"
+              },
+              "coefficient": -1,
+              "label": "剔除投资物业公允价值变动"
+            }
+          ],
+          "cashLike": {
+            "terms": [
+              {
+                "coefficient": 1,
+                "selector": {
+                  "signature": [
+                    "CONSOLIDATED STATEMENT OF FINANCIAL POSITION",
+                    "Net current assets"
+                  ],
+                  "row": "^but within one year",
+                  "occurrence": 0,
+                  "matches": 1,
+                  "numberCount": 2,
+                  "numberIndex": 1,
+                  "multiplier": 1000,
+                  "unitPattern": "RMB[’']000"
+                }
+              },
+              {
+                "coefficient": 1,
+                "selector": {
+                  "signature": [
+                    "FINANCIAL ASSETS AT FAIR VALUE THROUGH PROFIT OR LOSS",
+                    "Principal Guaranteed Wealth Management Products"
+                  ],
+                  "row": "^. maturity within one year",
+                  "occurrence": 0,
+                  "matches": 1,
+                  "numberCount": 3,
+                  "numberIndex": 2,
+                  "multiplier": 1000,
+                  "unitPattern": "RMB[’']000"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "sihuan",
+      "discovery": {
+        "kind": "hkex",
+        "code": "00460"
+      },
+      "annuals": [
+        {
+          "year": 2025,
+          "sourceId": "s25",
+          "selectors": {
+            "operatingProfit": {
+              "signature": [
+                "CONSOLIDATED STATEMENT OF PROFIT OR LOSS",
+                "Finance expenses"
+              ],
+              "row": "OPERATING (?:PROFIT|\\(LOSS\\))",
+              "occurrence": 0,
+              "matches": 1,
+              "numberCount": 2,
+              "numberIndex": 0,
+              "multiplier": 1000,
+              "unitPattern": "RMB[’']000"
+            },
+            "cash": {
+              "signature": [
+                "CONSOLIDATED STATEMENT OF FINANCIAL POSITION",
+                "Total current assets"
+              ],
+              "row": "Cash and cash equivalents",
+              "occurrence": 0,
+              "matches": 1,
+              "numberCount": 3,
+              "numberIndex": 1,
+              "multiplier": 1000,
+              "unitPattern": "RMB[’']000"
+            },
+            "ppe": {
+              "signature": [
+                "CONSOLIDATED STATEMENT OF FINANCIAL POSITION",
+                "Total current assets"
+              ],
+              "row": "Property, plant and equipment",
+              "occurrence": 0,
+              "matches": 1,
+              "numberCount": 3,
+              "numberIndex": 1,
+              "multiplier": 1000,
+              "unitPattern": "RMB[’']000"
+            },
+            "rou": {
+              "signature": [
+                "CONSOLIDATED STATEMENT OF FINANCIAL POSITION",
+                "Total current assets"
+              ],
+              "row": "Right-of-use assets",
+              "occurrence": 0,
+              "matches": 1,
+              "numberCount": 3,
+              "numberIndex": 1,
+              "multiplier": 1000,
+              "unitPattern": "RMB[’']000"
+            },
+            "currentLeases": {
+              "signature": [
+                "CONSOLIDATED STATEMENT OF FINANCIAL POSITION",
+                "Total current assets"
+              ],
+              "row": "Lease liabilities",
+              "occurrence": 0,
+              "matches": 1,
+              "numberCount": 3,
+              "numberIndex": 1,
+              "multiplier": 1000,
+              "unitPattern": "RMB[’']000"
+            },
+            "noncurrentLeases": {
+              "signature": [
+                "CONSOLIDATED STATEMENT OF FINANCIAL POSITION",
+                "TOTAL ASSETS LESS CURRENT LIABILITIES"
+              ],
+              "row": "Lease liabilities",
+              "occurrence": 0,
+              "matches": 1,
+              "numberCount": 3,
+              "numberIndex": 1,
+              "multiplier": 1000,
+              "unitPattern": "RMB[’']000"
+            },
+            "operatingInvestmentProperty": {
+              "signature": [
+                "CONSOLIDATED STATEMENT OF FINANCIAL POSITION",
+                "Total current assets"
+              ],
+              "zeroPolicy": "按本口径无单列经营性投资物业、独立土地使用权或独立优先权益；投资物业不当成经营固定资本。",
+              "proof": "(?:PPE|Property, plant and equipment)"
+            },
+            "landUseRights": {
+              "signature": [
+                "CONSOLIDATED STATEMENT OF FINANCIAL POSITION",
+                "Total current assets"
+              ],
+              "zeroPolicy": "按本口径无单列经营性投资物业、独立土地使用权或独立优先权益；投资物业不当成经营固定资本。",
+              "proof": "(?:PPE|Property, plant and equipment)"
+            },
+            "preferredEquity": {
+              "signature": [
+                "28. OTHER LIABILITIES",
+                "Other borrowings (ii)"
+              ],
+              "row": "\\bOthers \\(iv\\)",
+              "occurrence": 0,
+              "matches": 1,
+              "numberCount": 2,
+              "numberIndex": 0,
+              "multiplier": 1000,
+              "unitPattern": "RMB[’']000"
+            },
+            "currentAssets": {
+              "signature": [
+                "CONSOLIDATED STATEMENT OF FINANCIAL POSITION",
+                "Total current assets"
+              ],
+              "row": "Total current assets",
+              "occurrence": 0,
+              "matches": 1,
+              "numberCount": 2,
+              "numberIndex": 0,
+              "multiplier": 1000,
+              "unitPattern": "RMB[’']000"
+            },
+            "currentLiabilities": {
+              "signature": [
+                "CONSOLIDATED STATEMENT OF FINANCIAL POSITION",
+                "Total current assets"
+              ],
+              "row": "Total current liabilities",
+              "occurrence": 0,
+              "matches": 1,
+              "numberCount": 2,
+              "numberIndex": 0,
+              "multiplier": 1000,
+              "unitPattern": "RMB[’']000"
+            },
+            "restrictedCash": {
+              "signature": [
+                "CONSOLIDATED STATEMENT OF FINANCIAL POSITION",
+                "Total current assets"
+              ],
+              "row": "Pledged deposits",
+              "occurrence": 1,
+              "matches": 2,
+              "numberCount": 3,
+              "numberIndex": 1,
+              "multiplier": 1000,
+              "unitPattern": "RMB[’']000"
+            },
+            "minorityInterest": {
+              "signature": [
+                "CONSOLIDATED STATEMENT OF FINANCIAL POSITION",
+                "TOTAL ASSETS LESS CURRENT LIABILITIES"
+              ],
+              "row": "Non-controlling interests",
+              "occurrence": 0,
+              "matches": 1,
+              "numberCount": 2,
+              "numberIndex": 0,
+              "multiplier": 1000,
+              "unitPattern": "RMB[’']000"
+            },
+            "noncurrentCashLike": {
+              "signature": [
+                "CONSOLIDATED STATEMENT OF FINANCIAL POSITION",
+                "Total current assets"
+              ],
+              "row": "Time deposits",
+              "occurrence": 0,
+              "matches": 2,
+              "numberCount": 3,
+              "numberIndex": 1,
+              "multiplier": 1000,
+              "unitPattern": "RMB[’']000"
+            },
+            "currentFinancialAssets": {
+              "terms": [
+                {
+                  "coefficient": 1,
+                  "selector": {
+                    "signature": [
+                      "CONSOLIDATED STATEMENT OF FINANCIAL POSITION",
+                      "Total current assets"
+                    ],
+                    "row": "Financial assets at fair value through profit or loss",
+                    "occurrence": 1,
+                    "matches": 2,
+                    "numberCount": 3,
+                    "numberIndex": 1,
+                    "multiplier": 1000,
+                    "unitPattern": "RMB[’']000"
+                  }
+                },
+                {
+                  "coefficient": 1,
+                  "selector": {
+                    "signature": [
+                      "CONSOLIDATED STATEMENT OF FINANCIAL POSITION",
+                      "Total current assets"
+                    ],
+                    "row": "Time deposits",
+                    "occurrence": 1,
+                    "matches": 2,
+                    "numberCount": 3,
+                    "numberIndex": 1,
+                    "multiplier": 1000,
+                    "unitPattern": "RMB[’']000"
+                  }
+                }
+              ]
+            },
+            "otherNonOperatingCurrentAssets": {
+              "terms": [
+                {
+                  "coefficient": 1,
+                  "selector": {
+                    "signature": [
+                      "23. TRADE AND OTHER RECEIVABLES",
+                      "Dividends receivable"
+                    ],
+                    "row": "Loans to associates",
+                    "occurrence": 0,
+                    "matches": 1,
+                    "numberCount": 2,
+                    "numberIndex": 0,
+                    "multiplier": 1000,
+                    "unitPattern": "RMB[’']000"
+                  }
+                },
+                {
+                  "coefficient": 1,
+                  "selector": {
+                    "signature": [
+                      "23. TRADE AND OTHER RECEIVABLES",
+                      "Dividends receivable"
+                    ],
+                    "row": "Loans to third parties",
+                    "occurrence": 0,
+                    "matches": 1,
+                    "numberCount": 2,
+                    "numberIndex": 0,
+                    "multiplier": 1000,
+                    "unitPattern": "RMB[’']000"
+                  }
+                },
+                {
+                  "coefficient": 1,
+                  "selector": {
+                    "signature": [
+                      "23. TRADE AND OTHER RECEIVABLES",
+                      "Dividends receivable"
+                    ],
+                    "row": "Dividends receivable",
+                    "occurrence": 0,
+                    "matches": 1,
+                    "numberCount": 3,
+                    "numberIndex": 1,
+                    "multiplier": 1000,
+                    "unitPattern": "RMB[’']000"
+                  }
+                },
+                {
+                  "coefficient": 1,
+                  "selector": {
+                    "signature": [
+                      "23. TRADE AND OTHER RECEIVABLES",
+                      "Dividends receivable"
+                    ],
+                    "row": "Receivable from disposal of subsidiaries",
+                    "occurrence": 0,
+                    "matches": 1,
+                    "numberCount": 2,
+                    "numberIndex": 0,
+                    "multiplier": 1000,
+                    "unitPattern": "RMB[’']000"
+                  }
+                }
+              ]
+            },
+            "currentDebt": {
+              "terms": [
+                {
+                  "coefficient": 1,
+                  "selector": {
+                    "signature": [
+                      "CONSOLIDATED STATEMENT OF FINANCIAL POSITION",
+                      "Total current assets"
+                    ],
+                    "row": "Interest-bearing bank borrowings",
+                    "occurrence": 0,
+                    "matches": 1,
+                    "numberCount": 3,
+                    "numberIndex": 1,
+                    "multiplier": 1000,
+                    "unitPattern": "RMB[’']000"
+                  }
+                },
+                {
+                  "coefficient": 1,
+                  "selector": {
+                    "signature": [
+                      "28. OTHER LIABILITIES",
+                      "an aggregate carrying value"
+                    ],
+                    "capturePattern": "December 2025, RMB([\\d,]+|nil)",
+                    "captureGroup": 1,
+                    "multiplier": 1
+                  }
+                },
+                {
+                  "coefficient": 1,
+                  "selector": {
+                    "signature": [
+                      "28. OTHER LIABILITIES",
+                      "an aggregate carrying value"
+                    ],
+                    "capturePattern": "There was RMB([\\d,]+|nil) classified",
+                    "captureGroup": 1,
+                    "multiplier": 1
+                  }
+                }
+              ]
+            },
+            "noncurrentDebt": {
+              "terms": [
+                {
+                  "coefficient": 1,
+                  "selector": {
+                    "signature": [
+                      "CONSOLIDATED STATEMENT OF FINANCIAL POSITION",
+                      "TOTAL ASSETS LESS CURRENT LIABILITIES"
+                    ],
+                    "row": "Interest-bearing bank borrowings",
+                    "occurrence": 0,
+                    "matches": 1,
+                    "numberCount": 3,
+                    "numberIndex": 1,
+                    "multiplier": 1000,
+                    "unitPattern": "RMB[’']000"
+                  }
+                },
+                {
+                  "coefficient": 1,
+                  "selector": {
+                    "signature": [
+                      "28. OTHER LIABILITIES",
+                      "Other borrowings (ii)"
+                    ],
+                    "row": "Other borrowings",
+                    "occurrence": 0,
+                    "matches": 1,
+                    "numberCount": 2,
+                    "numberIndex": 0,
+                    "multiplier": 1000,
+                    "unitPattern": "RMB[’']000"
+                  }
+                },
+                {
+                  "coefficient": 1,
+                  "selector": {
+                    "signature": [
+                      "28. OTHER LIABILITIES",
+                      "Other borrowings (ii)"
+                    ],
+                    "row": "Sale and leaseback",
+                    "occurrence": 0,
+                    "matches": 1,
+                    "numberCount": 2,
+                    "numberIndex": 0,
+                    "multiplier": 1000,
+                    "unitPattern": "RMB[’']000"
+                  }
+                },
+                {
+                  "coefficient": -1,
+                  "selector": {
+                    "signature": [
+                      "28. OTHER LIABILITIES",
+                      "an aggregate carrying value"
+                    ],
+                    "capturePattern": "December 2025, RMB([\\d,]+|nil)",
+                    "captureGroup": 1,
+                    "multiplier": 1
+                  }
+                },
+                {
+                  "coefficient": -1,
+                  "selector": {
+                    "signature": [
+                      "28. OTHER LIABILITIES",
+                      "an aggregate carrying value"
+                    ],
+                    "capturePattern": "There was RMB([\\d,]+|nil) classified",
+                    "captureGroup": 1,
+                    "multiplier": 1
+                  }
+                }
+              ]
+            },
+            "currentNonOperatingLiabilities": {
+              "terms": [
+                {
+                  "coefficient": 1,
+                  "selector": {
+                    "terms": [
+                      {
+                        "coefficient": 1,
+                        "selector": {
+                          "signature": [
+                            "CONSOLIDATED STATEMENT OF FINANCIAL POSITION",
+                            "Total current assets"
+                          ],
+                          "row": "Other current liabilities",
+                          "occurrence": 0,
+                          "matches": 1,
+                          "numberCount": 3,
+                          "numberIndex": 1,
+                          "multiplier": 1000,
+                          "unitPattern": "RMB[’']000"
+                        }
+                      },
+                      {
+                        "coefficient": -1,
+                        "selector": {
+                          "signature": [
+                            "28. OTHER LIABILITIES",
+                            "Other borrowings (ii)"
+                          ],
+                          "capturePattern": "RMB([\\d,]+|nil) of the total deferred amount was",
+                          "captureGroup": 1,
+                          "multiplier": 1
+                        }
+                      },
+                      {
+                        "coefficient": -1,
+                        "selector": {
+                          "signature": [
+                            "28. OTHER LIABILITIES",
+                            "an aggregate carrying value"
+                          ],
+                          "capturePattern": "December 2025, RMB([\\d,]+|nil)",
+                          "captureGroup": 1,
+                          "multiplier": 1
+                        }
+                      },
+                      {
+                        "coefficient": -1,
+                        "selector": {
+                          "signature": [
+                            "28. OTHER LIABILITIES",
+                            "an aggregate carrying value"
+                          ],
+                          "capturePattern": "There was RMB([\\d,]+|nil) classified",
+                          "captureGroup": 1,
+                          "multiplier": 1
+                        }
+                      }
+                    ]
+                  }
+                },
+                {
+                  "coefficient": 1,
+                  "selector": {
+                    "signature": [
+                      "29. TRADE AND OTHER PAYABLES",
+                      "Dividends payable"
+                    ],
+                    "row": "Payable for acquisition of a subsidiary",
+                    "occurrence": 0,
+                    "matches": 1,
+                    "numberCount": 2,
+                    "numberIndex": 0,
+                    "multiplier": 1000,
+                    "unitPattern": "RMB[’']000"
+                  }
+                },
+                {
+                  "coefficient": 1,
+                  "selector": {
+                    "signature": [
+                      "29. TRADE AND OTHER PAYABLES",
+                      "Dividends payable"
+                    ],
+                    "row": "Dividends payable",
+                    "occurrence": 0,
+                    "matches": 1,
+                    "numberCount": 2,
+                    "numberIndex": 0,
+                    "multiplier": 1000,
+                    "unitPattern": "RMB[’']000"
+                  }
+                },
+                {
+                  "coefficient": 1,
+                  "selector": {
+                    "signature": [
+                      "29. TRADE AND OTHER PAYABLES",
+                      "Dividends payable"
+                    ],
+                    "row": "Interest payable",
+                    "occurrence": 0,
+                    "matches": 1,
+                    "numberCount": 2,
+                    "numberIndex": 0,
+                    "multiplier": 1000,
+                    "unitPattern": "RMB[’']000"
+                  }
+                }
+              ]
+            },
+            "ordinaryShares": {
+              "terms": [
+                {
+                  "coefficient": 1,
+                  "selector": {
+                    "signature": [
+                      "25. SHARE CAPITAL",
+                      "issued and"
+                    ],
+                    "row": "0\\.01港元.{0,3}\\s+[\\d,]+\\s+[\\d,]+\\s+[\\d,]+",
+                    "occurrence": 0,
+                    "matches": 1,
+                    "numberCount": 5,
+                    "numberIndex": 1,
+                    "multiplier": 1000,
+                    "unitPattern": "RMB[’']000"
+                  }
+                },
+                {
+                  "coefficient": -1,
+                  "selector": {
+                    "signature": [
+                      "25. SHARE CAPITAL",
+                      "issued and"
+                    ],
+                    "capturePattern": "the Group had ([\\d,]+|nil) \\(2024:",
+                    "captureGroup": 1,
+                    "multiplier": 1
+                  }
+                }
+              ]
+            }
+          },
+          "labels": {
+            "currentAssets": "流动资产合计",
+            "cash": "非受限现金及现金等价物",
+            "restrictedCash": "流动受限现金",
+            "currentFinancialAssets": "流动金融资产及定期存款",
+            "currentLiabilities": "流动负债合计",
+            "currentDebt": "短期借款／一年内到期债务",
+            "noncurrentDebt": "长期借款／债券",
+            "currentLeases": "流动租赁负债",
+            "noncurrentLeases": "非流动租赁负债",
+            "ppe": "物业、厂房、设备及在建工程净额",
+            "rou": "使用权资产净额",
+            "operatingInvestmentProperty": "经营性投资物业",
+            "landUseRights": "单独列示土地使用权净额",
+            "minorityInterest": "少数股东权益",
+            "preferredEquity": "永续／优先／赎回及金融衍生负债",
+            "currentNonOperatingLiabilities": "流动非经营负债（股利／投资／赎回等）",
+            "otherNonOperatingCurrentAssets": "其他流动非经营资产（应收利息等）",
+            "noncurrentCashLike": "非受限长期定期存款（EV 抵扣）",
+            "ordinaryShares": "期末发行普通股／SS 单位数量",
+            "operatingProfit": "经营利润／营业利润"
+          },
+          "adjustments": [
+            {
+              "selector": {
+                "signature": [
+                  "NOTES TO THE FINANCIAL STATEMENTS",
+                  "Total other income"
+                ],
+                "row": "Interest income",
+                "occurrence": 0,
+                "matches": 1,
+                "numberCount": 2,
+                "numberIndex": 0,
+                "multiplier": 1000,
+                "unitPattern": "RMB[’']000"
+              },
+              "coefficient": -1,
+              "label": "扣除利息收入"
+            },
+            {
+              "selector": {
+                "signature": [
+                  "NOTES TO THE FINANCIAL STATEMENTS",
+                  "Total other income"
+                ],
+                "row": "operating leases \\(i\\)",
+                "occurrence": 0,
+                "matches": 1,
+                "numberCount": 2,
+                "numberIndex": 0,
+                "multiplier": 1000,
+                "unitPattern": "RMB[’']000"
+              },
+              "coefficient": -1,
+              "label": "扣除投资物业租金"
+            },
+            {
+              "selector": {
+                "signature": [
+                  "REVENUE, OTHER INCOME AND GAINS",
+                  "Gain on deemed disposal of interest in associates"
+                ],
+                "row": "Gain on disposal of an associate (?: and a joint venture)?",
+                "occurrence": 0,
+                "matches": 1,
+                "numberCount": 2,
+                "numberIndex": 0,
+                "multiplier": 1000,
+                "unitPattern": "RMB[’']000"
+              },
+              "coefficient": -1,
+              "label": "剔除出售联营／合营收益"
+            },
+            {
+              "selector": {
+                "signature": [
+                  "REVENUE, OTHER INCOME AND GAINS",
+                  "Gain on deemed disposal of interest in associates"
+                ],
+                "row": "Gain on deemed disposal of interest in associates",
+                "occurrence": 0,
+                "matches": 1,
+                "numberCount": 2,
+                "numberIndex": 0,
+                "multiplier": 1000,
+                "unitPattern": "RMB[’']000"
+              },
+              "coefficient": -1,
+              "label": "剔除视作出售联营收益"
+            },
+            {
+              "selector": {
+                "signature": [
+                  "REVENUE, OTHER INCOME AND GAINS",
+                  "Gain on deemed disposal of interest in associates"
+                ],
+                "row": "Gain on disposal of an investment property",
+                "occurrence": 0,
+                "matches": 1,
+                "numberCount": 2,
+                "numberIndex": 0,
+                "multiplier": 1000,
+                "unitPattern": "RMB[’']000"
+              },
+              "coefficient": -1,
+              "label": "剔除出售投资物业收益"
+            },
+            {
+              "selector": {
+                "signature": [
+                  "REVENUE, OTHER INCOME AND GAINS",
+                  "Gain on deemed disposal of interest in associates"
+                ],
+                "row": "products, at fair value",
+                "occurrence": 0,
+                "matches": 1,
+                "numberCount": 2,
+                "numberIndex": 0,
+                "multiplier": 1000,
+                "unitPattern": "RMB[’']000"
+              },
+              "coefficient": -1,
+              "label": "剔除理财公允价值收益"
+            },
+            {
+              "selector": {
+                "signature": [
+                  "REVENUE, OTHER INCOME AND GAINS",
+                  "Gain on deemed disposal of interest in associates"
+                ],
+                "row": "investments, at fair value",
+                "occurrence": 0,
+                "matches": 1,
+                "numberCount": 2,
+                "numberIndex": 0,
+                "multiplier": 1000,
+                "unitPattern": "RMB[’']000"
+              },
+              "coefficient": -1,
+              "label": "剔除非上市权益公允价值收益"
+            },
+            {
+              "selector": {
+                "signature": [
+                  "REVENUE, OTHER INCOME AND GAINS",
+                  "Gain on deemed disposal of interest in associates"
+                ],
+                "row": "Gain on disposal of a subsidiary",
+                "occurrence": 0,
+                "matches": 1,
+                "numberCount": 2,
+                "numberIndex": 0,
+                "multiplier": 1000,
+                "unitPattern": "RMB[’']000"
+              },
+              "coefficient": -1,
+              "label": "剔除出售子公司收益"
+            }
+          ],
+          "cashLike": {
+            "signature": [
+              "CONSOLIDATED STATEMENT OF FINANCIAL POSITION",
+              "Total current assets"
+            ],
+            "row": "Time deposits",
+            "occurrence": 1,
+            "matches": 2,
+            "numberCount": 3,
+            "numberIndex": 1,
+            "multiplier": 1000,
+            "unitPattern": "RMB[’']000"
+          }
+        },
+        {
+          "year": 2024,
+          "sourceId": "s25",
+          "selectors": {
+            "operatingProfit": {
+              "signature": [
+                "CONSOLIDATED STATEMENT OF PROFIT OR LOSS",
+                "Finance expenses"
+              ],
+              "row": "OPERATING (?:PROFIT|\\(LOSS\\))",
+              "occurrence": 0,
+              "matches": 1,
+              "numberCount": 2,
+              "numberIndex": 1,
+              "multiplier": 1000,
+              "unitPattern": "RMB[’']000"
+            },
+            "cash": {
+              "signature": [
+                "CONSOLIDATED STATEMENT OF FINANCIAL POSITION",
+                "Total current assets"
+              ],
+              "row": "Cash and cash equivalents",
+              "occurrence": 0,
+              "matches": 1,
+              "numberCount": 3,
+              "numberIndex": 2,
+              "multiplier": 1000,
+              "unitPattern": "RMB[’']000"
+            },
+            "ppe": {
+              "signature": [
+                "CONSOLIDATED STATEMENT OF FINANCIAL POSITION",
+                "Total current assets"
+              ],
+              "row": "Property, plant and equipment",
+              "occurrence": 0,
+              "matches": 1,
+              "numberCount": 3,
+              "numberIndex": 2,
+              "multiplier": 1000,
+              "unitPattern": "RMB[’']000"
+            },
+            "rou": {
+              "signature": [
+                "CONSOLIDATED STATEMENT OF FINANCIAL POSITION",
+                "Total current assets"
+              ],
+              "row": "Right-of-use assets",
+              "occurrence": 0,
+              "matches": 1,
+              "numberCount": 3,
+              "numberIndex": 2,
+              "multiplier": 1000,
+              "unitPattern": "RMB[’']000"
+            },
+            "currentLeases": {
+              "signature": [
+                "CONSOLIDATED STATEMENT OF FINANCIAL POSITION",
+                "Total current assets"
+              ],
+              "row": "Lease liabilities",
+              "occurrence": 0,
+              "matches": 1,
+              "numberCount": 3,
+              "numberIndex": 2,
+              "multiplier": 1000,
+              "unitPattern": "RMB[’']000"
+            },
+            "noncurrentLeases": {
+              "signature": [
+                "CONSOLIDATED STATEMENT OF FINANCIAL POSITION",
+                "TOTAL ASSETS LESS CURRENT LIABILITIES"
+              ],
+              "row": "Lease liabilities",
+              "occurrence": 0,
+              "matches": 1,
+              "numberCount": 3,
+              "numberIndex": 2,
+              "multiplier": 1000,
+              "unitPattern": "RMB[’']000"
+            },
+            "operatingInvestmentProperty": {
+              "signature": [
+                "CONSOLIDATED STATEMENT OF FINANCIAL POSITION",
+                "Total current assets"
+              ],
+              "zeroPolicy": "按本口径无单列经营性投资物业、独立土地使用权或独立优先权益；投资物业不当成经营固定资本。",
+              "proof": "(?:PPE|Property, plant and equipment)"
+            },
+            "landUseRights": {
+              "signature": [
+                "CONSOLIDATED STATEMENT OF FINANCIAL POSITION",
+                "Total current assets"
+              ],
+              "zeroPolicy": "按本口径无单列经营性投资物业、独立土地使用权或独立优先权益；投资物业不当成经营固定资本。",
+              "proof": "(?:PPE|Property, plant and equipment)"
+            },
+            "preferredEquity": {
+              "signature": [
+                "28. OTHER LIABILITIES",
+                "Other borrowings (ii)"
+              ],
+              "row": "\\bOthers \\(iv\\)",
+              "occurrence": 0,
+              "matches": 1,
+              "numberCount": 2,
+              "numberIndex": 1,
+              "multiplier": 1000,
+              "unitPattern": "RMB[’']000"
+            },
+            "currentAssets": {
+              "signature": [
+                "CONSOLIDATED STATEMENT OF FINANCIAL POSITION",
+                "Total current assets"
+              ],
+              "row": "Total current assets",
+              "occurrence": 0,
+              "matches": 1,
+              "numberCount": 2,
+              "numberIndex": 1,
+              "multiplier": 1000,
+              "unitPattern": "RMB[’']000"
+            },
+            "currentLiabilities": {
+              "signature": [
+                "CONSOLIDATED STATEMENT OF FINANCIAL POSITION",
+                "Total current assets"
+              ],
+              "row": "Total current liabilities",
+              "occurrence": 0,
+              "matches": 1,
+              "numberCount": 2,
+              "numberIndex": 1,
+              "multiplier": 1000,
+              "unitPattern": "RMB[’']000"
+            },
+            "restrictedCash": {
+              "signature": [
+                "CONSOLIDATED STATEMENT OF FINANCIAL POSITION",
+                "Total current assets"
+              ],
+              "row": "Pledged deposits",
+              "occurrence": 1,
+              "matches": 2,
+              "numberCount": 3,
+              "numberIndex": 2,
+              "multiplier": 1000,
+              "unitPattern": "RMB[’']000"
+            },
+            "minorityInterest": {
+              "signature": [
+                "CONSOLIDATED STATEMENT OF FINANCIAL POSITION",
+                "TOTAL ASSETS LESS CURRENT LIABILITIES"
+              ],
+              "row": "Non-controlling interests",
+              "occurrence": 0,
+              "matches": 1,
+              "numberCount": 2,
+              "numberIndex": 1,
+              "multiplier": 1000,
+              "unitPattern": "RMB[’']000"
+            },
+            "noncurrentCashLike": {
+              "signature": [
+                "CONSOLIDATED STATEMENT OF FINANCIAL POSITION",
+                "Total current assets"
+              ],
+              "row": "Time deposits",
+              "occurrence": 0,
+              "matches": 2,
+              "numberCount": 3,
+              "numberIndex": 2,
+              "multiplier": 1000,
+              "unitPattern": "RMB[’']000"
+            },
+            "currentFinancialAssets": {
+              "terms": [
+                {
+                  "coefficient": 1,
+                  "selector": {
+                    "signature": [
+                      "CONSOLIDATED STATEMENT OF FINANCIAL POSITION",
+                      "Total current assets"
+                    ],
+                    "row": "Financial assets at fair value through profit or loss",
+                    "occurrence": 1,
+                    "matches": 2,
+                    "numberCount": 3,
+                    "numberIndex": 2,
+                    "multiplier": 1000,
+                    "unitPattern": "RMB[’']000"
+                  }
+                },
+                {
+                  "coefficient": 1,
+                  "selector": {
+                    "signature": [
+                      "CONSOLIDATED STATEMENT OF FINANCIAL POSITION",
+                      "Total current assets"
+                    ],
+                    "row": "Time deposits",
+                    "occurrence": 1,
+                    "matches": 2,
+                    "numberCount": 3,
+                    "numberIndex": 2,
+                    "multiplier": 1000,
+                    "unitPattern": "RMB[’']000"
+                  }
+                }
+              ]
+            },
+            "otherNonOperatingCurrentAssets": {
+              "terms": [
+                {
+                  "coefficient": 1,
+                  "selector": {
+                    "signature": [
+                      "23. TRADE AND OTHER RECEIVABLES",
+                      "Dividends receivable"
+                    ],
+                    "row": "Loans to associates",
+                    "occurrence": 0,
+                    "matches": 1,
+                    "numberCount": 2,
+                    "numberIndex": 1,
+                    "multiplier": 1000,
+                    "unitPattern": "RMB[’']000"
+                  }
+                },
+                {
+                  "coefficient": 1,
+                  "selector": {
+                    "signature": [
+                      "23. TRADE AND OTHER RECEIVABLES",
+                      "Dividends receivable"
+                    ],
+                    "row": "Loans to third parties",
+                    "occurrence": 0,
+                    "matches": 1,
+                    "numberCount": 2,
+                    "numberIndex": 1,
+                    "multiplier": 1000,
+                    "unitPattern": "RMB[’']000"
+                  }
+                },
+                {
+                  "coefficient": 1,
+                  "selector": {
+                    "signature": [
+                      "23. TRADE AND OTHER RECEIVABLES",
+                      "Dividends receivable"
+                    ],
+                    "row": "Dividends receivable",
+                    "occurrence": 0,
+                    "matches": 1,
+                    "numberCount": 3,
+                    "numberIndex": 2,
+                    "multiplier": 1000,
+                    "unitPattern": "RMB[’']000"
+                  }
+                },
+                {
+                  "coefficient": 1,
+                  "selector": {
+                    "signature": [
+                      "23. TRADE AND OTHER RECEIVABLES",
+                      "Dividends receivable"
+                    ],
+                    "row": "Receivable from disposal of subsidiaries",
+                    "occurrence": 0,
+                    "matches": 1,
+                    "numberCount": 2,
+                    "numberIndex": 1,
+                    "multiplier": 1000,
+                    "unitPattern": "RMB[’']000"
+                  }
+                }
+              ]
+            },
+            "currentDebt": {
+              "terms": [
+                {
+                  "coefficient": 1,
+                  "selector": {
+                    "signature": [
+                      "CONSOLIDATED STATEMENT OF FINANCIAL POSITION",
+                      "Total current assets"
+                    ],
+                    "row": "Interest-bearing bank borrowings",
+                    "occurrence": 0,
+                    "matches": 1,
+                    "numberCount": 3,
+                    "numberIndex": 2,
+                    "multiplier": 1000,
+                    "unitPattern": "RMB[’']000"
+                  }
+                },
+                {
+                  "coefficient": 1,
+                  "selector": {
+                    "signature": [
+                      "28. OTHER LIABILITIES",
+                      "an aggregate carrying value"
+                    ],
+                    "capturePattern": "December 2025, RMB([\\d,]+|nil)",
+                    "captureGroup": 1,
+                    "multiplier": 1
+                  }
+                },
+                {
+                  "coefficient": 1,
+                  "selector": {
+                    "signature": [
+                      "28. OTHER LIABILITIES",
+                      "an aggregate carrying value"
+                    ],
+                    "capturePattern": "There was RMB([\\d,]+|nil) classified",
+                    "captureGroup": 1,
+                    "multiplier": 1
+                  }
+                }
+              ]
+            },
+            "noncurrentDebt": {
+              "terms": [
+                {
+                  "coefficient": 1,
+                  "selector": {
+                    "signature": [
+                      "CONSOLIDATED STATEMENT OF FINANCIAL POSITION",
+                      "TOTAL ASSETS LESS CURRENT LIABILITIES"
+                    ],
+                    "row": "Interest-bearing bank borrowings",
+                    "occurrence": 0,
+                    "matches": 1,
+                    "numberCount": 3,
+                    "numberIndex": 2,
+                    "multiplier": 1000,
+                    "unitPattern": "RMB[’']000"
+                  }
+                },
+                {
+                  "coefficient": 1,
+                  "selector": {
+                    "signature": [
+                      "28. OTHER LIABILITIES",
+                      "Other borrowings (ii)"
+                    ],
+                    "row": "Other borrowings",
+                    "occurrence": 0,
+                    "matches": 1,
+                    "numberCount": 2,
+                    "numberIndex": 1,
+                    "multiplier": 1000,
+                    "unitPattern": "RMB[’']000"
+                  }
+                },
+                {
+                  "coefficient": 1,
+                  "selector": {
+                    "signature": [
+                      "28. OTHER LIABILITIES",
+                      "Other borrowings (ii)"
+                    ],
+                    "row": "Sale and leaseback",
+                    "occurrence": 0,
+                    "matches": 1,
+                    "numberCount": 2,
+                    "numberIndex": 1,
+                    "multiplier": 1000,
+                    "unitPattern": "RMB[’']000"
+                  }
+                },
+                {
+                  "coefficient": -1,
+                  "selector": {
+                    "signature": [
+                      "28. OTHER LIABILITIES",
+                      "an aggregate carrying value"
+                    ],
+                    "capturePattern": "December 2025, RMB([\\d,]+|nil)",
+                    "captureGroup": 1,
+                    "multiplier": 1
+                  }
+                },
+                {
+                  "coefficient": -1,
+                  "selector": {
+                    "signature": [
+                      "28. OTHER LIABILITIES",
+                      "an aggregate carrying value"
+                    ],
+                    "capturePattern": "There was RMB([\\d,]+|nil) classified",
+                    "captureGroup": 1,
+                    "multiplier": 1
+                  }
+                }
+              ]
+            },
+            "currentNonOperatingLiabilities": {
+              "terms": [
+                {
+                  "coefficient": 1,
+                  "selector": {
+                    "terms": [
+                      {
+                        "coefficient": 1,
+                        "selector": {
+                          "signature": [
+                            "CONSOLIDATED STATEMENT OF FINANCIAL POSITION",
+                            "Total current assets"
+                          ],
+                          "row": "Other current liabilities",
+                          "occurrence": 0,
+                          "matches": 1,
+                          "numberCount": 3,
+                          "numberIndex": 2,
+                          "multiplier": 1000,
+                          "unitPattern": "RMB[’']000"
+                        }
+                      },
+                      {
+                        "coefficient": -1,
+                        "selector": {
+                          "signature": [
+                            "28. OTHER LIABILITIES",
+                            "Other borrowings (ii)"
+                          ],
+                          "capturePattern": "RMB([\\d,]+|nil) of the total deferred amount was",
+                          "captureGroup": 1,
+                          "multiplier": 1
+                        }
+                      },
+                      {
+                        "coefficient": -1,
+                        "selector": {
+                          "signature": [
+                            "28. OTHER LIABILITIES",
+                            "an aggregate carrying value"
+                          ],
+                          "capturePattern": "December 2025, RMB([\\d,]+|nil)",
+                          "captureGroup": 1,
+                          "multiplier": 1
+                        }
+                      },
+                      {
+                        "coefficient": -1,
+                        "selector": {
+                          "signature": [
+                            "28. OTHER LIABILITIES",
+                            "an aggregate carrying value"
+                          ],
+                          "capturePattern": "There was RMB([\\d,]+|nil) classified",
+                          "captureGroup": 1,
+                          "multiplier": 1
+                        }
+                      }
+                    ]
+                  }
+                },
+                {
+                  "coefficient": 1,
+                  "selector": {
+                    "signature": [
+                      "29. TRADE AND OTHER PAYABLES",
+                      "Dividends payable"
+                    ],
+                    "row": "Payable for acquisition of a subsidiary",
+                    "occurrence": 0,
+                    "matches": 1,
+                    "numberCount": 2,
+                    "numberIndex": 1,
+                    "multiplier": 1000,
+                    "unitPattern": "RMB[’']000"
+                  }
+                },
+                {
+                  "coefficient": 1,
+                  "selector": {
+                    "signature": [
+                      "29. TRADE AND OTHER PAYABLES",
+                      "Dividends payable"
+                    ],
+                    "row": "Dividends payable",
+                    "occurrence": 0,
+                    "matches": 1,
+                    "numberCount": 2,
+                    "numberIndex": 1,
+                    "multiplier": 1000,
+                    "unitPattern": "RMB[’']000"
+                  }
+                },
+                {
+                  "coefficient": 1,
+                  "selector": {
+                    "signature": [
+                      "29. TRADE AND OTHER PAYABLES",
+                      "Dividends payable"
+                    ],
+                    "row": "Interest payable",
+                    "occurrence": 0,
+                    "matches": 1,
+                    "numberCount": 2,
+                    "numberIndex": 1,
+                    "multiplier": 1000,
+                    "unitPattern": "RMB[’']000"
+                  }
+                }
+              ]
+            },
+            "ordinaryShares": {
+              "terms": [
+                {
+                  "coefficient": 1,
+                  "selector": {
+                    "signature": [
+                      "25. SHARE CAPITAL",
+                      "issued and"
+                    ],
+                    "row": "0\\.01港元.{0,3}\\s+[\\d,]+\\s+[\\d,]+\\s+[\\d,]+",
+                    "occurrence": 0,
+                    "matches": 1,
+                    "numberCount": 5,
+                    "numberIndex": 1,
+                    "multiplier": 1000,
+                    "unitPattern": "RMB[’']000"
+                  }
+                },
+                {
+                  "coefficient": -1,
+                  "selector": {
+                    "signature": [
+                      "25. SHARE CAPITAL",
+                      "issued and"
+                    ],
+                    "capturePattern": "the Group had [\\d,]+ \\(2024: ([\\d,]+|nil)\\)",
+                    "captureGroup": 1,
+                    "multiplier": 1
+                  }
+                }
+              ]
+            }
+          },
+          "labels": {
+            "currentAssets": "流动资产合计",
+            "cash": "非受限现金及现金等价物",
+            "restrictedCash": "流动受限现金",
+            "currentFinancialAssets": "流动金融资产及定期存款",
+            "currentLiabilities": "流动负债合计",
+            "currentDebt": "短期借款／一年内到期债务",
+            "noncurrentDebt": "长期借款／债券",
+            "currentLeases": "流动租赁负债",
+            "noncurrentLeases": "非流动租赁负债",
+            "ppe": "物业、厂房、设备及在建工程净额",
+            "rou": "使用权资产净额",
+            "operatingInvestmentProperty": "经营性投资物业",
+            "landUseRights": "单独列示土地使用权净额",
+            "minorityInterest": "少数股东权益",
+            "preferredEquity": "永续／优先／赎回及金融衍生负债",
+            "currentNonOperatingLiabilities": "流动非经营负债（股利／投资／赎回等）",
+            "otherNonOperatingCurrentAssets": "其他流动非经营资产（应收利息等）",
+            "noncurrentCashLike": "非受限长期定期存款（EV 抵扣）",
+            "ordinaryShares": "期末发行普通股／SS 单位数量",
+            "operatingProfit": "经营利润／营业利润"
+          },
+          "adjustments": [
+            {
+              "selector": {
+                "signature": [
+                  "NOTES TO THE FINANCIAL STATEMENTS",
+                  "Total other income"
+                ],
+                "row": "Interest income",
+                "occurrence": 0,
+                "matches": 1,
+                "numberCount": 2,
+                "numberIndex": 1,
+                "multiplier": 1000,
+                "unitPattern": "RMB[’']000"
+              },
+              "coefficient": -1,
+              "label": "扣除利息收入"
+            },
+            {
+              "selector": {
+                "signature": [
+                  "NOTES TO THE FINANCIAL STATEMENTS",
+                  "Total other income"
+                ],
+                "row": "operating leases \\(i\\)",
+                "occurrence": 0,
+                "matches": 1,
+                "numberCount": 2,
+                "numberIndex": 1,
+                "multiplier": 1000,
+                "unitPattern": "RMB[’']000"
+              },
+              "coefficient": -1,
+              "label": "扣除投资物业租金"
+            },
+            {
+              "selector": {
+                "signature": [
+                  "REVENUE, OTHER INCOME AND GAINS",
+                  "Gain on deemed disposal of interest in associates"
+                ],
+                "row": "Gain on disposal of an associate (?: and a joint venture)?",
+                "occurrence": 0,
+                "matches": 1,
+                "numberCount": 2,
+                "numberIndex": 1,
+                "multiplier": 1000,
+                "unitPattern": "RMB[’']000"
+              },
+              "coefficient": -1,
+              "label": "剔除出售联营／合营收益"
+            },
+            {
+              "selector": {
+                "signature": [
+                  "REVENUE, OTHER INCOME AND GAINS",
+                  "Gain on deemed disposal of interest in associates"
+                ],
+                "row": "Gain on deemed disposal of interest in associates",
+                "occurrence": 0,
+                "matches": 1,
+                "numberCount": 2,
+                "numberIndex": 1,
+                "multiplier": 1000,
+                "unitPattern": "RMB[’']000"
+              },
+              "coefficient": -1,
+              "label": "剔除视作出售联营收益"
+            },
+            {
+              "selector": {
+                "signature": [
+                  "REVENUE, OTHER INCOME AND GAINS",
+                  "Gain on deemed disposal of interest in associates"
+                ],
+                "row": "Gain on disposal of an investment property",
+                "occurrence": 0,
+                "matches": 1,
+                "numberCount": 2,
+                "numberIndex": 1,
+                "multiplier": 1000,
+                "unitPattern": "RMB[’']000"
+              },
+              "coefficient": -1,
+              "label": "剔除出售投资物业收益"
+            },
+            {
+              "selector": {
+                "signature": [
+                  "REVENUE, OTHER INCOME AND GAINS",
+                  "Gain on deemed disposal of interest in associates"
+                ],
+                "row": "products, at fair value",
+                "occurrence": 0,
+                "matches": 1,
+                "numberCount": 2,
+                "numberIndex": 1,
+                "multiplier": 1000,
+                "unitPattern": "RMB[’']000"
+              },
+              "coefficient": -1,
+              "label": "剔除理财公允价值收益"
+            },
+            {
+              "selector": {
+                "signature": [
+                  "REVENUE, OTHER INCOME AND GAINS",
+                  "Gain on deemed disposal of interest in associates"
+                ],
+                "row": "investments, at fair value",
+                "occurrence": 0,
+                "matches": 1,
+                "numberCount": 2,
+                "numberIndex": 1,
+                "multiplier": 1000,
+                "unitPattern": "RMB[’']000"
+              },
+              "coefficient": -1,
+              "label": "剔除非上市权益公允价值收益"
+            },
+            {
+              "selector": {
+                "signature": [
+                  "REVENUE, OTHER INCOME AND GAINS",
+                  "Gain on deemed disposal of interest in associates"
+                ],
+                "row": "Gain on disposal of a subsidiary",
+                "occurrence": 0,
+                "matches": 1,
+                "numberCount": 2,
+                "numberIndex": 1,
+                "multiplier": 1000,
+                "unitPattern": "RMB[’']000"
+              },
+              "coefficient": -1,
+              "label": "剔除出售子公司收益"
+            }
+          ],
+          "cashLike": {
+            "signature": [
+              "CONSOLIDATED STATEMENT OF FINANCIAL POSITION",
+              "Total current assets"
+            ],
+            "row": "Time deposits",
+            "occurrence": 1,
+            "matches": 2,
+            "numberCount": 3,
+            "numberIndex": 2,
+            "multiplier": 1000,
+            "unitPattern": "RMB[’']000"
+          }
+        },
+        {
+          "year": 2023,
+          "sourceId": "s24",
+          "selectors": {
+            "operatingProfit": {
+              "signature": [
+                "CONSOLIDATED STATEMENT OF PROFIT OR LOSS",
+                "Finance expenses"
+              ],
+              "row": "OPERATING (?:PROFIT|\\(LOSS\\))",
+              "occurrence": 0,
+              "matches": 1,
+              "numberCount": 2,
+              "numberIndex": 1,
+              "multiplier": 1000,
+              "unitPattern": "RMB[’']000"
+            },
+            "cash": {
+              "signature": [
+                "CONSOLIDATED STATEMENT OF FINANCIAL POSITION",
+                "Total current assets"
+              ],
+              "row": "Cash and cash equivalents",
+              "occurrence": 0,
+              "matches": 1,
+              "numberCount": 3,
+              "numberIndex": 2,
+              "multiplier": 1000,
+              "unitPattern": "RMB[’']000"
+            },
+            "ppe": {
+              "signature": [
+                "CONSOLIDATED STATEMENT OF FINANCIAL POSITION",
+                "Total current assets"
+              ],
+              "row": "Property, plant and equipment",
+              "occurrence": 0,
+              "matches": 1,
+              "numberCount": 3,
+              "numberIndex": 2,
+              "multiplier": 1000,
+              "unitPattern": "RMB[’']000"
+            },
+            "rou": {
+              "signature": [
+                "CONSOLIDATED STATEMENT OF FINANCIAL POSITION",
+                "Total current assets"
+              ],
+              "row": "Right-of-use assets",
+              "occurrence": 0,
+              "matches": 1,
+              "numberCount": 3,
+              "numberIndex": 2,
+              "multiplier": 1000,
+              "unitPattern": "RMB[’']000"
+            },
+            "currentLeases": {
+              "signature": [
+                "CONSOLIDATED STATEMENT OF FINANCIAL POSITION",
+                "Total current assets"
+              ],
+              "row": "Lease liabilities",
+              "occurrence": 0,
+              "matches": 1,
+              "numberCount": 3,
+              "numberIndex": 2,
+              "multiplier": 1000,
+              "unitPattern": "RMB[’']000"
+            },
+            "noncurrentLeases": {
+              "signature": [
+                "CONSOLIDATED STATEMENT OF FINANCIAL POSITION",
+                "TOTAL ASSETS LESS CURRENT LIABILITIES"
+              ],
+              "row": "Lease liabilities",
+              "occurrence": 0,
+              "matches": 1,
+              "numberCount": 3,
+              "numberIndex": 2,
+              "multiplier": 1000,
+              "unitPattern": "RMB[’']000"
+            },
+            "operatingInvestmentProperty": {
+              "signature": [
+                "CONSOLIDATED STATEMENT OF FINANCIAL POSITION",
+                "Total current assets"
+              ],
+              "zeroPolicy": "按本口径无单列经营性投资物业、独立土地使用权或独立优先权益；投资物业不当成经营固定资本。",
+              "proof": "(?:PPE|Property, plant and equipment)"
+            },
+            "landUseRights": {
+              "signature": [
+                "CONSOLIDATED STATEMENT OF FINANCIAL POSITION",
+                "Total current assets"
+              ],
+              "zeroPolicy": "按本口径无单列经营性投资物业、独立土地使用权或独立优先权益；投资物业不当成经营固定资本。",
+              "proof": "(?:PPE|Property, plant and equipment)"
+            },
+            "preferredEquity": {
+              "signature": [
+                "28. OTHER LIABILITIES",
+                "Other borrowings (ii)"
+              ],
+              "row": "\\bOthers \\(iv\\)",
+              "occurrence": 0,
+              "matches": 1,
+              "numberCount": 2,
+              "numberIndex": 1,
+              "multiplier": 1000,
+              "unitPattern": "RMB[’']000"
+            },
+            "currentAssets": {
+              "signature": [
+                "CONSOLIDATED STATEMENT OF FINANCIAL POSITION",
+                "Total current assets"
+              ],
+              "row": "Total current assets",
+              "occurrence": 0,
+              "matches": 1,
+              "numberCount": 2,
+              "numberIndex": 1,
+              "multiplier": 1000,
+              "unitPattern": "RMB[’']000"
+            },
+            "currentLiabilities": {
+              "signature": [
+                "CONSOLIDATED STATEMENT OF FINANCIAL POSITION",
+                "Total current assets"
+              ],
+              "row": "Total current liabilities",
+              "occurrence": 0,
+              "matches": 1,
+              "numberCount": 2,
+              "numberIndex": 1,
+              "multiplier": 1000,
+              "unitPattern": "RMB[’']000"
+            },
+            "restrictedCash": {
+              "signature": [
+                "CONSOLIDATED STATEMENT OF FINANCIAL POSITION",
+                "Total current assets"
+              ],
+              "row": "Pledged deposits",
+              "occurrence": 1,
+              "matches": 2,
+              "numberCount": 3,
+              "numberIndex": 2,
+              "multiplier": 1000,
+              "unitPattern": "RMB[’']000"
+            },
+            "minorityInterest": {
+              "signature": [
+                "CONSOLIDATED STATEMENT OF FINANCIAL POSITION",
+                "TOTAL ASSETS LESS CURRENT LIABILITIES"
+              ],
+              "row": "Non-controlling interests",
+              "occurrence": 0,
+              "matches": 1,
+              "numberCount": 2,
+              "numberIndex": 1,
+              "multiplier": 1000,
+              "unitPattern": "RMB[’']000"
+            },
+            "noncurrentCashLike": {
+              "signature": [
+                "CONSOLIDATED STATEMENT OF FINANCIAL POSITION",
+                "Total current assets"
+              ],
+              "row": "Time deposits",
+              "occurrence": 0,
+              "matches": 2,
+              "numberCount": 3,
+              "numberIndex": 2,
+              "multiplier": 1000,
+              "unitPattern": "RMB[’']000"
+            },
+            "currentFinancialAssets": {
+              "terms": [
+                {
+                  "coefficient": 1,
+                  "selector": {
+                    "signature": [
+                      "CONSOLIDATED STATEMENT OF FINANCIAL POSITION",
+                      "Total current assets"
+                    ],
+                    "row": "Financial assets at fair value through profit or loss",
+                    "occurrence": 1,
+                    "matches": 2,
+                    "numberCount": 3,
+                    "numberIndex": 2,
+                    "multiplier": 1000,
+                    "unitPattern": "RMB[’']000"
+                  }
+                },
+                {
+                  "coefficient": 1,
+                  "selector": {
+                    "signature": [
+                      "CONSOLIDATED STATEMENT OF FINANCIAL POSITION",
+                      "Total current assets"
+                    ],
+                    "row": "Time deposits",
+                    "occurrence": 1,
+                    "matches": 2,
+                    "numberCount": 3,
+                    "numberIndex": 2,
+                    "multiplier": 1000,
+                    "unitPattern": "RMB[’']000"
+                  }
+                }
+              ]
+            },
+            "otherNonOperatingCurrentAssets": {
+              "terms": [
+                {
+                  "coefficient": 1,
+                  "selector": {
+                    "signature": [
+                      "23. TRADE AND OTHER RECEIVABLES",
+                      "Dividends receivable"
+                    ],
+                    "row": "Loans to associates",
+                    "occurrence": 0,
+                    "matches": 1,
+                    "numberCount": 2,
+                    "numberIndex": 1,
+                    "multiplier": 1000,
+                    "unitPattern": "RMB[’']000"
+                  }
+                },
+                {
+                  "coefficient": 1,
+                  "selector": {
+                    "signature": [
+                      "23. TRADE AND OTHER RECEIVABLES",
+                      "Dividends receivable"
+                    ],
+                    "row": "Loans to third parties",
+                    "occurrence": 0,
+                    "matches": 1,
+                    "numberCount": 2,
+                    "numberIndex": 1,
+                    "multiplier": 1000,
+                    "unitPattern": "RMB[’']000"
+                  }
+                },
+                {
+                  "coefficient": 1,
+                  "selector": {
+                    "signature": [
+                      "23. TRADE AND OTHER RECEIVABLES",
+                      "Dividends receivable"
+                    ],
+                    "row": "Dividends receivable",
+                    "occurrence": 0,
+                    "matches": 1,
+                    "numberCount": 3,
+                    "numberIndex": 2,
+                    "multiplier": 1000,
+                    "unitPattern": "RMB[’']000"
+                  }
+                },
+                {
+                  "coefficient": 1,
+                  "selector": {
+                    "signature": [
+                      "23. TRADE AND OTHER RECEIVABLES",
+                      "Dividends receivable"
+                    ],
+                    "row": "Receivable from disposal of subsidiaries",
+                    "occurrence": 0,
+                    "matches": 1,
+                    "numberCount": 2,
+                    "numberIndex": 1,
+                    "multiplier": 1000,
+                    "unitPattern": "RMB[’']000"
+                  }
+                }
+              ]
+            },
+            "currentDebt": {
+              "terms": [
+                {
+                  "coefficient": 1,
+                  "selector": {
+                    "signature": [
+                      "CONSOLIDATED STATEMENT OF FINANCIAL POSITION",
+                      "Total current assets"
+                    ],
+                    "row": "Interest-bearing bank borrowings",
+                    "occurrence": 0,
+                    "matches": 1,
+                    "numberCount": 3,
+                    "numberIndex": 2,
+                    "multiplier": 1000,
+                    "unitPattern": "RMB[’']000"
+                  }
+                },
+                {
+                  "coefficient": 1,
+                  "selector": {
+                    "signature": [
+                      "28. OTHER LIABILITIES",
+                      "aggregate carrying value of RMB42"
+                    ],
+                    "capturePattern": "As at 31 December 2024, RMB[\\d,]+ \\(31 December 2023: ([\\d,]+|nil)\\)",
+                    "captureGroup": 1,
+                    "multiplier": 1
+                  }
+                },
+                {
+                  "coefficient": 1,
+                  "selector": {
+                    "signature": [
+                      "28. OTHER LIABILITIES",
+                      "aggregate carrying value of RMB42"
+                    ],
+                    "capturePattern": "\\(31 December 2023: [^A-Z]*RMB([\\d,]+|nil)\\)\\. No gain",
+                    "captureGroup": 1,
+                    "multiplier": 1
+                  }
+                }
+              ]
+            },
+            "noncurrentDebt": {
+              "terms": [
+                {
+                  "coefficient": 1,
+                  "selector": {
+                    "signature": [
+                      "CONSOLIDATED STATEMENT OF FINANCIAL POSITION",
+                      "TOTAL ASSETS LESS CURRENT LIABILITIES"
+                    ],
+                    "row": "Interest-bearing bank borrowings",
+                    "occurrence": 0,
+                    "matches": 1,
+                    "numberCount": 3,
+                    "numberIndex": 2,
+                    "multiplier": 1000,
+                    "unitPattern": "RMB[’']000"
+                  }
+                },
+                {
+                  "coefficient": 1,
+                  "selector": {
+                    "signature": [
+                      "28. OTHER LIABILITIES",
+                      "Other borrowings (ii)"
+                    ],
+                    "row": "Other borrowings",
+                    "occurrence": 0,
+                    "matches": 1,
+                    "numberCount": 2,
+                    "numberIndex": 1,
+                    "multiplier": 1000,
+                    "unitPattern": "RMB[’']000"
+                  }
+                },
+                {
+                  "coefficient": 1,
+                  "selector": {
+                    "signature": [
+                      "28. OTHER LIABILITIES",
+                      "Other borrowings (ii)"
+                    ],
+                    "row": "Sale and leaseback",
+                    "occurrence": 0,
+                    "matches": 1,
+                    "numberCount": 2,
+                    "numberIndex": 1,
+                    "multiplier": 1000,
+                    "unitPattern": "RMB[’']000"
+                  }
+                },
+                {
+                  "coefficient": -1,
+                  "selector": {
+                    "signature": [
+                      "28. OTHER LIABILITIES",
+                      "aggregate carrying value of RMB42"
+                    ],
+                    "capturePattern": "As at 31 December 2024, RMB[\\d,]+ \\(31 December 2023: ([\\d,]+|nil)\\)",
+                    "captureGroup": 1,
+                    "multiplier": 1
+                  }
+                },
+                {
+                  "coefficient": -1,
+                  "selector": {
+                    "signature": [
+                      "28. OTHER LIABILITIES",
+                      "aggregate carrying value of RMB42"
+                    ],
+                    "capturePattern": "\\(31 December 2023: [^A-Z]*RMB([\\d,]+|nil)\\)\\. No gain",
+                    "captureGroup": 1,
+                    "multiplier": 1
+                  }
+                }
+              ]
+            },
+            "currentNonOperatingLiabilities": {
+              "terms": [
+                {
+                  "coefficient": 1,
+                  "selector": {
+                    "terms": [
+                      {
+                        "coefficient": 1,
+                        "selector": {
+                          "signature": [
+                            "CONSOLIDATED STATEMENT OF FINANCIAL POSITION",
+                            "Total current assets"
+                          ],
+                          "row": "Other current liabilities",
+                          "occurrence": 0,
+                          "matches": 1,
+                          "numberCount": 3,
+                          "numberIndex": 2,
+                          "multiplier": 1000,
+                          "unitPattern": "RMB[’']000"
+                        }
+                      },
+                      {
+                        "coefficient": -1,
+                        "selector": {
+                          "signature": [
+                            "28. OTHER LIABILITIES",
+                            "Other borrowings (ii)"
+                          ],
+                          "capturePattern": "RMB([\\d,]+|nil)\\)\\.",
+                          "captureGroup": 1,
+                          "multiplier": 1
+                        }
+                      },
+                      {
+                        "coefficient": -1,
+                        "selector": {
+                          "signature": [
+                            "28. OTHER LIABILITIES",
+                            "aggregate carrying value of RMB42"
+                          ],
+                          "capturePattern": "As at 31 December 2024, RMB[\\d,]+ \\(31 December 2023: ([\\d,]+|nil)\\)",
+                          "captureGroup": 1,
+                          "multiplier": 1
+                        }
+                      },
+                      {
+                        "coefficient": -1,
+                        "selector": {
+                          "signature": [
+                            "28. OTHER LIABILITIES",
+                            "aggregate carrying value of RMB42"
+                          ],
+                          "capturePattern": "\\(31 December 2023: [^A-Z]*RMB([\\d,]+|nil)\\)\\. No gain",
+                          "captureGroup": 1,
+                          "multiplier": 1
+                        }
+                      }
+                    ]
+                  }
+                },
+                {
+                  "coefficient": 1,
+                  "selector": {
+                    "signature": [
+                      "29. TRADE AND OTHER PAYABLES",
+                      "Dividends payable"
+                    ],
+                    "row": "Payable for acquisition of a subsidiary",
+                    "occurrence": 0,
+                    "matches": 1,
+                    "numberCount": 2,
+                    "numberIndex": 1,
+                    "multiplier": 1000,
+                    "unitPattern": "RMB[’']000"
+                  }
+                },
+                {
+                  "coefficient": 1,
+                  "selector": {
+                    "signature": [
+                      "29. TRADE AND OTHER PAYABLES",
+                      "Dividends payable"
+                    ],
+                    "row": "Dividends payable",
+                    "occurrence": 0,
+                    "matches": 1,
+                    "numberCount": 2,
+                    "numberIndex": 1,
+                    "multiplier": 1000,
+                    "unitPattern": "RMB[’']000"
+                  }
+                },
+                {
+                  "coefficient": 1,
+                  "selector": {
+                    "signature": [
+                      "29. TRADE AND OTHER PAYABLES",
+                      "Dividends payable"
+                    ],
+                    "row": "Interest payable",
+                    "occurrence": 0,
+                    "matches": 1,
+                    "numberCount": 2,
+                    "numberIndex": 1,
+                    "multiplier": 1000,
+                    "unitPattern": "RMB[’']000"
+                  }
+                }
+              ]
+            },
+            "ordinaryShares": {
+              "terms": [
+                {
+                  "coefficient": 1,
+                  "selector": {
+                    "signature": [
+                      "25. SHARE CAPITAL",
+                      "issued and"
+                    ],
+                    "row": "0\\.01港元.{0,3}\\s+[\\d,]+\\s+[\\d,]+\\s+[\\d,]+",
+                    "occurrence": 0,
+                    "matches": 1,
+                    "numberCount": 5,
+                    "numberIndex": 1,
+                    "multiplier": 1000,
+                    "unitPattern": "RMB[’']000"
+                  }
+                },
+                {
+                  "coefficient": -1,
+                  "selector": {
+                    "signature": [
+                      "25. SHARE CAPITAL",
+                      "issued and"
+                    ],
+                    "capturePattern": "the Group had [\\d,]+ \\(2023: ([\\d,]+|nil)\\)",
+                    "captureGroup": 1,
+                    "multiplier": 1
+                  }
+                }
+              ]
+            }
+          },
+          "labels": {
+            "currentAssets": "流动资产合计",
+            "cash": "非受限现金及现金等价物",
+            "restrictedCash": "流动受限现金",
+            "currentFinancialAssets": "流动金融资产及定期存款",
+            "currentLiabilities": "流动负债合计",
+            "currentDebt": "短期借款／一年内到期债务",
+            "noncurrentDebt": "长期借款／债券",
+            "currentLeases": "流动租赁负债",
+            "noncurrentLeases": "非流动租赁负债",
+            "ppe": "物业、厂房、设备及在建工程净额",
+            "rou": "使用权资产净额",
+            "operatingInvestmentProperty": "经营性投资物业",
+            "landUseRights": "单独列示土地使用权净额",
+            "minorityInterest": "少数股东权益",
+            "preferredEquity": "永续／优先／赎回及金融衍生负债",
+            "currentNonOperatingLiabilities": "流动非经营负债（股利／投资／赎回等）",
+            "otherNonOperatingCurrentAssets": "其他流动非经营资产（应收利息等）",
+            "noncurrentCashLike": "非受限长期定期存款（EV 抵扣）",
+            "ordinaryShares": "期末发行普通股／SS 单位数量",
+            "operatingProfit": "经营利润／营业利润"
+          },
+          "adjustments": [
+            {
+              "selector": {
+                "signature": [
+                  "NOTES TO THE FINANCIAL STATEMENTS",
+                  "Total other income"
+                ],
+                "row": "Interest income",
+                "occurrence": 0,
+                "matches": 1,
+                "numberCount": 2,
+                "numberIndex": 1,
+                "multiplier": 1000,
+                "unitPattern": "RMB[’']000"
+              },
+              "coefficient": -1,
+              "label": "扣除利息收入"
+            },
+            {
+              "selector": {
+                "signature": [
+                  "NOTES TO THE FINANCIAL STATEMENTS",
+                  "Total other income"
+                ],
+                "row": "operating leases \\(i\\)",
+                "occurrence": 0,
+                "matches": 1,
+                "numberCount": 2,
+                "numberIndex": 1,
+                "multiplier": 1000,
+                "unitPattern": "RMB[’']000"
+              },
+              "coefficient": -1,
+              "label": "扣除投资物业租金"
+            },
+            {
+              "selector": {
+                "signature": [
+                  "REVENUE, OTHER INCOME AND GAINS",
+                  "Gain on deemed disposal of interest in associates"
+                ],
+                "row": "Gain on disposal of an associate (?: and a joint venture)?",
+                "occurrence": 0,
+                "matches": 1,
+                "numberCount": 2,
+                "numberIndex": 1,
+                "multiplier": 1000,
+                "unitPattern": "RMB[’']000"
+              },
+              "coefficient": -1,
+              "label": "剔除出售联营／合营收益"
+            },
+            {
+              "selector": {
+                "signature": [
+                  "REVENUE, OTHER INCOME AND GAINS",
+                  "Gain on deemed disposal of interest in associates"
+                ],
+                "row": "Gain on deemed disposal of interest in associates",
+                "occurrence": 0,
+                "matches": 1,
+                "numberCount": 2,
+                "numberIndex": 1,
+                "multiplier": 1000,
+                "unitPattern": "RMB[’']000"
+              },
+              "coefficient": -1,
+              "label": "剔除视作出售联营收益"
+            },
+            {
+              "selector": {
+                "signature": [
+                  "REVENUE, OTHER INCOME AND GAINS",
+                  "Gain on deemed disposal of interest in associates"
+                ],
+                "row": "Gain on disposal of an investment property",
+                "occurrence": 0,
+                "matches": 1,
+                "numberCount": 2,
+                "numberIndex": 1,
+                "multiplier": 1000,
+                "unitPattern": "RMB[’']000"
+              },
+              "coefficient": -1,
+              "label": "剔除出售投资物业收益"
+            },
+            {
+              "selector": {
+                "signature": [
+                  "REVENUE, OTHER INCOME AND GAINS",
+                  "Gain on deemed disposal of interest in associates"
+                ],
+                "row": "products, at fair value",
+                "occurrence": 0,
+                "matches": 1,
+                "numberCount": 2,
+                "numberIndex": 1,
+                "multiplier": 1000,
+                "unitPattern": "RMB[’']000"
+              },
+              "coefficient": -1,
+              "label": "剔除理财公允价值收益"
+            },
+            {
+              "selector": {
+                "signature": [
+                  "REVENUE, OTHER INCOME AND GAINS",
+                  "Gain on deemed disposal of interest in associates"
+                ],
+                "row": "investments, at fair value",
+                "occurrence": 0,
+                "matches": 1,
+                "numberCount": 2,
+                "numberIndex": 1,
+                "multiplier": 1000,
+                "unitPattern": "RMB[’']000"
+              },
+              "coefficient": -1,
+              "label": "剔除非上市权益公允价值收益"
+            }
+          ],
+          "cashLike": {
+            "signature": [
+              "CONSOLIDATED STATEMENT OF FINANCIAL POSITION",
+              "Total current assets"
+            ],
+            "row": "Time deposits",
+            "occurrence": 1,
+            "matches": 2,
+            "numberCount": 3,
+            "numberIndex": 2,
+            "multiplier": 1000,
+            "unitPattern": "RMB[’']000"
+          }
+        }
+      ]
     }
   ],
   "sources": {
@@ -6271,6 +9993,10 @@
     "wuliangye-2024": "https://static.cninfo.com.cn/finalpage/2025-04-26/1223311527.PDF",
     "trt-2024": "https://ir.tongrentangcm.com/media/1312/2024-annual-report-eng.pdf",
     "miniso-2025": "https://www.sec.gov/Archives/edgar/data/0001815846/000110465926048172/mnso-20251231x20f.htm",
-    "langham-2025": "https://www.hkexnews.hk/listedco/listconews/sehk/2026/0311/2026031100732.pdf"
+    "langham-2025": "https://www.hkexnews.hk/listedco/listconews/sehk/2026/0311/2026031100732.pdf",
+    "t25": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0417/2026041701755.pdf",
+    "t24": "https://www1.hkexnews.hk/listedco/listconews/sehk/2025/0416/2025041601787.pdf",
+    "s25": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0427/2026042700708.pdf",
+    "s24": "https://www1.hkexnews.hk/listedco/listconews/sehk/2025/0428/2025042801667.pdf"
   }
 }

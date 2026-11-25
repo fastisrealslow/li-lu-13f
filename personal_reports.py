@@ -204,6 +204,16 @@ class PDFReport:
 
 
 def extract_recipe(report, recipe, year):
+    if 'capturePattern' in recipe:
+        pi = report.selected_page(recipe)
+        page = ' '.join(r['text'] for r in report.pages[pi])
+        matches = list(re.finditer(recipe['capturePattern'], page, re.I))
+        if len(matches) != 1:
+            raise ValueError('Missing or ambiguous original-report prose amount: ' + recipe['capturePattern'])
+        match = matches[0]
+        raw = match.group(recipe.get('captureGroup', 1))
+        value = 0 if raw.lower() == 'nil' else decimal(raw)
+        return dict(value=value * recipe.get('multiplier', 1), evidence=match.group(), page=pi + 1, raw=raw)
     if 'sumRows' in recipe:return report.financial_group(recipe)
     if 'sumConcepts' in recipe:
         values=[]

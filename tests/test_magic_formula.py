@@ -71,9 +71,9 @@ class FormulaTests(unittest.TestCase):
         results=rank(rows);self.assertEqual([r['id'] for r in results],['1','0','2','loss'])
         self.assertEqual(rows[0]['earningsRank'],1);self.assertEqual(rows[2]['earningsRank'],3)
 
-    def test_published_dataset_has_eight_holdings_and_reproducible_results(self):
+    def test_published_dataset_has_ten_holdings_and_reproducible_results(self):
         data=json.loads((ROOT/'personal_portfolio.json').read_text());validate_dataset(data)
-        self.assertEqual({c['id'] for c in data['companies']},{'pdd','trt','lining','viva','langham','tme','wuliangye','miniso'})
+        self.assertEqual({c['id'] for c in data['companies']},{'pdd','trt','lining','viva','langham','tme','wuliangye','miniso','carpenter','sihuan'})
         for c in data['companies']:
             latest=max(int(p['end'][:4]) for p in c['annuals'])
             self.assertEqual([p['end'] for p in c['annuals']],[f'{y}-12-31' for y in range(latest,latest-3,-1)])
@@ -83,6 +83,30 @@ class FormulaTests(unittest.TestCase):
         if calendar2023:
             self.assertFalse(calendar2023['audited'])
             self.assertEqual(calendar2023['facts']['operatingProfit']['value'],2819648000)
+
+    def test_new_hk_reports_reconcile_key_disclosed_amounts(self):
+        data=json.loads((ROOT/'personal_portfolio.json').read_text())
+        profiles=json.loads((ROOT/'personal_report_profiles.json').read_text())
+        cases = {
+            'carpenter': ('0837.HK', [217150000, 213545000, 210272000], 248714000, 523399000, 115030000, 90669000),
+            'sihuan': ('0460.HK', [607124000, -138131000, 161698000], 9041800000, 6652730000, 3690045000, 66106000),
+        }
+        for ident, (ticker, operating, shares, ca, cl, liquid) in cases.items():
+            with self.subTest(issuer=ident):
+                issuer=next(c for c in data['companies'] if c['id']==ident)
+                config=next(p for p in profiles['companies'] if p['id']==ident)
+                annuals=issuer['annuals']
+                for period in annuals:
+                    year=int(period['end'][:4])
+                    if 2023 <= year <= 2025:
+                        self.assertEqual(period['facts']['operatingProfit']['value'],operating[2025-year])
+                    if year==2025:
+                        self.assertEqual([period['facts'][k]['value'] for k in ('ordinaryShares','currentAssets','currentLiabilities')],[shares,ca,cl])
+                        self.assertEqual(period['evCashLikeFinancialAssets']['value'],liquid)
+                self.assertEqual(set(issuer['results'][ticker]),{'1','3'})
+                self.assertEqual([p['year'] for p in config['annuals']],[int(p['end'][:4]) for p in annuals])
+                for period in annuals:
+                    self.assertTrue(all(f.get('page') for f in period['facts'].values()))
 
     def test_tampered_numbers_sources_or_ads_ratios_fail_validation(self):
         original=json.loads((ROOT/'personal_portfolio.json').read_text())

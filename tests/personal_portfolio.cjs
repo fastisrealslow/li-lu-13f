@@ -21,11 +21,11 @@ test('ranking uses the two unrounded ratios, preserves ties, and excludes invali
   assert.equal(result[2].id,'negative');assert.equal(result[2].overallRank,undefined);
 });
 
-test('all eight report-backed holdings stay visible in both annual modes',()=>{
+test('all ten report-backed holdings stay visible in both annual modes',()=>{
   const data=JSON.parse(fs.readFileSync(path.join(root,'personal_portfolio.json'),'utf8'));
   for(const years of ['1','3']){
     const rows=rank(data.companies.map(c=>({...c.results[c.listings[0].ticker][years],id:c.id})));
-    assert.equal(rows.length,8);assert.equal(new Set(rows.map(r=>r.id)).size,8);
+    assert.equal(rows.length,10);assert.equal(new Set(rows.map(r=>r.id)).size,10);
     rows.filter(r=>r.status==='ranked').forEach(r=>assert.equal(r.rankSum,r.earningsRank+r.capitalRank));
   }
 });
