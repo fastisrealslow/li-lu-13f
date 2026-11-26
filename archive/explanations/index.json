@@ -1160,12 +1160,12 @@
       "reason": "ValueError: Unsupported numerical claim: 1986"
     },
     "pabrai-e3679afc103fee": {
-      "at": "2026-11-22T16:46:41+00:00",
+      "at": "2026-11-26T00:53:50+00:00",
       "status": "retry",
       "inputHash": "7a6363d6f4a8ec61db067273da49ad4ac2cb28e804c536d44a0d888b2088bf66",
-      "failures": 6,
-      "nextAttemptAt": "2026-11-25T16:46:41+00:00",
-      "reason": "ValueError: Bilingual editorial review: The Chinese text claims Buffett said 'Nothing comes from inside the browser search' and labels it a mistranslation/hallucination; however, the source (s26) only quotes Buffett as saying 'Do you know what Bing stands for?', making the specific claim about 'browser search' unsupported by the provided evidence.; The Chinese"
+      "failures": 7,
+      "nextAttemptAt": "2026-11-29T00:53:50+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English translation of s24 incorrectly states Walton measured aisle spacing by lying down to estimate his own height; the source only mentions he knew how tall he was and used that knowledge to estimate space.; The English translation of s26 misattributes Buffett's quote about 'browser search' to Gates, whereas the s"
     },
     "buffett-2d755ae6f4137c": {
       "at": "2026-11-25T13:42:39+00:00",
@@ -4726,5 +4726,5 @@
       "reason": "ValueError: Bilingual editorial review: The English translation in the 'content' section contains a factual error regarding the timeline: it states Li Lu spent a full year studying Buffett/Munger/Berkshire and then bought his first stock 'a year later', implying a total of two years before starting his career. The source text (s4) says he studied for 'a whole "
     }
   },
-  "updatedAt": "2026-11-26T00:53:45+00:00"
+  "updatedAt": "2026-11-26T00:53:50+00:00"
 }
