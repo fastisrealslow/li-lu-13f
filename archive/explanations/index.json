@@ -2242,12 +2242,12 @@
       "reason": "ValueError: Bilingual editorial review: The English translation in the 'content' section contains a factual error regarding the source text (s14). The source states: 'the vast majority of the value of today's cable segment comes from two main things:' but cuts off without listing them. The translation incorrectly concludes with 'related to costs', implying the"
     },
     "buffett-a281a253c85fdf": {
-      "at": "2026-11-22T17:39:38+00:00",
+      "at": "2026-11-26T01:33:07+00:00",
       "status": "retry",
       "inputHash": "8f069238a14251c589d2c8b6b5d078c76a313f0f0eb3290a808c8ff4e49c483b",
-      "failures": 6,
-      "nextAttemptAt": "2026-11-25T17:39:38+00:00",
-      "reason": "ValueError: Bilingual editorial review: The Chinese text states the industry's combined ratio increased by 'approximately four percentage points' (about four points), which is a faithful paraphrase of the source saying 'About four points in the industry's 1992 combined ratio'.; The Chinese text claims Buffett cited the proverb 'It is only when the tide goes ou"
+      "failures": 7,
+      "nextAttemptAt": "2026-11-29T01:33:07+00:00",
+      "reason": "ValueError: Unsupported numerical claim: 32.4%"
     },
     "buffett-7a7be582d1415f": {
       "at": "2026-11-25T03:58:44+00:00",
@@ -4726,5 +4726,5 @@
       "reason": "ValueError: Bilingual editorial review: The English translation in the 'content' section contains a factual error regarding the timeline: it states Li Lu spent a full year studying Buffett/Munger/Berkshire and then bought his first stock 'a year later', implying a total of two years before starting his career. The source text (s4) says he studied for 'a whole "
     }
   },
-  "updatedAt": "2026-11-26T01:32:35+00:00"
+  "updatedAt": "2026-11-26T01:33:07+00:00"
 }
