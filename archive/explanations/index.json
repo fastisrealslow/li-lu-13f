@@ -1472,12 +1472,12 @@
       "reason": "ValueError: Bilingual editorial review: The English content incorrectly attributes the concept of 'reciprocal altruism' to Pabrai; the source text discusses 'mental models', 'human misjudgment', and 'evolutionary quirks' but never mentions reciprocal altruism.; The Chinese content falsely claims Pabrai emphasizes building an edge via 'reciprocal altruism'; the"
     },
     "pabrai-5b328b6415f6b0": {
-      "at": "2026-11-22T16:59:45+00:00",
+      "at": "2026-11-26T01:04:08+00:00",
       "status": "retry",
       "inputHash": "a59d4b2bf34f43da1a8fdaf7eccf4e65e5f90e6554cdf6c3e1a445c4cb3a9255",
-      "failures": 6,
-      "nextAttemptAt": "2026-11-25T16:59:45+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English translation incorrectly states 'neural connections are pruned' as if it were a universal fact for the 11-20 window; the source text says connections get 'cut... and reduced' specifically in this period, which is accurate but the phrasing implies a general biological process rather than the specific developmen"
+      "failures": 7,
+      "nextAttemptAt": "2026-11-29T01:04:08+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English translation incorrectly states Pabrai 'had self-taught multiple degrees' by age 18; the source (s4) only mentions he had 'finished many MBAs; many degrees in business that are not taught in any business school', implying a lack of formal accreditation rather than completed degrees.; The English translation cl"
     },
     "pabrai-af56eda3b8814e": {
       "at": "2026-11-26T00:47:56+00:00",
@@ -4726,5 +4726,5 @@
       "reason": "ValueError: Bilingual editorial review: The English translation in the 'content' section contains a factual error regarding the timeline: it states Li Lu spent a full year studying Buffett/Munger/Berkshire and then bought his first stock 'a year later', implying a total of two years before starting his career. The source text (s4) says he studied for 'a whole "
     }
   },
-  "updatedAt": "2026-11-26T01:02:51+00:00"
+  "updatedAt": "2026-11-26T01:04:08+00:00"
 }
