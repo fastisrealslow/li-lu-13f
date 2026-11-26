@@ -4161,12 +4161,12 @@
       "reason": "ValueError: Bilingual editorial review: The source text (s20-s23) does not contain the specific phrase 'fallacy of assuming a single price' or explicitly name this concept as a 'fallacy'. The content describes market dynamics and price uncertainty but does not use the canonical term 'Fallacy of a Single Price Assumption'.; The source text (s20-s23) mentions 'G"
     },
     "marks-7344b034ec8674": {
-      "at": "2026-11-23T21:22:38+00:00",
+      "at": "2026-11-26T23:01:33+00:00",
       "status": "retry",
       "inputHash": "5c58de2b81d494135eda1d25841bb0d17387e197cab07f969356042c7b0f99f8",
-      "failures": 6,
-      "nextAttemptAt": "2026-11-26T21:22:38+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English paraphrase incorrectly states 'stocks no longer require a 6-7% threshold' when the source (s10) says investors won't go into stocks *unless* they get 6-7%, implying the required return is now higher relative to the new risk-free rate, not lower. The original text argues that with a 1% risk-free rate, 4% is th"
+      "failures": 7,
+      "nextAttemptAt": "2026-11-29T23:01:33+00:00",
+      "reason": "ValueError: Bilingual editorial review: s10 claims 'now 4% is the right rate for the 10-year (not 6%)', but s7 states investors need 6-7% to go into stocks; s10 conflates bond yields with equity thresholds without clarifying that 4% refers to bonds while 6-7% refers to stocks.; s10 says 'junk bonds may not be worth it at yields below 7%', yet s7 implies junk b"
     },
     "marks-a7349c82108581": {
       "at": "2026-11-24T05:14:09+00:00",
@@ -4726,5 +4726,5 @@
       "reason": "ValueError: Bilingual editorial review: The English translation uses 'ownership contracts' instead of 'shares' or 'equity', which is imprecise for stock markets.; The phrase 'critical mass (meaning most or all...)' adds explanatory text not present in the source.; The translation states 'laziness and greed' directly, whereas the source says 'lazy and greedy', "
     }
   },
-  "updatedAt": "2026-11-26T22:58:44+00:00"
+  "updatedAt": "2026-11-26T23:01:33+00:00"
 }
