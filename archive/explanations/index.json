@@ -2548,12 +2548,12 @@
       "reason": "ValueError: Bilingual editorial review: The content incorrectly states Buffett did not discuss Management Buyouts (MBO); while MBOs are a separate topic, the letter's focus on Coca-Cola and Gillette implicitly supports acquisition logic, but the text does not explicitly address 'MBO' as a strategy.; The claim that Buffett 'did not discuss management buyouts' i"
     },
     "buffett-a18ed90fc42670": {
-      "at": "2026-11-23T20:46:40+00:00",
+      "at": "2026-11-26T22:11:26+00:00",
       "status": "retry",
       "inputHash": "0cbe0d06ba075a0bc6f90ed52c4ee7f80443bc41eaaaa6f6d3e8556992297b65",
-      "failures": 6,
-      "nextAttemptAt": "2026-11-26T20:46:40+00:00",
-      "reason": "ValueError: Copied source passage"
+      "failures": 7,
+      "nextAttemptAt": "2026-11-29T22:11:26+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English translation contains a factual error: it states 'undistributed profits' were predicted and came to '$40 million', but the source text (s7) specifies these are 'undistributed operating earnings'.; The English translation incorrectly claims this figure was 'completely not included in reported earnings'. The sou"
     },
     "webb-0ba17a64cdb8de": {
       "at": "2026-11-25T15:06:34+00:00",
@@ -4726,5 +4726,5 @@
       "reason": "ValueError: Bilingual editorial review: The English translation in `content.paragraphs[0]` incorrectly translates 'borrowed money' as 'funds', losing the specific meaning of leverage/debt. Correction: 'bought his first stock with borrowed money'.; The Chinese text adds 'driving growth' (which is implied but not explicitly stated as a direct result in the sourc"
     }
   },
-  "updatedAt": "2026-11-26T22:11:22+00:00"
+  "updatedAt": "2026-11-26T22:11:26+00:00"
 }
