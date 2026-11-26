@@ -3033,12 +3033,12 @@
       "reason": "ValueError: No supported arguments in source"
     },
     "marks-03b5c3b2f8cbe5": {
-      "at": "2026-11-23T09:08:52+00:00",
+      "at": "2026-11-26T22:18:57+00:00",
       "status": "retry",
       "inputHash": "9d2d022252965978660a42fbcc1f84eff42b24574838abb09ba299325f58381c",
-      "failures": 6,
-      "nextAttemptAt": "2026-11-26T09:08:52+00:00",
-      "reason": "ValueError: Incomplete AI Review at 1800 tokens"
+      "failures": 7,
+      "nextAttemptAt": "2026-11-29T22:18:57+00:00",
+      "reason": "ValueError: Bilingual editorial review: The source text (s3) does not mention 'Marc Lipsitch' proposing a hierarchy of facts, inferences, and guesses; it only states that the author has mentioned him in recent memos and applies this hierarchy to economics. The attribution of the hierarchy to Lipsitch is an external assumption not found in the provided evidence"
     },
     "marks-feeacb8823121d": {
       "at": "2026-11-26T00:53:42+00:00",
@@ -4726,5 +4726,5 @@
       "reason": "ValueError: Bilingual editorial review: The English translation in `content.paragraphs[0]` incorrectly translates 'borrowed money' as 'funds', losing the specific meaning of leverage/debt. Correction: 'bought his first stock with borrowed money'.; The Chinese text adds 'driving growth' (which is implied but not explicitly stated as a direct result in the sourc"
     }
   },
-  "updatedAt": "2026-11-26T22:17:57+00:00"
+  "updatedAt": "2026-11-26T22:18:57+00:00"
 }
