@@ -3105,12 +3105,12 @@
       "reason": "ValueError: Unsupported numerical claim: 95%"
     },
     "marks-84d025a64e4210": {
-      "at": "2026-11-22T17:22:53+00:00",
+      "at": "2026-11-26T01:19:50+00:00",
       "status": "retry",
       "inputHash": "b9784dfcd19157a15d8221adfad6f031867730672c4637e3126a5dd63f8afe47",
-      "failures": 6,
-      "nextAttemptAt": "2026-11-25T17:22:53+00:00",
-      "reason": "ValueError: Incomplete AI Review at 1800 tokens"
+      "failures": 7,
+      "nextAttemptAt": "2026-11-29T01:19:50+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English translation in the content section incorrectly states 'Silicon Bank' instead of 'Silicon Valley Bank', which is a factual error regarding the entity's name.; The English translation omits the specific detail that low rates made it 'cheap to avoid default and bankruptcy', a key point present in the source text"
     },
     "marks-c2f73bb78fc82d": {
       "at": "2026-11-25T13:19:19+00:00",
@@ -4726,5 +4726,5 @@
       "reason": "ValueError: Bilingual editorial review: The English translation in the 'content' section contains a factual error regarding the timeline: it states Li Lu spent a full year studying Buffett/Munger/Berkshire and then bought his first stock 'a year later', implying a total of two years before starting his career. The source text (s4) says he studied for 'a whole "
     }
   },
-  "updatedAt": "2026-11-26T01:18:58+00:00"
+  "updatedAt": "2026-11-26T01:19:50+00:00"
 }
