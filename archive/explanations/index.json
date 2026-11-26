@@ -3041,12 +3041,12 @@
       "reason": "ValueError: Incomplete AI Review at 1800 tokens"
     },
     "marks-feeacb8823121d": {
-      "at": "2026-11-22T16:53:30+00:00",
+      "at": "2026-11-26T00:53:42+00:00",
       "status": "retry",
       "inputHash": "e5e52bfa60452a421610cde2368773fbe847383ffa6fa5eaec9f62594787c44f",
-      "failures": 6,
-      "nextAttemptAt": "2026-11-25T16:53:30+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English translation of the adage is inaccurate: 'the six-foot-tall person who drowned crossing the stream that was five feet deep on average' should be 'the six-foot-tall man who drowned while crossing a stream that was only five feet deep on average.'; The Chinese text incorrectly states the author's name as 'Howard"
+      "failures": 7,
+      "nextAttemptAt": "2026-11-29T00:53:42+00:00",
+      "reason": "ValueError: Unsupported numerical claim: 2008"
     },
     "marks-6a1195ae7f8bbb": {
       "at": "2026-11-25T13:10:48+00:00",
@@ -4726,5 +4726,5 @@
       "reason": "ValueError: Bilingual editorial review: The English translation in the 'content' section contains a factual error regarding the timeline: it states Li Lu spent a full year studying Buffett/Munger/Berkshire and then bought his first stock 'a year later', implying a total of two years before starting his career. The source text (s4) says he studied for 'a whole "
     }
   },
-  "updatedAt": "2026-11-26T00:52:52+00:00"
+  "updatedAt": "2026-11-26T00:53:42+00:00"
 }
