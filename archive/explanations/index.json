@@ -1064,12 +1064,12 @@
       "reason": "ValueError: Bilingual editorial review: The English translation in `content.paragraphs[0]` incorrectly attributes the view that 'even with exceptional management, mediocre moats are not ideal combinations' to Pabrai. Source `s13` states: 'We can have a situation where management is exceptional, but the moat is mediocre, and that is not so good.' The source doe"
     },
     "buffett-30a507095b61cd": {
-      "at": "2026-11-22T17:31:32+00:00",
+      "at": "2026-11-26T01:24:05+00:00",
       "status": "retry",
       "inputHash": "83760cda18c99df372c30e0bb74f7ca0e2fb64780aeb26d5e28f11724e0ac841",
-      "failures": 6,
-      "nextAttemptAt": "2026-11-25T17:31:32+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English translation in the 'content' section contains factual and grammatical errors: 'disgorge' is misinterpreted as 'paying out or distributing dividends' (Buffett's quote refers to total cash flow over time, not just dividends); 'in his minds' should be singular 'his mind'; 'sound economics' is a mistranslation of"
+      "failures": 7,
+      "nextAttemptAt": "2026-11-29T01:24:05+00:00",
+      "reason": "ValueError: Bilingual editorial review: The source states Buffett said Aesop 'did not know it was 600 BC', but the text only says he 'wasn't that smart' regarding knowing his own era; attributing ignorance of the date itself is an over-interpretation.; The source quotes the adage as 'A bird in the hand is worth two in the bush', but the content paraphrase uses"
     },
     "pabrai-ebbacc9bcedbf3": {
       "at": "2026-11-23T08:42:28+00:00",
@@ -4726,5 +4726,5 @@
       "reason": "ValueError: Bilingual editorial review: The English translation in the 'content' section contains a factual error regarding the timeline: it states Li Lu spent a full year studying Buffett/Munger/Berkshire and then bought his first stock 'a year later', implying a total of two years before starting his career. The source text (s4) says he studied for 'a whole "
     }
   },
-  "updatedAt": "2026-11-26T01:23:38+00:00"
+  "updatedAt": "2026-11-26T01:24:05+00:00"
 }
