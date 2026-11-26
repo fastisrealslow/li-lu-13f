@@ -2000,12 +2000,12 @@
       "reason": "ValueError: Unsupported numerical claim: 1967"
     },
     "pabrai-3c50faebea715c": {
-      "at": "2026-11-23T21:32:11+00:00",
+      "at": "2026-11-26T22:47:32+00:00",
       "status": "retry",
       "inputHash": "923884921b6f530b62b7d4644a7ddaebd2f8afe831a44e7d0572fb21e6cd507c",
-      "failures": 6,
-      "nextAttemptAt": "2026-11-26T21:32:11+00:00",
-      "reason": "ValueError: Bilingual editorial review: The Chinese text incorrectly states Coca-Cola originated in 'Rome, Georgia'. The source (s18) says 'started in Rome, Georgia', which is a factual error in the source itself. However, the instruction says 'Only reject a concrete material error; do not object to canonical names or stylistic preferences.' Since the source t"
+      "failures": 7,
+      "nextAttemptAt": "2026-11-29T22:47:32+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English text incorrectly states 'Warren and Charlie had passed' (passed away) when the source only says they are 'gone from the scene', which is ambiguous and does not explicitly confirm death.; The English text claims Buffett's daughter said he 'never drank plain water', whereas the source text ('water is not part o"
     },
     "vinall-82e487d25fe162": {
       "at": "2026-11-24T20:02:34+00:00",
@@ -4726,5 +4726,5 @@
       "reason": "ValueError: Bilingual editorial review: The English translation uses 'ownership contracts' instead of 'shares' or 'equity', which is imprecise for stock markets.; The phrase 'critical mass (meaning most or all...)' adds explanatory text not present in the source.; The translation states 'laziness and greed' directly, whereas the source says 'lazy and greedy', "
     }
   },
-  "updatedAt": "2026-11-26T22:45:04+00:00"
+  "updatedAt": "2026-11-26T22:47:32+00:00"
 }
