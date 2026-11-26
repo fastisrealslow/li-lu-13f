@@ -2258,12 +2258,12 @@
       "reason": "ValueError: Bilingual editorial review: The English text incorrectly states 'overhead' as '$6.6 million', whereas the source (s3) specifies this amount as corporate expenses assigned to operations but does not explicitly label it 'overhead'; the source lists 'overhead of $6.6 million' directly, so the translation is accurate, but the phrasing in the English co"
     },
     "akre-409d580b78682d": {
-      "at": "2026-11-23T08:25:40+00:00",
+      "at": "2026-11-26T00:47:23+00:00",
       "status": "retry",
       "inputHash": "36e267ef9ae8eef66d883fce2d4faaf9b3f9d8bdb4a9b57c924ba70cf4c8a1b4",
-      "failures": 5,
-      "nextAttemptAt": "2026-11-26T00:25:40+00:00",
-      "reason": "ValueError: Copied source passage"
+      "failures": 6,
+      "nextAttemptAt": "2026-11-29T00:47:23+00:00",
+      "reason": "ValueError: Bilingual editorial review: The Chinese text contains an unverified claim: 'reinvestment is a core element distinguishing successful enterprises from mediocre ones' (reinvestment is a core element distinguishing successful enterprises from mediocre ones). The source text does not make this specific comparative distinction; it only states that reinv"
     },
     "buffett-c2573b3eeb21ad": {
       "at": "2026-11-25T13:38:07+00:00",
@@ -4726,5 +4726,5 @@
       "reason": "ValueError: Bilingual editorial review: The English translation in the 'content' section contains a factual error regarding the timeline: it states Li Lu spent a full year studying Buffett/Munger/Berkshire and then bought his first stock 'a year later', implying a total of two years before starting his career. The source text (s4) says he studied for 'a whole "
     }
   },
-  "updatedAt": "2026-11-26T00:47:18+00:00"
+  "updatedAt": "2026-11-26T00:47:23+00:00"
 }
