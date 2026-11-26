@@ -1504,12 +1504,12 @@
       "reason": "ValueError: Unsupported scaled numerical claim: 600"
     },
     "pabrai-636da2e84a2df1": {
-      "at": "2026-11-23T09:22:30+00:00",
+      "at": "2026-11-26T22:20:58+00:00",
       "status": "retry",
       "inputHash": "9818d8800976d2faff0770df267ac6254f64d1b828dbc32efb65a4bb752ed2d1",
-      "failures": 6,
-      "nextAttemptAt": "2026-11-26T09:22:30+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English translation in 'content.paragraphs[0]' incorrectly translates 'egregious problems' as 'egregious problems' (redundant) and misinterprets the context of 'hold it when it is egregious hold' as a general rule rather than a conditional warning about holding overvalued businesses.; The English translation fails to"
+      "failures": 7,
+      "nextAttemptAt": "2026-11-29T22:20:58+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English translation incorrectly states 'over 80% of assets are often placed in areas where they should not be, such as complex derivatives markets.' The source text (s15) says 'such as life', referring to the asset class 'life' insurance/annuities, not derivatives. This is a factual error regarding the specific examp"
     },
     "pabrai-75b47c21fd6d84": {
       "at": "2026-11-25T04:35:38+00:00",
@@ -4726,5 +4726,5 @@
       "reason": "ValueError: Bilingual editorial review: The English translation in `content.paragraphs[0]` incorrectly translates 'borrowed money' as 'funds', losing the specific meaning of leverage/debt. Correction: 'bought his first stock with borrowed money'.; The Chinese text adds 'driving growth' (which is implied but not explicitly stated as a direct result in the sourc"
     }
   },
-  "updatedAt": "2026-11-26T22:18:57+00:00"
+  "updatedAt": "2026-11-26T22:20:58+00:00"
 }
