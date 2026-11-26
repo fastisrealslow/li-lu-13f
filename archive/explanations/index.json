@@ -1752,12 +1752,12 @@
       "reason": "ValueError: Bilingual editorial review: The content section contains a major factual error: it claims Pabrai is clarifying that he is not in the insurance industry and does not discuss acquisition strategies or concentrated investing. This contradicts the evidence (s2-s4), where Pabrai explicitly discusses 'cloning' business models, 'hedge fund universe', 'Buf"
     },
     "pabrai-87529cf106b12a": {
-      "at": "2026-11-22T17:26:56+00:00",
+      "at": "2026-11-26T01:21:07+00:00",
       "status": "retry",
       "inputHash": "ac633bc3786100b500ba0893eb8ed436234930d450cee71e509dc3ba9f588c83",
-      "failures": 6,
-      "nextAttemptAt": "2026-11-25T17:26:56+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English translation in the 'content' section contains a critical factual error: it states Pabrai's daughter's company is a 'beauty product company', whereas the source text (s4) explicitly refers to it as a 'beauty product stash startup'. While 'stash' implies a collection, the context of 'four of them who started th"
+      "failures": 7,
+      "nextAttemptAt": "2026-11-29T01:21:07+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English translation contains a factual error: it states 'co-founded by his daughter and three others' (four founders total), but the source text only mentions 'one of them is a very gifted chemist' among 'four of them who started this kind of beauty product stash startup'. The source does not explicitly confirm there"
     },
     "pabrai-669ee549324b11": {
       "at": "2026-11-23T21:04:47+00:00",
@@ -4726,5 +4726,5 @@
       "reason": "ValueError: Bilingual editorial review: The English translation in the 'content' section contains a factual error regarding the timeline: it states Li Lu spent a full year studying Buffett/Munger/Berkshire and then bought his first stock 'a year later', implying a total of two years before starting his career. The source text (s4) says he studied for 'a whole "
     }
   },
-  "updatedAt": "2026-11-26T01:20:26+00:00"
+  "updatedAt": "2026-11-26T01:21:07+00:00"
 }
