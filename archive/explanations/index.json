@@ -2540,12 +2540,12 @@
       "reason": "ValueError: Bilingual editorial review: The English paragraph incorrectly states 'Blue Chip Stamps' owns 80% of Wesco Financial Corporation', whereas source s38 says 'Berkshire...owns about 60% of Blue Chip Stamps which, in turn, owns 80% of Wesco Financial Corporation'. The Chinese text correctly attributes the 80% ownership to Blue Chip Stamps.; The English "
     },
     "buffett-85b7099c08190e": {
-      "at": "2026-11-23T08:55:16+00:00",
+      "at": "2026-11-26T09:45:45+00:00",
       "status": "retry",
       "inputHash": "f62898e78280e64cd0a498450925dbaae39f864057c6984f393685245739c21a",
-      "failures": 6,
-      "nextAttemptAt": "2026-11-26T08:55:16+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English translation of s8 misquotes Ben Graham's famous quote by omitting the word 'long' in 'long-run', rendering it as 'long- run' with a hyphen that breaks the standard phrasing. The correct quote is: 'In the short-run, the market is a voting machine... but in the long-run, the market is a weighing machine.'; The "
+      "failures": 7,
+      "nextAttemptAt": "2026-11-29T09:45:45+00:00",
+      "reason": "ValueError: Bilingual editorial review: The content incorrectly states Buffett did not discuss Management Buyouts (MBO); while MBOs are a separate topic, the letter's focus on Coca-Cola and Gillette implicitly supports acquisition logic, but the text does not explicitly address 'MBO' as a strategy.; The claim that Buffett 'did not discuss management buyouts' i"
     },
     "buffett-a18ed90fc42670": {
       "at": "2026-11-23T20:46:40+00:00",
@@ -4726,5 +4726,5 @@
       "reason": "ValueError: Bilingual editorial review: The English translation in `content.paragraphs[0]` incorrectly translates 'borrowed money' as 'funds', losing the specific meaning of leverage/debt. Correction: 'bought his first stock with borrowed money'.; The Chinese text adds 'driving growth' (which is implied but not explicitly stated as a direct result in the sourc"
     }
   },
-  "updatedAt": "2026-11-26T09:39:37+00:00"
+  "updatedAt": "2026-11-26T09:45:45+00:00"
 }
