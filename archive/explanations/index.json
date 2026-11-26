@@ -1400,12 +1400,12 @@
       "reason": "ValueError: Unsupported numerical claim: 1999"
     },
     "pabrai-f3593335049251": {
-      "at": "2026-11-23T09:11:51+00:00",
+      "at": "2026-11-26T22:12:58+00:00",
       "status": "retry",
       "inputHash": "282f660b324229fd9e891811e33df4630c2991ccc5a2240d92a5a2a6165ca686",
-      "failures": 6,
-      "nextAttemptAt": "2026-11-26T09:11:51+00:00",
-      "reason": "ValueError: Bilingual editorial review: The source text (evidence s2) does not contain the metaphor 'different people are like different fingers in your hand'. The actual quote is: 'Different people are like different fingers in your hand. Some are tall, some are short, some are ahead of you, and some are behind you.'; The source text does not mention Bengali "
+      "failures": 7,
+      "nextAttemptAt": "2026-11-29T22:12:58+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English translation of 'NEET' is correct as it is a proper noun for an Indian medical entrance exam.; The phrase 'post-natal effort' in the analysis section is slightly imprecise compared to the source's context of 'student phase' vs. 'mid-to-late twenties', but does not constitute a factual error requiring rejection"
     },
     "pabrai-276244f32cb972": {
       "at": "2026-11-26T00:47:18+00:00",
@@ -4726,5 +4726,5 @@
       "reason": "ValueError: Bilingual editorial review: The English translation in `content.paragraphs[0]` incorrectly translates 'borrowed money' as 'funds', losing the specific meaning of leverage/debt. Correction: 'bought his first stock with borrowed money'.; The Chinese text adds 'driving growth' (which is implied but not explicitly stated as a direct result in the sourc"
     }
   },
-  "updatedAt": "2026-11-26T22:11:26+00:00"
+  "updatedAt": "2026-11-26T22:12:58+00:00"
 }
