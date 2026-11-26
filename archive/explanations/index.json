@@ -4385,12 +4385,12 @@
       "reason": "ValueError: Copied source passage"
     },
     "mclemore-e2f1a12640c4d3": {
-      "at": "2026-11-22T17:13:34+00:00",
+      "at": "2026-11-26T01:01:35+00:00",
       "status": "retry",
       "inputHash": "34699a1d30b5ea3d40ff36369cd56a3837b23611f7f9a0c80b4c49a5d4ab42a8",
-      "failures": 6,
-      "nextAttemptAt": "2026-11-25T17:13:34+00:00",
-      "reason": "ValueError: Bilingual editorial review: The Chinese translation incorrectly translates 'hyperbolic discounting' as 'super-experiential discounting' (should be 'hyperbolic discounting').; The Chinese translation misinterprets the Freakonomics analogy: it claims agents sell their own houses longer to maximize price, whereas the source states they sell client hou"
+      "failures": 7,
+      "nextAttemptAt": "2026-11-29T01:01:35+00:00",
+      "reason": "ValueError: Bilingual editorial review: The source text does not explicitly state the specific percentage increase in sale price for realtors selling their own homes (it says '3%+' but the reasoning about income outweighing effort is implied rather than stated as a fact).; The source mentions 'wounds left from 2008' as a possible influence on advisors' behavio"
     },
     "mclemore-3cfab01d768cef": {
       "at": "2026-11-25T15:20:38+00:00",
@@ -4726,5 +4726,5 @@
       "reason": "ValueError: Bilingual editorial review: The English translation in the 'content' section contains a factual error regarding the timeline: it states Li Lu spent a full year studying Buffett/Munger/Berkshire and then bought his first stock 'a year later', implying a total of two years before starting his career. The source text (s4) says he studied for 'a whole "
     }
   },
-  "updatedAt": "2026-11-26T01:01:26+00:00"
+  "updatedAt": "2026-11-26T01:01:35+00:00"
 }
