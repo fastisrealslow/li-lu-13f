@@ -1112,12 +1112,12 @@
       "reason": "ValueError: Bilingual editorial review: The source text does not mention a 'high hit rate paradox' (s10 states Buffett's hit rate is low at 3%, but the term 'paradox' and its framing as a contradiction to high success rates are editorial additions not found in the text).; The source text does not state that Warren Buffett generated ideas with a 'low success ra"
     },
     "pabrai-c601c5640111d6": {
-      "at": "2026-11-23T09:16:39+00:00",
+      "at": "2026-11-26T22:24:28+00:00",
       "status": "retry",
       "inputHash": "e32bcdfbc843caa48fc9a723c3c99199d434cc9ba64e75c22a923297ef257ea6",
-      "failures": 6,
-      "nextAttemptAt": "2026-11-26T09:16:39+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English text incorrectly states 'withdraw money directly from his wallet' (s25) as if it were a physical action; the source describes a conceptual arrangement where the brother sat them down to explain they could 'go to the purse and just take the money,' implying access rather than a specific withdrawal procedure. T"
+      "failures": 7,
+      "nextAttemptAt": "2026-11-29T22:24:28+00:00",
+      "reason": "ValueError: Bilingual editorial review: The source text (s25) contains the phrase 'any reason', but the Chinese translation uses 'for any reason' which is accurate; however, the English paraphrase in the content section adds 'without reporting usage or amounts' explicitly, while the source says 'you never need to tell me how much money you have taken, you neve"
     },
     "lilu-f9c5b8c9904f52": {
       "at": "2026-11-26T09:05:26+00:00",
@@ -4726,5 +4726,5 @@
       "reason": "ValueError: Bilingual editorial review: The English translation in `content.paragraphs[0]` incorrectly translates 'borrowed money' as 'funds', losing the specific meaning of leverage/debt. Correction: 'bought his first stock with borrowed money'.; The Chinese text adds 'driving growth' (which is implied but not explicitly stated as a direct result in the sourc"
     }
   },
-  "updatedAt": "2026-11-26T22:22:50+00:00"
+  "updatedAt": "2026-11-26T22:24:28+00:00"
 }
