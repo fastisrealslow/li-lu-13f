@@ -702,12 +702,12 @@
       "reason": "ValueError: Copied source passage"
     },
     "buffett-22ca2b1753bbf7": {
-      "at": "2026-11-22T17:23:53+00:00",
+      "at": "2026-11-26T01:24:50+00:00",
       "status": "retry",
       "inputHash": "c1511bc2269132e37165346e044bb5e43483a0c1aa2faa45ec1be2f4f6ec7608",
-      "failures": 6,
-      "nextAttemptAt": "2026-11-25T17:23:53+00:00",
-      "reason": "ValueError: Unsupported scaled numerical claim: 1.9"
+      "failures": 7,
+      "nextAttemptAt": "2026-11-29T01:24:50+00:00",
+      "reason": "ValueError: Bilingual editorial review: The source text (s91) states Buffett consumes 'about 700 calories a day from Coca-Cola', but the content claims this is an annual total ('per day' vs 'annually'). The correction should clarify the unit is daily, not annual.; The source text (s92) mentions '150 pounds of dry weight sugar here and 125 pounds', implying a c"
     },
     "buffett-b48d3fa3cf6de8": {
       "at": "2026-11-25T12:56:20+00:00",
@@ -4726,5 +4726,5 @@
       "reason": "ValueError: Bilingual editorial review: The English translation in the 'content' section contains a factual error regarding the timeline: it states Li Lu spent a full year studying Buffett/Munger/Berkshire and then bought his first stock 'a year later', implying a total of two years before starting his career. The source text (s4) says he studied for 'a whole "
     }
   },
-  "updatedAt": "2026-11-26T01:24:46+00:00"
+  "updatedAt": "2026-11-26T01:24:50+00:00"
 }
