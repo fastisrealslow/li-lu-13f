@@ -1936,12 +1936,12 @@
       "reason": "ValueError: Bilingual editorial review: The English text incorrectly states 'facing 1.4 billion Chinese people alone', which misrepresents the source's meaning of having only one person against a population of 1.4 billion; it should be 'one person against 1.4 billion Chinese'.; The phrase 'international-background individuals' is slightly imprecise compared to"
     },
     "pabrai-1e956456cad67c": {
-      "at": "2026-11-23T21:20:46+00:00",
+      "at": "2026-11-26T22:39:33+00:00",
       "status": "retry",
       "inputHash": "067c627cd69870aa6bfc7d791a2ec58805940a9dbe1a08b37da77713f9f9c1e4",
-      "failures": 6,
-      "nextAttemptAt": "2026-11-26T21:20:46+00:00",
-      "reason": "ValueError: Bilingual editorial review: The source text (s2, s3) does not mention 'millions of years' or 'cognitive distortions'; it only mentions 'millennia' and 'idiosyncrasies which kind of distort reality'.; The source text (s3) states the book is by 'a new age guy in Arizona', not explicitly 'David Hawkins'. While s2 mentions 'David Hawkins', the specific"
+      "failures": 7,
+      "nextAttemptAt": "2026-11-29T22:39:33+00:00",
+      "reason": "ValueError: Bilingual editorial review: The source text (s2) does not mention David Hawkins or his book 'Power Versus Force'; this is an invented attribution in the translation.; The source text (s3) describes a log scale of lies vs. truth but does not specify examples like dyeing hair or wearing a toupee; these are fabricated details.; The source text (s2) st"
     },
     "pabrai-d1dea134078fdc": {
       "at": "2026-11-24T06:11:03+00:00",
@@ -4726,5 +4726,5 @@
       "reason": "ValueError: Bilingual editorial review: The English translation uses 'ownership contracts' instead of 'shares' or 'equity', which is imprecise for stock markets.; The phrase 'critical mass (meaning most or all...)' adds explanatory text not present in the source.; The translation states 'laziness and greed' directly, whereas the source says 'lazy and greedy', "
     }
   },
-  "updatedAt": "2026-11-26T22:37:41+00:00"
+  "updatedAt": "2026-11-26T22:39:33+00:00"
 }
