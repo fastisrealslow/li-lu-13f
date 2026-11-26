@@ -1584,12 +1584,12 @@
       "reason": "ValueError: Bilingual editorial review: The English text claims the video was posted 'around 2015 or 2016', but source s3 states Peter Thiel posted it in 2015 or 2016 while Mohnish Paolo (Pabrai) is speaking about a lecture from five to six years prior to the October 2021 session. This implies the video was posted around 2015-2016, which aligns with s3's state"
     },
     "pabrai-fc099d6ba1ac88": {
-      "at": "2026-11-22T17:01:04+00:00",
+      "at": "2026-11-26T01:02:51+00:00",
       "status": "retry",
       "inputHash": "cd6bbae9552dfc90beea8daa56d3beb3bda1d6cea2f4ce950c06d521d2e16a72",
-      "failures": 6,
-      "nextAttemptAt": "2026-11-25T17:01:04+00:00",
-      "reason": "ValueError: Bilingual editorial review: The Chinese text claims Munger invited Pabrai to his 90th birthday party; the source (s7) states he invited him for his 90th, but later mentions the 95th and 100th parties explicitly, creating a potential confusion in the summary's phrasing of the invitation timeline.; The Chinese text attributes the speculation about Bu"
+      "failures": 7,
+      "nextAttemptAt": "2026-11-29T01:02:51+00:00",
+      "reason": "ValueError: Bilingual editorial review: The Chinese text states 'next year' (2024) for the centenary, but the source (s7) says 'January 1st' without a year; however, given the interview date is June 28, 2023, and Munger was born in Jan 1940, his 100th birthday is indeed Jan 1, 2040. The text implies an immediate 'next year', which contradicts the actual timeli"
     },
     "pabrai-99a0eff7272af5": {
       "at": "2026-11-22T17:03:17+00:00",
@@ -4726,5 +4726,5 @@
       "reason": "ValueError: Bilingual editorial review: The English translation in the 'content' section contains a factual error regarding the timeline: it states Li Lu spent a full year studying Buffett/Munger/Berkshire and then bought his first stock 'a year later', implying a total of two years before starting his career. The source text (s4) says he studied for 'a whole "
     }
   },
-  "updatedAt": "2026-11-26T01:02:06+00:00"
+  "updatedAt": "2026-11-26T01:02:51+00:00"
 }
