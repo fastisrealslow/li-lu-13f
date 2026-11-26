@@ -3225,12 +3225,12 @@
       "reason": "ValueError: Unsupported numerical claim: 7"
     },
     "marks-cbe22289f97d98": {
-      "at": "2026-11-23T20:49:14+00:00",
+      "at": "2026-11-26T22:26:48+00:00",
       "status": "retry",
       "inputHash": "4e40c594ccf6785641936ce41784939d25440331523a8e33417e1d6040e85315",
-      "failures": 6,
-      "nextAttemptAt": "2026-11-26T20:49:14+00:00",
-      "reason": "ValueError: Bilingual editorial review: The source text (s4-s6) does not contain a dialogue where Howard Marks advises against depositing money; it records his initial suggestion ('Put it in the bank') followed by his realization of the negative rate consequence. The paraphrase incorrectly states 'he then advised against depositing' and implies he conceded to "
+      "failures": 7,
+      "nextAttemptAt": "2026-11-29T22:26:48+00:00",
+      "reason": "ValueError: Bilingual editorial review: The source text (s5) contains a direct quote from Howard Marks: 'Okay, then don't put it in the bank.' The provided content paraphrase states: 'Marks responded that if losses were inevitable, he should not deposit the money'. While factually consistent with the quote, the phrasing is an editorial interpretation rather th"
     },
     "marks-a8162651bb160c": {
       "at": "2026-11-23T21:28:59+00:00",
@@ -4726,5 +4726,5 @@
       "reason": "ValueError: Bilingual editorial review: The English translation in `content.paragraphs[0]` incorrectly translates 'borrowed money' as 'funds', losing the specific meaning of leverage/debt. Correction: 'bought his first stock with borrowed money'.; The Chinese text adds 'driving growth' (which is implied but not explicitly stated as a direct result in the sourc"
     }
   },
-  "updatedAt": "2026-11-26T22:26:18+00:00"
+  "updatedAt": "2026-11-26T22:26:48+00:00"
 }
