@@ -1672,12 +1672,12 @@
       "reason": "ValueError: Bilingual editorial review: The source text (s3) states: 'a company selling what it will earn in a single year if uncovered will prove to be dear.' The translation claims the price is 'too high' (dear), but the original phrasing implies the market has already priced in the earnings, making the stock appear cheap or mispriced relative to its actual "
     },
     "pabrai-a0c9e522d9ad82": {
-      "at": "2026-11-23T08:26:51+00:00",
+      "at": "2026-11-26T09:03:58+00:00",
       "status": "retry",
       "inputHash": "0241f2def714cf75ccb61373d60a9781b4503f26507344dce3f64990d6be03aa",
-      "failures": 6,
-      "nextAttemptAt": "2026-11-26T08:26:51+00:00",
-      "reason": "ValueError: Unsupported numerical claim: 1970"
+      "failures": 7,
+      "nextAttemptAt": "2026-11-29T09:03:58+00:00",
+      "reason": "ValueError: Unsupported numerical claim: 20"
     },
     "pabrai-755cc25db2cee7": {
       "at": "2026-11-24T20:29:51+00:00",
@@ -4726,5 +4726,5 @@
       "reason": "ValueError: Bilingual editorial review: The English translation in the 'content' section contains a factual error regarding the timeline: it states Li Lu spent a full year studying Buffett/Munger/Berkshire and then bought his first stock 'a year later', implying a total of two years before starting his career. The source text (s4) says he studied for 'a whole "
     }
   },
-  "updatedAt": "2026-11-26T09:03:29+00:00"
+  "updatedAt": "2026-11-26T09:03:58+00:00"
 }
