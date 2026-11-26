@@ -1032,12 +1032,12 @@
       "reason": "JSONDecodeError: Expecting ',' delimiter: line 4 column 486 (char 521)"
     },
     "lilu-f461b1db08860a": {
-      "at": "2026-11-22T16:50:58+00:00",
+      "at": "2026-11-26T00:58:20+00:00",
       "status": "retry",
       "inputHash": "fe91358b1b252370a4dd769dcd3ebb85d02ab09ddb38e56614b6670717f30b3c",
-      "failures": 6,
-      "nextAttemptAt": "2026-11-25T16:50:58+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English translation of the evidence text (s5) is missing; only the Chinese paragraph content is provided in the source data.; The English translation of the main body paragraphs contains significant factual and stylistic errors: it misattributes the speaker's emotion as 'joy' when the original Chinese describes 'reli"
+      "failures": 7,
+      "nextAttemptAt": "2026-11-29T00:58:20+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English translation in the 'content' section contains an editorial interpretation ('referred to in the text simply as') not present in the source evidence.; The English translation adds specific phrasing ('deep understanding', 'heart of education', 'cornerstones of Western civilization') that expands beyond the liter"
     },
     "lilu-cd61a9ec3c93bd": {
       "at": "2026-11-23T09:28:55+00:00",
@@ -4726,5 +4726,5 @@
       "reason": "ValueError: Bilingual editorial review: The English translation in the 'content' section contains a factual error regarding the timeline: it states Li Lu spent a full year studying Buffett/Munger/Berkshire and then bought his first stock 'a year later', implying a total of two years before starting his career. The source text (s4) says he studied for 'a whole "
     }
   },
-  "updatedAt": "2026-11-26T00:57:15+00:00"
+  "updatedAt": "2026-11-26T00:58:20+00:00"
 }
