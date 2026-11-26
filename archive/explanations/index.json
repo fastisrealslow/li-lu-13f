@@ -2306,12 +2306,12 @@
       "reason": "ValueError: Bilingual editorial review: The English translation of the evidence text in s0 contains a factual error: it states 'per-share book value grew from $19 to $10,083' while the source text says '$19 to $10,083'. The source explicitly states the per-share growth is from $19 to $10,083, but the translation incorrectly implies a different starting or endi"
     },
     "buffett-5ac84a1f6e89c4": {
-      "at": "2026-11-22T17:18:51+00:00",
+      "at": "2026-11-26T01:26:45+00:00",
       "status": "retry",
       "inputHash": "ef31d06c81472ba7b921f9efbc58c0edb39848d7b365ad990e252b3f3dcd2d52",
-      "failures": 6,
-      "nextAttemptAt": "2026-11-25T17:18:51+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English translation incorrectly states the S&P 500 total return as 'only 11,196% (pre-tax)', whereas the source text explicitly notes that S&P 500 numbers are pre-tax and Berkshire numbers are after-tax. The phrasing implies a negative comparison ('only') not present in the source.; The English translation claims Buf"
+      "failures": 7,
+      "nextAttemptAt": "2026-11-29T01:26:45+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English translation in the 'content' section contains a factual error regarding the source text: it states that Buffett and Munger 'jointly argue' (present tense) and that their view is 'held by Buffett himself', whereas the source (s7) explicitly states they wrote separately ('each wrote his views') and did not chan"
     },
     "buffett-3d2de219cbd196": {
       "at": "2026-11-24T19:48:50+00:00",
@@ -4726,5 +4726,5 @@
       "reason": "ValueError: Bilingual editorial review: The English translation in the 'content' section contains a factual error regarding the timeline: it states Li Lu spent a full year studying Buffett/Munger/Berkshire and then bought his first stock 'a year later', implying a total of two years before starting his career. The source text (s4) says he studied for 'a whole "
     }
   },
-  "updatedAt": "2026-11-26T01:24:50+00:00"
+  "updatedAt": "2026-11-26T01:26:45+00:00"
 }
