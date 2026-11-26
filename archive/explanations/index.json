@@ -598,12 +598,12 @@
       "reason": "ValueError: Bilingual editorial review: The Chinese text incorrectly states 'Prosus's value consists primarily of its stake in 10 cent, which is over 100% of its net asset value' (evidence s13). The source says the stake is 'over 100% of its net asset value', implying the stake exceeds the company's NAV, not that the stake itself is 100%+ of NAV. This phrasing"
     },
     "buffett-0dffc205cf0707": {
-      "at": "2026-11-23T21:17:53+00:00",
+      "at": "2026-11-26T23:05:24+00:00",
       "status": "retry",
       "inputHash": "1d76788f6afc3705ee7312a9df35d32e151aa4a046a084d5a6cdc80fb154b0d8",
-      "failures": 6,
-      "nextAttemptAt": "2026-11-26T21:17:53+00:00",
-      "reason": "ValueError: Bilingual editorial review: The source text (s0) states 'It doesn't feel exactly like an annual meeting' and 'particularly doesn't feel like an annual meeting because my partner... is not sitting up here.' The content section paraphrases this as 'the meeting atmosphere felt different due to the absence of his long-time partner Charlie Munger,' whic"
+      "failures": 7,
+      "nextAttemptAt": "2026-11-29T23:05:24+00:00",
+      "reason": "ValueError: Bilingual editorial review: The Chinese text contains a factual error regarding Ajit Jain's location. The source (s2) states he is 'safely in New York', but the translation claims he did not travel to Omaha due to scheduling arrangements and confirmed his safety there. While the source doesn't explicitly state why he didn't travel, it does confirm "
     },
     "pabrai-7cdabeb4fe63b6": {
       "at": "2026-11-25T04:20:57+00:00",
@@ -4726,5 +4726,5 @@
       "reason": "ValueError: Bilingual editorial review: The English translation uses 'ownership contracts' instead of 'shares' or 'equity', which is imprecise for stock markets.; The phrase 'critical mass (meaning most or all...)' adds explanatory text not present in the source.; The translation states 'laziness and greed' directly, whereas the source says 'lazy and greedy', "
     }
   },
-  "updatedAt": "2026-11-26T23:04:32+00:00"
+  "updatedAt": "2026-11-26T23:05:24+00:00"
 }
