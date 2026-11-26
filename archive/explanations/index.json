@@ -1840,12 +1840,12 @@
       "reason": "ValueError: Unsupported numerical claim: 7"
     },
     "pabrai-ca1a86e32f1581": {
-      "at": "2026-11-22T17:33:45+00:00",
+      "at": "2026-11-26T01:43:46+00:00",
       "status": "retry",
       "inputHash": "1f51254f2c7a117b7e1ad2e45877ded41d7167d56c04a60232acd7581da2151c",
-      "failures": 6,
-      "nextAttemptAt": "2026-11-25T17:33:45+00:00",
-      "reason": "ValueError: Copied source passage"
+      "failures": 7,
+      "nextAttemptAt": "2026-11-29T01:43:46+00:00",
+      "reason": "ValueError: Bilingual editorial review: The source text (s18) states the stock price was '4 or $5', while s20 mentions a 10% asset limit. The summary correctly reflects these details without inventing new claims.; The phrase 'liquidation value' in the summary corresponds to 'liquidation value' in s18, which is accurate.; The summary accurately captures Pabrai'"
     },
     "vinall-733efaf9628935": {
       "at": "2026-11-25T03:51:00+00:00",
@@ -4726,5 +4726,5 @@
       "reason": "ValueError: Bilingual editorial review: The English translation in the 'content' section contains a factual error regarding the timeline: it states Li Lu spent a full year studying Buffett/Munger/Berkshire and then bought his first stock 'a year later', implying a total of two years before starting his career. The source text (s4) says he studied for 'a whole "
     }
   },
-  "updatedAt": "2026-11-26T01:42:40+00:00"
+  "updatedAt": "2026-11-26T01:43:46+00:00"
 }
