@@ -1264,12 +1264,12 @@
       "reason": "ValueError: Bilingual editorial review: The English translation in the 'content' section contains factual errors regarding the source text: it misquotes Graham's '18 months' claim as applying universally when the source only attributes it to Graham without universal application; it invents a specific '9 days' duration for price distortion in Turkey which is no"
     },
     "pabrai-56b8c04cb25a32": {
-      "at": "2026-11-22T16:48:19+00:00",
+      "at": "2026-11-26T00:50:20+00:00",
       "status": "retry",
       "inputHash": "54b7c9fb9a8ee008ffe080419bc55ebd4052407d67bb0a004fe685545cb03e43",
-      "failures": 6,
-      "nextAttemptAt": "2026-11-25T16:48:19+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English translation of 'Stable Boy Selections' as 'newsletter' is inaccurate; the source text describes it as a publication sold to bettors, likely a betting slip or guide, not a standard newsletter.; The claim that Buffett's strategy 'violates' efficient market theory is an editorial interpretation not explicitly st"
+      "failures": 7,
+      "nextAttemptAt": "2026-11-29T00:50:20+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English translation of 'Stable Boy Selections' is accurate; however, the Chinese text translates it as 'stable boy selections', which is a literal and slightly awkward phrasing. A more natural translation might be 'Stable Boy Picks' or 'Stable Boy Choices', but since the source uses 'Selections', the current translat"
     },
     "pabrai-2dadcddfebe9d5": {
       "at": "2026-11-25T04:34:01+00:00",
@@ -4726,5 +4726,5 @@
       "reason": "ValueError: Bilingual editorial review: The English translation in the 'content' section contains a factual error regarding the timeline: it states Li Lu spent a full year studying Buffett/Munger/Berkshire and then bought his first stock 'a year later', implying a total of two years before starting his career. The source text (s4) says he studied for 'a whole "
     }
   },
-  "updatedAt": "2026-11-26T00:49:47+00:00"
+  "updatedAt": "2026-11-26T00:50:20+00:00"
 }
