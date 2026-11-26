@@ -2852,12 +2852,12 @@
       "reason": "ValueError: Unsupported numerical claim: 10"
     },
     "marks-e1667423e3df2b": {
-      "at": "2026-11-23T08:30:00+00:00",
+      "at": "2026-11-26T09:23:06+00:00",
       "status": "retry",
       "inputHash": "09d7b5357b85f87ed103d12dc32bc0d78c7bd00a009eaac0b44d0ad9d3c18f1e",
-      "failures": 6,
-      "nextAttemptAt": "2026-11-26T08:30:00+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English translation in the source content incorrectly states '25% stock price increase' instead of '25% increase' (the text says '25% stock price increase multiplied by the 4% position', implying a 25% move on the stock itself, not 25% of the portfolio).; The English translation incorrectly states 'Canary Capital' in"
+      "failures": 7,
+      "nextAttemptAt": "2026-11-29T09:23:06+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English paraphrase incorrectly states 'if the holding period is short enough' as a condition for profitability. The source (s9) says 'if the holding period is short enough' is part of the description of how trades *can* be profitable, but then immediately contrasts this with late trading being 'wrong and illegal'. Th"
     },
     "marks-49e0212382a26b": {
       "at": "2026-11-25T13:07:28+00:00",
@@ -4726,5 +4726,5 @@
       "reason": "ValueError: Bilingual editorial review: The English translation in the 'content' section contains a factual error regarding the timeline: it states Li Lu spent a full year studying Buffett/Munger/Berkshire and then bought his first stock 'a year later', implying a total of two years before starting his career. The source text (s4) says he studied for 'a whole "
     }
   },
-  "updatedAt": "2026-11-26T09:23:03+00:00"
+  "updatedAt": "2026-11-26T09:23:06+00:00"
 }
