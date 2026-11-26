@@ -4694,12 +4694,12 @@
       "reason": "ValueError: Bilingual editorial review: The English title 'Rob's 2026 Postcard from China' does not match the ASR text which refers to it as 'Rob's 2026 postcard', omitting the possessive 'Rob's' in the spoken transcript context (though this is minor).; The Chinese heading claims the content reflects a shift in 'Chinese Public Perception of AI', but the source"
     },
     "marks-3582a029e7c200": {
-      "at": "2026-11-23T08:41:19+00:00",
+      "at": "2026-11-26T09:16:25+00:00",
       "status": "retry",
       "inputHash": "1a845dca9addfdfe29ca516f82344bce7c4af1ea6d6337266479e861b249ce23",
-      "failures": 6,
-      "nextAttemptAt": "2026-11-26T08:41:19+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English translation of '0.6 to the power of four' is mathematically incorrect; it should be '0.6^4' or '0.1296'.; The text incorrectly attributes Claude's specific quote about frontier labs being 'close to binary' as something Marks notes, whereas the source indicates Claude provided this observation.; The translatio"
+      "failures": 7,
+      "nextAttemptAt": "2026-11-29T09:16:25+00:00",
+      "reason": "ValueError: Bilingual editorial review: The source text (s19) states that frontier labs score between 1 and 2 ('practically unknowable'), but the content section incorrectly attributes this specific quote to Howard Marks as if he were summarizing Claude's output. The text actually presents Claude's summary of its own judgment, not a direct quote from Marks.; T"
     },
     "mclemore-f9530f786e15f6": {
       "at": "2026-11-26T01:18:47+00:00",
@@ -4726,5 +4726,5 @@
       "reason": "ValueError: Bilingual editorial review: The English translation in the 'content' section contains a factual error regarding the timeline: it states Li Lu spent a full year studying Buffett/Munger/Berkshire and then bought his first stock 'a year later', implying a total of two years before starting his career. The source text (s4) says he studied for 'a whole "
     }
   },
-  "updatedAt": "2026-11-26T09:16:16+00:00"
+  "updatedAt": "2026-11-26T09:16:25+00:00"
 }
