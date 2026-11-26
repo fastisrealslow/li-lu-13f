@@ -1920,12 +1920,12 @@
       "reason": "ValueError: Bilingual editorial review: The English translation in the 'content' section contains a factual error: it states Pabrai believed Microsoft's valuation was 'excessively high', whereas the source text (s5) explicitly quotes him saying he thought the 'future results aren't going to be that great' and implies overvaluation through context, but does not"
     },
     "pabrai-7b63bdce3eef9a": {
-      "at": "2026-11-22T17:46:29+00:00",
+      "at": "2026-11-26T01:55:27+00:00",
       "status": "retry",
       "inputHash": "68d5f7c9f40789729bebada2a9716f4f437e424e0a4f8745b935f1986e2cd3ef",
-      "failures": 6,
-      "nextAttemptAt": "2026-11-25T17:46:29+00:00",
-      "reason": "ValueError: Bilingual editorial review: The source text (s1) states savings and credit card balances were 'under a hundred thousand', but the Chinese translation uses 'capital scale' (capital size), which is an unwritten interpretation rather than a direct paraphrase of the specific financial instrument mentioned.; The source text (s2) mentions Pabrai's father"
+      "failures": 7,
+      "nextAttemptAt": "2026-11-29T01:55:27+00:00",
+      "reason": "ValueError: Unsupported numerical claim: 100,000"
     },
     "vinall-c12bae3cc1e659": {
       "at": "2026-11-24T19:54:21+00:00",
@@ -4726,5 +4726,5 @@
       "reason": "ValueError: Bilingual editorial review: The English translation in the 'content' section contains a factual error regarding the timeline: it states Li Lu spent a full year studying Buffett/Munger/Berkshire and then bought his first stock 'a year later', implying a total of two years before starting his career. The source text (s4) says he studied for 'a whole "
     }
   },
-  "updatedAt": "2026-11-26T01:51:55+00:00"
+  "updatedAt": "2026-11-26T01:55:27+00:00"
 }
