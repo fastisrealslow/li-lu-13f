@@ -1336,12 +1336,12 @@
       "reason": "ValueError: Unsupported numerical claim: 3"
     },
     "pabrai-e3b4089e3ab4c6": {
-      "at": "2026-11-23T21:08:43+00:00",
+      "at": "2026-11-26T23:04:32+00:00",
       "status": "retry",
       "inputHash": "06482ca1be1e492edada57a7dee4873243f975fa01f5d20b8e196300bfe3c83d",
-      "failures": 6,
-      "nextAttemptAt": "2026-11-26T21:08:43+00:00",
-      "reason": "ValueError: Bilingual editorial review: Author attribution error: The source text (s8) explicitly states 'Commandment five' ('پنج‌ام'), but the content claims it is the 'second commandment' ('دومین').; Factual error in translation/interpretation: The Persian phrase 'مسیر خودکار' (automatic path) is a mistranslation of the English source's metaphorical meaning."
+      "failures": 7,
+      "nextAttemptAt": "2026-11-29T23:04:32+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English translation incorrectly states 'price-to-earnings (PE) multiples' instead of 'price/earnings (P/E) ratios'.; The phrase 'undervalued hidden PE' is a mistranslation; the source text refers to stocks trading at a P/E of 1, not an 'undervalued hidden PE' concept.; The translation claims the screen reveals stocks"
     },
     "pabrai-36450d370316ee": {
       "at": "2026-11-25T04:45:42+00:00",
@@ -4726,5 +4726,5 @@
       "reason": "ValueError: Bilingual editorial review: The English translation uses 'ownership contracts' instead of 'shares' or 'equity', which is imprecise for stock markets.; The phrase 'critical mass (meaning most or all...)' adds explanatory text not present in the source.; The translation states 'laziness and greed' directly, whereas the source says 'lazy and greedy', "
     }
   },
-  "updatedAt": "2026-11-26T23:02:28+00:00"
+  "updatedAt": "2026-11-26T23:04:32+00:00"
 }
