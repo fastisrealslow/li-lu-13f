@@ -4105,12 +4105,12 @@
       "reason": "ValueError: Unsupported numerical claim: 4%"
     },
     "marks-9befc7c45ab79c": {
-      "at": "2026-11-23T21:05:18+00:00",
+      "at": "2026-11-26T22:45:04+00:00",
       "status": "retry",
       "inputHash": "f87d717638774ef08be867023c1375b0f0d110b3ed223eba52920fb792e2e99a",
-      "failures": 6,
-      "nextAttemptAt": "2026-11-26T21:05:18+00:00",
-      "reason": "ValueError: Bilingual editorial review: The source text does not mention 'arbitrage opportunities' or 'significant excess returns'; these are editorial interpretations added in the English paragraph.; The source text does not state that Marks did not generalize about market sentiment pendulum movements; this is an unsupported claim in the English paragraph.; T"
+      "failures": 7,
+      "nextAttemptAt": "2026-11-29T22:45:04+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English translation in the content section contains a factual error: it states 'risk aversion... had reached an extreme low point', whereas the source text (s2) describes markets being at a 'negative extreme' due to concerns, implying risk aversion was at an extreme *high* point, not low. The Chinese text correctly i"
     },
     "marks-b834dc74a3b582": {
       "at": "2026-11-25T13:00:22+00:00",
@@ -4726,5 +4726,5 @@
       "reason": "ValueError: Bilingual editorial review: The English translation uses 'ownership contracts' instead of 'shares' or 'equity', which is imprecise for stock markets.; The phrase 'critical mass (meaning most or all...)' adds explanatory text not present in the source.; The translation states 'laziness and greed' directly, whereas the source says 'lazy and greedy', "
     }
   },
-  "updatedAt": "2026-11-26T22:42:02+00:00"
+  "updatedAt": "2026-11-26T22:45:04+00:00"
 }
