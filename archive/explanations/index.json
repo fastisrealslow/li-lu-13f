@@ -1760,12 +1760,12 @@
       "reason": "ValueError: Bilingual editorial review: The English translation contains a factual error: it states 'co-founded by his daughter and three others' (four founders total), but the source text only mentions 'one of them is a very gifted chemist' among 'four of them who started this kind of beauty product stash startup'. The source does not explicitly confirm there"
     },
     "pabrai-669ee549324b11": {
-      "at": "2026-11-23T21:04:47+00:00",
+      "at": "2026-11-26T22:25:05+00:00",
       "status": "retry",
       "inputHash": "3dcd814a226b27f9418794b72bf768569c96db3ad5cb45410116611497fef339",
-      "failures": 6,
-      "nextAttemptAt": "2026-11-26T21:04:47+00:00",
-      "reason": "ValueError: Unsupported numerical claim: 1"
+      "failures": 7,
+      "nextAttemptAt": "2026-11-29T22:25:05+00:00",
+      "reason": "ValueError: Bilingual editorial review: The source text (evidence s4, s5, s6) does not contain content regarding 'investment philosophy', 'practical experience in building businesses', or 'advice for MBA students on career paths'.; Evidence s4 and s5 consist of Pabrai's predictions about future efficiency improvements in the food delivery industry (e.g., cloud"
     },
     "pabrai-3e87834c3b997b": {
       "at": "2026-11-26T01:13:33+00:00",
@@ -4726,5 +4726,5 @@
       "reason": "ValueError: Bilingual editorial review: The English translation in `content.paragraphs[0]` incorrectly translates 'borrowed money' as 'funds', losing the specific meaning of leverage/debt. Correction: 'bought his first stock with borrowed money'.; The Chinese text adds 'driving growth' (which is implied but not explicitly stated as a direct result in the sourc"
     }
   },
-  "updatedAt": "2026-11-26T22:24:51+00:00"
+  "updatedAt": "2026-11-26T22:25:05+00:00"
 }
