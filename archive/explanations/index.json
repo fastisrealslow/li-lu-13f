@@ -1296,12 +1296,12 @@
       "reason": "ValueError: Unsupported scaled numerical claim: 25"
     },
     "pabrai-7bfbc5a1d4d5fb": {
-      "at": "2026-11-22T17:12:42+00:00",
+      "at": "2026-11-26T01:33:48+00:00",
       "status": "retry",
       "inputHash": "40abdca7194da6e7c6656837f07dbea65a1de6b62e4ad11d0e4b85baa2027eb6",
-      "failures": 6,
-      "nextAttemptAt": "2026-11-25T17:12:42+00:00",
-      "reason": "ValueError: Bilingual editorial review: The source text (s8) cuts off mid-sentence ('at the upper end of that wide'), so the claim about 'psychological advantages' in the English translation is an editorial inference not fully supported by the provided evidence.; The Chinese translation adds specific details like 'Texas Shoes' (source says Dexter Shoes) and 'N"
+      "failures": 7,
+      "nextAttemptAt": "2026-11-29T01:33:48+00:00",
+      "reason": "ValueError: Incomplete AI Write at 3200 tokens"
     },
     "pabrai-1fcbfca9aa46bc": {
       "at": "2026-11-23T20:44:46+00:00",
@@ -4726,5 +4726,5 @@
       "reason": "ValueError: Bilingual editorial review: The English translation in the 'content' section contains a factual error regarding the timeline: it states Li Lu spent a full year studying Buffett/Munger/Berkshire and then bought his first stock 'a year later', implying a total of two years before starting his career. The source text (s4) says he studied for 'a whole "
     }
   },
-  "updatedAt": "2026-11-26T01:33:07+00:00"
+  "updatedAt": "2026-11-26T01:33:48+00:00"
 }
