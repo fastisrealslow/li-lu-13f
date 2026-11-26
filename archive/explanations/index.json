@@ -3721,12 +3721,12 @@
       "reason": "ValueError: Unsupported numerical claim: 2008"
     },
     "marks-c486459f5b341d": {
-      "at": "2026-11-22T22:15:07+00:00",
+      "at": "2026-11-26T01:47:51+00:00",
       "status": "retry",
       "inputHash": "f821b3d52d3309518175ca94ddd28f4a730c129889cfcb05d89768d2936fa37b",
-      "failures": 6,
-      "nextAttemptAt": "2026-11-25T22:15:07+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English translation contains factual errors regarding the source text: it misattributes the $110 Brent crude price to 'six months ago' (source says 'six months ago' relative to writing time, not a fixed date) and incorrectly states bulls predicted '$115 or $120' while bears predicted '$105 or $100'; the source text d"
+      "failures": 7,
+      "nextAttemptAt": "2026-11-29T01:47:51+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English paragraph contains an invented hypothetical scenario regarding Brent crude at $110 six months ago and specific price predictions ($115/$120 for bulls, $105/$100 for bears) that are not present in the provided source text (s6). Source s6 mentions these figures but does so as a general illustration of forecasti"
     },
     "marks-01e90dde9f9adf": {
       "at": "2026-11-24T05:30:00+00:00",
@@ -4726,5 +4726,5 @@
       "reason": "ValueError: Bilingual editorial review: The English translation in the 'content' section contains a factual error regarding the timeline: it states Li Lu spent a full year studying Buffett/Munger/Berkshire and then bought his first stock 'a year later', implying a total of two years before starting his career. The source text (s4) says he studied for 'a whole "
     }
   },
-  "updatedAt": "2026-11-26T01:47:44+00:00"
+  "updatedAt": "2026-11-26T01:47:51+00:00"
 }
