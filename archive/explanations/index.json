@@ -4678,12 +4678,12 @@
       "reason": "ValueError: Bilingual editorial review: The source text does not explicitly state the year 2026; it only mentions '16 years ago' relative to the interview date (October 22, 2026), which implies 2010. While mathematically correct, the source phrasing is '16 years ago', not an explicit 'in 2010'.; The phrase 'men will eventually be separated from the boys' is a "
     },
     "mclemore-63c13891e48d9e": {
-      "at": "2026-11-23T20:59:10+00:00",
+      "at": "2026-11-26T22:56:38+00:00",
       "status": "retry",
       "inputHash": "d121fa272ec8613c54fcfa64ae7ce184e0f1f50f3f8cd4dc78b112aee6d7590e",
-      "failures": 6,
-      "nextAttemptAt": "2026-11-26T20:59:10+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English text incorrectly states revenue increased from $21.6 million to $72.9 million without explicitly mentioning the intermediate $53.1 million figure present in the source evidence (s2), though this is a minor omission rather than a factual error.; The phrase 'one quarter ahead of guidance' in the English text is"
+      "failures": 7,
+      "nextAttemptAt": "2026-11-29T22:56:38+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English text incorrectly attributes the $147.6 million revenue figure to 'just nine months' when the source states this occurred in 'nine months' but does not explicitly link it to a specific quarter count other than Q3 data; however, this is a minor inference rather than a factual error.; The English text claims rev"
     },
     "vinall-9841a594da96d9": {
       "at": "2026-11-24T20:00:57+00:00",
@@ -4726,5 +4726,5 @@
       "reason": "ValueError: Bilingual editorial review: The English translation uses 'ownership contracts' instead of 'shares' or 'equity', which is imprecise for stock markets.; The phrase 'critical mass (meaning most or all...)' adds explanatory text not present in the source.; The translation states 'laziness and greed' directly, whereas the source says 'lazy and greedy', "
     }
   },
-  "updatedAt": "2026-11-26T22:54:37+00:00"
+  "updatedAt": "2026-11-26T22:56:38+00:00"
 }
