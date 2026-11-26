@@ -4718,13 +4718,13 @@
       "reason": "ValueError: Bilingual editorial review: The English translation of 'income chain' in s8 as 'income chain' is acceptable; however, 'income distribution' or 'income bracket' might be more standard. The source uses 'income chain', so the translation should reflect this specific phrasing if fidelity is required, but 'income distribution' is a valid paraphrase for "
     },
     "lilu-49cd89506a8f58": {
-      "at": "2026-11-25T15:34:59+00:00",
+      "at": "2026-11-26T09:39:37+00:00",
       "status": "retry",
       "inputHash": "7187a7c61a1f60b8ffe081c1285b25535e2b84c79f2ac4cc3d58ca3fc231613a",
-      "failures": 1,
-      "nextAttemptAt": "2026-11-25T19:34:59+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English translation in the 'content' section contains a factual error regarding the timeline: it states Li Lu spent a full year studying Buffett/Munger/Berkshire and then bought his first stock 'a year later', implying a total of two years before starting his career. The source text (s4) says he studied for 'a whole "
+      "failures": 2,
+      "nextAttemptAt": "2026-11-26T17:39:37+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English translation in `content.paragraphs[0]` incorrectly translates 'borrowed money' as 'funds', losing the specific meaning of leverage/debt. Correction: 'bought his first stock with borrowed money'.; The Chinese text adds 'driving growth' (which is implied but not explicitly stated as a direct result in the sourc"
     }
   },
-  "updatedAt": "2026-11-26T09:38:50+00:00"
+  "updatedAt": "2026-11-26T09:39:37+00:00"
 }
