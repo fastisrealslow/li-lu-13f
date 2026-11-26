@@ -1040,12 +1040,12 @@
       "reason": "ValueError: Bilingual editorial review: The English translation in the 'content' section contains an editorial interpretation ('referred to in the text simply as') not present in the source evidence.; The English translation adds specific phrasing ('deep understanding', 'heart of education', 'cornerstones of Western civilization') that expands beyond the liter"
     },
     "lilu-cd61a9ec3c93bd": {
-      "at": "2026-11-23T09:28:55+00:00",
+      "at": "2026-11-26T22:05:33+00:00",
       "status": "retry",
       "inputHash": "e133997104dd032f27765b0d1513b83e318c1f7c64db4ae0e04bf465ede2a9a3",
-      "failures": 6,
-      "nextAttemptAt": "2026-11-26T09:28:55+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English translation omits the phrase 'natural hard ceiling' from s74, replacing it with just 'natural hard ceiling regarding resources', which is slightly redundant but acceptable; however, the original says 'limited by its natural hard ceiling and finite resources', implying two constraints. The translation merges t"
+      "failures": 7,
+      "nextAttemptAt": "2026-11-29T22:05:33+00:00",
+      "reason": "ValueError: Copied source passage"
     },
     "pabrai-d346f1bebb0f55": {
       "at": "2026-11-26T01:00:44+00:00",
@@ -4726,5 +4726,5 @@
       "reason": "ValueError: Bilingual editorial review: The English translation in `content.paragraphs[0]` incorrectly translates 'borrowed money' as 'funds', losing the specific meaning of leverage/debt. Correction: 'bought his first stock with borrowed money'.; The Chinese text adds 'driving growth' (which is implied but not explicitly stated as a direct result in the sourc"
     }
   },
-  "updatedAt": "2026-11-26T22:04:51+00:00"
+  "updatedAt": "2026-11-26T22:05:33+00:00"
 }
