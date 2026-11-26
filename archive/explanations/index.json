@@ -904,12 +904,12 @@
       "reason": "ValueError: Copied source passage"
     },
     "lilu-1abd9fac13a133": {
-      "at": "2026-11-22T17:29:37+00:00",
+      "at": "2026-11-26T01:42:40+00:00",
       "status": "retry",
       "inputHash": "0a0f97870ba74586001cffc1b0a70112c9d2162592515640edff0b78f97fdbae",
-      "failures": 6,
-      "nextAttemptAt": "2026-11-25T17:29:37+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English translation in the source content (paragraph) contains a factual error: it states 'since the Turing test nearly four years ago' without specifying the year or context, whereas the original transcript (s12) says 'nearly four years ago' relative to the speech date. The translation adds specificity not present i"
+      "failures": 7,
+      "nextAttemptAt": "2026-11-29T01:42:40+00:00",
+      "reason": "ValueError: Bilingual editorial review: The source text does not mention 'RSI' as a defined term; it only uses it in the context of the Silicon Valley narrative regarding self-made improvement. The summary defines RSI explicitly as '(fully self-made improvement)', which is an editorial interpretation not found verbatim or clearly defined in the source.; The so"
     },
     "pabrai-deed882841e367": {
       "at": "2026-11-24T20:03:44+00:00",
@@ -4726,5 +4726,5 @@
       "reason": "ValueError: Bilingual editorial review: The English translation in the 'content' section contains a factual error regarding the timeline: it states Li Lu spent a full year studying Buffett/Munger/Berkshire and then bought his first stock 'a year later', implying a total of two years before starting his career. The source text (s4) says he studied for 'a whole "
     }
   },
-  "updatedAt": "2026-11-26T01:42:35+00:00"
+  "updatedAt": "2026-11-26T01:42:40+00:00"
 }
