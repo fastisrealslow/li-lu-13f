@@ -4425,12 +4425,12 @@
       "reason": "ValueError: Bilingual editorial review: The English translation contains factual errors regarding the author's name: 'Howard Marks' is correct, but the Chinese text incorrectly uses 'Robert Digby' as a source for the South Sea Company quote without proper attribution in the original; the quote itself is attributed to Robert Digby in the source (s4), which is a"
     },
     "mclemore-2ab9591831eb1d": {
-      "at": "2026-11-22T17:01:16+00:00",
+      "at": "2026-11-26T00:57:15+00:00",
       "status": "retry",
       "inputHash": "db33b03493c9439ad8647c9d02d9979c92a46db5c44da8c6a3c1a3e6d9cd3e58",
-      "failures": 6,
-      "nextAttemptAt": "2026-11-25T17:01:16+00:00",
-      "reason": "ValueError: Incomplete AI Review at 1800 tokens"
+      "failures": 7,
+      "nextAttemptAt": "2026-11-29T00:57:15+00:00",
+      "reason": "ValueError: Bilingual editorial review: The Chinese text incorrectly states Jose Neves' compensation requires stock prices to reach $75 or $250 'by 2026 or 2029'. The source (s7) specifies a single target of $75 by 2026, with additional increments up to $250 by 2029. It does not state that the $250 target is also due in 2029 as an alternative or parallel condi"
     },
     "mclemore-24b0bf430a4f7b": {
       "at": "2026-11-22T17:21:43+00:00",
@@ -4726,5 +4726,5 @@
       "reason": "ValueError: Bilingual editorial review: The English translation in the 'content' section contains a factual error regarding the timeline: it states Li Lu spent a full year studying Buffett/Munger/Berkshire and then bought his first stock 'a year later', implying a total of two years before starting his career. The source text (s4) says he studied for 'a whole "
     }
   },
-  "updatedAt": "2026-11-26T00:57:10+00:00"
+  "updatedAt": "2026-11-26T00:57:15+00:00"
 }
