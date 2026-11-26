@@ -62,6 +62,40 @@ def recovery_decision(runs, now, max_age, needed=False, active_timeout=4, cooldo
     return {'dispatch':bool(needed or stale or failed_after_success or stalled),**cancellations,
             'reason':'stalled_run' if stalled else 'data_health' if needed else 'last_run_failed' if failed_after_success else 'overdue' if stale else 'healthy'}
 
+def personal_close_issues(data, now, calendar=None):
+    """A green pre-close run does not cover the next completed quote session."""
+    if calendar is None:
+        import exchange_calendars as xc
+        calendar=xc.get_calendar
+    from update_personal_portfolio import listing_market
+    expected={}
+    for market,exchange in (('HK','XHKG'),('CN','XSHG'),('US','XNYS')):
+        try:
+            cal=calendar(exchange)
+            local_date=now.astimezone(cal.tz).date()
+            session=cal.date_to_session(local_date, direction='previous')
+            age=now-cal.session_close(session).to_pydatetime()
+            # Give the primary job and the quote feed time to publish, and
+            # leave a buffer before the updater's eight-hour selection limit.
+            grace=timedelta(hours=2 if market=='CN' else 1)
+            if grace<=age<=timedelta(hours=7,minutes=30):
+                expected[market]=session.date().isoformat()
+        except Exception as exc:
+            print(f'::warning::Cannot determine {market} quote session: {type(exc).__name__}')
+    stale=[]
+    for company in data.get('companies',[]):
+        for listing in company.get('listings',[]):
+            ticker=listing['ticker']
+            market=listing_market(ticker)
+            target=expected.get(market)
+            if not target:continue
+            result=company.get('results',{}).get(ticker,{}).get('1',{})
+            actual=str((result.get('quote') or {}).get('asOf') or '')[:10]
+            if actual<target:
+                stale.append({'ticker':ticker,'market':market,'expected':target,'actual':actual or None})
+    return [{'code':'personal_stale_closes','details':stale}] if stale else []
+
+
 def data_health(root, now):
     from quote_coverage import coverage
     root=Path(root);issues=[]
@@ -102,6 +136,7 @@ def data_health(root, now):
         personal=json.loads(personal_path.read_text())
         if personal.get('updateStatus',{}).get('status')=='partial':
             issues.append({'code':'personal_partial','details':personal['updateStatus'].get('failures',[])})
+        issues.extend(personal_close_issues(personal,now))
     ai_path=root/'ai_supplement.json'
     if ai_path.exists():
         last=json.loads(ai_path.read_text()).get('lastRun',{})

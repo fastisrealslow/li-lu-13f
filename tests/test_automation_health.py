@@ -25,6 +25,26 @@ class AutomationHealthTests(unittest.TestCase):
                     self.assertEqual(bool(issues),status in ('partial','failed'))
                     if issues:self.assertTrue(health.plan({key:[run()] for key in health.WORKFLOWS},issues,NOW)['workflows']['data']['dispatch'])
 
+    def test_missing_asia_close_recovers_despite_green_run_without_flagging_us_holiday(self):
+        data={'companies':[{
+            'listings':[{'ticker':ticker}],
+            'results':{ticker:{'1':{'quote':{'asOf':day}}}},
+        } for ticker,day in (
+            ('0837.HK','2026-11-25'),('0460.HK','2026-11-26'),
+            ('000858.SZ','2026-11-25'),('PDD','2026-11-25'))]}
+        for hour,minute in ((8,35),(16,5)):
+            t=datetime(2026,11,26,hour,minute,tzinfo=timezone.utc)
+            self.assertEqual(health.personal_close_issues(data,t),[])
+        now=datetime(2026,11,26,12,50,tzinfo=timezone.utc)
+        problems=health.personal_close_issues(data,now)
+        self.assertEqual([r['ticker'] for r in problems[0]['details']],['0837.HK','000858.SZ'])
+        t=(now-timedelta(hours=2)).isoformat()
+        evidence={key:[dict(run(),created_at=t,updated_at=t)] for key in health.WORKFLOWS}
+        self.assertTrue(health.plan(evidence,problems,now)['workflows']['personal']['dispatch'])
+        self.assertFalse(health.plan(evidence,problems,now)['workflows']['data']['dispatch'])
+        evidence['personal'][0]['event']='workflow_dispatch'
+        self.assertEqual(health.plan(evidence,problems,now)['workflows']['personal']['reason'],'recovery_cooldown')
+
     def test_recent_success_does_not_hide_new_repeated_failures(self):
         rows=[run(4),run(3,'failure'),run(2,'failure'),run(1,'failure'),run(.5,'skipped')]
         self.assertEqual(health.persistent_failures({'pages':rows},NOW),['pages'])
