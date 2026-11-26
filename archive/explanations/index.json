@@ -1456,12 +1456,12 @@
       "reason": "ValueError: Unsupported numerical claim: 9"
     },
     "pabrai-0578ad73179b18": {
-      "at": "2026-11-22T17:00:14+00:00",
+      "at": "2026-11-26T01:08:24+00:00",
       "status": "retry",
       "inputHash": "7016c3f96a85251933e612fc0da12d4f11cfbd03ed32458c3270f89093f0b4b6",
-      "failures": 6,
-      "nextAttemptAt": "2026-11-25T17:00:14+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English translation of the title incorrectly states 'December 26, 2022' while the source text only mentions the date without specifying the year; adding a specific year is an unwritten assumption.; The English paragraph introduces the phrase 'race toward a destination,' which is not present in the source text ('journ"
+      "failures": 7,
+      "nextAttemptAt": "2026-11-29T01:08:24+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English translation in the 'content' section contains a factual error: it states Pabrai was 'advised to pursue the popular field of computer science', whereas the source text (s4) explicitly says they 'just go with what people are saying' without mentioning specific advice from others.; The English translation incorr"
     },
     "pabrai-ac73782c4fb468": {
       "at": "2026-11-22T17:53:34+00:00",
@@ -4726,5 +4726,5 @@
       "reason": "ValueError: Bilingual editorial review: The English translation in the 'content' section contains a factual error regarding the timeline: it states Li Lu spent a full year studying Buffett/Munger/Berkshire and then bought his first stock 'a year later', implying a total of two years before starting his career. The source text (s4) says he studied for 'a whole "
     }
   },
-  "updatedAt": "2026-11-26T01:07:58+00:00"
+  "updatedAt": "2026-11-26T01:08:24+00:00"
 }
