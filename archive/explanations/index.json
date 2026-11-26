@@ -4598,12 +4598,12 @@
       "reason": "ValueError: Incomplete AI Review at 1800 tokens"
     },
     "mclemore-691d3d597a3576": {
-      "at": "2026-11-23T08:49:53+00:00",
+      "at": "2026-11-26T09:20:45+00:00",
       "status": "retry",
       "inputHash": "cce8671d947d0073105915354f408c392d976660ae2d8fe2b7f0bfaa66913ba1",
-      "failures": 6,
-      "nextAttemptAt": "2026-11-26T08:49:53+00:00",
-      "reason": "ValueError: Bilingual editorial review: The Chinese text claims a 'cumulative underperformance of -150%' over 14 years. The source states '-150% vs. high multiple stocks' but does not explicitly define this as cumulative total return or specify the exact compounding mechanism for that specific percentage, though it is implied by context.; The Chinese text stat"
+      "failures": 7,
+      "nextAttemptAt": "2026-11-29T09:20:45+00:00",
+      "reason": "ValueError: Bilingual editorial review: The source text does not explicitly state that low multiple stocks underperformed high multiple stocks by '-150%'; it says they ended a period where they were -150% relative to high multiples. The phrasing 'underperformed... by -150%' is mathematically ambiguous and potentially misleading compared to the source's clearer"
     },
     "mclemore-31635267fe601b": {
       "at": "2026-10-29T04:31:38+00:00",
@@ -4726,5 +4726,5 @@
       "reason": "ValueError: Bilingual editorial review: The English translation in the 'content' section contains a factual error regarding the timeline: it states Li Lu spent a full year studying Buffett/Munger/Berkshire and then bought his first stock 'a year later', implying a total of two years before starting his career. The source text (s4) says he studied for 'a whole "
     }
   },
-  "updatedAt": "2026-11-26T09:20:41+00:00"
+  "updatedAt": "2026-11-26T09:20:45+00:00"
 }
