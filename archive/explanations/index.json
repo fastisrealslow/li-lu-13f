@@ -1104,12 +1104,12 @@
       "reason": "ValueError: Unsupported numerical claim: 500"
     },
     "pabrai-58b2cd1ba68941": {
-      "at": "2026-11-23T09:12:04+00:00",
+      "at": "2026-11-26T22:13:55+00:00",
       "status": "retry",
       "inputHash": "7df9309a6c69f755d883fd174544d687a4eba7aac6b667b98eb8876ce26c7493",
-      "failures": 6,
-      "nextAttemptAt": "2026-11-26T09:12:04+00:00",
-      "reason": "ValueError: Bilingual editorial review: The source text does not mention 'high hit rate paradox' (s10, s12); it describes a low hit rate (3%) over many bets. The term 'paradox' is editorial interpretation not found in the source.; The source states Buffett's 58-year period had approximately one great idea every five years (s10), totaling 12 ideas; the summary "
+      "failures": 7,
+      "nextAttemptAt": "2026-11-29T22:13:55+00:00",
+      "reason": "ValueError: Bilingual editorial review: The source text does not mention a 'high hit rate paradox' (s10 states Buffett's hit rate is low at 3%, but the term 'paradox' and its framing as a contradiction to high success rates are editorial additions not found in the text).; The source text does not state that Warren Buffett generated ideas with a 'low success ra"
     },
     "pabrai-c601c5640111d6": {
       "at": "2026-11-23T09:16:39+00:00",
@@ -4726,5 +4726,5 @@
       "reason": "ValueError: Bilingual editorial review: The English translation in `content.paragraphs[0]` incorrectly translates 'borrowed money' as 'funds', losing the specific meaning of leverage/debt. Correction: 'bought his first stock with borrowed money'.; The Chinese text adds 'driving growth' (which is implied but not explicitly stated as a direct result in the sourc"
     }
   },
-  "updatedAt": "2026-11-26T22:12:58+00:00"
+  "updatedAt": "2026-11-26T22:13:55+00:00"
 }
