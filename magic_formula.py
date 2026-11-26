@@ -78,13 +78,30 @@ def calculate(company, quote, years=1):
     equity = price*rate*shares/ratio
     current_facts=(company.get('latestBalance') or periods[0])['facts']
     ev = equity+latest['debt']+amount(current_facts,'minorityInterest')+amount(current_facts,'preferredEquity')-latest['cashLike']
+    balance_date = (company.get('latestBalance') or periods[0])['end']
+    bridge = []
+    for event in company.get('cashEvents', []):
+        # Before payment the cash balance is gross, even after the ex-date.
+        if event['exDate'] <= quote['asOf'] and balance_date < event['paidDate']:
+            bridge.append(dict(label=event['label'], amount=number(event['evAdjustment'])))
     reasons=[]
+    holding = company.get('listedAssociate')
+    if holding:
+        reasons.append('控股公司单列，自营估值仅扣已核实上市联营持股')
+        mark = company.get('associateQuote', {})
+        if mark.get('asOf') == quote['asOf'] and mark.get('currency') == company['currency']:
+            bridge.append(dict(label=holding['name']+'持股市值', amount=-number(holding['shares'])*number(mark['price'])))
+        else:
+            return {'status':'incomplete','reason':'等待与母公司同日同币种的联营公司报价','quote':quote,'years':years}
+    ev += sum(item['amount'] for item in bridge)
+    if years > 1 and min(p['investedCapital'] for p in parts) <= 0 < capital:
+        reasons.append('期间含非正经营资本，平均 ROC 仅展示，不参与排名')
     if ebit <= 0: reasons.append('经营利润为零或亏损')
     if capital <= 0: reasons.append('投入资本非正数，资本回报率不适用')
     if ev <= 0: reasons.append('企业价值非正数，盈利收益率不适用')
     return dict(status='ranked' if not reasons else 'not_ranked',reason='；'.join(reasons),
         capitalCaution=('三年平均资本为正，但有年度的投入资本非正数；比率对经营负债变化敏感' if years==3 and capital>0 and any(p['investedCapital']<=0 for p in parts) else ''),
-        years=years,periods=[p['end'][:4] for p in periods],ebit=ebit,
+        evBridge=bridge,years=years,periods=[p['end'][:4] for p in periods],ebit=ebit,
         investedCapital=capital,enterpriseValue=ev,equityValue=equity,
         earningsYield=ebit/ev if ev>0 else None,
         returnOnCapital=ebit/capital if capital>0 else None,
