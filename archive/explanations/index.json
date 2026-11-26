@@ -1624,12 +1624,12 @@
       "reason": "ValueError: Bilingual editorial review: The English translation in the content section incorrectly attributes the quote about Nick Sleep returning money to 'Nick Sleep' instead of 'Nick Pabrai', contradicting the source text which refers to him as 'Nick'.; The English translation misrepresents the specific instruction given to investors by omitting the detail "
     },
     "pabrai-35e6c02262592b": {
-      "at": "2026-11-22T22:17:45+00:00",
+      "at": "2026-11-26T01:56:00+00:00",
       "status": "retry",
       "inputHash": "5a7c3b47eee745fd1103fc0f1fc7e9cb7a246980452aea4c5e780ce0d9a19ecb",
-      "failures": 6,
-      "nextAttemptAt": "2026-11-25T22:17:45+00:00",
-      "reason": "ValueError: Unsupported numerical claim: 40%"
+      "failures": 7,
+      "nextAttemptAt": "2026-11-29T01:56:00+00:00",
+      "reason": "ValueError: Unsupported scaled numerical claim: 10"
     },
     "pabrai-a9fc9ab5dab038": {
       "at": "2026-11-25T04:45:47+00:00",
@@ -4726,5 +4726,5 @@
       "reason": "ValueError: Bilingual editorial review: The English translation in the 'content' section contains a factual error regarding the timeline: it states Li Lu spent a full year studying Buffett/Munger/Berkshire and then bought his first stock 'a year later', implying a total of two years before starting his career. The source text (s4) says he studied for 'a whole "
     }
   },
-  "updatedAt": "2026-11-26T01:55:33+00:00"
+  "updatedAt": "2026-11-26T01:56:00+00:00"
 }
