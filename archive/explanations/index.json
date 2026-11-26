@@ -1376,12 +1376,12 @@
       "reason": "ValueError: Bilingual editorial review: Factual error: Source s16 states '8th wonder of the world' (eighth wonder), but the content claims 'one thousand two hundred sixty-four' (1264) instead of the mathematically correct 1024 for 10 doublings.; Factual error: Source s17 mentions a 401k balance of '$40,000 or a hundred thousand dollars', but the content narrow"
     },
     "pabrai-c9c2f45338a0ca": {
-      "at": "2026-11-22T17:25:20+00:00",
+      "at": "2026-11-26T01:17:51+00:00",
       "status": "retry",
       "inputHash": "f74e05d1fa5529a41df403090f7254455600cf786a5e55655368994358b1573c",
-      "failures": 6,
-      "nextAttemptAt": "2026-11-25T17:25:20+00:00",
-      "reason": "ValueError: Bilingual editorial review: The source text (s2) explicitly states: 'Charlie Munger talks about mental models. He had several incredible mental models.' The content section incorrectly claims Pabrai 'does not list specific mental models attributed to Charlie Munger', contradicting the direct evidence.; The source text (s2) provides a concrete examp"
+      "failures": 7,
+      "nextAttemptAt": "2026-11-29T01:17:51+00:00",
+      "reason": "ValueError: Bilingual editorial review: The source text (s2) does not mention 'lions' or 'hunter-gatherer societies'; it only references evolutionary history and herd mentality. The specific example of lions is an invented detail.; The source text (s2) states humans have an aversion to cloning, whereas the summary claims Pabrai argues humans possess an 'innate"
     },
     "pabrai-9152afaf247ee4": {
       "at": "2026-11-24T20:32:20+00:00",
@@ -4726,5 +4726,5 @@
       "reason": "ValueError: Bilingual editorial review: The English translation in the 'content' section contains a factual error regarding the timeline: it states Li Lu spent a full year studying Buffett/Munger/Berkshire and then bought his first stock 'a year later', implying a total of two years before starting his career. The source text (s4) says he studied for 'a whole "
     }
   },
-  "updatedAt": "2026-11-26T01:16:42+00:00"
+  "updatedAt": "2026-11-26T01:17:51+00:00"
 }
