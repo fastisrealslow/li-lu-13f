@@ -832,12 +832,12 @@
       "reason": "ValueError: Unsupported numerical claim: 3%"
     },
     "buffett-8788fc4c92b085": {
-      "at": "2026-11-23T08:51:29+00:00",
+      "at": "2026-11-26T09:22:40+00:00",
       "status": "retry",
       "inputHash": "966d590bfc2bf36ab4d3404c83801c4b71f12dbcc4a4d31e20411a687f4bc976",
-      "failures": 6,
-      "nextAttemptAt": "2026-11-26T08:51:29+00:00",
-      "reason": "ValueError: Bilingual editorial review: The source (s1) states the script was written by 'the speechwriter for Saddam Hussein', but the content claims this author wrote speeches for him. The source does not identify a specific person or confirm the writer's identity beyond this description; the content adds interpretive framing ('not implying the script was un"
+      "failures": 7,
+      "nextAttemptAt": "2026-11-29T09:22:40+00:00",
+      "reason": "ValueError: Bilingual editorial review: The source text (s1) states the script was written by a 'speechwriter' for Saddam Hussein; the content claims it was 'humorously noted had previously been used for Saddam Hussein', implying the speechwriter wrote it for him. This is an unsupported inference about the speechwriter's identity or past work, not explicitly s"
     },
     "buffett-d6f1a801f004df": {
       "at": "2026-11-25T12:55:06+00:00",
@@ -4726,5 +4726,5 @@
       "reason": "ValueError: Bilingual editorial review: The English translation in the 'content' section contains a factual error regarding the timeline: it states Li Lu spent a full year studying Buffett/Munger/Berkshire and then bought his first stock 'a year later', implying a total of two years before starting his career. The source text (s4) says he studied for 'a whole "
     }
   },
-  "updatedAt": "2026-11-26T09:22:35+00:00"
+  "updatedAt": "2026-11-26T09:22:40+00:00"
 }
