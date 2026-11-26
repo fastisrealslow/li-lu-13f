@@ -1136,12 +1136,12 @@
       "reason": "ValueError: Unsupported numerical claim: 6"
     },
     "pabrai-7f291e9d73d552": {
-      "at": "2026-11-22T17:04:14+00:00",
+      "at": "2026-11-26T01:18:28+00:00",
       "status": "retry",
       "inputHash": "e906ed4ac15d08ba3f984411274d28494360b6b82a74d1070761cde5eddda10c",
-      "failures": 6,
-      "nextAttemptAt": "2026-11-25T17:04:14+00:00",
-      "reason": "ValueError: Bilingual editorial review: The source text (s8) states '99% of businessmen... are violating model number two', but the content incorrectly cites '99.99%' without textual support.; The source text (s9) mentions 'most 95%' of businesses failing, but the content conflates this with a general claim about 'most businesses' failing due to deviation, lac"
+      "failures": 7,
+      "nextAttemptAt": "2026-11-29T01:18:28+00:00",
+      "reason": "ValueError: Bilingual editorial review: The source text does not explicitly state that Narayana Healthcare System is a 'major donor' (only says 'one of the donors'); this is an editorial amplification.; The source text states '95%' in s9 and '99.99%' separately, but the combined range '95% to 99.99%' implies a single continuous spectrum which may be slightly i"
     },
     "pabrai-e2b8759f740dd0": {
       "at": "2026-11-24T05:18:33+00:00",
@@ -4726,5 +4726,5 @@
       "reason": "ValueError: Bilingual editorial review: The English translation in the 'content' section contains a factual error regarding the timeline: it states Li Lu spent a full year studying Buffett/Munger/Berkshire and then bought his first stock 'a year later', implying a total of two years before starting his career. The source text (s4) says he studied for 'a whole "
     }
   },
-  "updatedAt": "2026-11-26T01:18:01+00:00"
+  "updatedAt": "2026-11-26T01:18:28+00:00"
 }
