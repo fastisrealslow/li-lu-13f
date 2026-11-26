@@ -2828,12 +2828,12 @@
       "reason": "ValueError: Bilingual editorial review: The English paraphrase incorrectly attributes Mark Twain's quote to 'Mark Twain' while the source text explicitly states 'Mark Twain', but the Chinese translation uses 'Mark Twain' which is a direct transliteration; however, the more critical issue is that the paraphrase adds interpretive phrases like 'echoing Mark Twain"
     },
     "marks-61f97f3ca472e4": {
-      "at": "2026-11-22T17:17:32+00:00",
+      "at": "2026-11-26T01:23:36+00:00",
       "status": "retry",
       "inputHash": "3ca5bb4a2496acea82820b99e8bd8b0bed5e9c61b820de80192b47088588790f",
-      "failures": 6,
-      "nextAttemptAt": "2026-11-25T17:17:32+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English text incorrectly states 'she eventually succeeded' (guaranteed outcome) whereas source s1 explicitly says 'It did not have to turn out that way', indicating the result was not certain.; The English text omits the specific chess piece examples ('lowly pawn all the way up to the mighty queen') cited in source s"
+      "failures": 7,
+      "nextAttemptAt": "2026-11-29T01:23:36+00:00",
+      "reason": "ValueError: Copied source passage"
     },
     "marks-beec2c7e25e1dc": {
       "at": "2026-11-26T01:01:26+00:00",
@@ -4726,5 +4726,5 @@
       "reason": "ValueError: Bilingual editorial review: The English translation in the 'content' section contains a factual error regarding the timeline: it states Li Lu spent a full year studying Buffett/Munger/Berkshire and then bought his first stock 'a year later', implying a total of two years before starting his career. The source text (s4) says he studied for 'a whole "
     }
   },
-  "updatedAt": "2026-11-26T01:23:03+00:00"
+  "updatedAt": "2026-11-26T01:23:36+00:00"
 }
