@@ -2985,12 +2985,12 @@
       "reason": "ValueError: Unsupported numerical claim: 50%"
     },
     "marks-afaf50fd1a0d44": {
-      "at": "2026-11-24T20:37:47+00:00",
+      "at": "2026-11-27T22:37:47+00:00",
       "status": "retry",
       "inputHash": "1f08a37f5bd3b272c112115b089389911ea3b81e3e1b229b668dee26a214d92f",
-      "failures": 7,
-      "nextAttemptAt": "2026-11-27T20:37:47+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English translation of 'bargain-basement prices' in paragraph 2 is a literal calque from Chinese ('basement') which does not exist in the source text; the correct idiom is 'bargain basement prices'.; The phrase 'if anyone at all' in paragraph 1 adds an unwritten emphasis not present in the source text.; The translati"
+      "failures": 8,
+      "nextAttemptAt": "2026-11-30T22:37:47+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English translation contains 'low risks' instead of 'high risks', contradicting the source text which states 'high potential returns, low risk and excessive risk premiums'.; The Chinese translation incorrectly translates 'risk aversion' as 'risk' in the phrase 'heightened risk aversion', missing the critical word 'av"
     },
     "marks-8271b6ed8c1a05": {
       "at": "2026-11-27T00:16:39+00:00",
@@ -4726,5 +4726,5 @@
       "reason": "ValueError: Bilingual editorial review: The English translation in the 'content' section contains a factual error: it states Li Lu studied Buffett, Munger, and Berkshire Hathaway for 'a year', whereas the source text (s4) explicitly says he studied for 'a whole year'. This is not an error but a direct quote. The issue lies in the phrasing 'an activity he has n"
     }
   },
-  "updatedAt": "2026-11-27T22:37:00+00:00"
+  "updatedAt": "2026-11-27T22:37:47+00:00"
 }
