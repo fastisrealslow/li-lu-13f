@@ -3665,12 +3665,12 @@
       "reason": "ValueError: Unsupported numerical claim: 2023"
     },
     "marks-ed788f8b22d0f1": {
-      "at": "2026-11-23T21:42:55+00:00",
+      "at": "2026-11-27T00:27:04+00:00",
       "status": "retry",
       "inputHash": "0742e6c04a9d4563b88826a29a21158c7943c582bc2f67fd97d3f0d2eb127bd6",
-      "failures": 6,
-      "nextAttemptAt": "2026-11-26T21:42:55+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English translation in the 'content' section contains a significant factual error regarding the Brexit referendum vote counts. The source text (s13) states that 37% of registered voters supported leaving, while the translation incorrectly claims 'only 37% of registered voters supported leaving'. This phrasing implies"
+      "failures": 7,
+      "nextAttemptAt": "2026-11-30T00:27:04+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English translation in the content section incorrectly states 'leaving the UK in the EU' instead of 'leaving the EU'.; The Chinese text claims the decision was made by '37% of registered voters', but the source (s13) clarifies this refers to those who voted, not all registered voters.; The English translation omits t"
     },
     "mclemore-d125d606df3e41": {
       "at": "2026-11-24T19:53:21+00:00",
@@ -4726,5 +4726,5 @@
       "reason": "ValueError: Bilingual editorial review: The English translation uses 'ownership contracts' instead of 'shares' or 'equity', which is imprecise for stock markets.; The phrase 'critical mass (meaning most or all...)' adds explanatory text not present in the source.; The translation states 'laziness and greed' directly, whereas the source says 'lazy and greedy', "
     }
   },
-  "updatedAt": "2026-11-27T00:22:46+00:00"
+  "updatedAt": "2026-11-27T00:27:04+00:00"
 }
