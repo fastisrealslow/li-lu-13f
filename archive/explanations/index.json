@@ -936,12 +936,12 @@
       "reason": "ValueError: Unsupported numerical claim: 70"
     },
     "pabrai-b518e0f932d19c": {
-      "at": "2026-11-24T20:18:24+00:00",
+      "at": "2026-11-27T22:17:21+00:00",
       "status": "retry",
       "inputHash": "c9aea8d70291637ef2d07256c29d780d36361bb21cc7e095220f1b6674c87de1",
-      "failures": 7,
-      "nextAttemptAt": "2026-11-27T20:18:24+00:00",
-      "reason": "ValueError: Bilingual editorial review: The source text (s2) states Mohnish prefers not knowing questions in advance because it is 'extremely boring' if he does know them; the summary correctly identifies this but attributes the reasoning to 'maintain intellectual challenge' which is an inference. The source says: 'I would rather be required to think on the sp"
+      "failures": 8,
+      "nextAttemptAt": "2026-11-30T22:17:21+00:00",
+      "reason": "ValueError: Bilingual editorial review: The source text (s2) contains Hindi ('main kya maza hai') which translates to 'what is the fun in easy questions?'. The English paraphrase correctly captures this meaning but does not explicitly note the original language of the quote, which could be considered a minor fidelity issue regarding direct speech attribution.;"
     },
     "vinall-467e0c3e85b252": {
       "at": "2026-11-25T13:14:33+00:00",
@@ -4726,5 +4726,5 @@
       "reason": "ValueError: Bilingual editorial review: The English translation in the 'content' section contains a factual error: it states Li Lu studied Buffett, Munger, and Berkshire Hathaway for 'a year', whereas the source text (s4) explicitly says he studied for 'a whole year'. This is not an error but a direct quote. The issue lies in the phrasing 'an activity he has n"
     }
   },
-  "updatedAt": "2026-11-27T22:17:13+00:00"
+  "updatedAt": "2026-11-27T22:17:21+00:00"
 }
