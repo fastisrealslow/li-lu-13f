@@ -1904,12 +1904,12 @@
       "reason": "ValueError: Bilingual editorial review: The source text (s3) ends mid-sentence ('written by the same'), but the provided content correctly infers the continuation based on context and known facts about Pabrai's references to Davidow. The claim that he read 'a set of three books' is a reasonable inference from the phrase 'I happened to read a book... I will men"
     },
     "pabrai-efad7b7c7bcc40": {
-      "at": "2026-11-24T05:59:23+00:00",
+      "at": "2026-11-27T10:05:59+00:00",
       "status": "retry",
       "inputHash": "5e2677667b9e000d1dd61169cc92b5c3d8a3a36ef4aa7d9609092a4702228bc2",
-      "failures": 6,
-      "nextAttemptAt": "2026-11-27T05:59:23+00:00",
-      "reason": "ValueError: Copied source passage"
+      "failures": 7,
+      "nextAttemptAt": "2026-11-30T10:05:59+00:00",
+      "reason": "ValueError: Bilingual editorial review: The source text does not explicitly state that Pabrai 'admitted' selection bias; it states he believes there is a negative (selection bias) to case studies. The phrasing 'he admitted this approach suffers from...' is an editorial interpretation rather than a direct claim by the speaker.; The source text says John Templet"
     },
     "pabrai-5940c7a73f82e5": {
       "at": "2026-11-25T13:26:58+00:00",
@@ -4726,5 +4726,5 @@
       "reason": "ValueError: Bilingual editorial review: The English translation uses 'ownership contracts' instead of 'shares' or 'equity', which is imprecise for stock markets.; The phrase 'critical mass (meaning most or all...)' adds explanatory text not present in the source.; The translation states 'laziness and greed' directly, whereas the source says 'lazy and greedy', "
     }
   },
-  "updatedAt": "2026-11-27T10:02:01+00:00"
+  "updatedAt": "2026-11-27T10:05:59+00:00"
 }
