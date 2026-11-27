@@ -1384,12 +1384,12 @@
       "reason": "ValueError: Bilingual editorial review: The source text (s2) does not mention 'lions' or 'hunter-gatherer societies'; it only references evolutionary history and herd mentality. The specific example of lions is an invented detail.; The source text (s2) states humans have an aversion to cloning, whereas the summary claims Pabrai argues humans possess an 'innate"
     },
     "pabrai-9152afaf247ee4": {
-      "at": "2026-11-24T20:32:20+00:00",
+      "at": "2026-11-27T22:32:52+00:00",
       "status": "retry",
       "inputHash": "754c2124bcd3591a58d8ae6d0a40511d1d515752d36df33cd8329283bbbed39f",
-      "failures": 7,
-      "nextAttemptAt": "2026-11-27T20:32:20+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English text claims Pabrai completed 'multiple Master of Business Administration (MBA) degrees' before age 18, which contradicts the source stating he finished 'many MBAs' (plural noun used generically for courses/degrees) and implies a singular or generic accumulation rather than multiple distinct degrees; standard "
+      "failures": 8,
+      "nextAttemptAt": "2026-11-30T22:32:52+00:00",
+      "reason": "ValueError: Bilingual editorial review: The Chinese text claims Pabrai completed 'multiple MBAs' before age 18; the ASR transcript (s26) only states he finished 'many MBAs', which is ambiguous regarding quantity and does not explicitly confirm completion of multiple degrees.; The Chinese text specifies an age range of '11 to 19' for his father's influence, but"
     },
     "pabrai-6aa3d87fb959bc": {
       "at": "2026-11-25T04:29:35+00:00",
@@ -4726,5 +4726,5 @@
       "reason": "ValueError: Bilingual editorial review: The English translation in the 'content' section contains a factual error: it states Li Lu studied Buffett, Munger, and Berkshire Hathaway for 'a year', whereas the source text (s4) explicitly says he studied for 'a whole year'. This is not an error but a direct quote. The issue lies in the phrasing 'an activity he has n"
     }
   },
-  "updatedAt": "2026-11-27T22:32:12+00:00"
+  "updatedAt": "2026-11-27T22:32:52+00:00"
 }
