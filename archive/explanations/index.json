@@ -1440,12 +1440,12 @@
       "reason": "ValueError: Bilingual editorial review: The source text (s4) does not explicitly state that Pabrai is 'famous for checklists' as a defining characteristic; this is an editorial inference from the context of his known work but not a direct quote or explicit claim in the provided evidence.; The source text (s6) mentions looking for a manager who goes fishing to "
     },
     "pabrai-eac064fbe28765": {
-      "at": "2026-11-24T05:10:00+00:00",
+      "at": "2026-11-27T09:16:01+00:00",
       "status": "retry",
       "inputHash": "cf7409aff80388f1feb9816981d9e5a9ed8862d59573258bb1ef916113d4f838",
-      "failures": 6,
-      "nextAttemptAt": "2026-11-27T05:10:00+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English translation of 'OpenAI' as 'OpenAI' is correct, but the Chinese text incorrectly translates it as 'OpenAI (OpenAI)' or implies a different entity name; however, the primary error is the mistranslation of 'cloned' in the context of software. The source says 'Microsoft did none of the work', but the translation"
+      "failures": 7,
+      "nextAttemptAt": "2026-11-30T09:16:01+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English translation in the 'content' section contains a factual error regarding inflation rates: it states 'increasing by 10% when inflation was 3%, and another 10% when inflation was 3% or 4%', whereas the source text (s6) specifies 'if inflation was 3%, he would raise the price 10%, and the next year it was 3 or 4%"
     },
     "vinall-f47e656603551a": {
       "at": "2026-11-25T13:18:14+00:00",
@@ -4726,5 +4726,5 @@
       "reason": "ValueError: Bilingual editorial review: The English translation uses 'ownership contracts' instead of 'shares' or 'equity', which is imprecise for stock markets.; The phrase 'critical mass (meaning most or all...)' adds explanatory text not present in the source.; The translation states 'laziness and greed' directly, whereas the source says 'lazy and greedy', "
     }
   },
-  "updatedAt": "2026-11-27T09:15:55+00:00"
+  "updatedAt": "2026-11-27T09:16:01+00:00"
 }
