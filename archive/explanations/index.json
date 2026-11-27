@@ -484,12 +484,12 @@
       "reason": "ValueError: Unsupported numerical claim: 1992"
     },
     "ackman-918af90dea38d8": {
-      "at": "2026-11-24T19:58:58+00:00",
+      "at": "2026-11-27T21:55:14+00:00",
       "status": "retry",
       "inputHash": "47fa63450520730afba6b4dad46abbf3dd4dbc7d689321f44bde935db2157aa5",
-      "failures": 7,
-      "nextAttemptAt": "2026-11-27T19:58:58+00:00",
-      "reason": "ValueError: Bilingual editorial review: The source text does not explicitly state that the lemonade stand is 'sufficient to make 50 gallons or 800 cups' as a definitive fact; it says 'enough supplies to let's say have 50 gallons', which is a hypothetical example, not a fixed claim. The paraphrase presents this as a concrete fact ('sufficient to make'), which s"
+      "failures": 8,
+      "nextAttemptAt": "2026-11-30T21:55:14+00:00",
+      "reason": "ValueError: Bilingual editorial review: The source text (s4) states the investor puts up $500 for 500 shares at $1 each, but does not explicitly state the founder holds 500 shares; the summary infers this from 'We'll call it Bill's Lemonade Stand' and 'we're going to have 1,000 shares', which is a reasonable inference but not directly stated as 'founder holdin"
     },
     "buffett-7177025720de85": {
       "at": "2026-11-25T04:03:00+00:00",
@@ -4726,5 +4726,5 @@
       "reason": "ValueError: Bilingual editorial review: The English translation in the 'content' section contains a factual error: it states Li Lu studied Buffett, Munger, and Berkshire Hathaway for 'a year', whereas the source text (s4) explicitly says he studied for 'a whole year'. This is not an error but a direct quote. The issue lies in the phrasing 'an activity he has n"
     }
   },
-  "updatedAt": "2026-11-27T21:54:58+00:00"
+  "updatedAt": "2026-11-27T21:55:14+00:00"
 }
