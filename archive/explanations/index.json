@@ -1000,12 +1000,12 @@
       "reason": "ValueError: Bilingual editorial review: The source text (s9) does not contain the phrase 'masters of cloning'; this is a paraphrase or misinterpretation by the content generator. The original says 'masters of cloning' in the context of 'bread-and-butter engineers', but the specific phrasing and the preceding claim about Microsoft Research Labs producing useful"
     },
     "lilu-11d369bb564cef": {
-      "at": "2026-11-23T20:45:42+00:00",
+      "at": "2026-11-27T00:11:22+00:00",
       "status": "retry",
       "inputHash": "ed56cf20bb10c9816d6076b072bccdfa59ef28e3b15a59c1d675bf65400f37bd",
-      "failures": 6,
-      "nextAttemptAt": "2026-11-26T20:45:42+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English text incorrectly attributes the long-short strategy and its outcomes (2001-2002 crisis performance) to Li Lu's career in general, whereas source s10 explicitly states this was a specific period ('a couple of years') before meeting Munger.; The English text omits the critical detail from s11 that Charlie Munge"
+      "failures": 7,
+      "nextAttemptAt": "2026-11-30T00:11:22+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English text incorrectly states 'no losses during the 2001-2002 Internet bubble burst' when source s10 says 'we did not suffer any loss', which is factually consistent but the phrasing in the summary could be tighter. However, this is a minor stylistic choice rather than a factual error.; The English text claims 'inc"
     },
     "vinall-407826a49480a2": {
       "at": "2026-11-25T03:56:24+00:00",
@@ -4726,5 +4726,5 @@
       "reason": "ValueError: Bilingual editorial review: The English translation uses 'ownership contracts' instead of 'shares' or 'equity', which is imprecise for stock markets.; The phrase 'critical mass (meaning most or all...)' adds explanatory text not present in the source.; The translation states 'laziness and greed' directly, whereas the source says 'lazy and greedy', "
     }
   },
-  "updatedAt": "2026-11-27T00:08:21+00:00"
+  "updatedAt": "2026-11-27T00:11:22+00:00"
 }
