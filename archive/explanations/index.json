@@ -3673,12 +3673,12 @@
       "reason": "ValueError: Bilingual editorial review: The English translation in the content section incorrectly states 'leaving the UK in the EU' instead of 'leaving the EU'.; The Chinese text claims the decision was made by '37% of registered voters', but the source (s13) clarifies this refers to those who voted, not all registered voters.; The English translation omits t"
     },
     "mclemore-d125d606df3e41": {
-      "at": "2026-11-24T19:53:21+00:00",
+      "at": "2026-11-27T21:57:51+00:00",
       "status": "retry",
       "inputHash": "25b6ea58d57896faeba0529e6608706510e1398cb4c087ab50cfc79927b1d4b8",
-      "failures": 7,
-      "nextAttemptAt": "2026-11-27T19:53:21+00:00",
-      "reason": "ValueError: Unsupported numerical claim: 30%"
+      "failures": 8,
+      "nextAttemptAt": "2026-11-30T21:57:51+00:00",
+      "reason": "ValueError: Copied source passage"
     },
     "mclemore-d1590c8fd49264": {
       "at": "2026-11-24T20:13:17+00:00",
@@ -4726,5 +4726,5 @@
       "reason": "ValueError: Bilingual editorial review: The English translation in the 'content' section contains a factual error: it states Li Lu studied Buffett, Munger, and Berkshire Hathaway for 'a year', whereas the source text (s4) explicitly says he studied for 'a whole year'. This is not an error but a direct quote. The issue lies in the phrasing 'an activity he has n"
     }
   },
-  "updatedAt": "2026-11-27T21:57:40+00:00"
+  "updatedAt": "2026-11-27T21:57:51+00:00"
 }
