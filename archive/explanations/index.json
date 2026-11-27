@@ -4297,12 +4297,12 @@
       "reason": "ValueError: Unsupported numerical claim: -45%"
     },
     "mclemore-f7019c2b110482": {
-      "at": "2026-11-24T05:26:47+00:00",
+      "at": "2026-11-27T09:43:36+00:00",
       "status": "retry",
       "inputHash": "c21d1ccc2c72a752f253ade9abd7324ea8ed9e65ee16f367dbceb86ca0c84ec6",
-      "failures": 6,
-      "nextAttemptAt": "2026-11-27T05:26:47+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English translation in the 'content' section contains a critical factual error: it states the strategy achieved a 443% return in Q2 **2015**. The source text (s2) explicitly links this performance to the period from February 28, 2009, through the recent quarter end (referring to the 2009 crisis context). The year 201"
+      "failures": 7,
+      "nextAttemptAt": "2026-11-30T09:43:36+00:00",
+      "reason": "ValueError: Bilingual editorial review: The Chinese translation incorrectly states the S&P 500 return as 'more than tripled' (221% is more than double, not triple). The English text correctly says 'achieved a 221% total return'.; The Chinese translation adds 'worth buying during the crisis' which is an interpretation not explicitly in the source; the source on"
     },
     "marks-4ec6eeb131b75c": {
       "at": "2026-11-25T15:07:32+00:00",
@@ -4726,5 +4726,5 @@
       "reason": "ValueError: Bilingual editorial review: The English translation uses 'ownership contracts' instead of 'shares' or 'equity', which is imprecise for stock markets.; The phrase 'critical mass (meaning most or all...)' adds explanatory text not present in the source.; The translation states 'laziness and greed' directly, whereas the source says 'lazy and greedy', "
     }
   },
-  "updatedAt": "2026-11-27T09:43:26+00:00"
+  "updatedAt": "2026-11-27T09:43:36+00:00"
 }
