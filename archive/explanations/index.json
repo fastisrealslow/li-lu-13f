@@ -638,12 +638,12 @@
       "reason": "ValueError: Unsupported scaled numerical claim: 80"
     },
     "buffett-a01d917b8f91d1": {
-      "at": "2026-11-24T05:45:22+00:00",
+      "at": "2026-11-27T09:56:02+00:00",
       "status": "retry",
       "inputHash": "5a08f3a2546486a84442acd10cdd0002bb3380972b59b44b86eeb382b890c526",
-      "failures": 6,
-      "nextAttemptAt": "2026-11-27T05:45:22+00:00",
-      "reason": "ValueError: Bilingual editorial review: The provided content contains a concrete factual error: it claims evidence s193 states Buffett 'raised significant funds for Hillary Clinton during the 2016 elections'. The source text (s193) actually says he 'raised a lot of money' but does not specify who he raised it for, nor does it mention the 2016 election context "
+      "failures": 7,
+      "nextAttemptAt": "2026-11-30T09:56:02+00:00",
+      "reason": "ValueError: Bilingual editorial review: The content section incorrectly claims that evidence s193, s194, and s196 revolve around political fundraising rather than shareholder return policy. While the evidence does discuss politics, the provided text contains no information about dividends or share repurchases to support this negative claim; the error lies in a"
     },
     "pabrai-80ac2772f94ba4": {
       "at": "2026-11-25T15:17:21+00:00",
@@ -4726,5 +4726,5 @@
       "reason": "ValueError: Bilingual editorial review: The English translation uses 'ownership contracts' instead of 'shares' or 'equity', which is imprecise for stock markets.; The phrase 'critical mass (meaning most or all...)' adds explanatory text not present in the source.; The translation states 'laziness and greed' directly, whereas the source says 'lazy and greedy', "
     }
   },
-  "updatedAt": "2026-11-27T09:55:11+00:00"
+  "updatedAt": "2026-11-27T09:56:02+00:00"
 }
