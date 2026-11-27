@@ -436,12 +436,12 @@
       "reason": "ValueError: No audio obtained"
     },
     "buffett-5f62bc27d56ea1": {
-      "at": "2026-11-24T20:22:15+00:00",
+      "at": "2026-11-27T22:13:51+00:00",
       "status": "retry",
       "inputHash": "18e7a7de495c3178456da91737fb3ccd0385f0fcdabf30c22dfa0f582c86e51b",
-      "failures": 6,
-      "nextAttemptAt": "2026-11-27T20:22:15+00:00",
-      "reason": "ValueError: Bilingual editorial review: The Chinese text incorrectly attributes the quote about 'X plus half a percent' to Greg Abel (s65), whereas the transcript (s83) clearly shows Warren Buffett saying this.; The English text similarly misattributes the 'X plus/minus half a percent' statement to Greg Abel, contradicting the source where Buffett made it.; Th"
+      "failures": 7,
+      "nextAttemptAt": "2026-11-30T22:13:51+00:00",
+      "reason": "ValueError: Unsupported numerical claim: 0.5%"
     },
     "duan-d7212008ca9cb0": {
       "at": "2026-11-25T12:58:06+00:00",
@@ -4726,5 +4726,5 @@
       "reason": "ValueError: Bilingual editorial review: The English translation in the 'content' section contains a factual error: it states Li Lu studied Buffett, Munger, and Berkshire Hathaway for 'a year', whereas the source text (s4) explicitly says he studied for 'a whole year'. This is not an error but a direct quote. The issue lies in the phrasing 'an activity he has n"
     }
   },
-  "updatedAt": "2026-11-27T22:12:32+00:00"
+  "updatedAt": "2026-11-27T22:13:51+00:00"
 }
