@@ -1192,12 +1192,12 @@
       "reason": "ValueError: Bilingual editorial review: The English text incorrectly states 'first decade' as a tuition period; source s1 specifies '5, 10, 15 years of failures', not strictly the first 10.; The English text claims 'traction was achieved almost immediately rather than after a prolonged dry spell'; source s1 says they did NOT have 10 months of no traction and g"
     },
     "pabrai-31dca9727a5159": {
-      "at": "2026-11-24T05:28:47+00:00",
+      "at": "2026-11-27T09:25:42+00:00",
       "status": "retry",
       "inputHash": "0a8e3c31f2753b01733ce418d4c919dbca9d007cf12dd69ee3b7817923bce61e",
-      "failures": 6,
-      "nextAttemptAt": "2026-11-27T05:28:47+00:00",
-      "reason": "ValueError: Bilingual editorial review: s1 text mentions 'DJ Khaled' and a song 'All I Do Is Win', but the transcript context (Q&A with Mohnish Pabrai) does not support this as part of the actual dialogue; it appears to be an injected or hallucinated element in the source text itself.; s2 text ends abruptly mid-sentence ('He is'), and s6 begins with 'Pg 3 of 2"
+      "failures": 7,
+      "nextAttemptAt": "2026-11-30T09:25:42+00:00",
+      "reason": "ValueError: Unsupported numerical claim: 10%"
     },
     "pabrai-81c4cce972a1fc": {
       "at": "2026-11-25T04:16:24+00:00",
@@ -4726,5 +4726,5 @@
       "reason": "ValueError: Bilingual editorial review: The English translation uses 'ownership contracts' instead of 'shares' or 'equity', which is imprecise for stock markets.; The phrase 'critical mass (meaning most or all...)' adds explanatory text not present in the source.; The translation states 'laziness and greed' directly, whereas the source says 'lazy and greedy', "
     }
   },
-  "updatedAt": "2026-11-27T09:24:02+00:00"
+  "updatedAt": "2026-11-27T09:25:42+00:00"
 }
