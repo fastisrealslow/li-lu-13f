@@ -3729,12 +3729,12 @@
       "reason": "ValueError: Bilingual editorial review: The English paragraph contains an invented hypothetical scenario regarding Brent crude at $110 six months ago and specific price predictions ($115/$120 for bulls, $105/$100 for bears) that are not present in the provided source text (s6). Source s6 mentions these figures but does so as a general illustration of forecasti"
     },
     "marks-01e90dde9f9adf": {
-      "at": "2026-11-24T05:30:00+00:00",
+      "at": "2026-11-27T09:34:49+00:00",
       "status": "retry",
       "inputHash": "aadb2544d0290565d7c5439b82758647840cd5173a8e5cd6b3dd6cadbcd1e9c5",
-      "failures": 6,
-      "nextAttemptAt": "2026-11-27T05:30:00+00:00",
-      "reason": "ValueError: Copied source passage"
+      "failures": 7,
+      "nextAttemptAt": "2026-11-30T09:34:49+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English text contains a factual error: it states 'insolubility' for uncertainties, whereas the source (s6) uses 'insolubility' correctly in context but the Chinese translation implies 'unsolvability' which is accurate; however, the English paraphrase adds 'spanning areas such as...' which is an elaboration not explic"
     },
     "marks-d02a84b5f6393d": {
       "at": "2026-11-25T13:28:11+00:00",
@@ -4726,5 +4726,5 @@
       "reason": "ValueError: Bilingual editorial review: The English translation uses 'ownership contracts' instead of 'shares' or 'equity', which is imprecise for stock markets.; The phrase 'critical mass (meaning most or all...)' adds explanatory text not present in the source.; The translation states 'laziness and greed' directly, whereas the source says 'lazy and greedy', "
     }
   },
-  "updatedAt": "2026-11-27T09:34:40+00:00"
+  "updatedAt": "2026-11-27T09:34:49+00:00"
 }
