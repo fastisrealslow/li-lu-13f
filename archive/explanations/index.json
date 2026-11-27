@@ -750,11 +750,11 @@
       "reason": "ValueError: Unsupported numerical claim: 4%"
     },
     "pabrai-f5dcfaa376a4b8": {
-      "at": "2026-11-23T21:41:32+00:00",
+      "at": "2026-11-26T23:58:27+00:00",
       "status": "retry",
       "inputHash": "4eac2c11cdab99170ba14f162a0114b05e47a5f3533e2627a95a6a0c59460279",
-      "failures": 6,
-      "nextAttemptAt": "2026-11-26T21:41:32+00:00",
+      "failures": 7,
+      "nextAttemptAt": "2026-11-29T23:58:27+00:00",
       "reason": "ValueError: Unsupported numerical claim: 500"
     },
     "buffett-3467b69e654f04": {
@@ -795,12 +795,12 @@
       "reason": "ValueError: Bilingual editorial review: The Chinese text incorrectly states that Satya Nadella was an 'early employee' at the time of Pabrai's 2000 visit; the source (s21) only mentions meeting Satya with Vijay Vashee and describes his hair, without specifying Nadella's employment status or tenure in early 2000.; The Chinese text claims 'many internal employee"
     },
     "pabrai-bc7ec8286850d8": {
-      "at": "2026-11-23T21:49:24+00:00",
+      "at": "2026-11-27T00:12:36+00:00",
       "status": "retry",
       "inputHash": "50f8d144e9779d0c6043ed45952a3d034c934d5f125463555e25b6d86031cbbb",
-      "failures": 6,
-      "nextAttemptAt": "2026-11-26T21:49:24+00:00",
-      "reason": "ValueError: Bilingual editorial review: The source text (s4) states that US charitable laws require nonprofits to spend 5% of their 'total corpus' annually. The content section incorrectly translates this as 'total corpus' but then adds the parenthetical clarification '(meaning a $1 billion fund must spend $50 million yearly)' which is mathematically correct ("
+      "failures": 7,
+      "nextAttemptAt": "2026-11-30T00:12:36+00:00",
+      "reason": "ValueError: Incomplete AI Review at 1800 tokens"
     },
     "buffett-63e629862df341": {
       "at": "2026-11-26T01:11:21+00:00",
@@ -920,12 +920,12 @@
       "reason": "ValueError: Bilingual editorial review: The English translation of 'brain is optimally set up to specialize' slightly misrepresents the source's metaphorical use of 'real estate' as literal capacity allocation; a more precise phrasing would be 'the brain is optimally configured for specialization'.; The phrase 'diminished learning potential and competitive edg"
     },
     "buffett-98e90a4cbe9b9a": {
-      "at": "2026-11-23T21:33:36+00:00",
+      "at": "2026-11-26T23:55:36+00:00",
       "status": "retry",
       "inputHash": "4ca52cd078b7ec227bc345736c0dda40ed2ebb561b23f42bbae0dc5cc71c004b",
-      "failures": 6,
-      "nextAttemptAt": "2026-11-26T21:33:36+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English text incorrectly states that Charlie Munger pointed out the mistake was worse than the Walmart example; the source shows Munger asked if there was anything worse *than* Walmart, implying Walmart is the benchmark for a severe error, not that Munger compared it to another mistake. The phrasing 'worse than the W"
+      "failures": 7,
+      "nextAttemptAt": "2026-11-29T23:55:36+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English translation in the content section contains a factual error regarding Charlie Munger's quote. The source text (s193) states 'it didn't sound like the worst idea ever came up with', but the translation renders this as 'the worst idea ever to come up with'. This changes the meaning from something not sounding l"
     },
     "pabrai-8e99da8abadc1f": {
       "at": "2026-11-25T13:46:39+00:00",
@@ -1000,12 +1000,12 @@
       "reason": "ValueError: Bilingual editorial review: The source text (s9) does not contain the phrase 'masters of cloning'; this is a paraphrase or misinterpretation by the content generator. The original says 'masters of cloning' in the context of 'bread-and-butter engineers', but the specific phrasing and the preceding claim about Microsoft Research Labs producing useful"
     },
     "lilu-11d369bb564cef": {
-      "at": "2026-11-23T20:45:42+00:00",
+      "at": "2026-11-27T00:11:22+00:00",
       "status": "retry",
       "inputHash": "ed56cf20bb10c9816d6076b072bccdfa59ef28e3b15a59c1d675bf65400f37bd",
-      "failures": 6,
-      "nextAttemptAt": "2026-11-26T20:45:42+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English text incorrectly attributes the long-short strategy and its outcomes (2001-2002 crisis performance) to Li Lu's career in general, whereas source s10 explicitly states this was a specific period ('a couple of years') before meeting Munger.; The English text omits the critical detail from s11 that Charlie Munge"
+      "failures": 7,
+      "nextAttemptAt": "2026-11-30T00:11:22+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English text incorrectly states 'no losses during the 2001-2002 Internet bubble burst' when source s10 says 'we did not suffer any loss', which is factually consistent but the phrasing in the summary could be tighter. However, this is a minor stylistic choice rather than a factual error.; The English text claims 'inc"
     },
     "vinall-407826a49480a2": {
       "at": "2026-11-25T03:56:24+00:00",
@@ -1304,12 +1304,12 @@
       "reason": "ValueError: Incomplete AI Write at 3200 tokens"
     },
     "pabrai-1fcbfca9aa46bc": {
-      "at": "2026-11-23T20:44:46+00:00",
+      "at": "2026-11-27T00:08:21+00:00",
       "status": "retry",
       "inputHash": "f44470ddd5212ac7511677caf95ed51cfd6d7e1dc696e20b6b25bbf394902e9b",
-      "failures": 6,
-      "nextAttemptAt": "2026-11-26T20:44:46+00:00",
-      "reason": "ValueError: Unsupported scaled numerical claim: 25"
+      "failures": 7,
+      "nextAttemptAt": "2026-11-30T00:08:21+00:00",
+      "reason": "ValueError: Unsupported scaled numerical claim: 12.5"
     },
     "pabrai-4ec62ff4a3f14c": {
       "at": "2026-11-26T09:16:16+00:00",
@@ -2572,12 +2572,12 @@
       "reason": "ValueError: Unsupported numerical claim: 0.9"
     },
     "buffett-d128d716ef8cc7": {
-      "at": "2026-11-23T09:01:11+00:00",
+      "at": "2026-11-27T00:00:48+00:00",
       "status": "retry",
       "inputHash": "6811a474c9de6f9e6ed168dd46ee5ffaa3ccf6c2b0fe3ce823e2737dff901e3e",
-      "failures": 6,
-      "nextAttemptAt": "2026-11-26T09:01:11+00:00",
-      "reason": "ValueError: Bilingual editorial review: The content incorrectly attributes the decline in 'look-through earnings' to the 'media industry'. Source s9 states the decline was precipitated by two forces discussed previously, but does not identify them as media industry specific. The text conflates general capital scale effects with a specific sector.; The content "
+      "failures": 7,
+      "nextAttemptAt": "2026-11-30T00:00:48+00:00",
+      "reason": "ValueError: Bilingual editorial review: The content incorrectly attributes 'media industry decline' as an external factor discussed by Buffett; the source text (s1, s8, s9) contains no mention of media or industry cycles.; The content falsely claims Buffett explicitly states that capital expansion makes maintaining past growth rates 'certainly impossible'; the"
     },
     "buffett-3eda688cd8a50f": {
       "at": "2026-11-24T05:31:56+00:00",
@@ -2924,12 +2924,12 @@
       "reason": "ValueError: Copied source passage"
     },
     "marks-61dd43b500f7b0": {
-      "at": "2026-11-23T21:20:28+00:00",
+      "at": "2026-11-26T23:59:54+00:00",
       "status": "retry",
       "inputHash": "8a86e3aa4ff9e9df7d79377be959428118a05a17e694d89f290231b354a5eabb",
-      "failures": 6,
-      "nextAttemptAt": "2026-11-26T21:20:28+00:00",
-      "reason": "ValueError: Incomplete AI Review at 1800 tokens"
+      "failures": 7,
+      "nextAttemptAt": "2026-11-29T23:59:54+00:00",
+      "reason": "ValueError: Bilingual editorial review: The source text (s0) does not mention 'Oaktree Capital' in relation to the August 22, 2024 memo; this attribution is an editorial addition not found in the provided evidence.; The source text (s12) cites 'On the Couch', but the specific phrase 'the market needs a trip to the shrink' is paraphrased from 'every once in a w"
     },
     "marks-f21264667ec473": {
       "at": "2026-11-26T01:09:50+00:00",
@@ -3065,12 +3065,12 @@
       "reason": "ValueError: Copied source passage"
     },
     "marks-3becefd0c7c602": {
-      "at": "2026-11-23T21:24:43+00:00",
+      "at": "2026-11-27T00:05:24+00:00",
       "status": "retry",
       "inputHash": "2a10602fa1da6133dac99eb31ff4a4c39b48781f61443cdf9bfa66b26b43a469",
-      "failures": 6,
-      "nextAttemptAt": "2026-11-26T21:24:43+00:00",
-      "reason": "ValueError: Unsupported numerical claim: 30%"
+      "failures": 7,
+      "nextAttemptAt": "2026-11-30T00:05:24+00:00",
+      "reason": "ValueError: Unsupported scaled numerical claim: 360"
     },
     "marks-ee290d45ce93e1": {
       "at": "2026-11-26T22:16:13+00:00",
@@ -3233,11 +3233,11 @@
       "reason": "ValueError: Bilingual editorial review: The source text (s5) contains a direct quote from Howard Marks: 'Okay, then don't put it in the bank.' The provided content paraphrase states: 'Marks responded that if losses were inevitable, he should not deposit the money'. While factually consistent with the quote, the phrasing is an editorial interpretation rather th"
     },
     "marks-a8162651bb160c": {
-      "at": "2026-11-23T21:28:59+00:00",
+      "at": "2026-11-27T00:11:38+00:00",
       "status": "retry",
       "inputHash": "bfc42d192d872273d32a6560ce2f702fb703641f052308fe54e6beb906f504ab",
-      "failures": 6,
-      "nextAttemptAt": "2026-11-26T21:28:59+00:00",
+      "failures": 7,
+      "nextAttemptAt": "2026-11-30T00:11:38+00:00",
       "reason": "ValueError: Copied source passage"
     },
     "mclemore-aef9e9f4818acd": {
@@ -3425,12 +3425,12 @@
       "reason": "ValueError: Unsupported numerical claim: 20"
     },
     "mclemore-d16097db687c13": {
-      "at": "2026-11-23T09:01:39+00:00",
+      "at": "2026-11-27T00:01:12+00:00",
       "status": "retry",
       "inputHash": "2631f7e7490bf65d3cec016fce2ba6c048127e005c9202c2bd212ace3f5d318e",
-      "failures": 6,
-      "nextAttemptAt": "2026-11-26T09:01:39+00:00",
-      "reason": "ValueError: Bilingual editorial review: The Chinese summary incorrectly attributes specific debt reduction figures ($811M loan repayment and $500M bond redemption) to Valeant based on evidence s8, which explicitly states these actions belong to RH (Rite Aid). This constitutes a factual error in the source material's interpretation.; The English summary correct"
+      "failures": 7,
+      "nextAttemptAt": "2026-11-30T00:01:12+00:00",
+      "reason": "ValueError: Copied source passage"
     },
     "marks-291f5ca02350d0": {
       "at": "2026-11-26T22:25:52+00:00",
@@ -4321,12 +4321,12 @@
       "reason": "ValueError: Unsupported numerical claim: 12"
     },
     "marks-8e0d101c47385d": {
-      "at": "2026-11-23T21:40:40+00:00",
+      "at": "2026-11-27T00:01:29+00:00",
       "status": "retry",
       "inputHash": "5b832f5fbaa19c0af91b93203ba0f8ca904220713dd975fbb2c6ad76322ac747",
-      "failures": 6,
-      "nextAttemptAt": "2026-11-26T21:40:40+00:00",
-      "reason": "ValueError: Bilingual editorial review: The source text (s3-s5) does not mention 'credit cycles' or 'asset bubble formation'; it discusses general market cycles and phenomena. The Chinese title claims a specific mechanism regarding credit and assets that is not supported by the provided evidence.; The English translation of the content incorrectly attributes t"
+      "failures": 7,
+      "nextAttemptAt": "2026-11-30T00:01:29+00:00",
+      "reason": "ValueError: Bilingual editorial review: The Chinese text incorrectly attributes the quote 'extreme brevity of the financial memory' to John Kenneth Galbraith. The provided source (s4) explicitly states: 'As John Kenneth Galbraith says...'. However, this is a factual error in attribution because the famous phrase 'extreme brevity of the financial memory' is act"
     },
     "mclemore-a61e7ae6d42bfd": {
       "at": "2026-11-24T19:52:31+00:00",
@@ -4726,5 +4726,5 @@
       "reason": "ValueError: Bilingual editorial review: The English translation uses 'ownership contracts' instead of 'shares' or 'equity', which is imprecise for stock markets.; The phrase 'critical mass (meaning most or all...)' adds explanatory text not present in the source.; The translation states 'laziness and greed' directly, whereas the source says 'lazy and greedy', "
     }
   },
-  "updatedAt": "2026-11-26T23:12:07+00:00"
+  "updatedAt": "2026-11-27T00:12:36+00:00"
 }
