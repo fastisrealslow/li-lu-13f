@@ -1232,12 +1232,12 @@
       "reason": "JSONDecodeError: Extra data: line 3 column 1 (char 3249)"
     },
     "pabrai-3e9043a4dbb0d7": {
-      "at": "2026-11-24T05:24:06+00:00",
+      "at": "2026-11-27T09:35:00+00:00",
       "status": "retry",
       "inputHash": "92eca8325221e877ac2b2c7d9919114af4823b3c17af2f534016218d9630f3d5",
-      "failures": 6,
-      "nextAttemptAt": "2026-11-27T05:24:06+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English translation of 'Forrest Gump' is accurate; no correction needed.; The attribution of the quote about industrial psychologists and the 'blue dot' metaphor to Pabrai is supported by source s3.; The description of the investment example as 'requiring savings and a retry' is an accurate paraphrase of source s60 ("
+      "failures": 7,
+      "nextAttemptAt": "2026-11-30T09:35:00+00:00",
+      "reason": "ValueError: Incomplete AI Write at 3200 tokens"
     },
     "pabrai-a08413f47088be": {
       "at": "2026-11-25T13:25:56+00:00",
@@ -4726,5 +4726,5 @@
       "reason": "ValueError: Bilingual editorial review: The English translation uses 'ownership contracts' instead of 'shares' or 'equity', which is imprecise for stock markets.; The phrase 'critical mass (meaning most or all...)' adds explanatory text not present in the source.; The translation states 'laziness and greed' directly, whereas the source says 'lazy and greedy', "
     }
   },
-  "updatedAt": "2026-11-27T09:34:49+00:00"
+  "updatedAt": "2026-11-27T09:35:00+00:00"
 }
