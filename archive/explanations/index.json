@@ -492,12 +492,12 @@
       "reason": "ValueError: Bilingual editorial review: The source text (s4) states the investor puts up $500 for 500 shares at $1 each, but does not explicitly state the founder holds 500 shares; the summary infers this from 'We'll call it Bill's Lemonade Stand' and 'we're going to have 1,000 shares', which is a reasonable inference but not directly stated as 'founder holdin"
     },
     "buffett-7177025720de85": {
-      "at": "2026-11-25T04:03:00+00:00",
+      "at": "2026-11-28T08:44:26+00:00",
       "status": "retry",
       "inputHash": "69abb8c8071120fbb3e18b06656133c2bff3deaadf67b3f041f399ae4f5fadcd",
-      "failures": 7,
-      "nextAttemptAt": "2026-11-28T04:03:00+00:00",
-      "reason": "ValueError: Bilingual editorial review: The source text (s6) states 'operating earnings... excluding however, capital gains', but the content claims Buffett defined it as 'GAAP-calculated earnings' and then added an exclusion. The source does not explicitly state GAAP is the basis for this specific definition; it only says operating earnings are what they refe"
+      "failures": 8,
+      "nextAttemptAt": "2026-12-01T08:44:26+00:00",
+      "reason": "ValueError: Bilingual editorial review: The Chinese text incorrectly states that operating earnings 'excluded... capital gains typically included in GAAP calculations'. The source (s6) clarifies that the reported figure excludes capital gains *because* it is defined as operating earnings under GAAP *excluding* them. The phrase 'typically included' implies they"
     },
     "duan-f6089c3187bde2": {
       "at": "2026-10-18T01:38:43+00:00",
@@ -4726,5 +4726,5 @@
       "reason": "ValueError: Bilingual editorial review: The English translation in the 'content' section contains a factual error: it states Li Lu studied Buffett, Munger, and Berkshire Hathaway for 'a year', whereas the source text (s4) explicitly says he studied for 'a whole year'. This is not an error but a direct quote. The issue lies in the phrasing 'an activity he has n"
     }
   },
-  "updatedAt": "2026-11-28T08:41:25+00:00"
+  "updatedAt": "2026-11-28T08:44:26+00:00"
 }
