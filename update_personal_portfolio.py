@@ -298,6 +298,16 @@ def update(data,config,cache,verify=False,discovery=True,quotes_enabled=True,mar
                 q=group['1']['quote'];c['results'][ticker]={str(y):calculate(c,q,y) for y in (1,3)}
         validate_company(c)
         print(f"Personal {c['id']}: {c.get('financialStatus',{}).get('status','unknown')}",flush=True)
+    # Resolve listed stakes after all companies have refreshed their quotes.
+    by_id = {item['id']: item for item in data['companies']}
+    for company in data['companies']:
+        stake = company.get('listedAssociate')
+        if stake:
+            issuer = by_id[stake['companyId']]
+            company['associateQuote'] = issuer['results'][stake['ticker']]['1']['quote']
+            for group in company['results'].values():
+                quote = group['1']['quote']
+                group.update({str(y): calculate(company, quote, y) for y in (1, 3)})
     data['checkedAt']=checked;data['updatedAt']=checked;data['updateStatus']={'failures':failures,'status':'partial' if failures else 'checked'}
     validate_dataset(data)
     return data,config
