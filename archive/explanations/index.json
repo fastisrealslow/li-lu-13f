@@ -4670,12 +4670,12 @@
       "reason": "ValueError: Copied source passage"
     },
     "pabrai-6c0b7ef252e6e1": {
-      "at": "2026-11-25T04:34:32+00:00",
+      "at": "2026-11-28T09:27:36+00:00",
       "status": "retry",
       "inputHash": "71dfdbbbf3314e4bd2eb193ab2f4d386a3527cd6a78197dec9bfdfc579a104ec",
-      "failures": 7,
-      "nextAttemptAt": "2026-11-28T04:34:32+00:00",
-      "reason": "ValueError: Bilingual editorial review: The source text does not explicitly state the year 2026; it only mentions '16 years ago' relative to the interview date (October 22, 2026), which implies 2010. While mathematically correct, the source phrasing is '16 years ago', not an explicit 'in 2010'.; The phrase 'men will eventually be separated from the boys' is a "
+      "failures": 8,
+      "nextAttemptAt": "2026-12-01T09:27:36+00:00",
+      "reason": "ValueError: Bilingual editorial review: The source text (s4) states: 'On the AI side, the men will eventually be separated from the boys.' The content section interprets this as 'the men will eventually be separated from the boys' indicating top enterprises dominating while traditional participants are marginalized. This interpretation is not explicitly suppor"
     },
     "mclemore-63c13891e48d9e": {
       "at": "2026-11-26T22:56:38+00:00",
@@ -4726,5 +4726,5 @@
       "reason": "ValueError: Bilingual editorial review: The English translation in the 'content' section contains a factual error: it states Li Lu studied Buffett, Munger, and Berkshire Hathaway for 'a year', whereas the source text (s4) explicitly says he studied for 'a whole year'. This is not an error but a direct quote. The issue lies in the phrasing 'an activity he has n"
     }
   },
-  "updatedAt": "2026-11-28T09:23:48+00:00"
+  "updatedAt": "2026-11-28T09:27:36+00:00"
 }
