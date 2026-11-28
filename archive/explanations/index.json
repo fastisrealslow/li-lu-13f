@@ -1272,12 +1272,12 @@
       "reason": "ValueError: Bilingual editorial review: The English translation of 'Stable Boy Selections' is accurate; however, the Chinese text translates it as 'stable boy selections', which is a literal and slightly awkward phrasing. A more natural translation might be 'Stable Boy Picks' or 'Stable Boy Choices', but since the source uses 'Selections', the current translat"
     },
     "pabrai-2dadcddfebe9d5": {
-      "at": "2026-11-25T04:34:01+00:00",
+      "at": "2026-11-28T09:19:27+00:00",
       "status": "retry",
       "inputHash": "2c705de2bd89c5a4ab38a2e8ae4e80b62b957162a4a74675e8e7463c78d0f4f6",
-      "failures": 7,
-      "nextAttemptAt": "2026-11-28T04:34:01+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English translation incorrectly translates 'Spawners' as 'spawners' (lowercase) in the Chinese text but uses quotes correctly in the source; consistency is needed.; The English translation misrepresents Pabrai's stance on Tencent and Japanese real estate companies by implying he directly addressed them, whereas the s"
+      "failures": 8,
+      "nextAttemptAt": "2026-12-01T09:19:27+00:00",
+      "reason": "ValueError: Unsupported scaled numerical claim: 50"
     },
     "pabrai-801d184237a3d3": {
       "at": "2026-11-26T22:17:57+00:00",
@@ -4726,5 +4726,5 @@
       "reason": "ValueError: Bilingual editorial review: The English translation in the 'content' section contains a factual error: it states Li Lu studied Buffett, Munger, and Berkshire Hathaway for 'a year', whereas the source text (s4) explicitly says he studied for 'a whole year'. This is not an error but a direct quote. The issue lies in the phrasing 'an activity he has n"
     }
   },
-  "updatedAt": "2026-11-28T09:18:53+00:00"
+  "updatedAt": "2026-11-28T09:19:27+00:00"
 }
