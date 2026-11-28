@@ -3505,12 +3505,12 @@
       "reason": "ValueError: Bilingual editorial review: The source text does not explicitly state that Doug Parker was paid 'entirely' based on return on capital; it only says he 'recently opted to be paid entirely', with the context implying a shift to RO-based incentives but lacking the specific phrase 'based on return on capital' in the provided excerpt.; The source text d"
     },
     "marks-d39edc8226b5ec": {
-      "at": "2026-11-25T04:09:01+00:00",
+      "at": "2026-11-28T08:53:07+00:00",
       "status": "retry",
       "inputHash": "c6271ade474619d78e16e2e2a5530762855a24224d3aa4f02edebd5ee50c6a63",
-      "failures": 7,
-      "nextAttemptAt": "2026-11-28T04:09:01+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English translation in 'content.paragraphs[0]' contains a factual error: it attributes the quote about forecasters to John Kenneth Galbraith, whereas the source text (evidence s2) explicitly states 'I agree with John Kenneth Galbraith' but does not provide the full quote as attributed to him; the quote itself ('We ha"
+      "failures": 8,
+      "nextAttemptAt": "2026-12-01T08:53:07+00:00",
+      "reason": "ValueError: Bilingual editorial review: The English translation in the 'content' section incorrectly attributes a quote to John Kenneth Galbraith. The source text (s2) contains the phrase 'We have two classes of forecasters: Those who don't know -- and those who don't know they don't know.' However, this is a famous quote by **Albert Einstein**, not Galbraith."
     },
     "mclemore-06adf7d58762c4": {
       "at": "2026-11-25T15:29:41+00:00",
@@ -4726,5 +4726,5 @@
       "reason": "ValueError: Bilingual editorial review: The English translation in the 'content' section contains a factual error: it states Li Lu studied Buffett, Munger, and Berkshire Hathaway for 'a year', whereas the source text (s4) explicitly says he studied for 'a whole year'. This is not an error but a direct quote. The issue lies in the phrasing 'an activity he has n"
     }
   },
-  "updatedAt": "2026-11-28T08:51:23+00:00"
+  "updatedAt": "2026-11-28T08:53:07+00:00"
 }
