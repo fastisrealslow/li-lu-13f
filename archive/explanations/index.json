@@ -1344,12 +1344,12 @@
       "reason": "ValueError: Bilingual editorial review: The English translation incorrectly states 'price-to-earnings (PE) multiples' instead of 'price/earnings (P/E) ratios'.; The phrase 'undervalued hidden PE' is a mistranslation; the source text refers to stocks trading at a P/E of 1, not an 'undervalued hidden PE' concept.; The translation claims the screen reveals stocks"
     },
     "pabrai-36450d370316ee": {
-      "at": "2026-11-25T04:45:42+00:00",
+      "at": "2026-11-28T09:31:09+00:00",
       "status": "retry",
       "inputHash": "ce433e0b519779154bc0bcf5dd15d2d5b324810bcc3336cdf79eff981d5030c1",
-      "failures": 7,
-      "nextAttemptAt": "2026-11-28T04:45:42+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English text incorrectly states 'like mining for gems' instead of the source's 'pick these gems'.; The English text claims Pabrai views India as natural while Green panicked; the source says Green panicked because he wasn't used to chaos (which Pabrai finds natural), but the phrasing implies Pabrai sees it as natural"
+      "failures": 8,
+      "nextAttemptAt": "2026-12-01T09:31:09+00:00",
+      "reason": "ValueError: Bilingual editorial review: The source text does not explicitly state that Pabrai's skills are 'genetic'; he asks the question about genetic skills but answers with 'No', implying they are not genetic, which the summary correctly interprets as denying genetic ability.; The phrase 'deep immersion' is a slight paraphrase of 'hanging out... for five o"
     },
     "pabrai-18c92ff6cf0411": {
       "at": "2026-11-26T22:03:03+00:00",
@@ -4726,5 +4726,5 @@
       "reason": "ValueError: Bilingual editorial review: The English translation in the 'content' section contains a factual error: it states Li Lu studied Buffett, Munger, and Berkshire Hathaway for 'a year', whereas the source text (s4) explicitly says he studied for 'a whole year'. This is not an error but a direct quote. The issue lies in the phrasing 'an activity he has n"
     }
   },
-  "updatedAt": "2026-11-28T09:30:24+00:00"
+  "updatedAt": "2026-11-28T09:31:09+00:00"
 }
