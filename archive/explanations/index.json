@@ -2250,12 +2250,12 @@
       "reason": "ValueError: Unsupported numerical claim: 32.4%"
     },
     "buffett-7a7be582d1415f": {
-      "at": "2026-11-25T03:58:44+00:00",
+      "at": "2026-11-28T08:40:49+00:00",
       "status": "retry",
       "inputHash": "b4f8dd2b997fdb01cc1f5ea07a5414693e325b0b74761b1d1ccb0c4f255d8593",
-      "failures": 7,
-      "nextAttemptAt": "2026-11-28T03:58:44+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English text incorrectly states 'overhead' as '$6.6 million', whereas the source (s3) specifies this amount as corporate expenses assigned to operations but does not explicitly label it 'overhead'; the source lists 'overhead of $6.6 million' directly, so the translation is accurate, but the phrasing in the English co"
+      "failures": 8,
+      "nextAttemptAt": "2026-12-01T08:40:49+00:00",
+      "reason": "ValueError: Bilingual editorial review: The Chinese text incorrectly states that 'float' is money held by the company but does not belong to it. The source (s11) clarifies: 'float is money we hold but don't own,' meaning it belongs to policyholders until claims are paid, not that it doesn't belong to the company at all.; The Chinese text misrepresents Buffett'"
     },
     "akre-409d580b78682d": {
       "at": "2026-11-26T00:47:23+00:00",
@@ -4726,5 +4726,5 @@
       "reason": "ValueError: Bilingual editorial review: The English translation in the 'content' section contains a factual error: it states Li Lu studied Buffett, Munger, and Berkshire Hathaway for 'a year', whereas the source text (s4) explicitly says he studied for 'a whole year'. This is not an error but a direct quote. The issue lies in the phrasing 'an activity he has n"
     }
   },
-  "updatedAt": "2026-11-28T08:39:21+00:00"
+  "updatedAt": "2026-11-28T08:40:49+00:00"
 }
