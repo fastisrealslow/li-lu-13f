@@ -2088,12 +2088,12 @@
       "reason": "ValueError: Copied source passage"
     },
     "vinall-bc7f6fa8dbf30a": {
-      "at": "2026-11-25T04:01:15+00:00",
+      "at": "2026-11-28T08:33:54+00:00",
       "status": "retry",
       "inputHash": "e141d90bdefd77ece54e855a5dad79d8794fbe1ff9c06dbc62dbfa37c2d01a6e",
-      "failures": 7,
-      "nextAttemptAt": "2026-11-28T04:01:15+00:00",
-      "reason": "ValueError: Bilingual editorial review: The English translation of the heading is incorrect: 'Fireside Chat with ShawSpring Partners Founder Dennis Hong and Rob Vinall' should be 'Fireside Chat with ShawSpring Founder Dennis Hong and Rob Vinall'. The source text (s8) does not mention 'Partners', making this an unwritten addition.; The English translation of th"
+      "failures": 8,
+      "nextAttemptAt": "2026-12-01T08:33:54+00:00",
+      "reason": "JSONDecodeError: Expecting ':' delimiter: line 1 column 666 (char 665)"
     },
     "vinall-5d9ce22dd4537e": {
       "at": "2026-11-25T13:19:38+00:00",
@@ -4726,5 +4726,5 @@
       "reason": "ValueError: Bilingual editorial review: The English translation in the 'content' section contains a factual error: it states Li Lu studied Buffett, Munger, and Berkshire Hathaway for 'a year', whereas the source text (s4) explicitly says he studied for 'a whole year'. This is not an error but a direct quote. The issue lies in the phrasing 'an activity he has n"
     }
   },
-  "updatedAt": "2026-11-28T08:33:21+00:00"
+  "updatedAt": "2026-11-28T08:33:54+00:00"
 }
