@@ -686,12 +686,12 @@
       "reason": "ValueError: Unsupported numerical claim: 12"
     },
     "vinall-7630ddfba8bfe7": {
-      "at": "2026-11-25T03:58:09+00:00",
+      "at": "2026-11-28T08:39:21+00:00",
       "status": "retry",
       "inputHash": "d497297541bbb935cdda5daff33c945223c3772e99bd3fdd425c525762819e05",
-      "failures": 7,
-      "nextAttemptAt": "2026-11-28T03:58:09+00:00",
-      "reason": "ValueError: Bilingual editorial review: The source text (s3-s5) does not mention 'fossil fuels' or 'policy signals', yet the content section's heading and English paragraph explicitly include these topics as part of Rob Vinall's discussion. This is a factual error regarding the scope of the provided transcript.; The source text states the company has been owne"
+      "failures": 8,
+      "nextAttemptAt": "2026-12-01T08:39:21+00:00",
+      "reason": "ValueError: Bilingual editorial review: The content claims the discussion focused on 'credit acceptance models' but the transcript (s3-s5) only mentions a specific company named 'Credit Acceptance' and its loan guarantee feature; it does not discuss a general 'model' or investment philosophy.; The text states Vinall explained the system operates by 'aligning t"
     },
     "lilu-1cde24ccac1bfb": {
       "at": "2026-11-28T08:32:59+00:00",
@@ -4726,5 +4726,5 @@
       "reason": "ValueError: Bilingual editorial review: The English translation in the 'content' section contains a factual error: it states Li Lu studied Buffett, Munger, and Berkshire Hathaway for 'a year', whereas the source text (s4) explicitly says he studied for 'a whole year'. This is not an error but a direct quote. The issue lies in the phrasing 'an activity he has n"
     }
   },
-  "updatedAt": "2026-11-28T08:39:19+00:00"
+  "updatedAt": "2026-11-28T08:39:21+00:00"
 }
