@@ -3401,12 +3401,12 @@
       "reason": "ValueError: Bilingual editorial review: The Chinese translation of the bond example ('any bond can be rated triple-A yet still be overpriced') is accurate to source s2 ('any bond can be triple-A at a price').; The English translation correctly paraphrases the core argument from sources s2 and s3 without adding external examples or generic filler.; No factual e"
     },
     "mclemore-19da9051365a28": {
-      "at": "2026-11-25T04:54:16+00:00",
+      "at": "2026-11-28T09:32:35+00:00",
       "status": "retry",
       "inputHash": "4da7d2a54728af69f9a251add7bf9d5d3c92745808f923d1cfcd90eae2786433",
-      "failures": 7,
-      "nextAttemptAt": "2026-11-28T04:54:16+00:00",
-      "reason": "ValueError: Bilingual editorial review: The Chinese text incorrectly states that Samantha McLemore 'admits' (acknowledges) she previously underestimated Workday's upside. The source text says they 'didn't think it offered enough upside' at the time of analysis last year, but does not explicitly state she personally 'admitted' this mistake in a reflective manne"
+      "failures": 8,
+      "nextAttemptAt": "2026-12-01T09:32:35+00:00",
+      "reason": "ValueError: Bilingual editorial review: The Chinese text incorrectly states the author's view on Workday: it claims she 'initially did not believe it offered sufficient upside' (despite the source saying they didn't think so at the time), but then contradicts itself by stating she bought it in the $150s after it dropped from $200 to $107. The source text says:"
     },
     "marks-30e00062105852": {
       "at": "2026-11-27T00:18:12+00:00",
@@ -4726,5 +4726,5 @@
       "reason": "ValueError: Bilingual editorial review: The English translation in the 'content' section contains a factual error: it states Li Lu studied Buffett, Munger, and Berkshire Hathaway for 'a year', whereas the source text (s4) explicitly says he studied for 'a whole year'. This is not an error but a direct quote. The issue lies in the phrasing 'an activity he has n"
     }
   },
-  "updatedAt": "2026-11-28T09:31:09+00:00"
+  "updatedAt": "2026-11-28T09:32:35+00:00"
 }
